@@ -19,7 +19,7 @@ Ditty News Ticker is a multi-functional data display plugin. Easily add custom n
 * **Rotate Mode** - Rotate through the ticker data
 * **List Mode** - Display your ticker data in a list
 
-[**View samples of each mode.**](http://dittynewsticker.com/default/)
+[**View samples of each mode.**](http://dittynewsticker.com/ticker-modes/)
 
 #### Extensions
 Ditty News Ticker is built to easily be extended to add extra Ticker Types and extra Ticker Modes.
@@ -29,7 +29,7 @@ To see a list of all extensions, visite the [**extensions page**](http://dittyne
 
 1. Upload `ditty-news-ticker` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Create tickers by going to <strong>News Tickers > Add New</strong>
+3. Create tickers by going to **News Tickers > Add New**
 4. Insert your tickers by copying and pasting the provided shortcode into another post.
 5. Optionally, insert your tickers by copying and pasting the direct function code directly into your theme or plugin.
 
