@@ -285,7 +285,7 @@ function mtphr_dnt_mode_metabox_rotate() {
 	$rotate_fields['rotate_padding'] = array(
 		'id' => '_mtphr_dnt_rotate_padding',
 		'type' => 'number',
-		'name' => __('Rotater padding', 'ditty-news-ticker'),
+		'name' => __('Rotator padding', 'ditty-news-ticker'),
 		'default' => 0,
 		'before' => __('Vertical padding', 'ditty-news-ticker'),
 		'description' => __('Set the vertical spacing of the rotating data.', 'ditty-news-ticker'),

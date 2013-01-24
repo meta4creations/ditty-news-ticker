@@ -1,7 +1,7 @@
 === Ditty News Ticker ===
 Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
-Tags: ticker, news, rotater, lists, data
+Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 3.2
 Tested up to: 3.5
 Stable tag: /trunk/
@@ -48,10 +48,16 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.0.1 =
+* Minor code update.
+
 = 1.0.0 =
 * Initial upload of Ditty News Ticker - a multi-functional data display plugin.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Minor code update.
 
 = 1.0.0 =
 Create a multi-functional data display plugin.

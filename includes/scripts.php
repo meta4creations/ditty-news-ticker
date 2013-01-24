@@ -201,7 +201,7 @@ function mtphr_dnt_rotate_fade_scripts() {
 	<script>
 	
 	// Initialize the ticks and ticker
-	function mtphr_dnt_rotater_fade_init( $ticker, ticks, rotate_speed, ease ) {
+	function mtphr_dnt_rotator_fade_init( $ticker, ticks, rotate_speed, ease ) {
 		
 		// Get the first tick
 		$tick = ticks[0];
@@ -218,7 +218,7 @@ function mtphr_dnt_rotate_fade_scripts() {
   }
 
 	// Show the new tick
-	function mtphr_dnt_rotater_fade_in( $ticker, $tick, $prev, rotate_speed, ease ) {
+	function mtphr_dnt_rotator_fade_in( $ticker, $tick, $prev, rotate_speed, ease ) {
     $tick.fadeIn( rotate_speed );
     
     var h = $tick.height();
@@ -231,7 +231,7 @@ function mtphr_dnt_rotate_fade_scripts() {
   }
   
   // Hide the old tick
-  function mtphr_dnt_rotater_fade_out( $ticker, $tick, $next, rotate_speed, ease ) {
+  function mtphr_dnt_rotator_fade_out( $ticker, $tick, $next, rotate_speed, ease ) {
     $tick.fadeOut( rotate_speed );
   }
 	</script>
@@ -249,7 +249,7 @@ function mtphr_dnt_rotate_slide_left_scripts() {
 	<script>
 	
 	// Initialize the ticks and ticker
-	function mtphr_dnt_rotater_slide_left_init( $ticker, ticks, rotate_speed, ease ) {
+	function mtphr_dnt_rotator_slide_left_init( $ticker, ticks, rotate_speed, ease ) {
 		
 		// Get the first tick
 		$tick = ticks[0];
@@ -283,7 +283,7 @@ function mtphr_dnt_rotate_slide_left_scripts() {
   }
   
 	// Show the new tick
-	function mtphr_dnt_rotater_slide_left_in( $ticker, $tick, $prev, rotate_speed, ease ) {
+	function mtphr_dnt_rotator_slide_left_in( $ticker, $tick, $prev, rotate_speed, ease ) {
 		
 		// Find the dimensions of the tick
 		var w = $tick.parents('.mtphr-dnt-rotate').width();
@@ -307,7 +307,7 @@ function mtphr_dnt_rotate_slide_left_scripts() {
   }
   
   // Hide the old tick
-  function mtphr_dnt_rotater_slide_left_out( $ticker, $tick, $next, rotate_speed, ease ) {
+  function mtphr_dnt_rotator_slide_left_out( $ticker, $tick, $next, rotate_speed, ease ) {
     
     // Find the dimensions of the tick
 		var w = $tick.parents('.mtphr-dnt-rotate').width();
@@ -336,7 +336,7 @@ function mtphr_dnt_rotate_slide_right_scripts() {
 	<script>
 	
 	// Initialize the ticks and ticker
-	function mtphr_dnt_rotater_slide_right_init( $ticker, ticks, rotate_speed, ease ) {
+	function mtphr_dnt_rotator_slide_right_init( $ticker, ticks, rotate_speed, ease ) {
 		
 		// Get the first tick
 		$tick = ticks[0];
@@ -370,7 +370,7 @@ function mtphr_dnt_rotate_slide_right_scripts() {
   }
   
 	// Show the new tick
-	function mtphr_dnt_rotater_slide_right_in( $ticker, $tick, $prev, rotate_speed, ease ) {
+	function mtphr_dnt_rotator_slide_right_in( $ticker, $tick, $prev, rotate_speed, ease ) {
 		
 		// Find the dimensions of the tick
 		var w = $tick.parents('.mtphr-dnt-rotate').width();
@@ -394,7 +394,7 @@ function mtphr_dnt_rotate_slide_right_scripts() {
   }
   
   // Hide the old tick
-  function mtphr_dnt_rotater_slide_right_out( $ticker, $tick, $next, rotate_speed, ease ) {
+  function mtphr_dnt_rotator_slide_right_out( $ticker, $tick, $next, rotate_speed, ease ) {
     
     // Find the dimensions of the tick
 		var w = $tick.parents('.mtphr-dnt-rotate').width();
@@ -423,7 +423,7 @@ function mtphr_dnt_rotate_slide_down_scripts() {
 	<script>
 	
 	// Initialize the ticks and ticker
-	function mtphr_dnt_rotater_slide_down_init( $ticker, ticks, rotate_speed, ease ) {
+	function mtphr_dnt_rotator_slide_down_init( $ticker, ticks, rotate_speed, ease ) {
 		
 		// Get the first tick
 		$tick = ticks[0];
@@ -456,7 +456,7 @@ function mtphr_dnt_rotate_slide_down_scripts() {
   }
   
 	// Show the new tick
-	function mtphr_dnt_rotater_slide_down_in( $ticker, $tick, $prev, rotate_speed, ease ) {
+	function mtphr_dnt_rotator_slide_down_in( $ticker, $tick, $prev, rotate_speed, ease ) {
 		
 		// Find the height of the tick
 		var h = $tick.height();
@@ -479,7 +479,7 @@ function mtphr_dnt_rotate_slide_down_scripts() {
   }
   
   // Hide the old tick
-  function mtphr_dnt_rotater_slide_down_out( $ticker, $tick, $next, rotate_speed, ease ) {
+  function mtphr_dnt_rotator_slide_down_out( $ticker, $tick, $next, rotate_speed, ease ) {
     
     // Find the height of the next tick
 		var h = $next.height();
@@ -507,7 +507,7 @@ function mtphr_dnt_rotate_slide_up_scripts() {
 	<script>
 	
 	// Initialize the ticks and ticker
-	function mtphr_dnt_rotater_slide_up_init( $ticker, ticks, rotate_speed, ease ) {
+	function mtphr_dnt_rotator_slide_up_init( $ticker, ticks, rotate_speed, ease ) {
 		
 		// Get the first tick
 		$tick = ticks[0];
@@ -540,7 +540,7 @@ function mtphr_dnt_rotate_slide_up_scripts() {
   }
   
 	// Show the new tick
-	function mtphr_dnt_rotater_slide_up_in( $ticker, $tick, $prev, rotate_speed, ease ) {
+	function mtphr_dnt_rotator_slide_up_in( $ticker, $tick, $prev, rotate_speed, ease ) {
 		
 		// Find the height of the tick
 		var h = $tick.height();
@@ -563,7 +563,7 @@ function mtphr_dnt_rotate_slide_up_scripts() {
   }
   
   // Hide the old tick
-  function mtphr_dnt_rotater_slide_up_out( $ticker, $tick, $next, rotate_speed, ease ) {
+  function mtphr_dnt_rotator_slide_up_out( $ticker, $tick, $next, rotate_speed, ease ) {
     
     // Find the height of the next tick
 		var h = $tick.height();

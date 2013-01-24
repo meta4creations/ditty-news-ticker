@@ -79,9 +79,9 @@
 					if( settings.type == 'scroll' ) {
 						mtphr_dnt_scroll_setup();
 						
-					// Setup a ticker rotater
+					// Setup a ticker rotator
 					} else if( settings.type == 'rotate' ) {
-						mtphr_dnt_rotater_setup();
+						mtphr_dnt_rotator_setup();
 					}	
 		    }
 		    
@@ -379,11 +379,11 @@
 		    
 		    
 		    /**
-		     * Setup the ticker rotater
+		     * Setup the ticker rotator
 		     *
 		     * @since 1.0.0
 		     */
-		    function mtphr_dnt_rotater_setup() {
+		    function mtphr_dnt_rotator_setup() {
 
 		    	// Loop through the tick items
 					$ticker.find('.mtphr-dnt-tick').each( function(index) {
@@ -394,17 +394,17 @@
 					});
 
 					// Resize the ticks
-					mtphr_dnt_rotater_resize_ticks();
+					mtphr_dnt_rotator_resize_ticks();
 					
 					// Find the rotation type and create the dynamic rotation init function
-					var rotate_init_name = 'mtphr_dnt_rotater_'+settings.rotate_type+'_init';
-					var mtphr_dnt_rotater_type_init = eval('('+rotate_init_name+')');
-					mtphr_dnt_rotater_type_init( $ticker, ticks, parseInt(settings.rotate_speed*100), settings.rotate_ease );
-					mtphr_dnt_rotater_update_links( 0 );
+					var rotate_init_name = 'mtphr_dnt_rotator_'+settings.rotate_type+'_init';
+					var mtphr_dnt_rotator_type_init = eval('('+rotate_init_name+')');
+					mtphr_dnt_rotator_type_init( $ticker, ticks, parseInt(settings.rotate_speed*100), settings.rotate_ease );
+					mtphr_dnt_rotator_update_links( 0 );
 					
-					// Start the rotater rotate
+					// Start the rotator rotate
 					if( settings.auto_rotate ) {
-						mtphr_dnt_rotater_delay();
+						mtphr_dnt_rotator_delay();
 					}
 					
 					// Clear the loop on mouse hover
@@ -416,18 +416,18 @@
 					  }, 
 					  function () {
 					  	if( settings.auto_rotate && settings.rotate_pause ) {
-					    	mtphr_dnt_rotater_delay();
+					    	mtphr_dnt_rotator_delay();
 					    }
 					  }
 					);
 		    }
 		    
 		    /**
-		     * Create the ticker rotater loop
+		     * Create the ticker rotator loop
 		     *
 		     * @since 1.0.0
 		     */
-		    function mtphr_dnt_rotater_delay() {
+		    function mtphr_dnt_rotator_delay() {
 
 			    // Start the ticker timer
 					ticker_delay = setInterval( function() {
@@ -438,7 +438,7 @@
 							new_tick = 0;
 						}
 						
-						mtphr_dnt_rotater_update( new_tick );
+						mtphr_dnt_rotator_update( new_tick );
 
 			    }, parseInt(settings.rotate_delay*1000));	
 		    }
@@ -448,7 +448,7 @@
 		     *
 		     * @since 1.0.0
 		     */
-		    function mtphr_dnt_rotater_update( new_tick ) {
+		    function mtphr_dnt_rotator_update( new_tick ) {
 		    	
 		    	// Clear the interval
 		    	if( settings.auto_rotate ) {
@@ -462,10 +462,10 @@
           vars.running = 1;
  
 			    // Rotate the current tick out
-					mtphr_dnt_rotater_out( new_tick );
+					mtphr_dnt_rotator_out( new_tick );
 					
 					// Rotate the new tick in
-					mtphr_dnt_rotater_in( new_tick );
+					mtphr_dnt_rotator_in( new_tick );
 					
 					// Set the current tick
 					vars.current_tick = new_tick;
@@ -475,14 +475,14 @@
 					
 						settings.after_change.call( this, $ticker );
 						
-						// Reset the rotater type & variables
+						// Reset the rotator type & variables
 						rotate_adjustment = settings.rotate_type;
 						vars.reverse = 0;
 						vars.running = 0;
 						
 						// Restart the interval
 						if( settings.auto_rotate ) {
-				    	mtphr_dnt_rotater_delay();
+				    	mtphr_dnt_rotator_delay();
 				    }
 						
 					}, parseInt(settings.rotate_speed*100) );
@@ -493,7 +493,7 @@
 		     *
 		     * @since 1.0.0
 		     */
-		    function mtphr_dnt_rotater_update_links( new_tick ) {
+		    function mtphr_dnt_rotator_update_links( new_tick ) {
 			    
 			    if( $nav_controls ) {
           	$nav_controls.children('a').removeClass('active');
@@ -506,15 +506,15 @@
 		     *
 		     * @since 1.0.0
 		     */
-		    function mtphr_dnt_rotater_in( new_tick ) {
+		    function mtphr_dnt_rotator_in( new_tick ) {
 		    	
 		    	// Update the links
-		    	mtphr_dnt_rotater_update_links( new_tick );
+		    	mtphr_dnt_rotator_update_links( new_tick );
 			    
 			    // Find the rotation type and create the dynamic rotation in function
-					var rotate_in_name = 'mtphr_dnt_rotater_'+rotate_adjustment+'_in';
-					var mtphr_dnt_rotater_type_in = eval('('+rotate_in_name+')');
-					mtphr_dnt_rotater_type_in( $ticker, $(ticks[new_tick]), $(ticks[vars.current_tick]), parseInt(settings.rotate_speed*100), settings.rotate_ease );
+					var rotate_in_name = 'mtphr_dnt_rotator_'+rotate_adjustment+'_in';
+					var mtphr_dnt_rotator_type_in = eval('('+rotate_in_name+')');
+					mtphr_dnt_rotator_type_in( $ticker, $(ticks[new_tick]), $(ticks[vars.current_tick]), parseInt(settings.rotate_speed*100), settings.rotate_ease );
 		    }
 		    
 		    /**
@@ -522,12 +522,12 @@
 		     *
 		     * @since 1.0.0
 		     */
-		    function mtphr_dnt_rotater_out( new_tick ) {
+		    function mtphr_dnt_rotator_out( new_tick ) {
 			    
 			    // Find the rotation type and create the dynamic rotation out function
-					var rotate_out_name = 'mtphr_dnt_rotater_'+rotate_adjustment+'_out';
-					var mtphr_dnt_rotater_type_out = eval('('+rotate_out_name+')');
-					mtphr_dnt_rotater_type_out( $ticker, $(ticks[vars.current_tick]), $(ticks[new_tick]), parseInt(settings.rotate_speed*100), settings.rotate_ease );
+					var rotate_out_name = 'mtphr_dnt_rotator_'+rotate_adjustment+'_out';
+					var mtphr_dnt_rotator_type_out = eval('('+rotate_out_name+')');
+					mtphr_dnt_rotator_type_out( $ticker, $(ticks[vars.current_tick]), $(ticks[new_tick]), parseInt(settings.rotate_speed*100), settings.rotate_ease );
 		    }
 
 		    /**
@@ -535,7 +535,7 @@
 		     *
 		     * @since 1.0.0
 		     */
-		    function mtphr_dnt_rotater_resize_ticks() {
+		    function mtphr_dnt_rotator_resize_ticks() {
 
 			    for( var i=0; i<vars.tick_count; i++ ) {
 				    
@@ -576,7 +576,7 @@
 							}
 							vars.reverse = 1;
 						}
-						mtphr_dnt_rotater_update( new_tick );	
+						mtphr_dnt_rotator_update( new_tick );	
 		    	});
 		    	
 		    	$nav_next.bind('click', function(e) {
@@ -589,7 +589,7 @@
 						if( new_tick == vars.tick_count ) {
 							new_tick = 0;
 						}
-						mtphr_dnt_rotater_update( new_tick );	
+						mtphr_dnt_rotator_update( new_tick );	
 		    	});
 		    }
 		    
@@ -624,7 +624,7 @@
 							}
 							vars.reverse = 1;
 						}
-						mtphr_dnt_rotater_update( new_tick );	
+						mtphr_dnt_rotator_update( new_tick );	
 		    	});
 		    }
 		    
@@ -668,7 +668,7 @@
 								if( new_tick == vars.tick_count ) {
 									new_tick = 0;
 								}
-								mtphr_dnt_rotater_update( new_tick );
+								mtphr_dnt_rotator_update( new_tick );
 								
 							} else {
 								
@@ -689,7 +689,7 @@
 									}
 									vars.reverse = 1;
 								}
-								mtphr_dnt_rotater_update( new_tick );
+								mtphr_dnt_rotator_update( new_tick );
 							}
 						} else {
 						
@@ -723,7 +723,7 @@
 			    if( settings.type == 'scroll' ) {
 				    mtphr_dnt_scroll_resize_ticks();
 			    } else if( settings.type == 'rotate' ) {
-				    mtphr_dnt_rotater_resize_ticks();
+				    mtphr_dnt_rotator_resize_ticks();
 			    }
 		    });
 
