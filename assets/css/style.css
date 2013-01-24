@@ -1,0 +1,130 @@
+.mtphr-dnt-wrapper {
+	position: relative;
+	width: 100%;
+}
+.mtphr-dnt-inline-title {
+	float: left;
+	padding-right: 5px;
+}
+.mtphr-dnt-tick-container {
+	position: relative;
+	overflow: hidden;
+}
+.mtphr-dnt-tick {
+	display: none;
+	position: absolute;
+	white-space: nowrap;
+	margin: 0;
+}
+.mtphr-dnt-rotate .mtphr-dnt-tick {
+	white-space: normal;
+}
+.mtphr-dnt-list .mtphr-dnt-tick {
+	display: block;
+	position: relative;
+	white-space: normal;
+}
+
+/* Directional nav
+------------------------------------------------------------ */
+.mtphr-dnt-nav {
+	position: absolute;
+	top: 50%;
+	margin-top: -19px;
+	width: 38px;
+	height: 38px;	
+	background: url(../images/navarrows.png) no-repeat;
+	background-size: 76px 38px;
+}
+.mtphr-dnt-nav:focus { 
+	outline: none; 
+}
+.mtphr-dnt-nav-prev {
+	left: 10px;
+}
+.mtphr-dnt-nav-next {
+	right: 10px;
+	background-position: -38px 0;
+}
+.mtphr-dnt-nav-hide {
+	opacity: 0;
+	-webkit-transition: opacity .3s linear;  
+	-moz-transition: opacity .3s linear;   
+	-o-transition: opacity .3s linear; 
+	transition: opacity .3s linear; 
+}
+.mtphr-dnt-tick-container:hover .mtphr-dnt-nav-hide {
+	opacity: 1;
+}
+
+/* Control nav
+------------------------------------------------------------ */
+
+.mtphr-dnt-control-links {
+	text-align: center;
+}
+.mtphr-dnt-control-number {
+	padding: 2px 5px;
+}
+.mtphr-dnt-control-button {
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	background: url(../images/button.png) no-repeat 0 -18px;
+	background-size: 18px 36px;
+	margin: 0 2px;
+	text-indent: -9999px;
+}
+.mtphr-dnt-control-button.active {
+	background-position: 0 0;
+}
+.mtphr-dnt-control-button:focus { 
+  outline: none; 
+}
+
+/* Add clearfix
+------------------------------------------------------------ */
+
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+
+/* Retina displays
+------------------------------------------------------------ */
+
+@media only screen and (-Webkit-min-device-pixel-ratio: 1.5),
+only screen and (-moz-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min-device-pixel-ratio: 1.5) {
+
+  .mtphr-dnt-nav {
+		background-image: url(../images/navarrows@2x.png);
+	}
+	.mtphr-dnt-control-button {
+		background-image: url(../images/button@2x.png);
+	}
+}
+
+
+
+
+/**
+ * Default styles
+ *
+ * @since 1.0.0
+ */
+.mtphr-dnt-styled .mtphr-dnt-posts-nav-prev {
+	float: left;
+}
+.mtphr-dnt-styled .mtphr-dnt-posts-nav-next {
+	float: right;
+}

@@ -1,0 +1,44 @@
+/* Table of Contents
+
+* Dashboard Menu Icon
+* Edit Screen
+
+*/
+
+/* Dashboard Menu Icon
+------------------------------------------------------------ */
+
+#menu-posts-ditty_news_ticker .wp-menu-image {
+	background: url(../images/icon-16.png) no-repeat 6px -32px !important;
+}
+#menu-posts-ditty_news_ticker:hover .wp-menu-image,
+#menu-posts-ditty_news_ticker.wp-has-current-submenu .wp-menu-image {
+	background-position:6px 0px !important;
+}
+
+/* Edit Screen
+------------------------------------------------------------ */
+
+.ditty_news_ticker_page_mtphr_dnt_settings #icon-themes,
+#icon-edit.icon32-posts-ditty_news_ticker {
+	background: url(../images/icon-32.png) no-repeat;
+}
+.column-dnt_type,
+.column-dnt_mode {
+	width: 10%;
+}
+.column-dnt_shortcode pre,
+.column-dnt_shortcode p,
+.column-dnt_function pre,
+.column-dnt_function p {
+	margin: 0 !important;
+}
+.column-dnt_shortcode pre,
+.column-dnt_function pre {
+	padding: 10px;
+	background: #FFF;
+	border: 1px solid #EEE;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
