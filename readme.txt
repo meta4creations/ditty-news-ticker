@@ -23,7 +23,7 @@ Ditty News Ticker is a multi-functional data display plugin. Easily add custom n
 
 #### Extensions
 Ditty News Ticker is built to easily be extended to add extra Ticker Types and extra Ticker Modes.
-To see a list of all extensions, visite the [**extensions page**](http://dittynewsticker.com/extensions/).
+To see a list of all extensions, visit the [**extensions page**](http://dittynewsticker.com/extensions/).
 
 == Installation ==
 
