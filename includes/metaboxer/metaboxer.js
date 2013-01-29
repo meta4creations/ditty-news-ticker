@@ -1,5 +1,6 @@
 /* Table of Contents
 
+* File
 * Lists
 * Code
 * Metabox toggle
@@ -10,6 +11,87 @@
 
 
 jQuery(document).ready( function($) {
+
+
+
+	
+	/**
+	 * Add file functionality.
+	 *
+	 * @since 1.0.0
+	 */
+	if( $('.mtphr-dnt-metaboxer-file').length > 0 ) {
+		mtphr_dnt_metaboxer_files();
+	}
+	function mtphr_dnt_metaboxer_files() {
+	
+		// Loop through all files to initialize
+		$('.mtphr-dnt-metaboxer-file').each( function(index) {
+			
+			// If there currently isn't a value, show the upload button
+			if( $(this).find('.mtphr-dnt-metaboxer-file-value').val() == '' ) {
+				$(this).find('.mtphr-dnt-metaboxer-file-upload').css('display','inline-block');
+			}
+		});
+		
+		// Custom media upload functionality
+		$('.mtphr-dnt-metaboxer-file-upload').click(function() {
+			
+			// Save the container
+			var $container = $(this).parent('.mtphr-dnt-metaboxer-field-content');
+			
+		  var send_attachment_bkp = wp.media.editor.send.attachment;
+		
+		  wp.media.editor.send.attachment = function( props, attachment ) {
+
+		  	// Set the field value
+		  	$container.find('.mtphr-dnt-metaboxer-file-value').val(attachment.id);
+		  	
+		  	// Create the display
+				var data = {
+					action: 'mtphr_dnt_metaboxer_ajax_file_display',
+					id: attachment.id,
+					type: attachment.type,
+					url: attachment.url,
+					title: attachment.title,
+					caption: attachment.caption,
+					description: attachment.description,
+					security: mtphr_dnt_metaboxer_vars.security
+				};
+
+				// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+				jQuery.post( ajaxurl, data, function( response ) {
+							
+					// Append the new data
+					$container.append( response );
+					
+					// Hide the upload button
+					$container.find('.mtphr-dnt-metaboxer-file-upload').hide();
+				});
+	
+	      wp.media.editor.send.attachment = send_attachment_bkp;
+		  }
+		  
+		  wp.media.editor.open();
+
+		  return false;       
+		});
+		
+		$('.mtphr-dnt-metaboxer-file-delete').live('click',function() {
+			
+			// Save the container
+			var $container = $(this).parents('.mtphr-dnt-metaboxer-field-content');
+			
+			// Remove the field value
+		  $container.find('.mtphr-dnt-metaboxer-file-value').val('');
+			
+			// Remove the current display
+			$container.find('.mtphr-dnt-metaboxer-file-table').remove();
+			
+			// Disply the upload button
+			$container.find('.mtphr-dnt-metaboxer-file-upload').css('display','inline-block');
+		});
+	}
 
 
 	

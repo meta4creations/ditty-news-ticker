@@ -21,11 +21,20 @@ function mtphr_dnt_admin_scripts( $hook ) {
 	if ( $typenow == 'ditty_news_ticker' ) {
 		
 		// Load the metaboxer style sheet
-		wp_register_style( 'ditty-metaboxer', MTPHR_DNT_URL.'/includes/metaboxer/metaboxer.css', array( 'colors', 'thickbox', 'farbtastic' ), MTPHR_DNT_VERSION );
+		wp_register_style( 'ditty-metaboxer', MTPHR_DNT_URL.'/includes/metaboxer/metaboxer.css', array( 'colors', 'thickbox' ), MTPHR_DNT_VERSION );
 		wp_enqueue_style( 'ditty-metaboxer' );
+		
+		// Load scipts for the media uploader
+		if(function_exists( 'wp_enqueue_media' )){
+	    wp_enqueue_media();
+		} else {
+	    wp_enqueue_style('thickbox');
+	    wp_enqueue_script('media-upload');
+	    wp_enqueue_script('thickbox');
+		}
 	
 		// Load the metaboxer jQuery
-		wp_register_script( 'ditty-metaboxer', MTPHR_DNT_URL.'/includes/metaboxer/metaboxer.js', array('jquery','media-upload','thickbox','jquery-ui-core','jquery-ui-sortable','jquery-ui-datepicker', 'jquery-ui-slider', 'farbtastic'), MTPHR_DNT_VERSION, true );
+		wp_register_script( 'ditty-metaboxer', MTPHR_DNT_URL.'/includes/metaboxer/metaboxer.js', array( 'jquery','jquery-ui-core','jquery-ui-sortable' ), MTPHR_DNT_VERSION, true );
 		wp_enqueue_script( 'ditty-metaboxer' );
 	}
 	
@@ -500,7 +509,7 @@ function mtphr_dnt_rotate_slide_down_scripts() {
 /**
  * Add the rotate slide up scripts
  *
- * @since 1.0.0
+ * @since 1.0.2
  */
 function mtphr_dnt_rotate_slide_up_scripts() {
 	ob_start(); ?>
@@ -546,7 +555,7 @@ function mtphr_dnt_rotate_slide_up_scripts() {
 		var h = $tick.height();
 
 		// Set the initial position of the width & make sure it's visible
-		$tick.css( 'top', h+'px' );
+		$tick.css( 'top', $prev.height()+'px' );
 		$tick.show();
 		
 		// Resize the ticker

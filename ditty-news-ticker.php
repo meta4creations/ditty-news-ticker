@@ -1,8 +1,9 @@
 <?php
 /*
 Plugin Name: Ditty News Ticker
+Plugin URI: http://dittynewsticker.com/
 Description: Ditty News Ticker is a multi-functional data display plugin
-Version: 1.0.1
+Version: 1.0.2
 Author: Metaphor Creations
 Author URI: http://www.metaphorcreations.com
 License: GPL2
@@ -44,9 +45,9 @@ The icons are licensed under a Creative Commons Attribution
  * @since 1.0.0
  */ 
 if ( WP_DEBUG ) {
-	define ( 'MTPHR_DNT_VERSION', '1.0.1-'.time() );
+	define ( 'MTPHR_DNT_VERSION', '1.0.2-'.time() );
 } else {
-	define ( 'MTPHR_DNT_VERSION', '1.0.1' );
+	define ( 'MTPHR_DNT_VERSION', '1.0.2' );
 }
 define ( 'MTPHR_DNT_DIR', plugin_dir_path(__FILE__) );
 define ( 'MTPHR_DNT_URL', plugins_url().'/ditty-news-ticker' );
@@ -62,7 +63,7 @@ define ( 'MTPHR_DNT_URL', plugins_url().'/ditty-news-ticker' );
 
 if( is_admin() ) {
 
-	// Load Metaboxer
+	// Load admin code
 	require_once( MTPHR_DNT_DIR.'includes/metaboxer/metaboxer.php' );
 	require_once( MTPHR_DNT_DIR.'includes/metaboxer/metaboxer-class.php' );
 	require_once( MTPHR_DNT_DIR.'includes/meta-boxes.php' );

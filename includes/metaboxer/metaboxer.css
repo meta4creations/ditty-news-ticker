@@ -6,6 +6,7 @@
 * Labels
 * Content
 
+* File
 * Lists
 * Sorts
 * Code
@@ -90,6 +91,51 @@
 #side-sortables .vertical .mtphr-dnt-metaboxer-field-content {
 	float: none;
 	width: auto;
+}
+
+/* File
+------------------------------------------------------------ */
+
+.wp-core-ui .mtphr-dnt-metaboxer-file-upload {
+	display: none;
+}
+.mtphr-dnt-metaboxer-file-table {
+	width: 100%;
+}
+.mtphr-dnt-metaboxer-file-display a {
+	display: block;
+	margin: 0;
+	padding: 10px;
+	background: #FEFEFE;
+	border: 1px solid #EEE;
+	white-space: normal;
+	text-decoration: none;
+	
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.mtphr-dnt-metaboxer-file-display img {
+	display: block;
+	float: left;
+	margin-right: 10px;
+}
+.mtphr-dnt-metaboxer-file-display span {
+	text-decoration: none;
+}
+.mtphr-dnt-metaboxer-file-delete {
+	width: 16px;
+	padding-top: 4px !important;
+}
+.mtphr-dnt-metaboxer-file-delete a {
+	display: block;
+	text-indent: -9999px;
+	width: 16px;
+	height: 16px;
+	background: url(images/minus-circle.png) no-repeat top;
+}
+.mtphr-dnt-metaboxer-file-delete a:hover {
+	background-position: 0 -16px;
 }
 
 /* List Item

@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 3.2
-Tested up to: 3.5
+Tested up to: 3.5.1
 Stable tag: /trunk/
 License: GPL2
 
@@ -48,6 +48,11 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.0.2 =
+* Added 'mtphr_dnt_tick_before' and 'mtphr_dnt_tick_after' actions.
+* Fixed error in 'rotate_scroll_up' script.
+* Updated Metabox scripts.
+
 = 1.0.1 =
 * Minor code update.
 
@@ -55,6 +60,9 @@ Each individual Ticker post has multiple settings to customize.
 * Initial upload of Ditty News Ticker - a multi-functional data display plugin.
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+Added additional actions along with some code updates.
 
 = 1.0.1 =
 Minor code update.

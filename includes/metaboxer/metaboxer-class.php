@@ -2,7 +2,7 @@
 /**
  * This is where the metabox magic happens.
  *
- * @package  MediaBlender
+ * @package Ditty News Ticker
  * @author   Metaphor Creations
  * @license  http://www.opensource.org/licenses/gpl-license.php GPL v2.0 (or later)
  * @link     http://www.metaphorcreations.com/plugins/metatools

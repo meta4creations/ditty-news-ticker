@@ -22,7 +22,7 @@ function ditty_news_ticker( $id='', $class='', $atts=false ) {
 /**
  * Return the ticker
  *
- * @since 1.0.0
+ * @since 1.0.2
  */
 function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
@@ -151,14 +151,16 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 				}
 				$spacing = apply_filters( 'mtphr_dnt_list_tick_spacing', $spacing, $i, $total );
 				$tick_style = ( $width != '' || $height != '' || $spacing != '' ) ? ' style="'.$width.$height.$spacing.'"' : '';
-
-				echo '<div'.$tick_style.' '.mtphr_dnt_tick_class().'>';
+				
+				do_action( 'mtphr_dnt_tick_before', $id, $meta_data, $total, $i );
+				echo '<div'.$tick_style.' '.mtphr_dnt_tick_class('clearfix').'>';
 				do_action( 'mtphr_dnt_tick_top', $id, $meta_data );
 			
 				echo $tick;
 				
 				do_action( 'mtphr_dnt_tick_bottom', $id, $meta_data );
 				echo '</div>';
+				do_action( 'mtphr_dnt_tick_after', $id, $meta_data, $total, $i );
 			}
 			
 			// Add the directional nav

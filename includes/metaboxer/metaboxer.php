@@ -2,7 +2,7 @@
 /**
  * Put all the Metaboxer admin function here fields here
  *
- * @package  Ditty News Ticker
+ * @package Ditty News Ticker
  * @author   Metaphor Creations
  * @license  http://www.opensource.org/licenses/gpl-license.php GPL v2.0 (or later)
  * @link     http://www.metaphorcreations.com/plugins/metatools
@@ -248,6 +248,7 @@ function mtphr_dnt_metaboxer_append_field( $field ) {
 * sort
 * html
 * metabox toggle
+* file
 * gallery
 * code
 
@@ -673,6 +674,115 @@ function mtphr_dnt_metaboxer_metabox_toggle( $field, $value='' ) {
 	// Add appended fields
 	mtphr_dnt_metaboxer_append_field($field);
 }
+
+
+
+
+/**
+ * Redners a file attachment
+ *
+ * @since 1.0.0
+ */
+function mtphr_dnt_metaboxer_file( $field, $value='' ) {
+	
+	// Check if there's actually a file
+	$file = false;
+	if( $value != '' ) {
+		$file = get_post( $value );
+	}
+	
+	// If there isn't a file reset the value
+	if( !$file ) {
+		$value = '';
+	}
+	?>
+	
+	<input class="mtphr-dnt-metaboxer-file-value" type="hidden" id="<?php echo $field['id']; ?>" name="<?php echo $field['id']; ?>" value="<?php echo $value; ?>" />
+	
+	<?php
+	echo isset( $field['button'] ) ? '<a href="#" class="button mtphr-dnt-metaboxer-file-upload">'.$field['button'].'</a>' : '<a href="#" class="button custom-media-upload">Insert File</a>';
+	
+	if( $file ) {
+	
+		$type = explode( '/', $file->post_mime_type );
+
+		// Display the file
+		echo mtphr_dnt_metaboxer_file_display( $file->ID, $type[0], $file->guid, $file->post_title, $file -> post_excerpt, $file->post_content );
+	}
+
+	// Add appended fields
+	mtphr_dnt_metaboxer_append_field($field);
+}
+
+add_action( 'wp_ajax_mtphr_dnt_metaboxer_ajax_file_display', 'mtphr_dnt_metaboxer_ajax_file_display' );
+/**
+ * Ajax function used to delete attachments
+ *
+ * @since 1.0.0
+ */
+function mtphr_dnt_metaboxer_ajax_file_display() {
+	
+	// Get access to the database
+	global $wpdb;
+	
+	// Check the nonce
+	check_ajax_referer( 'mtphr_dnt', 'security' );
+	
+	// Get variables
+	$id  = $_POST['id'];
+	$type  = $_POST['type'];
+	$url  = $_POST['url'];
+	$title  = $_POST['title'];
+	$caption  = $_POST['caption'];
+	$description  = $_POST['description'];
+	
+	// Display the file
+	mtphr_dnt_metaboxer_file_display( $id, $type, $url, $title, $caption, $description );
+	
+	die(); // this is required to return a proper result
+}
+
+// Display the file
+function mtphr_dnt_metaboxer_file_display( $id, $type, $url, $title, $caption, $description ) { 
+
+	$src = '';
+	switch( $type ) {
+		
+		case 'image':
+			$att = wp_get_attachment_image_src( $id, 'thumbnail' );
+			$src = $att[0];
+			break;
+			
+		case 'application':
+			$att = wp_get_attachment_image_src( $id, 'thumbnail', true );
+			$src = $att[0];
+			break;
+	}
+	?>
+	<table class="mtphr-dnt-metaboxer-file-table">
+		<tr>
+			<td class="mtphr-dnt-metaboxer-file-display">
+				<a href="<?php echo $url; ?>" target="_blank" class="clearfix">
+					<img class="custom_media_image" src="<?php echo $src; ?>" />
+					<span class="mtphr-dnt-metaboxer-file-title"><strong>Title:</strong> <?php echo $title; ?></span><br/>
+					<?php if( $caption != '' ) { ?>
+					<span class="mtphr-dnt-metaboxer-file-caption"><strong>Caption:</strong> <?php echo $caption; ?></span><br/>
+					<?php }
+					if( $description != '' ) { ?>
+					<span class="mtphr-dnt-metaboxer-file-description"><strong>Description:</strong> <?php echo $description; ?></span>
+					<?php } ?>
+				</a>
+			</td>
+			<td class="mtphr-dnt-metaboxer-file-delete">
+				<a href="#"></a>
+			</td>
+		</tr>
+	</table>
+	<?php
+}
+
+
+
 
 /**
  * Render a gallery attachment

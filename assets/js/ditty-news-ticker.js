@@ -599,17 +599,19 @@
 		    /**
 		     * Nav controls
 		     *
-		     * @since 1.0.0
+		     * @since 1.0.2
 		     */
 		    if( $nav_controls && settings.type == 'rotate' ) {
 
 			    $nav_controls.children('a').bind('click', function( e ) {
 		    		e.preventDefault();
 		    		
-		    		if(vars.running) return false;
-		    		
 		    		// Find the new tick
 			    	var new_tick = parseInt( $(this).attr('href') );
+			    	
+		    		if(vars.running) return false;
+		    		if(new_tick == vars.current_tick) return false;
+		    		
 			    	var reverse = ( new_tick < vars.current_tick ) ? 1 : 0;
 		    		
 		    		if( settings.nav_reverse && reverse ) {
