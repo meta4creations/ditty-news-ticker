@@ -338,7 +338,7 @@ function mtphr_dnt_mode_metabox_rotate() {
 	$rotate_fields['rotate_directional_nav'] = array(
 		'id' => '_mtphr_dnt_rotate_directional_nav',
 		'type' => 'checkbox',
-		'name' => __('Directional Navigation', 'ditty-news-ticker'),
+		'name' => __('Directional navigation', 'ditty-news-ticker'),
 		'label' => __('Enable', 'ditty-news-ticker'),
 		'description' => __('Set the directional navigation options.', 'ditty-news-ticker'),
 		'append' => array(
@@ -353,7 +353,7 @@ function mtphr_dnt_mode_metabox_rotate() {
 	$rotate_fields['rotate_control_nav'] = array(
 		'id' => '_mtphr_dnt_rotate_control_nav',
 		'type' => 'checkbox',
-		'name' => __('Control Navigation', 'ditty-news-ticker'),
+		'name' => __('Control navigation', 'ditty-news-ticker'),
 		'label' => __('Enable', 'ditty-news-ticker'),
 		'description' => __('Set the control navigation options.', 'ditty-news-ticker'),
 		'append' => array(
@@ -441,7 +441,7 @@ add_action( 'admin_init', 'mtphr_dnt_global_settings', 13 );
 /**
  * Create the display metabox.
  *
- * @since 1.0.0
+ * @since 1.0.3
  */
 function mtphr_dnt_global_settings() {
 
@@ -452,25 +452,23 @@ function mtphr_dnt_global_settings() {
 	$global_fields['title'] = array(
 		'id' => '_mtphr_dnt_title',
 		'type' => 'checkbox',
-		'label' => __('Display Title', 'ditty-news-ticker'),
+		'label' => __('Display title', 'ditty-news-ticker'),
+		'append' => array(
+			'_mtphr_dnt_inline_title' => array(
+				'type' => 'checkbox',
+				'label' => __('Inline title', 'ditty-news-ticker')
+			)
+		)
 	);
 	
 	// Add the title field
-	$global_fields['inline_title'] = array(
-		'id' => '_mtphr_dnt_inline_title',
-		'type' => 'checkbox',
-		'label' => __('Inline Title', 'ditty-news-ticker')
+	$global_fields['ticker_width'] = array(
+		'id' => '_mtphr_dnt_ticker_width',
+		'before' => __('Ticker width <em>(optional)</em>', 'ditty-news-ticker'),
+		'type' => 'number',
+		'after' => 'px<br/>'.'<small><em>'.__('Override the auto width a with specific value.').'</em></small>'
 	);
-	
-	// Add the title field
-	/*
-	$global_fields['styled'] = array(
-		'id' => '_mtphr_dnt_styled',
-		'type' => 'checkbox',
-		'label' => __('Enable Default CSS Styles', 'ditty-news-ticker'),
-	);
-	*/
-		
+
 	// Create the metabox
 	$dnt_global = array(
 		'id' => 'mtphr_dnt_global_settings',
@@ -510,7 +508,7 @@ function mtphr_dnt_display_metabox() {
 	$display_fields['function'] = array(
 		'id' => '_mtphr_dnt_function',
 		'type' => 'code',
-		'name' => __('Direct Function', 'ditty-news-ticker'),
+		'name' => __('Direct function', 'ditty-news-ticker'),
 		'button' => __('Select Function', 'ditty-news-ticker'),
 		'description' => __('Place this code directly into your theme to display the ticker.', 'ditty-news-ticker'),
 	);

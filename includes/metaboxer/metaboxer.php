@@ -325,6 +325,8 @@ function mtphr_dnt_metaboxer_wysiwyg( $field, $value='' ) {
 function mtphr_dnt_metaboxer_checkbox( $field, $value='' ) {
 
 	$output = '';
+	$before = ( isset($field['before']) ) ? '<span>'.$field['before'].' </span>' : '';
+	$after = ( isset($field['after']) ) ? '<span> '.$field['after'].'</span>' : '';
 
 	if( isset($field['options']) ) {
 	
@@ -349,7 +351,7 @@ function mtphr_dnt_metaboxer_checkbox( $field, $value='' ) {
 		$output .= '</label>';
 	}
 	
-	echo $output;
+	echo $before.$output.$after;
 	
 	// Add appended fields
 	mtphr_dnt_metaboxer_append_field($field);

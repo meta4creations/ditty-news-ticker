@@ -33,11 +33,15 @@ To see a list of all extensions, visit the [**extensions page**](http://dittynew
 4. Insert your tickers by copying and pasting the provided shortcode into another post.
 5. Optionally, insert your tickers by copying and pasting the direct function code directly into your theme or plugin.
 
+[**View full help documentation.**](http://dittynewsticker.com/mc/ditty-news-ticker-doc/)
+
 == Frequently Asked Questions ==
 
 = Are there any settings I need to configure? =
 
 Each individual Ticker post has multiple settings to customize.
+
+[**View full help documentation.**](http://dittynewsticker.com/mc/ditty-news-ticker-doc/)
 
 == Screenshots ==
 
@@ -47,6 +51,10 @@ Each individual Ticker post has multiple settings to customize.
 4. List Mode options
 
 == Changelog ==
+
+= 1.0.3 =
+* Modified post_updated message.
+* Add a ticker (auto) width override setting.
 
 = 1.0.2 =
 * Added 'mtphr_dnt_tick_before' and 'mtphr_dnt_tick_after' actions.
@@ -60,6 +68,9 @@ Each individual Ticker post has multiple settings to customize.
 * Initial upload of Ditty News Ticker - a multi-functional data display plugin.
 
 == Upgrade Notice ==
+
+= 1.0.3 =
+Updates.
 
 = 1.0.2 =
 Added additional actions along with some code updates.

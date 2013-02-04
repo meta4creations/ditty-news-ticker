@@ -22,7 +22,7 @@ function ditty_news_ticker( $id='', $class='', $atts=false ) {
 /**
  * Return the ticker
  *
- * @since 1.0.2
+ * @since 1.0.3
  */
 function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
@@ -89,7 +89,16 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 				$tick_id = 'mtphr-dnt-'.$id.'-'.sanitize_html_class( $_mtphr_dnt_unique_id );
 			}
 		}
-		echo '<div id="'.$tick_id.'" '.mtphr_dnt_ticker_class( $id, $class, $meta_data ).'>';
+		
+		// Check for a set width
+		$ticker_width = '';
+		if( isset($_mtphr_dnt_ticker_width) ) {
+			if( $_mtphr_dnt_ticker_width != 0 ) {
+				$ticker_width = ' style="width:'.intval($_mtphr_dnt_ticker_width).'px"';
+			}
+		}
+		
+		echo '<div'.$ticker_width.' id="'.$tick_id.'" '.mtphr_dnt_ticker_class( $id, $class, $meta_data ).'>';
 		echo '<div class="mtphr-dnt-wrapper">';
 	
 		// Display the title

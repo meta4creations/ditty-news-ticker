@@ -49,3 +49,19 @@ function mtphr_dnt_posttype() {
 }
 
 
+
+
+add_filter( 'post_updated_messages', 'mtphr_dnt_updated_messages' );
+/**
+ * Modify the update text
+ *
+ * @since 1.0.3
+ */
+function mtphr_dnt_updated_messages( $messages ) {
+
+  $messages['ditty_news_ticker'][1] = __('Ditty News Ticker Updated!', 'ditty-news-ticker');
+
+  return $messages;
+}
+
+
