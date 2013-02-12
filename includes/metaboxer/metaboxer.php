@@ -582,19 +582,27 @@ function mtphr_dnt_metaboxer_list_structure( $pos, $fields, $m_value='' ) {
 /**
  * Renders a sort.
  *
- * @since 1.0.0
+ * @since 1.0.4
  */
 function mtphr_dnt_metaboxer_sort( $field, $value='' ) {
 
 	global $post;
-	
+
 	$rows = array();
 	if( is_array($value) ) {
 		foreach( $value as $id ) {
-			$rows[$id] = $field['rows'][$id];
+			if( isset($field['rows'][$id]) ) {
+				$rows[$id] = $field['rows'][$id];
+			}
 		}
 	} else {
 		$rows = $field['rows'];
+	}
+	
+	foreach( $field['rows'] as $id=>$data ) {
+		if( !isset($rows[$id]) ) {
+			$rows[$id] = $data;
+		}
 	}
 	
 	$output = '<table>';	

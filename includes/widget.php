@@ -54,7 +54,7 @@ function mtphr_dnt_widget() {
 /**
  * Display the widget
  *
- * @since 1.0
+ * @since 1.0.4
  */
 function widget( $args, $instance ) {
 	
@@ -84,8 +84,11 @@ function widget( $args, $instance ) {
 		$atts['title'] = 1;
 	}
 
-	// Ad a unique widget ID
+	// Add a unique widget ID
 	$atts['unique_id'] = 'widget';
+	
+	// Add in_widget attribute for customization
+	$atts['in_widget'] = 1;
 	
 	// Display the ticker
 	if( $ticker != '' ) {

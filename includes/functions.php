@@ -373,3 +373,19 @@ function mtphr_dnt_modes_array() {
 		
 	return apply_filters('mtphr_dnt_modes', $dnt_modes_array);
 }
+
+
+
+
+add_action( 'plugins_loaded', 'mtphr_dnt_localization' );
+/**
+ * Setup localization
+ *
+ * @since 1.0.4
+ */
+function mtphr_dnt_localization() {
+  load_plugin_textdomain( 'ditty-news-ticker', false, MTPHR_DNT_DIR.'languages/' );
+}
+
+
+

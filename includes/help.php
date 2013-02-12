@@ -107,9 +107,9 @@ function mtphr_dnt_general_help_tab( $screen ) {
  */
 function mtphr_dnt_help_sidebar() {
 
-	$sidebar = '<p><strong>'.__('For more information:').'</strong></p>';
-	$sidebar .= '<p>'.__('Visit the <a href="http://www.metaphorcreations.com" target="_blank">documentation</a> on the Ditty News Ticker website').'</p>';
-	$sidebar .= '<p>'.__('<strong><a href="http://www.metaphorcreations.com" target="_blnak">View DNT extensions').'</strong></a>';
+	$sidebar = '<p><strong>'.__('For more information:', 'ditty-news-ticker').'</strong></p>';
+	$sidebar .= '<p>'.__('Visit the <a href="http://www.metaphorcreations.com" target="_blank">documentation</a> on the Ditty News Ticker website', 'ditty-news-ticker').'</p>';
+	$sidebar .= '<p>'.__('<strong><a href="http://www.metaphorcreations.com" target="_blnak">View DNT extensions', 'ditty-news-ticker').'</strong></a>';
 	
 	return $sidebar;
 }

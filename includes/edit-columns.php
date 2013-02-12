@@ -20,10 +20,10 @@ function mtphr_dnt_set_columns( $columns ){
 	$i = 0;
 	foreach( $columns as $key => $value ) {
 		if( $i == 2 ) {
-			$new_columns['dnt_type'] = __( 'Type', 'mtphr' );
-			$new_columns['dnt_mode'] = __( 'Mode', 'mtphr' );
-			$new_columns['dnt_shortcode'] = __( 'Shortcode', 'mtphr' );
-			$new_columns['dnt_function'] = __( 'Direct Function', 'mtphr' );
+			$new_columns['dnt_type'] = __( 'Type', 'ditty-news-ticker' );
+			$new_columns['dnt_mode'] = __( 'Mode', 'ditty-news-ticker' );
+			$new_columns['dnt_shortcode'] = __( 'Shortcode', 'ditty-news-ticker' );
+			$new_columns['dnt_function'] = __( 'Direct Function', 'ditty-news-ticker' );
 		}
 		$new_columns[$key] = $value;
 		$i++;

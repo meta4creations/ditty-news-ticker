@@ -466,7 +466,7 @@ function mtphr_dnt_global_settings() {
 		'id' => '_mtphr_dnt_ticker_width',
 		'before' => __('Ticker width <em>(optional)</em>', 'ditty-news-ticker'),
 		'type' => 'number',
-		'after' => 'px<br/>'.'<small><em>'.__('Override the auto width a with specific value.').'</em></small>'
+		'after' => 'px<br/>'.'<small><em>'.__('Override the auto width a with specific value.', 'ditty-news-ticker').'</em></small>'
 	);
 
 	// Create the metabox
