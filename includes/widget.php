@@ -119,7 +119,7 @@ function update( $new_instance, $old_instance ) {
 /**
  * Widget settings
  *
- * @since 1.0
+ * @since 1.0.5
  */
 function form( $instance ) {
 
@@ -143,7 +143,7 @@ function form( $instance ) {
 		<label for="<?php echo $this->get_field_id( 'ticker' ); ?>"><?php _e( 'Select a Ticker:', 'ditty-news-ticker' ); ?></label><br/>
 		<select id="<?php echo $this->get_field_id( 'ticker' ); ?>" name="<?php echo $this->get_field_name( 'ticker' ); ?>">
 		<?php
-		$tickers = get_posts( 'numberposts=0&post_type=ditty_news_ticker&orderby=name&order=ASC' );
+		$tickers = get_posts( 'numberposts=-1&post_type=ditty_news_ticker&orderby=name&order=ASC' );
 		foreach( $tickers as $ticker ) {
 			if( $instance['ticker'] == $ticker->ID ) {
 				echo '<option value="'.$ticker->ID.'" selected="selected">'.$ticker->post_title.'</option>';

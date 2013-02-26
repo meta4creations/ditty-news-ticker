@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 3.2
 Tested up to: 3.5.1
-Stable tag: 1.0.4
+Stable tag: /trunk/
 License: GPL2
 
 Ditty News Ticker is a multi-functional data display plugin.
@@ -52,6 +52,13 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.0.5 =
+* Updated metaboxer scripts.
+* Updated direct function output.
+* Updated ticker types link.
+* Fixed rotator numbers padding.
+* Fixed limited number of DNT in widget drop down issue.
+
 = 1.0.4 =
 * Added 'languages' folder for localization.
 * Added an 'in_widget' attribute to tickers displayed in widgets.
@@ -73,6 +80,9 @@ Each individual Ticker post has multiple settings to customize.
 * Initial upload of Ditty News Ticker - a multi-functional data display plugin.
 
 == Upgrade Notice ==
+
+= 1.0.5 =
+Updated metaboxer scripts. Updated direct function output. Updated ticker types link. Fixed rotator numbers padding. Fixed limited number of DNT in widget drop down issue.
 
 = 1.0.4 =
 Added 'languages' folder for localization. Added an 'in_widget' attribute to tickers displayed in widgets. Updated 'sort' metaboxer code.

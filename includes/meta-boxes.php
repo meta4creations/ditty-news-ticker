@@ -32,7 +32,7 @@ function mtphr_dnt_metabox_types() {
 				'append' => array(
 					'_mtphr_dnt_type_link' => array(
 						'type' => 'html',
-						'default' => '<a href="http://dittynewsticker.com/extensions/" target="_blank"><strong>'.__('View all types', 'ditty-news-ticker').'</strong></a>'
+						'default' => '<a href="http://dittynewsticker.com" target="_blank"><strong>'.__('View all types', 'ditty-news-ticker').'</strong></a>'
 					)
 				)
 			)
@@ -112,13 +112,7 @@ function mtphr_dnt_metabox_modes() {
 		'id' => '_mtphr_dnt_mode',
 		'type' => 'metabox_toggle',
 		'options' => mtphr_dnt_modes_array(),
-		'default' => 'scroll',
-		'append' => array(
-			'_mtphr_dnt_mode_link' => array(
-				'type' => 'html',
-				'default' => '<a href="http://dittynewsticker.com/extensions/" target="_blank"><strong>'.__('View all modes', 'ditty-news-ticker').'</strong></a>'
-			)
-		)
+		'default' => 'scroll'
 	);
 	
 	/* Create the modes metabox. */
@@ -364,7 +358,7 @@ function mtphr_dnt_mode_metabox_rotate() {
 					'button' => __('Buttons', 'ditty-news-ticker')
 				),
 				'display' => 'inline',
-				'default' => 'numbers'
+				'default' => 'number'
 			)
 		)
 	);

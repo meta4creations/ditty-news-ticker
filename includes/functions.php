@@ -28,7 +28,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
 	// Get the post
 	$ticker = get_post( $id );
-	if( $ticker ) {
+	if( $ticker && $ticker->post_status == 'publish' ) {
 	
 		// Save the original $wp_query
 		global $wp_query;

@@ -38,7 +38,7 @@ add_action( 'manage_ditty_news_ticker_posts_custom_column',  'mtphr_dnt_display_
 /**
  * Display the custom edit screen columns
  *
- * @since 1.0
+ * @since 1.0.5
  */
 function mtphr_dnt_display_columns( $column, $post_id ){
 
@@ -81,7 +81,7 @@ function mtphr_dnt_display_columns( $column, $post_id ){
 			break;
 			
 		case 'dnt_function':
-			echo '<pre>ditty_news_ticker('.$post_id.');</p></pre>';
+			echo '<pre><p>&lt;?php if(function_exists(\'ditty_news_ticker\')){ditty_news_ticker('.$post->ID.');} ?&gt;</p></pre>';
 			break;
 	}
 }
