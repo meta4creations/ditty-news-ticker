@@ -52,6 +52,10 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.0.6 =
+* Updated settings scripts for extensibility.
+* Minor update to metaboxer css.
+
 = 1.0.5 =
 * Updated metaboxer scripts.
 * Updated direct function output.
@@ -80,6 +84,9 @@ Each individual Ticker post has multiple settings to customize.
 * Initial upload of Ditty News Ticker - a multi-functional data display plugin.
 
 == Upgrade Notice ==
+
+= 1.0.6 =
+Updated settings scripts for extensibility. Minor update to metaboxer css.
 
 = 1.0.5 =
 Updated metaboxer scripts. Updated direct function output. Updated ticker types link. Fixed rotator numbers padding. Fixed limited number of DNT in widget drop down issue.

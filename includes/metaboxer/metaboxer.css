@@ -25,7 +25,7 @@
 	margin-bottom: 10px;
 }
 .mtphr-dnt-metaboxer-field:last-child {
-	margin-bottom: 20px;
+	margin-bottom: 0;
 }
 .mtphr-dnt-metaboxer-field input[type="checkbox"] {
 	margin-top: 0;

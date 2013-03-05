@@ -377,6 +377,22 @@ function mtphr_dnt_modes_array() {
 
 
 
+/**
+ * Return an array of the current DNT settings
+ *
+ * @since 1.0.6
+ */
+function mtphr_dnt_settings_tabs() {
+
+	$dnt_settings_array = array();
+	$dnt_settings_array['general'] = 'mtphr_dnt_general_settings';
+	
+	return apply_filters('mtphr_dnt_settings', $dnt_settings_array);
+}
+
+
+
+
 add_action( 'plugins_loaded', 'mtphr_dnt_localization' );
 /**
  * Setup localization

@@ -33,7 +33,7 @@ add_action( 'admin_init', 'mtphr_dnt_initialize_settings' );
 /**
  * Setup the custom options for the settings page
  *
- * @since 1.0.0
+ * @since 1.0.6
  */
 function mtphr_dnt_initialize_settings() {
 
@@ -55,8 +55,8 @@ function mtphr_dnt_initialize_settings() {
 	/* Register the general options */
 	add_settings_section(
 		'mtphr_dnt_general_settings_section',				// ID used to identify this section and with which to register options
-		__( '&nbsp;', 'ditty-news-ticker' ),			// Title to be displayed on the administration page
-		false,			// Callback used to render the description of the section
+		'',																					// Title to be displayed on the administration page
+		'mtphr_dnt_general_settings_callback',			// Callback used to render the description of the section
 		'mtphr_dnt_general_settings'								// Page on which to add this section of options
 	);
 
@@ -71,46 +71,6 @@ function mtphr_dnt_initialize_settings() {
 	
 	// Register the fields with WordPress
 	register_setting( 'mtphr_dnt_general_settings', 'mtphr_dnt_general_settings' );
-	
-	/**
-	 * License options sections
-	 */
-	$license_settings = array();
-	
-	/*
-$license_settings['test'] = array(
-		'title' => __( 'Test', 'ditty-news-ticker' ),
-		'type' => 'text',
-		'default' => 'sidebar-right'
-	);
-*/
-	
-	if( false == get_option('mtphr_dnt_license_settings') ) {	
-		add_option( 'mtphr_dnt_license_settings' );
-	}
-	
-	// Register the style options
-	add_settings_section(
-		'mtphr_dnt_license_settings_section',					// ID used to identify this section and with which to register options
-		__( '&nbsp;', 'ditty-news-ticker' ),		// Title to be displayed on the administration page
-		false,		// Callback used to render the description of the section
-		'mtphr_dnt_license_settings'							// Page on which to add this section of options
-	);
-	
-	$license_settings = apply_filters( 'mtphr_dnt_license_settings', $license_settings );
-	
-	if( is_array($license_settings) ) {
-		foreach( $license_settings as $id => $setting ) {
-			$setting['option'] = 'mtphr_dnt_license_settings';
-			$setting['option_id'] = $id;
-			$setting['id'] = 'mtphr_dnt_license_settings['.$id.']';
-			add_settings_field( $setting['id'], $setting['title'], 'mtphr_dnt_settings_callback', 'mtphr_dnt_license_settings', 'mtphr_dnt_license_settings_section', $setting);
-		}
-	}
-	
-	// Register the fields with WordPress
-	register_setting( 'mtphr_dnt_license_settings', 'mtphr_dnt_license_settings' );
-	
 }
 
 
@@ -119,7 +79,7 @@ $license_settings['test'] = array(
 /**
  * Render the theme options page
  *
- * @since 1.0.0
+ * @since 1.0.6
  */
 function mtphr_dnt_settings_display( $active_tab = null ) {
 	?>
@@ -130,35 +90,31 @@ function mtphr_dnt_settings_display( $active_tab = null ) {
 		<h2><?php _e( 'Ditty News Ticker Settings', 'ditty-news-ticker' ); ?></h2>
 		<?php settings_errors(); ?>
 		
-		<?php 
-		if( isset( $_GET[ 'tab' ] ) ) {
-			$active_tab = $_GET[ 'tab' ];
-		} else if( $active_tab == 'license_settings' ) {
-			$active_tab = 'license_settings';
-		} else {
-			$active_tab = 'general_settings';
-		}
+		<?php
+		$tabs = mtphr_dnt_settings_tabs();
+		$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general';
 		?>
-
-		<h2 class="nav-tab-wrapper">
-			<a href="?post_type=ditty_news_ticker&page=mtphr_dnt_settings&tab=general_settings" class="nav-tab <?php echo $active_tab == 'general_settings' ? 'nav-tab-active' : ''; ?>"><?php _e( 'General', 'ditty-news-ticker' ); ?></a>
-			<!-- <a href="?post_type=ditty_news_ticker&page=mtphr_dnt_settings&tab=license_settings" class="nav-tab <?php echo $active_tab == 'license_settings' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Extension Licenses', 'ditty-news-ticker' ); ?></a> -->
-		</h2>
+		
+		<ul style="margin-bottom:20px;" class="subsubsub">
+			<?php
+			$num_tabs = count($tabs);
+			$count = 0;
+			foreach( $tabs as $key=>$tab ) {
+				$count++;
+				$current = ($key==$active_tab) ? 'class="current"' : '';
+				$sep = ($count!=$num_tabs) ? ' |' : '';
+				echo '<li><a href="?post_type=ditty_news_ticker&page=mtphr_dnt_settings&tab='.$key.'" '.$current.'>'.ucfirst($key).'</a>'.$sep.'</li>';
+			}
+			?>
+		</ul>
+		
+		<br class="clear" />
 
 		<form method="post" action="options.php">
 			<?php
-				if( $active_tab == 'license_settings' ) {
-				
-					settings_fields( 'mtphr_dnt_license_settings' );
-					do_settings_sections( 'mtphr_dnt_license_settings' );
-				
-				} else {
-					
-					settings_fields( 'mtphr_dnt_general_settings' );
-					do_settings_sections( 'mtphr_dnt_general_settings' );
-				}
-	
-				submit_button();
+			settings_fields( $tabs[$active_tab] );
+			do_settings_sections( $tabs[$active_tab] );
+			submit_button();
 			?>
 		</form>
 		
@@ -172,20 +128,14 @@ function mtphr_dnt_settings_display( $active_tab = null ) {
 /**
  * General options section callback
  *
- * @since 1.0.0
+ * @since 1.0.6
  */
 function mtphr_dnt_general_settings_callback() {
-	echo '<p>'.__( 'Add global settings to your news tickers.', 'ditty-news-ticker' ).'</p>';
-	echo '<p>'.__( 'Use the Custom CSS textarea to set global or individual styles to each of your tickers.', 'ditty-news-ticker' ).'</p>';
-}
-
-/**
- * License options section callback
- *
- * @since 1.0.0
- */
-function mtphr_dnt_license_settings_callback() {
-	echo '<p>'.__( 'Add the licenses for each of your extensions.', 'ditty-news-ticker' ).'</p>';
+	?>
+	<div style="margin-bottom: 20px;">
+		<h4 style="margin-top:0;"><?php _e( 'The global settings to your news tickers.', 'ditty-news-ticker' ); ?></h4>
+	</div>
+	<?php
 }
 
 
