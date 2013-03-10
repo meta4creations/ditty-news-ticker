@@ -16,6 +16,9 @@
 	white-space: nowrap;
 	margin: 0;
 }
+.mtphr-dnt-tick.clearfix {
+	display:none;
+}
 .mtphr-dnt-rotate .mtphr-dnt-tick {
 	white-space: normal;
 }

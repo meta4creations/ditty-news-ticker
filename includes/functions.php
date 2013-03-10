@@ -22,7 +22,7 @@ function ditty_news_ticker( $id='', $class='', $atts=false ) {
 /**
  * Return the ticker
  *
- * @since 1.0.3
+ * @since 1.0.8
  */
 function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
@@ -99,7 +99,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 		}
 		
 		echo '<div'.$ticker_width.' id="'.$tick_id.'" '.mtphr_dnt_ticker_class( $id, $class, $meta_data ).'>';
-		echo '<div class="mtphr-dnt-wrapper">';
+		echo '<div class="mtphr-dnt-wrapper clearfix">';
 	
 		// Display the title
 		if( isset($_mtphr_dnt_title) ) {

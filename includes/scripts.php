@@ -74,7 +74,7 @@ add_action( 'mtphr_dnt_after', 'mtphr_dnt_ticker_scripts', 10, 2 );
 /**
  * Add the class scripts
  *
- * @since 1.0.0
+ * @since 1.0.8
  */
 function mtphr_dnt_ticker_scripts( $id, $meta_data ) {
 
@@ -97,8 +97,9 @@ function mtphr_dnt_ticker_scripts( $id, $meta_data ) {
 		}
 		ob_start(); ?>
 		<script>
-		jQuery( document ).ready( function($) {
-			$( '<?php echo $ticker; ?>' ).ditty_news_ticker({
+		jQuery( window ).load( function() {
+			jQuery( '<?php echo $ticker; ?>' ).ditty_news_ticker({
+				id : '<?php echo $id; ?>',
 				type : '<?php echo $_mtphr_dnt_mode; ?>',
 				scroll_direction : '<?php echo $_mtphr_dnt_scroll_direction; ?>',
 				scroll_speed : <?php echo intval($_mtphr_dnt_scroll_speed); ?>,
@@ -123,8 +124,9 @@ function mtphr_dnt_ticker_scripts( $id, $meta_data ) {
 		}
 		ob_start(); ?>
 		<script>
-		jQuery( document ).ready( function($) {
-			$( '<?php echo $ticker; ?>' ).ditty_news_ticker({
+		jQuery( window ).load( function() {
+			jQuery( '<?php echo $ticker; ?>' ).ditty_news_ticker({
+				id : '<?php echo $id; ?>',
 				type : '<?php echo $_mtphr_dnt_mode; ?>',
 				rotate_type : '<?php echo $_mtphr_dnt_rotate_type; ?>',
 				auto_rotate : <?php echo $rotate; ?>,
@@ -132,7 +134,16 @@ function mtphr_dnt_ticker_scripts( $id, $meta_data ) {
 				rotate_pause : <?php echo $pause; ?>,
 				rotate_speed : <?php echo intval($_mtphr_dnt_rotate_speed); ?>,
 				rotate_ease : '<?php echo $_mtphr_dnt_rotate_ease; ?>',
-				nav_reverse : <?php echo $nav_reverse; ?>
+				nav_reverse : <?php echo $nav_reverse; ?>,
+				after_load : function( $ticker ) {
+					<?php echo apply_filters( 'mtphr_dnt_after_load_rotate' , '', $id ); ?>
+				},
+				before_change : function( $ticker ) {
+					<?php echo apply_filters( 'mtphr_dnt_before_change_rotate' , '', $id ); ?>
+				},
+				after_change : function( $ticker ) {
+					<?php echo apply_filters( 'mtphr_dnt_after_change_rotate' , '', $id ); ?>
+				}
 			});
 		});
 		</script>

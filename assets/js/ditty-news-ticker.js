@@ -1,9 +1,9 @@
 /**
  * Ditty News Ticker
- * Date: 1/15/2013
+ * Date: 3/10/2013
  *
  * @author Metaphor Creations
- * @version 1.0.0
+ * @version 1.0.8
  *
  **/
 
@@ -17,6 +17,7 @@
 
 				// Create default options
 				var settings = {
+					id										: '',
 					type									: 'scroll',
 					scroll_direction			: 'left',
 					scroll_speed					: 10,
@@ -37,6 +38,7 @@
 				
 				// Useful variables. Play carefully.
         var vars = {
+        	id							: settings.id,
 	        tick_count			: 0,
 	        current_tick		: 0,
 	        reverse					: 0,
@@ -172,11 +174,12 @@
 		    /**
 		     * Create the ticker scroll loop
 		     *
-		     * @since 1.0.0
+		     * @since 1.0.8
 		     */
 		    function mtphr_dnt_scroll_loop() {
 			    
 			    // Start the ticker timer
+			    clearInterval( ticker_scroll );
 					ticker_scroll = setInterval( function() {
 
 						for( var i=0; i<vars.tick_count; i++ ) {
@@ -381,7 +384,7 @@
 		    /**
 		     * Setup the ticker rotator
 		     *
-		     * @since 1.0.0
+		     * @since 1.0.8
 		     */
 		    function mtphr_dnt_rotator_setup() {
 
@@ -409,13 +412,13 @@
 					
 					// Clear the loop on mouse hover
 					$ticker.hover(
-					  function () {
-					  	if( settings.auto_rotate && settings.rotate_pause ) {
+					  function (e) {
+					  	if( settings.auto_rotate && settings.rotate_pause && !vars.running ) {
 					    	clearInterval( ticker_delay );
 					    }
 					  }, 
 					  function () {
-					  	if( settings.auto_rotate && settings.rotate_pause ) {
+					  	if( settings.auto_rotate && settings.rotate_pause  && !vars.running ) {
 					    	mtphr_dnt_rotator_delay();
 					    }
 					  }
@@ -430,6 +433,7 @@
 		    function mtphr_dnt_rotator_delay() {
 
 			    // Start the ticker timer
+			    clearInterval( ticker_delay );
 					ticker_delay = setInterval( function() {
 
 						// Find the new tick
@@ -533,7 +537,7 @@
 		    /**
 		     * Resize the rotator ticks
 		     *
-		     * @since 1.0.0
+		     * @since 1.0.8
 		     */
 		    function mtphr_dnt_rotator_resize_ticks() {
 
@@ -542,6 +546,10 @@
 				    // Set the width of the tick
 				    $(ticks[i]).width( ticker_width+'px' );
 			    }
+			    
+			    // Resize the ticker
+			    var h = $(ticks[vars.current_tick]).height();
+					$ticker.stop().css( 'height', h+'px' );
 		    }
 
 		    
