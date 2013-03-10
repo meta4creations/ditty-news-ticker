@@ -52,6 +52,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.0.7 =
+* Fixed jQuery issue in Firefox when adding new ticks.
+
 = 1.0.6 =
 * Updated settings scripts for extensibility.
 * Minor update to metaboxer css.
@@ -84,6 +87,9 @@ Each individual Ticker post has multiple settings to customize.
 * Initial upload of Ditty News Ticker - a multi-functional data display plugin.
 
 == Upgrade Notice ==
+
+= 1.0.7 =
+Fixed jQuery issue in Firefox when adding new ticks.
 
 = 1.0.6 =
 Updated settings scripts for extensibility. Minor update to metaboxer css.

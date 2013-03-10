@@ -267,7 +267,7 @@ $('.mtphr-dnt-metaboxer-list-item-add').live( 'click', function(e) {
 	var $new = $parent.clone(true).hide();
 	$new.find('input,textarea,select').removeAttr('value').removeAttr('checked').removeAttr('selected');
 	$parent.after($new);
-	$new.fadeIn();
+	$new.fadeIn().css('display', 'table-row');
 	
 	// Set the field order
 	mtphr_dnt_metaboxer_lists_set_order( $(this).parents('.mtphr-dnt-metaboxer-list') );
