@@ -3,7 +3,7 @@
  * Date: 3/10/2013
  *
  * @author Metaphor Creations
- * @version 1.0.8
+ * @version 1.1.0
  *
  **/
 
@@ -59,6 +59,7 @@
 					ticker_height = 0,
 					ticks = [],
 					ticker_scroll,
+					ticker_scroll_resize = true,
 					ticker_delay,
 					rotate_adjustment = settings.rotate_type,
 					after_change_timeout,
@@ -92,9 +93,16 @@
 		    /**
 		     * Setup the ticker scroll
 		     *
-		     * @since 1.0.0
+		     * @since 1.1.0
 		     */
 		    function mtphr_dnt_scroll_setup() {
+		    
+		    	var $first = $ticker.find('.mtphr-dnt-tick:first');
+		    	if( $first.attr('style') ) {
+			    	var style = $first.attr('style');
+			    	var style_array = style.split('width:');
+			    	ticker_scroll_resize = (style_array.length > 1) ? false : true;
+		    	}	
 		    	
 		    	// Loop through the tick items
 					$ticker.find('.mtphr-dnt-tick').each( function(index) {
@@ -130,13 +138,17 @@
 								break;
 								
 							case 'up':
-								$(this).css('width',ticker_width);
+								if( ticker_scroll_resize ) {
+									$(this).css('width',ticker_width);
+								}
 								position = parseInt(ticker_height);
 								$(this).css('top',position+'px');
 								break;
 								
 							case 'down':
-								$(this).css('width',ticker_width);
+								if( ticker_scroll_resize ) {
+									$(this).css('width',ticker_width);
+								}
 								position = parseInt('-'+$(this).height());
 								$(this).css('top',position+'px');
 								break;
@@ -329,7 +341,7 @@
 		    /**
 		     * Resize the scroll ticks
 		     *
-		     * @since 1.0.0
+		     * @since 1.1.0
 		     */
 		    function mtphr_dnt_scroll_resize_ticks() {
 
@@ -356,7 +368,9 @@
 								break;
 								
 							case 'up':
-								$tick.css('width',ticker_width);
+								if( ticker_scroll_resize ) {
+									$tick.css('width',ticker_width);
+								}
 								position = parseInt(ticker_height);
 								if( ticks[i][0].visible == false ) {
 									$tick.css('top',position+'px');
@@ -364,7 +378,9 @@
 								break;
 								
 							case 'down':
-								$tick.css('width',ticker_width);
+								if( ticker_scroll_resize ) {
+									$tick.css('width',ticker_width);
+								}
 								position = parseInt('-'+$tick.height());
 								if( ticks[i][0].visible == false ) {
 									$tick.css('top',position+'px');
@@ -385,7 +401,7 @@
 		    /**
 		     * Reset the scroller for vertical scrolls
 		     *
-		     * @since 1.0.9
+		     * @since 1.1.0
 		     */
 		    function mtphr_dnt_scroll_reset_ticks() {
 
@@ -407,13 +423,17 @@
 								break;
 								
 							case 'up':
-								$tick.css('width',ticker_width);
+								if( ticker_scroll_resize ) {
+									$tick.css('width',ticker_width);
+								}
 								position = parseInt(ticker_height);
 								$tick.css('top',position+'px');	
 								break;
 								
 							case 'down':
-								$tick.css('width',ticker_width);
+								if( ticker_scroll_resize ) {
+									$tick.css('width',ticker_width);
+								}
 								position = parseInt('-'+$(this).height());
 								$tick.css('top',position+'px');	
 								break;
@@ -791,7 +811,11 @@
 				    
 				    if( settings.type == 'scroll' ) {
 				    	if( settings.scroll_direction=='up' || settings.scroll_direction=='down' ) {
-				    		mtphr_dnt_scroll_reset_ticks();
+				    		if( ticker_scroll_resize ) {
+				    			mtphr_dnt_scroll_reset_ticks();
+				    		} else {
+					    		mtphr_dnt_scroll_resize_ticks();
+				    		}
 				    	} else {
 					    	mtphr_dnt_scroll_resize_ticks();
 				    	} 

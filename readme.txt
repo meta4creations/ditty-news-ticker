@@ -52,6 +52,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.1.0 =
+* Added "width" override for scrolling tickers back in... whoops!
+
 = 1.0.9 =
 * Added a checkbox to set links as rel="nofollow".
 * Updated vertical scrolling for responsive sites.
@@ -102,6 +105,9 @@ Each individual Ticker post has multiple settings to customize.
 * Initial upload of Ditty News Ticker - a multi-functional data display plugin.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Added "width" override for scrolling tickers back in... whoops!
 
 = 1.0.9 =
 Added a checkbox to set links as rel="nofollow". Updated vertical scrolling for responsive sites. Removed "width" override for scrolling tickers. Added new ticker classes.

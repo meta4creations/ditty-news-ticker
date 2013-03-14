@@ -22,7 +22,7 @@ function ditty_news_ticker( $id='', $class='', $atts=false ) {
 /**
  * Return the ticker
  *
- * @since 1.0.9
+ * @since 1.1.0
  */
 function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
@@ -64,15 +64,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
 					// Get the contents
 					if( $link = esc_url($tick['link']) ) {
-						
-						// Add nofollow
-						$nofollow = '';
-						if( isset($tick['nofollow']) ) {
-							if( $tick['nofollow'] ) {
-								$nofollow = ' rel="nofollow"';
-							}
-						}
-						$contents = '<a href="'.$link.'" target="'.$tick['target'].'"'.$nofollow.'>'.$text.'</a>';
+						$contents = '<a href="'.$link.'" target="'.$tick['target'].'">'.$text.'</a>';
 					} else {
 						$contents = $text;
 					}
@@ -132,7 +124,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 		if( $_mtphr_dnt_mode == 'scroll' ) {
 			$padding = ( intval($_mtphr_dnt_scroll_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_scroll_padding).'px;padding-bottom:'.intval($_mtphr_dnt_scroll_padding).'px;' : '';
 			$margin = ( intval($_mtphr_dnt_scroll_margin) != 0 ) ? 'margin-top:'.intval($_mtphr_dnt_scroll_margin).'px;margin-bottom:'.intval($_mtphr_dnt_scroll_margin).'px;' : '';
-			//$width = ( intval($_mtphr_dnt_scroll_width) != 0 ) ? 'white-space:normal;width:'.intval($_mtphr_dnt_scroll_width).'px;' : '';
+			$width = ( intval($_mtphr_dnt_scroll_width) != 0 ) ? 'white-space:normal;width:'.intval($_mtphr_dnt_scroll_width).'px;' : '';
 			$height = ( intval($_mtphr_dnt_scroll_height) != 0 ) ? 'height:'.intval($_mtphr_dnt_scroll_height).'px;' : '';
 		} elseif( $_mtphr_dnt_mode == 'rotate' ) {
 			$padding = ( intval($_mtphr_dnt_rotate_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_rotate_padding).'px;padding-bottom:'.intval($_mtphr_dnt_rotate_padding).'px;' : '';
@@ -146,7 +138,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 		// Filter the variables
 		$padding = apply_filters( 'mtphr_dnt_tick_container_padding', $padding );
 		$margin = apply_filters( 'mtphr_dnt_tick_container_margin', $margin );
-		//$width = apply_filters( 'mtphr_dnt_tick_width', $width );
+		$width = apply_filters( 'mtphr_dnt_tick_width', $width );
 		$height = apply_filters( 'mtphr_dnt_tick_height', $height );
 		
 		// Create the container style
@@ -167,8 +159,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 					$spacing = ( $i != intval($total-1) ) ? 'margin-bottom:'.intval($_mtphr_dnt_list_tick_spacing).'px;' : '';
 				}
 				$spacing = apply_filters( 'mtphr_dnt_list_tick_spacing', $spacing, $i, $total );
-				$tick_style = ( $height != '' || $spacing != '' ) ? ' style="'.$height.$spacing.'"' : '';
-				//$tick_style = ( $width != '' || $height != '' || $spacing != '' ) ? ' style="'.$width.$height.$spacing.'"' : '';
+				$tick_style = ( $width != '' || $height != '' || $spacing != '' ) ? ' style="'.$width.$height.$spacing.'"' : '';
 				
 				do_action( 'mtphr_dnt_tick_before', $id, $meta_data, $total, $i );
 				echo '<div'.$tick_style.' '.mtphr_dnt_tick_class('clearfix').'>';
@@ -228,8 +219,6 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 	// Return the output
 	return ob_get_clean();
 }
-
-
 
 
 

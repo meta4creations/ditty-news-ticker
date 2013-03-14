@@ -138,7 +138,7 @@ add_action( 'admin_init', 'mtphr_dnt_mode_metabox_scroll', 12 );
 /**
  * Create the scroll mode metabox.
  *
- * @since 1.0.0
+ * @since 1.1.0
  */
 function mtphr_dnt_mode_metabox_scroll() {
 
@@ -163,12 +163,19 @@ function mtphr_dnt_mode_metabox_scroll() {
 
 	// Add the dimensions field
 	$scroll_fields['dimensions'] = array(
-		'id' => '_mtphr_dnt_scroll_height',
+		'id' => '_mtphr_dnt_scroll_width',
 		'type' => 'number',
 		'name' => __('Tick dimensions', 'ditty-news-ticker'),
 		'default' => 0,
-		'before' => __('Height', 'ditty-news-ticker'),
-		'description' => __('Override the auto dimensions with specific values.', 'ditty-news-ticker')
+		'before' => __('Width', 'ditty-news-ticker'),
+		'description' => __('Override the auto dimensions with specific values.', 'ditty-news-ticker'),
+		'append' => array(
+			'_mtphr_dnt_scroll_height' => array(
+				'type' => 'number',
+				'default' => 0,
+				'before' => __('Height', 'ditty-news-ticker'),
+			)
+		)
 	);
 	
 	// Add the spacing field
