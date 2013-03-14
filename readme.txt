@@ -52,6 +52,12 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.0.9 =
+* Added a checkbox to set links as rel="nofollow".
+* Updated vertical scrolling for responsive sites.
+* Removed "width" override for scrolling tickers.
+* Added new ticker classes.
+
 = 1.0.8 =
 * Fixed bug in rotator mode with "pause on hover" activated.
 * jQuery now loading on (window).load() instead of (document).ready(). Fixes scrolling issue in Safari.
@@ -96,6 +102,9 @@ Each individual Ticker post has multiple settings to customize.
 * Initial upload of Ditty News Ticker - a multi-functional data display plugin.
 
 == Upgrade Notice ==
+
+= 1.0.9 =
+Added a checkbox to set links as rel="nofollow". Updated vertical scrolling for responsive sites. Removed "width" override for scrolling tickers. Added new ticker classes.
 
 = 1.0.8 =
 Fixed bug in rotator mode with "pause on hover" activated. jQuery now loading on (window).load() instead of (document).ready(). Fixes scrolling issue in Safari. Added .clearfix to .mtphr-dnt-wrapper. Specifically set .mtphr-dnt-tick.clearfix to display:none to override css in certain themes. Added filters to jQuery class callbacks. Added ticker ID to jQuery class vars. Now resizing rotator ticker height on window resize.

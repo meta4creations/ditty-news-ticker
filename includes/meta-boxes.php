@@ -68,6 +68,10 @@ function mtphr_dnt_metabox_type_default() {
 			'header' => __('Target', 'ditty-news-ticker'),
 			'type' => 'select',
 			'options' => array( '_self', '_blank' )
+		),
+		'nofollow' => array(
+			'header' => __('NF', 'ditty-news-ticker'),
+			'type' => 'checkbox'
 		)
 	);
 	
@@ -159,19 +163,12 @@ function mtphr_dnt_mode_metabox_scroll() {
 
 	// Add the dimensions field
 	$scroll_fields['dimensions'] = array(
-		'id' => '_mtphr_dnt_scroll_width',
+		'id' => '_mtphr_dnt_scroll_height',
 		'type' => 'number',
 		'name' => __('Tick dimensions', 'ditty-news-ticker'),
 		'default' => 0,
-		'before' => __('Width', 'ditty-news-ticker'),
-		'description' => __('Override the auto dimensions with specific values.', 'ditty-news-ticker'),
-		'append' => array(
-			'_mtphr_dnt_scroll_height' => array(
-				'type' => 'number',
-				'default' => 0,
-				'before' => __('Height', 'ditty-news-ticker'),
-			)
-		)
+		'before' => __('Height', 'ditty-news-ticker'),
+		'description' => __('Override the auto dimensions with specific values.', 'ditty-news-ticker')
 	);
 	
 	// Add the spacing field

@@ -19,7 +19,9 @@
 .mtphr-dnt-tick.clearfix {
 	display:none;
 }
-.mtphr-dnt-rotate .mtphr-dnt-tick {
+.mtphr-dnt-rotate .mtphr-dnt-tick,
+.mtphr-dnt-scroll-up .mtphr-dnt-tick,
+.mtphr-dnt-scroll-down .mtphr-dnt-tick {
 	white-space: normal;
 }
 .mtphr-dnt-list .mtphr-dnt-tick {
