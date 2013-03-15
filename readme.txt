@@ -52,6 +52,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.1.1 =
+* Minor fix.
+
 = 1.1.0 =
 * Added "width" override for scrolling tickers back in... whoops!
 
@@ -105,6 +108,9 @@ Each individual Ticker post has multiple settings to customize.
 * Initial upload of Ditty News Ticker - a multi-functional data display plugin.
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Minor fix.
 
 = 1.1.0 =
 Added "width" override for scrolling tickers back in... whoops!

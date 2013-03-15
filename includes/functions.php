@@ -22,7 +22,7 @@ function ditty_news_ticker( $id='', $class='', $atts=false ) {
 /**
  * Return the ticker
  *
- * @since 1.1.0
+ * @since 1.1.1
  */
 function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
@@ -64,7 +64,8 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
 					// Get the contents
 					if( $link = esc_url($tick['link']) ) {
-						$contents = '<a href="'.$link.'" target="'.$tick['target'].'">'.$text.'</a>';
+						$nf = ( isset($tick['nofollow']) && $tick['nofollow'] ) ? ' rel="nofollow"' : '';
+						$contents = '<a href="'.$link.'" target="'.$tick['target'].'"'.$nf.'>'.$text.'</a>';
 					} else {
 						$contents = $text;
 					}
