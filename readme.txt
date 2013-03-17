@@ -52,6 +52,13 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.1.2 =
+* Reworked scroll mode to function better in IE.
+* Added a global offset to scrolling and rotating ticks to are hidden.
+* Moved rotating tick code into .js file.
+* Added css for max-image: 100%.
+* Converted .clearfix class to custom .mtrph-dnt-clearfix to avoid conflicts.
+
 = 1.1.1 =
 * Minor fix.
 
@@ -108,6 +115,9 @@ Each individual Ticker post has multiple settings to customize.
 * Initial upload of Ditty News Ticker - a multi-functional data display plugin.
 
 == Upgrade Notice ==
+
+= 1.1.2 =
+Reworked scroll mode to function better in IE. Added a global offset to scrolling and rotating ticks to are hidden. Moved rotating tick code into .js file. Added css for max-image: 100%. Converted .clearfix class to custom .mtrph-dnt-clearfix to avoid conflicts.
 
 = 1.1.1 =
 Minor fix.

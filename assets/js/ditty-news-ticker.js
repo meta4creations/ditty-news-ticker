@@ -1,9 +1,9 @@
 /**
  * Ditty News Ticker
- * Date: 3/10/2013
+ * Date: 3/17/2013
  *
  * @author Metaphor Creations
- * @version 1.1.0
+ * @version 1.1.2
  *
  **/
 
@@ -23,7 +23,7 @@
 					scroll_speed					: 10,
 					scroll_pause					: 0,
 					scroll_spacing				: 40,
-					scroll_units					: 1,
+					scroll_units					: 10,
 					rotate_type						: 'fade',
 					auto_rotate						: 0,
 					rotate_delay					: 10,
@@ -64,6 +64,7 @@
 					rotate_adjustment = settings.rotate_type,
 					after_change_timeout,
 					ticker_pause = false,
+					offset = 20,
 					touch_down_x,
 					touch_down_y,
 					touch_link = '',
@@ -96,7 +97,7 @@
 		     * @since 1.1.0
 		     */
 		    function mtphr_dnt_scroll_setup() {
-		    
+
 		    	var $first = $ticker.find('.mtphr-dnt-tick:first');
 		    	if( $first.attr('style') ) {
 			    	var style = $first.attr('style');
@@ -122,51 +123,20 @@
 		    	
 		    	// Loop through the tick items
 					$ticker.find('.mtphr-dnt-tick').each( function(index) {
-	
-						// Set the tick position
-						var position;
-						
-						switch( settings.scroll_direction ) {
-							case 'left':
-								position = ticker_width;
-								$(this).css('left',position+'px');
-								break;
-								
-							case 'right':
-								position = parseInt('-'+$(this).width());
-								$(this).css('left',position+'px');
-								break;
-								
-							case 'up':
-								if( ticker_scroll_resize ) {
-									$(this).css('width',ticker_width);
-								}
-								position = parseInt(ticker_height);
-								$(this).css('top',position+'px');
-								break;
-								
-							case 'down':
-								if( ticker_scroll_resize ) {
-									$(this).css('width',ticker_width);
-								}
-								position = parseInt('-'+$(this).height());
-								$(this).css('top',position+'px');
-								break;
-						}
 						
 						// Make sure the ticker is visible
 						$(this).show();
 						
 						// Add the tick data
-						var tick = [{'headline':$(this), 'width':$(this).width(), 'height':$(this).height(), 'position':position, 'reset':position, 'visible':false}];
+						var tick = [{'headline':$(this)}];
 	
 						// Add the tick to the array
 						ticks.push(tick);
 					});
-
-					// Set the first tick visibility
-					ticks[vars.current_tick][0].visible = true;
 					
+					// Set the initial position of the ticks
+					mtphr_dnt_scroll_reset_ticks();
+										
 					// Start the scroll loop
 					mtphr_dnt_scroll_loop();
 					
@@ -200,34 +170,36 @@
 	
 							if( ticks[i][0].visible == true ) {
 								
-								var pos = 0;
+								var pos = 'reset';
 								
-								switch( settings.scroll_direction ) {
-									case 'left':
-										pos = mtphr_dnt_scroll_left(i);
-										ticks[i][0].headline.css('left',pos+'px');
-										break;
-										
-									case 'right':
-										pos = mtphr_dnt_scroll_right(i);
-										ticks[i][0].headline.css('left',pos+'px');
-										break;
-										
-									case 'up':
-										pos = mtphr_dnt_scroll_up(i);
-										ticks[i][0].headline.css('top',pos+'px');
-										break;
-										
-									case 'down':
-										pos = mtphr_dnt_scroll_down(i);
-										ticks[i][0].headline.css('top',pos+'px');
-										break;
+								if( settings.scroll_direction == 'left' || settings.scroll_direction == 'right' ) {
+									
+									pos = (settings.scroll_direction == 'left') ? mtphr_dnt_scroll_left(i) : mtphr_dnt_scroll_right(i);
+									if( pos == 'reset' ) {
+										pos = ticks[i][0].reset;
+										ticks[i][0].headline.stop(true,true).css('left',pos+'px');
+									} else {
+										ticks[i][0].headline.stop(true,true).animate( {
+											left: pos+'px'
+										}, 100, 'linear' );
+									}
+								} else {
+									
+									pos = (settings.scroll_direction == 'up') ? mtphr_dnt_scroll_up(i) : mtphr_dnt_scroll_down(i);
+									if( pos == 'reset' ) {
+										pos = ticks[i][0].reset;
+										ticks[i][0].headline.stop(true,true).css('top',pos+'px');
+									} else {
+										ticks[i][0].headline.stop(true,true).animate( {
+											top: pos+'px'
+										}, 100, 'linear' );
+									}
 								}
 								
 								ticks[i][0].position = pos;
 							}
 						}
-			    }, parseFloat(100/settings.scroll_speed));	
+			    }, 100);	
 		    }
 
 		    /**
@@ -238,12 +210,12 @@
 		    function mtphr_dnt_scroll_left( i ) {
 			    
 			    // Find the new position
-					var pos = ticks[i][0].position - settings.scroll_units;
+					var pos = parseFloat(ticks[i][0].position - settings.scroll_speed);
 					
 					// Reset the tick if off the screen
-					if( pos < -ticks[i][0].width ) {
+					if( pos < -(ticks[i][0].width+offset) ) {
 						pos = mtphr_dnt_scroll_check_current(i);
-					} else if( pos < ticker_width-ticks[i][0].width-settings.scroll_spacing ) {
+					} else if( pos < parseFloat(ticker_width-ticks[i][0].width-settings.scroll_spacing) ) {
 						mtphr_dnt_scroll_check_next(i);
 					}
 					
@@ -258,10 +230,10 @@
 		    function mtphr_dnt_scroll_right( i ) {
 			    
 			    // Find the new position
-					var pos = ticks[i][0].position + settings.scroll_units;
+					var pos = ticks[i][0].position + settings.scroll_speed;
 
 					// Reset the tick if off the screen
-					if( pos > ticker_width ) {
+					if( pos > ticker_width+offset ) {
 						pos = mtphr_dnt_scroll_check_current(i);
 					} else if( pos > settings.scroll_spacing ) {	
 						mtphr_dnt_scroll_check_next(i);
@@ -278,10 +250,10 @@
 		    function mtphr_dnt_scroll_up( i ) {
 			    
 			    // Find the new position
-					var pos = ticks[i][0].position - settings.scroll_units;
+					var pos = ticks[i][0].position - settings.scroll_speed;
 
 					// Reset the tick if off the screen
-					if( pos < -ticks[i][0].height ) {
+					if( pos < -(ticks[i][0].height+offset) ) {
 						pos = mtphr_dnt_scroll_check_current(i);
 					} else if( pos < ticker_height-ticks[i][0].height-settings.scroll_spacing ) {	
 						mtphr_dnt_scroll_check_next(i);
@@ -298,10 +270,10 @@
 		    function mtphr_dnt_scroll_down( i ) {
 			    
 			    // Find the new position
-					var pos = ticks[i][0].position + settings.scroll_units;
+					var pos = ticks[i][0].position + settings.scroll_speed;
 
 					// Reset the tick if off the screen
-					if( pos > ticker_height ) {
+					if( pos > ticker_height+offset ) {
 						pos = mtphr_dnt_scroll_check_current(i);
 					} else if( pos > settings.scroll_spacing ) {	
 						mtphr_dnt_scroll_check_next(i);
@@ -321,7 +293,7 @@
 						ticks[i][0].visible = false;
 					}
 					
-					return ticks[i][0].reset;
+					return 'reset';
 		    }
 		    
 		    /**
@@ -349,19 +321,19 @@
 				    
 				    // Set the tick position
 						var position;
-
+						
 						var $tick = ticks[i][0].headline;
 						
 						switch( settings.scroll_direction ) {
 							case 'left':
-								position = ticker_width;
+								position = ticker_width+offset;
 								if( ticks[i][0].visible == false ) {
 									$tick.css('left',position+'px');
 								}
 								break;
 								
 							case 'right':
-								position = parseInt('-'+$tick.width());
+								position = parseInt('-'+($tick.width()+offset));
 								if( ticks[i][0].visible == false ) {
 									$tick.css('left',position+'px');
 								}
@@ -371,7 +343,7 @@
 								if( ticker_scroll_resize ) {
 									$tick.css('width',ticker_width);
 								}
-								position = parseInt(ticker_height);
+								position = parseInt(ticker_height+offset);
 								if( ticks[i][0].visible == false ) {
 									$tick.css('top',position+'px');
 								}
@@ -381,7 +353,7 @@
 								if( ticker_scroll_resize ) {
 									$tick.css('width',ticker_width);
 								}
-								position = parseInt('-'+$tick.height());
+								position = parseInt('-'+($tick.height()+offset));
 								if( ticks[i][0].visible == false ) {
 									$tick.css('top',position+'px');
 								}
@@ -411,31 +383,29 @@
 						
 						switch( settings.scroll_direction ) {
 							case 'left':
-								position = ticker_width;
-								$(this).css('left',position+'px');
-								$tick.css('left',position+'px');	
+								position = ticker_width+offset;
+								$tick.stop(true,true).css('left',position+'px');	
 								break;
 								
 							case 'right':
-								position = parseInt('-'+$(this).width());
-								$(this).css('left',position+'px');
-								$tick.css('left',position+'px');	
+								position = parseInt('-'+($tick.width()+offset));
+								$tick.stop(true,true).css('left',position+'px');	
 								break;
 								
 							case 'up':
 								if( ticker_scroll_resize ) {
 									$tick.css('width',ticker_width);
 								}
-								position = parseInt(ticker_height);
-								$tick.css('top',position+'px');	
+								position = parseInt(ticker_height+offset);
+								$tick.stop(true,true).css('top',position+'px');	
 								break;
 								
 							case 'down':
 								if( ticker_scroll_resize ) {
 									$tick.css('width',ticker_width);
 								}
-								position = parseInt('-'+$(this).height());
-								$tick.css('top',position+'px');	
+								position = parseInt('-'+($tick.height()+offset));
+								$tick.stop(true,true).css('top',position+'px');	
 								break;
 						}
 						
@@ -626,9 +596,369 @@
 			    var h = $(ticks[vars.current_tick]).height();
 					$ticker.stop().css( 'height', h+'px' );
 		    }
+		    
+		    
+		    
+		    
+		    /**
+		     * Rotator fade scripts
+		     *
+		     * @since 1.0.0
+		     */
+				function mtphr_dnt_rotator_fade_init( $ticker, ticks, rotate_speed, ease ) {
+					
+					// Get the first tick
+					$tick = ticks[0];
+					
+					// Find the width of the tick
+					var w = $tick.parents('.mtphr-dnt-rotate').width();
+					var h = $tick.height();
+					
+					// Set the height of the ticker
+					$ticker.css( 'height', h+'px' );
+			
+					// Set the initial position of the width & make sure it's visible
+					$tick.show();
+			  }
+			
+				// Show the new tick
+				function mtphr_dnt_rotator_fade_in( $ticker, $tick, $prev, rotate_speed, ease ) {
+			    $tick.fadeIn( rotate_speed );
+			    
+			    var h = $tick.height();
+			
+					// Resize the ticker
+					$ticker.stop().animate( {
+						height: h+'px'
+					}, rotate_speed, ease, function() {
+					});
+			  }
+			  
+			  // Hide the old tick
+			  function mtphr_dnt_rotator_fade_out( $ticker, $tick, $next, rotate_speed, ease ) {
+			    $tick.fadeOut( rotate_speed );
+			  }
+			  
+			  
+			  
+			  
+			  /**
+		     * Rotator slide left scripts
+		     *
+		     * @since 1.0.0
+		     */
+				function mtphr_dnt_rotator_slide_left_init( $ticker, ticks, rotate_speed, ease ) {
+					
+					// Get the first tick
+					$tick = ticks[0];
+					
+					// Find the dimensions of the tick
+					var w = $tick.parents('.mtphr-dnt-rotate').width();
+					var h = $tick.height();
+					
+					// Set the height of the ticker
+					$ticker.css( 'height', h+'px' );
+			
+					// Set the initial position of the width & make sure it's visible
+					$tick.css( 'left', 0 );
+					$tick.show();
+					
+					// If there are any images, reset height after loading
+					if( $tick.find('img').length > 0 ) {
+						
+						$tick.find('img').each( function(index) {
+							
+							jQuery(this).load( function() {
+								
+								// Find the height of the tick
+								var h = $tick.height();
+						
+								// Set the height of the ticker
+								$ticker.css( 'height', h+'px' );
+							});	
+						});	
+					}
+			  }
+			  
+				// Show the new tick
+				function mtphr_dnt_rotator_slide_left_in( $ticker, $tick, $prev, rotate_speed, ease ) {
+					
+					// Find the dimensions of the tick
+					var w = $tick.parents('.mtphr-dnt-rotate').width();
+					var h = $tick.height();
+			
+					// Set the initial position of the width & make sure it's visible
+					$tick.css( 'left', parseFloat(w+offset)+'px' );
+					$tick.show();
+					
+					// Resize the ticker
+					$ticker.stop().animate( {
+						height: h+'px'
+					}, rotate_speed, ease, function() {
+					});
+					
+					// Slide the tick in
+					$tick.stop().animate( {
+						left: '0'
+					}, rotate_speed, ease, function() {
+					});
+			  }
+			  
+			  // Hide the old tick
+			  function mtphr_dnt_rotator_slide_left_out( $ticker, $tick, $next, rotate_speed, ease ) {
+			    
+			    // Find the dimensions of the tick
+					var w = $tick.parents('.mtphr-dnt-rotate').width();
+					var h = $tick.height();
+					
+					// Slide the tick in
+					$tick.stop().animate( {
+						left: '-'+parseFloat(w+offset)+'px'
+					}, rotate_speed, ease, function() {
+						// Hide the tick
+						$tick.hide();
+					});
+			  }
+			  
+			  
+			  
+			  
+			  /**
+			   * Rotator slide right scripts
+			   *
+			   * @since 1.0.0
+			   */
+				function mtphr_dnt_rotator_slide_right_init( $ticker, ticks, rotate_speed, ease ) {
+					
+					// Get the first tick
+					$tick = ticks[0];
+					
+					// Find the dimensions of the tick
+					var w = $tick.parents('.mtphr-dnt-rotate').width();
+					var h = $tick.height();
+					
+					// Set the height of the ticker
+					$ticker.css( 'height', h+'px' );
+			
+					// Set the initial position of the width & make sure it's visible
+					$tick.css( 'left', 0 );
+					$tick.show();
+					
+					// If there are any images, reset height after loading
+					if( $tick.find('img').length > 0 ) {
+						
+						$tick.find('img').each( function(index) {
+							
+							jQuery(this).load( function() {
+								
+								// Find the height of the tick
+								var h = $tick.height();
+						
+								// Set the height of the ticker
+								$ticker.css( 'height', h+'px' );
+							});	
+						});	
+					}
+			  }
+			  
+				// Show the new tick
+				function mtphr_dnt_rotator_slide_right_in( $ticker, $tick, $prev, rotate_speed, ease ) {
+					
+					// Find the dimensions of the tick
+					var w = $tick.parents('.mtphr-dnt-rotate').width();
+					var h = $tick.height();
+			
+					// Set the initial position of the width & make sure it's visible
+					$tick.css( 'left', '-'+parseFloat(w+offset)+'px' );
+					$tick.show();
+					
+					// Resize the ticker
+					$ticker.stop().animate( {
+						height: h+'px'
+					}, rotate_speed, ease, function() {
+					});
+					
+					// Slide the tick in
+					$tick.stop().animate( {
+						left: '0'
+					}, rotate_speed, ease, function() {
+					});
+			  }
+			  
+			  // Hide the old tick
+			  function mtphr_dnt_rotator_slide_right_out( $ticker, $tick, $next, rotate_speed, ease ) {
+			    
+			    // Find the dimensions of the tick
+					var w = $tick.parents('.mtphr-dnt-rotate').width();
+					var h = $tick.height();
+					
+					// Slide the tick in
+					$tick.stop().animate( {
+						left: parseFloat(w+offset)+'px'
+					}, rotate_speed, ease, function() {
+						// Hide the tick
+						$tick.hide();
+					});
+			  }
+			  
+			  
+			  
+			  
+			  /**
+			   * Rotator slide down scripts
+			   *
+			   * @since 1.0.0
+			   */
+				function mtphr_dnt_rotator_slide_down_init( $ticker, ticks, rotate_speed, ease ) {
+					
+					// Get the first tick
+					$tick = ticks[0];
+					
+					// Find the height of the tick
+					var h = $tick.height();
+					
+					// Set the height of the ticker
+					$ticker.css( 'height', h+'px' );
+			
+					// Set the initial position of the width & make sure it's visible
+					$tick.css( 'top', 0 );
+					$tick.show();
+					
+					// If there are any images, reset height after loading
+					if( $tick.find('img').length > 0 ) {
+						
+						$tick.find('img').each( function(index) {
+							
+							jQuery(this).load( function() {
+								
+								// Find the height of the tick
+								var h = $tick.height();
+						
+								// Set the height of the ticker
+								$ticker.css( 'height', h+'px' );
+							});	
+						});	
+					}
+			  }
+			  
+				// Show the new tick
+				function mtphr_dnt_rotator_slide_down_in( $ticker, $tick, $prev, rotate_speed, ease ) {
+					
+					// Find the height of the tick
+					var h = $tick.height();
+			
+					// Set the initial position of the width & make sure it's visible
+					$tick.css( 'top', '-'+parseFloat(h+offset)+'px' );
+					$tick.show();
+					
+					// Resize the ticker
+					$ticker.stop().animate( {
+						height: h+'px'
+					}, rotate_speed, ease, function() {
+					});
+					
+					// Slide the tick in
+					$tick.stop().animate( {
+						top: '0'
+					}, rotate_speed, ease, function() {
+					});
+			  }
+			  
+			  // Hide the old tick
+			  function mtphr_dnt_rotator_slide_down_out( $ticker, $tick, $next, rotate_speed, ease ) {
+			    
+			    // Find the height of the next tick
+					var h = $next.height();
+					
+					// Slide the tick in
+					$tick.stop().animate( {
+						top: parseFloat(h+offset)+'px'
+					}, rotate_speed, ease, function() {
+						// Hide the tick
+						$tick.hide();
+					});
+			  }
 
 		    
 
+			  
+			  /**
+			   * Rotator slide up scripts
+			   *
+			   * @since 1.0.0
+			   */
+				function mtphr_dnt_rotator_slide_up_init( $ticker, ticks, rotate_speed, ease ) {
+					
+					// Get the first tick
+					$tick = ticks[0];
+					
+					// Find the height of the tick
+					var h = $tick.height();
+			
+					// Set the height of the ticker
+					$ticker.css( 'height', h+'px' );
+			
+					// Set the initial position of the width & make sure it's visible
+					$tick.css( 'top', 0 );
+					$tick.show();
+					
+					// If there are any images, reset height after loading
+					if( $tick.find('img').length > 0 ) {
+						
+						$tick.find('img').each( function(index) {
+							
+							jQuery(this).load( function() {
+								
+								// Find the height of the tick
+								var h = $tick.height();
+						
+								// Set the height of the ticker
+								$ticker.css( 'height', h+'px' );
+							});	
+						});	
+					}
+			  }
+			  
+				// Show the new tick
+				function mtphr_dnt_rotator_slide_up_in( $ticker, $tick, $prev, rotate_speed, ease ) {
+					
+					// Find the height of the tick
+					var h = $tick.height();
+			
+					// Set the initial position of the width & make sure it's visible
+					$tick.css( 'top', parseFloat($prev.height()+offset)+'px' );
+					$tick.show();
+					
+					// Resize the ticker
+					$ticker.stop().animate( {
+						height: h+'px'
+					}, rotate_speed, ease, function() {
+					});
+					
+					// Slide the tick in
+					$tick.stop().animate( {
+						top: '0'
+					}, rotate_speed, ease, function() {
+					});
+			  }
+			  
+			  // Hide the old tick
+			  function mtphr_dnt_rotator_slide_up_out( $ticker, $tick, $next, rotate_speed, ease ) {
+			    
+			    // Find the height of the next tick
+					var h = $tick.height();
+					
+					// Slide the tick in
+					$tick.stop().animate( {
+						top: '-'+parseFloat(h+offset)+'px'
+					}, rotate_speed, ease, function() {
+						// Hide the tick
+						$tick.hide();
+					});
+			  }
+			  
+			  
+			  
 
 		    /**
 		     * Navigation clicks
@@ -712,89 +1042,9 @@
 						mtphr_dnt_rotator_update( new_tick );	
 		    	});
 		    }
-		    
-		    
-		    
-		    
-		    /**
-		     * Mobile touch support
-		     *
-		     * @since 1.0.0
-		     */
-		    if( settings.type == 'rotate' ) {
-		    
-			    /*
-			    $ticker.bind( 'touchstart', function(e) {
 
-						e.preventDefault();
-						
-						// Save the target
-						touch_link = $(e.target).attr('href');
-						touch_target = $(e.target).attr('target');;
-						
-						var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-				    touch_down_x = touch.pageX;
-				    touch_down_y = touch.pageY;
-					});
-					
-					$ticker.bind( 'touchend', function(e) {
-					
-						if(vars.running) return false;
-						
-						var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-				    touch_up_x = touch.pageX;
-				    touch_up_y = touch.pageY;
-				
-						if( Math.abs(touch_down_x-touch_up_x) > 100 ) {
-							if ( touch_down_x-touch_up_x > 0 ) {
 
-					    	// Find the new tick
-					    	var new_tick = parseInt(vars.current_tick + 1);
-								if( new_tick == vars.tick_count ) {
-									new_tick = 0;
-								}
-								mtphr_dnt_rotator_update( new_tick );
-								
-							} else {
-								
-								// Find the new tick
-					    	var new_tick = parseInt(vars.current_tick-1);
-								if( new_tick < 0 ) {
-									new_tick = vars.tick_count-1;
-								}
-								if( settings.nav_reverse ) {
-									if( settings.rotate_type == 'slide_left' ) {
-										rotate_adjustment = 'slide_right';
-									} else if( settings.rotate_type == 'slide_right' ) {
-										rotate_adjustment = 'slide_left';
-									} else if( settings.rotate_type == 'slide_down' ) {
-										rotate_adjustment = 'slide_up';
-									} else if( settings.rotate_type == 'slide_up' ) {
-										rotate_adjustment = 'slide_down';
-									}
-									vars.reverse = 1;
-								}
-								mtphr_dnt_rotator_update( new_tick );
-							}
-						} else {
-						
-							if( touch_link != '' ) {
-								if( touch_target == '_blank' ) {
-									window.open( touch_link );
-								} else {
-									window.location( touch_link );
-								}
-							}
-							
-							touch_link = '';
-							touch_target = '';
-						}
-					});
-					*/
-				}
-		    
-		    
-		    
+
 		    
 		    /**
 		     * Resize listener

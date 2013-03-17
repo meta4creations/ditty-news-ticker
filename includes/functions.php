@@ -22,7 +22,7 @@ function ditty_news_ticker( $id='', $class='', $atts=false ) {
 /**
  * Return the ticker
  *
- * @since 1.1.1
+ * @since 1.1.2
  */
 function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
@@ -100,7 +100,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 		}
 		
 		echo '<div'.$ticker_width.' id="'.$tick_id.'" '.mtphr_dnt_ticker_class( $id, $class, $meta_data ).'>';
-		echo '<div class="mtphr-dnt-wrapper clearfix">';
+		echo '<div class="mtphr-dnt-wrapper mtphr-dnt-clearfix">';
 	
 		// Display the title
 		if( isset($_mtphr_dnt_title) ) {
@@ -163,7 +163,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 				$tick_style = ( $width != '' || $height != '' || $spacing != '' ) ? ' style="'.$width.$height.$spacing.'"' : '';
 				
 				do_action( 'mtphr_dnt_tick_before', $id, $meta_data, $total, $i );
-				echo '<div'.$tick_style.' '.mtphr_dnt_tick_class('clearfix').'>';
+				echo '<div'.$tick_style.' '.mtphr_dnt_tick_class('mtphr-dnt-clearfix').'>';
 				do_action( 'mtphr_dnt_tick_top', $id, $meta_data );
 			
 				echo $tick;

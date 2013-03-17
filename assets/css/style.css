@@ -1,3 +1,7 @@
+.mtphr-dnt img {
+  max-width: 100%;
+  height: auto;
+}
 .mtphr-dnt-wrapper {
 	position: relative;
 	width: 100%;
@@ -11,23 +15,20 @@
 	overflow: hidden;
 }
 .mtphr-dnt-tick {
-	display: none;
-	position: absolute;
-	white-space: nowrap;
 	margin: 0;
 }
-.mtphr-dnt-tick.clearfix {
+.mtphr-dnt-rotate .mtphr-dnt-tick,
+.mtphr-dnt-scroll .mtphr-dnt-tick {
 	display:none;
 }
 .mtphr-dnt-rotate .mtphr-dnt-tick,
-.mtphr-dnt-scroll-up .mtphr-dnt-tick,
-.mtphr-dnt-scroll-down .mtphr-dnt-tick {
-	white-space: normal;
+.mtphr-dnt-scroll .mtphr-dnt-tick {
+	position: absolute;
+	display:none;
 }
-.mtphr-dnt-list .mtphr-dnt-tick {
-	display: block;
-	position: relative;
-	white-space: normal;
+.mtphr-dnt-scroll-left .mtphr-dnt-tick,
+.mtphr-dnt-scroll-right .mtphr-dnt-tick {
+	white-space: nowrap;
 }
 
 /* Directional nav
@@ -90,16 +91,16 @@
 /* Add clearfix
 ------------------------------------------------------------ */
 
-.clearfix {
+.mtphr-dnt-clearfix {
   *zoom: 1;
 }
-.clearfix:before,
-.clearfix:after {
+.mtphr-dnt-clearfix:before,
+.mtphr-dnt-clearfix:after {
   display: table;
   line-height: 0;
   content: "";
 }
-.clearfix:after {
+.mtphr-dnt-clearfix:after {
   clear: both;
 }
 
