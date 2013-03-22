@@ -33,7 +33,7 @@ add_action( 'admin_init', 'mtphr_dnt_initialize_settings' );
 /**
  * Setup the custom options for the settings page
  *
- * @since 1.0.6
+ * @since 1.1.3
  */
 function mtphr_dnt_initialize_settings() {
 
@@ -41,6 +41,13 @@ function mtphr_dnt_initialize_settings() {
 	 * General options sections
 	 */
 	$settings = array();
+	
+	$settings['wysiwyg'] = array(
+		'title' => __( 'Visual Editor', 'ditty-news-ticker' ),
+		'type' => 'checkbox',
+		'label' => __( 'Use the visual editor for ticks', 'ditty-news-ticker' ),
+		'description' => __( '*The content in the visual editors will disappear after re-arranging ticks. That content will re-populate after resaving the ticker.', 'ditty-news-ticker' )
+	);
 	
 	$settings['css'] = array(
 		'title' => __( 'Custom CSS', 'ditty-news-ticker' ),

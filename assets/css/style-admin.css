@@ -42,3 +42,7 @@
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
+
+.mtphr-dnt-metaboxer_mtphr_dnt_ticks-tick .wp-editor-wrap {
+	margin-bottom: 10px;
+}
