@@ -48,14 +48,14 @@ add_action( 'admin_init', 'mtphr_dnt_metabox_type_default' );
 /**
  * Create the default type metabox.
  *
- * @since 1.1.3
+ * @since 1.1.4
  */
 function mtphr_dnt_metabox_type_default() {
 	
 	$tick_type = 'textarea';
 	$settings = get_option( 'mtphr_dnt_general_settings' );
 	if( $settings && isset($settings['wysiwyg']) ) {
-		$tick_type = 'wysiwyg';
+		//$tick_type = 'wysiwyg';
 	}
 	
 	// Create an array to store the default item structure

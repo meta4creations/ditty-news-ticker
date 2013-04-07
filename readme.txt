@@ -52,6 +52,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.1.4 =
+* Added nofollow to navigational links.
+
 = 1.1.3 =
 * Added option to use visual editors for tick content (on settings page). 
 * Adjusted DNT jQuery class. Converted height() & width() to outerHeight() & outerWidth()
@@ -119,6 +122,9 @@ Each individual Ticker post has multiple settings to customize.
 * Initial upload of Ditty News Ticker - a multi-functional data display plugin.
 
 == Upgrade Notice ==
+
+= 1.1.4 =
+Added nofollow to navigational links.
 
 = 1.1.3 =
 Added option to use visual editors for tick content (on settings page). Adjusted DNT jQuery class. Converted height() & width() to outerHeight() & outerWidth().

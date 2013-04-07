@@ -182,8 +182,8 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 						if( isset($_mtphr_dnt_rotate_directional_nav_hide) ) {
 							$hide = $_mtphr_dnt_rotate_directional_nav_hide ? ' mtphr-dnt-nav-hide' : '';
 						}
-						echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-prev'.$hide.'" href="#">'.apply_filters( 'mtphr_dnt_direction_nav_prev', '' ).'</a>';
-						echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-next'.$hide.'" href="#">'.apply_filters( 'mtphr_dnt_direction_nav_next', '' ).'</a>';
+						echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-prev'.$hide.'" href="#" rel="nofollow">'.apply_filters( 'mtphr_dnt_direction_nav_prev', '' ).'</a>';
+						echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-next'.$hide.'" href="#" rel="nofollow">'.apply_filters( 'mtphr_dnt_direction_nav_next', '' ).'</a>';
 					}
 				}
 			}
@@ -201,7 +201,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
 					echo '<div class="mtphr-dnt-control-links">';
 					foreach( $dnt_ticks as $i => $tick ) {
-						echo '<a class="mtphr-dnt-control mtphr-dnt-control-'.$_mtphr_dnt_rotate_control_nav_type.'" href="'.$i.'">'.apply_filters( 'mtphr_dnt_control_nav', intval($i+1) ).'</a>';
+						echo '<a class="mtphr-dnt-control mtphr-dnt-control-'.$_mtphr_dnt_rotate_control_nav_type.'" href="'.$i.'" rel="nofollow">'.apply_filters( 'mtphr_dnt_control_nav', intval($i+1) ).'</a>';
 					}
 					echo '</div>';
 				}
