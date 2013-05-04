@@ -103,7 +103,7 @@
 	border: 1px solid #EEE;
 	white-space: normal;
 	word-break: break-all;
-	
+
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -129,7 +129,7 @@
 	border: 1px solid #EEE;
 	white-space: normal;
 	text-decoration: none;
-	
+
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -175,7 +175,7 @@
 	border: 1px solid #EEE;
 	white-space: normal;
 	text-decoration: none;
-	
+
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -332,10 +332,16 @@ a.mtphr-dnt-metaboxer-image-select-link.selected img {
 /* WYSIWYG
 ------------------------------------------------------------ */
 
+.mtphr-dnt-metaboxer-wysiwyg-placeholder {
+	background: #EFEFEF;
+	border: 1px dashed #CCC;
+	padding: 30px;
+	margin-bottom: 10px;
+}
 .mtphr-dnt-metaboxer-wysiwyg {
 	max-width: 800px;
 }
-.mtphr-dnt-metaboxer-wysiwyg .mceIframeContainer {
+.mtphr-dnt-metaboxer-wysiwyg .mceContentBody {
 	background: #FFF;
 }
 

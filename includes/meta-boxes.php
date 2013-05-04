@@ -4,11 +4,11 @@
  *
  * @package Ditty News Ticker
  */
- 
 
 
 
-add_action( 'admin_init', 'mtphr_dnt_metabox_types', 9 ); 
+
+add_action( 'admin_init', 'mtphr_dnt_metabox_types', 9 );
 /**
  * Create the types metabox.
  *
@@ -40,24 +40,24 @@ function mtphr_dnt_metabox_types() {
 	);
 	new MTPHR_DNT_MetaBoxer( $dnt_types );
 }
- 
- 
 
 
-add_action( 'admin_init', 'mtphr_dnt_metabox_type_default' ); 
+
+
+add_action( 'admin_init', 'mtphr_dnt_metabox_type_default' );
 /**
  * Create the default type metabox.
  *
  * @since 1.1.4
  */
 function mtphr_dnt_metabox_type_default() {
-	
+
 	$tick_type = 'textarea';
 	$settings = get_option( 'mtphr_dnt_general_settings' );
 	if( $settings && isset($settings['wysiwyg']) ) {
-		//$tick_type = 'wysiwyg';
+		$tick_type = 'wysiwyg';
 	}
-	
+
 	// Create an array to store the default item structure
 	$tick_structure = array(
 		'tick' => array(
@@ -80,17 +80,17 @@ function mtphr_dnt_metabox_type_default() {
 			'type' => 'checkbox'
 		)
 	);
-	
+
 	// Create an array to store the fields
 	$default_fields = array();
-	
+
 	// Add the items field
 	$default_fields['ticks'] = array(
 		'id' => '_mtphr_dnt_ticks',
 		'type' => 'list',
 		'structure' => apply_filters('mtphr_dnt_default_tick_structure', $tick_structure)
 	);
-	
+
 	// Create the metabox
 	$dnt_default_data = array(
 		'id' => 'mtphr_dnt_type_default',
@@ -106,7 +106,7 @@ function mtphr_dnt_metabox_type_default() {
 
 
 
-add_action( 'admin_init', 'mtphr_dnt_metabox_modes', 11 ); 
+add_action( 'admin_init', 'mtphr_dnt_metabox_modes', 11 );
 /**
  * Create the modes metabox.
  *
@@ -124,7 +124,7 @@ function mtphr_dnt_metabox_modes() {
 		'options' => mtphr_dnt_modes_array(),
 		'default' => 'scroll'
 	);
-	
+
 	/* Create the modes metabox. */
 	$dnt_modes = array(
 		'id' => 'mtphr_dnt_modes',
@@ -140,7 +140,7 @@ function mtphr_dnt_metabox_modes() {
 
 
 
-add_action( 'admin_init', 'mtphr_dnt_mode_metabox_scroll', 12 ); 
+add_action( 'admin_init', 'mtphr_dnt_mode_metabox_scroll', 12 );
 /**
  * Create the scroll mode metabox.
  *
@@ -150,7 +150,7 @@ function mtphr_dnt_mode_metabox_scroll() {
 
 	// Create an array to store the fields
 	$scroll_fields = array();
-	
+
 	// Add the dimensions field
 	$scroll_fields['direction'] = array(
 		'id' => '_mtphr_dnt_scroll_direction',
@@ -183,7 +183,7 @@ function mtphr_dnt_mode_metabox_scroll() {
 			)
 		)
 	);
-	
+
 	// Add the spacing field
 	$scroll_fields['scroller_padding'] = array(
 		'id' => '_mtphr_dnt_scroll_padding',
@@ -200,7 +200,7 @@ function mtphr_dnt_mode_metabox_scroll() {
 			)
 		)
 	);
-	
+
 	// Add the slide speed field
 	$scroll_fields['scroll_speed'] = array(
 		'id' => '_mtphr_dnt_scroll_speed',
@@ -215,7 +215,7 @@ function mtphr_dnt_mode_metabox_scroll() {
 			)
 		)
 	);
-	
+
 	// Add the slide spacing field
 	$scroll_fields['tick_spacing'] = array(
 		'id' => '_mtphr_dnt_scroll_tick_spacing',
@@ -225,7 +225,7 @@ function mtphr_dnt_mode_metabox_scroll() {
 		'after' => __('Pixels', 'ditty-news-ticker'),
 		'description' => __('Set the spacing between scrolling data.', 'ditty-news-ticker')
 	);
-	
+
 	// Create the metabox
 	$dnt_scroll_settings = array(
 		'id' => 'mtphr_dnt_mode_scroll',
@@ -241,7 +241,7 @@ function mtphr_dnt_mode_metabox_scroll() {
 
 
 
-add_action( 'admin_init', 'mtphr_dnt_mode_metabox_rotate', 12 ); 
+add_action( 'admin_init', 'mtphr_dnt_mode_metabox_rotate', 12 );
 /**
  * Create the rotate metabox.
  *
@@ -251,7 +251,7 @@ function mtphr_dnt_mode_metabox_rotate() {
 
 	// Create an array to store the fields
 	$rotate_fields = array();
-	
+
 	// Add the dimensions field
 	$rotate_fields['type'] = array(
 		'id' => '_mtphr_dnt_rotate_type',
@@ -284,7 +284,7 @@ function mtphr_dnt_mode_metabox_rotate() {
 		'before' => __('Height', 'ditty-news-ticker'),
 		'description' => __('Override the auto dimensions with specific values.', 'ditty-news-ticker')
 	);
-	
+
 	// Add the spacing field
 	$rotate_fields['rotate_padding'] = array(
 		'id' => '_mtphr_dnt_rotate_padding',
@@ -301,7 +301,7 @@ function mtphr_dnt_mode_metabox_rotate() {
 			)
 		)
 	);
-	
+
 	// Add the rotate delay field
 	$rotate_fields['rotate_delay'] = array(
 		'id' => '_mtphr_dnt_auto_rotate',
@@ -321,7 +321,7 @@ function mtphr_dnt_mode_metabox_rotate() {
 			)
 		)
 	);
-	
+
 	// Add the rotate speed field
 	$rotate_fields['rotate_speed'] = array(
 		'id' => '_mtphr_dnt_rotate_speed',
@@ -337,7 +337,7 @@ function mtphr_dnt_mode_metabox_rotate() {
 			)
 		)
 	);
-	
+
 	// Add the rotate navigation field
 	$rotate_fields['rotate_directional_nav'] = array(
 		'id' => '_mtphr_dnt_rotate_directional_nav',
@@ -352,7 +352,7 @@ function mtphr_dnt_mode_metabox_rotate() {
 			)
 		)
 	);
-	
+
 	// Add the rotate navigation field
 	$rotate_fields['rotate_control_nav'] = array(
 		'id' => '_mtphr_dnt_rotate_control_nav',
@@ -372,7 +372,7 @@ function mtphr_dnt_mode_metabox_rotate() {
 			)
 		)
 	);
-	
+
 	// Create the metabox
 	$dnt_rotate_settings = array(
 		'id' => 'mtphr_dnt_mode_rotate',
@@ -388,7 +388,7 @@ function mtphr_dnt_mode_metabox_rotate() {
 
 
 
-add_action( 'admin_init', 'mtphr_dnt_mode_metabox_list', 12 ); 
+add_action( 'admin_init', 'mtphr_dnt_mode_metabox_list', 12 );
 /**
  * Create the list metabox.
  *
@@ -398,7 +398,7 @@ function mtphr_dnt_mode_metabox_list() {
 
 	// Create an array to store the fields
 	$list_fields = array();
-	
+
 	// Add the spacing field
 	$list_fields['list_padding'] = array(
 		'id' => '_mtphr_dnt_list_padding',
@@ -415,7 +415,7 @@ function mtphr_dnt_mode_metabox_list() {
 			)
 		)
 	);
-	
+
 	// Add the list spacing field
 	$list_fields['tick_spacing'] = array(
 		'id' => '_mtphr_dnt_list_tick_spacing',
@@ -425,7 +425,7 @@ function mtphr_dnt_mode_metabox_list() {
 		'after' => __('Pixels', 'ditty-news-ticker'),
 		'description' => __('Set the spacing between ticks.', 'ditty-news-ticker')
 	);
-	
+
 	// Create the metabox
 	$dnt_list_settings = array(
 		'id' => 'mtphr_dnt_mode_list',
@@ -441,7 +441,7 @@ function mtphr_dnt_mode_metabox_list() {
 
 
 
-add_action( 'admin_init', 'mtphr_dnt_global_settings', 13 ); 
+add_action( 'admin_init', 'mtphr_dnt_global_settings', 13 );
 /**
  * Create the display metabox.
  *
@@ -451,7 +451,7 @@ function mtphr_dnt_global_settings() {
 
 	// Create an array to store the fields
 	$global_fields = array();
-	
+
 	// Add the title field
 	$global_fields['title'] = array(
 		'id' => '_mtphr_dnt_title',
@@ -464,7 +464,7 @@ function mtphr_dnt_global_settings() {
 			)
 		)
 	);
-	
+
 	// Add the title field
 	$global_fields['ticker_width'] = array(
 		'id' => '_mtphr_dnt_ticker_width',
@@ -488,7 +488,7 @@ function mtphr_dnt_global_settings() {
 
 
 
-add_action( 'admin_init', 'mtphr_dnt_display_metabox', 13 ); 
+add_action( 'admin_init', 'mtphr_dnt_display_metabox', 13 );
 /**
  * Create the display metabox.
  *
@@ -498,7 +498,7 @@ function mtphr_dnt_display_metabox() {
 
 	// Create an array to store the fields
 	$display_fields = array();
-	
+
 	// Add the shortcode field
 	$display_fields['shortcode'] = array(
 		'id' => '_mtphr_dnt_shortcode',
@@ -507,7 +507,7 @@ function mtphr_dnt_display_metabox() {
 		'button' => __('Select Shortcode', 'ditty-news-ticker'),
 		'description' => __('Use this shortcode to insert the ticker into a post/page.', 'ditty-news-ticker'),
 	);
-	
+
 	// Add the function field
 	$display_fields['function'] = array(
 		'id' => '_mtphr_dnt_function',
@@ -516,7 +516,7 @@ function mtphr_dnt_display_metabox() {
 		'button' => __('Select Function', 'ditty-news-ticker'),
 		'description' => __('Place this code directly into your theme to display the ticker.', 'ditty-news-ticker'),
 	);
-	
+
 	// Create the metabox
 	$dnt_display = array(
 		'id' => 'mtphr_dnt_display',

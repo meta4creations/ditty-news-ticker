@@ -11,7 +11,7 @@ Ditty News Ticker is a multi-functional data display plugin.
 
 == Description ==
 
-Ditty News Ticker is a multi-functional data display plugin. Easily add custom news tickers to your site either through shortcodes, direct functions, or in a custom Ditty News Ticker Widget. 
+Ditty News Ticker is a multi-functional data display plugin. Easily add custom news tickers to your site either through shortcodes, direct functions, or in a custom Ditty News Ticker Widget.
 
 #### There are 3 default ticker modes
 
@@ -52,11 +52,16 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.1.5 =
+* Modified jQuery ticker class loading.
+* Fixed load_plugin_textdomain setup.
+* Added wysiwyg editor option back.
+
 = 1.1.4 =
 * Added nofollow to navigational links.
 
 = 1.1.3 =
-* Added option to use visual editors for tick content (on settings page). 
+* Added option to use visual editors for tick content (on settings page).
 * Adjusted DNT jQuery class. Converted height() & width() to outerHeight() & outerWidth()
 
 = 1.1.2 =
@@ -122,6 +127,9 @@ Each individual Ticker post has multiple settings to customize.
 * Initial upload of Ditty News Ticker - a multi-functional data display plugin.
 
 == Upgrade Notice ==
+
+= 1.1.5 =
+Modified jQuery ticker class loading. Fixed load_plugin_textdomain setup. Added wysiwyg editor option back.
 
 = 1.1.4 =
 Added nofollow to navigational links.

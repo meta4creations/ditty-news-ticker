@@ -4,8 +4,8 @@
  *
  * @package Ditty News Ticker
  */
- 
- 
+
+
 
 
 add_action( 'admin_menu', 'mtphr_dnt_settings_menu', 9 );
@@ -41,26 +41,24 @@ function mtphr_dnt_initialize_settings() {
 	 * General options sections
 	 */
 	$settings = array();
-	
-	/*
-$settings['wysiwyg'] = array(
+
+	$settings['wysiwyg'] = array(
 		'title' => __( 'Visual Editor', 'ditty-news-ticker' ),
 		'type' => 'checkbox',
 		'label' => __( 'Use the visual editor for ticks', 'ditty-news-ticker' ),
 		'description' => __( '*The content in the visual editors will disappear after re-arranging ticks. That content will re-populate after resaving the ticker.', 'ditty-news-ticker' )
 	);
-*/
-	
+
 	$settings['css'] = array(
 		'title' => __( 'Custom CSS', 'ditty-news-ticker' ),
 		'type' => 'textarea',
 		'rows' => 20,
 		'description' => __( 'Custom CSS will be added to the head of each page that includes a Ditty News Ticker.', 'ditty-news-ticker' )
 	);
-	if( false == get_option('mtphr_dnt_general_settings') ) {	
+	if( false == get_option('mtphr_dnt_general_settings') ) {
 		add_option( 'mtphr_dnt_general_settings' );
 	}
-	
+
 	/* Register the general options */
 	add_settings_section(
 		'mtphr_dnt_general_settings_section',				// ID used to identify this section and with which to register options
@@ -77,7 +75,7 @@ $settings['wysiwyg'] = array(
 			add_settings_field( $setting['id'], $setting['title'], 'mtphr_dnt_settings_callback', 'mtphr_dnt_general_settings', 'mtphr_dnt_general_settings_section', $setting);
 		}
 	}
-	
+
 	// Register the fields with WordPress
 	register_setting( 'mtphr_dnt_general_settings', 'mtphr_dnt_general_settings' );
 }
@@ -94,16 +92,16 @@ function mtphr_dnt_settings_display( $active_tab = null ) {
 	?>
 	<!-- Create a header in the default WordPress 'wrap' container -->
 	<div class="wrap">
-	
+
 		<div id="icon-themes" class="icon32"></div>
 		<h2><?php _e( 'Ditty News Ticker Settings', 'ditty-news-ticker' ); ?></h2>
 		<?php settings_errors(); ?>
-		
+
 		<?php
 		$tabs = mtphr_dnt_settings_tabs();
 		$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general';
 		?>
-		
+
 		<ul style="margin-bottom:20px;" class="subsubsub">
 			<?php
 			$num_tabs = count($tabs);
@@ -116,7 +114,7 @@ function mtphr_dnt_settings_display( $active_tab = null ) {
 			}
 			?>
 		</ul>
-		
+
 		<br class="clear" />
 
 		<form method="post" action="options.php">
@@ -126,7 +124,7 @@ function mtphr_dnt_settings_display( $active_tab = null ) {
 			submit_button();
 			?>
 		</form>
-		
+
 	</div><!-- /.wrap -->
 	<?php
 }
@@ -154,31 +152,31 @@ function mtphr_dnt_general_settings_callback() {
  * The custom field callback.
  *
  * @since 1.0.0
- */ 
+ */
 function mtphr_dnt_settings_callback( $args ) {
-	
+
 	// First, we read the options collection
 	if( isset($args['option']) ) {
 		$options = get_option( $args['option'] );
 		$value = isset( $options[$args['option_id']] ) ? $options[$args['option_id']] : '';
 	} else {
 		$value = get_option( $args['id'] );
-	}	
+	}
 	if( $value == '' && isset($args['default']) ) {
 		$value = $args['default'];
 	}
 	if( isset($args['type']) ) {
-	
+
 		echo '<div class="mtphr-dnt-metaboxer-field mtphr-dnt-metaboxer-'.$args['type'].'">';
-		
+
 		// Call the function to display the field
 		if ( function_exists('mtphr_dnt_metaboxer_'.$args['type']) ) {
 			call_user_func( 'mtphr_dnt_metaboxer_'.$args['type'], $args, $value );
 		}
-		
+
 		echo '<div>';
 	}
-	
+
 	// Add a descriptions
 	if( isset($args['description']) ) {
 		echo '<span class="description"><small>'.$args['description'].'</small></span>';
