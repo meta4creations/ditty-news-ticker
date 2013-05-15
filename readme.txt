@@ -52,6 +52,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.1.6 =
+* Fixed pause on hover functionality.
+
 = 1.1.5 =
 * Modified jQuery ticker class loading.
 * Fixed load_plugin_textdomain setup.
@@ -127,6 +130,9 @@ Each individual Ticker post has multiple settings to customize.
 * Initial upload of Ditty News Ticker - a multi-functional data display plugin.
 
 == Upgrade Notice ==
+
+= 1.1.6 =
+Fixed pause on hover functionality.
 
 = 1.1.5 =
 Modified jQuery ticker class loading. Fixed load_plugin_textdomain setup. Added wysiwyg editor option back.

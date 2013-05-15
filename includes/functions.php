@@ -22,7 +22,7 @@ function ditty_news_ticker( $id='', $class='', $atts=false ) {
 /**
  * Return the ticker
  *
- * @since 1.1.2
+ * @since 1.1.6
  */
 function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
@@ -217,11 +217,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 		wp_reset_postdata();
 	}
 
-	/**
-	 * Add to the global script variable
-	 *
-	 * @since 1.0.0
-	 */
+	// Add to the global script variable
 	if( $_mtphr_dnt_mode == 'scroll' || $_mtphr_dnt_mode == 'rotate' ) {
 
 		global $mtphr_dnt_ticker_scripts;
@@ -237,14 +233,14 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
 		$scroll_pause = 0;
 		if( isset($_mtphr_dnt_scroll_pause) ) {
-			$pause = $_mtphr_dnt_scroll_pause ? 1 : 0;
+			$scroll_pause = $_mtphr_dnt_scroll_pause ? 1 : 0;
 		}
 		$rotate = 0; $rotate_pause = 0; $nav_autohide = 0; $nav_reverse = 0;
 		if( isset($_mtphr_dnt_auto_rotate) ) {
 			$rotate = $_mtphr_dnt_auto_rotate ? 1 : 0;
 		}
 		if( isset($_mtphr_dnt_rotate_pause) ) {
-			$pause = $_mtphr_dnt_rotate_pause ? 1 : 0;
+			$rotate_pause = $_mtphr_dnt_rotate_pause ? 1 : 0;
 		}
 		if( isset($_mtphr_dnt_rotate_directional_nav_reverse) ) {
 			$nav_reverse = $_mtphr_dnt_rotate_directional_nav_reverse ? 1 : 0;
