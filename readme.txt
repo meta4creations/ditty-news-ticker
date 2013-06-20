@@ -52,6 +52,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.1.7 =
+* Modified structure & CSS to move the rotate navigation up a level.
+
 = 1.1.6 =
 * Fixed pause on hover functionality.
 
@@ -130,6 +133,9 @@ Each individual Ticker post has multiple settings to customize.
 * Initial upload of Ditty News Ticker - a multi-functional data display plugin.
 
 == Upgrade Notice ==
+
+= 1.1.7 =
+Modified structure & CSS to move the rotate navigation up a level.
 
 = 1.1.6 =
 Fixed pause on hover functionality.

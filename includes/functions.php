@@ -22,7 +22,7 @@ function ditty_news_ticker( $id='', $class='', $atts=false ) {
 /**
  * Return the ticker
  *
- * @since 1.1.6
+ * @since 1.1.7
  */
 function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
@@ -148,6 +148,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 		// Open the ticker container
 		do_action( 'mtphr_dnt_before', $id, $meta_data );
 		echo '<div class="mtphr-dnt-tick-container"'.$container_style.'>';
+		echo '<div class="mtphr-dnt-tick-contents">';
 		do_action( 'mtphr_dnt_top', $id, $meta_data );
 
 		// Print out the ticks
@@ -172,25 +173,25 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 				echo '</div>';
 				do_action( 'mtphr_dnt_tick_after', $id, $meta_data, $total, $i );
 			}
-
-			// Add the directional nav
-			if( $_mtphr_dnt_mode == 'rotate' ) {
-				if( isset($_mtphr_dnt_rotate_directional_nav) ) {
-					if( $_mtphr_dnt_rotate_directional_nav ) {
-
-						$hide = '';
-						if( isset($_mtphr_dnt_rotate_directional_nav_hide) ) {
-							$hide = $_mtphr_dnt_rotate_directional_nav_hide ? ' mtphr-dnt-nav-hide' : '';
-						}
-						echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-prev'.$hide.'" href="#" rel="nofollow">'.apply_filters( 'mtphr_dnt_direction_nav_prev', '' ).'</a>';
-						echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-next'.$hide.'" href="#" rel="nofollow">'.apply_filters( 'mtphr_dnt_direction_nav_next', '' ).'</a>';
-					}
-				}
-			}
 		}
 
 		// Close the ticker container
 		do_action( 'mtphr_dnt_bottom', $id, $meta_data );
+		echo '</div>';
+		// Add the directional nav
+		if( is_array($dnt_ticks) && $_mtphr_dnt_mode == 'rotate' ) {
+			if( isset($_mtphr_dnt_rotate_directional_nav) ) {
+				if( $_mtphr_dnt_rotate_directional_nav ) {
+
+					$hide = '';
+					if( isset($_mtphr_dnt_rotate_directional_nav_hide) ) {
+						$hide = $_mtphr_dnt_rotate_directional_nav_hide ? ' mtphr-dnt-nav-hide' : '';
+					}
+					echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-prev'.$hide.'" href="#" rel="nofollow">'.apply_filters( 'mtphr_dnt_direction_nav_prev', '' ).'</a>';
+					echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-next'.$hide.'" href="#" rel="nofollow">'.apply_filters( 'mtphr_dnt_direction_nav_next', '' ).'</a>';
+				}
+			}
+		}
 		echo '</div>';
 		do_action( 'mtphr_dnt_after', $id, $meta_data );
 
