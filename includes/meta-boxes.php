@@ -144,7 +144,7 @@ add_action( 'admin_init', 'mtphr_dnt_mode_metabox_scroll', 12 );
 /**
  * Create the scroll mode metabox.
  *
- * @since 1.1.0
+ * @since 1.1.8
  */
 function mtphr_dnt_mode_metabox_scroll() {
 
@@ -164,7 +164,13 @@ function mtphr_dnt_mode_metabox_scroll() {
 		),
 		'default' => 'left',
 		'description' => __('Set the scroll direction of the ticker.', 'ditty-news-ticker'),
-		'display' => 'inline'
+		'display' => 'inline',
+		'append' => array(
+			'_mtphr_dnt_scroll_init' => array(
+				'type' => 'checkbox',
+				'label' => __('Show first tick on init', 'ditty-news-ticker'),
+			)
+		)
 	);
 
 	// Add the dimensions field
@@ -445,7 +451,7 @@ add_action( 'admin_init', 'mtphr_dnt_global_settings', 13 );
 /**
  * Create the display metabox.
  *
- * @since 1.0.3
+ * @since 1.1.8
  */
 function mtphr_dnt_global_settings() {
 
@@ -465,12 +471,28 @@ function mtphr_dnt_global_settings() {
 		)
 	);
 
+	// Add the randomize field
+	$global_fields['shuffle'] = array(
+		'id' => '_mtphr_dnt_shuffle',
+		'type' => 'checkbox',
+		'label' => __('Randomly shuffle the ticks', 'ditty-news-ticker')
+	);
+
 	// Add the title field
 	$global_fields['ticker_width'] = array(
 		'id' => '_mtphr_dnt_ticker_width',
 		'before' => __('Ticker width <em>(optional)</em>', 'ditty-news-ticker'),
 		'type' => 'number',
 		'after' => 'px<br/>'.'<small><em>'.__('Override the auto width a with specific value.', 'ditty-news-ticker').'</em></small>'
+	);
+
+	// Add the offset field
+	$global_fields['offset'] = array(
+		'id' => '_mtphr_dnt_offset',
+		'type' => 'number',
+		'default' => 20,
+		'before' => __('Offset ticks', 'ditty-news-ticker'),
+		'after' => __('px from the edge', 'ditty-news-ticker').'<br/>'.'<small><em>'.__('The amount of pixels ticks should start and end off the screen.', 'ditty-news-ticker').'</em></small>'
 	);
 
 	// Create the metabox

@@ -1,9 +1,9 @@
 /**
  * Ditty News Ticker
- * Date: 6/12/2013
+ * Date: 8/07/2013
  *
  * @author Metaphor Creations
- * @version 1.1.7
+ * @version 1.1.8
  *
  **/
 
@@ -24,6 +24,7 @@
 					scroll_pause					: 0,
 					scroll_spacing				: 40,
 					scroll_units					: 10,
+					scroll_init						: 0,
 					rotate_type						: 'fade',
 					auto_rotate						: 0,
 					rotate_delay					: 10,
@@ -31,6 +32,7 @@
 					rotate_speed					: 10,
 					rotate_ease						: 'easeOutExpo',
 					nav_reverse						: 0,
+					offset								: 20,
 					before_change					: function(){},
 					after_change					: function(){},
 					after_load						: function(){}
@@ -213,7 +215,7 @@
 					var pos = parseFloat(ticks[i][0].position - settings.scroll_speed);
 
 					// Reset the tick if off the screen
-					if( pos < -(ticks[i][0].width+offset) ) {
+					if( pos < -(ticks[i][0].width+settings.offset) ) {
 						pos = mtphr_dnt_scroll_check_current(i);
 					} else if( pos < parseFloat(ticker_width-ticks[i][0].width-settings.scroll_spacing) ) {
 						mtphr_dnt_scroll_check_next(i);
@@ -233,7 +235,7 @@
 					var pos = ticks[i][0].position + settings.scroll_speed;
 
 					// Reset the tick if off the screen
-					if( pos > ticker_width+offset ) {
+					if( pos > ticker_width+settings.offset ) {
 						pos = mtphr_dnt_scroll_check_current(i);
 					} else if( pos > settings.scroll_spacing ) {
 						mtphr_dnt_scroll_check_next(i);
@@ -253,7 +255,7 @@
 					var pos = ticks[i][0].position - settings.scroll_speed;
 
 					// Reset the tick if off the screen
-					if( pos < -(ticks[i][0].height+offset) ) {
+					if( pos < -(ticks[i][0].height+settings.offset) ) {
 						pos = mtphr_dnt_scroll_check_current(i);
 					} else if( pos < ticker_height-ticks[i][0].height-settings.scroll_spacing ) {
 						mtphr_dnt_scroll_check_next(i);
@@ -273,7 +275,7 @@
 					var pos = ticks[i][0].position + settings.scroll_speed;
 
 					// Reset the tick if off the screen
-					if( pos > ticker_height+offset ) {
+					if( pos > ticker_height+settings.offset ) {
 						pos = mtphr_dnt_scroll_check_current(i);
 					} else if( pos > settings.scroll_spacing ) {
 						mtphr_dnt_scroll_check_next(i);
@@ -326,14 +328,14 @@
 
 						switch( settings.scroll_direction ) {
 							case 'left':
-								position = ticker_width+offset;
+								position = ticker_width+settings.offset;
 								if( ticks[i][0].visible == false ) {
 									$tick.css('left',position+'px');
 								}
 								break;
 
 							case 'right':
-								position = parseInt('-'+($tick.outerWidth()+offset));
+								position = parseInt('-'+($tick.outerWidth()+settings.offset));
 								if( ticks[i][0].visible == false ) {
 									$tick.css('left',position+'px');
 								}
@@ -343,7 +345,7 @@
 								if( ticker_scroll_resize ) {
 									$tick.css('width',ticker_width);
 								}
-								position = parseInt(ticker_height+offset);
+								position = parseInt(ticker_height+settings.offset);
 								if( ticks[i][0].visible == false ) {
 									$tick.css('top',position+'px');
 								}
@@ -353,7 +355,7 @@
 								if( ticker_scroll_resize ) {
 									$tick.css('width',ticker_width);
 								}
-								position = parseInt('-'+($tick.outerHeight()+offset));
+								position = parseInt('-'+($tick.outerHeight()+settings.offset));
 								if( ticks[i][0].visible == false ) {
 									$tick.css('top',position+'px');
 								}
@@ -383,12 +385,12 @@
 
 						switch( settings.scroll_direction ) {
 							case 'left':
-								position = ticker_width+offset;
+								position = ticker_width+settings.offset;
 								$tick.stop(true,true).css('left',position+'px');
 								break;
 
 							case 'right':
-								position = parseInt('-'+($tick.outerWidth()+offset));
+								position = parseInt('-'+($tick.outerWidth()+settings.offset));
 								$tick.stop(true,true).css('left',position+'px');
 								break;
 
@@ -396,7 +398,7 @@
 								if( ticker_scroll_resize ) {
 									$tick.css('width',ticker_width);
 								}
-								position = parseInt(ticker_height+offset);
+								position = parseInt(ticker_height+settings.offset);
 								$tick.stop(true,true).css('top',position+'px');
 								break;
 
@@ -404,7 +406,7 @@
 								if( ticker_scroll_resize ) {
 									$tick.css('width',ticker_width);
 								}
-								position = parseInt('-'+($tick.outerHeight()+offset));
+								position = parseInt('-'+($tick.outerHeight()+settings.offset));
 								$tick.stop(true,true).css('top',position+'px');
 								break;
 						}
@@ -420,6 +422,12 @@
 
 						// Set the first tick visibility
 						ticks[vars.current_tick][0].visible = true;
+
+						if( settings.scroll_init ) {
+							ticks[vars.current_tick][0].headline.css('left', 0);
+							ticks[vars.current_tick][0].headline.css('top', 0);
+							ticks[vars.current_tick][0].position = 0;
+						}
 			    }
 		    }
 
@@ -691,7 +699,7 @@
 					var h = $tick.outerHeight();
 
 					// Set the initial position of the width & make sure it's visible
-					$tick.css( 'left', parseFloat(w+offset)+'px' );
+					$tick.css( 'left', parseFloat(w+settings.offset)+'px' );
 					$tick.show();
 
 					// Resize the ticker
@@ -716,7 +724,7 @@
 
 					// Slide the tick in
 					$tick.stop().animate( {
-						left: '-'+parseFloat(w+offset)+'px'
+						left: '-'+parseFloat(w+settings.offset)+'px'
 					}, rotate_speed, ease, function() {
 						// Hide the tick
 						$tick.hide();
@@ -772,7 +780,7 @@
 					var h = $tick.outerHeight();
 
 					// Set the initial position of the width & make sure it's visible
-					$tick.css( 'left', '-'+parseFloat(w+offset)+'px' );
+					$tick.css( 'left', '-'+parseFloat(w+settings.offset)+'px' );
 					$tick.show();
 
 					// Resize the ticker
@@ -797,7 +805,7 @@
 
 					// Slide the tick in
 					$tick.stop().animate( {
-						left: parseFloat(w+offset)+'px'
+						left: parseFloat(w+settings.offset)+'px'
 					}, rotate_speed, ease, function() {
 						// Hide the tick
 						$tick.hide();
@@ -851,7 +859,7 @@
 					var h = $tick.outerHeight();
 
 					// Set the initial position of the width & make sure it's visible
-					$tick.css( 'top', '-'+parseFloat(h+offset)+'px' );
+					$tick.css( 'top', '-'+parseFloat(h+settings.offset)+'px' );
 					$tick.show();
 
 					// Resize the ticker
@@ -875,7 +883,7 @@
 
 					// Slide the tick in
 					$tick.stop().animate( {
-						top: parseFloat(h+offset)+'px'
+						top: parseFloat(h+settings.offset)+'px'
 					}, rotate_speed, ease, function() {
 						// Hide the tick
 						$tick.hide();
@@ -929,7 +937,7 @@
 					var h = $tick.outerHeight();
 
 					// Set the initial position of the width & make sure it's visible
-					$tick.css( 'top', parseFloat($prev.outerHeight()+offset)+'px' );
+					$tick.css( 'top', parseFloat($prev.outerHeight()+settings.offset)+'px' );
 					$tick.show();
 
 					// Resize the ticker
@@ -953,7 +961,7 @@
 
 					// Slide the tick in
 					$tick.stop().animate( {
-						top: '-'+parseFloat(h+offset)+'px'
+						top: '-'+parseFloat(h+settings.offset)+'px'
 					}, rotate_speed, ease, function() {
 						// Hide the tick
 						$tick.hide();
@@ -1045,6 +1053,64 @@
 						mtphr_dnt_rotator_update( new_tick );
 		    	});
 		    }
+
+
+
+
+		    /**
+				 * Mobile swipe
+				 *
+				 * @since 1.1.8
+				 */
+				if( settings.type == 'rotate' ) {
+
+					$ticker.swipe( {
+						triggerOnTouchEnd : true,
+						swipeStatus : mtphr_dnt_swipe,
+						allowPageScroll: 'vertical'
+					});
+					function mtphr_dnt_swipe( event, phase, direction, distance, fingers ) {
+
+						if ( phase =="end" ) {
+							if (direction == "right") {
+
+								if(vars.running) return false;
+
+					    	// Find the new tick
+					    	var new_tick = parseInt(vars.current_tick-1);
+								if( new_tick < 0 ) {
+									new_tick = vars.tick_count-1;
+								}
+								if( settings.rotate_type == 'slide_left' || settings.rotate_type == 'slide_right' ) {
+									rotate_adjustment = 'slide_right';
+								}
+								if( settings.nav_reverse ) {
+									if( settings.rotate_type == 'slide_down' ) {
+										rotate_adjustment = 'slide_up';
+									} else if( settings.rotate_type == 'slide_up' ) {
+										rotate_adjustment = 'slide_down';
+									}
+									vars.reverse = 1;
+								}
+								mtphr_dnt_rotator_update( new_tick );
+
+							} else if (direction == "left") {
+
+								if(vars.running) return false;
+
+					    	// Find the new tick
+					    	var new_tick = parseInt(vars.current_tick + 1);
+								if( new_tick == vars.tick_count ) {
+									new_tick = 0;
+								}
+								if( settings.rotate_type == 'slide_left' || settings.rotate_type == 'slide_right' ) {
+									rotate_adjustment = 'slide_left';
+								}
+								mtphr_dnt_rotator_update( new_tick );
+							}
+						}
+					}
+				}
 
 
 

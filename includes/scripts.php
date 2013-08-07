@@ -56,13 +56,16 @@ add_action( 'wp_enqueue_scripts', 'mtphr_dnt_scripts' );
 /**
  * Load the front end scripts
  *
- * @since 1.1.5
+ * @since 1.1.8
  */
 function mtphr_dnt_scripts() {
 
 	// Load the css
 	wp_register_style( 'ditty-news-ticker', MTPHR_DNT_URL.'/assets/css/style.css', false, MTPHR_DNT_VERSION );
 	wp_enqueue_style( 'ditty-news-ticker' );
+
+	// Register touchSwipe
+	wp_register_script( 'touchSwipe', MTPHR_DNT_URL.'/assets/js/jquery.touchSwipe.min.js', array('jquery'), MTPHR_DNT_VERSION, true );
 
 	// Register the jQuery easing
 	wp_register_script( 'jquery-easing', MTPHR_DNT_URL.'/assets/js/jquery.easing.1.3.js', array('jquery'), MTPHR_DNT_VERSION, true );
@@ -95,12 +98,13 @@ add_action( 'wp_footer', 'mtphr_dnt_tickers_init_scripts', 20 );
 /**
  * Initialize the ticker scriptinos
  *
- * @since 1.1.5
+ * @since 1.1.8
  */
 function mtphr_dnt_tickers_init_scripts() {
 
 	global $mtphr_dnt_ticker_scripts;
 	if( is_array($mtphr_dnt_ticker_scripts) && !empty($mtphr_dnt_ticker_scripts) ) {
+		wp_print_scripts('touchSwipe');
 		wp_print_scripts('jquery-easing');
 		wp_print_scripts('ditty-news-ticker');
 		?>
@@ -114,6 +118,7 @@ function mtphr_dnt_tickers_init_scripts() {
 					scroll_speed : <?php echo $ticker['scroll_speed']; ?>,
 					scroll_pause : <?php echo $ticker['scroll_pause']; ?>,
 					scroll_spacing : <?php echo $ticker['scroll_spacing']; ?>,
+					scroll_init : <?php echo $ticker['scroll_init']; ?>,
 					rotate_type : '<?php echo $ticker['rotate_type']; ?>',
 					auto_rotate : <?php echo $ticker['auto_rotate']; ?>,
 					rotate_delay : <?php echo $ticker['rotate_delay']; ?>,
@@ -121,6 +126,7 @@ function mtphr_dnt_tickers_init_scripts() {
 					rotate_speed : <?php echo $ticker['rotate_speed']; ?>,
 					rotate_ease : '<?php echo $ticker['rotate_ease']; ?>',
 					nav_reverse : <?php echo $ticker['nav_reverse']; ?>,
+					offset : <?php echo $ticker['offset']; ?>,
 					after_load : function( $ticker ) {
 						<?php echo apply_filters( 'mtphr_dnt_after_load_rotate' , '', $ticker['id'] ); ?>
 					},

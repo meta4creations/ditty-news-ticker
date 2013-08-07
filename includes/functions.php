@@ -22,7 +22,7 @@ function ditty_news_ticker( $id='', $class='', $atts=false ) {
 /**
  * Return the ticker
  *
- * @since 1.1.7
+ * @since 1.1.8
  */
 function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
@@ -153,6 +153,11 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
 		// Print out the ticks
 		if( is_array($dnt_ticks) ) {
+
+			// Randomize the ticks
+			if( isset($_mtphr_dnt_shuffle) && $_mtphr_dnt_shuffle ) {
+				shuffle( $dnt_ticks );
+			}
 			$total = count($dnt_ticks);
 			foreach( $dnt_ticks as $i => $tick ) {
 
@@ -232,9 +237,12 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 			}
 		}
 
-		$scroll_pause = 0;
+		$scroll_pause = 0; $scroll_init = 0;
 		if( isset($_mtphr_dnt_scroll_pause) ) {
 			$scroll_pause = $_mtphr_dnt_scroll_pause ? 1 : 0;
+		}
+		if( isset($_mtphr_dnt_scroll_init) ) {
+			$scroll_init = $_mtphr_dnt_scroll_init ? 1 : 0;
 		}
 		$rotate = 0; $rotate_pause = 0; $nav_autohide = 0; $nav_reverse = 0;
 		if( isset($_mtphr_dnt_auto_rotate) ) {
@@ -246,7 +254,6 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 		if( isset($_mtphr_dnt_rotate_directional_nav_reverse) ) {
 			$nav_reverse = $_mtphr_dnt_rotate_directional_nav_reverse ? 1 : 0;
 		}
-
 		$mtphr_dnt_ticker_scripts[] = array(
 			'ticker' => $ticker,
 			'id' => $id,
@@ -255,13 +262,15 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 			'scroll_speed' => intval($_mtphr_dnt_scroll_speed),
 			'scroll_pause' => $scroll_pause,
 			'scroll_spacing' => intval($_mtphr_dnt_scroll_tick_spacing),
+			'scroll_init' => $scroll_init,
 			'rotate_type' => $_mtphr_dnt_rotate_type,
 			'auto_rotate' => $rotate,
 			'rotate_delay' => intval($_mtphr_dnt_rotate_delay),
 			'rotate_pause' => $rotate_pause,
 			'rotate_speed' => intval($_mtphr_dnt_rotate_speed),
 			'rotate_ease' => $_mtphr_dnt_rotate_ease,
-			'nav_reverse' => $nav_reverse
+			'nav_reverse' => $nav_reverse,
+			'offset' => intval($_mtphr_dnt_offset)
 		);
 	}
 

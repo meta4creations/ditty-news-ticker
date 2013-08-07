@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Ditty News Ticker v1.1.4\n"
+"Project-Id-Version: Ditty News Ticker v1.1.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-05-04 18:25:42+0000\n"
+"PO-Revision-Date: 2013-08-07 16:39:08+0000\n"
 "Last-Translator: admin <joe@metaphorcreations.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgid "Mode"
 msgstr "Mode"
 
 #: includes/edit-columns.php:25
-#: includes/meta-boxes.php:506
+#: includes/meta-boxes.php:528
 #@ ditty-news-ticker
 msgid "Shortcode"
 msgstr "Shortcode"
@@ -41,22 +41,22 @@ msgstr "Shortcode"
 msgid "Direct Function"
 msgstr "Direct Function"
 
-#: includes/functions.php:399
+#: includes/functions.php:405
 #@ ditty-news-ticker
 msgid "Default"
 msgstr "Default"
 
-#: includes/functions.php:419
+#: includes/functions.php:425
 #@ ditty-news-ticker
 msgid "Scroll"
 msgstr "Scroll"
 
-#: includes/functions.php:423
+#: includes/functions.php:429
 #@ ditty-news-ticker
 msgid "Rotate"
 msgstr "Rotate"
 
-#: includes/functions.php:427
+#: includes/functions.php:433
 #@ ditty-news-ticker
 msgid "List"
 msgstr "List"
@@ -177,289 +177,289 @@ msgstr "Down"
 msgid "Set the scroll direction of the ticker."
 msgstr "Set the scroll direction of the ticker."
 
-#: includes/meta-boxes.php:174
-#: includes/meta-boxes.php:282
+#: includes/meta-boxes.php:180
+#: includes/meta-boxes.php:288
 #@ ditty-news-ticker
 msgid "Tick dimensions"
 msgstr "Tick dimensions"
 
-#: includes/meta-boxes.php:176
+#: includes/meta-boxes.php:182
 #@ ditty-news-ticker
 msgid "Width"
 msgstr "Width"
 
-#: includes/meta-boxes.php:177
-#: includes/meta-boxes.php:285
+#: includes/meta-boxes.php:183
+#: includes/meta-boxes.php:291
 #@ ditty-news-ticker
 msgid "Override the auto dimensions with specific values."
 msgstr "Override the auto dimensions with specific values."
 
-#: includes/meta-boxes.php:182
-#: includes/meta-boxes.php:284
+#: includes/meta-boxes.php:188
+#: includes/meta-boxes.php:290
 #@ ditty-news-ticker
 msgid "Height"
 msgstr "Height"
 
-#: includes/meta-boxes.php:191
+#: includes/meta-boxes.php:197
 #@ ditty-news-ticker
 msgid "Scroller padding"
 msgstr "Scroller padding"
-
-#: includes/meta-boxes.php:193
-#: includes/meta-boxes.php:294
-#: includes/meta-boxes.php:408
-#@ ditty-news-ticker
-msgid "Vertical padding"
-msgstr "Vertical padding"
-
-#: includes/meta-boxes.php:194
-#@ ditty-news-ticker
-msgid "Set the vertical spacing of the scrolling data."
-msgstr "Set the vertical spacing of the scrolling data."
 
 #: includes/meta-boxes.php:199
 #: includes/meta-boxes.php:300
 #: includes/meta-boxes.php:414
 #@ ditty-news-ticker
+msgid "Vertical padding"
+msgstr "Vertical padding"
+
+#: includes/meta-boxes.php:200
+#@ ditty-news-ticker
+msgid "Set the vertical spacing of the scrolling data."
+msgstr "Set the vertical spacing of the scrolling data."
+
+#: includes/meta-boxes.php:205
+#: includes/meta-boxes.php:306
+#: includes/meta-boxes.php:420
+#@ ditty-news-ticker
 msgid "Vertical margin"
 msgstr "Vertical margin"
 
-#: includes/meta-boxes.php:208
+#: includes/meta-boxes.php:214
 #@ ditty-news-ticker
 msgid "Scroll speed"
 msgstr "Scroll speed"
 
-#: includes/meta-boxes.php:210
+#: includes/meta-boxes.php:216
 #@ ditty-news-ticker
 msgid "Set the speed of the scrolling data."
 msgstr "Set the speed of the scrolling data."
 
-#: includes/meta-boxes.php:214
-#: includes/meta-boxes.php:320
+#: includes/meta-boxes.php:220
+#: includes/meta-boxes.php:326
 #@ ditty-news-ticker
 msgid "Pause on mouse over"
 msgstr "Pause on mouse over"
 
-#: includes/meta-boxes.php:223
-#: includes/meta-boxes.php:423
+#: includes/meta-boxes.php:229
+#: includes/meta-boxes.php:429
 #@ ditty-news-ticker
 msgid "Tick spacing"
 msgstr "Tick spacing"
 
-#: includes/meta-boxes.php:225
-#: includes/meta-boxes.php:425
+#: includes/meta-boxes.php:231
+#: includes/meta-boxes.php:431
 #@ ditty-news-ticker
 msgid "Pixels"
 msgstr "Pixels"
 
-#: includes/meta-boxes.php:226
+#: includes/meta-boxes.php:232
 #@ ditty-news-ticker
 msgid "Set the spacing between scrolling data."
 msgstr "Set the spacing between scrolling data."
 
-#: includes/meta-boxes.php:232
+#: includes/meta-boxes.php:238
 #@ ditty-news-ticker
 msgid "Scroll Settings"
 msgstr "Scroll Settings"
 
-#: includes/meta-boxes.php:259
+#: includes/meta-boxes.php:265
 #@ ditty-news-ticker
 msgid "Rotation type"
 msgstr "Rotation type"
 
-#: includes/meta-boxes.php:261
+#: includes/meta-boxes.php:267
 #@ ditty-news-ticker
 msgid "Fade"
 msgstr "Fade"
 
-#: includes/meta-boxes.php:262
+#: includes/meta-boxes.php:268
 #@ ditty-news-ticker
 msgid "Slide left"
 msgstr "Slide left"
 
-#: includes/meta-boxes.php:263
+#: includes/meta-boxes.php:269
 #@ ditty-news-ticker
 msgid "Slide right"
 msgstr "Slide right"
 
-#: includes/meta-boxes.php:264
+#: includes/meta-boxes.php:270
 #@ ditty-news-ticker
 msgid "Slide up"
 msgstr "Slide up"
 
-#: includes/meta-boxes.php:265
+#: includes/meta-boxes.php:271
 #@ ditty-news-ticker
 msgid "Slide down"
 msgstr "Slide down"
 
-#: includes/meta-boxes.php:268
+#: includes/meta-boxes.php:274
 #@ ditty-news-ticker
 msgid "Set the type of rotation for the ticker."
 msgstr "Set the type of rotation for the ticker."
 
-#: includes/meta-boxes.php:273
+#: includes/meta-boxes.php:279
 #@ ditty-news-ticker
 msgid "Dynamic slide direction"
 msgstr "Dynamic slide direction"
 
-#: includes/meta-boxes.php:292
+#: includes/meta-boxes.php:298
 #@ ditty-news-ticker
 msgid "Rotator padding"
 msgstr "Rotator padding"
 
-#: includes/meta-boxes.php:295
+#: includes/meta-boxes.php:301
 #@ ditty-news-ticker
 msgid "Set the vertical spacing of the rotating data."
 msgstr "Set the vertical spacing of the rotating data."
 
-#: includes/meta-boxes.php:309
+#: includes/meta-boxes.php:315
 #@ ditty-news-ticker
 msgid "Auto rotate"
 msgstr "Auto rotate"
 
-#: includes/meta-boxes.php:310
-#: includes/meta-boxes.php:346
-#: includes/meta-boxes.php:361
+#: includes/meta-boxes.php:316
+#: includes/meta-boxes.php:352
+#: includes/meta-boxes.php:367
 #@ ditty-news-ticker
 msgid "Enable"
 msgstr "Enable"
 
-#: includes/meta-boxes.php:311
+#: includes/meta-boxes.php:317
 #@ ditty-news-ticker
 msgid "Set the delay between rotations."
 msgstr "Set the delay between rotations."
 
-#: includes/meta-boxes.php:316
+#: includes/meta-boxes.php:322
 #@ ditty-news-ticker
 msgid "Seconds delay"
 msgstr "Seconds delay"
 
-#: includes/meta-boxes.php:329
+#: includes/meta-boxes.php:335
 #@ ditty-news-ticker
 msgid "Rotate speed"
 msgstr "Rotate speed"
 
-#: includes/meta-boxes.php:331
+#: includes/meta-boxes.php:337
 #@ ditty-news-ticker
 msgid "Tenths of a second"
 msgstr "Tenths of a second"
 
-#: includes/meta-boxes.php:332
+#: includes/meta-boxes.php:338
 #@ ditty-news-ticker
 msgid "Set the speed & easing of the rotation."
 msgstr "Set the speed & easing of the rotation."
 
-#: includes/meta-boxes.php:345
+#: includes/meta-boxes.php:351
 #@ ditty-news-ticker
 msgid "Directional navigation"
 msgstr "Directional navigation"
 
-#: includes/meta-boxes.php:347
+#: includes/meta-boxes.php:353
 #@ ditty-news-ticker
 msgid "Set the directional navigation options."
 msgstr "Set the directional navigation options."
 
-#: includes/meta-boxes.php:351
+#: includes/meta-boxes.php:357
 #@ ditty-news-ticker
 msgid "Autohide navigation"
 msgstr "Autohide navigation"
 
-#: includes/meta-boxes.php:360
+#: includes/meta-boxes.php:366
 #@ ditty-news-ticker
 msgid "Control navigation"
 msgstr "Control navigation"
 
-#: includes/meta-boxes.php:362
+#: includes/meta-boxes.php:368
 #@ ditty-news-ticker
 msgid "Set the control navigation options."
 msgstr "Set the control navigation options."
 
-#: includes/meta-boxes.php:367
+#: includes/meta-boxes.php:373
 #@ ditty-news-ticker
 msgid "Numbers"
 msgstr "Numbers"
 
-#: includes/meta-boxes.php:368
+#: includes/meta-boxes.php:374
 #@ ditty-news-ticker
 msgid "Buttons"
 msgstr "Buttons"
 
-#: includes/meta-boxes.php:379
+#: includes/meta-boxes.php:385
 #@ ditty-news-ticker
 msgid "Rotate Settings"
 msgstr "Rotate Settings"
 
-#: includes/meta-boxes.php:406
+#: includes/meta-boxes.php:412
 #@ ditty-news-ticker
 msgid "List padding"
 msgstr "List padding"
 
-#: includes/meta-boxes.php:409
+#: includes/meta-boxes.php:415
 #@ ditty-news-ticker
 msgid "Set the vertical spacing of the list container."
 msgstr "Set the vertical spacing of the list container."
 
-#: includes/meta-boxes.php:426
+#: includes/meta-boxes.php:432
 #@ ditty-news-ticker
 msgid "Set the spacing between ticks."
 msgstr "Set the spacing between ticks."
 
-#: includes/meta-boxes.php:432
+#: includes/meta-boxes.php:438
 #@ ditty-news-ticker
 msgid "List Settings"
 msgstr "List Settings"
 
-#: includes/meta-boxes.php:459
+#: includes/meta-boxes.php:465
 #@ ditty-news-ticker
 msgid "Display title"
 msgstr "Display title"
 
-#: includes/meta-boxes.php:463
+#: includes/meta-boxes.php:469
 #@ ditty-news-ticker
 msgid "Inline title"
 msgstr "Inline title"
 
-#: includes/meta-boxes.php:471
+#: includes/meta-boxes.php:484
 #@ ditty-news-ticker
 msgid "Ticker width <em>(optional)</em>"
 msgstr "Ticker width <em>(optional)</em>"
 
-#: includes/meta-boxes.php:473
+#: includes/meta-boxes.php:486
 #@ ditty-news-ticker
 msgid "Override the auto width a with specific value."
 msgstr "Override the auto width a with specific value."
 
-#: includes/meta-boxes.php:479
+#: includes/meta-boxes.php:501
 #@ ditty-news-ticker
 msgid "Global Settings"
 msgstr "Global Settings"
 
-#: includes/meta-boxes.php:507
+#: includes/meta-boxes.php:529
 #@ ditty-news-ticker
 msgid "Select Shortcode"
 msgstr "Select Shortcode"
 
-#: includes/meta-boxes.php:508
+#: includes/meta-boxes.php:530
 #@ ditty-news-ticker
 msgid "Use this shortcode to insert the ticker into a post/page."
 msgstr "Use this shortcode to insert the ticker into a post/page."
 
-#: includes/meta-boxes.php:515
+#: includes/meta-boxes.php:537
 #@ ditty-news-ticker
 msgid "Direct function"
 msgstr "Direct function"
 
-#: includes/meta-boxes.php:516
+#: includes/meta-boxes.php:538
 #@ ditty-news-ticker
 msgid "Select Function"
 msgstr "Select Function"
 
-#: includes/meta-boxes.php:517
+#: includes/meta-boxes.php:539
 #@ ditty-news-ticker
 msgid "Place this code directly into your theme to display the ticker."
 msgstr "Place this code directly into your theme to display the ticker."
 
-#: includes/meta-boxes.php:523
+#: includes/meta-boxes.php:545
 #@ ditty-news-ticker
 msgid "Ticker Display"
 msgstr "Ticker Display"
@@ -531,17 +531,17 @@ msgstr "Ditty News Ticker Updated!"
 msgid "Settings"
 msgstr "Settings"
 
-#: includes/settings.php:55
+#: includes/settings.php:53
 #@ ditty-news-ticker
 msgid "Custom CSS"
 msgstr "Custom CSS"
 
-#: includes/settings.php:58
+#: includes/settings.php:56
 #@ ditty-news-ticker
 msgid "Custom CSS will be added to the head of each page that includes a Ditty News Ticker."
 msgstr "Custom CSS will be added to the head of each page that includes a Ditty News Ticker."
 
-#: includes/settings.php:99
+#: includes/settings.php:97
 #@ ditty-news-ticker
 msgid "Ditty News Ticker Settings"
 msgstr "Ditty News Ticker Settings"
@@ -576,8 +576,48 @@ msgstr "View DNT extensions"
 msgid "NF"
 msgstr "NF"
 
-#: includes/settings.php:145
+#: includes/settings.php:143
 #@ ditty-news-ticker
 msgid "The global settings to your news tickers."
 msgstr "The global settings to your news tickers."
+
+#: includes/meta-boxes.php:171
+#@ ditty-news-ticker
+msgid "Show first tick on init"
+msgstr ""
+
+#: includes/meta-boxes.php:478
+#@ ditty-news-ticker
+msgid "Randomly shuffle the ticks"
+msgstr ""
+
+#: includes/meta-boxes.php:494
+#@ ditty-news-ticker
+msgid "Offset ticks"
+msgstr ""
+
+#: includes/meta-boxes.php:495
+#@ ditty-news-ticker
+msgid "px from the edge"
+msgstr ""
+
+#: includes/meta-boxes.php:495
+#@ ditty-news-ticker
+msgid "The amount of pixels ticks should start and end off the screen."
+msgstr ""
+
+#: includes/settings.php:46
+#@ ditty-news-ticker
+msgid "Visual Editor"
+msgstr ""
+
+#: includes/settings.php:48
+#@ ditty-news-ticker
+msgid "Use the visual editor for ticks"
+msgstr ""
+
+#: includes/settings.php:49
+#@ ditty-news-ticker
+msgid "*The content in the visual editors will disappear after re-arranging ticks. That content will re-populate after resaving the ticker."
+msgstr ""
 

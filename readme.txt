@@ -52,6 +52,11 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.1.8 =
+* Added mobile swipe support for rotate mode.
+* Added a hidden tick "offset" parameter.
+* Added setting to display first scroll tick on init.
+
 = 1.1.7 =
 * Modified structure & CSS to move the rotate navigation up a level.
 
@@ -134,57 +139,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-= 1.1.7 =
-Modified structure & CSS to move the rotate navigation up a level.
-
-= 1.1.6 =
-Fixed pause on hover functionality.
-
-= 1.1.5 =
-Modified jQuery ticker class loading. Fixed load_plugin_textdomain setup. Added wysiwyg editor option back.
-
-= 1.1.4 =
-Added nofollow to navigational links.
-
-= 1.1.3 =
-Added option to use visual editors for tick content (on settings page). Adjusted DNT jQuery class. Converted height() & width() to outerHeight() & outerWidth().
-
-= 1.1.2 =
-Reworked scroll mode to function better in IE. Added a global offset to scrolling and rotating ticks to are hidden. Moved rotating tick code into .js file. Added css for max-image: 100%. Converted .clearfix class to custom .mtrph-dnt-clearfix to avoid conflicts.
-
-= 1.1.1 =
-Minor fix.
-
-= 1.1.0 =
-Added "width" override for scrolling tickers back in... whoops!
-
-= 1.0.9 =
-Added a checkbox to set links as rel="nofollow". Updated vertical scrolling for responsive sites. Removed "width" override for scrolling tickers. Added new ticker classes.
-
-= 1.0.8 =
-Fixed bug in rotator mode with "pause on hover" activated. jQuery now loading on (window).load() instead of (document).ready(). Fixes scrolling issue in Safari. Added .clearfix to .mtphr-dnt-wrapper. Specifically set .mtphr-dnt-tick.clearfix to display:none to override css in certain themes. Added filters to jQuery class callbacks. Added ticker ID to jQuery class vars. Now resizing rotator ticker height on window resize.
-
-= 1.0.7 =
-Fixed jQuery issue in Firefox when adding new ticks.
-
-= 1.0.6 =
-Updated settings scripts for extensibility. Minor update to metaboxer css.
-
-= 1.0.5 =
-Updated metaboxer scripts. Updated direct function output. Updated ticker types link. Fixed rotator numbers padding. Fixed limited number of DNT in widget drop down issue.
-
-= 1.0.4 =
-Added 'languages' folder for localization. Added an 'in_widget' attribute to tickers displayed in widgets. Updated 'sort' metaboxer code.
-
-= 1.0.3 =
-Updates.
-
-= 1.0.2 =
-Added additional actions along with some code updates.
-
-= 1.0.1 =
-Minor code update.
-
-= 1.0.0 =
-Create a multi-functional data display plugin.
-
+Added mobile swipe support for rotate mode. Added a hidden tick "offset" parameter. Added setting to display first scroll tick on init.
