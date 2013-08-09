@@ -52,6 +52,12 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.1.9 =
+* Fixed touchSwipe error that was occurring in Firefox.
+* Fixed undefined variable error in functions.php.
+* Updated metaboxer files.
+* Upated "Show first tick on init" code for better functionality.
+
 = 1.1.8 =
 * Added mobile swipe support for rotate mode.
 * Added a hidden tick "offset" parameter.
@@ -139,4 +145,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Added mobile swipe support for rotate mode. Added a hidden tick "offset" parameter. Added setting to display first scroll tick on init.
+Bug fixes and minor upgrades.

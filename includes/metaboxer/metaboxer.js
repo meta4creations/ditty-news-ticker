@@ -65,7 +65,7 @@ $('.mtphr-dnt-metaboxer-file-upload').click(function() {
 			title: attachment.title,
 			caption: attachment.caption,
 			description: attachment.description,
-			security: mtphr_dnt_metaboxer_vars.security
+			security: ditty_metaboxer_vars.security
 		};
 
 		// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
@@ -106,9 +106,9 @@ $('.mtphr-dnt-metaboxer-file-delete').live('click',function() {
 /**
  * Add image functionality.
  *
- * @since 1.0.0
+ * @since 1.1.9
  */
-$('.mtphr-dnt-metaboxer-image').each( function(index) {
+$('.mtphr-dnt-metaboxer-image-contents').each( function(index) {
 
 	// If there currently isn't a value, show the upload button
 	if( $(this).find('.mtphr-dnt-metaboxer-image-value').val() == '' ) {
@@ -138,7 +138,7 @@ $('.mtphr-dnt-metaboxer-image-upload').click(function() {
 			title: attachment.title,
 			caption: attachment.caption,
 			description: attachment.description,
-			security: mtphr_dnt_metaboxer_vars.security
+			security: ditty_metaboxer_vars.security
 		};
 
 		// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
@@ -154,12 +154,13 @@ $('.mtphr-dnt-metaboxer-image-upload').click(function() {
     wp.media.editor.send.attachment = send_attachment_bkp;
   }
 
-  wp.media.editor.open();
+  wp.media.editor.open($(this));
 
   return false;
 });
 
-$('.mtphr-dnt-metaboxer-image-delete').live('click',function() {
+$('.mtphr-dnt-metaboxer-image-delete').live('click',function(e) {
+	e.preventDefault();
 
 	// Save the container
 	var $container = $(this).parents('.mtphr-dnt-metaboxer-image-contents');
@@ -173,7 +174,6 @@ $('.mtphr-dnt-metaboxer-image-delete').live('click',function() {
 	// Disply the upload button
 	$container.find('.mtphr-dnt-metaboxer-image-upload').css('display','inline-block');
 });
-
 
 
 

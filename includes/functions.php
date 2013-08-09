@@ -254,6 +254,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 		if( isset($_mtphr_dnt_rotate_directional_nav_reverse) ) {
 			$nav_reverse = $_mtphr_dnt_rotate_directional_nav_reverse ? 1 : 0;
 		}
+		$offset = isset($_mtphr_dnt_offset) ? intval($_mtphr_dnt_offset) : 20;
 		$mtphr_dnt_ticker_scripts[] = array(
 			'ticker' => $ticker,
 			'id' => $id,
@@ -270,7 +271,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 			'rotate_speed' => intval($_mtphr_dnt_rotate_speed),
 			'rotate_ease' => $_mtphr_dnt_rotate_ease,
 			'nav_reverse' => $nav_reverse,
-			'offset' => intval($_mtphr_dnt_offset)
+			'offset' => $offset
 		);
 	}
 

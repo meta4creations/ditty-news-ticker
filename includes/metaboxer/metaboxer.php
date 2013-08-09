@@ -290,7 +290,7 @@ function mtphr_dnt_metaboxer_html( $field, $value='' ) {
 /**
  * Renders an image attachment
  *
- * @since 1.0.0
+ * @since 1.1.9
  */
 function mtphr_dnt_metaboxer_image( $field, $value='' ) {
 
@@ -299,24 +299,17 @@ function mtphr_dnt_metaboxer_image( $field, $value='' ) {
 	if( $value != '' ) {
 		$image = get_post( $value );
 	}
-
-	// If there isn't a file reset the value
 	if( !$image ) {
 		$value = '';
 	}
 	?>
-
 	<div class="mtphr-dnt-metaboxer-image-contents">
 	<input class="mtphr-dnt-metaboxer-image-value" type="hidden" id="<?php echo $field['id']; ?>" name="<?php echo $field['id']; ?>" value="<?php echo $value; ?>" />
-
 	<?php
 	echo isset( $field['button'] ) ? '<a href="#" class="button mtphr-dnt-metaboxer-image-upload">'.$field['button'].'</a>' : '<a href="#" class="button mtphr-dnt-metaboxer-image-upload">Insert Image</a>';
 
 	if( $image ) {
-
 		$type = explode( '/', $image->post_mime_type );
-
-		// Display the file
 		echo mtphr_dnt_metaboxer_image_display( $image->ID, $type[0], $image->guid, $image->post_title, $image -> post_excerpt, $image->post_content );
 	}
 	?>
@@ -330,9 +323,9 @@ function mtphr_dnt_metaboxer_image( $field, $value='' ) {
 
 add_action( 'wp_ajax_mtphr_dnt_metaboxer_ajax_image_display', 'mtphr_dnt_metaboxer_ajax_image_display' );
 /**
- * Ajax function used to delete attachments
+ * Ajax function used to display image
  *
- * @since 1.0.0
+ * @since 1.1.9
  */
 function mtphr_dnt_metaboxer_ajax_image_display() {
 
@@ -340,7 +333,7 @@ function mtphr_dnt_metaboxer_ajax_image_display() {
 	global $wpdb;
 
 	// Check the nonce
-	check_ajax_referer( 'neuron', 'security' );
+	check_ajax_referer( 'ditty-metaboxer', 'security' );
 
 	// Get variables
 	$id  = $_POST['id'];
@@ -387,6 +380,10 @@ function mtphr_dnt_metaboxer_image_display( $id, $type, $url, $title, $caption, 
 	</table>
 	<?php
 }
+
+
+
+
 
 
 

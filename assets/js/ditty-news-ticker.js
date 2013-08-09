@@ -416,17 +416,71 @@
 						ticks[i][0].position = position;
 						ticks[i][0].reset = position;
 						ticks[i][0].visible = false;
+			    }
 
-						// Reset the current tick
-						vars.current_tick = 0;
+					// Reset the current tick
+					vars.current_tick = 0;
 
-						// Set the first tick visibility
-						ticks[vars.current_tick][0].visible = true;
+					// Set the first tick visibility
+					ticks[vars.current_tick][0].visible = true;
 
-						if( settings.scroll_init ) {
-							ticks[vars.current_tick][0].headline.css('left', 0);
-							ticks[vars.current_tick][0].headline.css('top', 0);
-							ticks[vars.current_tick][0].position = 0;
+					// Set the ticks to display on init
+					if( settings.scroll_init ) {
+
+						var position = 0;
+						if( settings.scroll_direction == 'left' ) {
+							position = ticker_width*.1;
+						} else if( settings.scroll_direction == 'right' ) {
+							position = ticker_width*.9;
+						} else if( settings.scroll_direction == 'up' ) {
+							position = ticker_height*.1;
+						} else if( settings.scroll_direction == 'down' ) {
+							position = ticker_height*.9;
+						}
+
+						for( var i=0; i<vars.tick_count; i++ ) {
+
+			    		var $tick = ticks[i][0].headline;
+
+							switch( settings.scroll_direction ) {
+								case 'left':
+									if( position < ticker_width ) {
+										$tick.stop(true,true).css('left',position+'px');
+										ticks[i][0].position = position;
+										ticks[i][0].visible = true;
+										position = position + ticks[i][0].width + settings.scroll_spacing;
+									}
+									break;
+
+								case 'right':
+									if( position > 0 ) {
+										position = position - ticks[i][0].width;
+										$tick.stop(true,true).css('left',position+'px');
+										ticks[i][0].position = position;
+										ticks[i][0].visible = true;
+										position = position - settings.scroll_spacing;
+									}
+									break;
+
+								case 'up':
+									if( position < ticker_height ) {
+										$tick.stop(true,true).css('top',position+'px');
+										ticks[i][0].position = position;
+										ticks[i][0].visible = true;
+										position = position + ticks[i][0].height + settings.scroll_spacing;
+									}
+									break;
+
+								case 'down':
+									if( position > 0 ) {
+										position = position - ticks[i][0].height;
+										$tick.stop(true,true).css('top',position+'px');
+										ticks[i][0].position = position;
+										ticks[i][0].visible = true;
+										position = position - settings.scroll_spacing;
+									}
+									break;
+							}
 						}
 			    }
 		    }
@@ -1060,56 +1114,54 @@
 		    /**
 				 * Mobile swipe
 				 *
-				 * @since 1.1.8
+				 * @since 1.1.9
 				 */
 				if( settings.type == 'rotate' ) {
 
 					$ticker.swipe( {
 						triggerOnTouchEnd : true,
-						swipeStatus : mtphr_dnt_swipe,
-						allowPageScroll: 'vertical'
-					});
-					function mtphr_dnt_swipe( event, phase, direction, distance, fingers ) {
+						allowPageScroll: 'vertical',
+						swipeStatus : function(event, phase, direction, distance, duration, fingers) {
+							if ( phase =="end" ) {
+								if (direction == "right") {
 
-						if ( phase =="end" ) {
-							if (direction == "right") {
+									if(vars.running) return false;
 
-								if(vars.running) return false;
-
-					    	// Find the new tick
-					    	var new_tick = parseInt(vars.current_tick-1);
-								if( new_tick < 0 ) {
-									new_tick = vars.tick_count-1;
-								}
-								if( settings.rotate_type == 'slide_left' || settings.rotate_type == 'slide_right' ) {
-									rotate_adjustment = 'slide_right';
-								}
-								if( settings.nav_reverse ) {
-									if( settings.rotate_type == 'slide_down' ) {
-										rotate_adjustment = 'slide_up';
-									} else if( settings.rotate_type == 'slide_up' ) {
-										rotate_adjustment = 'slide_down';
+						    	// Find the new tick
+						    	var new_tick = parseInt(vars.current_tick-1);
+									if( new_tick < 0 ) {
+										new_tick = vars.tick_count-1;
 									}
-									vars.reverse = 1;
-								}
-								mtphr_dnt_rotator_update( new_tick );
+									if( settings.rotate_type == 'slide_left' || settings.rotate_type == 'slide_right' ) {
+										rotate_adjustment = 'slide_right';
+									}
+									if( settings.nav_reverse ) {
+										if( settings.rotate_type == 'slide_down' ) {
+											rotate_adjustment = 'slide_up';
+										} else if( settings.rotate_type == 'slide_up' ) {
+											rotate_adjustment = 'slide_down';
+										}
+										vars.reverse = 1;
+									}
+									mtphr_dnt_rotator_update( new_tick );
 
-							} else if (direction == "left") {
+								} else if (direction == "left") {
 
-								if(vars.running) return false;
+									if(vars.running) return false;
 
-					    	// Find the new tick
-					    	var new_tick = parseInt(vars.current_tick + 1);
-								if( new_tick == vars.tick_count ) {
-									new_tick = 0;
+						    	// Find the new tick
+						    	var new_tick = parseInt(vars.current_tick + 1);
+									if( new_tick == vars.tick_count ) {
+										new_tick = 0;
+									}
+									if( settings.rotate_type == 'slide_left' || settings.rotate_type == 'slide_right' ) {
+										rotate_adjustment = 'slide_left';
+									}
+									mtphr_dnt_rotator_update( new_tick );
 								}
-								if( settings.rotate_type == 'slide_left' || settings.rotate_type == 'slide_right' ) {
-									rotate_adjustment = 'slide_left';
-								}
-								mtphr_dnt_rotator_update( new_tick );
 							}
 						}
-					}
+					});
 				}
 
 
