@@ -1,9 +1,9 @@
 /**
  * Ditty News Ticker
- * Date: 8/07/2013
+ * Date: 9/17/2013
  *
  * @author Metaphor Creations
- * @version 1.1.8
+ * @version 1.2.0
  *
  **/
 
@@ -57,7 +57,7 @@
 						$nav_prev = $(this).find('.mtphr-dnt-nav-prev'),
 						$nav_next = $(this).find('.mtphr-dnt-nav-next'),
 						$nav_controls = $(this).find('.mtphr-dnt-control-links'),
-						ticker_width = $ticker.outerWidth(),
+						ticker_width = $ticker.width(),
 						ticker_height = 0,
 						ticks = [],
 						ticker_scroll,
@@ -111,8 +111,8 @@
 					$ticker.find('.mtphr-dnt-tick').each( function(index) {
 
 						// Find the greatest tick height
-						if( $(this).outerHeight() > ticker_height ) {
-							ticker_height = $(this).outerHeight();
+						if( $(this).height() > ticker_height ) {
+							ticker_height = $(this).height();
 						}
 
 						if( settings.scroll_direction == 'up' || settings.scroll_direction == 'down' ) {
@@ -335,7 +335,7 @@
 								break;
 
 							case 'right':
-								position = parseInt('-'+($tick.outerWidth()+settings.offset));
+								position = parseInt('-'+($tick.width()+settings.offset));
 								if( ticks[i][0].visible == false ) {
 									$tick.css('left',position+'px');
 								}
@@ -355,7 +355,7 @@
 								if( ticker_scroll_resize ) {
 									$tick.css('width',ticker_width);
 								}
-								position = parseInt('-'+($tick.outerHeight()+settings.offset));
+								position = parseInt('-'+($tick.height()+settings.offset));
 								if( ticks[i][0].visible == false ) {
 									$tick.css('top',position+'px');
 								}
@@ -363,8 +363,8 @@
 						}
 
 						// Adjust the tick data
-						ticks[i][0].width = $tick.outerWidth();
-						ticks[i][0].height = $tick.outerHeight();
+						ticks[i][0].width = $tick.width();
+						ticks[i][0].height = $tick.height();
 						if( ticks[i][0].visible == false ) {
 							ticks[i][0].position = position;
 						}
@@ -390,7 +390,7 @@
 								break;
 
 							case 'right':
-								position = parseInt('-'+($tick.outerWidth()+settings.offset));
+								position = parseInt('-'+($tick.width()+settings.offset));
 								$tick.stop(true,true).css('left',position+'px');
 								break;
 
@@ -406,13 +406,13 @@
 								if( ticker_scroll_resize ) {
 									$tick.css('width',ticker_width);
 								}
-								position = parseInt('-'+($tick.outerHeight()+settings.offset));
+								position = parseInt('-'+($tick.height()+settings.offset));
 								$tick.stop(true,true).css('top',position+'px');
 								break;
 						}
 
-						ticks[i][0].width = $tick.outerWidth();
-						ticks[i][0].height = $tick.outerHeight();
+						ticks[i][0].width = $tick.width();
+						ticks[i][0].height = $tick.height();
 						ticks[i][0].position = position;
 						ticks[i][0].reset = position;
 						ticks[i][0].visible = false;
@@ -658,7 +658,7 @@
 			    }
 
 			    // Resize the ticker
-			    var h = $(ticks[vars.current_tick]).outerHeight();
+			    var h = $(ticks[vars.current_tick]).height();
 					$ticker.stop().css( 'height', h+'px' );
 		    }
 
@@ -676,8 +676,8 @@
 					$tick = ticks[0];
 
 					// Find the width of the tick
-					var w = $tick.parents('.mtphr-dnt-rotate').outerWidth();
-					var h = $tick.outerHeight();
+					var w = $tick.parents('.mtphr-dnt-rotate').width();
+					var h = $tick.height();
 
 					// Set the height of the ticker
 					$ticker.css( 'height', h+'px' );
@@ -690,7 +690,7 @@
 				function mtphr_dnt_rotator_fade_in( $ticker, $tick, $prev, rotate_speed, ease ) {
 			    $tick.fadeIn( rotate_speed );
 
-			    var h = $tick.outerHeight();
+			    var h = $tick.height();
 
 					// Resize the ticker
 					$ticker.stop().animate( {
@@ -718,8 +718,8 @@
 					$tick = ticks[0];
 
 					// Find the dimensions of the tick
-					var w = $tick.parents('.mtphr-dnt-rotate').outerWidth();
-					var h = $tick.outerHeight();
+					var w = $tick.parents('.mtphr-dnt-rotate').width();
+					var h = $tick.height();
 
 					// Set the height of the ticker
 					$ticker.css( 'height', h+'px' );
@@ -736,7 +736,7 @@
 							jQuery(this).load( function() {
 
 								// Find the height of the tick
-								var h = $tick.outerHeight();
+								var h = $tick.height();
 
 								// Set the height of the ticker
 								$ticker.css( 'height', h+'px' );
@@ -749,8 +749,8 @@
 				function mtphr_dnt_rotator_slide_left_in( $ticker, $tick, $prev, rotate_speed, ease ) {
 
 					// Find the dimensions of the tick
-					var w = $tick.parents('.mtphr-dnt-rotate').outerWidth();
-					var h = $tick.outerHeight();
+					var w = $tick.parents('.mtphr-dnt-rotate').width();
+					var h = $tick.height();
 
 					// Set the initial position of the width & make sure it's visible
 					$tick.css( 'left', parseFloat(w+settings.offset)+'px' );
@@ -773,8 +773,8 @@
 			  function mtphr_dnt_rotator_slide_left_out( $ticker, $tick, $next, rotate_speed, ease ) {
 
 			    // Find the dimensions of the tick
-					var w = $tick.parents('.mtphr-dnt-rotate').outerWidth();
-					var h = $tick.outerHeight();
+					var w = $tick.parents('.mtphr-dnt-rotate').width();
+					var h = $tick.height();
 
 					// Slide the tick in
 					$tick.stop().animate( {
@@ -799,8 +799,8 @@
 					$tick = ticks[0];
 
 					// Find the dimensions of the tick
-					var w = $tick.parents('.mtphr-dnt-rotate').outerWidth();
-					var h = $tick.outerHeight();
+					var w = $tick.parents('.mtphr-dnt-rotate').width();
+					var h = $tick.height();
 
 					// Set the height of the ticker
 					$ticker.css( 'height', h+'px' );
@@ -817,7 +817,7 @@
 							jQuery(this).load( function() {
 
 								// Find the height of the tick
-								var h = $tick.outerHeight();
+								var h = $tick.height();
 
 								// Set the height of the ticker
 								$ticker.css( 'height', h+'px' );
@@ -830,8 +830,8 @@
 				function mtphr_dnt_rotator_slide_right_in( $ticker, $tick, $prev, rotate_speed, ease ) {
 
 					// Find the dimensions of the tick
-					var w = $tick.parents('.mtphr-dnt-rotate').outerWidth();
-					var h = $tick.outerHeight();
+					var w = $tick.parents('.mtphr-dnt-rotate').width();
+					var h = $tick.height();
 
 					// Set the initial position of the width & make sure it's visible
 					$tick.css( 'left', '-'+parseFloat(w+settings.offset)+'px' );
@@ -854,8 +854,8 @@
 			  function mtphr_dnt_rotator_slide_right_out( $ticker, $tick, $next, rotate_speed, ease ) {
 
 			    // Find the dimensions of the tick
-					var w = $tick.parents('.mtphr-dnt-rotate').outerWidth();
-					var h = $tick.outerHeight();
+					var w = $tick.parents('.mtphr-dnt-rotate').width();
+					var h = $tick.height();
 
 					// Slide the tick in
 					$tick.stop().animate( {
@@ -880,7 +880,7 @@
 					$tick = ticks[0];
 
 					// Find the height of the tick
-					var h = $tick.outerHeight();
+					var h = $tick.height();
 
 					// Set the height of the ticker
 					$ticker.css( 'height', h+'px' );
@@ -897,7 +897,7 @@
 							jQuery(this).load( function() {
 
 								// Find the height of the tick
-								var h = $tick.outerHeight();
+								var h = $tick.height();
 
 								// Set the height of the ticker
 								$ticker.css( 'height', h+'px' );
@@ -910,7 +910,7 @@
 				function mtphr_dnt_rotator_slide_down_in( $ticker, $tick, $prev, rotate_speed, ease ) {
 
 					// Find the height of the tick
-					var h = $tick.outerHeight();
+					var h = $tick.height();
 
 					// Set the initial position of the width & make sure it's visible
 					$tick.css( 'top', '-'+parseFloat(h+settings.offset)+'px' );
@@ -933,7 +933,7 @@
 			  function mtphr_dnt_rotator_slide_down_out( $ticker, $tick, $next, rotate_speed, ease ) {
 
 			    // Find the height of the next tick
-					var h = $next.outerHeight();
+					var h = $next.height();
 
 					// Slide the tick in
 					$tick.stop().animate( {
@@ -958,7 +958,7 @@
 					$tick = ticks[0];
 
 					// Find the height of the tick
-					var h = $tick.outerHeight();
+					var h = $tick.height();
 
 					// Set the height of the ticker
 					$ticker.css( 'height', h+'px' );
@@ -975,7 +975,7 @@
 							jQuery(this).load( function() {
 
 								// Find the height of the tick
-								var h = $tick.outerHeight();
+								var h = $tick.height();
 
 								// Set the height of the ticker
 								$ticker.css( 'height', h+'px' );
@@ -988,10 +988,10 @@
 				function mtphr_dnt_rotator_slide_up_in( $ticker, $tick, $prev, rotate_speed, ease ) {
 
 					// Find the height of the tick
-					var h = $tick.outerHeight();
+					var h = $tick.height();
 
 					// Set the initial position of the width & make sure it's visible
-					$tick.css( 'top', parseFloat($prev.outerHeight()+settings.offset)+'px' );
+					$tick.css( 'top', parseFloat($prev.height()+settings.offset)+'px' );
 					$tick.show();
 
 					// Resize the ticker
@@ -1011,7 +1011,7 @@
 			  function mtphr_dnt_rotator_slide_up_out( $ticker, $tick, $next, rotate_speed, ease ) {
 
 			    // Find the height of the next tick
-					var h = $tick.outerHeight();
+					var h = $tick.height();
 
 					// Slide the tick in
 					$tick.stop().animate( {
@@ -1176,9 +1176,9 @@
 		    $(window).resize( function() {
 
 			    // Resize the tickers if the width is different
-			    if( $ticker.outerWidth() != ticker_width ) {
+			    if( $ticker.width() != ticker_width ) {
 
-				    ticker_width = $ticker.outerWidth();
+				    ticker_width = $ticker.width();
 
 				    if( settings.type == 'scroll' ) {
 				    	if( settings.scroll_direction=='up' || settings.scroll_direction=='down' ) {

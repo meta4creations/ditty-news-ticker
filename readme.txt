@@ -52,6 +52,11 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.2.0 =
+* Modified ditty-news-ticker js class due to issues with certain versions of jQuery.
+* Changed outerWidth() to with().
+* Changed outherHeight() to height().
+
 = 1.1.9 =
 * Fixed touchSwipe error that was occurring in Firefox.
 * Fixed undefined variable error in functions.php.
@@ -145,4 +150,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Bug fixes and minor upgrades.
+Modified ditty-news-ticker js class due to issues with certain versions of jQuery.

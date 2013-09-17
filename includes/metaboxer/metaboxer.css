@@ -61,7 +61,10 @@
 .mtphr-dnt-metaboxer-field-content {
 	width: 80%;
 	vertical-align: top;
-	padding-bottom: 20px;
+	padding-bottom: 10px;
+}
+#mtphr_dnt_global_settings .mtphr-dnt-metaboxer-field-content {
+	padding-bottom: 0;
 }
 .mtphr-dnt-metaboxer-field-content-full {
 	width: 100%;
