@@ -22,7 +22,7 @@ function ditty_news_ticker( $id='', $class='', $atts=false ) {
 /**
  * Return the ticker
  *
- * @since 1.1.8
+ * @since 1.2.1
  */
 function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
@@ -60,7 +60,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 		if( is_array($_mtphr_dnt_ticks) ) {
 			foreach( $_mtphr_dnt_ticks as $i => $tick ) {
 
-				if( $text = wp_kses_post($tick['tick']) ) {
+				if( $text = wp_kses_post(nl2br($tick['tick'])) ) {
 
 					// Get the contents
 					if( $link = esc_url($tick['link']) ) {

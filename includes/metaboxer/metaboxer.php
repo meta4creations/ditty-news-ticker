@@ -700,7 +700,7 @@ function mtphr_dnt_metaboxer_text( $field, $value='' ) {
 /**
  * Renders a textarea.
  *
- * @since 1.0.0
+ * @since 1.2.1
  */
 function mtphr_dnt_metaboxer_textarea( $field, $value='' ) {
 	$rows = ( isset($field['rows']) ) ? $field['rows'] : 5;

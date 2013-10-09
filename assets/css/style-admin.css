@@ -46,3 +46,76 @@
 .mtphr-dnt-metaboxer_mtphr_dnt_ticks-tick .wp-editor-wrap {
 	margin-bottom: 10px;
 }
+
+/* --------------------------------------------------------- */
+/* !Settings pages */
+/* --------------------------------------------------------- */
+
+.ditty_news_ticker_page_mtphr_dnt_settings .form-table {
+	max-width: 1000px;
+	border: 1px solid #dfdfdf;
+	margin-top: 0;
+	margin-bottom: 10px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.ditty_news_ticker_page_mtphr_dnt_settings .form-table > tbody > tr > th {
+	background: #fefefe;
+	border-right: 1px solid #dfdfdf;
+	border-bottom: 1px solid #f7f7f7;
+}
+.ditty_news_ticker_page_mtphr_dnt_settings .form-table > tbody > tr > td {
+	border-bottom: 1px solid #f7f7f7;
+}
+.ditty_news_ticker_page_mtphr_dnt_settings .form-table > tbody > tr:last-child th,
+.ditty_news_ticker_page_mtphr_dnt_settings .form-table > tbody > tr:last-child td {
+	border-bottom: none;
+}
+.ditty_news_ticker_page_mtphr_dnt_settings #wpbody-content h3 {
+	-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+	max-width: 1000px;
+	background: #fafafa;
+	border: 1px solid #dfdfdf;
+	border-bottom-width: 0;
+	padding: 10px;
+	margin-bottom: 0;
+
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+.ditty_news_ticker_page_mtphr_dnt_settings #wpbody-content h3 input {
+	float: right;
+	font-weight: normal;
+	margin-top: -4px;
+}
+.ditty_news_ticker_page_mtphr_dnt_settings #wpbody-content h3 + p {
+	-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+	max-width: 1000px;
+	background: #fafafa;
+	border: 1px solid #dfdfdf;
+	border-top-width: 0;
+	border-bottom-width: 0;
+	padding: 0 10px 10px;
+	margin: 0;
+}
+.ditty_news_ticker_page_mtphr_dnt_settings textarea {
+	width: 100%;
+}
+
+
+/* --------------------------------------------------------- */
+/* !CodeMirror */
+/* --------------------------------------------------------- */
+
+.mtphr-dnt-custom-css {
+	border: 1px solid #dfdfdf;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	overflow: hidden;
+}

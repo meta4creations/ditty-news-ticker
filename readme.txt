@@ -52,6 +52,10 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.2.1 =
+* Modifed to allow multiline text
+* Updated custom css field to css editor
+
 = 1.2.0 =
 * Modified ditty-news-ticker js class due to issues with certain versions of jQuery.
 * Changed outerWidth() to with().
@@ -150,4 +154,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Modified ditty-news-ticker js class due to issues with certain versions of jQuery.
+Modifed to allow multiline text and updated custom css field to css editor

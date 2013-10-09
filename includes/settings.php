@@ -33,7 +33,7 @@ add_action( 'admin_init', 'mtphr_dnt_initialize_settings' );
 /**
  * Setup the custom options for the settings page
  *
- * @since 1.1.4
+ * @since 1.2.1
  */
 function mtphr_dnt_initialize_settings() {
 
@@ -53,6 +53,7 @@ function mtphr_dnt_initialize_settings() {
 		'title' => __( 'Custom CSS', 'ditty-news-ticker' ),
 		'type' => 'textarea',
 		'rows' => 20,
+		'class' => 'mtphr-dnt-custom-css',
 		'description' => __( 'Custom CSS will be added to the head of each page that includes a Ditty News Ticker.', 'ditty-news-ticker' )
 	);
 	if( false == get_option('mtphr_dnt_general_settings') ) {
@@ -151,7 +152,7 @@ function mtphr_dnt_general_settings_callback() {
 /**
  * The custom field callback.
  *
- * @since 1.0.0
+ * @since 1.2.1
  */
 function mtphr_dnt_settings_callback( $args ) {
 
@@ -166,15 +167,15 @@ function mtphr_dnt_settings_callback( $args ) {
 		$value = $args['default'];
 	}
 	if( isset($args['type']) ) {
-
-		echo '<div class="mtphr-dnt-metaboxer-field mtphr-dnt-metaboxer-'.$args['type'].'">';
+		$class = ( isset($args['class']) ) ? $args['class'] : '';
+		echo '<div class="mtphr-dnt-metaboxer-field mtphr-dnt-metaboxer-'.$args['type'].' '.$class.'">';
 
 		// Call the function to display the field
 		if ( function_exists('mtphr_dnt_metaboxer_'.$args['type']) ) {
 			call_user_func( 'mtphr_dnt_metaboxer_'.$args['type'], $args, $value );
 		}
 
-		echo '<div>';
+		echo '</div>';
 	}
 
 	// Add a descriptions

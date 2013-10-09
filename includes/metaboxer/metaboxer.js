@@ -402,6 +402,22 @@ $('.mtphr-dnt-metaboxer-sort').each( function(index) {
 });
 
 
+/* --------------------------------------------------------- */
+/* !Add codemirror css editor - 1.2.1 */
+/* --------------------------------------------------------- */
+
+$('.mtphr-dnt-custom-css').each( function(i) {
+
+	var $textarea = $(this).find('textarea');
+	var myCodeMirror = CodeMirror.fromTextArea($textarea[0], {
+		'mode' : 'css',
+		'lineNumbers' : true,
+		'lineWrapping' : true
+	});
+	myCodeMirror.setSize( false, 300 );
+});
+
+
 
 
 

@@ -3,7 +3,7 @@
 Plugin Name: Ditty News Ticker
 Plugin URI: http://dittynewsticker.com/
 Description: Ditty News Ticker is a multi-functional data display plugin
-Version: 1.2.0
+Version: 1.2.1
 Author: Metaphor Creations
 Author URI: http://www.metaphorcreations.com
 License: GPL2
@@ -42,12 +42,12 @@ The icons are licensed under a Creative Commons Attribution
 /**
  * Define constants
  *
- * @since 1.1.9
+ * @since 1.2.1
  */
 if ( WP_DEBUG ) {
-	define ( 'MTPHR_DNT_VERSION', '1.2.0-'.time() );
+	define ( 'MTPHR_DNT_VERSION', '1.2.1-'.time() );
 } else {
-	define ( 'MTPHR_DNT_VERSION', '1.2.0' );
+	define ( 'MTPHR_DNT_VERSION', '1.2.1' );
 }
 define ( 'MTPHR_DNT_DIR', plugin_dir_path(__FILE__) );
 define ( 'MTPHR_DNT_URL', plugins_url().'/ditty-news-ticker' );
