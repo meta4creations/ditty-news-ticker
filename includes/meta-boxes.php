@@ -48,7 +48,7 @@ add_action( 'admin_init', 'mtphr_dnt_metabox_type_default' );
 /**
  * Create the default type metabox.
  *
- * @since 1.1.4
+ * @since 1.2.2
  */
 function mtphr_dnt_metabox_type_default() {
 
@@ -83,6 +83,13 @@ function mtphr_dnt_metabox_type_default() {
 
 	// Create an array to store the fields
 	$default_fields = array();
+
+	// Add the items field
+	$default_fields['line_breaks'] = array(
+		'id' => '_mtphr_dnt_line_breaks',
+		'type' => 'checkbox',
+		'label' => __('Force line breaks on carriage returns', 'ditty-news-ticker'),
+	);
 
 	// Add the items field
 	$default_fields['ticks'] = array(

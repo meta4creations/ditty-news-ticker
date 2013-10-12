@@ -22,7 +22,7 @@ function ditty_news_ticker( $id='', $class='', $atts=false ) {
 /**
  * Return the ticker
  *
- * @since 1.2.1
+ * @since 1.2.2
  */
 function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
@@ -60,7 +60,11 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 		if( is_array($_mtphr_dnt_ticks) ) {
 			foreach( $_mtphr_dnt_ticks as $i => $tick ) {
 
-				if( $text = wp_kses_post(nl2br($tick['tick'])) ) {
+				if( $text = $tick['tick'] ) {
+					if( isset($_mtphr_dnt_line_breaks) && $_mtphr_dnt_line_breaks ) {
+						$text = nl2br($tick['tick']);
+					}
+					$text = wp_kses_post($text);
 
 					// Get the contents
 					if( $link = esc_url($tick['link']) ) {

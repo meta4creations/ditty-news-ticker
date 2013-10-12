@@ -52,6 +52,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.2.2 =
+* Added option to force line breaks on carriage returns.
+
 = 1.2.1 =
 * Modifed to allow multiline text
 * Updated custom css field to css editor
@@ -154,4 +157,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Modifed to allow multiline text and updated custom css field to css editor
+Added an option to force line breaks on carriage returns
