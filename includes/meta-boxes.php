@@ -6,8 +6,6 @@
  */
 
 
-
-
 add_action( 'admin_init', 'mtphr_dnt_metabox_types', 9 );
 /**
  * Create the types metabox.
@@ -557,6 +555,135 @@ function mtphr_dnt_display_metabox() {
 	);
 	new MTPHR_DNT_MetaBoxer( $dnt_display );
 }
+
+
+
+
+
+/* --------------------------------------------------------- */
+/* !Add the mixed type metabox - 1.3.0 */
+/* --------------------------------------------------------- */
+
+function mtphr_dnt_mixed_metabox() {
+
+	add_meta_box( 'mtphr_dnt_mixed_metabox', __('Mixed Ticker Items', 'ditty-news-ticker'), 'mtphr_dnt_mixed_render_metabox', 'ditty_news_ticker', 'normal', 'high' );
+}
+add_action( 'add_meta_boxes', 'mtphr_dnt_mixed_metabox' );
+
+
+
+/* --------------------------------------------------------- */
+/* !Render the mixed type metabox - 1.3.0 */
+/* --------------------------------------------------------- */
+
+function mtphr_dnt_mixed_render_metabox() {
+
+	global $post;
+
+	$ticks = get_post_meta( $post->ID, '_mtphr_dnt_mixed_ticks', true );
+	$types = mtphr_dnt_types_array();
+	unset($types['mixed']);
+	
+	//echo '<pre>';print_r($ticks);echo '</pre>';
+
+	echo '<input type="hidden" name="mtphr_dnt_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
+
+	echo '<a href="#" id="mtphr-dnt-mixed-add-tick" class="button-primary">'.__('Add Tick', 'ditty-news-ticker').'</a><span class="spinner mtphr-dnt-add-spinner"></span>';
+	
+	echo '<table class="mtphr-dnt-table">';
+	
+		echo '<tr>';
+			echo '<td class="mtphr-dnt-label">';
+				echo '<label>'.__('Tick selection', 'ditty-news-ticker').'</label>';
+				echo '<small>'.__('Select the ticks you would like to display by choosing the tick type and the offset position of the selected feed', 'ditty-news-ticker').'</small>';
+			echo '</td>';
+			echo '<td>';
+				echo '<table class="mtphr-dnt-list mtphr-dnt-mixed-list" style="width:auto;">';
+					if( is_array($ticks) && count($ticks) > 0 ) {
+						foreach( $ticks as $i=>$tick ) {
+							mtphr_dnt_render_mixed_tick( $types, $tick, $i );
+						}
+					}
+				echo '</table>';
+			echo '</td>';
+		echo '</tr>';
+		
+	echo '</table>';
+}
+
+function mtphr_dnt_render_mixed_tick( $types, $tick=false, $i=false ) {
+	
+	$tick_type = ( isset($tick) && isset($tick['type']) ) ? $tick['type'] : '';
+	$tick_offset = ( isset($tick) && isset($tick['offset']) ) ? $tick['offset'] : 0;
+	
+	echo '<tr class="mtphr-dnt-list-item">';
+		echo '<td class="mtphr-dnt-list-handle"><span></span></td>';
+	  echo '<td class="mtphr-dnt-mixed-type">';
+	  	echo '<label style="margin-right:10px;"><strong>'.__('Type:', 'ditty-news-ticker').'</strong> ';
+				echo '<select name="_mtphr_dnt_mixed_ticks[type]" key="type">';
+					echo '<option value="">-- '.__('Select Tick Type', 'ditty-news-ticker').' --</option>';
+					foreach( $types as $i=>$type ) {
+						echo '<option value="'.$i.'" '.selected($i, $tick_type, false).'>'.$type['button'].'</option>';
+					}
+				echo '</select>';
+			echo '</label>';
+		echo '</td>';
+		echo '<td>';
+			echo '<label><strong>'.__('Offset:', 'ditty-news-ticker').'</strong> ';
+				echo '<input type="number" name="_mtphr_dnt_mixed_ticks[offset]" key="offset" value="'.$tick_offset.'" />';
+			echo '</label>';
+		echo '</td>';
+		echo '<td class="mtphr-dnt-list-delete"><a href="#"></a></td>';
+	echo '</tr>';
+}
+
+
+
+/* --------------------------------------------------------- */
+/* !Save the custom meta - 1.0.5 */
+/* --------------------------------------------------------- */
+
+function mtphr_dnt_metabox_save( $post_id ) {
+
+	global $post;
+
+	// verify nonce
+	if (!isset($_POST['mtphr_dnt_nonce']) || !wp_verify_nonce($_POST['mtphr_dnt_nonce'], basename(__FILE__))) {
+		return $post_id;
+	}
+
+	// check autosave
+	if ( (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) || ( defined('DOING_AJAX') && DOING_AJAX) || isset($_REQUEST['bulk_edit']) ) return $post_id;
+
+	// don't save if only a revision
+	if ( isset($post->post_type) && $post->post_type == 'revision' ) return $post_id;
+
+	// check permissions
+	if (isset($_POST['post_type']) && 'page' == $_POST['post_type']) {
+		if (!current_user_can('edit_page', $post_id)) {
+			return $post_id;
+		}
+	} elseif (!current_user_can('edit_post', $post_id)) {
+		return $post_id;
+	}
+	
+	
+	// Delete & save the mixed ticks
+	delete_post_meta( $post_id, '_mtphr_dnt_mixed_ticks' );
+	if( isset($_POST['_mtphr_dnt_mixed_ticks']) && count($_POST['_mtphr_dnt_mixed_ticks']) > 0 ) {
+	
+		$sanitized_ticks = array();
+		foreach( $_POST['_mtphr_dnt_mixed_ticks'] as $tick ) {
+			$sanitized_ticks[] = array(
+				'type' => $tick['type'],
+				'offset' => intval($tick['offset'])
+			);
+		}
+		update_post_meta( $post_id, '_mtphr_dnt_mixed_ticks', $sanitized_ticks );
+	}
+}
+add_action( 'save_post', 'mtphr_dnt_metabox_save' );
+
 
 
 

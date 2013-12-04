@@ -22,7 +22,7 @@ function ditty_news_ticker( $id='', $class='', $atts=false ) {
 /**
  * Return the ticker
  *
- * @since 1.2.2
+ * @since 1.3.0
  */
 function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
@@ -53,36 +53,11 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 		// Extract the metadata array into variables
 		extract( $meta_data );
 
-		// Create an empty array to save ticks
-		$dnt_ticks = array();
-
-		// Get the ticks
-		if( is_array($_mtphr_dnt_ticks) ) {
-			foreach( $_mtphr_dnt_ticks as $i => $tick ) {
-
-				if( $text = $tick['tick'] ) {
-					if( isset($_mtphr_dnt_line_breaks) && $_mtphr_dnt_line_breaks ) {
-						$text = nl2br($tick['tick']);
-					}
-					$text = wp_kses_post($text);
-
-					// Get the contents
-					if( $link = esc_url($tick['link']) ) {
-						$nf = ( isset($tick['nofollow']) && $tick['nofollow'] ) ? ' rel="nofollow"' : '';
-						$contents = '<a href="'.$link.'" target="'.$tick['target'].'"'.$nf.'>'.$text.'</a>';
-					} else {
-						$contents = $text;
-					}
-					$contents = apply_filters('mtphr_dnt_tick', $contents, $text, $link );
-
-					// Save the output to the tick array
-					$dnt_ticks[] = $contents;
-				}
-			}
+		if( $_mtphr_dnt_type == 'mixed' ) {
+			$dnt_ticks = mtphr_dnt_mixed_ticks( $id, $meta_data );
+		} else {
+			$dnt_ticks = apply_filters( 'mtphr_dnt_tick_array', array(), $id, $meta_data );
 		}
-
-		// Filter the ticks
-		$dnt_ticks = apply_filters( 'mtphr_dnt_tick_array', $dnt_ticks, $id, $meta_data );
 
 		ob_start();
 
@@ -164,6 +139,9 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 			}
 			$total = count($dnt_ticks);
 			foreach( $dnt_ticks as $i => $tick ) {
+			
+				$type = ( $_mtphr_dnt_type == 'mixed' ) ? $tick['type'] : $_mtphr_dnt_type;
+				$tick = ( $_mtphr_dnt_type == 'mixed' ) ? $tick['tick'] : $tick;
 
 				// Set the list spacing depending on the tick position
 				if( $_mtphr_dnt_mode == 'list' ) {
@@ -173,7 +151,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 				$tick_style = ( $width != '' || $height != '' || $spacing != '' ) ? ' style="'.$width.$height.$spacing.'"' : '';
 
 				do_action( 'mtphr_dnt_tick_before', $id, $meta_data, $total, $i );
-				echo '<div'.$tick_style.' '.mtphr_dnt_tick_class('mtphr-dnt-clearfix').'>';
+				echo '<div'.$tick_style.' '.mtphr_dnt_tick_class('mtphr-dnt-'.$type.'-tick mtphr-dnt-clearfix').'>';
 				do_action( 'mtphr_dnt_tick_top', $id, $meta_data );
 
 				echo $tick;
@@ -285,163 +263,93 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
 
 
+/* --------------------------------------------------------- */
+/* !Create the default ticks - 1.3.0 */
+/* --------------------------------------------------------- */
 
-/**
- * Return the ticker class
- *
- * @since 1.0.9
- */
-function mtphr_dnt_ticker_class( $id='', $class='', $meta_data ) {
+function mtphr_dnt_default_ticks( $ticks, $id, $meta_data ) {
 
-	// Separates classes with a single space, collates classes for ditty ticker element
-	return 'class="'.join( ' ', get_mtphr_dnt_ticker_class($id,$class,$meta_data) ).'"';
+	if( $meta_data['_mtphr_dnt_type'] == 'default' ) {
+
+		// Create an empty array to save ticks
+		$new_ticks = array();
+
+		// Get the ticks
+		if( isset($meta_data['_mtphr_dnt_ticks']) && is_array($meta_data['_mtphr_dnt_ticks']) ) {
+			foreach( $meta_data['_mtphr_dnt_ticks'] as $i => $tick ) {
+
+				if( $text = $tick['tick'] ) {
+					if( isset($meta_data['_mtphr_dnt_line_breaks']) && $meta_data['_mtphr_dnt_line_breaks'] ) {
+						$text = nl2br($tick['tick']);
+					}
+					//$text = wp_kses_post($text);
+					$text = wpautop(convert_chars(wptexturize($text)));
+
+					// Get the contents
+					if( $link = esc_url($tick['link']) ) {
+						$nf = ( isset($tick['nofollow']) && $tick['nofollow'] ) ? ' rel="nofollow"' : '';
+						$contents = '<a href="'.$link.'" target="'.$tick['target'].'"'.$nf.'>'.$text.'</a>';
+					} else {
+						$contents = $text;
+					}
+					$contents = apply_filters('mtphr_dnt_tick', $contents, $text, $link );
+
+					// Save the output to the tick array
+					$new_ticks[] = $contents;
+				}
+			}
+		}
+
+		// Return the new ticks
+		return $new_ticks;
+	}
+
+	return $ticks;
 }
+add_filter( 'mtphr_dnt_tick_array', 'mtphr_dnt_default_ticks', 10, 3 );
 
-function get_mtphr_dnt_ticker_class( $id='', $class='', $meta_data ) {
 
-	// Extract the metadata array into variables
-	extract( $meta_data );
 
-	$classes = array();
+/* --------------------------------------------------------- */
+/* !Create the mixed ticks - 1.3.0 */
+/* --------------------------------------------------------- */
 
-	$classes[] = 'mtphr-dnt';
-	$classes[] = 'mtphr-dnt-'.$id;
-	$classes[] = 'mtphr-dnt-'.$_mtphr_dnt_type;
-	$classes[] = 'mtphr-dnt-'.$_mtphr_dnt_mode;
+if( !function_exists('mtphr_dnt_mixed_ticks') ) {
+function mtphr_dnt_mixed_ticks( $id, $meta_data ) {
 
-	if( $_mtphr_dnt_mode == 'scroll' ) {
-		$classes[] = 'mtphr-dnt-'.$_mtphr_dnt_mode.'-'.$_mtphr_dnt_scroll_direction;
-	}
-	if( $_mtphr_dnt_mode == 'rotate' ) {
-		$classes[] = 'mtphr-dnt-'.$_mtphr_dnt_mode.'-'.$_mtphr_dnt_rotate_type;
-	}
+	// Get all active ticker types
+	$types = mtphr_dnt_types_array();
+	
+	// Create a cache of the ticks
+	$ticks_cache = array();
+	
+	// Create an empty array to save ticks
+	$dnt_ticks = array();
 
-	// Set the styles class
-	if( isset($_mtphr_dnt_styled) ) {
-		if( $_mtphr_dnt_styled ) {
-			$classes[] = 'mtphr-dnt-styled';
+	// Get the ticks
+	if( isset($meta_data['_mtphr_dnt_mixed_ticks']) && is_array($meta_data['_mtphr_dnt_mixed_ticks']) && count($meta_data['_mtphr_dnt_mixed_ticks']) > 0 ) {
+		foreach( $meta_data['_mtphr_dnt_mixed_ticks'] as $i => $tick ) {
+
+			// Make sure the tick type exists
+			if( array_key_exists( $tick['type'], $types ) && !array_key_exists( $tick['type'], $ticks_cache ) ) {
+				$meta_data['_mtphr_dnt_type'] = $tick['type'];
+				$ticks_cache[$tick['type']] = apply_filters( 'mtphr_dnt_tick_array', array(), $id, $meta_data );
+			}
+			
+			// Add the appropriate tick to the tick array
+			if( isset($ticks_cache[$tick['type']][intval($tick['offset'])]) ) {
+				$dnt_ticks[] = array(
+					'type' => $tick['type'],
+					'tick' => $ticks_cache[$tick['type']][intval($tick['offset'])]
+				);
+			}
 		}
 	}
 
-	if ( !empty( $class ) ) {
-		if ( !is_array( $class ) ) {
-			$class = preg_split( '#\s+#', $class );
-		}
-		$classes = array_merge( $classes, $class );
-	} else {
-		// Ensure that we always coerce class to being an array.
-		$class = array();
-	}
-
-	$classes = array_map( 'esc_attr', $classes );
-
-	return apply_filters( 'mtphr_dnt_ticker_class', $classes, $class );
+	// Return the new ticks
+	return $dnt_ticks;
 }
-
-
-
-
-/**
- * Return the tick class
- *
- * @since 1.0.0
- */
-function mtphr_dnt_tick_class( $class='' ) {
-
-	// Separates classes with a single space, collates classes for ditty ticker element
-	return 'class="'.join( ' ', get_mtphr_dnt_tick_class($class) ).'"';
 }
-
-function get_mtphr_dnt_tick_class( $class='' ) {
-
-	$classes = array();
-
-	$classes[] = 'mtphr-dnt-tick';
-
-	if ( !empty( $class ) ) {
-		if ( !is_array( $class ) ) {
-			$class = preg_split( '#\s+#', $class );
-		}
-		$classes = array_merge( $classes, $class );
-	} else {
-		// Ensure that we always coerce class to being an array.
-		$class = array();
-	}
-
-	$classes = array_map( 'esc_attr', $classes );
-
-	return apply_filters( 'mtphr_dnt_tick_class', $classes, $class );
-}
-
-
-
-
-/**
- * Minify scripts for output
- *
- * @since 1.0.0
- */
-function mtphr_dnt_compress_script( $str ) {
-
-	$lines = explode( "\n", $str );
-	$output = '';
-	foreach( $lines as $line ) {
-		if( substr(trim($line), 0, 3) != '// ' ) {
-			$output .= trim( $line );
-		}
-	}
-
-	return $output;
-}
-
-
-
-
-/**
- * Return an array of the current DNT types
- *
- * @since 1.0.0
- */
-function mtphr_dnt_types_array() {
-
-	/* Create the types array. */
-	$dnt_types_array = array();
-	$dnt_types_array['default'] = array(
-		'button' => __('Default', 'ditty-news-ticker'),
-		'metaboxes' => array( 'mtphr_dnt_type_default' )
-	);
-
-	return apply_filters('mtphr_dnt_types', $dnt_types_array);
-}
-
-
-
-
-/**
- * Return an array of the current DNT modes
- *
- * @since 1.0.0
- */
-function mtphr_dnt_modes_array() {
-
-	/* Create the modes array. */
-	$dnt_modes_array = array();
-	$dnt_modes_array['scroll'] = array(
-		'button' => __('Scroll', 'ditty-news-ticker'),
-		'metaboxes' => array( 'mtphr_dnt_mode_scroll' )
-	);
-	$dnt_modes_array['rotate'] = array(
-		'button' => __('Rotate', 'ditty-news-ticker'),
-		'metaboxes' => array( 'mtphr_dnt_mode_rotate' )
-	);
-	$dnt_modes_array['list'] = array(
-		'button' => __('List', 'ditty-news-ticker'),
-		'metaboxes' => array( 'mtphr_dnt_mode_list' )
-	);
-
-	return apply_filters('mtphr_dnt_modes', $dnt_modes_array);
-}
-
 
 
 

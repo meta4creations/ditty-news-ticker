@@ -52,6 +52,12 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.3.0 =
+* Organized code
+* Added "Mixed" type to display tickers mixed with multiple ticker types
+* Modified 'after_load', 'before_change', 'after_change' filters for DNT class script
+* Added code to remove duplicate tickers
+
 = 1.2.2 =
 * Added option to force line breaks on carriage returns.
 
@@ -157,4 +163,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Added an option to force line breaks on carriage returns
+Added a Mixed Type to display a ticker with multiple tick type. Other updates.

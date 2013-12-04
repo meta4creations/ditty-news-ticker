@@ -12,7 +12,7 @@ add_action( 'admin_enqueue_scripts', 'mtphr_dnt_admin_scripts' );
 /**
  * Load the metaboxer scripts
  *
- * @since 1.2.1
+ * @since 1.3.0
  */
 function mtphr_dnt_admin_scripts( $hook ) {
 
@@ -46,11 +46,18 @@ function mtphr_dnt_admin_scripts( $hook ) {
 				'security' => wp_create_nonce( 'ditty-metaboxer' )
 			)
 		);
+		
+		wp_register_script( 'ditty-news-ticker', MTPHR_DNT_URL.'/assets/js/script-admin.js', array( 'jquery','jquery-ui-core','jquery-ui-sortable' ), MTPHR_DNT_VERSION, true );
+		wp_enqueue_script( 'ditty-news-ticker' );
+		wp_localize_script( 'ditty-news-ticker', 'ditty_news_ticker_vars', array(
+				'security' => wp_create_nonce( 'ditty-news-ticker' )
+			)
+		);
 	}
 
 	// Load the plugin css
-	wp_register_style( 'mtphr-dnt-admin', MTPHR_DNT_URL.'/assets/css/style-admin.css', false, MTPHR_DNT_VERSION );
-	wp_enqueue_style( 'mtphr-dnt-admin' );
+	wp_register_style( 'ditty-news-ticker', MTPHR_DNT_URL.'/assets/css/style-admin.css', false, MTPHR_DNT_VERSION );
+	wp_enqueue_style( 'ditty-news-ticker' );
 }
 
 
@@ -102,7 +109,7 @@ add_action( 'wp_footer', 'mtphr_dnt_tickers_init_scripts', 20 );
 /**
  * Initialize the ticker scriptinos
  *
- * @since 1.1.8
+ * @since 1.3.0
  */
 function mtphr_dnt_tickers_init_scripts() {
 
@@ -111,10 +118,19 @@ function mtphr_dnt_tickers_init_scripts() {
 		wp_print_scripts('touchSwipe');
 		wp_print_scripts('jquery-easing');
 		wp_print_scripts('ditty-news-ticker');
+		
+		$filtered_tickers = array();
+		$id_array = array();
+		foreach ( $mtphr_dnt_ticker_scripts as $ticker) {
+	    if (!in_array($ticker['id'], $id_array)) {
+        $id_array[] = $ticker['id'];
+        $filtered_tickers[] = $ticker;
+	    }
+		}
 		?>
 		<script>
 			jQuery( window ).load( function() {
-			<?php foreach( $mtphr_dnt_ticker_scripts as $ticker ) { ?>
+			<?php foreach( $filtered_tickers as $ticker ) { ?>
 				jQuery( '<?php echo $ticker['ticker']; ?>' ).ditty_news_ticker({
 					id : '<?php echo $ticker['id']; ?>',
 					type : '<?php echo $ticker['type']; ?>',
@@ -132,13 +148,13 @@ function mtphr_dnt_tickers_init_scripts() {
 					nav_reverse : <?php echo $ticker['nav_reverse']; ?>,
 					offset : <?php echo $ticker['offset']; ?>,
 					after_load : function( $ticker ) {
-						<?php echo apply_filters( 'mtphr_dnt_after_load_rotate' , '', $ticker['id'] ); ?>
+						<?php echo apply_filters( 'mtphr_dnt_after_load_rotate', $ticker['id'] ); ?>
 					},
 					before_change : function( $ticker ) {
-						<?php echo apply_filters( 'mtphr_dnt_before_change_rotate' , '', $ticker['id'] ); ?>
+						<?php echo apply_filters( 'mtphr_dnt_before_change_rotate', $ticker['id'] ); ?>
 					},
 					after_change : function( $ticker ) {
-						<?php echo apply_filters( 'mtphr_dnt_after_change_rotate' , '', $ticker['id'] ); ?>
+						<?php echo apply_filters( 'mtphr_dnt_after_change_rotate', $ticker['id'] ); ?>
 					}
 				});
 			 <?php } ?>
