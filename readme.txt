@@ -52,6 +52,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.3.2 =
+* Removed console.log from script-admin.js
+
 = 1.3.1 =
 * Big fix from last update
 
@@ -166,4 +169,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Big fix from last update.
+Removed console.log from script-admin.js.

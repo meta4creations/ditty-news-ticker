@@ -19,7 +19,6 @@ jQuery( document ).ready( function($) {
 			
 			$table.find('.mtphr-dnt-list-item').each( function(index) {	
 				$(this).find('input, select').each( function() {
-					console.log($(this).attr('key'));
 					$(this).attr('name', '_mtphr_dnt_mixed_ticks['+index+']['+$(this).attr('key')+']');
 				});
 			});
