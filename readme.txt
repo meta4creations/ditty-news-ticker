@@ -52,6 +52,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.3.1 =
+* Big fix from last update
+
 = 1.3.0 =
 * Organized code
 * Added "Mixed" type to display tickers mixed with multiple ticker types
@@ -163,4 +166,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Added a Mixed Type to display a ticker with multiple tick type. Other updates.
+Big fix from last update.

@@ -264,7 +264,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
 
 /* --------------------------------------------------------- */
-/* !Create the default ticks - 1.3.0 */
+/* !Create the default ticks - 1.3.1 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_default_ticks( $ticks, $id, $meta_data ) {
@@ -282,8 +282,7 @@ function mtphr_dnt_default_ticks( $ticks, $id, $meta_data ) {
 					if( isset($meta_data['_mtphr_dnt_line_breaks']) && $meta_data['_mtphr_dnt_line_breaks'] ) {
 						$text = nl2br($tick['tick']);
 					}
-					//$text = wp_kses_post($text);
-					$text = wpautop(convert_chars(wptexturize($text)));
+					$text = convert_chars(wptexturize($text));
 
 					// Get the contents
 					if( $link = esc_url($tick['link']) ) {
