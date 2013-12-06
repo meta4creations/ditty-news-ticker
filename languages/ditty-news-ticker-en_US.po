@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Ditty News Ticker v1.3.0\n"
+"Project-Id-Version: Ditty News Ticker v1.3.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2013-12-04 21:31:19+0000\n"
+"PO-Revision-Date: 2013-12-06 22:12:12+0000\n"
 "Last-Translator: admin <joe@metaphorcreations.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -113,11 +113,13 @@ msgid "Add list mode info."
 msgstr "Add list mode info."
 
 #: includes/meta-boxes.php:20
+#: includes/meta-boxes.php:581
 #@ ditty-news-ticker
 msgid "Ticker Type"
 msgstr "Ticker Type"
 
 #: includes/meta-boxes.php:33
+#: includes/meta-boxes.php:581
 #@ ditty-news-ticker
 msgid "View all types"
 msgstr "View all types"
@@ -143,6 +145,7 @@ msgid "Default Ticker Items"
 msgstr "Default Ticker Items"
 
 #: includes/meta-boxes.php:136
+#: includes/meta-boxes.php:602
 #@ ditty-news-ticker
 msgid "Ticker Mode"
 msgstr "Ticker Mode"
@@ -631,38 +634,48 @@ msgstr ""
 msgid "Mixed"
 msgstr ""
 
-#: includes/meta-boxes.php:569
+#: includes/meta-boxes.php:635
 #@ ditty-news-ticker
 msgid "Mixed Ticker Items"
 msgstr ""
 
-#: includes/meta-boxes.php:591
+#: includes/meta-boxes.php:657
 #@ ditty-news-ticker
 msgid "Add Tick"
 msgstr ""
 
-#: includes/meta-boxes.php:597
+#: includes/meta-boxes.php:663
 #@ ditty-news-ticker
 msgid "Tick selection"
 msgstr ""
 
-#: includes/meta-boxes.php:598
+#: includes/meta-boxes.php:664
 #@ ditty-news-ticker
 msgid "Select the ticks you would like to display by choosing the tick type and the offset position of the selected feed"
 msgstr ""
 
-#: includes/meta-boxes.php:622
+#: includes/meta-boxes.php:690
 #@ ditty-news-ticker
 msgid "Type:"
 msgstr ""
 
-#: includes/meta-boxes.php:624
+#: includes/meta-boxes.php:692
 #@ ditty-news-ticker
 msgid "Select Tick Type"
 msgstr ""
 
-#: includes/meta-boxes.php:632
+#: includes/meta-boxes.php:700
 #@ ditty-news-ticker
 msgid "Offset:"
+msgstr ""
+
+#: includes/meta-boxes.php:582
+#@ ditty-news-ticker
+msgid "Select the type of ticker you'd like to use"
+msgstr ""
+
+#: includes/meta-boxes.php:603
+#@ ditty-news-ticker
+msgid "Select the mode of the ticker"
 msgstr ""
 

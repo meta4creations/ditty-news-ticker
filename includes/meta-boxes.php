@@ -6,7 +6,7 @@
  */
 
 
-add_action( 'admin_init', 'mtphr_dnt_metabox_types', 9 );
+//add_action( 'admin_init', 'mtphr_dnt_metabox_types', 9 );
 /**
  * Create the types metabox.
  *
@@ -111,7 +111,7 @@ function mtphr_dnt_metabox_type_default() {
 
 
 
-add_action( 'admin_init', 'mtphr_dnt_metabox_modes', 11 );
+//add_action( 'admin_init', 'mtphr_dnt_metabox_modes', 11 );
 /**
  * Create the modes metabox.
  *
@@ -558,6 +558,72 @@ function mtphr_dnt_display_metabox() {
 
 
 
+/* --------------------------------------------------------- */
+/* !Add the main ticker options - 1.3.3 */
+/* --------------------------------------------------------- */
+
+function mtphr_dnt_option_buttons() {
+
+	global $post;
+
+	$types = mtphr_dnt_types_array();
+	$type = get_post_meta( $post->ID, '_mtphr_dnt_type', true );
+	$type = ( $type != '' ) ? $type : 'default';
+	
+	$modes = mtphr_dnt_modes_array();
+	$mode = get_post_meta( $post->ID, '_mtphr_dnt_mode', true );
+	$type = ( $type != '' ) ? $type : 'scroll';
+	
+	echo '<table id="ditty-news-ticker-settings-select">';
+		echo '<tr>';
+			echo '<td id="ditty-news-ticker-type-select">';
+				echo '<div class="wrapper">';
+					echo '<h2>'.__('Ticker Type', 'ditty-news-ticker').' <a href="http://dittynewsticker.com" target="_blank"><small>'.__('View all types', 'ditty-news-ticker').'</small></a></h2>';
+					echo '<p>'.__('Select the type of ticker you\'d like to use', 'ditty-news-ticker').'</p>';
+					echo '<div class="mtphr-dnt-metabox-toggle">';
+						echo '<input type="hidden" name="_mtphr_dnt_type" value="'.$type.'" />';
+						foreach( $types as $i=>$t ) {
+							
+							$value = '';
+							$button = $t['button'];
+							$metaboxes = $t['metaboxes'];
+							$metabox_list = join( ',', $metaboxes );
+					
+							// Create a button
+							$selected = ( $type == $i ) ? ' button-primary' : '';
+							echo '<a href="'.$i.'" metaboxes="'.$metabox_list.'" class="mtphr-dnt-metaboxer-metabox-toggle button'.$selected.'">'.$button.'</a>&nbsp;';
+						}
+					echo '</div>';
+				echo '</div>';
+			echo '</td>';
+				
+			echo '<td id="ditty-news-ticker-mode-select">';
+				echo '<div class="wrapper">';
+					echo '<h2>'.__('Ticker Mode', 'ditty-news-ticker').'</h2>';
+					echo '<p>'.__('Select the mode of the ticker', 'ditty-news-ticker').'</p>';
+					echo '<div class="mtphr-dnt-metabox-toggle">';
+						echo '<input type="hidden" name="_mtphr_dnt_mode" value="'.$mode.'" />';
+						foreach( $modes as $i=>$m ) {
+							
+							$value = '';
+							$button = $m['button'];
+							$metaboxes = $m['metaboxes'];
+							$metabox_list = join( ',', $metaboxes );
+					
+							// Create a button
+							$selected = ( $mode == $i ) ? ' button-primary' : '';
+							echo '<a href="'.$i.'" metaboxes="'.$metabox_list.'" class="mtphr-dnt-metaboxer-metabox-toggle button'.$selected.'">'.$button.'</a>&nbsp;';
+						}
+					echo '</div>';
+				echo '</div>';
+			echo '</td>';
+		echo '</tr>';
+	echo '</table>';
+}
+add_action( 'edit_form_after_title', 'mtphr_dnt_option_buttons' );
+
+
+
 
 
 /* --------------------------------------------------------- */
@@ -573,7 +639,7 @@ add_action( 'add_meta_boxes', 'mtphr_dnt_mixed_metabox' );
 
 
 /* --------------------------------------------------------- */
-/* !Render the mixed type metabox - 1.3.0 */
+/* !Render the mixed type metabox - 1.3.3 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_mixed_render_metabox() {
@@ -603,6 +669,8 @@ function mtphr_dnt_mixed_render_metabox() {
 						foreach( $ticks as $i=>$tick ) {
 							mtphr_dnt_render_mixed_tick( $types, $tick, $i );
 						}
+					} else {
+						mtphr_dnt_render_mixed_tick( $types );
 					}
 				echo '</table>';
 			echo '</td>';
@@ -619,7 +687,7 @@ function mtphr_dnt_render_mixed_tick( $types, $tick=false, $i=false ) {
 	echo '<tr class="mtphr-dnt-list-item">';
 		echo '<td class="mtphr-dnt-list-handle"><span></span></td>';
 	  echo '<td class="mtphr-dnt-mixed-type">';
-	  	echo '<label style="margin-right:10px;"><strong>'.__('Type:', 'ditty-news-ticker').'</strong> ';
+	  	echo '<label style="margin-right:10px;">'.__('Type:', 'ditty-news-ticker').' ';
 				echo '<select name="_mtphr_dnt_mixed_ticks[type]" key="type">';
 					echo '<option value="">-- '.__('Select Tick Type', 'ditty-news-ticker').' --</option>';
 					foreach( $types as $i=>$type ) {
@@ -629,7 +697,7 @@ function mtphr_dnt_render_mixed_tick( $types, $tick=false, $i=false ) {
 			echo '</label>';
 		echo '</td>';
 		echo '<td>';
-			echo '<label><strong>'.__('Offset:', 'ditty-news-ticker').'</strong> ';
+			echo '<label>'.__('Offset:', 'ditty-news-ticker').' ';
 				echo '<input type="number" name="_mtphr_dnt_mixed_ticks[offset]" key="offset" value="'.$tick_offset.'" />';
 			echo '</label>';
 		echo '</td>';
@@ -667,6 +735,15 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		return $post_id;
 	}
 	
+	// Update the type & mode
+	if( isset($_POST['_mtphr_dnt_type']) ) {
+	
+		$type =  isset($_POST['_mtphr_dnt_type']) ? sanitize_text_field($_POST['_mtphr_dnt_type']) : 'default';
+		$mode =  isset($_POST['_mtphr_dnt_mode']) ? sanitize_text_field($_POST['_mtphr_dnt_mode']) : 'scroll';
+		
+		update_post_meta( $post_id, '_mtphr_dnt_type', $type );
+		update_post_meta( $post_id, '_mtphr_dnt_mode', $mode );
+	}
 	
 	// Delete & save the mixed ticks
 	delete_post_meta( $post_id, '_mtphr_dnt_mixed_ticks' );

@@ -52,6 +52,10 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.3.3 =
+* Moved type & mode selections out of metaboxes
+* Added a default tick to the mixed type
+
 = 1.3.2 =
 * Removed console.log from script-admin.js
 
@@ -169,4 +173,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Removed console.log from script-admin.js.
+Moved type & mode selections out of metaboxes, Added a default tick to the mixed type

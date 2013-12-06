@@ -1,4 +1,74 @@
 jQuery( document ).ready( function($) {
+
+
+	/* --------------------------------------------------------- */
+	/* !Metabox toggle - 1.3.3 */
+	/* --------------------------------------------------------- */
+
+	$('.mtphr-dnt-metabox-toggle').each( function(index) {
+	
+		// Create an array to store all the toggled metaboxes
+		var metaboxes = Array();
+		$(this).children('a').each( function(index) {
+	
+			// Get the metaboxes and merge into the main array
+			var m = $(this).attr('metaboxes').split(',');
+			$.merge( metaboxes, m );
+		});
+		var total_metaboxes = metaboxes.length;
+	
+		// Hide the toggled metaboxes
+		mtphr_dnt_metabox_hide();
+	
+		// Display the current metaboxes
+		if( $(this).children('a.button-primary').length > 0 ) {
+			$init_button = $(this).children('a.button-primary');
+		} else {
+			$init_button = $(this).children('a:first');
+			$init_button.addClass('button-primary');
+		}
+		mtphr_dnt_metabox_show( $init_button );
+	
+		// Hide the toggled metaboxes
+		function mtphr_dnt_metabox_hide() {
+			for( var i=0; i<total_metaboxes; i++ ) {
+				$('#'+metaboxes[i]).hide();
+				$('input[name="'+metaboxes[i]+'-hide"]').removeAttr('checked');
+			}
+		}
+	
+		// Show the selected metaboxes
+		function mtphr_dnt_metabox_show( $button ) {
+	
+			// Get and display the selected metaboxes
+			var m = $button.attr('metaboxes').split(',');
+			var t = m.length;
+	
+			// Show all the toggled metaboxes
+			for( var i=0; i<t; i++ ) {
+				$('#'+m[i]).show();
+				$('input[name="'+m[i]+'-hide"]').attr('checked', 'checked');
+			}
+	
+			// Store the new value
+			$button.siblings('input').val($button.attr('href'));
+		}
+	
+		// Select the code on button click
+		$(this).children('a').click( function(e) {
+			e.preventDefault();
+	
+			// Hide all the toggled metaboxes
+			mtphr_dnt_metabox_hide();
+	
+			// Show the selected metaboxes
+			mtphr_dnt_metabox_show( $(this) );
+	
+			// Set the button classes
+			$(this).siblings('a').removeClass('button-primary');
+			$(this).addClass('button-primary');
+		});
+	});
 		
 		
 	/* --------------------------------------------------------- */

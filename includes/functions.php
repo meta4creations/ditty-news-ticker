@@ -378,5 +378,3 @@ function mtphr_dnt_localization() {
 	load_plugin_textdomain( 'ditty-news-ticker', false, 'ditty-news-ticker/languages/' );
 }
 
-
-
