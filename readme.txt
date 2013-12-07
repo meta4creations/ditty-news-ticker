@@ -52,6 +52,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.3.4 =
+* Removed type & mode selections from accidentally showing up in other post types
+
 = 1.3.3 =
 * Moved type & mode selections out of metaboxes
 * Added a default tick to the mixed type
@@ -173,4 +176,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Moved type & mode selections out of metaboxes, Added a default tick to the mixed type
+Removed type & mode selections from accidentally showing up in other post types

@@ -559,66 +559,69 @@ function mtphr_dnt_display_metabox() {
 
 
 /* --------------------------------------------------------- */
-/* !Add the main ticker options - 1.3.3 */
+/* !Add the main ticker options - 1.3.4 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_option_buttons() {
 
-	global $post;
-
-	$types = mtphr_dnt_types_array();
-	$type = get_post_meta( $post->ID, '_mtphr_dnt_type', true );
-	$type = ( $type != '' ) ? $type : 'default';
+	global $post, $typenow;
 	
-	$modes = mtphr_dnt_modes_array();
-	$mode = get_post_meta( $post->ID, '_mtphr_dnt_mode', true );
-	$type = ( $type != '' ) ? $type : 'scroll';
+	if( $typenow == 'ditty_news_ticker' ) {
 	
-	echo '<table id="ditty-news-ticker-settings-select">';
-		echo '<tr>';
-			echo '<td id="ditty-news-ticker-type-select">';
-				echo '<div class="wrapper">';
-					echo '<h2>'.__('Ticker Type', 'ditty-news-ticker').' <a href="http://dittynewsticker.com" target="_blank"><small>'.__('View all types', 'ditty-news-ticker').'</small></a></h2>';
-					echo '<p>'.__('Select the type of ticker you\'d like to use', 'ditty-news-ticker').'</p>';
-					echo '<div class="mtphr-dnt-metabox-toggle">';
-						echo '<input type="hidden" name="_mtphr_dnt_type" value="'.$type.'" />';
-						foreach( $types as $i=>$t ) {
-							
-							$value = '';
-							$button = $t['button'];
-							$metaboxes = $t['metaboxes'];
-							$metabox_list = join( ',', $metaboxes );
-					
-							// Create a button
-							$selected = ( $type == $i ) ? ' button-primary' : '';
-							echo '<a href="'.$i.'" metaboxes="'.$metabox_list.'" class="mtphr-dnt-metaboxer-metabox-toggle button'.$selected.'">'.$button.'</a>&nbsp;';
-						}
+		$types = mtphr_dnt_types_array();
+		$type = get_post_meta( $post->ID, '_mtphr_dnt_type', true );
+		$type = ( $type != '' ) ? $type : 'default';
+		
+		$modes = mtphr_dnt_modes_array();
+		$mode = get_post_meta( $post->ID, '_mtphr_dnt_mode', true );
+		$type = ( $type != '' ) ? $type : 'scroll';
+		
+		echo '<table id="ditty-news-ticker-settings-select">';
+			echo '<tr>';
+				echo '<td id="ditty-news-ticker-type-select">';
+					echo '<div class="wrapper">';
+						echo '<h2>'.__('Ticker Type', 'ditty-news-ticker').' <a href="http://dittynewsticker.com" target="_blank"><small>'.__('View all types', 'ditty-news-ticker').'</small></a></h2>';
+						echo '<p>'.__('Select the type of ticker you\'d like to use', 'ditty-news-ticker').'</p>';
+						echo '<div class="mtphr-dnt-metabox-toggle">';
+							echo '<input type="hidden" name="_mtphr_dnt_type" value="'.$type.'" />';
+							foreach( $types as $i=>$t ) {
+								
+								$value = '';
+								$button = $t['button'];
+								$metaboxes = $t['metaboxes'];
+								$metabox_list = join( ',', $metaboxes );
+						
+								// Create a button
+								$selected = ( $type == $i ) ? ' button-primary' : '';
+								echo '<a href="'.$i.'" metaboxes="'.$metabox_list.'" class="mtphr-dnt-metaboxer-metabox-toggle button'.$selected.'">'.$button.'</a>&nbsp;';
+							}
+						echo '</div>';
 					echo '</div>';
-				echo '</div>';
-			echo '</td>';
-				
-			echo '<td id="ditty-news-ticker-mode-select">';
-				echo '<div class="wrapper">';
-					echo '<h2>'.__('Ticker Mode', 'ditty-news-ticker').'</h2>';
-					echo '<p>'.__('Select the mode of the ticker', 'ditty-news-ticker').'</p>';
-					echo '<div class="mtphr-dnt-metabox-toggle">';
-						echo '<input type="hidden" name="_mtphr_dnt_mode" value="'.$mode.'" />';
-						foreach( $modes as $i=>$m ) {
-							
-							$value = '';
-							$button = $m['button'];
-							$metaboxes = $m['metaboxes'];
-							$metabox_list = join( ',', $metaboxes );
+				echo '</td>';
 					
-							// Create a button
-							$selected = ( $mode == $i ) ? ' button-primary' : '';
-							echo '<a href="'.$i.'" metaboxes="'.$metabox_list.'" class="mtphr-dnt-metaboxer-metabox-toggle button'.$selected.'">'.$button.'</a>&nbsp;';
-						}
+				echo '<td id="ditty-news-ticker-mode-select">';
+					echo '<div class="wrapper">';
+						echo '<h2>'.__('Ticker Mode', 'ditty-news-ticker').'</h2>';
+						echo '<p>'.__('Select the mode of the ticker', 'ditty-news-ticker').'</p>';
+						echo '<div class="mtphr-dnt-metabox-toggle">';
+							echo '<input type="hidden" name="_mtphr_dnt_mode" value="'.$mode.'" />';
+							foreach( $modes as $i=>$m ) {
+								
+								$value = '';
+								$button = $m['button'];
+								$metaboxes = $m['metaboxes'];
+								$metabox_list = join( ',', $metaboxes );
+						
+								// Create a button
+								$selected = ( $mode == $i ) ? ' button-primary' : '';
+								echo '<a href="'.$i.'" metaboxes="'.$metabox_list.'" class="mtphr-dnt-metaboxer-metabox-toggle button'.$selected.'">'.$button.'</a>&nbsp;';
+							}
+						echo '</div>';
 					echo '</div>';
-				echo '</div>';
-			echo '</td>';
-		echo '</tr>';
-	echo '</table>';
+				echo '</td>';
+			echo '</tr>';
+		echo '</table>';
+	}
 }
 add_action( 'edit_form_after_title', 'mtphr_dnt_option_buttons' );
 
