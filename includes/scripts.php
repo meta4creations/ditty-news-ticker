@@ -54,6 +54,10 @@ function mtphr_dnt_admin_scripts( $hook ) {
 			)
 		);
 	}
+	
+	// Load the icon font css
+	wp_register_style( 'ditty-news-ticker-font', MTPHR_DNT_URL.'/assets/fontastic/styles.css', false, MTPHR_DNT_VERSION );
+	wp_enqueue_style( 'ditty-news-ticker-font' );
 
 	// Load the plugin css
 	wp_register_style( 'ditty-news-ticker', MTPHR_DNT_URL.'/assets/css/style-admin.css', false, MTPHR_DNT_VERSION );

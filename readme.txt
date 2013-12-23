@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 3.2
-Tested up to: 3.7.1
+Tested up to: 3.8
 Stable tag: /trunk/
 License: GPL2
 
@@ -51,6 +51,9 @@ Each individual Ticker post has multiple settings to customize.
 4. List Mode options
 
 == Changelog ==
+
+= 1.3.5 =
+* Updated menu icon to icon font
 
 = 1.3.4 =
 * Removed type & mode selections from accidentally showing up in other post types
@@ -176,4 +179,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Removed type & mode selections from accidentally showing up in other post types
+Updated menu icon to icon font.
