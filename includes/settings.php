@@ -1,19 +1,9 @@
 <?php
-/**
- * The global settings
- *
- * @package Ditty News Ticker
- */
 
+/* --------------------------------------------------------- */
+/* !Create the settings page - 1.0.0 */
+/* --------------------------------------------------------- */
 
-
-
-add_action( 'admin_menu', 'mtphr_dnt_settings_menu', 9 );
-/**
- * Create the settings page
- *
- * @since 1.0.0
- */
 function mtphr_dnt_settings_menu() {
 
 	add_submenu_page(
@@ -25,70 +15,26 @@ function mtphr_dnt_settings_menu() {
 		'mtphr_dnt_settings_display'							// The callback function used to render the options for this submenu item
 	);
 }
+add_action( 'admin_menu', 'mtphr_dnt_settings_menu', 9 );
 
 
+/* --------------------------------------------------------- */
+/* !General options section callback 1.0.6 */
+/* --------------------------------------------------------- */
 
-
-add_action( 'admin_init', 'mtphr_dnt_initialize_settings' );
-/**
- * Setup the custom options for the settings page
- *
- * @since 1.2.1
- */
-function mtphr_dnt_initialize_settings() {
-
-	/**
-	 * General options sections
-	 */
-	$settings = array();
-
-	$settings['wysiwyg'] = array(
-		'title' => __( 'Visual Editor', 'ditty-news-ticker' ),
-		'type' => 'checkbox',
-		'label' => __( 'Use the visual editor for ticks', 'ditty-news-ticker' ),
-		'description' => __( '*The content in the visual editors will disappear after re-arranging ticks. That content will re-populate after resaving the ticker.', 'ditty-news-ticker' )
-	);
-
-	$settings['css'] = array(
-		'title' => __( 'Custom CSS', 'ditty-news-ticker' ),
-		'type' => 'textarea',
-		'rows' => 20,
-		'class' => 'mtphr-dnt-custom-css',
-		'description' => __( 'Custom CSS will be added to the head of each page that includes a Ditty News Ticker.', 'ditty-news-ticker' )
-	);
-	if( false == get_option('mtphr_dnt_general_settings') ) {
-		add_option( 'mtphr_dnt_general_settings' );
-	}
-
-	/* Register the general options */
-	add_settings_section(
-		'mtphr_dnt_general_settings_section',				// ID used to identify this section and with which to register options
-		'',																					// Title to be displayed on the administration page
-		'mtphr_dnt_general_settings_callback',			// Callback used to render the description of the section
-		'mtphr_dnt_general_settings'								// Page on which to add this section of options
-	);
-
-	if( is_array($settings) ) {
-		foreach( $settings as $id => $setting ) {
-			$setting['option'] = 'mtphr_dnt_general_settings';
-			$setting['option_id'] = $id;
-			$setting['id'] = 'mtphr_dnt_general_settings['.$id.']';
-			add_settings_field( $setting['id'], $setting['title'], 'mtphr_dnt_settings_callback', 'mtphr_dnt_general_settings', 'mtphr_dnt_general_settings_section', $setting);
-		}
-	}
-
-	// Register the fields with WordPress
-	register_setting( 'mtphr_dnt_general_settings', 'mtphr_dnt_general_settings' );
+function mtphr_dnt_general_settings_callback() {
+	?>
+	<div style="margin-bottom: 20px;">
+		<h4 style="margin-top:0;"><?php _e( 'The global settings to your news tickers.', 'ditty-news-ticker' ); ?></h4>
+	</div>
+	<?php
 }
 
 
+/* --------------------------------------------------------- */
+/* !Render the settings page with tabs - 1.4.0 */
+/* --------------------------------------------------------- */
 
-
-/**
- * Render the theme options page
- *
- * @since 1.0.6
- */
 function mtphr_dnt_settings_display( $active_tab = null ) {
 	?>
 	<!-- Create a header in the default WordPress 'wrap' container -->
@@ -121,8 +67,8 @@ function mtphr_dnt_settings_display( $active_tab = null ) {
 		<form method="post" action="options.php">
 			<?php
 			settings_fields( $tabs[$active_tab] );
-			do_settings_sections( $tabs[$active_tab] );
-			submit_button();
+			do_settings_sections( $tabs[$active_tab] );		
+			echo apply_filters( 'mtphr_dnt_settings_submit_button', get_submit_button() );
 			?>
 		</form>
 
@@ -132,19 +78,132 @@ function mtphr_dnt_settings_display( $active_tab = null ) {
 
 
 
+/* --------------------------------------------------------- */
+/* !Get the settings - 1.4.0 */
+/* --------------------------------------------------------- */
 
-/**
- * General options section callback
- *
- * @since 1.0.6
- */
-function mtphr_dnt_general_settings_callback() {
-	?>
-	<div style="margin-bottom: 20px;">
-		<h4 style="margin-top:0;"><?php _e( 'The global settings to your news tickers.', 'ditty-news-ticker' ); ?></h4>
-	</div>
-	<?php
+if( !function_exists('mtphr_dnt_general_settings') ) {
+function mtphr_dnt_general_settings() {
+	$settings = get_option( 'mtphr_dnt_general_settings', array() );
+	return wp_parse_args( $settings, mtphr_dnt_general_settings_defaults() );
 }
+}
+if( !function_exists('mtphr_dnt_general_settings_defaults') ) {
+function mtphr_dnt_general_settings_defaults() {
+	$defaults = array(
+		'wysiwyg' => '',
+		'css' => ''
+	);
+	return $defaults;
+}
+}
+
+
+
+/* --------------------------------------------------------- */
+/* !Setup the settings - 1.4.0 */
+/* --------------------------------------------------------- */
+
+function mtphr_dnt_initialize_settings() {
+
+	$settings = mtphr_dnt_general_settings();
+	
+	
+	/* --------------------------------------------------------- */
+	/* !Add the setting sections - 1.4.0 */
+	/* --------------------------------------------------------- */
+
+	add_settings_section( 'mtphr_dnt_general_settings_section', __( 'Ditty News Ticker settings', 'ditty-news-ticker' ), false, 'mtphr_dnt_general_settings' );
+	
+	
+	/* --------------------------------------------------------- */
+	/* !Add the settings - 1.4.0 */
+	/* --------------------------------------------------------- */
+
+	/* Visual Editor */
+	$title = mtphr_dnt_settings_label( __( 'Visual Editor', 'ditty-news-ticker' ), __('Use the visual editor to create tick contents', 'ditty-news-ticker') );
+	add_settings_field( 'mtphr_dnt_general_settings_wysiwyg', $title, 'mtphr_dnt_general_settings_wysiwyg', 'mtphr_dnt_general_settings', 'mtphr_dnt_general_settings_section', array('settings' => $settings) );	
+	
+	/* Custom CSS */
+	$title = mtphr_dnt_settings_label( __( 'Custom CSS', 'ditty-news-ticker' ), __('Add custom css to style your ticker without modifying any external files', 'ditty-news-ticker') );
+	add_settings_field( 'mtphr_dnt_general_settings_css', $title, 'mtphr_dnt_general_settings_css', 'mtphr_dnt_general_settings', 'mtphr_dnt_general_settings_section', array('settings' => $settings) );
+
+	
+	/* --------------------------------------------------------- */
+	/* !Register the settings - 1.4.0 */
+	/* --------------------------------------------------------- */
+
+	if( false == get_option('mtphr_dnt_general_settings') ) {
+		add_option( 'mtphr_dnt_general_settings' );
+	}
+	register_setting( 'mtphr_dnt_general_settings', 'mtphr_dnt_general_settings', 'mtphr_dnt_general_settings_sanitize' );
+}
+add_action( 'admin_init', 'mtphr_dnt_initialize_settings' );
+
+
+
+/* --------------------------------------------------------- */
+/* !WYSIWYG - 1.4.0 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_general_settings_wysiwyg') ) {
+function mtphr_dnt_general_settings_wysiwyg( $args ) {
+
+	$settings = $args['settings'];
+	echo '<div id="mtphr_dnt_general_settings_wysiwyg">';
+		echo '<label><input type="checkbox" name="mtphr_dnt_general_settings[wysiwyg]" value="1" '.checked('1', $settings['wysiwyg'], false).' /> '.__('Use the visual editor for ticks', 'ditty-news-ticker').'</label>';
+		echo '<p><strong>'.__('Note:', 'ditty-news-ticker').'</strong> <em>'.__('The content in the visual editors will disappear after re-arranging ticks. That content will re-populate after re-saving the ticker.', 'ditty-news-ticker').'</em></p>';
+	echo '</div>';
+}
+}
+
+/* --------------------------------------------------------- */
+/* !CSS - 1.4.0 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_general_settings_css') ) {
+function mtphr_dnt_general_settings_css( $args ) {
+
+	$settings = $args['settings'];
+	echo '<div id="mtphr_dnt_general_settings_css">';
+		echo '<div class="mtphr-dnt-codemirror mtphr-dnt-codemirror-css">';
+			echo '<textarea name="mtphr_dnt_general_settings[css]" cols="60" rows="4">'.$settings['css'].'</textarea>';
+		echo '</div>';
+	echo '</div>';
+}
+}
+
+
+
+/* --------------------------------------------------------- */
+/* !Sanitize the setting fields - 1.4.0 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_general_settings_sanitize') ) {
+function mtphr_dnt_general_settings_sanitize( $fields ) {
+
+	$fields['css'] = isset( $fields['css'] ) ? wp_kses_post($fields['css']) : '';
+
+	return $fields;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

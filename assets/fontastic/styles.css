@@ -41,3 +41,15 @@
 .mtphr-dnt-icon-ticker:before {
   content: "a";
 }
+.mtphr-dnt-icon-move:before {
+  content: "b";
+}
+.mtphr-dnt-icon-add:before {
+  content: "c";
+}
+.mtphr-dnt-icon-delete:before {
+  content: "d";
+}
+.mtphr-dnt-icon-spinner:before {
+  content: "e";
+}

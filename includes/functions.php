@@ -22,7 +22,7 @@ function ditty_news_ticker( $id='', $class='', $atts=false ) {
 /**
  * Return the ticker
  *
- * @since 1.3.0
+ * @since 1.4.0
  */
 function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
@@ -31,7 +31,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 	if( $ticker && $ticker->post_status == 'publish' ) {
 
 		// Save the original $wp_query
-		global $wp_query;
+		global $wp_query, $mtphr_dnt_ticker_types;
 		$original_query = $wp_query;
 		$wp_query = null;
 		$wp_query = new WP_Query();
@@ -52,209 +52,139 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
 		// Extract the metadata array into variables
 		extract( $meta_data );
-
+		
+		// Add to the global ticker types
+		$mtphr_dnt_ticker_types[$_mtphr_dnt_type] = $_mtphr_dnt_type;
+		
+		// Get the ticks to display
 		if( $_mtphr_dnt_type == 'mixed' ) {
 			$dnt_ticks = mtphr_dnt_mixed_ticks( $id, $meta_data );
 		} else {
 			$dnt_ticks = apply_filters( 'mtphr_dnt_tick_array', array(), $id, $meta_data );
 		}
+		
+		// Transform the tick array
+		$dnt_ticks = apply_filters( 'mtphr_dnt_tick_array_transform', $dnt_ticks, $id, $meta_data );
+		
+		// Get the total amount of ticks
+		$total_ticks = count( $dnt_ticks );
 
 		ob_start();
 
-		// Create the opening div
-		$tick_id = 'mtphr-dnt-'.$id;
 		// Add a unique id
-		if( isset($_mtphr_dnt_unique_id) ) {
-			if( $_mtphr_dnt_unique_id != '' ) {
+		$tick_id = 'mtphr-dnt-'.$id;
+		if( isset($_mtphr_dnt_unique_id) && ($_mtphr_dnt_unique_id != '') ) {
 				$tick_id = 'mtphr-dnt-'.$id.'-'.sanitize_html_class( $_mtphr_dnt_unique_id );
-			}
 		}
 
 		// Check for a set width
 		$ticker_width = '';
-		if( isset($_mtphr_dnt_ticker_width) ) {
-			if( $_mtphr_dnt_ticker_width != 0 ) {
-				$ticker_width = ' style="width:'.intval($_mtphr_dnt_ticker_width).'px"';
-			}
+		if( isset($_mtphr_dnt_ticker_width) && ($_mtphr_dnt_ticker_width != 0) ) {
+			$ticker_width = ' style="width:'.intval($_mtphr_dnt_ticker_width).'px"';
 		}
 
 		echo '<div'.$ticker_width.' id="'.$tick_id.'" '.mtphr_dnt_ticker_class( $id, $class, $meta_data ).'>';
-		echo '<div class="mtphr-dnt-wrapper mtphr-dnt-clearfix">';
-
-		// Display the title
-		if( isset($_mtphr_dnt_title) ) {
-			if( $_mtphr_dnt_title ) {
-
-				$inline_title = '';
-				if( isset($_mtphr_dnt_inline_title) ) {
-					if( $_mtphr_dnt_inline_title ) {
+			echo '<div class="mtphr-dnt-wrapper mtphr-dnt-clearfix">';
+		
+				// Display the title
+				if( isset($_mtphr_dnt_title) && $_mtphr_dnt_title ) {
+			
+					$inline_title = '';
+					if( isset($_mtphr_dnt_inline_title) && $_mtphr_dnt_inline_title ) {
 						$inline_title = ' mtphr-dnt-inline-title';
 					}
+		
+					do_action( 'mtphr_dnt_title_before', $id, $meta_data );
+					echo '<h3 class="mtphr-dnt-title'.$inline_title.'">'.apply_filters( 'mtphr_dnt_ticker_title', $ticker->post_title ).'</h3>';
+					do_action( 'mtphr_dnt_title_after', $id, $meta_data );
 				}
-
-				do_action( 'mtphr_dnt_title_before', $id, $meta_data );
-				echo '<h3 class="mtphr-dnt-title'.$inline_title.'">'.apply_filters( 'mtphr_dnt_ticker_title', $ticker->post_title ).'</h3>';
-				do_action( 'mtphr_dnt_title_after', $id, $meta_data );
-			}
-		}
-
-		// Create and save element styles
-		$margin='';$padding='';$width='';$height='';$spacing='';
-
-		if( $_mtphr_dnt_mode == 'scroll' ) {
-			$padding = ( intval($_mtphr_dnt_scroll_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_scroll_padding).'px;padding-bottom:'.intval($_mtphr_dnt_scroll_padding).'px;' : '';
-			$margin = ( intval($_mtphr_dnt_scroll_margin) != 0 ) ? 'margin-top:'.intval($_mtphr_dnt_scroll_margin).'px;margin-bottom:'.intval($_mtphr_dnt_scroll_margin).'px;' : '';
-			$width = ( intval($_mtphr_dnt_scroll_width) != 0 ) ? 'white-space:normal;width:'.intval($_mtphr_dnt_scroll_width).'px;' : '';
-			$height = ( intval($_mtphr_dnt_scroll_height) != 0 ) ? 'height:'.intval($_mtphr_dnt_scroll_height).'px;' : '';
-		} elseif( $_mtphr_dnt_mode == 'rotate' ) {
-			$padding = ( intval($_mtphr_dnt_rotate_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_rotate_padding).'px;padding-bottom:'.intval($_mtphr_dnt_rotate_padding).'px;' : '';
-			$margin = ( intval($_mtphr_dnt_rotate_margin) != 0 ) ? 'margin-top:'.intval($_mtphr_dnt_rotate_margin).'px;margin-bottom:'.intval($_mtphr_dnt_rotate_margin).'px;' : '';
-			$height = ( intval($_mtphr_dnt_rotate_height) != 0 ) ? 'height:'.intval($_mtphr_dnt_rotate_height).'px;' : '';
-		} elseif(  $_mtphr_dnt_mode == 'list' ) {
-			$padding = ( intval($_mtphr_dnt_list_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_list_padding).'px;padding-bottom:'.intval($_mtphr_dnt_list_padding).'px;' : '';
-			$margin = ( intval($_mtphr_dnt_list_margin) != 0 ) ? 'margin-top:'.intval($_mtphr_dnt_list_margin).'px;margin-bottom:'.intval($_mtphr_dnt_list_margin).'px;' : '';
-		}
-
-		// Filter the variables
-		$padding = apply_filters( 'mtphr_dnt_tick_container_padding', $padding );
-		$margin = apply_filters( 'mtphr_dnt_tick_container_margin', $margin );
-		$width = apply_filters( 'mtphr_dnt_tick_width', $width );
-		$height = apply_filters( 'mtphr_dnt_tick_height', $height );
-
-		// Create the container style
-		$container_style = ( $padding != '' || $margin != '' ) ? ' style="'.$padding.$margin.'"' : '';
-
-		// Open the ticker container
-		do_action( 'mtphr_dnt_before', $id, $meta_data );
-		echo '<div class="mtphr-dnt-tick-container"'.$container_style.'>';
-		echo '<div class="mtphr-dnt-tick-contents">';
-		do_action( 'mtphr_dnt_top', $id, $meta_data );
-
-		// Print out the ticks
-		if( is_array($dnt_ticks) ) {
-
-			// Randomize the ticks
-			if( isset($_mtphr_dnt_shuffle) && $_mtphr_dnt_shuffle ) {
-				shuffle( $dnt_ticks );
-			}
-			$total = count($dnt_ticks);
-			foreach( $dnt_ticks as $i => $tick ) {
+		
+				// Create and save element styles
+				$margin='';$padding='';$width='';$height='';$spacing='';
 			
-				$type = ( $_mtphr_dnt_type == 'mixed' ) ? $tick['type'] : $_mtphr_dnt_type;
-				$tick = ( $_mtphr_dnt_type == 'mixed' ) ? $tick['tick'] : $tick;
-
-				// Set the list spacing depending on the tick position
-				if( $_mtphr_dnt_mode == 'list' ) {
-					$spacing = ( $i != intval($total-1) ) ? 'margin-bottom:'.intval($_mtphr_dnt_list_tick_spacing).'px;' : '';
+				if( $_mtphr_dnt_mode == 'scroll' ) {
+					$padding = ( intval($_mtphr_dnt_scroll_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_scroll_padding).'px;padding-bottom:'.intval($_mtphr_dnt_scroll_padding).'px;' : '';
+					$margin = ( intval($_mtphr_dnt_scroll_margin) != 0 ) ? 'margin-top:'.intval($_mtphr_dnt_scroll_margin).'px;margin-bottom:'.intval($_mtphr_dnt_scroll_margin).'px;' : '';
+					$width = ( intval($_mtphr_dnt_scroll_width) != 0 ) ? 'white-space:normal;width:'.intval($_mtphr_dnt_scroll_width).'px;' : '';
+					$height = ( intval($_mtphr_dnt_scroll_height) != 0 ) ? 'height:'.intval($_mtphr_dnt_scroll_height).'px;' : '';
+				} elseif( $_mtphr_dnt_mode == 'rotate' ) {
+					$padding = ( intval($_mtphr_dnt_rotate_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_rotate_padding).'px;padding-bottom:'.intval($_mtphr_dnt_rotate_padding).'px;' : '';
+					$margin = ( intval($_mtphr_dnt_rotate_margin) != 0 ) ? 'margin-top:'.intval($_mtphr_dnt_rotate_margin).'px;margin-bottom:'.intval($_mtphr_dnt_rotate_margin).'px;' : '';
+					$height = ( intval($_mtphr_dnt_rotate_height) != 0 ) ? 'height:'.intval($_mtphr_dnt_rotate_height).'px;' : '';
+				} elseif(  $_mtphr_dnt_mode == 'list' ) {
+					$padding = ( intval($_mtphr_dnt_list_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_list_padding).'px;padding-bottom:'.intval($_mtphr_dnt_list_padding).'px;' : '';
+					$margin = ( intval($_mtphr_dnt_list_margin) != 0 ) ? 'margin-top:'.intval($_mtphr_dnt_list_margin).'px;margin-bottom:'.intval($_mtphr_dnt_list_margin).'px;' : '';
 				}
-				$spacing = apply_filters( 'mtphr_dnt_list_tick_spacing', $spacing, $i, $total );
-				$tick_style = ( $width != '' || $height != '' || $spacing != '' ) ? ' style="'.$width.$height.$spacing.'"' : '';
-
-				do_action( 'mtphr_dnt_tick_before', $id, $meta_data, $total, $i );
-				echo '<div'.$tick_style.' '.mtphr_dnt_tick_class('mtphr-dnt-'.$type.'-tick mtphr-dnt-clearfix').'>';
-				do_action( 'mtphr_dnt_tick_top', $id, $meta_data );
-
-				echo $tick;
-
-				do_action( 'mtphr_dnt_tick_bottom', $id, $meta_data );
-				echo '</div>';
-				do_action( 'mtphr_dnt_tick_after', $id, $meta_data, $total, $i );
-			}
-		}
-
-		// Close the ticker container
-		do_action( 'mtphr_dnt_bottom', $id, $meta_data );
-		echo '</div>';
-		// Add the directional nav
-		if( is_array($dnt_ticks) && $_mtphr_dnt_mode == 'rotate' ) {
-			if( isset($_mtphr_dnt_rotate_directional_nav) ) {
-				if( $_mtphr_dnt_rotate_directional_nav ) {
-
-					$hide = '';
-					if( isset($_mtphr_dnt_rotate_directional_nav_hide) ) {
-						$hide = $_mtphr_dnt_rotate_directional_nav_hide ? ' mtphr-dnt-nav-hide' : '';
-					}
-					echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-prev'.$hide.'" href="#" rel="nofollow">'.apply_filters( 'mtphr_dnt_direction_nav_prev', '' ).'</a>';
-					echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-next'.$hide.'" href="#" rel="nofollow">'.apply_filters( 'mtphr_dnt_direction_nav_next', '' ).'</a>';
-				}
-			}
-		}
-		echo '</div>';
-		do_action( 'mtphr_dnt_after', $id, $meta_data );
-
-		// Add the control nav
-		if( is_array($dnt_ticks) && $_mtphr_dnt_mode == 'rotate' ) {
-			if( isset($_mtphr_dnt_rotate_control_nav) ) {
-				if( $_mtphr_dnt_rotate_control_nav ) {
-
-					echo '<div class="mtphr-dnt-control-links">';
-					foreach( $dnt_ticks as $i => $tick ) {
-						echo '<a class="mtphr-dnt-control mtphr-dnt-control-'.$_mtphr_dnt_rotate_control_nav_type.'" href="'.$i.'" rel="nofollow">'.apply_filters( 'mtphr_dnt_control_nav', intval($i+1) ).'</a>';
-					}
+			
+				// Filter the variables
+				$padding = apply_filters( 'mtphr_dnt_tick_container_padding', $padding );
+				$margin = apply_filters( 'mtphr_dnt_tick_container_margin', $margin );
+				$width = apply_filters( 'mtphr_dnt_tick_width', $width );
+				$height = apply_filters( 'mtphr_dnt_tick_height', $height );
+			
+				// Create the container style
+				$container_style = ( $padding != '' || $margin != '' ) ? ' style="'.$padding.$margin.'"' : '';
+		
+				// Open the ticker container
+				do_action( 'mtphr_dnt_before', $id, $meta_data );
+				echo '<div class="mtphr-dnt-tick-container"'.$container_style.'>';
+					do_action( 'mtphr_dnt_contents_before', $id, $meta_data );
+					echo '<div class="mtphr-dnt-tick-contents">';
+						do_action( 'mtphr_dnt_top', $id, $meta_data );
+				
+						// Print out the ticks
+						if( is_array($dnt_ticks) ) {
+							
+							// Grab the paged ticks
+							if( $_mtphr_dnt_mode == 'list' && (isset($_mtphr_dnt_list_tick_paging) && $_mtphr_dnt_list_tick_paging) ) {
+								$page = isset( $_GET['tickpage'] ) ? $_GET['tickpage'] : 1;
+								$offset = ($page-1) * $_mtphr_dnt_list_tick_count;
+								$dnt_ticks = array_slice( $dnt_ticks, $offset, $_mtphr_dnt_list_tick_count );
+							}
+				
+							// Randomize the ticks
+							if( isset($_mtphr_dnt_shuffle) && $_mtphr_dnt_shuffle ) {
+								shuffle( $dnt_ticks );
+							}
+							$total = count($dnt_ticks);
+							foreach( $dnt_ticks as $i => $tick ) {
+							
+								$type = ( $_mtphr_dnt_type == 'mixed' ) ? $tick['type'] : $_mtphr_dnt_type;
+								$tick = ( $_mtphr_dnt_type == 'mixed' ) ? $tick['tick'] : $tick;
+				
+								// Set the list spacing depending on the tick position
+								if( $_mtphr_dnt_mode == 'list' ) {
+									$spacing = ( $i != intval($total-1) ) ? 'margin-bottom:'.intval($_mtphr_dnt_list_tick_spacing).'px;' : '';
+								}
+								$spacing = apply_filters( 'mtphr_dnt_list_tick_spacing', $spacing, $i, $total );
+								$tick_style = ( $width != '' || $height != '' || $spacing != '' ) ? ' style="'.$width.$height.$spacing.'"' : '';
+				
+								do_action( 'mtphr_dnt_tick_before', $id, $meta_data, $total, $i );
+								echo '<div'.$tick_style.' '.mtphr_dnt_tick_class('mtphr-dnt-'.$type.'-tick mtphr-dnt-clearfix').'>';
+									do_action( 'mtphr_dnt_tick_top', $id, $meta_data );
+					
+									echo $tick;
+					
+									do_action( 'mtphr_dnt_tick_bottom', $id, $meta_data );
+								echo '</div>';
+								do_action( 'mtphr_dnt_tick_after', $id, $meta_data, $total, $i );
+							}
+						}
+				
+						// Close the ticker container
+						do_action( 'mtphr_dnt_bottom', $id, $meta_data );
 					echo '</div>';
-				}
-			}
-		}
-
-		// Close the ticker
-		echo '</div></div>';
+					do_action( 'mtphr_dnt_contents_after', $id, $meta_data, $total_ticks );
+				echo '</div>';
+				do_action( 'mtphr_dnt_after', $id, $meta_data, $total_ticks );
+	
+			echo '</div>';
+		echo '</div>';
 
 		// Restore the original $wp_query
 		$wp_query = null;
 		$wp_query = $original_query;
 		wp_reset_postdata();
-	}
-
-	// Add to the global script variable
-	if( $_mtphr_dnt_mode == 'scroll' || $_mtphr_dnt_mode == 'rotate' ) {
-
-		global $mtphr_dnt_ticker_scripts;
-
-		$ticker = '#mtphr-dnt-'.$id;
-
-		// Add a unique id class, if there is one
-		if( isset($_mtphr_dnt_unique_id) ) {
-			if( $_mtphr_dnt_unique_id != '' ) {
-				$ticker = '#mtphr-dnt-'.$id.'-'.sanitize_html_class( $_mtphr_dnt_unique_id );
-			}
-		}
-
-		$scroll_pause = 0; $scroll_init = 0;
-		if( isset($_mtphr_dnt_scroll_pause) ) {
-			$scroll_pause = $_mtphr_dnt_scroll_pause ? 1 : 0;
-		}
-		if( isset($_mtphr_dnt_scroll_init) ) {
-			$scroll_init = $_mtphr_dnt_scroll_init ? 1 : 0;
-		}
-		$rotate = 0; $rotate_pause = 0; $nav_autohide = 0; $nav_reverse = 0;
-		if( isset($_mtphr_dnt_auto_rotate) ) {
-			$rotate = $_mtphr_dnt_auto_rotate ? 1 : 0;
-		}
-		if( isset($_mtphr_dnt_rotate_pause) ) {
-			$rotate_pause = $_mtphr_dnt_rotate_pause ? 1 : 0;
-		}
-		if( isset($_mtphr_dnt_rotate_directional_nav_reverse) ) {
-			$nav_reverse = $_mtphr_dnt_rotate_directional_nav_reverse ? 1 : 0;
-		}
-		$offset = isset($_mtphr_dnt_offset) ? intval($_mtphr_dnt_offset) : 20;
-		$mtphr_dnt_ticker_scripts[] = array(
-			'ticker' => $ticker,
-			'id' => $id,
-			'type' => $_mtphr_dnt_mode,
-			'scroll_direction' => $_mtphr_dnt_scroll_direction,
-			'scroll_speed' => intval($_mtphr_dnt_scroll_speed),
-			'scroll_pause' => $scroll_pause,
-			'scroll_spacing' => intval($_mtphr_dnt_scroll_tick_spacing),
-			'scroll_init' => $scroll_init,
-			'rotate_type' => $_mtphr_dnt_rotate_type,
-			'auto_rotate' => $rotate,
-			'rotate_delay' => intval($_mtphr_dnt_rotate_delay),
-			'rotate_pause' => $rotate_pause,
-			'rotate_speed' => intval($_mtphr_dnt_rotate_speed),
-			'rotate_ease' => $_mtphr_dnt_rotate_ease,
-			'nav_reverse' => $nav_reverse,
-			'offset' => $offset
-		);
 	}
 
 	// Return the output
@@ -310,11 +240,13 @@ add_filter( 'mtphr_dnt_tick_array', 'mtphr_dnt_default_ticks', 10, 3 );
 
 
 /* --------------------------------------------------------- */
-/* !Create the mixed ticks - 1.3.0 */
+/* !Create the mixed ticks - 1.4.0 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_mixed_ticks') ) {
 function mtphr_dnt_mixed_ticks( $id, $meta_data ) {
+
+	global $mtphr_dnt_ticker_types;
 
 	// Get all active ticker types
 	$types = mtphr_dnt_types_array();
@@ -331,6 +263,11 @@ function mtphr_dnt_mixed_ticks( $id, $meta_data ) {
 
 			// Make sure the tick type exists
 			if( array_key_exists( $tick['type'], $types ) && !array_key_exists( $tick['type'], $ticks_cache ) ) {
+			
+				// Add to the global tick types
+				$mtphr_dnt_ticker_types[$tick['type']] = $tick['type'];
+				
+				// Cache the appropriate ticks
 				$meta_data['_mtphr_dnt_type'] = $tick['type'];
 				$ticks_cache[$tick['type']] = apply_filters( 'mtphr_dnt_tick_array', array(), $id, $meta_data );
 			}

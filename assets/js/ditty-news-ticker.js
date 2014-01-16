@@ -570,6 +570,7 @@
 
 			    	// Trigger the before change callback
 	          settings.before_change.call( this, $ticker );
+	          $('body').trigger('mtphr_dnt_before_change', [this, vars]);
 
 	          // Set the running variable
 	          vars.running = 1;
@@ -587,6 +588,7 @@
 						after_change_timeout = setTimeout( function() {
 
 							settings.after_change.call( this, $ticker );
+							$('body').trigger('mtphr_dnt_after_change', [this, vars]);
 
 							// Reset the rotator type & variables
 							rotate_adjustment = settings.rotate_type;
@@ -1195,13 +1197,29 @@
 				    }
 			    }
 		    });
+		    
+		    
+		    /* --------------------------------------------------------- */
+		    /* !Listen for resize event from other plugins - 1.4.0 */
+		    /* --------------------------------------------------------- */
+
+		    $('body').on('mtphr_dnt_resize', function( e, id ) {
+		    
+		    	if( id && (id.indexOf(settings.id) >= 0) ) {
+						if( settings.type == 'scroll' ) {
+							mtphr_dnt_scroll_resize_ticks();
+						} else if( settings.type == 'rotate' ) {
+					    mtphr_dnt_rotator_resize_ticks();
+				    } 
+			    }
+				});
 
 
 
 
 		    // Trigger the afterLoad callback
         settings.after_load.call(this, $ticker);
-
+        $('body').trigger('mtphr_dnt_after_load', [this, vars]);
 			});
 		}
 	};

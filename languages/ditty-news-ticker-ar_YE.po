@@ -3,19 +3,19 @@ msgstr ""
 "Project-Id-Version: Ditty News Ticker v1.4.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-16 19:38:05+0000\n"
-"Last-Translator: admin <joe@metaphorcreations.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2014-01-16 19:38:21+0000\n"
+"Last-Translator: Osama Alshami <Demor17@gmail.com>\n"
+"Language-Team: Osama Alshami <Demor17@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: CSL v1.x\n"
-"X-Poedit-Language: English\n"
-"X-Poedit-Country: UNITED STATES\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Poedit 1.6.3\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
-"X-Poedit-Basepath: \n"
+"X-Poedit-Basepath: .\n"
 "X-Poedit-Bookmarks: \n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes"
@@ -23,264 +23,264 @@ msgstr ""
 #: includes/edit-columns.php:23
 #@ ditty-news-ticker
 msgid "Type"
-msgstr "Type"
+msgstr "الفئة"
 
 #: includes/edit-columns.php:24
 #@ ditty-news-ticker
 msgid "Mode"
-msgstr "Mode"
+msgstr "اسلوب العرض"
 
 #: includes/edit-columns.php:25
 #: includes/meta-boxes.php:18
 #@ ditty-news-ticker
 msgid "Shortcode"
-msgstr "Shortcode"
+msgstr "الإختصار"
 
 #: includes/edit-columns.php:26
 #: includes/meta-boxes.php:27
 #@ ditty-news-ticker
 msgid "Direct Function"
-msgstr "Direct Function"
+msgstr "دالة مباشرة"
 
 #: includes/helpers.php:13
 #@ ditty-news-ticker
 msgid "Default"
-msgstr "Default"
+msgstr "الافتراضي"
 
 #: includes/helpers.php:37
 #@ ditty-news-ticker
 msgid "Scroll"
-msgstr "Scroll"
+msgstr "تمرير"
 
 #: includes/helpers.php:41
 #@ ditty-news-ticker
 msgid "Rotate"
-msgstr "Rotate"
+msgstr "تناوب"
 
 #: includes/helpers.php:45
 #@ ditty-news-ticker
 msgid "List"
-msgstr "List"
+msgstr "قائمة"
 
 #: includes/help.php:59
 #@ ditty-news-ticker
 msgid "Scroll Mode"
-msgstr "Scroll Mode"
+msgstr "اسلوب عرض التمرير"
 
 #: includes/help.php:66
 #@ ditty-news-ticker
 msgid "Rotate Mode"
-msgstr "Rotate Mode"
+msgstr "اسلوب عرض التناوب"
 
 #: includes/help.php:73
 #@ ditty-news-ticker
 msgid "List Mode"
-msgstr "List Mode"
+msgstr "اسلوب عرض القائمة"
 
 #: includes/help.php:95
 #: includes/widget.php:51
 #@ ditty-news-ticker
 msgid "Ditty News Ticker"
-msgstr "Ditty News Ticker"
+msgstr "شريط الاخبار"
 
 #: includes/help.php:110
 #@ ditty-news-ticker
 msgid "For more information:"
-msgstr "For more information:"
+msgstr "للمزيد من المعلومات:"
 
 #: includes/help.php:111
 #@ ditty-news-ticker
 msgid "Visit the <a href=\"http://www.metaphorcreations.com\" target=\"_blank\">documentation</a> on the Ditty News Ticker website"
-msgstr "Visit the <a href=\"http://www.metaphorcreations.com\" target=\"_blank\">documentation</a> on the Ditty News Ticker website"
+msgstr "قم بزيارة <a href=\"http://www.metaphorcreations.com\" target=\"_blank\">وثائق المساعدة</a> على موقع دايتي شريط الأخبار"
 
 #: includes/help.php:126
 #@ ditty-news-ticker
 msgid "Add general information about Ditty News Ticker."
-msgstr "Add general information about Ditty News Ticker."
+msgstr "إضافة معلومات عامة عم شريط الأخبار."
 
 #: includes/help.php:135
 #@ ditty-news-ticker
 msgid "Add scroll mode info."
-msgstr "Add scroll mode info."
+msgstr "إضافة معلومات عن اسلوب عرض التمرير"
 
 #: includes/help.php:144
 #@ ditty-news-ticker
 msgid "Add rotate mode info."
-msgstr "Add rotate mode info."
+msgstr "إضافة معلومات عن اسلوب عرض التناوب"
 
 #: includes/help.php:153
 #@ ditty-news-ticker
 msgid "Add list mode info."
-msgstr "Add list mode info."
+msgstr "إضافة معلومات عن اسلوب عرض القائمة"
 
 #: includes/meta-boxes.php:65
 #@ ditty-news-ticker
 msgid "Ticker Type"
-msgstr "Ticker Type"
+msgstr "نوع الشريط"
 
 #: includes/meta-boxes.php:65
 #@ ditty-news-ticker
 msgid "View all types"
-msgstr "View all types"
+msgstr "عرض كل الأنواع"
 
 #: includes/meta-boxes.php:221
 #@ ditty-news-ticker
 msgid "Ticker text"
-msgstr "Ticker text"
+msgstr "عناوين الشريط"
 
 #: includes/meta-boxes.php:222
 #@ ditty-news-ticker
 msgid "Link"
-msgstr "Link"
+msgstr "الرابط"
 
 #: includes/meta-boxes.php:223
 #@ ditty-news-ticker
 msgid "Target"
-msgstr "Target"
+msgstr "الهدف"
 
 #: includes/meta-boxes.php:120
 #@ ditty-news-ticker
 msgid "Default Ticker Items"
-msgstr "Default Ticker Items"
+msgstr "عناوين الشريط الاخباري"
 
 #: includes/meta-boxes.php:86
 #@ ditty-news-ticker
 msgid "Ticker Mode"
-msgstr "Ticker Mode"
+msgstr "اسلوب عرض الشريط"
 
 #: includes/meta-boxes.php:402
 #@ ditty-news-ticker
 msgid "Scroll direction"
-msgstr "Scroll direction"
+msgstr "اتجاه التمرير"
 
 #: includes/meta-boxes.php:406
 #@ ditty-news-ticker
 msgid "Left"
-msgstr "Left"
+msgstr "يسار"
 
 #: includes/meta-boxes.php:407
 #@ ditty-news-ticker
 msgid "Right"
-msgstr "Right"
+msgstr "يمين"
 
 #: includes/meta-boxes.php:408
 #@ ditty-news-ticker
 msgid "Up"
-msgstr "Up"
+msgstr "اعلى"
 
 #: includes/meta-boxes.php:409
 #@ ditty-news-ticker
 msgid "Down"
-msgstr "Down"
+msgstr "اسفل"
 
 #: includes/meta-boxes.php:416
 #: includes/meta-boxes.php:533
 #@ ditty-news-ticker
 msgid "Tick dimensions"
-msgstr "Tick dimensions"
+msgstr "ابعاد الشريط"
 
 #: includes/meta-boxes.php:420
 #@ ditty-news-ticker
 msgid "Width"
-msgstr "Width"
+msgstr "العرض"
 
 #: includes/meta-boxes.php:421
 #: includes/meta-boxes.php:537
 #@ ditty-news-ticker
 msgid "Height"
-msgstr "Height"
+msgstr "الارتفاع"
 
 #: includes/meta-boxes.php:427
 #@ ditty-news-ticker
 msgid "Scroller padding"
-msgstr "Scroller padding"
+msgstr "حاشية شريط التمرير"
 
 #: includes/meta-boxes.php:431
 #: includes/meta-boxes.php:547
 #: includes/meta-boxes.php:656
 #@ ditty-news-ticker
 msgid "Vertical padding"
-msgstr "Vertical padding"
+msgstr "الحاشية الرأسية"
 
 #: includes/meta-boxes.php:432
 #: includes/meta-boxes.php:548
 #: includes/meta-boxes.php:657
 #@ ditty-news-ticker
 msgid "Vertical margin"
-msgstr "Vertical margin"
+msgstr "الهامش الرأسي"
 
 #: includes/meta-boxes.php:438
 #@ ditty-news-ticker
 msgid "Scroll speed"
-msgstr "Scroll speed"
+msgstr "سرعة التمرير"
 
 #: includes/meta-boxes.php:443
 #: includes/meta-boxes.php:560
 #@ ditty-news-ticker
 msgid "Pause on mouse over"
-msgstr "Pause on mouse over"
+msgstr "إيقاف مؤقت عند التمرير عليه بالفأرة"
 
 #: includes/meta-boxes.php:449
 #: includes/meta-boxes.php:663
 #@ ditty-news-ticker
 msgid "Tick spacing"
-msgstr "Tick spacing"
+msgstr "المسافة بين العناوين"
 
 #: includes/meta-boxes.php:453
 #: includes/meta-boxes.php:667
 #@ ditty-news-ticker
 msgid "Pixels"
-msgstr "Pixels"
+msgstr "بكسل"
 
 #: includes/meta-boxes.php:142
 #@ ditty-news-ticker
 msgid "Scroll Settings"
-msgstr "Scroll Settings"
+msgstr "خيارات التمرير"
 
 #: includes/meta-boxes.php:518
 #@ ditty-news-ticker
 msgid "Rotation type"
-msgstr "Rotation type"
+msgstr "نوع التناوب"
 
 #: includes/meta-boxes.php:522
 #@ ditty-news-ticker
 msgid "Fade"
-msgstr "Fade"
+msgstr "تلاشي"
 
 #: includes/meta-boxes.php:523
 #@ ditty-news-ticker
 msgid "Slide left"
-msgstr "Slide left"
+msgstr "انزلاق من اليسار"
 
 #: includes/meta-boxes.php:524
 #@ ditty-news-ticker
 msgid "Slide right"
-msgstr "Slide right"
+msgstr "انزلاق من اليمين"
 
 #: includes/meta-boxes.php:525
 #@ ditty-news-ticker
 msgid "Slide up"
-msgstr "Slide up"
+msgstr "انزلاق من الاعلى"
 
 #: includes/meta-boxes.php:526
 #@ ditty-news-ticker
 msgid "Slide down"
-msgstr "Slide down"
+msgstr "انزلاق من الاسفل"
 
 #: includes/meta-boxes.php:527
 #@ ditty-news-ticker
 msgid "Dynamic slide direction"
-msgstr "Dynamic slide direction"
+msgstr "اتجاه الانزلاق الديناميكي"
 
 #: includes/meta-boxes.php:543
 #@ ditty-news-ticker
 msgid "Rotator padding"
-msgstr "Rotator padding"
+msgstr "حاشية التناوب"
 
 #: includes/meta-boxes.php:554
 #@ ditty-news-ticker
 msgid "Auto rotate"
-msgstr "Auto rotate"
+msgstr "تناوب ذاتي"
 
 #: includes/meta-boxes.php:558
 #: includes/meta-boxes.php:586
@@ -288,194 +288,194 @@ msgstr "Auto rotate"
 #: includes/meta-boxes.php:677
 #@ ditty-news-ticker
 msgid "Enable"
-msgstr "Enable"
+msgstr "تفعيل"
 
 #: includes/meta-boxes.php:559
 #@ ditty-news-ticker
 msgid "Seconds delay"
-msgstr "Seconds delay"
+msgstr "المهلة بالثواني"
 
 #: includes/meta-boxes.php:566
 #@ ditty-news-ticker
 msgid "Rotate speed"
-msgstr "Rotate speed"
+msgstr "سرعة التناوب"
 
 #: includes/meta-boxes.php:570
 #@ ditty-news-ticker
 msgid "Tenths of a second"
-msgstr "Tenths of a second"
+msgstr "أعشار من الثانية"
 
 #: includes/meta-boxes.php:582
 #@ ditty-news-ticker
 msgid "Directional navigation"
-msgstr "Directional navigation"
+msgstr "ازرار التحكم المباشرة"
 
 #: includes/meta-boxes.php:587
 #@ ditty-news-ticker
 msgid "Autohide navigation"
-msgstr "Autohide navigation"
+msgstr "اخفاء آلي لازرار التحكم"
 
 #: includes/meta-boxes.php:593
 #@ ditty-news-ticker
 msgid "Control navigation"
-msgstr "Control navigation"
+msgstr "ازرار التحكم"
 
 #: includes/meta-boxes.php:598
 #@ ditty-news-ticker
 msgid "Numbers"
-msgstr "Numbers"
+msgstr "الارقام"
 
 #: includes/meta-boxes.php:599
 #@ ditty-news-ticker
 msgid "Buttons"
-msgstr "Buttons"
+msgstr "الازرار"
 
 #: includes/meta-boxes.php:153
 #@ ditty-news-ticker
 msgid "Rotate Settings"
-msgstr "Rotate Settings"
+msgstr "اعدادات التناوب"
 
 #: includes/meta-boxes.php:652
 #@ ditty-news-ticker
 msgid "List padding"
-msgstr "List padding"
+msgstr "حاشية القائمة"
 
 #: includes/meta-boxes.php:164
 #@ ditty-news-ticker
 msgid "List Settings"
-msgstr "List Settings"
+msgstr "اعدادات القائمة"
 
 #: includes/meta-boxes.php:742
 #@ ditty-news-ticker
 msgid "Display title"
-msgstr "Display title"
+msgstr "عرض العنوان"
 
 #: includes/meta-boxes.php:743
 #@ ditty-news-ticker
 msgid "Inline title"
-msgstr "Inline title"
+msgstr "العنوان على السطر"
 
 #: includes/meta-boxes.php:755
 #@ ditty-news-ticker
 msgid "Ticker width <em>(optional)</em>"
-msgstr "Ticker width <em>(optional)</em>"
+msgstr "عرض الشريط <em>(اختياري)</em>"
 
 #: includes/meta-boxes.php:175
 #@ ditty-news-ticker
 msgid "Global Settings"
-msgstr "Global Settings"
+msgstr "الاعدادات العامة"
 
 #: includes/meta-boxes.php:21
 #@ ditty-news-ticker
 msgid "Select Shortcode"
-msgstr "Select Shortcode"
+msgstr "اختيار الأختصار"
 
 #: includes/meta-boxes.php:31
 #@ ditty-news-ticker
 msgid "Select Function"
-msgstr "Select Function"
+msgstr "تحديد الدالة"
 
 #: includes/metaboxer/metaboxer.php:756
 #@ ditty-news-ticker
 msgid "Select Code"
-msgstr "Select Code"
+msgstr "إضافة كود"
 
 #: includes/post-types.php:20
 #: includes/post-types.php:31
 #@ ditty-news-ticker
 msgid "News Tickers"
-msgstr "News Tickers"
+msgstr "شريط الاخبار"
 
 #: includes/post-types.php:21
 #@ ditty-news-ticker
 msgid "News Ticker"
-msgstr "News Ticker"
+msgstr "شريط الاخبار"
 
 #: includes/post-types.php:22
 #@ ditty-news-ticker
 msgid "Add New"
-msgstr "Add New"
+msgstr "اضافة جديد"
 
 #: includes/post-types.php:23
 #@ ditty-news-ticker
 msgid "Add New News Ticker"
-msgstr "Add New News Ticker"
+msgstr "إضافة شريط اخبار جديد"
 
 #: includes/post-types.php:24
 #@ ditty-news-ticker
 msgid "Edit News Ticker"
-msgstr "Edit News Ticker"
+msgstr "تحرير شريط الأخبار"
 
 #: includes/post-types.php:25
 #@ ditty-news-ticker
 msgid "New News Ticker"
-msgstr "New News Ticker"
+msgstr "شريط اخبار جديد"
 
 #: includes/post-types.php:26
 #@ ditty-news-ticker
 msgid "View News Ticker"
-msgstr "View News Ticker"
+msgstr "عرض شريط الاخبار"
 
 #: includes/post-types.php:27
 #@ ditty-news-ticker
 msgid "Search News Tickers"
-msgstr "Search News Tickers"
+msgstr "بحث عن شريط اخبار"
 
 #: includes/post-types.php:28
 #@ ditty-news-ticker
 msgid "No News Tickers Found"
-msgstr "No News Tickers Found"
+msgstr "لم يتم العثور على عناوين ضمن شريط الاخبار"
 
 #: includes/post-types.php:29
 #@ ditty-news-ticker
 msgid "No News Tickers Found In Trash"
-msgstr "No News Tickers Found In Trash"
+msgstr "لم يتم العثور على شريط اخباري في سلة المهملات"
 
 #: includes/post-types.php:62
 #@ ditty-news-ticker
 msgid "Ditty News Ticker Updated!"
-msgstr "Ditty News Ticker Updated!"
+msgstr "تم تحديث شريط الأخبار!"
 
 #: includes/settings.php:11
 #: includes/settings.php:12
 #@ ditty-news-ticker
 msgid "Settings"
-msgstr "Settings"
+msgstr "الاعدادات"
 
 #: includes/settings.php:128
 #@ ditty-news-ticker
 msgid "Custom CSS"
-msgstr "Custom CSS"
+msgstr "تنسيق خاص"
 
 #: includes/settings.php:44
 #@ ditty-news-ticker
 msgid "Ditty News Ticker Settings"
-msgstr "Ditty News Ticker Settings"
+msgstr "إعدادات شريط الأخبار"
 
 #: includes/widget.php:42
 #@ ditty-news-ticker
 msgid "Displays a Ditty News Ticker."
-msgstr "Displays a Ditty News Ticker."
+msgstr "عرض شريط الأخبار."
 
 #: includes/widget.php:137
 #@ ditty-news-ticker
 msgid "Title:"
-msgstr "Title:"
+msgstr "العنوان:"
 
 #: includes/widget.php:143
 #@ ditty-news-ticker
 msgid "Select a Ticker:"
-msgstr "Select a Ticker:"
+msgstr "اختار شريط:"
 
 #: includes/widget.php:161
 #@ ditty-news-ticker
 msgid "Display Ticker Title?"
-msgstr "Display Ticker Title?"
+msgstr "عرض شريط العناوين؟"
 
 #: includes/help.php:112
 #@ ditty-news-ticker
 msgid "View DNT extensions"
-msgstr "View DNT extensions"
+msgstr "عرض ملحقات DNT"
 
 #: includes/meta-boxes.php:224
 #@ ditty-news-ticker
@@ -485,97 +485,97 @@ msgstr "NF"
 #: includes/settings.php:28
 #@ ditty-news-ticker
 msgid "The global settings to your news tickers."
-msgstr "The global settings to your news tickers."
+msgstr "الإعدادات العامة للشريط الإخباري الخاص بك."
 
 #: includes/meta-boxes.php:410
 #@ ditty-news-ticker
 msgid "Show first tick on init"
-msgstr ""
+msgstr "عرض العنوان الاول مكتمل"
 
 #: includes/meta-boxes.php:749
 #@ ditty-news-ticker
 msgid "Randomly shuffle the ticks"
-msgstr ""
+msgstr "عرض العناوين ضمن الشريط عشوائياً"
 
 #: includes/meta-boxes.php:761
 #@ ditty-news-ticker
 msgid "Offset ticks"
-msgstr ""
+msgstr "الازاحة"
 
 #: includes/meta-boxes.php:761
 #@ ditty-news-ticker
 msgid "px from the edge"
-msgstr ""
+msgstr "بكسل من الحافة"
 
 #: includes/meta-boxes.php:762
 #@ ditty-news-ticker
 msgid "The amount of pixels ticks should start and end off the screen."
-msgstr ""
+msgstr "مقدار ازاحة الشريط بالبكسل يجب ان تبدأ وتنتهي بالشاشة."
 
 #: includes/settings.php:124
 #@ ditty-news-ticker
 msgid "Visual Editor"
-msgstr ""
+msgstr "المحرر المرئي"
 
 #: includes/settings.php:154
 #@ ditty-news-ticker
 msgid "Use the visual editor for ticks"
-msgstr ""
+msgstr "استخدام المحرر البصري لعناوين الاخبار"
 
 #: includes/meta-boxes.php:205
 #@ ditty-news-ticker
 msgid "Force line breaks on carriage returns"
-msgstr ""
+msgstr "اجبار فواصل الاسطر على إرجاع الاحرف"
 
 #: includes/helpers.php:17
 #@ ditty-news-ticker
 msgid "Mixed"
-msgstr ""
+msgstr "مختلط"
 
 #: includes/meta-boxes.php:131
 #@ ditty-news-ticker
 msgid "Mixed Ticker Items"
-msgstr ""
+msgstr "عناصر شريط مختلط"
 
 #: includes/meta-boxes.php:301
 #@ ditty-news-ticker
 msgid "Add Tick"
-msgstr ""
+msgstr "اضافة شريط"
 
 #: includes/meta-boxes.php:307
 #@ ditty-news-ticker
 msgid "Tick selection"
-msgstr ""
+msgstr "اختيار الشريط"
 
 #: includes/meta-boxes.php:308
 #@ ditty-news-ticker
 msgid "Select the ticks you would like to display by choosing the tick type and the offset position of the selected feed"
-msgstr ""
+msgstr "حدد شريط الاخبار الذي ترغب بعرضه عن طريق اختيار نوع الشريط وموضع الازاحة للتغذية المحدده"
 
 #: includes/meta-boxes.php:336
 #@ ditty-news-ticker
 msgid "Type:"
-msgstr ""
+msgstr "الفئة:"
 
 #: includes/meta-boxes.php:338
 #@ ditty-news-ticker
 msgid "Select Tick Type"
-msgstr ""
+msgstr "اختار نوع الشريط"
 
 #: includes/meta-boxes.php:346
 #@ ditty-news-ticker
 msgid "Offset:"
-msgstr ""
+msgstr "الازاحة:"
 
 #: includes/meta-boxes.php:66
 #@ ditty-news-ticker
 msgid "Select the type of ticker you'd like to use"
-msgstr ""
+msgstr "حدد نوع الشريط الذي ترغب باستخدامه."
 
 #: includes/meta-boxes.php:87
 #@ ditty-news-ticker
 msgid "Select the mode of the ticker"
-msgstr ""
+msgstr "اختر اسلوب عرض الشريط"
 
 #: includes/meta-boxes.php:19
 #@ ditty-news-ticker

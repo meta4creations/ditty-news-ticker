@@ -1,7 +1,7 @@
 <?php
 
 /* --------------------------------------------------------- */
-/* !Return an array of the current DNT types - 1.0.0 */
+/* !Return an array of the current DNT types - 1.4.0 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_types_array') ) {
@@ -11,7 +11,7 @@ function mtphr_dnt_types_array() {
 	$dnt_types_array = array();
 	$dnt_types_array['default'] = array(
 		'button' => __('Default', 'ditty-news-ticker'),
-		'metaboxes' => array( 'mtphr_dnt_type_default' )
+		'metaboxes' => array( 'mtphr_dnt_default_metabox' )
 	);
 	$dnt_types_array['mixed'] = array(
 		'button' => __('Mixed', 'ditty-news-ticker'),
@@ -35,15 +35,15 @@ function mtphr_dnt_modes_array() {
 	$dnt_modes_array = array();
 	$dnt_modes_array['scroll'] = array(
 		'button' => __('Scroll', 'ditty-news-ticker'),
-		'metaboxes' => array( 'mtphr_dnt_mode_scroll' )
+		'metaboxes' => array( 'mtphr_dnt_scroll_settings_metabox' )
 	);
 	$dnt_modes_array['rotate'] = array(
 		'button' => __('Rotate', 'ditty-news-ticker'),
-		'metaboxes' => array( 'mtphr_dnt_mode_rotate' )
+		'metaboxes' => array( 'mtphr_dnt_rotate_settings_metabox' )
 	);
 	$dnt_modes_array['list'] = array(
 		'button' => __('List', 'ditty-news-ticker'),
-		'metaboxes' => array( 'mtphr_dnt_mode_list' )
+		'metaboxes' => array( 'mtphr_dnt_list_settings_metabox' )
 	);
 
 	return apply_filters('mtphr_dnt_modes', $dnt_modes_array);

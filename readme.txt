@@ -52,6 +52,25 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.4.0 =
+* Added grid display funcitonality
+* Added page list functionality to lists
+* Updated general settings code
+* Updated metabox code
+* Added mtphr_dnt_contents_before & mtphr_dnt_contents_after actions
+* Moved rotate direction nav to mtphr_dnt_contents_after filter
+* Moved rotate control nav to mtphr_dnt_after filter
+* Moved global data mtphr_dnt_after filter
+* General code cleanup
+* Additional admin css
+* Added mtphr_dnt_settings_submit_button filter to settings submit button
+* Added $mtphr_dnt_ticker_types global to front end
+* Added Arabic language
+* Added mtphr_dnt_after_load jQuery trigger
+* Added mtphr_dnt_before_change jQuery trigger
+* Added mtphr_dnt_after_change jQuery trigger
+* Added mtphr_dnt_resize jQuery listener
+
 = 1.3.5 =
 * Updated menu icon to icon font
 
@@ -179,4 +198,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Updated menu icon to icon font.
+Multiple updates! Check notes.

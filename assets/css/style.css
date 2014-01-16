@@ -34,6 +34,43 @@
 	white-space: nowrap;
 }
 
+/* --------------------------------------------------------- */
+/* !Spinner */
+/* --------------------------------------------------------- */
+
+.mtphr-dnt-icon-spinner {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 30px;
+	height: 30px;
+	font-size: 30px;
+	color: #FFF;	
+	margin: -15px 0 0 -15px;
+	
+	-webkit-animation: mtphr-dnt-spinner-rotation .8s infinite linear;
+	-moz-animation: mtphr-dnt-spinner-rotation .8s infinite linear;
+	-o-animation: mtphr-dnt-spinner-rotation .8s infinite linear;
+	animation: mtphr-dnt-spinner-rotation .8s infinite linear;
+}
+@-webkit-keyframes mtphr-dnt-spinner-rotation {
+	from {-webkit-transform: rotate(0deg);}
+	to {-webkit-transform: rotate(359deg);}
+}
+@-moz-keyframes mtphr-dnt-spinner-rotation {
+	from {-moz-transform: rotate(0deg);}
+	to {-moz-transform: rotate(359deg);}
+}
+@-o-keyframes mtphr-dnt-spinner-rotation {
+	from {-o-transform: rotate(0deg);}
+	to {-o-transform: rotate(359deg);}
+}
+@keyframes mtphr-dnt-spinner-rotation {
+	from {transform: rotate(0deg);}
+	to {transform: rotate(359deg);}
+}
+
+
 /* Directional nav
 ------------------------------------------------------------ */
 .mtphr-dnt-nav {
@@ -44,6 +81,9 @@
 	height: 38px;
 	background: url(../images/navarrows.png) no-repeat;
 	background-size: 76px 38px;
+}
+.mtphr-dnt-nav:hover {
+	text-decoration: none !important;
 }
 .mtphr-dnt-nav:focus {
 	outline: none;
@@ -84,11 +124,39 @@
 	margin: 0 2px;
 	text-indent: -9999px;
 }
+.mtphr-dnt-control-button:hover {
+	text-decoration: none !important;
+}
 .mtphr-dnt-control-button.active {
 	background-position: 0 0;
 }
 .mtphr-dnt-control-button:focus {
   outline: none;
+}
+
+/* --------------------------------------------------------- */
+/* !Paging */
+/* --------------------------------------------------------- */
+
+.mtphr-dnt-tick-paging {
+	text-align: center;
+	list-style: none;
+}
+.mtphr-dnt-tick-paging a,
+.mtphr-dnt-tick-paging span {
+	margin: 0 4px;
+}
+
+/* --------------------------------------------------------- */
+/* !Grid */
+/* --------------------------------------------------------- */
+
+.mtphr-dnt-grid {
+	width: 100%;
+	border-spacing: 0;
+}
+.mtphr-dnt-grid td {
+	border: none;
 }
 
 /* Add clearfix

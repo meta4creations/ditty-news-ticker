@@ -27,9 +27,6 @@
 .mtphr-dnt-metaboxer-field:last-child {
 	margin-bottom: 0;
 }
-.mtphr-dnt-metaboxer-field input[type="checkbox"] {
-	margin-top: 0;
-}
 .mtphr-dnt-metaboxer-field input[type="radio"] {
 	margin-top:-1px;
 }

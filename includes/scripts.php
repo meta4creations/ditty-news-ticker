@@ -75,6 +75,10 @@ add_action( 'wp_enqueue_scripts', 'mtphr_dnt_scripts' );
  */
 function mtphr_dnt_scripts() {
 
+	// Load the icon font css
+	wp_register_style( 'ditty-news-ticker-font', MTPHR_DNT_URL.'/assets/fontastic/styles.css', false, MTPHR_DNT_VERSION );
+	wp_enqueue_style( 'ditty-news-ticker-font' );
+
 	// Load the css
 	wp_register_style( 'ditty-news-ticker', MTPHR_DNT_URL.'/assets/css/style.css', false, MTPHR_DNT_VERSION );
 	wp_enqueue_style( 'ditty-news-ticker' );
