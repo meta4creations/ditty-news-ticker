@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 3.2
-Tested up to: 3.8
+Tested up to: 3.8.1
 Stable tag: /trunk/
 License: GPL2
 
@@ -51,6 +51,10 @@ Each individual Ticker post has multiple settings to customize.
 4. List Mode options
 
 == Changelog ==
+
+= 1.4.1 =
+* Added additional jQuery triggers and listeners
+* Fixed force line break issue
 
 = 1.4.0 =
 * Added grid display funcitonality
@@ -198,4 +202,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Multiple updates! Check notes.
+Added additional jQuery triggers and listeners. Fixed force line break issue

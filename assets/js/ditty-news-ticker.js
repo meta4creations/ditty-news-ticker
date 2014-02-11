@@ -42,7 +42,9 @@
         var vars = {
         	id							: settings.id,
 	        tick_count			: 0,
+	        previous_tick		: 0,
 	        current_tick		: 0,
+	        next_tick				: 0,
 	        reverse					: 0,
 	        running					: 0
         };
@@ -53,10 +55,11 @@
 				}
 
 				// Create variables
-				var $ticker = $(this).find('.mtphr-dnt-tick-contents'),
-						$nav_prev = $(this).find('.mtphr-dnt-nav-prev'),
-						$nav_next = $(this).find('.mtphr-dnt-nav-next'),
-						$nav_controls = $(this).find('.mtphr-dnt-control-links'),
+				var $container = $(this),
+						$ticker = $container.find('.mtphr-dnt-tick-contents'),
+						$nav_prev = $container.find('.mtphr-dnt-nav-prev'),
+						$nav_next = $container.find('.mtphr-dnt-nav-next'),
+						$nav_controls = $container.find('.mtphr-dnt-control-links'),
 						ticker_width = $ticker.width(),
 						ticker_height = 0,
 						ticks = [],
@@ -567,10 +570,14 @@
 			    	if( settings.auto_rotate ) {
 				    	clearInterval( ticker_delay );
 				    }
+				    
+				    // Set the next variable
+						vars.next_tick = new_tick;
 
 			    	// Trigger the before change callback
-	          settings.before_change.call( this, $ticker );
-	          $('body').trigger('mtphr_dnt_before_change', [this, vars]);
+	          settings.before_change.call( $container, $ticker );
+	          $container.trigger('mtphr_dnt_before_change_single', [vars, ticks]);
+	          $('body').trigger('mtphr_dnt_before_change', [$container, vars, ticks]);
 
 	          // Set the running variable
 	          vars.running = 1;
@@ -581,14 +588,16 @@
 						// Rotate the new tick in
 						mtphr_dnt_rotator_in( new_tick );
 
-						// Set the current tick
+						// Set the previous & current tick
+						vars.previous_tick = vars.current_tick;
 						vars.current_tick = new_tick;
 
 						// Trigger the after change callback
 						after_change_timeout = setTimeout( function() {
 
-							settings.after_change.call( this, $ticker );
-							$('body').trigger('mtphr_dnt_after_change', [this, vars]);
+							settings.after_change.call( $container, $ticker );
+							$container.trigger('mtphr_dnt_after_change_single', [vars, ticks]);
+							$('body').trigger('mtphr_dnt_after_change', [$container, vars, ticks]);
 
 							// Reset the rotator type & variables
 							rotate_adjustment = settings.rotate_type;
@@ -1023,8 +1032,53 @@
 						$tick.hide();
 					});
 			  }
+			  
+			  
+			  
+			  
+			  /* --------------------------------------------------------- */
+			  /* !Set the next item */
+			  /* --------------------------------------------------------- */
+			  
+			  function mtphr_dnt_next() {
+				  
+				  if(vars.running) return false;
 
+		    	// Find the new tick
+		    	var new_tick = parseInt(vars.current_tick + 1);
+					if( new_tick == vars.tick_count ) {
+						new_tick = 0;
+					}
+					mtphr_dnt_rotator_update( new_tick );
+			  }
+			  
+			  /* --------------------------------------------------------- */
+			  /* !Set the previous item */
+			  /* --------------------------------------------------------- */
+			  
+			  function mtphr_dnt_prev() {
+				  
+				  if(vars.running) return false;
 
+		    	// Find the new tick
+		    	var new_tick = parseInt(vars.current_tick-1);
+					if( new_tick < 0 ) {
+						new_tick = vars.tick_count-1;
+					}
+					if( settings.nav_reverse ) {
+						if( settings.rotate_type == 'slide_left' ) {
+							rotate_adjustment = 'slide_right';
+						} else if( settings.rotate_type == 'slide_right' ) {
+							rotate_adjustment = 'slide_left';
+						} else if( settings.rotate_type == 'slide_down' ) {
+							rotate_adjustment = 'slide_up';
+						} else if( settings.rotate_type == 'slide_up' ) {
+							rotate_adjustment = 'slide_down';
+						}
+						vars.reverse = 1;
+					}
+					mtphr_dnt_rotator_update( new_tick );
+			  }
 
 
 		    /**
@@ -1036,40 +1090,12 @@
 
 		    	$nav_prev.bind('click', function( e ) {
 		    		e.preventDefault();
-
-		    		if(vars.running) return false;
-
-			    	// Find the new tick
-			    	var new_tick = parseInt(vars.current_tick-1);
-						if( new_tick < 0 ) {
-							new_tick = vars.tick_count-1;
-						}
-						if( settings.nav_reverse ) {
-							if( settings.rotate_type == 'slide_left' ) {
-								rotate_adjustment = 'slide_right';
-							} else if( settings.rotate_type == 'slide_right' ) {
-								rotate_adjustment = 'slide_left';
-							} else if( settings.rotate_type == 'slide_down' ) {
-								rotate_adjustment = 'slide_up';
-							} else if( settings.rotate_type == 'slide_up' ) {
-								rotate_adjustment = 'slide_down';
-							}
-							vars.reverse = 1;
-						}
-						mtphr_dnt_rotator_update( new_tick );
+						mtphr_dnt_prev();
 		    	});
 
 		    	$nav_next.bind('click', function(e) {
 		    		e.preventDefault();
-
-		    		if(vars.running) return false;
-
-			    	// Find the new tick
-			    	var new_tick = parseInt(vars.current_tick + 1);
-						if( new_tick == vars.tick_count ) {
-							new_tick = 0;
-						}
-						mtphr_dnt_rotator_update( new_tick );
+						mtphr_dnt_next();
 		    	});
 		    }
 
@@ -1113,11 +1139,10 @@
 
 
 
-		    /**
-				 * Mobile swipe
-				 *
-				 * @since 1.1.9
-				 */
+		    /* --------------------------------------------------------- */
+		    /* !Mobile swipe - 1.1.9 */
+		    /* --------------------------------------------------------- */
+		    
 				if( settings.type == 'rotate' ) {
 
 					$ticker.swipe( {
@@ -1165,7 +1190,24 @@
 						}
 					});
 				}
+				
+				
+				
+				/* --------------------------------------------------------- */
+		    /* !Listen for external events - 1.4.1 */
+		    /* --------------------------------------------------------- */
 
+		    $container.on('mtphr_dnt_next', function( e ) {
+		    	mtphr_dnt_next();
+				});
+				
+				$container.on('mtphr_dnt_prev', function( e ) {
+		    	mtphr_dnt_prev();
+				});
+				
+				$container.on('mtphr_dnt_goto', function( e, pos ) {
+		    	mtphr_dnt_rotator_update( parseInt(pos) );
+				});
 
 
 
@@ -1173,7 +1215,7 @@
 		     * Resize listener
 		     * Reset the ticker width
 		     *
-		     * @since 1.0.9
+		     * @since 1.4.1
 		     */
 		    $(window).resize( function() {
 
@@ -1200,11 +1242,17 @@
 		    
 		    
 		    /* --------------------------------------------------------- */
-		    /* !Listen for resize event from other plugins - 1.4.0 */
+		    /* !Listen for resize event from other plugins - 1.4.1 */
 		    /* --------------------------------------------------------- */
-
+				
+				$container.on('mtphr_dnt_resize_single', function( e ) {
+					if( settings.type == 'scroll' ) {
+						mtphr_dnt_scroll_resize_ticks();
+					} else if( settings.type == 'rotate' ) {
+				    mtphr_dnt_rotator_resize_ticks();
+			    }
+				});
 		    $('body').on('mtphr_dnt_resize', function( e, id ) {
-		    
 		    	if( id && (id.indexOf(settings.id) >= 0) ) {
 						if( settings.type == 'scroll' ) {
 							mtphr_dnt_scroll_resize_ticks();
@@ -1218,8 +1266,9 @@
 
 
 		    // Trigger the afterLoad callback
-        settings.after_load.call(this, $ticker);
-        $('body').trigger('mtphr_dnt_after_load', [this, vars]);
+        settings.after_load.call($container, $ticker);
+        $container.trigger('mtphr_dnt_after_load_single', [vars, ticks]);
+        $('body').trigger('mtphr_dnt_after_load', [$container, vars, ticks]);
 			});
 		}
 	};

@@ -787,7 +787,7 @@ function mtphr_dnt_global_settings_render_metabox() {
 
 
 /* --------------------------------------------------------- */
-/* !Save the custom meta - 1.4.0 */
+/* !Save the custom meta - 1.4.1 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_metabox_save( $post_id ) {
@@ -826,6 +826,10 @@ function mtphr_dnt_metabox_save( $post_id ) {
 	
 	// Save the default ticks
 	if( isset($_POST['_mtphr_dnt_ticks']) ) {
+		
+		$force_breaks = ( isset($_POST['_mtphr_dnt_line_breaks']) && $_POST['_mtphr_dnt_line_breaks'] != '' ) ? 1 : '';
+		update_post_meta( $post_id, '_mtphr_dnt_line_breaks', $force_breaks );
+
 		$sanitized_ticks = array();
 		if( count($_POST['_mtphr_dnt_ticks']) > 0 ) {
 			foreach( $_POST['_mtphr_dnt_ticks'] as $tick ) {
