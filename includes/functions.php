@@ -22,9 +22,15 @@ function ditty_news_ticker( $id='', $class='', $atts=false ) {
 /**
  * Return the ticker
  *
- * @since 1.4.0
+ * @since 1.4.2
  */
 function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
+	
+	// Switch the post based on the selected language
+	if( function_exists('icl_object_id') ) {
+		$id = icl_object_id( $id, 'ditty_news_ticker', true );
+	}
+	
 
 	// Get the post
 	$ticker = get_post( $id );

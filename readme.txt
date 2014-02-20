@@ -25,6 +25,8 @@ Ditty News Ticker is a multi-functional data display plugin. Easily add custom n
 Ditty News Ticker is built to easily be extended to add extra Ticker Types and extra Ticker Modes.
 To see a list of all extensions, visit the [**extensions page**](http://dittynewsticker.com/extensions/).
 
+<img src="http://metaphorcreations.com/data/wpml-ready-badge.png" />
+
 == Installation ==
 
 1. Upload `ditty-news-ticker` directory to the `/wp-content/plugins/` directory
@@ -51,6 +53,10 @@ Each individual Ticker post has multiple settings to customize.
 4. List Mode options
 
 == Changelog ==
+
+= 1.4.2 =
+* Added WPML Support
+* Fixed jquery script issue for multiple same tickers with unique ids
 
 = 1.4.1 =
 * Added additional jQuery triggers and listeners
@@ -202,4 +208,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Added additional jQuery triggers and listeners. Fixed force line break issue
+Added WPML Support. Fixed jquery script issue for multiple same tickers with unique ids

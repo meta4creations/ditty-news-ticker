@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Ditty News Ticker v1.4.0\n"
+"Project-Id-Version: Ditty News Ticker v1.4.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2014-01-16 19:38:05+0000\n"
+"PO-Revision-Date: 2014-02-20 19:29:15+0000\n"
 "Last-Translator: admin <joe@metaphorcreations.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -664,13 +664,13 @@ msgid "Set the control navigation options"
 msgstr ""
 
 #: includes/meta-boxes.php:624
-#: includes/meta-boxes.php:924
+#: includes/meta-boxes.php:928
 #@ ditty-news-ticker
 msgid "« Previous"
 msgstr ""
 
 #: includes/meta-boxes.php:625
-#: includes/meta-boxes.php:925
+#: includes/meta-boxes.php:929
 #@ ditty-news-ticker
 msgid "Next »"
 msgstr ""

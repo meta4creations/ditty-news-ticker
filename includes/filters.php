@@ -186,7 +186,7 @@ add_action( 'mtphr_dnt_after', 'mtphr_dnt_pagination', 10, 3 );
 
 
 /* --------------------------------------------------------- */
-/* !Add tickers to the global - 1.4.0 */
+/* !Add tickers to the global - 1.4.2 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_add_to_global( $id, $meta_data ) {
@@ -199,14 +199,16 @@ function mtphr_dnt_add_to_global( $id, $meta_data ) {
 
 		global $mtphr_dnt_ticker_scripts;
 
-		$ticker = '#mtphr-dnt-'.$id;
+		
 
 		// Add a unique id class, if there is one
 		if( isset($_mtphr_dnt_unique_id) ) {
 			if( $_mtphr_dnt_unique_id != '' ) {
-				$ticker = '#mtphr-dnt-'.$id.'-'.sanitize_html_class( $_mtphr_dnt_unique_id );
+				$id = $id.'-'.sanitize_html_class( $_mtphr_dnt_unique_id );
 			}
 		}
+		
+		$ticker = '#mtphr-dnt-'.$id;
 
 		$scroll_pause = 0; $scroll_init = 0;
 		if( isset($_mtphr_dnt_scroll_pause) ) {
