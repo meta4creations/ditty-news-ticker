@@ -54,6 +54,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.4.3 =
+* Fixed bug in jQuery setup where extra characters where being written
+
 = 1.4.2 =
 * Added WPML Support
 * Fixed jquery script issue for multiple same tickers with unique ids
@@ -208,4 +211,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Added WPML Support. Fixed jquery script issue for multiple same tickers with unique ids
+Fixed bug in jQuery setup where extra characters where being written

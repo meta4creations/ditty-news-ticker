@@ -117,7 +117,7 @@ add_action( 'wp_footer', 'mtphr_dnt_tickers_init_scripts', 20 );
 /**
  * Initialize the ticker scriptinos
  *
- * @since 1.3.0
+ * @since 1.4.3
  */
 function mtphr_dnt_tickers_init_scripts() {
 
@@ -156,13 +156,13 @@ function mtphr_dnt_tickers_init_scripts() {
 					nav_reverse : <?php echo $ticker['nav_reverse']; ?>,
 					offset : <?php echo $ticker['offset']; ?>,
 					after_load : function( $ticker ) {
-						<?php echo apply_filters( 'mtphr_dnt_after_load_rotate', $ticker['id'] ); ?>
+						<?php echo apply_filters( 'mtphr_dnt_after_load_rotate', '', $ticker['id'] ); ?>
 					},
 					before_change : function( $ticker ) {
-						<?php echo apply_filters( 'mtphr_dnt_before_change_rotate', $ticker['id'] ); ?>
+						<?php echo apply_filters( 'mtphr_dnt_before_change_rotate', '', $ticker['id'] ); ?>
 					},
 					after_change : function( $ticker ) {
-						<?php echo apply_filters( 'mtphr_dnt_after_change_rotate', $ticker['id'] ); ?>
+						<?php echo apply_filters( 'mtphr_dnt_after_change_rotate', '', $ticker['id'] ); ?>
 					}
 				});
 			 <?php } ?>
