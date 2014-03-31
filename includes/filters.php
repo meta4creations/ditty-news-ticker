@@ -1,5 +1,25 @@
 <?php
 
+/* --------------------------------------------------------- */
+/* !Filter the post content to display the ticker - 1.0.0 */
+/* --------------------------------------------------------- */
+
+function mtphr_dnt_content( $content ) {
+
+	if( get_post_type() == 'ditty_news_ticker' ) {
+		return '[ditty_news_ticker id="'.get_the_id().'"]';
+	}	
+	
+	return $content;
+}
+add_filter( 'the_content', 'mtphr_dnt_content' );
+
+
+
+/* --------------------------------------------------------- */
+/* !Make a grid out of the ticks - 1.4.0 */
+/* --------------------------------------------------------- */
+
 function mtphr_dnt_tick_grid( $dnt_ticks, $id, $meta_data ) {
 
 	// Extract the metadata array into variables

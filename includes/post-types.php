@@ -12,7 +12,7 @@ add_action( 'init','mtphr_dnt_posttype' );
 /**
  * Add post types
  *
- * @since 1.0.0
+ * @since 1.4.4
  */
 function mtphr_dnt_posttype() {
 
@@ -34,7 +34,7 @@ function mtphr_dnt_posttype() {
 	// Create the arguments
 	$args = array(
 		'labels' => $labels,
-		'public' => false,
+		'public' => true,
 		'publicly_queryable' => true,
 		'exclude_from_search' => true,
 		'show_ui' => true, 
@@ -42,7 +42,8 @@ function mtphr_dnt_posttype() {
 		'query_var' => true,
 		'rewrite' => true,
 		'supports' => array( 'title' ),
-		'show_in_nav_menus' => false
+		'rewrite' => array( 'slug' => __( 'ticker', 'ditty-news-ticker' ) ),
+		'show_in_nav_menus' => true
 	);
 
 	register_post_type( 'ditty_news_ticker', $args );	

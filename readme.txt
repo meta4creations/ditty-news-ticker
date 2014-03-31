@@ -54,6 +54,12 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.4.4 =
+* Made ditty_new_ticker post type public
+* Included ditty_new_ticker post type in nav menus
+* Filtered single post content to display the ticker on ditty_new_ticker single posts
+* Added additional metabox jquery for lists and sortables
+
 = 1.4.3 =
 * Fixed bug in jQuery setup where extra characters where being written
 
@@ -211,4 +217,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Fixed bug in jQuery setup where extra characters where being written
+Made News Ticker plublic and added to nave menus. Other admin script updates.
