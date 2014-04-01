@@ -423,15 +423,25 @@ p.mtphr-dnt-side-label {
 .mtphr-dnt-default-nofollow {
 	width: 1px;
 }
+.mtphr-dnt-notice {
+	font-weight: normal;
+	font-style: italic;
+	background: #f5f5f5;
+	border-left: 4px solid #7ad03a;
+	padding: 7px 10px;
+	margin: 4px 0;
+}
+.mtphr-dnt-default-list .mtphr-dnt-list-handle span,
+.mtphr-dnt-default-list .mtphr-dnt-list-delete a,
+.mtphr-dnt-default-list .mtphr-dnt-list-add a {
+	margin-top: 2px;
+}
 
 
 /* --------------------------------------------------------- */
 /* !Mixed list */
 /* --------------------------------------------------------- */
 
-#mtphr-dnt-mixed-add-tick {
-	margin: 10px 0 10px;
-}
 .mtphr-dnt-mixed-list input[type="number"]  {
 	width: 60px;
 }

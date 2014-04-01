@@ -182,7 +182,7 @@ add_action( 'add_meta_boxes', 'mtphr_dnt_global_settings_metabox' );
 
 
 /* --------------------------------------------------------- */
-/* !Render the default type metabox - 1.4.0 */
+/* !Render the default type metabox - 1.4.5 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_default_render_metabox') ) {
@@ -215,10 +215,15 @@ function mtphr_dnt_default_render_metabox() {
 				echo '<small>'.__('Add an unlimited number of ticks to your ticker', 'ditty-news-ticker').'</small>';
 			echo '</td>';
 			echo '<td>';
-				echo '<table class="mtphr-dnt-list mtphr-dnt-default-list">';
+				echo '<table class="mtphr-dnt-list mtphr-dnt-default-list mtphr-dnt-advanced-list">';
 					echo '<tr>';
 						echo '<th class="mtphr-dnt-list-handle"></th>';
-						echo '<th>'.__('Ticker text', 'ditty-news-ticker').'</th>';
+						
+						$label = __('Ticker text', 'ditty-news-ticker');
+						if( $settings['wysiwyg'] == '1' ) {
+							$label .= '<div class="mtphr-dnt-notice">'.__('<strong>Notice:</strong> When using the WYSIWYG editor you must save your ticker after adding or re-arranging ticks.', 'ditty-news-ticker').'</div>';
+						}
+						echo '<th>'.$label.'</th>';
 						echo '<th>'.__('Link', 'ditty-news-ticker').'</th>';
 						echo '<th class="mtphr-dnt-default-target">'.__('Target', 'ditty-news-ticker').'</th>';
 						echo '<th class="mtphr-dnt-default-nofollow">'.__('NF', 'ditty-news-ticker').'</th>';
@@ -250,28 +255,29 @@ function mtphr_dnt_render_default_tick( $settings, $tick=false ) {
 	
 	echo '<tr class="mtphr-dnt-list-item">';
 		echo '<td class="mtphr-dnt-list-handle"><span></span></td>';
-		echo '<td class="mtphr-dnt-default-tick">';
+		echo '<td class="mtphr-dnt-default-tick mtphr-dnt-wysiwyg-container" data-name="_mtphr_dnt_ticks" data-key="tick">';
 			if( $settings['wysiwyg'] == '1' ) {
 				$editor_settings = array();
 				$editor_settings['media_buttons'] = true;
 				$editor_settings['textarea_rows'] = 6;
+				$editor_settings['editor_class'] = 'mtphr-dnt-wysiwyg';
 				$editor_settings['textarea_name'] = '_mtphr_dnt_ticks[tick]';
 				wp_editor( $text, 'mtphrdnttick'.uniqid(), $editor_settings );
 			} else {
-				echo '<textarea name="_mtphr_dnt_ticks[tick]" key="tick">'.$text.'</textarea>';
+				echo '<textarea name="_mtphr_dnt_ticks[tick]" data-name="_mtphr_dnt_ticks" data-key="tick">'.$text.'</textarea>';
 			}
 		echo '</td>';
 		echo '<td class="mtphr-dnt-default-link">';
-			echo '<input type="text" name="_mtphr_dnt_ticks[link]" key="link" value="'.$link.'" />';
+			echo '<input type="text" name="_mtphr_dnt_ticks[link]" data-name="_mtphr_dnt_ticks" data-key="link" value="'.$link.'" />';
 		echo '</td>';
 	  echo '<td class="mtphr-dnt-default-target">';
-			echo '<select name="_mtphr_dnt_ticks[target]" key="target">';
+			echo '<select name="_mtphr_dnt_ticks[target]" data-name="_mtphr_dnt_ticks" data-key="target">';
 				echo '<option value="_self" '.selected('_self', $target, false).'>_self</option>';
 				echo '<option value="_blank" '.selected('_blank', $target, false).'>_blank</option>';
 			echo '</select>';
 		echo '</td>';
 		echo '<td class="mtphr-dnt-default-nofollow">';
-			echo '<input type="checkbox" name="_mtphr_dnt_ticks[nofollow]" key="nofollow" value="1" '.checked('1', $nofollow, false).' />';
+			echo '<input type="checkbox" name="_mtphr_dnt_ticks[nofollow]" data-name="_mtphr_dnt_ticks" data-key="nofollow" value="1" '.checked('1', $nofollow, false).' />';
 		echo '</td>';
 		echo '<td class="mtphr-dnt-list-delete"><a href="#"></a></td>';
 		echo '<td class="mtphr-dnt-list-add"><a href="#"></a></td>';
@@ -282,7 +288,7 @@ function mtphr_dnt_render_default_tick( $settings, $tick=false ) {
 
 
 /* --------------------------------------------------------- */
-/* !Render the mixed type metabox - 1.3.3 */
+/* !Render the mixed type metabox - 1.4.5 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_mixed_render_metabox') ) {
@@ -293,12 +299,8 @@ function mtphr_dnt_mixed_render_metabox() {
 	$ticks = get_post_meta( $post->ID, '_mtphr_dnt_mixed_ticks', true );
 	$types = mtphr_dnt_types_array();
 	unset($types['mixed']);
-	
-	//echo '<pre>';print_r($ticks);echo '</pre>';
 
 	echo '<input type="hidden" name="mtphr_dnt_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
-
-	echo '<a href="#" id="mtphr-dnt-mixed-add-tick" class="button-primary">'.__('Add Tick', 'ditty-news-ticker').'</a><span class="spinner mtphr-dnt-add-spinner"></span>';
 	
 	echo '<table class="mtphr-dnt-table">';
 	
@@ -308,7 +310,7 @@ function mtphr_dnt_mixed_render_metabox() {
 				echo '<small>'.__('Select the ticks you would like to display by choosing the tick type and the offset position of the selected feed', 'ditty-news-ticker').'</small>';
 			echo '</td>';
 			echo '<td>';
-				echo '<table class="mtphr-dnt-list mtphr-dnt-mixed-list" style="width:auto;">';
+				echo '<table class="mtphr-dnt-list mtphr-dnt-mixed-list mtphr-dnt-advanced-list" style="width:auto;">';
 					if( is_array($ticks) && count($ticks) > 0 ) {
 						foreach( $ticks as $i=>$tick ) {
 							mtphr_dnt_render_mixed_tick( $types, $tick, $i );
@@ -334,7 +336,7 @@ function mtphr_dnt_render_mixed_tick( $types, $tick=false, $i=false ) {
 		echo '<td class="mtphr-dnt-list-handle"><span></span></td>';
 	  echo '<td class="mtphr-dnt-mixed-type">';
 	  	echo '<label style="margin-right:10px;">'.__('Type:', 'ditty-news-ticker').' ';
-				echo '<select name="_mtphr_dnt_mixed_ticks[type]" key="type">';
+				echo '<select name="_mtphr_dnt_mixed_ticks[type]" data-name="_mtphr_dnt_mixed_ticks" data-key="type">';
 					echo '<option value="">-- '.__('Select Tick Type', 'ditty-news-ticker').' --</option>';
 					foreach( $types as $i=>$type ) {
 						echo '<option value="'.$i.'" '.selected($i, $tick_type, false).'>'.$type['button'].'</option>';
@@ -344,10 +346,11 @@ function mtphr_dnt_render_mixed_tick( $types, $tick=false, $i=false ) {
 		echo '</td>';
 		echo '<td>';
 			echo '<label>'.__('Offset:', 'ditty-news-ticker').' ';
-				echo '<input type="number" name="_mtphr_dnt_mixed_ticks[offset]" key="offset" value="'.$tick_offset.'" />';
+				echo '<input type="number" name="_mtphr_dnt_mixed_ticks[offset]" data-name="_mtphr_dnt_mixed_ticks" data-key="offset" value="'.$tick_offset.'" />';
 			echo '</label>';
 		echo '</td>';
 		echo '<td class="mtphr-dnt-list-delete"><a href="#"></a></td>';
+		echo '<td class="mtphr-dnt-list-add"><a href="#"></a></td>';
 	echo '</tr>';
 }
 }

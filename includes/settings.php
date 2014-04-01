@@ -79,7 +79,7 @@ function mtphr_dnt_settings_display( $active_tab = null ) {
 
 
 /* --------------------------------------------------------- */
-/* !Get the settings - 1.4.0 */
+/* !Get the settings - 1.4.5 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_general_settings') ) {
@@ -92,6 +92,7 @@ if( !function_exists('mtphr_dnt_general_settings_defaults') ) {
 function mtphr_dnt_general_settings_defaults() {
 	$defaults = array(
 		'wysiwyg' => '',
+		'edit_links' => '',
 		'css' => ''
 	);
 	return $defaults;
@@ -122,7 +123,11 @@ function mtphr_dnt_initialize_settings() {
 
 	/* Visual Editor */
 	$title = mtphr_dnt_settings_label( __( 'Visual Editor', 'ditty-news-ticker' ), __('Use the visual editor to create tick contents', 'ditty-news-ticker') );
-	add_settings_field( 'mtphr_dnt_general_settings_wysiwyg', $title, 'mtphr_dnt_general_settings_wysiwyg', 'mtphr_dnt_general_settings', 'mtphr_dnt_general_settings_section', array('settings' => $settings) );	
+	add_settings_field( 'mtphr_dnt_general_settings_wysiwyg', $title, 'mtphr_dnt_general_settings_wysiwyg', 'mtphr_dnt_general_settings', 'mtphr_dnt_general_settings_section', array('settings' => $settings) );
+	
+	/* Quick Edit Links */
+	$title = mtphr_dnt_settings_label( __( 'Quick Edit Links', 'ditty-news-ticker' ), __('Add quick edit links on the front-end of the site for editors and admins', 'ditty-news-ticker') );
+	add_settings_field( 'mtphr_dnt_general_settings_edit_links', $title, 'mtphr_dnt_general_settings_edit_links', 'mtphr_dnt_general_settings', 'mtphr_dnt_general_settings_section', array('settings' => $settings) );	
 	
 	/* Custom CSS */
 	$title = mtphr_dnt_settings_label( __( 'Custom CSS', 'ditty-news-ticker' ), __('Add custom css to style your ticker without modifying any external files', 'ditty-news-ticker') );
@@ -158,6 +163,20 @@ function mtphr_dnt_general_settings_wysiwyg( $args ) {
 }
 
 /* --------------------------------------------------------- */
+/* !Edit Links - 1.4.5 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_general_settings_edit_links') ) {
+function mtphr_dnt_general_settings_edit_links( $args ) {
+
+	$settings = $args['settings'];
+	echo '<div id="mtphr_dnt_general_settings_edit_links">';
+		echo '<label><input type="checkbox" name="mtphr_dnt_general_settings[edit_links]" value="1" '.checked('1', $settings['edit_links'], false).' /> '.__('Add quick edit links', 'ditty-news-ticker').'</label>';
+	echo '</div>';
+}
+}
+
+/* --------------------------------------------------------- */
 /* !CSS - 1.4.0 */
 /* --------------------------------------------------------- */
 
@@ -186,59 +205,4 @@ function mtphr_dnt_general_settings_sanitize( $fields ) {
 
 	return $fields;
 }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * The custom field callback.
- *
- * @since 1.2.1
- */
-function mtphr_dnt_settings_callback( $args ) {
-
-	// First, we read the options collection
-	if( isset($args['option']) ) {
-		$options = get_option( $args['option'] );
-		$value = isset( $options[$args['option_id']] ) ? $options[$args['option_id']] : '';
-	} else {
-		$value = get_option( $args['id'] );
-	}
-	if( $value == '' && isset($args['default']) ) {
-		$value = $args['default'];
-	}
-	if( isset($args['type']) ) {
-		$class = ( isset($args['class']) ) ? $args['class'] : '';
-		echo '<div class="mtphr-dnt-metaboxer-field mtphr-dnt-metaboxer-'.$args['type'].' '.$class.'">';
-
-		// Call the function to display the field
-		if ( function_exists('mtphr_dnt_metaboxer_'.$args['type']) ) {
-			call_user_func( 'mtphr_dnt_metaboxer_'.$args['type'], $args, $value );
-		}
-
-		echo '</div>';
-	}
-
-	// Add a descriptions
-	if( isset($args['description']) ) {
-		echo '<span class="description"><small>'.$args['description'].'</small></span>';
-	}
 }

@@ -110,7 +110,7 @@ add_filter( 'mtphr_dnt_tick_array_transform', 'mtphr_dnt_tick_grid', 10, 3 );
 
 
 /* --------------------------------------------------------- */
-/* !Add the control nav for rotating ticks - 1.4.0 */
+/* !Add the control nav for rotating ticks - 1.4.5 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_direction_nav( $id, $meta_data, $total ) {
@@ -129,8 +129,8 @@ function mtphr_dnt_direction_nav( $id, $meta_data, $total ) {
 				if( isset($_mtphr_dnt_rotate_directional_nav_hide) && $_mtphr_dnt_rotate_directional_nav_hide ) {
 					$hide = ' mtphr-dnt-nav-hide';
 				}
-				echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-prev'.$hide.'" href="#" rel="nofollow">'.apply_filters( 'mtphr_dnt_direction_nav_prev', '' ).'</a>';
-				echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-next'.$hide.'" href="#" rel="nofollow">'.apply_filters( 'mtphr_dnt_direction_nav_next', '' ).'</a>';
+				echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-prev'.$hide.'" href="#" rel="nofollow">'.apply_filters( 'mtphr_dnt_direction_nav_prev', '<i class="mtphr-dnt-icon-arrow-left"></i>' ).'</a>';
+				echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-next'.$hide.'" href="#" rel="nofollow">'.apply_filters( 'mtphr_dnt_direction_nav_next', '<i class="mtphr-dnt-icon-arrow-right"></i>' ).'</a>';
 			}
 		}
 	}
@@ -154,7 +154,8 @@ function mtphr_dnt_control_nav( $id, $meta_data, $total ) {
 		
 			echo '<div class="mtphr-dnt-control-links">';
 				for( $i=0; $i<$total; $i++ ) {
-					echo '<a class="mtphr-dnt-control mtphr-dnt-control-'.$_mtphr_dnt_rotate_control_nav_type.'" href="'.$i.'" rel="nofollow">'.apply_filters( 'mtphr_dnt_control_nav', intval($i+1) ).'</a>';
+					$link = ( $_mtphr_dnt_rotate_control_nav_type == 'button' ) ? '<i class="mtphr-dnt-icon-button"></i>' : intval($i+1);
+					echo '<a class="mtphr-dnt-control mtphr-dnt-control-'.$_mtphr_dnt_rotate_control_nav_type.'" href="'.$i.'" rel="nofollow">'.apply_filters( 'mtphr_dnt_control_nav', $link, $_mtphr_dnt_rotate_control_nav_type ).'</a>';
 				}
 			echo '</div>';
 		}
@@ -269,3 +270,20 @@ function mtphr_dnt_add_to_global( $id, $meta_data ) {
 	}
 }
 add_action( 'mtphr_dnt_after', 'mtphr_dnt_add_to_global', 10, 2 );
+
+
+
+/* --------------------------------------------------------- */
+/* !Add an edit link to the tickers - 1.4.5 */
+/* --------------------------------------------------------- */
+
+function mtphr_dnt_tick_edit_link( $id ) {
+	if( current_user_can('edit_pages') ) {
+		$settings = mtphr_dnt_general_settings();
+		if( isset($settings['edit_links']) && $settings['edit_links'] ) {
+			echo '<a class="mtphr-dnt-edit-link" href="'.get_edit_post_link( $id ).'">'.__('<i class="mtphr-dnt-icon-gear"></i> Edit ticker', 'ditty-news-ticker').'</a>';
+		}
+	}
+}
+add_action( 'mtphr_dnt_before', 'mtphr_dnt_tick_edit_link' );
+

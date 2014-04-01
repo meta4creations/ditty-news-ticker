@@ -73,14 +73,19 @@
 
 /* Directional nav
 ------------------------------------------------------------ */
-.mtphr-dnt-nav {
+.mtphr-dnt .mtphr-dnt-nav {
 	position: absolute;
 	top: 50%;
 	margin-top: -19px;
+}
+.mtphr-dnt-nav i {
+	display: block;
 	width: 38px;
 	height: 38px;
-	background: url(../images/navarrows.png) no-repeat;
-	background-size: 76px 38px;
+	font-size: 38px;
+	line-height: 38px;
+	color: #DDD;
+	color: rgba(221, 221, 221, .8);
 }
 .mtphr-dnt-nav:hover {
 	text-decoration: none !important;
@@ -117,21 +122,65 @@
 }
 .mtphr-dnt-control-button {
 	display: inline-block;
+	margin: 0 2px;
+}
+.mtphr-dnt-control-button i {
+	display: block;
 	width: 18px;
 	height: 18px;
-	background: url(../images/button.png) no-repeat 0 -18px;
-	background-size: 18px 36px;
+	font-size: 18px;
+	line-height: 18px;
+	color: #CCC;
 	margin: 0 2px;
-	text-indent: -9999px;
 }
 .mtphr-dnt-control-button:hover {
 	text-decoration: none !important;
 }
-.mtphr-dnt-control-button.active {
-	background-position: 0 0;
+.mtphr-dnt-control-button.active i {
+	color: #777;
 }
 .mtphr-dnt-control-button:focus {
   outline: none;
+}
+
+/* --------------------------------------------------------- */
+/* !Edit link */
+/* --------------------------------------------------------- */
+
+.mtphr-dnt-edit-link {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	font-family: Arial, sans-serif !important;
+	font-size: 14px !important;
+	line-height: 16px !important;
+	color: #666;
+	background: #FFF;
+	padding: 6px 8px 4px 7px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	filter: alpha(opacity=50);
+	-moz-opacity: .5;
+	-khtml-opacity: .5;
+	opacity: .5;	
+	-webkit-transition: opacity .2s linear;  
+	-moz-transition: opacity .2s linear;   
+	-o-transition: opacity .2s linear; 
+	transition: opacity .2s linear; 	
+}
+.mtphr-dnt-edit-link:hover {
+	color: #666;
+	filter: alpha(opacity=100);
+	-moz-opacity: 1;
+	-khtml-opacity: 1;
+	opacity: 1;
+}
+.mtphr-dnt-edit-link i {
+	float: left;
+	display: block;
+	margin: 1px 3px 0 0;
 }
 
 /* --------------------------------------------------------- */
@@ -174,24 +223,6 @@
 .mtphr-dnt-clearfix:after {
   clear: both;
 }
-
-/* Retina displays
------------------------------------------------------------- */
-
-@media only screen and (-Webkit-min-device-pixel-ratio: 1.5),
-only screen and (-moz-min-device-pixel-ratio: 1.5),
-only screen and (-o-min-device-pixel-ratio: 3/2),
-only screen and (min-device-pixel-ratio: 1.5) {
-
-  .mtphr-dnt-nav {
-		background-image: url(../images/navarrows@2x.png);
-	}
-	.mtphr-dnt-control-button {
-		background-image: url(../images/button@2x.png);
-	}
-}
-
-
 
 
 /**

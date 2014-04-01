@@ -1,19 +1,9 @@
 <?php
-/**
- * Custom edit columns
- *
- * @package Ditty News Ticker
- */
 
+/* --------------------------------------------------------- */
+/* !Set custom edit screen columns - 1.0.0 */
+/* --------------------------------------------------------- */
 
-
-
-add_filter( 'manage_ditty_news_ticker_posts_columns', 'mtphr_dnt_set_columns' );
-/**
- * Set custom edit screen columns
- *
- * @since 1.0
- */
 function mtphr_dnt_set_columns( $columns ){
 
 	$new_columns = array();
@@ -30,16 +20,14 @@ function mtphr_dnt_set_columns( $columns ){
 	}
 	return $new_columns;
 }
+add_filter( 'manage_ditty_news_ticker_posts_columns', 'mtphr_dnt_set_columns' );
 
 
 
+/* --------------------------------------------------------- */
+/* !Display the custom edit screen columns - 1.0.5 */
+/* --------------------------------------------------------- */
 
-add_action( 'manage_ditty_news_ticker_posts_custom_column',  'mtphr_dnt_display_columns', 10, 2 );
-/**
- * Display the custom edit screen columns
- *
- * @since 1.0.5
- */
 function mtphr_dnt_display_columns( $column, $post_id ){
 
 	global $post;
@@ -85,16 +73,15 @@ function mtphr_dnt_display_columns( $column, $post_id ){
 			break;
 	}
 }
+add_action( 'manage_ditty_news_ticker_posts_custom_column',  'mtphr_dnt_display_columns', 10, 2 );
 
 
 
 
-add_filter( 'manage_edit-ditty_news_ticker_sortable_columns', 'mtphr_dnt_sortable_columns' );
-/**
- * Add sortable columns
- *
- * @since 1.0.0
- */
+/* --------------------------------------------------------- */
+/* !Add sortable columns - 1.0.0 */
+/* --------------------------------------------------------- */
+
 function mtphr_dnt_sortable_columns( $columns ) {
 	
 	$columns['dnt_type'] = 'dnt_type';
@@ -102,16 +89,14 @@ function mtphr_dnt_sortable_columns( $columns ) {
 
 	return $columns;
 }
+add_filter( 'manage_edit-ditty_news_ticker_sortable_columns', 'mtphr_dnt_sortable_columns' );
 
 
 
+/* --------------------------------------------------------- */
+/* !Set the custom column order - 1.0.0 */
+/* --------------------------------------------------------- */
 
-add_filter( 'request', 'mtphr_dnt_column_order_request' );
-/**
- * Set the custom column order
- *
- * @since 1.0.0
- */
 function mtphr_dnt_column_order_request( $vars ) {
 	
 	if ( isset( $vars['orderby'] ) && 'dnt_type' == $vars['orderby'] ) {
@@ -130,34 +115,78 @@ function mtphr_dnt_column_order_request( $vars ) {
 	 
 	return $vars;
 }
+add_filter( 'request', 'mtphr_dnt_column_order_request' );
 
 
 
+/* --------------------------------------------------------- */
+/* !Add custom edit screen filters - 1.4.5 */
+/* --------------------------------------------------------- */
 
-add_filter( 'parse_query','mtphr_dnt_parse_query' );
-/**
- * Filter the list of tickers
- *
- * @since 1.0.0
- */
+function mtphr_dnt_edit_screen_filters() {
+
+	global $typenow;
+	
+	if( $typenow == 'ditty_news_ticker' ) {
+		$dnt_type = isset($_GET['dnt_type']) ? $_GET['dnt_type'] : '';
+		$dnt_mode = isset($_GET['dnt_mode']) ? $_GET['dnt_mode'] : '';
+		
+		$types = mtphr_dnt_types_array();
+		$modes = mtphr_dnt_modes_array();
+		
+		echo '<select name="dnt_type">';
+			echo '<option value="">'.__('Show all Types', 'ditty-news-ticker').'</option>';
+			if( is_array($types) && count($types) > 0 ) {
+				foreach( $types as $i=>$type ) {
+					echo '<option value="'.$i.'" '.selected($i, $dnt_type, false).'>'.$type['button'].'</option>';
+				}
+			}
+		echo '</select>';
+		
+		echo '<select name="dnt_mode">';
+			echo '<option value="">'.__('Show all Modes', 'ditty-news-ticker').'</option>';
+			if( is_array($modes) && count($modes) > 0 ) {
+				foreach( $modes as $i=>$mode ) {
+					echo '<option value="'.$i.'" '.selected($i, $dnt_mode, false).'>'.$mode['button'].'</option>';
+				}
+			}
+		echo '</select>';
+	}
+}
+add_action( 'restrict_manage_posts','mtphr_dnt_edit_screen_filters' );
+
+
+
+/* --------------------------------------------------------- */
+/* !Filter the list of tickers - 1.4.5 */
+/* --------------------------------------------------------- */
+
 function mtphr_dnt_parse_query( $query ) {
   
   global $pagenow;
   $qv = &$query->query_vars;
   
   if ( $pagenow=='edit.php' && $qv['post_type']=='ditty_news_ticker' ) {
-	  
+  
+  	$meta_query = array();
+
 	  if( isset($_GET['dnt_type']) ) {
-	  	$qv['meta_key'] = '_mtphr_dnt_type';
-	  	$qv['meta_value'] = $_GET['dnt_type'];
+	  	$meta_query[] = array(
+	  		'key' => '_mtphr_dnt_type',
+				'value' => $_GET['dnt_type'],
+	  	);
 	  }
 	  
 	  if( isset($_GET['dnt_mode']) ) {
-	  	$qv['meta_key'] = '_mtphr_dnt_mode';
-	  	$qv['meta_value'] = $_GET['dnt_mode'];
+	  	$meta_query[] = array(
+	  		'key' => '_mtphr_dnt_mode',
+				'value' => $_GET['dnt_mode'],
+	  	);
+	  }
+	  
+	  if( count($meta_query) > 0 ) {
+		  $qv['meta_query'] = $meta_query;
 	  }
   }
 }
-
-
-
+add_filter( 'parse_query','mtphr_dnt_parse_query' );

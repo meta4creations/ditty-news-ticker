@@ -12,7 +12,7 @@ add_action( 'admin_enqueue_scripts', 'mtphr_dnt_admin_scripts' );
 /**
  * Load the metaboxer scripts
  *
- * @since 1.3.0
+ * @since 1.4.5
  */
 function mtphr_dnt_admin_scripts( $hook ) {
 
@@ -36,17 +36,8 @@ function mtphr_dnt_admin_scripts( $hook ) {
 		wp_enqueue_script( 'codemirror' );
 		wp_register_script( 'codemirror-css', MTPHR_DNT_URL.'/assets/js/css.js', array('jquery'), MTPHR_DNT_VERSION, true );
 		wp_enqueue_script( 'codemirror-css' );
-
-		// Load the metaboxer scripts
-		wp_register_style( 'ditty-metaboxer', MTPHR_DNT_URL.'/includes/metaboxer/metaboxer.css', array( 'colors', 'thickbox' ), MTPHR_DNT_VERSION );
-		wp_enqueue_style( 'ditty-metaboxer' );
-		wp_register_script( 'ditty-metaboxer', MTPHR_DNT_URL.'/includes/metaboxer/metaboxer.js', array( 'jquery','jquery-ui-core','jquery-ui-sortable' ), MTPHR_DNT_VERSION, true );
-		wp_enqueue_script( 'ditty-metaboxer' );
-		wp_localize_script( 'ditty-metaboxer', 'ditty_metaboxer_vars', array(
-				'security' => wp_create_nonce( 'ditty-metaboxer' )
-			)
-		);
 		
+		// Load the news ticker scripts
 		wp_register_script( 'ditty-news-ticker', MTPHR_DNT_URL.'/assets/js/script-admin.js', array( 'jquery','jquery-ui-core','jquery-ui-sortable' ), MTPHR_DNT_VERSION, true );
 		wp_enqueue_script( 'ditty-news-ticker' );
 		wp_localize_script( 'ditty-news-ticker', 'ditty_news_ticker_vars', array(

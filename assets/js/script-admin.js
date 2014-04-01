@@ -150,12 +150,16 @@ jQuery( document ).ready( function($) {
 	
 	
 	/* --------------------------------------------------------- */
-	/* !Advanced list - 1.4.4 */
+	/* !Advanced list - 1.4.5 */
 	/* --------------------------------------------------------- */
 	
 	if( $('.mtphr-dnt-advanced-list').length > 0 ) {
-	
+
 		function mtphr_dnt_advanced_handle_toggle( $table ) {
+			
+			console.log($table[0]);
+			console.log($table.find('.mtphr-dnt-list-item').length);
+		
 			if( $table.find('.mtphr-dnt-list-item').length > 1 ) {
 				$table.find('.mtphr-dnt-list-handle').show();
 				$table.find('.mtphr-dnt-list-delete').show();
@@ -169,10 +173,19 @@ jQuery( document ).ready( function($) {
 			
 			$table.find('.mtphr-dnt-list-item').each( function(index) {	
 				$(this).find('textarea, input, select').each( function() {
+				
+					if( $(this).hasClass('mtphr-dnt-wysiwyg') ) {
 					
-					var name = $(this).attr('data-name'),
-							key = $(this).attr('data-key');
-
+						var $parent = $(this).parents('.mtphr-dnt-wysiwyg-container'),
+								name = $parent.attr('data-name'),
+								key = $parent.attr('data-key');
+						
+					} else {
+					
+						var name = $(this).attr('data-name'),
+								key = $(this).attr('data-key');
+					}
+					
 					$(this).attr('name', name+'['+index+']['+key+']');
 				});
 			});
@@ -192,7 +205,7 @@ jQuery( document ).ready( function($) {
 		      $(this).height($originals.eq(index).height());
 		    });
 		    return $helper;
-		  },
+		  }
 		});
 		
 		// Delete list item
@@ -236,94 +249,14 @@ jQuery( document ).ready( function($) {
 		});
 	}
 	
-	
-	
-	/* --------------------------------------------------------- */
-	/* !Default tick list - 1.4.0 */
-	/* --------------------------------------------------------- */
-	
-	if( $('.mtphr-dnt-default-list').length > 0 ) {
-	
-		function mtphr_dnt_default_handle_toggle( $table ) {
-			if( $table.find('.mtphr-dnt-list-item').length > 1 ) {
-				$table.find('.mtphr-dnt-list-handle').show();
-			} else {
-				$table.find('.mtphr-dnt-list-handle').hide();
-			}
-		}
-	
-		function mtphr_dnt_default_set_order( $table ) {
-			
-			$table.find('.mtphr-dnt-list-item').each( function(index) {	
-				$(this).find('textarea, input, select').each( function() {
-					if( $(this).hasClass('wp-editor-area') ) {
-						$(this).attr('name', '_mtphr_dnt_ticks['+index+'][tick]');
-					} else {
-						$(this).attr('name', '_mtphr_dnt_ticks['+index+']['+$(this).attr('key')+']');
-					}
-				});
-			});
-			
-			mtphr_dnt_default_handle_toggle( $table );
-		}
-		
-		$('.mtphr-dnt-default-list').sortable( {
-			handle: '.mtphr-dnt-list-handle',
-			items: '.mtphr-dnt-list-item',
-			axis: 'y',
-		  helper: function(e, tr) {
-		    var $originals = tr.children();
-		    var $helper = tr.clone();
-		    $helper.children().each(function(index) {
-		      $(this).width($originals.eq(index).width());
-		      $(this).height($originals.eq(index).height());
-		    });
-		    return $helper;
-		  },
-		});
-		
-		// Delete list item
-		$('.mtphr-dnt-default-list').find('.mtphr-dnt-list-delete').live( 'click', function(e) {
-			e.preventDefault();
-
-			// Fade out the item
-			$(this).parents('.mtphr-dnt-list-item').fadeOut( function() {
-				$(this).remove();
-			});
-		});
-		
-		// Add new row
-		$('.mtphr-dnt-default-list').find('.mtphr-dnt-list-add').live( 'click', function(e) {
-		  e.preventDefault();
-
-		  // Save the container
-		  var $table = $(this).parents('.mtphr-dnt-default-list'),
-		  		$container = $(this).parents('.mtphr-dnt-list-item');
-
-		  var data = {
-				action: 'mtphr_dnt_default_list_ajax',
-				security: ditty_news_ticker_vars.security
-			};
-			$.post( ajaxurl, data, function( response ) {
-
-				// Add the audio and adjust the toggles
-				$container.after( response );
-				mtphr_dnt_default_set_order( $table );
-			});
-		});	
-		
-		$('.mtphr-dnt-default-list').each( function(index) {
-			mtphr_dnt_default_set_order( $(this) );
-		});
-	}
-	
 		
 		
 	/* --------------------------------------------------------- */
 	/* !Mixed tick list - 1.3.3 */
 	/* --------------------------------------------------------- */
 	
-	if( $('.mtphr-dnt-mixed-list').length > 0 ) {
+	/*
+if( $('.mtphr-dnt-mixed-list').length > 0 ) {
 	
 		function mtphr_dnt_mixed_handle_toggle( $table ) {
 			if( $table.find('.mtphr-dnt-list-item').length > 1 ) {
@@ -396,5 +329,6 @@ jQuery( document ).ready( function($) {
 			mtphr_dnt_mixed_set_order( $(this) );
 		});
 	}
+*/
 
 });

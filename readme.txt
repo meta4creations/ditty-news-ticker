@@ -54,6 +54,14 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.4.5 =
+* Removed metaboxer code & files, which are no longer used
+* Merged the metabox list jQuery functionality
+* Removed ajax.php file
+* Removed image navigation & buttons. Replaced with icon fonts
+* Added type & mode filters to edit screen
+* Added option to add aquick edit link to tickers for admins/editors
+
 = 1.4.4 =
 * Made ditty_new_ticker post type public
 * Included ditty_new_ticker post type in nav menus
@@ -217,4 +225,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Made News Ticker plublic and added to nave menus. Other admin script updates.
+Metabox updates. Converted image graphics to icon fonts. Added option to add quick edit links to tickers. Added type & mode filters to edit screen.

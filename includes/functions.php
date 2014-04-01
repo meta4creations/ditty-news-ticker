@@ -91,7 +91,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 
 		echo '<div'.$ticker_width.' id="'.$tick_id.'" '.mtphr_dnt_ticker_class( $id, $class, $meta_data ).'>';
 			echo '<div class="mtphr-dnt-wrapper mtphr-dnt-clearfix">';
-		
+
 				// Display the title
 				if( isset($_mtphr_dnt_title) && $_mtphr_dnt_title ) {
 			

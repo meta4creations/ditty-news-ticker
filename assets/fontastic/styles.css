@@ -53,3 +53,15 @@
 .mtphr-dnt-icon-spinner:before {
   content: "e";
 }
+.mtphr-dnt-icon-arrow-left:before {
+  content: "f";
+}
+.mtphr-dnt-icon-arrow-right:before {
+  content: "g";
+}
+.mtphr-dnt-icon-button:before {
+  content: "h";
+}
+.mtphr-dnt-icon-gear:before {
+  content: "i";
+}
