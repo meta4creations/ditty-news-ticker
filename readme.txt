@@ -54,6 +54,11 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.4.6 =
+* Added plugin activation/de-activation to flush rewrite rules
+* Moved admin files into separate admin directories
+* Set file permissions on fontastic files
+
 = 1.4.5 =
 * Removed metaboxer code & files, which are no longer used
 * Merged the metabox list jQuery functionality
@@ -225,4 +230,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Metabox updates. Converted image graphics to icon fonts. Added option to add quick edit links to tickers. Added type & mode filters to edit screen.
+Added flush rewrite fules. Directory cleanup. Attempted to set file permissions on fontastic directory.

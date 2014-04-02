@@ -1,78 +1,14 @@
 <?php
-/**
- * Load CSS & jQuery Scripts
- *
- * @package Ditty News Ticker
- */
 
+/* --------------------------------------------------------- */
+/* !Load the front end scripts - 1.4.6 */
+/* --------------------------------------------------------- */
 
-
-
-add_action( 'admin_enqueue_scripts', 'mtphr_dnt_admin_scripts' );
-/**
- * Load the metaboxer scripts
- *
- * @since 1.4.5
- */
-function mtphr_dnt_admin_scripts( $hook ) {
-
-	global $typenow;
-
-	if ( $typenow == 'ditty_news_ticker' ) {
-
-		// Load scipts for the media uploader
-		if(function_exists( 'wp_enqueue_media' )){
-	    wp_enqueue_media();
-		} else {
-	    wp_enqueue_style('thickbox');
-	    wp_enqueue_script('media-upload');
-	    wp_enqueue_script('thickbox');
-		}
-
-		// Load the CodeMirror plugin
-		wp_register_style( 'codemirror', MTPHR_DNT_URL.'/assets/css/codemirror.css', false, MTPHR_DNT_VERSION );
-		wp_enqueue_style( 'codemirror' );
-		wp_register_script( 'codemirror', MTPHR_DNT_URL.'/assets/js/codemirror.js', array('jquery'), MTPHR_DNT_VERSION, true );
-		wp_enqueue_script( 'codemirror' );
-		wp_register_script( 'codemirror-css', MTPHR_DNT_URL.'/assets/js/css.js', array('jquery'), MTPHR_DNT_VERSION, true );
-		wp_enqueue_script( 'codemirror-css' );
-		
-		// Load the news ticker scripts
-		wp_register_script( 'ditty-news-ticker', MTPHR_DNT_URL.'/assets/js/script-admin.js', array( 'jquery','jquery-ui-core','jquery-ui-sortable' ), MTPHR_DNT_VERSION, true );
-		wp_enqueue_script( 'ditty-news-ticker' );
-		wp_localize_script( 'ditty-news-ticker', 'ditty_news_ticker_vars', array(
-				'security' => wp_create_nonce( 'ditty-news-ticker' )
-			)
-		);
-	}
-	
-	// Load the icon font css
-	wp_register_style( 'ditty-news-ticker-font', MTPHR_DNT_URL.'/assets/fontastic/styles.css', false, MTPHR_DNT_VERSION );
-	wp_enqueue_style( 'ditty-news-ticker-font' );
-
-	// Load the plugin css
-	wp_register_style( 'ditty-news-ticker', MTPHR_DNT_URL.'/assets/css/style-admin.css', false, MTPHR_DNT_VERSION );
-	wp_enqueue_style( 'ditty-news-ticker' );
-}
-
-
-
-
-add_action( 'wp_enqueue_scripts', 'mtphr_dnt_scripts' );
-/**
- * Load the front end scripts
- *
- * @since 1.1.8
- */
 function mtphr_dnt_scripts() {
 
 	// Load the icon font css
 	wp_register_style( 'ditty-news-ticker-font', MTPHR_DNT_URL.'/assets/fontastic/styles.css', false, MTPHR_DNT_VERSION );
 	wp_enqueue_style( 'ditty-news-ticker-font' );
-
-	// Load the css
-	wp_register_style( 'ditty-news-ticker', MTPHR_DNT_URL.'/assets/css/style.css', false, MTPHR_DNT_VERSION );
-	wp_enqueue_style( 'ditty-news-ticker' );
 
 	// Register touchSwipe
 	wp_register_script( 'touchSwipe', MTPHR_DNT_URL.'/assets/js/jquery.touchSwipe.min.js', array('jquery'), MTPHR_DNT_VERSION, true );
@@ -80,19 +16,19 @@ function mtphr_dnt_scripts() {
 	// Register the jQuery easing
 	wp_register_script( 'jquery-easing', MTPHR_DNT_URL.'/assets/js/jquery.easing.1.3.js', array('jquery'), MTPHR_DNT_VERSION, true );
 
-	// Register the DNT jQuery class
+	// Register the Ditty News Ticker scripts
+	wp_register_style( 'ditty-news-ticker', MTPHR_DNT_URL.'/assets/css/style.css', false, MTPHR_DNT_VERSION );
+	wp_enqueue_style( 'ditty-news-ticker' );
 	wp_register_script( 'ditty-news-ticker', MTPHR_DNT_URL.'/assets/js/ditty-news-ticker.js', array('jquery'), MTPHR_DNT_VERSION, true );
 }
+add_action( 'wp_enqueue_scripts', 'mtphr_dnt_scripts' );
 
 
 
+/* --------------------------------------------------------- */
+/* !Add custom css - 1.1.5 */
+/* --------------------------------------------------------- */
 
-add_action( 'wp_head', 'mtphr_dnt_custom_css' );
-/**
- * Add custom css
- *
- * @since 1.1.5
- */
 function mtphr_dnt_custom_css() {
 
 	$settings = get_option( 'mtphr_dnt_general_settings' );
@@ -100,16 +36,14 @@ function mtphr_dnt_custom_css() {
 		echo '<style>'.sanitize_text_field( $settings['css'] ).'</style>';
 	}
 }
+add_action( 'wp_head', 'mtphr_dnt_custom_css' );
 
 
 
+/* --------------------------------------------------------- */
+/* !Initialize the ticker scripts - 1.4.3 */
+/* --------------------------------------------------------- */
 
-add_action( 'wp_footer', 'mtphr_dnt_tickers_init_scripts', 20 );
-/**
- * Initialize the ticker scriptinos
- *
- * @since 1.4.3
- */
 function mtphr_dnt_tickers_init_scripts() {
 
 	global $mtphr_dnt_ticker_scripts;
@@ -162,4 +96,5 @@ function mtphr_dnt_tickers_init_scripts() {
 		<?php
 	}
 }
+add_action( 'wp_footer', 'mtphr_dnt_tickers_init_scripts', 20 );
 

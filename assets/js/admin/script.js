@@ -156,9 +156,6 @@ jQuery( document ).ready( function($) {
 	if( $('.mtphr-dnt-advanced-list').length > 0 ) {
 
 		function mtphr_dnt_advanced_handle_toggle( $table ) {
-			
-			console.log($table[0]);
-			console.log($table.find('.mtphr-dnt-list-item').length);
 		
 			if( $table.find('.mtphr-dnt-list-item').length > 1 ) {
 				$table.find('.mtphr-dnt-list-handle').show();
