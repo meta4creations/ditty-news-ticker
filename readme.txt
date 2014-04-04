@@ -54,6 +54,10 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.4.7 =
+* Fixed bug in edit page type & mode filters
+* CSS adjustments for rotate buttons
+
 = 1.4.6 =
 * Added plugin activation/de-activation to flush rewrite rules
 * Moved admin files into separate admin directories
@@ -230,4 +234,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Added flush rewrite fules. Directory cleanup. Attempted to set file permissions on fontastic directory.
+Fixed bug in edit page type & mode filters. CSS adjustments for rotate buttons

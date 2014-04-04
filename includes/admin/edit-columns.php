@@ -158,7 +158,7 @@ add_action( 'restrict_manage_posts','mtphr_dnt_edit_screen_filters' );
 
 
 /* --------------------------------------------------------- */
-/* !Filter the list of tickers - 1.4.5 */
+/* !Filter the list of tickers - 1.4.7 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_parse_query( $query ) {
@@ -170,14 +170,14 @@ function mtphr_dnt_parse_query( $query ) {
   
   	$meta_query = array();
 
-	  if( isset($_GET['dnt_type']) ) {
+	  if( isset($_GET['dnt_type']) && $_GET['dnt_type'] != '' ) {
 	  	$meta_query[] = array(
 	  		'key' => '_mtphr_dnt_type',
 				'value' => $_GET['dnt_type'],
 	  	);
 	  }
 	  
-	  if( isset($_GET['dnt_mode']) ) {
+	  if( isset($_GET['dnt_mode']) && $_GET['dnt_mode'] != '' ) {
 	  	$meta_query[] = array(
 	  		'key' => '_mtphr_dnt_mode',
 				'value' => $_GET['dnt_mode'],
