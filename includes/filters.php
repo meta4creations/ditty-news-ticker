@@ -287,3 +287,29 @@ function mtphr_dnt_tick_edit_link( $id ) {
 }
 add_action( 'mtphr_dnt_before', 'mtphr_dnt_tick_edit_link' );
 
+
+
+/* --------------------------------------------------------- */
+/* !Add an edit link to the tickers - 1.4.8 */
+/* --------------------------------------------------------- */
+
+function mtphr_dnt_tick_title( $id, $meta_data ) {
+
+	// Extract the metadata array into variables
+	extract( $meta_data );
+	
+	// Display the title
+	if( isset($_mtphr_dnt_title) && $_mtphr_dnt_title ) {
+
+		$inline_title = '';
+		if( isset($_mtphr_dnt_inline_title) && $_mtphr_dnt_inline_title ) {
+			$inline_title = ' mtphr-dnt-inline-title';
+		}
+
+		do_action( 'mtphr_dnt_title_before', $id, $meta_data );
+		echo '<h3 class="mtphr-dnt-title'.$inline_title.'">'.apply_filters( 'mtphr_dnt_ticker_title', get_the_title($id) ).'</h3>';
+		do_action( 'mtphr_dnt_title_after', $id, $meta_data );
+	}
+}
+add_action( 'mtphr_dnt_before', 'mtphr_dnt_tick_title', 10, 2 );
+

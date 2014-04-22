@@ -22,7 +22,7 @@ function ditty_news_ticker( $id='', $class='', $atts=false ) {
 /**
  * Return the ticker
  *
- * @since 1.4.2
+ * @since 1.4.8
  */
 function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 	
@@ -30,7 +30,6 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 	if( function_exists('icl_object_id') ) {
 		$id = icl_object_id( $id, 'ditty_news_ticker', true );
 	}
-	
 
 	// Get the post
 	$ticker = get_post( $id );
@@ -92,19 +91,6 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 		echo '<div'.$ticker_width.' id="'.$tick_id.'" '.mtphr_dnt_ticker_class( $id, $class, $meta_data ).'>';
 			echo '<div class="mtphr-dnt-wrapper mtphr-dnt-clearfix">';
 
-				// Display the title
-				if( isset($_mtphr_dnt_title) && $_mtphr_dnt_title ) {
-			
-					$inline_title = '';
-					if( isset($_mtphr_dnt_inline_title) && $_mtphr_dnt_inline_title ) {
-						$inline_title = ' mtphr-dnt-inline-title';
-					}
-		
-					do_action( 'mtphr_dnt_title_before', $id, $meta_data );
-					echo '<h3 class="mtphr-dnt-title'.$inline_title.'">'.apply_filters( 'mtphr_dnt_ticker_title', $ticker->post_title ).'</h3>';
-					do_action( 'mtphr_dnt_title_after', $id, $meta_data );
-				}
-		
 				// Create and save element styles
 				$margin='';$padding='';$width='';$height='';$spacing='';
 			

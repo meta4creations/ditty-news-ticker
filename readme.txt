@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 3.2
-Tested up to: 3.8.1
+Tested up to: 3.9
 Stable tag: /trunk/
 License: GPL2
 
@@ -53,6 +53,11 @@ Each individual Ticker post has multiple settings to customize.
 4. List Mode options
 
 == Changelog ==
+
+= 1.4.8 =
+* Removed "data-icon" styles in icon font stylesheet
+* Converted icon font characters to PUA
+* Moved News Ticker title to "mtphr_dnt_before" action for easier customization
 
 = 1.4.7 =
 * Fixed bug in edit page type & mode filters
@@ -234,4 +239,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Fixed bug in edit page type & mode filters. CSS adjustments for rotate buttons
+Font icon updates. Moved news ticker title to "mtphr_dnt_before" action.
