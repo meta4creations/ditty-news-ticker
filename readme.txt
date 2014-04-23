@@ -54,6 +54,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.4.9 =
+* Fixed icon font display issue in admin
+
 = 1.4.8 =
 * Removed "data-icon" styles in icon font stylesheet
 * Converted icon font characters to PUA
@@ -239,4 +242,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Font icon updates. Moved news ticker title to "mtphr_dnt_before" action.
+Fixed icon font display issue in admin. Font icon updates. Moved news ticker title to "mtphr_dnt_before" action.

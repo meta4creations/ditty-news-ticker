@@ -19,7 +19,7 @@
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content: "a" !important;
+  content: "\E000" !important;
 }
 
 
@@ -383,20 +383,20 @@ p.mtphr-dnt-side-label {
 	font-size: 16px;
 }
 .mtphr-dnt-list-handle span:before {
-	content: "b";
+	content: "\E001";
 }
 	.mtphr-dnt-list-handle span:hover {
 		color: #1e8cbe;
 		cursor: ns-resize;
 	}
 .mtphr-dnt-list-add a:before {
-	content: "c";
+	content: "\E002";
 }
 	.mtphr-dnt-list-add a:hover {
 		color: #00a651;
 	}
 .mtphr-dnt-list-delete a:before {
-	content: "d";
+	content: "\E003";
 }
 	.mtphr-dnt-list-delete a:hover {
 		color: #ed1c24;
