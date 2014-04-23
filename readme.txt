@@ -54,6 +54,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.4.10 =
+* Fixed icon font display issue in admin
+
 = 1.4.9 =
 * Fixed icon font display issue in admin
 
