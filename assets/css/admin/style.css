@@ -5,6 +5,19 @@
 
 */
 
+
+@font-face {
+  font-family: "ditty-news-ticker";
+  src:url("../../fontastic/fonts/ditty-news-ticker.eot");
+  src:url("../../fontastic/fonts/ditty-news-ticker.eot?#iefix") format("embedded-opentype"),
+    url("../../fontastic/fonts/ditty-news-ticker.woff") format("woff"),
+    url("../../fontastic/fonts/ditty-news-ticker.ttf") format("truetype"),
+    url("../../fontastic/fonts/ditty-news-ticker.svg#ditty-news-ticker") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 /* Dashboard Menu Icon
 ------------------------------------------------------------ */
 
