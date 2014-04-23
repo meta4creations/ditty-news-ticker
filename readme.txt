@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 3.2
 Tested up to: 3.9
-Stable tag: 1.4.7
+Stable tag: /trunk/
 License: GPL2
 
 Ditty News Ticker is a multi-functional data display plugin.
@@ -53,12 +53,6 @@ Each individual Ticker post has multiple settings to customize.
 4. List Mode options
 
 == Changelog ==
-
-= 1.4.10 =
-* Fixed icon font display issue in admin
-
-= 1.4.9 =
-* Fixed icon font display issue in admin
 
 = 1.4.8 =
 * Removed "data-icon" styles in icon font stylesheet
