@@ -41,7 +41,7 @@ function mtphr_dnt_posttype() {
 		'show_in_menu' => true, 
 		'query_var' => true,
 		'rewrite' => true,
-		'supports' => array( 'title' ),
+		'supports' => array( 'title', 'author' ),
 		'rewrite' => array( 'slug' => __( 'ticker', 'ditty-news-ticker' ) ),
 		'show_in_nav_menus' => true
 	);
