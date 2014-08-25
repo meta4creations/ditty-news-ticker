@@ -54,6 +54,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.4.10 =
+* Moved plugin files to GitHub
+
 = 1.4.9 =
 * Added Author support to post type
 
@@ -242,4 +245,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Added Author support to post type.
+Moved plugin files to GitHub.
