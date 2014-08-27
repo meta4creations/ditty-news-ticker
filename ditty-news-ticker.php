@@ -84,5 +84,3 @@ function mtphr_dnt_deactivation() {
 }
 register_deactivation_hook( __FILE__, 'mtphr_dnt_deactivation' );
 
-
-

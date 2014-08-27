@@ -245,4 +245,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Moved plugin files to GitHub.
+Moved plugin files to GitHub. 
