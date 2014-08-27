@@ -54,6 +54,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.4.11 =
+* Fixed bug in ticker script filter when using unique_ids
+
 = 1.4.10 =
 * Moved plugin files to GitHub
 
@@ -245,4 +248,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Moved plugin files to GitHub. 
+Fixed bug in ticker script filter when using unique_ids. 
