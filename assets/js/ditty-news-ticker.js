@@ -1,9 +1,9 @@
 /**
  * Ditty News Ticker
- * Date: 9/17/2013
+ * Date: 10/06/2014
  *
  * @author Metaphor Creations
- * @version 1.2.0
+ * @version 1.4.12
  *
  **/
 
@@ -81,17 +81,32 @@
 				// Save the tick count & total
 				vars.tick_count = $ticker.find('.mtphr-dnt-tick').length;
 
-				// Start the first tick
-				if( vars.tick_count > 0 ) {
 
-					// Setup a ticker scroll
-					if( settings.type == 'scroll' ) {
-						mtphr_dnt_scroll_setup();
 
-					// Setup a ticker rotator
-					} else if( settings.type == 'rotate' ) {
-						mtphr_dnt_rotator_setup();
-					}
+		    /**
+		     * Initialize the ticker
+		     *
+		     * @since 1.0.0
+		     */
+		    function mtphr_dnt_init() {
+		    
+			    // Start the first tick
+					if( vars.tick_count > 0 ) {
+	
+						// Setup a ticker scroll
+						if( settings.type == 'scroll' ) {
+							mtphr_dnt_scroll_setup();
+	
+						// Setup a ticker rotator
+						} else if( settings.type == 'rotate' ) {
+							mtphr_dnt_rotator_setup();
+						}
+			    }
+			    
+			    // Trigger the afterLoad callback
+	        settings.after_load.call($container, $ticker);
+	        $container.trigger('mtphr_dnt_after_load_single', [vars, ticks]);
+	        $('body').trigger('mtphr_dnt_after_load', [$container, vars, ticks]);
 		    }
 
 
@@ -1261,14 +1276,23 @@
 				    } 
 			    }
 				});
+				
+				if( $container.width() == 0 ) {
+			    
+			    var mtphr_dnt_init_timer = setInterval( function() {
 
+			    	if( $container.width() > 10 ) {
+				    	clearInterval(mtphr_dnt_init_timer);
+				    	ticker_width = $ticker.width();
+				    	mtphr_dnt_init();
+			    	}
+			    	
+			    }, 100 );
+			    
+		    } else {
+			    mtphr_dnt_init();
+		    }
 
-
-
-		    // Trigger the afterLoad callback
-        settings.after_load.call($container, $ticker);
-        $container.trigger('mtphr_dnt_after_load_single', [vars, ticks]);
-        $('body').trigger('mtphr_dnt_after_load', [$container, vars, ticks]);
 			});
 		}
 	};

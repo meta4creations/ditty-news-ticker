@@ -232,7 +232,7 @@ add_filter( 'mtphr_dnt_tick_array', 'mtphr_dnt_default_ticks', 10, 3 );
 
 
 /* --------------------------------------------------------- */
-/* !Create the mixed ticks - 1.4.0 */
+/* !Create the mixed ticks - 1.4.12 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_mixed_ticks') ) {
@@ -263,9 +263,21 @@ function mtphr_dnt_mixed_ticks( $id, $meta_data ) {
 				$meta_data['_mtphr_dnt_type'] = $tick['type'];
 				$ticks_cache[$tick['type']] = apply_filters( 'mtphr_dnt_tick_array', array(), $id, $meta_data );
 			}
+
+			// Add all ticks of the selected type to the array
+			if( isset($tick['all']) && $tick['all'] == 'on' && isset($ticks_cache[$tick['type']]) ) {
 			
-			// Add the appropriate tick to the tick array
-			if( isset($ticks_cache[$tick['type']][intval($tick['offset'])]) ) {
+				if( is_array($ticks_cache[$tick['type']]) && count($ticks_cache[$tick['type']]) > 0 ) {
+					foreach( $ticks_cache[$tick['type']] as $i=>$all_tick ) {
+						$dnt_ticks[] = array(
+							'type' => $tick['type'],
+							'tick' => $all_tick
+						);
+					}
+				}
+				
+			// Or, add just the select offset to the array
+			} elseif( isset($ticks_cache[$tick['type']][intval($tick['offset'])]) ) {
 				$dnt_ticks[] = array(
 					'type' => $tick['type'],
 					'tick' => $ticks_cache[$tick['type']][intval($tick['offset'])]

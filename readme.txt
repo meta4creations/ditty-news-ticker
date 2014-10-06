@@ -54,6 +54,10 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.4.12 =
+* Modified jQuery script to allow hidden tickers to function correctly after they become visible on screen
+* Added the ability to add all ticks from a selected type to the mixed ticker
+
 = 1.4.11 =
 * Fixed bug in ticker script filter when using unique_ids
 
@@ -248,4 +252,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Fixed bug in ticker script filter when using unique_ids. 
+Modified to enable hidden ticker functionality and added All ticks option to mixed ticker. 

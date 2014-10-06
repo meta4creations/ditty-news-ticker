@@ -150,7 +150,7 @@ jQuery( document ).ready( function($) {
 	
 	
 	/* --------------------------------------------------------- */
-	/* !Advanced list - 1.4.5 */
+	/* !Advanced list - 1.4.12 */
 	/* --------------------------------------------------------- */
 	
 	if( $('.mtphr-dnt-advanced-list').length > 0 ) {
@@ -229,7 +229,11 @@ jQuery( document ).ready( function($) {
 		  		
 		  // Reset the duplicate
 		  $dup.find('textarea, input, select').each( function() {
-			  $(this).val('');
+		  	if( $(this).attr('type') == 'checkbox' || $(this).attr('type') == 'radio' ) {
+			  	$(this).removeAttr('checked');
+		  	} else {
+			  	$(this).val('');
+		  	} 
 		  });
 		  
 		  // Add the duplicate

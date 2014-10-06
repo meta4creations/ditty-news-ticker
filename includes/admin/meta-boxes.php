@@ -331,6 +331,7 @@ function mtphr_dnt_render_mixed_tick( $types, $tick=false, $i=false ) {
 	
 	$tick_type = ( isset($tick) && isset($tick['type']) ) ? $tick['type'] : '';
 	$tick_offset = ( isset($tick) && isset($tick['offset']) ) ? $tick['offset'] : 0;
+	$tick_all = ( isset($tick) && isset($tick['all']) && $tick['all'] == 'on' ) ? 'on' :'';
 	
 	echo '<tr class="mtphr-dnt-list-item">';
 		echo '<td class="mtphr-dnt-list-handle"><span></span></td>';
@@ -345,7 +346,11 @@ function mtphr_dnt_render_mixed_tick( $types, $tick=false, $i=false ) {
 			echo '</label>';
 		echo '</td>';
 		echo '<td>';
-			echo '<label>'.__('Offset:', 'ditty-news-ticker').' ';
+			echo '<label>'.__('Display <strong>all</strong> ticks:', 'ditty-news-ticker').' ';
+				echo '<input type="checkbox" name="_mtphr_dnt_mixed_ticks[all]" data-name="_mtphr_dnt_mixed_ticks" data-key="all" value="on" '.checked('on', $tick_all, false).' />';
+			echo '</label>';
+			
+			echo '<label>'.__(', or choose <strong>offset</strong>:', 'ditty-news-ticker').' ';
 				echo '<input type="number" name="_mtphr_dnt_mixed_ticks[offset]" data-name="_mtphr_dnt_mixed_ticks" data-key="offset" value="'.$tick_offset.'" />';
 			echo '</label>';
 		echo '</td>';
@@ -854,7 +859,8 @@ function mtphr_dnt_metabox_save( $post_id ) {
 			foreach( $_POST['_mtphr_dnt_mixed_ticks'] as $tick ) {
 				$sanitized_ticks[] = array(
 					'type' => $tick['type'],
-					'offset' => intval($tick['offset'])
+					'offset' => intval($tick['offset']),
+					'all' => $tick['all']
 				);
 			}
 		}
