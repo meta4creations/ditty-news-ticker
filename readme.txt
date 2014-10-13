@@ -54,6 +54,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.4.13 =
+* Fixed metabox bug from last update
+
 = 1.4.12 =
 * Modified jQuery script to allow hidden tickers to function correctly after they become visible on screen
 * Added the ability to add all ticks from a selected type to the mixed ticker
@@ -252,4 +255,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Modified to enable hidden ticker functionality and added All ticks option to mixed ticker. 
+Fixed metabox bug from last update. 

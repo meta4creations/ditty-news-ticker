@@ -795,7 +795,7 @@ function mtphr_dnt_global_settings_render_metabox() {
 
 
 /* --------------------------------------------------------- */
-/* !Save the custom meta - 1.4.1 */
+/* !Save the custom meta - 1.4.13 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_metabox_save( $post_id ) {
@@ -860,7 +860,7 @@ function mtphr_dnt_metabox_save( $post_id ) {
 				$sanitized_ticks[] = array(
 					'type' => $tick['type'],
 					'offset' => intval($tick['offset']),
-					'all' => $tick['all']
+					'all' => isset($tick['all']) ? $tick['all'] : ''
 				);
 			}
 		}
