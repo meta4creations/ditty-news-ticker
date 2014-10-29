@@ -54,6 +54,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.4.14 =
+* Added Italian translation files
+
 = 1.4.13 =
 * Fixed metabox bug from last update
 
@@ -255,4 +258,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Fixed metabox bug from last update. 
+Added Italian translation files. 
