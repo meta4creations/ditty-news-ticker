@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 3.2
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: /trunk/
 License: GPL2
 
@@ -53,6 +53,9 @@ Each individual Ticker post has multiple settings to customize.
 4. List Mode options
 
 == Changelog ==
+
+= 1.4.15 =
+* Admin metabox bug fix
 
 = 1.4.14 =
 * Added Italian translation files
@@ -258,4 +261,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Added Italian translation files. 
+Admin metabox bug fix. 
