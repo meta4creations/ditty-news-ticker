@@ -3,7 +3,7 @@
 Plugin Name: Ditty News Ticker
 Plugin URI: http://dittynewsticker.com/
 Description: Ditty News Ticker is a multi-functional data display plugin
-Version: 1.4.15
+Version: 1.5.0
 Author: Metaphor Creations
 Author URI: http://www.metaphorcreations.com
 License: GPL2
@@ -29,39 +29,42 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 /* --------------------------------------------------------- */
-/* !Define constants - 1.4.15 */
+/* !Define constants - 1.5.0 */
 /* --------------------------------------------------------- */
 
-define ( 'MTPHR_DNT_VERSION', '1.4.15' );
-define ( 'MTPHR_DNT_DIR', plugin_dir_path(__FILE__) );
-define ( 'MTPHR_DNT_URL', plugins_url().'/ditty-news-ticker' );
+define ( 'MTPHR_DNT_VERSION', '1.5.0' );
+define ( 'MTPHR_DNT_DIR', trailingslashit(plugin_dir_path(__FILE__)) );
+define ( 'MTPHR_DNT_URL', trailingslashit(plugins_url()).'ditty-news-ticker/' );
 
 
 
 /* --------------------------------------------------------- */
-/* !Include files - 1.4.6 */
+/* !Include files - 1.5.0 */
 /* --------------------------------------------------------- */
+
+// Load the general functions
+require_once( MTPHR_DNT_DIR.'includes/helpers.php' );
+require_once( MTPHR_DNT_DIR.'includes/post-types.php' );
+require_once( MTPHR_DNT_DIR.'includes/settings.php' );
+require_once( MTPHR_DNT_DIR.'includes/widget.php' );
+
 if( is_admin() ) {
 
-	// Load admin code
+	// Load admin specific code
 	require_once( MTPHR_DNT_DIR.'includes/admin/meta-boxes.php' );
-	//require_once( MTPHR_DNT_DIR.'includes/help.php' );
 	require_once( MTPHR_DNT_DIR.'includes/admin/edit-columns.php' );
 	require_once( MTPHR_DNT_DIR.'includes/admin/filters.php' );
 	require_once( MTPHR_DNT_DIR.'includes/admin/upgrades.php' );
 	require_once( MTPHR_DNT_DIR.'includes/admin/scripts.php' );
+} else {
+	
+	// Load front-end specific code
+	require_once( MTPHR_DNT_DIR.'includes/filters.php' );
+	require_once( MTPHR_DNT_DIR.'includes/functions.php' );
+	require_once( MTPHR_DNT_DIR.'includes/scripts.php' );
+	require_once( MTPHR_DNT_DIR.'includes/shortcodes.php' );
+	require_once( MTPHR_DNT_DIR.'includes/templates.php' );
 }
-
-// Load the general functions
-require_once( MTPHR_DNT_DIR.'includes/filters.php' );
-require_once( MTPHR_DNT_DIR.'includes/helpers.php' );
-require_once( MTPHR_DNT_DIR.'includes/display.php' );
-require_once( MTPHR_DNT_DIR.'includes/scripts.php' );
-require_once( MTPHR_DNT_DIR.'includes/post-types.php' );
-require_once( MTPHR_DNT_DIR.'includes/functions.php' );
-require_once( MTPHR_DNT_DIR.'includes/shortcodes.php' );
-require_once( MTPHR_DNT_DIR.'includes/widget.php' );
-require_once( MTPHR_DNT_DIR.'includes/settings.php' );
 
 
 
@@ -75,6 +78,8 @@ function mtphr_dnt_activation() {
 }
 register_activation_hook( __FILE__, 'mtphr_dnt_activation' );
 
+
+
 /* --------------------------------------------------------- */
 /* !Flush the rewrite rules - 1.4.6 */
 /* --------------------------------------------------------- */
@@ -83,4 +88,15 @@ function mtphr_dnt_deactivation() {
 	flush_rewrite_rules();
 }
 register_deactivation_hook( __FILE__, 'mtphr_dnt_deactivation' );
+
+
+
+/* --------------------------------------------------------- */
+/* !Setup localization - 1.1.5 */
+/* --------------------------------------------------------- */
+
+function mtphr_dnt_localization() {
+	load_plugin_textdomain( 'ditty-news-ticker', false, 'ditty-news-ticker/languages/' );
+}
+add_action( 'plugins_loaded', 'mtphr_dnt_localization' );
 

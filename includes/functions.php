@@ -22,9 +22,42 @@ function ditty_news_ticker( $id='', $class='', $atts=false ) {
 /**
  * Return the ticker
  *
- * @since 1.4.8
+ * @since 1.5.0
  */
 function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
+	
+/*
+	$ajax = get_post_meta( $id, '_mtphr_dnt_ajax', true );
+	
+	if( $ajax || (isset($atts['ajax']) && $atts['ajax' == 1]) ) {
+		
+		$unique_id = get_post_meta( $id, '_mtphr_dnt_unique_id', true );
+		
+		// Add a unique id
+		$tick_id = 'mtphr-dnt-'.$id.'-ajax';
+		if( $unique_id != '' || (isset($atts['unique_id']) && ($atts['unique_id'] != '')) ) {
+			$tick_id = 'mtphr-dnt-'.$id.'-'.sanitize_html_class( $_mtphr_dnt_unique_id ).'-ajax';
+		}
+		
+		return '<div id="'.$tick_id.'" class="mtphr-dnt-ajax">Placeholder</div>';
+		
+	} else {
+	
+		return render_mtphr_dnt_ticker( $id, $class, $atts );
+	}
+*/
+	
+	return render_mtphr_dnt_ticker( $id, $class, $atts );
+}
+
+
+
+/**
+ * Render the ticker
+ *
+ * @since 1.5.0
+ */
+function render_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 	
 	// Switch the post based on the selected language
 	if( function_exists('icl_object_id') ) {
@@ -36,7 +69,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 	if( $ticker && $ticker->post_status == 'publish' ) {
 
 		// Save the original $wp_query
-		global $wp_query, $mtphr_dnt_ticker_types;
+		global $wp_query, $mtphr_dnt_ticker_types, $mtphr_dnt_meta_data;
 		$original_query = $wp_query;
 		$wp_query = null;
 		$wp_query = new WP_Query();
@@ -71,8 +104,15 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 		// Transform the tick array
 		$dnt_ticks = apply_filters( 'mtphr_dnt_tick_array_transform', $dnt_ticks, $id, $meta_data );
 		
-		// Get the total amount of ticks
+		// Add the post amount of ticks to the metadata
 		$total_ticks = count( $dnt_ticks );
+		
+		// Add the post id & total ticks to the metadata
+		$meta_data['_mtphr_dnt_id'] = $id;
+		$meta_data['_mtphr_dnt_total_ticks'] = $total_ticks;
+		
+		// Save the metadata in a global variable
+		$mtphr_dnt_meta_data = $meta_data;
 
 		ob_start();
 
@@ -204,7 +244,7 @@ function mtphr_dnt_default_ticks( $ticks, $id, $meta_data ) {
 					if( isset($meta_data['_mtphr_dnt_line_breaks']) && $meta_data['_mtphr_dnt_line_breaks'] ) {
 						$text = nl2br($tick['tick']);
 					}
-					$text = convert_chars(wptexturize($text));
+					$text = do_shortcode(convert_chars(wptexturize($text)));
 
 					// Get the contents
 					if( $link = esc_url($tick['link']) ) {
@@ -290,32 +330,3 @@ function mtphr_dnt_mixed_ticks( $id, $meta_data ) {
 	return $dnt_ticks;
 }
 }
-
-
-
-/**
- * Return an array of the current DNT settings
- *
- * @since 1.0.6
- */
-function mtphr_dnt_settings_tabs() {
-
-	$dnt_settings_array = array();
-	$dnt_settings_array['general'] = 'mtphr_dnt_general_settings';
-
-	return apply_filters('mtphr_dnt_settings', $dnt_settings_array);
-}
-
-
-
-
-add_action( 'plugins_loaded', 'mtphr_dnt_localization' );
-/**
- * Setup localization
- *
- * @since 1.1.5
- */
-function mtphr_dnt_localization() {
-	load_plugin_textdomain( 'ditty-news-ticker', false, 'ditty-news-ticker/languages/' );
-}
-
