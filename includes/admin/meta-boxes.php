@@ -698,7 +698,7 @@ function mtphr_dnt_list_settings_render_metabox() {
 
 
 /* --------------------------------------------------------- */
-/* !Render the global settings metabox - 1.4.0 */
+/* !Render the global settings metabox - 1.5.0 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_global_settings_render_metabox') ) {
@@ -707,6 +707,7 @@ function mtphr_dnt_global_settings_render_metabox() {
 	global $post;
 	
 	$defaults = array(
+		'ajax' => '',
 		'title' => '',
 		'inline_title' => '',
 		'shuffle' => '',
@@ -718,9 +719,11 @@ function mtphr_dnt_global_settings_render_metabox() {
 		'grid_cols' => 2,
 		'grid_rows' => 2,
 		'grid_padding' => 5,
+		'grid_remove_padding' => '',
 	);
 	
 	$values = array(
+		'ajax' => get_post_meta( $post->ID, '_mtphr_dnt_ajax', true ),
 		'title' => get_post_meta( $post->ID, '_mtphr_dnt_title', true ),
 		'inline_title' => get_post_meta( $post->ID, '_mtphr_dnt_inline_title', true ),
 		'shuffle' => get_post_meta( $post->ID, '_mtphr_dnt_shuffle', true ),
@@ -732,6 +735,7 @@ function mtphr_dnt_global_settings_render_metabox() {
 		'grid_cols' => get_post_meta( $post->ID, '_mtphr_dnt_grid_cols', true ),
 		'grid_rows' => get_post_meta( $post->ID, '_mtphr_dnt_grid_rows', true ),
 		'grid_padding' => get_post_meta( $post->ID, '_mtphr_dnt_grid_padding', true ),
+		'grid_remove_padding' => get_post_meta( $post->ID, '_mtphr_dnt_grid_remove_padding', true ),
 	);
 	foreach( $values as $i=>$value ) {
 		if( $value == '' ) {
@@ -744,6 +748,14 @@ function mtphr_dnt_global_settings_render_metabox() {
 	echo '<input type="hidden" name="mtphr_dnt_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
 
 	echo '<table class="mtphr-dnt-table">';
+	
+/*
+		echo '<tr>';
+			echo '<td class="mtphr-dnt-no-label">';
+				echo '<label><input type="checkbox" name="_mtphr_dnt_ajax" value="1" '.checked('1', $values['ajax'], false).' /> '.__('Load ticker via Ajax', 'ditty-news-ticker').'</label>';
+			echo '</td>';
+		echo '</tr>';
+*/
 		
 		echo '<tr>';
 			echo '<td class="mtphr-dnt-no-label">';
@@ -782,6 +794,7 @@ function mtphr_dnt_global_settings_render_metabox() {
 				echo '<label>'.__('Rows', 'ditty-news-ticker').' <input type="number" style="width:50px;" name="_mtphr_dnt_grid_rows" value="'.$values['grid_rows'].'" /></label>';
 				echo '<br/>';
 				echo '<label>'.__('Cell padding', 'ditty-news-ticker').' <input type="number" name="_mtphr_dnt_grid_padding" value="'.$values['grid_padding'].'" /></label>';
+				echo '<label><input type="checkbox" name="_mtphr_dnt_grid_remove_padding" value="1" '.checked('1', $values['grid_remove_padding'], false).' /> '.__('Remove padding on table edges', 'ditty-news-ticker').'</label>';
 			echo '</td>';
 		echo '</tr>';
 		
@@ -795,7 +808,7 @@ function mtphr_dnt_global_settings_render_metabox() {
 
 
 /* --------------------------------------------------------- */
-/* !Save the custom meta - 1.4.15 */
+/* !Save the custom meta - 1.5.0 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_metabox_save( $post_id ) {
@@ -950,6 +963,7 @@ function mtphr_dnt_metabox_save( $post_id ) {
 	// Save the global settings
 	if( isset($_POST['_mtphr_dnt_ticker_width']) ) {
 	
+		//$ajax = isset($_POST['_mtphr_dnt_ajax']) ? $_POST['_mtphr_dnt_ajax'] : '';
 		$title = isset($_POST['_mtphr_dnt_title']) ? $_POST['_mtphr_dnt_title'] : '';
 		$inline_title = isset($_POST['_mtphr_dnt_inline_title']) ? $_POST['_mtphr_dnt_inline_title'] : '';
 		$shuffle = isset($_POST['_mtphr_dnt_shuffle']) ? $_POST['_mtphr_dnt_shuffle'] : '';
@@ -961,7 +975,9 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		$grid_cols = isset($_POST['_mtphr_dnt_grid_cols']) ? intval($_POST['_mtphr_dnt_grid_cols']) : 2;
 		$grid_rows = isset($_POST['_mtphr_dnt_grid_rows']) ? intval($_POST['_mtphr_dnt_grid_rows']) : 2;
 		$grid_padding = isset($_POST['_mtphr_dnt_grid_padding']) ? intval($_POST['_mtphr_dnt_grid_padding']) : 5;
+		$grid_remove_padding = isset($_POST['_mtphr_dnt_grid_remove_padding']) ? $_POST['_mtphr_dnt_grid_remove_padding'] : '';
 		
+		//update_post_meta( $post_id, '_mtphr_dnt_ajax', $ajax );
 		update_post_meta( $post_id, '_mtphr_dnt_title', $title );
 		update_post_meta( $post_id, '_mtphr_dnt_inline_title', $inline_title );
 		update_post_meta( $post_id, '_mtphr_dnt_shuffle', $shuffle );
@@ -973,6 +989,7 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		update_post_meta( $post_id, '_mtphr_dnt_grid_cols', $grid_cols );
 		update_post_meta( $post_id, '_mtphr_dnt_grid_rows', $grid_rows );
 		update_post_meta( $post_id, '_mtphr_dnt_grid_padding', $grid_padding );
+		update_post_meta( $post_id, '_mtphr_dnt_grid_remove_padding', $grid_remove_padding );
 	}
 }
 add_action( 'save_post', 'mtphr_dnt_metabox_save' );

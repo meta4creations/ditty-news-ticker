@@ -76,6 +76,7 @@
 .mtphr-dnt .mtphr-dnt-nav {
 	position: absolute;
 	top: 50%;
+	text-decoration: none;
 	margin-top: -19px;
 }
 .mtphr-dnt-nav i {
@@ -116,6 +117,9 @@
 
 .mtphr-dnt-control-links {
 	text-align: center;
+}
+.mtphr-dnt-control-links a {
+	text-decoration: none;
 }
 .mtphr-dnt-control-number {
 	padding: 2px 5px;
@@ -206,6 +210,19 @@
 .mtphr-dnt-grid td {
 	border: none;
 }
+.mtphr-dnt-grid-remove-padding tr > td:first-child {
+	padding-left: 0 !important;
+}
+.mtphr-dnt-grid-remove-padding tr > td:last-child {
+	padding-right: 0 !important;
+}
+.mtphr-dnt-grid-remove-padding tr:first-child td {
+	padding-top: 0 !important;
+}
+.mtphr-dnt-grid-remove-padding tr:last-child td {
+	padding-bottom: 0 !important;
+}
+
 
 /* Add clearfix
 ------------------------------------------------------------ */

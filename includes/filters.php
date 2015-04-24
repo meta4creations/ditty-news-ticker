@@ -17,6 +17,19 @@ add_filter( 'the_content', 'mtphr_dnt_content' );
 
 
 /* --------------------------------------------------------- */
+/* !Add oEmbed to default ticks - 1.5.0 */
+/* --------------------------------------------------------- */
+
+function mtphr_dnt_oembed() {
+	
+	global $wp_embed;
+	add_filter( 'mtphr_dnt_tick', array( $wp_embed, 'autoembed' ), 8 );
+}
+add_action( 'init', 'mtphr_dnt_oembed' );
+
+
+
+/* --------------------------------------------------------- */
 /* !Make a grid out of the ticks - 1.4.0 */
 /* --------------------------------------------------------- */
 
@@ -38,7 +51,9 @@ function mtphr_dnt_tick_grid( $dnt_ticks, $id, $meta_data ) {
 			$style .= ( $_mtphr_dnt_grid_padding > 0 ) ? 'padding:'.$_mtphr_dnt_grid_padding.'px;' : '';
 		$style .= '"';
 		
-		$data = '<table class="mtphr-dnt-grid">';
+		$extra_classes = $_mtphr_dnt_grid_remove_padding ? ' mtphr-dnt-grid-remove-padding' : '';
+		
+		$data = '<table class="mtphr-dnt-grid'.$extra_classes.'">';
 			$data .= '<tr class="mtphr-dnt-grid-row mtphr-dnt-grid-row-'.($row_counter+1).'">';
 			
 			if( is_array($dnt_ticks) ) {
@@ -63,7 +78,7 @@ function mtphr_dnt_tick_grid( $dnt_ticks, $id, $meta_data ) {
 							// Add to the tick array
 							$grid_ticks[] = ( $_mtphr_dnt_type == 'mixed' ) ? array( 'type'=>'mixed-grid', 'tick'=>$data ) : $data;
 							
-							$data = '<table class="mtphr-dnt-grid">';
+							$data = '<table class="mtphr-dnt-grid'.$extra_classes.'">';
 							$row_counter = 0;
 						}
 	
@@ -107,102 +122,6 @@ function mtphr_dnt_tick_grid( $dnt_ticks, $id, $meta_data ) {
 	return $dnt_ticks;
 }
 add_filter( 'mtphr_dnt_tick_array_transform', 'mtphr_dnt_tick_grid', 10, 3 );
-
-
-/* --------------------------------------------------------- */
-/* !Add the control nav for rotating ticks - 1.4.5 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_direction_nav( $id, $meta_data, $total ) {
-
-	// Extract the metadata array into variables
-	extract( $meta_data );
-
-	// Add the control nav
-	if( ($total > 1) && $_mtphr_dnt_mode == 'rotate' ) {
-
-		// Add the directional nav
-		if( isset($_mtphr_dnt_rotate_directional_nav) ) {
-			if( $_mtphr_dnt_rotate_directional_nav ) {
-
-				$hide = '';
-				if( isset($_mtphr_dnt_rotate_directional_nav_hide) && $_mtphr_dnt_rotate_directional_nav_hide ) {
-					$hide = ' mtphr-dnt-nav-hide';
-				}
-				echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-prev'.$hide.'" href="#" rel="nofollow">'.apply_filters( 'mtphr_dnt_direction_nav_prev', '<i class="mtphr-dnt-icon-arrow-left"></i>' ).'</a>';
-				echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-next'.$hide.'" href="#" rel="nofollow">'.apply_filters( 'mtphr_dnt_direction_nav_next', '<i class="mtphr-dnt-icon-arrow-right"></i>' ).'</a>';
-			}
-		}
-	}
-}
-add_action( 'mtphr_dnt_contents_after', 'mtphr_dnt_direction_nav', 10, 3 );
-
-
-
-/* --------------------------------------------------------- */
-/* !Add the control nav for rotating ticks - 1.4.0 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_control_nav( $id, $meta_data, $total ) {
-
-	// Extract the metadata array into variables
-	extract( $meta_data );
-
-	// Add the control nav
-	if( ($total > 1) && $_mtphr_dnt_mode == 'rotate' ) {
-		if( isset($_mtphr_dnt_rotate_control_nav) && $_mtphr_dnt_rotate_control_nav ) {
-		
-			echo '<div class="mtphr-dnt-control-links">';
-				for( $i=0; $i<$total; $i++ ) {
-					$link = ( $_mtphr_dnt_rotate_control_nav_type == 'button' ) ? '<i class="mtphr-dnt-icon-button"></i>' : intval($i+1);
-					echo '<a class="mtphr-dnt-control mtphr-dnt-control-'.$_mtphr_dnt_rotate_control_nav_type.'" href="'.$i.'" rel="nofollow">'.apply_filters( 'mtphr_dnt_control_nav', $link, $_mtphr_dnt_rotate_control_nav_type ).'</a>';
-				}
-			echo '</div>';
-		}
-	}
-}
-add_action( 'mtphr_dnt_after', 'mtphr_dnt_control_nav', 10, 3 );
-
-
-
-/* --------------------------------------------------------- */
-/* !Add the pagination for list ticks - 1.4.0 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_pagination( $id, $meta_data, $total ) {
-
-	// Extract the metadata array into variables
-	extract( $meta_data );
-
-	if( $_mtphr_dnt_mode == 'list' && isset($_mtphr_dnt_list_tick_paging) && $_mtphr_dnt_list_tick_paging ) {
-		
-		$spacing = 'margin-top:'.intval($_mtphr_dnt_list_tick_spacing).'px;';
-		$total_pages = ceil( $total/$_mtphr_dnt_list_tick_count );
-		$current_page = isset( $_GET['tickpage'] ) ? $_GET['tickpage'] : 1;
-		
-		$big = 999999999;
-		$args = array(
-			'base'         => str_replace( $big, '%#%', add_query_arg('tickpage', $big) ),
-			'format'       => '?tickpage=%#%',
-			'total'        => $total_pages,
-			'current'      => $current_page,
-			'show_all'		 => false,
-			'end_size'     => 1,
-			'mid_size'     => 2,
-			'prev_next'    => $_mtphr_dnt_list_tick_prev_next,
-			'prev_text'    => $_mtphr_dnt_list_tick_prev_text,
-			'next_text'    => $_mtphr_dnt_list_tick_next_text,
-			'type'         => 'plain',
-			'add_args'     => false,
-			'add_fragment' => ''
-		);
-		
-		echo '<div class="mtphr-dnt-tick-paging" style="'.$spacing.'">';
-			echo paginate_links( apply_filters( 'mtphr_dnt_tick_paging_args', $args ) );
-		echo '</div>';
-	}
-}
-add_action( 'mtphr_dnt_after', 'mtphr_dnt_pagination', 10, 3 );
 
 
 
@@ -290,26 +209,45 @@ add_action( 'mtphr_dnt_before', 'mtphr_dnt_tick_edit_link' );
 
 
 /* --------------------------------------------------------- */
-/* !Add an edit link to the tickers - 1.4.8 */
+/* !Display the ticker title - 1.5.0 */
 /* --------------------------------------------------------- */
 
-function mtphr_dnt_tick_title( $id, $meta_data ) {
-
-	// Extract the metadata array into variables
-	extract( $meta_data );
-	
-	// Display the title
-	if( isset($_mtphr_dnt_title) && $_mtphr_dnt_title ) {
-
-		$inline_title = '';
-		if( isset($_mtphr_dnt_inline_title) && $_mtphr_dnt_inline_title ) {
-			$inline_title = ' mtphr-dnt-inline-title';
-		}
-
-		do_action( 'mtphr_dnt_title_before', $id, $meta_data );
-		echo '<h3 class="mtphr-dnt-title'.$inline_title.'">'.apply_filters( 'mtphr_dnt_ticker_title', get_the_title($id) ).'</h3>';
-		do_action( 'mtphr_dnt_title_after', $id, $meta_data );
-	}
+function mtphr_dnt_tick_title() {
+	mtphr_dnt_get_template_part( 'title' );
 }
-add_action( 'mtphr_dnt_before', 'mtphr_dnt_tick_title', 10, 2 );
+add_action( 'mtphr_dnt_before', 'mtphr_dnt_tick_title' );
+
+
+
+/* --------------------------------------------------------- */
+/* !Add the control nav for rotating ticks - 1.5.0 */
+/* --------------------------------------------------------- */
+
+function mtphr_dnt_direction_nav() {
+	mtphr_dnt_get_template_part( 'directional_nav' );
+}
+add_action( 'mtphr_dnt_contents_after', 'mtphr_dnt_direction_nav' );
+
+
+
+/* --------------------------------------------------------- */
+/* !Add the control nav for rotating ticks - 1.5.0 */
+/* --------------------------------------------------------- */
+
+function mtphr_dnt_control_nav() {
+	mtphr_dnt_get_template_part( 'control_nav' );
+}
+add_action( 'mtphr_dnt_after', 'mtphr_dnt_control_nav' );
+
+
+
+/* --------------------------------------------------------- */
+/* !Add the pagination for list ticks - 1.5.0 */
+/* --------------------------------------------------------- */
+
+function mtphr_dnt_pagination() {
+	mtphr_dnt_get_template_part( 'pagination' );
+}
+add_action( 'mtphr_dnt_after', 'mtphr_dnt_pagination' );
+
 

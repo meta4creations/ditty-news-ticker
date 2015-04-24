@@ -1155,7 +1155,7 @@
 
 
 		    /* --------------------------------------------------------- */
-		    /* !Mobile swipe - 1.1.9 */
+		    /* !Mobile swipe - 1.5.0 */
 		    /* --------------------------------------------------------- */
 		    
 				if( settings.type == 'rotate' ) {
@@ -1163,6 +1163,7 @@
 					$ticker.swipe( {
 						triggerOnTouchEnd : true,
 						allowPageScroll: 'vertical',
+						excludedElements : 'button, input, select, textarea, .noSwipe',
 						swipeStatus : function(event, phase, direction, distance, duration, fingers) {
 							if ( phase =="end" ) {
 								if (direction == "right") {
