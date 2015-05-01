@@ -47,6 +47,7 @@ add_action( 'wp_head', 'mtphr_dnt_custom_css' );
 function mtphr_dnt_tickers_init_scripts() {
 
 	global $mtphr_dnt_ticker_scripts;
+	
 	if( is_array($mtphr_dnt_ticker_scripts) && !empty($mtphr_dnt_ticker_scripts) ) {
 		wp_print_scripts('touchSwipe');
 		wp_print_scripts('jquery-easing');
