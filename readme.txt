@@ -54,6 +54,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.5.1 =
+* Script bug fix
+
 = 1.5.0 =
 * Re-organized files
 * Added template files for easier customization
@@ -268,4 +271,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Multiple updates. See Changelog.
+Script bug fix.

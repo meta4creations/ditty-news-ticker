@@ -41,7 +41,7 @@ add_action( 'wp_head', 'mtphr_dnt_custom_css' );
 
 
 /* --------------------------------------------------------- */
-/* !Initialize the ticker scripts - 1.4.11 */
+/* !Initialize the ticker scripts - 1.5.1 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_tickers_init_scripts() {
@@ -56,7 +56,7 @@ function mtphr_dnt_tickers_init_scripts() {
 		$id_array = array();
 		foreach ( $mtphr_dnt_ticker_scripts as $ticker) {
 	    if (!array_key_exists($ticker['id'], $id_array)) {
-        $id_array['id'] = $ticker['id'];
+        $id_array[$ticker['id']] = $ticker['id'];
         $filtered_tickers[] = $ticker;
 	    }
 		}
