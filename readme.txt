@@ -54,6 +54,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.5.2 =
+* Security update
+
 = 1.5.1 =
 * Script bug fix
 
@@ -271,4 +274,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Script bug fix.
+Security update.

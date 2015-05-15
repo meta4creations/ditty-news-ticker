@@ -1,0 +1,817 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ditty News Ticker v1.5.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2015-05-07 15:39:30+0000\n"
+"Last-Translator: Ahrale <contact@atar4u.com>\n"
+"Language-Team: Ahrale, Atar4U.com <contact@atar4u.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.7.3\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: includes/admin/edit-columns.php:13
+#@ ditty-news-ticker
+msgid "Type"
+msgstr ""
+
+#: includes/admin/edit-columns.php:14
+#@ ditty-news-ticker
+msgid "Mode"
+msgstr ""
+
+#: includes/admin/edit-columns.php:15
+#: includes/admin/meta-boxes.php:18
+#@ ditty-news-ticker
+msgid "Shortcode"
+msgstr ""
+
+#: includes/admin/edit-columns.php:16
+#: includes/admin/meta-boxes.php:27
+#@ ditty-news-ticker
+msgid "Direct Function"
+msgstr ""
+
+#: includes/admin/edit-columns.php:138
+#@ ditty-news-ticker
+msgid "Show all Types"
+msgstr ""
+
+#: includes/admin/edit-columns.php:147
+#@ ditty-news-ticker
+msgid "Show all Modes"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:19
+#@ ditty-news-ticker
+msgid "Copy and paste this shortcode into a page or post to display the ticker within the post content."
+msgstr ""
+
+#: includes/admin/meta-boxes.php:21
+#@ ditty-news-ticker
+msgid "Select Shortcode"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:28
+#@ ditty-news-ticker
+msgid "Copy and paste this code directly into one of your theme files to display the ticker any where you want on your site."
+msgstr ""
+
+#: includes/admin/meta-boxes.php:31
+#@ ditty-news-ticker
+msgid "Select Function"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:65
+#@ ditty-news-ticker
+msgid "Ticker Type"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:65
+#@ ditty-news-ticker
+msgid "View all types"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:66
+#@ ditty-news-ticker
+msgid "Select the type of ticker you'd like to use"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:86
+#@ ditty-news-ticker
+msgid "Ticker Mode"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:87
+#@ ditty-news-ticker
+msgid "Select the mode of the ticker"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:120
+#@ ditty-news-ticker
+msgid "Default Ticker Items"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:131
+#@ ditty-news-ticker
+msgid "Mixed Ticker Items"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:142
+#@ ditty-news-ticker
+msgid "Scroll Settings"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:153
+#@ ditty-news-ticker
+msgid "Rotate Settings"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:164
+#@ ditty-news-ticker
+msgid "List Settings"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:175
+#@ ditty-news-ticker
+msgid "Global Settings"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:204
+#@ ditty-news-ticker
+msgid "Line breaks"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:205
+#@ ditty-news-ticker
+msgid "Force line breaks on carriage returns"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:208
+#@ ditty-news-ticker
+msgid "Force line breaks"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:214
+#@ ditty-news-ticker
+msgid "Ticks"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:215
+#@ ditty-news-ticker
+msgid "Add an unlimited number of ticks to your ticker"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:222
+#@ ditty-news-ticker
+msgid "Ticker text"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:224
+#@ ditty-news-ticker
+msgid "<strong>Notice:</strong> When using the WYSIWYG editor you must save your ticker after adding or re-arranging ticks."
+msgstr ""
+
+#: includes/admin/meta-boxes.php:227
+#@ ditty-news-ticker
+msgid "Link"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:228
+#@ ditty-news-ticker
+msgid "Target"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:229
+#@ ditty-news-ticker
+msgid "NF"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:309
+#@ ditty-news-ticker
+msgid "Tick selection"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:310
+#@ ditty-news-ticker
+msgid "Select the ticks you would like to display by choosing the tick type and the offset position of the selected feed"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:339
+#@ ditty-news-ticker
+msgid "Type:"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:341
+#@ ditty-news-ticker
+msgid "Select Tick Type"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:349
+#@ ditty-news-ticker
+msgid "Display <strong>all</strong> ticks:"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:353
+#@ ditty-news-ticker
+msgid ", or choose <strong>offset</strong>:"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:410
+#@ ditty-news-ticker
+msgid "Scroll direction"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:411
+#@ ditty-news-ticker
+msgid "Set the scroll direction of the ticker"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:414
+#@ ditty-news-ticker
+msgid "Left"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:415
+#@ ditty-news-ticker
+msgid "Right"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:416
+#@ ditty-news-ticker
+msgid "Up"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:417
+#@ ditty-news-ticker
+msgid "Down"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:418
+#@ ditty-news-ticker
+msgid "Show first tick on init"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:424
+#: includes/admin/meta-boxes.php:541
+#@ ditty-news-ticker
+msgid "Tick dimensions"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:425
+#: includes/admin/meta-boxes.php:542
+#@ ditty-news-ticker
+msgid "Override the auto dimensions with specific values"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:428
+#@ ditty-news-ticker
+msgid "Width"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:429
+#: includes/admin/meta-boxes.php:545
+#@ ditty-news-ticker
+msgid "Height"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:435
+#@ ditty-news-ticker
+msgid "Scroller padding"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:436
+#@ ditty-news-ticker
+msgid "Set the vertical spacing of the scrolling data"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:439
+#: includes/admin/meta-boxes.php:555
+#: includes/admin/meta-boxes.php:664
+#@ ditty-news-ticker
+msgid "Vertical padding"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:440
+#: includes/admin/meta-boxes.php:556
+#: includes/admin/meta-boxes.php:665
+#@ ditty-news-ticker
+msgid "Vertical margin"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:446
+#@ ditty-news-ticker
+msgid "Scroll speed"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:447
+#@ ditty-news-ticker
+msgid "Set the speed of the scrolling data"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:451
+#: includes/admin/meta-boxes.php:568
+#@ ditty-news-ticker
+msgid "Pause on mouse over"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:457
+#: includes/admin/meta-boxes.php:671
+#@ ditty-news-ticker
+msgid "Tick spacing"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:458
+#@ ditty-news-ticker
+msgid "Set the spacing between scrolling data"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:461
+#: includes/admin/meta-boxes.php:675
+#@ ditty-news-ticker
+msgid "Pixels"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:526
+#@ ditty-news-ticker
+msgid "Rotation type"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:527
+#@ ditty-news-ticker
+msgid "Set the type of rotation for the ticker"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:530
+#@ ditty-news-ticker
+msgid "Fade"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:531
+#@ ditty-news-ticker
+msgid "Slide left"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:532
+#@ ditty-news-ticker
+msgid "Slide right"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:533
+#@ ditty-news-ticker
+msgid "Slide up"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:534
+#@ ditty-news-ticker
+msgid "Slide down"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:535
+#@ ditty-news-ticker
+msgid "Dynamic slide direction"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:551
+#@ ditty-news-ticker
+msgid "Rotator padding"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:552
+#@ ditty-news-ticker
+msgid "Set the vertical spacing of the rotating data"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:562
+#@ ditty-news-ticker
+msgid "Auto rotate"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:563
+#@ ditty-news-ticker
+msgid "Set the delay between rotations"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:566
+#: includes/admin/meta-boxes.php:594
+#: includes/admin/meta-boxes.php:605
+#: includes/admin/meta-boxes.php:685
+#@ ditty-news-ticker
+msgid "Enable"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:567
+#@ ditty-news-ticker
+msgid "Seconds delay"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:574
+#@ ditty-news-ticker
+msgid "Rotate speed"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:575
+#@ ditty-news-ticker
+msgid "Set the speed & easing of the rotation"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:578
+#@ ditty-news-ticker
+msgid "Tenths of a second"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:590
+#@ ditty-news-ticker
+msgid "Directional navigation"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:591
+#@ ditty-news-ticker
+msgid "Set the directional navigation options"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:595
+#@ ditty-news-ticker
+msgid "Autohide navigation"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:601
+#@ ditty-news-ticker
+msgid "Control navigation"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:602
+#@ ditty-news-ticker
+msgid "Set the control navigation options"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:606
+#@ ditty-news-ticker
+msgid "Numbers"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:607
+#@ ditty-news-ticker
+msgid "Buttons"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:632
+#: includes/admin/meta-boxes.php:950
+#@ ditty-news-ticker
+msgid "« Previous"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:633
+#: includes/admin/meta-boxes.php:951
+#@ ditty-news-ticker
+msgid "Next »"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:660
+#@ ditty-news-ticker
+msgid "List padding"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:661
+#@ ditty-news-ticker
+msgid "Set the vertical spacing of the list container"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:672
+#@ ditty-news-ticker
+msgid "Set the spacing between ticks"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:681
+#@ ditty-news-ticker
+msgid "List paging"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:682
+#@ ditty-news-ticker
+msgid "Break the list up into pages"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:686
+#@ ditty-news-ticker
+msgid "Ticks per page"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:688
+#@ ditty-news-ticker
+msgid "Enable previous & next links"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:690
+#@ ditty-news-ticker
+msgid "Previous text"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:691
+#@ ditty-news-ticker
+msgid "Next text"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:762
+#@ ditty-news-ticker
+msgid "Display title"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:763
+#@ ditty-news-ticker
+msgid "Inline title"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:769
+#@ ditty-news-ticker
+msgid "Randomly shuffle the ticks"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:775
+#@ ditty-news-ticker
+msgid "Ticker width <em>(optional)</em>"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:781
+#@ ditty-news-ticker
+msgid "Offset ticks"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:781
+#@ ditty-news-ticker
+msgid "px from the edge"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:782
+#@ ditty-news-ticker
+msgid "The amount of pixels ticks should start and end off the screen."
+msgstr ""
+
+#: includes/admin/meta-boxes.php:788
+#@ ditty-news-ticker
+msgid "Grid Display"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:789
+#@ ditty-news-ticker
+msgid "Display ticks in a grid"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:790
+#@ ditty-news-ticker
+msgid "Render empty rows"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:791
+#@ ditty-news-ticker
+msgid "Force equal column width"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:793
+#@ ditty-news-ticker
+msgid "Columns"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:794
+#@ ditty-news-ticker
+msgid "Rows"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:796
+#@ ditty-news-ticker
+msgid "Cell padding"
+msgstr ""
+
+#: includes/admin/meta-boxes.php:797
+#@ ditty-news-ticker
+msgid "Remove padding on table edges"
+msgstr ""
+
+#: includes/filters.php:203
+#@ ditty-news-ticker
+msgid "<i class=\"mtphr-dnt-icon-gear\"></i> Edit ticker"
+msgstr ""
+
+#: includes/help.php:59
+#@ ditty-news-ticker
+msgid "Scroll Mode"
+msgstr ""
+
+#: includes/help.php:66
+#@ ditty-news-ticker
+msgid "Rotate Mode"
+msgstr ""
+
+#: includes/help.php:73
+#@ ditty-news-ticker
+msgid "List Mode"
+msgstr ""
+
+#: includes/help.php:95
+#: includes/widget.php:51
+#@ ditty-news-ticker
+msgid "Ditty News Ticker"
+msgstr ""
+
+#: includes/help.php:110
+#@ ditty-news-ticker
+msgid "For more information:"
+msgstr ""
+
+#: includes/help.php:111
+#@ ditty-news-ticker
+msgid "Visit the <a href=\"http://www.metaphorcreations.com\" target=\"_blank\">documentation</a> on the Ditty News Ticker website"
+msgstr ""
+
+#: includes/help.php:112
+#@ ditty-news-ticker
+msgid "View DNT extensions"
+msgstr ""
+
+#: includes/help.php:126
+#@ ditty-news-ticker
+msgid "Add general information about Ditty News Ticker."
+msgstr ""
+
+#: includes/help.php:135
+#@ ditty-news-ticker
+msgid "Add scroll mode info."
+msgstr ""
+
+#: includes/help.php:144
+#@ ditty-news-ticker
+msgid "Add rotate mode info."
+msgstr ""
+
+#: includes/help.php:153
+#@ ditty-news-ticker
+msgid "Add list mode info."
+msgstr ""
+
+#: includes/helpers.php:13
+#@ ditty-news-ticker
+msgid "Default"
+msgstr ""
+
+#: includes/helpers.php:17
+#@ ditty-news-ticker
+msgid "Mixed"
+msgstr ""
+
+#: includes/helpers.php:37
+#@ ditty-news-ticker
+msgid "Scroll"
+msgstr ""
+
+#: includes/helpers.php:41
+#@ ditty-news-ticker
+msgid "Rotate"
+msgstr ""
+
+#: includes/helpers.php:45
+#@ ditty-news-ticker
+msgid "List"
+msgstr ""
+
+#: includes/post-types.php:20
+#: includes/post-types.php:31
+#@ ditty-news-ticker
+msgid "News Tickers"
+msgstr ""
+
+#: includes/post-types.php:21
+#@ ditty-news-ticker
+msgid "News Ticker"
+msgstr ""
+
+#: includes/post-types.php:22
+#@ ditty-news-ticker
+msgid "Add New"
+msgstr ""
+
+#: includes/post-types.php:23
+#@ ditty-news-ticker
+msgid "Add New News Ticker"
+msgstr ""
+
+#: includes/post-types.php:24
+#@ ditty-news-ticker
+msgid "Edit News Ticker"
+msgstr ""
+
+#: includes/post-types.php:25
+#@ ditty-news-ticker
+msgid "New News Ticker"
+msgstr ""
+
+#: includes/post-types.php:26
+#@ ditty-news-ticker
+msgid "View News Ticker"
+msgstr ""
+
+#: includes/post-types.php:27
+#@ ditty-news-ticker
+msgid "Search News Tickers"
+msgstr ""
+
+#: includes/post-types.php:28
+#@ ditty-news-ticker
+msgid "No News Tickers Found"
+msgstr ""
+
+#: includes/post-types.php:29
+#@ ditty-news-ticker
+msgid "No News Tickers Found In Trash"
+msgstr ""
+
+#: includes/post-types.php:45
+#@ ditty-news-ticker
+msgid "ticker"
+msgstr ""
+
+#: includes/post-types.php:63
+#@ ditty-news-ticker
+msgid "Ditty News Ticker Updated!"
+msgstr ""
+
+#: includes/settings.php:11
+#: includes/settings.php:12
+#@ ditty-news-ticker
+msgid "Settings"
+msgstr ""
+
+#: includes/settings.php:28
+#@ ditty-news-ticker
+msgid "The global settings to your news tickers."
+msgstr ""
+
+#: includes/settings.php:44
+#@ ditty-news-ticker
+msgid "Ditty News Ticker Settings"
+msgstr ""
+
+#: includes/settings.php:117
+#@ ditty-news-ticker
+msgid "Ditty News Ticker settings"
+msgstr ""
+
+#: includes/settings.php:125
+#@ ditty-news-ticker
+msgid "Visual Editor"
+msgstr ""
+
+#: includes/settings.php:125
+#@ ditty-news-ticker
+msgid "Use the visual editor to create tick contents"
+msgstr ""
+
+#: includes/settings.php:129
+#@ ditty-news-ticker
+msgid "Quick Edit Links"
+msgstr ""
+
+#: includes/settings.php:129
+#@ ditty-news-ticker
+msgid "Add quick edit links on the front-end of the site for editors and admins"
+msgstr ""
+
+#: includes/settings.php:133
+#@ ditty-news-ticker
+msgid "Custom CSS"
+msgstr ""
+
+#: includes/settings.php:133
+#@ ditty-news-ticker
+msgid "Add custom css to style your ticker without modifying any external files"
+msgstr ""
+
+#: includes/settings.php:159
+#@ ditty-news-ticker
+msgid "Use the visual editor for ticks"
+msgstr ""
+
+#: includes/settings.php:160
+#@ ditty-news-ticker
+msgid "Note:"
+msgstr ""
+
+#: includes/settings.php:160
+#@ ditty-news-ticker
+msgid "The content in the visual editors will disappear after re-arranging ticks. That content will re-populate after re-saving the ticker."
+msgstr ""
+
+#: includes/settings.php:174
+#@ ditty-news-ticker
+msgid "Add quick edit links"
+msgstr ""
+
+#: includes/widget.php:42
+#@ ditty-news-ticker
+msgid "Displays a Ditty News Ticker."
+msgstr ""
+
+#: includes/widget.php:137
+#@ ditty-news-ticker
+msgid "Title:"
+msgstr ""
+
+#: includes/widget.php:143
+#@ ditty-news-ticker
+msgid "Select a Ticker:"
+msgstr ""
+
+#: includes/widget.php:161
+#@ ditty-news-ticker
+msgid "Display Ticker Title?"
+msgstr ""
+
