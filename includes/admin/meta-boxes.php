@@ -468,7 +468,7 @@ function mtphr_dnt_scroll_settings_render_metabox() {
 
 
 /* --------------------------------------------------------- */
-/* !Render the rotate settings metabox - 1.4.0 */
+/* !Render the rotate settings metabox - 1.5.3 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_rotate_settings_render_metabox') ) {
@@ -476,25 +476,28 @@ function mtphr_dnt_rotate_settings_render_metabox() {
 
 	global $post;
 	
+	$type = get_post_meta( $post->ID, '_mtphr_dnt_rotate_type', true );
+	
 	$defaults = array(
 		'type' => 'fade',
 		'reverse' => '',
 		'height' => 0,
 		'padding' => 0,
 		'margin' => 0,
-		'auto' => '',
+		'auto' => ($type == '' ) ? '1' : '',
 		'delay' => 7,
 		'pause' => '',
 		'speed' => 3,
 		'ease' => 'linear',
-		'directional_nav' => '',
+		'directional_nav' => ($type == '' ) ? '1' : '',
 		'directional_nav_hide' => '',
-		'control_nav' => '',
-		'control_nav_type' => 'number'
+		'control_nav' => ($type == '' ) ? '1' : '',
+		'control_nav_type' => 'number',
+		'disable_touchswipe' => ''
 	);
 	
 	$values = array(
-		'type' => get_post_meta( $post->ID, '_mtphr_dnt_rotate_type', true ),
+		'type' => $type,
 		'reverse' => get_post_meta( $post->ID, '_mtphr_dnt_rotate_directional_nav_reverse', true ),
 		'height' => get_post_meta( $post->ID, '_mtphr_dnt_rotate_height', true ),
 		'padding' => get_post_meta( $post->ID, '_mtphr_dnt_rotate_padding', true ),
@@ -507,7 +510,8 @@ function mtphr_dnt_rotate_settings_render_metabox() {
 		'directional_nav' => get_post_meta( $post->ID, '_mtphr_dnt_rotate_directional_nav', true ),
 		'directional_nav_hide' => get_post_meta( $post->ID, '_mtphr_dnt_rotate_directional_nav_hide', true ),
 		'control_nav' => get_post_meta( $post->ID, '_mtphr_dnt_rotate_control_nav', true ),
-		'control_nav_type' => get_post_meta( $post->ID, '_mtphr_dnt_rotate_control_nav_type', true )
+		'control_nav_type' => get_post_meta( $post->ID, '_mtphr_dnt_rotate_control_nav_type', true ),
+		'disable_touchswipe' => get_post_meta( $post->ID, '_mtphr_dnt_rotate_disable_touchswipe', true )
 	);
 	foreach( $values as $i=>$value ) {
 		if( $value == '' ) {
@@ -605,6 +609,16 @@ function mtphr_dnt_rotate_settings_render_metabox() {
 				echo '<label style="margin-right:20px;"><input type="checkbox" name="_mtphr_dnt_rotate_control_nav" value="1" '.checked('1', $values['control_nav'], false).' /> '.__('Enable', 'ditty-news-ticker').'</label>';
 				echo '<label><input type="radio" name="_mtphr_dnt_rotate_control_nav_type" value="number" '.checked('number', $values['control_nav_type'], false).' /> '.__('Numbers', 'ditty-news-ticker').'</label>';
 				echo '<label><input type="radio" name="_mtphr_dnt_rotate_control_nav_type" value="button" '.checked('button', $values['control_nav_type'], false).' /> '.__('Buttons', 'ditty-news-ticker').'</label>';
+			echo '</td>';
+		echo '</tr>';
+		
+		echo '<tr>';
+			echo '<td class="mtphr-dnt-label">';
+				echo '<label>'.__('Disable Touchswipe', 'ditty-news-ticker').'</label>';
+				echo '<small>'.__('Disable touchswipe navigation on touch devices', 'ditty-news-ticker').'</small>';
+			echo '</td>';
+			echo '<td>';
+				echo '<label><input type="checkbox" name="_mtphr_dnt_rotate_disable_touchswipe" value="1" '.checked('1', $values['disable_touchswipe'], false).' /> '.__('Disable', 'ditty-news-ticker').'</label>';
 			echo '</td>';
 		echo '</tr>';
 		
@@ -808,7 +822,7 @@ function mtphr_dnt_global_settings_render_metabox() {
 
 
 /* --------------------------------------------------------- */
-/* !Save the custom meta - 1.5.2 */
+/* !Save the custom meta - 1.5.3 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_metabox_save( $post_id ) {
@@ -921,6 +935,7 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		$directional_nav_hide = isset($_POST['_mtphr_dnt_rotate_directional_nav_hide']) ? $_POST['_mtphr_dnt_rotate_directional_nav_hide'] : '';
 		$control_nav = isset($_POST['_mtphr_dnt_rotate_control_nav']) ? $_POST['_mtphr_dnt_rotate_control_nav'] : '';
 		$control_nav_type = isset($_POST['_mtphr_dnt_rotate_control_nav_type']) ? $_POST['_mtphr_dnt_rotate_control_nav_type'] : 'number';
+		$disable_touchswipe = isset($_POST['_mtphr_dnt_rotate_disable_touchswipe']) ? $_POST['_mtphr_dnt_rotate_disable_touchswipe'] : '';
 		
 		update_post_meta( $post_id, '_mtphr_dnt_rotate_type', $type );
 		update_post_meta( $post_id, '_mtphr_dnt_rotate_directional_nav_reverse', $reverse );
@@ -936,6 +951,7 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		update_post_meta( $post_id, '_mtphr_dnt_rotate_directional_nav_hide', $directional_nav_hide );
 		update_post_meta( $post_id, '_mtphr_dnt_rotate_control_nav', $control_nav );
 		update_post_meta( $post_id, '_mtphr_dnt_rotate_control_nav_type', $control_nav_type );
+		update_post_meta( $post_id, '_mtphr_dnt_rotate_disable_touchswipe', $disable_touchswipe );
 	}
 	
 	// Save the list settings

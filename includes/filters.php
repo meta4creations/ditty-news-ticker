@@ -126,7 +126,7 @@ add_filter( 'mtphr_dnt_tick_array_transform', 'mtphr_dnt_tick_grid', 10, 3 );
 
 
 /* --------------------------------------------------------- */
-/* !Add tickers to the global - 1.4.2 */
+/* !Add tickers to the global - 1.5.3 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_add_to_global( $id, $meta_data ) {
@@ -150,7 +150,7 @@ function mtphr_dnt_add_to_global( $id, $meta_data ) {
 		
 		$ticker = '#mtphr-dnt-'.$id;
 
-		$scroll_pause = 0; $scroll_init = 0;
+		$scroll_pause = 0; $scroll_init = 0; $disable_touchswipe = 0;
 		if( isset($_mtphr_dnt_scroll_pause) ) {
 			$scroll_pause = $_mtphr_dnt_scroll_pause ? 1 : 0;
 		}
@@ -166,6 +166,9 @@ function mtphr_dnt_add_to_global( $id, $meta_data ) {
 		}
 		if( isset($_mtphr_dnt_rotate_directional_nav_reverse) ) {
 			$nav_reverse = $_mtphr_dnt_rotate_directional_nav_reverse ? 1 : 0;
+		}
+		if( isset($_mtphr_dnt_rotate_disable_touchswipe) ) {
+			$disable_touchswipe = $_mtphr_dnt_rotate_disable_touchswipe ? 1 : 0;
 		}
 		$offset = isset($_mtphr_dnt_offset) ? intval($_mtphr_dnt_offset) : 20;
 		$mtphr_dnt_ticker_scripts[] = array(
@@ -184,6 +187,7 @@ function mtphr_dnt_add_to_global( $id, $meta_data ) {
 			'rotate_speed' => intval($_mtphr_dnt_rotate_speed),
 			'rotate_ease' => $_mtphr_dnt_rotate_ease,
 			'nav_reverse' => $nav_reverse,
+			'disable_touchswipe' => $disable_touchswipe,
 			'offset' => $offset
 		);
 	}

@@ -32,6 +32,7 @@
 					rotate_speed					: 10,
 					rotate_ease						: 'easeOutExpo',
 					nav_reverse						: 0,
+					disable_touchswipe		: 0,
 					offset								: 20,
 					before_change					: function(){},
 					after_change					: function(){},
@@ -1158,7 +1159,7 @@
 		    /* !Mobile swipe - 1.5.0 */
 		    /* --------------------------------------------------------- */
 		    
-				if( settings.type == 'rotate' ) {
+				if( settings.type == 'rotate' && !settings.disable_touchswipe ) {
 
 					$ticker.swipe( {
 						triggerOnTouchEnd : true,

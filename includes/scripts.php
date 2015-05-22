@@ -41,7 +41,7 @@ add_action( 'wp_head', 'mtphr_dnt_custom_css' );
 
 
 /* --------------------------------------------------------- */
-/* !Initialize the ticker scripts - 1.5.1 */
+/* !Initialize the ticker scripts - 1.5.3 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_tickers_init_scripts() {
@@ -80,6 +80,7 @@ function mtphr_dnt_tickers_init_scripts() {
 					rotate_speed : <?php echo $ticker['rotate_speed']; ?>,
 					rotate_ease : '<?php echo $ticker['rotate_ease']; ?>',
 					nav_reverse : <?php echo $ticker['nav_reverse']; ?>,
+					disable_touchswipe : <?php echo $ticker['disable_touchswipe']; ?>,
 					offset : <?php echo $ticker['offset']; ?>,
 					after_load : function( $ticker ) {
 						<?php echo apply_filters( 'mtphr_dnt_after_load_rotate', '', $ticker['id'] ); ?>

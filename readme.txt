@@ -54,6 +54,10 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.5.3 =
+* Modified default options for Rotate Settings
+* Added option to disable touchswipe on touch devices
+
 = 1.5.2 =
 * Security update
 
@@ -274,4 +278,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Security update.
+Modified default options for Rotate Settings & added option to disable touchswipe on touch devices.
