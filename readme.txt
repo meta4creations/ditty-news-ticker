@@ -54,6 +54,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.5.4 =
+* Modified data sanitization on tick content
+
 = 1.5.3 =
 * Modified default options for Rotate Settings
 * Added option to disable touchswipe on touch devices
@@ -278,4 +281,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Modified default options for Rotate Settings & added option to disable touchswipe on touch devices.
+Modified data sanitization on tick content.

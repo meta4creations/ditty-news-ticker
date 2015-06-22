@@ -822,7 +822,7 @@ function mtphr_dnt_global_settings_render_metabox() {
 
 
 /* --------------------------------------------------------- */
-/* !Save the custom meta - 1.5.3 */
+/* !Save the custom meta - 1.5.4 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_metabox_save( $post_id ) {
@@ -864,12 +864,16 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		
 		$force_breaks = ( isset($_POST['_mtphr_dnt_line_breaks']) && $_POST['_mtphr_dnt_line_breaks'] != '' ) ? 1 : '';
 		update_post_meta( $post_id, '_mtphr_dnt_line_breaks', $force_breaks );
+		
+		$allowed_tags = wp_kses_allowed_html( 'post' );
+		$allowed_tags['div']['data-href'] = true;
+		$allowed_tags['div']['data-width'] = true;
 
 		$sanitized_ticks = array();
 		if( count($_POST['_mtphr_dnt_ticks']) > 0 ) {
 			foreach( $_POST['_mtphr_dnt_ticks'] as $tick ) {
 				$sanitized_ticks[] = array(
-					'tick' => wp_kses_post($tick['tick']),
+					'tick' => wp_kses($tick['tick'], $allowed_tags),
 					'link' => esc_url($tick['link']),
 					'target' => $tick['target'],
 					'nofollow' => isset( $tick['nofollow'] ) ? $tick['nofollow'] : ''
