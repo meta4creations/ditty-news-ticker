@@ -54,6 +54,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.5.5 =
+* Bug fix
+
 = 1.5.4 =
 * Modified data sanitization on tick content
 
@@ -281,4 +284,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Modified data sanitization on tick content.
+Bug fix.
