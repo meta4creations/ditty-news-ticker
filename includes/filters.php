@@ -30,7 +30,7 @@ add_action( 'init', 'mtphr_dnt_oembed' );
 
 
 /* --------------------------------------------------------- */
-/* !Make a grid out of the ticks - 1.4.0 */
+/* !Make a grid out of the ticks - 1.5.5 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_tick_grid( $dnt_ticks, $id, $meta_data ) {
@@ -51,7 +51,7 @@ function mtphr_dnt_tick_grid( $dnt_ticks, $id, $meta_data ) {
 			$style .= ( $_mtphr_dnt_grid_padding > 0 ) ? 'padding:'.$_mtphr_dnt_grid_padding.'px;' : '';
 		$style .= '"';
 		
-		$extra_classes = $_mtphr_dnt_grid_remove_padding ? ' mtphr-dnt-grid-remove-padding' : '';
+		$extra_classes = ( isset($_mtphr_dnt_grid_remove_padding) && $_mtphr_dnt_grid_remove_padding ) ? ' mtphr-dnt-grid-remove-padding' : '';
 		
 		$data = '<table class="mtphr-dnt-grid'.$extra_classes.'">';
 			$data .= '<tr class="mtphr-dnt-grid-row mtphr-dnt-grid-row-'.($row_counter+1).'">';
