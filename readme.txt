@@ -54,6 +54,10 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.5.6 =
+* Updated touchSwipe.js
+* Fixed inactive links on mobile using touchSwipe
+
 = 1.5.5 =
 * Bug fix
 
@@ -284,4 +288,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Bug fix.
+Fixed inactive links on mobile using touchSwipe.

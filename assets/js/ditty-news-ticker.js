@@ -1160,52 +1160,46 @@
 		    /* --------------------------------------------------------- */
 		    
 				if( settings.type == 'rotate' && !settings.disable_touchswipe ) {
-
+					
 					$ticker.swipe( {
 						triggerOnTouchEnd : true,
-						allowPageScroll: 'vertical',
-						excludedElements : 'button, input, select, textarea, .noSwipe',
-						swipeStatus : function(event, phase, direction, distance, duration, fingers) {
-							if ( phase =="end" ) {
-								if (direction == "right") {
+		        swipeLeft: function(event, distance, duration, fingerCount, fingerData) {
+		          
+		          if(vars.running) return false;
 
-									if(vars.running) return false;
-
-						    	// Find the new tick
-						    	var new_tick = parseInt(vars.current_tick-1);
-									if( new_tick < 0 ) {
-										new_tick = vars.tick_count-1;
-									}
-									if( settings.rotate_type == 'slide_left' || settings.rotate_type == 'slide_right' ) {
-										rotate_adjustment = 'slide_right';
-									}
-									if( settings.nav_reverse ) {
-										if( settings.rotate_type == 'slide_down' ) {
-											rotate_adjustment = 'slide_up';
-										} else if( settings.rotate_type == 'slide_up' ) {
-											rotate_adjustment = 'slide_down';
-										}
-										vars.reverse = 1;
-									}
-									mtphr_dnt_rotator_update( new_tick );
-
-								} else if (direction == "left") {
-
-									if(vars.running) return false;
-
-						    	// Find the new tick
-						    	var new_tick = parseInt(vars.current_tick + 1);
-									if( new_tick == vars.tick_count ) {
-										new_tick = 0;
-									}
-									if( settings.rotate_type == 'slide_left' || settings.rotate_type == 'slide_right' ) {
-										rotate_adjustment = 'slide_left';
-									}
-									mtphr_dnt_rotator_update( new_tick );
-								}
+				    	// Find the new tick
+				    	var new_tick = parseInt(vars.current_tick + 1);
+							if( new_tick == vars.tick_count ) {
+								new_tick = 0;
 							}
-						}
-					});
+							if( settings.rotate_type == 'slide_left' || settings.rotate_type == 'slide_right' ) {
+								rotate_adjustment = 'slide_left';
+							}
+							mtphr_dnt_rotator_update( new_tick );
+		        },
+		        swipeRight: function(event, distance, duration, fingerCount, fingerData) {
+		          
+		          if(vars.running) return false;
+
+				    	// Find the new tick
+				    	var new_tick = parseInt(vars.current_tick-1);
+							if( new_tick < 0 ) {
+								new_tick = vars.tick_count-1;
+							}
+							if( settings.rotate_type == 'slide_left' || settings.rotate_type == 'slide_right' ) {
+								rotate_adjustment = 'slide_right';
+							}
+							if( settings.nav_reverse ) {
+								if( settings.rotate_type == 'slide_down' ) {
+									rotate_adjustment = 'slide_up';
+								} else if( settings.rotate_type == 'slide_up' ) {
+									rotate_adjustment = 'slide_down';
+								}
+								vars.reverse = 1;
+							}
+							mtphr_dnt_rotator_update( new_tick );
+		        }
+		      });
 				}
 				
 				
