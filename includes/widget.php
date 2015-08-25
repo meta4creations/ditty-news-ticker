@@ -3,13 +3,20 @@
 /**
  * Create a class for the widget
  *
- * @since 1.5.7
+ * @since 1.5.8
  */
 class mtphr_dnt_widget extends WP_Widget {
 		
 	/** Constructor */
 	function __construct() {
-		parent::__construct( 'mtphr-dnt-widget', __('Ditty News Ticker', 'ditty-news-ticker'), array( 'description' => __('Displays a Ditty News Ticker.', 'ditty-news-ticker') ) );
+		parent::__construct(
+			'mtphr-dnt-widget',
+			__('Ditty News Ticker', 'ditty-news-ticker'),
+			array(
+				'classname' => 'mtphr-dnt-widget',
+				'description' => __('Displays a Ditty News Ticker.', 'ditty-news-ticker')
+			)
+		);
 	}
 		
 	/** @see WP_Widget::widget */
