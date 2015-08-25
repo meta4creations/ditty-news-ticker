@@ -54,6 +54,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 1.5.8 =
+* Updated widget class name
+
 = 1.5.7 =
 * Updated widget class
 
@@ -291,4 +294,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Updated widget class.
+Updated widget class name.
