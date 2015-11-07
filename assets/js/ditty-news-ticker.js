@@ -25,6 +25,7 @@
 					scroll_spacing				: 40,
 					scroll_units					: 10,
 					scroll_init						: 0,
+					scroll_loop						: 1,
 					rotate_type						: 'fade',
 					auto_rotate						: 0,
 					rotate_delay					: 10,
@@ -38,6 +39,7 @@
 					after_change					: function(){},
 					after_load						: function(){}
 				};
+
 
 				// Useful variables. Play carefully.
         var vars = {
@@ -79,8 +81,7 @@
 				// Add the vars
 				$ticker.data('ditty:vars', vars);
 
-				// Save the tick count & total
-				vars.tick_count = $ticker.find('.mtphr-dnt-tick').length;
+				
 
 
 
@@ -90,6 +91,9 @@
 		     * @since 1.0.0
 		     */
 		    function mtphr_dnt_init() {
+			    
+			    // Save the tick count & total
+					vars.tick_count = $ticker.find('.mtphr-dnt-tick').length;
 		    
 			    // Start the first tick
 					if( vars.tick_count > 0 ) {
@@ -125,6 +129,9 @@
 			    	var style_array = style.split('width:');
 			    	ticker_scroll_resize = (style_array.length > 1) ? false : true;
 		    	}
+		    	
+		    	// Reset the ticks
+		    	ticks = [];
 
 		    	// Loop through the tick items
 					$ticker.find('.mtphr-dnt-tick').each( function(index) {
@@ -313,8 +320,30 @@
 					if( vars.tick_count > 1 ) {
 						ticks[i][0].visible = false;
 					}
+					
+					// Add a scroll complete trigger
+					if( vars.tick_count == (i+1) ) {
+						$container.trigger('mtphr_dnt_scroll_complete', [vars, ticks]);
+	          $('body').trigger('mtphr_dnt_scroll_complete', [$container, vars, ticks]);
+					}
 
 					return 'reset';
+		    }
+		    
+		    
+		    function mtphr_dnt_set_scroll_vars( i ) {
+			    
+			    if( ticks[i][0].visible == false ) {
+						vars.previous_tick = parseInt(i-1);
+						if( vars.previous_tick < 0 ) {
+							vars.previous_tick = parseInt(vars.tick_count-1);
+						}
+						vars.current_tick = i;
+						vars.next_tick = parseInt(i+1);
+						if( vars.next_tick >= vars.tick_count ) {
+							vars.next_tick = 0;
+						}
+					}
 		    }
 
 		    /**
@@ -325,8 +354,12 @@
 		    function mtphr_dnt_scroll_check_next( i ) {
 
 					if( i==(vars.tick_count-1) ) {
-						ticks[0][0].visible = true;
+						if( settings.scroll_loop ) {
+							mtphr_dnt_set_scroll_vars(0);
+							ticks[0][0].visible = true;
+						}
 					} else {
+						mtphr_dnt_set_scroll_vars(parseInt(i+1));
 						ticks[(i+1)][0].visible = true;
 					}
 		    }
@@ -401,7 +434,7 @@
 		    	for( var i=0; i<vars.tick_count; i++ ) {
 
 		    		var $tick = ticks[i][0].headline;
-
+		    		
 						switch( settings.scroll_direction ) {
 							case 'left':
 								position = ticker_width+settings.offset;
@@ -1271,6 +1304,21 @@
 					    mtphr_dnt_rotator_resize_ticks();
 				    } 
 			    }
+				});
+				
+				$container.on('mtphr_dnt_replace_ticks', function( e, ticks, delay ) {
+					
+					clearInterval( ticker_scroll );
+					$container.find('.mtphr-dnt-tick').remove();
+					
+					ticks.each( function(index) {
+						$ticker.append( $(this) );
+					});
+
+					setTimeout( function() {
+						mtphr_dnt_init();
+					}, delay );
+					
 				});
 				
 				if( $container.width() == 0 ) {

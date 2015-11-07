@@ -1,19 +1,20 @@
 <?php
 
 /* --------------------------------------------------------- */
-/* !Add the ticker display code - 1.4.0 */
+/* !Add the ticker display code - 2.0.0 */
 /* --------------------------------------------------------- */
 
+if( !function_exists('mtphr_dnt_display_code') ) {
 function mtphr_dnt_display_code() {
 
 	global $post, $typenow;
 	
 	if( $typenow == 'ditty_news_ticker' ) {
 		
-		echo '<div id="ditty-news-ticker-code-copy">';
+		echo '<div id="mtphr-dnt-code-copy">';
 			echo '<table>';
 				echo '<tr>';
-					echo '<td id="ditty-news-ticker-shortcode-copy">';
+					echo '<td id="mtphr-dnt-shortcode-copy">';
 						echo '<div class="wrapper">';
 							echo '<h3>'.__('Shortcode', 'ditty-news-ticker').'</h3>';
 							echo '<p>'.__('Copy and paste this shortcode into a page or post to display the ticker within the post content.', 'ditty-news-ticker').'</p>';
@@ -22,7 +23,7 @@ function mtphr_dnt_display_code() {
 						echo '</div>';
 					echo '</td>';
 						
-					echo '<td id="ditty-news-ticker-function-copy">';
+					echo '<td id="mtphr-dnt-function-copy">';
 						echo '<div class="wrapper">';
 							echo '<h3>'.__('Direct Function', 'ditty-news-ticker').'</h3>';
 							echo '<p>'.__('Copy and paste this code directly into one of your theme files to display the ticker any where you want on your site.', 'ditty-news-ticker').'</p>';
@@ -36,18 +37,23 @@ function mtphr_dnt_display_code() {
 		echo '</div>';
 	}
 }
+}
 add_action( 'edit_form_after_title', 'mtphr_dnt_display_code' );
 
 
 /* --------------------------------------------------------- */
-/* !Add the main ticker options - 1.3.4 */
+/* !Add the main ticker options - 2.0.0 */
 /* --------------------------------------------------------- */
 
+if( !function_exists('mtphr_dnt_option_buttons') ) {
 function mtphr_dnt_option_buttons() {
 
 	global $post, $typenow;
 	
 	if( $typenow == 'ditty_news_ticker' ) {
+		
+		$tab = get_post_meta( $post->ID, '_mtphr_dnt_admin_tab', true );
+		$tab = ( $tab != '' ) ? $tab : '#mtphr-dnt-type-select';
 	
 		$types = mtphr_dnt_types_array();
 		$type = get_post_meta( $post->ID, '_mtphr_dnt_type', true );
@@ -55,134 +61,111 @@ function mtphr_dnt_option_buttons() {
 		
 		$modes = mtphr_dnt_modes_array();
 		$mode = get_post_meta( $post->ID, '_mtphr_dnt_mode', true );
-		$type = ( $type != '' ) ? $type : 'scroll';
+		$mode = ( $mode != '' ) ? $mode : 'scroll';
 		
-		echo '<div id="ditty-news-ticker-settings-select">';
-			echo '<table>';
-				echo '<tr>';
-					echo '<td id="ditty-news-ticker-type-select">';
-						echo '<div class="wrapper">';
-							echo '<h2>'.__('Ticker Type', 'ditty-news-ticker').' <a href="http://dittynewsticker.com" target="_blank"><small>'.__('View all types', 'ditty-news-ticker').'</small></a></h2>';
-							echo '<p>'.__('Select the type of ticker you\'d like to use', 'ditty-news-ticker').'</p>';
-							echo '<div class="mtphr-dnt-metabox-toggle">';
-								echo '<input type="hidden" name="_mtphr_dnt_type" value="'.$type.'" />';
-								foreach( $types as $i=>$t ) {
-									
-									$value = '';
-									$button = $t['button'];
-									$metaboxes = $t['metaboxes'];
-									$metabox_list = join( ',', $metaboxes );
+		echo '<div id="mtphr-dnt-settings-select">';
+			echo '<input type="hidden" name="mtphr_dnt_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
+			echo '<input type="hidden" name="_mtphr_dnt_admin_tab" value="'.$tab.'" />';
+			echo '<input type="hidden" name="_mtphr_dnt_admin_javascript" value="error" />';
+
+			echo '<div id="mtphr-dnt-metabox-group-toggles" class="mtphr-dnt-clearfix">';
+				$active = ( $tab == '#mtphr-dnt-type-select' ) ? ' active' : '';
+				echo '<a class="mtphr-dnt-metabox-group-toggle'.$active.'" href="#mtphr-dnt-type-select"><i class="mtphr-dnt-icon-dittynewsticker"></i> '.__('<span>Ticker </span>Type', 'ditty-news-ticker').'</a>';
+				$active = ( $tab == '#mtphr-dnt-mode-select' ) ? ' active' : '';
+				echo '<a class="mtphr-dnt-metabox-group-toggle'.$active.'" href="#mtphr-dnt-mode-select"><i class="mtphr-dnt-icon-dittynewsticker"></i> '.__('<span>Ticker </span>Mode', 'ditty-news-ticker').'</a>';
+				$active = ( $tab == '#mtphr-dnt-global-select' ) ? ' active' : '';
+				echo '<a class="mtphr-dnt-metabox-group-toggle'.$active.'" href="#mtphr-dnt-global-select"><i class="mtphr-dnt-icon-dittynewsticker"></i> '.__('<span>Global </span>Settings', 'ditty-news-ticker').'</a>';
+				echo '<button name="save" type="submit" class="button button-primary button-large" id="mtphr-dnt-publish"><i class="dashicons dashicons-yes"></i><span> '.__('Update', 'ditty-news-ticker').'</span></button>';
+			echo '</div>';
+			
+			
+			/* --------------------------------------------------------- */
+			/* !Ticker Type - 2.0.0 */
+			/* --------------------------------------------------------- */
+			
+			$active = ( $tab == '#mtphr-dnt-type-select' ) ? ' active' : '';
+			echo '<div id="mtphr-dnt-type-select" class="mtphr-dnt-metabox-group'.$active.'">';
+				
+				echo '<div>';
+					echo '<div class="mtphr-dnt-metabox-toggle">';
+						echo '<input type="hidden" name="_mtphr_dnt_type" value="'.$type.'" />';
+						foreach( $types as $i=>$t ) {
 							
-									// Create a button
-									$selected = ( $type == $i ) ? ' button-primary' : '';
-									echo '<a href="'.$i.'" metaboxes="'.$metabox_list.'" class="mtphr-dnt-metaboxer-metabox-toggle button'.$selected.'">'.$button.'</a>&nbsp;';
-								}
-							echo '</div>';
-						echo '</div>';
-					echo '</td>';
-						
-					echo '<td id="ditty-news-ticker-mode-select">';
-						echo '<div class="wrapper">';
-							echo '<h2>'.__('Ticker Mode', 'ditty-news-ticker').'</h2>';
-							echo '<p>'.__('Select the mode of the ticker', 'ditty-news-ticker').'</p>';
-							echo '<div class="mtphr-dnt-metabox-toggle">';
-								echo '<input type="hidden" name="_mtphr_dnt_mode" value="'.$mode.'" />';
-								foreach( $modes as $i=>$m ) {
-									
-									$value = '';
-									$button = $m['button'];
-									$metaboxes = $m['metaboxes'];
-									$metabox_list = join( ',', $metaboxes );
+							$value = '';
+							$button = $t['button'];
+							$metabox_id = isset($t['metabox_id']) ? $t['metabox_id'] : '';
+					
+							// Create a button
+							$selected = ( $type == $i ) ? ' button-primary' : '';
+							$icon = isset($t['icon']) ? '<i class="'.$t['icon'].'"></i> ' : '';
+							echo '<a href="#'.$i.'" metabox="'.$metabox_id.'" class="mtphr-dnt-type-toggle mtphr-dnt-button button'.$selected.'">'.$icon.$button.'</a>&nbsp;';
+						}
+						echo '<a href="http://www.dittynewsticker.com/" target="_blank" class="mtphr-dnt-button button mtphr-dnt-get-more"><i class="fontastic mtphr-dnt-icon-download"></i> '.__('More Extensions', 'ditty-news-ticker').'</a>';
+					echo '</div>';
+				echo '</div>';
+				
+				echo '<div id="mtphr-dnt-type-metaboxes">';
+					do_action( 'mtphr_dnt_type_metaboxes' );
+				echo '</div>';
+				
+			echo '</div>';
+			
+			
+			/* --------------------------------------------------------- */
+			/* !Ticker Mode - 2.0.0 */
+			/* --------------------------------------------------------- */
+				
+			$active = ( $tab == '#mtphr-dnt-mode-select' ) ? ' active' : '';
+			echo '<div id="mtphr-dnt-mode-select" class="mtphr-dnt-metabox-group'.$active.'">';
+				
+				echo '<div class="wrapper">';
+					echo '<div class="mtphr-dnt-metabox-toggle">';
+						echo '<input type="hidden" name="_mtphr_dnt_mode" value="'.$mode.'" />';
+						foreach( $modes as $i=>$m ) {
 							
-									// Create a button
-									$selected = ( $mode == $i ) ? ' button-primary' : '';
-									echo '<a href="'.$i.'" metaboxes="'.$metabox_list.'" class="mtphr-dnt-metaboxer-metabox-toggle button'.$selected.'">'.$button.'</a>&nbsp;';
-								}
-							echo '</div>';
-						echo '</div>';
-					echo '</td>';
-				echo '</tr>';
-			echo '</table>';
+							$value = '';
+							$button = $m['button'];
+							$metabox_id = isset($m['metabox_id']) ? $m['metabox_id'] : '';
+					
+							// Create a button
+							$selected = ( $mode == $i ) ? ' button-primary' : '';
+							$icon = isset($m['icon']) ? '<i class="'.$m['icon'].'"></i> ' : '';
+							echo '<a href="#'.$i.'" metabox="'.$metabox_id.'" class="mtphr-dnt-mode-toggle mtphr-dnt-button button'.$selected.'">'.$icon.$button.'</a>&nbsp;';
+						}
+						echo '<a href="http://www.dittynewsticker.com/" target="_blank" class="mtphr-dnt-button button mtphr-dnt-get-more"><i class="fontastic mtphr-dnt-icon-download"></i> '.__('More Extensions', 'ditty-news-ticker').'</a>';
+					echo '</div>';
+				echo '</div>';
+				
+				echo '<div id="mtphr-dnt-mode-metaboxes">';
+					do_action( 'mtphr_dnt_mode_metaboxes' );
+				echo '</div>';
+				
+			echo '</div>';
+			
+			
+			/* --------------------------------------------------------- */
+			/* !Global Settings - 2.0.0 */
+			/* --------------------------------------------------------- */
+				
+			$active = ( $tab == '#mtphr-dnt-global-select' ) ? ' active' : '';
+			echo '<div id="mtphr-dnt-global-select" class="mtphr-dnt-metabox-group'.$active.'">';
+				
+				echo '<div id="mtphr-dnt-global-metaboxes">';
+					do_action( 'mtphr_dnt_global_metaboxes' );
+				echo '</div>';
+				
+			echo '</div>';
+
 		echo '</div>';
 	}
+}
 }
 add_action( 'edit_form_after_title', 'mtphr_dnt_option_buttons' );
 
 
 
-
 /* --------------------------------------------------------- */
-/* !Add the default type metabox - 1.4.0 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_default_metabox() {
-
-	add_meta_box( 'mtphr_dnt_default_metabox', __('Default Ticker Items', 'ditty-news-ticker'), 'mtphr_dnt_default_render_metabox', 'ditty_news_ticker', 'normal', 'high' );
-}
-add_action( 'add_meta_boxes', 'mtphr_dnt_default_metabox', 1 );
-
-
-/* --------------------------------------------------------- */
-/* !Add the mixed type metabox - 1.4.0 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_mixed_metabox() {
-
-	add_meta_box( 'mtphr_dnt_mixed_metabox', __('Mixed Ticker Items', 'ditty-news-ticker'), 'mtphr_dnt_mixed_render_metabox', 'ditty_news_ticker', 'normal', 'high' );
-}
-add_action( 'add_meta_boxes', 'mtphr_dnt_mixed_metabox', 1 );
-
-
-/* --------------------------------------------------------- */
-/* !Add the scroll settings metabox - 1.4.0 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_scroll_settings_metabox() {
-
-	add_meta_box( 'mtphr_dnt_scroll_settings_metabox', __('Scroll Settings', 'ditty-news-ticker'), 'mtphr_dnt_scroll_settings_render_metabox', 'ditty_news_ticker', 'normal', 'high' );
-}
-add_action( 'add_meta_boxes', 'mtphr_dnt_scroll_settings_metabox' );
-
-
-/* --------------------------------------------------------- */
-/* !Add the rotate settings metabox - 1.4.0 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_rotate_settings_metabox() {
-
-	add_meta_box( 'mtphr_dnt_rotate_settings_metabox', __('Rotate Settings', 'ditty-news-ticker'), 'mtphr_dnt_rotate_settings_render_metabox', 'ditty_news_ticker', 'normal', 'high' );
-}
-add_action( 'add_meta_boxes', 'mtphr_dnt_rotate_settings_metabox' );
-
-
-/* --------------------------------------------------------- */
-/* !Add the list settings metabox - 1.4.0 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_list_settings_metabox() {
-
-	add_meta_box( 'mtphr_dnt_list_settings_metabox', __('List Settings', 'ditty-news-ticker'), 'mtphr_dnt_list_settings_render_metabox', 'ditty_news_ticker', 'normal', 'high' );
-}
-add_action( 'add_meta_boxes', 'mtphr_dnt_list_settings_metabox' );
-
-
-/* --------------------------------------------------------- */
-/* !Add the global settings metabox - 1.4.0 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_global_settings_metabox() {
-
-	add_meta_box( 'mtphr_dnt_global_settings_metabox', __('Global Settings', 'ditty-news-ticker'), 'mtphr_dnt_global_settings_render_metabox', 'ditty_news_ticker', 'side', 'default' );
-}
-add_action( 'add_meta_boxes', 'mtphr_dnt_global_settings_metabox' );
-
-
-
-
-
-
-/* --------------------------------------------------------- */
-/* !Render the default type metabox - 1.4.5 */
+/* !Render the default type metabox - 2.0.0 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_default_render_metabox') ) {
@@ -191,184 +174,205 @@ function mtphr_dnt_default_render_metabox() {
 	global $post;
 	
 	$settings = mtphr_dnt_general_settings();
-
-	$line_breaks = get_post_meta( $post->ID, '_mtphr_dnt_line_breaks', true );
-	$ticks = get_post_meta( $post->ID, '_mtphr_dnt_ticks', true );
-
-	echo '<input type="hidden" name="mtphr_dnt_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
-	
-	echo '<table class="mtphr-dnt-table">';
-	
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Line breaks', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Force line breaks on carriage returns', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_line_breaks" value="1" '.checked('1', $line_breaks, false).' />'.__('Force line breaks', 'ditty-news-ticker').'</label>';
-			echo '</td>';
-		echo '</tr>';
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Ticks', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Add an unlimited number of ticks to your ticker', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<table class="mtphr-dnt-list mtphr-dnt-default-list mtphr-dnt-advanced-list">';
-					echo '<tr>';
-						echo '<th class="mtphr-dnt-list-handle"></th>';
-						
-						$label = __('Ticker text', 'ditty-news-ticker');
-						if( $settings['wysiwyg'] == '1' ) {
-							$label .= '<div class="mtphr-dnt-notice">'.__('<strong>Notice:</strong> When using the WYSIWYG editor you must save your ticker after adding or re-arranging ticks.', 'ditty-news-ticker').'</div>';
-						}
-						echo '<th>'.$label.'</th>';
-						echo '<th>'.__('Link', 'ditty-news-ticker').'</th>';
-						echo '<th class="mtphr-dnt-default-target">'.__('Target', 'ditty-news-ticker').'</th>';
-						echo '<th class="mtphr-dnt-default-nofollow">'.__('NF', 'ditty-news-ticker').'</th>';
-						echo '<th class="mtphr-dnt-list-delete"></th>';
-						echo '<th class="mtphr-dnt-list-add"></th>';
-					echo '</tr>';
-					if( is_array($ticks) && count($ticks) > 0 ) {
-						foreach( $ticks as $i=>$tick ) {
-							mtphr_dnt_render_default_tick( $settings, $tick );
-						}
-					} else {
-						mtphr_dnt_render_default_tick( $settings );
-					}
-				echo '</table>';
-			echo '</td>';
-		echo '</tr>';
+	
+	/* --------------------------------------------------------- */
+	/* !Organize the values - 2.0.0 */
+	/* --------------------------------------------------------- */
+	
+	$defaults = array(
+		'ticks' => false,
+		'line_breaks' => ''
+	);
+	
+	$defaults = apply_filters( 'mtphr_dnt_default_defaults', $defaults );
+	
+	$values = array(
+		'ticks' => get_post_meta( $post->ID, '_mtphr_dnt_ticks', true ),
+		'line_breaks' => get_post_meta( $post->ID, '_mtphr_dnt_line_breaks', true )
+	);
+	foreach( $values as $i=>$value ) {
+		if( $value == '' ) {
+			unset($values[$i]);
+		}
+	}
+	
+	$values = wp_parse_args( $values, $defaults );
+	
+	
+	/* --------------------------------------------------------- */
+	/* !Create the metabox & fields - 2.0.0 */
+	/* --------------------------------------------------------- */
+	
+	$fields = array(
 		
-	echo '</table>';
-}
-}
-
-if( !function_exists('mtphr_dnt_render_default_tick') ) {
-function mtphr_dnt_render_default_tick( $settings, $tick=false ) {
+		/* !Ticks (& text, link, target, nofollow) - 2.0.0 */
+		'ticks' => array(
+			'heading' => __('Ticks', 'ditty-news-ticker'),
+			'description' => __('Add an unlimited number of ticks to your ticker', 'ditty-news-ticker'),
+			'help' => __('Use the \'+\' and \'x\' buttons on the right to add and delete ticks. Drag and drop the arrows on the left to re-order your ticks.', 'ditty-news-ticker'),
+			'type' => 'list',
+			'name' => '_mtphr_dnt_ticks',
+			'value' => $values['ticks'],
+			'fields' => array(
+				
+				/* !Tick text - 2.0.0 */
+				'tick' => array(
+					'heading' => __('Ticker text', 'ditty-news-ticker'),
+					'help' => __('Add the content of your tick. HTML and inline styles are supported.', 'ditty-news-ticker'),
+					'type' => (isset($settings['wysiwyg']) && ($settings['wysiwyg'] == '1' || $settings['wysiwyg'] == 'on') ) ? 'wysiwyg' : 'textarea',
+					'placeholder' => __('Add your content here. HTML and inline styles are supported.', 'ditty-news-ticker'),
+					'rows' => 2
+				),
+				
+				/* !Tick link - 2.0.0 */
+				'link' => array(
+					'heading' => __('Link', 'ditty-news-ticker'),
+					'help' => __('Wrap a link around your tick content. You can also add a link directly into your content.', 'ditty-news-ticker'),
+					'type' => 'text',
+					'placeholder' => __('Add a URL (optional)', 'ditty-news-ticker'),
+				),
+				
+				/* !Tick link target - 2.0.0 */
+				'target' => array(
+					'heading' => __('Target', 'ditty-news-ticker'),
+					'help' => __('Set a target for your link.', 'ditty-news-ticker'),
+					'type' => 'select',
+					'options' => array(
+						'_self' => '_self',
+						'_blank' => '_blank'
+					)
+				),
+				
+				/* !Tick link nofollow - 2.0.0 */
+				'nofollow' => array(
+					'heading' => __('No Follow', 'ditty-news-ticker'),
+					'help' => __('Enabling this setting will add an attribute called \'nofollow\' to your link. This tells search engines to not follow this link.', 'ditty-news-ticker'),
+					'type' => 'checkbox',
+					'label' => __('Add "nofollow" to link', 'ditty-news-ticker')
+				)
+			)
+		),
+		
+		/* !Force line breaks - 2.0.0 */
+		'line_breaks' => array(
+			'heading' => __('Line breaks', 'ditty-news-ticker'),
+			'description' => __('Force line breaks on carriage returns (not used for wysiwyg editors)', 'ditty-news-ticker'),
+			'help' => __('Enabling this setting will create new lines for all carrige returns contained in your tick text', 'ditty-news-ticker'),
+			'type' => 'checkbox',
+			'name' => '_mtphr_dnt_line_breaks',
+			'value' => $values['line_breaks'],
+			'label' => __('Force line breaks', 'ditty-news-ticker')
+		)
+	);
 	
-	$text = ( isset($tick) && isset($tick['tick']) ) ? $tick['tick'] : '';
-	$link = ( isset($tick) && isset($tick['link']) ) ? $tick['link'] : '';
-	$target = ( isset($tick) && isset($tick['target']) ) ? $tick['target'] : '';
-	$nofollow = ( isset($tick) && isset($tick['nofollow']) ) ? $tick['nofollow'] : '';
+	$fields = apply_filters( 'mtphr_dnt_default_fields', $fields, $values );
 	
-	echo '<tr class="mtphr-dnt-list-item">';
-		echo '<td class="mtphr-dnt-list-handle"><span></span></td>';
-		echo '<td class="mtphr-dnt-default-tick mtphr-dnt-wysiwyg-container" data-name="_mtphr_dnt_ticks" data-key="tick">';
-			if( $settings['wysiwyg'] == '1' ) {
-				$editor_settings = array();
-				$editor_settings['media_buttons'] = true;
-				$editor_settings['textarea_rows'] = 6;
-				$editor_settings['editor_class'] = 'mtphr-dnt-wysiwyg';
-				$editor_settings['textarea_name'] = '_mtphr_dnt_ticks[tick]';
-				wp_editor( $text, 'mtphrdnttick'.uniqid(), $editor_settings );
-			} else {
-				echo '<textarea name="_mtphr_dnt_ticks[tick]" data-name="_mtphr_dnt_ticks" data-key="tick">'.$text.'</textarea>';
-			}
-		echo '</td>';
-		echo '<td class="mtphr-dnt-default-link">';
-			echo '<input type="text" name="_mtphr_dnt_ticks[link]" data-name="_mtphr_dnt_ticks" data-key="link" value="'.$link.'" />';
-		echo '</td>';
-	  echo '<td class="mtphr-dnt-default-target">';
-			echo '<select name="_mtphr_dnt_ticks[target]" data-name="_mtphr_dnt_ticks" data-key="target">';
-				echo '<option value="_self" '.selected('_self', $target, false).'>_self</option>';
-				echo '<option value="_blank" '.selected('_blank', $target, false).'>_blank</option>';
-			echo '</select>';
-		echo '</td>';
-		echo '<td class="mtphr-dnt-default-nofollow">';
-			echo '<input type="checkbox" name="_mtphr_dnt_ticks[nofollow]" data-name="_mtphr_dnt_ticks" data-key="nofollow" value="1" '.checked('1', $nofollow, false).' />';
-		echo '</td>';
-		echo '<td class="mtphr-dnt-list-delete"><a href="#"></a></td>';
-		echo '<td class="mtphr-dnt-list-add"><a href="#"></a></td>';
-	echo '</tr>';
+	mtphr_dnt_metabox( 'mtphr-dnt-defualt-metabox', $fields );
 }
 }
+add_action( 'mtphr_dnt_type_metaboxes', 'mtphr_dnt_default_render_metabox' );
 
 
 
 /* --------------------------------------------------------- */
-/* !Render the mixed type metabox - 1.4.5 */
+/* !Render the mixed type metabox - 2.0.0 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_mixed_render_metabox') ) {
 function mtphr_dnt_mixed_render_metabox() {
 
 	global $post;
+	
+	
+	/* --------------------------------------------------------- */
+	/* !Organize the values - 2.0.0 */
+	/* --------------------------------------------------------- */
+	
+	$defaults = array(
+		'ticks' => false
+	);
+	
+	$defaults = apply_filters( 'mtphr_dnt_mixed_defaults', $defaults );
+	
+	$values = array(
+		'ticks' => get_post_meta( $post->ID, '_mtphr_dnt_mixed_ticks', true )
+	);
+	foreach( $values as $i=>$value ) {
+		if( $value == '' ) {
+			unset($values[$i]);
+		}
+	}
+	
+	$values = wp_parse_args( $values, $defaults );
 
-	$ticks = get_post_meta( $post->ID, '_mtphr_dnt_mixed_ticks', true );
-	$types = mtphr_dnt_types_array();
+	$types = mtphr_dnt_types_labels();
 	unset($types['mixed']);
-
-	echo '<input type="hidden" name="mtphr_dnt_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
 	
-	echo '<table class="mtphr-dnt-table">';
 	
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Tick selection', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Select the ticks you would like to display by choosing the tick type and the offset position of the selected feed', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<table class="mtphr-dnt-list mtphr-dnt-mixed-list mtphr-dnt-advanced-list" style="width:auto;">';
-					if( is_array($ticks) && count($ticks) > 0 ) {
-						foreach( $ticks as $i=>$tick ) {
-							mtphr_dnt_render_mixed_tick( $types, $tick, $i );
-						}
-					} else {
-						mtphr_dnt_render_mixed_tick( $types );
-					}
-				echo '</table>';
-			echo '</td>';
-		echo '</tr>';
+	/* --------------------------------------------------------- */
+	/* !Create the metabox & fields - 2.0.0 */
+	/* --------------------------------------------------------- */
+	
+	$fields = array(
 		
-	echo '</table>';
+		/* !Ticks (& type, all, lffset) - 2.0.0 */
+		'ticks' => array(
+			'heading' => __('Tick selection', 'ditty-news-ticker'),
+			'description' => __('Select the ticks you would like to display by choosing the tick type and the offset position of the selected feed', 'ditty-news-ticker'),
+			'type' => 'list',
+			'name' => '_mtphr_dnt_mixed_ticks',
+			'value' => $values['ticks'],
+			'fields' => array(
+				
+				/* !Tick type - 2.0.0 */
+				'ticker_type' => array(
+					'heading' => __('Ticker type', 'ditty-news-ticker'),
+					'help' => __('Select the ticker type to use.', 'ditty-news-ticker'),
+					'type' => 'select',
+					'options' => $types
+				),
+				
+				/* !All ticks - 2.0.0 */
+				'all' => array(
+					'heading' => __('All ticks', 'ditty-news-ticker'),
+					'help' => __('All ticks from the specified type will be show when this is enabled.', 'ditty-news-ticker'),
+					'type' => 'checkbox',
+					'label' => __('Display all ticks', 'ditty-news-ticker')
+				),
+				
+				/* !Tick offset - 2.0.0 */
+				'offset' => array(
+					'heading' => __('Offset', 'ditty-news-ticker'),
+					'help' => __('Choose the specific tick you would like to use from the specified type. \'0\' will display the first tick, \'1\' will display the second tick, and so on.', 'ditty-news-ticker'),
+					'type' => 'number',
+				)
+			)
+		)
+	);
+	
+	$fields = apply_filters( 'mtphr_dnt_mixed_fields', $fields, $values );
+	
+	mtphr_dnt_metabox( 'mtphr-dnt-mixed-metabox', $fields );
 }
 }
+add_action( 'mtphr_dnt_type_metaboxes', 'mtphr_dnt_mixed_render_metabox' );
 
-if( !function_exists('mtphr_dnt_render_mixed_tick') ) {
-function mtphr_dnt_render_mixed_tick( $types, $tick=false, $i=false ) {
-	
-	$tick_type = ( isset($tick) && isset($tick['type']) ) ? $tick['type'] : '';
-	$tick_offset = ( isset($tick) && isset($tick['offset']) ) ? $tick['offset'] : 0;
-	$tick_all = ( isset($tick) && isset($tick['all']) && $tick['all'] == 'on' ) ? 'on' :'';
-	
-	echo '<tr class="mtphr-dnt-list-item">';
-		echo '<td class="mtphr-dnt-list-handle"><span></span></td>';
-	  echo '<td class="mtphr-dnt-mixed-type">';
-	  	echo '<label style="margin-right:10px;">'.__('Type:', 'ditty-news-ticker').' ';
-				echo '<select name="_mtphr_dnt_mixed_ticks[type]" data-name="_mtphr_dnt_mixed_ticks" data-key="type">';
-					echo '<option value="">-- '.__('Select Tick Type', 'ditty-news-ticker').' --</option>';
-					foreach( $types as $i=>$type ) {
-						echo '<option value="'.$i.'" '.selected($i, $tick_type, false).'>'.$type['button'].'</option>';
-					}
-				echo '</select>';
-			echo '</label>';
-		echo '</td>';
-		echo '<td>';
-			echo '<label>'.__('Display <strong>all</strong> ticks:', 'ditty-news-ticker').' ';
-				echo '<input type="checkbox" name="_mtphr_dnt_mixed_ticks[all]" data-name="_mtphr_dnt_mixed_ticks" data-key="all" value="on" '.checked('on', $tick_all, false).' />';
-			echo '</label>';
-			
-			echo '<label>'.__(', or choose <strong>offset</strong>:', 'ditty-news-ticker').' ';
-				echo '<input type="number" name="_mtphr_dnt_mixed_ticks[offset]" data-name="_mtphr_dnt_mixed_ticks" data-key="offset" value="'.$tick_offset.'" />';
-			echo '</label>';
-		echo '</td>';
-		echo '<td class="mtphr-dnt-list-delete"><a href="#"></a></td>';
-		echo '<td class="mtphr-dnt-list-add"><a href="#"></a></td>';
-	echo '</tr>';
-}
-}
 
 
 /* --------------------------------------------------------- */
-/* !Render the scroll settings metabox - 1.4.0 */
+/* !Render the scroll settings metabox - 2.0.0 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_scroll_settings_render_metabox') ) {
 function mtphr_dnt_scroll_settings_render_metabox() {
 
 	global $post;
+	
+	
+	/* --------------------------------------------------------- */
+	/* !Organize the values - 2.0.0 */
+	/* --------------------------------------------------------- */
 	
 	$defaults = array(
 		'direction' => 'left',
@@ -381,6 +385,8 @@ function mtphr_dnt_scroll_settings_render_metabox() {
 		'pause' => '',
 		'spacing' => 40
 	);
+	
+	$defaults = apply_filters( 'mtphr_dnt_scroll_settings_defaults', $defaults );
 	
 	$values = array(
 		'direction' => get_post_meta( $post->ID, '_mtphr_dnt_scroll_direction', true ),
@@ -401,80 +407,139 @@ function mtphr_dnt_scroll_settings_render_metabox() {
 	
 	$values = wp_parse_args( $values, $defaults );
 
-	echo '<input type="hidden" name="mtphr_dnt_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
 
-	echo '<table class="mtphr-dnt-table">';
+	/* --------------------------------------------------------- */
+	/* !Create the metabox & fields - 2.0.0 */
+	/* --------------------------------------------------------- */
 	
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Scroll direction', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Set the scroll direction of the ticker', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label><input type="radio" name="_mtphr_dnt_scroll_direction" value="left" '.checked('left', $values['direction'], false).' /> '.__('Left', 'ditty-news-ticker').'</label>';
-				echo '<label><input type="radio" name="_mtphr_dnt_scroll_direction" value="right" '.checked('right', $values['direction'], false).' /> '.__('Right', 'ditty-news-ticker').'</label>';
-				echo '<label><input type="radio" name="_mtphr_dnt_scroll_direction" value="up" '.checked('up', $values['direction'], false).' /> '.__('Up', 'ditty-news-ticker').'</label>';
-				echo '<label style="margin-right:20px;"><input type="radio" name="_mtphr_dnt_scroll_direction" value="down" '.checked('down', $values['direction'], false).' /> '.__('Down', 'ditty-news-ticker').'</label>';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_scroll_init" value="1" '.checked('1', $values['init'], false).' /> '.__('Show first tick on init', 'ditty-news-ticker').'</label>';
-			echo '</td>';
-		echo '</tr>';
+	$fields = array(
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Tick dimensions', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Override the auto dimensions with specific values', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label>'.__('Width', 'ditty-news-ticker').' <input type="number" name="_mtphr_dnt_scroll_width" value="'.$values['width'].'" /></label>';
-				echo '<label>'.__('Height', 'ditty-news-ticker').' <input type="number" name="_mtphr_dnt_scroll_height" value="'.$values['height'].'" /></label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Scroll direction (& init) - 2.0.0 */
+		'direction' => array(
+			'heading' => __('Scroll direction', 'ditty-news-ticker'),
+			'description' => __('Set the scroll direction of the ticker', 'ditty-news-ticker'),
+			'help' => __('Set the direction you want the ticker to scroll. By default, the ticker starts off-screen, but you can enable the \'Show first tick on init\' setting to force the content to start on-screen.', 'ditty-news-ticker'),
+			'type' => 'radio_buttons',
+			'name' => '_mtphr_dnt_scroll_direction',
+			'value' => $values['direction'],
+			'options' => array(
+				'left' => __('Left', 'ditty-news-ticker'),
+				'right' => __('Right', 'ditty-news-ticker'),
+				'up' => __('Up', 'ditty-news-ticker'),
+				'down' => __('Down', 'ditty-news-ticker')
+			),
+			'append' => array(
+				
+				/* !Scroll init - 2.0.0 */
+				'init' => array(
+					'type' => 'checkbox',
+					'name' => '_mtphr_dnt_scroll_init',
+					'label' => __('Show first tick on init', 'ditty-news-ticker'),
+					'value' => $values['init'],
+				)
+			)
+		),
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Scroller padding', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Set the vertical spacing of the scrolling data', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label>'.__('Vertical padding', 'ditty-news-ticker').' <input type="number" name="_mtphr_dnt_scroll_padding" value="'.$values['padding'].'" /></label>';
-				echo '<label>'.__('Vertical margin', 'ditty-news-ticker').' <input type="number" name="_mtphr_dnt_scroll_margin" value="'.$values['margin'].'" /></label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Tick width (& height) - 2.0.0 */
+		'dimensions' => array(
+			'heading' => __('Tick dimensions', 'ditty-news-ticker'),
+			'description' => __('Override the auto dimensions with specific values', 'ditty-news-ticker'),
+			'help' => __('Set a specific width and height for the ticks. When using a vertically scrolling ticker the height will define the overall height of the ticker.', 'ditty-news-ticker'),
+			'type' => 'number',
+			'name' => '_mtphr_dnt_scroll_width',
+			'value' => $values['width'],
+			'before' => __('Width', 'ditty-news-ticker').':',
+			'after' => __('pixels', 'ditty-news-ticker'),
+			'append' => array(
+				
+				/* !Tick height - 2.0.0 */
+				'height' => array(
+					'type' => 'number',
+					'name' => '_mtphr_dnt_scroll_height',
+					'value' => $values['height'],
+					'before' => __('Height', 'ditty-news-ticker').':',
+					'after' => __('pixels', 'ditty-news-ticker')
+				)
+			)
+		),
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Scroll speed', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Set the speed of the scrolling data', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label><input type="number" name="_mtphr_dnt_scroll_speed" value="'.$values['speed'].'" /></label>';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_scroll_pause" value="1" '.checked('1', $values['pause'], false).' /> '.__('Pause on mouse over', 'ditty-news-ticker').'</label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Tick padding (& margin) - 2.0.0 */
+		'padding' => array(
+			'heading' => __('Scroller padding', 'ditty-news-ticker'),
+			'description' => __('Set the vertical spacing of the scrolling data', 'ditty-news-ticker'),
+			'help' => __('Add custom vertical padding and margins to each of your ticks.', 'ditty-news-ticker'),
+			'type' => 'number',
+			'name' => '_mtphr_dnt_scroll_padding',
+			'value' => $values['padding'],
+			'before' => __('Vertical padding', 'ditty-news-ticker').':',
+			'after' => __('pixels', 'ditty-news-ticker'),
+			'append' => array(
+				
+				/* !Ticker margin - 2.0.0 */
+				'margin' => array(
+					'type' => 'number',
+					'name' => '_mtphr_dnt_scroll_margin',
+					'value' => $values['margin'],
+					'before' => __('Vertical margin', 'ditty-news-ticker').':',
+					'after' => __('pixels', 'ditty-news-ticker'),
+				)
+			)
+		),
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Tick spacing', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Set the spacing between scrolling data', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label><input type="number" name="_mtphr_dnt_scroll_tick_spacing" value="'.$values['spacing'].'" /> '.__('Pixels', 'ditty-news-ticker').'</label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Scroll speed (& pause) - 2.0.0 */
+		'speed' => array(
+			'heading' => __('Scroll speed', 'ditty-news-ticker'),
+			'description' => __('Set the speed of the scrolling data', 'ditty-news-ticker'),
+			'help' => __('Set the speed of the ticker. You may need to try different speeds to get optimum results when using different fonts. Enable the checkbox to pause the ticker when a user\'s have their mouse over the ticker.', 'ditty-news-ticker'),
+			'type' => 'number',
+			'name' => '_mtphr_dnt_scroll_speed',
+			'value' => $values['speed'],
+			'append' => array(
+				
+				/* !Scroll pause - 2.0.0 */
+				'pause' => array(
+					'type' => 'checkbox',
+					'name' => '_mtphr_dnt_scroll_pause',
+					'value' => $values['pause'],
+					'label' => __('Pause on mouse over', 'ditty-news-ticker'),
+				)
+			)
+		),
 		
-	echo '</table>';
+		/* !Tick spacing - 2.0.0 */
+		'spacing' => array(
+			'heading' => __('Tick spacing', 'ditty-news-ticker'),
+			'description' => __('Set the spacing between scrolling data', 'ditty-news-ticker'),
+			'help' => __('Set the amount of space that should be rendered between the ticks within your ticker.', 'ditty-news-ticker'),
+			'type' => 'number',
+			'name' => '_mtphr_dnt_scroll_tick_spacing',
+			'value' => $values['spacing'],
+			'after' => __('pixels', 'ditty-news-ticker')
+		)
+	);
+	
+	$fields = apply_filters( 'mtphr_dnt_scroll_settings_fields', $fields, $values );
+	
+	mtphr_dnt_metabox( 'mtphr-dnt-scroll-metabox', $fields );
 }
 }
+add_action( 'mtphr_dnt_mode_metaboxes', 'mtphr_dnt_scroll_settings_render_metabox' );
+
 
 
 /* --------------------------------------------------------- */
-/* !Render the rotate settings metabox - 1.5.3 */
+/* !Render the rotate settings metabox - 2.0.0 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_rotate_settings_render_metabox') ) {
 function mtphr_dnt_rotate_settings_render_metabox() {
 
 	global $post;
+	
+	
+	/* --------------------------------------------------------- */
+	/* !Organize the values - 2.0.0 */
+	/* --------------------------------------------------------- */
 	
 	$type = get_post_meta( $post->ID, '_mtphr_dnt_rotate_type', true );
 	
@@ -487,14 +552,16 @@ function mtphr_dnt_rotate_settings_render_metabox() {
 		'auto' => ($type == '' ) ? '1' : '',
 		'delay' => 7,
 		'pause' => '',
-		'speed' => 3,
-		'ease' => 'linear',
+		'speed' => 10,
+		'ease' => 'easeInOutQuint',
 		'directional_nav' => ($type == '' ) ? '1' : '',
 		'directional_nav_hide' => '',
 		'control_nav' => ($type == '' ) ? '1' : '',
-		'control_nav_type' => 'number',
+		'control_nav_type' => 'button',
 		'disable_touchswipe' => ''
 	);
+	
+	$defaults = apply_filters( 'mtphr_dnt_rotate_settings_defaults', $defaults, $type );
 	
 	$values = array(
 		'type' => $type,
@@ -520,115 +587,198 @@ function mtphr_dnt_rotate_settings_render_metabox() {
 	}
 	
 	$values = wp_parse_args( $values, $defaults );
-
-	echo '<input type="hidden" name="mtphr_dnt_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
-
-	echo '<table class="mtphr-dnt-table">';
 	
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Rotation type', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Set the type of rotation for the ticker', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label><input type="radio" name="_mtphr_dnt_rotate_type" value="fade" '.checked('fade', $values['type'], false).' /> '.__('Fade', 'ditty-news-ticker').'</label>';
-				echo '<label><input type="radio" name="_mtphr_dnt_rotate_type" value="slide_left" '.checked('slide_left', $values['type'], false).' /> '.__('Slide left', 'ditty-news-ticker').'</label>';
-				echo '<label><input type="radio" name="_mtphr_dnt_rotate_type" value="slide_right" '.checked('slide_right', $values['type'], false).' /> '.__('Slide right', 'ditty-news-ticker').'</label>';
-				echo '<label><input type="radio" name="_mtphr_dnt_rotate_type" value="slide_up" '.checked('slide_up', $values['type'], false).' /> '.__('Slide up', 'ditty-news-ticker').'</label>';
-				echo '<label style="margin-right:20px;"><input type="radio" name="_mtphr_dnt_rotate_type" value="slide_down" '.checked('slide_down', $values['type'], false).' /> '.__('Slide down', 'ditty-news-ticker').'</label>';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_rotate_directional_nav_reverse" value="1" '.checked('1', $values['reverse'], false).' /> '.__('Dynamic slide direction', 'ditty-news-ticker').'</label>';
-			echo '</td>';
-		echo '</tr>';
+	
+	/* --------------------------------------------------------- */
+	/* !Create the metabox & fields - 2.0.0 */
+	/* --------------------------------------------------------- */
+	
+	$fields = array(
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Tick dimensions', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Override the auto dimensions with specific values', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label>'.__('Height', 'ditty-news-ticker').' <input type="number" name="_mtphr_dnt_rotate_height" value="'.$values['height'].'" /></label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Rotate type - 2.0.0 */
+		'direction' => array(
+			'heading' => __('Rotation type', 'ditty-news-ticker'),
+			'description' => __('Set the type of rotation for the ticker', 'ditty-news-ticker'),
+			'help' => __('Select the rotation type. Enable \'Dynamic Slide Direction\' to reverse the slide direction when previous items are selected.', 'ditty-news-ticker'),
+			'type' => 'radio_buttons',
+			'name' => '_mtphr_dnt_rotate_type',
+			'value' => $values['type'],
+			'options' => array(
+				'fade' => __('Fade', 'ditty-news-ticker'),
+				'slide_left' => __('Slide left', 'ditty-news-ticker'),
+				'slide_right' => __('Slide right', 'ditty-news-ticker'),
+				'slide_up' => __('Slide up', 'ditty-news-ticker'),
+				'slide_down' => __('Slide up', 'ditty-news-ticker')
+			),
+			'append' => array(
+				
+				/* !Dynamic slide direction - 2.0.0 */
+				'init' => array(
+					'type' => 'checkbox',
+					'name' => '_mtphr_dnt_rotate_directional_nav_reverse',
+					'label' => __('Dynamic slide direction', 'ditty-news-ticker'),
+					'value' => $values['reverse'],
+				)
+			)
+		),
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Rotator padding', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Set the vertical spacing of the rotating data', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label>'.__('Vertical padding', 'ditty-news-ticker').' <input type="number" name="_mtphr_dnt_rotate_padding" value="'.$values['padding'].'" /></label>';
-				echo '<label>'.__('Vertical margin', 'ditty-news-ticker').' <input type="number" name="_mtphr_dnt_rotate_margin" value="'.$values['margin'].'" /></label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Tick height - 2.0.0 */
+		'dimensions' => array(
+			'heading' => __('Tick dimensions', 'ditty-news-ticker'),
+			'description' => __('Override the auto dimensions with specific values', 'ditty-news-ticker'),
+			'help' => __('Set a specific height for the ticks.', 'ditty-news-ticker'),
+			'type' => 'number',
+			'name' => '_mtphr_dnt_rotate_height',
+			'value' => $values['height'],
+			'before' => __('Height', 'ditty-news-ticker').':',
+			'after' => __('pixels', 'ditty-news-ticker')
+		),
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Auto rotate', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Set the delay between rotations', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label style="margin-right:20px;"><input type="checkbox" name="_mtphr_dnt_auto_rotate" value="1" '.checked('1', $values['auto'], false).' /> '.__('Enable', 'ditty-news-ticker').'</label>';
-				echo '<label style="margin-right:20px;"><input type="number" name="_mtphr_dnt_rotate_delay" value="'.$values['delay'].'" /> '.__('Seconds delay', 'ditty-news-ticker').'</label>';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_rotate_pause" value="1" '.checked('1', $values['pause'], false).' /> '.__('Pause on mouse over', 'ditty-news-ticker').'</label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Tick padding (& margin) - 2.0.0 */
+		'padding' => array(
+			'heading' => __('Rotator padding', 'ditty-news-ticker'),
+			'description' => __('Set the vertical spacing of the rotating data', 'ditty-news-ticker'),
+			'help' => __('Add custom vertical padding and margins to each of your ticks.', 'ditty-news-ticker'),
+			'type' => 'number',
+			'name' => '_mtphr_dnt_rotate_padding',
+			'value' => $values['padding'],
+			'before' => __('Vertical padding', 'ditty-news-ticker').':',
+			'after' => __('pixels', 'ditty-news-ticker'),
+			'append' => array(
+				
+				/* !Ticker margin - 2.0.0 */
+				'margin' => array(
+					'type' => 'number',
+					'name' => '_mtphr_dnt_rotate_margin',
+					'value' => $values['margin'],
+					'before' => __('Vertical margin', 'ditty-news-ticker').':',
+					'after' => __('pixels', 'ditty-news-ticker'),
+				)
+			)
+		),
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Rotate speed', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Set the speed & easing of the rotation', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label><input type="number" name="_mtphr_dnt_rotate_speed" value="'.$values['speed'].'" /> '.__('Tenths of a second', 'ditty-news-ticker').'</label>';
-				echo '<label><select name="_mtphr_dnt_rotate_ease">';
-					$eases = array('linear','swing','jswing','easeInQuad','easeInCubic','easeInQuart','easeInQuint','easeInSine','easeInExpo','easeInCirc','easeInElastic','easeInBack','easeInBounce','easeOutQuad','easeOutCubic','easeOutQuart','easeOutQuint','easeOutSine','easeOutExpo','easeOutCirc','easeOutElastic','easeOutBack','easeOutBounce','easeInOutQuad','easeInOutCubic','easeInOutQuart','easeInOutQuint','easeInOutSine','easeInOutExpo','easeInOutCirc','easeInOutElastic','easeInOutBack','easeInOutBounce');
-					foreach( $eases as $ease ) {
-						echo '<option value="'.$ease.'" '.selected($ease, $values['ease'], false).'>'.$ease.'</option>';	
-					}
-				echo '</select></label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Auto rotate (& pause) - 2.0.0 */
+		'auto_rotate' => array(
+			'heading' => __('Auto rotate', 'ditty-news-ticker'),
+			'description' => __('Set the delay between rotations', 'ditty-news-ticker'),
+			'help' => __('Enable auto rotation of your ticks with and set the amount of time each tick should display. Optionally, force the rotator to pause when the user hovers over the ticker.', 'ditty-news-ticker'),
+			'type' => 'checkbox',
+			'name' => '_mtphr_dnt_auto_rotate',
+			'value' => $values['auto'],
+			'label' => __('Enable', 'ditty-news-ticker'),
+			'append' => array(
+				
+				/* !Delay - 2.0.0 */
+				'delay' => array(
+					'type' => 'number',
+					'name' => '_mtphr_dnt_rotate_delay',
+					'value' => $values['delay'],
+					'after' => __('Seconds delay', 'ditty-news-ticker')
+				),
+				
+				/* !Pause - 2.0.0 */
+				'pause' => array(
+					'type' => 'checkbox',
+					'name' => '_mtphr_dnt_rotate_pause',
+					'value' => $values['pause'],
+					'label' => __('Pause on mouse over', 'ditty-news-ticker')
+				)
+			)
+		),
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Directional navigation', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Set the directional navigation options', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label style="margin-right:20px;"><input type="checkbox" name="_mtphr_dnt_rotate_directional_nav" value="1" '.checked('1', $values['directional_nav'], false).' /> '.__('Enable', 'ditty-news-ticker').'</label>';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_rotate_directional_nav_hide" value="1" '.checked('1', $values['directional_nav_hide'], false).' /> '.__('Autohide navigation', 'ditty-news-ticker').'</label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Rotate speed (& ease) - 2.0.0 */
+		'speed' => array(
+			'heading' => __('Rotate speed', 'ditty-news-ticker'),
+			'description' => __('Set the speed & easing of the rotation', 'ditty-news-ticker'),
+			'help' => __('Set the speed of the rotation based on tenths of a second. Also, choose the type of easing you want to use when the ticks rotate.', 'ditty-news-ticker'),
+			'type' => 'number',
+			'name' => '_mtphr_dnt_rotate_speed',
+			'value' => $values['speed'],
+			'after' => __('Tenths of a second', 'ditty-news-ticker'),
+			'append' => array(
+				
+				/* !Ease - 2.0.0 */
+				'ease' => array(
+					'type' => 'select',
+					'name' => '_mtphr_dnt_rotate_ease',
+					'value' => $values['ease'],
+					'option_keys' => false,
+					'options' => array(
+						'linear','swing','jswing','easeInQuad','easeInCubic','easeInQuart','easeInQuint','easeInSine','easeInExpo','easeInCirc','easeInElastic','easeInBack','easeInBounce','easeOutQuad','easeOutCubic','easeOutQuart','easeOutQuint','easeOutSine','easeOutExpo','easeOutCirc','easeOutElastic','easeOutBack','easeOutBounce','easeInOutQuad','easeInOutCubic','easeInOutQuart','easeInOutQuint','easeInOutSine','easeInOutExpo','easeInOutCirc','easeInOutElastic','easeInOutBack','easeInOutBounce'
+					)
+				)
+			)
+		),
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Control navigation', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Set the control navigation options', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label style="margin-right:20px;"><input type="checkbox" name="_mtphr_dnt_rotate_control_nav" value="1" '.checked('1', $values['control_nav'], false).' /> '.__('Enable', 'ditty-news-ticker').'</label>';
-				echo '<label><input type="radio" name="_mtphr_dnt_rotate_control_nav_type" value="number" '.checked('number', $values['control_nav_type'], false).' /> '.__('Numbers', 'ditty-news-ticker').'</label>';
-				echo '<label><input type="radio" name="_mtphr_dnt_rotate_control_nav_type" value="button" '.checked('button', $values['control_nav_type'], false).' /> '.__('Buttons', 'ditty-news-ticker').'</label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Directional navigation - 2.0.0 */
+		'directional_nav' => array(
+			'heading' => __('Directional navigation', 'ditty-news-ticker'),
+			'description' => __('Set the directional navigation options', 'ditty-news-ticker'),
+			'help' => __('Enable the directional navigation. Optionally, set the navigation to auto-hide when the user is not hovering over the ticker.', 'ditty-news-ticker'),
+			'type' => 'checkbox',
+			'name' => '_mtphr_dnt_rotate_directional_nav',
+			'value' => $values['directional_nav'],
+			'label' => __('Enable', 'ditty-news-ticker'),
+			'append' => array(
+				
+				/* !Hide - 2.0.0 */
+				'hide' => array(
+					'type' => 'checkbox',
+					'name' => '_mtphr_dnt_rotate_directional_nav_hide',
+					'value' => $values['directional_nav_hide'],
+					'label' => __('Autohide navigation', 'ditty-news-ticker')
+				)
+			)
+		),
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Disable Touchswipe', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Disable touchswipe navigation on touch devices', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_rotate_disable_touchswipe" value="1" '.checked('1', $values['disable_touchswipe'], false).' /> '.__('Disable', 'ditty-news-ticker').'</label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Control navigation - 2.0.0 */
+		'control_nav' => array(
+			'heading' => __('Control navigation', 'ditty-news-ticker'),
+			'description' => __('Set the control navigation options', 'ditty-news-ticker'),
+			'help' => __('Enable the control navigation and choose the type of display.', 'ditty-news-ticker'),
+			'type' => 'checkbox',
+			'name' => '_mtphr_dnt_rotate_control_nav',
+			'value' => $values['control_nav'],
+			'label' => __('Enable', 'ditty-news-ticker'),
+			'append' => array(
+				
+				/* !Type - 2.0.0 */
+				'nav_type' => array(
+					'type' => 'radio_buttons',
+					'name' => '_mtphr_dnt_rotate_control_nav_type',
+					'value' => $values['control_nav_type'],
+					'options' => array(
+						'button' => __('Buttons', 'ditty-news-ticker'),
+						'number' => __('Numbers', 'ditty-news-ticker')	
+					)
+				)
+			)
+		),
 		
-	echo '</table>';
+		/* !Disable touchswipe - 2.0.0 */
+		'touchswipe' => array(
+			'heading' => __('Disable Touchswipe', 'ditty-news-ticker'),
+			'description' => __('Disable touchswipe navigation on touch devices', 'ditty-news-ticker'),
+			'help' => __('Disable touchswipe navigation on touch devices', 'ditty-news-ticker'),
+			'type' => 'checkbox',
+			'name' => '_mtphr_dnt_rotate_disable_touchswipe',
+			'value' => $values['disable_touchswipe'],
+			'label' => __('Disable', 'ditty-news-ticker')
+		),
+		
+	);
+	
+	$fields = apply_filters( 'mtphr_dnt_rotate_settings_fields', $fields, $values );
+	
+	mtphr_dnt_metabox( 'mtphr-dnt-rotate-metabox', $fields );
 }
 }
+add_action( 'mtphr_dnt_mode_metaboxes', 'mtphr_dnt_rotate_settings_render_metabox' );
+
 
 
 /* --------------------------------------------------------- */
-/* !Render the list settings metabox - 1.4.0 */
+/* !Render the list settings metabox - 2.0.0 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_list_settings_render_metabox') ) {
@@ -636,16 +786,23 @@ function mtphr_dnt_list_settings_render_metabox() {
 
 	global $post;
 	
+	
+	/* --------------------------------------------------------- */
+	/* !Organize the values - 2.0.0 */
+	/* --------------------------------------------------------- */
+	
 	$defaults = array(
 		'padding' => 0,
 		'margin' => 0,
 		'spacing' => 10,
 		'paging' => '',
-		'count' => 0,
+		'count' => 10,
 		'prev_next' => '',
 		'prev_text' => __('« Previous', 'ditty-news-ticker'),
 		'next_text' => __('Next »', 'ditty-news-ticker'),
 	);
+	
+	$defaults = apply_filters( 'mtphr_dnt_list_settings_defaults', $defaults );
 	
 	$values = array(
 		'padding' => get_post_meta( $post->ID, '_mtphr_dnt_list_padding', true ),
@@ -664,61 +821,117 @@ function mtphr_dnt_list_settings_render_metabox() {
 	}
 	
 	$values = wp_parse_args( $values, $defaults );
-
-	echo '<input type="hidden" name="mtphr_dnt_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
-
-	echo '<table class="mtphr-dnt-table">';
+	
+	
+	/* --------------------------------------------------------- */
+	/* !Create the metabox & fields - 2.0.0 */
+	/* --------------------------------------------------------- */
+	
+	$fields = array(
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('List padding', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Set the vertical spacing of the list container', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label>'.__('Vertical padding', 'ditty-news-ticker').' <input type="number" name="_mtphr_dnt_list_padding" value="'.$values['padding'].'" /></label>';
-				echo '<label>'.__('Vertical margin', 'ditty-news-ticker').' <input type="number" name="_mtphr_dnt_list_margin" value="'.$values['margin'].'" /></label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Tick padding (& margin) - 2.0.0 */
+		'padding' => array(
+			'heading' => __('List padding', 'ditty-news-ticker'),
+			'description' => __('Set the vertical spacing of the list container', 'ditty-news-ticker'),
+			'help' => __('Add custom vertical padding and margins to each of your ticks.', 'ditty-news-ticker'),
+			'type' => 'number',
+			'name' => '_mtphr_dnt_list_padding',
+			'value' => $values['padding'],
+			'before' => __('Vertical padding', 'ditty-news-ticker').':',
+			'after' => __('pixels', 'ditty-news-ticker'),
+			'append' => array(
+				
+				/* !Ticker margin - 2.0.0 */
+				'margin' => array(
+					'type' => 'number',
+					'name' => '_mtphr_dnt_list_margin',
+					'value' => $values['margin'],
+					'before' => __('Vertical margin', 'ditty-news-ticker').':',
+					'after' => __('pixels', 'ditty-news-ticker'),
+				)
+			)
+		),
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('Tick spacing', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Set the spacing between ticks', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label><input type="number" name="_mtphr_dnt_list_tick_spacing" value="'.$values['spacing'].'" /> '.__('Pixels', 'ditty-news-ticker').'</label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Tick spacing - 2.0.0 */
+		'spacing' => array(
+			'heading' => __('Tick spacing', 'ditty-news-ticker'),
+			'description' => __('Set the spacing between ticks', 'ditty-news-ticker'),
+			'help' => __('Set the amount of space that should be added between the ticks.', 'ditty-news-ticker'),
+			'type' => 'number',
+			'name' => '_mtphr_dnt_list_tick_spacing',
+			'value' => $values['spacing'],
+			'after' => __('pixels', 'ditty-news-ticker')
+		),
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-label">';
-				echo '<label>'.__('List paging', 'ditty-news-ticker').'</label>';
-				echo '<small>'.__('Break the list up into pages', 'ditty-news-ticker').'</small>';
-			echo '</td>';
-			echo '<td>';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_list_tick_paging" value="1" '.checked('1', $values['paging'], false).' /> '.__('Enable', 'ditty-news-ticker').'</label>';
-				echo '<label><input type="number" name="_mtphr_dnt_list_tick_count" value="'.$values['count'].'" /> '.__('Ticks per page', 'ditty-news-ticker').'</label>';
-				echo '<br/>';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_list_tick_prev_next" value="1" '.checked('1', $values['prev_next'], false).' /> '.__('Enable previous & next links', 'ditty-news-ticker').'</label>';
-				echo '<br/>';
-				echo '<label style="margin-right:10px;"><input type="text" name="_mtphr_dnt_list_tick_prev_text" value="'.$values['prev_text'].'" size="20" placeholder="'.__('Previous text', 'ditty-news-ticker').'" /></label>';
-				echo '<label><input type="text" name="_mtphr_dnt_list_tick_next_text" value="'.$values['next_text'].'" size="20" placeholder="'.__('Next text', 'ditty-news-ticker').'" /></label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Paging - 2.0.0 */
+		'paging' => array(
+			'heading' => __('List paging', 'ditty-news-ticker'),
+			'description' => __('Break the list up into pages', 'ditty-news-ticker'),
+			'help' => __('Break your list up into pages with navigation. Set the number of ticks to show per page and customize the previous and next links.', 'ditty-news-ticker'),
+			'type' => 'checkbox',
+			'name' => '_mtphr_dnt_list_tick_paging',
+			'value' => $values['paging'],
+			'label' => __('Enable', 'ditty-news-ticker'),
+			'append' => array(
+				
+				/* !Scroll pause - 2.0.0 */
+				'count' => array(
+					'type' => 'number',
+					'name' => '_mtphr_dnt_list_tick_count',
+					'value' => $values['count'],
+					'after' => __('Ticks per page', 'ditty-news-ticker')
+				),
+				
+				/* !Previous & next buttons - 2.0.0 */
+				'prev_next' => array(
+					'type' => 'checkbox',
+					'name' => '_mtphr_dnt_list_tick_prev_next',
+					'value' => $values['prev_next'],
+					'label' => __('Enable previous & next links', 'ditty-news-ticker')
+				),
+				
+				/* !Previous text - 2.0.0 */
+				'prev_text' => array(
+					'type' => 'text',
+					'name' => '_mtphr_dnt_list_tick_prev_text',
+					'value' => $values['prev_text'],
+					'placeholder' => __('Previous text', 'ditty-news-ticker')
+				),
+				
+				/* !Next text - 2.0.0 */
+				'next_next' => array(
+					'type' => 'text',
+					'name' => '_mtphr_dnt_list_tick_next_text',
+					'value' => $values['next_text'],
+					'placeholder' => __('Next text', 'ditty-news-ticker')
+				)
+			)
+		)
 		
-	echo '</table>';
+	);
+	
+	$fields = apply_filters( 'mtphr_dnt_list_settings_fields', $fields, $values );
+	
+	mtphr_dnt_metabox( 'mtphr-dnt-list-metabox', $fields );
 }
 }
+add_action( 'mtphr_dnt_mode_metaboxes', 'mtphr_dnt_list_settings_render_metabox' );
+
 
 
 /* --------------------------------------------------------- */
-/* !Render the global settings metabox - 1.5.0 */
+/* !Render the global settings metabox - 2.0.0 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_global_settings_render_metabox') ) {
 function mtphr_dnt_global_settings_render_metabox() {
 
 	global $post;
+	
+	
+	/* --------------------------------------------------------- */
+	/* !Organize the values - 2.0.0 */
+	/* --------------------------------------------------------- */
 	
 	$defaults = array(
 		'ajax' => '',
@@ -735,6 +948,8 @@ function mtphr_dnt_global_settings_render_metabox() {
 		'grid_padding' => 5,
 		'grid_remove_padding' => '',
 	);
+	
+	$defaults = apply_filters( 'mtphr_dnt_global_settings_defaults', $defaults );
 	
 	$values = array(
 		'ajax' => get_post_meta( $post->ID, '_mtphr_dnt_ajax', true ),
@@ -758,73 +973,145 @@ function mtphr_dnt_global_settings_render_metabox() {
 	}
 	
 	$values = wp_parse_args( $values, $defaults );
-
-	echo '<input type="hidden" name="mtphr_dnt_nonce" value="'.wp_create_nonce(basename(__FILE__)).'" />';
-
-	echo '<table class="mtphr-dnt-table">';
 	
-/*
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-no-label">';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_ajax" value="1" '.checked('1', $values['ajax'], false).' /> '.__('Load ticker via Ajax', 'ditty-news-ticker').'</label>';
-			echo '</td>';
-		echo '</tr>';
-*/
+	
+	/* --------------------------------------------------------- */
+	/* !Create the metabox & fields - 2.0.0 */
+	/* --------------------------------------------------------- */
+	
+	$fields = array(
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-no-label">';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_title" value="1" '.checked('1', $values['title'], false).' /> '.__('Display title', 'ditty-news-ticker').'</label>';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_inline_title" value="1" '.checked('1', $values['inline_title'], false).' /> '.__('Inline title', 'ditty-news-ticker').'</label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Title display (& inline display) - 2.0.0 */
+		'title' => array(
+			'heading' => __('Ticker title', 'ditty-news-ticker'),
+			'description' => __('Set the display of the title', 'ditty-news-ticker'),
+			'help' => __('Enable the display and set the position of the ticker title.', 'ditty-news-ticker'),
+			'type' => 'checkbox',
+			'name' => '_mtphr_dnt_title',
+			'value' => $values['title'],
+			'label' => __('Display title', 'ditty-news-ticker'),
+			'append' => array(
+				
+				/* !Ticker margin - 2.0.0 */
+				'inline' => array(
+					'type' => 'checkbox',
+					'name' => '_mtphr_dnt_inline_title',
+					'value' => $values['inline_title'],
+					'label' => __('Inline title', 'ditty-news-ticker')				
+				)
+			)
+		),
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-no-label">';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_shuffle" value="1" '.checked('1', $values['shuffle'], false).' /> '.__('Randomly shuffle the ticks', 'ditty-news-ticker').'</label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Shuffle - 2.0.0 */
+		'shuffle' => array(
+			'heading' => __('Shuffle ticks', 'ditty-news-ticker'),
+			'description' => __('Randomly shuffle the ticks', 'ditty-news-ticker'),
+			'type' => 'checkbox',
+			'name' => '_mtphr_dnt_shuffle',
+			'value' => $values['shuffle'],
+			'label' => __('Randomly shuffle the ticks', 'ditty-news-ticker')
+		),
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-no-label">';
-				echo '<label>'.__('Ticker width <em>(optional)</em>', 'ditty-news-ticker').' <input type="number" name="_mtphr_dnt_ticker_width" value="'.$values['width'].'" /></label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Ticker width - 2.0.0 */
+		'width' => array(
+			'heading' => __('Ticker width', 'ditty-news-ticker'),
+			'description' => __('Set a static width for the ticker', 'ditty-news-ticker'),
+			'help' => __('Leave blank or set to \'0\' if you want the ticker width to be responsive.', 'ditty-news-ticker'),
+			'type' => 'number',
+			'name' => '_mtphr_dnt_ticker_width',
+			'value' => $values['width'],
+			'after' => __('pixels', 'ditty-news-ticker')
+		),
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-no-label">';
-				echo '<label>'.__('Offset ticks', 'ditty-news-ticker').' <input type="number" name="_mtphr_dnt_offset" value="'.$values['offset'].'" /> '.__('px from the edge', 'ditty-news-ticker').'</label>';
-				echo '<br/><small><em>'.__('The amount of pixels ticks should start and end off the screen.', 'ditty-news-ticker').'</em></small>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Ticker offset - 2.0.0 */
+		'offset' => array(
+			'heading' => __('Offset ticks', 'ditty-news-ticker'),
+			'description' => __('Set the amount of pixels ticks should start and end off the screen', 'ditty-news-ticker'),
+			'type' => 'number',
+			'name' => '_mtphr_dnt_offset',
+			'value' => $values['offset'],
+			'after' => __('pixels', 'ditty-news-ticker')
+		),
 		
-		echo '<tr>';
-			echo '<td class="mtphr-dnt-no-label">';
-				echo '<p class="mtphr-dnt-side-label">'.__('Grid Display', 'ditty-news-ticker').'</p>';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_grid" value="1" '.checked('1', $values['grid'], false).' /> '.__('Display ticks in a grid', 'ditty-news-ticker').'</label>';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_grid_empty_rows" value="1" '.checked('1', $values['grid_empty_rows'], false).' /> '.__('Render empty rows', 'ditty-news-ticker').'</label>';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_grid_equal_width" value="1" '.checked('1', $values['grid_equal_width'], false).' /> '.__('Force equal column width', 'ditty-news-ticker').'</label>';
-				echo '<br/>';
-				echo '<label>'.__('Columns', 'ditty-news-ticker').' <input type="number" style="width:50px;" name="_mtphr_dnt_grid_cols" value="'.$values['grid_cols'].'" /></label>';
-				echo '<label>'.__('Rows', 'ditty-news-ticker').' <input type="number" style="width:50px;" name="_mtphr_dnt_grid_rows" value="'.$values['grid_rows'].'" /></label>';
-				echo '<br/>';
-				echo '<label>'.__('Cell padding', 'ditty-news-ticker').' <input type="number" name="_mtphr_dnt_grid_padding" value="'.$values['grid_padding'].'" /></label>';
-				echo '<label><input type="checkbox" name="_mtphr_dnt_grid_remove_padding" value="1" '.checked('1', $values['grid_remove_padding'], false).' /> '.__('Remove padding on table edges', 'ditty-news-ticker').'</label>';
-			echo '</td>';
-		echo '</tr>';
+		/* !Grid display - 2.0.0 */
+		'grid' => array(
+			'heading' => __('Grid Display', 'ditty-news-ticker'),
+			'description' => __('Enable a grid display of your tickers and adjust the grid settings', 'ditty-news-ticker'),
+			'help' => __('You should only use this option if you need to display multiple ticks at the same time. You should not use this functionality if you are using a normal scrolling ticker.', 'ditty-news-ticker'),
+			'type' => 'checkbox',
+			'name' => '_mtphr_dnt_grid',
+			'value' => $values['grid'],
+			'label' => __('Display ticks in a grid', 'ditty-news-ticker'),
+			'append' => array(
+				
+				/* !Empty rows - 2.0.0 */
+				'empty_rows' => array(
+					'type' => 'checkbox',
+					'name' => '_mtphr_dnt_grid_empty_rows',
+					'value' => $values['grid_empty_rows'],
+					'label' => __('Render empty rows', 'ditty-news-ticker')				
+				),
+				
+				/* !Empty rows - 2.0.0 */
+				'equal_width' => array(
+					'type' => 'checkbox',
+					'name' => '_mtphr_dnt_grid_equal_width',
+					'value' => $values['grid_equal_width'],
+					'label' => __('Force equal column width', 'ditty-news-ticker')				
+				),
+				
+				/* !Columns - 2.0.0 */
+				'cols' => array(
+					'type' => 'number',
+					'name' => '_mtphr_dnt_grid_cols',
+					'value' => $values['grid_cols'],
+					'before' => __('Columns', 'ditty-news-ticker')				
+				),
+				
+				/* !Rows - 2.0.0 */
+				'rows' => array(
+					'type' => 'number',
+					'name' => '_mtphr_dnt_grid_rows',
+					'value' => $values['grid_rows'],
+					'before' => __('Rows', 'ditty-news-ticker')				
+				),
+				
+				/* !Cell padding - 2.0.0 */
+				'padding' => array(
+					'type' => 'number',
+					'name' => '_mtphr_dnt_grid_padding',
+					'value' => $values['grid_padding'],
+					'before' => __('Cell padding', 'ditty-news-ticker')				
+				),
+				
+				/* !Remove padding - 2.0.0 */
+				'remove_padding' => array(
+					'type' => 'checkbox',
+					'name' => '_mtphr_dnt_grid_remove_padding',
+					'value' => $values['grid_remove_padding'],
+					'label' => __('Remove padding on table edges', 'ditty-news-ticker')				
+				)
+			)
+		),
 		
-	echo '</table>';
+	);
+	
+	$fields = apply_filters( 'mtphr_dnt_global_settings_fields', $fields, $values );
+	
+	mtphr_dnt_metabox( 'mtphr-dnt-global-metabox', $fields );
 }
 }
-
+add_action( 'mtphr_dnt_global_metaboxes', 'mtphr_dnt_global_settings_render_metabox' );
 
 
 
 
 
 /* --------------------------------------------------------- */
-/* !Save the custom meta - 1.5.4 */
+/* !Save the custom meta - 2.0.0 */
 /* --------------------------------------------------------- */
 
+if( !function_exists('mtphr_dnt_metabox_save') ) {
 function mtphr_dnt_metabox_save( $post_id ) {
 
 	global $post;
@@ -849,12 +1136,18 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		return $post_id;
 	}
 	
+	// Check javascript errors
+	$admin_javascript = isset($_POST['_mtphr_dnt_admin_javascript']) ? $_POST['_mtphr_dnt_admin_javascript'] : 'error';
+	//update_post_meta( $post_id, '_mtphr_dnt_admin_javascript', $admin_javascript );
+	
 	// Update the type & mode
 	if( isset($_POST['_mtphr_dnt_type']) ) {
 	
+		$tab = isset($_POST['_mtphr_dnt_admin_tab']) ? sanitize_text_field($_POST['_mtphr_dnt_admin_tab']) : '';
 		$type = isset($_POST['_mtphr_dnt_type']) ? sanitize_text_field($_POST['_mtphr_dnt_type']) : 'default';
 		$mode = isset($_POST['_mtphr_dnt_mode']) ? sanitize_text_field($_POST['_mtphr_dnt_mode']) : 'scroll';
 		
+		update_post_meta( $post_id, '_mtphr_dnt_admin_tab', $tab );
 		update_post_meta( $post_id, '_mtphr_dnt_type', $type );
 		update_post_meta( $post_id, '_mtphr_dnt_mode', $mode );
 	}
@@ -873,14 +1166,17 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		if( count($_POST['_mtphr_dnt_ticks']) > 0 ) {
 			foreach( $_POST['_mtphr_dnt_ticks'] as $tick ) {
 				$sanitized_ticks[] = array(
-					'tick' => wp_kses($tick['tick'], $allowed_tags),
-					'link' => esc_url($tick['link']),
-					'target' => $tick['target'],
+					'tick' => isset($tick['tick']) ? wp_kses($tick['tick'], $allowed_tags) : '',
+					'link' => isset($tick['link']) ? esc_url($tick['link']) : '',
+					'target' => isset($tick['target']) ? $tick['target'] : '',
 					'nofollow' => isset( $tick['nofollow'] ) ? $tick['nofollow'] : ''
 				);
 			}
 		}
-		update_post_meta( $post_id, '_mtphr_dnt_ticks', $sanitized_ticks );
+		
+		if( $admin_javascript == 'ok' ) {
+			update_post_meta( $post_id, '_mtphr_dnt_ticks', $sanitized_ticks );
+		}
 	}
 	
 	// Save the mixed ticks
@@ -895,7 +1191,9 @@ function mtphr_dnt_metabox_save( $post_id ) {
 				);
 			}
 		}
-		update_post_meta( $post_id, '_mtphr_dnt_mixed_ticks', $sanitized_ticks );
+		if( $admin_javascript == 'ok' ) {
+			update_post_meta( $post_id, '_mtphr_dnt_mixed_ticks', $sanitized_ticks );
+		}
 	}
 	
 	// Save the scroll settings
@@ -1012,13 +1310,6 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		update_post_meta( $post_id, '_mtphr_dnt_grid_remove_padding', $grid_remove_padding );
 	}
 }
+}
 add_action( 'save_post', 'mtphr_dnt_metabox_save' );
-
-
-
-
-
-
-
-
 

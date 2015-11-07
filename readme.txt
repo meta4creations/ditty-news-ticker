@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 3.2
-Tested up to: 4.3
+Tested up to: 4.3.1
 Stable tag: /trunk/
 License: GPL2
 
@@ -53,6 +53,13 @@ Each individual Ticker post has multiple settings to customize.
 4. List Mode options
 
 == Changelog ==
+
+= 2.0.0 =
+* Updated admin page layout
+* Updated metaboxes for new admin page layout
+* Newly added WYSIWYG editors now work without having to save your post
+* Added javascript error check before saving dynamic fields
+* Additional data passed through mtphr_dnt_ticker_class filter
 
 = 1.5.8 =
 * Updated widget class name
@@ -294,4 +301,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Updated widget class name.
+Major dashboard updates.

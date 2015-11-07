@@ -139,8 +139,6 @@ function mtphr_dnt_add_to_global( $id, $meta_data ) {
 
 		global $mtphr_dnt_ticker_scripts;
 
-		
-
 		// Add a unique id class, if there is one
 		if( isset($_mtphr_dnt_unique_id) ) {
 			if( $_mtphr_dnt_unique_id != '' ) {
