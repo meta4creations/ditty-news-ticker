@@ -3,9 +3,12 @@
 Plugin Name: Ditty News Ticker
 Plugin URI: http://dittynewsticker.com/
 Description: Ditty News Ticker is a multi-functional data display plugin
-Version: 1.5.8
+Text Domain: ditty-news-ticker
+Domain Path: languages
+Version: 2.0.0
 Author: Metaphor Creations
 Author URI: http://www.metaphorcreations.com
+Contributors: metaphorcreations
 License: GPL2
 */
 
@@ -29,10 +32,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 /* --------------------------------------------------------- */
-/* !Define constants - 1.5.8 */
+/* !Define constants - 2.0.0 */
 /* --------------------------------------------------------- */
 
-define ( 'MTPHR_DNT_VERSION', '1.5.8' );
+define ( 'MTPHR_DNT_VERSION', '2.0.0' );
 define ( 'MTPHR_DNT_DIR', trailingslashit(plugin_dir_path(__FILE__)) );
 define ( 'MTPHR_DNT_URL', trailingslashit(plugins_url()).'ditty-news-ticker/' );
 
@@ -51,8 +54,11 @@ require_once( MTPHR_DNT_DIR.'includes/widget.php' );
 if( is_admin() ) {
 
 	// Load admin specific code
+	require_once( MTPHR_DNT_DIR.'includes/admin/ajax.php' );
 	require_once( MTPHR_DNT_DIR.'includes/admin/meta-boxes.php' );
 	require_once( MTPHR_DNT_DIR.'includes/admin/edit-columns.php' );
+	require_once( MTPHR_DNT_DIR.'includes/admin/fields/helpers.php' );
+	require_once( MTPHR_DNT_DIR.'includes/admin/fields/fields.php' );
 	require_once( MTPHR_DNT_DIR.'includes/admin/filters.php' );
 	require_once( MTPHR_DNT_DIR.'includes/admin/upgrades.php' );
 	require_once( MTPHR_DNT_DIR.'includes/admin/scripts.php' );

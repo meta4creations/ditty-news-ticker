@@ -1,19 +1,10 @@
 <?php
-/**
- * Create the News Ticker post type
- *
- * @package Ditty News Ticker
- */
+
  
- 
- 
- 
-add_action( 'init','mtphr_dnt_posttype' );
-/**
- * Add post types
- *
- * @since 1.4.4
- */
+/* --------------------------------------------------------- */
+/* !Add the post type - 1.4.4 */
+/* --------------------------------------------------------- */
+
 function mtphr_dnt_posttype() {
 
 	$labels = array(
@@ -41,6 +32,7 @@ function mtphr_dnt_posttype() {
 		'show_in_menu' => true, 
 		'query_var' => true,
 		'rewrite' => true,
+		'menu_icon' => 'dashicons-format-status',
 		'supports' => array( 'title', 'author' ),
 		'rewrite' => array( 'slug' => __( 'ticker', 'ditty-news-ticker' ) ),
 		'show_in_nav_menus' => true
@@ -48,21 +40,21 @@ function mtphr_dnt_posttype() {
 
 	register_post_type( 'ditty_news_ticker', $args );	
 }
+add_action( 'init','mtphr_dnt_posttype' );
 
 
 
 
-add_filter( 'post_updated_messages', 'mtphr_dnt_updated_messages' );
-/**
- * Modify the update text
- *
- * @since 1.0.3
- */
+/* --------------------------------------------------------- */
+/* !Modify the updated text - 1.0.3 */
+/* --------------------------------------------------------- */
+
 function mtphr_dnt_updated_messages( $messages ) {
 
   $messages['ditty_news_ticker'][1] = __('Ditty News Ticker Updated!', 'ditty-news-ticker');
 
   return $messages;
 }
+add_filter( 'post_updated_messages', 'mtphr_dnt_updated_messages' );
 
 

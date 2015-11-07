@@ -55,7 +55,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 /**
  * Render the ticker
  *
- * @since 1.5.0
+ * @since 2.0.0
  */
 function render_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 	
@@ -132,17 +132,14 @@ function render_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 			echo '<div class="mtphr-dnt-wrapper mtphr-dnt-clearfix">';
 
 				// Create and save element styles
-				$margin='';$padding='';$width='';$height='';$spacing='';
+				$margin='';$padding='';
 			
 				if( $_mtphr_dnt_mode == 'scroll' ) {
 					$padding = ( intval($_mtphr_dnt_scroll_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_scroll_padding).'px;padding-bottom:'.intval($_mtphr_dnt_scroll_padding).'px;' : '';
 					$margin = ( intval($_mtphr_dnt_scroll_margin) != 0 ) ? 'margin-top:'.intval($_mtphr_dnt_scroll_margin).'px;margin-bottom:'.intval($_mtphr_dnt_scroll_margin).'px;' : '';
-					$width = ( intval($_mtphr_dnt_scroll_width) != 0 ) ? 'white-space:normal;width:'.intval($_mtphr_dnt_scroll_width).'px;' : '';
-					$height = ( intval($_mtphr_dnt_scroll_height) != 0 ) ? 'height:'.intval($_mtphr_dnt_scroll_height).'px;' : '';
 				} elseif( $_mtphr_dnt_mode == 'rotate' ) {
 					$padding = ( intval($_mtphr_dnt_rotate_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_rotate_padding).'px;padding-bottom:'.intval($_mtphr_dnt_rotate_padding).'px;' : '';
 					$margin = ( intval($_mtphr_dnt_rotate_margin) != 0 ) ? 'margin-top:'.intval($_mtphr_dnt_rotate_margin).'px;margin-bottom:'.intval($_mtphr_dnt_rotate_margin).'px;' : '';
-					$height = ( intval($_mtphr_dnt_rotate_height) != 0 ) ? 'height:'.intval($_mtphr_dnt_rotate_height).'px;' : '';
 				} elseif(  $_mtphr_dnt_mode == 'list' ) {
 					$padding = ( intval($_mtphr_dnt_list_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_list_padding).'px;padding-bottom:'.intval($_mtphr_dnt_list_padding).'px;' : '';
 					$margin = ( intval($_mtphr_dnt_list_margin) != 0 ) ? 'margin-top:'.intval($_mtphr_dnt_list_margin).'px;margin-bottom:'.intval($_mtphr_dnt_list_margin).'px;' : '';
@@ -151,8 +148,6 @@ function render_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 				// Filter the variables
 				$padding = apply_filters( 'mtphr_dnt_tick_container_padding', $padding );
 				$margin = apply_filters( 'mtphr_dnt_tick_container_margin', $margin );
-				$width = apply_filters( 'mtphr_dnt_tick_width', $width );
-				$height = apply_filters( 'mtphr_dnt_tick_height', $height );
 			
 				// Create the container style
 				$container_style = ( $padding != '' || $margin != '' ) ? ' style="'.$padding.$margin.'"' : '';
@@ -179,27 +174,14 @@ function render_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 								shuffle( $dnt_ticks );
 							}
 							$total = count($dnt_ticks);
-							foreach( $dnt_ticks as $i => $tick ) {
+							foreach( $dnt_ticks as $i => $tick_obj ) {
 							
-								$type = ( $_mtphr_dnt_type == 'mixed' ) ? $tick['type'] : $_mtphr_dnt_type;
-								$tick = ( $_mtphr_dnt_type == 'mixed' ) ? $tick['tick'] : $tick;
-				
-								// Set the list spacing depending on the tick position
-								if( $_mtphr_dnt_mode == 'list' ) {
-									$spacing = ( $i != intval($total-1) ) ? 'margin-bottom:'.intval($_mtphr_dnt_list_tick_spacing).'px;' : '';
-								}
-								$spacing = apply_filters( 'mtphr_dnt_list_tick_spacing', $spacing, $i, $total );
-								$tick_style = ( $width != '' || $height != '' || $spacing != '' ) ? ' style="'.$width.$height.$spacing.'"' : '';
-				
-								do_action( 'mtphr_dnt_tick_before', $id, $meta_data, $total, $i );
-								echo '<div'.$tick_style.' '.mtphr_dnt_tick_class('mtphr-dnt-'.$type.'-tick mtphr-dnt-clearfix').'>';
-									do_action( 'mtphr_dnt_tick_top', $id, $meta_data );
-					
-									echo $tick;
-					
-									do_action( 'mtphr_dnt_tick_bottom', $id, $meta_data );
-								echo '</div>';
-								do_action( 'mtphr_dnt_tick_after', $id, $meta_data, $total, $i );
+								mtphr_dnt_tick_open( $tick_obj, $i, $id, $meta_data, $total );
+								
+								$tick = ( is_array($tick_obj) && isset($tick_obj['tick']) ) ? $tick_obj['tick'] : $tick_obj;
+								echo $tick;
+								
+								mtphr_dnt_tick_close( $tick_obj, $i, $id, $meta_data, $total );
 							}
 						}
 				

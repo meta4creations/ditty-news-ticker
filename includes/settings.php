@@ -157,7 +157,6 @@ function mtphr_dnt_general_settings_wysiwyg( $args ) {
 	$settings = $args['settings'];
 	echo '<div id="mtphr_dnt_general_settings_wysiwyg">';
 		echo '<label><input type="checkbox" name="mtphr_dnt_general_settings[wysiwyg]" value="1" '.checked('1', $settings['wysiwyg'], false).' /> '.__('Use the visual editor for ticks', 'ditty-news-ticker').'</label>';
-		echo '<p><strong>'.__('Note:', 'ditty-news-ticker').'</strong> <em>'.__('The content in the visual editors will disappear after re-arranging ticks. That content will re-populate after re-saving the ticker.', 'ditty-news-ticker').'</em></p>';
 	echo '</div>';
 }
 }
