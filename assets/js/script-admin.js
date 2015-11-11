@@ -2,8 +2,13 @@ jQuery( document ).ready( function($) {
 	
 	var $settings_select = $('#mtphr-dnt-settings-select')
 			$admin_bar = $('#wpadminbar');
+			
+			
+	/* --------------------------------------------------------- */
+	/* !Affix the menu bar - 2.0.1 */
+	/* --------------------------------------------------------- */
 	
-	$settings_select.affix({
+	$settings_select.mtphr_dnt_affix({
 	  offset: {
 	    top: function () {
 		    if( $(window).width() < 601 ) {

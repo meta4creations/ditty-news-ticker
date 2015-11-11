@@ -54,6 +54,10 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 2.0.1 =
+* Customized bootstrap affix plugin due to conflicts within dashboard
+* Added more social icons to icon font package
+
 = 2.0.0 =
 * Updated admin page layout
 * Updated metaboxes for new admin page layout
@@ -301,4 +305,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Major dashboard updates.
+Customized bootstrap affix plugin due to conflicts within dashboard.

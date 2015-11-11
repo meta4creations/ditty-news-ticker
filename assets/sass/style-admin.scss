@@ -516,7 +516,7 @@ $red: hsl(0, 100%, 50%);
   margin: 20px 0;
   border-radius: 5px;
   border-top: 5px solid $highlight-color;
-  &.affix {
+  &.mtphr_dnt_affix {
 	  padding-top: 60px;
   }
   table {
@@ -555,7 +555,7 @@ $red: hsl(0, 100%, 50%);
   color: #FFF;
   background: $dark-gray;
   margin: -10px -10px 20px;
-  #mtphr-dnt-settings-select.affix & {
+  #mtphr-dnt-settings-select.mtphr_dnt_affix & {
 	  position: fixed;
     top: 32px;
     left: 0;
@@ -581,7 +581,7 @@ $red: hsl(0, 100%, 50%);
 	  background-color: $dark-gray;
 	  border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    #mtphr-dnt-settings-select.affix & {
+    #mtphr-dnt-settings-select.mtphr_dnt_affix & {
 	    border-bottom-left-radius: 0;
 			border-bottom-right-radius: 0;
     }
@@ -744,7 +744,7 @@ $red: hsl(0, 100%, 50%);
 	text-transform: uppercase;
 	padding: 6px 12px 6px;
 	margin: 5px 20px 0 0 !important;
-	#mtphr-dnt-settings-select.affix & {
+	#mtphr-dnt-settings-select.mtphr_dnt_affix & {
 		display: block;
 	}
 	i {
@@ -755,7 +755,7 @@ $red: hsl(0, 100%, 50%);
 
 @media (max-width: 960px) {
 	#mtphr-dnt-metabox-group-toggles {
-	  #mtphr-dnt-settings-select.affix & {
+	  #mtphr-dnt-settings-select.mtphr_dnt_affix & {
 	    .auto-fold & {
 		    padding-left: 58px;
 	    }
@@ -807,7 +807,7 @@ $red: hsl(0, 100%, 50%);
 		}
 	}
 	#mtphr-dnt-metabox-group-toggles {
-	  #mtphr-dnt-settings-select.affix & {
+	  #mtphr-dnt-settings-select.mtphr_dnt_affix & {
 	    top: 46px;
 	    padding-left: 0;
 	    .auto-fold & {
@@ -822,7 +822,7 @@ $red: hsl(0, 100%, 50%);
 
 @media (max-width: 600px) {
 	#mtphr-dnt-metabox-group-toggles {
-	  #mtphr-dnt-settings-select.affix & {
+	  #mtphr-dnt-settings-select.mtphr_dnt_affix & {
 	    top: 0;
 	  }
 	  a span {

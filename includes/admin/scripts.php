@@ -1,7 +1,7 @@
 <?php
 
 /* --------------------------------------------------------- */
-/* !Load the admin scrips - 2.0.0 */
+/* !Load the admin scrips - 2.0.1 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_admin_scripts( $hook ) {
@@ -31,7 +31,7 @@ function mtphr_dnt_admin_scripts( $hook ) {
 		wp_register_script( 'jquery-easing', MTPHR_DNT_URL.'assets/js/jquery.easing.1.3.js', array('jquery'), MTPHR_DNT_VERSION, true );
 		
 		// Register Bootstrap
-		wp_register_script( 'bootstrap', MTPHR_DNT_URL.'assets/js/bootstrap.min.js', array('jquery'), MTPHR_DNT_VERSION, true );
+		wp_register_script( 'mtphr-dnt-affix', MTPHR_DNT_URL.'assets/js/mtphr-dnt-affix.js', array('jquery'), MTPHR_DNT_VERSION, true );
 		
 		// Load qTip
 		wp_register_style( 'qtip', MTPHR_DNT_URL.'assets/qtip/jquery.qtip.min.css', false, MTPHR_DNT_VERSION );
@@ -40,7 +40,7 @@ function mtphr_dnt_admin_scripts( $hook ) {
 		wp_enqueue_script( 'qtip' );
 		
 		// Load the news ticker scripts
-		wp_register_script( 'ditty-news-ticker', MTPHR_DNT_URL.'assets/js/script-admin.js', array( 'jquery','jquery-ui-core','jquery-ui-sortable', 'jquery-easing', 'qtip', 'bootstrap' ), MTPHR_DNT_VERSION, true );
+		wp_register_script( 'ditty-news-ticker', MTPHR_DNT_URL.'assets/js/script-admin.js', array( 'jquery','jquery-ui-core','jquery-ui-sortable', 'jquery-easing', 'qtip', 'mtphr-dnt-affix' ), MTPHR_DNT_VERSION, true );
 		wp_enqueue_script( 'ditty-news-ticker' );
 		wp_localize_script( 'ditty-news-ticker', 'ditty_news_ticker_vars', array(
 				'security' => wp_create_nonce( 'ditty-news-ticker' ),
