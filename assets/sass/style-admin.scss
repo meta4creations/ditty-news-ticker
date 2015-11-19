@@ -897,12 +897,20 @@ $red: hsl(0, 100%, 50%);
 		float: left;
 		margin-bottom: 0;
 	}
-	.mtphr-dnt-field-mtphr_dnt_scroll_width,
-	.mtphr-dnt-field-mtphr_dnt_scroll_height,
-	.mtphr-dnt-field-mtphr_dnt_scroll_padding,
-	.mtphr-dnt-field-mtphr_dnt_scroll_margin {
+	.mtphr-dnt-field-mtphr_dnt_scroll_width {
 		float: left;
 		margin-right: 20px;
+	}
+	.mtphr-dnt-field-mtphr_dnt_scroll_height {
+		float: left;
+	}
+	.mtphr-dnt-field-mtphr_dnt_scroll_padding {
+		float: left;
+		margin-right: 20px;
+		margin-bottom: 0;
+	}
+	.mtphr-dnt-field-mtphr_dnt_scroll_margin {
+		float: left;
 		margin-bottom: 0;
 	}
 	.mtphr-dnt-field-mtphr_dnt_scroll_speed {

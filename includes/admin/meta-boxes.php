@@ -80,7 +80,7 @@ function mtphr_dnt_option_buttons() {
 			
 			
 			/* --------------------------------------------------------- */
-			/* !Ticker Type - 2.0.0 */
+			/* !Ticker Type - 2.0.2 */
 			/* --------------------------------------------------------- */
 			
 			$active = ( $tab == '#mtphr-dnt-type-select' ) ? ' active' : '';
@@ -94,6 +94,9 @@ function mtphr_dnt_option_buttons() {
 							$value = '';
 							$button = $t['button'];
 							$metabox_id = isset($t['metabox_id']) ? $t['metabox_id'] : '';
+							if( is_array($metabox_id) ) {
+								$metabox_id = trim(implode(' ', $t['metabox_id']));
+							}
 					
 							// Create a button
 							$selected = ( $type == $i ) ? ' button-primary' : '';
@@ -112,7 +115,7 @@ function mtphr_dnt_option_buttons() {
 			
 			
 			/* --------------------------------------------------------- */
-			/* !Ticker Mode - 2.0.0 */
+			/* !Ticker Mode - 2.0.2 */
 			/* --------------------------------------------------------- */
 				
 			$active = ( $tab == '#mtphr-dnt-mode-select' ) ? ' active' : '';
@@ -126,6 +129,9 @@ function mtphr_dnt_option_buttons() {
 							$value = '';
 							$button = $m['button'];
 							$metabox_id = isset($m['metabox_id']) ? $m['metabox_id'] : '';
+							if( is_array($metabox_id) ) {
+								$metabox_id = trim(implode(' ', $m['metabox_id']));
+							}
 					
 							// Create a button
 							$selected = ( $mode == $i ) ? ' button-primary' : '';
@@ -164,21 +170,70 @@ add_action( 'edit_form_after_title', 'mtphr_dnt_option_buttons' );
 
 
 
+
 /* --------------------------------------------------------- */
-/* !Render the default type metabox - 2.0.0 */
+/* !Add ticker type metaboxes - 2.0.2 */
 /* --------------------------------------------------------- */
 
-if( !function_exists('mtphr_dnt_default_render_metabox') ) {
-function mtphr_dnt_default_render_metabox() {
+if( !function_exists('mtphr_dnt_type_metaboxes') ) {
+function mtphr_dnt_type_metaboxes() {
+	
+	// Default type metabox
+	mtphr_dnt_metabox( 'mtphr-dnt-defualt-metabox', mtphr_dnt_default_fields() );
+	
+	// Mixed type metabox
+	mtphr_dnt_metabox( 'mtphr-dnt-mixed-metabox', mtphr_dnt_mixed_fields() );	
+}
+}
+add_action( 'mtphr_dnt_type_metaboxes', 'mtphr_dnt_type_metaboxes' );
 
+
+/* --------------------------------------------------------- */
+/* !Add ticker mode metaboxes - 2.0.2 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_mode_metaboxes') ) {
+function mtphr_dnt_mode_metaboxes() {
+	
+	// Scroll mode metabox
+	mtphr_dnt_metabox( 'mtphr-dnt-scroll-metabox', mtphr_dnt_scroll_fields() );
+	
+	// Rotate mode metabox
+	mtphr_dnt_metabox( 'mtphr-dnt-rotate-metabox', mtphr_dnt_rotate_fields() );
+	
+	// List mode metabox
+	mtphr_dnt_metabox( 'mtphr-dnt-list-metabox', mtphr_dnt_list_fields() );
+}
+}
+add_action( 'mtphr_dnt_mode_metaboxes', 'mtphr_dnt_mode_metaboxes' );
+
+
+/* --------------------------------------------------------- */
+/* !Add global metaboxes - 2.0.2 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_global_metaboxes') ) {
+function mtphr_dnt_global_metaboxes() {
+	
+	// Global mode metabox
+	mtphr_dnt_metabox( 'mtphr-dnt-global-metabox', mtphr_dnt_global_fields() );
+}
+}
+add_action( 'mtphr_dnt_global_metaboxes', 'mtphr_dnt_global_metaboxes' );
+
+
+
+
+/* --------------------------------------------------------- */
+/* !Return the default ticker values - 2.0.2 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_default_values') ) {
+function mtphr_dnt_default_values() {
+	
 	global $post;
 	
 	$settings = mtphr_dnt_general_settings();
-		
-	
-	/* --------------------------------------------------------- */
-	/* !Organize the values - 2.0.0 */
-	/* --------------------------------------------------------- */
 	
 	$defaults = array(
 		'ticks' => false,
@@ -197,12 +252,18 @@ function mtphr_dnt_default_render_metabox() {
 		}
 	}
 	
-	$values = wp_parse_args( $values, $defaults );
+	return wp_parse_args( $values, $defaults );	
+}
+}
+
+/* --------------------------------------------------------- */
+/* !Return the default ticker fields - 2.0.2 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_default_fields') ) {
+function mtphr_dnt_default_fields() {
 	
-	
-	/* --------------------------------------------------------- */
-	/* !Create the metabox & fields - 2.0.0 */
-	/* --------------------------------------------------------- */
+	$values = mtphr_dnt_default_values();
 	
 	$fields = array(
 		
@@ -266,28 +327,20 @@ function mtphr_dnt_default_render_metabox() {
 		)
 	);
 	
-	$fields = apply_filters( 'mtphr_dnt_default_fields', $fields, $values );
+	return apply_filters( 'mtphr_dnt_default_fields', $fields, $values );
+}
+}
+
+
+
+/* --------------------------------------------------------- */
+/* !Return the mixed ticker values - 2.0.2 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_mixed_values') ) {
+function mtphr_dnt_mixed_values() {
 	
-	mtphr_dnt_metabox( 'mtphr-dnt-defualt-metabox', $fields );
-}
-}
-add_action( 'mtphr_dnt_type_metaboxes', 'mtphr_dnt_default_render_metabox' );
-
-
-
-/* --------------------------------------------------------- */
-/* !Render the mixed type metabox - 2.0.0 */
-/* --------------------------------------------------------- */
-
-if( !function_exists('mtphr_dnt_mixed_render_metabox') ) {
-function mtphr_dnt_mixed_render_metabox() {
-
 	global $post;
-	
-	
-	/* --------------------------------------------------------- */
-	/* !Organize the values - 2.0.0 */
-	/* --------------------------------------------------------- */
 	
 	$defaults = array(
 		'ticks' => false
@@ -304,15 +357,21 @@ function mtphr_dnt_mixed_render_metabox() {
 		}
 	}
 	
-	$values = wp_parse_args( $values, $defaults );
+	return wp_parse_args( $values, $defaults );	
+}
+}
+
+/* --------------------------------------------------------- */
+/* !Return the mixed ticker fields - 2.0.0 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_mixed_fields') ) {
+function mtphr_dnt_mixed_fields() {
+	
+	$values = mtphr_dnt_mixed_values();
 
 	$types = mtphr_dnt_types_labels();
-	unset($types['mixed']);
-	
-	
-	/* --------------------------------------------------------- */
-	/* !Create the metabox & fields - 2.0.0 */
-	/* --------------------------------------------------------- */
+	unset($types['mixed']);	
 	
 	$fields = array(
 		
@@ -351,28 +410,19 @@ function mtphr_dnt_mixed_render_metabox() {
 		)
 	);
 	
-	$fields = apply_filters( 'mtphr_dnt_mixed_fields', $fields, $values );
+	return apply_filters( 'mtphr_dnt_mixed_fields', $fields, $values );
+}
+}
+
+
+/* --------------------------------------------------------- */
+/* !Return the scroll mode values - 2.0.2 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_scroll_values') ) {
+function mtphr_dnt_scroll_values() {
 	
-	mtphr_dnt_metabox( 'mtphr-dnt-mixed-metabox', $fields );
-}
-}
-add_action( 'mtphr_dnt_type_metaboxes', 'mtphr_dnt_mixed_render_metabox' );
-
-
-
-/* --------------------------------------------------------- */
-/* !Render the scroll settings metabox - 2.0.0 */
-/* --------------------------------------------------------- */
-
-if( !function_exists('mtphr_dnt_scroll_settings_render_metabox') ) {
-function mtphr_dnt_scroll_settings_render_metabox() {
-
 	global $post;
-	
-	
-	/* --------------------------------------------------------- */
-	/* !Organize the values - 2.0.0 */
-	/* --------------------------------------------------------- */
 	
 	$defaults = array(
 		'direction' => 'left',
@@ -386,7 +436,7 @@ function mtphr_dnt_scroll_settings_render_metabox() {
 		'spacing' => 40
 	);
 	
-	$defaults = apply_filters( 'mtphr_dnt_scroll_settings_defaults', $defaults );
+	$defaults = apply_filters( 'mtphr_dnt_scroll_defaults', $defaults );
 	
 	$values = array(
 		'direction' => get_post_meta( $post->ID, '_mtphr_dnt_scroll_direction', true ),
@@ -405,12 +455,18 @@ function mtphr_dnt_scroll_settings_render_metabox() {
 		}
 	}
 	
-	$values = wp_parse_args( $values, $defaults );
+	return wp_parse_args( $values, $defaults );
+}
+}
 
+/* --------------------------------------------------------- */
+/* !Return the scroll mode fields - 2.0.2 */
+/* --------------------------------------------------------- */
 
-	/* --------------------------------------------------------- */
-	/* !Create the metabox & fields - 2.0.0 */
-	/* --------------------------------------------------------- */
+if( !function_exists('mtphr_dnt_scroll_fields') ) {
+function mtphr_dnt_scroll_fields() {
+
+	$values = mtphr_dnt_scroll_values();
 	
 	$fields = array(
 		
@@ -459,7 +515,7 @@ function mtphr_dnt_scroll_settings_render_metabox() {
 					'value' => $values['height'],
 					'before' => __('Height', 'ditty-news-ticker').':',
 					'after' => __('pixels', 'ditty-news-ticker')
-				)
+				),
 			)
 		),
 		
@@ -518,28 +574,19 @@ function mtphr_dnt_scroll_settings_render_metabox() {
 		)
 	);
 	
-	$fields = apply_filters( 'mtphr_dnt_scroll_settings_fields', $fields, $values );
+	return apply_filters( 'mtphr_dnt_scroll_fields', $fields, $values );
+}
+}
+
+
+/* --------------------------------------------------------- */
+/* !Return the rotate mode values - 2.0.2 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_rotate_values') ) {
+function mtphr_dnt_rotate_values() {
 	
-	mtphr_dnt_metabox( 'mtphr-dnt-scroll-metabox', $fields );
-}
-}
-add_action( 'mtphr_dnt_mode_metaboxes', 'mtphr_dnt_scroll_settings_render_metabox' );
-
-
-
-/* --------------------------------------------------------- */
-/* !Render the rotate settings metabox - 2.0.0 */
-/* --------------------------------------------------------- */
-
-if( !function_exists('mtphr_dnt_rotate_settings_render_metabox') ) {
-function mtphr_dnt_rotate_settings_render_metabox() {
-
 	global $post;
-	
-	
-	/* --------------------------------------------------------- */
-	/* !Organize the values - 2.0.0 */
-	/* --------------------------------------------------------- */
 	
 	$type = get_post_meta( $post->ID, '_mtphr_dnt_rotate_type', true );
 	
@@ -561,7 +608,7 @@ function mtphr_dnt_rotate_settings_render_metabox() {
 		'disable_touchswipe' => ''
 	);
 	
-	$defaults = apply_filters( 'mtphr_dnt_rotate_settings_defaults', $defaults, $type );
+	$defaults = apply_filters( 'mtphr_dnt_rotate_defaults', $defaults, $type );
 	
 	$values = array(
 		'type' => $type,
@@ -586,12 +633,18 @@ function mtphr_dnt_rotate_settings_render_metabox() {
 		}
 	}
 	
-	$values = wp_parse_args( $values, $defaults );
-	
-	
-	/* --------------------------------------------------------- */
-	/* !Create the metabox & fields - 2.0.0 */
-	/* --------------------------------------------------------- */
+	return wp_parse_args( $values, $defaults );
+}
+}
+
+/* --------------------------------------------------------- */
+/* !Return the rotate mode fields - 2.0.0 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_rotate_fields') ) {
+function mtphr_dnt_rotate_fields() {
+
+	$values = mtphr_dnt_rotate_values();
 	
 	$fields = array(
 		
@@ -768,28 +821,19 @@ function mtphr_dnt_rotate_settings_render_metabox() {
 		
 	);
 	
-	$fields = apply_filters( 'mtphr_dnt_rotate_settings_fields', $fields, $values );
+	return apply_filters( 'mtphr_dnt_rotate_fields', $fields, $values );	
+}
+}
+
+
+/* --------------------------------------------------------- */
+/* !Return the list mode values - 2.0.2 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_list_values') ) {
+function mtphr_dnt_list_values() {
 	
-	mtphr_dnt_metabox( 'mtphr-dnt-rotate-metabox', $fields );
-}
-}
-add_action( 'mtphr_dnt_mode_metaboxes', 'mtphr_dnt_rotate_settings_render_metabox' );
-
-
-
-/* --------------------------------------------------------- */
-/* !Render the list settings metabox - 2.0.0 */
-/* --------------------------------------------------------- */
-
-if( !function_exists('mtphr_dnt_list_settings_render_metabox') ) {
-function mtphr_dnt_list_settings_render_metabox() {
-
 	global $post;
-	
-	
-	/* --------------------------------------------------------- */
-	/* !Organize the values - 2.0.0 */
-	/* --------------------------------------------------------- */
 	
 	$defaults = array(
 		'padding' => 0,
@@ -802,7 +846,7 @@ function mtphr_dnt_list_settings_render_metabox() {
 		'next_text' => __('Next »', 'ditty-news-ticker'),
 	);
 	
-	$defaults = apply_filters( 'mtphr_dnt_list_settings_defaults', $defaults );
+	$defaults = apply_filters( 'mtphr_dnt_list_defaults', $defaults );
 	
 	$values = array(
 		'padding' => get_post_meta( $post->ID, '_mtphr_dnt_list_padding', true ),
@@ -820,12 +864,18 @@ function mtphr_dnt_list_settings_render_metabox() {
 		}
 	}
 	
-	$values = wp_parse_args( $values, $defaults );
+	return wp_parse_args( $values, $defaults );
+}
+}
+
+/* --------------------------------------------------------- */
+/* !Return the list mode fields - 2.0.2 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_list_fields') ) {
+function mtphr_dnt_list_fields() {
 	
-	
-	/* --------------------------------------------------------- */
-	/* !Create the metabox & fields - 2.0.0 */
-	/* --------------------------------------------------------- */
+	$values = mtphr_dnt_list_values();
 	
 	$fields = array(
 		
@@ -910,28 +960,19 @@ function mtphr_dnt_list_settings_render_metabox() {
 		
 	);
 	
-	$fields = apply_filters( 'mtphr_dnt_list_settings_fields', $fields, $values );
+	return apply_filters( 'mtphr_dnt_list_fields', $fields, $values );
+}
+}
+
+
+/* --------------------------------------------------------- */
+/* !Return the global values - 2.0.2 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_global_values') ) {
+function mtphr_dnt_global_values() {
 	
-	mtphr_dnt_metabox( 'mtphr-dnt-list-metabox', $fields );
-}
-}
-add_action( 'mtphr_dnt_mode_metaboxes', 'mtphr_dnt_list_settings_render_metabox' );
-
-
-
-/* --------------------------------------------------------- */
-/* !Render the global settings metabox - 2.0.0 */
-/* --------------------------------------------------------- */
-
-if( !function_exists('mtphr_dnt_global_settings_render_metabox') ) {
-function mtphr_dnt_global_settings_render_metabox() {
-
 	global $post;
-	
-	
-	/* --------------------------------------------------------- */
-	/* !Organize the values - 2.0.0 */
-	/* --------------------------------------------------------- */
 	
 	$defaults = array(
 		'ajax' => '',
@@ -940,6 +981,7 @@ function mtphr_dnt_global_settings_render_metabox() {
 		'shuffle' => '',
 		'width' => 0,
 		'offset' => 20,
+		'trim_ticks' => '',
 		'grid' => '',
 		'grid_empty_rows' => '',
 		'grid_equal_width' => '',
@@ -949,7 +991,7 @@ function mtphr_dnt_global_settings_render_metabox() {
 		'grid_remove_padding' => '',
 	);
 	
-	$defaults = apply_filters( 'mtphr_dnt_global_settings_defaults', $defaults );
+	$defaults = apply_filters( 'mtphr_dnt_global_defaults', $defaults );
 	
 	$values = array(
 		'ajax' => get_post_meta( $post->ID, '_mtphr_dnt_ajax', true ),
@@ -958,6 +1000,7 @@ function mtphr_dnt_global_settings_render_metabox() {
 		'shuffle' => get_post_meta( $post->ID, '_mtphr_dnt_shuffle', true ),
 		'width' => get_post_meta( $post->ID, '_mtphr_dnt_ticker_width', true ),
 		'offset' => get_post_meta( $post->ID, '_mtphr_dnt_offset', true ),	
+		'trim_ticks' => get_post_meta( $post->ID, '_mtphr_dnt_trim_ticks', true ),
 		'grid' => get_post_meta( $post->ID, '_mtphr_dnt_grid', true ),
 		'grid_empty_rows' => get_post_meta( $post->ID, '_mtphr_dnt_grid_empty_rows', true ),
 		'grid_equal_width' => get_post_meta( $post->ID, '_mtphr_dnt_grid_equal_width', true ),
@@ -972,13 +1015,19 @@ function mtphr_dnt_global_settings_render_metabox() {
 		}
 	}
 	
-	$values = wp_parse_args( $values, $defaults );
-	
-	
-	/* --------------------------------------------------------- */
-	/* !Create the metabox & fields - 2.0.0 */
-	/* --------------------------------------------------------- */
-	
+	return wp_parse_args( $values, $defaults );
+}
+}
+
+/* --------------------------------------------------------- */
+/* !Return the global fields - 2.0.0 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_global_fields') ) {
+function mtphr_dnt_global_fields() {
+
+	$values = mtphr_dnt_global_values();
+
 	$fields = array(
 		
 		/* !Title display (& inline display) - 2.0.0 */
@@ -1004,12 +1053,22 @@ function mtphr_dnt_global_settings_render_metabox() {
 		
 		/* !Shuffle - 2.0.0 */
 		'shuffle' => array(
-			'heading' => __('Shuffle ticks', 'ditty-news-ticker'),
-			'description' => __('Randomly shuffle the ticks', 'ditty-news-ticker'),
+			'heading' => __('Tick options', 'ditty-news-ticker'),
+			'description' => __('Modify tick display and order', 'ditty-news-ticker'),
 			'type' => 'checkbox',
 			'name' => '_mtphr_dnt_shuffle',
 			'value' => $values['shuffle'],
-			'label' => __('Randomly shuffle the ticks', 'ditty-news-ticker')
+			'label' => __('Randomly shuffle the ticks', 'ditty-news-ticker'),
+			'append' => array(
+				
+				/* !Trim ticks - 2.0.2 */
+				'trim_ticks' => array(
+					'type' => 'checkbox',
+					'name' => '_mtphr_dnt_trim_ticks',
+					'value' => $values['trim_ticks'],
+					'label' => __('Remove margin and padding from all tick contents', 'ditty-news-ticker')
+				),
+			)
 		),
 		
 		/* !Ticker width - 2.0.0 */
@@ -1096,19 +1155,15 @@ function mtphr_dnt_global_settings_render_metabox() {
 		
 	);
 	
-	$fields = apply_filters( 'mtphr_dnt_global_settings_fields', $fields, $values );
-	
-	mtphr_dnt_metabox( 'mtphr-dnt-global-metabox', $fields );
+	return apply_filters( 'mtphr_dnt_global_fields', $fields, $values );
 }
 }
-add_action( 'mtphr_dnt_global_metaboxes', 'mtphr_dnt_global_settings_render_metabox' );
-
 
 
 
 
 /* --------------------------------------------------------- */
-/* !Save the custom meta - 2.0.0 */
+/* !Save the custom meta - 2.0.2 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_metabox_save') ) {
@@ -1286,7 +1341,8 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		$inline_title = isset($_POST['_mtphr_dnt_inline_title']) ? $_POST['_mtphr_dnt_inline_title'] : '';
 		$shuffle = isset($_POST['_mtphr_dnt_shuffle']) ? $_POST['_mtphr_dnt_shuffle'] : '';
 		$width = isset($_POST['_mtphr_dnt_ticker_width']) ? intval($_POST['_mtphr_dnt_ticker_width']) : 0;
-		$offset = isset($_POST['_mtphr_dnt_offset']) ? intval($_POST['_mtphr_dnt_offset']) : 20;	
+		$offset = isset($_POST['_mtphr_dnt_offset']) ? intval($_POST['_mtphr_dnt_offset']) : 20;
+		$trim = isset($_POST['_mtphr_dnt_trim_ticks']) ? $_POST['_mtphr_dnt_trim_ticks'] : '';
 		$grid = isset($_POST['_mtphr_dnt_grid']) ? $_POST['_mtphr_dnt_grid'] : '';
 		$grid_empty_rows = isset($_POST['_mtphr_dnt_grid_empty_rows']) ? $_POST['_mtphr_dnt_grid_empty_rows'] : '';
 		$grid_equal_width = isset($_POST['_mtphr_dnt_grid_equal_width']) ? $_POST['_mtphr_dnt_grid_equal_width'] : '';
@@ -1301,6 +1357,7 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		update_post_meta( $post_id, '_mtphr_dnt_shuffle', $shuffle );
 		update_post_meta( $post_id, '_mtphr_dnt_ticker_width', $width );
 		update_post_meta( $post_id, '_mtphr_dnt_offset', $offset );
+		update_post_meta( $post_id, '_mtphr_dnt_trim_ticks', $trim );
 		update_post_meta( $post_id, '_mtphr_dnt_grid', $grid );
 		update_post_meta( $post_id, '_mtphr_dnt_grid_empty_rows', $grid_empty_rows );
 		update_post_meta( $post_id, '_mtphr_dnt_grid_equal_width', $grid_equal_width );

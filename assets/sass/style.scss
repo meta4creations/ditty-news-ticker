@@ -20,18 +20,26 @@
 .mtphr-dnt-tick {
 	margin: 0;
 }
-.mtphr-dnt-rotate .mtphr-dnt-tick,
-.mtphr-dnt-scroll .mtphr-dnt-tick {
-	display:none;
+.mtphr-dnt-rotate,
+.mtphr-dnt-scroll {
+	.mtphr-dnt-tick {
+		position: absolute;
+		display:none;
+	}
 }
-.mtphr-dnt-rotate .mtphr-dnt-tick,
-.mtphr-dnt-scroll .mtphr-dnt-tick {
-	position: absolute;
-	display:none;
+.mtphr-dnt-scroll-left,
+.mtphr-dnt-scroll-right {
+	.mtphr-dnt-tick {
+		white-space: nowrap;
+	}
 }
-.mtphr-dnt-scroll-left .mtphr-dnt-tick,
-.mtphr-dnt-scroll-right .mtphr-dnt-tick {
-	white-space: nowrap;
+.mtphr-dnt-trim-ticks .mtphr-dnt-tick {
+	* {
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+		padding-top: 0 !important;
+		padding-bottom: 0 !important;
+	}
 }
 
 /* --------------------------------------------------------- */
