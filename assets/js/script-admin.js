@@ -110,49 +110,44 @@ jQuery( document ).ready( function($) {
 	/* !Metabox toggles - 2.0.0 */
 	/* --------------------------------------------------------- */
 	
+	function mtphr_dnt_toggle_metaboxes( $button, kind ) {
+
+		// Set the metaboxes
+		$('#mtphr-dnt-'+kind+'-metaboxes > div').stop(true, true).hide();
+		var metaboxes = $button.attr('metabox').split(' ');
+		for( var i=0; i<metaboxes.length; i++ ) {
+			$('#'+metaboxes[i]).show();
+		}
+
+		// Set the button classes
+		$button.siblings('a').removeClass('button-primary');
+		$button.addClass('button-primary');
+		
+		// Store the new value
+		$button.siblings('input').val($button.attr('href').substring(1));
+	}
+	
 	if( $('.mtphr-dnt-type-toggle').length ) {
-		$('#'+$('.mtphr-dnt-type-toggle.button-primary').attr('metabox')).delay(500).slideDown(1000, 'easeOutExpo');
+		mtphr_dnt_toggle_metaboxes( $('.mtphr-dnt-type-toggle.button-primary'), 'type' );
 	}
 	
 	if( $('.mtphr-dnt-mode-toggle').length ) {
-		$('#'+$('.mtphr-dnt-mode-toggle.button-primary').attr('metabox')).delay(1000).slideDown(1000, 'easeOutExpo');
+		mtphr_dnt_toggle_metaboxes( $('.mtphr-dnt-mode-toggle.button-primary'), 'mode' );
 	}
 	
 	$('.mtphr-dnt-type-toggle').click( function(e) {
 		
 		e.preventDefault();
-		
 		if( !$(this).hasClass('button-primary') ) {
-			
-			// Set the metaboxes
-			$('#mtphr-dnt-type-metaboxes > div').stop(true, true).hide();
-			$('#'+$(this).attr('metabox')).show();
-			
-			// Set the button classes
-			$(this).siblings('a').removeClass('button-primary');
-			$(this).addClass('button-primary');
-			
-			// Store the new value
-			$(this).siblings('input').val($(this).attr('href').substring(1));
+			mtphr_dnt_toggle_metaboxes( $(this), 'type' );
 		}
 	});
 	
 	$('.mtphr-dnt-mode-toggle').click( function(e) {
 		
 		e.preventDefault();
-		
 		if( !$(this).hasClass('button-primary') ) {
-			
-			// Set the metaboxes
-			$('#mtphr-dnt-mode-metaboxes > div').stop(true, true).hide();
-			$('#'+$(this).attr('metabox')).show();
-			
-			// Set the button classes
-			$(this).siblings('a').removeClass('button-primary');
-			$(this).addClass('button-primary');
-			
-			// Store the new value
-			$(this).siblings('input').val($(this).attr('href').substring(1));
+			mtphr_dnt_toggle_metaboxes( $(this), 'mode' );
 		}
 	});
 	

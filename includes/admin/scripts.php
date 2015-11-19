@@ -1,7 +1,7 @@
 <?php
 
 /* --------------------------------------------------------- */
-/* !Load the admin scrips - 2.0.1 */
+/* !Load the admin scrips - 2.0.2 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_admin_scripts( $hook ) {
@@ -58,5 +58,5 @@ function mtphr_dnt_admin_scripts( $hook ) {
 	wp_register_style( 'ditty-news-ticker', MTPHR_DNT_URL.'assets/css/style-admin.css', array('dashicons'), MTPHR_DNT_VERSION );
 	wp_enqueue_style( 'ditty-news-ticker' );
 }
-add_action( 'admin_enqueue_scripts', 'mtphr_dnt_admin_scripts' );
+add_action( 'admin_enqueue_scripts', 'mtphr_dnt_admin_scripts', 9 );
 

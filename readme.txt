@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 3.2
-Tested up to: 4.3.1
+Tested up to: 4.4
 Stable tag: /trunk/
 License: GPL2
 
@@ -53,6 +53,10 @@ Each individual Ticker post has multiple settings to customize.
 4. List Mode options
 
 == Changelog ==
+
+= 2.0.2 =
+* Updated metabox code for flexibility
+* Updated some metabox filter names
 
 = 2.0.1 =
 * Customized bootstrap affix plugin due to conflicts within dashboard
@@ -305,4 +309,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Customized bootstrap affix plugin due to conflicts within dashboard.
+Metabox code and filter updates
