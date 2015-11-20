@@ -54,6 +54,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 2.0.3 =
+* Fixed visual editor glitch from last update
+
 = 2.0.2 =
 * Updated metabox code for flexibility
 * Updated some metabox filter names
@@ -309,4 +312,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Metabox code and filter updates
+Fixed visual editor glitch from last update

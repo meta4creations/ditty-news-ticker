@@ -225,15 +225,13 @@ add_action( 'mtphr_dnt_global_metaboxes', 'mtphr_dnt_global_metaboxes' );
 
 
 /* --------------------------------------------------------- */
-/* !Return the default ticker values - 2.0.2 */
+/* !Return the default ticker values - 2.0.3 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_default_values') ) {
 function mtphr_dnt_default_values() {
 	
 	global $post;
-	
-	$settings = mtphr_dnt_general_settings();
 	
 	$defaults = array(
 		'ticks' => false,
@@ -257,12 +255,13 @@ function mtphr_dnt_default_values() {
 }
 
 /* --------------------------------------------------------- */
-/* !Return the default ticker fields - 2.0.2 */
+/* !Return the default ticker fields - 2.0.3 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_default_fields') ) {
 function mtphr_dnt_default_fields() {
 	
+	$settings = mtphr_dnt_general_settings();
 	$values = mtphr_dnt_default_values();
 	
 	$fields = array(
