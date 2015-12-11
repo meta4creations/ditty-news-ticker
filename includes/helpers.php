@@ -89,7 +89,7 @@ function mtphr_dnt_settings_tabs() {
 
 
 /* --------------------------------------------------------- */
-/* !Return the ticker class - 2.0.0 */
+/* !Return the ticker class - 2.0.4 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_ticker_class') ) {
@@ -118,7 +118,7 @@ function get_mtphr_dnt_ticker_class( $id='', $class='', $meta_data ) {
 	if( $_mtphr_dnt_mode == 'rotate' ) {
 		$classes[] = 'mtphr-dnt-'.$_mtphr_dnt_mode.'-'.$_mtphr_dnt_rotate_type;
 	}
-	if( $_mtphr_dnt_trim_ticks ) {
+	if( isset($_mtphr_dnt_trim_ticks) && $_mtphr_dnt_trim_ticks ) {
 		$classes[] = 'mtphr-dnt-trim-ticks';
 	}
 

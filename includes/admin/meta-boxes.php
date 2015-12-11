@@ -981,6 +981,7 @@ function mtphr_dnt_global_values() {
 		'width' => 0,
 		'offset' => 20,
 		'trim_ticks' => '',
+		'pause_button' => '',
 		'grid' => '',
 		'grid_empty_rows' => '',
 		'grid_equal_width' => '',
@@ -1000,6 +1001,7 @@ function mtphr_dnt_global_values() {
 		'width' => get_post_meta( $post->ID, '_mtphr_dnt_ticker_width', true ),
 		'offset' => get_post_meta( $post->ID, '_mtphr_dnt_offset', true ),	
 		'trim_ticks' => get_post_meta( $post->ID, '_mtphr_dnt_trim_ticks', true ),
+		'pause_button' => get_post_meta( $post->ID, '_mtphr_dnt_pause_button', true ),
 		'grid' => get_post_meta( $post->ID, '_mtphr_dnt_grid', true ),
 		'grid_empty_rows' => get_post_meta( $post->ID, '_mtphr_dnt_grid_empty_rows', true ),
 		'grid_equal_width' => get_post_meta( $post->ID, '_mtphr_dnt_grid_equal_width', true ),
@@ -1050,15 +1052,20 @@ function mtphr_dnt_global_fields() {
 			)
 		),
 		
-		/* !Shuffle - 2.0.0 */
+		/* !Shuffle - 2.0.4 */
 		'shuffle' => array(
-			'heading' => __('Tick options', 'ditty-news-ticker'),
-			'description' => __('Modify tick display and order', 'ditty-news-ticker'),
-			'type' => 'checkbox',
-			'name' => '_mtphr_dnt_shuffle',
-			'value' => $values['shuffle'],
-			'label' => __('Randomly shuffle the ticks', 'ditty-news-ticker'),
+			'heading' => __('Ticker options', 'ditty-news-ticker'),
+			'description' => __('General ticker options', 'ditty-news-ticker'),
+			'type' => 'container',
 			'append' => array(
+				
+				/* !Shuffle ticks - 2.0.4 */
+				'shuffle' => array(
+					'type' => 'checkbox',
+					'name' => '_mtphr_dnt_shuffle',
+					'value' => $values['shuffle'],
+					'label' => __('Randomly shuffle the ticks', 'ditty-news-ticker')
+				),
 				
 				/* !Trim ticks - 2.0.2 */
 				'trim_ticks' => array(
@@ -1066,6 +1073,14 @@ function mtphr_dnt_global_fields() {
 					'name' => '_mtphr_dnt_trim_ticks',
 					'value' => $values['trim_ticks'],
 					'label' => __('Remove margin and padding from all tick contents', 'ditty-news-ticker')
+				),
+				
+				/* !Pause button - 2.0.4 */
+				'pause_button' => array(
+					'type' => 'checkbox',
+					'name' => '_mtphr_dnt_pause_button',
+					'value' => $values['pause_button'],
+					'label' => __('Add a play/pause button to scrolling and auto-rotating tickers', 'ditty-news-ticker')
 				),
 			)
 		),
@@ -1342,6 +1357,7 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		$width = isset($_POST['_mtphr_dnt_ticker_width']) ? intval($_POST['_mtphr_dnt_ticker_width']) : 0;
 		$offset = isset($_POST['_mtphr_dnt_offset']) ? intval($_POST['_mtphr_dnt_offset']) : 20;
 		$trim = isset($_POST['_mtphr_dnt_trim_ticks']) ? $_POST['_mtphr_dnt_trim_ticks'] : '';
+		$pause_button = isset($_POST['_mtphr_dnt_pause_button']) ? $_POST['_mtphr_dnt_pause_button'] : '';
 		$grid = isset($_POST['_mtphr_dnt_grid']) ? $_POST['_mtphr_dnt_grid'] : '';
 		$grid_empty_rows = isset($_POST['_mtphr_dnt_grid_empty_rows']) ? $_POST['_mtphr_dnt_grid_empty_rows'] : '';
 		$grid_equal_width = isset($_POST['_mtphr_dnt_grid_equal_width']) ? $_POST['_mtphr_dnt_grid_equal_width'] : '';
@@ -1357,6 +1373,7 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		update_post_meta( $post_id, '_mtphr_dnt_ticker_width', $width );
 		update_post_meta( $post_id, '_mtphr_dnt_offset', $offset );
 		update_post_meta( $post_id, '_mtphr_dnt_trim_ticks', $trim );
+		update_post_meta( $post_id, '_mtphr_dnt_pause_button', $pause_button );
 		update_post_meta( $post_id, '_mtphr_dnt_grid', $grid );
 		update_post_meta( $post_id, '_mtphr_dnt_grid_empty_rows', $grid_empty_rows );
 		update_post_meta( $post_id, '_mtphr_dnt_grid_equal_width', $grid_equal_width );

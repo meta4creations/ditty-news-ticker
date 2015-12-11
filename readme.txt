@@ -54,6 +54,11 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 2.0.4 =
+* Added optional play/pause button for scroll and auto rotate mode
+* Removed data-icon css from icon css file
+* Small bug fix
+
 = 2.0.3 =
 * Fixed visual editor glitch from last update
 
@@ -312,4 +317,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Fixed visual editor glitch from last update
+Added optional play/pause button for scroll and auto rotate mode

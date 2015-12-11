@@ -253,3 +253,23 @@ function mtphr_dnt_pagination() {
 add_action( 'mtphr_dnt_after', 'mtphr_dnt_pagination' );
 
 
+
+/* --------------------------------------------------------- */
+/* !Add a play/pause button - 2.0.4 */
+/* --------------------------------------------------------- */
+
+function mtphr_dnt_playpause() {
+	
+	// Get and extract the metadata array into variables
+	global $mtphr_dnt_meta_data;
+	extract( $mtphr_dnt_meta_data );
+	
+	if( $_mtphr_dnt_mode == 'scroll' || ($_mtphr_dnt_mode == 'rotate' && $_mtphr_dnt_auto_rotate) ) {
+		if( isset($_mtphr_dnt_pause_button) && $_mtphr_dnt_pause_button ) {
+			mtphr_dnt_get_template_part( 'play_pause' );
+		}
+	}
+}
+add_action( 'mtphr_dnt_after', 'mtphr_dnt_playpause' );
+
+

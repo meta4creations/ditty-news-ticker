@@ -49,7 +49,8 @@
 	        current_tick		: 0,
 	        next_tick				: 0,
 	        reverse					: 0,
-	        running					: 0
+	        running					: 0,
+	        paused					: 0
         };
 
 				// Add any set options
@@ -63,6 +64,7 @@
 						$nav_prev = $container.find('.mtphr-dnt-nav-prev'),
 						$nav_next = $container.find('.mtphr-dnt-nav-next'),
 						$nav_controls = $container.find('.mtphr-dnt-control-links'),
+						$play_pause = $container.find('.mtphr-dnt-play-pause'),
 						ticker_width = $ticker.width(),
 						ticker_height = 0,
 						ticks = [],
@@ -172,15 +174,23 @@
 					$ticker.hover(
 					  function () {
 					  	if( settings.scroll_pause ) {
-					    	clearInterval( ticker_scroll );
+					    	mtphr_dnt_scroll_pause();
 					    }
 					  },
 					  function () {
-					  	if( settings.scroll_pause ) {
-					    	mtphr_dnt_scroll_loop();
+					  	if( settings.scroll_pause && !vars.paused ) {
+					    	mtphr_dnt_scroll_play();
 					    }
 					  }
 					);
+		    }
+		    
+		    function mtphr_dnt_scroll_pause() {
+			    clearInterval( ticker_scroll );
+		    }
+		    
+		    function mtphr_dnt_scroll_play() {
+			    mtphr_dnt_scroll_loop();
 		    }
 
 		    /**
@@ -537,7 +547,14 @@
 			    }
 		    }
 
-
+				
+				function mtphr_dnt_rotator_play() {
+					mtphr_dnt_rotator_delay();
+				}
+				
+				function mtphr_dnt_rotator_pause() {
+					clearInterval( ticker_delay );
+				}
 
 
 		    /**
@@ -566,19 +583,19 @@
 
 					// Start the rotator rotate
 					if( settings.auto_rotate ) {
-						mtphr_dnt_rotator_delay();
+						mtphr_dnt_rotator_play();
 					}
 
 					// Clear the loop on mouse hover
 					$ticker.hover(
 					  function (e) {
 					  	if( settings.auto_rotate && settings.rotate_pause && !vars.running ) {
-					    	clearInterval( ticker_delay );
+					    	mtphr_dnt_rotator_pause();
 					    }
 					  },
 					  function () {
-					  	if( settings.auto_rotate && settings.rotate_pause  && !vars.running ) {
-					    	mtphr_dnt_rotator_delay();
+					  	if( settings.auto_rotate && settings.rotate_pause  && !vars.running && !vars.paused ) {
+					    	mtphr_dnt_rotator_play();
 					    }
 					  }
 					);
@@ -592,7 +609,7 @@
 		    function mtphr_dnt_rotator_delay() {
 
 			    // Start the ticker timer
-			    clearInterval( ticker_delay );
+			    mtphr_dnt_rotator_pause();
 					ticker_delay = setInterval( function() {
 
 						// Find the new tick
@@ -617,7 +634,7 @@
 
 			    	// Clear the interval
 			    	if( settings.auto_rotate ) {
-				    	clearInterval( ticker_delay );
+				    	mtphr_dnt_rotator_pause();
 				    }
 				    
 				    // Set the next variable
@@ -654,7 +671,7 @@
 							vars.running = 0;
 
 							// Restart the interval
-							if( settings.auto_rotate ) {
+							if( settings.auto_rotate && !vars.paused ) {
 					    	mtphr_dnt_rotator_delay();
 					    }
 
@@ -1184,6 +1201,38 @@
 						mtphr_dnt_rotator_update( new_tick );
 		    	});
 		    }
+		    
+		    
+		    
+		    /* --------------------------------------------------------- */
+		    /* !Play and pause - 2.0.4 */
+		    /* --------------------------------------------------------- */
+		    
+		    function mtphr_dnt_play_pause_toggle( play ) {
+			    if( play ) {
+				    vars.paused = false;
+				    $play_pause.removeClass('paused');
+				    if( settings.type == 'scroll' ) {
+				    	mtphr_dnt_scroll_play();
+				    } else {
+					    mtphr_dnt_rotator_play();
+				    }
+			    } else {
+				    vars.paused = true;
+				    $play_pause.addClass('paused');
+				    if( settings.type == 'scroll' ) {
+				    	mtphr_dnt_scroll_pause();
+				    } else {
+					    mtphr_dnt_rotator_pause();
+				    }
+			    }
+			    $container.trigger('mtphr_dnt_play_pause', [vars, ticks]);
+		    }
+		    
+		    $play_pause.bind('click', function(e) {
+			    e.preventDefault();
+			    mtphr_dnt_play_pause_toggle( vars.paused );
+		    });
 
 
 
@@ -1251,6 +1300,14 @@
 				
 				$container.on('mtphr_dnt_goto', function( e, pos ) {
 		    	mtphr_dnt_rotator_update( parseInt(pos) );
+				});
+				
+				$container.on('mtphr_dnt_pause', function( e, pos ) {
+		    	mtphr_dnt_play_pause_toggle();
+				});
+				
+				$container.on('mtphr_dnt_play', function( e, pos ) {
+		    	mtphr_dnt_play_pause_toggle( true );
 				});
 
 
