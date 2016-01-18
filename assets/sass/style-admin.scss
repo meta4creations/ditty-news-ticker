@@ -636,6 +636,7 @@ $red: hsl(0, 100%, 50%);
   &.button-primary {
 		background: $highlight-color;
 		border-color: $highlight-color-hover;
+		text-shadow: none;
 		&:hover {
 			background-color: $highlight-color-hover;
 		}
@@ -701,6 +702,7 @@ $red: hsl(0, 100%, 50%);
 		letter-spacing: 1px;
 		color: $dark-gray;
 		padding: 0 !important;
+		margin: 2px 2px 2px 0;
 	}
 	p {
 		clear: both;
@@ -877,7 +879,7 @@ $red: hsl(0, 100%, 50%);
 /* --------------------------------------------------------- */
 
 @media (min-width: 768px) {
-	.mtphr-dnt-list-field-mtphr_dnt_mixed_ticks_ticker_type,
+	.mtphr-dnt-list-field-mtphr_dnt_mixed_ticks_type,
 	.mtphr-dnt-list-field-mtphr_dnt_mixed_ticks_all {
 		float: left;
 		margin-right: 30px;

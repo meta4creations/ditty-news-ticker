@@ -2,7 +2,7 @@
 Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
-Requires at least: 3.2
+Requires at least: 4.0
 Tested up to: 4.4
 Stable tag: /trunk/
 License: GPL2
@@ -19,11 +19,11 @@ Ditty News Ticker is a multi-functional data display plugin. Easily add custom n
 * **Rotate Mode** - Rotate through the ticker data
 * **List Mode** - Display your ticker data in a list
 
-[**View samples of each mode.**](http://dittynewsticker.com/ticker-modes/)
+[**View samples of each mode.**](http://www.dittynewsticker.com/ticker-modes/)
 
 #### Extensions
 Ditty News Ticker is built to easily be extended to add extra Ticker Types and extra Ticker Modes.
-To see a list of all extensions, visit the [**extensions page**](http://dittynewsticker.com/extensions/).
+To see a list of all extensions, visit the [**extensions page**](http://www.dittynewsticker.com/extensions/).
 
 <img src="http://metaphorcreations.com/data/wpml-ready-badge.png" />
 
@@ -35,7 +35,7 @@ To see a list of all extensions, visit the [**extensions page**](http://dittynew
 4. Insert your tickers by copying and pasting the provided shortcode into another post.
 5. Optionally, insert your tickers by copying and pasting the direct function code directly into your theme or plugin.
 
-[**View full help documentation.**](http://dittynewsticker.com/mc/ditty-news-ticker-doc/)
+[**View full help documentation.**](http://www.dittynewsticker.com/documentation/)
 
 == Frequently Asked Questions ==
 
@@ -43,7 +43,7 @@ To see a list of all extensions, visit the [**extensions page**](http://dittynew
 
 Each individual Ticker post has multiple settings to customize.
 
-[**View full help documentation.**](http://dittynewsticker.com/mc/ditty-news-ticker-doc/)
+[**View full help documentation.**](http://www.dittynewsticker.com/documentation/)
 
 == Screenshots ==
 
@@ -53,6 +53,10 @@ Each individual Ticker post has multiple settings to customize.
 4. List Mode options
 
 == Changelog ==
+
+= 2.0.5 =
+* Mixed ticker bug fix
+* Dashboard CSS updates
 
 = 2.0.4 =
 * Added optional play/pause button for scroll and auto rotate mode
@@ -317,4 +321,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Added optional play/pause button for scroll and auto rotate mode
+Mixed ticker bug fix & dashboard css updates

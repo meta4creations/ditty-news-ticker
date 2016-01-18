@@ -361,7 +361,7 @@ function mtphr_dnt_mixed_values() {
 }
 
 /* --------------------------------------------------------- */
-/* !Return the mixed ticker fields - 2.0.0 */
+/* !Return the mixed ticker fields - 2.0.5 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_mixed_fields') ) {
@@ -384,7 +384,7 @@ function mtphr_dnt_mixed_fields() {
 			'fields' => array(
 				
 				/* !Tick type - 2.0.0 */
-				'ticker_type' => array(
+				'type' => array(
 					'heading' => __('Ticker type', 'ditty-news-ticker'),
 					'help' => __('Select the ticker type to use.', 'ditty-news-ticker'),
 					'type' => 'select',
