@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 4.0
-Tested up to: 4.4
+Tested up to: 4.4.2
 Stable tag: /trunk/
 License: GPL2
 
@@ -53,6 +53,10 @@ Each individual Ticker post has multiple settings to customize.
 4. List Mode options
 
 == Changelog ==
+
+= 2.0.6 =
+* Unyson page builder shortcode integration
+* Visual Composer page builder shortcode integration
 
 = 2.0.5 =
 * Mixed ticker bug fix
@@ -321,4 +325,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Mixed ticker bug fix & dashboard css updates
+Added Unyson and Visual Composer shortcode integrations

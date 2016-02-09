@@ -5,7 +5,7 @@ Plugin URI: http://dittynewsticker.com/
 Description: Ditty News Ticker is a multi-functional data display plugin
 Text Domain: ditty-news-ticker
 Domain Path: languages
-Version: 2.0.5
+Version: 2.0.6
 Author: Metaphor Creations
 Author URI: http://www.metaphorcreations.com
 Contributors: metaphorcreations
@@ -32,10 +32,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 /* --------------------------------------------------------- */
-/* !Define constants - 2.0.5 */
+/* !Define constants - 2.0.6 */
 /* --------------------------------------------------------- */
 
-define ( 'MTPHR_DNT_VERSION', '2.0.5' );
+define ( 'MTPHR_DNT_VERSION', '2.0.6' );
 define ( 'MTPHR_DNT_DIR', trailingslashit(plugin_dir_path(__FILE__)) );
 define ( 'MTPHR_DNT_URL', trailingslashit(plugins_url()).'ditty-news-ticker/' );
 
@@ -50,6 +50,7 @@ require_once( MTPHR_DNT_DIR.'includes/helpers.php' );
 require_once( MTPHR_DNT_DIR.'includes/post-types.php' );
 require_once( MTPHR_DNT_DIR.'includes/settings.php' );
 require_once( MTPHR_DNT_DIR.'includes/widget.php' );
+//require_once( MTPHR_DNT_DIR.'includes/composer.php' );
 
 if( is_admin() ) {
 
@@ -105,4 +106,16 @@ function mtphr_dnt_localization() {
 	load_plugin_textdomain( 'ditty-news-ticker', false, 'ditty-news-ticker/languages/' );
 }
 add_action( 'plugins_loaded', 'mtphr_dnt_localization' );
+
+
+
+/* --------------------------------------------------------- */
+/* !Set a custom Unyson extension location - 2.0.6 */
+/* --------------------------------------------------------- */
+
+function mtphr_dnt_unyson_extension( $locations ) {
+  $locations[ MTPHR_DNT_DIR.'unyson' ] = MTPHR_DNT_URL.'unyson';
+  return $locations;
+}
+add_filter( 'fw_extensions_locations', 'mtphr_dnt_unyson_extension' );
 

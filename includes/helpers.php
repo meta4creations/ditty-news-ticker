@@ -245,3 +245,46 @@ function mtphr_dnt_tick_close( $tick_obj, $i, $id, $meta_data, $total=false ) {
 }
 }
 
+
+/* --------------------------------------------------------- */
+/* !Return an array of tickers - 2.0.6 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_get_tickers') ) {
+function mtphr_dnt_get_tickers( $reverse = false ) {
+	
+	$args = array(
+		'posts_per_page' => -1,
+		'offset' => 0,
+		'category' => '',
+		'orderby' => 'title',
+		'order' => 'ASC',
+		'include' => '',
+		'exclude' => '',
+		'meta_key' => '',
+		'meta_value' => '',
+		'post_type' => 'ditty_news_ticker',
+		'post_mime_type' => '',
+		'post_parent' => '',
+		'post_status' => 'publish',
+		'suppress_filters' => true
+	);
+	$tickers = get_posts( $args );
+	
+	$tickers_array = $reverse ? array( __('Select a Ticker', 'ditty-news-ticker') => '' ) : array( '' => __('Select a Ticker', 'ditty-news-ticker') );
+	if( is_array($tickers) && count($tickers) > 0 ) {
+		foreach( $tickers as $i=>$ticker ) {
+			if( $reverse ) {
+				$tickers_array[$ticker->post_title] = $ticker->ID;
+			} else {
+				$tickers_array[$ticker->ID] = $ticker->post_title;
+			}
+		}
+	} else {
+		$tickers_array = array( __('No tickers found', 'ditty-news-ticker') );
+	}
+
+	return $tickers_array;
+}
+}
+
