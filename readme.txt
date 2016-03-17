@@ -54,6 +54,16 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 2.0.8 =
+* Bug fix in news ticker output
+* Added MTPHR_DTN_Image class for use in extensions
+* Added MTPHR_DNT_String_Replacement class for use in extensions
+* Added checkboxes field for admin use
+
+= 2.0.7 =
+* Adjusted Custom CSS field display
+* CSS updates
+
 = 2.0.6 =
 * Unyson page builder shortcode integration
 * Visual Composer page builder shortcode integration
@@ -325,4 +335,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Added Unyson and Visual Composer shortcode integrations
+Bug fix and added classes for extension use

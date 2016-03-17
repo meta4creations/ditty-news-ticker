@@ -197,12 +197,11 @@ $red: hsl(0, 100%, 50%);
 /* !CodeMirror */
 /* --------------------------------------------------------- */
 
-/*
-.mtphr-dnt-codemirror {
+.mtphr-dnt-codemirror .CodeMirror {
 	border: 1px solid #dfdfdf;
-	overflow: hidden;
+	height: auto;
+	min-height: 52px;
 }
-*/
 
 
 
@@ -763,6 +762,15 @@ $red: hsl(0, 100%, 50%);
 	i {
 		font-size: 20px !important;
 		margin: -2px 0 -4px -5px !important;
+	}
+}
+
+.mtphr-dnt-field-type-checkboxes {
+	label {
+		margin: 5px 20px 5px 0;
+		&:last-child {
+			margin-right: 0;
+		}
 	}
 }
 

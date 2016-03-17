@@ -325,6 +325,39 @@ function mtphr_dnt_field_checkbox( $args=array() ) {
 
 
 /* --------------------------------------------------------- */
+/* !Checkboxes - 2.0.0 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_field_checkboxes') ) {
+function mtphr_dnt_field_checkboxes( $args=array() ) {
+
+	if( isset($args['name']) ) {
+		
+		$name = $args['name'];
+		$class = mtphr_dnt_field_class( $args );
+		$value = isset($args['value']) ? $args['value'] : array();
+		$options = isset($args['options']) ? $args['options'] : '';
+		
+		echo '<div class="'.$class.' mtphr-dnt-clearfix">';
+			echo mtphr_dnt_subheading( $args );
+			if( is_array($options) && count($options) > 0 ) {
+				foreach( $options as $i=>$option ) {
+					$on = in_array($i, $value) ? $i : '';
+					echo '<label><input type="checkbox" name="'.$name.'['.$i.']" value="'.$i.'" '.checked($i, $on, false).' '.mtphr_dnt_field_atts($args).' /> '.$option.'</label>';
+				}
+			}
+		echo '</div>';
+		
+		mtphr_dnt_field_append( $args );
+
+	} else {
+		echo __('Missing required data', 'ditty-news-ticker');
+	}
+}
+}
+
+
+/* --------------------------------------------------------- */
 /* !Radio buttons - 2.0.0 */
 /* --------------------------------------------------------- */
 
