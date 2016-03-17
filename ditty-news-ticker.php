@@ -5,7 +5,7 @@ Plugin URI: http://dittynewsticker.com/
 Description: Ditty News Ticker is a multi-functional data display plugin
 Text Domain: ditty-news-ticker
 Domain Path: languages
-Version: 2.0.6
+Version: 2.0.8
 Author: Metaphor Creations
 Author URI: http://www.metaphorcreations.com
 Contributors: metaphorcreations
@@ -32,10 +32,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 /* --------------------------------------------------------- */
-/* !Define constants - 2.0.6 */
+/* !Define constants - 2.0.8 */
 /* --------------------------------------------------------- */
 
-define ( 'MTPHR_DNT_VERSION', '2.0.6' );
+define ( 'MTPHR_DNT_VERSION', '2.0.8' );
 define ( 'MTPHR_DNT_DIR', trailingslashit(plugin_dir_path(__FILE__)) );
 define ( 'MTPHR_DNT_URL', trailingslashit(plugins_url()).'ditty-news-ticker/' );
 
@@ -50,7 +50,7 @@ require_once( MTPHR_DNT_DIR.'includes/helpers.php' );
 require_once( MTPHR_DNT_DIR.'includes/post-types.php' );
 require_once( MTPHR_DNT_DIR.'includes/settings.php' );
 require_once( MTPHR_DNT_DIR.'includes/widget.php' );
-//require_once( MTPHR_DNT_DIR.'includes/composer.php' );
+require_once( MTPHR_DNT_DIR.'includes/composer.php' );
 
 if( is_admin() ) {
 
@@ -70,6 +70,8 @@ if( is_admin() ) {
 	require_once( MTPHR_DNT_DIR.'includes/functions.php' );
 	require_once( MTPHR_DNT_DIR.'includes/scripts.php' );
 	require_once( MTPHR_DNT_DIR.'includes/shortcodes.php' );
+	require_once( MTPHR_DNT_DIR.'classes/class-mtphr-dnt-image.php' );
+	require_once( MTPHR_DNT_DIR.'classes/class-mtphr-dnt-string-replacement.php' );
 	require_once( MTPHR_DNT_DIR.'includes/templates.php' );
 }
 

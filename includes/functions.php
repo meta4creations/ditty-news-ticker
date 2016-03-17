@@ -199,10 +199,10 @@ function render_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 		$wp_query = null;
 		$wp_query = $original_query;
 		wp_reset_postdata();
+		
+		// Return the output
+		return ob_get_clean();
 	}
-
-	// Return the output
-	return ob_get_clean();
 }
 
 

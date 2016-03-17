@@ -51,9 +51,10 @@ jQuery( document ).ready( function($) {
 		var myCodeMirror = CodeMirror.fromTextArea($textarea[0], {
 			'mode' : 'css',
 			'lineNumbers' : true,
-			'lineWrapping' : true
+			'lineWrapping' : true,
+			'viewportMargin' : Infinity
 		});
-		myCodeMirror.setSize( false, 140 );
+		//myCodeMirror.setSize( false, false );
 	});
 
 	$('.mtphr-dnt-codemirror-js').each( function(i) {
@@ -127,11 +128,11 @@ jQuery( document ).ready( function($) {
 		$button.siblings('input').val($button.attr('href').substring(1));
 	}
 	
-	if( $('.mtphr-dnt-type-toggle').length ) {
+	if( $('.mtphr-dnt-type-toggle.button-primary').length ) {
 		mtphr_dnt_toggle_metaboxes( $('.mtphr-dnt-type-toggle.button-primary'), 'type' );
 	}
 	
-	if( $('.mtphr-dnt-mode-toggle').length ) {
+	if( $('.mtphr-dnt-mode-toggle.button-primary').length ) {
 		mtphr_dnt_toggle_metaboxes( $('.mtphr-dnt-mode-toggle.button-primary'), 'mode' );
 	}
 	
