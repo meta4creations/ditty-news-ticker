@@ -1,7 +1,7 @@
 jQuery( document ).ready( function($) {
 	
 
-	var preload_limit = 1;
+	var preload_limit = 4;
 			currently_preloading = 0;
 
 
