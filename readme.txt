@@ -54,6 +54,13 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 2.0.9 =
+* Updates to rotate mode script
+* Scroll and rotate tickers now load on document ready
+* Added imagesLoaded to scroll and rotate tickers
+* Added 'nofollow' option to MTPHR_DNT_Image class
+* Additional updates to MTPHR_DNT_Image class
+
 = 2.0.8 =
 * Bug fix in news ticker output
 * Added MTPHR_DTN_Image class for use in extensions
@@ -335,4 +342,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Bug fix and added classes for extension use
+Scroll and rotate mode script updates. MTPHR_DNT_Image updates.

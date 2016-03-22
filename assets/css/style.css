@@ -49,6 +49,80 @@
 }
 
 /* --------------------------------------------------------- */
+/* !Rotate */
+/* --------------------------------------------------------- */
+/*
+.mtphr-dnt-rotate {
+	.unslider {
+		overflow:auto;
+		margin:0;
+		padding:0;
+		li, ol, ul {
+			list-style:none;
+			margin:0;
+			padding:0;
+			border:none;
+		}
+	}
+	.unslider-wrap {
+		position:relative;
+		&.unslider-carousel {
+			> .mtphr-dnt-tick {
+				float:left;
+			}
+		}
+	}
+	.unslider-vertical {
+		> ul {
+			height:100%;
+		}
+		li {
+			float:none;
+			width:100%;
+		}
+	}
+	.unslider-fade {
+		position:relative;
+		.unslider-wrap {
+			.mtphr-dnt-tick {
+				position:absolute;
+				left:0;
+				top:0;
+				right:0;
+				z-index:8;
+				&.unslider-active {
+					z-index:10;
+				}
+			}
+		}
+	}
+	.unslider-arrow {
+		position:absolute;
+		left:20px;
+		z-index:2;
+		cursor:pointer;
+		&.next {
+			left:auto;
+			right:20px;
+		}
+	}
+	.unslider-nav {
+		text-align: center;
+		ol {
+			display: inline-block;
+		}
+		li {
+			float: left;
+			margin: 0 5px;
+			cursor: pointer;
+			&.unslider-active {
+				color: green;
+			}
+		}
+	}
+}
+*/
+/* --------------------------------------------------------- */
 /* !Spinner */
 /* --------------------------------------------------------- */
 .mtphr-dnt-icon-spinner {
@@ -165,12 +239,11 @@
 }
 
 .mtphr-dnt-image-container .mtphr-dnt-image-photo a {
-  display: block;
+  display: inline-block;
 }
 
 .mtphr-dnt-image-container .mtphr-dnt-image-photo img {
   display: block;
-  width: 100%;
   max-width: 100%;
   height: auto;
   line-height: 0;

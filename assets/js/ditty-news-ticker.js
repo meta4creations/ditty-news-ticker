@@ -123,19 +123,8 @@
 		     *
 		     * @since 1.1.0
 		     */
-		    function mtphr_dnt_scroll_setup() {
-
-		    	var $first = $ticker.find('.mtphr-dnt-tick:first');
-		    	if( $first.attr('style') ) {
-			    	var style = $first.attr('style');
-			    	var style_array = style.split('width:');
-			    	ticker_scroll_resize = (style_array.length > 1) ? false : true;
-		    	}
-		    	
-		    	// Reset the ticks
-		    	ticks = [];
-
-		    	// Loop through the tick items
+		    function mtphr_dnt_scroll_set_height() {
+			    // Loop through the tick items
 					$ticker.find('.mtphr-dnt-tick').each( function(index) {
 
 						// Find the greatest tick height
@@ -150,6 +139,25 @@
 
 					// Set the ticker height
 					$ticker.css('height',ticker_height+'px');
+		    }
+		    
+		    function mtphr_dnt_scroll_setup() {
+
+		    	var $first = $ticker.find('.mtphr-dnt-tick:first');
+		    	if( $first.attr('style') ) {
+			    	var style = $first.attr('style');
+			    	var style_array = style.split('width:');
+			    	ticker_scroll_resize = (style_array.length > 1) ? false : true;
+		    	}
+		    	
+		    	// Reset the ticks
+		    	ticks = [];
+
+		    	mtphr_dnt_scroll_set_height();
+					
+					$ticker.imagesLoaded( function() {
+					  mtphr_dnt_scroll_set_height();
+					});
 
 		    	// Loop through the tick items
 					$ticker.find('.mtphr-dnt-tick').each( function(index) {
@@ -569,11 +577,16 @@
 
 						// Add the tick to the array
 						ticks.push($(this));
-
+						$(this).imagesLoaded( function() {
+						  mtphr_dnt_rotator_resize_ticks();
+						});
 					});
 
 					// Resize the ticks
 					mtphr_dnt_rotator_resize_ticks();
+					
+					// Loop through the tick items
+					$ticker.find('.mtphr-dnt-tick').show();
 
 					// Find the rotation type and create the dynamic rotation init function
 					var rotate_init_name = 'mtphr_dnt_rotator_'+settings.rotate_type+'_init';
@@ -732,6 +745,11 @@
 
 				    // Set the width of the tick
 				    $(ticks[i]).width( ticker_width+'px' );
+				    if( vars.current_tick !== i ) {
+					    $(ticks[i]).css({
+								left: parseFloat(ticker_width+settings.offset)+'px'
+							});
+						}
 			    }
 
 			    // Resize the ticker
@@ -753,32 +771,42 @@
 					$tick = ticks[0];
 
 					// Find the width of the tick
-					var w = $tick.parents('.mtphr-dnt-rotate').width();
 					var h = $tick.height();
 
 					// Set the height of the ticker
 					$ticker.css( 'height', h+'px' );
-
-					// Set the initial position of the width & make sure it's visible
-					$tick.show();
+					$tick.css( 'left', 'auto' );
 			  }
 
 				// Show the new tick
 				function mtphr_dnt_rotator_fade_in( $ticker, $tick, $prev, rotate_speed, ease ) {
-			    $tick.fadeIn( rotate_speed );
+			    $tick.css({
+				    opacity: 0,
+				    left: 'auto'
+				  });
+				  $tick.stop().animate( {
+						opacity: 1
+					}, rotate_speed, ease );
 
 			    var h = $tick.height();
 
 					// Resize the ticker
 					$ticker.stop().animate( {
 						height: h+'px'
-					}, rotate_speed, ease, function() {
-					});
+					}, rotate_speed, ease );
 			  }
 
 			  // Hide the old tick
 			  function mtphr_dnt_rotator_fade_out( $ticker, $tick, $next, rotate_speed, ease ) {
-			    $tick.fadeOut( rotate_speed );
+			    $tick.stop().animate( {
+						opacity: 0
+					}, rotate_speed, ease, function() {
+						$(this).css({
+							left: parseFloat(ticker_width+settings.offset)+'px'
+						});
+						$tick.remove();
+						$ticker.append( $tick );
+					});
 			  }
 
 
@@ -795,7 +823,6 @@
 					$tick = ticks[0];
 
 					// Find the dimensions of the tick
-					var w = $tick.parents('.mtphr-dnt-rotate').width();
 					var h = $tick.height();
 
 					// Set the height of the ticker
@@ -803,35 +830,16 @@
 
 					// Set the initial position of the width & make sure it's visible
 					$tick.css( 'left', 0 );
-					$tick.show();
-
-					// If there are any images, reset height after loading
-					if( $tick.find('img').length > 0 ) {
-
-						$tick.find('img').each( function(index) {
-
-							jQuery(this).load( function() {
-
-								// Find the height of the tick
-								var h = $tick.height();
-
-								// Set the height of the ticker
-								$ticker.css( 'height', h+'px' );
-							});
-						});
-					}
 			  }
 
 				// Show the new tick
 				function mtphr_dnt_rotator_slide_left_in( $ticker, $tick, $prev, rotate_speed, ease ) {
 
 					// Find the dimensions of the tick
-					var w = $tick.parents('.mtphr-dnt-rotate').width();
 					var h = $tick.height();
 
 					// Set the initial position of the width & make sure it's visible
-					$tick.css( 'left', parseFloat(w+settings.offset)+'px' );
-					$tick.show();
+					$tick.css( 'left', parseFloat(ticker_width+settings.offset)+'px' );
 
 					// Resize the ticker
 					$ticker.stop().animate( {
@@ -850,15 +858,14 @@
 			  function mtphr_dnt_rotator_slide_left_out( $ticker, $tick, $next, rotate_speed, ease ) {
 
 			    // Find the dimensions of the tick
-					var w = $tick.parents('.mtphr-dnt-rotate').width();
 					var h = $tick.height();
 
 					// Slide the tick in
 					$tick.stop().animate( {
-						left: '-'+parseFloat(w+settings.offset)+'px'
+						left: '-'+parseFloat(ticker_width+settings.offset)+'px'
 					}, rotate_speed, ease, function() {
-						// Hide the tick
-						$tick.hide();
+						$tick.remove();
+						$ticker.append( $tick );
 					});
 			  }
 
@@ -876,7 +883,6 @@
 					$tick = ticks[0];
 
 					// Find the dimensions of the tick
-					var w = $tick.parents('.mtphr-dnt-rotate').width();
 					var h = $tick.height();
 
 					// Set the height of the ticker
@@ -884,35 +890,16 @@
 
 					// Set the initial position of the width & make sure it's visible
 					$tick.css( 'left', 0 );
-					$tick.show();
-
-					// If there are any images, reset height after loading
-					if( $tick.find('img').length > 0 ) {
-
-						$tick.find('img').each( function(index) {
-
-							jQuery(this).load( function() {
-
-								// Find the height of the tick
-								var h = $tick.height();
-
-								// Set the height of the ticker
-								$ticker.css( 'height', h+'px' );
-							});
-						});
-					}
 			  }
 
 				// Show the new tick
 				function mtphr_dnt_rotator_slide_right_in( $ticker, $tick, $prev, rotate_speed, ease ) {
 
 					// Find the dimensions of the tick
-					var w = $tick.parents('.mtphr-dnt-rotate').width();
 					var h = $tick.height();
 
 					// Set the initial position of the width & make sure it's visible
-					$tick.css( 'left', '-'+parseFloat(w+settings.offset)+'px' );
-					$tick.show();
+					$tick.css( 'left', '-'+parseFloat(ticker_width+settings.offset)+'px' );
 
 					// Resize the ticker
 					$ticker.stop().animate( {
@@ -923,23 +910,18 @@
 					// Slide the tick in
 					$tick.stop().animate( {
 						left: '0'
-					}, rotate_speed, ease, function() {
-					});
+					}, rotate_speed, ease );
 			  }
 
 			  // Hide the old tick
 			  function mtphr_dnt_rotator_slide_right_out( $ticker, $tick, $next, rotate_speed, ease ) {
 
-			    // Find the dimensions of the tick
-					var w = $tick.parents('.mtphr-dnt-rotate').width();
-					var h = $tick.height();
-
 					// Slide the tick in
 					$tick.stop().animate( {
-						left: parseFloat(w+settings.offset)+'px'
+						left: parseFloat(ticker_width+settings.offset)+'px'
 					}, rotate_speed, ease, function() {
-						// Hide the tick
-						$tick.hide();
+						$tick.remove();
+						$ticker.append( $tick );
 					});
 			  }
 
@@ -963,24 +945,10 @@
 					$ticker.css( 'height', h+'px' );
 
 					// Set the initial position of the width & make sure it's visible
-					$tick.css( 'top', 0 );
-					$tick.show();
-
-					// If there are any images, reset height after loading
-					if( $tick.find('img').length > 0 ) {
-
-						$tick.find('img').each( function(index) {
-
-							jQuery(this).load( function() {
-
-								// Find the height of the tick
-								var h = $tick.height();
-
-								// Set the height of the ticker
-								$ticker.css( 'height', h+'px' );
-							});
-						});
-					}
+					$tick.css({
+						top: 0,
+						left: 'auto'
+					});
 			  }
 
 				// Show the new tick
@@ -990,20 +958,20 @@
 					var h = $tick.height();
 
 					// Set the initial position of the width & make sure it's visible
-					$tick.css( 'top', '-'+parseFloat(h+settings.offset)+'px' );
-					$tick.show();
+					$tick.css({
+						top: '-'+parseFloat(h+settings.offset)+'px',
+						left: 'auto'
+					});
 
 					// Resize the ticker
 					$ticker.stop().animate( {
 						height: h+'px'
-					}, rotate_speed, ease, function() {
-					});
+					}, rotate_speed, ease );
 
 					// Slide the tick in
 					$tick.stop().animate( {
 						top: '0'
-					}, rotate_speed, ease, function() {
-					});
+					}, rotate_speed, ease );
 			  }
 
 			  // Hide the old tick
@@ -1016,8 +984,8 @@
 					$tick.stop().animate( {
 						top: parseFloat(h+settings.offset)+'px'
 					}, rotate_speed, ease, function() {
-						// Hide the tick
-						$tick.hide();
+						$tick.remove();
+						$ticker.append( $tick );
 					});
 			  }
 
@@ -1038,27 +1006,13 @@
 					var h = $tick.height();
 
 					// Set the height of the ticker
-					$ticker.css( 'height', h+'px' );
+					$ticker.css({
+						height: h+'px',
+						left: 'auto'
+					});
 
 					// Set the initial position of the width & make sure it's visible
 					$tick.css( 'top', 0 );
-					$tick.show();
-
-					// If there are any images, reset height after loading
-					if( $tick.find('img').length > 0 ) {
-
-						$tick.find('img').each( function(index) {
-
-							jQuery(this).load( function() {
-
-								// Find the height of the tick
-								var h = $tick.height();
-
-								// Set the height of the ticker
-								$ticker.css( 'height', h+'px' );
-							});
-						});
-					}
 			  }
 
 				// Show the new tick
@@ -1068,20 +1022,20 @@
 					var h = $tick.height();
 
 					// Set the initial position of the width & make sure it's visible
-					$tick.css( 'top', parseFloat($prev.height()+settings.offset)+'px' );
-					$tick.show();
+					$tick.css({
+						top: parseFloat($prev.height()+settings.offset)+'px',
+						left: 'auto'
+					});
 
 					// Resize the ticker
 					$ticker.stop().animate( {
 						height: h+'px'
-					}, rotate_speed, ease, function() {
-					});
+					}, rotate_speed, ease );
 
 					// Slide the tick in
 					$tick.stop().animate( {
 						top: '0'
-					}, rotate_speed, ease, function() {
-					});
+					}, rotate_speed, ease );
 			  }
 
 			  // Hide the old tick
@@ -1094,8 +1048,8 @@
 					$tick.stop().animate( {
 						top: '-'+parseFloat(h+settings.offset)+'px'
 					}, rotate_speed, ease, function() {
-						// Hide the tick
-						$tick.hide();
+						$tick.remove();
+						$ticker.append( $tick );
 					});
 			  }
 			  

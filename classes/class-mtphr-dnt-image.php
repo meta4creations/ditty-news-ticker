@@ -1,23 +1,24 @@
 <?php
 	
 /* --------------------------------------------------------- */
-/* !Create an image class - 2.0.8 */
+/* !Create an image class - 2.0.9 */
 /* --------------------------------------------------------- */
 
 class MTPHR_DNT_Image {
 	
 	private $src;
-	private $width = 0;
-	private $height = 0;
+	private $width = '';
+	private $height = '';
 	private $alt = '';
 	private $link = false;
 	private $target = '_blank';
+	private $nofollow = false;
 	private $caption = false;
 	private $caption_position = 'below';
 	private $caption_hover = true;
 	
 	
-	function __construct( $src, $width=0, $height=0, $alt='' ) {
+	function __construct( $src, $width='', $height='', $alt='' ) {
   	$this->src = $src;
 		$this->width = $width;
 		$this->height = $height;
@@ -57,9 +58,10 @@ class MTPHR_DNT_Image {
 		return $this->alt;
 	}
 
- 	public function set_link( $link=false, $target='_blank' ) {
+ 	public function set_link( $link=false, $target='_blank', $nofollow=false ) {
 	 	$this->link = $link;
 	 	$this->target = $target;
+	 	$this->nofollow = $nofollow;
 	}
 	
 	public function get_link() {
@@ -67,7 +69,11 @@ class MTPHR_DNT_Image {
 	}
 	
 	public function get_target() {
-	 	return $this->target = $target;
+	 	return $this->target;
+	}
+	
+	public function get_nofollow() {
+	 	return $this->nofollow;
 	}
 	
 	public function set_caption( $caption=false ) {
@@ -94,51 +100,63 @@ class MTPHR_DNT_Image {
 	 	return $this->caption_hover;
 	}
 	
-	
 	public function render() {
 		
+		$html = '';
 		$hover = ( $this->caption_hover && ($this->caption_position == 'top' || $this->caption_position == 'bottom') ) ? ' mtphr-dnt-image-caption-hover' : '';
-		echo '<div class="mtphr-dnt-image-container mtphr-dnt-image-caption-'.$this->caption_position.$hover.'">';
+		
+		$html .= '<span class="mtphr-dnt-image-container mtphr-dnt-image-caption-'.$this->caption_position.$hover.'">';
 		
 			switch( $this->caption_position ) {
 				case 'above':
-					$this->render_caption();
-					$this->render_image();
+					$html .= $this->render_caption();
+					$html .= $this->render_image();
 					break;
 					
 				default:
-					$this->render_image();
-					$this->render_caption();
+					$html .= $this->render_image();
+					$html .= $this->render_caption();
 					break;
 			}
 		
-		echo '</div>';
+		$html .= '</span>';
+		
+		return $html;
 	}
 	
 	
 	private function render_image() {
 		
-		echo '<div class="mtphr-dnt-image-photo">';
+		$html = '';
+		$html .= '<span class="mtphr-dnt-image-photo">';
 			if( $this->link ) {
-				echo '<a href="'.esc_url_raw($this->link).'" target="'.$this->target.'">';	
+				$nofollow = $this->nofollow ? ' rel="nofollow"' : '';
+				$html .= '<a href="'.esc_url_raw($this->link).'" target="'.$this->target.'"'.$nofollow.'>';	
 			}
-			echo '<div class="mtphr-dnt-image-placeholder" data-src="'.$this->src.'" data-width="'.$this->width.'" data-height="'.$this->height.'" style="width:'.$this->width.'px;height:'.$this->height.'px;"><i class="mtphr-dnt-icon-spinner"></i></div>';
-			echo '<div class="mtphr-dnt-image-placeholder-sizer"></div>';
+			$html .= '<img src="'.$this->src.'" width="'.$this->width.'" height="'.$this->height.'" alt="'.$this->alt.'" />';
+			
+			//$html .= '<span class="mtphr-dnt-image-placeholder" data-src="'.$this->src.'" data-width="'.$this->width.'" data-height="'.$this->height.'" style="width:'.$this->width.'px;height:'.$this->height.'px;"><i class="mtphr-dnt-icon-spinner"></i></span>';
+			//$html .= '<span class="mtphr-dnt-image-placeholder-sizer"></span>';
 			
 			if( $this->link ) {
-				echo '</a>';	
+				$html .= '</a>';	
 			}
-		echo '</div>';
+		$html .= '</span>';
+		
+		return $html;
 	}
 	
 	
 	private function render_caption() {
 		
+		$html = '';
 		if( $this->caption ) {
-			echo '<div class="mtphr-dnt-image-caption">';
-				echo $this->caption;
-			echo '</div>';
+			$html .= '<span class="mtphr-dnt-image-caption">';
+				$html .= $this->caption;
+			$html .= '</span>';
 		}
+		
+		return $html;
 	}
 	
 	
