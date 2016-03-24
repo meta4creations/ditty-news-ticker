@@ -105,7 +105,7 @@ class MTPHR_DNT_Image {
 		$html = '';
 		$hover = ( $this->caption_hover && ($this->caption_position == 'top' || $this->caption_position == 'bottom') ) ? ' mtphr-dnt-image-caption-hover' : '';
 		
-		$html .= '<span class="mtphr-dnt-image-container mtphr-dnt-image-caption-'.$this->caption_position.$hover.'">';
+		$html .= '<div class="mtphr-dnt-image-container mtphr-dnt-image-caption-'.$this->caption_position.$hover.'">';
 		
 			switch( $this->caption_position ) {
 				case 'above':
@@ -119,7 +119,7 @@ class MTPHR_DNT_Image {
 					break;
 			}
 		
-		$html .= '</span>';
+		$html .= '</div>';
 		
 		return $html;
 	}
@@ -128,7 +128,7 @@ class MTPHR_DNT_Image {
 	private function render_image() {
 		
 		$html = '';
-		$html .= '<span class="mtphr-dnt-image-photo">';
+		$html .= '<div class="mtphr-dnt-image-photo">';
 			if( $this->link ) {
 				$nofollow = $this->nofollow ? ' rel="nofollow"' : '';
 				$html .= '<a href="'.esc_url_raw($this->link).'" target="'.$this->target.'"'.$nofollow.'>';	
@@ -141,7 +141,7 @@ class MTPHR_DNT_Image {
 			if( $this->link ) {
 				$html .= '</a>';	
 			}
-		$html .= '</span>';
+		$html .= '</div>';
 		
 		return $html;
 	}
