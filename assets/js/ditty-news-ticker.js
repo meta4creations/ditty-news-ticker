@@ -153,30 +153,30 @@
 		    	// Reset the ticks
 		    	ticks = [];
 
-		    	mtphr_dnt_scroll_set_height();
+		    	//mtphr_dnt_scroll_set_height();
 					
 					$ticker.imagesLoaded( function() {
 					  mtphr_dnt_scroll_set_height();
-					});
-
-		    	// Loop through the tick items
-					$ticker.find('.mtphr-dnt-tick').each( function(index) {
-
-						// Make sure the ticker is visible
-						$(this).show();
-
-						// Add the tick data
-						var tick = [{'headline':$(this)}];
-
-						// Add the tick to the array
-						ticks.push(tick);
-					});
-
-					// Set the initial position of the ticks
-					mtphr_dnt_scroll_reset_ticks();
-
-					// Start the scroll loop
-					mtphr_dnt_scroll_loop();
+					  
+					  // Loop through the tick items
+						$ticker.find('.mtphr-dnt-tick').each( function(index) {
+	
+							// Make sure the ticker is visible
+							$(this).show();
+	
+							// Add the tick data
+							var tick = [{'headline':$(this)}];
+	
+							// Add the tick to the array
+							ticks.push(tick);
+						});
+	
+						// Set the initial position of the ticks
+						mtphr_dnt_scroll_reset_ticks();
+	
+						// Start the scroll loop
+						mtphr_dnt_scroll_loop();
+					});	
 
 					// Clear the loop on mouse hover
 					$ticker.hover(
@@ -468,6 +468,7 @@
 								if( ticker_scroll_resize ) {
 									$tick.css('width',ticker_width);
 								}
+								console.log(ticker_height);
 								position = parseInt(ticker_height+settings.offset);
 								$tick.stop(true,true).css('top',position+'px');
 								break;

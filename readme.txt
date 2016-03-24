@@ -54,6 +54,10 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 2.0.10 =
+* Bug fix from last update
+* MTPHR_DNT_Image container element update
+
 = 2.0.9 =
 * Updates to rotate mode script
 * Scroll and rotate tickers now load on document ready
@@ -342,4 +346,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Scroll and rotate mode script updates. MTPHR_DNT_Image updates.
+Bug fix and MTPHR_DNT_Image updates.
