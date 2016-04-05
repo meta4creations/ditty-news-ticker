@@ -1,6 +1,9 @@
 .mtphr-dnt img {
-  max-width: 100%;
   height: auto;
+  width: 100%;
+  max-width: 100%;
+  max-width: -moz-fit-content;
+  max-width: -webkit-fit-content;
 }
 .mtphr-dnt-wrapper {
 	position: relative;

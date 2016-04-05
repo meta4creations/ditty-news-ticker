@@ -468,7 +468,6 @@
 								if( ticker_scroll_resize ) {
 									$tick.css('width',ticker_width);
 								}
-								console.log(ticker_height);
 								position = parseInt(ticker_height+settings.offset);
 								$tick.stop(true,true).css('top',position+'px');
 								break;

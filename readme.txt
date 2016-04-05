@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 4.0
-Tested up to: 4.4.2
+Tested up to: 4.5
 Stable tag: /trunk/
 License: GPL2
 
@@ -53,6 +53,10 @@ Each individual Ticker post has multiple settings to customize.
 4. List Mode options
 
 == Changelog ==
+
+= 2.0.11 =
+* Updated mtphr_dnt_convert_links to fix latin character bug
+* Removed console function in script
 
 = 2.0.10 =
 * Bug fix from last update
@@ -346,4 +350,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Bug fix and MTPHR_DNT_Image updates.
+Updated mtphr_dnt_convert_links to fix latin character bug.
