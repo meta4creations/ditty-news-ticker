@@ -290,7 +290,7 @@ function mtphr_dnt_get_tickers( $reverse = false ) {
 
 
 /* --------------------------------------------------------- */
-/* !Convert links in strings - 2.0.8 */
+/* !Convert links in strings - 2.0.11 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_convert_links') ) {
@@ -298,19 +298,10 @@ function mtphr_dnt_convert_links( $string, $blank=true ) {
 	
 	$string = make_clickable( $string );
 	if( $blank ) {
-		$doc = new DOMDocument();
-		@$doc->loadHTML( $string );
-		$links = $doc->getElementsByTagName('a');
-		foreach( $links as $item ) {
-	    $item->setAttribute( 'target','_blank' );  
-		}
-		$content = $doc->saveHTML();
-		$string = $content;
+		$string = preg_replace( '/<a /','<a target="_blank" ', $string );
 	}
 
 	return $string;
 }
 }
-
-
 
