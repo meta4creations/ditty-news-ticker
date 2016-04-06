@@ -1,7 +1,7 @@
 <?php
 	
 /* --------------------------------------------------------- */
-/* !Create an image class - 2.0.9 */
+/* !Create an image class - 2.0.12 */
 /* --------------------------------------------------------- */
 
 class MTPHR_DNT_Image {
@@ -9,6 +9,7 @@ class MTPHR_DNT_Image {
 	private $src;
 	private $width = '';
 	private $height = '';
+	private $static_dimensions = false;
 	private $alt = '';
 	private $link = false;
 	private $target = '_blank';
@@ -35,7 +36,7 @@ class MTPHR_DNT_Image {
 	}
 
 	public function set_width( $width=0 ) {
-		$this->width = $width;
+		$this->width = intval($width);
 	}
 	
 	public function get_width() {
@@ -43,7 +44,7 @@ class MTPHR_DNT_Image {
 	}
 
 	public function set_height( $height=0 ) {
-		$this->height = $height;
+		$this->height = intval($height);
 	}
 	
 	public function get_height() {
@@ -56,6 +57,18 @@ class MTPHR_DNT_Image {
 	
 	public function get_alt() {
 		return $this->alt;
+	}
+	
+	public function enable_static_dimensions() {
+		$this->static_dimensions = true;
+	}
+	
+	public function disable_static_dimensions() {
+		$this->static_dimensions = false;
+	}
+	
+	public function get_static_dimensions() {
+		return $this->static_dimensions;
 	}
 
  	public function set_link( $link=false, $target='_blank', $nofollow=false ) {
@@ -124,15 +137,35 @@ class MTPHR_DNT_Image {
 		return $html;
 	}
 	
+	private function add_static_dimensions() {
+		
+		$html = '';
+		
+		if( $this->static_dimensions && (($this->width >= 0) || ($this->height >= 0)) ) {
+			$html .= ' style="';
+			if( $this->width >= 0 ) {
+				$html .= 'width:'.$this->width.'px;';
+			}
+			if( $this->height >= 0 ) {
+				$html .= 'height:'.$this->height.'px;';
+			}
+			$html .= '"';
+		}
+		
+		return $html;
+	}
+	
 	
 	private function render_image() {
 		
 		$html = '';
-		$html .= '<div class="mtphr-dnt-image-photo">';
+		
+		$html .= '<div class="mtphr-dnt-image-photo"'.$this->add_static_dimensions().'>';
 			if( $this->link ) {
 				$nofollow = $this->nofollow ? ' rel="nofollow"' : '';
 				$html .= '<a href="'.esc_url_raw($this->link).'" target="'.$this->target.'"'.$nofollow.'>';	
 			}
+			
 			$html .= '<img src="'.$this->src.'" width="'.$this->width.'" height="'.$this->height.'" alt="'.$this->alt.'" />';
 			
 			//$html .= '<span class="mtphr-dnt-image-placeholder" data-src="'.$this->src.'" data-width="'.$this->width.'" data-height="'.$this->height.'" style="width:'.$this->width.'px;height:'.$this->height.'px;"><i class="mtphr-dnt-icon-spinner"></i></span>';
