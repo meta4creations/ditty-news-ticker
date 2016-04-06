@@ -54,6 +54,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 2.0.12 =
+* Added static image dimension options to MTPHR_DNT_Image class
+
 = 2.0.11 =
 * Updated mtphr_dnt_convert_links to fix latin character bug
 * Removed console function in script
@@ -350,4 +353,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Updated mtphr_dnt_convert_links to fix latin character bug.
+Added static image dimension options to MTPHR_DNT_Image class.
