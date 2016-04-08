@@ -65,7 +65,7 @@
 						$nav_next = $container.find('.mtphr-dnt-nav-next'),
 						$nav_controls = $container.find('.mtphr-dnt-control-links'),
 						$play_pause = $container.find('.mtphr-dnt-play-pause'),
-						ticker_width = $ticker.width(),
+						ticker_width = $ticker.outerWidth(),
 						ticker_height = 0,
 						ticks = [],
 						ticker_scroll,
@@ -775,7 +775,10 @@
 
 					// Set the height of the ticker
 					$ticker.css( 'height', h+'px' );
-					$tick.css( 'left', 'auto' );
+					$tick.css({
+						opacity: 1,
+						left:  'auto' 
+					});
 			  }
 
 				// Show the new tick
@@ -829,7 +832,10 @@
 					$ticker.css( 'height', h+'px' );
 
 					// Set the initial position of the width & make sure it's visible
-					$tick.css( 'left', 0 );
+					$tick.css({
+						opacity: 1,
+						left:  0 
+					});
 			  }
 
 				// Show the new tick
@@ -839,7 +845,10 @@
 					var h = $tick.height();
 
 					// Set the initial position of the width & make sure it's visible
-					$tick.css( 'left', parseFloat(ticker_width+settings.offset)+'px' );
+					$tick.css({
+						opacity: 1,
+						left: parseFloat(ticker_width+settings.offset)+'px',
+					});
 
 					// Resize the ticker
 					$ticker.stop().animate( {
@@ -864,6 +873,9 @@
 					$tick.stop().animate( {
 						left: '-'+parseFloat(ticker_width+settings.offset)+'px'
 					}, rotate_speed, ease, function() {
+						$tick.css({
+							opacity: 0,
+						});
 						$tick.remove();
 						$ticker.append( $tick );
 					});
@@ -889,7 +901,10 @@
 					$ticker.css( 'height', h+'px' );
 
 					// Set the initial position of the width & make sure it's visible
-					$tick.css( 'left', 0 );
+					$tick.css({
+						opacity: 1,
+						left:  0 
+					});
 			  }
 
 				// Show the new tick
@@ -899,7 +914,10 @@
 					var h = $tick.height();
 
 					// Set the initial position of the width & make sure it's visible
-					$tick.css( 'left', '-'+parseFloat(ticker_width+settings.offset)+'px' );
+					$tick.css({
+						opacity: 1,
+						left: '-'+parseFloat(ticker_width+settings.offset)+'px'
+					});
 
 					// Resize the ticker
 					$ticker.stop().animate( {
@@ -920,6 +938,9 @@
 					$tick.stop().animate( {
 						left: parseFloat(ticker_width+settings.offset)+'px'
 					}, rotate_speed, ease, function() {
+						$tick.css({
+							opacity: 0,
+						});
 						$tick.remove();
 						$ticker.append( $tick );
 					});
@@ -946,6 +967,7 @@
 
 					// Set the initial position of the width & make sure it's visible
 					$tick.css({
+						opacity: 1,
 						top: 0,
 						left: 'auto'
 					});
@@ -959,6 +981,7 @@
 
 					// Set the initial position of the width & make sure it's visible
 					$tick.css({
+						opacity: 1,
 						top: '-'+parseFloat(h+settings.offset)+'px',
 						left: 'auto'
 					});
@@ -984,6 +1007,9 @@
 					$tick.stop().animate( {
 						top: parseFloat(h+settings.offset)+'px'
 					}, rotate_speed, ease, function() {
+						$tick.css({
+							opacity: 0,
+						});
 						$tick.remove();
 						$ticker.append( $tick );
 					});
@@ -1012,7 +1038,10 @@
 					});
 
 					// Set the initial position of the width & make sure it's visible
-					$tick.css( 'top', 0 );
+					$tick.css({
+						opacity: 1,
+						top: 0
+					});
 			  }
 
 				// Show the new tick
@@ -1023,6 +1052,7 @@
 
 					// Set the initial position of the width & make sure it's visible
 					$tick.css({
+						opacity: 1,
 						top: parseFloat($prev.height()+settings.offset)+'px',
 						left: 'auto'
 					});
@@ -1048,6 +1078,9 @@
 					$tick.stop().animate( {
 						top: '-'+parseFloat(h+settings.offset)+'px'
 					}, rotate_speed, ease, function() {
+						$tick.css({
+							opacity: 0,
+						});
 						$tick.remove();
 						$ticker.append( $tick );
 					});
@@ -1275,9 +1308,9 @@
 		    $(window).resize( function() {
 
 			    // Resize the tickers if the width is different
-			    if( $ticker.width() != ticker_width ) {
+			    if( $ticker.outerWidth() != ticker_width ) {
 
-				    ticker_width = $ticker.width();
+				    ticker_width = $ticker.outerWidth();
 
 				    if( settings.type == 'scroll' ) {
 				    	if( settings.scroll_direction=='up' || settings.scroll_direction=='down' ) {
@@ -1338,7 +1371,7 @@
 
 			    	if( $container.width() > 10 ) {
 				    	clearInterval(mtphr_dnt_init_timer);
-				    	ticker_width = $ticker.width();
+				    	ticker_width = $ticker.outerWidth();
 				    	mtphr_dnt_init();
 			    	}
 			    	
