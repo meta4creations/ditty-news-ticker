@@ -83,6 +83,7 @@ $red: hsl(0, 100%, 50%);
 .column-dnt_shortcode p,
 .column-dnt_function pre,
 .column-dnt_function p {
+	white-space: inherit !important;
 	margin: 0 !important;
 }
 .column-dnt_shortcode pre,

@@ -1,9 +1,6 @@
 .mtphr-dnt img {
-  height: auto;
-  width: 100%;
   max-width: 100%;
-  max-width: -moz-fit-content;
-  max-width: -webkit-fit-content;
+  height: auto;
 }
 .mtphr-dnt-wrapper {
 	position: relative;
@@ -31,6 +28,11 @@
 	.mtphr-dnt-tick {
 		position: absolute;
 		display:none;
+	}
+}
+.mtphr-dnt-rotate {
+	.mtphr-dnt-tick {
+		opacity: 0;
 	}
 }
 .mtphr-dnt-scroll-left,
@@ -220,10 +222,10 @@
 		line-height: 0;
 		a {
 			display: inline-block;
+			max-width: 100%;
 		}
 		img {
 			display: block;
-// 			width: 100%;
 			max-width: 100%;
 			height: auto;
 			line-height: 0;
@@ -294,6 +296,7 @@
 
 .mtphr-dnt-control-links {
 	text-align: center;
+	margin: 15px 0px 0px;
 }
 .mtphr-dnt-control-links a {
 	text-decoration: none;

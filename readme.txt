@@ -54,6 +54,10 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 2.0.13 =
+* Bug fixes in updated jquery script
+* CSS adjustments for better image rendering across browsers
+
 = 2.0.12 =
 * Added static image dimension options to MTPHR_DNT_Image class
 
@@ -353,4 +357,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Added static image dimension options to MTPHR_DNT_Image class.
+Bug fixes in updated jquery script, cross browser image rendering updates
