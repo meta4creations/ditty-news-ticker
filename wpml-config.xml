@@ -1,0 +1,44 @@
+<wpml-config>
+		<custom-fields>
+        <custom-field action="translate">_mtphr_dnt_ticks</custom-field>    
+        <custom-field action="ignore">_mtphr_dnt_line_breaks</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_type</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_mode</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_scroll_direction</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_scroll_width</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_scroll_height</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_scroll_padding</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_scroll_margin</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_scroll_speed</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_scroll_pause</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_scroll_tick_spacing</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_scroll_init</custom-field> 
+        <custom-field action="ignore">_mtphr_dnt_rotate_type</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_rotate_directional_nav_reverse</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_rotate_height</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_rotate_padding</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_rotate_margin</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_auto_rotate</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_rotate_delay</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_rotate_pause</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_rotate_speed</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_rotate_ease</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_rotate_directional_nav</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_rotate_directional_nav_hide</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_rotate_control_nav</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_rotate_control_nav_type</custom-field>   
+        <custom-field action="ignore">_mtphr_dnt_list_padding</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_list_margin</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_list_tick_spacing</custom-field>      
+        <custom-field action="ignore">_mtphr_dnt_title</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_inline_title</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_shuffle</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_ticker_width</custom-field>
+        <custom-field action="ignore">_mtphr_dnt_offset</custom-field>
+    </custom-fields>
+    <custom-types>
+        <custom-type translate="1">ditty_news_ticker</custom-type>
+    </custom-types>                
+</wpml-config>
+
+

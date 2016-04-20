@@ -1,0 +1,1 @@
+<a class="mtphr-dnt-play-pause" href="#"><i class="mtphr-dnt-icon-play"></i><i class="mtphr-dnt-icon-pause"></i></a>
