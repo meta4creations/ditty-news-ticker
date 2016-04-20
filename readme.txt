@@ -54,6 +54,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 2.0.14 =
+* Ensured that imageloaded is enqueued when ditty-news-ticker.js is enqueued
+
 = 2.0.13 =
 * Bug fixes in updated jquery script
 * CSS adjustments for better image rendering across browsers
@@ -357,4 +360,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Bug fixes in updated jquery script, cross browser image rendering updates
+Ensured that imageloaded is enqueued when ditty-news-ticker.js is enqueued

@@ -25,7 +25,7 @@ function mtphr_dnt_scripts() {
 	wp_register_style( 'ditty-news-ticker', MTPHR_DNT_URL.'assets/css/style.css', false, MTPHR_DNT_VERSION );
 	wp_enqueue_style( 'ditty-news-ticker' );
 	wp_register_script( 'imagesLoaded', MTPHR_DNT_URL.'assets/js/imagesloaded.pkgd.min.js', array('jquery'), MTPHR_DNT_VERSION, true );
-	wp_register_script( 'ditty-news-ticker', MTPHR_DNT_URL.'assets/js/ditty-news-ticker.js', array('jquery'), MTPHR_DNT_VERSION, true );
+	wp_register_script( 'ditty-news-ticker', MTPHR_DNT_URL.'assets/js/ditty-news-ticker.js', array('jquery', 'imagesLoaded', 'touchSwipe', 'jquery-easing'), MTPHR_DNT_VERSION, true );
 	
 	// Register the rotate scripts
 	//wp_register_script( 'unslider', MTPHR_DNT_URL.'assets/unslider/js/unslider-min.js', array('jquery'), MTPHR_DNT_VERSION, true );
@@ -59,9 +59,6 @@ function mtphr_dnt_tickers_init_scripts() {
 	global $mtphr_dnt_ticker_scripts;
 	
 	if( is_array($mtphr_dnt_ticker_scripts) && !empty($mtphr_dnt_ticker_scripts) ) {
-		wp_print_scripts('touchSwipe');
-		wp_print_scripts('jquery-easing');
-		wp_print_scripts('imagesLoaded');
 		wp_print_scripts('ditty-news-ticker');
 		
 		$filtered_tickers = array();
