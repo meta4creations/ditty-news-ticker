@@ -259,9 +259,9 @@
 					var pos = parseFloat(ticks[i][0].position - settings.scroll_speed);
 
 					// Reset the tick if off the screen
-					if( pos < -(ticks[i][0].width+settings.offset) ) {
+					if( pos < -(ticks[i][0].headline.width()+settings.offset) ) {
 						pos = mtphr_dnt_scroll_check_current(i);
-					} else if( pos < parseFloat(ticker_width-ticks[i][0].width-settings.scroll_spacing) ) {
+					} else if( pos < parseFloat(ticker_width-ticks[i][0].headline.width()-settings.scroll_spacing) ) {
 						mtphr_dnt_scroll_check_next(i);
 					}
 
@@ -299,9 +299,9 @@
 					var pos = ticks[i][0].position - settings.scroll_speed;
 
 					// Reset the tick if off the screen
-					if( pos < -(ticks[i][0].height+settings.offset) ) {
+					if( pos < -(ticks[i][0].headline.height()+settings.offset) ) {
 						pos = mtphr_dnt_scroll_check_current(i);
-					} else if( pos < ticker_height-ticks[i][0].height-settings.scroll_spacing ) {
+					} else if( pos < ticker_height-ticks[i][0].headline.height()-settings.scroll_spacing ) {
 						mtphr_dnt_scroll_check_next(i);
 					}
 
