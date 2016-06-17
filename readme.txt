@@ -23,6 +23,7 @@ Ditty News Ticker is a multi-functional data display plugin. Easily add custom n
 
 #### Paid Extensions
 Ditty News Ticker is built to easily be extended to add extra Ticker Types and extra Ticker Modes. We currently have the following extensions for sale:
+
 * [**Ditty Posts Ticker**](https://www.metaphorcreations.com/downloads/ditty-posts-ticker/)
 * [**Ditty Twitter Ticker**](https://www.metaphorcreations.com/downloads/ditty-twitter-ticker/)
 * [**Ditty Facebook Ticker**](https://www.metaphorcreations.com/downloads/ditty-facebook-ticker/)
@@ -32,6 +33,7 @@ Ditty News Ticker is built to easily be extended to add extra Ticker Types and e
 * [**Ditty Mega Ticker**](https://www.metaphorcreations.com/downloads/ditty-mega-ticker/)
 
 We now also offer an extensions bundle that includes all current and future extensions!
+
 * [**Ditty Extensions Bundle**](https://www.metaphorcreations.com/downloads/ditty-news-ticker-bundle/)
 
 <img src="http://metaphorcreations.com/data/wpml-ready-badge.png" />
