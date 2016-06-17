@@ -23,11 +23,15 @@
 		max-width: none;
 	}
 }
-.mtphr-dnt-rotate,
 .mtphr-dnt-scroll {
 	.mtphr-dnt-tick {
 		position: absolute;
-		display:none;
+	}
+}
+.mtphr-dnt-rotate {
+	.mtphr-dnt-tick {
+		position: absolute;
+		display: none;
 	}
 }
 .mtphr-dnt-rotate {

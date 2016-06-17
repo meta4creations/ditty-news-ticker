@@ -30,8 +30,11 @@
   max-width: none;
 }
 
-.mtphr-dnt-rotate .mtphr-dnt-tick,
 .mtphr-dnt-scroll .mtphr-dnt-tick {
+  position: absolute;
+}
+
+.mtphr-dnt-rotate .mtphr-dnt-tick {
   position: absolute;
   display: none;
 }
