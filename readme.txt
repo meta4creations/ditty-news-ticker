@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 4.0
-Tested up to: 4.5.2
+Tested up to: 4.5.3
 Stable tag: /trunk/
 License: GPL2
 
@@ -62,8 +62,13 @@ Each individual Ticker post has multiple settings to customize.
 2. Scroll Mode options
 3. Rotate Mode options
 4. List Mode options
+4. Global options
+5. Embed options
 
 == Changelog ==
+
+= 2.0.16 =
+* Image container css updates
 
 = 2.0.15 =
 * Tick width and height detection modification in jQuery script
@@ -374,4 +379,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Tick width and height detection modification in jQuery script
+Image container css updates

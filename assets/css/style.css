@@ -185,6 +185,7 @@
 /* --------------------------------------------------------- */
 .mtphr-dnt-image-container {
   position: relative;
+  display: inline-block;
 }
 
 .mtphr-dnt-image-container > * {
@@ -214,7 +215,8 @@
   box-sizing: border-box;
   width: 100%;
   margin: 0 !important;
-  padding: 20px;
+  line-height: 1.2em;
+  padding: 12px 20px;
   color: #FFF;
   background: rgba(0, 0, 0, 0.7);
 }
