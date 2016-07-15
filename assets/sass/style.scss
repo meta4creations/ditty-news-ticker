@@ -169,6 +169,9 @@
 /* !Images */
 /* --------------------------------------------------------- */
 
+.mtphr-dnt-image-caption {
+	line-height: 1.2em;	
+}
 .mtphr-dnt-image-container {
 	position: relative;
 	display: inline-block;
@@ -195,7 +198,6 @@
 			box-sizing: border-box;
 			width: 100%;
 			margin: 0 !important;
-			line-height: 1.2em;
 			padding: 12px 20px;
 			color: #FFF;
 			background: rgba(0, 0, 0, .7);

@@ -30,6 +30,7 @@ Ditty News Ticker is built to easily be extended to add extra Ticker Types and e
 * [**Ditty RSS Ticker**](https://www.metaphorcreations.com/downloads/ditty-rss-ticker/)
 * [**Ditty Image Ticker**](https://www.metaphorcreations.com/downloads/ditty-image-ticker/)
 * [**Ditty Flickr Ticker**](https://www.metaphorcreations.com/downloads/ditty-flickr-ticker/)
+* [**Ditty Instagram Ticker**](https://www.metaphorcreations.com/downloads/ditty-instagram-ticker/)
 * [**Ditty Mega Ticker**](https://www.metaphorcreations.com/downloads/ditty-mega-ticker/)
 
 We now also offer an extensions bundle that includes all current and future extensions!
@@ -66,6 +67,9 @@ Each individual Ticker post has multiple settings to customize.
 5. Embed options
 
 == Changelog ==
+
+= 2.0.17 =
+* Image container css updates
 
 = 2.0.16 =
 * Image container css updates
