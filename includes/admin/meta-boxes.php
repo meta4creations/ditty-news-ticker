@@ -647,7 +647,7 @@ function mtphr_dnt_rotate_fields() {
 	
 	$fields = array(
 		
-		/* !Rotate type - 2.0.0 */
+		/* !Rotate type - 2.0.18 */
 		'direction' => array(
 			'heading' => __('Rotation type', 'ditty-news-ticker'),
 			'description' => __('Set the type of rotation for the ticker', 'ditty-news-ticker'),
@@ -660,7 +660,7 @@ function mtphr_dnt_rotate_fields() {
 				'slide_left' => __('Slide left', 'ditty-news-ticker'),
 				'slide_right' => __('Slide right', 'ditty-news-ticker'),
 				'slide_up' => __('Slide up', 'ditty-news-ticker'),
-				'slide_down' => __('Slide up', 'ditty-news-ticker')
+				'slide_down' => __('Slide down', 'ditty-news-ticker')
 			),
 			'append' => array(
 				

@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 4.0
-Tested up to: 4.5.3
+Tested up to: 4.6.1
 Stable tag: /trunk/
 License: GPL2
 
@@ -67,6 +67,10 @@ Each individual Ticker post has multiple settings to customize.
 5. Embed options
 
 == Changelog ==
+
+= 2.0.18 =
+* .mtphr-dnt-image-container css display update
+* Metabox text update
 
 = 2.0.17 =
 * Image container css updates
@@ -383,4 +387,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Image container css updates
+.mtphr-dnt-image-container css display update & metabox text update

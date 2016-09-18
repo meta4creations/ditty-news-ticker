@@ -46,7 +46,7 @@
 /* --------------------------------------------------------- */
 .mtphr-dnt-image-caption { line-height: 1.2em; }
 
-.mtphr-dnt-image-container { position: relative; display: inline-block; }
+.mtphr-dnt-image-container { position: relative; display: block; }
 
 .mtphr-dnt-image-container > * { margin: 10px 0; }
 
