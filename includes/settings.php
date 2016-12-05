@@ -8,9 +8,9 @@ function mtphr_dnt_settings_menu() {
 
 	add_submenu_page(
 		'edit.php?post_type=ditty_news_ticker',		// The ID of the top-level menu page to which this submenu item belongs
-		__( 'Settings', 'ditty-news-ticker' ),			// The value used to populate the browser's title bar when the menu page is active
-		__( 'Settings', 'ditty-news-ticker' ),			// The label of this submenu item displayed in the menu
-		'administrator',													// What roles are able to access this submenu item
+		__( 'Settings', 'ditty-news-ticker' ),		// The value used to populate the browser's title bar when the menu page is active
+		__( 'Settings', 'ditty-news-ticker' ),		// The label of this submenu item displayed in the menu
+		'modify_ditty_news_ticker_settings',			// What roles are able to access this submenu item
 		'mtphr_dnt_settings',											// The ID used to represent this submenu item
 		'mtphr_dnt_settings_display'							// The callback function used to render the options for this submenu item
 	);

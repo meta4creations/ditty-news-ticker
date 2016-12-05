@@ -68,6 +68,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 2.1.0 =
+* Added custom capabilities for the ditty_news_ticker post type and settings
+
 = 2.0.18 =
 * .mtphr-dnt-image-container css display update
 * Metabox text update
@@ -387,4 +390,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-.mtphr-dnt-image-container css display update & metabox text update
+Added custom capabilities for the ditty_news_ticker post type and settings
