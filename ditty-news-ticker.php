@@ -5,7 +5,7 @@ Plugin URI: http://dittynewsticker.com/
 Description: Ditty News Ticker is a multi-functional data display plugin
 Text Domain: ditty-news-ticker
 Domain Path: languages
-Version: 2.1.0
+Version: 2.1.1
 Author: Metaphor Creations
 Author URI: http://www.metaphorcreations.com
 Contributors: metaphorcreations
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 
-define ( 'MTPHR_DNT_VERSION', '2.1.0' );
+define ( 'MTPHR_DNT_VERSION', '2.1.1' );
 define ( 'MTPHR_DNT_DIR', trailingslashit(plugin_dir_path(__FILE__)) );
 define ( 'MTPHR_DNT_URL', trailingslashit(plugins_url()).'ditty-news-ticker/' );
 
@@ -131,52 +131,73 @@ function mtphr_dnt_custom_caps() {
 	$caps_added = get_option( 'mtphr_dnt_caps', false );
 	if( !$caps_added ) {
 				
-	  // gets the administrator role
 	  $admins = get_role( 'administrator' );
 	  $editors = get_role( 'editor' );
 	  $authors = get_role( 'author' );
 	  $contributors = get_role( 'contributor' );
 	  $subscribers = get_role( 'subscriber' );
 	
-	  $admins->add_cap( 'edit_ditty_news_tickers' ); 
-	  $admins->add_cap( 'edit_others_ditty_news_tickers' ); 
-	  $admins->add_cap( 'publish_ditty_news_tickers' ); 
-	  $admins->add_cap( 'read_private_ditty_news_tickers' ); 
-	  $admins->add_cap( 'read_ditty_news_tickers' ); 
-	  $admins->add_cap( 'delete_ditty_news_tickers' ); 
-	  $admins->add_cap( 'delete_private_ditty_news_tickers' ); 
-	  $admins->add_cap( 'delete_published_ditty_news_tickers' ); 
-	  $admins->add_cap( 'delete_others_ditty_news_tickers' ); 
-	  $admins->add_cap( 'edit_private_ditty_news_tickers' ); 
-	  $admins->add_cap( 'edit_published_ditty_news_tickers' ); 
-
-	  $editors->add_cap( 'edit_ditty_news_tickers' ); 
-	  $editors->add_cap( 'edit_others_ditty_news_tickers' ); 
-	  $editors->add_cap( 'publish_ditty_news_tickers' ); 
-	  $editors->add_cap( 'read_private_ditty_news_tickers' ); 
-	  $editors->add_cap( 'read_ditty_news_tickers' ); 
-	  $editors->add_cap( 'delete_ditty_news_tickers' ); 
-	  $editors->add_cap( 'delete_private_ditty_news_tickers' ); 
-	  $editors->add_cap( 'delete_published_ditty_news_tickers' ); 
-	  $editors->add_cap( 'delete_others_ditty_news_tickers' ); 
-	  $editors->add_cap( 'edit_private_ditty_news_tickers' ); 
-	  $editors->add_cap( 'edit_published_ditty_news_tickers' ); 
+		if( $admins ) {
+		  $admins->add_cap( 'edit_ditty_news_tickers' );
+		  $admins->add_cap( 'edit_others_ditty_news_tickers' );
+		  $admins->add_cap( 'publish_ditty_news_tickers' );
+		  $admins->add_cap( 'read_private_ditty_news_tickers' );
+		  $admins->add_cap( 'read_ditty_news_tickers' );
+		  $admins->add_cap( 'delete_ditty_news_tickers' );
+		  $admins->add_cap( 'delete_private_ditty_news_tickers' );
+		  $admins->add_cap( 'delete_published_ditty_news_tickers' );
+		  $admins->add_cap( 'delete_others_ditty_news_tickers' );
+		  $admins->add_cap( 'edit_private_ditty_news_tickers' );
+		  $admins->add_cap( 'edit_published_ditty_news_tickers' );
+		  $admins->add_cap( 'edit_published_ditty_news_tickers' ); 
+		  $admins->add_cap( 'modify_ditty_news_ticker_settings' );
+	  }
+		
+		if( $editors ) {
+		  $editors->add_cap( 'edit_ditty_news_tickers' ); 
+		  $editors->add_cap( 'edit_others_ditty_news_tickers' ); 
+		  $editors->add_cap( 'publish_ditty_news_tickers' ); 
+		  $editors->add_cap( 'read_private_ditty_news_tickers' ); 
+		  $editors->add_cap( 'read_ditty_news_tickers' ); 
+		  $editors->add_cap( 'delete_ditty_news_tickers' ); 
+		  $editors->add_cap( 'delete_private_ditty_news_tickers' ); 
+		  $editors->add_cap( 'delete_published_ditty_news_tickers' ); 
+		  $editors->add_cap( 'delete_others_ditty_news_tickers' ); 
+		  $editors->add_cap( 'edit_private_ditty_news_tickers' ); 
+		  $editors->add_cap( 'edit_published_ditty_news_tickers' ); 
+	  }
 	  
-	  $authors->add_cap( 'edit_ditty_news_tickers' ); 
-	  $authors->add_cap( 'publish_ditty_news_tickers' ); 
-	  $authors->add_cap( 'read_ditty_news_tickers' ); 
-	  $authors->add_cap( 'delete_ditty_news_tickers' ); 
-	  $authors->add_cap( 'delete_published_ditty_news_tickers' ); 
-	  $authors->add_cap( 'edit_published_ditty_news_tickers' ); 
+	  if( $authors ) {
+		  $authors->add_cap( 'edit_ditty_news_tickers' ); 
+		  $authors->add_cap( 'publish_ditty_news_tickers' ); 
+		  $authors->add_cap( 'read_ditty_news_tickers' ); 
+		  $authors->add_cap( 'delete_ditty_news_tickers' ); 
+		  $authors->add_cap( 'delete_published_ditty_news_tickers' ); 
+		  $authors->add_cap( 'edit_published_ditty_news_tickers' ); 
+	  }
 	  
-	  $contributors->add_cap( 'edit_ditty_news_tickers' ); 
-	  $contributors->add_cap( 'read_ditty_news_tickers' ); 
-	  $contributors->add_cap( 'delete_ditty_news_tickers' ); 
+	  if( $contributors ) {
+		  $contributors->add_cap( 'edit_ditty_news_tickers' ); 
+		  $contributors->add_cap( 'read_ditty_news_tickers' ); 
+		  $contributors->add_cap( 'delete_ditty_news_tickers' ); 
+	  }
 	  
-	  $subscribers->add_cap( 'read_ditty_news_tickers' ); 
+	  if( $subscribers ) {
+	  	$subscribers->add_cap( 'read_ditty_news_tickers' ); 
+	  }
  
 	  update_option( 'mtphr_dnt_caps', 'added' );
-  }	
+  }
+  
+  if( $caps_added != '2_1_1' ) {
+	  
+	  $admins = get_role( 'administrator' );
+	  if( $admins ) {
+		  $admins->add_cap( 'modify_ditty_news_ticker_settings' );
+	  }
+	  
+	  update_option( 'mtphr_dnt_caps', '2_1_1' );
+	}
 }
 add_action( 'init', 'mtphr_dnt_custom_caps');
 

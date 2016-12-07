@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 4.0
-Tested up to: 4.6.1
+Tested up to: 4.7
 Stable tag: /trunk/
 License: GPL2
 
@@ -67,6 +67,10 @@ Each individual Ticker post has multiple settings to customize.
 5. Embed options
 
 == Changelog ==
+
+= 2.1.1 =
+* Bug fix from last update
+* Added custom News Tickers Settings capability for admins
 
 = 2.1.0 =
 * Added custom capabilities for the ditty_news_ticker post type and settings
@@ -390,4 +394,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Added custom capabilities for the ditty_news_ticker post type and settings
+Bug fix and settings capability added
