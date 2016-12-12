@@ -1,6 +1,12 @@
+/* global CodeMirror:true */
+/* global wp:true */
+/* global ditty_news_ticker_vars:true */
+/* global ajaxurl:true */
+/* global tinyMCE:true */
+
 jQuery( document ).ready( function($) {
 	
-	var $settings_select = $('#mtphr-dnt-settings-select')
+	var $settings_select = $('#mtphr-dnt-settings-select'),
 			$admin_bar = $('#wpadminbar');
 			
 			
@@ -12,9 +18,9 @@ jQuery( document ).ready( function($) {
 	  offset: {
 	    top: function () {
 		    if( $(window).width() < 601 ) {
-			    return (this.top = $settings_select.offset().top + 5)
+			    return (this.top = $settings_select.offset().top + 5);
 		    } else {
-			    return (this.top = $settings_select.offset().top - $admin_bar.height() + 5)
+			    return (this.top = $settings_select.offset().top - $admin_bar.height() + 5);
 		    }
 	    }
 	  }
@@ -45,10 +51,10 @@ jQuery( document ).ready( function($) {
 	/* !Initiate the CodeMirror fields - 1.4.0 */
 	/* --------------------------------------------------------- */
 
-	$('.mtphr-dnt-codemirror-css').each( function(i) {
+	$('.mtphr-dnt-codemirror-css').each( function() {
 
 		var $textarea = $(this).children('textarea');
-		var myCodeMirror = CodeMirror.fromTextArea($textarea[0], {
+		CodeMirror.fromTextArea($textarea[0], {
 			'mode' : 'css',
 			'lineNumbers' : true,
 			'lineWrapping' : true,
@@ -57,7 +63,7 @@ jQuery( document ).ready( function($) {
 		//myCodeMirror.setSize( false, false );
 	});
 
-	$('.mtphr-dnt-codemirror-js').each( function(i) {
+	$('.mtphr-dnt-codemirror-js').each( function() {
 
 		var $textarea = $(this).children('textarea');
 		var myCodeMirror = CodeMirror.fromTextArea($textarea[0], {
@@ -77,20 +83,23 @@ jQuery( document ).ready( function($) {
 	$('.mtphr-dnt-code-select').click( function(e) {
 		e.preventDefault();
 	
-		var $pre = $(this).siblings('pre');
+		var $pre = $(this).siblings('pre'),
+				range,
+				selection;
+				
 		var refNode = $pre[0];
 		if ( $.browser.msie ) {
-			var range = document.body.createTextRange();
+			range = document.body.createTextRange();
 			range.moveToElementText( refNode );
 			range.select();
 		} else if ( $.browser.mozilla || $.browser.opera ) {
-			var selection = window.getSelection();
-			var range = document.createRange();
+			selection = window.getSelection();
+			range = document.createRange();
 			range.selectNodeContents( refNode );
 			selection.removeAllRanges();
 			selection.addRange( range );
 		} else if ( $.browser.safari || $.browser.chrome ) {
-			var selection = window.getSelection();
+			selection = window.getSelection();
 			selection.setBaseAndExtent( refNode, 0, refNode, 1 );
 		}
 	});
@@ -170,7 +179,7 @@ jQuery( document ).ready( function($) {
 	        var height = $(currentItem).innerHeight();
 	        return $('<div class="mtphr-dnt-sort-placeholder" style="height:'+height+'px;"></div>')[0];
         },
-        update: function(container, p) {
+        update: function() {
           return;
         }
     	},
@@ -261,7 +270,7 @@ jQuery( document ).ready( function($) {
 
 	  uploader.on( 'select', function() {
 
-			attachments = uploader.state().get('selection').toJSON();
+			var attachments = uploader.state().get('selection').toJSON();
 			if( attachments.length > 0 ) {
 
 				$input.val(attachments[0].id);
@@ -294,8 +303,10 @@ jQuery( document ).ready( function($) {
 		content: {
 		  attr: 'data-tooltip' // Tell qTip2 to look inside this attr for its content
     },
-    style: 'qtip-light qtip-rounded qtip-shadow'
-	}
+    style: {
+	    classes: 'qtip-light qtip-rounded qtip-shadow'
+	  }
+	};
 	$('.mtphr-dnt-help[data-tooltip!=""]').qtip( qtipConfig );
 	$('.mtphr-dnt-help[data-tooltip!=""]').click( function(e) {
 		e.preventDefault();
@@ -317,11 +328,11 @@ jQuery( document ).ready( function($) {
 		}
 	}
 	
-	$('.mtphr-dnt-list-field-mtphr_dnt_mixed_ticks_all').find('input').live( 'click', function(e) {
+	$('.mtphr-dnt-list-field-mtphr_dnt_mixed_ticks_all').find('input').live( 'click', function() {
 		mtphr_dnt_mixed_ticks_all( $(this).parents('.mtphr-dnt-list-field-mtphr_dnt_mixed_ticks_all') );
 	});
 	
-	$('.mtphr-dnt-list-field-mtphr_dnt_mixed_ticks_all').each( function(index) {
+	$('.mtphr-dnt-list-field-mtphr_dnt_mixed_ticks_all').each( function() {
 		mtphr_dnt_mixed_ticks_all( $(this) );
 	});
 
@@ -355,8 +366,10 @@ jQuery( document ).ready( function($) {
 					content: {
 					  attr: 'data-tooltip' // Tell qTip2 to look inside this attr for its content
 			    },
-			    style: 'qtip-light qtip-rounded qtip-shadow'
-				}
+			    style: {
+				    classes: 'qtip-light qtip-rounded qtip-shadow'
+				  }
+				};
 				
 				$table.sortable( {
 					handle: '.mtphr-dnt-list-heading',
@@ -368,7 +381,7 @@ jQuery( document ).ready( function($) {
 			        var height = $(currentItem).innerHeight();
 			        return $('<div class="mtphr-dnt-sort-placeholder" style="height:'+height+'px;"></div>')[0];
 		        },
-		        update: function(container, p) {
+		        update: function() {
 		          return;
 		        }
 		    	},
@@ -399,16 +412,18 @@ jQuery( document ).ready( function($) {
 					$table.find('.mtphr-dnt-list-item').each( function(index) {	
 						$(this).find('textarea, input, select').each( function() {
 						
+							var name, key;
+						
 							if( $(this).hasClass('wp-editor-area') ) {
 							
-								var $parent = $(this).parents('.mtphr-dnt-field-type-wysiwyg'),
-										name = $parent.attr('data-name'),
-										key = $parent.attr('data-key');
+								var $parent = $(this).parents('.mtphr-dnt-field-type-wysiwyg');
+								name = $parent.attr('data-name');
+								key = $parent.attr('data-key');
 								
 							} else {
 							
-								var name = $(this).attr('data-name'),
-										key = $(this).attr('data-key');
+								name = $(this).attr('data-name');
+								key = $(this).attr('data-key');
 							}
 							
 							if( name && key ) {
@@ -427,7 +442,7 @@ jQuery( document ).ready( function($) {
 				  		
 				  // Reset the duplicate
 				  $dup.find('textarea, input, select').each( function() {
-				  	if( $(this).attr('type') == 'checkbox' || $(this).attr('type') == 'radio' ) {
+				  	if( $(this).attr('type') === 'checkbox' || $(this).attr('type') === 'radio' ) {
 					  	$(this).removeAttr('checked');
 				  	} else {
 					  	$(this).val('');
@@ -456,7 +471,7 @@ jQuery( document ).ready( function($) {
 
 								$parent.append( response );
 								
-								if( typeof(tinyMCE) == 'object' && typeof(tinyMCE.execCommand) == 'function' ) {
+								if( typeof(tinyMCE) === 'object' && typeof(tinyMCE.execCommand) === 'function' ) {
 									tinyMCE.execCommand("mceAddEditor", false, id);
 						    }
 						    

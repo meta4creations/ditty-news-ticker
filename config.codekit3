@@ -165,6 +165,15 @@
 		"sC": 1,
 		"tS": 0
 		},
+	"\/assets\/js\/min\/script-admin-min.js": {
+		"ft": 64,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/assets\/js\/min\/min\/script-admin-min-min.js",
+		"oF": 0,
+		"sC": 1,
+		"tS": 0
+		},
 	"\/assets\/js\/mtphr-dnt-affix.js": {
 		"ft": 64,
 		"mi": 1,
@@ -179,6 +188,25 @@
 		"mi": 1,
 		"oA": 0,
 		"oAP": "\/assets\/js\/min\/script-admin-min.js",
+		"oF": 0,
+		"sC": 1,
+		"tS": 0
+		},
+	"\/assets\/qtip\/jquery.qtip.css": {
+		"aP": 0,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 2,
+		"oAP": "\/assets\/qtip\/jquery.qtip-min.css",
+		"oF": 0,
+		"oS": 0
+		},
+	"\/assets\/qtip\/jquery.qtip.js": {
+		"ft": 64,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/assets\/qtip\/min\/jquery.qtip-min.js",
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
@@ -201,6 +229,12 @@
 		"oF": 0,
 		"sC": 1,
 		"tS": 0
+		},
+	"\/assets\/qtip\/jquery.qtip.min.map": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/assets\/qtip\/jquery.qtip.min.map",
+		"oF": 0
 		},
 	"\/assets\/sass\/style-admin.scss": {
 		"aP": 0,

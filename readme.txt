@@ -68,6 +68,10 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 2.1.2 =
+* Updated qtip scripts
+* Updated paths to enqueued files
+
 = 2.1.1 =
 * Bug fix from last update
 * Added custom News Tickers Settings capability for admins
@@ -394,4 +398,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Bug fix and settings capability added
+Updated qtip scripts & paths to enqueued files
