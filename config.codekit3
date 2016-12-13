@@ -315,12 +315,6 @@
 		"oAP": "\/classes\/helpers\/class-mtphr-dnt-string-replacement.php",
 		"oF": 0
 		},
-	"\/ditty-news-ticker.php": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/ditty-news-ticker.php",
-		"oF": 0
-		},
 	"\/includes\/admin\/ajax.php": {
 		"ft": 8192,
 		"oA": 2,
@@ -367,12 +361,6 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/includes\/admin\/upgrades.php",
-		"oF": 0
-		},
-	"\/includes\/composer.php": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/includes\/composer.php",
 		"oF": 0
 		},
 	"\/includes\/filters.php": {
@@ -481,12 +469,6 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/languages\/ditty-news-ticker-it_IT.po",
-		"oF": 0
-		},
-	"\/readme.txt": {
-		"ft": 8192,
-		"oA": 2,
-		"oAP": "\/readme.txt",
 		"oF": 0
 		},
 	"\/templates\/control_nav.php": {
