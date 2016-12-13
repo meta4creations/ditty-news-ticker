@@ -68,6 +68,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 2.1.3 =
+* Added check to ensure VC version is 5 or greater before adding VC shortcode
+
 = 2.1.2 =
 * Updated qtip scripts
 * Updated paths to enqueued files
@@ -398,4 +401,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Updated qtip scripts & paths to enqueued files
+Added check to ensure VC version is 5 or greater before adding VC shortcode
