@@ -1,12 +1,11 @@
 <?php
 
 /* --------------------------------------------------------- */
-/* !Add VC Shortcode - 2.1.3 */
+/* !Add VC Shortcode - 2.1.4 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_add_to_vc() {	
 	if( defined('WPB_VC_VERSION') && version_compare(WPB_VC_VERSION, '5.0.0', '>=' ) ) {
-		echo '<pre>';print_r('testing');echo '</pre>';
 		vc_map( array(
 			 'name' => __( 'Ditty News Ticker', 'ditty-news-ticker' ),
 			 'base' => 'ditty_news_ticker',

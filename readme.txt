@@ -68,6 +68,9 @@ Each individual Ticker post has multiple settings to customize.
 
 == Changelog ==
 
+= 2.1.4 =
+* Removed testing code from last update
+
 = 2.1.3 =
 * Added check to ensure VC version is 5 or greater before adding VC shortcode
 
@@ -401,4 +404,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Added check to ensure VC version is 5 or greater before adding VC shortcode
+Removed testing code from last update
