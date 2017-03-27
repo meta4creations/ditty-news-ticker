@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 4.0
-Tested up to: 4.7
+Tested up to: 4.7.3
 Stable tag: /trunk/
 License: GPL2
 
@@ -67,6 +67,9 @@ Each individual Ticker post has multiple settings to customize.
 5. Embed options
 
 == Changelog ==
+
+= 2.1.5 =
+* Added ditty_news_ticker function check in widgets.php file
 
 = 2.1.4 =
 * Removed testing code from last update
@@ -404,4 +407,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Removed testing code from last update
+Added ditty_news_ticker function check in widgets.php file

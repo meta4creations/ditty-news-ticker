@@ -3,7 +3,7 @@
 /**
  * Create a class for the widget
  *
- * @since 1.5.8
+ * @since 2.1.5
  */
 class mtphr_dnt_widget extends WP_Widget {
 		
@@ -56,7 +56,9 @@ class mtphr_dnt_widget extends WP_Widget {
 		
 		// Display the ticker
 		if( $ticker != '' ) {
-			ditty_news_ticker( $ticker, '', $atts );
+			if( function_exists('ditty_news_ticker') ) {
+				ditty_news_ticker( $ticker, '', $atts );
+			}
 		}
 		
 		// After widget (defined by themes)
