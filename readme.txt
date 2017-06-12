@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 4.0
-Tested up to: 4.7.3
+Tested up to: 4.8
 Stable tag: /trunk/
 License: GPL2
 
@@ -54,6 +54,10 @@ We now also offer an extensions bundle that includes all current and future exte
 = Are there any settings I need to configure? =
 
 Each individual Ticker post has multiple settings to customize.
+
+= I have added my shortcode but the ticker is not displaying =
+
+The most common cause for an unresponsive ticker (when using scroll or rotate mode) is a javascript error on your site coming from another plugin or theme. Any type of javascript error will most likely kill any other javascript that is loaded after it. You will need to resolve any javascript errors before the ticker will start running.
 
 [**View full help documentation.**](http://www.dittynewsticker.com/documentation/)
 
