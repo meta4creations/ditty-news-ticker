@@ -1177,7 +1177,7 @@ function mtphr_dnt_global_fields() {
 
 
 /* --------------------------------------------------------- */
-/* !Save the custom meta - 2.0.2 */
+/* !Save the custom meta - 2.1.6 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_metabox_save') ) {
@@ -1234,12 +1234,15 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		$sanitized_ticks = array();
 		if( count($_POST['_mtphr_dnt_ticks']) > 0 ) {
 			foreach( $_POST['_mtphr_dnt_ticks'] as $tick ) {
-				$sanitized_ticks[] = array(
+				
+				$sanitized_tick = apply_filters( 'mtphr_dnt_default_sanitized_tick', array(
 					'tick' => isset($tick['tick']) ? wp_kses($tick['tick'], $allowed_tags) : '',
 					'link' => isset($tick['link']) ? esc_url($tick['link']) : '',
 					'target' => isset($tick['target']) ? $tick['target'] : '',
 					'nofollow' => isset( $tick['nofollow'] ) ? $tick['nofollow'] : ''
-				);
+				), $tick);
+								
+				$sanitized_ticks[] = $sanitized_tick;
 			}
 		}
 		

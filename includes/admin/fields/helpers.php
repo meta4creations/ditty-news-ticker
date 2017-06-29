@@ -382,7 +382,7 @@ function mtphr_dnt_list_item( $name, $fields=array(), $val=false ) {
 		
 		// If this is a single field
 		if( isset($fields['type']) && !is_array($fields['type']) ) {
-
+			
 			// Create the field
 			if( function_exists('mtphr_dnt_field_'.$fields['type']) ) {
 				$fields['subheading'] = isset($fields['heading']) ? $fields['heading'] : '';
@@ -394,7 +394,7 @@ function mtphr_dnt_list_item( $name, $fields=array(), $val=false ) {
 		
 		// If this is multiple fields
 		} else {
-			
+				
 			if( is_array($fields) && count($fields) > 0 ) {
 				foreach( $fields as $fname=>$field ) {
 					
@@ -413,7 +413,7 @@ function mtphr_dnt_list_item( $name, $fields=array(), $val=false ) {
 						'data-name' => $name,
 						'data-key' => $fname
 					);
-					
+										
 					// Set a field class
 					$class = mtphr_dnt_list_item_class( $field );
 					echo '<div class="'.$class.'">';

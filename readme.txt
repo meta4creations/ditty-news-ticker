@@ -72,6 +72,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.1.6 =
+* Added mtphr_dnt_default_sanitized_tick filter
+
 = 2.1.5 =
 * Added ditty_news_ticker function check in widgets.php file
 
@@ -411,4 +414,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Added ditty_news_ticker function check in widgets.php file
+Added mtphr_dnt_default_sanitized_tick filter
