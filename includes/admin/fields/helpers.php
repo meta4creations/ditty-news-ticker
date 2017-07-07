@@ -356,19 +356,31 @@ function mtphr_dnt_animate_select( $name, $value, $default=false ) {
 
 
 /* --------------------------------------------------------- */
-/* !List helper functions - 2.0.0 */
+/* !List helper functions - 2.1.7 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_list_heading') ) {
-function mtphr_dnt_list_heading() {
-	
-	$html = '';
-	$html .= '<div class="mtphr-dnt-list-heading mtphr-dnt-clearfix">';
-		$html .= '<i class="dashicons dashicons-menu"></i>';
-		$html .= '<div class="mtphr-dnt-list-buttons">';
-			$html .= '<a class="mtphr-dnt-list-delete" href="#"><i class="dashicons dashicons-no"></i></a>';
-			$html .= '<a class="mtphr-dnt-list-add" href="#"><i class="dashicons dashicons-plus"></i></a>';
-		$html .= '</div>';
+function mtphr_dnt_list_heading( $name, $fields=array(), $val=false ) {
+
+	$classes = array();
+	$classes[] = 'mtphr-dnt-list-heading';
+	$classes[] = 'mtphr-dnt-clearfix';
+	$classes = apply_filters( 'mtphr_dnt_list_heading_class', $classes,  $name, $fields, $val );
+	if( !empty( $class ) ) {
+		if( !is_array( $class ) ) {
+			$class = preg_split( '#\s+#', $class );
+		}
+		$classes = array_merge( $classes, $class );
+	} else {
+		// Ensure that we always coerce class to being an array.
+		$class = array();
+	}
+	$classes = array_map( 'esc_attr', $classes );
+
+	$html = '<div class="'.join( ' ', $classes ).'">';
+		ob_start();
+		do_action( 'mtphr_dnt_list_heading', $name, $fields, $val );
+		$html .= ob_get_clean();
 	$html .= '</div>';
 	return $html;
 }
@@ -377,60 +389,80 @@ function mtphr_dnt_list_heading() {
 if( !function_exists('mtphr_dnt_list_item') ) {
 function mtphr_dnt_list_item( $name, $fields=array(), $val=false ) {
 	
-	echo '<div class="mtphr-dnt-list-item mtphr-dnt-clearfix">';
-		echo mtphr_dnt_list_heading();
-		
-		// If this is a single field
-		if( isset($fields['type']) && !is_array($fields['type']) ) {
-			
-			// Create the field
-			if( function_exists('mtphr_dnt_field_'.$fields['type']) ) {
-				$fields['subheading'] = isset($fields['heading']) ? $fields['heading'] : '';
-				$fields['subhelp'] = isset($fields['help']) ? $fields['help'] : '';
-				$fields['name'] = $name.'[]';
-				$fields['value'] = $val;
-				call_user_func( 'mtphr_dnt_field_'.$fields['type'], $fields );	
-			}
-		
-		// If this is multiple fields
-		} else {
-				
-			if( is_array($fields) && count($fields) > 0 ) {
-				foreach( $fields as $fname=>$field ) {
-					
-					// Set some default values
-					$defaults = array(
-						'heading' => '',
-						'type' => '',
-						'help' => ''
-					);
-					$field = wp_parse_args( $field, $defaults );
+	$classes = array();
+	$classes[] = 'mtphr-dnt-list-item';
+	$classes[] = 'mtphr-dnt-clearfix';
+	$classes = apply_filters( 'mtphr_dnt_list_item_class', $classes, $name, $fields, $val );
+	if( !empty( $class ) ) {
+		if( !is_array( $class ) ) {
+			$class = preg_split( '#\s+#', $class );
+		}
+		$classes = array_merge( $classes, $class );
+	} else {
+		// Ensure that we always coerce class to being an array.
+		$class = array();
+	}
+	$classes = array_map( 'esc_attr', $classes );
 	
-					// Append the field data
-					$field['name'] = $name.'['.$fname.']';
-					$field['value'] = isset($val[$fname]) ? $val[$fname] : '';
-					$field['atts'] = array(
-						'data-name' => $name,
-						'data-key' => $fname
-					);
-										
-					// Set a field class
-					$class = mtphr_dnt_list_item_class( $field );
-					echo '<div class="'.$class.'">';
+	ob_start();
+
+	echo '<div class="'.join( ' ', $classes ).'">';
+		echo mtphr_dnt_list_heading( $name, $fields, $val );
+			echo '<div class="mtphr-dnt-list-item-contents">';
+			// If this is a single field
+			if( isset($fields['type']) && !is_array($fields['type']) ) {
+				
+				// Create the field
+				if( function_exists('mtphr_dnt_field_'.$fields['type']) ) {
+					$fields['subheading'] = isset($fields['heading']) ? $fields['heading'] : '';
+					$fields['subhelp'] = isset($fields['help']) ? $fields['help'] : '';
+					$fields['name'] = $name.'[]';
+					$fields['value'] = $val;
+					call_user_func( 'mtphr_dnt_field_'.$fields['type'], $fields );	
+				}
+			
+			// If this is multiple fields
+			} else {
 					
-						// Create the field
-						if( function_exists('mtphr_dnt_field_'.$field['type']) ) {
-							$field['subheading'] = isset($field['heading']) ? $field['heading'] : '';
-							$field['subhelp'] = isset($field['help']) ? $field['help'] : '';
-							call_user_func( 'mtphr_dnt_field_'.$field['type'], $field );	
-						}
+				if( is_array($fields) && count($fields) > 0 ) {
+					foreach( $fields as $fname=>$field ) {
 						
-					echo '</div>';
+						// Set some default values
+						$defaults = array(
+							'heading' => '',
+							'type' => '',
+							'help' => ''
+						);
+						$field = wp_parse_args( $field, $defaults );
+		
+						// Append the field data
+						$field['name'] = $name.'['.$fname.']';
+						$field['value'] = isset($val[$fname]) ? $val[$fname] : '';
+						$field['atts'] = array(
+							'data-name' => $name,
+							'data-key' => $fname
+						);
+											
+						// Set a field class
+						$class = mtphr_dnt_list_item_class( $field );
+						echo '<div class="'.$class.'">';
+						
+							// Create the field
+							if( function_exists('mtphr_dnt_field_'.$field['type']) ) {
+								$field['subheading'] = isset($field['heading']) ? $field['heading'] : '';
+								$field['subhelp'] = isset($field['help']) ? $field['help'] : '';
+								call_user_func( 'mtphr_dnt_field_'.$field['type'], $field );	
+							}
+							
+						echo '</div>';
+					}
 				}
 			}
-		}
-
+	
+		echo '</div>';
 	echo '</div>';	
+
+	echo  apply_filters( 'mtphr_dnt_list_item', ob_get_clean(), $name, $fields, $val, $classes );
 }
 }
 

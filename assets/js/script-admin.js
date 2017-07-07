@@ -308,7 +308,7 @@ jQuery( document ).ready( function($) {
 	  }
 	};
 	$('.mtphr-dnt-help[data-tooltip!=""]').qtip( qtipConfig );
-	$('.mtphr-dnt-help[data-tooltip!=""]').click( function(e) {
+	$('body').on( 'click', '.mtphr-dnt-help[data-tooltip!=""]', function(e) {
 		e.preventDefault();
 	});
 	

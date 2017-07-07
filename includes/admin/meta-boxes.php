@@ -1222,6 +1222,7 @@ function mtphr_dnt_metabox_save( $post_id ) {
 	}
 	
 	// Save the default ticks
+	$sanitized_ticks = array();
 	if( isset($_POST['_mtphr_dnt_ticks']) ) {
 		
 		$force_breaks = ( isset($_POST['_mtphr_dnt_line_breaks']) && $_POST['_mtphr_dnt_line_breaks'] != '' ) ? 1 : '';
@@ -1231,41 +1232,46 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		$allowed_tags['div']['data-href'] = true;
 		$allowed_tags['div']['data-width'] = true;
 
-		$sanitized_ticks = array();
 		if( count($_POST['_mtphr_dnt_ticks']) > 0 ) {
 			foreach( $_POST['_mtphr_dnt_ticks'] as $tick ) {
 				
-				$sanitized_tick = apply_filters( 'mtphr_dnt_default_sanitized_tick', array(
+				$sanitized_tick = apply_filters( 'mtphr_dnt_sanitized_tick', array(
 					'tick' => isset($tick['tick']) ? wp_kses($tick['tick'], $allowed_tags) : '',
 					'link' => isset($tick['link']) ? esc_url($tick['link']) : '',
 					'target' => isset($tick['target']) ? $tick['target'] : '',
 					'nofollow' => isset( $tick['nofollow'] ) ? $tick['nofollow'] : ''
-				), $tick);
+				), $tick, '_mtphr_dnt_ticks');
 								
-				$sanitized_ticks[] = $sanitized_tick;
+				if( $sanitized_tick ) {
+					$sanitized_ticks[] = $sanitized_tick;
+				}
 			}
 		}
-		
-		if( $admin_javascript == 'ok' ) {
-			update_post_meta( $post_id, '_mtphr_dnt_ticks', $sanitized_ticks );
-		}
+	}
+	if( $admin_javascript == 'ok' ) {
+		update_post_meta( $post_id, '_mtphr_dnt_ticks', $sanitized_ticks );
 	}
 	
 	// Save the mixed ticks
+	$sanitized_ticks = array();
 	if( isset($_POST['_mtphr_dnt_mixed_ticks']) ) {
-		$sanitized_ticks = array();
 		if( count($_POST['_mtphr_dnt_mixed_ticks']) > 0 ) {
 			foreach( $_POST['_mtphr_dnt_mixed_ticks'] as $tick ) {
-				$sanitized_ticks[] = array(
+				
+				$sanitized_tick = apply_filters( 'mtphr_dnt_sanitized_tick', array(
 					'type' => isset($tick['type']) ? $tick['type'] : '',
 					'offset' => isset($tick['offset']) ? intval($tick['offset']) : 0,
 					'all' => (isset($tick['all']) && $tick['all'] == 'on') ? $tick['all'] : ''
-				);
+				), $tick, '_mtphr_dnt_mixed_ticks');
+				
+				if( $sanitized_tick ) {
+					$sanitized_ticks[] = $sanitized_tick;
+				}
 			}
 		}
-		if( $admin_javascript == 'ok' ) {
-			update_post_meta( $post_id, '_mtphr_dnt_mixed_ticks', $sanitized_ticks );
-		}
+	}
+	if( $admin_javascript == 'ok' ) {
+		update_post_meta( $post_id, '_mtphr_dnt_mixed_ticks', $sanitized_ticks );
 	}
 	
 	// Save the scroll settings

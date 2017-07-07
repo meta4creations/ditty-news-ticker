@@ -72,6 +72,17 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.1.7 =
+* Removed mtphr_dnt_default_sanitized_tick filter
+* Added mtphr_dnt_sanitized_tick filter
+* Added mtphr_dnt_mixed_ticks_meta filter
+* Added mtphr_dnt_mixed_tick_array filter
+* Added mtphr_dnt_list_heading_class filter
+* Added mtphr_dnt_list_item filter
+* Added mtphr_dnt_list_item_class filter
+* Updated mixed ticker function
+* Modified default ticker data
+
 = 2.1.6 =
 * Added mtphr_dnt_default_sanitized_tick filter
 
@@ -414,4 +425,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Added mtphr_dnt_default_sanitized_tick filter
+Multiple updates

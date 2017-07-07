@@ -342,7 +342,7 @@ function render_mtphr_dnt_rotate_ticker( $id='', $class='', $meta_data=false ) {
 
 
 /* --------------------------------------------------------- */
-/* !Create the default ticks - 1.3.1 */
+/* !Create the default ticks - 2.1.7 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_default_ticks( $ticks, $id, $meta_data ) {
@@ -372,7 +372,11 @@ function mtphr_dnt_default_ticks( $ticks, $id, $meta_data ) {
 					$contents = apply_filters('mtphr_dnt_tick', $contents, $text, $link );
 
 					// Save the output to the tick array
-					$new_ticks[] = $contents;
+					$new_ticks[] = array(
+						'tick' => $contents,
+						'type' => 'default',
+						'meta' => $tick
+					);
 				}
 			}
 		}
@@ -388,7 +392,7 @@ add_filter( 'mtphr_dnt_tick_array', 'mtphr_dnt_default_ticks', 10, 3 );
 
 
 /* --------------------------------------------------------- */
-/* !Create the mixed ticks - 1.4.12 */
+/* !Create the mixed ticks - 2.1.7 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_mixed_ticks') ) {
@@ -407,8 +411,12 @@ function mtphr_dnt_mixed_ticks( $id, $meta_data ) {
 
 	// Get the ticks
 	if( isset($meta_data['_mtphr_dnt_mixed_ticks']) && is_array($meta_data['_mtphr_dnt_mixed_ticks']) && count($meta_data['_mtphr_dnt_mixed_ticks']) > 0 ) {
+		
+		// Add a prefilter to the metadata
+		$meta_data =  apply_filters( 'mtphr_dnt_mixed_ticks_meta', $meta_data, $id );
+								
 		foreach( $meta_data['_mtphr_dnt_mixed_ticks'] as $i => $tick ) {
-
+			
 			// Make sure the tick type exists
 			if( array_key_exists( $tick['type'], $types ) && !array_key_exists( $tick['type'], $ticks_cache ) ) {
 			
@@ -424,25 +432,33 @@ function mtphr_dnt_mixed_ticks( $id, $meta_data ) {
 			if( isset($tick['all']) && $tick['all'] == 'on' && isset($ticks_cache[$tick['type']]) ) {
 			
 				if( is_array($ticks_cache[$tick['type']]) && count($ticks_cache[$tick['type']]) > 0 ) {
-					foreach( $ticks_cache[$tick['type']] as $i=>$all_tick ) {
+					foreach( $ticks_cache[$tick['type']] as $i=>$mixed_tick ) {
+						
+						$mixed_tick = apply_filters( 'mtphr_dnt_mixed_tick', $mixed_tick, $tick );
+						$content = is_array( $mixed_tick ) ? $mixed_tick['tick'] : $mixed_tick;
 						$dnt_ticks[] = array(
 							'type' => $tick['type'],
-							'tick' => $all_tick
+							'tick' => $content,
+							'meta' => $mixed_tick['meta']
 						);
 					}
 				}
 				
 			// Or, add just the select offset to the array
 			} elseif( isset($ticks_cache[$tick['type']][intval($tick['offset'])]) ) {
+				
+				$mixed_tick = apply_filters( 'mtphr_dnt_mixed_tick', $ticks_cache[$tick['type']][intval($tick['offset'])], $tick );
+				$content = is_array( $mixed_tick ) ? $mixed_tick['tick'] : $mixed_tick;
 				$dnt_ticks[] = array(
 					'type' => $tick['type'],
-					'tick' => $ticks_cache[$tick['type']][intval($tick['offset'])]
+					'tick' => $content,
+					'meta' => $mixed_tick['meta']
 				);
 			}
 		}
 	}
-
+	//echo '<pre>';print_r($ticks_cache);echo '</pre>';
 	// Return the new ticks
-	return $dnt_ticks;
+	return apply_filters( 'mtphr_dnt_mixed_tick_array', $dnt_ticks, $id, $meta_data );
 }
 }

@@ -52,29 +52,3 @@ function mtphr_dnt_wysiwyg_ajax() {
 	die(); // this is required to return a proper result
 }
 add_action( 'wp_ajax_mtphr_dnt_wysiwyg_ajax', 'mtphr_dnt_wysiwyg_ajax' );
-
-
-
-/* --------------------------------------------------------- */
-/* !Load the ticker via ajax - 1.0.0 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_single_image_ajax() {
-
-	// Get access to the database
-	global $wpdb;
-
-	// Check the nonce
-	check_ajax_referer( 'ditty-news-ticker', 'security' );
-
-	// Get variables
-	$id = $_POST['id'];
-
-	// Display the image
-	if( $attachment['type'] == 'image' ) {
-		mtphr_dnt_render_single_image( $attachment['id'] );
-	}
-
-	die(); // this is required to return a proper result
-}
-add_action( 'wp_ajax_mtphr_dnt_single_image_ajax', 'mtphr_dnt_single_image_ajax' );
