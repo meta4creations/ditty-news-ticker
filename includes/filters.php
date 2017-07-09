@@ -30,7 +30,7 @@ add_action( 'init', 'mtphr_dnt_oembed' );
 
 
 /* --------------------------------------------------------- */
-/* !Make a grid out of the ticks - 1.5.5 */
+/* !Make a grid out of the ticks - 2.1.8 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_tick_grid( $dnt_ticks, $id, $meta_data ) {
@@ -60,8 +60,8 @@ function mtphr_dnt_tick_grid( $dnt_ticks, $id, $meta_data ) {
 				foreach( $dnt_ticks as $i=>$tick ) {
 					
 					// Get the type and tick
-					$type = ( $_mtphr_dnt_type == 'mixed' ) ? $tick['type'] : $_mtphr_dnt_type;
-					$tick = ( $_mtphr_dnt_type == 'mixed' ) ? $tick['tick'] : $tick;
+					$type = ( is_array($tick) && isset($tick['type']) ) ? $tick['type'] : $_mtphr_dnt_type;
+					$tick = ( is_array($tick) && isset($tick['tick']) ) ? $tick['tick'] : $tick;
 	
 					$data .= '<td class="mtphr-dnt-grid-item mtphr-dnt-grid-item-'.($col_counter+1).' mtphr-dnt-grid-item-'.$type.'" '.$style.'>'.$tick.'</td>';
 					

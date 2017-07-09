@@ -72,6 +72,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.1.8 =
+* Grid bug fix from last update
+
 = 2.1.7 =
 * Removed mtphr_dnt_default_sanitized_tick filter
 * Added mtphr_dnt_sanitized_tick filter
@@ -425,4 +428,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Multiple updates
+Grid bug fix from last update
