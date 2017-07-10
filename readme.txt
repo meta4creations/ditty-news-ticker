@@ -72,6 +72,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.1.9 =
+* Bug fixes
+
 = 2.1.8 =
 * Grid bug fix from last update
 
@@ -428,4 +431,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Grid bug fix from last update
+Bug fixes
