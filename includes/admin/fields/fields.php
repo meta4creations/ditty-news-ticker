@@ -209,7 +209,13 @@ function mtphr_dnt_field_text( $args=array() ) {
 
 		echo '<div class="'.$class.'">';
 			echo mtphr_dnt_subheading( $args );
-			echo '<label>'.$before.'<input type="text" name="'.$name.'" value="'.$value.'"'.$width.' '.$placeholder.mtphr_dnt_field_atts($args).' />'.$after.'</label>';
+			if( $before != '' || $after != '' ) {
+				echo '<label>'.$before;
+			}
+			echo '<input type="text" name="'.$name.'" value="'.$value.'"'.$width.' '.$placeholder.mtphr_dnt_field_atts($args).' />';
+			if( $before != '' || $after != '' ) {
+				echo $after.'</label>';
+			}
 		echo '</div>';
 		
 		mtphr_dnt_field_append( $args );

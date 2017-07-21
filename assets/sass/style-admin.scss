@@ -738,6 +738,7 @@ $red: hsl(0, 100%, 50%);
 	}
 }
 .mtphr-dnt-field {
+	flex: 1;
 	margin-bottom: 20px;
 	.mtphr-dnt-field-group &:last-child {
 		margin-bottom: 0;

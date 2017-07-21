@@ -965,7 +965,7 @@ function mtphr_dnt_list_fields() {
 
 
 /* --------------------------------------------------------- */
-/* !Return the global values - 2.0.2 */
+/* !Return the global values - 2.1.10 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_global_values') ) {
@@ -977,6 +977,7 @@ function mtphr_dnt_global_values() {
 		'ajax' => '',
 		'title' => '',
 		'inline_title' => '',
+		'hide' => '',
 		'shuffle' => '',
 		'width' => 0,
 		'offset' => 20,
@@ -997,6 +998,7 @@ function mtphr_dnt_global_values() {
 		'ajax' => get_post_meta( $post->ID, '_mtphr_dnt_ajax', true ),
 		'title' => get_post_meta( $post->ID, '_mtphr_dnt_title', true ),
 		'inline_title' => get_post_meta( $post->ID, '_mtphr_dnt_inline_title', true ),
+		'hide' => get_post_meta( $post->ID, '_mtphr_dnt_hide', true ),
 		'shuffle' => get_post_meta( $post->ID, '_mtphr_dnt_shuffle', true ),
 		'width' => get_post_meta( $post->ID, '_mtphr_dnt_ticker_width', true ),
 		'offset' => get_post_meta( $post->ID, '_mtphr_dnt_offset', true ),	
@@ -1010,6 +1012,11 @@ function mtphr_dnt_global_values() {
 		'grid_padding' => get_post_meta( $post->ID, '_mtphr_dnt_grid_padding', true ),
 		'grid_remove_padding' => get_post_meta( $post->ID, '_mtphr_dnt_grid_remove_padding', true ),
 	);
+	
+	if( !isset($_GET['post']) ) {
+		$values['hide'] = 'on';
+	}
+	
 	foreach( $values as $i=>$value ) {
 		if( $value == '' ) {
 			unset($values[$i]);
@@ -1058,6 +1065,14 @@ function mtphr_dnt_global_fields() {
 			'description' => __('General ticker options', 'ditty-news-ticker'),
 			'type' => 'container',
 			'append' => array(
+				
+				/* !Hide ticker - 2.0.4 */
+				'hide' => array(
+					'type' => 'checkbox',
+					'name' => '_mtphr_dnt_hide',
+					'value' => $values['hide'],
+					'label' => __('Hide ticker if no ticks exist', 'ditty-news-ticker')
+				),
 				
 				/* !Shuffle ticks - 2.0.4 */
 				'shuffle' => array(
@@ -1177,7 +1192,7 @@ function mtphr_dnt_global_fields() {
 
 
 /* --------------------------------------------------------- */
-/* !Save the custom meta - 2.1.6 */
+/* !Save the custom meta - 2.1.10 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_metabox_save') ) {
@@ -1362,6 +1377,7 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		//$ajax = isset($_POST['_mtphr_dnt_ajax']) ? $_POST['_mtphr_dnt_ajax'] : '';
 		$title = isset($_POST['_mtphr_dnt_title']) ? $_POST['_mtphr_dnt_title'] : '';
 		$inline_title = isset($_POST['_mtphr_dnt_inline_title']) ? $_POST['_mtphr_dnt_inline_title'] : '';
+		$hide = isset($_POST['_mtphr_dnt_hide']) ? $_POST['_mtphr_dnt_hide'] : '';
 		$shuffle = isset($_POST['_mtphr_dnt_shuffle']) ? $_POST['_mtphr_dnt_shuffle'] : '';
 		$width = isset($_POST['_mtphr_dnt_ticker_width']) ? intval($_POST['_mtphr_dnt_ticker_width']) : 0;
 		$offset = isset($_POST['_mtphr_dnt_offset']) ? intval($_POST['_mtphr_dnt_offset']) : 20;
@@ -1378,6 +1394,7 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		//update_post_meta( $post_id, '_mtphr_dnt_ajax', $ajax );
 		update_post_meta( $post_id, '_mtphr_dnt_title', $title );
 		update_post_meta( $post_id, '_mtphr_dnt_inline_title', $inline_title );
+		update_post_meta( $post_id, '_mtphr_dnt_hide', $hide );
 		update_post_meta( $post_id, '_mtphr_dnt_shuffle', $shuffle );
 		update_post_meta( $post_id, '_mtphr_dnt_ticker_width', $width );
 		update_post_meta( $post_id, '_mtphr_dnt_offset', $offset );

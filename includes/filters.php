@@ -273,3 +273,28 @@ function mtphr_dnt_playpause() {
 add_action( 'mtphr_dnt_after', 'mtphr_dnt_playpause' );
 
 
+/**
+ * Remove the widget if there are no ticks
+ *
+ * @access  public
+ * @since   2.1.10
+ */
+
+function mtphr_dnt_remove_widgets( $params ) {
+
+	if( !is_admin() ) {
+		
+		$i = count($params);
+		while( $i --> 0 ) {
+			if( isset($params[$i]['widget_id']) && (strpos($params[$i]['widget_id'], 'mtphr-dnt-widget') !== false) ) {
+				echo '<pre>';print_r($params);echo '</pre>';
+				//unset( $params[$i] );
+			}
+		}
+	}
+
+	return $params;
+}
+//add_filter( 'dynamic_sidebar_params', 'mtphr_dnt_remove_widgets' );
+
+

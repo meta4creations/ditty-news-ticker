@@ -72,6 +72,11 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.1.10 =
+* Added option to hide ticker if no ticks exist
+* Added option to hide widget if no ticks exist
+* Admin css updates
+
 = 2.1.9 =
 * Bug fixes
 
@@ -431,4 +436,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Bug fixes
+Added options to hide tickers if no ticks exist

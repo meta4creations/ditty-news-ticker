@@ -112,10 +112,11 @@
 #mtphr-dnt-code-copy .button {
   color: #FFF;
   border-color: #333333;
-  background: #807f7f;
+  background: gray;
   margin: 2px 0;
   box-shadow: none;
-  transition: background-color .25s ease, border-color .25s ease; }
+  -webkit-transition: background-color 0.25s ease, border-color 0.25s ease;
+  transition: background-color 0.25s ease, border-color 0.25s ease; }
   #mtphr-dnt-code-copy .button:hover {
     background-color: #999999; }
     #mtphr-dnt-code-copy .button:hover i {
@@ -195,6 +196,8 @@
   background: #FFF;
   border: 1px solid #dfdfdf;
   padding: 3px 24px 3px 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
   border-radius: 3px; }
 
 .mtphr-dnt-single-image img {
@@ -242,21 +245,11 @@
   overflow: hidden; }
 
 .mtphr-dnt-list-heading {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
   font-weight: bold;
   color: #FFF;
   text-decoration: none;
@@ -264,23 +257,20 @@
   padding: 5px 10px;
   margin: -10px -10px 10px;
   cursor: pointer;
-  transition: background-color .25s ease, border-radius .25s ease; }
+  -webkit-transition: background-color 0.25s ease, border-radius 0.25s ease;
+  transition: background-color 0.25s ease, border-radius 0.25s ease; }
   .mtphr-dnt-list-heading:active, .mtphr-dnt-list-heading:focus {
     box-shadow: none;
     outline: none; }
   .mtphr-dnt-list-heading .dashicons-menu {
     color: #FFF;
     margin-right: 8px;
-    -webkit-box-ordinal-group: 11;
-        -ms-flex-order: 10;
-            order: 10; }
+    order: 10; }
 
 .mtphr-dnt-list-buttons {
   margin: -5px -10px;
   margin-left: auto;
-  -webkit-box-ordinal-group: 21;
-      -ms-flex-order: 20;
-          order: 20; }
+  order: 20; }
   .mtphr-dnt-list-buttons a {
     float: left;
     display: block;
@@ -304,21 +294,11 @@
     line-height: 31px; }
 
 .mtphr-dnt-list-item-contents {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap; }
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap; }
 
 .mtphr-dnt-list-field {
   color: #333333;
@@ -328,7 +308,7 @@
 .mtphr-dnt-list-placeholder {
   width: 100%;
   height: 40px;
-  border: 3px dashed #e6e5e5;
+  border: 3px dashed #e6e6e6;
   border-radius: 5px;
   margin: 5px 0;
   box-sizing: border-box; }
@@ -345,7 +325,7 @@
 .mtphr-dnt-sort-placeholder {
   width: 100%;
   height: 40px;
-  border: 3px dashed #e6e5e5;
+  border: 3px dashed #e6e6e6;
   border-radius: 5px;
   margin: 5px 0;
   box-sizing: border-box; }
@@ -373,7 +353,8 @@
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color .25s ease, border-radius .25s ease; }
+  -webkit-transition: background-color 0.25s ease, border-radius 0.25s ease;
+  transition: background-color 0.25s ease, border-radius 0.25s ease; }
   .mtphr-dnt-sort-heading:active, .mtphr-dnt-sort-heading:focus {
     box-shadow: none;
     outline: none; }
@@ -397,7 +378,8 @@
       background: #FFF;
       border-radius: 12px;
       margin: -2px 8px -3px 0;
-      transition: color .25s ease; }
+      -webkit-transition: color 0.25s ease;
+      transition: color 0.25s ease; }
   .mtphr-dnt-sort-heading .dashicons-menu {
     color: #333333;
     margin-right: 8px; }
@@ -489,7 +471,7 @@
       #mtphr-dnt-metabox-group-toggles a.active:hover {
         background-color: #58ca68; }
     #mtphr-dnt-metabox-group-toggles a:hover {
-      background-color: #4d4c4c; }
+      background-color: #4d4d4d; }
     #mtphr-dnt-metabox-group-toggles a.focus, #mtphr-dnt-metabox-group-toggles a.active {
       box-shadow: none;
       outline: none; }
@@ -508,10 +490,11 @@
 .wp-core-ui #mtphr-dnt-settings-select .mtphr-dnt-button {
   color: #FFF;
   border-color: #333333;
-  background: #807f7f;
+  background: gray;
   margin: 2px 0;
   box-shadow: none;
-  transition: background-color .25s ease, border-color .25s ease; }
+  -webkit-transition: background-color 0.25s ease, border-color 0.25s ease;
+  transition: background-color 0.25s ease, border-color 0.25s ease; }
   .wp-core-ui #mtphr-dnt-settings-select .mtphr-dnt-button:hover {
     background-color: #999999; }
     .wp-core-ui #mtphr-dnt-settings-select .mtphr-dnt-button:hover i {
@@ -529,7 +512,7 @@
     .wp-core-ui #mtphr-dnt-settings-select .mtphr-dnt-button.button-primary i {
       opacity: 1; }
   .wp-core-ui #mtphr-dnt-settings-select .mtphr-dnt-button.mtphr-dnt-get-more {
-    background: #4d4c4c; }
+    background: #4d4d4d; }
     .wp-core-ui #mtphr-dnt-settings-select .mtphr-dnt-button.mtphr-dnt-get-more:hover {
       background-color: #595959; }
   .wp-core-ui #mtphr-dnt-settings-select .mtphr-dnt-button i {
@@ -537,7 +520,8 @@
     line-height: 16px;
     margin: 2px 0 0 -5px;
     opacity: .5;
-    transition: opacity .25s ease; }
+    -webkit-transition: opacity 0.25s ease;
+    transition: opacity 0.25s ease; }
     .wp-core-ui #mtphr-dnt-settings-select .mtphr-dnt-button i:before {
       vertical-align: middle; }
     .wp-core-ui #mtphr-dnt-settings-select .mtphr-dnt-button i.fontastic {
@@ -564,7 +548,7 @@
 
 .mtphr-dnt-heading {
   background-color: #f2f2f2;
-  border-bottom: 1px solid #e6e5e5;
+  border-bottom: 1px solid #e6e6e6;
   margin: -20px -20px 20px;
   padding: 10px 20px; }
   .mtphr-dnt-heading h3 {
@@ -599,6 +583,7 @@
     color: #999999; }
 
 .mtphr-dnt-field {
+  flex: 1;
   margin-bottom: 20px; }
   .mtphr-dnt-field-group .mtphr-dnt-field:last-child {
     margin-bottom: 0; }

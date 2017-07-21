@@ -3,7 +3,7 @@
 /**
  * Create a class for the widget
  *
- * @since 2.1.5
+ * @since 2.1.10
  */
 class mtphr_dnt_widget extends WP_Widget {
 		
@@ -30,14 +30,9 @@ class mtphr_dnt_widget extends WP_Widget {
 		
 		$ticker = $instance['ticker'];
 		$ticker_title = isset( $instance['ticker_title'] );
+		$ticker_hide = isset( $instance['ticker_hide'] );
 		
-		// Before widget (defined by themes)
-		echo $before_widget;
-		
-		// Title of widget (before and after defined by themes)
-		if ( $title ) {
-			echo $before_title . $title . $after_title;
-		}
+		global $mtphr_dnt_meta_data;
 		
 		// Set custom attributes
 		$atts = array();
@@ -54,6 +49,8 @@ class mtphr_dnt_widget extends WP_Widget {
 		// Add in_widget attribute for customization
 		$atts['in_widget'] = 1;
 		
+		ob_start();
+		
 		// Display the ticker
 		if( $ticker != '' ) {
 			if( function_exists('ditty_news_ticker') ) {
@@ -61,8 +58,24 @@ class mtphr_dnt_widget extends WP_Widget {
 			}
 		}
 		
-		// After widget (defined by themes)
-		echo $after_widget;
+		$ticker_output = ob_get_clean();
+		
+		// Only display the widget if ticks exist
+		if( !$ticker_hide || intval($mtphr_dnt_meta_data['_mtphr_dnt_total_ticks']) > 0 ) {
+			
+			// Before widget (defined by themes)
+			echo $before_widget;
+			
+			// Title of widget (before and after defined by themes)
+			if ( $title ) {
+				echo $before_title . $title . $after_title;
+			}
+			
+			echo $ticker_output;
+			
+			// After widget (defined by themes)
+			echo $after_widget;
+		}
 	}
 	
 	/** @see WP_Widget::update */
@@ -74,6 +87,7 @@ class mtphr_dnt_widget extends WP_Widget {
 		$instance['title'] = sanitize_text_field( $new_instance['title'] );
 		$instance['ticker'] = $new_instance['ticker'];
 		$instance['ticker_title'] = $new_instance['ticker_title'];
+		$instance['ticker_hide'] = $new_instance['ticker_hide'];
 	
 		return $instance;
 	}
@@ -85,7 +99,8 @@ class mtphr_dnt_widget extends WP_Widget {
 		$defaults = array(
 			'title' => '',
 			'ticker' => '',
-			'ticker_title' => ''
+			'ticker_title' => '',
+			'ticker_hide' => 'on',
 		);
 		
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
@@ -117,6 +132,12 @@ class mtphr_dnt_widget extends WP_Widget {
 		<p>
 			<input class="checkbox" type="checkbox" <?php checked( $instance['ticker_title'], 'on' ); ?> id="<?php echo $this->get_field_id( 'ticker_title' ); ?>" name="<?php echo $this->get_field_name( 'ticker_title' ); ?>" />
 			<label for="<?php echo $this->get_field_id( 'ticker_title' ); ?>"><?php _e( 'Display Ticker Title?', 'ditty-news-ticker' ); ?></label>
+		</p>
+		
+		<!-- Hide Ticker: Checkbox -->
+		<p>
+			<input class="checkbox" type="checkbox" <?php checked( $instance['ticker_hide'], 'on' ); ?> id="<?php echo $this->get_field_id( 'ticker_hide' ); ?>" name="<?php echo $this->get_field_name( 'ticker_hide' ); ?>" />
+			<label for="<?php echo $this->get_field_id( 'ticker_hide' ); ?>"><?php _e( 'Hide widget if no ticks exist?', 'ditty-news-ticker' ); ?></label>
 		</p>
 	  	
 	<?php

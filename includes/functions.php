@@ -80,7 +80,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 /**
  * Render the ticker
  *
- * @since 2.0.9
+ * @since 2.1.10
  */
 function render_mtphr_dnt_ticker( $id='', $class='', $meta_data=false ) {
 	
@@ -121,102 +121,105 @@ function render_mtphr_dnt_ticker( $id='', $class='', $meta_data=false ) {
 	// Save the metadata in a global variable
 	$mtphr_dnt_meta_data = $meta_data;
 
-	ob_start();
-
-	// Add a unique id
-	$tick_id = 'mtphr-dnt-'.$id;
-	if( isset($_mtphr_dnt_unique_id) && ($_mtphr_dnt_unique_id != '') ) {
-			$tick_id = 'mtphr-dnt-'.$id.'-'.sanitize_html_class( $_mtphr_dnt_unique_id );
-	}
-
-	// Check for a set width
-	$ticker_width = '';
-	if( isset($_mtphr_dnt_ticker_width) && ($_mtphr_dnt_ticker_width != 0) ) {
-		$ticker_width = ' style="width:'.intval($_mtphr_dnt_ticker_width).'px"';
-	}
-
-	echo '<div'.$ticker_width.' id="'.$tick_id.'" '.mtphr_dnt_ticker_class( $id, $class, $meta_data ).'>';
-		echo '<div class="mtphr-dnt-wrapper mtphr-dnt-clearfix">';
-
-			// Create and save element styles
-			$margin='';$padding='';
+	if( !(isset($_mtphr_dnt_hide) && $_mtphr_dnt_hide == 'on') || $total_ticks > 0 ) {
 		
-			if( $_mtphr_dnt_mode == 'scroll' ) {
-				$padding = ( intval($_mtphr_dnt_scroll_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_scroll_padding).'px;padding-bottom:'.intval($_mtphr_dnt_scroll_padding).'px;' : '';
-				$margin = ( intval($_mtphr_dnt_scroll_margin) != 0 ) ? 'margin-top:'.intval($_mtphr_dnt_scroll_margin).'px;margin-bottom:'.intval($_mtphr_dnt_scroll_margin).'px;' : '';
-			} elseif( $_mtphr_dnt_mode == 'rotate' ) {
-				$padding = ( intval($_mtphr_dnt_rotate_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_rotate_padding).'px;padding-bottom:'.intval($_mtphr_dnt_rotate_padding).'px;' : '';
-				$margin = ( intval($_mtphr_dnt_rotate_margin) != 0 ) ? 'margin-top:'.intval($_mtphr_dnt_rotate_margin).'px;margin-bottom:'.intval($_mtphr_dnt_rotate_margin).'px;' : '';
-			} elseif(  $_mtphr_dnt_mode == 'list' ) {
-				$padding = ( intval($_mtphr_dnt_list_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_list_padding).'px;padding-bottom:'.intval($_mtphr_dnt_list_padding).'px;' : '';
-				$margin = ( intval($_mtphr_dnt_list_margin) != 0 ) ? 'margin-top:'.intval($_mtphr_dnt_list_margin).'px;margin-bottom:'.intval($_mtphr_dnt_list_margin).'px;' : '';
-			}
-		
-			// Filter the variables
-			$padding = apply_filters( 'mtphr_dnt_tick_container_padding', $padding );
-			$margin = apply_filters( 'mtphr_dnt_tick_container_margin', $margin );
-		
-			// Create the container style
-			$container_style = ( $padding != '' || $margin != '' ) ? ' style="'.$padding.$margin.'"' : '';
+		ob_start();
 	
-			// Open the ticker container
-			do_action( 'mtphr_dnt_before', $id, $meta_data );
-			echo '<div class="mtphr-dnt-tick-container"'.$container_style.'>';
-				do_action( 'mtphr_dnt_contents_before', $id, $meta_data );
-				echo '<div class="mtphr-dnt-tick-contents">';
-					do_action( 'mtphr_dnt_top', $id, $meta_data );
+		// Add a unique id
+		$tick_id = 'mtphr-dnt-'.$id;
+		if( isset($_mtphr_dnt_unique_id) && ($_mtphr_dnt_unique_id != '') ) {
+				$tick_id = 'mtphr-dnt-'.$id.'-'.sanitize_html_class( $_mtphr_dnt_unique_id );
+		}
+	
+		// Check for a set width
+		$ticker_width = '';
+		if( isset($_mtphr_dnt_ticker_width) && ($_mtphr_dnt_ticker_width != 0) ) {
+			$ticker_width = ' style="width:'.intval($_mtphr_dnt_ticker_width).'px"';
+		}
+	
+		echo '<div'.$ticker_width.' id="'.$tick_id.'" '.mtphr_dnt_ticker_class( $id, $class, $meta_data ).'>';
+			echo '<div class="mtphr-dnt-wrapper mtphr-dnt-clearfix">';
+	
+				// Create and save element styles
+				$margin='';$padding='';
 			
-					// Print out the ticks
-					if( is_array($dnt_ticks) ) {
-						
-						// Grab the paged ticks
-						if( $_mtphr_dnt_mode == 'list' && (isset($_mtphr_dnt_list_tick_paging) && $_mtphr_dnt_list_tick_paging) ) {
-							$page = isset( $_GET['tickpage'] ) ? $_GET['tickpage'] : 1;
-							$offset = ($page-1) * $_mtphr_dnt_list_tick_count;
-							$dnt_ticks = array_slice( $dnt_ticks, $offset, $_mtphr_dnt_list_tick_count );
-						}
+				if( $_mtphr_dnt_mode == 'scroll' ) {
+					$padding = ( intval($_mtphr_dnt_scroll_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_scroll_padding).'px;padding-bottom:'.intval($_mtphr_dnt_scroll_padding).'px;' : '';
+					$margin = ( intval($_mtphr_dnt_scroll_margin) != 0 ) ? 'margin-top:'.intval($_mtphr_dnt_scroll_margin).'px;margin-bottom:'.intval($_mtphr_dnt_scroll_margin).'px;' : '';
+				} elseif( $_mtphr_dnt_mode == 'rotate' ) {
+					$padding = ( intval($_mtphr_dnt_rotate_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_rotate_padding).'px;padding-bottom:'.intval($_mtphr_dnt_rotate_padding).'px;' : '';
+					$margin = ( intval($_mtphr_dnt_rotate_margin) != 0 ) ? 'margin-top:'.intval($_mtphr_dnt_rotate_margin).'px;margin-bottom:'.intval($_mtphr_dnt_rotate_margin).'px;' : '';
+				} elseif(  $_mtphr_dnt_mode == 'list' ) {
+					$padding = ( intval($_mtphr_dnt_list_padding) != 0 ) ? 'padding-top:'.intval($_mtphr_dnt_list_padding).'px;padding-bottom:'.intval($_mtphr_dnt_list_padding).'px;' : '';
+					$margin = ( intval($_mtphr_dnt_list_margin) != 0 ) ? 'margin-top:'.intval($_mtphr_dnt_list_margin).'px;margin-bottom:'.intval($_mtphr_dnt_list_margin).'px;' : '';
+				}
 			
-						// Randomize the ticks
-						if( isset($_mtphr_dnt_shuffle) && $_mtphr_dnt_shuffle ) {
-							shuffle( $dnt_ticks );
-						}
-						$total = count($dnt_ticks);
-						
-						$html .= ob_get_clean();
-						
-						foreach( $dnt_ticks as $i => $tick_obj ) {
+				// Filter the variables
+				$padding = apply_filters( 'mtphr_dnt_tick_container_padding', $padding );
+				$margin = apply_filters( 'mtphr_dnt_tick_container_margin', $margin );
+			
+				// Create the container style
+				$container_style = ( $padding != '' || $margin != '' ) ? ' style="'.$padding.$margin.'"' : '';
+		
+				// Open the ticker container
+				do_action( 'mtphr_dnt_before', $id, $meta_data );
+				echo '<div class="mtphr-dnt-tick-container"'.$container_style.'>';
+					do_action( 'mtphr_dnt_contents_before', $id, $meta_data );
+					echo '<div class="mtphr-dnt-tick-contents">';
+						do_action( 'mtphr_dnt_top', $id, $meta_data );
+				
+						// Print out the ticks
+						if( is_array($dnt_ticks) ) {
 							
-							ob_start();
-						
-							mtphr_dnt_tick_open( $tick_obj, $i, $id, $meta_data, $total );
-							
-							$tick = ( is_array($tick_obj) && isset($tick_obj['tick']) ) ? $tick_obj['tick'] : $tick_obj;
-							echo $tick;
-							
-							mtphr_dnt_tick_close( $tick_obj, $i, $id, $meta_data, $total );
+							// Grab the paged ticks
+							if( $_mtphr_dnt_mode == 'list' && (isset($_mtphr_dnt_list_tick_paging) && $_mtphr_dnt_list_tick_paging) ) {
+								$page = isset( $_GET['tickpage'] ) ? $_GET['tickpage'] : 1;
+								$offset = ($page-1) * $_mtphr_dnt_list_tick_count;
+								$dnt_ticks = array_slice( $dnt_ticks, $offset, $_mtphr_dnt_list_tick_count );
+							}
+				
+							// Randomize the ticks
+							if( isset($_mtphr_dnt_shuffle) && $_mtphr_dnt_shuffle ) {
+								shuffle( $dnt_ticks );
+							}
+							$total = count($dnt_ticks);
 							
 							$html .= ob_get_clean();
+							
+							foreach( $dnt_ticks as $i => $tick_obj ) {
+								
+								ob_start();
+							
+								mtphr_dnt_tick_open( $tick_obj, $i, $id, $meta_data, $total );
+								
+								$tick = ( is_array($tick_obj) && isset($tick_obj['tick']) ) ? $tick_obj['tick'] : $tick_obj;
+								echo $tick;
+								
+								mtphr_dnt_tick_close( $tick_obj, $i, $id, $meta_data, $total );
+								
+								$html .= ob_get_clean();
+							}
+							
+							ob_start();
 						}
-						
-						ob_start();
-					}
-			
-					// Close the ticker container
-					do_action( 'mtphr_dnt_bottom', $id, $meta_data );
+				
+						// Close the ticker container
+						do_action( 'mtphr_dnt_bottom', $id, $meta_data );
+					echo '</div>';
+					do_action( 'mtphr_dnt_contents_after', $id, $meta_data, $total_ticks );
 				echo '</div>';
-				do_action( 'mtphr_dnt_contents_after', $id, $meta_data, $total_ticks );
-			echo '</div>';
-			do_action( 'mtphr_dnt_after', $id, $meta_data, $total_ticks );
-
-		echo '</div>';
-	echo '</div>';
-
-	// Restore the original $wp_query
-	$wp_query = null;
-	$wp_query = $original_query;
-	wp_reset_postdata();
+				do_action( 'mtphr_dnt_after', $id, $meta_data, $total_ticks );
 	
-	$html .= ob_get_clean();
+			echo '</div>';
+		echo '</div>';
+	
+		// Restore the original $wp_query
+		$wp_query = null;
+		$wp_query = $original_query;
+		wp_reset_postdata();
+		
+		$html .= ob_get_clean();
+	}
 
 	return $html;
 }
