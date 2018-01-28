@@ -5,7 +5,7 @@ Plugin URI: http://dittynewsticker.com/
 Description: Ditty News Ticker is a multi-functional data display plugin
 Text Domain: ditty-news-ticker
 Domain Path: languages
-Version: 2.1.10
+Version: 2.1.11
 Author: Metaphor Creations
 Author URI: http://www.metaphorcreations.com
 Contributors: metaphorcreations
@@ -13,7 +13,7 @@ License: GPL2
 */
 
 /*
-Copyright 2012 Metaphor Creations  (email : joe@metaphorcreations.com)
+Copyright 2018 Metaphor Creations  (email : joe@metaphorcreations.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as
@@ -31,8 +31,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 
-define ( 'MTPHR_DNT_VERSION', '2.1.10' );
-define ( 'MTPHR_DNT_DIR', trailingslashit(plugin_dir_path(__FILE__)) );
+define( 'MTPHR_DNT_VERSION', '2.1.11' );
+define( 'MTPHR_DNT_DIR', trailingslashit(plugin_dir_path( __FILE__ )) );
+define( 'MTPHR_DNT_FILE', trailingslashit( __FILE__ ) );
 
 
 /* --------------------------------------------------------- */
@@ -72,29 +73,8 @@ if( is_admin() ) {
 	require_once( MTPHR_DNT_DIR.'includes/templates.php' );
 }
 
-
-
-/* --------------------------------------------------------- */
-/* !Register the post type & flush the rewrite rules - 1.4.6 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_activation() {
-	mtphr_dnt_posttype();
-	mtphr_dnt_custom_caps();
-	flush_rewrite_rules();
-}
-register_activation_hook( __FILE__, 'mtphr_dnt_activation' );
-
-
-
-/* --------------------------------------------------------- */
-/* !Flush the rewrite rules - 1.4.6 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_deactivation() {
-	flush_rewrite_rules();
-}
-register_deactivation_hook( __FILE__, 'mtphr_dnt_deactivation' );
+require_once MTPHR_DNT_DIR.'classes/class-mtphr-dnt-roles.php';
+require_once MTPHR_DNT_DIR.'includes/install.php';
 
 
 
@@ -118,85 +98,3 @@ function mtphr_dnt_unyson_extension( $locations ) {
   return $locations;
 }
 add_filter( 'fw_extensions_locations', 'mtphr_dnt_unyson_extension' );
-
-
-
-/* --------------------------------------------------------- */
-/* !Add capabilities - 2.1.0 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_custom_caps() {
-	
-	$caps_added = get_option( 'mtphr_dnt_caps', false );
-	if( !$caps_added ) {
-				
-	  $admins = get_role( 'administrator' );
-	  $editors = get_role( 'editor' );
-	  $authors = get_role( 'author' );
-	  $contributors = get_role( 'contributor' );
-	  $subscribers = get_role( 'subscriber' );
-	
-		if( $admins ) {
-		  $admins->add_cap( 'edit_ditty_news_tickers' );
-		  $admins->add_cap( 'edit_others_ditty_news_tickers' );
-		  $admins->add_cap( 'publish_ditty_news_tickers' );
-		  $admins->add_cap( 'read_private_ditty_news_tickers' );
-		  $admins->add_cap( 'read_ditty_news_tickers' );
-		  $admins->add_cap( 'delete_ditty_news_tickers' );
-		  $admins->add_cap( 'delete_private_ditty_news_tickers' );
-		  $admins->add_cap( 'delete_published_ditty_news_tickers' );
-		  $admins->add_cap( 'delete_others_ditty_news_tickers' );
-		  $admins->add_cap( 'edit_private_ditty_news_tickers' );
-		  $admins->add_cap( 'edit_published_ditty_news_tickers' );
-		  $admins->add_cap( 'edit_published_ditty_news_tickers' ); 
-		  $admins->add_cap( 'modify_ditty_news_ticker_settings' );
-	  }
-		
-		if( $editors ) {
-		  $editors->add_cap( 'edit_ditty_news_tickers' ); 
-		  $editors->add_cap( 'edit_others_ditty_news_tickers' ); 
-		  $editors->add_cap( 'publish_ditty_news_tickers' ); 
-		  $editors->add_cap( 'read_private_ditty_news_tickers' ); 
-		  $editors->add_cap( 'read_ditty_news_tickers' ); 
-		  $editors->add_cap( 'delete_ditty_news_tickers' ); 
-		  $editors->add_cap( 'delete_private_ditty_news_tickers' ); 
-		  $editors->add_cap( 'delete_published_ditty_news_tickers' ); 
-		  $editors->add_cap( 'delete_others_ditty_news_tickers' ); 
-		  $editors->add_cap( 'edit_private_ditty_news_tickers' ); 
-		  $editors->add_cap( 'edit_published_ditty_news_tickers' ); 
-	  }
-	  
-	  if( $authors ) {
-		  $authors->add_cap( 'edit_ditty_news_tickers' ); 
-		  $authors->add_cap( 'publish_ditty_news_tickers' ); 
-		  $authors->add_cap( 'read_ditty_news_tickers' ); 
-		  $authors->add_cap( 'delete_ditty_news_tickers' ); 
-		  $authors->add_cap( 'delete_published_ditty_news_tickers' ); 
-		  $authors->add_cap( 'edit_published_ditty_news_tickers' ); 
-	  }
-	  
-	  if( $contributors ) {
-		  $contributors->add_cap( 'edit_ditty_news_tickers' ); 
-		  $contributors->add_cap( 'read_ditty_news_tickers' ); 
-		  $contributors->add_cap( 'delete_ditty_news_tickers' ); 
-	  }
-	  
-	  if( $subscribers ) {
-	  	$subscribers->add_cap( 'read_ditty_news_tickers' ); 
-	  }
- 
-	  update_option( 'mtphr_dnt_caps', 'added' );
-  }
-  
-  if( $caps_added != '2_1_1' ) {
-	  
-	  $admins = get_role( 'administrator' );
-	  if( $admins ) {
-		  $admins->add_cap( 'modify_ditty_news_ticker_settings' );
-	  }
-	  
-	  update_option( 'mtphr_dnt_caps', '2_1_1' );
-	}
-}
-add_action( 'init', 'mtphr_dnt_custom_caps');
-
