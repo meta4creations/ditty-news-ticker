@@ -6,7 +6,7 @@
  * @subpackage  Functions/Install
  * @copyright   Copyright (c) 2017, Intrycks
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       2.1.11
+ * @since       2.1.12
 */
 
 // Exit if accessed directly
@@ -46,7 +46,7 @@ function mtphr_dnt_install( $network_wide = false ) {
 		mtphr_dnt_run_install();
 	}
 }
-register_activation_hook( MTPHR_DNT_PLUGIN_FILE, 'mtphr_dnt_install' );
+register_activation_hook( MTPHR_DNT_FILE, 'mtphr_dnt_install' );
 
 
 /**
@@ -87,7 +87,7 @@ function mtphr_dnt_run_install() {
 /**
  * When a new Blog is created in multisite, see if MTPHR_DNT is network activated, and run the installer
  *
- * @since  2.1.11
+ * @since  2.1.12
  * @param  int    $blog_id The Blog ID created
  * @param  int    $user_id The User ID set as the admin
  * @param  string $domain  The URL
@@ -98,7 +98,7 @@ function mtphr_dnt_run_install() {
  */
 function mtphr_dnt_new_blog_created( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
 
-	if( is_plugin_active_for_network(plugin_basename(MTPHR_DNT_PLUGIN_FILE)) ) {
+	if( is_plugin_active_for_network(plugin_basename(MTPHR_DNT_FILE)) ) {
 
 		switch_to_blog( $blog_id );
 		mtphr_dnt_install();
