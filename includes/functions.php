@@ -80,7 +80,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 /**
  * Render the ticker
  *
- * @since 2.1.10
+ * @since 2.1.13
  */
 function render_mtphr_dnt_ticker( $id='', $class='', $meta_data=false ) {
 	
@@ -176,6 +176,11 @@ function render_mtphr_dnt_ticker( $id='', $class='', $meta_data=false ) {
 								$page = isset( $_GET['tickpage'] ) ? $_GET['tickpage'] : 1;
 								$offset = ($page-1) * $_mtphr_dnt_list_tick_count;
 								$dnt_ticks = array_slice( $dnt_ticks, $offset, $_mtphr_dnt_list_tick_count );
+							}
+							
+							// Reverse the ticker
+							if( isset($_mtphr_dnt_reverse) && $_mtphr_dnt_reverse ) {
+								$dnt_ticks = array_reverse( $dnt_ticks );
 							}
 				
 							// Randomize the ticks
