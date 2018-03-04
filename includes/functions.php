@@ -231,7 +231,7 @@ function render_mtphr_dnt_ticker( $id='', $class='', $meta_data=false ) {
 
 
 /* --------------------------------------------------------- */
-/* !Render the rotate ticker - 2.0.9 */
+/* !Render the rotate ticker - 2.1.14 */
 /* --------------------------------------------------------- */
 
 function render_mtphr_dnt_rotate_ticker( $id='', $class='', $meta_data=false ) {
@@ -256,6 +256,11 @@ function render_mtphr_dnt_rotate_ticker( $id='', $class='', $meta_data=false ) {
 	
 	// Transform the tick array
 	$dnt_ticks = apply_filters( 'mtphr_dnt_tick_array_transform', $dnt_ticks, $id, $meta_data );
+	
+	// Reverse the ticker
+	if( isset($_mtphr_dnt_reverse) && $_mtphr_dnt_reverse ) {
+		$dnt_ticks = array_reverse( $dnt_ticks );
+	}
 	
 	// Randomize the ticks
 	if( isset($_mtphr_dnt_shuffle) && $_mtphr_dnt_shuffle ) {
