@@ -72,6 +72,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.1.15 =
+* Resolved bug in ticker widget.
+
 = 2.1.14 =
 * Added shortcode option to reverse the tick order for rotating tickers. Use reverse="1".
 
@@ -448,4 +451,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Added shortcode option to reverse the tick order for rotating tickers. Use reverse="1".
+Resolved bug in ticker widget.

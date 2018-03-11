@@ -85,9 +85,9 @@ class mtphr_dnt_widget extends WP_Widget {
 	
 		// Strip tags (if needed) and update the widget settings
 		$instance['title'] = sanitize_text_field( $new_instance['title'] );
-		$instance['ticker'] = $new_instance['ticker'];
-		$instance['ticker_title'] = $new_instance['ticker_title'];
-		$instance['ticker_hide'] = $new_instance['ticker_hide'];
+		$instance['ticker'] = isset( $new_instance['ticker'] ) ? $new_instance['ticker'] : false;
+		$instance['ticker_title'] = isset($new_instance['ticker_title']) ? $new_instance['ticker_title'] : 0;
+		$instance['ticker_hide'] = isset($new_instance['ticker_hide']) ? $new_instance['ticker_hide'] : 0;
 	
 		return $instance;
 	}
