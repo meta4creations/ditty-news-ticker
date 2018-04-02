@@ -450,42 +450,45 @@
 		    function mtphr_dnt_scroll_reset_ticks() {
 
 		    	for( var i=0; i<vars.tick_count; i++ ) {
+					
+						if( ticks[i] ) {
+							
+		    			var $tick = ticks[i][0].headline;
 
-		    		var $tick = ticks[i][0].headline;
-		    		
-						switch( settings.scroll_direction ) {
-							case 'left':
-								position = ticker_width+settings.offset;
-								$tick.stop(true,true).css('left',position+'px');
-								break;
-
-							case 'right':
-								position = parseInt('-'+($tick.width()+settings.offset));
-								$tick.stop(true,true).css('left',position+'px');
-								break;
-
-							case 'up':
-								if( ticker_scroll_resize ) {
-									$tick.css('width',ticker_width);
-								}
-								position = parseInt(ticker_height+settings.offset);
-								$tick.stop(true,true).css('top',position+'px');
-								break;
-
-							case 'down':
-								if( ticker_scroll_resize ) {
-									$tick.css('width',ticker_width);
-								}
-								position = parseInt('-'+($tick.height()+settings.offset));
-								$tick.stop(true,true).css('top',position+'px');
-								break;
+							switch( settings.scroll_direction ) {
+								case 'left':
+									position = ticker_width+settings.offset;
+									$tick.stop(true,true).css('left',position+'px');
+									break;
+	
+								case 'right':
+									position = parseInt('-'+($tick.width()+settings.offset));
+									$tick.stop(true,true).css('left',position+'px');
+									break;
+	
+								case 'up':
+									if( ticker_scroll_resize ) {
+										$tick.css('width',ticker_width);
+									}
+									position = parseInt(ticker_height+settings.offset);
+									$tick.stop(true,true).css('top',position+'px');
+									break;
+	
+								case 'down':
+									if( ticker_scroll_resize ) {
+										$tick.css('width',ticker_width);
+									}
+									position = parseInt('-'+($tick.height()+settings.offset));
+									$tick.stop(true,true).css('top',position+'px');
+									break;
+							}
+	
+							ticks[i][0].width = $tick.width();
+							ticks[i][0].height = $tick.height();
+							ticks[i][0].position = position;
+							ticks[i][0].reset = position;
+							ticks[i][0].visible = false;
 						}
-
-						ticks[i][0].width = $tick.width();
-						ticks[i][0].height = $tick.height();
-						ticks[i][0].position = position;
-						ticks[i][0].reset = position;
-						ticks[i][0].visible = false;
 			    }
 
 					// Reset the current tick

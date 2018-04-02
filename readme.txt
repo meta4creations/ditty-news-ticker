@@ -72,6 +72,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.1.16 =
+* Minor javascript update for scrolling tickers.
+
 = 2.1.15 =
 * Resolved bug in ticker widget.
 
@@ -451,4 +454,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Resolved bug in ticker widget.
+Minor javascript update for scrolling tickers.
