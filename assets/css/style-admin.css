@@ -8,6 +8,16 @@
 /* !Variables */
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
+/* !Licenses */
+/* --------------------------------------------------------- */
+.mtphr-dnt-license-spinner {
+  float: none;
+  margin: 0 0 0 5px; }
+
+.mtphr-dnt-license-group:not(.mtphr-dnt-license-valid) .ditty-news-ticker-license-deactivate {
+  display: none; }
+
+/* --------------------------------------------------------- */
 /* !Dashboard Menu Icon */
 /* --------------------------------------------------------- */
 .dashicons-ditty-news-ticker:before {

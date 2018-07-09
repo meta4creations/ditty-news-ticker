@@ -45,7 +45,8 @@ function mtphr_dnt_admin_scripts( $hook ) {
 		wp_localize_script( 'ditty-news-ticker', 'ditty_news_ticker_vars', array(
 				'security' => wp_create_nonce( 'ditty-news-ticker' ),
 				'img_title' => __( 'Upload or select an image', 'ditty-news-ticker' ),
-				'img_button' => __( 'Use Image', 'ditty-news-ticker' )
+				'img_button' => __( 'Use Image', 'ditty-news-ticker' ),
+				'strings' => mtphr_dnt_strings()
 			)
 		);
 	}

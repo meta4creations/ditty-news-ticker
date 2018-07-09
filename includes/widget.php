@@ -3,7 +3,7 @@
 /**
  * Create a class for the widget
  *
- * @since 2.1.10
+ * @since 2.1.17
  */
 class mtphr_dnt_widget extends WP_Widget {
 		
@@ -29,9 +29,10 @@ class mtphr_dnt_widget extends WP_Widget {
 		$title = apply_filters( 'widget_title', $title );
 		
 		$ticker = $instance['ticker'];
-		$ticker_title = isset( $instance['ticker_title'] );
-		$ticker_hide = isset( $instance['ticker_hide'] );
 		
+		$ticker_title = isset($instance['ticker_title']) ? $instance['ticker_title'] : 0;
+		$ticker_hide = isset( $instance['ticker_hide']) ? $instance['ticker_hide'] : 1;
+				
 		global $mtphr_dnt_meta_data;
 		
 		// Set custom attributes
@@ -63,18 +64,34 @@ class mtphr_dnt_widget extends WP_Widget {
 		// Only display the widget if ticks exist
 		if( !$ticker_hide || intval($mtphr_dnt_meta_data['_mtphr_dnt_total_ticks']) > 0 ) {
 			
-			// Before widget (defined by themes)
-			echo $before_widget;
+			$display = true;
 			
-			// Title of widget (before and after defined by themes)
-			if ( $title ) {
-				echo $before_title . $title . $after_title;
+			if( intval($mtphr_dnt_meta_data['_mtphr_dnt_total_ticks']) == 1 ) {
+				if( is_array($mtphr_dnt_meta_data['_mtphr_dnt_ticks'][0]) ) {
+					if( $mtphr_dnt_meta_data['_mtphr_dnt_ticks'][0]['tick'] == '' ) {
+						$display = false;
+					}
+				} elseif( $mtphr_dnt_meta_data['_mtphr_dnt_ticks'][0] == '' ) {
+					$display = false;
+				}
 			}
 			
-			echo $ticker_output;
+			if( !$ticker_hide || $display ) {
+
+				// Before widget (defined by themes)
+				echo $before_widget;
+				
+				// Title of widget (before and after defined by themes)
+				if ( $title ) {
+					echo $before_title . $title . $after_title;
+				}
+				
+				echo $ticker_output;
+				
+				// After widget (defined by themes)
+				echo $after_widget;
 			
-			// After widget (defined by themes)
-			echo $after_widget;
+			}
 		}
 	}
 	

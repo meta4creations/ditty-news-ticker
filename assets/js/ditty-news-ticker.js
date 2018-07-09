@@ -462,7 +462,11 @@
 									break;
 	
 								case 'right':
+									//console.log(settings.offset);
 									position = parseInt('-'+($tick.width()+settings.offset));
+									if( mtphr_dnt_vars.is_rtl ) {
+										position = parseInt('-'+($tick.width()+(ticker_width/2)));
+									}
 									$tick.stop(true,true).css('left',position+'px');
 									break;
 	

@@ -5,7 +5,7 @@ Plugin URI: http://dittynewsticker.com/
 Description: Ditty News Ticker is a multi-functional data display plugin
 Text Domain: ditty-news-ticker
 Domain Path: languages
-Version: 2.1.16
+Version: 2.1.17
 Author: Metaphor Creations
 Author URI: http://www.metaphorcreations.com
 Contributors: metaphorcreations
@@ -31,16 +31,17 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 
-define( 'MTPHR_DNT_VERSION', '2.1.16' );
+define( 'MTPHR_DNT_VERSION', '2.1.17' );
 define( 'MTPHR_DNT_DIR', trailingslashit(plugin_dir_path( __FILE__ )) );
 define( 'MTPHR_DNT_FILE', trailingslashit( __FILE__ ) );
-
+define( 'MTPHR_DNT_STORE_URL', 'https://www.metaphorcreations.com' );
 
 /* --------------------------------------------------------- */
 /* !Include files - 1.5.0 */
 /* --------------------------------------------------------- */
 
 // Load the general functions
+require_once( MTPHR_DNT_DIR.'eddsl/eddsl.php' );
 require_once( MTPHR_DNT_DIR.'includes/helpers.php' );
 require_once( MTPHR_DNT_DIR.'includes/post-types.php' );
 require_once( MTPHR_DNT_DIR.'includes/settings.php' );
