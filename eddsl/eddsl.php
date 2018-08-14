@@ -446,7 +446,7 @@ add_action( 'wp_ajax_mtphr_dnt_license_bug_dismiss', 'mtphr_dnt_license_bug_dism
 
 /**
  * Deactivate a license via ajax
- * @since 2.1.17
+ * @since 2.1.18
  */
 function mtphr_dnt_license_deactivate_ajax() {
 
@@ -473,6 +473,14 @@ function mtphr_dnt_license_deactivate_ajax() {
 	if( $slug && $all_license_data[$slug] ) {
 		
 		$mtphr_edd_licenses = get_option( 'mtphr_edd_licenses', array() );
+		$mtphr_edd_license_notices = get_option( 'mtphr_edd_license_notices', array() );
+		if( !is_array($mtphr_edd_licenses) ) {
+			$mtphr_edd_licenses = array();
+		}
+		if( !is_array($mtphr_edd_license_notices) ) {
+			$mtphr_edd_license_notices = array();
+		}
+		
 		$license = isset( $mtphr_edd_licenses[$slug] ) ? trim( $mtphr_edd_licenses[$slug] ) : '';
 	
 		// data to send in our API request
@@ -507,6 +515,10 @@ function mtphr_dnt_license_deactivate_ajax() {
 					unset($mtphr_edd_license_data[$slug]);
 					update_option( 'mtphr_edd_license_data', $mtphr_edd_license_data );
 				}
+				if( isset($mtphr_edd_license_notices[$slug]) ) {
+					unset($mtphr_edd_license_notices[$slug]);
+					update_option( 'mtphr_edd_license_notices', $mtphr_edd_license_notices );
+				}
 			}
 			
 			if( $status == 'deactivated' ) {
@@ -531,7 +543,7 @@ add_action( 'wp_ajax_mtphr_dnt_license_deactivate_ajax', 'mtphr_dnt_license_deac
 
 /**
  * Aactivate a license via ajax
- * @since 2.1.17
+ * @since 2.1.18
  */
 function mtphr_dnt_license_activate_ajax() {
 
@@ -556,6 +568,13 @@ function mtphr_dnt_license_activate_ajax() {
 		
 		$all_license_data = mtphr_dnt_all_license_data();
 		$mtphr_edd_licenses = get_option( 'mtphr_edd_licenses', array() );
+		$mtphr_edd_license_notices = get_option( 'mtphr_edd_license_notices', array() );
+		if( !is_array($mtphr_edd_licenses) ) {
+			$mtphr_edd_licenses = array();
+		}
+		if( !is_array($mtphr_edd_license_notices) ) {
+			$mtphr_edd_license_notices = array();
+		}
 	
 		// data to send in our API request
 		$api_params = array(
@@ -590,6 +609,10 @@ function mtphr_dnt_license_activate_ajax() {
 			// Store the license
 			$mtphr_edd_licenses[$slug] = $license;
 			update_option( 'mtphr_edd_licenses', $mtphr_edd_licenses );
+			
+			// Update the license notice
+			$mtphr_edd_license_notices[$slug] = $slug;
+			update_option( 'mtphr_edd_license_notices', $mtphr_edd_license_notices );
 
 			if( $status == 'valid' ) {
 				$message = mtphr_dnt_string('successful_activation');
@@ -613,7 +636,7 @@ add_action( 'wp_ajax_mtphr_dnt_license_activate_ajax', 'mtphr_dnt_license_activa
 
 /**
  * Admin footer scripts
- * @since 2.1.17
+ * @since 2.1.18
  */
 function mtphr_dnt_license_bug_ajax() {
 	?>
@@ -678,7 +701,7 @@ function mtphr_dnt_license_bug_ajax() {
 				var data = {
 					action: 'mtphr_dnt_license_activate_ajax',
 					license: $input.val(),
-					slug: $(this).data('slug'),
+					slug: $button.attr('data-slug'),
 					security: '<?php echo wp_create_nonce( 'ditty-news-ticker' ); ?>'
 				};
 				
