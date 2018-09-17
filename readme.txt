@@ -72,6 +72,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.1.19 =
+* Fixed wp_query bug when hide ticker option is enabled
+
 = 2.1.18 =
 * Fixed bug in extension license page
 
@@ -461,4 +464,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Fixed bug in extension license page.
+Fixed wp_query bug when hide ticker option is enabled.

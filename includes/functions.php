@@ -80,7 +80,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 /**
  * Render the ticker
  *
- * @since 2.1.13
+ * @since 2.1.19
  */
 function render_mtphr_dnt_ticker( $id='', $class='', $meta_data=false ) {
 	
@@ -217,14 +217,14 @@ function render_mtphr_dnt_ticker( $id='', $class='', $meta_data=false ) {
 	
 			echo '</div>';
 		echo '</div>';
-	
-		// Restore the original $wp_query
-		$wp_query = null;
-		$wp_query = $original_query;
-		wp_reset_postdata();
-		
+
 		$html .= ob_get_clean();
 	}
+	
+	// Restore the original $wp_query
+	$wp_query = null;
+	$wp_query = $original_query;
+	wp_reset_postdata();
 
 	return $html;
 }
