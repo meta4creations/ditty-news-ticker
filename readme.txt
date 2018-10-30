@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 4.5
-Tested up to: 4.9.8
+Tested up to: 5.0
 Stable tag: /trunk/
 License: GPL2
 
@@ -71,6 +71,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 5. Embed options
 
 == Changelog ==
+
+= 2.1.20 =
+* Fixed scroll left jquery bug
 
 = 2.1.19 =
 * Fixed wp_query bug when hide ticker option is enabled
@@ -464,4 +467,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Fixed wp_query bug when hide ticker option is enabled.
+Fixed scroll left jquery bug

@@ -65,7 +65,7 @@
 						$nav_next = $container.find('.mtphr-dnt-nav-next'),
 						$nav_controls = $container.find('.mtphr-dnt-control-links'),
 						$play_pause = $container.find('.mtphr-dnt-play-pause'),
-						ticker_width = $ticker.outerWidth(),
+						ticker_width = $ticker.outerWidth(true),
 						ticker_height = 0,
 						ticks = [],
 						ticker_scroll,
