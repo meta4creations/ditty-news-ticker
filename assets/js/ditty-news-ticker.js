@@ -1317,7 +1317,7 @@
 			    // Resize the tickers if the width is different
 			    if( $ticker.outerWidth() != ticker_width ) {
 
-				    ticker_width = $ticker.outerWidth();
+				    ticker_width = $ticker.outerWidth(true);
 
 				    if( settings.type == 'scroll' ) {
 				    	if( settings.scroll_direction=='up' || settings.scroll_direction=='down' ) {
@@ -1378,7 +1378,7 @@
 
 			    	if( $container.width() > 10 ) {
 				    	clearInterval(mtphr_dnt_init_timer);
-				    	ticker_width = $ticker.outerWidth();
+				    	ticker_width = $ticker.outerWidth(true);
 				    	mtphr_dnt_init();
 			    	}
 			    	

@@ -72,6 +72,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.1.21 =
+* Fixed browser resize bug
+
 = 2.1.20 =
 * Fixed scroll left jquery bug
 
@@ -467,4 +470,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Fixed scroll left jquery bug
+Fixed browser resize bug
