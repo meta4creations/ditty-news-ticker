@@ -72,6 +72,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.1.22 =
+* Modified how scripts are enqueued
+
 = 2.1.21 =
 * Fixed browser resize bug
 
@@ -470,4 +473,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Fixed browser resize bug
+Modified how scripts are enqueued
