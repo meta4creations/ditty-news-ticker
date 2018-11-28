@@ -173,7 +173,7 @@ function render_mtphr_dnt_ticker( $id='', $class='', $meta_data=false ) {
 							
 							// Grab the paged ticks
 							if( $_mtphr_dnt_mode == 'list' && (isset($_mtphr_dnt_list_tick_paging) && $_mtphr_dnt_list_tick_paging) ) {
-								$page = isset( $_GET['tickpage'] ) ? esc_html($_GET['tickpage']) : 1;
+								$page = isset( $_GET['tickpage'] ) ? intval($_GET['tickpage']) : 1;
 								$offset = ($page-1) * $_mtphr_dnt_list_tick_count;
 								$dnt_ticks = array_slice( $dnt_ticks, $offset, $_mtphr_dnt_list_tick_count );
 							}

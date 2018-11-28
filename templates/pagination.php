@@ -8,7 +8,7 @@ if( $_mtphr_dnt_mode == 'list' && isset($_mtphr_dnt_list_tick_paging) && $_mtphr
 	
 	$spacing = 'margin-top:'.intval($_mtphr_dnt_list_tick_spacing).'px;';
 	$total_pages = ceil( $_mtphr_dnt_total_ticks/$_mtphr_dnt_list_tick_count );
-	$current_page = isset( $_GET['tickpage'] ) ? esc_html($_GET['tickpage']) : 1;
+	$current_page = isset( $_GET['tickpage'] ) ? intval($_GET['tickpage']) : 1;
 	
 	$big = 999999999;
 	$args = array(
