@@ -72,6 +72,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.1.23 =
+* Escaped $_GET variables for additional security measures
+
 = 2.1.22 =
 * Modified how scripts are enqueued
 
@@ -473,4 +476,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Modified how scripts are enqueued
+Escaped $_GET variables for additional security measures

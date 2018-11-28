@@ -128,8 +128,8 @@ function mtphr_dnt_edit_screen_filters() {
 	global $typenow;
 	
 	if( $typenow == 'ditty_news_ticker' ) {
-		$dnt_type = isset($_GET['dnt_type']) ? $_GET['dnt_type'] : '';
-		$dnt_mode = isset($_GET['dnt_mode']) ? $_GET['dnt_mode'] : '';
+		$dnt_type = isset($_GET['dnt_type']) ? esc_html($_GET['dnt_type']) : '';
+		$dnt_mode = isset($_GET['dnt_mode']) ? esc_html($_GET['dnt_mode']) : '';
 		
 		$types = mtphr_dnt_types_array();
 		$modes = mtphr_dnt_modes_array();
@@ -173,14 +173,14 @@ function mtphr_dnt_parse_query( $query ) {
 	  if( isset($_GET['dnt_type']) && $_GET['dnt_type'] != '' ) {
 	  	$meta_query[] = array(
 	  		'key' => '_mtphr_dnt_type',
-				'value' => $_GET['dnt_type'],
+				'value' => esc_html($_GET['dnt_type']),
 	  	);
 	  }
 	  
 	  if( isset($_GET['dnt_mode']) && $_GET['dnt_mode'] != '' ) {
 	  	$meta_query[] = array(
 	  		'key' => '_mtphr_dnt_mode',
-				'value' => $_GET['dnt_mode'],
+				'value' => esc_html($_GET['dnt_mode']),
 	  	);
 	  }
 	  

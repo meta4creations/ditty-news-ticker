@@ -32,7 +32,7 @@ function mtphr_dnt_general_settings_callback() {
 
 
 /* --------------------------------------------------------- */
-/* !Render the settings page with tabs - 1.4.0 */
+/* !Render the settings page with tabs - 2.1.23 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_settings_display( $active_tab = null ) {
@@ -46,7 +46,7 @@ function mtphr_dnt_settings_display( $active_tab = null ) {
 
 		<?php
 		$tabs = mtphr_dnt_settings_tabs();
-		$active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general';
+		$active_tab = isset( $_GET['tab'] ) ? esc_html($_GET['tab']) : 'general';
 		?>
 
 		<ul style="margin-bottom:20px;" class="subsubsub">
