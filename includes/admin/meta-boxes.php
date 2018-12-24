@@ -965,7 +965,7 @@ function mtphr_dnt_list_fields() {
 
 
 /* --------------------------------------------------------- */
-/* !Return the global values - 2.1.10 */
+/* !Return the global values - 2.1.24 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_global_values') ) {
@@ -979,6 +979,7 @@ function mtphr_dnt_global_values() {
 		'inline_title' => '',
 		'hide' => '',
 		'shuffle' => '',
+		'reverse' => '',
 		'width' => 0,
 		'offset' => 20,
 		'trim_ticks' => '',
@@ -1000,6 +1001,7 @@ function mtphr_dnt_global_values() {
 		'inline_title' => get_post_meta( $post->ID, '_mtphr_dnt_inline_title', true ),
 		'hide' => get_post_meta( $post->ID, '_mtphr_dnt_hide', true ),
 		'shuffle' => get_post_meta( $post->ID, '_mtphr_dnt_shuffle', true ),
+		'reverse' => get_post_meta( $post->ID, '_mtphr_dnt_reverse', true ),
 		'width' => get_post_meta( $post->ID, '_mtphr_dnt_ticker_width', true ),
 		'offset' => get_post_meta( $post->ID, '_mtphr_dnt_offset', true ),	
 		'trim_ticks' => get_post_meta( $post->ID, '_mtphr_dnt_trim_ticks', true ),
@@ -1080,6 +1082,14 @@ function mtphr_dnt_global_fields() {
 					'name' => '_mtphr_dnt_shuffle',
 					'value' => $values['shuffle'],
 					'label' => __('Randomly shuffle the ticks', 'ditty-news-ticker')
+				),
+				
+				/* !Reverse ticks - 2.0.4 */
+				'reverse' => array(
+					'type' => 'checkbox',
+					'name' => '_mtphr_dnt_reverse',
+					'value' => $values['reverse'],
+					'label' => __('Reverse the order of the ticks', 'ditty-news-ticker')
 				),
 				
 				/* !Trim ticks - 2.0.2 */
@@ -1379,6 +1389,7 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		$inline_title = isset($_POST['_mtphr_dnt_inline_title']) ? $_POST['_mtphr_dnt_inline_title'] : '';
 		$hide = isset($_POST['_mtphr_dnt_hide']) ? $_POST['_mtphr_dnt_hide'] : '';
 		$shuffle = isset($_POST['_mtphr_dnt_shuffle']) ? $_POST['_mtphr_dnt_shuffle'] : '';
+		$reverse = isset($_POST['_mtphr_dnt_reverse']) ? $_POST['_mtphr_dnt_reverse'] : '';
 		$width = isset($_POST['_mtphr_dnt_ticker_width']) ? intval($_POST['_mtphr_dnt_ticker_width']) : 0;
 		$offset = isset($_POST['_mtphr_dnt_offset']) ? intval($_POST['_mtphr_dnt_offset']) : 20;
 		$trim = isset($_POST['_mtphr_dnt_trim_ticks']) ? $_POST['_mtphr_dnt_trim_ticks'] : '';
@@ -1396,6 +1407,7 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		update_post_meta( $post_id, '_mtphr_dnt_inline_title', $inline_title );
 		update_post_meta( $post_id, '_mtphr_dnt_hide', $hide );
 		update_post_meta( $post_id, '_mtphr_dnt_shuffle', $shuffle );
+		update_post_meta( $post_id, '_mtphr_dnt_reverse', $reverse );
 		update_post_meta( $post_id, '_mtphr_dnt_ticker_width', $width );
 		update_post_meta( $post_id, '_mtphr_dnt_offset', $offset );
 		update_post_meta( $post_id, '_mtphr_dnt_trim_ticks', $trim );
