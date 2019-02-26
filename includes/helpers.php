@@ -11,7 +11,7 @@ function mtphr_dnt_types_array() {
 	$dnt_types_array = array();
 	$dnt_types_array['default'] = array(
 		'button' => __('Default', 'ditty-news-ticker'),
-		'metabox_id' => 'mtphr-dnt-defualt-metabox',
+		'metabox_id' => 'mtphr-dnt-default-metabox',
 		'icon' => 'dashicons dashicons-edit'
 	);
 	$dnt_types_array['mixed'] = array(

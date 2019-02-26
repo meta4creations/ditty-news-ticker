@@ -179,7 +179,7 @@ if( !function_exists('mtphr_dnt_type_metaboxes') ) {
 function mtphr_dnt_type_metaboxes() {
 	
 	// Default type metabox
-	mtphr_dnt_metabox( 'mtphr-dnt-defualt-metabox', mtphr_dnt_default_fields() );
+	mtphr_dnt_metabox( 'mtphr-dnt-default-metabox', mtphr_dnt_default_fields() );
 	
 	// Mixed type metabox
 	mtphr_dnt_metabox( 'mtphr-dnt-mixed-metabox', mtphr_dnt_mixed_fields() );	
@@ -1258,6 +1258,7 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		$allowed_tags['div']['data-width'] = true;
 
 		if( count($_POST['_mtphr_dnt_ticks']) > 0 ) {
+			//echo '<pre>';print_r($_POST['_mtphr_dnt_ticks']);echo '</pre>';
 			foreach( $_POST['_mtphr_dnt_ticks'] as $tick ) {
 				
 				$sanitized_tick = apply_filters( 'mtphr_dnt_sanitized_tick', array(

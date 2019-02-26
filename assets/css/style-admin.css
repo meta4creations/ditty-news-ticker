@@ -760,3 +760,14 @@
   .mtphr-dnt-field-mtphr_dnt_title {
     float: left;
     margin-right: 20px; } }
+
+/* --------------------------------------------------------- */
+/* !Settings */
+/* --------------------------------------------------------- */
+.mtphr-dnt-label-alt label {
+  display: block;
+  margin-bottom: 5px; }
+
+.mtphr-dnt-label-alt small {
+  display: block;
+  font-weight: lighter; }
