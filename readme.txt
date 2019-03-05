@@ -72,6 +72,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.1.26 =
+* RTL bug fix for scrolling right tickers
+
 = 2.1.25 =
 * Minor admin css update
 
@@ -482,4 +485,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Minor admin css update
+RTL bug fix for scrolling right tickers

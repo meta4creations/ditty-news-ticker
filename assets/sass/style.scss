@@ -11,6 +11,11 @@
 .mtphr-dnt-inline-title {
 	float: left;
 	padding-right: 5px;
+	.rtl & {
+		float: right;
+		padding-right: 0;
+		padding-left: 5px;
+	}
 }
 .mtphr-dnt-tick-container {
 	position: relative;
