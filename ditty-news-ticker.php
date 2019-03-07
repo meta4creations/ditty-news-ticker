@@ -41,7 +41,7 @@ define( 'MTPHR_DNT_BUILD', 'legacy' );
 
 // Load the general functions
 require_once( MTPHR_DNT_DIR.'eddsl/eddsl.php' );
-require_once( MTPHR_DNT_DIR.'vendor/autoload.php' );
+//require_once( MTPHR_DNT_DIR.'vendor/autoload.php' );
 require_once( MTPHR_DNT_DIR.'inc/hooks.php' );
 
 if( MTPHR_DNT_BUILD == 'legacy' ) {

@@ -489,4 +489,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-RTL bug fix for scrolling right tickers
+Code and directory cleanup and optimization

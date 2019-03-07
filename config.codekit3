@@ -20,9 +20,9 @@
 	"/composer.lock": {
 		"cB": 0,
 		"ft": 8192,
-		"oA": 1,
+		"oA": 2,
 		"oAP": "/composer.lock",
-		"oF": 1
+		"oF": 0
 		},
 	"/ditty-news-ticker.php": {
 		"cB": 0,
