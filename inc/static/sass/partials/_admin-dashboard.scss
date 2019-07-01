@@ -1,0 +1,178 @@
+.menu-icon-ditty_news_ticker {
+	.dashicons-before {
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: 20px 20px;
+		@include menu_icon_background( #9EA3A8 );
+	}
+	&:hover {
+		.dashicons-before {
+			@include menu_icon_background( $ditty_primary );
+		}
+	}
+	&.wp-has-current-submenu {
+		.dashicons-before {
+			@include menu_icon_background( $ditty_primary );
+		}
+	}
+}
+
+/* Fresh */
+.admin-color-fresh {
+	.menu-icon-ditty_news_ticker {
+		.dashicons-before {
+			@include menu_icon_background( #A5AAAE );
+		}
+		&:hover {
+			.dashicons-before {
+				@include menu_icon_background( #02B9EB );
+			}
+		}
+		&.wp-has-current-submenu {
+			.dashicons-before {
+				@include menu_icon_background( #FFF );
+			}
+		}
+	}
+	.members-tab-title a[href="#members-tab-type-ditty_news_ticker"] {
+		.dashicons-ditty-news-ticker {
+			@include menu_icon_background( #0073aa );
+		}
+		&:hover .dashicons-ditty-news-ticker {
+			@include menu_icon_background( #00a0d2 );
+		}
+	}
+}
+
+/* Light */
+.admin-color-light {
+	.menu-icon-ditty_news_ticker {
+		.dashicons-before {
+			@include menu_icon_background( #999999 );
+		}
+		&:hover {
+			.dashicons-before {
+				@include menu_icon_background( #CCCCCC );
+			}
+		}
+		&.wp-has-current-submenu {
+			.dashicons-before {
+				@include menu_icon_background( #CCCCCC );
+			}
+		}
+	}	
+}
+
+/* Blue */
+.admin-color-blue {
+	.menu-icon-ditty_news_ticker {
+		.dashicons-before {
+			@include menu_icon_background( #E4F8FF );
+		}
+		&:hover {
+			.dashicons-before {
+				@include menu_icon_background( #FFFFFF );
+			}
+		}
+		&.wp-has-current-submenu {
+			.dashicons-before {
+				@include menu_icon_background( #FFFFFF );
+			}
+		}
+	}	
+}
+
+/* Coffee */
+.admin-color-coffee {
+	.menu-icon-ditty_news_ticker {
+		.dashicons-before {
+			@include menu_icon_background( #F3F2F1 );
+		}
+		&:hover {
+			.dashicons-before {
+				@include menu_icon_background( #FFFFFF );
+			}
+		}
+		&.wp-has-current-submenu {
+			.dashicons-before {
+				@include menu_icon_background( #FFFFFF );
+			}
+		}
+	}	
+}
+
+/* Ectoplasm */
+.admin-color-ectoplasm {
+	.menu-icon-ditty_news_ticker {
+		.dashicons-before {
+			@include menu_icon_background( #ECE6F5 );
+		}
+		&:hover {
+			.dashicons-before {
+				@include menu_icon_background( #FFFFFF );
+			}
+		}
+		&.wp-has-current-submenu {
+			.dashicons-before {
+				@include menu_icon_background( #FFFFFF );
+			}
+		}
+	}	
+}
+
+/* Midnight */
+.admin-color-midnight {
+	.menu-icon-ditty_news_ticker {
+		.dashicons-before {
+			@include menu_icon_background( #F1F2F3 );
+		}
+		&:hover {
+			.dashicons-before {
+				@include menu_icon_background( #FFFFFF );
+			}
+		}
+		&.wp-has-current-submenu {
+			.dashicons-before {
+				@include menu_icon_background( #FFFFFF );
+			}
+		}
+	}	
+}
+
+/* Ocean */
+.admin-color-ocean {
+	.menu-icon-ditty_news_ticker {
+		.dashicons-before {
+			@include menu_icon_background( #F2FCFF );
+		}
+		&:hover {
+			.dashicons-before {
+				@include menu_icon_background( #FFFFFF );
+			}
+		}
+		&.wp-has-current-submenu {
+			.dashicons-before {
+				@include menu_icon_background( #FFFFFF );
+			}
+		}
+	}	
+}
+
+/* Sunrise */
+.admin-color-sunrise {
+	.menu-icon-ditty_news_ticker {
+		.dashicons-before {
+			@include menu_icon_background( #F3F1F1 );
+		}
+		&:hover {
+			.dashicons-before {
+				@include menu_icon_background( #FFFFFF );
+			}
+		}
+		&.wp-has-current-submenu {
+			.dashicons-before {
+				@include menu_icon_background( #FFFFFF );
+			}
+		}
+	}	
+}

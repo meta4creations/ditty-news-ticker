@@ -34,7 +34,7 @@ function mtphr_dnt_scripts() {
 			wp_register_script( 'jquery-easing', plugins_url('ditty-news-ticker/legacy/static/js/jquery.easing.js'), array('jquery'), '1.4.1', true );
 	
 			// Load the news ticker scripts
-			wp_enqueue_script( 'ditty-news-ticker', plugins_url('ditty-news-ticker/legacy/static/js/script-admin.min.js'), array( 'jquery','jquery-ui-core','jquery-ui-sortable', 'jquery-easing', 'qtip' ), MTPHR_DNT_VERSION, true );
+			wp_enqueue_script( 'ditty-news-ticker', plugins_url('ditty-news-ticker/legacy/static/js/script-admin.min.js'), array( 'jquery','jquery-ui-core','jquery-ui-sortable', 'jquery-easing', 'qtip' ), DNT_VERSION, true );
 			wp_localize_script( 'ditty-news-ticker', 'ditty_news_ticker_vars', array(
 					'security' => wp_create_nonce( 'ditty-news-ticker' ),
 					'img_title' => __( 'Upload or select an image', 'ditty-news-ticker' ),
@@ -45,18 +45,18 @@ function mtphr_dnt_scripts() {
 		}
 		
 		// Load the icon font css
-		wp_enqueue_style( 'ditty-news-ticker-font', plugins_url('ditty-news-ticker/legacy/static/libs/fontastic/styles.css'), false, MTPHR_DNT_VERSION );
+		wp_enqueue_style( 'ditty-news-ticker-font', plugins_url('ditty-news-ticker/legacy/static/libs/fontastic/styles.css'), false, DNT_VERSION );
 	
 		// Load the plugin css
-		wp_enqueue_style( 'ditty-news-ticker', plugins_url('ditty-news-ticker/legacy/static/css/style-admin.css'), array('dashicons'), MTPHR_DNT_VERSION );
+		wp_enqueue_style( 'ditty-news-ticker', plugins_url('ditty-news-ticker/legacy/static/css/style-admin.css'), array('dashicons'), DNT_VERSION );
 		
 	} else {
 
 		// Load the icon font css
-		wp_enqueue_style( 'ditty-news-ticker-font', plugins_url('ditty-news-ticker/legacy/static/libs/fontastic/styles.css'), false, MTPHR_DNT_VERSION );
+		wp_enqueue_style( 'ditty-news-ticker-font', plugins_url('ditty-news-ticker/legacy/static/libs/fontastic/styles.css'), false, DNT_VERSION );
 	
 		// Register touchSwipe
-		wp_enqueue_script( 'touchSwipe', plugins_url('ditty-news-ticker/legacy/static/js/jquery.touchSwipe.min.js'), array('jquery'), MTPHR_DNT_VERSION, true );
+		wp_enqueue_script( 'touchSwipe', plugins_url('ditty-news-ticker/legacy/static/js/jquery.touchSwipe.min.js'), array('jquery'), DNT_VERSION, true );
 	
 		// Register the jQuery easing
 		wp_enqueue_script( 'jquery-easing', plugins_url('ditty-news-ticker/legacy/static/js/jquery.easing.js'), array('jquery'), '1.4.1', true );
@@ -65,9 +65,9 @@ function mtphr_dnt_scripts() {
 		wp_enqueue_script( 'imagesLoaded', plugins_url('ditty-news-ticker/legacy/static/js/imagesloaded.pkgd.min.js'), array('jquery'), '4.1.0', true );
 	
 		// Register the Ditty News Ticker scripts
-		wp_enqueue_style( 'ditty-news-ticker', plugins_url('ditty-news-ticker/legacy/static/css/style.css'), false, filemtime(MTPHR_DNT_DIR.'legacy/static/css/style.css') );
+		wp_enqueue_style( 'ditty-news-ticker', plugins_url('ditty-news-ticker/legacy/static/css/style.css'), false, filemtime(DNT_DIR.'legacy/static/css/style.css') );
 		
-		wp_enqueue_script( 'ditty-news-ticker', plugins_url('ditty-news-ticker/legacy/static/js/ditty-news-ticker.min.js'), array('jquery', 'imagesLoaded', 'touchSwipe', 'jquery-easing'), filemtime(MTPHR_DNT_DIR.'legacy/static/js/ditty-news-ticker.min.js'), true );
+		wp_enqueue_script( 'ditty-news-ticker', plugins_url('ditty-news-ticker/legacy/static/js/ditty-news-ticker.min.js'), array('jquery', 'imagesLoaded', 'touchSwipe', 'jquery-easing'), filemtime(DNT_DIR.'legacy/static/js/ditty-news-ticker.min.js'), true );
 		wp_localize_script( 'ditty-news-ticker', 'mtphr_dnt_vars', array(
 				'is_rtl' => is_rtl(),
 			)

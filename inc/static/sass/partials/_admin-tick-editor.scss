@@ -1,0 +1,90 @@
+.dnt-tick-editor {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	&__background {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 99998;
+		width: 100vw;
+		height: 100vh;
+		background: #000;
+		opacity: .7;
+	}
+	&__container {
+		position: relative;
+		z-index: 99999;
+		width: calc(100% - 40px);
+    max-width: 600px;
+		background: #fcfcfc;
+		box-shadow: 0 5px 15px rgba( 0, 0, 0, .7 );
+	}
+	&__content {
+		padding: 10px;
+	}
+	&__header {
+		text-align: center;
+		color: #FFF;
+		background: #0073aa;
+		padding: 20px;
+		i {
+			font-size: 30px;
+			line-height: 30px;
+		}
+		h2 {
+			color: #FFF;
+			padding: 0;
+			margin: 0;
+		}
+		p {
+			margin: 0;
+		}
+	}
+}
+
+/* --------------------------------------------------------- */
+/* !Select Type Panel */
+/* --------------------------------------------------------- */
+
+.dnt-tick-editor__content.select-type {
+	.dnt-tick-editor__content__inner {
+		display: flex;
+		flex-direction: row;
+		align-items: stretch;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+	}
+}
+.dnt-tick-editor__type-option {
+	&__link {
+	  display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 100px;
+		height: 100px;
+	  background: #FFF;
+	  border: 1px solid #EEE;
+	  padding: 10px;
+	  cursor: pointer;
+	  transition: background-color .25s ease; 
+	  i {
+		  font-size: 20px;
+	    line-height: 20px;
+	    margin-bottom: 5px;
+	  }
+  }
+  &.active {
+	  .dnt-type-type-option__link {
+		  background-color: hsl(0, 0%, 96%);
+	  }
+  }
+}

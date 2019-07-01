@@ -83,7 +83,7 @@ function mtphr_dnt_plugin_updater() {
 			$license_key = isset($mtphr_edd_licenses[$slug]) ? trim($mtphr_edd_licenses[$slug]) : '';
 		
 			// setup the updater
-			$edd_updater = new EDD_SL_Plugin_Updater( MTPHR_DNT_STORE_URL, $data['path'], array(
+			$edd_updater = new EDD_SL_Plugin_Updater( DNT_STORE_URL, $data['path'], array(
 					'version' 	=> $data['version'], 																							// current version number
 					'license' 	=> $license_key, 																									// license key (used get_option above to retrieve from DB)
 					'item_name' => $data['item_name'], 																						// name of this plugin
@@ -326,7 +326,7 @@ function mtphr_dnt_license_check() {
 			);
 		
 			// Call the custom API.
-			$response = wp_remote_post( MTPHR_DNT_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
+			$response = wp_remote_post( DNT_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 		
 			if ( is_wp_error( $response ) )
 				return false;
@@ -492,7 +492,7 @@ function mtphr_dnt_license_deactivate_ajax() {
 		);
 	
 		// Call the custom API.
-		$response = wp_remote_post( MTPHR_DNT_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
+		$response = wp_remote_post( DNT_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 	
 		// make sure the response came back okay
 		if( is_wp_error($response) ) {
@@ -585,7 +585,7 @@ function mtphr_dnt_license_activate_ajax() {
 		);
 	
 		// Call the custom API.
-		$response = wp_remote_post( MTPHR_DNT_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
+		$response = wp_remote_post( DNT_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 	
 		// make sure the response came back okay
 		if( is_wp_error($response) ) {

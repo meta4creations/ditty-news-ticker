@@ -1,0 +1,10 @@
+@mixin menu_icon_background( $color: $fresh_primary ) {
+	
+	@if type-of($color) == 'color' {
+	  $hex: str-slice(ie-hex-str($color), 4);
+	  $color: unquote("#{$hex}");
+  }
+  $color: '%23' + $color;
+	
+  background-image: url("data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill:#{$color}%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Edittynewsticker-green%3C/title%3E%3Cpath class='cls-1' d='M80,10V47.9c0,8.8-2.3,16.1-6.9,21.6A27.79,27.79,0,0,1,63,77.1a29.61,29.61,0,0,1-12.6,2.8,30.2,30.2,0,0,1-21.7-8.6A29.36,29.36,0,0,1,20,50a29.1,29.1,0,0,1,8.7-21,28.25,28.25,0,0,1,20.7-8.9c1,0,2.6.1,4.5.2V41.1a9.9,9.9,0,0,0-4.1-1,9.76,9.76,0,0,0-7.1,3,10.13,10.13,0,0,0-2.9,7.2,9.49,9.49,0,0,0,3.1,7.1,10.36,10.36,0,0,0,7.3,2.9c4.7,0,10.2-2.3,10.2-13.5V1.1A50,50,0,1,0,80,10Z'/%3E%3C/svg%3E");
+}

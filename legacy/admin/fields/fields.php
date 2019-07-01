@@ -714,13 +714,12 @@ function mtphr_dnt_field_sort( $args=array() ) {
 						$active = ($val == 'on' || !$optional_fields) ? ' active' : ''; 
 						
 						$fields = isset($items[$i]['fields']) ? $items[$i]['fields'] : '';
-						$total_fields = count($fields);
-						$has_fields = ( is_array($fields) && $total_fields > 0 ) ? ' has-fields' : '';
+						$has_fields = ( is_array( $fields ) && count( $fields ) > 0 ) ? ' has-fields' : '';
 						
 						echo '<div class="mtphr-dnt-sort-item'.$active.$has_fields.'">';
 							echo mtphr_dnt_sort_checkbox( $name.'['.$i.']', $val, $optional_fields, $items[$i] );
 
-							if( is_array($fields) && $total_fields > 0 ) {
+							if( is_array( $fields ) && count( $fields ) > 0 ) {
 								echo '<div class="mtphr-dnt-sort-item-fields'.$active.' mtphr-dnt-clearfix">';
 								foreach( $fields as $fname=>$field ) {
 

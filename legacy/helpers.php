@@ -1,49 +1,6 @@
 <?php
 
 /* --------------------------------------------------------- */
-/* !Return an array of the current DNT types - 2.0.0 */
-/* --------------------------------------------------------- */
-
-if( !function_exists('mtphr_dnt_types_array') ) {
-function mtphr_dnt_types_array() {
-
-	/* Create the types array. */
-	$dnt_types_array = array();
-	$dnt_types_array['default'] = array(
-		'button' => __('Default', 'ditty-news-ticker'),
-		'metabox_id' => 'mtphr-dnt-default-metabox',
-		'icon' => 'dashicons dashicons-edit'
-	);
-	$dnt_types_array['mixed'] = array(
-		'button' => __('Mixed', 'ditty-news-ticker'),
-		'metabox_id' => 'mtphr-dnt-mixed-metabox',
-		'icon' => 'dashicons dashicons-randomize'
-	);
-	
-	return apply_filters('mtphr_dnt_types', $dnt_types_array);
-}
-}
-
-
-if( !function_exists('mtphr_dnt_types_labels') ) {
-function mtphr_dnt_types_labels() {
-	
-	$types = mtphr_dnt_types_array();
-	$labels = array();
-	
-	if( is_array($types) && count($types) > 0 ) {
-		foreach( $types as $i=>$type ) {
-			$labels[$i] = $type['button'];
-		}
-	}
-	
-	return $labels;
-}
-}
-
-
-
-/* --------------------------------------------------------- */
 /* !Return an array of the current DNT modes - 1.0.0 */
 /* --------------------------------------------------------- */
 
