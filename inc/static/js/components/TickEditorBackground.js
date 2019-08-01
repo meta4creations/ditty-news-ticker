@@ -7,7 +7,7 @@ export class TickEditorBackground extends React.Component {
 	}
 	
 	handleClick() {
-		this.props.closeTickEditor();
+		//this.props.closeTickEditor();
 	}
 		
   render() {

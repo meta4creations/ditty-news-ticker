@@ -55,7 +55,7 @@ class MTPHR_DNT_String_Replacement {
 		if( is_array($this->replacements) && count($this->replacements) > 0 ) {
 			foreach( $this->replacements as $i=>$replacement ) {
 				if( $replacement['type'] == 'simple' ) {
-					$str = preg_replace( '/'.$replacement['placeholder'].'/i', $replacement['replacement'], $str );
+					$str = preg_replace( '%'.$replacement['placeholder'].'%i', $replacement['replacement'], $str );
 				} elseif( $replacement['type'] == 'hashtag' ) {
 					$str = preg_replace( '/ [#]+([A-Za-z0-9-_]+)/i', '<a href="'.$replacement['url'].'\\1" target="'.$replacement['target'].'">\\0</a>', $str );
 					$str = preg_replace( '/^[#]+([A-Za-z0-9-_]+)/i', '<a href="'.$replacement['url'].'\\1" target="'.$replacement['target'].'">\\0</a>', $str );

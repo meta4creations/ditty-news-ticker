@@ -34,6 +34,7 @@
     "url": "git://github.com/foo/bar.git"
   },
   "dependencies": {
-    "bourbon": "^5.1.0"
+    "bourbon": "^5.1.0",
+    "typescript": "^3.5.3"
   }
 }

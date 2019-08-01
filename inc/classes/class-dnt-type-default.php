@@ -51,36 +51,37 @@ class DNT_Type_Default extends DNT_Type {
 		
 		$fields = array(
 			'text' => array(
-				'name'		=> __('Ticker Text', 'ditty-news-ticker'),
-				'desc'		=> __('Add the content of your tick. HTML and inline styles are supported.', 'ditty-news-ticker'),
+				'name'		=> __( 'Ticker Text', 'ditty-news-ticker' ),
+				'desc'		=> __( 'Add the content of your tick. HTML and inline styles are supported.', 'ditty-news-ticker' ),
 				'id'			=> 'text',
 				'type'		=> 'textarea',
 				'columns'	=> 12
 			),
 			'link' => array(
-				'name'		=> __('Link', 'ditty-news-ticker'),
-				'desc'		=> __('Wrap a link around your tick content. You can also add a link directly into your content.', 'ditty-news-ticker'),
+				'name'		=> __( 'Link', 'ditty-news-ticker' ),
+				'desc'		=> __( 'Wrap a link around your tick content. You can also add a link directly into your content.', 'ditty-news-ticker' ),
 				'id'			=> 'link',
 				'type'		=> 'text',	
-				'columns'	=> 4
+				'columns'	=> 12
 			),
 			'target' => array(
-				'name'		=> __('Target', 'ditty-news-ticker'),
-				'desc'		=> __('Set a target for your link.', 'ditty-news-ticker'),
+				'name'		=> __( 'Target', 'ditty-news-ticker' ),
+				'desc'		=> __( 'Set a target for your link.', 'ditty-news-ticker' ),
 				'id'			=> 'target',
 				'type'		=> 'select',
 				'options'	=> array(
 					'_self'		=> '_self',
 					'_blank'	=> '_blank'
 				),
-				'columns'	=> 4
+				'columns'	=> 12
 			),
 			'nofollow' => array(
-				'name'		=> __('No Follow', 'ditty-news-ticker'),
-				'desc'		=> __('Enabling this setting will add an attribute called \'nofollow\' to your link. This tells search engines to not follow this link.', 'ditty-news-ticker'),
+				'name'		=> __( 'No Follow', 'ditty-news-ticker' ),
+				'label'		=> __( 'Add "nofollow" to link', 'ditty-news-ticker' ),
+				'desc'		=> __( 'Enabling this setting will add an attribute called \'nofollow\' to your link. This tells search engines to not follow this link.', 'ditty-news-ticker' ),
 				'id'			=> 'nofollow',
 				'type'		=> 'checkbox',	
-				'columns'	=> 4
+				'columns'	=> 12
 			),
 		);
 		

@@ -1,7 +1,7 @@
 import { TickEditorBackground } from './TickEditorBackground';
 import { TickEditorHeader } from './TickEditorHeader';
 import { TickEditorTypeOption } from './TickEditorTypeOption';
-import { TypeFields } from './TypeFields';
+import { TickEditorFields } from './TickEditorFields';
 
 export class TickEditor extends React.Component {
 	
@@ -13,12 +13,14 @@ export class TickEditor extends React.Component {
 			type				: '',
 			label				: 'Select a tick type',
 			description	: 'Select a tick type below to learn what it does.',
-			view				: 'select-type'
+			view				: 'selectType'
 		};	
 		this.state = this.defaultState;	
-		this.previewType = this.previewType.bind(this);
-		this.selectType = this.selectType.bind(this);
-		this.closeTickEditor = this.closeTickEditor.bind(this);
+
+		this.previewType 			= this.previewType.bind(this);
+		this.selectType 			= this.selectType.bind(this);
+		this.goBack 					= this.goBack.bind(this);
+		this.closeTickEditor 	= this.closeTickEditor.bind(this);
 	}
 	
 	previewType( newIcon, newType, newLabel, newDescription ) {
@@ -37,33 +39,34 @@ export class TickEditor extends React.Component {
 	}
 	
 	selectType( type ) {
-		
-		
-		
+
 		this.setState({
 			view				: ditty_news_ticker_vars.dnt_types[type].icon,
 			type				: ditty_news_ticker_vars.dnt_types[type].type,
 			label				: ditty_news_ticker_vars.dnt_types[type].label,
 			description	: ditty_news_ticker_vars.dnt_types[type].description,
 			fields			: '',
-			view				: 'loading-fields'
+			view				: 'newTickFields'
 		});
+	}
+	
+	goBack() {
 		
-		let url = 'http://dittynewsticker.localhost/wp-json/dnt-api/v1/fields/default';
+		const view = this.state.view;
+		let newView = view;
 		
-		if( url !== '0' ) {
-      let json = fetch(url)
-      .then(response => { console.log( response.json() ); })
-    } else {
-      console.log('hmmmmm');
-    }
-
-		//this.props.typeSelected( type );
-		//this.props.addTickRow();
+		switch( this.state.view ) {
+			case 'newTickFields':
+				newView = 'selectType';
+				break;
+		}
+		
+		this.setState({
+			view : newView
+		});
 	}
 	
 	closeTickEditor() {
-		
 		this.props.closeTickEditor();
 	}
 	
@@ -72,43 +75,42 @@ export class TickEditor extends React.Component {
 	  let editorPanel = '';
 		
 		switch( this.state.view ) {
-			case 'select-type':
+			case 'selectType':
 				
 				const typeOptions = Object.keys(ditty_news_ticker_vars.dnt_types).map(function(key) {
 					return <TickEditorTypeOption {...ditty_news_ticker_vars.dnt_types[key]} previewType={this.previewType} selectType={this.selectType} isActive={(ditty_news_ticker_vars.dnt_types[key].type === this.state.type)} />
 				}, this);
 				
 				editorPanel = (
-					<div class="dnt-tick-editor__content__inner">
-						{typeOptions}
+					<div class={'dnt-tick-editor__content dnt-tick-editor__content--'+this.state.view}>
+						<div class="dnt-tick-editor__content__inner">
+							{typeOptions}
+						</div>
 					</div>
 				);
 				break;
 				
-			case 'loading-fields':
+			case 'newTickFields':
 				
 				editorPanel = (
-					'LOADING FIELDS NOW'
+					<TickEditorFields type={this.state.type} closeTickEditor={this.closeTickEditor} />
 				);
 				break;
 				
-			case 'edit-fields':
+			case 'editTickFields':
 				
 				editorPanel = (
-					'FIELDS HAVE LOADED!'
+					<TickEditorFields type={this.state.type} closeTickEditor={this.closeTickEditor} />
 				);
 				break;
 		}
-		if( this.state.view )
-	  
+
     return (
     	<div class="dnt-tick-editor">
-    		<TickEditorBackground closeTickEditor={this.closeTickEditor} />
+    		<TickEditorBackground />
     		<div class="dnt-tick-editor__container">
-    			<TickEditorHeader icon={this.state.icon} heading={this.state.label} description={this.state.description} />
-    			<div class={'dnt-tick-editor__content ' + this.state.view}>
-	    			{editorPanel}
-	    		</div>
+    			<TickEditorHeader view={this.state.view} icon={this.state.icon} heading={this.state.label} description={this.state.description} goBack={this.goBack} closeTickEditor={this.closeTickEditor} />
+    			{editorPanel}
     		</div>
     	</div>
     );
