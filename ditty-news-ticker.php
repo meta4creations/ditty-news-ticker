@@ -5,7 +5,7 @@ Plugin URI: http://dittynewsticker.com/
 Description: Ditty News Ticker is a multi-functional data display plugin
 Text Domain: ditty-news-ticker
 Domain Path: languages
-Version: 2.2.5
+Version: 2.2.6
 Author: Metaphor Creations
 Author URI: http://www.metaphorcreations.com
 Contributors: metaphorcreations
@@ -62,7 +62,7 @@ final class Ditty_News_Ticker {
 
 		// Plugin version
 		if ( ! defined( 'DNT_VERSION' ) ) {
-			define( 'DNT_VERSION', '2.2.5' );
+			define( 'DNT_VERSION', '2.2.6' );
 		}
 
 		// Plugin Folder Path

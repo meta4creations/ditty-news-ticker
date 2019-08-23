@@ -11,20 +11,20 @@ if( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
 
 /**
  * Get an option value
- * @since 2.2.5
+ * @since 2.2.6
  */
 function mtphr_dnt_get_option( $option, $default=false ) {
 	if ( is_multisite() ) {
-		return get_site_option( $option, $value );
+		return get_site_option( $option, $default );
 	} else {
-		return get_option( $option, $value );
+		return get_option( $option, $default );
 	}
 }
 
 
 /**
  * Update an option value
- * @since 2.2.5
+ * @since 2.2.6
  */
 function mtphr_dnt_update_option( $option, $value ) {
 	if ( is_multisite() ) {

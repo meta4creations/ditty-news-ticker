@@ -72,6 +72,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.2.6 =
+* Resolved undefined variable bug in eddsl.php file
+
 = 2.2.5 =
 * Updated extension license check for multisite networks
 
@@ -420,7 +423,7 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 * Added setting to display first scroll tick on init.
 
 = 1.1.7 =
-* Modified structure & CSS to move the rotate navigation up a level.
+* Resolved undefined variable bug in eddsl.php file
 
 = 1.1.6 =
 * Fixed pause on hover functionality.
