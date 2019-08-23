@@ -72,6 +72,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.2.7 =
+* Constant variable bug fix
+
 = 2.2.6 =
 * Resolved undefined variable bug in eddsl.php file
 
@@ -504,4 +507,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Updated extension license check for multisite networks
+Constant variable bug fix

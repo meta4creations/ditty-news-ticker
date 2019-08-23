@@ -33,7 +33,7 @@ function mtphr_dnt_plugin_upgrade(){
 	$active_version = get_option( 'mtphr_dnt_active_version', '0' );
 
 	// Outdated
-	if( version_compare($active_version, DNT_VERSION, '<') ) {
+	if( version_compare($active_version, MTPHR_DNT_VERSION, '<') ) {
 
 		/*
 		// Run specific upgrade routines
@@ -42,7 +42,7 @@ function mtphr_dnt_plugin_upgrade(){
 				}
 		*/	
 		
-		update_option( 'mtphr_dnt_active_version', DNT_VERSION );
+		update_option( 'mtphr_dnt_active_version', MTPHR_DNT_VERSION );
 	}
 }
 //add_action( 'admin_init', 'mtphr_dnt_plugin_upgrade' );

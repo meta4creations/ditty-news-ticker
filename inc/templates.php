@@ -55,8 +55,8 @@ function mtphr_dnt_locate_template( $template_names, $load = false, $require_onc
 			break;
  
 		// Check theme compatibility last
-		} elseif( file_exists(DNT_DIR.'inc/templates/'.$template_name) ) {
-			$located = DNT_DIR.'inc/templates/'.$template_name;
+		} elseif( file_exists(MTPHR_DNT_DIR.'inc/templates/'.$template_name) ) {
+			$located = MTPHR_DNT_DIR.'inc/templates/'.$template_name;
 			break;
 		}
 	}

@@ -46,7 +46,7 @@ function mtphr_dnt_install( $network_wide = false ) {
 		mtphr_dnt_run_install();
 	}
 }
-register_activation_hook( DNT_FILE, 'mtphr_dnt_install' );
+register_activation_hook( MTPHR_DNT_FILE, 'mtphr_dnt_install' );
 
 
 /**
@@ -75,7 +75,7 @@ function mtphr_dnt_run_install() {
 		update_option( 'mtphr_dnt_version_upgraded_from', $current_version );
 	}
 
-	update_option( 'mtphr_dnt_version', DNT_VERSION );
+	update_option( 'mtphr_dnt_version', MTPHR_DNT_VERSION );
 
 	// Create MTPHR_DNT roles
 	$roles = new MTPHR_DNT_Roles;
@@ -98,7 +98,7 @@ function mtphr_dnt_run_install() {
  */
 function mtphr_dnt_new_blog_created( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
 
-	if( is_plugin_active_for_network(plugin_basename(DNT_FILE)) ) {
+	if( is_plugin_active_for_network(plugin_basename(MTPHR_DNT_FILE)) ) {
 
 		switch_to_blog( $blog_id );
 		mtphr_dnt_install();
