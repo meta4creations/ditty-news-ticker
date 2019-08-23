@@ -1,7 +1,8 @@
-/* global ditty_news_ticker_vars:true */
 /* global CodeMirror:true */
-/* //global ajaxurl:true */
+/* global wp:true */
+/* global ditty_news_ticker_vars:true */
+/* global ajaxurl:true */
+/* global tinyMCE:true */
 
-// @codekit-append 'partials/admin-tabs.js';
-// @codekit-append 'partials/admin-ticks.js';
-// @codekit-append 'partials/admin-layouts.js';
+// @codekit-append '/partials/mtphr-dnt-affix.js';
+// @codekit-append '/partials/admin-general.js';

@@ -5,7 +5,7 @@ Plugin URI: http://dittynewsticker.com/
 Description: Ditty News Ticker is a multi-functional data display plugin
 Text Domain: ditty-news-ticker
 Domain Path: languages
-Version: 2.2.2
+Version: 2.2.5
 Author: Metaphor Creations
 Author URI: http://www.metaphorcreations.com
 Contributors: metaphorcreations
@@ -31,46 +31,6 @@ final class Ditty_News_Ticker {
 	 */
 	private static $instance;
 	
-	/**
-	 * DNT Roles Object.
-	 *
-	 * @var object|DNT_Roles
-	 * @since 3.0
-	 */
-	public $roles;
-	
-	/**
-	 * DNT API Object.
-	 *
-	 * @var object|EDD_API
-	 * @since 3.0
-	 */
-	//public $api;
-	
-	/**
-	 * DNT Layout Template Tags Object.
-	 *
-	 * @var object|DNT_Layout_Template_Tags
-	 * @since 3.0
-	 */
-	public $layout_tags;
-	
-	/**
-	 * DNT Layouts Object.
-	 *
-	 * @var object|DNT_Layouts
-	 * @since 3.0
-	 */
-	public $layout;
-	
-	/**
-	 * DNT Tickers Object.
-	 *
-	 * @var object|DNT_Tickers
-	 * @since 3.0
-	 */
-	public $tickers;
-	
 	
 	/**	
 	 * Main Ditty_News_Ticker Instance.
@@ -86,15 +46,6 @@ final class Ditty_News_Ticker {
 			add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
 
 			self::$instance->includes();
-			
-			if ( 'legacy' != DNT_BUILD ) {	
-				self::$instance->roles				= new DNT_Roles();
-				//self::$instance->api          = new DNT_API();
-				self::$instance->layout_tags	= new DNT_Layout_Template_Tags();
-				self::$instance->layout 			= new DNT_Layout();
-				self::$instance->layout_meta 	= new DNT_DB_Layout_Meta();
-				self::$instance->tickers 			= new DNT_Tickers();
-			}
 		}
 		
 		do_action( 'dnt_init' );
@@ -108,15 +59,10 @@ final class Ditty_News_Ticker {
 	 * @since 3.0
 	 */
 	private function setup_constants() {
-		
-		// Plugin build for testing
-		if ( ! defined( 'DNT_BUILD' ) ) {
-			define( 'DNT_BUILD', 'legacy' );
-		}
-		
+
 		// Plugin version
 		if ( ! defined( 'DNT_VERSION' ) ) {
-			define( 'DNT_VERSION', '2.2.2' );
+			define( 'DNT_VERSION', '2.2.5' );
 		}
 
 		// Plugin Folder Path
@@ -149,45 +95,42 @@ final class Ditty_News_Ticker {
 		
 		// Load the general functions
 		require_once DNT_DIR . 'eddsl/eddsl.php';
-		require_once DNT_DIR . 'vendor/autoload.php';
+
+		require_once DNT_DIR . 'inc/composer.php';
 		require_once DNT_DIR . 'inc/helpers.php';
 		require_once DNT_DIR . 'inc/hooks.php';
+		require_once DNT_DIR . 'inc/post-types.php';
+		require_once DNT_DIR . 'inc/settings.php';
+		require_once DNT_DIR . 'inc/static.php';
+		require_once DNT_DIR . 'inc/widget.php';
 		
-		if ( 'legacy' == DNT_BUILD ) {	
-			require_once DNT_DIR . 'legacy/init.php';	
-		} else {		
-			require_once DNT_DIR . 'inc/api.php';
-			require_once DNT_DIR . 'inc/hooks-upgrade.php';
-			require_once DNT_DIR . 'inc/post-types.php';
-			require_once DNT_DIR . 'inc/static.php';
-			require_once DNT_DIR . 'inc/strings.php';
-			//require_once DNT_DIR . 'inc/classes/class-dnt-api.php';
-			require_once DNT_DIR . 'inc/classes/class-dnt-db.php';
-			require_once DNT_DIR . 'inc/classes/class-dnt-db-layout-meta.php';
-			require_once DNT_DIR . 'inc/classes/class-dnt-layout.php';
-			require_once DNT_DIR . 'inc/classes/class-dnt-layout-tags.php';
-			require_once DNT_DIR . 'inc/classes/class-dnt-tickers.php';
-			require_once DNT_DIR . 'inc/classes/class-dnt-tick.php';
-			require_once DNT_DIR . 'inc/classes/class-dnt-roles.php';
+		if( is_admin() ) {
+		
+			// Load admin specific code
+			require_once DNT_DIR . 'inc/admin/ajax.php';
+			require_once DNT_DIR . 'inc/admin/meta-boxes.php';
+			require_once DNT_DIR . 'inc/admin/edit-columns.php';
+			require_once DNT_DIR . 'inc/admin/fields/helpers.php';
+			require_once DNT_DIR . 'inc/admin/fields/fields.php';
+			require_once DNT_DIR . 'inc/admin/filters.php';
+			require_once DNT_DIR . 'inc/admin/functions.php';
+			require_once DNT_DIR . 'inc/admin/upgrades.php';
 			
-			require_once DNT_DIR . 'inc/classes/class-dnt-type.php';
-			require_once DNT_DIR . 'inc/classes/class-dnt-type-default.php';
-			require_once DNT_DIR . 'inc/classes/class-dnt-type-twitter-feed.php';
-			require_once DNT_DIR . 'inc/classes/class-dnt-type-twitter-tweet.php';
+		} else {
 			
-			// Legacy
-			require_once DNT_DIR . 'legacy/classes/class-mtphr-dnt-image.php';
-			
-			if ( is_admin() ) {
-				require_once DNT_DIR . 'inc/admin/layouts/metabox.php';
-				require_once DNT_DIR . 'inc/admin/tickers/metabox.php';
-				
-				require_once DNT_DIR . 'inc/admin-hooks.php';
-				require_once DNT_DIR . 'inc/admin-functions.php';
-			}
-			
-			require_once DNT_DIR . 'inc/install.php';
+			// Load front-end specific code
+			require_once DNT_DIR . 'inc/filters.php';
+			require_once DNT_DIR . 'inc/functions.php';
+			require_once DNT_DIR . 'inc/shortcodes.php';
+			require_once DNT_DIR . 'inc/classes/class-mtphr-dnt.php';
+			require_once DNT_DIR . 'inc/classes/class-mtphr-dnt-tick.php';
+			require_once DNT_DIR . 'inc/classes/class-mtphr-dnt-image.php';
+			require_once DNT_DIR . 'inc/classes/helpers/class-mtphr-dnt-string-replacement.php';
+			require_once DNT_DIR . 'inc/templates.php';
 		}
+		
+		require_once DNT_DIR . 'inc/classes/class-mtphr-dnt-roles.php';
+		require_once DNT_DIR . 'inc/install.php';
 	}
 	
 	

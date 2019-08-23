@@ -2,11 +2,11 @@
 /**
  * Install Function
  *
- * @package     DNT
+ * @package     MTPHR_DNT
  * @subpackage  Functions/Install
- * @copyright   Copyright (c) 2019, Metaphor Creations
+ * @copyright   Copyright (c) 2017, Intrycks
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       3.0
+ * @since       2.1.12
 */
 
 // Exit if accessed directly
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * Runs on plugin install by setting up the post types, custom taxonomies,
  * flushing rewrite rules to initiate the new 'mtphr_dnt_ticket' slug and also
  * creates the plugin and populates the settings fields for those plugin
- * pages. After successful install, the user is redirected to the DNT Welcome
+ * pages. After successful install, the user is redirected to the MTPHR_DNT Welcome
  * screen.
  *
  * @since 1.0
@@ -77,12 +77,10 @@ function mtphr_dnt_run_install() {
 
 	update_option( 'mtphr_dnt_version', DNT_VERSION );
 
-	// Create DNT roles
-	$roles = new DNT_Roles();
+	// Create MTPHR_DNT roles
+	$roles = new MTPHR_DNT_Roles;
+	//$roles->add_roles();
 	$roles->add_caps();
-	
-	//$api = new DNT_API;
-	//update_option( 'dnt_default_api_version', 'v' . $api->get_version() );
 }
 
 
@@ -100,7 +98,7 @@ function mtphr_dnt_run_install() {
  */
 function mtphr_dnt_new_blog_created( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
 
-	if( is_plugin_active_for_network( plugin_basename( DNT_FILE ) ) ) {
+	if( is_plugin_active_for_network(plugin_basename(DNT_FILE)) ) {
 
 		switch_to_blog( $blog_id );
 		mtphr_dnt_install();
@@ -126,10 +124,11 @@ function mtphr_dnt_install_roles_on_network() {
 		return;
 	}
 
-	if( empty($wp_roles->roles) ) {
+	if( empty($wp_roles->roles) || !array_key_exists('mtphr_dnt_ticket_agent', $wp_roles->roles) ) {
 
-		// Create DNT roles
-		$roles = new DNT_Roles();
+		// Create MTPHR_DNT roles
+		$roles = new MTPHR_DNT_Roles;
+		//$roles->add_roles();
 		$roles->add_caps();
 	}
 }

@@ -10,6 +10,32 @@ if( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
 
 
 /**
+ * Get an option value
+ * @since 2.2.5
+ */
+function mtphr_dnt_get_option( $option, $default=false ) {
+	if ( is_multisite() ) {
+		return get_site_option( $option, $value );
+	} else {
+		return get_option( $option, $value );
+	}
+}
+
+
+/**
+ * Update an option value
+ * @since 2.2.5
+ */
+function mtphr_dnt_update_option( $option, $value ) {
+	if ( is_multisite() ) {
+		return update_site_option( $option, $value );
+	} else {
+		return update_option( $option, $value );
+	}
+}
+
+
+/**
  * Return strings
  * @since 2.1.17
  */
@@ -67,7 +93,7 @@ function mtphr_dnt_all_license_data() {
 
 /**
  * Initialize the extension updaters
- * @since 2.1.17
+ * @since 2.2.5
  */
 function mtphr_dnt_plugin_updater() {
 	
@@ -75,7 +101,7 @@ function mtphr_dnt_plugin_updater() {
 	$all_license_data = mtphr_dnt_all_license_data();
 
 	// retrieve our license key from the DB
-	$mtphr_edd_licenses = get_option( 'mtphr_edd_licenses', array() );
+	$mtphr_edd_licenses = mtphr_dnt_get_option( 'mtphr_edd_licenses', array() );
 	
 	if( is_array($all_license_data) && count($all_license_data) > 0 ) {
 		foreach( $all_license_data as $slug=>$data ) {
@@ -83,7 +109,7 @@ function mtphr_dnt_plugin_updater() {
 			$license_key = isset($mtphr_edd_licenses[$slug]) ? trim($mtphr_edd_licenses[$slug]) : '';
 		
 			// setup the updater
-			$edd_updater = new EDD_SL_Plugin_Updater( DNT_STORE_URL, $data['path'], array(
+			$edd_updater = new EDD_SL_Plugin_Updater( MTPHR_DNT_STORE_URL, $data['path'], array(
 					'version' 	=> $data['version'], 																							// current version number
 					'license' 	=> $license_key, 																									// license key (used get_option above to retrieve from DB)
 					'item_name' => $data['item_name'], 																						// name of this plugin
@@ -99,11 +125,14 @@ add_action( 'admin_init', 'mtphr_dnt_plugin_updater', 0 );
 
 /**
  * Create the settings page
- * @since 2.1.17
+ * @since 2.2.5
  */
 function mtphr_dnt_edd_settings_menu() {
 	
 	global $mtphr_edd_license_page;
+	
+	$mtphr_edd_licenses = mtphr_dnt_get_option( 'mtphr_edd_licenses', array() );
+	$mtphr_edd_license_data = mtphr_dnt_get_option( 'mtphr_edd_license_data', array() );
 	
 	if( empty($mtphr_edd_license_page) ) {
 		
@@ -112,17 +141,35 @@ function mtphr_dnt_edd_settings_menu() {
 
 			$mtphr_edd_license_page = 'ditty-news-ticker';
 			
-			add_options_page(
-				__('Metaphor Licenses', 'ditty-news-ticker'),
-				__('Metaphor Licenses', 'ditty-news-ticker'),
-				'manage_options',
-				'mtphr_licenses',
-				'mtphr_dnt_licenses_display'
-			);
+			if ( is_multisite() ) {
+				
+				if ( is_network_admin() ) {
+
+					add_submenu_page(
+						'settings.php',
+						__('Metaphor Licenses', 'ditty-news-ticker'),
+						__('Metaphor Licenses', 'ditty-news-ticker'),
+						'manage_options',
+						'mtphr_licenses',
+						'mtphr_dnt_licenses_display'
+					);	
+				}
+				
+			} else {
+			
+				add_options_page(
+					__('Metaphor Licenses', 'ditty-news-ticker'),
+					__('Metaphor Licenses', 'ditty-news-ticker'),
+					'manage_options',
+					'mtphr_licenses',
+					'mtphr_dnt_licenses_display'
+				);
+			}
 		}
 	}
 }
 add_action( 'admin_menu', 'mtphr_dnt_edd_settings_menu', 9 );
+add_action( 'network_admin_menu', 'mtphr_dnt_edd_settings_menu', 9 );
 
 
 /**
@@ -153,7 +200,7 @@ function mtphr_dnt_licenses_display( $active_tab = null ) {
 
 /**
  * Setup the settings
- * @since 2.1.17
+ * @since 2.2.5
  */
 function mtphr_dnt_edd_initialize_settings() {
 	
@@ -176,7 +223,7 @@ function mtphr_dnt_edd_initialize_settings() {
 	
 	// Register the settings
 	if( $mtphr_edd_license_page == 'ditty-news-ticker' ) {
-		if( false == get_option('mtphr_edd_licenses') ) {
+		if( false == mtphr_dnt_get_option('mtphr_edd_licenses') ) {
 			add_option( 'mtphr_edd_licenses' );
 		}
 		register_setting( 'mtphr_edd_licenses', 'mtphr_edd_licenses', 'mtphr_edd_licenses_sanitize' );
@@ -187,14 +234,14 @@ add_action( 'admin_init', 'mtphr_dnt_edd_initialize_settings' );
 
 /**
  * License field render
- * @since 2.1.17
+ * @since 2.2.5
  */
 if( !function_exists('mtphr_dnt_license') ) {
 function mtphr_dnt_license( $args ) {
 
 	$slug = $args['slug'];
-	$mtphr_edd_licenses = get_option( 'mtphr_edd_licenses', array() );
-	$mtphr_edd_license_data = get_option( 'mtphr_edd_license_data', array() );
+	$mtphr_edd_licenses = mtphr_dnt_get_option( 'mtphr_edd_licenses', array() );
+	$mtphr_edd_license_data = mtphr_dnt_get_option( 'mtphr_edd_license_data', array() );
 		
 	$license = '';
 	$data = array();
@@ -278,13 +325,13 @@ function mtphr_dnt_license( $args ) {
 
 /**
  * Sanitize the setting fields
- * @since 2.1.17
+ * @since 2.2.5
  */
 if( !function_exists('mtphr_edd_licenses_sanitize') ) {
 function mtphr_edd_licenses_sanitize( $new ) {
 	
-	$mtphr_edd_licenses = get_option( 'mtphr_edd_licenses', array() );
-	$mtphr_edd_license_data = get_option( 'mtphr_edd_license_data', array() );
+	$mtphr_edd_licenses = mtphr_dnt_get_option( 'mtphr_edd_licenses', array() );
+	$mtphr_edd_license_data = mtphr_dnt_get_option( 'mtphr_edd_license_data', array() );
 	
 	if( is_array($new) && count($new) > 0 ) {
 		foreach( $new as $product=>$license ) {
@@ -303,14 +350,14 @@ function mtphr_edd_licenses_sanitize( $new ) {
 
 /**
  * Check licenses daily
- * @since 2.1.17
+ * @since 2.2.5
  */
 function mtphr_dnt_license_check() {
 	
 	global $wp_version;
 
-	$mtphr_edd_licenses = get_option( 'mtphr_edd_licenses', array() );
-	$mtphr_edd_license_data = get_option( 'mtphr_edd_license_data', array() );
+	$mtphr_edd_licenses = mtphr_dnt_get_option( 'mtphr_edd_licenses', array() );
+	$mtphr_edd_license_data = mtphr_dnt_get_option( 'mtphr_edd_license_data', array() );
 	
 	$all_license_data = mtphr_dnt_all_license_data();
 	if( is_array($all_license_data) && count($all_license_data) > 0 ) {
@@ -326,7 +373,7 @@ function mtphr_dnt_license_check() {
 			);
 		
 			// Call the custom API.
-			$response = wp_remote_post( DNT_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
+			$response = wp_remote_post( MTPHR_DNT_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 		
 			if ( is_wp_error( $response ) )
 				return false;
@@ -336,7 +383,7 @@ function mtphr_dnt_license_check() {
 		}
 	}
 	
-	update_option( 'mtphr_edd_license_data', $mtphr_edd_license_data );
+	mtphr_dnt_update_option( 'mtphr_edd_license_data', $mtphr_edd_license_data );
 	
 }
 add_action( 'mtphr_dnt_license_check_action', 'mtphr_dnt_license_check' );
@@ -366,23 +413,32 @@ register_deactivation_hook('ditty-news-ticker/ditty-news-ticker.php', 'mtphr_dnt
 
 /**
  * Add a license check notice
- * @since 2.1.17
+ * @since 2.2.5
  */
 function mtphr_dnt_license_bug() {
+	
+	if ( is_multisite() ) {
+		if ( ! is_super_admin( get_current_user_id() ) ) {
+			return;
+		}
+	}
 	
 	// Get the various license data
 	$all_license_data = mtphr_dnt_all_license_data();
 	
 	// Check if the notice has been disabled
-	$mtphr_edd_license_notices = get_option( 'mtphr_edd_license_notices', array() );
+	$mtphr_edd_license_notices = mtphr_dnt_get_option( 'mtphr_edd_license_notices', array() );
 	
 	$display_notice = false;
 	$slugs = array();
 	
 	ob_start();
 
-	
-		$url = admin_url('options-general.php?page=mtphr_licenses');
+		if ( is_multisite() ) {
+			$url = network_admin_url( 'settings.php?page=mtphr_licenses' );
+		} else {
+			$url = admin_url( 'options-general.php?page=mtphr_licenses' );
+		}
 		
 		if( is_array($all_license_data) && count($all_license_data) > 0 ) {
 			foreach( $all_license_data as $slug=>$data ) {
@@ -420,7 +476,7 @@ add_action('admin_notices', 'mtphr_dnt_license_bug' );
 
 /**
  * Dismiss the bug via ajax
- * @since 2.1.17
+ * @since 2.2.5
  */
 function mtphr_dnt_license_bug_dismiss() {
 
@@ -429,7 +485,7 @@ function mtphr_dnt_license_bug_dismiss() {
 	
 	$slugs = isset($_POST['slugs']) ? explode(',', $_POST['slugs']) : array();
 	
-	$mtphr_edd_license_notices = get_option( 'mtphr_edd_license_notices', array() );
+	$mtphr_edd_license_notices = mtphr_dnt_get_option( 'mtphr_edd_license_notices', array() );
 	
 	if( is_array($slugs) && count($slugs) > 0 ) {
 		foreach( $slugs as $slug ) {
@@ -437,7 +493,7 @@ function mtphr_dnt_license_bug_dismiss() {
 		}
 	}
 
-	update_option( 'mtphr_edd_license_notices', $mtphr_edd_license_notices );
+	mtphr_dnt_update_option( 'mtphr_edd_license_notices', $mtphr_edd_license_notices );
 
 	die(); // this is required to return a proper result
 }
@@ -446,7 +502,7 @@ add_action( 'wp_ajax_mtphr_dnt_license_bug_dismiss', 'mtphr_dnt_license_bug_dism
 
 /**
  * Deactivate a license via ajax
- * @since 2.1.18
+ * @since 2.2.5
  */
 function mtphr_dnt_license_deactivate_ajax() {
 
@@ -472,8 +528,8 @@ function mtphr_dnt_license_deactivate_ajax() {
 
 	if( $slug && $all_license_data[$slug] ) {
 		
-		$mtphr_edd_licenses = get_option( 'mtphr_edd_licenses', array() );
-		$mtphr_edd_license_notices = get_option( 'mtphr_edd_license_notices', array() );
+		$mtphr_edd_licenses = mtphr_dnt_get_option( 'mtphr_edd_licenses', array() );
+		$mtphr_edd_license_notices = mtphr_dnt_get_option( 'mtphr_edd_license_notices', array() );
 		if( !is_array($mtphr_edd_licenses) ) {
 			$mtphr_edd_licenses = array();
 		}
@@ -492,7 +548,7 @@ function mtphr_dnt_license_deactivate_ajax() {
 		);
 	
 		// Call the custom API.
-		$response = wp_remote_post( DNT_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
+		$response = wp_remote_post( MTPHR_DNT_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 	
 		// make sure the response came back okay
 		if( is_wp_error($response) ) {
@@ -510,14 +566,14 @@ function mtphr_dnt_license_deactivate_ajax() {
 		
 			// $license_data->license will be either "deactivated" or "failed"
 			if( $status == 'deactivated' ) {
-				$mtphr_edd_license_data = get_option( 'mtphr_edd_license_data', array() );
+				$mtphr_edd_license_data = mtphr_dnt_get_option( 'mtphr_edd_license_data', array() );
 				if( isset($mtphr_edd_license_data[$slug]) ) {
 					unset($mtphr_edd_license_data[$slug]);
-					update_option( 'mtphr_edd_license_data', $mtphr_edd_license_data );
+					mtphr_dnt_update_option( 'mtphr_edd_license_data', $mtphr_edd_license_data );
 				}
 				if( isset($mtphr_edd_license_notices[$slug]) ) {
 					unset($mtphr_edd_license_notices[$slug]);
-					update_option( 'mtphr_edd_license_notices', $mtphr_edd_license_notices );
+					mtphr_dnt_update_option( 'mtphr_edd_license_notices', $mtphr_edd_license_notices );
 				}
 			}
 			
@@ -543,7 +599,7 @@ add_action( 'wp_ajax_mtphr_dnt_license_deactivate_ajax', 'mtphr_dnt_license_deac
 
 /**
  * Aactivate a license via ajax
- * @since 2.1.18
+ * @since 2.2.5
  */
 function mtphr_dnt_license_activate_ajax() {
 
@@ -567,8 +623,8 @@ function mtphr_dnt_license_activate_ajax() {
 	if( $slug ) {
 		
 		$all_license_data = mtphr_dnt_all_license_data();
-		$mtphr_edd_licenses = get_option( 'mtphr_edd_licenses', array() );
-		$mtphr_edd_license_notices = get_option( 'mtphr_edd_license_notices', array() );
+		$mtphr_edd_licenses = mtphr_dnt_get_option( 'mtphr_edd_licenses', array() );
+		$mtphr_edd_license_notices = mtphr_dnt_get_option( 'mtphr_edd_license_notices', array() );
 		if( !is_array($mtphr_edd_licenses) ) {
 			$mtphr_edd_licenses = array();
 		}
@@ -585,7 +641,7 @@ function mtphr_dnt_license_activate_ajax() {
 		);
 	
 		// Call the custom API.
-		$response = wp_remote_post( DNT_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
+		$response = wp_remote_post( MTPHR_DNT_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 	
 		// make sure the response came back okay
 		if( is_wp_error($response) ) {
@@ -602,17 +658,17 @@ function mtphr_dnt_license_activate_ajax() {
 			$status = isset( $license_data->license ) ? $license_data->license : 'none';
 			
 			// Store the license data
-			$mtphr_edd_license_data = get_option( 'mtphr_edd_license_data', array() );
+			$mtphr_edd_license_data = mtphr_dnt_get_option( 'mtphr_edd_license_data', array() );
 			$mtphr_edd_license_data[$slug] = $license_data;
-			update_option( 'mtphr_edd_license_data', $mtphr_edd_license_data );
-			
+			mtphr_dnt_update_option( 'mtphr_edd_license_data', $mtphr_edd_license_data );
+
 			// Store the license
 			$mtphr_edd_licenses[$slug] = $license;
-			update_option( 'mtphr_edd_licenses', $mtphr_edd_licenses );
+			mtphr_dnt_update_option( 'mtphr_edd_licenses', $mtphr_edd_licenses );
 			
 			// Update the license notice
 			$mtphr_edd_license_notices[$slug] = $slug;
-			update_option( 'mtphr_edd_license_notices', $mtphr_edd_license_notices );
+			mtphr_dnt_update_option( 'mtphr_edd_license_notices', $mtphr_edd_license_notices );
 
 			if( $status == 'valid' ) {
 				$message = mtphr_dnt_string('successful_activation');

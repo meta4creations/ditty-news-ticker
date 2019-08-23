@@ -72,6 +72,15 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.2.5 =
+* Updated extension license check for multisite networks
+
+= 2.2.4 =
+* Bug fix
+
+= 2.2.3 =
+* Bug fix
+
 = 2.2.2 =
 * Bug fix
 
@@ -492,4 +501,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Bug fix
+Updated extension license check for multisite networks
