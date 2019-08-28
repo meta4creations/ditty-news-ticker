@@ -72,6 +72,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.2.8 =
+* Resolved possible missing variable bug in grid display code
+
 = 2.2.7 =
 * Constant variable bug fix
 
@@ -507,4 +510,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Constant variable bug fix
+Resolved possible missing variable bug in grid display code

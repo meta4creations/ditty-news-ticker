@@ -30,15 +30,24 @@ add_action( 'init', 'mtphr_dnt_oembed' );
 
 
 /* --------------------------------------------------------- */
-/* !Make a grid out of the ticks - 2.1.8 */
+/* !Make a grid out of the ticks - 2.2.8 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_tick_grid( $dnt_ticks, $id, $meta_data ) {
 
-	// Extract the metadata array into variables
-	extract( $meta_data );
-
-	if( isset($_mtphr_dnt_grid) && $_mtphr_dnt_grid ) {
+	$defaults = array(
+		'_mtphr_dnt_type' => 0,
+		'_mtphr_dnt_grid' => 0,
+		'_mtphr_dnt_grid_empty_rows' => 0,
+		'_mtphr_dnt_grid_equal_width' => 0,
+		'_mtphr_dnt_grid_cols' => 2,
+		'_mtphr_dnt_grid_rows' => 2,
+		'_mtphr_dnt_grid_padding' => 5,
+		'_mtphr_dnt_grid_remove_padding' => 0,
+	);	
+	$args = wp_parse_args( $meta_data, $defaults );
+	
+	if( $args['_mtphr_dnt_grid'] ) {
 
 		$grid_ticks = array();
 		
@@ -47,11 +56,11 @@ function mtphr_dnt_tick_grid( $dnt_ticks, $id, $meta_data ) {
 		$row_counter = 0;
 		
 		$style = 'style="';
-			$style .= ( $_mtphr_dnt_grid_equal_width ) ? 'width:'.(100/$_mtphr_dnt_grid_cols).'%;' : '';
-			$style .= ( $_mtphr_dnt_grid_padding > 0 ) ? 'padding:'.$_mtphr_dnt_grid_padding.'px;' : '';
+			$style .= ( $args['_mtphr_dnt_grid_equal_width'] ) ? 'width:'.( 100 / $args['_mtphr_dnt_grid_cols'] ).'%;' : '';
+			$style .= ( intval( $args['_mtphr_dnt_grid_padding'] ) > 0 ) ? 'padding:' . intval( $args['_mtphr_dnt_grid_padding'] ) . 'px;' : '';
 		$style .= '"';
 		
-		$extra_classes = ( isset($_mtphr_dnt_grid_remove_padding) && $_mtphr_dnt_grid_remove_padding ) ? ' mtphr-dnt-grid-remove-padding' : '';
+		$extra_classes = ( $args['_mtphr_dnt_grid_remove_padding'] ) ? ' mtphr-dnt-grid-remove-padding' : '';
 		
 		$data = '<table class="mtphr-dnt-grid'.$extra_classes.'">';
 			$data .= '<tr class="mtphr-dnt-grid-row mtphr-dnt-grid-row-'.($row_counter+1).'">';
@@ -60,23 +69,23 @@ function mtphr_dnt_tick_grid( $dnt_ticks, $id, $meta_data ) {
 				foreach( $dnt_ticks as $i=>$tick ) {
 					
 					// Get the type and tick
-					$type = ( is_array($tick) && isset($tick['type']) ) ? $tick['type'] : $_mtphr_dnt_type;
+					$type = ( is_array($tick) && isset($tick['type']) ) ? $tick['type'] : $args['_mtphr_dnt_type'];
 					$tick = ( is_array($tick) && isset($tick['tick']) ) ? $tick['tick'] : $tick;
 	
 					$data .= '<td class="mtphr-dnt-grid-item mtphr-dnt-grid-item-'.($col_counter+1).' mtphr-dnt-grid-item-'.$type.'" '.$style.'>'.$tick.'</td>';
 					
 					$col_counter++;
 					
-					if( (($i+1)%$_mtphr_dnt_grid_cols == 0) && ($i < $total-1) ) {
+					if( ( ( $i+1 ) % $args['_mtphr_dnt_grid_cols'] == 0 ) && ( $i < $total-1 ) ) {
 	
 						$data .= '</tr>';
 						
 						$row_counter++;
-						if( (($row_counter)%$_mtphr_dnt_grid_rows == 0) ) {
+						if( ( ( $row_counter ) % $args['_mtphr_dnt_grid_rows'] == 0 ) ) {
 							$data .= '</table>';
 							
 							// Add to the tick array
-							$grid_ticks[] = ( $_mtphr_dnt_type == 'mixed' ) ? array( 'type'=>'mixed-grid', 'tick'=>$data ) : $data;
+							$grid_ticks[] = ( 'mixed' == $args['_mtphr_dnt_type'] ) ? array( 'type'=>'mixed-grid', 'tick'=>$data ) : $data;
 							
 							$data = '<table class="mtphr-dnt-grid'.$extra_classes.'">';
 							$row_counter = 0;
@@ -89,20 +98,20 @@ function mtphr_dnt_tick_grid( $dnt_ticks, $id, $meta_data ) {
 			}
 			
 			// Fill any empty columns
-			$empty_cols = $_mtphr_dnt_grid_cols - $col_counter;
+			$empty_cols = $args['_mtphr_dnt_grid_cols'] - $col_counter;
 			for( $i=0; $i<$empty_cols; $i++ ) {
 				$data .= '<td class="mtphr-dnt-grid-item mtphr-dnt-grid-item-'.($col_counter+1).'" '.$style.'></td>';
 				$col_counter++;
 			}
 			
 			// Fill any emptry rows
-			if( $_mtphr_dnt_grid_empty_rows ) {
-				$empty_row = $_mtphr_dnt_grid_rows - ($row_counter+1);
+			if( $args['_mtphr_dnt_grid_empty_rows'] ) {
+				$empty_row = $args['_mtphr_dnt_grid_rows'] - ( $row_counter + 1 );
 				for( $i=0; $i<$empty_row; $i++ ) {
 					$row_counter++;
 					$col_counter = 0;
 					$data .= '<tr class="mtphr-dnt-grid-row mtphr-dnt-grid-row-'.($row_counter+1).'">';
-						for( $e=0; $e<$_mtphr_dnt_grid_cols; $e++ ) {
+						for( $e=0; $e < $args['_mtphr_dnt_grid_cols']; $e++ ) {
 							$data .= '<td class="mtphr-dnt-grid-item mtphr-dnt-grid-item-'.($col_counter+1).'" '.$style.'></td>';
 							$col_counter++;
 						}
@@ -114,7 +123,7 @@ function mtphr_dnt_tick_grid( $dnt_ticks, $id, $meta_data ) {
 		$data .= '</table>';
 		
 		// Add to the tick array
-		$grid_ticks[] = ( $_mtphr_dnt_type == 'mixed' ) ? array( 'type'=>'mixed-grid', 'tick'=>$data ) : $data;
+		$grid_ticks[] = ( 'mixed' == $args['_mtphr_dnt_type'] ) ? array( 'type'=>'mixed-grid', 'tick'=>$data ) : $data;
 
 		return $grid_ticks;
 	}
