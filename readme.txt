@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 4.5
-Tested up to: 5.2.2
+Tested up to: 5.3
 Stable tag: /trunk/
 License: GPL2
 
@@ -71,6 +71,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 5. Embed options
 
 == Changelog ==
+
+= 2.2.9 =
+* Updated error codes for license connections
 
 = 2.2.8 =
 * Resolved possible missing variable bug in grid display code
@@ -510,4 +513,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Resolved possible missing variable bug in grid display code
+Updated error codes for license connections

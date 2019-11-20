@@ -523,7 +523,7 @@ function mtphr_dnt_license_deactivate_ajax() {
 	
 	if( !$slug ) {
 		$action = 'fail';
-		$message = __('Something went wrong, please try again.', 'ditty-news-ticker');
+		$message = __('Error: Plugin slug does not exist.', 'ditty-news-ticker');
 	}
 
 	if( $slug && $all_license_data[$slug] ) {
@@ -551,9 +551,9 @@ function mtphr_dnt_license_deactivate_ajax() {
 		$response = wp_remote_post( MTPHR_DNT_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 	
 		// make sure the response came back okay
-		if( is_wp_error($response) ) {
+		if( is_wp_error( $response ) ) {
 			$action = 'fail';
-			$message = __('Something went wrong, please try again.', 'ditty-news-ticker');
+			$message = sprintf( __('Error: %s.', 'ditty-news-ticker'), $response->get_error_message() );
 			$ajax_response = $response; 
 		
 		} else {
@@ -617,7 +617,7 @@ function mtphr_dnt_license_activate_ajax() {
 	}
 	
 	if( !$slug ) {
-		$message = __('Something went wrong, please try again.', 'ditty-news-ticker');
+		$message = __('Error: Plugin slug does not exist.', 'ditty-news-ticker');
 	}
 	
 	if( $slug ) {
@@ -646,7 +646,7 @@ function mtphr_dnt_license_activate_ajax() {
 		// make sure the response came back okay
 		if( is_wp_error($response) ) {
 			$action = 'fail';
-			$message = __('Something went wrong, please try again.', 'ditty-news-ticker');
+			$message = sprintf( __('Error: %s.', 'ditty-news-ticker'), $response->get_error_message() );
 			$ajax_response = $response; 
 		
 		} else {
