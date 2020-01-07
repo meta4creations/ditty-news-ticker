@@ -1,5 +1,13 @@
 @import "bourbon/bourbon";
 
+.rtl {
+	.mtphr-dnt {
+		direction: ltr;
+	}
+	.mtphr-dnt-tick {
+		direction: rtl;	
+	}
+}
 .mtphr-dnt img {
   max-width: 100%;
   height: auto;

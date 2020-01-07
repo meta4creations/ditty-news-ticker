@@ -2,11 +2,14 @@
 
  
 /* --------------------------------------------------------- */
-/* !Add the post type - 2.1.11 */
+/* !Add the post type - 2.2.10 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_setup_post_types() {
-
+	
+	$settings = mtphr_dnt_general_settings();
+	$public = ! intval( $settings['private_posts'] );
+	
 	$labels = array(
 		'name' => __( 'News Tickers', 'ditty-news-ticker' ),
 		'singular_name' => __( 'News Ticker', 'ditty-news-ticker' ),
@@ -25,8 +28,8 @@ function mtphr_dnt_setup_post_types() {
 	// Create the arguments
 	$args = array(
 		'labels' => $labels,
-		'public' => true,
-		'publicly_queryable' => true,
+		'public' => $public,
+		'publicly_queryable' => $public,
 		'exclude_from_search' => true,
 		'show_ui' => true,
 		'capability_type' => 'ditty_news_ticker',
@@ -37,7 +40,7 @@ function mtphr_dnt_setup_post_types() {
 		'menu_icon' => 'dashicons-ditty-news-ticker',
 		'supports' => array( 'title', 'author' ),
 		'rewrite' => array( 'slug' => __( 'ticker', 'ditty-news-ticker' ) ),
-		'show_in_nav_menus' => true,
+		'show_in_nav_menus' => $public,
 	);
 
 	register_post_type( 'ditty_news_ticker', $args );	

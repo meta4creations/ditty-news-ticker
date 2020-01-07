@@ -143,14 +143,37 @@
 			    	var style_array = style.split('width:');
 			    	ticker_scroll_resize = (style_array.length > 1) ? false : true;
 		    	}
-		    	
+
 		    	// Reset the ticks
 		    	ticks = [];
 
 		    	//mtphr_dnt_scroll_set_height();
-					
-					$ticker.imagesLoaded( function() {
-					  mtphr_dnt_scroll_set_height();
+		    	if( $ticker.find('img').length ) {
+			    	
+			    	$ticker.imagesLoaded( function() {
+						  mtphr_dnt_scroll_set_height();
+						  
+						  // Loop through the tick items
+							$ticker.find('.mtphr-dnt-tick').each( function() {
+		
+								// Make sure the ticker is visible
+								$(this).show();
+		
+								// Add the tick data
+								var tick = [{'headline':$(this)}];
+		
+								// Add the tick to the array
+								ticks.push(tick);
+							});
+		
+							// Set the initial position of the ticks
+							mtphr_dnt_scroll_reset_ticks();
+							
+							// Start the scroll loop
+							mtphr_dnt_scroll_loop();
+						});	
+		    	} else {
+			    	mtphr_dnt_scroll_set_height();
 					  
 					  // Loop through the tick items
 						$ticker.find('.mtphr-dnt-tick').each( function() {
@@ -167,10 +190,11 @@
 	
 						// Set the initial position of the ticks
 						mtphr_dnt_scroll_reset_ticks();
-	
+						
 						// Start the scroll loop
 						mtphr_dnt_scroll_loop();
-					});	
+		    	}
+					
 
 					// Clear the loop on mouse hover
 					$ticker.hover(

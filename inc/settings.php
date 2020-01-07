@@ -79,7 +79,7 @@ function mtphr_dnt_settings_display( $active_tab = null ) {
 
 
 /* --------------------------------------------------------- */
-/* !Get the settings - 1.4.5 */
+/* !Get the settings - 2.2.10 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_general_settings') ) {
@@ -93,6 +93,7 @@ function mtphr_dnt_general_settings_defaults() {
 	$defaults = array(
 		'wysiwyg' => '',
 		'edit_links' => '',
+		'private_posts' => '',
 		'css' => ''
 	);
 	return $defaults;
@@ -102,24 +103,16 @@ function mtphr_dnt_general_settings_defaults() {
 
 
 /* --------------------------------------------------------- */
-/* !Setup the settings - 1.4.0 */
+/* !Setup the settings - 2.2.10 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_initialize_settings() {
 
 	$settings = mtphr_dnt_general_settings();
-	
-	
-	/* --------------------------------------------------------- */
-	/* !Add the setting sections - 1.4.0 */
-	/* --------------------------------------------------------- */
+
 
 	add_settings_section( 'mtphr_dnt_general_settings_section', __( 'Ditty News Ticker settings', 'ditty-news-ticker' ), false, 'mtphr_dnt_general_settings' );
-	
-	
-	/* --------------------------------------------------------- */
-	/* !Add the settings - 1.4.0 */
-	/* --------------------------------------------------------- */
+
 
 	/* Visual Editor */
 	$title = mtphr_dnt_settings_label( __( 'Visual Editor', 'ditty-news-ticker' ), __('Use the visual editor to create tick contents', 'ditty-news-ticker') );
@@ -128,6 +121,10 @@ function mtphr_dnt_initialize_settings() {
 	/* Quick Edit Links */
 	$title = mtphr_dnt_settings_label( __( 'Quick Edit Links', 'ditty-news-ticker' ), __('Add quick edit links on the front-end of the site for editors and admins', 'ditty-news-ticker') );
 	add_settings_field( 'mtphr_dnt_general_settings_edit_links', $title, 'mtphr_dnt_general_settings_edit_links', 'mtphr_dnt_general_settings', 'mtphr_dnt_general_settings_section', array('settings' => $settings) );	
+	
+	/* Private Posts */
+	$title = mtphr_dnt_settings_label( __( 'Private Ticker Posts', 'ditty-news-ticker' ), __('Make all ticker posts private', 'ditty-news-ticker') );
+	add_settings_field( 'mtphr_dnt_general_settings_private_posts', $title, 'mtphr_dnt_general_settings_private_posts', 'mtphr_dnt_general_settings', 'mtphr_dnt_general_settings_section', array('settings' => $settings) );	
 	
 	/* Custom CSS */
 	$title = mtphr_dnt_settings_label( __( 'Custom CSS', 'ditty-news-ticker' ), __('Add custom css to style your ticker without modifying any external files', 'ditty-news-ticker') );
@@ -176,6 +173,20 @@ function mtphr_dnt_general_settings_edit_links( $args ) {
 }
 
 /* --------------------------------------------------------- */
+/* !Private Posts - 2.2.10 */
+/* --------------------------------------------------------- */
+
+if( !function_exists('mtphr_dnt_general_settings_private_posts') ) {
+function mtphr_dnt_general_settings_private_posts( $args ) {
+
+	$settings = $args['settings'];
+	echo '<div id="mtphr_dnt_general_settings_private_posts">';
+		echo '<label><input type="checkbox" name="mtphr_dnt_general_settings[private_posts]" value="1" '.checked('1', $settings['private_posts'], false).' /> '.__('Private ticker posts', 'ditty-news-ticker').'</label>';
+	echo '</div>';
+}
+}
+
+/* --------------------------------------------------------- */
 /* !CSS - 1.4.0 */
 /* --------------------------------------------------------- */
 
@@ -194,13 +205,20 @@ function mtphr_dnt_general_settings_css( $args ) {
 
 
 /* --------------------------------------------------------- */
-/* !Sanitize the setting fields - 1.4.0 */
+/* !Sanitize the setting fields - 2.2.10 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_general_settings_sanitize') ) {
 function mtphr_dnt_general_settings_sanitize( $fields ) {
 
 	$fields['css'] = isset( $fields['css'] ) ? wp_kses_post($fields['css']) : '';
+	
+	// Clear the permalinks
+	$settings = mtphr_dnt_general_settings();
+	$private_posts = isset( $fields['private_posts'] ) ? esc_attr($fields['private_posts']) : '';
+	if ( $settings['private_posts'] != $private_posts ) {
+		flush_rewrite_rules( false );
+	}
 
 	return $fields;
 }
