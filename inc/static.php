@@ -34,7 +34,7 @@ function mtphr_dnt_scripts() {
 			wp_register_script( 'jquery-easing', plugins_url('ditty-news-ticker/inc/static/js/jquery.easing.js'), array('jquery'), '1.4.1', true );
 	
 			// Load the news ticker scripts
-			wp_enqueue_script( 'ditty-news-ticker', plugins_url('ditty-news-ticker/inc/static/js/script-admin.min.js'), array( 'jquery','jquery-ui-core','jquery-ui-sortable', 'jquery-easing', 'qtip' ), MTPHR_DNT_VERSION, true );
+			wp_enqueue_script( 'ditty-news-ticker', plugins_url('ditty-news-ticker/inc/static/js/script-admin.min.js'), array( 'jquery','jquery-ui-core','jquery-ui-sortable', 'jquery-easing', 'qtip' ), filemtime(MTPHR_DNT_DIR.'inc/static/js/script-admin.min.js'), true );
 			wp_localize_script( 'ditty-news-ticker', 'ditty_news_ticker_vars', array(
 					'security' => wp_create_nonce( 'ditty-news-ticker' ),
 					'img_title' => __( 'Upload or select an image', 'ditty-news-ticker' ),

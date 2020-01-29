@@ -185,7 +185,7 @@ jQuery( document ).ready( function($) {
 		      $(this).height($originals.eq(index).height());
 		    });
 		    return $helper;
-		  }
+		  },
 		});
 		
 		$('.mtphr-dnt-sort-heading.optional').live( 'click', function(e) {
@@ -387,7 +387,23 @@ jQuery( document ).ready( function($) {
 				      $(this).height($originals.eq(index).height());
 				    });
 				    return $helper;
-				  }
+				  },
+				  start: function( e, ui ) {
+					  var $item = $( ui.item );
+					  //$item.parents( '.mtphr-dnt-field-mtphr_dnt_ticks' ).find( '.mtphr-dnt-list-item-contents' ).hide();
+					  if ( $item.find('.wp-editor-container').length ) {
+						  var id = $item.find( '.wp-editor-area' ).attr('id');
+						  tinyMCE.execCommand( 'mceRemoveEditor', true, id );
+					  } 
+					},
+				  stop: function( e, ui ) {
+					  var $item = $( ui.item );
+					  //$item.parents( '.mtphr-dnt-field-mtphr_dnt_ticks' ).find( '.mtphr-dnt-list-item-contents' ).show();
+					  if ( $item.find('.wp-editor-container').length ) {
+						  var id = $item.find( '.wp-editor-area' ).attr('id');
+						  tinyMCE.execCommand( 'mceAddEditor', true, id );
+					  }  
+				  },
 				});
 
 				function mtphr_dnt_list_handle_toggle() {

@@ -242,7 +242,7 @@ function mtphr_dnt_field_wysiwyg( $args=array() ) {
 		
 		$editor_settings = array(
 			'textarea_name' => $name,
-			'textarea_rows' => 10
+			'textarea_rows' => 3
 		);
 		if( isset($args['editor_settings']) && is_array($args['editor_settings']) ) {
 			$editor_settings = wp_parse_args($args['editor_settings'], $editor_settings);

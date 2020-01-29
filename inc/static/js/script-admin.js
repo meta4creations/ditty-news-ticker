@@ -4,5 +4,5 @@
 /* global ajaxurl:true */
 /* global tinyMCE:true */
 
-// @codekit-append '/partials/mtphr-dnt-affix.js';
-// @codekit-append '/partials/admin-general.js';
+// @codekit-append 'partials/mtphr-dnt-affix.js';
+// @codekit-append 'partials/admin-general.js';
