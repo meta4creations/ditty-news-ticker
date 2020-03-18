@@ -241,8 +241,10 @@
 									pos = (settings.scroll_direction === 'left') ? mtphr_dnt_scroll_left(i) : mtphr_dnt_scroll_right(i);
 									if( pos === 'reset' ) {
 										pos = ticks[i][0].reset;
+										ticks[i][0].headline.css('opacity', 0);
 										ticks[i][0].headline.stop(true,true).css('left',pos+'px');
 									} else {
+										ticks[i][0].headline.css('opacity', 1);
 										ticks[i][0].headline.stop(true,true).animate( {
 											left: pos+'px'
 										}, 100, 'linear' );
@@ -252,8 +254,10 @@
 									pos = (settings.scroll_direction === 'up') ? mtphr_dnt_scroll_up(i) : mtphr_dnt_scroll_down(i);
 									if( pos === 'reset' ) {
 										pos = ticks[i][0].reset;
+										ticks[i][0].headline.css('opacity', 0);
 										ticks[i][0].headline.stop(true,true).css('top',pos+'px');
 									} else {
+										ticks[i][0].headline.css('opacity', 1);
 										ticks[i][0].headline.stop(true,true).animate( {
 											top: pos+'px'
 										}, 100, 'linear' );

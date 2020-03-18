@@ -72,6 +72,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.2.14 =
+* Resolved display issue with tickers using external fonts
+
 = 2.2.13 =
 * Resolved wp_editor bug when sorting
 
@@ -525,4 +528,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Resolved wp_editor bug when sorting
+Resolved display issue with tickers using external fonts
