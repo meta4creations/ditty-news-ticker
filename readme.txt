@@ -72,6 +72,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.2.15 =
+* CSS Fix for list mode
+
 = 2.2.14 =
 * Resolved display issue with tickers using external fonts
 
@@ -528,4 +531,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Resolved display issue with tickers using external fonts
+CSS Fix for list mode
