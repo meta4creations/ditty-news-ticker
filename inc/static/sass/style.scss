@@ -27,6 +27,7 @@
 }
 .mtphr-dnt-tick-container {
 	position: relative;
+	overflow: hidden;
 }
 .mtphr-dnt-tick-contents {
 	position: relative;
@@ -369,10 +370,10 @@
 	}
 	&.paused {
 		i.mtphr-dnt-icon-play {
-			display: none;
+			display: inline-block;
 		}
 		i.mtphr-dnt-icon-pause {
-			display: inline-block;
+			display: none;
 		}
 	}
 	i {
@@ -394,9 +395,9 @@
     }
     &.mtphr-dnt-icon-play {
 			padding-left: 4px;
+			display: none;
 		}
 		&.mtphr-dnt-icon-pause {
-			display: none;
 		}
 	}
 }

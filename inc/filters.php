@@ -47,6 +47,14 @@ function mtphr_dnt_tick_grid( $dnt_ticks, $id, $meta_data ) {
 	);	
 	$args = wp_parse_args( $meta_data, $defaults );
 	
+	// If rows or columns are less than one, disable the grid
+	if ( intval( $args['_mtphr_dnt_grid_cols'] ) < 1 ) {
+		return $dnt_ticks;
+	}
+	if ( intval( $args['_mtphr_dnt_grid_rows'] ) < 1 ) {
+		return $dnt_ticks;
+	}
+	
 	if( $args['_mtphr_dnt_grid'] ) {
 
 		$grid_ticks = array();
