@@ -3,7 +3,7 @@
  * Date: 10/06/2014
  *
  * @author Metaphor Creations
- * @version 1.4.12
+ * @version 2.2.15
  *
  **/
 
@@ -122,8 +122,8 @@
 					$ticker.find('.mtphr-dnt-tick').each( function() {
 
 						// Find the greatest tick height
-						if( $(this).height() > ticker_height ) {
-							ticker_height = $(this).height();
+						if( $(this).outerHeight() > ticker_height ) {
+							ticker_height = $(this).outerHeight();
 						}
 
 						if( settings.scroll_direction === 'up' || settings.scroll_direction === 'down' ) {
@@ -143,6 +143,12 @@
 			    	var style_array = style.split('width:');
 			    	ticker_scroll_resize = (style_array.length > 1) ? false : true;
 		    	}
+		    	
+		    	// Set the offset
+		    	$ticker.css({
+			    	marginLeft: '-' + settings.offset + 'px',
+			    	width: 'calc( 100% + ' + parseFloat(settings.offset * 2) + 'px )',
+		    	});
 
 		    	// Reset the ticks
 		    	ticks = [];
@@ -240,7 +246,7 @@
 
 									pos = (settings.scroll_direction === 'left') ? mtphr_dnt_scroll_left(i) : mtphr_dnt_scroll_right(i);
 									if( pos === 'reset' ) {
-										pos = ticks[i][0].reset;
+										pos = mtphr_dnt_scroll_reset_tick( i );
 										ticks[i][0].headline.css('opacity', 0);
 										ticks[i][0].headline.stop(true,true).css('left',pos+'px');
 									} else {
@@ -253,7 +259,7 @@
 
 									pos = (settings.scroll_direction === 'up') ? mtphr_dnt_scroll_up(i) : mtphr_dnt_scroll_down(i);
 									if( pos === 'reset' ) {
-										pos = ticks[i][0].reset;
+										pos = mtphr_dnt_scroll_reset_tick( i );
 										ticks[i][0].headline.css('opacity', 0);
 										ticks[i][0].headline.stop(true,true).css('top',pos+'px');
 									} else {
@@ -281,9 +287,9 @@
 					var pos = parseFloat(ticks[i][0].position - settings.scroll_speed);
 
 					// Reset the tick if off the screen
-					if( pos < -(ticks[i][0].headline.width()+settings.offset) ) {
+					if( pos < -(ticks[i][0].headline.outerWidth()) ) {
 						pos = mtphr_dnt_scroll_check_current(i);
-					} else if( pos < parseFloat(ticker_width-ticks[i][0].headline.width()-settings.scroll_spacing) ) {
+					} else if( pos < parseFloat(ticker_width-ticks[i][0].headline.outerWidth()-settings.scroll_spacing) ) {
 						mtphr_dnt_scroll_check_next(i);
 					}
 
@@ -301,7 +307,7 @@
 					var pos = ticks[i][0].position + settings.scroll_speed;
 
 					// Reset the tick if off the screen
-					if( pos > ticker_width+settings.offset ) {
+					if( pos > ticker_width ) {
 						pos = mtphr_dnt_scroll_check_current(i);
 					} else if( pos > settings.scroll_spacing ) {
 						mtphr_dnt_scroll_check_next(i);
@@ -321,9 +327,9 @@
 					var pos = ticks[i][0].position - settings.scroll_speed;
 
 					// Reset the tick if off the screen
-					if( pos < -(ticks[i][0].headline.height()+settings.offset) ) {
+					if( pos < -(ticks[i][0].headline.outerHeight() ) ) {
 						pos = mtphr_dnt_scroll_check_current(i);
-					} else if( pos < ticker_height-ticks[i][0].headline.height()-settings.scroll_spacing ) {
+					} else if( pos < ticker_height-ticks[i][0].headline.outerHeight()-settings.scroll_spacing ) {
 						mtphr_dnt_scroll_check_next(i);
 					}
 
@@ -341,7 +347,7 @@
 					var pos = ticks[i][0].position + settings.scroll_speed;
 
 					// Reset the tick if off the screen
-					if( pos > ticker_height+settings.offset ) {
+					if( pos > ticker_height ) {
 						pos = mtphr_dnt_scroll_check_current(i);
 					} else if( pos > settings.scroll_spacing ) {
 						mtphr_dnt_scroll_check_next(i);
@@ -403,6 +409,46 @@
 						ticks[(i+1)][0].visible = true;
 					}
 		    }
+		    
+		    /**
+		     * Reset a tick
+		     *
+		     * @since 1.1.0
+		     */
+		    function mtphr_dnt_scroll_reset_tick( i ) {
+			    
+			    ticker_width = $ticker.outerWidth();
+			    ticker_height = $ticker.outerHeight();
+		    
+			    // Set the tick position
+					var position;
+
+					var $tick = ticks[i][0].headline;
+
+					switch( settings.scroll_direction ) {
+						case 'left':
+							position = ticker_width;
+							break;
+
+						case 'right':
+							position = parseFloat('-'+($tick.outerWidth()));
+							break;
+
+						case 'up':
+							position = parseFloat(ticker_height);
+							break;
+
+						case 'down':
+							position = parseFloat('-'+($tick.outerHeight()));
+							break;
+					}
+					
+					ticks[i][0].width = $tick.outerWidth();
+					ticks[i][0].height = $tick.outerHeight();
+					ticks[i][0].reset = position;
+					ticks[i][0].position = position;
+					return position;
+		    }
 
 		    /**
 		     * Resize the scroll ticks
@@ -420,14 +466,14 @@
 
 						switch( settings.scroll_direction ) {
 							case 'left':
-								position = ticker_width+settings.offset;
+								position = ticker_width;
 								if( ticks[i][0].visible === false ) {
 									$tick.css('left',position+'px');
 								}
 								break;
 
 							case 'right':
-								position = parseInt('-'+($tick.width()+settings.offset));
+								position = parseFloat('-'+($tick.outerWidth()));
 								if( ticks[i][0].visible === false ) {
 									$tick.css('left',position+'px');
 								}
@@ -437,7 +483,7 @@
 								if( ticker_scroll_resize ) {
 									$tick.css('width',ticker_width);
 								}
-								position = parseInt(ticker_height+settings.offset);
+								position = parseFloat(ticker_height);
 								if( ticks[i][0].visible === false ) {
 									$tick.css('top',position+'px');
 								}
@@ -447,7 +493,7 @@
 								if( ticker_scroll_resize ) {
 									$tick.css('width',ticker_width);
 								}
-								position = parseInt('-'+($tick.height()+settings.offset));
+								position = parseFloat('-'+($tick.outerHeight()));
 								if( ticks[i][0].visible === false ) {
 									$tick.css('top',position+'px');
 								}
@@ -455,8 +501,8 @@
 						}
 
 						// Adjust the tick data
-						ticks[i][0].width = $tick.width();
-						ticks[i][0].height = $tick.height();
+						ticks[i][0].width = $tick.outerWidth();
+						ticks[i][0].height = $tick.outerHeight();
 						if( ticks[i][0].visible === false ) {
 							ticks[i][0].position = position;
 						}
@@ -473,6 +519,9 @@
 			    
 			    var position,
 			    		$tick;
+			    		
+			    ticker_width = $ticker.outerWidth(true);
+			    ticker_height = $ticker.outerHeight(true);
 
 		    	for( var i=0; i<vars.tick_count; i++ ) {
 					
@@ -482,16 +531,16 @@
 
 							switch( settings.scroll_direction ) {
 								case 'left':
-									position = ticker_width+settings.offset;
+									position = ticker_width;
 									$tick.stop(true,true).css('left',position+'px');
 									break;
 	
 								case 'right':
 									//console.log(settings.offset);
-									position = parseInt('-'+($tick.width()+settings.offset));
+									position = parseFloat('-'+($tick.outerWidth()));
 /*
 									if( mtphr_dnt_vars.is_rtl ) {
-										position = parseInt('-'+($tick.width()+(ticker_width/2)));
+										position = parseFloat('-'+($tick.outerWidth()+(ticker_width/2)));
 									}
 */
 									$tick.stop(true,true).css('left',position+'px');
@@ -501,7 +550,7 @@
 									if( ticker_scroll_resize ) {
 										$tick.css('width',ticker_width);
 									}
-									position = parseInt(ticker_height+settings.offset);
+									position = parseFloat(ticker_height);
 									$tick.stop(true,true).css('top',position+'px');
 									break;
 	
@@ -509,13 +558,13 @@
 									if( ticker_scroll_resize ) {
 										$tick.css('width',ticker_width);
 									}
-									position = parseInt('-'+($tick.height()+settings.offset));
+									position = parseFloat('-'+($tick.outerHeight()));
 									$tick.stop(true,true).css('top',position+'px');
 									break;
 							}
 	
-							ticks[i][0].width = $tick.width();
-							ticks[i][0].height = $tick.height();
+							ticks[i][0].width = $tick.outerWidth();
+							ticks[i][0].height = $tick.outerHeight();
 							ticks[i][0].position = position;
 							ticks[i][0].reset = position;
 							ticks[i][0].visible = false;
@@ -1447,13 +1496,13 @@
 					
 				});
 				
-				if( $container.width() === 0 ) {
+				if( $container.outerWidth() === 0 ) {
 			    
 			    var mtphr_dnt_init_timer = setInterval( function() {
 
-			    	if( $container.width() > 10 ) {
+			    	if( $container.outerWidth() > 10 ) {
 				    	clearInterval(mtphr_dnt_init_timer);
-				    	ticker_width = $ticker.outerWidth(true);
+				    	ticker_width = $ticker.outerWidth();
 				    	mtphr_dnt_init();
 			    	}
 			    	

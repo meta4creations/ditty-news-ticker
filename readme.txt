@@ -72,6 +72,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.2.17 =
+* Bug fix with scrolling ticker
+
 = 2.2.16 =
 * Swapped play and pause button icons
 
@@ -534,4 +537,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Swapped play and pause button icons
+Bug fix with scrolling ticker

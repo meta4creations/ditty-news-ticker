@@ -266,6 +266,17 @@
 		"sC": 1,
 		"tS": 0
 		},
+	"/inc/static/js/ditty-news-ticker-save.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/inc/static/js/ditty-news-ticker-save.min.js",
+		"oF": 0,
+		"sC": 1,
+		"tS": 0
+		},
 	"/inc/static/js/ditty-news-ticker.js": {
 		"bF": 0,
 		"ft": 64,
