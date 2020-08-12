@@ -188,7 +188,7 @@ jQuery( document ).ready( function($) {
 		  },
 		});
 		
-		$('.mtphr-dnt-sort-heading.optional').live( 'click', function(e) {
+		$('body').on( 'click', '.mtphr-dnt-sort-heading.optional', function(e) {
 			e.preventDefault();
 			
 			var $container = $(this).parents('.mtphr-dnt-sort-item'),
@@ -224,7 +224,7 @@ jQuery( document ).ready( function($) {
 	/* --------------------------------------------------------- */
 
 	// Delete an image
-	$('.mtphr-dnt-single-image').find('.mtphr-dnt-delete').live( 'click', function(e) {
+	$('body').on( 'click', '.mtphr-dnt-single-image .mtphr-dnt-delete', function(e) {
 		e.preventDefault();
 
 		var $image = $(this).parent(),
@@ -237,7 +237,7 @@ jQuery( document ).ready( function($) {
 	});
 
 	// Add an image
-	$('.mtphr-dnt-single-image-upload').live( 'click', function(e) {
+	$('body').on( 'click', '.mtphr-dnt-single-image-upload', function(e) {
 	  e.preventDefault();
 
 	  // Save the container
@@ -322,7 +322,7 @@ jQuery( document ).ready( function($) {
 		}
 	}
 	
-	$('.mtphr-dnt-list-field-mtphr_dnt_mixed_ticks_all').find('input').live( 'click', function() {
+	$('body').on( 'click', '.mtphr-dnt-list-field-mtphr_dnt_mixed_ticks_all input', function() {
 		mtphr_dnt_mixed_ticks_all( $(this).parents('.mtphr-dnt-list-field-mtphr_dnt_mixed_ticks_all') );
 	});
 	
@@ -508,7 +508,7 @@ jQuery( document ).ready( function($) {
 				}
 
 				// Delete list item
-				$table.find('.mtphr-dnt-list-delete').live( 'click', function(e) {
+				$table.on( 'click', '.mtphr-dnt-list-delete', function(e) {
 					e.preventDefault();
 		
 					// Fade out the item
@@ -519,7 +519,7 @@ jQuery( document ).ready( function($) {
 				});
 				
 				// Add new row
-				$table.find('.mtphr-dnt-list-add').live( 'click', function(e) {
+				$table.on( 'click', '.mtphr-dnt-list-add', function(e) {
 				  e.preventDefault();
 					mtphr_dnt_list_add_item( $(this).parents('.mtphr-dnt-list-item') );  
 				});
