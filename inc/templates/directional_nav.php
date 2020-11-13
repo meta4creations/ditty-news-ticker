@@ -13,7 +13,7 @@ if( ($_mtphr_dnt_total_ticks > 1) && $_mtphr_dnt_mode == 'rotate' ) {
 		if( isset($_mtphr_dnt_rotate_directional_nav_hide) && $_mtphr_dnt_rotate_directional_nav_hide ) {
 			$hide = ' mtphr-dnt-nav-hide';
 		}
-		echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-prev'.$hide.'" href="#" rel="nofollow">'.apply_filters( 'mtphr_dnt_direction_nav_prev', '<i class="mtphr-dnt-icon-arrow-left"></i>' ).'</a>';
-		echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-next'.$hide.'" href="#" rel="nofollow">'.apply_filters( 'mtphr_dnt_direction_nav_next', '<i class="mtphr-dnt-icon-arrow-right"></i>' ).'</a>';
+		echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-prev'.$hide.'" href="#" rel="nofollow" aria-label="' . __( 'Previous', 'ditty-news-ticker' ) . '">'.apply_filters( 'mtphr_dnt_direction_nav_prev', '<i class="mtphr-dnt-icon-arrow-left"></i>' ).'</a>';
+		echo '<a class="mtphr-dnt-nav mtphr-dnt-nav-next'.$hide.'" href="#" rel="nofollow" aria-label="' . __( 'Next', 'ditty-news-ticker' ) . '">'.apply_filters( 'mtphr_dnt_direction_nav_next', '<i class="mtphr-dnt-icon-arrow-right"></i>' ).'</a>';
 	}
 }
