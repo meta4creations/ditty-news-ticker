@@ -50,6 +50,10 @@
 
 .mtphr-dnt-scroll-left .mtphr-dnt-tick,
 .mtphr-dnt-scroll-right .mtphr-dnt-tick {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
   white-space: nowrap; }
 
 .mtphr-dnt-trim-ticks .mtphr-dnt-tick * {

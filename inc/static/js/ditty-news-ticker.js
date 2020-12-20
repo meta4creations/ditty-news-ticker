@@ -1,9 +1,9 @@
 /**
  * Ditty News Ticker
- * Date: 10/06/2014
+ * Date: 12/20/2020
  *
  * @author Metaphor Creations
- * @version 1.4.12
+ * @version 2.3
  *
  **/
 
@@ -230,7 +230,7 @@
 			    clearInterval( ticker_scroll );
 					ticker_scroll = setInterval( function() {
 
-						for( var i=0; i<vars.tick_count; i++ ) {
+						for( var i=0; i < vars.tick_count; i++ ) {
 
 							if( ticks[i][0].visible === true ) {
 
@@ -242,32 +242,30 @@
 									if( pos === 'reset' ) {
 										pos = ticks[i][0].reset;
 										ticks[i][0].headline.css('opacity', 0);
-										ticks[i][0].headline.stop(true,true).css('left',pos+'px');
 									} else {
-										ticks[i][0].headline.css('opacity', 1);
-										ticks[i][0].headline.stop(true,true).animate( {
-											left: pos+'px'
-										}, 100, 'linear' );
+										ticks[i][0].headline.css('opacity', 1);	
 									}
+									ticks[i][0].headline.css( {
+								    transform: 'translateX( ' + pos + 'px )',
+							    } );
 								} else {
 
 									pos = (settings.scroll_direction === 'up') ? mtphr_dnt_scroll_up(i) : mtphr_dnt_scroll_down(i);
 									if( pos === 'reset' ) {
 										pos = ticks[i][0].reset;
 										ticks[i][0].headline.css('opacity', 0);
-										ticks[i][0].headline.stop(true,true).css('top',pos+'px');
 									} else {
 										ticks[i][0].headline.css('opacity', 1);
-										ticks[i][0].headline.stop(true,true).animate( {
-											top: pos+'px'
-										}, 100, 'linear' );
 									}
+									ticks[i][0].headline.css( {
+								    transform: 'translateY( ' + pos + 'px )',
+							    } );
 								}
 
 								ticks[i][0].position = pos;
 							}
 						}
-			    }, 100);
+			    }, 1);
 		    }
 
 		    /**
@@ -278,7 +276,7 @@
 		    function mtphr_dnt_scroll_left( i ) {
 
 			    // Find the new position
-					var pos = parseFloat(ticks[i][0].position - settings.scroll_speed);
+					var pos = parseFloat( ticks[i][0].position - ( settings.scroll_speed * 0.05 ) );
 
 					// Reset the tick if off the screen
 					if( pos < -(ticks[i][0].headline.width()+settings.offset) ) {
@@ -298,7 +296,7 @@
 		    function mtphr_dnt_scroll_right( i ) {
 
 			    // Find the new position
-					var pos = ticks[i][0].position + settings.scroll_speed;
+					var pos = parseFloat( ticks[i][0].position + ( settings.scroll_speed * 0.05 ) );
 
 					// Reset the tick if off the screen
 					if( pos > ticker_width+settings.offset ) {
@@ -318,7 +316,7 @@
 		    function mtphr_dnt_scroll_up( i ) {
 
 			    // Find the new position
-					var pos = ticks[i][0].position - settings.scroll_speed;
+					var pos = parseFloat( ticks[i][0].position - ( settings.scroll_speed * 0.05 ) );
 
 					// Reset the tick if off the screen
 					if( pos < -(ticks[i][0].headline.height()+settings.offset) ) {
@@ -338,7 +336,7 @@
 		    function mtphr_dnt_scroll_down( i ) {
 
 			    // Find the new position
-					var pos = ticks[i][0].position + settings.scroll_speed;
+					var pos = parseFloat( ticks[i][0].position + ( settings.scroll_speed * 0.05 ) );
 
 					// Reset the tick if off the screen
 					if( pos > ticker_height+settings.offset ) {
@@ -411,7 +409,7 @@
 		     */
 		    function mtphr_dnt_scroll_resize_ticks() {
 
-			    for( var i=0; i<vars.tick_count; i++ ) {
+			    for( var i=0; i < vars.tick_count; i++ ) {
 
 				    // Set the tick position
 						var position;
@@ -422,14 +420,14 @@
 							case 'left':
 								position = ticker_width+settings.offset;
 								if( ticks[i][0].visible === false ) {
-									$tick.css('left',position+'px');
+									$tick.css('transform','translateX( ' + position + 'px )');
 								}
 								break;
 
 							case 'right':
 								position = parseInt('-'+($tick.width()+settings.offset));
 								if( ticks[i][0].visible === false ) {
-									$tick.css('left',position+'px');
+									$tick.css('transform','translateX( ' + position + 'px )');
 								}
 								break;
 
@@ -439,7 +437,7 @@
 								}
 								position = parseInt(ticker_height+settings.offset);
 								if( ticks[i][0].visible === false ) {
-									$tick.css('top',position+'px');
+									$tick.css('transform','translateY( ' + position + 'px )');
 								}
 								break;
 
@@ -449,7 +447,7 @@
 								}
 								position = parseInt('-'+($tick.height()+settings.offset));
 								if( ticks[i][0].visible === false ) {
-									$tick.css('top',position+'px');
+									$tick.css('transform','translateY( ' + position + 'px )');
 								}
 								break;
 						}
@@ -474,7 +472,7 @@
 			    var position,
 			    		$tick;
 
-		    	for( var i=0; i<vars.tick_count; i++ ) {
+		    	for( var i=0; i < vars.tick_count; i++ ) {
 					
 						if( ticks[i] ) {
 							
@@ -483,18 +481,12 @@
 							switch( settings.scroll_direction ) {
 								case 'left':
 									position = ticker_width+settings.offset;
-									$tick.stop(true,true).css('left',position+'px');
+									$tick.css('transform','translateX( ' + position + 'px )');
 									break;
 	
 								case 'right':
-									//console.log(settings.offset);
 									position = parseInt('-'+($tick.width()+settings.offset));
-/*
-									if( mtphr_dnt_vars.is_rtl ) {
-										position = parseInt('-'+($tick.width()+(ticker_width/2)));
-									}
-*/
-									$tick.stop(true,true).css('left',position+'px');
+									$tick.css('transform','translateX( ' + position + 'px )');
 									break;
 	
 								case 'up':
@@ -502,7 +494,7 @@
 										$tick.css('width',ticker_width);
 									}
 									position = parseInt(ticker_height+settings.offset);
-									$tick.stop(true,true).css('top',position+'px');
+									$tick.css('transform','translateY( ' + position + 'px )');
 									break;
 	
 								case 'down':
@@ -510,7 +502,7 @@
 										$tick.css('width',ticker_width);
 									}
 									position = parseInt('-'+($tick.height()+settings.offset));
-									$tick.stop(true,true).css('top',position+'px');
+									$tick.css('transform','translateY( ' + position + 'px )');
 									break;
 							}
 	
@@ -541,14 +533,14 @@
 							position = ticker_height*0.9;
 						}
 
-						for( i=0; i<vars.tick_count; i++ ) {
+						for( i=0; i < vars.tick_count; i++ ) {
 
 			    		$tick = ticks[i][0].headline;
 
 							switch( settings.scroll_direction ) {
 								case 'left':
 									if( position < ticker_width ) {
-										$tick.stop(true,true).css('left',position+'px');
+										$tick.css('transform','translateX( ' + position + 'px )');
 										ticks[i][0].position = position;
 										ticks[i][0].visible = true;
 										position = position + ticks[i][0].width + settings.scroll_spacing;
@@ -558,7 +550,7 @@
 								case 'right':
 									if( position > 0 ) {
 										position = position - ticks[i][0].width;
-										$tick.stop(true,true).css('left',position+'px');
+										$tick.css('transform','translateX( ' + position + 'px )');
 										ticks[i][0].position = position;
 										ticks[i][0].visible = true;
 										position = position - settings.scroll_spacing;
@@ -567,7 +559,7 @@
 
 								case 'up':
 									if( position < ticker_height ) {
-										$tick.stop(true,true).css('top',position+'px');
+										$tick.css('transform','translateY( ' + position + 'px )');
 										ticks[i][0].position = position;
 										ticks[i][0].visible = true;
 										position = position + ticks[i][0].height + settings.scroll_spacing;
@@ -576,7 +568,7 @@
 
 								case 'down':
 									if( position > 0 ) {
-										position = position - ticks[i][0].height;
+										$tick.css('transform','translateY( ' + position + 'px )');
 										$tick.stop(true,true).css('top',position+'px');
 										ticks[i][0].position = position;
 										ticks[i][0].visible = true;
