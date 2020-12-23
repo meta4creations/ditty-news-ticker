@@ -196,19 +196,19 @@
 		    	}
 					
 
-					// Clear the loop on mouse hover
-					$ticker.hover(
-					  function () {
-					  	if( settings.scroll_pause ) {
+					// Clear the loop on mouse enter
+					$ticker.on( {
+					  mouseenter: function() {
+						  if( settings.scroll_pause ) {
 					    	mtphr_dnt_scroll_pause();
 					    }
-					  },
-					  function () {
-					  	if( settings.scroll_pause && !vars.paused ) {
+						},
+					  mouseleave: function() {
+						  if( settings.scroll_pause && !vars.paused ) {
 					    	mtphr_dnt_scroll_play();
 					    }
-					  }
-					);
+						}
+					} );
 		    }
 		    
 		    function mtphr_dnt_scroll_pause() {
@@ -638,19 +638,19 @@
 						mtphr_dnt_rotator_play();
 					}
 
-					// Clear the loop on mouse hover
-					$ticker.hover(
-					  function () {
-					  	if( settings.auto_rotate && settings.rotate_pause && !vars.running ) {
+					// Clear the loop on mouse enter
+					$ticker.on( {
+					  mouseenter: function() {
+						  if( settings.auto_rotate && settings.rotate_pause && !vars.running ) {
 					    	mtphr_dnt_rotator_pause();
 					    }
-					  },
-					  function () {
-					  	if( settings.auto_rotate && settings.rotate_pause  && !vars.running && !vars.paused ) {
+						},
+					  mouseleave: function() {
+						  if( settings.auto_rotate && settings.rotate_pause  && !vars.running && !vars.paused ) {
 					    	mtphr_dnt_rotator_play();
 					    }
-					  }
-					);
+						}
+					} );
 		    }
 
 		    /**
@@ -806,7 +806,7 @@
 		     */
 		    function mtphr_dnt_rotator_resize_ticks() {
 
-			    for( var i=0; i<vars.tick_count; i++ ) {
+			    for( var i=0; i < vars.tick_count; i++ ) {
 
 				    // Set the width of the tick
 				    $(ticks[i]).width( ticker_width+'px' );
@@ -1207,12 +1207,12 @@
 		     */
 		    if( $nav_prev && settings.type === 'rotate' ) {
 
-		    	$nav_prev.bind('click', function( e ) {
+		    	$nav_prev.on('click', function( e ) {
 		    		e.preventDefault();
 						mtphr_dnt_prev();
 		    	});
 
-		    	$nav_next.bind('click', function(e) {
+		    	$nav_next.on('click', function(e) {
 		    		e.preventDefault();
 						mtphr_dnt_next();
 		    	});
@@ -1228,7 +1228,7 @@
 		     */
 		    if( $nav_controls && settings.type === 'rotate' ) {
 
-			    $nav_controls.children('a').bind('click', function( e ) {
+			    $nav_controls.children('a').on('click', function( e ) {
 		    		e.preventDefault();
 
 		    		// Find the new tick
@@ -1286,7 +1286,7 @@
 			    $container.trigger('mtphr_dnt_play_pause', [vars, ticks]);
 		    }
 		    
-		    $play_pause.bind('click', function(e) {
+		    $play_pause.on('click', function(e) {
 			    e.preventDefault();
 			    mtphr_dnt_play_pause_toggle( vars.paused );
 		    });
@@ -1298,51 +1298,54 @@
 		    /* !Mobile swipe - 1.5.0 */
 		    /* --------------------------------------------------------- */
 		    
+		    function swipe_left() {
+			    if(vars.running) {
+	          return false;
+	        }
+
+		    	// Find the new tick
+		    	var new_tick = parseInt(vars.current_tick + 1);
+					if( new_tick === vars.tick_count ) {
+						new_tick = 0;
+					}
+					if( settings.rotate_type === 'slide_left' || settings.rotate_type === 'slide_right' ) {
+						rotate_adjustment = 'slide_left';
+					}
+					mtphr_dnt_rotator_update( new_tick );
+		    }
+		    
+		    function swipe_right() {
+			    if(vars.running) {
+	          return false;
+	        }
+
+		    	// Find the new tick
+		    	var new_tick = parseInt(vars.current_tick-1);
+					if( new_tick < 0 ) {
+						new_tick = vars.tick_count-1;
+					}
+					if( settings.rotate_type === 'slide_left' || settings.rotate_type === 'slide_right' ) {
+						rotate_adjustment = 'slide_right';
+					}
+					if( settings.nav_reverse ) {
+						if( settings.rotate_type === 'slide_down' ) {
+							rotate_adjustment = 'slide_up';
+						} else if( settings.rotate_type === 'slide_up' ) {
+							rotate_adjustment = 'slide_down';
+						}
+						vars.reverse = 1;
+					}
+					mtphr_dnt_rotator_update( new_tick );
+		    }
+		    
 				if( settings.type === 'rotate' && !settings.disable_touchswipe ) {
 					
-					$ticker.swipe( {
-						triggerOnTouchEnd : true,
-		        swipeLeft: function() {
-		          
-		          if(vars.running) {
-			          return false;
-			        }
-
-				    	// Find the new tick
-				    	var new_tick = parseInt(vars.current_tick + 1);
-							if( new_tick === vars.tick_count ) {
-								new_tick = 0;
-							}
-							if( settings.rotate_type === 'slide_left' || settings.rotate_type === 'slide_right' ) {
-								rotate_adjustment = 'slide_left';
-							}
-							mtphr_dnt_rotator_update( new_tick );
-		        },
-		        swipeRight: function() {
-		          
-		          if(vars.running) {
-			          return false;
-			        }
-
-				    	// Find the new tick
-				    	var new_tick = parseInt(vars.current_tick-1);
-							if( new_tick < 0 ) {
-								new_tick = vars.tick_count-1;
-							}
-							if( settings.rotate_type === 'slide_left' || settings.rotate_type === 'slide_right' ) {
-								rotate_adjustment = 'slide_right';
-							}
-							if( settings.nav_reverse ) {
-								if( settings.rotate_type === 'slide_down' ) {
-									rotate_adjustment = 'slide_up';
-								} else if( settings.rotate_type === 'slide_up' ) {
-									rotate_adjustment = 'slide_down';
-								}
-								vars.reverse = 1;
-							}
-							mtphr_dnt_rotator_update( new_tick );
-		        }
-		      });
+					$ticker[0].addEventListener('swiped-left', function() {
+					  swipe_left();
+					});
+					$ticker[0].addEventListener('swiped-right', function() {
+					  swipe_right();
+					});
 				}
 				
 				
@@ -1379,7 +1382,7 @@
 		     *
 		     * @since 1.4.1
 		     */
-		    $(window).resize( function() {
+		    $(window).on( 'resize', function() {
 
 			    // Resize the tickers if the width is different
 			    if( $ticker.outerWidth() !== ticker_width ) {

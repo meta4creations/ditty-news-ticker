@@ -19,7 +19,6 @@ function mtphr_dnt_display_code() {
 							echo '<h3>'.__('Shortcode', 'ditty-news-ticker').'</h3>';
 							echo '<p>'.__('Copy and paste this shortcode into a page or post to display the ticker within the post content.', 'ditty-news-ticker').'</p>';
 							echo '<pre><p>[ditty_news_ticker id="'.$post->ID.'"]</p></pre>';
-							echo '<a href="#" class="button mtphr-dnt-code-select">'.__('Select Shortcode', 'ditty-news-ticker').'</a>';
 						echo '</div>';
 					echo '</td>';
 						
@@ -29,7 +28,6 @@ function mtphr_dnt_display_code() {
 							echo '<p>'.__('Copy and paste this code directly into one of your theme files to display the ticker any where you want on your site.', 'ditty-news-ticker').'</p>';
 	
 							echo '<pre><p>&lt;?php if(function_exists(\'ditty_news_ticker\')){ditty_news_ticker('.$post->ID.');} ?&gt;</p></pre>';
-							echo '<a href="#" class="button mtphr-dnt-code-select">'.__('Select Function', 'ditty-news-ticker').'</a>';
 						echo '</div>';
 					echo '</td>';
 				echo '</tr>';

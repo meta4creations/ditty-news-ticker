@@ -149,7 +149,7 @@ function mtphr_dnt_heading( $heading='', $description='', $help='' ) {
 			$html .= '<h3>'.$heading.'</h3>';
 		}
 		if( $help != '' ) {
-			$html .= '<a href="#" class="mtphr-dnt-help" data-tooltip="'.$help.'"><i class="dashicons dashicons-editor-help"></i></a>';
+			$html .= '<a href="#" class="mtphr-dnt-help protip" data-pt-title="'.$help.'"><i class="dashicons dashicons-editor-help"></i></a>';
 		}
 		if( $description != '' ) {
 			$html .= '<p>'.$description.'</p>';
@@ -173,7 +173,7 @@ function mtphr_dnt_subheading( $args=array() ) {
 		$html = '<div class="mtphr-dnt-subheading">';
 			$html .= '<span class="mtphr-dnt-subheading-label">'.$args['subheading'].'</span>';
 			if( isset($args['subhelp']) && $args['subhelp'] != '' ) {
-				$html .= '<a href="#" class="mtphr-dnt-help" data-tooltip="'.$args['subhelp'].'"><i class="dashicons dashicons-editor-help"></i></a>';
+				$html .= '<a href="#" class="mtphr-dnt-help protip" data-pt-title="'.$args['subhelp'].'"><i class="dashicons dashicons-editor-help"></i></a>';
 			}
 		$html .= '</div>';
 		
@@ -488,7 +488,7 @@ function mtphr_dnt_sort_checkbox( $name, $val, $optional_fields=false, $args=arr
 		}
 		$html .= $heading.'</div>';
 		if( $help != '' ) {
-			$html .= '<span class="mtphr-dnt-help" data-tooltip="'.$help.'"><i class="dashicons dashicons-editor-help"></i></span>';
+			$html .= '<span class="mtphr-dnt-help protip" data-pt-title="'.$help.'"><i class="dashicons dashicons-editor-help"></i></span>';
 		}
 		$html .= '<input type="hidden" name="'.$name.'" value="'.$val.'" />';
 	$html .= '</div>';

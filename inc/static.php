@@ -4,9 +4,9 @@
 /* !Load the front end scripts - 2.2 */
 /* --------------------------------------------------------- */
 
-function mtphr_dnt_scripts() {
+function mtphr_dnt_scripts( $hook ) {
 	
-	if( is_admin() ) {
+	if ( is_admin() ) {
 		
 		global $typenow;
 	
@@ -20,21 +20,13 @@ function mtphr_dnt_scripts() {
 		    wp_enqueue_script('media-upload');
 		    wp_enqueue_script('thickbox');
 			}
-	
-			// Load CodeMirror
-			wp_enqueue_style( 'codemirror', plugins_url('ditty-news-ticker/inc/static/libs/codemirror-5.44.0/lib/codemirror.css'), false, '5.44.0' );
-			wp_enqueue_script( 'codemirror', plugins_url('ditty-news-ticker/inc/static/libs/codemirror-5.44.0/lib/codemirror.js'), array('jquery'), '5.44.0', true );
-			wp_enqueue_script( 'codemirror-css', plugins_url('ditty-news-ticker/inc/static/libs/codemirror-5.44.0/mode/css/css.js'), array('jquery'), '5.44.0', true );
-			
-			// Load qTip
-			wp_enqueue_style( 'qtip', plugins_url('ditty-news-ticker/inc/static/libs/qTip2/jquery.qtip.min.css'), false, '3.0.3' );
-			wp_enqueue_script( 'qtip', plugins_url('ditty-news-ticker/inc/static/libs/qTip2/jquery.qtip.min.js'), array( 'jquery' ), '3.0.3', true );
-			
-			// Register jQuery easing
-			wp_register_script( 'jquery-easing', plugins_url('ditty-news-ticker/inc/static/js/jquery.easing.js'), array('jquery'), '1.4.1', true );
+
+			// Load protop
+			wp_enqueue_style( 'protip', plugins_url('ditty-news-ticker/inc/static/libs/protip/protip.min.css'), false, '1.4.21' );
+			wp_enqueue_script( 'protip', plugins_url('ditty-news-ticker/inc/static/libs/protip/protip.min.js'), array( 'jquery' ), '1.4.21', true );
 	
 			// Load the news ticker scripts
-			wp_enqueue_script( 'ditty-news-ticker', plugins_url('ditty-news-ticker/inc/static/js/script-admin.min.js'), array( 'jquery','jquery-ui-core','jquery-ui-sortable', 'jquery-easing', 'qtip' ), filemtime(MTPHR_DNT_DIR.'inc/static/js/script-admin.min.js'), true );
+			wp_enqueue_script( 'ditty-news-ticker', plugins_url('ditty-news-ticker/inc/static/js/script-admin.min.js'), array( 'jquery','jquery-ui-core','jquery-ui-sortable', 'jquery-effects-core', 'protip' ), filemtime(MTPHR_DNT_DIR.'inc/static/js/script-admin.min.js'), true );
 			wp_localize_script( 'ditty-news-ticker', 'ditty_news_ticker_vars', array(
 					'security' => wp_create_nonce( 'ditty-news-ticker' ),
 					'img_title' => __( 'Upload or select an image', 'ditty-news-ticker' ),
@@ -55,19 +47,13 @@ function mtphr_dnt_scripts() {
 		// Load the icon font css
 		wp_enqueue_style( 'ditty-news-ticker-font', plugins_url('ditty-news-ticker/inc/static/libs/fontastic/styles.css'), false, MTPHR_DNT_VERSION );
 	
-		// Register touchSwipe
-		wp_enqueue_script( 'touchSwipe', plugins_url('ditty-news-ticker/inc/static/js/jquery.touchSwipe.min.js'), array('jquery'), MTPHR_DNT_VERSION, true );
-	
-		// Register the jQuery easing
-		wp_enqueue_script( 'jquery-easing', plugins_url('ditty-news-ticker/inc/static/js/jquery.easing.js'), array('jquery'), '1.4.1', true );
-		
-		// Register images loaded
-		wp_enqueue_script( 'imagesLoaded', plugins_url('ditty-news-ticker/inc/static/js/imagesloaded.pkgd.min.js'), array('jquery'), '4.1.4', true );
+		// Register swiped events
+		wp_enqueue_script( 'swiped-events', plugins_url('ditty-news-ticker/inc/static/js/swiped-events.min.js'), false, '1.1.4', true );
 	
 		// Register the Ditty News Ticker scripts
 		wp_enqueue_style( 'ditty-news-ticker', plugins_url('ditty-news-ticker/inc/static/css/style.css'), false, filemtime(MTPHR_DNT_DIR.'inc/static/css/style.css') );
 		
-		wp_enqueue_script( 'ditty-news-ticker', plugins_url('ditty-news-ticker/inc/static/js/ditty-news-ticker.min.js'), array('jquery', 'imagesLoaded', 'touchSwipe', 'jquery-easing'), filemtime(MTPHR_DNT_DIR.'inc/static/js/ditty-news-ticker.min.js'), true );
+		wp_enqueue_script( 'ditty-news-ticker', plugins_url('ditty-news-ticker/inc/static/js/ditty-news-ticker.min.js'), array('jquery', 'imagesloaded', 'swiped-events', 'jquery-effects-core'), filemtime(MTPHR_DNT_DIR.'inc/static/js/ditty-news-ticker.min.js'), true );
 		wp_localize_script( 'ditty-news-ticker', 'mtphr_dnt_vars', array(
 				'is_rtl' => is_rtl(),
 			)

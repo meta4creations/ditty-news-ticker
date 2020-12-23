@@ -25,7 +25,7 @@ jQuery( document ).ready( function($) {
 	/* !Main settings selects - 2.0.0 */
 	/* --------------------------------------------------------- */
 	
-	$('.mtphr-dnt-metabox-group-toggle').click( function(e) {
+	$('#mtphr-dnt-metabox-group-toggles').on( 'click', '.mtphr-dnt-metabox-group-toggle', function(e) {
 		e.preventDefault();
 		
 		var value = $(this).attr('href');
@@ -66,38 +66,7 @@ jQuery( document ).ready( function($) {
 			'lineWrapping' : true
 		});
 		myCodeMirror.setSize( false, 140 );
-	});
-	
-	
-	
-	/* --------------------------------------------------------- */
-	/* !Code select - 1.4.0 */
-	/* --------------------------------------------------------- */
-
-	$('.mtphr-dnt-code-select').click( function(e) {
-		e.preventDefault();
-	
-		var $pre = $(this).siblings('pre'),
-				range,
-				selection;
-				
-		var refNode = $pre[0];
-		if ( $.browser.msie ) {
-			range = document.body.createTextRange();
-			range.moveToElementText( refNode );
-			range.select();
-		} else if ( $.browser.mozilla || $.browser.opera ) {
-			selection = window.getSelection();
-			range = document.createRange();
-			range.selectNodeContents( refNode );
-			selection.removeAllRanges();
-			selection.addRange( range );
-		} else if ( $.browser.safari || $.browser.chrome ) {
-			selection = window.getSelection();
-			selection.setBaseAndExtent( refNode, 0, refNode, 1 );
-		}
-	});
-	
+	});	
 	
 	
 	/* --------------------------------------------------------- */
@@ -119,7 +88,7 @@ jQuery( document ).ready( function($) {
 		// Set the metaboxes
 		$('#mtphr-dnt-'+kind+'-metaboxes > div').stop(true, true).hide();
 		var metaboxes = $button.attr('metabox').split(' ');
-		for( var i=0; i<metaboxes.length; i++ ) {
+		for( var i=0; i < metaboxes.length; i++ ) {
 			$('#'+metaboxes[i]).show();
 		}
 
@@ -139,7 +108,7 @@ jQuery( document ).ready( function($) {
 		mtphr_dnt_toggle_metaboxes( $('.mtphr-dnt-mode-toggle.button-primary'), 'mode' );
 	}
 	
-	$('.mtphr-dnt-type-toggle').click( function(e) {
+	$('#mtphr-dnt-type-select').on( 'click', '.mtphr-dnt-type-toggle', function(e) {
 		
 		e.preventDefault();
 		if( !$(this).hasClass('button-primary') ) {
@@ -147,7 +116,7 @@ jQuery( document ).ready( function($) {
 		}
 	});
 	
-	$('.mtphr-dnt-mode-toggle').click( function(e) {
+	$('#mtphr-dnt-mode-select').on( 'click', '.mtphr-dnt-mode-toggle', function(e) {
 		
 		e.preventDefault();
 		if( !$(this).hasClass('button-primary') ) {
@@ -292,19 +261,16 @@ jQuery( document ).ready( function($) {
 	/* --------------------------------------------------------- */
 	/* !Tool tips - 2.0.0 */
 	/* --------------------------------------------------------- */
-	
-	var qtipConfig = {
-		content: {
-		  attr: 'data-tooltip' // Tell qTip2 to look inside this attr for its content
-    },
-    style: {
-	    classes: 'qtip-light qtip-rounded qtip-shadow'
-	  }
-	};
-	$('.mtphr-dnt-help[data-tooltip!=""]').qtip( qtipConfig );
-	$('body').on( 'click', '.mtphr-dnt-help[data-tooltip!=""]', function(e) {
-		e.preventDefault();
-	});
+
+	// Setup protip
+	$.protip( {
+		defaults: {
+			position: 'top',
+			size: 'small',
+			scheme: 'black',
+			classes: 'ditty-protip',
+		}
+	} );
 	
 		
 		
@@ -356,14 +322,15 @@ jQuery( document ).ready( function($) {
 				}
 
 				var $table = $(this);
-				var qtipConfig = {
-					content: {
-					  attr: 'data-tooltip' // Tell qTip2 to look inside this attr for its content
-			    },
-			    style: {
-				    classes: 'qtip-light qtip-rounded qtip-shadow'
-				  }
-				};
+				// Setup protip
+				$.protip( {
+					defaults: {
+						position: 'top',
+						size: 'small',
+						scheme: 'black',
+						classes: 'ditty-protip',
+					}
+				} );
 				
 				$table.sortable( {
 					handle: '.mtphr-dnt-list-heading',
@@ -453,7 +420,7 @@ jQuery( document ).ready( function($) {
 				  // Reset the duplicate
 				  $dup.find('textarea, input, select').each( function() {
 				  	if( $(this).attr('type') === 'checkbox' || $(this).attr('type') === 'radio' ) {
-					  	$(this).removeAttr('checked');
+					  	$(this).attr('checked', false);
 				  	} else {
 					  	$(this).val('');
 				  	}
@@ -497,8 +464,15 @@ jQuery( document ).ready( function($) {
 				  $item.after( $dup );
 				  $dup.fadeIn().addClass(unique_class);
 
-				  // Add qtip support
-				  $dup.find('.mtphr-dnt-help[data-tooltip!=""]').qtip( qtipConfig );
+				  // Setup protip
+					$.protip( {
+						defaults: {
+							position: 'top',
+							size: 'small',
+							scheme: 'black',
+							classes: 'ditty-protip',
+						}
+					} );
 				  
 				  // Set the order
 				  mtphr_dnt_list_set_order();

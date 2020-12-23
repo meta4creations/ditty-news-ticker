@@ -1,7 +1,7 @@
 jQuery( document ).ready( function($) {
 	
 
-	var preload_limit = 4;
+	var preload_limit = 4,
 			currently_preloading = 0;
 
 
@@ -12,10 +12,10 @@ jQuery( document ).ready( function($) {
 	function mtphr_dnt_image_preload() {
 		
 		var start = currently_preloading;
-		for( var i=start; i<preload_limit; i++ ) {
+		for( var i=start; i < preload_limit; i++ ) {
 			
 			var $placeholder = $('.mtphr-dnt-image-placeholder:visible:first');
-			if( $placeholder.length == 0 ) {
+			if( $placeholder.length === 0 ) {
 				$placeholder = $('.mtphr-dnt-image-placeholder:first');
 			}
 			
@@ -79,7 +79,7 @@ jQuery( document ).ready( function($) {
 	
 	function mtphr_dnt_image_resize_placeholders() {
 		
-		$('.mtphr-dnt-image-placeholder, .mtphr-dnt-image-placeholder-loading').each( function(index) {
+		$('.mtphr-dnt-image-placeholder, .mtphr-dnt-image-placeholder-loading').each( function() {
 		
 			var init_w = $(this).data('width'),
 					init_h = $(this).data('height'),
@@ -99,7 +99,7 @@ jQuery( document ).ready( function($) {
 
 	
 	
-	$(window).resize( function() {
+	$(window).on( 'resize', function() {
 		mtphr_dnt_image_resize_placeholders();
 	});
 	mtphr_dnt_image_resize_placeholders();

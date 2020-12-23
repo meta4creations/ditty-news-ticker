@@ -699,21 +699,16 @@ function mtphr_dnt_license_bug_ajax() {
 	<script>
 		jQuery(document).ready(function($){
 			
-			$('#ditty-news-ticker-license-notice').click( function(e){
-				if( $(e.target).is('.notice-dismiss') ) {
-					
-					var data = {
-						action:'mtphr_dnt_license_bug_dismiss',
-						slugs:$(this).data('slugs'),
-						security:'<?php echo wp_create_nonce( 'ditty-news-ticker' ); ?>'
-					};
-					
-					jQuery.post(ajaxurl,data,function(response){});
-					
-				}	
+			$( '#ditty-news-ticker-license-notice' ).on( 'click', '.notice-dismiss', function(e){
+				var data = {
+					action:'mtphr_dnt_license_bug_dismiss',
+					slugs:$(this).data('slugs'),
+					security:'<?php echo wp_create_nonce( 'ditty-news-ticker' ); ?>'
+				};
+				jQuery.post(ajaxurl,data,function(response){});
 			});
 			
-			$('.ditty-news-ticker-license-deactivate').click( function(e){
+			$('#wpbody-content').on( 'click', '.ditty-news-ticker-license-deactivate', function(e){
 				
 				e.preventDefault();
 				var $container = $(this).parent(),
@@ -742,7 +737,7 @@ function mtphr_dnt_license_bug_ajax() {
 				}, 'json');		
 			});
 			
-			$('.ditty-news-ticker-license-activate').click( function(e){
+			$('#wpbody-content').on( 'click', '.ditty-news-ticker-license-activate', function(e){
 				
 				e.preventDefault();
 				
