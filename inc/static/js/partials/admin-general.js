@@ -521,7 +521,7 @@ jQuery( document ).ready( function($) {
 		} else if ( typeof method === 'object' || !method ) {
 			return methods.init.apply( this, arguments );
 		} else {
-			$.error( 'Method ' +  method + ' does not exist in mtphr_dnt_list' );
+			throw new Error( 'Method ' +  method + ' does not exist in mtphr_dnt_list' );
 		}
 	};
 

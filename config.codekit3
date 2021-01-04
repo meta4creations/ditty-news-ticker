@@ -255,28 +255,6 @@
 		"plM": 3758088159,
 		"prP": 0
 		},
-	"/inc/static/js/ditty-news-ticker-images.js": {
-		"bF": 0,
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "/inc/static/js/ditty-news-ticker-images.min.js",
-		"oF": 0,
-		"sC": 1,
-		"tS": 0
-		},
-	"/inc/static/js/ditty-news-ticker-images.min.js": {
-		"bF": 0,
-		"ft": 64,
-		"ma": 0,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "/inc/static/js/ditty-news-ticker-images.min.min.js",
-		"oF": 0,
-		"sC": 1,
-		"tS": 0
-		},
 	"/inc/static/js/ditty-news-ticker.js": {
 		"bF": 0,
 		"ft": 64,
