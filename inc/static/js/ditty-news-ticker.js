@@ -72,7 +72,10 @@
 						ticker_scroll_resize = true,
 						ticker_delay,
 						rotate_adjustment = settings.rotate_type,
-						after_change_timeout;
+						after_change_timeout,
+						scroll_interval = 10,
+						scroll_percent = 0.1;
+						
 
 				// Add the vars
 				$ticker.data('ditty:vars', vars);
@@ -265,7 +268,7 @@
 								ticks[i][0].position = pos;
 							}
 						}
-			    }, 1);
+			    }, scroll_interval );
 		    }
 
 		    /**
@@ -276,7 +279,7 @@
 		    function mtphr_dnt_scroll_left( i ) {
 
 			    // Find the new position
-					var pos = parseFloat( ticks[i][0].position - ( settings.scroll_speed * 0.05 ) );
+					var pos = parseFloat( ticks[i][0].position - ( settings.scroll_speed * scroll_percent ) );
 
 					// Reset the tick if off the screen
 					if( pos < -(ticks[i][0].headline.width()+settings.offset) ) {
@@ -296,7 +299,7 @@
 		    function mtphr_dnt_scroll_right( i ) {
 
 			    // Find the new position
-					var pos = parseFloat( ticks[i][0].position + ( settings.scroll_speed * 0.05 ) );
+					var pos = parseFloat( ticks[i][0].position + ( settings.scroll_speed * scroll_percent ) );
 
 					// Reset the tick if off the screen
 					if( pos > ticker_width+settings.offset ) {
@@ -316,7 +319,7 @@
 		    function mtphr_dnt_scroll_up( i ) {
 
 			    // Find the new position
-					var pos = parseFloat( ticks[i][0].position - ( settings.scroll_speed * 0.05 ) );
+					var pos = parseFloat( ticks[i][0].position - ( settings.scroll_speed * scroll_percent ) );
 
 					// Reset the tick if off the screen
 					if( pos < -(ticks[i][0].headline.height()+settings.offset) ) {
@@ -336,7 +339,7 @@
 		    function mtphr_dnt_scroll_down( i ) {
 
 			    // Find the new position
-					var pos = parseFloat( ticks[i][0].position + ( settings.scroll_speed * 0.05 ) );
+					var pos = parseFloat( ticks[i][0].position + ( settings.scroll_speed * scroll_percent ) );
 
 					// Reset the tick if off the screen
 					if( pos > ticker_height+settings.offset ) {
@@ -477,7 +480,12 @@
 						if( ticks[i] ) {
 							
 		    			$tick = ticks[i][0].headline;
-
+/*
+		    			$tick.css( {
+			    			transition : 'none',
+			    		} );
+*/
+						
 							switch( settings.scroll_direction ) {
 								case 'left':
 									position = ticker_width+settings.offset;
@@ -511,6 +519,13 @@
 							ticks[i][0].position = position;
 							ticks[i][0].reset = position;
 							ticks[i][0].visible = false;
+							
+							$tick = ticks[i][0].headline;
+/*
+		    			$tick.css( {
+			    			transition : 'transform ' + scroll_percent + 's linear',
+			    		} );
+*/
 						}
 			    }
 
