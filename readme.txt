@@ -72,6 +72,10 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.3.4 =
+* Javascript updates to scroll functionality
+* Admin tick drag order updates
+
 = 2.3.3 =
 * Javascript updates to scroll functionality
 * EDD Software Licensing updates

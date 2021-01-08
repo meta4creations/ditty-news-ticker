@@ -125,8 +125,7 @@
   background: gray;
   margin: 2px 0;
   box-shadow: none;
-  -webkit-transition: background-color 0.25s ease, border-color 0.25s ease;
-  transition: background-color 0.25s ease, border-color 0.25s ease; }
+  transition: background-color .25s ease, border-color .25s ease; }
   #mtphr-dnt-code-copy .button:hover {
     background-color: #999999; }
     #mtphr-dnt-code-copy .button:hover i {
@@ -206,8 +205,6 @@
   background: #FFF;
   border: 1px solid #dfdfdf;
   padding: 3px 24px 3px 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
   border-radius: 3px; }
 
 .mtphr-dnt-single-image img {
@@ -267,8 +264,7 @@
   padding: 5px 10px;
   margin: -10px -10px 10px;
   cursor: pointer;
-  -webkit-transition: background-color 0.25s ease, border-radius 0.25s ease;
-  transition: background-color 0.25s ease, border-radius 0.25s ease; }
+  transition: background-color .25s ease, border-radius .25s ease; }
   .mtphr-dnt-list-heading:active, .mtphr-dnt-list-heading:focus {
     box-shadow: none;
     outline: none; }
@@ -278,11 +274,16 @@
     order: 10; }
 
 .mtphr-dnt-list-buttons {
+  position: relative;
+  z-index: 999;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: flex-start;
   margin: -5px -10px;
   margin-left: auto;
   order: 20; }
   .mtphr-dnt-list-buttons a {
-    float: left;
     display: block;
     width: 30px;
     height: 30px;
@@ -363,8 +364,7 @@
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
-  -webkit-transition: background-color 0.25s ease, border-radius 0.25s ease;
-  transition: background-color 0.25s ease, border-radius 0.25s ease; }
+  transition: background-color .25s ease, border-radius .25s ease; }
   .mtphr-dnt-sort-heading:active, .mtphr-dnt-sort-heading:focus {
     box-shadow: none;
     outline: none; }
@@ -388,8 +388,7 @@
       background: #FFF;
       border-radius: 12px;
       margin: -2px 8px -3px 0;
-      -webkit-transition: color 0.25s ease;
-      transition: color 0.25s ease; }
+      transition: color .25s ease; }
   .mtphr-dnt-sort-heading .dashicons-menu {
     color: #333333;
     margin-right: 8px; }
@@ -498,13 +497,15 @@
   display: block; }
 
 .wp-core-ui #mtphr-dnt-settings-select .mtphr-dnt-button {
+  min-height: 0 !important;
+  font-size: 13px !important;
+  line-height: 2.15384615 !important;
   color: #FFF;
   border-color: #333333;
   background: gray;
   margin: 2px 0;
   box-shadow: none;
-  -webkit-transition: background-color 0.25s ease, border-color 0.25s ease;
-  transition: background-color 0.25s ease, border-color 0.25s ease; }
+  transition: background-color .25s ease, border-color .25s ease; }
   .wp-core-ui #mtphr-dnt-settings-select .mtphr-dnt-button:hover {
     background-color: #999999; }
     .wp-core-ui #mtphr-dnt-settings-select .mtphr-dnt-button:hover i {
@@ -528,10 +529,9 @@
   .wp-core-ui #mtphr-dnt-settings-select .mtphr-dnt-button i {
     font-size: 16px;
     line-height: 16px;
-    margin: 2px 0 0 -5px;
+    margin: 4px 0 0 -5px;
     opacity: .5;
-    -webkit-transition: opacity 0.25s ease;
-    transition: opacity 0.25s ease; }
+    transition: opacity .25s ease; }
     .wp-core-ui #mtphr-dnt-settings-select .mtphr-dnt-button i:before {
       vertical-align: middle; }
     .wp-core-ui #mtphr-dnt-settings-select .mtphr-dnt-button i.fontastic {
@@ -539,7 +539,7 @@
       vertical-align: top;
       font-size: 14px;
       line-height: 14px;
-      margin-top: 5px; }
+      margin-top: 7px; }
 
 .mtphr-dnt-metabox-toggle {
   padding-bottom: 20px; }
@@ -622,10 +622,6 @@
     padding-left: 58px; } }
 
 @media (max-width: 782px) {
-  .wp-core-ui #mtphr-dnt-settings-select .button i {
-    margin-top: -1px; }
-    .wp-core-ui #mtphr-dnt-settings-select .button i.fontastic {
-      margin-top: 2px; }
   .mtphr-dnt-metabox input, .mtphr-dnt-metabox textarea {
     font-size: 14px; }
   .mtphr-dnt-metabox input[type="text"],

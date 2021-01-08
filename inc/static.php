@@ -40,7 +40,7 @@ function mtphr_dnt_scripts( $hook ) {
 		wp_enqueue_style( 'ditty-news-ticker-font', plugins_url('ditty-news-ticker/inc/static/libs/fontastic/styles.css'), false, MTPHR_DNT_VERSION );
 	
 		// Load the plugin css
-		wp_enqueue_style( 'ditty-news-ticker', plugins_url('ditty-news-ticker/inc/static/css/style-admin.css'), array('dashicons'), MTPHR_DNT_VERSION );
+		wp_enqueue_style( 'ditty-news-ticker', plugins_url('ditty-news-ticker/inc/static/css/style-admin.css'), array('dashicons'), filemtime( MTPHR_DNT_DIR.'inc/static/css/style-admin.css' ) );
 		
 	} else {
 

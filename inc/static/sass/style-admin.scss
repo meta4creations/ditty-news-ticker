@@ -366,11 +366,16 @@ $red: hsl(0, 100%, 50%);
 	}
 }
 .mtphr-dnt-list-buttons {
+	position: relative;
+	z-index: 999;
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	justify-content: flex-start;
 	margin: -5px -10px;
 	margin-left: auto;
 	order: 20;
 	a {
-		float: left;
 		display: block;
 		width: 30px;
     height: 30px;
@@ -641,6 +646,9 @@ $red: hsl(0, 100%, 50%);
 	display: block;
 }
 .wp-core-ui #mtphr-dnt-settings-select .mtphr-dnt-button {
+	min-height: 0 !important;
+	font-size: 13px !important;
+  line-height: 2.15384615 !important;
 	color: #FFF;
   border-color: $dark-gray;
   background: hsl(0, 0%, 50%);
@@ -679,7 +687,7 @@ $red: hsl(0, 100%, 50%);
 	i {
 		font-size: 16px;
     line-height: 16px;
-    margin: 2px 0 0 -5px;
+    margin: 4px 0 0 -5px;
     opacity: .5;
     -webkit-transition: opacity .25s ease;  
     transition: opacity .25s ease; 
@@ -691,7 +699,7 @@ $red: hsl(0, 100%, 50%);
 	    vertical-align: top;
 			font-size: 14px;
 	    line-height: 14px;
-	    margin-top: 5px;
+	    margin-top: 7px;
 		}
 	}
 }
@@ -797,14 +805,6 @@ $red: hsl(0, 100%, 50%);
 }
 
 @media (max-width: 782px) {
-	.wp-core-ui #mtphr-dnt-settings-select .button {
-		i {
-			margin-top: -1px;
-			&.fontastic {
-	    	margin-top: 2px;
-	    }
-    }
-	}
 	.mtphr-dnt-metabox {
 		input, textarea {
     	font-size: 14px;

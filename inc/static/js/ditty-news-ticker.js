@@ -69,8 +69,9 @@
 						ticker_height = 0,
 						ticks = [],
 						ticker_scroll,
+						ticker_paused = false,
 						ticker_scroll_resize = true,
-						ticker_delay,
+						rotator_delay,
 						rotate_adjustment = settings.rotate_type,
 						after_change_timeout,
 						scroll_interval = 10,
@@ -215,11 +216,13 @@
 		    }
 		    
 		    function mtphr_dnt_scroll_pause() {
-			    clearInterval( ticker_scroll );
+			    ticker_paused = true;
+			    //clearInterval( ticker_scroll );
 		    }
 		    
 		    function mtphr_dnt_scroll_play() {
-			    mtphr_dnt_scroll_loop();
+			    ticker_paused = false;
+			    //mtphr_dnt_scroll_loop();
 		    }
 
 		    /**
@@ -230,44 +233,47 @@
 		    function mtphr_dnt_scroll_loop() {
 
 			    // Start the ticker timer
-			    clearInterval( ticker_scroll );
-					ticker_scroll = setInterval( function() {
-
-						for( var i=0; i < vars.tick_count; i++ ) {
-
-							if( ticks[i][0].visible === true ) {
-
-								var pos = 'reset';
-
-								if( settings.scroll_direction === 'left' || settings.scroll_direction === 'right' ) {
-
-									pos = (settings.scroll_direction === 'left') ? mtphr_dnt_scroll_left(i) : mtphr_dnt_scroll_right(i);
-									if( pos === 'reset' ) {
-										pos = ticks[i][0].reset;
-										ticks[i][0].headline.css('opacity', 0);
+			    //clearInterval( ticker_scroll );
+					setTimeout( function dnt_scroll_run() {
+						
+						if ( ! ticker_paused ) {
+							for( var i=0; i < vars.tick_count; i++ ) {
+	
+								if( ticks[i][0].visible === true ) {
+	
+									var pos = 'reset';
+	
+									if( settings.scroll_direction === 'left' || settings.scroll_direction === 'right' ) {
+	
+										pos = (settings.scroll_direction === 'left') ? mtphr_dnt_scroll_left(i) : mtphr_dnt_scroll_right(i);
+										if( pos === 'reset' ) {
+											pos = ticks[i][0].reset;
+											ticks[i][0].headline.css('opacity', 0);
+										} else {
+											ticks[i][0].headline.css('opacity', 1);	
+										}
+										ticks[i][0].headline.css( {
+									    transform: 'translateX( ' + pos + 'px )',
+								    } );
 									} else {
-										ticks[i][0].headline.css('opacity', 1);	
+	
+										pos = (settings.scroll_direction === 'up') ? mtphr_dnt_scroll_up(i) : mtphr_dnt_scroll_down(i);
+										if( pos === 'reset' ) {
+											pos = ticks[i][0].reset;
+											ticks[i][0].headline.css('opacity', 0);
+										} else {
+											ticks[i][0].headline.css('opacity', 1);
+										}
+										ticks[i][0].headline.css( {
+									    transform: 'translateY( ' + pos + 'px )',
+								    } );
 									}
-									ticks[i][0].headline.css( {
-								    transform: 'translateX( ' + pos + 'px )',
-							    } );
-								} else {
-
-									pos = (settings.scroll_direction === 'up') ? mtphr_dnt_scroll_up(i) : mtphr_dnt_scroll_down(i);
-									if( pos === 'reset' ) {
-										pos = ticks[i][0].reset;
-										ticks[i][0].headline.css('opacity', 0);
-									} else {
-										ticks[i][0].headline.css('opacity', 1);
-									}
-									ticks[i][0].headline.css( {
-								    transform: 'translateY( ' + pos + 'px )',
-							    } );
+	
+									ticks[i][0].position = pos;
 								}
-
-								ticks[i][0].position = pos;
 							}
 						}
+						setTimeout( dnt_scroll_run, scroll_interval );
 			    }, scroll_interval );
 		    }
 
@@ -601,7 +607,7 @@
 				}
 				
 				function mtphr_dnt_rotator_pause() {
-					clearInterval( ticker_delay );
+					clearInterval( rotator_delay );
 				}
 
 
@@ -677,7 +683,7 @@
 
 			    // Start the ticker timer
 			    mtphr_dnt_rotator_pause();
-					ticker_delay = setInterval( function() {
+					rotator_delay = setInterval( function() {
 
 						// Find the new tick
 			    	var new_tick = parseInt(vars.current_tick + 1);
@@ -1459,14 +1465,18 @@
 				
 				if( $container.width() === 0 ) {
 			    
-			    var mtphr_dnt_init_timer = setInterval( function() {
+			    var loop_mtphr_dnt_init_timer = true;
+			    setTimeout( function dnt_init_check() {
 
 			    	if( $container.width() > 10 ) {
-				    	clearInterval(mtphr_dnt_init_timer);
+				    	loop_mtphr_dnt_init_timer = false;
 				    	ticker_width = $ticker.outerWidth(true);
 				    	mtphr_dnt_init();
 			    	}
 			    	
+			    	if ( loop_mtphr_dnt_init_timer ) {
+			    		setTimeout( dnt_init_check, 100 );
+			    	}
 			    }, 100 );
 			    
 		    } else {

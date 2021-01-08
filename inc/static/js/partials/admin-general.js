@@ -333,7 +333,7 @@ jQuery( document ).ready( function($) {
 				} );
 				
 				$table.sortable( {
-					handle: '.mtphr-dnt-list-heading',
+					handle: '.mtphr-dnt-list-heading > .dashicons-menu',
 					items: '.mtphr-dnt-list-item',
 					axis: 'y',
 					opacity: 0.7,
