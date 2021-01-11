@@ -75,7 +75,7 @@
 						rotate_adjustment = settings.rotate_type,
 						after_change_timeout,
 						scroll_interval = 10,
-						scroll_percent = 0.1;
+						scroll_percent = 0.13;
 						
 
 				// Add the vars
@@ -216,13 +216,11 @@
 		    }
 		    
 		    function mtphr_dnt_scroll_pause() {
-			    ticker_paused = true;
-			    //clearInterval( ticker_scroll );
+			    cancelAnimationFrame( ticker_scroll );
 		    }
 		    
 		    function mtphr_dnt_scroll_play() {
-			    ticker_paused = false;
-			    //mtphr_dnt_scroll_loop();
+			    mtphr_dnt_scroll_loop();
 		    }
 
 		    /**
@@ -231,50 +229,48 @@
 		     * @since 1.0.8
 		     */
 		    function mtphr_dnt_scroll_loop() {
+					
+					cancelAnimationFrame( ticker_scroll );
+					
+					requestAnimationFrame( function dnt_scroll_run() {
 
-			    // Start the ticker timer
-			    //clearInterval( ticker_scroll );
-					setTimeout( function dnt_scroll_run() {
-						
-						if ( ! ticker_paused ) {
-							for( var i=0; i < vars.tick_count; i++ ) {
-	
-								if( ticks[i][0].visible === true ) {
-	
-									var pos = 'reset';
-	
-									if( settings.scroll_direction === 'left' || settings.scroll_direction === 'right' ) {
-	
-										pos = (settings.scroll_direction === 'left') ? mtphr_dnt_scroll_left(i) : mtphr_dnt_scroll_right(i);
-										if( pos === 'reset' ) {
-											pos = ticks[i][0].reset;
-											ticks[i][0].headline.css('opacity', 0);
-										} else {
-											ticks[i][0].headline.css('opacity', 1);	
-										}
-										ticks[i][0].headline.css( {
-									    transform: 'translateX( ' + pos + 'px )',
-								    } );
+						for( var i=0; i < vars.tick_count; i++ ) {
+
+							if( ticks[i][0].visible === true ) {
+
+								var pos = 'reset';
+
+								if( settings.scroll_direction === 'left' || settings.scroll_direction === 'right' ) {
+
+									pos = (settings.scroll_direction === 'left') ? mtphr_dnt_scroll_left(i) : mtphr_dnt_scroll_right(i);
+									if( pos === 'reset' ) {
+										pos = ticks[i][0].reset;
+										ticks[i][0].headline.css('opacity', 0);
 									} else {
-	
-										pos = (settings.scroll_direction === 'up') ? mtphr_dnt_scroll_up(i) : mtphr_dnt_scroll_down(i);
-										if( pos === 'reset' ) {
-											pos = ticks[i][0].reset;
-											ticks[i][0].headline.css('opacity', 0);
-										} else {
-											ticks[i][0].headline.css('opacity', 1);
-										}
-										ticks[i][0].headline.css( {
-									    transform: 'translateY( ' + pos + 'px )',
-								    } );
+										ticks[i][0].headline.css('opacity', 1);	
 									}
-	
-									ticks[i][0].position = pos;
+									ticks[i][0].headline.css( {
+								    transform: 'translateX( ' + pos + 'px )',
+							    } );
+								} else {
+
+									pos = (settings.scroll_direction === 'up') ? mtphr_dnt_scroll_up(i) : mtphr_dnt_scroll_down(i);
+									if( pos === 'reset' ) {
+										pos = ticks[i][0].reset;
+										ticks[i][0].headline.css('opacity', 0);
+									} else {
+										ticks[i][0].headline.css('opacity', 1);
+									}
+									ticks[i][0].headline.css( {
+								    transform: 'translateY( ' + pos + 'px )',
+							    } );
 								}
+
+								ticks[i][0].position = pos;
 							}
 						}
-						setTimeout( dnt_scroll_run, scroll_interval );
-			    }, scroll_interval );
+						ticker_scroll =  requestAnimationFrame( dnt_scroll_run );
+			    } );
 		    }
 
 		    /**
