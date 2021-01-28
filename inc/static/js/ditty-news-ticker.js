@@ -275,7 +275,6 @@
 						
 						if( settings.scroll_init && init_loop ) {	
 							init_loop = false;
-							console.log( settings.scroll_init_delay );
 							init_timeout = setTimeout( function() {
 								ticker_scroll = requestAnimationFrame( dnt_scroll_run );
 							}, settings.scroll_init_delay * 1000 );

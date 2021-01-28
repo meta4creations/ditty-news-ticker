@@ -62,7 +62,7 @@ final class Ditty_News_Ticker {
 
 		// Plugin version
 		if ( ! defined( 'MTPHR_DNT_VERSION' ) ) {
-			define( 'MTPHR_DNT_VERSION', '2.3.6' );
+			define( 'MTPHR_DNT_VERSION', '2.3.7' );
 		}
 
 		// Plugin Folder Path
