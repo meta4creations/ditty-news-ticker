@@ -72,6 +72,10 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Changelog ==
 
+= 2.3.6 =
+* Javascript bug fix
+* Added scroll pause option for showing first tick on it
+
 = 2.3.5 =
 * Javascript updates to scroll functionality
 
@@ -563,4 +567,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Javascript updates to scroll functionality
+Javascript bug fix and added scroll pause option for showing first tick on it

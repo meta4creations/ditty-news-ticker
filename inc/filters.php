@@ -172,6 +172,7 @@ function mtphr_dnt_add_to_global( $id, $meta_data ) {
 		if( isset($_mtphr_dnt_scroll_init) ) {
 			$scroll_init = $_mtphr_dnt_scroll_init ? 1 : 0;
 		}
+		$scroll_init_delay =  isset( $_mtphr_dnt_scroll_init_delay ) ? intval( $_mtphr_dnt_scroll_init_delay ) : 2;
 		$rotate = 0; $rotate_pause = 0; $nav_autohide = 0; $nav_reverse = 0;
 		if( isset($_mtphr_dnt_auto_rotate) ) {
 			$rotate = $_mtphr_dnt_auto_rotate ? 1 : 0;
@@ -195,6 +196,7 @@ function mtphr_dnt_add_to_global( $id, $meta_data ) {
 			'scroll_pause' => $scroll_pause,
 			'scroll_spacing' => intval($_mtphr_dnt_scroll_tick_spacing),
 			'scroll_init' => $scroll_init,
+			'scroll_init_delay' => $scroll_init_delay,
 			'rotate_type' => $_mtphr_dnt_rotate_type,
 			'auto_rotate' => $rotate,
 			'rotate_delay' => intval($_mtphr_dnt_rotate_delay),

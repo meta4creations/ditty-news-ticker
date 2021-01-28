@@ -295,6 +295,27 @@ jQuery( document ).ready( function($) {
 	$('.mtphr-dnt-list-field-mtphr_dnt_mixed_ticks_all').each( function() {
 		mtphr_dnt_mixed_ticks_all( $(this) );
 	});
+	
+	
+	/* --------------------------------------------------------- */
+	/* !First tick on init */
+	/* --------------------------------------------------------- */
+	
+	function mtphr_dnt_init_tick( $field ) {
+		if ( $field.is( ':checked' ) ) {
+			$( '.mtphr-dnt-field-mtphr_dnt_scroll_init_delay' ).show();
+		} else {
+			$( '.mtphr-dnt-field-mtphr_dnt_scroll_init_delay' ).hide();
+		}
+	}
+	
+	$('body').on( 'click', 'input[name="_mtphr_dnt_scroll_init"]', function() {
+		mtphr_dnt_init_tick( $(this) );
+	});
+	
+	if ( $( 'input[name="_mtphr_dnt_scroll_init"]').length ) {
+		mtphr_dnt_init_tick( $( 'input[name="_mtphr_dnt_scroll_init"]') );
+	} 
 
 });
 

@@ -17,6 +17,14 @@
 		"oAP": "/ditty-news-ticker.php",
 		"oF": 0
 		},
+	"/eddsl/EDD_SL_Plugin_Updater.php": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 2,
+		"oAP": "/eddsl/EDD_SL_Plugin_Updater.php",
+		"oF": 0
+		},
 	"/eddsl/eddsl.php": {
 		"cB": 0,
 		"ft": 8192,

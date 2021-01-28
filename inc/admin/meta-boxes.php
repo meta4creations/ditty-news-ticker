@@ -424,6 +424,7 @@ function mtphr_dnt_scroll_values() {
 	$defaults = array(
 		'direction' => 'left',
 		'init' => '',
+		'init_delay' => '2',
 		'width' => 0,
 		'height' => 0,
 		'padding' => 0,
@@ -438,6 +439,7 @@ function mtphr_dnt_scroll_values() {
 	$values = array(
 		'direction' => get_post_meta( $post->ID, '_mtphr_dnt_scroll_direction', true ),
 		'init' => get_post_meta( $post->ID, '_mtphr_dnt_scroll_init', true ),
+		'init_delay' => get_post_meta( $post->ID, '_mtphr_dnt_scroll_init_delay', true ),
 		'width' => get_post_meta( $post->ID, '_mtphr_dnt_scroll_width', true ),
 		'height' => get_post_meta( $post->ID, '_mtphr_dnt_scroll_height', true ),
 		'padding' => get_post_meta( $post->ID, '_mtphr_dnt_scroll_padding', true ),
@@ -489,6 +491,13 @@ function mtphr_dnt_scroll_fields() {
 					'name' => '_mtphr_dnt_scroll_init',
 					'label' => __('Show first tick on init', 'ditty-news-ticker'),
 					'value' => $values['init'],
+				),
+				/* !Scroll init - 2.0.0 */
+				'init_delay' => array(
+					'type' => 'number',
+					'name' => '_mtphr_dnt_scroll_init_delay',
+					'after' => __('Delay scroll start (in seconds)', 'ditty-news-ticker'),
+					'value' => $values['init_delay'],
 				)
 			)
 		),
@@ -1303,6 +1312,7 @@ function mtphr_dnt_metabox_save( $post_id ) {
 	
 		$direction = isset($_POST['_mtphr_dnt_scroll_direction']) ? $_POST['_mtphr_dnt_scroll_direction'] : 'left';
 		$init = isset($_POST['_mtphr_dnt_scroll_init']) ? $_POST['_mtphr_dnt_scroll_init'] : '';
+		$init_delay = isset($_POST['_mtphr_dnt_scroll_init_delay']) ? $_POST['_mtphr_dnt_scroll_init_delay'] : 2;
 		$width = isset($_POST['_mtphr_dnt_scroll_width']) ? intval($_POST['_mtphr_dnt_scroll_width']) : 0;
 		$height = isset($_POST['_mtphr_dnt_scroll_height']) ? intval($_POST['_mtphr_dnt_scroll_height']) : 0;
 		$padding = isset($_POST['_mtphr_dnt_scroll_padding']) ? intval($_POST['_mtphr_dnt_scroll_padding']) : 0;
@@ -1313,6 +1323,7 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		
 		update_post_meta( $post_id, '_mtphr_dnt_scroll_direction', $direction );
 		update_post_meta( $post_id, '_mtphr_dnt_scroll_init', $init );
+		update_post_meta( $post_id, '_mtphr_dnt_scroll_init_delay', $init_delay );
 		update_post_meta( $post_id, '_mtphr_dnt_scroll_width', $width );
 		update_post_meta( $post_id, '_mtphr_dnt_scroll_height', $height );
 		update_post_meta( $post_id, '_mtphr_dnt_scroll_padding', $padding );

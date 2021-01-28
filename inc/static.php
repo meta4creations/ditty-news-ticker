@@ -111,6 +111,7 @@ function mtphr_dnt_tickers_init_scripts() {
 					scroll_pause : <?php echo $ticker['scroll_pause']; ?>,
 					scroll_spacing : <?php echo $ticker['scroll_spacing']; ?>,
 					scroll_init : <?php echo $ticker['scroll_init']; ?>,
+					scroll_init_delay : <?php echo isset( $ticker['scroll_init_delay'] ) ? intval( $ticker['scroll_init_delay'] ) : 2; ?>,
 					rotate_type : '<?php echo $ticker['rotate_type']; ?>',
 					auto_rotate : <?php echo $ticker['auto_rotate']; ?>,
 					rotate_delay : <?php echo $ticker['rotate_delay']; ?>,

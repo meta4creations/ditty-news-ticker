@@ -25,6 +25,7 @@
 					scroll_spacing				: 40,
 					scroll_units					: 10,
 					scroll_init						: 0,
+					scroll_init_delay			: 2,
 					scroll_loop						: 1,
 					rotate_type						: 'fade',
 					auto_rotate						: 0,
@@ -69,12 +70,12 @@
 						ticker_height = 0,
 						ticks = [],
 						ticker_scroll,
-						ticker_paused = false,
 						ticker_scroll_resize = true,
 						rotator_delay,
 						rotate_adjustment = settings.rotate_type,
 						after_change_timeout,
-						scroll_interval = 10,
+						init_timeout,
+						init_loop = true,
 						scroll_percent = 0.13;
 						
 
@@ -197,6 +198,7 @@
 						
 						// Start the scroll loop
 						mtphr_dnt_scroll_loop();
+						
 		    	}
 					
 
@@ -216,6 +218,7 @@
 		    }
 		    
 		    function mtphr_dnt_scroll_pause() {
+			    clearTimeout( init_timeout );
 			    cancelAnimationFrame( ticker_scroll );
 		    }
 		    
@@ -230,9 +233,9 @@
 		     */
 		    function mtphr_dnt_scroll_loop() {
 					
-					cancelAnimationFrame( ticker_scroll );
-					
-					requestAnimationFrame( function dnt_scroll_run() {
+					clearTimeout( init_timeout );
+					cancelAnimationFrame( ticker_scroll );	
+					function dnt_scroll_run() {
 
 						for( var i=0; i < vars.tick_count; i++ ) {
 
@@ -269,8 +272,19 @@
 								ticks[i][0].position = pos;
 							}
 						}
-						ticker_scroll =  requestAnimationFrame( dnt_scroll_run );
-			    } );
+						
+						if( settings.scroll_init && init_loop ) {	
+							init_loop = false;
+							console.log( settings.scroll_init_delay );
+							init_timeout = setTimeout( function() {
+								ticker_scroll = requestAnimationFrame( dnt_scroll_run );
+							}, settings.scroll_init_delay * 1000 );
+						} else {
+							init_loop = false;
+							ticker_scroll = requestAnimationFrame( dnt_scroll_run );
+						}	
+			    }
+			    ticker_scroll = requestAnimationFrame( dnt_scroll_run );
 		    }
 
 		    /**
@@ -541,13 +555,13 @@
 					if( settings.scroll_init ) {
 
 						if( settings.scroll_direction === 'left' ) {
-							position = ticker_width*0.1;
+							position = 0;
 						} else if( settings.scroll_direction === 'right' ) {
-							position = ticker_width*0.9;
+							position = ticker_width;
 						} else if( settings.scroll_direction === 'up' ) {
-							position = ticker_height*0.1;
+							position = 0;
 						} else if( settings.scroll_direction === 'down' ) {
-							position = ticker_height*0.9;
+							position = ticker_height;
 						}
 
 						for( i=0; i < vars.tick_count; i++ ) {
@@ -1446,7 +1460,8 @@
 				
 				$container.on('mtphr_dnt_replace_ticks', function( e, ticks, delay ) {
 					
-					clearInterval( ticker_scroll );
+					clearTimeout( init_timeout );
+					cancelAnimationFrame( ticker_scroll );
 					$container.find('.mtphr-dnt-tick').remove();
 					
 					ticks.each( function() {
