@@ -39,7 +39,7 @@ function mtphr_dnt_setup_post_types() {
 		'rewrite' => true,
 		'menu_icon' => 'dashicons-ditty-news-ticker',
 		'supports' => array( 'title', 'author' ),
-		'rewrite' => array( 'slug' => __( 'ticker', 'ditty-news-ticker' ) ),
+		'rewrite' => array( 'slug' => 'ticker' ),
 		'show_in_nav_menus' => $public,
 	);
 
