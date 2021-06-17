@@ -97,6 +97,14 @@
       "oAP" : "\/inc\/admin\/upgrades.php",
       "oF" : 0
     },
+    "\/inc\/ChromePhp.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/inc\/ChromePhp.php",
+      "oF" : 0
+    },
     "\/inc\/classes\/class-mtphr-dnt-image.php" : {
       "cB" : 0,
       "ft" : 8192,

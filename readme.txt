@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 4.5
-Tested up to: 5.7
+Tested up to: 5.7.2
 Stable tag: /trunk/
 License: GPL2
 
@@ -71,6 +71,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 5. Embed options
 
 == Changelog ==
+
+= 2.3.9 =
+* Modified javascript to force ticker to resume scroll after clicking a link
 
 = 2.3.8 =
 * Removed string translation from news ticker post type slug
@@ -574,4 +577,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Removed string translation from news ticker post type slug
+Modified javascript to force ticker to resume scroll after clicking a link

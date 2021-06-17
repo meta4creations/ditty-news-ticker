@@ -82,9 +82,6 @@
 				// Add the vars
 				$ticker.data('ditty:vars', vars);
 
-				
-
-
 
 		    /**
 		     * Initialize the ticker
@@ -213,6 +210,13 @@
 						  if( settings.scroll_pause && !vars.paused ) {
 					    	mtphr_dnt_scroll_play();
 					    }
+						}
+					} );
+					
+					// Clear the loop on mouse enter
+					$ticker.find( 'a' ).on( 'click', function() {
+						if( settings.scroll_pause && !vars.paused ) {
+							mtphr_dnt_scroll_play();
 						}
 					} );
 		    }
@@ -679,6 +683,12 @@
 						  if( settings.auto_rotate && settings.rotate_pause  && !vars.running && !vars.paused ) {
 					    	mtphr_dnt_rotator_play();
 					    }
+						}
+					} );
+					
+					$ticker.find( 'a' ).on( 'click', function() {
+						if( settings.auto_rotate && settings.rotate_pause  && !vars.running && !vars.paused ) {
+							mtphr_dnt_rotator_play();
 						}
 					} );
 		    }
