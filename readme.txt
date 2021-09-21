@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 4.5
-Tested up to: 5.8
+Tested up to: 5.8.1
 Stable tag: /trunk/
 License: GPL2
 
@@ -71,6 +71,9 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 5. Embed options
 
 == Changelog ==
+
+= 2.3.11 =
+* Updated wpml-config.xml file.
 
 = 2.3.10 =
 * Resolved new widgets page bug. Note, all tickers will show in list mode on the widgets page.
@@ -580,4 +583,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Resolved new widgets page bug. Note, all tickers will show in list mode on the widgets page.
+Updated wpml-config.xml file
