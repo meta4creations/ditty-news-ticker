@@ -73,7 +73,7 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 == Changelog ==
 
 = 2.3.12 =
-* Big fix in wpml-config.xml file.
+* Bug fix in wpml-config.xml file.
 
 = 2.3.11 =
 * Updated wpml-config.xml file.
@@ -586,4 +586,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Big fix in wpml-config.xml file
+Bug fix in wpml-config.xml file
