@@ -1,0 +1,327 @@
+$display_border_width: 4;
+$display_border_radius_width: 10;
+$input_padding: 5;
+
+.ditty-metabox {
+	.rwmb-label,
+	.rwmb-input {
+		width: 100%;
+	}
+	input[type=date],
+	input[type=datetime-local],
+	input[type=datetime],
+	input[type=email],
+	input[type=month],
+	input[type=number],
+	input[type=password],
+	input[type=search],
+	input[type=tel],
+	input[type=text],
+	input[type=time],
+	input[type=url],
+	input[type=week] {
+		font-size: 12px;
+		line-height: 16px;
+    padding: 5px;
+    border-radius: 0;
+	}
+	#wp-content-editor-tools {
+		background: transparent;
+	}
+	textarea {
+		font-size: 12px;
+		line-height: 16px;
+    padding: 5px;
+    border-radius: 0;
+	}
+	.rwmb-field {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
+		padding: 10px;
+		margin-bottom: 0;
+		&:not(:last-child) {
+			border-bottom: 1px solid #EEE;
+		}
+	}
+	.rwmb-select.rwmb-select {
+		font-size: 12px;
+		line-height: 16px;
+    padding: 5px;
+    border-radius: 0;
+	}
+	.ui-slider-horizontal {
+		display: inline-block;
+    width: calc( 100% - 120px); 
+    margin-right: 5px;
+	}
+	.rwmb-group-wrapper {
+		margin: 0;
+	  padding: 20px 0;
+	  border-bottom: 2px dashed rgba(0, 0, 0, 0.05);
+	  &:last-child {
+		  border-bottom: none;
+	  }
+		> .rwmb-label {
+			width: 100%;
+			padding: 10px;
+			margin: 0;
+			> label {
+				font-size: 14px;
+				line-height: 1.4;
+				margin: 0;
+			}
+			~ .rwmb-input {
+				width: 100%;
+			}
+		}
+	}
+	.rwmb-ditty_padding-group,
+	.rwmb-ditty_border_radius-group,
+	.rwmb-ditty_display-group {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		margin: 0 -2px;
+		.input-wrapper {
+			width: 50%;
+			padding: 2px;
+			margin: 0;
+		}
+		.input-border {
+			position: relative;
+			border: 1px solid #EEE;
+			&:before {
+				position: absolute;
+				content: '';
+			}
+		}
+		input {
+			border-color: transparent;
+		}
+		.rwmb-ditty_display-picker {
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+	.rwmb-ditty_padding-group {
+		.input-border:before {
+			background: $ditty_highlight_1;
+		}
+		.input-wrapper {
+			width: 25%;
+		}
+		.paddingTop {
+			.input-border:before {
+				top: 0;
+				left: 0;
+				height: #{$display_border_width}px;
+				width: 100%;
+			}
+		}
+		.paddingBottom {
+			.input-border:before {
+				bottom: 0;
+				left: 0;
+				height: #{$display_border_width}px;
+				width: 100%;
+			}
+		}
+		.paddingLeft {
+			.input-border:before {
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: #{$display_border_width}px;
+			}
+		}
+		.paddingRight {
+			.input-border:before {
+				top: 0;
+				right: 0;
+				height: 100%;
+				width: #{$display_border_width}px;
+			}
+		}
+	}
+	.rwmb-ditty_border_radius-group {
+		.input-border:before {
+			width: 0;
+			height: 0;
+			border-style: solid;
+		}
+		.borderTopLeftRadius {
+			.input-border:before {
+				top: 0;
+				left: 0;
+				border-width: #{$display_border_radius_width}px #{$display_border_radius_width}px 0 0;
+				border-color: $ditty_highlight_1 transparent transparent transparent;
+			}
+		}
+		.borderTopRightRadius {
+			.input-border:before {
+				top: 0;
+				right: 0;
+				border-width: 0 #{$display_border_radius_width}px #{$display_border_radius_width}px 0;
+				border-color: transparent $ditty_highlight_1 transparent transparent;
+			}
+		}
+		.borderBottomLeftRadius {
+			.input-border:before {
+				bottom: 0;
+				left: 0;
+				border-width: #{$display_border_radius_width}px 0 0 #{$display_border_radius_width}px;
+				border-color: transparent transparent transparent $ditty_highlight_1;
+			}
+		}
+		.borderBottomRightRadius {
+			.input-border:before {
+				bottom: 0;
+				right: 0;
+				border-width: 0 0 #{$display_border_radius_width}px #{$display_border_radius_width}px;
+				border-color: transparent transparent $ditty_highlight_1 transparent;
+			}
+		}
+	}
+	.rwmb-ditty_display-group {
+		width: 100%;
+		max-width: 300px;
+		.input-wrapper {
+			width: 33.333%;
+		}
+		.paddingTop,
+		.paddingLeft,
+		.paddingRight,
+		.paddingBottom {
+			.input-border:before {
+				background: $ditty_highlight_1;
+			}
+		}
+		.borderTopLeftRadius,
+		.borderTopRightRadius,
+		.borderBottomLeftRadius,
+		.borderBottomRightRadius {
+			.input-border:before {
+				width: 0;
+				height: 0;
+				border-style: solid;
+			}
+		}
+		.borderTopLeftRadius {
+			.input-border:before {
+				top: 0;
+				left: 0;
+				border-width: #{$display_border_radius_width}px #{$display_border_radius_width}px 0 0;
+				border-color: $ditty_highlight_1 transparent transparent transparent;
+			}
+			input {
+				padding-left: #{$input_padding + $display_border_width}px
+			}
+		}
+		.paddingTop {
+			.input-border:before {
+				top: 0;
+				left: 0;
+				height: #{$display_border_width}px;
+				width: 100%;
+			}
+			input {
+				text-align: center;
+			}
+		}
+		.borderTopRightRadius {
+			.input-border:before {
+				top: 0;
+				right: 0;
+				border-width: 0 #{$display_border_radius_width}px #{$display_border_radius_width}px 0;
+				border-color: transparent $ditty_highlight_1 transparent transparent;
+			}
+			input {
+				text-align: right;
+				padding-right: #{$input_padding + $display_border_width}px
+			}
+		}
+		.paddingLeft {
+			.input-border:before {
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: #{$display_border_width}px;
+			}
+			input {
+				padding-left: #{$input_padding + $display_border_width}px
+			}
+		}
+		.backgroundColor {
+			.wp-picker-container {
+				width: 100%;
+				.wp-color-result.button {
+					width: 100%;
+					font-size: 12px;
+					border-radius: 0;
+					border-color: transparent;
+					margin: 0;
+					.wp-color-result-text {
+						position: absolute;
+				    top: 0;
+				    left: 0;
+				    border: none;
+				    background: transparent;
+					}
+				}
+			}
+			input {
+				text-align: center;
+			}
+		}
+		.paddingRight {
+			.input-border:before {
+				top: 0;
+				right: 0;
+				height: 100%;
+				width: #{$display_border_width}px;
+			}
+			input {
+				text-align: right;
+				padding-right: #{$input_padding + $display_border_width}px
+			}
+		}
+		.borderBottomLeftRadius {
+			.input-border:before {
+				bottom: 0;
+				left: 0;
+				border-width: #{$display_border_radius_width}px 0 0 #{$display_border_radius_width}px;
+				border-color: transparent transparent transparent $ditty_highlight_1;
+			}
+			input {
+				padding-left: #{$input_padding + $display_border_width}px
+			}
+		}
+		.paddingBottom {
+			.input-border:before {
+				bottom: 0;
+				left: 0;
+				height: #{$display_border_width}px;
+				width: 100%;
+			}
+			input {
+				text-align: center;
+			}
+		}
+		.borderBottomRightRadius {
+			.input-border:before {
+				bottom: 0;
+				right: 0;
+				border-width: 0 0 #{$display_border_radius_width}px #{$display_border_radius_width}px;
+				border-color: transparent transparent $ditty_highlight_1 transparent;
+			}
+			input {
+				text-align: right;
+				padding-right: #{$input_padding + $display_border_width}px
+			}
+		}
+	}
+}

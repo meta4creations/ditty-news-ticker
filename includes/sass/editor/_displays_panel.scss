@@ -1,0 +1,34 @@
+.ditty-editor-display {
+	cursor: pointer;
+	&:not( .active ) {
+		&:hover {
+			.ditty-data-list__item__edit {
+				display: none;
+			}
+		}
+	}
+	&--default {
+		.ditty-data-list__item__delete {
+			display: none !important;
+		}
+	}
+	&.active {
+		.ditty-data-list__item__delete {
+			display: none;
+		}
+		&:hover {
+			.ditty-data-list__item__delete {
+				display: none;
+			}
+		}
+	}
+	&--default {
+		background-color: #CCC;
+	}
+	.ditty-data-list {
+		max-height: calc( 100vh - 470px );
+		min-height: 300px;
+		overflow-y: scroll;
+		-webkit-overflow-scrolling: touch;
+	}
+}

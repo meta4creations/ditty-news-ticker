@@ -1,0 +1,88 @@
+.wp-admin.post-type-ditty {
+	.wrap {
+		margin-right: 2px;
+	}
+	#poststuff {
+    min-width: inherit;
+	}
+	#post-body-content {
+		min-width: inherit;
+	}
+	#post-body.columns-2 #postbox-container-1 {
+		margin-right: -400px;
+    width: 380px;
+	}
+	#poststuff #post-body.columns-2 {
+		margin-right: 400px;
+		#side-sortables {
+			width: 380px;
+		}
+	}
+	#titlediv {
+		display: none;			
+	}
+}
+@media only screen and ( max-width: 850px ) {
+	.wp-admin.post-type-ditty {
+		#poststuff #post-body.columns-2 #side-sortables {
+			width: auto;
+		}
+	}
+}
+
+.menu-icon-ditty {
+	.dashicons-before:before {
+		content: '';
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: 17px 17px;
+		@include menu_icon_background( #9EA3A8 );
+	}
+	&:hover {
+		.dashicons-before:before {
+			@include menu_icon_background( #72aee6 );
+		}
+	}
+	&.wp-has-current-submenu {
+		.dashicons-before:before {
+			@include menu_icon_background( #FFF );
+		}
+	}
+}
+
+.ditty_layout_ui--disabled {
+	#adminmenu .wp-submenu > li > a[href="edit.php?post_type=ditty_layout"] {
+		display: none;
+	}
+}
+.ditty_display_ui--disabled {
+	#adminmenu .wp-submenu > li > a[href="edit.php?post_type=ditty_display"] {
+		display: none;
+	}
+}
+.ditty-error-notice {
+	line-height: 1.4em;
+	font-weight: bold;
+	color: $error_dark;
+	background: $error;
+	border: 1px solid $error_dark;
+	border-radius: 3px;
+	padding: 7px 10px;
+}
+
+#adminmenu .wp-submenu > li > a[href="edit.php?post_type=ditty_news_ticker"] {
+	
+}
+#adminmenu .wp-submenu > li > a[href="edit.php?post_type=ditty_news_ticker"],
+#adminmenu .wp-submenu > li > a[href="edit.php?post_type=ditty&page=mtphr_dnt_settings"] {
+	background-color: rgba(255, 255, 255, 0.1);
+	box-shadow: -5px 0 0 0 rgba(255, 255, 255, 0.1);
+}
+#adminmenu .wp-submenu > li > a[href="edit.php?post_type=ditty_news_ticker"] {
+	padding-top: 8px;
+	margin-top: 8px;
+}
+#adminmenu .wp-submenu > li > a[href="edit.php?post_type=ditty&page=mtphr_dnt_settings"] {
+	padding-bottom: 8px;
+	margin-bottom: -8px;
+}

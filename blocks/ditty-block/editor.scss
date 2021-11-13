@@ -1,0 +1,43 @@
+$ditty_primary: #39b44a;
+.ditty-logo--white,
+.ditty-icon--white {
+  fill: #FFF !important;
+}
+.ditty-logo--green,
+.ditty-icon--green {
+  fill: $ditty_primary !important;
+}
+.wp-block-metaphorcreations-ditty-block {
+  background: rgba( 255, 255, 255, .8 );
+  border: 2px solid $ditty_primary;
+  padding: 20px;
+  &__info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  &__vals {
+    font-size: 14px;
+    color: #FFF;
+    background: $ditty_primary;
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin-right: 5px;
+  }
+  &__controls {
+    margin-top: 15px;
+    label {
+      width: 60px;
+      font-weight: bold;
+    }
+  }
+  select {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  svg {
+    max-height: 60px;
+    margin-right: 10px;
+  }
+}

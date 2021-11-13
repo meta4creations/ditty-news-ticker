@@ -36,41 +36,6 @@ function mtphr_dnt_update_option( $option, $value ) {
 
 
 /**
- * Return strings
- * @since 2.1.17
- */
-function mtphr_dnt_strings() {	
-	
-	$strings = array(
-		'successful_activation' => __('Your license is activated!', 'ditty-news-ticker'),
-		'unsuccessful_activation' => __('Sorry, this license is not valid.', 'ditty-news-ticker'),
-		'successful_deactivation' => __('Your license has been deactivated.', 'ditty-news-ticker'),
-		'unsuccessful_deactivation' => __('Sorry, something went wrong with the deactivation.', 'ditty-news-ticker'),
-		'deactivate_license' => __('Deactivate License', 'ditty-news-ticker'),
-		'activate_license' => __('Activate License', 'ditty-news-ticker'),
-		'refresh_license' => __('Refresh License', 'ditty-news-ticker')
-	);
-	
-	return apply_filters( 'mtphr_dnt_license_strings', $strings );
-}
-
-
-/**
- * Return a single string
- * @since 2.1.17
- */
-function mtphr_dnt_string( $slug ) {	
-
-	$strings = mtphr_dnt_strings();
-	if( isset($strings[$slug]) ) {
-		return $strings[$slug];
-	} else {
-		return sprintf(__('% string does not exist', 'ditty-news-ticker'), $slug);
-	}
-}
-
-
-/**
  * Return extension license data
  * @since 2.1.17
  */

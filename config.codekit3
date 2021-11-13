@@ -7,8 +7,125 @@
       "uuidString" : "0B43A184-D1FE-4DF7-BE71-3FAE2291CFE5"
     }
   ],
-  "creatorBuild" : "34127",
+  "creatorBuild" : "34214",
   "files" : {
+    "\/.gitignore" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/.gitignore",
+      "oF" : 0
+    },
+    "\/blocks\/ditty-block\/editor.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/blocks\/css\/editor.css",
+      "oF" : 1,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/blocks\/ditty-block\/icon.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/blocks\/ditty-block\/icon.min.js",
+      "oF" : 1,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/blocks\/ditty-block\/index.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/blocks\/ditty-block\/index.min.js",
+      "oF" : 1,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/blocks\/ditty-block\/index.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/blocks\/ditty-block\/index.php",
+      "oF" : 1
+    },
+    "\/blocks\/ditty-block\/style.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/blocks\/css\/style.css",
+      "oF" : 1,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/blocks\/frontend.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/blocks\/frontend.min.js",
+      "oF" : 1,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/blocks\/i18n.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/blocks\/i18n.min.js",
+      "oF" : 1,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/blocks\/index.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/blocks\/index.min.js",
+      "oF" : 1,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/composer.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/composer-min.json",
+      "oF" : 0,
+      "oO" : 0,
+      "oS" : 1
+    },
+    "\/composer.lock" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/composer.lock",
+      "oF" : 0
+    },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -33,207 +150,287 @@
       "oAP" : "\/eddsl\/eddsl.php",
       "oF" : 0
     },
-    "\/inc\/admin\/ajax.php" : {
+    "\/includes\/admin\/columns.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/admin\/ajax.php",
+      "oAP" : "\/includes\/admin\/columns.php",
       "oF" : 0
     },
-    "\/inc\/admin\/edit-columns.php" : {
+    "\/includes\/admin\/EDD_SL_Plugin_Updater.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/admin\/edit-columns.php",
+      "oAP" : "\/includes\/admin\/EDD_SL_Plugin_Updater.php",
       "oF" : 0
     },
-    "\/inc\/admin\/fields\/fields.php" : {
+    "\/includes\/admin\/settings.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/admin\/fields\/fields.php",
+      "oAP" : "\/includes\/admin\/settings.php",
       "oF" : 0
     },
-    "\/inc\/admin\/fields\/helpers.php" : {
+    "\/includes\/admin\/upgrade_details.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/admin\/fields\/helpers.php",
+      "oAP" : "\/includes\/admin\/upgrade_details.php",
       "oF" : 0
     },
-    "\/inc\/admin\/filters.php" : {
+    "\/includes\/class-ditty-activator.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/admin\/filters.php",
+      "oAP" : "\/includes\/class-ditty-activator.php",
       "oF" : 0
     },
-    "\/inc\/admin\/functions.php" : {
+    "\/includes\/class-ditty-db-item-meta.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/admin\/functions.php",
+      "oAP" : "\/includes\/class-ditty-db-item-meta.php",
       "oF" : 0
     },
-    "\/inc\/admin\/meta-boxes.php" : {
+    "\/includes\/class-ditty-db-items.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/admin\/meta-boxes.php",
+      "oAP" : "\/includes\/class-ditty-db-items.php",
       "oF" : 0
     },
-    "\/inc\/admin\/upgrades.php" : {
+    "\/includes\/class-ditty-db.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/admin\/upgrades.php",
+      "oAP" : "\/includes\/class-ditty-db.php",
       "oF" : 0
     },
-    "\/inc\/ChromePhp.php" : {
+    "\/includes\/class-ditty-deactivator.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/ChromePhp.php",
+      "oAP" : "\/includes\/class-ditty-deactivator.php",
       "oF" : 0
     },
-    "\/inc\/classes\/class-mtphr-dnt-image.php" : {
+    "\/includes\/class-ditty-display-item.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/classes\/class-mtphr-dnt-image.php",
+      "oAP" : "\/includes\/class-ditty-display-item.php",
       "oF" : 0
     },
-    "\/inc\/classes\/class-mtphr-dnt-roles.php" : {
+    "\/includes\/class-ditty-display-type-list.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/classes\/class-mtphr-dnt-roles.php",
+      "oAP" : "\/includes\/class-ditty-display-type-list.php",
       "oF" : 0
     },
-    "\/inc\/classes\/class-mtphr-dnt-tick.php" : {
+    "\/includes\/class-ditty-display-type-ticker.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/classes\/class-mtphr-dnt-tick.php",
+      "oAP" : "\/includes\/class-ditty-display-type-ticker.php",
       "oF" : 0
     },
-    "\/inc\/classes\/class-mtphr-dnt.php" : {
+    "\/includes\/class-ditty-display-type.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/classes\/class-mtphr-dnt.php",
+      "oAP" : "\/includes\/class-ditty-display-type.php",
       "oF" : 0
     },
-    "\/inc\/classes\/helpers\/class-mtphr-dnt-string-replacement.php" : {
+    "\/includes\/class-ditty-display.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/classes\/helpers\/class-mtphr-dnt-string-replacement.php",
+      "oAP" : "\/includes\/class-ditty-display.php",
       "oF" : 0
     },
-    "\/inc\/composer.php" : {
+    "\/includes\/class-ditty-displays.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/composer.php",
+      "oAP" : "\/includes\/class-ditty-displays.php",
       "oF" : 0
     },
-    "\/inc\/filters.php" : {
+    "\/includes\/class-ditty-editor.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/filters.php",
+      "oAP" : "\/includes\/class-ditty-editor.php",
       "oF" : 0
     },
-    "\/inc\/functions.php" : {
+    "\/includes\/class-ditty-errors.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/functions.php",
+      "oAP" : "\/includes\/class-ditty-errors.php",
       "oF" : 0
     },
-    "\/inc\/help.php" : {
+    "\/includes\/class-ditty-extensions.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/help.php",
+      "oAP" : "\/includes\/class-ditty-extensions.php",
       "oF" : 0
     },
-    "\/inc\/helpers.php" : {
+    "\/includes\/class-ditty-i18n.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/helpers.php",
+      "oAP" : "\/includes\/class-ditty-i18n.php",
       "oF" : 0
     },
-    "\/inc\/hooks.php" : {
+    "\/includes\/class-ditty-item-type-default.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/hooks.php",
+      "oAP" : "\/includes\/class-ditty-item-type-default.php",
       "oF" : 0
     },
-    "\/inc\/install.php" : {
+    "\/includes\/class-ditty-item-type-posts.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/install.php",
+      "oAP" : "\/includes\/class-ditty-item-type-posts.php",
       "oF" : 0
     },
-    "\/inc\/post-types.php" : {
+    "\/includes\/class-ditty-item-type-wp-editor.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/post-types.php",
+      "oAP" : "\/includes\/class-ditty-item-type-wp-editor.php",
       "oF" : 0
     },
-    "\/inc\/settings.php" : {
+    "\/includes\/class-ditty-item-type.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/settings.php",
+      "oAP" : "\/includes\/class-ditty-item-type.php",
       "oF" : 0
     },
-    "\/inc\/shortcodes.php" : {
+    "\/includes\/class-ditty-item.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/shortcodes.php",
+      "oAP" : "\/includes\/class-ditty-item.php",
       "oF" : 0
     },
-    "\/inc\/static.php" : {
+    "\/includes\/class-ditty-items.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/static.php",
+      "oAP" : "\/includes\/class-ditty-items.php",
       "oF" : 0
     },
-    "\/inc\/static\/css\/style-admin.css" : {
+    "\/includes\/class-ditty-layout-type-default.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/class-ditty-layout-type-default.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-layout-type-wp-editor.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/class-ditty-layout-type-wp-editor.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-layout-type-wp-post.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/class-ditty-layout-type-wp-post.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-layout-type.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/class-ditty-layout-type.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-layout.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/class-ditty-layout.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-layouts.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/class-ditty-layouts.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-loader.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/class-ditty-loader.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-posts.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/class-ditty-posts.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-roles.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/class-ditty-roles.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/class-ditty.php",
+      "oF" : 0
+    },
+    "\/includes\/css\/blocks.editor-min.css" : {
       "aP" : 0,
       "bl" : 0,
       "ci" : 0,
@@ -241,11 +438,11 @@
       "ft" : 16,
       "ma" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/static\/css\/style-admin-min.css",
+      "oAP" : "\/includes\/css\/blocks.editor-min-min.css",
       "oF" : 0,
       "pg" : 0
     },
-    "\/inc\/static\/css\/style.css" : {
+    "\/includes\/css\/blocks.editor.css" : {
       "aP" : 0,
       "bl" : 0,
       "ci" : 0,
@@ -253,140 +450,849 @@
       "ft" : 16,
       "ma" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/static\/css\/style-min.css",
+      "oAP" : "\/includes\/css\/blocks.editor-min.css",
       "oF" : 0,
       "pg" : 0
     },
-    "\/inc\/static\/img\/dittynewsticker.svg" : {
-      "ft" : 2097152,
-      "miP" : 0,
+    "\/includes\/css\/blocks.style.css" : {
+      "aP" : 0,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/static\/img\/dittynewsticker.svg",
+      "oAP" : "\/includes\/css\/blocks.style-min.css",
       "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/css\/ditty-admin.css" : {
+      "aP" : 0,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/css\/ditty-admin-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/css\/ditty.css" : {
+      "aP" : 0,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/css\/ditty-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/fields\/ditty-field-button.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-button.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-checkbox.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-checkbox.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-checkboxes.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-checkboxes.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-code.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-code.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-color.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-color.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-date.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-date.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-divider.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-divider.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-group.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-group.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-html.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-html.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-number.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-number.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-radio.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-radio.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-radius.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-radius.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-select.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-select.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-slider.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-slider.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-spacing.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-spacing.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-text.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-text.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-textarea.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-textarea.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field-wysiwyg.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field-wysiwyg.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/ditty-field.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/ditty-field.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/helpers.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/fields\/helpers.php",
+      "oF" : 0
+    },
+    "\/includes\/fields\/js\/ditty-fields.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/fields\/js\/ditty-fields.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/fields\/js\/ditty-fields.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/fields\/js\/ditty-fields.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/fields\/js\/fields\/clone.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/fields\/js\/fields\/clone.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/fields\/js\/fields\/code.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/fields\/js\/fields\/code.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/fields\/js\/fields\/color.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/fields\/js\/fields\/color.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/fields\/js\/fields\/date.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/fields\/js\/fields\/date.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/fields\/js\/fields\/group.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/fields\/js\/fields\/group.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/fields\/js\/fields\/slider.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/fields\/js\/fields\/slider.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/fields\/js\/fields\/wysiwyg.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/fields\/js\/fields\/wysiwyg.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/helpers.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/helpers.php",
+      "oF" : 0
+    },
+    "\/includes\/hooks.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/hooks.php",
+      "oF" : 0
+    },
+    "\/includes\/img\/ditty-logo-black.png" : {
+      "ft" : 32768,
+      "iS" : 10824,
+      "oA" : 0,
+      "oAP" : "\/includes\/img\/ditty-logo-black.png",
+      "oF" : 0,
+      "oIPL" : 0,
       "opt" : 0,
-      "plM" : 3758088159,
-      "prP" : 0
+      "oT" : 1,
+      "ou" : "lpckwebp-none",
+      "q" : 100,
+      "rq" : 75
     },
-    "\/inc\/static\/js\/ditty-news-ticker.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/inc\/static\/js\/ditty-news-ticker.min.js",
-      "oF" : 0,
-      "sC" : 1,
-      "tS" : 0
-    },
-    "\/inc\/static\/js\/ditty-news-ticker.min.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/inc\/static\/js\/ditty-news-ticker.min.min.js",
-      "oF" : 0,
-      "sC" : 1,
-      "tS" : 0
-    },
-    "\/inc\/static\/js\/partials\/admin-general.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/js\/partials\/admin-general.min.js",
-      "oF" : 0,
-      "sC" : 1,
-      "tS" : 0
-    },
-    "\/inc\/static\/js\/partials\/mtphr-dnt-affix.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/js\/partials\/mtphr-dnt-affix.min.js",
-      "oF" : 0,
-      "sC" : 1,
-      "tS" : 0
-    },
-    "\/inc\/static\/js\/script-admin.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/inc\/static\/js\/script-admin.min.js",
-      "oF" : 0,
-      "sC" : 0,
-      "tS" : 0
-    },
-    "\/inc\/static\/js\/script-admin.min.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/inc\/static\/js\/script-admin.min.min.js",
-      "oF" : 0,
-      "sC" : 1,
-      "tS" : 0
-    },
-    "\/inc\/static\/js\/swiped-events.min.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/js\/swiped-events.min.min.js",
-      "oF" : 1,
-      "sC" : 1,
-      "tS" : 0
-    },
-    "\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.eot" : {
+    "\/includes\/index.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.eot",
+      "oAP" : "\/includes\/index.php",
       "oF" : 0
     },
-    "\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.svg" : {
-      "ft" : 2097152,
-      "miP" : 0,
-      "oA" : 2,
-      "oAP" : "\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.svg",
+    "\/includes\/js\/admin\/class-ditty-extension.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/admin\/class-ditty-extension.min.js",
       "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/admin\/class-ditty-settings.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/admin\/class-ditty-settings.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/admin\/ditty-extensions.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/admin\/ditty-extensions.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/admin\/ditty-layout.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/admin\/ditty-layout.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/class-ditty-display-list.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/class-ditty-display-list.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/class-ditty-display-list.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/class-ditty-display-list.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/class-ditty-display-ticker.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/class-ditty-display-ticker.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/class-ditty-display-ticker.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/class-ditty-display-ticker.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/class-ditty-slider.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/class-ditty-slider.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/class-ditty-slider.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/class-ditty-slider.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/ditty-admin.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/ditty-admin.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/ditty-admin.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/ditty-admin.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/ditty-editor.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/ditty-editor.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/ditty-editor.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/ditty-editor.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/ditty.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/ditty.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/ditty.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/ditty.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor.blocks.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/editor.blocks.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor.blocks.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/editor.blocks.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor\/class-ditty-display-editor-panel.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/editor\/class-ditty-display-editor-panel.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor\/class-ditty-displays-panel.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/editor\/class-ditty-displays-panel.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor\/class-ditty-editor.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/editor\/class-ditty-editor.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor\/class-ditty-item-editor-panel.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/editor\/class-ditty-item-editor-panel.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor\/class-ditty-item-types-panel.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/editor\/class-ditty-item-types-panel.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor\/class-ditty-items-panel.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/editor\/class-ditty-items-panel.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor\/class-ditty-layout-css-editor-panel.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/editor\/class-ditty-layout-css-editor-panel.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor\/class-ditty-layout-html-editor-panel.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/editor\/class-ditty-layout-html-editor-panel.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor\/class-ditty-layout-variations-panel.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/editor\/class-ditty-layout-variations-panel.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor\/class-ditty-layouts-panel.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/editor\/class-ditty-layouts-panel.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor\/class-ditty-settings-panel.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/editor\/class-ditty-settings-panel.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor\/helpers.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/editor\/helpers.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/frontend.blocks.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/frontend.blocks.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/frontend.blocks.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/frontend.blocks.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/partials\/class-ditty-ui-data-list.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/partials\/class-ditty-ui-data-list.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/partials\/helpers.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/partials\/helpers.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/layout-tags.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/layout-tags.php",
+      "oF" : 0
+    },
+    "\/includes\/libs\/ChromePhp.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/libs\/ChromePhp.php",
+      "oF" : 0
+    },
+    "\/includes\/libs\/css\/mtphr-slider.css" : {
+      "aP" : 0,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/libs\/css\/mtphr-slider-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/hammer.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/hammer.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/ion.rangeSlider\/css\/ion.rangeSlider.css" : {
+      "aP" : 0,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/libs\/ion.rangeSlider\/css\/ion.rangeSlider-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/ion.rangeSlider\/css\/ion.rangeSlider.min.css" : {
+      "aP" : 0,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/libs\/ion.rangeSlider\/css\/ion.rangeSlider.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/ion.rangeSlider\/js\/ion.rangeSlider.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/ion.rangeSlider\/js\/ion.rangeSlider.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/ion.rangeSlider\/js\/ion.rangeSlider.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/ion.rangeSlider\/js\/ion.rangeSlider.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/jquery-minicolors\/jquery.minicolors.css" : {
+      "aP" : 0,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/libs\/jquery-minicolors\/jquery.minicolors-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/jquery-minicolors\/jquery.minicolors.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/jquery-minicolors\/jquery.minicolors.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/jquery-minicolors\/jquery.minicolors.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/jquery-minicolors\/jquery.minicolors.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/jquery-minicolors\/jquery.minicolors.png" : {
+      "ft" : 32768,
+      "iS" : 68627,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/jquery-minicolors\/jquery.minicolors.png",
+      "oF" : 0,
+      "oIPL" : 0,
       "opt" : 0,
-      "plM" : 3758088159,
-      "prP" : 0
+      "oT" : 1,
+      "ou" : "lpckwebp-none",
+      "q" : 100,
+      "rq" : 75
     },
-    "\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.ttf" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.ttf",
-      "oF" : 0
-    },
-    "\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.woff" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.woff",
-      "oF" : 0
-    },
-    "\/inc\/static\/libs\/fontastic\/icons-reference.html" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/inc\/static\/libs\/fontastic\/icons-reference.html",
-      "oF" : 0
-    },
-    "\/inc\/static\/libs\/fontastic\/styles.css" : {
+    "\/includes\/libs\/protip\/protip.min.css" : {
       "aP" : 0,
       "bl" : 0,
       "ci" : 0,
@@ -394,760 +1300,474 @@
       "ft" : 16,
       "ma" : 0,
       "oA" : 2,
-      "oAP" : "\/inc\/static\/libs\/fontastic\/styles-min.css",
+      "oAP" : "\/includes\/libs\/protip\/protip.min-min.css",
       "oF" : 0,
       "pg" : 0
     },
-    "\/inc\/static\/libs\/protip\/protip.min.css" : {
-      "aP" : 0,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 2,
-      "oAP" : "\/inc\/static\/libs\/protip\/protip.min-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/inc\/static\/libs\/protip\/protip.min.js" : {
+    "\/includes\/libs\/protip\/protip.min.js" : {
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
       "mi" : 1,
       "oA" : 0,
-      "oAP" : "\/inc\/static\/libs\/protip\/protip.min.min.js",
+      "oAP" : "\/includes\/libs\/protip\/protip.min.min.js",
       "oF" : 0,
-      "sC" : 1,
+      "sC" : 3,
       "tS" : 0
     },
-    "\/inc\/static\/sass\/bourbon\/_bourbon.scss" : {
+    "\/includes\/libs\/protip\/protip.min.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/protip\/protip.min.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/post-types.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/post-types.php",
+      "oF" : 0
+    },
+    "\/includes\/sass\/admin\/_dashboard.scss" : {
       "aP" : 1,
       "bl" : 0,
+      "co" : 0,
       "dP" : 10,
       "ec" : 1,
       "ft" : 4,
       "ma" : 0,
       "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/css\/_bourbon.css",
+      "oAP" : "\/includes\/sass\/css\/_dashboard.css",
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
     },
-    "\/inc\/static\/sass\/bourbon\/helpers\/_buttons-list.scss" : {
+    "\/includes\/sass\/admin\/_datepicker.scss" : {
       "aP" : 1,
       "bl" : 0,
+      "co" : 0,
       "dP" : 10,
       "ec" : 1,
       "ft" : 4,
       "ma" : 0,
       "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_buttons-list.css",
+      "oAP" : "\/includes\/sass\/css\/_datepicker.css",
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
     },
-    "\/inc\/static\/sass\/bourbon\/helpers\/_scales.scss" : {
+    "\/includes\/sass\/admin\/_extension.scss" : {
       "aP" : 1,
       "bl" : 0,
+      "co" : 0,
       "dP" : 10,
       "ec" : 1,
       "ft" : 4,
       "ma" : 0,
       "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_scales.css",
+      "oAP" : "\/includes\/sass\/css\/_extension.css",
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
     },
-    "\/inc\/static\/sass\/bourbon\/helpers\/_text-inputs-list.scss" : {
+    "\/includes\/sass\/admin\/_extensions-app.scss" : {
       "aP" : 1,
       "bl" : 0,
+      "co" : 0,
       "dP" : 10,
       "ec" : 1,
       "ft" : 4,
       "ma" : 0,
       "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_text-inputs-list.css",
+      "oAP" : "\/includes\/sass\/css\/_extensions-app.css",
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
     },
-    "\/inc\/static\/sass\/bourbon\/library\/_border-color.scss" : {
+    "\/includes\/sass\/admin\/_extensions.scss" : {
       "aP" : 1,
       "bl" : 0,
+      "co" : 0,
       "dP" : 10,
       "ec" : 1,
       "ft" : 4,
       "ma" : 0,
       "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_border-color.css",
+      "oAP" : "\/includes\/sass\/css\/_extensions.css",
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
     },
-    "\/inc\/static\/sass\/bourbon\/library\/_border-radius.scss" : {
+    "\/includes\/sass\/admin\/_fields.scss" : {
       "aP" : 1,
       "bl" : 0,
+      "co" : 0,
       "dP" : 10,
       "ec" : 1,
       "ft" : 4,
       "ma" : 0,
       "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_border-radius.css",
+      "oAP" : "\/includes\/sass\/css\/_fields.css",
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
     },
-    "\/inc\/static\/sass\/bourbon\/library\/_border-style.scss" : {
+    "\/includes\/sass\/admin\/_metabox.scss" : {
       "aP" : 1,
       "bl" : 0,
+      "co" : 0,
       "dP" : 10,
       "ec" : 1,
       "ft" : 4,
       "ma" : 0,
       "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_border-style.css",
+      "oAP" : "\/includes\/sass\/css\/_metabox.css",
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
     },
-    "\/inc\/static\/sass\/bourbon\/library\/_border-width.scss" : {
+    "\/includes\/sass\/admin\/_pages.scss" : {
       "aP" : 1,
       "bl" : 0,
+      "co" : 0,
       "dP" : 10,
       "ec" : 1,
       "ft" : 4,
       "ma" : 0,
       "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_border-width.css",
+      "oAP" : "\/includes\/sass\/css\/_pages.css",
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
     },
-    "\/inc\/static\/sass\/bourbon\/library\/_buttons.scss" : {
+    "\/includes\/sass\/admin\/_settings.scss" : {
       "aP" : 1,
       "bl" : 0,
+      "co" : 0,
       "dP" : 10,
       "ec" : 1,
       "ft" : 4,
       "ma" : 0,
       "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_buttons.css",
+      "oAP" : "\/includes\/sass\/css\/_settings.css",
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
     },
-    "\/inc\/static\/sass\/bourbon\/library\/_clearfix.scss" : {
+    "\/includes\/sass\/admin\/_upgrade_details.scss" : {
       "aP" : 1,
       "bl" : 0,
+      "co" : 0,
       "dP" : 10,
       "ec" : 1,
       "ft" : 4,
       "ma" : 0,
       "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_clearfix.css",
+      "oAP" : "\/includes\/sass\/css\/_upgrade_details.css",
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
     },
-    "\/inc\/static\/sass\/bourbon\/library\/_contrast-switch.scss" : {
+    "\/includes\/sass\/ditty-admin.scss" : {
       "aP" : 1,
       "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_contrast-switch.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_ellipsis.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_ellipsis.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_font-face.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_font-face.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_font-stacks.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_font-stacks.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_hide-text.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_hide-text.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_hide-visually.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_hide-visually.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_margin.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_margin.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_modular-scale.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_modular-scale.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_overflow-wrap.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_overflow-wrap.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_padding.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_padding.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_position.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_position.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_prefixer.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_prefixer.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_shade.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_shade.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_size.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_size.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_strip-unit.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_strip-unit.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_text-inputs.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_text-inputs.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_timing-functions.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_timing-functions.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_tint.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_tint.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_triangle.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_triangle.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/library\/_value-prefixer.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_value-prefixer.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/settings\/_settings.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_settings.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/utilities\/_assign-inputs.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_assign-inputs.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/utilities\/_compact-shorthand.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_compact-shorthand.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/utilities\/_contrast-ratio.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_contrast-ratio.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/utilities\/_directional-property.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_directional-property.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/utilities\/_font-source-declaration.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_font-source-declaration.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/utilities\/_gamma.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_gamma.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/utilities\/_lightness.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_lightness.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/utilities\/_retrieve-bourbon-setting.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_retrieve-bourbon-setting.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/utilities\/_unpack-shorthand.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_unpack-shorthand.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/validators\/_contains-falsy.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_contains-falsy.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/validators\/_contains.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_contains.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/validators\/_is-color.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_is-color.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/validators\/_is-length.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_is-length.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/validators\/_is-number.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_is-number.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/bourbon\/validators\/_is-size.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/inc\/static\/sass\/bourbon\/css\/_is-size.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/inc\/static\/sass\/style-admin.scss" : {
-      "aP" : 1,
-      "bl" : 0,
+      "co" : 0,
       "dP" : 10,
       "ec" : 1,
       "ft" : 4,
       "ma" : 0,
       "oA" : 0,
-      "oAP" : "\/inc\/static\/css\/style-admin.css",
+      "oAP" : "\/includes\/css\/ditty-admin.css",
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
     },
-    "\/inc\/static\/sass\/style.scss" : {
+    "\/includes\/sass\/ditty.scss" : {
       "aP" : 1,
       "bl" : 0,
+      "co" : 0,
       "dP" : 10,
       "ec" : 1,
       "ft" : 4,
       "ma" : 0,
       "oA" : 0,
-      "oAP" : "\/inc\/static\/css\/style.css",
+      "oAP" : "\/includes\/css\/ditty.css",
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
     },
-    "\/inc\/templates.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/inc\/templates.php",
-      "oF" : 0
+    "\/includes\/sass\/editor\/_displays_panel.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_displays_panel.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
     },
-    "\/inc\/templates\/control_nav.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/inc\/templates\/control_nav.php",
-      "oF" : 0
+    "\/includes\/sass\/editor\/_editor.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_editor.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
     },
-    "\/inc\/templates\/directional_nav.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/inc\/templates\/directional_nav.php",
-      "oF" : 0
+    "\/includes\/sass\/editor\/_item_types_panel.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_item_types_panel.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
     },
-    "\/inc\/templates\/pagination.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/inc\/templates\/pagination.php",
-      "oF" : 0
+    "\/includes\/sass\/editor\/_items_panel.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_items_panel.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
     },
-    "\/inc\/templates\/play_pause.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/inc\/templates\/play_pause.php",
-      "oF" : 0
+    "\/includes\/sass\/editor\/_layouts_panel.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_layouts_panel.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
     },
-    "\/inc\/templates\/title.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/inc\/templates\/title.php",
-      "oF" : 0
+    "\/includes\/sass\/partials\/_colors_2.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_colors_2.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
     },
-    "\/inc\/widget.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/inc\/widget.php",
-      "oF" : 0
+    "\/includes\/sass\/partials\/_colors.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_colors.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/includes\/sass\/partials\/_display_list.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_display_list.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/includes\/sass\/partials\/_display_ticker.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_display_ticker.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/includes\/sass\/partials\/_displays.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_displays.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/includes\/sass\/partials\/_ditty-ui.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_ditty-ui.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/includes\/sass\/partials\/_general.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_general.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/includes\/sass\/partials\/_items.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_items.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/includes\/sass\/partials\/_metabox.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_metabox.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/includes\/sass\/partials\/_mixins.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_mixins.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/includes\/sass\/partials\/_slider.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_slider.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/includes\/sass\/partials\/_type_wp_editor.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_type_wp_editor.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
     },
     "\/languages\/ditty-news-ticker-ar.mo" : {
       "cB" : 0,
@@ -1253,6 +1873,1208 @@
       "oAP" : "\/languages\/ditty-news-ticker-ru.po",
       "oF" : 0
     },
+    "\/legacy\/ditty-news-ticker.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/ditty-news-ticker.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/admin\/ajax.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/admin\/ajax.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/admin\/edit-columns.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/admin\/edit-columns.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/admin\/fields\/fields.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/admin\/fields\/fields.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/admin\/fields\/helpers.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/admin\/fields\/helpers.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/admin\/filters.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/admin\/filters.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/admin\/functions.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/admin\/functions.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/admin\/meta-boxes.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/admin\/meta-boxes.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/admin\/upgrades.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/admin\/upgrades.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/ChromePhp.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/ChromePhp.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/classes\/class-mtphr-dnt-image.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/classes\/class-mtphr-dnt-image.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/classes\/class-mtphr-dnt-roles.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/classes\/class-mtphr-dnt-roles.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/classes\/class-mtphr-dnt-tick.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/classes\/class-mtphr-dnt-tick.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/classes\/class-mtphr-dnt.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/classes\/class-mtphr-dnt.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/classes\/helpers\/class-mtphr-dnt-string-replacement.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/classes\/helpers\/class-mtphr-dnt-string-replacement.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/composer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/composer.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/filters.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/filters.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/functions.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/functions.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/help.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/help.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/helpers.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/helpers.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/hooks.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/hooks.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/install.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/install.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/post-types.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/post-types.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/settings.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/settings.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/shortcodes.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/shortcodes.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/static.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/static.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/static\/css\/style-admin.css" : {
+      "aP" : 0,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/static\/css\/style-admin-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/legacy\/inc\/static\/css\/style.css" : {
+      "aP" : 0,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/static\/css\/style-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/legacy\/inc\/static\/img\/dittynewsticker.svg" : {
+      "ft" : 2097152,
+      "miP" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/static\/img\/dittynewsticker.svg",
+      "oF" : 0,
+      "opt" : 0,
+      "plM" : 3758088159,
+      "prP" : 0
+    },
+    "\/legacy\/inc\/static\/js\/ditty-news-ticker.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/legacy\/inc\/static\/js\/ditty-news-ticker.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/legacy\/inc\/static\/js\/ditty-news-ticker.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/legacy\/inc\/static\/js\/ditty-news-ticker.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/legacy\/inc\/static\/js\/partials\/admin-general.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/js\/partials\/admin-general.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/legacy\/inc\/static\/js\/partials\/mtphr-dnt-affix.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/js\/partials\/mtphr-dnt-affix.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/legacy\/inc\/static\/js\/script-admin.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/legacy\/inc\/static\/js\/script-admin.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/legacy\/inc\/static\/js\/script-admin.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/legacy\/inc\/static\/js\/script-admin.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/legacy\/inc\/static\/js\/swiped-events.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/legacy\/inc\/static\/js\/swiped-events.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/legacy\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.eot" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.eot",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.svg" : {
+      "ft" : 2097152,
+      "miP" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.svg",
+      "oF" : 0,
+      "opt" : 0,
+      "plM" : 3758088159,
+      "prP" : 0
+    },
+    "\/legacy\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.ttf" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.ttf",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.woff" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.woff",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/static\/libs\/fontastic\/icons-reference.html" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/static\/libs\/fontastic\/icons-reference.html",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/static\/libs\/fontastic\/styles.css" : {
+      "aP" : 0,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/static\/libs\/fontastic\/styles-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/legacy\/inc\/static\/libs\/protip\/protip.min.css" : {
+      "aP" : 0,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/static\/libs\/protip\/protip.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/legacy\/inc\/static\/libs\/protip\/protip.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/legacy\/inc\/static\/libs\/protip\/protip.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/_bourbon.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/css\/_bourbon.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/helpers\/_buttons-list.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_buttons-list.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/helpers\/_scales.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_scales.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/helpers\/_text-inputs-list.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_text-inputs-list.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_border-color.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_border-color.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_border-radius.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_border-radius.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_border-style.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_border-style.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_border-width.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_border-width.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_buttons.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_buttons.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_clearfix.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_clearfix.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_contrast-switch.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_contrast-switch.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_ellipsis.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_ellipsis.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_font-face.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_font-face.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_font-stacks.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_font-stacks.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_hide-text.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_hide-text.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_hide-visually.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_hide-visually.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_margin.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_margin.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_modular-scale.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_modular-scale.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_overflow-wrap.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_overflow-wrap.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_padding.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_padding.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_position.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_position.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_prefixer.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_prefixer.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_shade.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_shade.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_size.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_size.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_strip-unit.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_strip-unit.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_text-inputs.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_text-inputs.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_timing-functions.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_timing-functions.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_tint.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_tint.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_triangle.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_triangle.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/library\/_value-prefixer.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_value-prefixer.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/settings\/_settings.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_settings.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/utilities\/_assign-inputs.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_assign-inputs.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/utilities\/_compact-shorthand.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_compact-shorthand.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/utilities\/_contrast-ratio.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_contrast-ratio.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/utilities\/_directional-property.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_directional-property.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/utilities\/_font-source-declaration.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_font-source-declaration.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/utilities\/_gamma.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_gamma.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/utilities\/_lightness.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_lightness.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/utilities\/_retrieve-bourbon-setting.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_retrieve-bourbon-setting.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/utilities\/_unpack-shorthand.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_unpack-shorthand.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/validators\/_contains-falsy.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_contains-falsy.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/validators\/_contains.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_contains.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/validators\/_is-color.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_is-color.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/validators\/_is-length.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_is-length.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/validators\/_is-number.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_is-number.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/bourbon\/validators\/_is-size.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/legacy\/inc\/static\/sass\/bourbon\/css\/_is-size.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/style-admin.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/legacy\/inc\/static\/css\/style-admin.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/static\/sass\/style.scss" : {
+      "aP" : 1,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/legacy\/inc\/static\/css\/style.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 1
+    },
+    "\/legacy\/inc\/templates.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/templates.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/templates\/control_nav.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/templates\/control_nav.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/templates\/directional_nav.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/templates\/directional_nav.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/templates\/pagination.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/templates\/pagination.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/templates\/play_pause.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/templates\/play_pause.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/templates\/title.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/templates\/title.php",
+      "oF" : 0
+    },
+    "\/legacy\/inc\/widget.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/inc\/widget.php",
+      "oF" : 0
+    },
+    "\/legacy\/index.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/index.php",
+      "oF" : 0
+    },
+    "\/node_modules" : {
+      "ft" : 65536,
+      "oA" : 2,
+      "oAP" : "\/node_modules",
+      "oF" : 0
+    },
+    "\/package-lock.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/package-lock-min.json",
+      "oF" : 0,
+      "oO" : 0,
+      "oS" : 1
+    },
+    "\/package.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/package-min.json",
+      "oF" : 0,
+      "oO" : 0,
+      "oS" : 1
+    },
     "\/readme.txt" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1260,6 +3082,23 @@
       "oA" : 2,
       "oAP" : "\/readme.txt",
       "oF" : 0
+    },
+    "\/vendor" : {
+      "ft" : 65536,
+      "oA" : 1,
+      "oAP" : "\/vendor",
+      "oF" : 0
+    },
+    "\/webpack.config.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/webpack.config.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
     },
     "\/wpml-config.xml" : {
       "cB" : 0,
@@ -2216,7 +4055,8 @@
         "optionString" : ""
       },
       "no-multi-assign" : {
-        "active" : 0
+        "active" : 0,
+        "optionString" : "{'ignoreNonDeclaration': false}"
       },
       "no-multi-spaces" : {
         "active" : 0,
@@ -2339,7 +4179,8 @@
         "active" : 1
       },
       "no-sequences" : {
-        "active" : 0
+        "active" : 0,
+        "optionString" : "{'allowInParentheses': true}"
       },
       "no-setter-return" : {
         "active" : 1
@@ -2703,354 +4544,6 @@
     "gitIgnoreBuildFolder" : 1,
     "hideConfigFile" : 0,
     "jsCheckerReservedNamesString" : "",
-    "jsHintFlags2" : {
-      "asi" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "bitwise" : {
-        "active" : 1,
-        "flagValue" : -1
-      },
-      "boss" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "browser" : {
-        "active" : 1,
-        "flagValue" : -1
-      },
-      "browserify" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "camelcase" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "couch" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "curly" : {
-        "active" : 1,
-        "flagValue" : -1
-      },
-      "debug" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "devel" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "dojo" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "elision" : {
-        "active" : 1,
-        "flagValue" : -1
-      },
-      "eqeqeq" : {
-        "active" : 1,
-        "flagValue" : -1
-      },
-      "eqnull" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "es3" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "esnext" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "evil" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "expr" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "forin" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "freeze" : {
-        "active" : 1,
-        "flagValue" : -1
-      },
-      "funcscope" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "futurehostile" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "globalstrict" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "immed" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "indent" : {
-        "active" : 0,
-        "flagValue" : 4
-      },
-      "iterator" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "jasmine" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "jquery" : {
-        "active" : 1,
-        "flagValue" : -1
-      },
-      "lastsemic" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "latedef" : {
-        "active" : 1,
-        "flagValue" : -1
-      },
-      "laxbreak" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "laxcomma" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "loopfunc" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "maxcomplexity" : {
-        "active" : 0,
-        "flagValue" : 10
-      },
-      "maxdepth" : {
-        "active" : 0,
-        "flagValue" : 3
-      },
-      "maxlen" : {
-        "active" : 0,
-        "flagValue" : 150
-      },
-      "maxparams" : {
-        "active" : 0,
-        "flagValue" : 3
-      },
-      "maxstatements" : {
-        "active" : 0,
-        "flagValue" : 4
-      },
-      "mocha" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "mootools" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "moz" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "multistr" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "newcap" : {
-        "active" : 1,
-        "flagValue" : -1
-      },
-      "noarg" : {
-        "active" : 1,
-        "flagValue" : -1
-      },
-      "nocomma" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "node" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "noempty" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "nonbsp" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "nonew" : {
-        "active" : 1,
-        "flagValue" : -1
-      },
-      "nonstandard" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "notypeof" : {
-        "active" : 1,
-        "flagValue" : -1
-      },
-      "noyield" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "onecase" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "phantom" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "plusplus" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "proto" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "prototypejs" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "qunit" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "regexp" : {
-        "active" : 1,
-        "flagValue" : -1
-      },
-      "rhino" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "scripturl" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "shadow" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "shelljs" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "singleGroups" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "strict" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "sub" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "supernew" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "typed" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "undef" : {
-        "active" : 1,
-        "flagValue" : -1
-      },
-      "unused" : {
-        "active" : 1,
-        "flagValue" : -1
-      },
-      "varstmt" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "withstmt" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "worker" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "wsh" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "yui" : {
-        "active" : 0,
-        "flagValue" : -1
-      }
-    },
-    "jsLintFlags2" : {
-      "bitwise" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "browser" : {
-        "active" : 1,
-        "flagValue" : -1
-      },
-      "couch" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "devel" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "es6" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "eval" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "for" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "maxlen" : {
-        "active" : 0,
-        "flagValue" : 150
-      },
-      "node" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "this" : {
-        "active" : 0,
-        "flagValue" : -1
-      },
-      "white" : {
-        "active" : 0,
-        "flagValue" : -1
-      }
-    },
     "languageDefaultsCOFFEE" : {
       "autoOutputAction" : 0,
       "autoOutputPathFilenamePattern" : "*.js",
@@ -3126,7 +4619,7 @@
       "bundleFormat" : 0,
       "minifierStyle" : 1,
       "sourceMapStyle" : 0,
-      "syntaxCheckerStyle" : 1,
+      "syntaxCheckerStyle" : 3,
       "transpilerStyle" : 0
     },
     "languageDefaultsJSON" : {
@@ -3359,6 +4852,7 @@
     "tsEmitBOM" : 0,
     "tsEmitDecoratorMetadata" : 0,
     "tsESModuleInterop" : 0,
+    "tsExactOptionalPropertyTypes" : 0,
     "tsForceConsistentCasingInFileNames" : 0,
     "tsImportHelpers" : 0,
     "tsIsolatedModules" : 0,
@@ -3367,6 +4861,7 @@
     "tsNoEmitHelpers" : 0,
     "tsNoFallthroughCasesInSwitch" : 0,
     "tsNoImplicitAny" : 0,
+    "tsNoImplicitOverride" : 0,
     "tsNoImplicitReturns" : 0,
     "tsNoImplicitThis" : 0,
     "tsNoImplicitUseStrict" : 0,
@@ -3387,6 +4882,7 @@
     "tsStripInternal" : 0,
     "tsSuppressExcessPropertyErrors" : 0,
     "tsSuppressImplicitAnyIndexErrors" : 0,
+    "tsUseUnknownInCatchVariables" : 0,
     "uglifyDefinesString" : "",
     "uglifyFlags2" : {
       "arguments" : {

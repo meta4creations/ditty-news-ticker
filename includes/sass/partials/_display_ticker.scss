@@ -1,0 +1,30 @@
+.ditty-ticker {
+	box-sizing: border-box;
+	//transition: background .25s ease, padding .25s ease, border-radius .25s ease; 
+	* {
+		box-sizing: border-box;
+	}
+	&__contents {
+		//transition: background .25s ease, padding .25s ease, border-radius .25s ease; 
+	}
+	&__items {
+		position: relative;
+		overflow: hidden;
+	}
+	.ditty-item {
+		display: none;
+		position: absolute;
+		line-height: 1;
+/*
+		&--current {
+			color: green;
+		}
+		&--last {
+			color: red;
+			&.ditty-item--current {
+				color: purple;
+			}
+		}
+*/
+	}
+}
