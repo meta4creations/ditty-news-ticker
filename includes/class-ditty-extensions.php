@@ -154,6 +154,19 @@ class Ditty_Extensions {
 	}
 	
 	/**
+	 * Return an extension's license data
+	 * @access  public
+	 * @since   3.0
+	 */
+	public function has_valid_license( $slug ) {
+		if ( $license_data = Ditty()->extensions->get_license( $slug ) ) {
+			if ( 'valid' == $license_data['status'] ) {
+				return true;
+			}
+		}
+	}
+	
+	/**
 	 * Update the license data
 	 * @access  public
 	 * @since   3.0

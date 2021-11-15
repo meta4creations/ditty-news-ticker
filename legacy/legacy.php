@@ -26,7 +26,6 @@ final class Ditty_News_Ticker {
 		
 		if( ! isset( self::$instance ) && ! ( self::$instance instanceof Ditty_News_Ticker ) ) {		
 			self::$instance = new Ditty_News_Ticker;
-			self::$instance->setup_constants();
 			self::$instance->includes();
 		}
 		
@@ -35,40 +34,6 @@ final class Ditty_News_Ticker {
 		return self::$instance;
 	}
 	
-	
-	/**
-	 * Setup plugin constants.
-	 * @since 3.0
-	 */
-	private function setup_constants() {
-
-		// Plugin version
-		if ( ! defined( 'DITTY_VERSION' ) ) {
-			define( 'DITTY_VERSION', '2.3.12' );
-		}
-
-		// Plugin Folder Path
-		if ( ! defined( 'DITTY_DIR') ) {
-			define( 'DITTY_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
-		}
-
-		// Plugin Folder URL
-		if ( ! defined( 'DITTY_URL') ) {
-			define( 'DITTY_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
-		}
-		
-		// Plugin Root File
-		if ( ! defined( 'DITTY_FILE') ) {
-			define( 'DITTY_FILE', __FILE__ );
-		}
-		
-		// Store URL
-		if ( ! defined( 'MTPHR_DNT_STORE_URL') ) {
-			define( 'MTPHR_DNT_STORE_URL', 'https://www.metaphorcreations.com' );
-		}
-	}
-	
-	
 	/**
 	 * Include required files
 	 * @since 3.0
@@ -76,10 +41,7 @@ final class Ditty_News_Ticker {
 	private function includes() {
 		
 		// Load the general functions
-		//require_once DITTY_DIR . 'eddsl/eddsl.php';
-		// if ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) {
-		// 	require_once DITTY_DIR . 'legacy/inc/ChromePhp.php';
-		// }
+		//require_once DITTY_DIR . 'legacy/eddsl/eddsl.php';
 
 		require_once DITTY_DIR . 'legacy/inc/composer.php';
 		require_once DITTY_DIR . 'legacy/inc/helpers.php';

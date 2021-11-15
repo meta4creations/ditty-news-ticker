@@ -252,6 +252,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/hooks.php';
 		require_once DITTY_DIR . 'includes/layout-tags.php';
 		require_once DITTY_DIR . 'includes/post-types.php';
+		require_once DITTY_DIR . 'includes/upgrades.php';
 		
 		// Add database files
 		require_once DITTY_DIR . 'includes/class-ditty-db.php';
@@ -305,7 +306,7 @@ class Ditty {
 		
 		// Possibly add Ditty News Ticker
 		if ( ditty_news_ticker_enabled() ) {
-			require_once DITTY_DIR . 'legacy/ditty-news-ticker.php';
+			require_once DITTY_DIR . 'legacy/legacy.php';
 		}
 
 		$this->loader = new Ditty_Loader();

@@ -8,33 +8,6 @@ if( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
 	include( dirname( __FILE__ ) . '/EDD_SL_Plugin_Updater.php' );
 }
 
-
-/**
- * Get an option value
- * @since 2.2.6
- */
-function mtphr_dnt_get_option( $option, $default=false ) {
-	if ( is_multisite() ) {
-		return get_site_option( $option, $default );
-	} else {
-		return get_option( $option, $default );
-	}
-}
-
-
-/**
- * Update an option value
- * @since 2.2.6
- */
-function mtphr_dnt_update_option( $option, $value ) {
-	if ( is_multisite() ) {
-		return update_site_option( $option, $value );
-	} else {
-		return update_option( $option, $value );
-	}
-}
-
-
 /**
  * Return extension license data
  * @since 2.1.17
@@ -74,7 +47,7 @@ function mtphr_dnt_plugin_updater() {
 			$license_key = isset($mtphr_edd_licenses[$slug]) ? trim($mtphr_edd_licenses[$slug]) : '';
 		
 			// setup the updater
-			$edd_updater = new EDD_SL_Plugin_Updater( MTPHR_DNT_STORE_URL, $data['path'], array(
+			$edd_updater = new EDD_SL_Plugin_Updater( 'https://www.metaphorcreations.com', $data['path'], array(
 					'version' 	=> $data['version'], 																								// current version number
 					'license' 	=> $license_key, 																										// license key (used get_option above to retrieve from DB)
 					'item_id' 	=> isset( $data['item_id'] ) ? $data['item_id'] : null, 						// name of this plugin
@@ -339,7 +312,7 @@ function mtphr_dnt_license_check() {
 			);
 		
 			// Call the custom API.
-			$response = wp_remote_post( MTPHR_DNT_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
+			$response = wp_remote_post( 'https://www.metaphorcreations.com', array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 		
 			if ( is_wp_error( $response ) )
 				return false;
@@ -514,7 +487,7 @@ function mtphr_dnt_license_deactivate_ajax() {
 		);
 	
 		// Call the custom API.
-		$response = wp_remote_post( MTPHR_DNT_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
+		$response = wp_remote_post( 'https://www.metaphorcreations.com', array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 	
 		// make sure the response came back okay
 		if( is_wp_error( $response ) ) {
@@ -607,7 +580,7 @@ function mtphr_dnt_license_activate_ajax() {
 		);
 	
 		// Call the custom API.
-		$response = wp_remote_post( MTPHR_DNT_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
+		$response = wp_remote_post( 'https://www.metaphorcreations.com', array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 	
 		// make sure the response came back okay
 		if( is_wp_error($response) ) {

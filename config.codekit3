@@ -134,22 +134,6 @@
       "oAP" : "\/ditty-news-ticker.php",
       "oF" : 0
     },
-    "\/eddsl\/EDD_SL_Plugin_Updater.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/eddsl\/EDD_SL_Plugin_Updater.php",
-      "oF" : 0
-    },
-    "\/eddsl\/eddsl.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/eddsl\/eddsl.php",
-      "oF" : 0
-    },
     "\/includes\/admin\/columns.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1769,6 +1753,14 @@
       "pg" : 0,
       "sct" : 1
     },
+    "\/includes\/upgrades.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/upgrades.php",
+      "oF" : 0
+    },
     "\/languages\/ditty-news-ticker-ar.mo" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1873,12 +1865,12 @@
       "oAP" : "\/languages\/ditty-news-ticker-ru.po",
       "oF" : 0
     },
-    "\/legacy\/ditty-news-ticker.php" : {
+    "\/legacy\/eddsl\/eddsl.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/legacy\/ditty-news-ticker.php",
+      "oAP" : "\/legacy\/eddsl\/eddsl.php",
       "oF" : 0
     },
     "\/legacy\/inc\/admin\/ajax.php" : {
@@ -3053,6 +3045,14 @@
       "oAP" : "\/legacy\/index.php",
       "oF" : 0
     },
+    "\/legacy\/legacy.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/legacy\/legacy.php",
+      "oF" : 0
+    },
     "\/node_modules" : {
       "ft" : 65536,
       "oA" : 2,
@@ -3081,6 +3081,14 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/readme.txt",
+      "oF" : 0
+    },
+    "\/uninstall.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/uninstall.php",
       "oF" : 0
     },
     "\/vendor" : {

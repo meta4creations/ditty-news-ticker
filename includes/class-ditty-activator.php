@@ -57,38 +57,15 @@ class Ditty_Activator {
 	 */
 	public static function run_install() {
 
-		// Setup the DITTY Custom Post Types
-		ditty_setup_post_types();
-	
-		// Clear the permalinks
-		flush_rewrite_rules( false );
-	
 		// Add Upgraded From Option
-		$current_version = get_option( 'ditty_version' );
-		if( $current_version ) {
-			update_option( 'ditty_version_upgraded_from', $current_version );
+		$current_version = get_option( 'ditty_version', '0' );
+		if ( version_compare( $current_version, '3.0', '<' ) ) {
+			ditty_v30_upgrades();
 		}
-	
-		update_option( 'ditty_version', DITTY_VERSION );
-	
-		// Create Ditty roles
-		$roles = new Ditty_Roles();
-		$roles->add_caps();
 		
-		// Create the item databases		
-		$db_items = new Ditty_DB_Items();
-		@$db_items->create_table();
-		
-		$db_item_meta = new Ditty_DB_Item_Meta();
-		@$db_item_meta->create_table();
-		
-		// Install default layouts
-		if( ! $current_version ) {
-			Ditty()->layouts->install_default( 'default', 'default' );
-			Ditty()->layouts->install_default( 'wp_editor', 'default' );
-			Ditty()->displays->install_default( 'ticker', 'default' );
-			Ditty()->displays->install_default( 'list', 'default' );
-			Ditty()->displays->install_default( 'list', 'default_slider' );
+		if ( DITTY_VERSION != $current_version ) {
+			update_option( 'ditty_version_upgraded_from', $current_version );
+			update_option( 'ditty_version', DITTY_VERSION );
 		}
 	}
 
