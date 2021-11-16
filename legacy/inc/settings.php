@@ -66,8 +66,10 @@ function mtphr_dnt_settings_display( $active_tab = null ) {
 
 		<form method="post" action="options.php">
 			<?php
-			settings_fields( $tabs[$active_tab] );
-			do_settings_sections( $tabs[$active_tab] );		
+			if ( isset( $tabs[$active_tab] ) ) {
+				settings_fields( $tabs[$active_tab] );
+				do_settings_sections( $tabs[$active_tab] );
+			}
 			echo apply_filters( 'mtphr_dnt_settings_submit_button', get_submit_button() );
 			?>
 		</form>
