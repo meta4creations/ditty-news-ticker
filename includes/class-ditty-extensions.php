@@ -380,16 +380,19 @@ class Ditty_Extensions {
 										call_user_func( $setting['func'] );
 									} elseif( isset( $setting['fields'] ) ) {
 										ditty_fields( $setting['fields'] );
-										echo ditty_field(
-											array(
-												'type'				=> 'button',
-												'id'					=> 'submit',
-												'label'				=> __( 'Update', 'ditty-rss' ),
-												'priority' 		=> 'primary',
-												'full_width'	=> true,
-												'icon_after' 	=> 'fas fa-check',
-											),
-										);
+										$update_button = isset( $setting['update_button'] ) ? $setting['update_button'] : 'default';
+										if ( 'disabled' != $update_button ) {
+											echo ditty_field(
+												array(
+													'type'				=> 'button',
+													'id'					=> 'submit',
+													'label'				=> __( 'Update', 'ditty-rss' ),
+													'priority' 		=> 'primary',
+													'full_width'	=> true,
+													'icon_after' 	=> 'fas fa-check',
+												),
+											);
+										}
 									}
 								}
 								?>

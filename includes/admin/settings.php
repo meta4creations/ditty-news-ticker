@@ -141,30 +141,30 @@ function ditty_settings_general() {
 		// 	),
 		// 	'std' 				=> ditty_settings( 'notification_email' ),
 		// ),
-		// 'ditty_layout_ui' => array(
-		// 	'type' 				=> 'radio',
-		// 	'id' 					=> 'ditty_layout_ui',
-		// 	'name' 				=> __( 'Ditty Layout Posts', 'ditty-news-ticker' ),
-		// 	'desc' 				=> __( 'Edit Ditty Layouts directly as post types.', 'ditty-news-ticker' ),
-		// 	'inline'			=> true,
-		// 	'options'			=> array(
-		// 		'disabled'	=> __( 'Disabled', 'ditty-news-ticker' ),
-		// 		'enabled'		=> __( 'Enabled', 'ditty-news-ticker' ),
-		// 	),
-		// 	'std' 				=> ditty_settings( 'ditty_layout_ui' ),
-		// ),
-		// 'ditty_display_ui' => array(
-		// 	'type' 				=> 'radio',
-		// 	'id' 					=> 'ditty_display_ui',
-		// 	'name' 				=> __( 'Ditty Display Posts', 'ditty-news-ticker' ),
-		// 	'desc' 				=> __( 'Edit Ditty Displays directly as post types.', 'ditty-news-ticker' ),
-		// 	'inline'			=> true,
-		// 	'options'			=> array(
-		// 		'disabled'	=> __( 'Disabled', 'ditty-news-ticker' ),
-		// 		'enabled'		=> __( 'Enabled', 'ditty-news-ticker' ),
-		// 	),
-		// 	'std' 				=> ditty_settings( 'ditty_display_ui' ),
-		// ),
+		'ditty_layout_ui' => array(
+			'type' 				=> 'radio',
+			'id' 					=> 'ditty_layout_ui',
+			'name' 				=> __( 'Ditty Layout Posts', 'ditty-news-ticker' ),
+			'desc' 				=> __( 'Edit Ditty Layouts directly as post types.', 'ditty-news-ticker' ),
+			'inline'			=> true,
+			'options'			=> array(
+				'disabled'	=> __( 'Disabled', 'ditty-news-ticker' ),
+				'enabled'		=> __( 'Enabled', 'ditty-news-ticker' ),
+			),
+			'std' 				=> ditty_settings( 'ditty_layout_ui' ),
+		),
+		'ditty_display_ui' => array(
+			'type' 				=> 'radio',
+			'id' 					=> 'ditty_display_ui',
+			'name' 				=> __( 'Ditty Display Posts', 'ditty-news-ticker' ),
+			'desc' 				=> __( 'Edit Ditty Displays directly as post types.', 'ditty-news-ticker' ),
+			'inline'			=> true,
+			'options'			=> array(
+				'disabled'	=> __( 'Disabled', 'ditty-news-ticker' ),
+				'enabled'		=> __( 'Enabled', 'ditty-news-ticker' ),
+			),
+			'std' 				=> ditty_settings( 'ditty_display_ui' ),
+		),
 	);
 	ditty_fields( $fields );
 }
