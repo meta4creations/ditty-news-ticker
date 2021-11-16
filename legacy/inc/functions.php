@@ -83,10 +83,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
  * @since 2.1.23
  */
 function render_mtphr_dnt_ticker( $id='', $class='', $meta_data=false ) {
-	
-	//$ticker = new MTPHR_DNT( $id, $class, $atts );
-	//echo '<pre>';print_r($ticker);echo '</pre>';
-	
+
 	$html = '';
 
 	// Save the original $wp_query

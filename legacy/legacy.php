@@ -39,10 +39,6 @@ final class Ditty_News_Ticker {
 	 * @since 3.0
 	 */
 	private function includes() {
-		
-		// Load the general functions
-		//require_once DITTY_DIR . 'legacy/eddsl/eddsl.php';
-
 		require_once DITTY_DIR . 'legacy/inc/composer.php';
 		require_once DITTY_DIR . 'legacy/inc/helpers.php';
 		require_once DITTY_DIR . 'legacy/inc/hooks.php';

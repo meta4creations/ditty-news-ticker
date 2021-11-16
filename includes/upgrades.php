@@ -102,4 +102,13 @@ function ditty_v30_upgrades( $run_install = false ) {
 	Ditty()->displays->install_default( 'ticker', 'default' );
 	Ditty()->displays->install_default( 'list', 'default' );
 	Ditty()->displays->install_default( 'list', 'default_slider' );
+	
+	// If News Tickers exists, enabled legacy code
+	$args = array(
+		'post_type' => 'ditty_news_ticker',
+	);
+	$news_tickers = get_posts( $args );
+	if ( is_array( $news_tickers ) && count( $news_tickers ) > 0 ) {
+		ditty_settings( 'ditty_news_ticker', '1' );
+	}
 }

@@ -136,22 +136,3 @@ function ditty_dashboard_menu_classes( $classes ) {
 	return $classes;
 }
 add_filter( 'admin_body_class', 'ditty_dashboard_menu_classes', 99 );
-
-function ditty_search_test() {
-	$item_types = 'twitter_feed';
-	$items = Ditty()->db_items->search_items( 'blacklivesmatter', $item_types );
-	if ( is_array( $items ) && count( $items ) > 0 ) {
-		foreach ( $items as $i => $item ) {
-			echo '<pre>';print_r($item);echo '</pre>';
-/*
-			if ( ditty_exists( $item->ditty_id ) ) {
-				echo '<pre>';print_r( $item->ditty_id );echo '</pre>';
-			} else {
-				echo '<pre>';print_r( $item->item_id . ' does not exists' );echo '</pre>';
-				Ditty()->db_items->delete( $item->item_id );
-			}
-*/
-		}
-	}
-}
-//add_action( 'wp', 'ditty_search_test' );

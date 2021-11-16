@@ -1265,7 +1265,6 @@ function mtphr_dnt_metabox_save( $post_id ) {
 		$allowed_tags['div']['data-width'] = true;
 
 		if( count($_POST['_mtphr_dnt_ticks']) > 0 ) {
-			//echo '<pre>';print_r($_POST['_mtphr_dnt_ticks']);echo '</pre>';
 			foreach( $_POST['_mtphr_dnt_ticks'] as $tick ) {
 				
 				$sanitized_tick = apply_filters( 'mtphr_dnt_sanitized_tick', array(

@@ -321,9 +321,7 @@ add_action( 'wp_ajax_ditty_settings_save', 'ditty_settings_save_ajax' );
  * @since    3.0
  */
 function ditty_settings_save( $data, $json_data ) {
-	
-	ChromePhp::log( '$data:', $data );
-	
+
 	$input_updates = array();
 	$sanitized_global_ditty = array();
 	if ( isset( $data['global_ditty'] ) && is_array( $data['global_ditty'] ) && count( $data['global_ditty'] ) > 0 ) {
@@ -362,7 +360,6 @@ function ditty_settings_save( $data, $json_data ) {
 		'ditty_news_ticker' 	=> isset( $data['ditty_news_ticker'] ) 	? esc_attr( $data['ditty_news_ticker'] ) : false,
 		'notification_email' 	=> ( isset( $data['notification_email'] ) && is_email( $data['notification_email'] ) ) ? $data['notification_email'] : false,
 	);
-	ChromePhp::log( '$settings:', $settings );
 	ditty_settings( $settings );
 	
 	if ( ! isset( $json_data['input_updates'] ) ) {

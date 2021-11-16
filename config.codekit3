@@ -17,6 +17,22 @@
       "oAP" : "\/.gitignore",
       "oF" : 0
     },
+    "\/.nova\/Publishing\/Ditty News Ticker.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/.nova\/Publishing\/Ditty News Ticker-min.json",
+      "oF" : 0,
+      "oO" : 0,
+      "oS" : 1
+    },
+    "\/.nova\/Publishing\/TESTING.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/.nova\/Publishing\/TESTING-min.json",
+      "oF" : 0,
+      "oO" : 0,
+      "oS" : 1
+    },
     "\/blocks\/ditty-block\/editor.scss" : {
       "aP" : 1,
       "bl" : 0,
@@ -1865,6 +1881,14 @@
       "oAP" : "\/languages\/ditty-news-ticker-ru.po",
       "oF" : 0
     },
+    "\/languages\/ditty-news-ticker.pot" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/languages\/ditty-news-ticker.pot",
+      "oF" : 0
+    },
     "\/legacy\/eddsl\/eddsl.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1935,14 +1959,6 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/legacy\/inc\/admin\/upgrades.php",
-      "oF" : 0
-    },
-    "\/legacy\/inc\/ChromePhp.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/legacy\/inc\/ChromePhp.php",
       "oF" : 0
     },
     "\/legacy\/inc\/classes\/class-mtphr-dnt-image.php" : {
