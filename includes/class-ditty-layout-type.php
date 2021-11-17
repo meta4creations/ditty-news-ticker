@@ -172,7 +172,6 @@ class Ditty_Layout_Type {
 			$layout_id = $this->default_template;
 		}
 		$layout_id = apply_filters( 'ditty_parse_layout_id', $layout_id, $item_value, $variation_values, $this );
-		ChromePhp::log( '$layout_id:', $layout_id );
 		return $layout_id;
 	}
 	
