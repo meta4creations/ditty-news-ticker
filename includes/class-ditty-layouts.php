@@ -64,9 +64,13 @@ class Ditty_Layouts {
 	 * @access  private
 	 * @since   3.0
 	 */
-	public function install_default( $layout_type, $layout_template = false, $layout_version = false ) {	
-		if ( ditty_layouts_with_type( $layout_type, $layout_template, $layout_version ) ) {
-			return false;
+	public function install_default( $layout_type, $layout_template = false, $layout_version = false ) {
+		$args = array(
+			'template' 	=> $layout_template,
+			'version'		=> $layout_version,
+		);
+		if ( $layouts = ditty_layouts_with_type( $layout_type, $args ) ) {
+			return end( $layouts );
 		}
 
 		$layout_object = ditty_layout_type_object( $layout_type );
@@ -91,6 +95,9 @@ class Ditty_Layouts {
 			if ( isset( $templates[$layout_template]['css'] ) ) {
 				update_post_meta( $new_layout_id, '_ditty_layout_css', wp_kses_post( $templates[$layout_template]['css'] ) );
 			}
+			if ( isset( $templates[$layout_template]['variations'] ) ) {
+					update_post_meta( $new_layout_id, '_ditty_layout_variations', wp_kses_post( $templates[$layout_template]['variations'] ) );
+				}
 			if ( isset( $templates[$layout_template]['version'] ) ) {
 				update_post_meta( $new_layout_id, '_ditty_layout_version', wp_kses_post( $templates[$layout_template]['version'] ) );
 			}
@@ -142,26 +149,38 @@ class Ditty_Layouts {
 	 * @since  3.0
 	 * @param  html
 	 */
-	public function list_default_layouts() {
+	public function layout_templates_list() {
 		$html = '';
 		$layout_types = ditty_layout_types();
 		$default_layouts = ditty_default_layouts();
 		if ( is_array( $default_layouts ) && count( $default_layouts ) > 0 ) {
-			$html .= '<ul id="ditty-default-layouts">';
+			$html .= '<ul id="ditty-layout-templates">';
 			foreach ( $default_layouts as $layout_type => $layout_data ) {
-				$html .= '<li class="ditty-defaults-list__type">';
-					$html .= '<h3>' . $layout_data['label'] . '</h3>';
+				$html .= '<li class="ditty-templates-list__type">';
+					$html .= '<div class="ditty-templates-list__type__heading">';
+						$html .= '<h3>' . $layout_data['label'] . '</h3>';
+						// $field = array(
+						// 	'type' 		=> 'select',
+						// 	'id' 			=> 'layout_variation_defaults',
+						// 	'name' 		=> __( 'Layout Templates', 'ditty-news-ticker' ),
+						// 	'std' 		=> Ditty()->layouts->layout_templates_list(),
+						// );
+						// $html .= ditty_field( $field );
+					$html .= '</div>';
 					if ( is_array( $layout_data['templates'] ) && count( $layout_data['templates'] ) > 0 ) {
-						$html .= '<ul id="ditty-defaults-list__templates">';
+						$html .= '<ul id="ditty-templates-list__templates">';
 						foreach ( $layout_data['templates'] as $template => $template_data ) {
-							$layout_versions = ditty_layouts_with_type( $layout_type, $template, false, 'versions' );
-
-							$html .= '<li class="ditty-defaults-list__template">';
-								$html .= '<div class="ditty-defaults-list__template__heading">';
-									$html .= '<h4 class="ditty-defaults-list__template__label">';
+							$args = array(
+								'template' 	=> $template,
+								'return'		=> 'versions',
+							);
+							$layout_versions = ditty_layouts_with_type( $layout_type, $args );
+							$html .= '<li class="ditty-templates-list__template">';
+								$html .= '<div class="ditty-templates-list__template__heading">';
+									$html .= '<h4 class="ditty-templates-list__template__label">';
 										$html .= $template_data['label'] . " <small class='ditty-layout-version'>(v{$template_data['version']})</small>";
 									$html .= '</h4>';
-									$html .= '<p class="ditty-defaults-list__template__description">' . $template_data['description'] . '</p>';
+									$html .= '<p class="ditty-templates-list__template__description">' . $template_data['description'] . '</p>';
 								$html .= '</div>';
 								
 								$args = array(

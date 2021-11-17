@@ -21,6 +21,7 @@ function ditty_manage_posts_columns( $columns, $post_type ){
 					$new_columns['ditty_layout_version'] = __( 'Version', 'ditty-news-ticker' );
 					$new_columns['ditty_layout_id'] = __( 'ID', 'ditty-news-ticker' );
 					$new_columns['ditty_layout_type'] = __( 'Layout Type', 'ditty-news-ticker' );
+					$new_columns['ditty_layout_template'] = __( 'Layout Template', 'ditty-news-ticker' );
 					break;
 				case 'ditty':
 					$new_columns['ditty_display'] = __( 'Display', 'ditty-news-ticker' );
@@ -77,6 +78,10 @@ function ditty_manage_posts_custom_column( $column, $post_id ){
 				}
 			}
 			echo "<a href='edit.php?post_type={$post->post_type}&ditty_layout_type={$meta}'>".$label."</a>";
+			break;
+		case 'ditty_layout_template':
+			$meta = get_post_meta( $post_id, '_ditty_layout_template', true );
+			echo $meta;
 			break;
 		case 'ditty_layout_version':
 			$meta = get_post_meta( $post_id, '_ditty_layout_version', true );

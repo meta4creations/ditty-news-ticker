@@ -55,7 +55,11 @@ class Ditty_Displays {
 	 * @since   3.0
 	 */
 	public function install_default( $display_type, $display_template = false, $display_version = false ) {	
-		if ( $display_ids = ditty_displays_with_type( $display_type, $display_template, $display_version ) ) {
+		$args = array(
+			'template' 	=> $display_template,
+			'version'		=> $display_version,
+		);
+		if ( $display_ids = ditty_displays_with_type( $display_type, $args ) ) {
 			return reset( $display_ids );
 		}
 
@@ -131,26 +135,31 @@ class Ditty_Displays {
 	 * @since  3.0
 	 * @param  html
 	 */
-	public function list_default_displays() {
+	public function display_templates_list() {
 		$html = '';
 		$display_types = ditty_display_types();
 		$default_displays = ditty_default_displays();
 		if ( is_array( $default_displays ) && count( $default_displays ) > 0 ) {
-			$html .= '<ul id="ditty-default-displays">';
+			$html .= '<ul id="ditty-display-templates">';
 			foreach ( $default_displays as $display_type => $display_data ) {
-				$html .= '<li class="ditty-defaults-list__type">';
-					$html .= '<h3>' . $display_data['label'] . '</h3>';
+				$html .= '<li class="ditty-templates-list__type">';
+					$html .= '<div class="ditty-templates-list__type__heading">';
+						$html .= '<h3>' . $display_data['label'] . '</h3>';
+					$html .= '</div>';
 					if ( is_array( $display_data['templates'] ) && count( $display_data['templates'] ) > 0 ) {
-						$html .= '<ul id="ditty-defaults-list__templates">';
+						$html .= '<ul id="ditty-templates-list__templates">';
 						foreach ( $display_data['templates'] as $template => $template_data ) {
-							$display_versions = ditty_displays_with_type( $display_type, $template, false, 'versions' );
-
-							$html .= '<li class="ditty-defaults-list__template">';
-								$html .= '<div class="ditty-defaults-list__template__heading">';
-									$html .= '<h4 class="ditty-defaults-list__template__label">';
+							$args = array(
+								'template' 	=> $template,
+								'return'		=> 'versions',
+							);
+							$display_versions = ditty_displays_with_type( $display_type, $args );
+							$html .= '<li class="ditty-templates-list__template">';
+								$html .= '<div class="ditty-templates-list__template__heading">';
+									$html .= '<h4 class="ditty-templates-list__template__label">';
 										$html .= $template_data['label'] . " <small class='ditty-layout-version'>(v{$template_data['version']})</small>";
 									$html .= '</h4>';
-									$html .= '<p class="ditty-defaults-list__template__description">' . $template_data['description'] . '</p>';
+									$html .= '<p class="ditty-templates-list__template__description">' . $template_data['description'] . '</p>';
 								$html .= '</div>';
 								
 								$args = array(

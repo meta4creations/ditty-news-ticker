@@ -1437,20 +1437,20 @@
   background-color: orange; }
 
 /* Default Layouts & Displays */
-.ditty-field--default_layouts .ditty-field__heading,
-.ditty-field--default_displays .ditty-field__heading {
+.ditty-field--layout_templates .ditty-field__heading,
+.ditty-field--display_templates .ditty-field__heading {
   display: none; }
 
-.ditty-field--default_layouts .ditty-defaults-list__type,
-.ditty-field--default_displays .ditty-defaults-list__type {
+.ditty-field--layout_templates .ditty-templates-list__type,
+.ditty-field--display_templates .ditty-templates-list__type {
   margin-bottom: 30px; }
-  .ditty-field--default_layouts .ditty-defaults-list__type h3,
-  .ditty-field--default_displays .ditty-defaults-list__type h3 {
+  .ditty-field--layout_templates .ditty-templates-list__type h3,
+  .ditty-field--display_templates .ditty-templates-list__type h3 {
     font-size: 1.2em;
     margin: 0 0 10px; }
 
-.ditty-field--default_layouts .ditty-defaults-list__template,
-.ditty-field--default_displays .ditty-defaults-list__template {
+.ditty-field--layout_templates .ditty-templates-list__template,
+.ditty-field--display_templates .ditty-templates-list__template {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1458,23 +1458,18 @@
   padding: 10px;
   background: #F2F2F2;
   border-radius: 3px; }
-  .ditty-field--default_layouts .ditty-defaults-list__template h4,
-  .ditty-field--default_displays .ditty-defaults-list__template h4 {
+  .ditty-field--layout_templates .ditty-templates-list__template h4,
+  .ditty-field--display_templates .ditty-templates-list__template h4 {
     font-size: 1.1em;
     margin: 0 0 3px; }
-    .ditty-field--default_layouts .ditty-defaults-list__template h4 .ditty-default-layouts__template_version,
-    .ditty-field--default_displays .ditty-defaults-list__template h4 .ditty-default-layouts__template_version {
-      font-size: 12px;
-      font-weight: normal;
-      margin-left: 5px; }
-  .ditty-field--default_layouts .ditty-defaults-list__template p,
-  .ditty-field--default_displays .ditty-defaults-list__template p {
+  .ditty-field--layout_templates .ditty-templates-list__template p,
+  .ditty-field--display_templates .ditty-templates-list__template p {
     margin: 0; }
-  .ditty-field--default_layouts .ditty-defaults-list__template .ditty-button,
-  .ditty-field--default_displays .ditty-defaults-list__template .ditty-button {
+  .ditty-field--layout_templates .ditty-templates-list__template .ditty-button,
+  .ditty-field--display_templates .ditty-templates-list__template .ditty-button {
     margin: 0; }
-    .ditty-field--default_layouts .ditty-defaults-list__template .ditty-button i,
-    .ditty-field--default_displays .ditty-defaults-list__template .ditty-button i {
+    .ditty-field--layout_templates .ditty-templates-list__template .ditty-button i,
+    .ditty-field--display_templates .ditty-templates-list__template .ditty-button i {
       margin-left: 10px; }
 
 /* Global Dittys */

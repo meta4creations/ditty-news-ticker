@@ -251,10 +251,7 @@ class Ditty_Display_Item {
 				'data-layout_id' 		=> $this->get_layout_id(),
 				'data-layout_type' 	=> $this->get_layout_type(),
 			);
-			// if ( $this->api_id ) {
-			// 	$atts['data-api_id'] = $this->api_id;
-			// }
-
+			
 			$html .= '<div ' . ditty_attr_to_html( $atts ) . '>';	
 				$html .= '<div class="ditty-item__elements">';
 					$html .= do_shortcode( $layout_object->render() );
@@ -273,7 +270,7 @@ class Ditty_Display_Item {
 	}
 	
 	/**
-	 * Render the item via layout
+	 * Compile the layout data
 	 *
 	 * @access public
 	 * @since  3.0

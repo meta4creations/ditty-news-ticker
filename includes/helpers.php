@@ -12,6 +12,7 @@ function ditty_settings_defaults() {
 		'ditty_display_ui'		=> 'disabled',
 		'ditty_layout_ui'			=> 'disabled',
 		'ditty_layouts_sass'	=> false,
+		'variation_defaults'	=> array(),
 		'global_ditty'				=> array(),
 		'ditty_news_ticker' 	=> '',
 		'notification_email' 	=> '',
@@ -466,8 +467,17 @@ function ditty_layout_exists( $layout_id, $layout_type ) {
  * @access   public
  * @var      bool
 */
-function ditty_layouts_with_type( $layout_type, $layout_template = false, $layout_version = false, $return = 'ids' ) {
-	$args = array(
+function ditty_layouts_with_type( $layout_type, $atts = array() ) {
+	$defaults = array(
+		'template' 	=> false,
+		'variation'	=> false,
+		'version'		=> false,
+		'return'		=> 'ids',
+	);
+	$args = shortcode_atts( $defaults, $atts );
+	
+	
+	$query_args = array(
 		'posts_per_page' 	=> -1,
 		'post_type' 			=> 'ditty_layout',
 		'post_status'			=> 'publish',
@@ -478,22 +488,22 @@ function ditty_layouts_with_type( $layout_type, $layout_template = false, $layou
 		'key' 	=> '_ditty_layout_type',
 		'value'	=> $layout_type,
 	);
-	if ( $layout_template ) {
+	if ( $args['template'] ) {
 		$meta_query['template'] = array(
 			'key' 	=> '_ditty_layout_template',
-			'value'	=> $layout_template,
+			'value'	=> $args['template'],
 		);
 	}
-	if ( $layout_version ) {
+	if ( $args['version'] ) {
 		$meta_query['version'] = array(
 			'key' 	=> '_ditty_layout_version',
-			'value'	=> $layout_version,
+			'value'	=> $args['version'],
 		);
 	}
-	$args['meta_query'] = $meta_query;
-	$layouts = get_posts( $args );
+	$query_args['meta_query'] = $meta_query;
+	$layouts = get_posts( $query_args );
 	
-	if ( 'versions' == $return ) {
+	if ( 'versions' == $args['return'] ) {
 		$layout_versions = array();
 		if ( is_array( $layouts ) && count( $layouts ) > 0 ) {
 			foreach ( $layouts as $i => $layout_id ) {
@@ -516,8 +526,15 @@ function ditty_layouts_with_type( $layout_type, $layout_template = false, $layou
  * @access   public
  * @var      bool
 */
-function ditty_displays_with_type( $display_type, $display_template = false, $display_version = false, $return = 'ids' ) {
-	$args = array(
+function ditty_displays_with_type( $display_type, $atts = array() ) {
+	$defaults = array(
+		'template' 	=> false,
+		'version'		=> false,
+		'return'		=> 'ids',
+	);
+	$args = shortcode_atts( $defaults, $atts );
+		
+	$query_args = array(
 		'posts_per_page' 	=> -1,
 		'post_type' 			=> 'ditty_display',
 		'post_status'			=> 'publish',
@@ -528,22 +545,22 @@ function ditty_displays_with_type( $display_type, $display_template = false, $di
 		'key' 	=> '_ditty_display_type',
 		'value'	=> $display_type,
 	);
-	if ( $display_template ) {
+	if ( $args['template'] ) {
 		$meta_query['template'] = array(
 			'key' 	=> '_ditty_display_template',
-			'value'	=> $display_template,
+			'value'	=> $args['template'],
 		);
 	}
-	if ( $display_version ) {
+	if ( $args['version'] ) {
 		$meta_query['version'] = array(
 			'key' 	=> '_ditty_display_version',
-			'value'	=> $display_version,
+			'value'	=> $args['version'],
 		);
 	}
-	$args['meta_query'] = $meta_query;
-	$displays = get_posts( $args );
+	$query_args['meta_query'] = $meta_query;
+	$displays = get_posts( $query_args );
 	
-	if ( 'versions' == $return ) {
+	if ( 'versions' == $args['return'] ) {
 		$display_versions = array();
 		if ( is_array( $displays ) && count( $displays ) > 0 ) {
 			foreach ( $displays as $i => $display_id ) {

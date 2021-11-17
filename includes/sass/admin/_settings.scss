@@ -168,12 +168,12 @@
 }
 
 /* Default Layouts & Displays */
-.ditty-field--default_layouts,
-.ditty-field--default_displays {
+.ditty-field--layout_templates,
+.ditty-field--display_templates {
 	.ditty-field__heading {
 		display: none;
 	}
-	.ditty-defaults-list {
+	.ditty-templates-list {
 		&__type {
 			margin-bottom: 30px;
 			h3 {
@@ -192,11 +192,6 @@
 			h4 {
 				font-size: 1.1em;
 				margin: 0 0 3px;
-				.ditty-default-layouts__template_version {
-					font-size: 12px;
-					font-weight: normal;
-					margin-left: 5px;
-				}
 			}
 			p {
 				margin: 0;

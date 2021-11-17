@@ -68,21 +68,48 @@ class Ditty_Layout_Type {
 	}
 	
 	/**
-	 * Return an array of default layouts
+	 * Return an array of variation types
 	 *
-	 * @access  private
+	 * @access  public
 	 * @since   3.0
 	 */
-	public function variation_defaults() {	
-		$layouts = ditty_layouts_with_type( $this->get_type() );
-		$variations = array();
-		if ( ! empty( $layouts ) ) {
-			$variations['default'] = end( $layouts );
-		} else {
-			$layout_id = Ditty()->layouts->install_default( $this->get_type(), 'default');
-			$variations['default'] = $layout_id;
-		}
-		return apply_filters( 'ditty_variation_defaults', $variations, $this );
+	public function variation_types() {	
+		$types = array(
+			'default' => 'default',
+		);
+		return apply_filters( 'ditty_variation_types', $types, $this );
+	}
+	
+	/**
+	 * Return an array of default layouts
+	 *
+	 * @access  public
+	 * @since   3.0
+	 */
+	public function variation_defaults() {
+		$all_variation_defaults = ditty_settings( 'variation_defaults' );
+		$variation_defaults = isset( $all_variation_defaults[$this->get_type()] ) ? $all_variation_defaults[$this->get_type()] : array();
+		$variation_types = $this->variation_types();
+		
+		$confirmed_defaults = array();
+		$defaults_updated = false;
+		if ( is_array( $variation_types ) && count( $variation_types ) > 0 ) {
+			foreach ( $variation_types as $variation_type => $template ) {
+				$default = isset( $variation_defaults[$variation_type] ) ? $variation_defaults[$variation_type] : false;
+				if ( $default && 'publish' == get_post_status( $default ) ) {
+					$confirmed_defaults[$variation_type] = $default;
+				} else {
+					$layout_id = Ditty()->layouts->install_default( $this->get_type(), $template );
+					$confirmed_defaults[$variation_type] = $layout_id;
+					$defaults_updated = true;
+				}
+			}
+		}	
+		if ( $defaults_updated ) {	
+			$all_variation_defaults[$this->get_type()] = $confirmed_defaults;
+			ditty_settings( 'variation_defaults', $all_variation_defaults );
+		}	
+		return apply_filters( 'ditty_variation_defaults', $confirmed_defaults, $this );
 	}
 	
 	/**
@@ -109,27 +136,21 @@ class Ditty_Layout_Type {
 	 * @access  public
 	 * @since   3.0
 	 */
-	public function get_variation_values( $variation_value = false ) {
+	public function get_variation_values( $variation_value = array() ) {
 		$defaults = $this->variation_defaults();
-		if ( ! $variation_value ) {
-			return $defaults;
-		}
-		$values = shortcode_atts( $defaults, $variation_value );
+		$varation_types = $this->variation_types();
 		$confirmed_values = array();
-		if ( is_array( $values ) && count( $values ) > 0 ) {
-			foreach ( $values as $variation_id => $layout_id ) {
-				if ( ! isset( $defaults[$variation_id] ) ) {
-					continue;
-				}
-				if ( ! ditty_layout_exists( $layout_id, $this->get_type() ) ) {
-					$layout_id = $defaults[$variation_id];
-				}
-				if ( is_numeric( $layout_id ) ) {
-					if ( 'publish' != get_post_status( $layout_id ) ) {
-						$template = $defaults[$variation_id];
+		if ( is_array( $varation_types ) && count( $varation_types ) > 0 ) {
+			foreach ( $varation_types as $varation_type => $template ) {
+				if ( isset( $variation_value[$varation_type] ) ) {
+					if ( 'publish' == get_post_status( $variation_value[$varation_type] ) ) {
+						$confirmed_values[$varation_type] = $variation_value[$varation_type];
+					} else {
+						$confirmed_values[$varation_type] = $defaults[$varation_type];
 					}
+				} else {
+					$confirmed_values[$varation_type] = $defaults[$varation_type];
 				}
-				$confirmed_values[$variation_id] = $layout_id;
 			}
 		}
 		return $confirmed_values;

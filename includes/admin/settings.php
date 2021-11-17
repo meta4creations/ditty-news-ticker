@@ -47,6 +47,11 @@ function ditty_settings_display() {
 						'label' 		=> __( 'Global Ditty', 'ditty-news-ticker' ),
 						'fields' 		=> 'ditty_settings_global_ditty',
 					),
+					// 'layouts' => array(
+					// 	'icon'			=> 'fas fa-pencil-ruler',
+					// 	'label' 		=> __( 'Layouts', 'ditty-news-ticker' ),
+					// 	'fields' 		=> 'ditty_settings_layouts',
+					// ),
 					'layout_templates' => array(
 						'icon'			=> 'fas fa-pencil-ruler',
 						'label' 		=> __( 'Layout Templates', 'ditty-news-ticker' ),
@@ -144,8 +149,8 @@ function ditty_settings_general() {
 		'ditty_layout_ui' => array(
 			'type' 				=> 'radio',
 			'id' 					=> 'ditty_layout_ui',
-			'name' 				=> __( 'Ditty Layout Posts', 'ditty-news-ticker' ),
-			'desc' 				=> __( 'Edit Ditty Layouts directly as post types.', 'ditty-news-ticker' ),
+			'name' 				=> __( 'Layout Posts', 'ditty-news-ticker' ),
+			'desc' 				=> __( 'Edit Layouts directly as post types.', 'ditty-news-ticker' ),
 			'inline'			=> true,
 			'options'			=> array(
 				'disabled'	=> __( 'Disabled', 'ditty-news-ticker' ),
@@ -170,17 +175,40 @@ function ditty_settings_general() {
 }
 
 /**
+ * Setup the layouts fields
+ *
+ * @since    3.0  
+*/
+function ditty_settings_layouts() {	
+	$fields = array(
+		'ditty_layout_ui' => array(
+			'type' 				=> 'radio',
+			'id' 					=> 'ditty_layout_ui',
+			'name' 				=> __( 'Layout Posts', 'ditty-news-ticker' ),
+			'desc' 				=> __( 'Edit Layouts directly as post types.', 'ditty-news-ticker' ),
+			'inline'			=> true,
+			'options'			=> array(
+				'disabled'	=> __( 'Disabled', 'ditty-news-ticker' ),
+				'enabled'		=> __( 'Enabled', 'ditty-news-ticker' ),
+			),
+			'std' 				=> ditty_settings( 'ditty_layout_ui' ),
+		),
+	);
+	ditty_fields( $fields );
+}
+
+/**
  * Setup the layout templates fields
  *
  * @since    3.0  
 */
 function ditty_settings_layout_templates() {	
 	$fields = array(
-		'default_layouts' => array(
+		'layout_templates' => array(
 			'type' 		=> 'html',
-			'id' 			=> 'default_layouts',
-			'name' 		=> __( 'Default Layouts', 'ditty-news-ticker' ),
-			'std' 		=> Ditty()->layouts->list_default_layouts(),
+			'id' 			=> 'layout_templates',
+			'name' 		=> __( 'Layout Templates', 'ditty-news-ticker' ),
+			'std' 		=> Ditty()->layouts->layout_templates_list(),
 		),
 	);
 	ditty_fields( $fields );
@@ -193,11 +221,11 @@ function ditty_settings_layout_templates() {
 */
 function ditty_settings_display_templates() {	
 	$fields = array(
-		'default_displays' => array(
+		'display_templates' => array(
 			'type' 		=> 'html',
-			'id' 			=> 'default_displays',
+			'id' 			=> 'display_templates',
 			'name' 		=> __( 'Default Displays', 'ditty-news-ticker' ),
-			'std' 		=> Ditty()->displays->list_default_displays(),
+			'std' 		=> Ditty()->displays->display_templates_list(),
 		),
 	);
 	ditty_fields( $fields );

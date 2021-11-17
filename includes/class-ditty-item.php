@@ -643,10 +643,8 @@ class Ditty_Item {
 	public function get_display_items() {
 		$display_meta = $this->get_display_meta();
 		$display_items = array();
-		
 		if ( is_array( $display_meta ) && count( $display_meta ) > 0 ) {
 			foreach ( $display_meta as $i => $meta ) {
-				
 				$mode = ( 'draft' == $this->mode ) ? 'edit' : 'live';
 				$display_item = new Ditty_Display_Item( $meta, $mode );
 				if ( $data = $display_item->compile_data() ) {
