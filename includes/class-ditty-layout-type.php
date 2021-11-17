@@ -164,11 +164,16 @@ class Ditty_Layout_Type {
 	 * @return string $id
 	 */
 	public function parse_layout_id( $layout_value = array(), $item_value = array() ) {
+		$variation_values = $this->variations( $layout_value );
+		$layout_id = false;
 		if ( isset( $layout_value[$this->default_variation] ) ) {
-			return $layout_value[$this->default_variation];
+			$layout_id = $layout_value[$this->default_variation];
 		} else {
-			return $this->default_template;
+			$layout_id = $this->default_template;
 		}
+		$layout_id = apply_filters( 'ditty_parse_layout_id', $layout_id, $item_value, $variation_values, $this );
+		ChromePhp::log( '$layout_id:', $layout_id );
+		return $layout_id;
 	}
 	
 	/**

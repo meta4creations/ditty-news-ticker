@@ -59,6 +59,10 @@ class Ditty_Extensions {
 	 * @since   3.0
 	 */
 	public function add_extension_updaters() {
+		if ( wp_doing_ajax() ) {
+			return false;
+		}
+		
 		$extensions = ditty_extensions();
 		$ditty_licenses = $this->licenses;
 		
@@ -219,7 +223,7 @@ class Ditty_Extensions {
 			return false;
 		}
 		unset( $licenses[$extension] );
-		return $this->update_licenses( $updated_licenses );
+		return $this->update_licenses( $licenses );
 	}
 	
 	/**
@@ -414,7 +418,11 @@ class Ditty_Extensions {
 	 * @access  public
 	 * @since   3.0
 	 */
-	public function extensions_page() {
+	public function extensions_page() {	
+		if ( wp_doing_ajax() ) {
+			return false;
+		}		
+		
 		$extensions = ditty_extensions();
 		if ( isset( $_GET['extension'] ) ) {
 			$extensions = array( $_GET['extension'] => $extensions[$_GET['extension']]) + $extensions;

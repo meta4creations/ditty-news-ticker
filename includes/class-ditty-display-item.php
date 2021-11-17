@@ -30,7 +30,6 @@ class Ditty_Display_Item {
 	 */
 	public function __construct( $meta, $mode = 'live' ) {	
 		//$this->api_id 			= isset( $meta['api_id'] ) 				? $meta['api_id'] 			: false;
-		$this->layout_id 		= isset( $meta['layout_id'] ) 		? $meta['layout_id'] 		: -1;
 		$this->layout_value = isset( $meta['layout_value'] ) 	? $meta['layout_value'] : 'default';
 		$this->item_id 			= isset( $meta['item_id'] ) 			? $meta['item_id'] 			: -1;
 		$this->item_uniq_id = isset( $meta['item_uniq_id'] ) 	? $meta['item_uniq_id'] : $this->item_id;
@@ -38,6 +37,7 @@ class Ditty_Display_Item {
 		$this->item_value 	= isset( $meta['item_value'] ) 		? $meta['item_value'] 	: '';
 		$this->ditty_id 		= isset( $meta['ditty_id'] ) 			? $meta['ditty_id'] 		: -1;
 		$this->mode 				= $mode;
+		$this->layout_id 		= $this->get_layout_id();
 	}
 	
 	/**
@@ -239,7 +239,6 @@ class Ditty_Display_Item {
 	 * @return html
 	 */
 	public function render_html( $render='echo' ) {
-
 		$html = '';
 		if ( $layout_object = $this->get_layout_object() ) {
 			$atts = array(
