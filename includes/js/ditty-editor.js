@@ -1,5 +1,4 @@
 /* global dittyVars:true */
-/* global console:true */
 /* global jQuery:true */
 // @codekit-append 'partials/class-ditty-ui-data-list.js';
 // @codekit-append 'editor/helpers.js';
@@ -174,7 +173,7 @@ function dittyEditorInit( ditty ) {
 		return false;
 	}
 	var status = ditty.options( 'status' ),
-			panel = ( 'auto-draft' === status ) ? 'settings' : false;
+			panel = 'auto-draft' === status ? 'settings' : false;
 	
 	jQuery( '#ditty-editor__settings' ).ditty_editor( {
 		ditty: ditty,

@@ -669,13 +669,13 @@
 	    var params = [];
 	    
 	    switch( fn ) {
-		    case 'activeItemsUpdate':
-		    	params = [this.getActiveItems()];
+		    case 'active_items_update':
+		    	params = [this, this.getActiveItems()];
 		    	break;
-		    case 'disabledItemsUpdate':
+		    case 'disabled_items_update':
 		    	params = [this._disabledItemsStatus()];
 		    	break;
-		    case 'startLiveUpdates':
+		    case 'start_live_updates':
 		    	params = [this.settings.id];
 		    	break;
 		    default:

@@ -399,17 +399,38 @@ class Ditty_Items {
 		unset( $_POST['action'] );
 		unset( $_POST['draft_values'] );
 		unset( $_POST['security'] );
+		unset( $_POST['item_id'] );
 
 		$editor_item 	= new Ditty_Item( $item_id_ajax );
 		$editor_item->set_item_value( $_POST );	
-		$data = array(
+		
+		// Find updated values
+		$value_updates = array();
+		$sanitized_values = $editor_item->get_value();
+		if ( is_array( $sanitized_values ) && count( $sanitized_values ) > 0 ) {
+			foreach ( $sanitized_values as $key => $value ) {
+				if ( is_array( $value ) ) {
+					if ( strlen( maybe_serialize( $value ) ) !== strlen( maybe_serialize( $_POST[$key] ) ) ) {
+						$value_updates[$key] = $value;
+					}					
+				} else {
+					if ( $value !== $_POST[$key] ) {
+						$value_updates[$key] = $value;
+					}
+				}	
+			}
+		}
+		
+		$json_data = array(
 			'editor_item' 	=> $editor_item->render_editor_list_item( 'return' ),
 			'display_items'	=> $editor_item->get_display_items(),
 			'draft_id'			=> $editor_item->get_id(),
 			'draft_data' 		=> $editor_item->get_db_data(),
 			'draft_meta' 		=> $editor_item->custom_meta(),
+			'value_updates'	=> $value_updates,
 		);
-		wp_send_json( $data );
+		
+		wp_send_json( $json_data );
 	}
 	
 	/**

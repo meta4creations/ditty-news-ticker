@@ -202,9 +202,12 @@
 				type			: 'post',
 				dataType	: 'json',
 				data			: data,
-				error			: function( error ) {
+				error			: function() {
 				},
         success		: function( response ) { 
+					if ( response.value_updates ) {
+						self._updateValues( response.value_updates );
+					}
 	        self.initData = self.$form.serialize();
 	        self._disablePreviewButton();
 
@@ -225,7 +228,7 @@
 					if ( response.draft_id && response.draft_meta ) {
 						dittyDraftItemUpdateMeta( self, response.draft_id, null, response.draft_meta );
 					}
-					
+
 					self.settings.editor.updateStop(); // Stop the update overlay
 					self.settings.editor.delayedSubmitDisable(); // Remove the delayed submit since we just submitted
 
@@ -241,6 +244,22 @@
         }
 	    } ); 
     },
+		
+		/**
+		 * Update field values
+		 *
+		 * @since    3.0
+		 * @return   null
+		*/
+		_updateValues: function ( data ) {
+			var self = this;
+			$.each( data, function( key, value ) {
+				var $element = self.$form.find( '[name="' + key + '"]' );
+				if ( $element.length ) {
+					$element.val( value );
+				}
+			} );
+		},
 
 	  /**
 		 * Return a specific setting

@@ -21,6 +21,8 @@ class Ditty_Display_Item {
 	private $item_type_object;
 	private $item_value;
 	private $ditty_id;
+	private $has_error;
+	private $custom_classes;
 	private $mode;
 	
 	/**
@@ -29,15 +31,16 @@ class Ditty_Display_Item {
 	 * @since   3.0
 	 */
 	public function __construct( $meta, $mode = 'live' ) {	
-		//$this->api_id 			= isset( $meta['api_id'] ) 				? $meta['api_id'] 			: false;
-		$this->layout_value = isset( $meta['layout_value'] ) 	? $meta['layout_value'] : 'default';
-		$this->item_id 			= isset( $meta['item_id'] ) 			? $meta['item_id'] 			: -1;
-		$this->item_uniq_id = isset( $meta['item_uniq_id'] ) 	? $meta['item_uniq_id'] : $this->item_id;
-		$this->item_type 		= isset( $meta['item_type'] ) 		? $meta['item_type'] 		: 'default';
-		$this->item_value 	= isset( $meta['item_value'] ) 		? $meta['item_value'] 	: '';
-		$this->ditty_id 		= isset( $meta['ditty_id'] ) 			? $meta['ditty_id'] 		: -1;
-		$this->mode 				= $mode;
-		$this->layout_id 		= $this->get_layout_id();
+		$this->layout_value 	= isset( $meta['layout_value'] ) 		? $meta['layout_value'] 	: 'default';
+		$this->item_id 				= isset( $meta['item_id'] ) 				? $meta['item_id'] 				: -1;
+		$this->item_uniq_id 	= isset( $meta['item_uniq_id'] ) 		? $meta['item_uniq_id'] 	: $this->item_id;
+		$this->item_type 			= isset( $meta['item_type'] ) 			? $meta['item_type'] 			: 'default';
+		$this->item_value 		= isset( $meta['item_value'] ) 			? $meta['item_value'] 		: '';
+		$this->ditty_id 			= isset( $meta['ditty_id'] ) 				? $meta['ditty_id'] 			: -1;
+		$this->has_error 			= isset( $meta['has_error'] ) 			? $meta['has_error']			: false;
+		$this->custom_classes = isset( $meta['custom_classes'] ) 	? $meta['custom_classes']	: false;
+		$this->mode 					= $mode;
+		$this->layout_id 			= $this->get_layout_id();
 	}
 	
 	/**
@@ -205,6 +208,20 @@ class Ditty_Display_Item {
 		}
 		return $html_tag_values;
 	}
+	
+	/**
+	 * Return custom classes
+	 *
+	 * @access private
+	 * @since  3.0
+	 * @return string $classes
+	 */
+	private function get_custom_classes() {	
+		if ( $this->custom_classes ) {
+			$classes = explode( ' ', $this->custom_classes );
+			return $classes;
+		}
+	}
 
 	/**
 	 * Setup the item classes
@@ -226,6 +243,12 @@ class Ditty_Display_Item {
 			$classes[] = 'ditty-layout--' . esc_attr( $this->layout_id );
 		} else {
 			$classes[] = 'ditty-layout--default';
+		}
+		if ( $this->has_error ) {
+			$classes[] = 'ditty-error';
+		}
+		if ( $custom_classes = $this->get_custom_classes() ) {
+			$classes = array_merge( $classes, $custom_classes );
 		}		
 		$classes = apply_filters( 'ditty_display_item_classes', $classes, $this->item_id );	
 		return implode( ' ', $classes );

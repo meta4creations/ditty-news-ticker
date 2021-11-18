@@ -259,7 +259,7 @@
 			  return false;
 			}
 			
-			var transition = ( index > self.currentTab ) ? 'slideLeft' : 'slideRight';
+			var transition = index > self.currentTab ? 'slideLeft' : 'slideRight';
 		  self.$panels.ditty_slider( 'options', 'transition', transition );
 		  self.$panels.ditty_slider( 'showSlideById', panelId );
 		  self.currentTab = index;
@@ -424,7 +424,7 @@
 		 * @since    3.0
 		 * @return   null
 		*/
-	  _dittyItemsUpdated: function( e, items ) {
+	  _dittyItemsUpdated: function( e, ditty, items ) {
 			var self = e.data.self;
 			self.activeItems = items;
 			self.trigger( 'active_items_update' );
@@ -694,7 +694,7 @@
 	    
 	    switch( fn ) {
 		    case 'active_items_update':
-		    	params = [this.activeItems];
+		    	params = [this.ditty, this.activeItems];
 		    	break;
 		    case 'stop_live_updates':
 		    	params = [this.dittyId];

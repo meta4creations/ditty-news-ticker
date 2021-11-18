@@ -114,7 +114,7 @@
 		 * @since    3.0
 		 * @return   null
 		*/
-		_dittyActiveItemsUpdated: function( e, items ) {
+		_dittyActiveItemsUpdated: function( e, ditty, items ) {
 	    var self = e.data.self;
 			self._highlightListItems( items );
     },

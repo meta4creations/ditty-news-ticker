@@ -1,4 +1,4 @@
-/* global ditty_layout_css:true */
+/* global dittyLayoutCss:true */
 
 /**
  * Ditty Layout CSS Editor Panel
@@ -31,7 +31,7 @@
     this.layoutId											= this.$form.data( 'layout_id' );
     this.$editorItem 									= dittyVars.editor.currentItem;
     this.$editorLayout 								= dittyVars.editor.currentLayout;
-    this.$editorLayoutTitle						= ( this.$editorLayout ) ? this.$editorLayout.find( '.ditty-data-list__item__label' ) : false;
+    this.$editorLayoutTitle						= this.$editorLayout ? this.$editorLayout.find( '.ditty-data-list__item__label' ) : false;
 		this.$editorLayoutVariation 			= dittyVars.editor.currentLayoutVariation;
 		this.$editorLayoutVariationTitle	= this.$editorLayoutVariation.find( '.ditty-layout-variation__template span' );
     this.editorDittyId								= this.$editorItem.data( 'ditty_id' );
@@ -354,7 +354,7 @@
 	  _initEditor: function() {
 		  var self = this,
 		  		codeEditorSettings = wp.codeEditor.defaultSettings ? _.clone( wp.codeEditor.defaultSettings ) : {},
-					mode = ( dittyVars.editor.ditty_layouts_sass ) ? 'sass' : 'css';	
+					mode = dittyVars.editor.ditty_layouts_sass ? 'sass' : 'css';	
 			
 	    codeEditorSettings.codemirror = _.extend(
 	      {},

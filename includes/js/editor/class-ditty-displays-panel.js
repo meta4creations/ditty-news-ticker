@@ -129,7 +129,6 @@
 				draft_values	: self.settings.editor.getDraftValues(),
 				security			: dittyVars.security
 			};
-			console.log( 'data:', data );
 			$.post( dittyVars.ajaxurl, data, function( response ) {
 				if ( ! response ) {
 					return false;

@@ -489,7 +489,7 @@
 		_setCurrentHeight: function () {		
 			var height = this.currentHeight;
 			
-			if ( ( 'up' === this.settings.direction || 'down' === this.settings.direction ) ) {		
+			if ( 'up' === this.settings.direction || 'down' === this.settings.direction ) {		
 				height = this.$items.outerHeight();
 				this.$items.css( {
 					height: '100%'
@@ -847,10 +847,10 @@
 			this.$contents.css( this.settings.contentsBorderRadius );
 			this.$contents.css( this.settings.contentsBorderWidth );
 			
-			if ( ( 'up' === this.settings.direction || 'down' === this.settings.direction ) ) {
-				var height  = ( this.settings.height ) ? ( this.settings.height ) : '100%',
-						minHeight  = ( this.settings.minHeight ) ? ( this.settings.minHeight ) : 0,
-						maxHeight  = ( this.settings.maxHeight ) ? ( this.settings.maxHeight ) : 'none';
+			if ( 'up' === this.settings.direction || 'down' === this.settings.direction ) {
+				var height  = this.settings.height ? this.settings.height : '100%',
+						minHeight  = this.settings.minHeight ? this.settings.minHeight : 0,
+						maxHeight  = this.settings.maxHeight ? this.settings.maxHeight : 'none';
 				this.$elmt.css( {
 					height: height,
 					minHeight: minHeight,
@@ -1231,19 +1231,19 @@
     trigger: function ( fn ) {
 	    var params = [];
 	    switch( fn ) {
-		    case 'activeItemsUpdate':
-		    	params = [this.getActiveItems()];
+		    case 'active_items_update':
+		    	params = [this, this.getActiveItems()];
 		    	break;
-		    case 'disabledItemsUpdate':
+		    case 'disabled_items_update':
 		    	params = [this._disabledItemsStatus()];
 		    	break;
-		    case 'heightUpdated':
+		    case 'height_updated':
 		    	params = [
 	        	this.currentHeight,
 	        	this.$elmt
 		      ];
 		    	break;
-		    case 'startLiveUpdates':
+		    case 'start_live_updates':
 		    	params = [this.settings.id];
 		    	break;
 		    default:

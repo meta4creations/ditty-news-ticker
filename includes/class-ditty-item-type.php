@@ -10,49 +10,14 @@
  * @since       3.0
 */
 class Ditty_Item_Type {
-	
-	/**
-	 * Slug
-	 *
-	 * @since 3.0
-	 */
-	public $slug = 'none';
-		
-	/**
-	 * Type
-	 *
-	 * @since 3.0
-	 */
-	public $type;
-	
-	/**
-	 * Label
-	 *
-	 * @since 3.0
-	 */
-	public $label;
-	
-	/**
-	 * Fields
-	 *
-	 * @since 3.0
-	 */
-	public $icon;
-	
-	/**
-	 * Description
-	 *
-	 * @since 3.0
-	 */
-	public $description;
-	
-	/**
-	 * Layout Type
-	 *
-	 * @since 3.0
-	 */
-	public $layout_type;
 
+	public $slug = 'none';
+	public $type;
+	public $label;
+	public $icon;
+	public $description;
+	public $layout_type;
+	public $script_id;
 
 	/**
 	 * Get things started
@@ -125,6 +90,20 @@ class Ditty_Item_Type {
 	 */
 	public function get_layout_type() {
 		return $this->layout_type;
+	}
+	
+	/**
+	 * Return the script slug
+	 *
+	 * @access  public
+	 * @since   3.0
+	 * @return string $layout_type
+	 * 
+	 */
+	public function get_script_id() {
+		if ( ! empty( $this->script_id ) ) {
+			return $this->script_id;
+		}
 	}
 	
 	/**

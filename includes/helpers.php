@@ -1052,8 +1052,10 @@ function ditty_add_scripts( $ditty_id, $display = '' ) {
 	$items = Ditty()->db_items->get_items( $ditty_id );
 	if ( is_array( $items ) && count( $items ) > 0 ) {
 		foreach ( $items as $i => $item ) {
-			$item_type = $item->item_type;
-			$ditty_item_scripts[$item_type] = $item_type;
+			$item_type_object = ditty_item_type_object( $item->item_type );
+			if ( $script_id = $item_type_object->get_script_id() ) {
+				$ditty_item_scripts[$script_id] = $script_id;
+			}
 		}
 	}
 	

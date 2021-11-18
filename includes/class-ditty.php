@@ -591,15 +591,15 @@ class Ditty {
 		if ( empty( $ditty_display_scripts ) ) {
 			$ditty_display_scripts = array();
 		}
-		if ( is_array( $ditty_display_scripts ) && count( $ditty_display_scripts ) > 0 ) {
-			foreach ( $ditty_display_scripts as $i => $ditty_display_script ) {
-				wp_print_scripts( "ditty-display-{$ditty_display_script}" );
+		if ( is_array( $ditty_item_scripts ) && count( $ditty_item_scripts ) > 0 ) {
+			foreach ( $ditty_item_scripts as $i => $ditty_item_script ) {
+				wp_print_scripts( "ditty-{$ditty_item_script}" );
 			}
 		}
-		if ( is_array( $ditty_item_scripts ) && count( $ditty_item_scripts ) > 0 ) {
+		if ( is_array( $ditty_display_scripts ) && count( $ditty_display_scripts ) > 0 ) {
 			wp_print_scripts( 'ditty' );
-			foreach ( $ditty_item_scripts as $i => $ditty_item_scripts ) {
-				wp_print_scripts( "ditty-item-{$ditty_display_script}" );
+			foreach ( $ditty_display_scripts as $i => $ditty_display_script ) {
+				wp_print_scripts( "ditty-display-{$ditty_display_script}" );
 			}
 		}
 	}

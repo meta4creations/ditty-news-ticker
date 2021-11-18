@@ -31,7 +31,7 @@
     this.layoutId											= this.$form.data( 'layout_id' );
     this.$editorItem 									= dittyVars.editor.currentItem;
     this.$editorLayout 								= dittyVars.editor.currentLayout;
-    this.$editorLayoutTitle						= ( this.$editorLayout ) ? this.$editorLayout.find( '.ditty-data-list__item__label' ) : false;
+    this.$editorLayoutTitle						= this.$editorLayout ? this.$editorLayout.find( '.ditty-data-list__item__label' ) : false;
 		this.$editorLayoutVariation 			= dittyVars.editor.currentLayoutVariation;
 		this.$editorLayoutVariationTitle	= this.$editorLayoutVariation.find( '.ditty-layout-variation__template span' );
     this.editorDittyId								= this.$editorItem.data( 'ditty_id' );
