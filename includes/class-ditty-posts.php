@@ -305,7 +305,7 @@ class Ditty_Posts {
 	public function get_ditty_display_items( $ditty_id, $force_load = false ) {
 		$transient_name = "ditty_display_items_{$ditty_id}";
 		$display_items = get_transient( $transient_name );
-		if ( ! $display_items || $force_load ) {
+		//if ( ! $display_items || $force_load ) {
 			$display_items = array();
 			$items_meta = ditty_items_meta( $ditty_id );
 			if ( empty( $items_meta) && 'auto-draft' == get_post_status( $ditty_id ) ) {
@@ -318,7 +318,7 @@ class Ditty_Posts {
 				}
 			}
 			set_transient( $transient_name, $display_items, ( MINUTE_IN_SECONDS * ditty_settings( 'live_refresh' ) ) );
-		}
+		//}
 		return $display_items;
 	}
 	
