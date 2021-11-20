@@ -137,7 +137,7 @@ class Ditty_Layout_Type {
 	 * @since   3.0
 	 */
 	public function get_variation_values( $variation_value = array() ) {
-		$defaults = $this->variation_defaults();
+		$defaults = null;
 		$varation_types = $this->variation_types();
 		$confirmed_values = array();
 		if ( is_array( $varation_types ) && count( $varation_types ) > 0 ) {
@@ -146,9 +146,15 @@ class Ditty_Layout_Type {
 					if ( 'publish' == get_post_status( $variation_value[$varation_type] ) ) {
 						$confirmed_values[$varation_type] = $variation_value[$varation_type];
 					} else {
+						if ( empty( $defaults ) ) {
+							$defaults = $this->variation_defaults();
+						}
 						$confirmed_values[$varation_type] = $defaults[$varation_type];
 					}
 				} else {
+					if ( empty( $defaults ) ) {
+						$defaults = $this->variation_defaults();
+					}
 					$confirmed_values[$varation_type] = $defaults[$varation_type];
 				}
 			}

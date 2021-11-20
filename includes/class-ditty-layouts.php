@@ -28,6 +28,7 @@ class Ditty_Layouts {
 		add_action( 'save_post', array( $this, 'metabox_save' ) );
 		
 		// General hooks
+		add_filter( 'post_row_actions', array( $this, 'modify_list_row_actions' ), 10, 2 );
 		add_action( 'ditty_editor_update', array( $this, 'update_drafts' ), 10, 2 );
 		add_filter( 'ditty_item_db_data', array( $this, 'modify_ditty_item_db_data'), 10, 2 );
 		
@@ -231,6 +232,23 @@ class Ditty_Layouts {
 	}
 	
 	/**
+	 * Add the post ID to the list row actions
+	 * 
+	 * @since  3.0
+	 * @return void
+	 */
+	public function modify_list_row_actions( $actions, $post ) {
+		if ( $post->post_type == 'ditty_layout' ) {
+			//$id_string = sprintf( __( 'ID: %d', 'ditty-news-ticker' ), $post->ID );
+			$id_array = array(
+				'id' => sprintf( __( 'ID: %d', 'ditty-news-ticker' ), $post->ID ),
+			);
+			$actions = array_merge( $id_array, $actions );
+		}
+		return $actions;
+	}
+	
+	/**
 	 * Add metaboxes
 	 * 
 	 * @since  3.0
@@ -284,6 +302,9 @@ class Ditty_Layouts {
 		update_post_meta( $post_id, '_ditty_layout_description', $layout_description );
 		update_post_meta( $post_id, '_ditty_layout_html', $layout_html );
 		update_post_meta( $post_id, '_ditty_layout_css', $layout_css );
+		
+		// Remove the version number of edited layouts
+		delete_post_meta( $post_id, '_ditty_layout_version' );
 	}
 	
 	/**
@@ -571,7 +592,7 @@ class Ditty_Layouts {
 							$variations = $layout_object->variations( $layout_value );
 							if ( is_array( $variations ) && count( $variations ) > 0 ) {
 								foreach ( $variations as $id => $data ) {
-									$layout_id = ditty_layout_exists( $data['template'], $layout_type_ajax ) ? $data['template'] : 'default';
+									$layout_id = $data['template'];
 									$layout = new Ditty_Layout( $layout_id, $layout_type_ajax );
 									$version = $layout->get_version();
 									$version_string = '';

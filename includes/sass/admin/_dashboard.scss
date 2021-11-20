@@ -29,7 +29,6 @@
 		}
 	}
 }
-
 .menu-icon-ditty {
 	.dashicons-before:before {
 		content: '';
@@ -48,6 +47,9 @@
 			@include menu_icon_background( #FFF );
 		}
 	}
+}
+table.wp-list-table .type-ditty_layout .row-actions {
+	color: #999;
 }
 
 .ditty_layout_ui--disabled {
@@ -68,10 +70,6 @@
 	border: 1px solid $error_dark;
 	border-radius: 3px;
 	padding: 7px 10px;
-}
-
-#adminmenu .wp-submenu > li > a[href="edit.php?post_type=ditty_news_ticker"] {
-	
 }
 #adminmenu .wp-submenu > li > a[href="edit.php?post_type=ditty_news_ticker"],
 #adminmenu .wp-submenu > li > a[href="edit.php?post_type=ditty&page=mtphr_dnt_settings"] {
