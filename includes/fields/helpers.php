@@ -69,6 +69,7 @@ function ditty_sanitize_field( $field = array(), $values = array() ) {
 			break;
 		case 'spacing':
 		case 'radius':
+		case 'checkboxes':
 			if ( is_array( $value ) && count( $value ) > 0 ) {
 				foreach ( $value as $key => $val ) {
 					$sanitized_value[$key] = sanitize_text_field( $val );

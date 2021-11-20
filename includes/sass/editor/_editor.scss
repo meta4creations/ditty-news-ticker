@@ -48,22 +48,12 @@ $update_color: orange;
 		.ditty-field-type--group {
 			padding: 0;
 			border-color: rgba(0, 0, 0, 0.05);
-			// .ditty-field__collapsible-toggle {
-			// 	color: #FFF;
-			// }
-			// > .ditty-field__heading {
-			// 	display: flex;
-			// 	flex-direction: row;
-			// 	align-items: center;
-			// 	justify-content: flex-start;
-			// 	color: #FFF;
-			// 	background: #32373C;
-			// 	padding: 15px;
-			// 	margin: 0;
-			// 	label {
-			// 		margin-bottom: 0;
-			// 	}
-			// }
+		}
+		.ditty-field-type--checkboxes {
+			.ditty-field {
+				padding: 0 10px 0 0;
+				border: none;	
+			}
 		}
 		.ditty-input--group {
 			&__container {

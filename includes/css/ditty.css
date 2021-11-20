@@ -723,6 +723,9 @@
     #ditty-editor__settings .ditty-field-type--group {
       padding: 0;
       border-color: rgba(0, 0, 0, 0.05); }
+    #ditty-editor__settings .ditty-field-type--checkboxes .ditty-field {
+      padding: 0 10px 0 0;
+      border: none; }
     #ditty-editor__settings .ditty-input--group__container > .ditty-field {
       width: 100%; }
   #ditty-editor .ditty-editor__panels {
