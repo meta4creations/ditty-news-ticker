@@ -94,7 +94,7 @@
 			
 			// Setup the new ticker and overwrite ditty
 			$elmnt['ditty_' + displayType]( values );
-			this.settings.editor.ditty = $elmnt['ditty_' + displayType]( 'options', 'ditty-news-ticker' );
+			this.settings.editor.ditty = $elmnt['ditty_' + displayType]( 'options', 'ditty' );
 		},
     
     /**
