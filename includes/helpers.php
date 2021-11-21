@@ -152,6 +152,13 @@ function ditty_layout_types() {
 		'class_name'	=> 'Ditty_Layout_Type_WP_Editor',
 		//'class_path'	=> DITTY_DIR . 'includes/class-ditty-layout-type-wp-editor.php',
 	);
+	$layout_types['image'] = array(
+		'label' 			=> __( 'Image', 'ditty-news-ticker' ),
+		'icon' 				=> 'fas fa-image',
+		'description' => __( 'Display an image', 'ditty-news-ticker' ),
+		'class_name'	=> 'Ditty_Layout_Type_Image',
+		//'class_path'	=> DITTY_DIR . 'includes/class-ditty-layout-type-wp-editor.php',
+	);
 	// $layout_types['wp_post'] = array(
 	// 	'label' 			=> __( 'WP Post', 'ditty-news-ticker' ),
 	// 	'icon' 				=> 'fab fa-wordpress-simple',

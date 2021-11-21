@@ -285,6 +285,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-layouts.php';
 		require_once DITTY_DIR . 'includes/class-ditty-layout-type.php';
 		require_once DITTY_DIR . 'includes/class-ditty-layout-type-default.php';
+		require_once DITTY_DIR . 'includes/class-ditty-layout-type-image.php';
 		require_once DITTY_DIR . 'includes/class-ditty-layout-type-wp-editor.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item.php';
 		require_once DITTY_DIR . 'includes/class-ditty-items.php';

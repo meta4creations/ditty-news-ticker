@@ -423,6 +423,9 @@ class Ditty_Layout {
 		$handlers = new HandlerContainer();
 		if ( is_array( $tags ) && count( $tags ) > 0 ) {
 			foreach ( $tags as $i => $tag ) {
+				if ( ! function_exists( $tag['func'] ) ) {
+					continue;
+				}
 				$handlers->add( $tag['tag'], function( ShortcodeInterface $s ) use ( $tag, $value ) {
 					$defaults = isset( $tag['atts'] ) ? $tag['atts'] : array();
 					$atts = ditty_layout_parse_atts( $defaults, $s );

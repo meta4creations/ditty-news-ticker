@@ -59,6 +59,20 @@ function ditty_layout_render_tag_wrapper( $html, $class = '', $atts = array(), $
 }
 
 /**
+ * Return a rendered tag
+ *
+ * @since    3.0
+ * @var      html
+*/
+function ditty_layout_render_tag( $html, $class, $data, $atts = array(), $custom_wrapper = false, $prefix = '' ) {
+	$link_data = apply_filters( 'ditty_layout_tag_link_data', array(), $data, $atts, $prefix );
+	if ( ! empty( $link_data ) ) {
+		$html = ditty_layout_render_tag_link( $link_data, $html, "{$class}__link", $data, $atts );
+	}
+	return ditty_layout_render_tag_wrapper( $html, $class, $atts, $custom_wrapper );
+}
+
+/**
  * The custom item content
  *
  * @since    3.0
@@ -117,4 +131,200 @@ function ditty_layout_wp_editor_tag_content( $data, $atts, $custom_wrapper = fal
 		$html = sprintf( $custom_wrapper, $html );
 	}
 	return $html;
+}
+
+
+
+
+/**
+ * The rendered image
+ *
+ * @since    3.0
+ * @var      html
+*/	
+function ditty_layout_tag_image( $data, $atts, $custom_wrapper = false ) {
+	if ( ! $image_data = ditty_layout_tag_image_data( $data, $atts ) ) {
+		return false;
+	}
+	$defaults = array(
+		'width' 	=> '',
+		'height' 	=> '',
+		'fit' 		=> '',
+	);
+	$args = shortcode_atts( $defaults, $atts );
+	$style = '';
+	if ( '' !=  $args['width'] ) {
+		$style .= 'width:' . $args['width'] . ';';
+	}
+	if ( '' !=  $args['height'] ) {
+		$style .= 'height:' . $args['height'] . ';';
+	}
+	if ( '' !=  $args['fit'] ) {
+		$style .= 'object-fit:' . $args['fit'] . ';';
+	}
+	$image_defaults = array(
+		'src' 		=> '',
+		'width' 	=> '',
+		'height' 	=> '',
+		'alt' 		=> '',
+		'style'		=> ( '' != $style ) ? $style : false,
+	);
+	$image_args = shortcode_atts( $image_defaults, $image_data );
+	$img = '<img ' . ditty_attr_to_html( $image_args ) . ' />';
+	return ditty_layout_render_tag( $img, 'ditty-tag--image', $data, $atts, $custom_wrapper );
+}
+
+/**
+ * The url of the image
+ *
+ * @since    3.0
+ * @var      html
+*/
+function ditty_layout_tag_image_url( $data, $atts = array(), $custom_wrapper = false ) {
+	if ( ! $image_data = ditty_layout_tag_image_data( $data, $atts ) ) {
+		return false;
+	}
+	$image_defaults = array(
+		'src' 		=> '',
+	);
+	$image_args = shortcode_atts( $image_defaults, $image_data );
+	return $image_args['src'];
+}
+
+/**
+ * The data of the image
+ *
+ * @since    3.0
+ * @var      html
+*/
+function ditty_layout_tag_image_data( $data, $atts = array() ) {
+	$image_data = apply_filters( 'ditty_layout_tag_image_data', array(), $data, $atts );
+	if ( ! empty( $image_data ) ) {
+		return $image_data;
+	}
+}
+
+/**
+ * Return an icon
+ *
+ * @since    3.0
+ * @var      html
+*/	
+function ditty_layout_tag_icon( $data, $atts = array(), $custom_wrapper = false ) {
+	if ( ! $icon = apply_filters( 'ditty_layout_tag_icon', false, $data, $atts ) ) {
+		return false;
+	}
+	return ditty_layout_render_tag( $icon, 'ditty-tag--icon', $data, $atts, $custom_wrapper );
+}
+
+/**
+ * The layout title
+ *
+ * @since    3.0
+ * @var      html
+*/	
+function ditty_layout_tag_title( $data, $atts, $custom_wrapper = false ) {
+	if ( ! $title = apply_filters( 'ditty_layout_tag_title', false, $data, $atts ) ) {
+		return false;
+	}	
+	return ditty_layout_render_tag( $title, 'ditty-tag--title', $data, $atts, $custom_wrapper );
+}
+
+/**
+ * The layout caption
+ *
+ * @since    3.0
+ * @var      html
+*/	
+function ditty_layout_tag_caption( $data, $atts, $custom_wrapper = false ) {
+	if ( ! $caption = apply_filters( 'ditty_layout_tag_caption', false, $data, $atts ) ) {
+		return false;
+	}	
+	if ( 'true' == $atts['wpautop'] ) {
+		$caption = wpautop( $caption );
+	}
+	return ditty_layout_render_tag( $caption, 'ditty-tag--caption', $data, $atts, $custom_wrapper );
+}
+
+/**
+ * The layout date/time
+ *
+ * @since    3.0
+ * @var      html
+*/
+function ditty_layout_tag_time( $data, $atts, $custom_wrapper = false ) {
+	if ( ! $timestamp = apply_filters( 'ditty_layout_tag_timestamp', false, $data, $atts ) ) {
+		return false;
+	}	
+	if ( 'true' == $atts['ago'] ) {
+		$time_ago = human_time_diff( $timestamp, current_time( 'timestamp', true ) );
+		$html = sprintf( $atts['ago_string'], $time_ago );
+	} else {
+		$html = date( $atts['format'], $timestamp );
+	}
+	return ditty_layout_render_tag( $html, 'ditty-tag--time', $data, $atts, $custom_wrapper );
+}
+
+/**
+ * The layout user name
+ *
+ * @since    3.0
+ * @var      html
+*/	
+function ditty_layout_tag_user_name( $data, $atts, $custom_wrapper = false ) {
+	if ( ! $user_name = apply_filters( 'ditty_layout_tag_user_name', false, $data, $atts ) ) {
+		return false;
+	}	
+	return ditty_layout_render_tag( $user_name, 'ditty-tag--user_name', $data, $atts, $custom_wrapper );
+}
+
+/**
+ * The layout user avatar
+ *
+ * @since    3.0
+ * @var      html
+*/	
+function ditty_layout_tag_user_avatar( $data, $atts, $custom_wrapper = false ) {
+	if ( ! $image_data = apply_filters( 'ditty_layout_tag_user_avatar_data', array(), $data, $atts ) ) {
+		return false;
+	}
+	$defaults = array(
+		'width' 	=> '',
+		'height' 	=> '',
+		'fit' 		=> '',
+	);
+	$args = shortcode_atts( $defaults, $atts );
+	$style = '';
+	if ( '' !=  $args['width'] ) {
+		$style .= 'width:' . $args['width'] . ';';
+	}
+	if ( '' !=  $args['height'] ) {
+		$style .= 'height:' . $args['height'] . ';';
+	}
+	if ( '' !=  $args['fit'] ) {
+		$style .= 'object-fit:' . $args['fit'] . ';';
+	}
+	$image_defaults = array(
+		'src' 		=> '',
+		'width' 	=> '',
+		'height' 	=> '',
+		'alt' 		=> '',
+		'style'		=> ( '' != $style ) ? $style : false,
+	);
+	$image_args = shortcode_atts( $image_defaults, $image_data );
+	$img = '<img ' . ditty_attr_to_html( $image_args ) . ' />';
+	return ditty_layout_render_tag( $img, 'ditty-tag--user_avatar', $data, $atts, $custom_wrapper );
+}
+
+/**
+ * The layout permalink
+ *
+ * @since    3.0
+ * @var      html
+*/	
+function ditty_image_tag_permalink( $data, $atts, $custom_wrapper = false ) {
+	if ( ! $permalink = apply_filters( 'ditty_layout_tag_permalink', false, $data, $atts ) ) {
+		return false;
+	}	
+	return ditty_layout_render_tag( $permalink, 'ditty-tag--permalink', $data, $atts, $custom_wrapper );
 }
