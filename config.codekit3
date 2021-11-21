@@ -17,14 +17,6 @@
       "oAP" : "\/.gitignore",
       "oF" : 0
     },
-    "\/.nova\/Configuration.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/.nova\/Configuration-min.json",
-      "oF" : 0,
-      "oO" : 0,
-      "oS" : 1
-    },
     "\/.nova\/Publishing\/Ditty News Ticker.json" : {
       "ft" : 524288,
       "oA" : 1,
@@ -364,6 +356,14 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/includes\/class-ditty-layout-type-default.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-layout-type-image.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/class-ditty-layout-type-image.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-layout-type-wp-editor.php" : {
@@ -3075,6 +3075,12 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/legacy\/legacy.php",
+      "oF" : 0
+    },
+    "\/node_modules" : {
+      "ft" : 65536,
+      "oA" : 2,
+      "oAP" : "\/node_modules",
       "oF" : 0
     },
     "\/package-lock.json" : {
