@@ -120,7 +120,6 @@ class Ditty_Item {
 				}
 			}
 		}
-		ChromePhp::log( $this );
 		//$this->ensure_item_value();
 	}
 	
@@ -283,7 +282,7 @@ class Ditty_Item {
 	 * @return null
 	 */
 	public function set_item_type( $item_type ) {
-		$item_types = ditty_item_types();
+		$item_types = ditty_item_types();	
 		if ( ! isset( $item_types[$item_type] ) ) {
 			return false;
 		}
@@ -291,13 +290,17 @@ class Ditty_Item {
 			return false;
 		}
 		$this->item_type = $item_type;
+		ChromePhp::log( '$item_type:', $item_type );
 		if ( $item_type_object = ditty_item_type_object( $this->item_type ) ) {
 			$this->item_type_object 	= $item_type_object;
 			$this->icon 							= $item_type_object->get_icon();
 			$this->label 							= $item_type_object->get_label();
 			$this->layout_type 				= $item_type_object->get_layout_type();
 			$this->layout_object			= null;
+			$default_layout_variations = ditty_default_layout_variations( $item_type );
+			ChromePhp::log( '$default_layout_variations:', $default_layout_variations );
 			if ( $layout_type_object = $this->get_layout_type_object() ) {
+				ChromePhp::log( '$layout_type_object:', $layout_type_object );
 				$this->set_layout_value( $layout_type_object->variation_defaults() );
 			}		
 		}

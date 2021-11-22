@@ -154,7 +154,7 @@ function ditty_layout_types() {
 	);
 	$layout_types['image'] = array(
 		'label' 			=> __( 'Image', 'ditty-news-ticker' ),
-		'icon' 				=> 'fas fa-image-polaroid',
+		'icon' 				=> 'fas fa-image',
 		'description' => __( 'Display an image', 'ditty-news-ticker' ),
 		'class_name'	=> 'Ditty_Layout_Type_Image',
 		//'class_path'	=> DITTY_DIR . 'includes/class-ditty-layout-type-wp-editor.php',
@@ -247,6 +247,21 @@ function ditty_extensions() {
 		}
 	}
 	return $live_extensions + $preview_extensions;
+}
+
+/**
+ * Return an array of Ditty Extensions
+ *
+ * @since    3.0
+*/
+function ditty_default_layout_variations( $item_type ) {
+	$default_layout_variations = array(
+		'default' => array(
+			'type' 			=> 'default',
+			'template'	=> 'default',
+		),
+	);
+	return apply_filters( 'ditty_default_layout_variations', $default_layout_variations, $item_type );
 }
 
 /**
@@ -909,31 +924,31 @@ function ditty_exists( $id ) {
  * @since    3.0
  * @var      string
 */
-function ditty_replace_html_tags( $tags, $value, $string ) {	
-	$content = preg_replace_callback( "/{([A-z0-9\-\_]+)}/s", function ( $matches ) use( $tags, $value ) {
-			
-			// Get tag
-			$tag = $matches[1];
-			
-			// Return tag if tag not set
-			if ( ! array_key_exists( $tag, $tags ) ) {
-				return $matches[0];
-			}
-			
-			return call_user_func( $tags[$tag]['func'], $value );
-			
-  	}, $string
-	);
-	
-	// Remove multiple white-spaces, tabs and new-lines
-	$pattern = '/\s+/S';
-	$content = preg_replace( $pattern, ' ', $content );
-	
-	// Strip out whitespace
-	//$content = preg_replace( "/[\r\n]+/", "", $content );
-
-	return $content;
-}
+// function ditty_replace_html_tags( $tags, $value, $string ) {	
+// 	$content = preg_replace_callback( "/{([A-z0-9\-\_]+)}/s", function ( $matches ) use( $tags, $value ) {
+// 			
+// 			// Get tag
+// 			$tag = $matches[1];
+// 			
+// 			// Return tag if tag not set
+// 			if ( ! array_key_exists( $tag, $tags ) ) {
+// 				return $matches[0];
+// 			}
+// 			
+// 			return call_user_func( $tags[$tag]['func'], $value );
+// 			
+//   	}, $string
+// 	);
+// 	
+// 	// Remove multiple white-spaces, tabs and new-lines
+// 	$pattern = '/\s+/S';
+// 	$content = preg_replace( $pattern, ' ', $content );
+// 	
+// 	// Strip out whitespace
+// 	//$content = preg_replace( "/[\r\n]+/", "", $content );
+// 
+// 	return $content;
+// }
 
 /**
  * Return an array of easing options
@@ -984,22 +999,18 @@ function ditty_border_styles_array() {
  * @since    3.0
  * @var      $eases array
 */
-function ditty_sanitize_array( $values ) {
-	
-	// Just in case it's not an array
-	if ( ! is_array( $values ) ) {
-		return $values;
-	}
-	
-	$sanitized_values = array();
-	if ( is_array( $values ) && count( $values ) > 0 ) {
-		foreach ( $values as $key => $value ) {
-			$sanitized_values[$key] = sanitize_text_field( $value );
-		}
-	}
-	
-	return $sanitized_values;
-}
+// function ditty_sanitize_array( $values ) {
+// 	if ( ! is_array( $values ) ) {
+// 		return $values;
+// 	}	
+// 	$sanitized_values = array();
+// 	if ( is_array( $values ) && count( $values ) > 0 ) {
+// 		foreach ( $values as $key => $value ) {
+// 			$sanitized_values[$key] = sanitize_text_field( $value );
+// 		}
+// 	}	
+// 	return $sanitized_values;
+// }
 
 /**
  * Render the Ditty container

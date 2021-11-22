@@ -42,7 +42,6 @@ class Ditty_Layout {
 		if ( is_array( $layout_value ) && $layout_type ) {
 			$this->layout_type = $layout_type;
 			if ( $layout_type_object = $this->get_layout_type_object() ) {
-				ChromePhp::log( $layout_value );
 				$layout_id = $layout_type_object->parse_layout_id( $layout_value, $item_value );
 			}
 		} else {	
