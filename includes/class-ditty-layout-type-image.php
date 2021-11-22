@@ -159,31 +159,31 @@ class Ditty_Layout_Type_Image extends Ditty_Layout_Type {
 	public function css_selectors() {
 		$selectors = array(
 			'image' => array(
-				'selector' 				=> '.ditty-tag--image',
+				'selector' 				=> '.ditty-item__image',
 				'description' => __( 'The wrapper around the main image.', 'ditty-news-ticker' ),
 			),
 			'icon' => array(
-				'selector' 				=> '.ditty-tag--icon',
+				'selector' 				=> '.ditty-item__icon',
 				'description' => __( 'The wrapper around the icon.', 'ditty-news-ticker' ),
 			),
 			'title' => array(
-				'selector' 				=> '.ditty-tag--title',
+				'selector' 				=> '.ditty-item__title',
 				'description' => __( 'The wrapper around the title.', 'ditty-news-ticker' ),
 			),
 			'caption' => array(
-				'selector' 				=> '.ditty-tag--caption',
+				'selector' 				=> '.ditty-item__caption',
 				'description' => __( 'The wrapper around the caption.', 'ditty-news-ticker' ),
 			),
 			'time' => array(
-				'selector' 				=> '.ditty-tag--time',
+				'selector' 				=> '.ditty-item__time',
 				'description' => __( 'The wrapper around the date/time.', 'ditty-news-ticker' ),
 			),
 			'user_name' => array(
-				'selector' 				=> '.ditty-tag--user_name',
+				'selector' 				=> '.ditty-item__user_name',
 				'description' => __( 'The wrapper around the user name.', 'ditty-news-ticker' ),
 			),
 			'user_avatar' => array(
-				'selector' 				=> '.ditty-tag--user_avatar',
+				'selector' 				=> '.ditty-item__user_avatar',
 				'description' => __( 'The wrapper around the user avatar.', 'ditty-news-ticker' ),
 			),
 		);
@@ -219,7 +219,10 @@ class Ditty_Layout_Type_Image extends Ditty_Layout_Type {
 	private function html_default() {
 		ob_start();
 		?>
-{image}	
+{image link="post"}
+{icon}
+{caption}
+{time}
 		<?php
 		// Return the output
 		return ob_get_clean();
@@ -236,9 +239,81 @@ class Ditty_Layout_Type_Image extends Ditty_Layout_Type {
 		ob_start();
 		?>
 .ditty-item__elements {
+	position: relative;
 	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 	font-size: 15px;
 	line-height: 1.3125;
+}
+.ditty-item__elements a {
+	text-decoration: none;
+}
+.ditty-item__image {
+	overflow: hidden;
+}
+.ditty-item__image img {
+	display: block;
+	line-height: 0;
+	transition: transform .75s ease; 
+}
+.ditty-item__image a:hover img {
+	transform: scale(1.05);
+}
+.ditty-item__icon {
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	font-size: 25px;
+	line-height: 25px;
+	color: #FFF;
+	opacity: .8;
+	text-shadow: 0 0 2px rgba( 0, 0, 0, .3 );
+	pointer-events: none;
+}
+.ditty-item__icon a {
+	color: #FFF;
+}
+.ditty-tag__heading {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 12px 10px 12px;
+}
+.ditty-item__user_avatar {
+	flex: 0 0 auto;
+	margin-right: 10px;
+}
+.ditty-item__user_avatar img {
+	display: block;
+	line-height: 0;
+	border-radius: 50%;
+}
+.ditty-item__user_name {
+	font-weight: 500;
+}
+.ditty-item__user_name a {
+	color: #050505;
+}
+.ditty-item__time {
+	font-size: 13px;
+	font-weight: 300;
+}
+.ditty-item__time a {
+	color: #6B6D71;
+	text-decoration: none;
+}
+.ditty-item__time a:hover {
+	text-decoration: underline;
+}
+.ditty-item__caption {
+	padding: 15px;
+}
+.ditty-item__time {
+	padding: 15px; 
+}
+.ditty-item__caption + .ditty-item__time {
+	padding-top: 0;
+	margin-top: -5px;
 }
 		<?php
 		// Return the output

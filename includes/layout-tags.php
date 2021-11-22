@@ -171,7 +171,7 @@ function ditty_layout_tag_image( $data, $atts, $custom_wrapper = false ) {
 	);
 	$image_args = shortcode_atts( $image_defaults, $image_data );
 	$img = '<img ' . ditty_attr_to_html( $image_args ) . ' />';
-	return ditty_layout_render_tag( $img, 'ditty-tag--image', $data, $atts, $custom_wrapper );
+	return ditty_layout_render_tag( $img, 'ditty-item__image', $data, $atts, $custom_wrapper );
 }
 
 /**
@@ -214,7 +214,7 @@ function ditty_layout_tag_icon( $data, $atts = array(), $custom_wrapper = false 
 	if ( ! $icon = apply_filters( 'ditty_layout_tag_icon', false, $data, $atts ) ) {
 		return false;
 	}
-	return ditty_layout_render_tag( $icon, 'ditty-tag--icon', $data, $atts, $custom_wrapper );
+	return ditty_layout_render_tag( $icon, 'ditty-item__icon', $data, $atts, $custom_wrapper );
 }
 
 /**
@@ -227,7 +227,7 @@ function ditty_layout_tag_title( $data, $atts, $custom_wrapper = false ) {
 	if ( ! $title = apply_filters( 'ditty_layout_tag_title', false, $data, $atts ) ) {
 		return false;
 	}	
-	return ditty_layout_render_tag( $title, 'ditty-tag--title', $data, $atts, $custom_wrapper );
+	return ditty_layout_render_tag( $title, 'ditty-item__title', $data, $atts, $custom_wrapper );
 }
 
 /**
@@ -243,7 +243,7 @@ function ditty_layout_tag_caption( $data, $atts, $custom_wrapper = false ) {
 	if ( 'true' == $atts['wpautop'] ) {
 		$caption = wpautop( $caption );
 	}
-	return ditty_layout_render_tag( $caption, 'ditty-tag--caption', $data, $atts, $custom_wrapper );
+	return ditty_layout_render_tag( $caption, 'ditty-item__caption', $data, $atts, $custom_wrapper );
 }
 
 /**
@@ -262,7 +262,7 @@ function ditty_layout_tag_time( $data, $atts, $custom_wrapper = false ) {
 	} else {
 		$html = date( $atts['format'], $timestamp );
 	}
-	return ditty_layout_render_tag( $html, 'ditty-tag--time', $data, $atts, $custom_wrapper );
+	return ditty_layout_render_tag( $html, 'ditty-item__time', $data, $atts, $custom_wrapper );
 }
 
 /**
@@ -275,7 +275,7 @@ function ditty_layout_tag_user_name( $data, $atts, $custom_wrapper = false ) {
 	if ( ! $user_name = apply_filters( 'ditty_layout_tag_user_name', false, $data, $atts ) ) {
 		return false;
 	}	
-	return ditty_layout_render_tag( $user_name, 'ditty-tag--user_name', $data, $atts, $custom_wrapper );
+	return ditty_layout_render_tag( $user_name, 'ditty-item__user_name', $data, $atts, $custom_wrapper );
 }
 
 /**
@@ -313,7 +313,7 @@ function ditty_layout_tag_user_avatar( $data, $atts, $custom_wrapper = false ) {
 	);
 	$image_args = shortcode_atts( $image_defaults, $image_data );
 	$img = '<img ' . ditty_attr_to_html( $image_args ) . ' />';
-	return ditty_layout_render_tag( $img, 'ditty-tag--user_avatar', $data, $atts, $custom_wrapper );
+	return ditty_layout_render_tag( $img, 'ditty-item__user_avatar', $data, $atts, $custom_wrapper );
 }
 
 /**
@@ -326,5 +326,5 @@ function ditty_image_tag_permalink( $data, $atts, $custom_wrapper = false ) {
 	if ( ! $permalink = apply_filters( 'ditty_layout_tag_permalink', false, $data, $atts ) ) {
 		return false;
 	}	
-	return ditty_layout_render_tag( $permalink, 'ditty-tag--permalink', $data, $atts, $custom_wrapper );
+	return ditty_layout_render_tag( $permalink, 'ditty-item__permalink', $data, $atts, $custom_wrapper );
 }

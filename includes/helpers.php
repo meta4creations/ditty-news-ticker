@@ -154,7 +154,7 @@ function ditty_layout_types() {
 	);
 	$layout_types['image'] = array(
 		'label' 			=> __( 'Image', 'ditty-news-ticker' ),
-		'icon' 				=> 'fas fa-image',
+		'icon' 				=> 'fas fa-image-polaroid',
 		'description' => __( 'Display an image', 'ditty-news-ticker' ),
 		'class_name'	=> 'Ditty_Layout_Type_Image',
 		//'class_path'	=> DITTY_DIR . 'includes/class-ditty-layout-type-wp-editor.php',
@@ -181,6 +181,16 @@ function ditty_layout_type_object( $type ) {
 		$layout_object = new $layout_types[$type]['class_name'];
 		return $layout_object;
 	}
+}
+
+/**
+ * Return an array of Ditty extension licenses
+ *
+ * @since    3.0
+*/
+function ditty_extension_licenses() {
+	$licenses = apply_filters( 'ditty_extension_licenses', array() );
+	return $licenses;
 }
 
 /**

@@ -63,25 +63,25 @@ class Ditty_Extensions {
 			return false;
 		}
 		
-		$extensions = ditty_extensions();
+		$extension_licenses = ditty_extension_licenses();
 		$ditty_licenses = $this->licenses;
 		
-		if ( is_array( $extensions ) && count( $extensions ) > 0 ) {
-			foreach( $extensions as $slug => $extension ) {
-				$settings = isset( $extension['settings'] ) ? $extension['settings'] : false;
-				$license_settings = false;
-				if ( is_array( $settings ) && count( $settings ) > 0 ) {
-					foreach ( $settings as $i => $setting ) {
-						if ( 'license' === $setting['id'] ) {
-							$license_settings = $setting;
-							break;
-						}
-					}
-				}
-				
-				if ( isset( $extension['preview'] ) || ! $license_settings ) {
-					continue;	
-				}
+		if ( is_array( $extension_licenses ) && count( $extension_licenses ) > 0 ) {
+			foreach( $extension_licenses as $slug => $license_settings ) {
+				// $settings = isset( $extension['settings'] ) ? $extension['settings'] : false;
+				// $license_settings = false;
+				// if ( is_array( $settings ) && count( $settings ) > 0 ) {
+				// 	foreach ( $settings as $i => $setting ) {
+				// 		if ( 'license' === $setting['id'] ) {
+				// 			$license_settings = $setting;
+				// 			break;
+				// 		}
+				// 	}
+				// }
+				// 
+				// if ( isset( $extension['preview'] ) || ! $license_settings ) {
+				// 	continue;	
+				// }
 				if ( ! isset( $license_settings['version'] ) || ! isset( $license_settings['product_id'] ) || ! isset( $license_settings['path'] ) ) {
 					continue;	
 				}
@@ -249,16 +249,14 @@ class Ditty_Extensions {
 	 * @access  public
 	 * @since   3.0
 	 */
-	private function render_extension( $extension, $data ) {
-		$settings = isset( $data['settings'] ) ? $data['settings'] : false;
-		$license_settings = false;
+	private function render_extension( $extension, $data, $extension_licenses ) {
+		$settings = isset( $data['settings'] ) ? $data['settings'] : array();
+		$license_settings = isset( $extension_licenses[$extension] ) ? $extension_licenses[$extension] : false;
 		$oauth_settings = false;
 		$other_settings = array();
 		if ( is_array( $settings ) && count( $settings ) > 0 ) {
 			foreach ( $settings as $i => $setting ) {
-				if ( 'license' === $setting['id'] ) {
-					$license_settings = $setting;
-				} elseif ( 'oauth' === $setting['id'] ) {
+				if ( 'oauth' === $setting['id'] ) {
 					$oauth_settings = $setting;
 				} else {
 					$other_settings[] = $setting;
@@ -279,6 +277,11 @@ class Ditty_Extensions {
 			$init_panel = $_GET['panel'];
 		}
 		if ( $license_settings ) {
+			
+			// Add the license to the settings array
+			$license_settings['label'] = __( 'License', 'ditty-news-ticker' );
+			$settings = array( 'license' => $license_settings ) + $settings;
+			
 			if ( $license_data = $this->get_license( $extension ) ) {
 				$license_key 	= isset( $license_data['key'] ) 		? substr( $license_data['key'], 0, -15 ) . '***************' : '';
 				$status 			= isset( $license_data['status'] ) 	? $license_data['status'] : '';
@@ -423,6 +426,7 @@ class Ditty_Extensions {
 			return false;
 		}		
 		
+		$extension_licenses = ditty_extension_licenses();
 		$extensions = ditty_extensions();
 		if ( isset( $_GET['extension'] ) ) {
 			$extensions = array( $_GET['extension'] => $extensions[$_GET['extension']]) + $extensions;
@@ -446,7 +450,7 @@ class Ditty_Extensions {
 									if ( isset( $data['preview'] ) ) {
 										continue;
 									}
-									$this->render_extension( $extension, $data );
+									$this->render_extension( $extension, $data, $extension_licenses );
 								}
 							}	
 							?>
@@ -460,7 +464,7 @@ class Ditty_Extensions {
 							if ( is_array( $extensions ) && count( $extensions ) > 0 ) {
 								foreach ( $extensions as $extension => $data ) {
 									if ( isset( $data['preview'] ) ) {
-										$this->render_extension( $extension, $data );
+										$this->render_extension( $extension, $data, $extension_licenses );
 									}	
 								}
 							}	
