@@ -199,7 +199,7 @@ class Ditty_Layout_Type_Image extends Ditty_Layout_Type {
 	public function templates() {	
 		$templates = array(
 			'default' => array(
-				'label'				=> __( 'Default Layout', 'ditty-news-ticker' ),
+				'label'				=> __( 'Default Image Layout', 'ditty-news-ticker' ),
 				'description' => __( 'Default layout for Images.', 'ditty-news-ticker' ),
 				'html' 				=> $this->html_default(),
 				'css' 				=> $this->css_default(),

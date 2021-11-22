@@ -94,6 +94,7 @@
 				var data = {
 					action				: 'ditty_editor_item_type_update',
 					item_id				: self.editorItemId,
+					item_type			: itemType,
 					draft_values 	: self.settings.editor.getDraftValues(),
 					security			: dittyVars.security
 				};
@@ -106,6 +107,9 @@
 						self.$editorItem.after( $editorItem );
 						self.$editorItem.remove();
 						self.$editorItem = $editorItem;
+					}
+					if ( response.draft_id && response.draft_data ) {
+						dittyDraftItemUpdateData( self, response.draft_id, null, response.draft_data );
 					}
 					self._showItemsList(); // Show the display list
 					self.settings.editor.updateStop(); // Stop the update overlay

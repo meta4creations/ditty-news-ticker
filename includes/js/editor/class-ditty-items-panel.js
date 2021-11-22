@@ -360,7 +360,7 @@
 				security			: dittyVars.security
 			};
 			$.post( dittyVars.ajaxurl, data, function( response ) {
-				if ( response.display_items ) {
+				if ( response.display_items && response.display_items.length ) {
 					self.settings.editor.ditty.updateItems( response.display_items, itemId, 'after' );
 				}
 				if ( response.editor_item ) {

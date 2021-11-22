@@ -6,12 +6,12 @@
  * @since    3.0
  * @var      html
 */
-function ditty_layout_render_tag_link( $link, $html, $class, $data, $atts ) {
+function ditty_layout_render_tag_link( $link, $html, $class, $data, $atts, $prefix = '' ) {
 	$link_defaults = array(
 		'url'					=> '',
-		'target'			=> '',
-		'rel'					=> '',
 		'title'				=> '',
+		'target' 	=> isset( $data["{$prefix}link_target"] ) ? esc_attr( $data["{$prefix}link_target"] ) : '_blank',
+		'rel'			=> isset( $data["{$prefix}link_rel"] ) ? esc_attr( $data["{$prefix}link_rel"] ) : '',
 	);
 	$link_args = shortcode_atts( $link_defaults, $link );
 	
@@ -67,7 +67,7 @@ function ditty_layout_render_tag_wrapper( $html, $class = '', $atts = array(), $
 function ditty_layout_render_tag( $html, $class, $data, $atts = array(), $custom_wrapper = false, $prefix = '' ) {
 	$link_data = apply_filters( 'ditty_layout_tag_link_data', array(), $data, $atts, $prefix );
 	if ( ! empty( $link_data ) ) {
-		$html = ditty_layout_render_tag_link( $link_data, $html, "{$class}__link", $data, $atts );
+		$html = ditty_layout_render_tag_link( $link_data, $html, "{$class}__link", $data, $atts, $prefix );
 	}
 	return ditty_layout_render_tag_wrapper( $html, $class, $atts, $custom_wrapper );
 }

@@ -120,6 +120,7 @@ class Ditty_Item {
 				}
 			}
 		}
+		ChromePhp::log( $this );
 		//$this->ensure_item_value();
 	}
 	

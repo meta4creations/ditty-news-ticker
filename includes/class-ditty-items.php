@@ -443,6 +443,7 @@ class Ditty_Items {
 	public function editor_item_type_update_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
 		$item_id_ajax 			= isset( $_POST['item_id'] ) 			? $_POST['item_id'] 			: false;
+		$item_type_ajax 		= isset( $_POST['item_type'] ) 		? $_POST['item_type'] 			: false;
 		$draft_values_ajax	= isset( $_POST['draft_values'] ) ? $_POST['draft_values']	: false;
 		if ( ! current_user_can( 'edit_ditty_items' ) || ! $item_id_ajax  ) {
 			wp_die();
@@ -450,9 +451,12 @@ class Ditty_Items {
 		ditty_set_draft_values( $draft_values_ajax );
 		
 		$editor_item = new Ditty_Item( $item_id_ajax );
+		$editor_item->set_item_type( $item_type_ajax );
 		$data = array(
 			'editor_item' 	=> $editor_item->render_editor_list_item( 'return' ),
 			'display_items' => $editor_item->get_display_items(),
+			'draft_id' 			=> $item_id_ajax,
+			'draft_data' 		=> $editor_item->get_db_data(),
 		);	
 		wp_send_json( $data );
 	}

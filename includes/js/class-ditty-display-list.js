@@ -545,50 +545,55 @@
 				return false;
 			}
 			
-			var newPageItems = this.pages[newIndex].items,
-					newPageItemsCount = newPageItems.length,
+			var newPageItems,
+					newPageItemsCount = 0,
 					$lastCurrentItem = null,
 					lastCurrentItemPadding = -1,
 					currentItemsUpdated = [];
 			
-			// Add new page items
-			$.each( newPageItems, function( index, newItem ) {
-				var $newItem = $( newItem.html );
+			if ( this.pages[newIndex] ) {
+				newPageItems = this.pages[newIndex].items;
+				newPageItemsCount = newPageItems.length;
 				
-				// Add the css and style the items
-				if ( newItem.css ) {
-					dittyLayoutCss( newItem.css, newItem.layout_id, newItem.layout_type );
-				}
-				self._styleItem( $newItem );
-				if ( index === newPageItemsCount - 1 ) {
-					$newItem.css( { paddingBottom: 0 } );
-				}
-				
-				// Swap existing items
-				if ( currentItems[index] ) {
-					var $currentItem = $( currentItems[index] );
-					$lastCurrentItem = $currentItem;
+				// Add new page items
+				$.each( newPageItems, function( index, newItem ) {
+					var $newItem = $( newItem.html );
 					
-					currentItemsUpdated.push( index );
-					if ( forceSwapAll || ( String( $currentItem.data( 'item_uniq_id' ) ) !== String( newItem.uniq_id ) ) || forceSwaps.includes( String( newItem.uniq_id ) )   ) {	
-						itemSwaps.push( {
-							currentItem: $currentItem,
-							newItem: $newItem
-						} );
+					// Add the css and style the items
+					if ( newItem.css ) {
+						dittyLayoutCss( newItem.css, newItem.layout_id, newItem.layout_type );
+					}
+					self._styleItem( $newItem );
+					if ( index === newPageItemsCount - 1 ) {
+						$newItem.css( { paddingBottom: 0 } );
 					}
 					
-				// Add new items
-				} else {
-					var $tempItem = $( '<div class="ditty-temp-item"></div>' );
-					$currentPage.append( $tempItem );
-					itemSwaps.push( {
-						currentItem: $tempItem,
-						newItem: $newItem
-					} );
-					
-					lastCurrentItemPadding = parseInt( self.settings.spacing );
-				}
-			} );
+					// Swap existing items
+					if ( currentItems[index] ) {
+						var $currentItem = $( currentItems[index] );
+						$lastCurrentItem = $currentItem;
+						
+						currentItemsUpdated.push( index );
+						if ( forceSwapAll || ( String( $currentItem.data( 'item_uniq_id' ) ) !== String( newItem.uniq_id ) ) || forceSwaps.includes( String( newItem.uniq_id ) )   ) {	
+							itemSwaps.push( {
+								currentItem: $currentItem,
+								newItem: $newItem
+							} );
+						}
+						
+					// Add new items
+					} else {
+						var $tempItem = $( '<div class="ditty-temp-item"></div>' );
+						$currentPage.append( $tempItem );
+						itemSwaps.push( {
+							currentItem: $tempItem,
+							newItem: $newItem
+						} );
+						
+						lastCurrentItemPadding = parseInt( self.settings.spacing );
+					}
+				} );
+			}
 			
 			// Remove old page items
 			$.each( currentItems, function( index ) {
