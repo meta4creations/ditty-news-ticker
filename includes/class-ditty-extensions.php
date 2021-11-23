@@ -393,7 +393,7 @@ class Ditty_Extensions {
 												array(
 													'type'				=> 'button',
 													'id'					=> 'submit',
-													'label'				=> __( 'Update', 'ditty-rss' ),
+													'label'				=> __( 'Update', 'ditty-news-ticker' ),
 													'priority' 		=> 'primary',
 													'full_width'	=> true,
 													'icon_after' 	=> 'fas fa-check',

@@ -4,10 +4,10 @@
  * @since    3.0
  * @return   null
 */
-function dittyLayoutCss( layoutCss, layoutId, layoutType ) {
-	var $styles = jQuery( 'style#ditty-' + layoutType + '--' + layoutId );
+function dittyLayoutCss( layoutCss, layoutId ) {
+	var $styles = jQuery( 'style#ditty-' + layoutId );
 	if ( undefined === $styles[0] ) {
-		$styles = jQuery( '<style id="ditty-' + layoutType + '--' + layoutId + '"></style>' );
+		$styles = jQuery( '<style id="ditty-' + layoutId + '"></style>' );
 		jQuery( 'head' ).append( $styles );
 	}
 	layoutCss = layoutCss.replace( '&gt;', '>' );

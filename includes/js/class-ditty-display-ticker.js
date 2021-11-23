@@ -327,7 +327,7 @@
 		  
 		  // Add the layout css to the DOM
 			if ( this.settings.items[index].css ) {
-				dittyLayoutCss( this.settings.items[index].css, this.settings.items[index].layout_id, this.settings.items[index].layout_type );
+				dittyLayoutCss( this.settings.items[index].css, this.settings.items[index].layout_id );
 			}
 		  
 	    this._itemSpacing( $item );

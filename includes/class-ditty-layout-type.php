@@ -122,8 +122,8 @@ class Ditty_Layout_Type {
 		$values = $this->get_variation_values( $variation_value );
 		$variations = array(
 			'default' => array(
-				'label'				=> __( 'Default', 'ditty-facebook' ),
-				'description' => __( 'Default variation.', 'ditty-facebook' ),
+				'label'				=> __( 'Default', 'ditty-news-ticker' ),
+				'description' => __( 'Default variation.', 'ditty-news-ticker' ),
 				'template' 		=> $values['default'],
 			),
 		);

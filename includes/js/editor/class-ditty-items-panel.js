@@ -265,7 +265,6 @@
 		  var $button 			= $( e.target ).is( 'a' ) ? $( e.target ) : $( e.target ).parent( 'a' ),
 					$item 				= $button.parents( '.ditty-data-list__item' ),
 					itemType 			= $item.data( 'item_type' ),
-					layoutType 		= $item.data( 'layout_type' ),
 					layoutValue 	= $item.data( 'layout_value' ),
 					itemLabel 		= $item.find( '.ditty-data-list__item__label' ).html();
 
@@ -279,7 +278,6 @@
 				ditty_id			: self.settings.editor.dittyId,
 				item_type			: itemType,
 				item_label		: itemLabel,
-				layout_type		: layoutType,
 				layout_value	: layoutValue,
 				draft_values 	: self.settings.editor.getDraftValues(),
 				security			: dittyVars.security

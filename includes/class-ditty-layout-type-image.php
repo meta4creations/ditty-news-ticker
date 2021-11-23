@@ -111,7 +111,7 @@ class Ditty_Layout_Type_Image extends Ditty_Layout_Type {
 			),
 			'user_name' => array(
 				'tag' 				=> 'user_name',
-				'description' => __( "The user's name", 'ditty-facebook' ),
+				'description' => __( "The user's name", 'ditty-news-ticker' ),
 				'func'    		=> 'ditty_layout_tag_user_name',
 				'atts'				=> array(
 					'wrapper' 		=> 'div',
@@ -125,7 +125,7 @@ class Ditty_Layout_Type_Image extends Ditty_Layout_Type {
 			),
 			'user_avatar' => array(
 				'tag' 				=> 'user_avatar',
-				'description' => __( "The user's avatar", 'ditty-facebook' ),
+				'description' => __( "The user's avatar", 'ditty-news-ticker' ),
 				'func'    		=> 'ditty_layout_tag_user_avatar',
 				'atts'				=> array(
 					'wrapper'			=> 'div',

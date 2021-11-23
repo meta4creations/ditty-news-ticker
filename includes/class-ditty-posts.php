@@ -518,7 +518,6 @@ class Ditty_Posts {
 		if ( isset( $item_data['layout_value'] ) ) {
 			$sanitized_item['layout_value'] = maybe_serialize( $sanitized_layout_value );
 		}
-
 		return $sanitized_item;
 	}
 	
@@ -540,6 +539,8 @@ class Ditty_Posts {
 		$add_item = false;
 		
 		do_action( 'ditty_editor_update', $ditty_id_ajax, $draft_values_ajax );
+		
+		//ChromePhp::log( '$draft_values_ajax:', $draft_values_ajax );
 		
 		$json_data = array();
 

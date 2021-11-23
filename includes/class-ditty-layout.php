@@ -37,16 +37,8 @@ class Ditty_Layout {
 	 * @access  public
 	 * @since   3.0
 	 */
-	public function __construct( $layout_value, $layout_type = false, $item_value = array() ) {
+	public function __construct( $layout_id, $item_value = array() ) {
 		$this->item_value = $item_value;		
-		if ( is_array( $layout_value ) && $layout_type ) {
-			$this->layout_type = $layout_type;
-			if ( $layout_type_object = $this->get_layout_type_object() ) {
-				$layout_id = $layout_type_object->parse_layout_id( $layout_value, $item_value );
-			}
-		} else {	
-			$layout_id = $layout_value;
-		}
 		
 		// If this is a new layout
 		if ( false !== strpos( $layout_id, 'new-' ) ) {
@@ -315,7 +307,7 @@ class Ditty_Layout {
 	 */
 	public function get_css_compiled() {
 		if ( empty( $this->css_compiled ) ) {
-			$this->css_compiled = Ditty()->layouts->compile_layout_style( $this->css, $this->layout_id, $this->layout_type );
+			$this->css_compiled = Ditty()->layouts->compile_layout_style( $this->css, $this->layout_id );
 		}
 		return $this->css_compiled;
 	}

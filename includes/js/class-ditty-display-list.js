@@ -225,7 +225,7 @@
 
 				// Add the layout css to the DOM
 				if ( value.css ) {
-					dittyLayoutCss( value.css, value.layout_id, value.layout_type );
+					dittyLayoutCss( value.css, value.layout_id );
 				}
 				$page.append( $item );
 			} );
@@ -561,7 +561,7 @@
 					
 					// Add the css and style the items
 					if ( newItem.css ) {
-						dittyLayoutCss( newItem.css, newItem.layout_id, newItem.layout_type );
+						dittyLayoutCss( newItem.css, newItem.layout_id );
 					}
 					self._styleItem( $newItem );
 					if ( index === newPageItemsCount - 1 ) {

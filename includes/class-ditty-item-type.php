@@ -132,6 +132,118 @@ class Ditty_Item_Type {
 		$values = wp_parse_args( $item_values, $defaults );
 		return $values;
 	}
+	
+	/**
+	 * Get values to populate the metabox
+	 *
+	 * @access  public
+	 * @since   3.0
+	 */
+	public function get_layout_variation_types() {
+		$layout_variations = array(
+			'default' => array(
+				'type' 			=> 'default',
+				'template'	=> 'default',
+				'label'				=> __( 'Default', 'ditty-news-ticker' ),
+				'description' => __( 'Default variation.', 'ditty-news-ticker' ),
+			),
+		);
+		return apply_filters( 'ditty_item_type_variation_types', $layout_variations, $this );
+	}
+	
+	/**
+	 * Get values to populate the metabox
+	 *
+	 * @access  public
+	 * @since   3.0
+	 */
+	public function get_layout_variation_defaults( $type = false ) {
+		global $ditty_layout_confirmed_defaults;
+		if ( ! empty( $ditty_layout_confirmed_defaults ) ) {
+			$ditty_layout_confirmed_defaults = array();
+		}
+		if ( ! isset( $ditty_layout_confirmed_defaults[$this->get_type()] ) ) {
+			$ditty_layout_confirmed_defaults[$this->get_type()] = array();
+			
+			$all_variation_defaults = ditty_settings( 'variation_defaults' );
+			$variation_defaults = isset( $all_variation_defaults[$this->get_type()] ) ? $all_variation_defaults[$this->get_type()] : array();
+			$variation_types = $this->get_layout_variation_types();
+
+			$defaults_updated = false;
+			if ( is_array( $variation_types ) && count( $variation_types ) > 0 ) {
+				foreach ( $variation_types as $slug => $data ) {
+					$install_default = true;
+					$layout_id = isset( $variation_defaults[$slug] ) ? $variation_defaults[$slug] : false;
+					if ( $layout_id && 'publish' == get_post_status( $layout_id ) ) {
+						$ditty_layout_confirmed_defaults[$this->get_type()][$slug] = $layout_id;
+					} elseif( $layouts = ditty_layouts_with_type( $data['type'] ) ) {
+						$ditty_layout_confirmed_defaults[$this->get_type()][$slug] = reset( $layouts );
+						$defaults_updated = true;
+					} else {
+						$layout_id = Ditty()->layouts->install_default( $data['type'], $data['template'] );
+						$ditty_layout_confirmed_defaults[$this->get_type()][$slug] = $layout_id;
+						$defaults_updated = true;
+					}
+				}
+			}		
+			if ( $defaults_updated ) {	
+				$all_variation_defaults[$this->get_type()] = $ditty_layout_confirmed_defaults[$this->get_type()];
+				ditty_settings( 'variation_defaults', $all_variation_defaults );
+			}	
+		}
+		if ( $type ) {
+			if ( isset( $ditty_layout_confirmed_defaults[$this->get_type()][$type] ) ) {
+				return $ditty_layout_confirmed_defaults[$this->get_type()][$type];
+			}
+		} else {
+			return $ditty_layout_confirmed_defaults[$this->get_type()];
+		}
+	}
+	
+	/**
+	 * Confirm the layout variations
+	 *
+	 * @access  public
+	 * @since   3.0
+	 */
+	public function confirm_layout_variations( $layout_value = array() ) {
+		$defaults = $this->get_layout_variation_defaults();
+		$args = shortcode_atts( $defaults, $layout_value );
+		return $args;
+	}
+	
+	/**
+	 * Get layout variation data
+	 *
+	 * @access  public
+	 * @since   3.0
+	 */
+	public function get_layout_variation_data( $layout_value = array() ) {
+		$variation_types = $this->get_layout_variation_types();
+		$confirmed = $this->confirm_layout_variations( $layout_value );
+		$variation_data = array();
+		if ( is_array( $variation_types ) && count( $variation_types ) > 0 ) {
+			foreach ( $variation_types as $slug => $data ) {
+				$variation_data[$slug] = $data;
+				$variation_data[$slug]['template'] = $confirmed[$slug];
+			}
+		}
+		return $variation_data;
+	}
+	
+	/**
+	 * Get a layout id
+	 *
+	 * @access  public
+	 * @since   3.0
+	 */
+	public function get_layout_id( $type = 'default', $layout_value = array() ) {
+		if ( isset( $layout_value[$type] ) ) {
+			return $layout_value[$type];
+		} else {
+			return $this->get_layout_variation_defaults( $type );
+		}
+	}
 
 	/**
 	 * Update values sent from the editor
@@ -166,7 +278,14 @@ class Ditty_Item_Type {
 		if ( is_object( $meta ) ) {
 			$meta = ( array ) $meta;
 		}
-		return array( $meta );
+		$defaults 					= $this->default_settings();
+		$args 							= shortcode_atts( $defaults, $meta['item_value'] );
+		$meta['item_value'] = $args;
+
+		$ditty_item 								= $meta;
+		$ditty_item['layout_id'] 		= $this->get_layout_id( 'default', $meta['layout_value'] );
+		$ditty_item['layout_type'] 	= 'default';
+		return array( $ditty_item );
 	}
 
 }

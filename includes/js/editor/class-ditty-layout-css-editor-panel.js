@@ -323,7 +323,7 @@
 					}
 					
 					if ( response.code ) {
-						dittyLayoutCss( response.code, self.layoutId, self.layoutType );
+						dittyLayoutCss( response.code, self.layoutId );
 					} else {
 						self._showErrorNotice();
 					}

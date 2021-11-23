@@ -250,21 +250,6 @@ function ditty_extensions() {
 }
 
 /**
- * Return an array of Ditty Extensions
- *
- * @since    3.0
-*/
-function ditty_default_layout_variations( $item_type ) {
-	$default_layout_variations = array(
-		'default' => array(
-			'type' 			=> 'default',
-			'template'	=> 'default',
-		),
-	);
-	return apply_filters( 'ditty_default_layout_variations', $default_layout_variations, $item_type );
-}
-
-/**
  * Set the global draft values
  * @since    3.0
 */
@@ -851,8 +836,8 @@ function ditty_get_new_item_meta( $ditty_id ) {
 		'item_type' => 'default',
 		'item_value' => $item_value,
 		'ditty_id' => $ditty_id,
-		'layout_id'	=> 'default',
-		'layout_value' => 'default',
+		//'layout_id'	=> 'default',
+		//'layout_value' => maybe_serialize( array( 'default' => 'default' ) ),
 	);
 	return apply_filters( 'ditty_editor_new_item_meta', $meta, $ditty_id );
 }

@@ -12,7 +12,6 @@ class Ditty_Display_Item {
 	
 	private $layout_id;
 	private $layout_object;
-	private $layout_value;
 	private $layout_type;
 	private $layout_type_object;
 	private $item_id;
@@ -23,15 +22,14 @@ class Ditty_Display_Item {
 	private $ditty_id;
 	private $has_error;
 	private $custom_classes;
-	private $mode;
 	
 	/**
 	 * Get things started\*
 	 * @access  public
 	 * @since   3.0
 	 */
-	public function __construct( $meta, $mode = 'live' ) {	
-		$this->layout_value 	= isset( $meta['layout_value'] ) 		? $meta['layout_value'] 	: 'default';
+	public function __construct( $meta ) {	
+		$this->layout_id 			= isset( $meta['layout_id'] ) 			? $meta['layout_id'] 			: false;
 		$this->item_id 				= isset( $meta['item_id'] ) 				? $meta['item_id'] 				: -1;
 		$this->item_uniq_id 	= isset( $meta['item_uniq_id'] ) 		? $meta['item_uniq_id'] 	: $this->item_id;
 		$this->item_type 			= isset( $meta['item_type'] ) 			? $meta['item_type'] 			: 'default';
@@ -39,8 +37,6 @@ class Ditty_Display_Item {
 		$this->ditty_id 			= isset( $meta['ditty_id'] ) 				? $meta['ditty_id'] 			: -1;
 		$this->has_error 			= isset( $meta['has_error'] ) 			? $meta['has_error']			: false;
 		$this->custom_classes = isset( $meta['custom_classes'] ) 	? $meta['custom_classes']	: false;
-		$this->mode 					= $mode;
-		$this->layout_id 			= $this->get_layout_id();
 	}
 	
 	/**
@@ -86,6 +82,17 @@ class Ditty_Display_Item {
 	public function get_value() {
 		return maybe_unserialize( $this->item_value );
 	}
+	
+	/**
+	 * Return the item type
+	 *
+	 * @access public
+	 * @since  3.0
+	 * @return string $label
+	 */
+	public function get_item_type() {
+		return $this->item_type;
+	}
 
 	/**
 	 * Return the layout id
@@ -95,11 +102,6 @@ class Ditty_Display_Item {
 	 * @return int $layout_id
 	 */
 	public function get_layout_id() {
-		if ( empty( $this->layout_id ) ) {
-			if ( $layout_object = $this->get_layout_object() ) {
-				$this->layout_id = $layout_object->get_layout_id();
-			}
-		}
 		return $this->layout_id;
 	}
 	
@@ -111,27 +113,7 @@ class Ditty_Display_Item {
 	 * @return int $layout_type
 	 */
 	public function get_layout_type() {
-		if ( ! $this->layout_type ) {
-			$item_type_object 	= $this->get_type_object();
-			$this->layout_type 	= $item_type_object->get_layout_type();
-		}
 		return $this->layout_type;
-	}
-	
-	/**
-	 * Return the layout value
-	 *
-	 * @access public
-	 * @since  3.0
-	 * @return int $layout_type
-	 */
-	public function get_layout_value() {
-		if ( $this->layout_value ) {
-			if ( $layout_type_object = $this->get_layout_type_object() ) {
-				return $layout_type_object->get_variation_values( maybe_unserialize( $this->layout_value ) );
-			}
-		}
-		return array();
 	}
 	
 	/**
@@ -185,7 +167,7 @@ class Ditty_Display_Item {
 	 */
 	public function get_layout_object() {
 		if ( ! $this->layout_object ) {
-			$this->layout_object = new Ditty_Layout( $this->get_layout_value(), $this->get_layout_type(), $this->item_value );
+			$this->layout_object = new Ditty_Layout( $this->get_layout_id(), $this->item_value );
 		}
 		return $this->layout_object;
 	}
@@ -269,7 +251,7 @@ class Ditty_Display_Item {
 				'data-item_id' 			=> $this->get_id(),
 				'data-item_uniq_id' => $this->get_uniq_id(),
 				'data-parent_id' 		=> $this->get_parent_id(),
-				'data-item_type' 		=> $this->item_type,
+				'data-item_type' 		=> $this->get_item_type(),
 				'data-layout_id' 		=> $this->get_layout_id(),
 				'data-layout_type' 	=> $this->get_layout_type(),
 			);

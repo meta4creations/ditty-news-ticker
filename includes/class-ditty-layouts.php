@@ -402,7 +402,7 @@ class Ditty_Layouts {
 	 * @access   public
 	 * @var      string    $css
 	*/
-	public function compile_layout_style( $css, $layout_id, $layout_type ) {	
+	public function compile_layout_style( $css, $layout_id ) {	
 		$styles = '';
 		
 		if ( is_numeric( $layout_id ) ) {
@@ -415,11 +415,11 @@ class Ditty_Layouts {
 				$styles .= '}';
 			}
 		} else {
-			$styles .= '.ditty-layout-type--' . $layout_type . '.ditty-layout--' . $layout_id . '{';
+			$styles .= '.ditty-layout--' . $layout_id . '{';
 				$styles .= html_entity_decode( $css );
 			$styles .= '}';
 			if ( is_ditty_post() ) {
-				$styles .= '#poststuff .ditty-layout-type--' . $layout_type . '.ditty-layout--' . $layout_id . '{';
+				$styles .= '#poststuff .ditty-layout--' . $layout_id . '{';
 					$styles .= html_entity_decode( $css );
 				$styles .= '}';
 			}
@@ -566,7 +566,6 @@ class Ditty_Layouts {
 		$ditty_id_ajax 			= isset( $_POST['ditty_id'] ) 		? $_POST['ditty_id'] 			: false;
 		$item_type_ajax 		= isset( $_POST['item_type'] ) 		? $_POST['item_type'] 		: false;
 		$item_label_ajax 		= isset( $_POST['item_label'] ) 	? $_POST['item_label'] 		: false;
-		$layout_type_ajax 	= isset( $_POST['layout_type'] )	? $_POST['layout_type'] 	: false;
 		$layout_value_ajax 	= isset( $_POST['layout_value'] )	? $_POST['layout_value'] 	: false;
 		$draft_values_ajax 	= isset( $_POST['draft_values'] ) ? $_POST['draft_values'] 	: false;
 		ditty_set_draft_values( $draft_values_ajax );
@@ -588,20 +587,21 @@ class Ditty_Layouts {
 				<div class="ditty-data-list">
 					<div class="ditty-data-list__items">
 						<?php
-						if ( $layout_object = ditty_layout_type_object( $layout_type_ajax ) ) {
-							$variations = $layout_object->variations( $layout_value );
+						if ( $item_type_object = ditty_item_type_object( $item_type_ajax ) ) {
+							$variations = $item_type_object->get_layout_variation_data( $layout_value );
 							if ( is_array( $variations ) && count( $variations ) > 0 ) {
 								foreach ( $variations as $id => $data ) {
+									$layout_type_object = ditty_layout_type_object( $data['type'] );
 									$layout_id = $data['template'];
-									$layout = new Ditty_Layout( $layout_id, $layout_type_ajax );
+									$layout = new Ditty_Layout( $layout_id );
 									$version = $layout->get_version();
 									$version_string = '';
 									if ( $version ) {
 										$version_string = " <small class='ditty-layout-version'>(v{$version})</small>";
 									}
 									?>	
-									<div class="ditty-layout-variation ditty-layout-variation--<?php echo $id; ?> ditty-data-list__item" data-layout_variation_id="<?php echo $id; ?>" data-layout_variation_label="<?php echo $data['label']; ?>" data-layout_type="<?php echo $layout_object->get_type(); ?>" data-layout_id="<?php echo $layout_id; ?>">
-										<span class="ditty-layout-variation__icon"><i class="<?php echo $layout_object->get_icon(); ?>"></i></span>
+									<div class="ditty-layout-variation ditty-layout-variation--<?php echo $id; ?> ditty-data-list__item" data-layout_variation_id="<?php echo $id; ?>" data-layout_variation_label="<?php echo $data['label']; ?>" data-layout_type="<?php echo $layout_type_object->get_type(); ?>" data-layout_id="<?php echo $layout_id; ?>">
+										<span class="ditty-layout-variation__icon"><i class="<?php echo $layout_type_object->get_icon(); ?>"></i></span>
 										<div class="ditty-layout-variation__content">
 											<span class="ditty-layout-variation__label"><?php printf( __( 'Variation: %s', 'ditty-news-ticker' ), $data['label'] ); ?></span>
 											<span class="ditty-layout-variation__template"><?php echo wp_sprintf( __( 'Template: <span>%s</span>%s', 'ditty-news-ticker' ), $layout->get_label(), $version_string ); ?></span>
@@ -700,6 +700,8 @@ class Ditty_Layouts {
 			'editor_item' 			=> $editor_item->render_editor_list_item( 'return' ),
 			'display_items' 		=> $editor_item->get_display_items(),
 			'layout_label'			=> $editor_layout->get_label(),
+			'layout_css'				=> $editor_layout->get_css_compiled(),
+			'layout_type'				=> $editor_layout->get_layout_type(),
 		);	
 		wp_send_json( $data );
 	}

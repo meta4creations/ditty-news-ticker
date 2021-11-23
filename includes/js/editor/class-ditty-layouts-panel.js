@@ -102,19 +102,17 @@
 					layoutId 		= $layout.data( 'layout_id' ),
 					layoutType 	= $layout.data( 'layout_type' ),
 					layoutValue = self.$editorItem.data( 'layout_value' );
-					
-					
-			
-	
+
 			if ( $layout.hasClass( 'active' ) ) {
 				return false;
 			}
+
 			$.each( layoutValue, function( type ) {
 				if ( self.editorVariationId === type ) {
 					layoutValue[type] = String( layoutId );
 				}
 			} );  
-			
+
 			// Highlight the active layout
 			self.settings.editor.updateStart(); // Start the update overlay
 			dittyDraftItemUpdateData( self, self.editorItemId, 'layout_id', layoutId );
