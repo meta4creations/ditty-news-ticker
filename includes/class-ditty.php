@@ -253,6 +253,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/layout-tags.php';
 		require_once DITTY_DIR . 'includes/layout-tag-helpers.php';
 		require_once DITTY_DIR . 'includes/layout-tag-hooks.php';
+		require_once DITTY_DIR . 'includes/layout-templates.php';
 		require_once DITTY_DIR . 'includes/post-types.php';
 		require_once DITTY_DIR . 'includes/upgrades.php';
 		
@@ -285,9 +286,9 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-extensions.php';
 		require_once DITTY_DIR . 'includes/class-ditty-layout.php';
 		require_once DITTY_DIR . 'includes/class-ditty-layouts.php';
-		require_once DITTY_DIR . 'includes/class-ditty-layout-type.php';
-		require_once DITTY_DIR . 'includes/class-ditty-layout-type-default.php';
-		require_once DITTY_DIR . 'includes/class-ditty-layout-type-image.php';
+		//require_once DITTY_DIR . 'includes/class-ditty-layout-type.php';
+		//require_once DITTY_DIR . 'includes/class-ditty-layout-type-default.php';
+		//require_once DITTY_DIR . 'includes/class-ditty-layout-type-image.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item.php';
 		require_once DITTY_DIR . 'includes/class-ditty-items.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type.php';

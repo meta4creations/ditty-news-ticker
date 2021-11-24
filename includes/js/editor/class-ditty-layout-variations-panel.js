@@ -80,7 +80,6 @@
 
 		  var $button 					= $( e.target ).is( 'a' ) ? $( e.target ) : $( e.target ).parent( 'a' ),
 					$layoutVariation 	= $button.parents( '.ditty-data-list__item' ),
-					layoutType				= $layoutVariation.data( 'layout_type' ),
 					layoutId					= $layoutVariation.data( 'layout_id' ),
 					variationId 			= $layoutVariation.data( 'layout_variation_id' ),
 					variationLabel 		= $layoutVariation.data( 'layout_variation_label' );
@@ -98,7 +97,6 @@
 				variation_id		: variationId,
 				variation_label	: variationLabel,
 				layout_id				: layoutId,
-				layout_type			: layoutType,
 				draft_values		: self.settings.editor.getDraftValues(),
 				security				: dittyVars.security
 			};

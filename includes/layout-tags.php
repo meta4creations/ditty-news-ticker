@@ -67,8 +67,8 @@ function ditty_layout_tags( $item_type = false ) {
 	$tags = array(
 		'caption' => array(
 			'tag' 				=> 'caption',
-			'description' => __( 'Render the item caption', 'ditty-news-ticker' ),
-			'func'    		=> 'ditty_layout_tag_caption',
+			'description' => __( 'Render the item caption.', 'ditty-news-ticker' ),
+			//'func'    		=> 'ditty_layout_tag_caption',
 			'atts'				=> array(
 				'wrapper' 		=> 'div',
 				'wpautop'			=> '',
@@ -78,6 +78,18 @@ function ditty_layout_tags( $item_type = false ) {
 				'link_target' => '_blank',
 				'link_rel'		=> '',
 				'class'				=> '',
+			),
+		),
+		'content' => array(
+			'tag' 				=> 'content',
+			'description' => __( 'Render the item content.', 'ditty-news-ticker' ),
+			//'func'    		=> 'ditty_layout_default_tag_content',
+			'atts'				=> array(
+				'wrapper' => 'div',
+				'wpautop' => false,
+				'before'	=> '',
+				'after'		=> '',
+				'class'		=> '',
 			),
 		),
 		'icon' => array(

@@ -350,38 +350,6 @@
       "oAP" : "\/includes\/class-ditty-items.php",
       "oF" : 0
     },
-    "\/includes\/class-ditty-layout-type-default.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/includes\/class-ditty-layout-type-default.php",
-      "oF" : 0
-    },
-    "\/includes\/class-ditty-layout-type-image.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/includes\/class-ditty-layout-type-image.php",
-      "oF" : 0
-    },
-    "\/includes\/class-ditty-layout-type-wp-post.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/includes\/class-ditty-layout-type-wp-post.php",
-      "oF" : 0
-    },
-    "\/includes\/class-ditty-layout-type.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/includes\/class-ditty-layout-type.php",
-      "oF" : 0
-    },
     "\/includes\/class-ditty-layout.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -819,17 +787,6 @@
       "sC" : 3,
       "tS" : 0
     },
-    "\/includes\/js\/admin\/ditty-layout.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/admin\/ditty-layout.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
     "\/includes\/js\/class-ditty-display-list.js" : {
       "bF" : 0,
       "ft" : 64,
@@ -1182,6 +1139,14 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/includes\/layout-tags.php",
+      "oF" : 0
+    },
+    "\/includes\/layout-templates.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/layout-templates.php",
       "oF" : 0
     },
     "\/includes\/libs\/ChromePhp.php" : {

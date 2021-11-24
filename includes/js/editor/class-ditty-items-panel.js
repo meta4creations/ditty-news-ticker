@@ -306,10 +306,10 @@
 			
 			// Load the new display fields		
 			var data = {
-				action			: 'ditty_editor_item_add',
+				action				: 'ditty_editor_item_add',
 				ditty_id			: dittyId,
-				draft_values : self.settings.editor.getDraftValues(),
-				security		: dittyVars.security
+				draft_values 	: self.settings.editor.getDraftValues(),
+				security			: dittyVars.security
 			};
 			$.post( dittyVars.ajaxurl, data, function( response ) {
 				if ( response.display_items ) {

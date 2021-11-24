@@ -65,17 +65,17 @@ class Ditty_Layouts {
 	 * @access  private
 	 * @since   3.0
 	 */
-	public function install_default( $layout_type, $layout_template = false, $layout_version = false ) {
+	public function install_default( $layout_template = false, $layout_version = false ) {
 		$args = array(
 			'template' 	=> $layout_template,
 			'version'		=> $layout_version,
+			'fields'		=> 'ids',
 		);
-		if ( $layouts = ditty_layouts_with_type( $layout_type, $args ) ) {
+		if ( $layouts = ditty_layouts_posts( $args ) ) {
 			return end( $layouts );
 		}
 
-		$layout_object = ditty_layout_type_object( $layout_type );
-		$templates = $layout_object->templates();
+		$templates = ditty_layout_templates();
 		if ( ! isset( $templates[$layout_template] ) ) {
 			return false;
 		}
@@ -85,7 +85,6 @@ class Ditty_Layouts {
 			'post_title'	=> $templates[$layout_template]['label'],
 		);
 		if ( $new_layout_id = wp_insert_post( $postarr ) ) {
-			update_post_meta( $new_layout_id, '_ditty_layout_type', esc_attr( $layout_type ) );
 			update_post_meta( $new_layout_id, '_ditty_layout_template', esc_attr( $layout_template ) );
 			if ( isset( $templates[$layout_template]['description'] ) ) {
 				update_post_meta( $new_layout_id, '_ditty_layout_description', wp_kses_post( $templates[$layout_template]['description'] ) );
@@ -96,9 +95,6 @@ class Ditty_Layouts {
 			if ( isset( $templates[$layout_template]['css'] ) ) {
 				update_post_meta( $new_layout_id, '_ditty_layout_css', wp_kses_post( $templates[$layout_template]['css'] ) );
 			}
-			if ( isset( $templates[$layout_template]['variations'] ) ) {
-					update_post_meta( $new_layout_id, '_ditty_layout_variations', wp_kses_post( $templates[$layout_template]['variations'] ) );
-				}
 			if ( isset( $templates[$layout_template]['version'] ) ) {
 				update_post_meta( $new_layout_id, '_ditty_layout_version', wp_kses_post( $templates[$layout_template]['version'] ) );
 			}
@@ -114,14 +110,13 @@ class Ditty_Layouts {
 	 */
 	public function install_layout() {
 		check_ajax_referer( 'ditty', 'security' );
-		$layout_type_ajax 		= isset( $_POST['layout_type'] ) 			? $_POST['layout_type'] 		: false;
 		$layout_template_ajax	= isset( $_POST['layout_template'] )	? $_POST['layout_template']	: false;
 		$layout_version_ajax	= isset( $_POST['layout_version'] )		? $_POST['layout_version']	: false;
 		
-		if ( ! current_user_can( 'publish_ditty_layouts' ) || ! $layout_type_ajax || ! $layout_template_ajax ) {
+		if ( ! current_user_can( 'publish_ditty_layouts' ) || ! $layout_template_ajax ) {
 			wp_die();
 		}
-		$layout_id = $this->install_default( $layout_type_ajax, $layout_template_ajax, $layout_version_ajax );
+		$layout_id = $this->install_default( $layout_template_ajax, $layout_version_ajax );
 		
 		$args = array(
 			'type'				=> 'button',
@@ -152,80 +147,63 @@ class Ditty_Layouts {
 	 */
 	public function layout_templates_list() {
 		$html = '';
-		$layout_types = ditty_layout_types();
-		$default_layouts = ditty_default_layouts();
-		if ( is_array( $default_layouts ) && count( $default_layouts ) > 0 ) {
-			$html .= '<ul id="ditty-layout-templates">';
-			foreach ( $default_layouts as $layout_type => $layout_data ) {
-				$html .= '<li class="ditty-templates-list__type">';
-					$html .= '<div class="ditty-templates-list__type__heading">';
-						$html .= '<h3>' . $layout_data['label'] . '</h3>';
-						// $field = array(
-						// 	'type' 		=> 'select',
-						// 	'id' 			=> 'layout_variation_defaults',
-						// 	'name' 		=> __( 'Layout Templates', 'ditty-news-ticker' ),
-						// 	'std' 		=> Ditty()->layouts->layout_templates_list(),
-						// );
-						// $html .= ditty_field( $field );
-					$html .= '</div>';
-					if ( is_array( $layout_data['templates'] ) && count( $layout_data['templates'] ) > 0 ) {
-						$html .= '<ul id="ditty-templates-list__templates">';
-						foreach ( $layout_data['templates'] as $template => $template_data ) {
-							$args = array(
-								'template' 	=> $template,
-								'return'		=> 'versions',
-							);
-							$layout_versions = ditty_layouts_with_type( $layout_type, $args );
-							$html .= '<li class="ditty-templates-list__template">';
-								$html .= '<div class="ditty-templates-list__template__heading">';
-									$html .= '<h4 class="ditty-templates-list__template__label">';
-										$html .= $template_data['label'] . " <small class='ditty-layout-version'>(v{$template_data['version']})</small>";
-									$html .= '</h4>';
-									$html .= '<p class="ditty-templates-list__template__description">' . $template_data['description'] . '</p>';
-								$html .= '</div>';
-								
-								$args = array(
-									'type'				=> 'button',
-									'label'				=> __( 'Installed', 'ditty-ticker' ),
-									'link'				=> '#',
-									'size' 				=> 'small',
-									'input_class'	=> 'ditty-default-layout-view',
-									'field_only'	=> true,
+		$layout_templates = ditty_layout_templates();
+		if ( is_array( $layout_templates ) && count( $layout_templates ) > 0 ) {
+			$html .= '<div id="ditty-layout-templates">';
+				$html .= '<h3>' . __( 'Layout Templates', 'ditty-news-ticker' ) . '</h3>';
+				$html .= '<ul id="ditty-templates-list__templates">';
+				foreach ( $layout_templates as $template_slug => $template_data ) {
+					$args = array(
+						'template' 	=> $template_slug,
+						'fields'		=> 'ids',
+						'return'		=> 'versions',
+					);
+					$layout_versions = ditty_layouts_posts( $args );
+					$html .= '<li class="ditty-templates-list__template">';
+						$html .= '<div class="ditty-templates-list__template__heading">';
+							$html .= '<h4 class="ditty-templates-list__template__label">';
+								$html .= $template_data['label'] . " <small class='ditty-layout-version'>(v{$template_data['version']})</small>";
+							$html .= '</h4>';
+							$html .= '<p class="ditty-templates-list__template__description">' . $template_data['description'] . '</p>';
+						$html .= '</div>';
+						
+						$args = array(
+							'type'				=> 'button',
+							'label'				=> __( 'Installed', 'ditty-ticker' ),
+							'link'				=> '#',
+							'size' 				=> 'small',
+							'input_class'	=> 'ditty-default-layout-view',
+							'field_only'	=> true,
+						);
+						if ( $layout_versions ) {	
+							if ( in_array( $template_data['version'], $layout_versions ) ) {
+								$args['label'] = __( 'Installed', 'ditty-ticker' );
+								$args['atts'] = array(
+									'disabled' => 'disabled',
 								);
-								if ( $layout_versions ) {	
-									if ( in_array( $template_data['version'], $layout_versions ) ) {
-										$args['label'] = __( 'Installed', 'ditty-ticker' );
-										$args['atts'] = array(
-											'disabled' => 'disabled',
-										);
-									} else {
-										$args['label'] = sprintf( __( 'Install Version %s', 'ditty-ticker' ), $template_data['version'] );
-										$args['input_class'] = 'ditty-default-layout-install';
-										$args['icon_after'] = 'fas fa-download';
-										$args['atts'] = array(
-											'data-layout_type' => $layout_type,
-											'data-layout_template' => $template,
-											'data-layout_version' => $template_data['version'],
-										);
-									}
-								} else {
-									$args['label'] = __( 'Install Template', 'ditty-ticker' );
-									$args['input_class'] = 'ditty-default-layout-install';
-									$args['icon_after'] = 'fas fa-download';
-									$args['atts'] = array(
-										'data-layout_type' => $layout_type,
-										'data-layout_template' => $template,
-										'data-layout_version' => $template_data['version'],
-									);
-								}
-								$html .= ditty_field( $args );
-							$html .= '</li>';
+							} else {
+								$args['label'] = sprintf( __( 'Install Version %s', 'ditty-ticker' ), $template_data['version'] );
+								$args['input_class'] = 'ditty-default-layout-install';
+								$args['icon_after'] = 'fas fa-download';
+								$args['atts'] = array(
+									'data-layout_template' => $template_slug,
+									'data-layout_version' => $template_data['version'],
+								);
+							}
+						} else {
+							$args['label'] = __( 'Install Template', 'ditty-ticker' );
+							$args['input_class'] = 'ditty-default-layout-install';
+							$args['icon_after'] = 'fas fa-download';
+							$args['atts'] = array(
+								'data-layout_template' => $template_slug,
+								'data-layout_version' => $template_data['version'],
+							);
 						}
-						$html .= '</ul>';
-					}
-				$html .= '</li>';
-			}
-			$html .= '</ul>';
+						$html .= ditty_field( $args );
+					$html .= '</li>';
+				}
+				$html .= '</ul>';
+			$html .= '</div>';
 		}
 		
 		return $html;
@@ -289,21 +267,16 @@ class Ditty_Layouts {
 			return $post_id;
 		}
 		
-		if ( ! isset( $_POST['_ditty_layout_type'] ) ) {
-			return $post_id;
-		}
-		
-		$layout_type = sanitize_text_field( $_POST['_ditty_layout_type'] );
 		$layout_description = sanitize_text_field( $_POST['_ditty_layout_description'] );
 		$layout_html = wp_kses_post( $_POST['_ditty_layout_html'] );	
 		$layout_css = wp_kses_post( $_POST['_ditty_layout_css'] );	
-		
-		update_post_meta( $post_id, '_ditty_layout_type', $layout_type );
+
 		update_post_meta( $post_id, '_ditty_layout_description', $layout_description );
 		update_post_meta( $post_id, '_ditty_layout_html', $layout_html );
 		update_post_meta( $post_id, '_ditty_layout_css', $layout_css );
 		
 		// Remove the version number of edited layouts
+		delete_post_meta( $post_id, '_ditty_layout_template' );
 		delete_post_meta( $post_id, '_ditty_layout_version' );
 	}
 	
@@ -315,29 +288,9 @@ class Ditty_Layouts {
 	 */
 	public function metabox_layout_info() {
 		global $post;
-		$layout_types = ditty_layout_types();
-		$layout_type_options = array(
-			'' => __( 'Select a Layout Type', 'ditty-news-ticker' ),
-		);
-		if ( is_array( $layout_types ) && count( $layout_types ) > 0 ) {
-			foreach ( $layout_types as $id => $type ) {
-				$layout_type_options[$id] = $type['label'];
-			}
-		}
-		
-		$layout_type = get_post_meta( $post->ID, '_ditty_layout_type', true );
 		$layout_description = get_post_meta( $post->ID, '_ditty_layout_description', true );
-		
-		$layout_options = $this->select_field_options( $layout_type, __( 'Select a Layout', 'ditty-news-ticker' ) );
-		
+
 		$fields = array();
-		$fields['layout_type'] = array(
-			'type' 		=> 'select',
-			'id'			=> '_ditty_layout_type',
-			'name' 		=> __( 'Layout Type', 'ditty-news-ticker' ),
-			'options' => $layout_type_options,
-			'std' 		=> $layout_type,
-		);
 		$fields['layout_code'] = array(
 			'type' 		=> 'select',
 			'id'			=> '_ditty_layout_code',
@@ -345,7 +298,7 @@ class Ditty_Layouts {
 			'desc' 		=> __( "Overwrite the HTML & CSS with another layout's data. Choose carefully!", 'ditty' ),
 			'options' => $layout_options,
 		);
-		$fields['desciption'] = array(
+		$fields['description'] = array(
 			'type' => 'textarea',
 			'id'	=> '_ditty_layout_description',
 			'name' => __( 'Description', 'ditty-news-ticker' ),
@@ -454,34 +407,12 @@ class Ditty_Layouts {
 		if ( $placeholder ) {
 			$options[''] = $placeholder;
 		}
-		if ( $layout_object = ditty_layout_type_object( $type ) ) {
-			if ( $layouts = $this->get_layouts_by_type( $type ) ) {
-				foreach ( $layouts as $id ) {
-					$options[$id] = get_the_title( $id );
-				}
+		if ( $layouts = ditty_layouts_posts() ) {
+			foreach ( $layouts as $layout_post ) {
+				$options[$layout_post->ID] = $layout_post->post_title;
 			}
 		}
 		return $options;
-	}
-
-	/**
-	 * Return an array of custom layouts
-	 *
-	 * @access  private
-	 * @since   3.0
-	 * @param   array    $layouts.
-	 */
-	public function get_layouts_by_type( $type, $fields = 'ids' ) {
-		$args = array(
-			'posts_per_page' 	=> -1,
-			'orderby' 				=> 'post_title',
-			'order' 					=> 'ASC',
-			'post_type' 			=> 'ditty_layout',
-			'meta_key'				=> '_ditty_layout_type',
-			'meta_value'			=> $type,
-			'fields' 					=> $fields,
-		);
-		return get_posts( $args );
 	}
 	
 	/**
@@ -490,7 +421,7 @@ class Ditty_Layouts {
 	 * @since    3.0
 	 */
 	public function editor_layout_icon( $layout ) {
-		echo '<span class="ditty-data-list__item__icon"><i class="' . $layout->get_icon() . '" data-class="' . $layout->get_icon() . '"></i></span>';
+		echo '<span class="ditty-data-list__item__icon"><i class="fas fa-pencil-ruler" data-class="fas fa-pencil-ruler"></i></span>';
 	}
 	
 	/**
@@ -591,7 +522,6 @@ class Ditty_Layouts {
 							$variations = $item_type_object->get_layout_variation_data( $layout_value );
 							if ( is_array( $variations ) && count( $variations ) > 0 ) {
 								foreach ( $variations as $id => $data ) {
-									$layout_type_object = ditty_layout_type_object( $data['type'] );
 									$layout_id = $data['template'];
 									$layout = new Ditty_Layout( $layout_id );
 									$version = $layout->get_version();
@@ -608,7 +538,6 @@ class Ditty_Layouts {
 									);
 									?>	
 									<div <?php echo ditty_attr_to_html( $atts ); ?>>
-										<span class="ditty-layout-variation__icon"><i class="<?php echo $layout_type_object->get_icon(); ?>"></i></span>
 										<div class="ditty-layout-variation__content">
 											<span class="ditty-layout-variation__label"><?php printf( __( 'Variation: %s', 'ditty-news-ticker' ), $data['label'] ); ?></span>
 											<span class="ditty-layout-variation__template"><?php echo wp_sprintf( __( 'Template: <span>%s</span>%s', 'ditty-news-ticker' ), $layout->get_label(), $version_string ); ?></span>
@@ -661,22 +590,22 @@ class Ditty_Layouts {
 				<div class="ditty-data-list">
 					<div class="ditty-data-list__items" data-active="<?php echo $layout_id_ajax; ?>">
 						<?php
-						if ( $item_type_object = ditty_item_type_object( $item_type_ajax ) ) {
-							if ( $layout_type = $item_type_object->get_variation_layout_type( $variation_id_ajax ) ) {
-								if ( $custom_layouts = $this->get_layouts_by_type( $layout_type ) ) {
-									foreach ( $custom_layouts as $i => $id ) {
-										$layout = new Ditty_Layout( $id );
-										echo $layout->render_editor_list_item( 'return' );
-									}
-								}
-								if ( $drafts = ditty_draft_layout_get() ) {
-									foreach ( $drafts as $id => $data ) {
-										if ( false !== strpos( $id, 'new-' ) ) {
-											$layout = new Ditty_Layout( $id );
-											echo $layout->render_editor_list_item( 'return' );
-										}		
-									}
-								}
+						$args = array(
+							'fields' => 'ids',
+						);
+						$layouts = ditty_layouts_posts( $args );
+						if ( is_array( $layouts ) && count( $layouts ) > 0 ) {
+							foreach ( $layouts as $layout_id ) {
+								$layout = new Ditty_Layout( $layout_id );
+								echo $layout->render_editor_list_item( 'return' );
+							}
+						}
+						if ( $drafts = ditty_draft_layout_get() ) {
+							foreach ( $drafts as $layout_id => $data ) {
+								if ( is_string( $layout_id ) && false !== strpos( $layout_id, 'new-' ) ) {
+									$layout = new Ditty_Layout( $layout_id );
+									echo $layout->render_editor_list_item( 'return' );
+								}		
 							}
 						}
 						?>
@@ -696,7 +625,6 @@ class Ditty_Layouts {
 	public function editor_select_layout_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
 		$layout_id_ajax 		= isset( $_POST['layout_id'] ) 		? $_POST['layout_id'] 		: false;
-		$layout_type_ajax 	= isset( $_POST['layout_type'] ) 	? $_POST['layout_type'] 	: false;
 		$item_id_ajax 			= isset( $_POST['item_id'] ) 			? $_POST['item_id'] 			: false;
 		$draft_values_ajax 	= isset( $_POST['draft_values'] ) ? $_POST['draft_values'] 	: false;
 		if ( ! current_user_can( 'edit_ditty_items' ) || ! $item_id_ajax || ! $layout_id_ajax ) {
@@ -704,13 +632,12 @@ class Ditty_Layouts {
 		}
 		ditty_set_draft_values( $draft_values_ajax );
 		$editor_item = new Ditty_Item( $item_id_ajax );
-		$editor_layout = new Ditty_Layout( $layout_id_ajax, $layout_type_ajax );
+		$editor_layout = new Ditty_Layout( $layout_id_ajax );
 		$data = array(
 			'editor_item' 			=> $editor_item->render_editor_list_item( 'return' ),
 			'display_items' 		=> $editor_item->get_display_items(),
 			'layout_label'			=> $editor_layout->get_label(),
 			'layout_css'				=> $editor_layout->get_css_compiled(),
-			'layout_type'				=> $editor_layout->get_layout_type(),
 		);	
 		wp_send_json( $data );
 	}
@@ -734,7 +661,7 @@ class Ditty_Layouts {
 			wp_die();
 		}
 		ditty_set_draft_values( $draft_values_ajax );
-		if ( ! $layout = new Ditty_Layout( $layout_id_ajax ) ) {
+		if ( ! $layout = new Ditty_Layout( $layout_id_ajax, $item_type_ajax ) ) {
 			wp_die();
 		}
 		
@@ -752,12 +679,12 @@ class Ditty_Layouts {
 		switch( $edit_type_ajax ) {
 			case 'html':
 				$textarea_val = stripslashes( $layout->get_html() );
-				$tags_list = ditty_layout_tags_list( $item_type_ajax );
+				$tags_list = $layout->get_tags_list();
 				$quick_change = '<a href="#" class="ditty-editor-options__edit-css protip" data-pt-title="' . __( 'Edit CSS', 'ditty-news-ticker' ) . '"><i class="fas fa-eye" data-class="fas fa-eye"></i></a>';								
 				break;
 			case 'css':
 				$textarea_val = stripslashes( $layout->get_css() );
-				$tags_list = get_css_selectors_list( $item_type_ajax );
+				$tags_list = $layout->get_css_selectors_list();
 				$quick_change = '<a href="#" class="ditty-editor-options__edit-html protip" data-pt-title="' . __( 'Edit HTML', 'ditty-news-ticker' ) . '"><i class="fas fa-code" data-class="fas fa-code"></i></a>';
 				break;
 			default:
@@ -812,7 +739,6 @@ class Ditty_Layouts {
 		check_ajax_referer( 'ditty', 'security' );
 		$edit_type_ajax 		= isset( $_POST['edit_type'] ) 					? sanitize_text_field( $_POST['edit_type'] ) 		: false;
 		$layout_id_ajax 		= isset( $_POST['layout_id'] ) 					? sanitize_text_field( $_POST['layout_id'] ) 		: false;
-		$layout_type_ajax 	= isset( $_POST['layout_type'] ) 				? sanitize_text_field( $_POST['layout_type'] ) 	: false;
 		$title_ajax 				= isset( $_POST['title'] ) 							? sanitize_text_field( $_POST['title'] ) 				: false;
 		$item_ids_ajax 			= isset( $_POST['item_ids'] ) 					? $_POST['item_ids'] 														: array();
 		$code_ajax 					= isset( $_POST['_ditty_layout_code'] )	? wp_kses_post( $_POST['_ditty_layout_code'] )	: false;
@@ -823,7 +749,7 @@ class Ditty_Layouts {
 		}
 		ditty_set_draft_values( $draft_values_ajax );
 		ditty_draft_layout_update( $layout_id_ajax, $edit_type_ajax, $code_ajax );
-		if ( ! $editor_layout = new Ditty_Layout( $layout_id_ajax, $layout_type_ajax ) ) {
+		if ( ! $editor_layout = new Ditty_Layout( $layout_id_ajax ) ) {
 			wp_die();
 		}
 
@@ -871,19 +797,19 @@ class Ditty_Layouts {
 	public function editor_clone_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
 		$layout_id_ajax 		= isset( $_POST['layout_id'] ) 		? sanitize_text_field( $_POST['layout_id'] ) 		: false;
-		$layout_type_ajax 	= isset( $_POST['layout_type'] ) 	? sanitize_text_field( $_POST['layout_type'] )	: false;
 		$draft_values_ajax	= isset( $_POST['draft_values'] ) ? $_POST['draft_values'] 												: false;
-		if ( ! current_user_can( 'publish_ditty_layouts' ) || ! $layout_id_ajax || ! $layout_type_ajax ) {
-			wp_die();
+		if ( ! current_user_can( 'publish_ditty_layouts' ) || ! $layout_id_ajax ) {
+			wp_send_json( array() );
 		}
 		ditty_set_draft_values( $draft_values_ajax );
 
 		// Get an instance of the source layout
-		$editor_layout = new Ditty_Layout( $layout_id_ajax, $layout_type_ajax );
+		$editor_layout = new Ditty_Layout( $layout_id_ajax );
 		$draft_id = uniqid( 'new-' );
 		$draft_label = sprintf( __( '%s Clone', 'ditty-news-ticker' ), $editor_layout->get_label() );
 		$editor_layout->set_layout_id( $draft_id );
 		$editor_layout->set_label( $draft_label );
+		$editor_layout->remove_version();
 		$data = array(
 			'editor_layout' => $editor_layout->render_editor_list_item( 'return' ),
 			'draft_id' 			=> $draft_id,
@@ -991,11 +917,6 @@ class Ditty_Layouts {
 							wp_update_post( $postarr );
 						}
 					}
-					
-					// Update a layout type
-					if ( isset( $layout_data['layout_type'] ) ) {
-						update_post_meta( $layout_id, '_ditty_layout_type', esc_attr( $layout_data['layout_type'] ) );
-					}
 	
 					// Update a layout description
 					if ( isset( $layout_data['description'] ) ) {
@@ -1014,6 +935,7 @@ class Ditty_Layouts {
 					
 					// Remove the version number of edited layouts
 					delete_post_meta( $layout_id, '_ditty_layout_version' );
+					delete_post_meta( $layout_id, '_ditty_layout_template' );
 				}
 			}
 		}

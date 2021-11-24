@@ -1,49 +1,6 @@
 <?php
 
 /**
- * Return the layout tags list
- *
- * @since    3.0
- * @var      html
-*/
-function ditty_layout_tags_list( $item_type = false ) {
-	$tags = ditty_layout_tags( $item_type );
-	$tags_list = '';
-	if ( is_array( $tags ) && count( $tags ) > 0 ) {
-		$tags_list .= '<ul class="ditty-editor-options__tags__list ditty-editor-options__tags__list--' . $item_type . '">';
-		foreach ( $tags as $data ) {
-			$atts = array(
-				'class' => 'ditty-editor-options__tag protip',
-				'data-pt-title' => $data['description'],
-				'data-atts' => ( isset( $data['atts'] ) ) ? htmlentities( json_encode( $data['atts'] ) ) : false,
-			);
-			$tags_list .= '<li ' . ditty_attr_to_html( $atts ) . '>{' . $data['tag'] . '}</li>';
-		}
-		$tags_list .= '</ul>';
-	}
-	return $tags_list;
-}
-
-/**
- * Return the layout selectors list
- *
- * @since    3.0
- * @var      html
-*/
-function get_css_selectors_list( $item_type = false ) {
-	$tags = ditty_layout_tags( $item_type );
-	$selectors_list = '';
-	if ( is_array( $tags ) && count( $tags ) > 0 ) {
-		$selectors_list .= '<ul class="ditty-editor-options__tags__list ditty-editor-options__tags__list--' . $item_type . '">';
-		foreach ( $tags as $data ) {
-			$selectors_list .= '<li class="ditty-editor-options__tag">.ditty-item__' . $data['tag'] . '</li>';
-		}
-		$selectors_list .= '</ul>';
-	}
-	return $selectors_list;
-}
-
-/**
  * Return a rendered link
  *
  * @since    3.0

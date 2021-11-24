@@ -284,7 +284,6 @@
 			
 			var data = {
 				action					: 'ditty_install_layout',
-				layout_type			: $button.data( 'layout_type' ),
 				layout_template : $button.data( 'layout_template' ),
 				layout_version 	: $button.data( 'layout_version' ),
 				security				: dittyAdminVars.security

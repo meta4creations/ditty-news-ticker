@@ -17,7 +17,6 @@ class Ditty_Item_Type_Posts extends Ditty_Item_Type {
 	 * @since 3.0
 	 */
 	public $slug = 'posts';
-	public $layout_type = 'wp_post';
 	
 	/**
 	 * Prepare items for Ditty use

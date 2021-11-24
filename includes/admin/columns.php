@@ -19,9 +19,7 @@ function ditty_manage_posts_columns( $columns, $post_type ){
 					break;
 				case 'ditty_layout':
 					$new_columns['ditty_layout_version'] = __( 'Version', 'ditty-news-ticker' );
-					//$new_columns['ditty_layout_id'] = __( 'ID', 'ditty-news-ticker' );
-					$new_columns['ditty_layout_type'] = __( 'Layout Type', 'ditty-news-ticker' );
-					//$new_columns['ditty_layout_template'] = __( 'Layout Template', 'ditty-news-ticker' );
+					$new_columns['ditty_layout_template'] = __( 'Layout Template', 'ditty-news-ticker' );
 					break;
 				case 'ditty':
 					$new_columns['ditty_display'] = __( 'Display', 'ditty-news-ticker' );
@@ -67,17 +65,6 @@ function ditty_manage_posts_custom_column( $column, $post_id ){
 				}
 			}
 			echo "<a href='edit.php?post_type={$post->post_type}&ditty_display_type={$display_type}'>".$label."</a>";
-			break;
-		case 'ditty_layout_type':
-			$meta = get_post_meta( $post_id, '_ditty_layout_type', true );
-			$label = $meta;
-			$layout_types = ditty_layout_types();
-			foreach( $layout_types as $slug => $layout ) {
-				if( $meta == $slug ) {
-					$label = $layout['label'];
-				}
-			}
-			echo "<a href='edit.php?post_type={$post->post_type}&ditty_layout_type={$meta}'>".$label."</a>";
 			break;
 		case 'ditty_layout_template':
 			$meta = get_post_meta( $post_id, '_ditty_layout_template', true );
@@ -125,7 +112,7 @@ function ditty_display_sortable_columns( $columns ) {
 add_filter( 'manage_edit-ditty_display_sortable_columns', 'ditty_display_sortable_columns' );
 
 function ditty_layout_sortable_columns( $columns ) {
-	$columns['ditty_layout_type'] = 'ditty_layout_type';
+	$columns['ditty_layout_template'] = 'ditty_layout_template';
 	$columns['ditty_layout_version'] = 'ditty_layout_version';
 	return $columns;
 }
@@ -150,9 +137,9 @@ function ditty_column_order_request( $vars ) {
 			'meta_key'	=> '_ditty_display_type',
 			'orderby' 	=> 'meta_value',
 		) );
-	} elseif ( isset( $vars['orderby'] ) && 'ditty_layout_type' === $vars['orderby'] ) {
+	} elseif ( isset( $vars['orderby'] ) && 'ditty_layout_template' === $vars['orderby'] ) {
 		$vars = array_merge( $vars, array(
-			'meta_key'	=> '_ditty_layout_type',
+			'meta_key'	=> '_ditty_layout_template',
 			'orderby' 	=> 'meta_value',
 		) );
 	} elseif ( isset( $vars['orderby'] ) && 'ditty_layout_version' === $vars['orderby'] ) {
@@ -197,13 +184,13 @@ function ditty_display_admin_screen_filters() {
 		echo '</select>';
 		
 	} elseif( $typenow == 'ditty_layout' ) {
-		$layout_type = isset( $_GET['ditty_layout_type'] ) ? esc_html( $_GET['ditty_layout_type'] ) : '';
-		$layout_types = ditty_layout_types();	
-		echo '<select name="ditty_layout_type">';
-			echo '<option value="">' . __( 'Show all Types', 'ditty-news-ticker' ) . '</option>';
-			if( is_array( $layout_types ) && count( $layout_types ) > 0 ) {
-				foreach( $layout_types as $slug => $layout ) {
-					echo '<option value="' . $slug . '" '.selected( $slug, $layout_type, false ) . '>' . $layout['label'] . '</option>';
+		$layout_template = isset( $_GET['ditty_layout_template'] ) ? esc_html( $_GET['ditty_layout_template'] ) : '';
+		$layout_templates = ditty_layout_templates();	
+		echo '<select name="ditty_layout_template">';
+			echo '<option value="">' . __( 'Show all Templates', 'ditty-news-ticker' ) . '</option>';
+			if( is_array( $layout_templates ) && count( $layout_templates ) > 0 ) {
+				foreach( $layout_templates as $template_slug => $template_data ) {
+					echo '<option value="' . $template_slug . '" '.selected( $template_slug, $layout_template, false ) . '>' . $template_data['label'] . '</option>';
 				}
 			}
 		echo '</select>';
@@ -235,10 +222,10 @@ function ditty_edit_parse_query( $query ) {
 		
   } elseif ( $pagenow=='edit.php' && isset( $qv['post_type'] ) && 'ditty_layout' == $qv['post_type'] ) { 
 		$meta_query = array();
-		if( isset( $_GET['ditty_layout_type'] ) && $_GET['ditty_layout_type'] != '' ) {
+		if( isset( $_GET['ditty_layout_template'] ) && $_GET['ditty_layout_template'] != '' ) {
 			$meta_query[] = array(
-				'key' 	=> '_ditty_layout_type',
-				'value' => esc_html( $_GET['ditty_layout_type'] ),
+				'key' 	=> 'ditty_layout_template',
+				'value' => esc_html( $_GET['ditty_layout_template'] ),
 			);
 		}
 		if( count( $meta_query ) > 0 ) {

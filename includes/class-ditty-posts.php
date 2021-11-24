@@ -313,8 +313,21 @@ class Ditty_Posts {
 			}
 			if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
 				foreach ( $items_meta as $i => $meta ) {
-					$item = new Ditty_Item( $meta );
-					$display_items = array_merge( $display_items, $item->get_display_items() );
+					if ( is_object( $meta ) ) {
+						$meta = ( array ) $meta;
+					}
+					$item_type_object = ditty_item_type_object( $meta['item_type'] );
+					$prepared_items = $item_type_object->prepare_items( $meta );
+					if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
+						foreach ( $prepared_items as $i => $prepared_meta ) {
+							$display_item = new Ditty_Display_Item( $prepared_meta );
+							if ( $data = $display_item->compile_data() ) {
+								$display_items[] = $data;
+							}
+						}
+					}	
+					//$item = new Ditty_Item( $meta );
+					//$display_items = array_merge( $display_items, $item->get_display_items() );	
 				}
 			}
 			set_transient( $transient_name, $display_items, ( MINUTE_IN_SECONDS * ditty_settings( 'live_refresh' ) ) );

@@ -89,7 +89,7 @@ class Ditty_Display {
 	 * Return the display object
 	 * @access public
 	 * @since  3.0
-	 * @return int $layout_type_object
+	 * @return int $display_object
 	 */
 	public function get_display_object() {
 		if ( empty( $this->display_object ) ) {

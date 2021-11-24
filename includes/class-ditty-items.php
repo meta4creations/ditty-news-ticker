@@ -212,6 +212,7 @@ class Ditty_Items {
 					<div class="ditty-data-list__items">
 						<?php
 						$item_meta = ditty_items_meta( $ditty_id );
+						
 						if ( is_array( $item_meta ) && count( $item_meta ) > 0 ) {
 							foreach ( $item_meta as $i => $meta ) {
 								$editor_item = new Ditty_Item( $meta );

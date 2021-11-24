@@ -23,13 +23,10 @@ class Ditty_Layout {
 	private $css_selectors;
 	private $description;
 	private $html;
-	private $html_tags;
-	private $icon;
 	private $label;
+	private $layout_tags;
 	private $layout_id;
 	private $item_type;
-	private $layout_type;
-	private $layout_type_object;
 	private $item_value;
 	private $version;
 
@@ -43,7 +40,7 @@ class Ditty_Layout {
 		$this->item_type = $item_type;
 		
 		// If this is a new layout
-		if ( false !== strpos( $layout_id, 'new-' ) ) {
+		if ( is_string( $layout_id ) && false !== strpos( $layout_id, 'new-' ) ) {
 			$this->parse_draft_data( $layout_id );
 		
 		// Else, this is an existing layout
@@ -51,7 +48,6 @@ class Ditty_Layout {
 			$this->construct_from_id( $layout_id );
 			$this->parse_draft_data( $layout_id );
 		}
-		$this->construct_type_object_data();
 		return $this;
 	}
 	
@@ -68,7 +64,6 @@ class Ditty_Layout {
 			return false;
 		}
 		$this->label 				= isset( $draft_values['label'] ) 			? $draft_values['label'] 				: $this->label;
-		$this->layout_type 	= isset( $draft_values['layout_type'] ) ? $draft_values['layout_type']	: $this->layout_type;
 		$this->description 	= isset( $draft_values['description'] ) ? $draft_values['description']	: $this->description;
 		$this->html 				= isset( $draft_values['html'] ) 				? $draft_values['html'] 				: $this->html;
 		$this->css					= isset( $draft_values['css'] )					? $draft_values['css'] 					: $this->css;
@@ -83,40 +78,11 @@ class Ditty_Layout {
 	 */
 	public function construct_from_id( $layout_id ) {
 		$this->layout_id 			= $layout_id;
-		$this->layout_type 		= get_post_meta( $layout_id, '_ditty_layout_type', true );
 		$this->label 					= get_the_title( $layout_id );
 		$this->description		= get_post_meta( $layout_id, '_ditty_layout_description', true );
 		$this->html 					= get_post_meta( $layout_id, '_ditty_layout_html', true );
 		$this->css 						= get_post_meta( $layout_id, '_ditty_layout_css', true );
 		$this->version 				= get_post_meta( $layout_id, '_ditty_layout_version', true );
-	}
-
-	/**
-	 * Construct the type object data
-	 *
-	 * @access public
-	 * @since  3.0
-	 */
-	public function construct_type_object_data() {
-		if ( ! $layout_type_object = $this->get_layout_type_object() ) {
-			return false;
-		}
-		$this->icon 					= $layout_type_object->get_icon();
-		$this->html_tags 			= $layout_type_object->html_tags();
-		$this->css_selectors 	= $layout_type_object->css_selectors();		
-	}
-	
-	/**
-	 * Return the layout type object
-	 * @access public
-	 * @since  3.0
-	 * @return int $layout_type_object
-	 */
-	public function get_layout_type_object() {
-		if ( empty( $this->layout_type_object ) ) {
-			$this->layout_type_object = ditty_layout_type_object( $this->layout_type );
-		}
-		return $this->layout_type_object;
 	}
 
 	/**
@@ -144,55 +110,48 @@ class Ditty_Layout {
 	 * Return the item type
 	 * @access public
 	 * @since  3.0
-	 * @return string $layout_type
+	 * @return string $item_type
 	 */
 	public function get_item_type() {
 		return $this->item_type;
 	}
-	
-	/**
-	 * Return the layout type
-	 * @access public
-	 * @since  3.0
-	 * @return string $layout_type
-	 */
-	public function get_layout_type() {
-		return $this->layout_type;
-	}
-	
+
 	/**
 	 * Return the html tags
 	 * @access public
 	 * @since  3.0
 	 * @return int $id
 	 */
-	public function get_html_tags() {
-		return $this->html_tags;
+	public function get_layout_tags() {
+		if ( ! $this->layout_tags ) {
+			$this->layout_tags = ditty_layout_tags( $this->get_item_type() );
+		}
+		return $this->layout_tags;
 	}
 	
 	/**
 	 * Return the html tags list
 	 * @access public
 	 * @since  3.0
-	 * @return html $html_tags_list
+	 * @return html $tags_list
 	 */
-	public function get_html_tags_list() {
-		$html_tags_list = '';
-		$html_tags = $this->get_html_tags();
-		if ( is_array( $html_tags ) && count( $html_tags ) > 0 ) {
-			$html_tags_list .= '<ul class="ditty-editor-options__tags__list ditty-editor-options__tags__list--' . $this->get_layout_type() . '">';
-			foreach ( $html_tags as $data ) {
+	public function get_tags_list() {
+		$tags_list = '';
+		$tags = apply_filters( 'ditty_layout_tags_list', $this->get_layout_tags(), $this->get_item_type() );
+		if ( is_array( $tags ) && count( $tags ) > 0 ) {
+			$tags_list .= '<ul class="ditty-editor-options__tags__list ditty-editor-options__tags__list--' . $this->get_item_type() . '">';
+			foreach ( $tags as $data ) {
 				$class = ( isset( $data['class'] ) && '' != $data['class'] ) ? ' ' . esc_attr( $data['class'] ) : '';			
 				$atts = array(
 					'class' => 'ditty-editor-options__tag protip' . $class,
 					'data-pt-title' => $data['description'],
 					'data-atts' => ( isset( $data['atts'] ) ) ? htmlentities( json_encode( $data['atts'] ) ) : false,
 				);
-				$html_tags_list .= '<li ' . ditty_attr_to_html( $atts ) . '>{' . $data['tag'] . '}</li>';
+				$tags_list .= '<li ' . ditty_attr_to_html( $atts ) . '>{' . $data['tag'] . '}</li>';
 			}
-			$html_tags_list .= '</ul>';
+			$tags_list .= '</ul>';
 		}
-		return $html_tags_list;
+		return $tags_list;
 	}
 	
 	/**
@@ -201,38 +160,17 @@ class Ditty_Layout {
 	 * @since  3.0
 	 * @return int $id
 	 */
-	public function get_css_selectors() {
-		return $this->css_selectors;
-	}
-	
-	/**
-	 * Return the css selectors list
-	 * @access public
-	 * @since  3.0
-	 * @return html $css_selectors_list
-	 */
 	public function get_css_selectors_list() {
-		$css_selectors_list = '';
-		$css_selectors = $this->get_css_selectors();
-		if ( is_array( $css_selectors ) && count( $css_selectors ) > 0 ) {
-			$css_selectors_list .= '<ul class="ditty-editor-options__tags__list ditty-editor-options__tags__list--' . $this->get_layout_type() . '">';
-			foreach ( $css_selectors as $data ) {
-				$class = ( isset( $data['class'] ) && '' != $data['class'] ) ? ' ' . esc_attr( $data['class'] ) : '';
-				$css_selectors_list .= '<li class="ditty-editor-options__tag protip' . $class . '" data-pt-title="' . $data['description'] . '">' . $data['selector'] . '</li>';
+		$tags = apply_filters( 'ditty_layout_tags_list', $this->get_layout_tags(), $this->get_item_type() );
+		$selectors_list = '';
+		if ( is_array( $tags ) && count( $tags ) > 0 ) {
+			$selectors_list .= '<ul class="ditty-editor-options__tags__list ditty-editor-options__tags__list--' . $this->get_item_type() . '">';
+			foreach ( $tags as $data ) {
+				$selectors_list .= '<li class="ditty-editor-options__tag">.ditty-item__' . $data['tag'] . '</li>';
 			}
-			$css_selectors_list .= '</ul>';
+			$selectors_list .= '</ul>';
 		}
-		return $css_selectors_list;
-	}
-
-	/**
-	 * Return the layout icon
-	 * @access public
-	 * @since  3.0
-	 * @return string $icon
-	 */
-	public function get_icon() {
-		return $this->icon;
+		return $selectors_list;
 	}
 
 	/**
@@ -267,6 +205,16 @@ class Ditty_Layout {
 	 */
 	public function get_version() {
 		return $this->version;
+	}
+	
+	/**
+	 * Set the version
+	 * @access public
+	 * @since  3.0
+	 * @return string $version
+	 */
+	public function remove_version() {
+		$this->version = false;
 	}
 	
 	/**
@@ -366,7 +314,6 @@ class Ditty_Layout {
 	public function custom_meta() {
 		return array(
 			'label' 			=> $this->get_label(),
-			'layout_type' => $this->get_layout_type(),
 			'description' => $this->get_description(),
 			'html'				=> $this->get_html(),
 			'css'					=> $this->get_css(),
@@ -382,8 +329,8 @@ class Ditty_Layout {
 	public function get_classes() {	
 		$classes = array();
 		$classes[] = 'ditty-layout';
-		$classes[] = 'ditty-layout--' . esc_attr( $this->layout_id );
-		$classes[] = 'ditty-layout-type--' . esc_attr( $this->layout_type );		
+		$classes[] = 'ditty-layout--' . esc_attr( $this->get_layout_id() );
+		$classes[] = 'ditty-item-type--' . esc_attr( $this->get_item_type() );		
 		$classes = apply_filters( 'ditty-layout-classes', $classes );
 		return implode( ' ', $classes );
 	}
@@ -398,8 +345,13 @@ class Ditty_Layout {
 		if ( 'return' == $render ) {
 			ob_start();
 		}
+		$atts = array(
+			'id' 							=> "ditty-editor-layout--{$this->get_layout_id()}",
+			'class'						=> 'ditty-editor-layout ditty-data-list__item',
+			'data-layout_id' 	=> $this->get_layout_id(),
+		);
 		?>	
-		<div id="ditty-editor-layout--<?php echo $this->layout_id; ?>" class="ditty-editor-layout ditty-editor-layout--<?php echo $this->layout_type; ?> ditty-data-list__item" data-layout_id="<?php echo $this->layout_id; ?>" data-layout_type="<?php echo $this->layout_type; ?>">
+		<div <?php echo ditty_attr_to_html( $atts ); ?>>
 			<?php do_action( 'ditty_editor_layout_elements', $this ); ?>
 		</div>
 		<?php
@@ -431,7 +383,7 @@ class Ditty_Layout {
 	 * @return html
 	 */
 	public function render() {
-		$tags		= $this->get_html_tags();
+		$tags		= $this->get_layout_tags();
 		$html		= $this->get_html();	
 		$value 	= $this->get_value();	
 		

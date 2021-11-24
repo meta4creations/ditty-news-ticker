@@ -12,8 +12,6 @@ class Ditty_Display_Item {
 	
 	private $layout_id;
 	private $layout_object;
-	private $layout_type;
-	private $layout_type_object;
 	private $item_id;
 	private $item_uniq_id;
 	private $item_type;
@@ -30,7 +28,6 @@ class Ditty_Display_Item {
 	 */
 	public function __construct( $meta ) {	
 		$this->layout_id 			= isset( $meta['layout_id'] ) 			? $meta['layout_id'] 			: false;
-		$this->layout_type 		= isset( $meta['layout_type'] ) 		? $meta['layout_type'] 		: false;
 		$this->item_id 				= isset( $meta['item_id'] ) 				? $meta['item_id'] 				: -1;
 		$this->item_uniq_id 	= isset( $meta['item_uniq_id'] ) 		? $meta['item_uniq_id'] 	: $this->item_id;
 		$this->item_type 			= isset( $meta['item_type'] ) 			? $meta['item_type'] 			: false;
@@ -105,18 +102,7 @@ class Ditty_Display_Item {
 	public function get_layout_id() {
 		return $this->layout_id;
 	}
-	
-	/**
-	 * Return the layout type
-	 *
-	 * @access public
-	 * @since  3.0
-	 * @return int $layout_type
-	 */
-	public function get_layout_type() {
-		return $this->layout_type;
-	}
-	
+
 	/**
 	 * Return the layout css
 	 *
@@ -144,27 +130,13 @@ class Ditty_Display_Item {
 		}
 		return $this->item_type_object;
 	}
-	
-	/**
-	 * Return the layout type object
-	 *
-	 * @access public
-	 * @since  3.0
-	 * @return int $layout_type_object
-	 */
-	public function get_layout_type_object() {
-		if ( ! $this->layout_type_object ) {
-			 $this->layout_type_object = ditty_layout_type_object( $this->get_layout_type() );
-		}
-		return $this->layout_type_object;
-	}
-	
+
 	/**
 	 * Return the layout object
 	 *
 	 * @access public
 	 * @since  3.0
-	 * @return int $layout_type_object
+	 * @return int $layout_object
 	 */
 	public function get_layout_object() {
 		if ( ! $this->layout_object ) {
@@ -172,26 +144,7 @@ class Ditty_Display_Item {
 		}
 		return $this->layout_object;
 	}
-	
-	/**
-	 * Return the html tag values
-	 *
-	 * @access public
-	 * @since  3.0
-	 * @return null
-	 */
-	public function get_html_tag_values() {
-		$layout_type_object = $this->get_layout_type_object();
-		$html_tags 					= $layout_type_object->html_tags();
-		$html_tag_values 		= array();
-		if ( is_array( $html_tags ) && count( $html_tags ) > 0 ) {
-			foreach ( $html_tags as $a => $tag ) {
-				$html_tag_values[$tag['tag']] = call_user_func( $tag['func'], $this->get_value() );
-			}
-		}
-		return $html_tag_values;
-	}
-	
+
 	/**
 	 * Return custom classes
 	 *
@@ -221,14 +174,13 @@ class Ditty_Display_Item {
 			$classes[] = 'ditty-item--' . esc_attr( $this->item_uniq_id );
 		}
 		$classes[] = 'ditty-item-type--' . esc_attr( $this->item_type );
-		$classes[] = 'ditty-layout-type--' . esc_attr( $this->get_layout_type() );
 		if ( $this->layout_id ) {
 			$classes[] = 'ditty-layout--' . esc_attr( $this->layout_id );
 		} else {
 			$classes[] = 'ditty-layout--default';
 		}
 		if ( $this->has_error ) {
-			$classes[] = 'ditty-error';
+			$classes[] = 'ditty-item--error';
 		}
 		if ( $custom_classes = $this->get_custom_classes() ) {
 			$classes = array_merge( $classes, $custom_classes );
@@ -254,7 +206,6 @@ class Ditty_Display_Item {
 				'data-parent_id' 		=> $this->get_parent_id(),
 				'data-item_type' 		=> $this->get_item_type(),
 				'data-layout_id' 		=> $this->get_layout_id(),
-				'data-layout_type' 	=> $this->get_layout_type(),
 			);
 			
 			$html .= '<div ' . ditty_attr_to_html( $atts ) . '>';	
@@ -290,7 +241,6 @@ class Ditty_Display_Item {
 				'html' 				=> $html,
 				'css'					=> $this->get_layout_css(),
 				'layout_id'		=> $this->get_layout_id(),
-				'layout_type'	=> $this->get_layout_type(),
 				'is_disabled' => array_unique( apply_filters( 'ditty_item_disabled', array(), $this->get_id() ) ),
 			);
 			return $data;

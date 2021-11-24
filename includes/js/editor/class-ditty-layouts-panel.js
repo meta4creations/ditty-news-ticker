@@ -100,7 +100,6 @@
 			
 			var $layout 		= $( e.target ).is( '.ditty-data-list__item' ) ? $( e.target ) : $( e.target ).parents( '.ditty-data-list__item' ),
 					layoutId 		= $layout.data( 'layout_id' ),
-					layoutType 	= $layout.data( 'layout_type' ),
 					layoutValue = self.$editorItem.data( 'layout_value' );
 
 			if ( $layout.hasClass( 'active' ) ) {
@@ -123,7 +122,6 @@
 			var data = {
 				action				: 'ditty_editor_select_layout',
 				layout_id			: layoutId,
-				layout_type		: layoutType,
 				item_id				: self.editorItemId,
 				draft_values 	: self.settings.editor.getDraftValues(),
 				security			: dittyVars.security
@@ -156,8 +154,7 @@
 		  var self 				= e.data.self,
 		  		$button 		= $( e.target ).is( 'a' ) ? $( e.target ) : $( e.target ).parent( 'a' ),
 					$item 			= $button.parents( '.ditty-data-list__item' ),
-					layoutId 		= $item.data( 'layout_id' ),
-					layoutType	= $item.data( 'layout_type' );
+					layoutId 		= $item.data( 'layout_id' );
 			
 			self.settings.editor.updateStart(); // Start the update overlay
 			
@@ -165,7 +162,6 @@
 			var data = {
 				action				: 'ditty_editor_layout_clone',
 				layout_id			: layoutId,
-				layout_type		: layoutType,
 				draft_values	: self.settings.editor.getDraftValues(),
 				security			: dittyVars.security
 			};
@@ -231,8 +227,7 @@
 		  		editType 		= e.data.editType,
 		  		$button 		= $( e.target ).is( 'a' ) ? $( e.target ) : $( e.target ).parent( 'a' ),
 					$layout 		= $button.parents( '.ditty-data-list__item' ),
-					layoutId 		= $layout.data( 'layout_id' ),
-					layoutType	= $layout.data( 'layout_type' );
+					layoutId 		= $layout.data( 'layout_id' );
 					
 			self.settings.editor.updateStart(); // Start the update overlay
 			self.$list.find( '.ditty-data-list__item' ).removeClass( 'editing' );
@@ -242,7 +237,6 @@
 			var data = {
 				action				: 'ditty_editor_layout_fields',
 				layout_id			: layoutId,
-				layout_type		: layoutType,
 				item_id				: self.editorItemId,
 				edit_type			: editType,
 				draft_values	: self.settings.editor.getDraftValues(),
@@ -270,12 +264,11 @@
 			var self 				= e.data.self,
 					$button 		= $( e.target ).is( 'a' ) ? $( e.target ) : $( e.target ).parent( 'a' ),
 					$layout 		= $button.parents( '.ditty-data-list__item' ),
-					layoutId 		= $layout.data( 'layout_id' ),
-					layoutType	= $layout.data( 'layout_type' );
+					layoutId 		= $layout.data( 'layout_id' );
 					
 			dittyVars.editor.currentLayout = $layout; // Set the current layout
 
-			$( 'body' ).trigger( 'ditty_editor_layout_action_click', [$button, $layout, layoutId, layoutType, self.editorDittyId, self.settings.editor] );
+			$( 'body' ).trigger( 'ditty_editor_layout_action_click', [$button, $layout, layoutId, self.editorDittyId, self.settings.editor] );
 		},
 
 		/**

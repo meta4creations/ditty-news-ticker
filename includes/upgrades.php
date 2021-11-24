@@ -97,8 +97,8 @@ function ditty_v30_upgrades( $run_install = false ) {
 	@$db_item_meta->create_table();
 	
 	// Install default layouts
-	Ditty()->layouts->install_default( 'default', 'default' );
-	Ditty()->layouts->install_default( 'wp_editor', 'default' );
+	Ditty()->layouts->install_default( 'default' );
+	Ditty()->layouts->install_default( 'default_image' );
 	Ditty()->displays->install_default( 'ticker', 'default' );
 	Ditty()->displays->install_default( 'list', 'default' );
 	Ditty()->displays->install_default( 'list', 'default_slider' );
