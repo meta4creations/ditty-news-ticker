@@ -17,7 +17,6 @@ class Ditty_Item_Type_WP_Editor extends Ditty_Item_Type {
 	 * @since 3.0
 	 */
 	public $slug = 'wp_editor';
-	public $layout_type = 'wp_editor';
 	
 	/**
 	 * Setup the type settings
@@ -36,19 +35,6 @@ class Ditty_Item_Type_WP_Editor extends Ditty_Item_Type {
 			),
 		);
 		return $fields;
-	}
-	
-	/**
-	 * Sanitize the settings
-	 *
-	 * @access  public
-	 * @since   3.0
-	 */
-	public function sanitize_settings( $values ) {
-		$sanitized_fields = array(
-			'content' 			=> isset( $values['content'] ) ? wp_kses_post( $values['content'] ) : false,
-		);
-		return $sanitized_fields;
 	}
 
 	/**

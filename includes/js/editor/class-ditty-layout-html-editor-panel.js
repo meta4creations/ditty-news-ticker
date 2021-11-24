@@ -27,7 +27,7 @@
     this.$editCss											= this.$elmt.find( '.ditty-editor-options__edit-css' );
     this.$title												= this.$elmt.find( '.ditty-editor-options__title' );
     this.$tags												= this.$elmt.find( '.ditty-editor-options__tags' );
-    this.layoutType										= this.$form.data( 'layout_type' );
+    this.itemType											= this.$form.data( 'item_type' );
     this.layoutId											= this.$form.data( 'layout_id' );
     this.$editorItem 									= dittyVars.editor.currentItem;
     this.$editorLayout 								= dittyVars.editor.currentLayout;
@@ -119,7 +119,7 @@
 		  		itemIds = [];
 		  		
 		  $.each( items, function( key, value ) {
-			  if ( String( value.layoutType ) === String( this.layoutType ) && String( value.layoutId ) === String( this.layoutId ) ) {
+			  if ( String( value.layoutId ) === String( this.layoutId ) ) {
 				  itemIds.push( value.id );
 				}
 			} ); 
@@ -224,10 +224,10 @@
 				var data = {
 					action				: 'ditty_editor_layout_fields',
 					layout_id			: self.layoutId,
-					layout_type		: self.layoutType,
 					layout_title	: self.$title.val(),
 					ditty_id			: self.editorDittyId,
 					item_id				: self.editorItemId,
+					item_type			: self.itemType,
 					edit_type			: 'css',
 					draft_values 	: self.settings.editor.getDraftValues(),
 					security			: dittyVars.security
@@ -252,7 +252,7 @@
 		  
 		  var self 				= e.data.self,
 		  		layoutId 		= self.layoutId,
-		  		layoutType 	= self.layoutType,
+		  		itemType 		= self.itemType,
 		  		itemIds			= self._getLayoutItems();
 		  		
 		  if ( self.$form.hasClass( 'ditty-editor-has-errors' ) ) {
@@ -265,7 +265,7 @@
 		  var data = {
         action				: 'ditty_editor_layout_update',
         layout_id 		: layoutId,
-        layout_type 	: layoutType,
+        item_type 		: itemType,
         item_ids			: itemIds,
         edit_type			: 'html',
 				draft_values 	: self.settings.editor.getDraftValues(),

@@ -30,9 +30,10 @@ class Ditty_Display_Item {
 	 */
 	public function __construct( $meta ) {	
 		$this->layout_id 			= isset( $meta['layout_id'] ) 			? $meta['layout_id'] 			: false;
+		$this->layout_type 		= isset( $meta['layout_type'] ) 		? $meta['layout_type'] 		: false;
 		$this->item_id 				= isset( $meta['item_id'] ) 				? $meta['item_id'] 				: -1;
 		$this->item_uniq_id 	= isset( $meta['item_uniq_id'] ) 		? $meta['item_uniq_id'] 	: $this->item_id;
-		$this->item_type 			= isset( $meta['item_type'] ) 			? $meta['item_type'] 			: 'default';
+		$this->item_type 			= isset( $meta['item_type'] ) 			? $meta['item_type'] 			: false;
 		$this->item_value 		= isset( $meta['item_value'] ) 			? $meta['item_value'] 		: '';
 		$this->ditty_id 			= isset( $meta['ditty_id'] ) 				? $meta['ditty_id'] 			: -1;
 		$this->has_error 			= isset( $meta['has_error'] ) 			? $meta['has_error']			: false;
@@ -167,7 +168,7 @@ class Ditty_Display_Item {
 	 */
 	public function get_layout_object() {
 		if ( ! $this->layout_object ) {
-			$this->layout_object = new Ditty_Layout( $this->get_layout_id(), $this->item_value );
+			$this->layout_object = new Ditty_Layout( $this->get_layout_id(), $this->get_item_type(), $this->item_value );
 		}
 		return $this->layout_object;
 	}

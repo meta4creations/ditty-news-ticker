@@ -36,6 +36,27 @@ class Ditty_Item_Type {
 	}
 	
 	/**
+	 * Prepare items for Ditty use
+	 *
+	 * @access public
+	 * @since  3.0
+	 * @return array
+	 */
+	public function prepare_items( $meta ) {
+		if ( is_object( $meta ) ) {
+			$meta = ( array ) $meta;
+		}
+		$defaults 					= $this->default_settings();
+		$args 							= shortcode_atts( $defaults, $meta['item_value'] );
+		$meta['item_value'] = $args;
+	
+		$ditty_item 								= $meta;
+		$ditty_item['layout_id'] 		= $this->get_layout_id( 'default', $meta['layout_value'] );
+		$ditty_item['layout_type'] 	= 'default';
+		return array( $ditty_item );
+	}
+	
+	/**
 	 * Return the type
 	 *
 	 * @access  public
@@ -244,6 +265,19 @@ class Ditty_Item_Type {
 			return $this->get_layout_variation_defaults( $type );
 		}
 	}
+	
+	/**
+	 * Get a layout id
+	 *
+	 * @access  public
+	 * @since   3.0
+	 */
+	public function get_variation_layout_type( $variation_id ) {
+		$variation_types = $this->get_layout_variation_types();
+		if ( isset( $variation_types[$variation_id] ) ) {
+			return $variation_types[$variation_id];
+		}
+	}
 
 	/**
 	 * Update values sent from the editor
@@ -266,26 +300,4 @@ class Ditty_Item_Type {
 	public function editor_preview( $value ) {
 		return '';
 	}
-	
-	/**
-	 * Prepare items for Ditty use
-	 *
-	 * @access public
-	 * @since  3.0
-	 * @return array
-	 */
-	public function prepare_items( $meta ) {
-		if ( is_object( $meta ) ) {
-			$meta = ( array ) $meta;
-		}
-		$defaults 					= $this->default_settings();
-		$args 							= shortcode_atts( $defaults, $meta['item_value'] );
-		$meta['item_value'] = $args;
-
-		$ditty_item 								= $meta;
-		$ditty_item['layout_id'] 		= $this->get_layout_id( 'default', $meta['layout_value'] );
-		$ditty_item['layout_type'] 	= 'default';
-		return array( $ditty_item );
-	}
-
 }

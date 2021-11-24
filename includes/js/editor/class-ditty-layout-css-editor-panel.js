@@ -27,7 +27,7 @@
     this.$title												= this.$elmt.find( '.ditty-editor-options__title' );
 		this.$body												= this.$elmt.find( '.ditty-editor-options__body' );
     this.$tags												= this.$elmt.find( '.ditty-editor-options__tags' );
-    this.layoutType										= this.$form.data( 'layout_type' );
+    this.itemType											= this.$form.data( 'item_type' );
     this.layoutId											= this.$form.data( 'layout_id' );
     this.$editorItem 									= dittyVars.editor.currentItem;
     this.$editorLayout 								= dittyVars.editor.currentLayout;
@@ -82,18 +82,10 @@
 		 * @return   null
 		*/
 	  _setCssSelector: function() {
-			if ( Number.isInteger( this.layoutId ) ) {
-				if ( dittyVars.isTickerPost ) {
-					this.itemSelector = '#poststuff .ditty-layout--' + this.layoutId;
-				} else {
-					this.itemSelector = '.ditty-layout--' + this.layoutId;
-				}
+			if ( dittyVars.isTickerPost ) {
+				this.itemSelector = '#poststuff .ditty-layout--' + this.layoutId;
 			} else {
-				if ( dittyVars.isTickerPost ) {
-					this.itemSelector = '#poststuff .ditty-layout-type--' + this.layoutType + '.ditty-layout--' + this.layoutId;
-				} else {
-					this.itemSelector = '.ditty-layout-type--' + this.layoutType + '.ditty-layout--' + this.layoutId;
-				}
+				this.itemSelector = '.ditty-layout--' + this.layoutId;
 			}
     },
     
@@ -234,10 +226,10 @@
 				var data = {
 					action				: 'ditty_editor_layout_fields',
 					layout_id			: self.layoutId,
-					layout_type		: self.layoutType,
 					layout_title  : self.$title.val(),
 					ditty_id			: self.editorDittyId,
 					item_id				: self.editorItemId,
+					item_type			: self.itemType,
 					edit_type			: 'html',
 					draft_values 	: self.settings.editor.getDraftValues(),
 					security			: dittyVars.security
@@ -281,9 +273,9 @@
 	  _submitForm: function( e ) {
 		  e.preventDefault();
 		  
-		  var self 				= e.data.self,
-		  		layoutId 		= self.layoutId,
-		  		layoutType 	= self.layoutType;
+		  var self 			= e.data.self,
+		  		layoutId 	= self.layoutId,
+		  		itemType 	= self.itemType;
 		  		
 		  if ( self.$form.hasClass( 'ditty-editor-has-errors' ) ) {
 			  return false;
@@ -295,7 +287,7 @@
 			var data = {
 				action				: 'ditty_editor_layout_update',
 				layout_id 		: layoutId,
-				layout_type 	: layoutType,
+				item_type 		: itemType,
 				edit_type			: 'css',
 				draft_values 	: self.settings.editor.getDraftValues(),
 				security			: dittyVars.security
@@ -391,7 +383,7 @@
 			// Move the cursor position
 			cursor.ch = cursor.ch + text.length;
 			self.codeEditor.codemirror.setCursor( cursor );
-			self.codeEditor.codemirror.trigger( 'focus' );
+			//self.codeEditor.codemirror.trigger( 'focus' );
     },
 
 	  /**

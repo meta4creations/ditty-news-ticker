@@ -599,8 +599,15 @@ class Ditty_Layouts {
 									if ( $version ) {
 										$version_string = " <small class='ditty-layout-version'>(v{$version})</small>";
 									}
+									$atts = array(
+										'class' 											=> "ditty-layout-variation ditty-layout-variation--{$id} ditty-data-list__item",
+										'data-layout_variation_id' 		=> $id,
+										'data-layout_variation_label' => $data['label'],
+										'data-layout_id'							=> $layout_id,
+										'data-item_type'							=> $item_type_ajax,
+									);
 									?>	
-									<div class="ditty-layout-variation ditty-layout-variation--<?php echo $id; ?> ditty-data-list__item" data-layout_variation_id="<?php echo $id; ?>" data-layout_variation_label="<?php echo $data['label']; ?>" data-layout_type="<?php echo $layout_type_object->get_type(); ?>" data-layout_id="<?php echo $layout_id; ?>">
+									<div <?php echo ditty_attr_to_html( $atts ); ?>>
 										<span class="ditty-layout-variation__icon"><i class="<?php echo $layout_type_object->get_icon(); ?>"></i></span>
 										<div class="ditty-layout-variation__content">
 											<span class="ditty-layout-variation__label"><?php printf( __( 'Variation: %s', 'ditty-news-ticker' ), $data['label'] ); ?></span>
@@ -637,9 +644,9 @@ class Ditty_Layouts {
 		}	
 		$ditty_id_ajax 				= isset( $_POST['ditty_id'] ) 				? $_POST['ditty_id'] 				: false;
 		$item_type_ajax 			= isset( $_POST['item_type'] ) 				? $_POST['item_type'] 			: false;
+		$variation_id_ajax		= isset( $_POST['variation_id'] ) 		? $_POST['variation_id'] : false;
 		$variation_label_ajax	= isset( $_POST['variation_label'] ) 	? $_POST['variation_label'] : false;
 		$layout_id_ajax 			= isset( $_POST['layout_id'] ) 				? $_POST['layout_id'] 			: false;
-		$layout_type_ajax 		= isset( $_POST['layout_type'] )			? $_POST['layout_type'] 		: false;
 		$draft_values_ajax 		= isset( $_POST['draft_values'] ) 		? $_POST['draft_values'] 		: false;
 		ditty_set_draft_values( $draft_values_ajax );
 		?>
@@ -654,19 +661,21 @@ class Ditty_Layouts {
 				<div class="ditty-data-list">
 					<div class="ditty-data-list__items" data-active="<?php echo $layout_id_ajax; ?>">
 						<?php
-						if ( $layout_object = ditty_layout_type_object( $layout_type_ajax ) ) {
-							if ( $custom_layouts = $this->get_layouts_by_type( $layout_type_ajax ) ) {
-								foreach ( $custom_layouts as $i => $id ) {
-									$layout = new Ditty_Layout( $id, $layout_type_ajax );
-									echo $layout->render_editor_list_item( 'return' );
-								}
-							}
-							if ( $drafts = ditty_draft_layout_get() ) {
-								foreach ( $drafts as $id => $data ) {
-									if ( false !== strpos( $id, 'new-' ) ) {
-										$layout = new Ditty_Layout( $id, $layout_type_ajax );
+						if ( $item_type_object = ditty_item_type_object( $item_type_ajax ) ) {
+							if ( $layout_type = $item_type_object->get_variation_layout_type( $variation_id_ajax ) ) {
+								if ( $custom_layouts = $this->get_layouts_by_type( $layout_type ) ) {
+									foreach ( $custom_layouts as $i => $id ) {
+										$layout = new Ditty_Layout( $id );
 										echo $layout->render_editor_list_item( 'return' );
-									}		
+									}
+								}
+								if ( $drafts = ditty_draft_layout_get() ) {
+									foreach ( $drafts as $id => $data ) {
+										if ( false !== strpos( $id, 'new-' ) ) {
+											$layout = new Ditty_Layout( $id );
+											echo $layout->render_editor_list_item( 'return' );
+										}		
+									}
 								}
 							}
 						}
@@ -717,15 +726,15 @@ class Ditty_Layouts {
 		check_ajax_referer( 'ditty', 'security' );
 		$edit_type_ajax 		= isset( $_POST['edit_type'] ) 		? sanitize_text_field( $_POST['edit_type'] ) 		: false;
 		$layout_id_ajax 		= isset( $_POST['layout_id'] ) 		? sanitize_text_field( $_POST['layout_id'] ) 		: false;
-		$layout_type_ajax 	= isset( $_POST['layout_type'] ) 	? sanitize_text_field( $_POST['layout_type'] ) 	: false;
 		$layout_title_ajax 	= isset( $_POST['layout_title'] ) ? sanitize_text_field( $_POST['layout_title'] ) : false;
+		$item_type_ajax 		= isset( $_POST['item_type'] ) 		? sanitize_text_field( $_POST['item_type'] ) 		: false;
 		$item_id_ajax 			= isset( $_POST['item_id'] ) 			? sanitize_text_field( $_POST['item_id'] ) 			: false;
 		$draft_values_ajax 	= isset( $_POST['draft_values'] ) ? $_POST['draft_values'] 	: false;
 		if ( ! current_user_can( 'edit_ditty_layouts' ) ) {
 			wp_die();
 		}
 		ditty_set_draft_values( $draft_values_ajax );
-		if ( ! $layout = new Ditty_Layout( $layout_id_ajax, $layout_type_ajax ) ) {
+		if ( ! $layout = new Ditty_Layout( $layout_id_ajax ) ) {
 			wp_die();
 		}
 		
@@ -743,12 +752,12 @@ class Ditty_Layouts {
 		switch( $edit_type_ajax ) {
 			case 'html':
 				$textarea_val = stripslashes( $layout->get_html() );
-				$tags_list = $layout->get_html_tags_list();
+				$tags_list = ditty_layout_tags_list( $item_type_ajax );
 				$quick_change = '<a href="#" class="ditty-editor-options__edit-css protip" data-pt-title="' . __( 'Edit CSS', 'ditty-news-ticker' ) . '"><i class="fas fa-eye" data-class="fas fa-eye"></i></a>';								
 				break;
 			case 'css':
 				$textarea_val = stripslashes( $layout->get_css() );
-				$tags_list = $layout->get_css_selectors_list();
+				$tags_list = get_css_selectors_list( $item_type_ajax );
 				$quick_change = '<a href="#" class="ditty-editor-options__edit-html protip" data-pt-title="' . __( 'Edit HTML', 'ditty-news-ticker' ) . '"><i class="fas fa-code" data-class="fas fa-code"></i></a>';
 				break;
 			default:
@@ -756,7 +765,7 @@ class Ditty_Layouts {
 		}		
 		ob_start();
 		?>
-		<form class="ditty-editor-options ditty-metabox" data-layout_id="<?php echo $layout_id_ajax; ?>" data-layout_type="<?php echo $layout_type_ajax; ?>">
+		<form class="ditty-editor-options ditty-metabox" data-layout_id="<?php echo $layout_id_ajax; ?>" data-item_type="<?php echo $item_type_ajax; ?>">
 			<div class="ditty-editor-options__contents">
 				<div class="ditty-editor-options__header">
 					<div class="ditty-editor-options__buttons ditty-editor-options__buttons--start">

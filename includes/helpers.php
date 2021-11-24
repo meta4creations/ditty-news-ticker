@@ -143,29 +143,13 @@ function ditty_layout_types() {
 		'icon' 				=> 'fas fa-pencil-alt',
 		'description' => __( 'Display a default item', 'ditty-news-ticker' ),
 		'class_name'	=> 'Ditty_Layout_Type_Default',
-		//'class_path'	=> DITTY_DIR . 'includes/class-ditty-layout-type-default.php',
-	);
-	$layout_types['wp_editor'] = array(
-		'label' 			=> __( 'WP Editor', 'ditty-news-ticker' ),
-		'icon' 				=> 'fas fa-edit',
-		'description' => __( 'Display a WP Editor item', 'ditty-news-ticker' ),
-		'class_name'	=> 'Ditty_Layout_Type_WP_Editor',
-		//'class_path'	=> DITTY_DIR . 'includes/class-ditty-layout-type-wp-editor.php',
 	);
 	$layout_types['image'] = array(
 		'label' 			=> __( 'Image', 'ditty-news-ticker' ),
 		'icon' 				=> 'fas fa-image',
 		'description' => __( 'Display an image', 'ditty-news-ticker' ),
 		'class_name'	=> 'Ditty_Layout_Type_Image',
-		//'class_path'	=> DITTY_DIR . 'includes/class-ditty-layout-type-wp-editor.php',
 	);
-	// $layout_types['wp_post'] = array(
-	// 	'label' 			=> __( 'WP Post', 'ditty-news-ticker' ),
-	// 	'icon' 				=> 'fab fa-wordpress-simple',
-	// 	'description' => __( 'Display a single WordPress post', 'ditty-news-ticker' ),
-	// 	'class_name'	=> 'Ditty_Layout_Type_WP_Post',
-	// 	'class_path'	=> DITTY_DIR . 'includes/class-ditty-layout-type-wp-post.php',
-	// );
 	return apply_filters( 'ditty_layout_types', $layout_types );
 }
 

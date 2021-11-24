@@ -27,6 +27,7 @@ class Ditty_Layout {
 	private $icon;
 	private $label;
 	private $layout_id;
+	private $item_type;
 	private $layout_type;
 	private $layout_type_object;
 	private $item_value;
@@ -37,8 +38,9 @@ class Ditty_Layout {
 	 * @access  public
 	 * @since   3.0
 	 */
-	public function __construct( $layout_id, $item_value = array() ) {
-		$this->item_value = $item_value;		
+	public function __construct( $layout_id, $item_type = false, $item_value = array() ) {
+		$this->item_value = $item_value;	
+		$this->item_type = $item_type;
 		
 		// If this is a new layout
 		if ( false !== strpos( $layout_id, 'new-' ) ) {
@@ -136,6 +138,16 @@ class Ditty_Layout {
 	public function set_layout_id( $layout_id ) {
 		$this->layout_id = $layout_id;
 		return $this->layout_id;
+	}
+	
+	/**
+	 * Return the item type
+	 * @access public
+	 * @since  3.0
+	 * @return string $layout_type
+	 */
+	public function get_item_type() {
+		return $this->item_type;
 	}
 	
 	/**
@@ -397,6 +409,22 @@ class Ditty_Layout {
 	}
 	
 	/**
+	 * Render a layout tag
+	 * @access public
+	 * @since  3.0
+	 * @return html
+	 */
+	public function render_tag( $tag, $item_type, $data, $atts = array(), $custom_wrapper = false ) {
+		if ( ! $output = apply_filters( "ditty_layout_tag_{$tag}", false, $item_type, $data, $atts ) ) {
+			return false;
+		}
+		if ( isset( $atts['wpautop'] ) && 'true' == strval( $atts['wpautop'] ) ) {
+			$output = wpautop( $output );
+		}
+		return ditty_layout_render_tag( $output, "ditty-item__{$tag}", $item_type, $data, $atts, $custom_wrapper );
+	}
+	
+	/**
 	 * Render the layout
 	 * @access public
 	 * @since  3.0
@@ -415,14 +443,15 @@ class Ditty_Layout {
 		$handlers = new HandlerContainer();
 		if ( is_array( $tags ) && count( $tags ) > 0 ) {
 			foreach ( $tags as $i => $tag ) {
-				if ( ! function_exists( $tag['func'] ) ) {
-					continue;
-				}
 				$handlers->add( $tag['tag'], function( ShortcodeInterface $s ) use ( $tag, $value ) {
 					$defaults = isset( $tag['atts'] ) ? $tag['atts'] : array();
 					$atts = ditty_layout_parse_atts( $defaults, $s );
 					$content = $s->getContent();
-					return call_user_func( $tag['func'], $value, $atts, $content );
+					if ( isset( $tag['func'] ) && function_exists( $tag['func'] ) ) {
+						return call_user_func( $tag['func'], $this->get_item_type(), $value, $atts, $content );
+					} else {
+						return $this->render_tag( $tag['tag'], $this->get_item_type(), $value, $atts, $content );
+					}
 				} );
 			}
 		}

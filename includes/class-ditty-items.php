@@ -414,7 +414,7 @@ class Ditty_Items {
 						$value_updates[$key] = $value;
 					}					
 				} else {
-					if ( $value !== $_POST[$key] ) {
+					if ( isset( $_POST[$key] ) && $value !== $_POST[$key] ) {
 						$value_updates[$key] = $value;
 					}
 				}	

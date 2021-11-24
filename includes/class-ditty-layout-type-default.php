@@ -30,7 +30,7 @@ class Ditty_Layout_Type_Default extends Ditty_Layout_Type {
 			'content' => array(
 				'tag' 				=> 'content',
 				'description' => __( 'The value of the text field.', 'ditty-news-ticker' ),
-				'func'    		=> 'ditty_layout_default_tag_content',
+				//'func'    		=> 'ditty_layout_default_tag_content',
 				'atts'				=> array(
 					'wrapper' => 'div',
 					'wpautop' => false,

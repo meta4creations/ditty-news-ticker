@@ -82,6 +82,7 @@
 					$layoutVariation 	= $button.parents( '.ditty-data-list__item' ),
 					layoutType				= $layoutVariation.data( 'layout_type' ),
 					layoutId					= $layoutVariation.data( 'layout_id' ),
+					variationId 			= $layoutVariation.data( 'layout_variation_id' ),
 					variationLabel 		= $layoutVariation.data( 'layout_variation_label' );
 					
 			dittyVars.editor.currentLayoutVariation = $layoutVariation; // Set the current layout variation
@@ -94,6 +95,7 @@
 				action					: 'ditty_editor_layouts',
 				ditty_id				: self.editorDittyId,
 				item_type				: self.editorItemType,
+				variation_id		: variationId,
 				variation_label	: variationLabel,
 				layout_id				: layoutId,
 				layout_type			: layoutType,
@@ -122,7 +124,7 @@
 		  		$button 					= $( e.target ).is( 'a' ) ? $( e.target ) : $( e.target ).parent( 'a' ),
 					$layoutVariation 	= $button.parents( '.ditty-data-list__item' ),
 					layoutId 					= $layoutVariation.data( 'layout_id' ),
-					layoutType				= $layoutVariation.data( 'layout_type' );
+					itemType					= $layoutVariation.data( 'item_type' );
 					
 			dittyVars.editor.currentLayoutVariation = $layoutVariation; // Set the current layout variation
 			
@@ -141,7 +143,7 @@
 			var data = {
 				action				: 'ditty_editor_layout_fields',
 				layout_id			: layoutId,
-				layout_type		: layoutType,
+				item_type			: itemType,
 				ditty_id			: self.editorDittyId,
 				item_id				: self.editorItemId,
 				item_ids			: itemIds,
