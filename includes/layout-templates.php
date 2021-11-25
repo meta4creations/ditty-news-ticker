@@ -156,19 +156,19 @@ function ditty_layout_default_image_css() {
 	justify-content: flex-start;
 	padding: 12px 10px 12px;
 }
-.ditty-item__user_avatar {
+.ditty-item__author_avatar {
 	flex: 0 0 auto;
 	margin-right: 10px;
 }
-.ditty-item__user_avatar img {
+.ditty-item__author_avatar img {
 	display: block;
 	line-height: 0;
 	border-radius: 50%;
 }
-.ditty-item__user_name {
+.ditty-item__author_name {
 	font-weight: 500;
 }
-.ditty-item__user_name a {
+.ditty-item__author_name a {
 	color: #050505;
 }
 .ditty-item__time {
@@ -209,9 +209,9 @@ function ditty_layout_default_post_html() {
 {image link="post"}
 {icon}
 <div class="ditty-item-heading">
-	{user_avatar width="50px" height="50px" fit="cover"}
+	{author_avatar width="50px" height="50px" fit="cover"}
 	<div class="ditty-item-heading__content">
-		{user_name}
+		{author_name}
 		{time}
 	</div>
 </div>
@@ -268,19 +268,19 @@ function ditty_layout_default_post_css() {
 	justify-content: flex-start;
 	padding: 15px;
 }
-.ditty-item__user_avatar {
+.ditty-item__author_avatar {
 	flex: 0 0 auto;
 	margin-right: 10px;
 }
-.ditty-item__user_avatar img {
+.ditty-item__author_avatar img {
 	display: block;
 	line-height: 0;
 	border-radius: 50%;
 }
-.ditty-item__user_name {
+.ditty-item__author_name {
 	font-weight: 500;
 }
-.ditty-item__user_name a {
+.ditty-item__author_name a {
 	color: #050505;
 }
 .ditty-item__time {

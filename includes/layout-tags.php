@@ -1,62 +1,4 @@
 <?php
-
-/**
- * The layout date/time
- *
- * @since    3.0
- * @var      html
-*/
-function ditty_layout_tag_time( $item_type, $data, $atts, $custom_wrapper = false ) {
-	if ( ! $timestamp = apply_filters( 'ditty_layout_tag_timestamp', false, $item_type, $data, $atts ) ) {
-		return false;
-	}	
-	if ( 'true' == $atts['ago'] ) {
-		$time_ago = human_time_diff( $timestamp, current_time( 'timestamp', true ) );
-		$html = sprintf( $atts['ago_string'], $time_ago );
-	} else {
-		$html = date( $atts['format'], $timestamp );
-	}
-	return ditty_layout_render_tag( $html, 'ditty-item__time', $item_type, $data, $atts, $custom_wrapper );
-}
-
-/**
- * The layout user avatar
- *
- * @since    3.0
- * @var      html
-*/	
-function ditty_layout_tag_user_avatar( $item_type, $data, $atts, $custom_wrapper = false ) {
-	if ( ! $image_data = apply_filters( 'ditty_layout_tag_user_avatar_data', array(), $item_type, $data, $atts ) ) {
-		return false;
-	}
-	$defaults = array(
-		'width' 	=> '',
-		'height' 	=> '',
-		'fit' 		=> '',
-	);
-	$args = shortcode_atts( $defaults, $atts );
-	$style = '';
-	if ( '' !=  $args['width'] ) {
-		$style .= 'width:' . $args['width'] . ';';
-	}
-	if ( '' !=  $args['height'] ) {
-		$style .= 'height:' . $args['height'] . ';';
-	}
-	if ( '' !=  $args['fit'] ) {
-		$style .= 'object-fit:' . $args['fit'] . ';';
-	}
-	$image_defaults = array(
-		'src' 		=> '',
-		'width' 	=> '',
-		'height' 	=> '',
-		'alt' 		=> '',
-		'style'		=> ( '' != $style ) ? $style : false,
-	);
-	$image_args = shortcode_atts( $image_defaults, $image_data );
-	$img = '<img ' . ditty_attr_to_html( $image_args ) . ' />';
-	return ditty_layout_render_tag( $img, 'ditty-item__user_avatar', $item_type, $data, $atts, $custom_wrapper );
-}
-
 /**
  * Return all possible layout tags
  *
@@ -65,10 +7,38 @@ function ditty_layout_tag_user_avatar( $item_type, $data, $atts, $custom_wrapper
 */	
 function ditty_layout_tags( $item_type = false ) {	
 	$tags = array(
+		'author_avatar' => array(
+			'tag' 				=> 'author_avatar',
+			'description' => __( "Render the item's user avatar", 'ditty-news-ticker' ),
+			'atts'				=> array(
+				'wrapper'			=> 'div',
+				'before'			=> '',
+				'after'				=> '',
+				'width'				=> '',
+				'height'			=> '',
+				'fit'					=> '',
+				'link'				=> '',
+				'link_target' => '_blank',
+				'link_rel'		=> '',
+				'class'				=> '',
+			),
+		),
+		'author_name' => array(
+			'tag' 				=> 'author_name',
+			'description' => __( "Render the item's user name", 'ditty-news-ticker' ),
+			'atts'				=> array(
+				'wrapper' 		=> 'div',
+				'before'			=> '',
+				'after'				=> '',
+				'link'				=> '', // post, user
+				'link_target' => '_blank',
+				'link_rel'		=> '',
+				'class'				=> '',
+			),
+		),
 		'caption' => array(
 			'tag' 				=> 'caption',
 			'description' => __( 'Render the item caption.', 'ditty-news-ticker' ),
-			//'func'    		=> 'ditty_layout_tag_caption',
 			'atts'				=> array(
 				'wrapper' 		=> 'div',
 				'wpautop'			=> '',
@@ -80,16 +50,61 @@ function ditty_layout_tags( $item_type = false ) {
 				'class'				=> '',
 			),
 		),
-		'content' => array(
-			'tag' 				=> 'content',
-			'description' => __( 'Render the item content.', 'ditty-news-ticker' ),
-			//'func'    		=> 'ditty_layout_default_tag_content',
+		'categories' => array(
+			'tag' 				=> 'categories',
+			'description' => __( 'Render the item categories', 'ditty-news-ticker' ),
 			'atts'				=> array(
 				'wrapper' => 'div',
-				'wpautop' => false,
 				'before'	=> '',
 				'after'		=> '',
 				'class'		=> '',
+			),
+		),
+		'content' => array(
+			'tag' 				=> 'content',
+			'description' => __( 'Render the item content.', 'ditty-news-ticker' ),
+			'atts'				=> array(
+				'wrapper' 					=> 'div',
+				'wpautop' 					=> false,
+				'before'						=> '',
+				'after'							=> '',
+				'excerpt'						=> '',
+				'more'							=> '...',
+				'more_link'					=> 'post',
+				'more_link_target' 	=> '_blank',
+				'more_link_rel'			=> '',
+				'more_before'				=> '',
+				'more_after'				=> '',
+				'class'							=> '',
+			),
+		),
+		'custom_field' => array(
+			'tag' 				=> 'custom_field',
+			'description' => __( 'Render a custom field for the item', 'ditty-news-ticker' ),
+			'atts'				=> array(
+				'id'			=> '',
+				'wrapper' => 'div',
+				'before'	=> '',
+				'after'		=> '',
+				'class'		=> '',
+			),
+		),
+		'excerpt' => array(
+			'tag' 				=> 'excerpt',
+			'description' => __( 'Render the item excerpt.', 'ditty-news-ticker' ),
+			'atts'				=> array(
+				'wrapper' 					=> 'div',
+				'wpautop' 					=> false,
+				'before'						=> '',
+				'after'							=> '',
+				'excerpt'						=> '',
+				'more'							=> '...',
+				'more_link'					=> 'post',
+				'more_link_target' 	=> '_blank',
+				'more_link_rel'			=> '',
+				'more_before'				=> '',
+				'more_after'				=> '',
+				'class'							=> '',
 			),
 		),
 		'icon' => array(
@@ -108,7 +123,6 @@ function ditty_layout_tags( $item_type = false ) {
 		'image' => array(
 			'tag' 				=> 'image',
 			'description' => __( 'Render the item image.', 'ditty-news-ticker' ),
-			'func'    		=> 'ditty_layout_tag_image',
 			'atts'				=> array(
 				'wrapper'			=> 'div',
 				'before'			=> '',
@@ -125,17 +139,27 @@ function ditty_layout_tags( $item_type = false ) {
 		'image_url' => array(
 			'tag' 				=> 'image_url',
 			'description' => __( 'Render the item image url.', 'ditty-news-ticker' ),
-			'func'    		=> 'ditty_layout_tag_image_url',
 		),
 		'permalink' => array(
 			'tag' 				=> 'permalink',
 			'description' => __( 'Render the item permalink.', 'ditty-news-ticker' ),
-			'func'    		=> 'ditty_image_tag_permalink',
+		),
+		'source' => array(
+			'tag' 				=> 'source',
+			'description' => __( 'Render the item source.', 'ditty-news-ticker' ),
+			'atts'				=> array(
+				'wrapper' 		=> 'div',
+				'link'				=> '',
+				'link_target' => '_blank',
+				'link_rel'		=> '',
+				'before'			=> '',
+				'after'				=> '',
+				'class'				=> '',
+			),
 		),
 		'time' => array(
 			'tag' 				=> 'time',
 			'description' => __( 'Render the item date/time.', 'ditty-news-ticker' ),
-			'func'    		=> 'ditty_layout_tag_time',
 			'atts'				=> array(
 				'wrapper' 		=> 'div',
 				'format' 			=> get_option( 'date_format' ),
@@ -152,43 +176,11 @@ function ditty_layout_tags( $item_type = false ) {
 		'title' => array(
 			'tag' 				=> 'title',
 			'description' => __( 'Render the item title.', 'ditty-news-ticker' ),
-			'func'    		=> 'ditty_layout_tag_title',
 			'atts'				=> array(
 				'wrapper' 		=> 'h3',
 				'before'			=> '',
 				'after'				=> '',
 				'link'				=> '',
-				'link_target' => '_blank',
-				'link_rel'		=> '',
-				'class'				=> '',
-			),
-		),
-		'user_avatar' => array(
-			'tag' 				=> 'user_avatar',
-			'description' => __( "Render the item's user avatar", 'ditty-news-ticker' ),
-			'func'    		=> 'ditty_layout_tag_user_avatar',
-			'atts'				=> array(
-				'wrapper'			=> 'div',
-				'before'			=> '',
-				'after'				=> '',
-				'width'				=> '',
-				'height'			=> '',
-				'fit'					=> '',
-				'link'				=> 'user',
-				'link_target' => '_blank',
-				'link_rel'		=> '',
-				'class'				=> '',
-			),
-		),
-		'user_name' => array(
-			'tag' 				=> 'user_name',
-			'description' => __( "Render the item's user name", 'ditty-news-ticker' ),
-			'func'    		=> 'ditty_layout_tag_user_name',
-			'atts'				=> array(
-				'wrapper' 		=> 'div',
-				'before'			=> '',
-				'after'				=> '',
-				'link'				=> 'user', // post, user
 				'link_target' => '_blank',
 				'link_rel'		=> '',
 				'class'				=> '',

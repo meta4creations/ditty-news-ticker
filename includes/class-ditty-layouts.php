@@ -291,13 +291,6 @@ class Ditty_Layouts {
 		$layout_description = get_post_meta( $post->ID, '_ditty_layout_description', true );
 
 		$fields = array();
-		$fields['layout_code'] = array(
-			'type' 		=> 'select',
-			'id'			=> '_ditty_layout_code',
-			'name' 		=> __( 'Layout Code', 'ditty-news-ticker' ),
-			'desc' 		=> __( "Overwrite the HTML & CSS with another layout's data. Choose carefully!", 'ditty' ),
-			'options' => $layout_options,
-		);
 		$fields['description'] = array(
 			'type' => 'textarea',
 			'id'	=> '_ditty_layout_description',

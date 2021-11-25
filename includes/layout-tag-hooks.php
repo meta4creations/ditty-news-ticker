@@ -1,6 +1,45 @@
 <?php
 
 /**
+ * Modify the layout author_avatar
+ *
+ * @since    3.0
+ * @var      html
+*/
+function ditty_init_layout_tag_author_avatar( $author_avatar, $item_type, $data, $atts ) {
+	if ( ! $author_avatar_data = ditty_layout_tag_author_avatar_data( $item_type, $data, $atts ) ) {
+		return $author_avatar;
+	}
+	$defaults = array(
+		'width' 	=> '',
+		'height' 	=> '',
+		'fit' 		=> '',
+	);
+	$args = shortcode_atts( $defaults, $atts );
+	$style = '';
+	if ( '' !=  $args['width'] ) {
+		$style .= 'width:' . $args['width'] . ';';
+	}
+	if ( '' !=  $args['height'] ) {
+		$style .= 'height:' . $args['height'] . ';';
+	}
+	if ( '' !=  $args['fit'] ) {
+		$style .= 'object-fit:' . $args['fit'] . ';';
+	}
+	$author_avatar_defaults = array(
+		'src' 		=> '',
+		'width' 	=> '',
+		'height' 	=> '',
+		'alt' 		=> '',
+		'style'		=> ( '' != $style ) ? $style : false,
+	);
+	$author_avatar_args = shortcode_atts( $author_avatar_defaults, $author_avatar_data );
+	$author_avatar = '<img ' . ditty_attr_to_html( $author_avatar_args ) . ' />';
+	return $author_avatar;	
+}
+add_filter( 'ditty_layout_tag_author_avatar', 'ditty_init_layout_tag_author_avatar', 10, 4 );
+
+/**
  * Modify the layout image
  *
  * @since    3.0
@@ -55,6 +94,26 @@ function ditty_init_layout_tag_image_url( $image_url, $item_type, $data, $atts )
 	return $image_url;	
 }
 add_filter( 'ditty_layout_tag_image_url', 'ditty_init_layout_tag_image_url', 10, 4 );
+
+/**
+ * Modify the layout date/time
+ *
+ * @since    3.0
+ * @var      html
+*/
+function ditty_init_layout_tag_time( $time, $item_type, $data, $atts ) {
+	if ( ! $timestamp = apply_filters( 'ditty_layout_tag_timestamp', false, $item_type, $data, $atts ) ) {
+		return $time;
+	}	
+	if ( 'true' == $atts['ago'] ) {
+		$time_ago = human_time_diff( $timestamp, current_time( 'timestamp', true ) );
+		$time = sprintf( $atts['ago_string'], $time_ago );
+	} else {
+		$time = date( $atts['format'], $timestamp );
+	}
+	return $time;	
+}
+add_filter( 'ditty_layout_tag_time', 'ditty_init_layout_tag_time', 10, 4 );
 
 /**
  * Modify the layout content
