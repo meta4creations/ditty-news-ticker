@@ -209,12 +209,13 @@ function ditty_layout_default_post_html() {
 {image link="post"}
 {icon}
 <div class="ditty-item-heading">
-	{author_avatar width="50px" height="50px" fit="cover"}
+	{author_avatar width="50px" height="50px" fit="cover" link="author"}
 	<div class="ditty-item-heading__content">
-		{author_name}
-		{time}
+		{author_name link="author"}
+		{time link="post"}
 	</div>
 </div>
+{title link="post"}
 {content}
 	<?php
 	return ob_get_clean();
@@ -233,6 +234,7 @@ function ditty_layout_default_post_css() {
 }
 .ditty-item__image {
 	overflow: hidden;
+	margin-bottom: 15px;
 }
 .ditty-item__image img {
 	display: block;
@@ -266,7 +268,7 @@ function ditty_layout_default_post_css() {
 	flex-direction: row;
 	align-items: center;
 	justify-content: flex-start;
-	padding: 15px;
+	margin-bottom: 15px;
 }
 .ditty-item__author_avatar {
 	flex: 0 0 auto;
@@ -294,12 +296,12 @@ function ditty_layout_default_post_css() {
 .ditty-item__time a:hover {
 	text-decoration: underline;
 }
-.ditty-item__content {
-	padding: 15px;
+.ditty-item__title {
+	font-size: 18px;
+	margin: 0;
 }
-.ditty-item-heading + .ditty-item__content {
-	padding-top: 0;
-	margin-top: -5px;
+.ditty-item__content {
+	margin-top: 5px;
 }
 	<?php
 	return ob_get_clean();

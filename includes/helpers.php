@@ -1073,26 +1073,6 @@ function ditty_attr_to_html( $attr = array() ) {
 }
 
 /**
- * Parse layout atts
- *
- * @since    3.0
- * @var      array	$parsed_atts
-*/
-function ditty_layout_parse_atts( $atts = array(), $s ) {
-	$parsed_atts = array();
-	if ( is_array( $atts ) && count( $atts ) > 0 ) {
-		foreach ( $atts as $key => $value ) {
-			if ( $custom_value = $s->getParameter( $key ) ) {
-				$parsed_atts[$key] = $custom_value;
-			} else {
-				$parsed_atts[$key] = $value;
-			}
-		}
-	}
-	return $parsed_atts;
-}
-
-/**
  * Get global Ditty
  *
  * @since    3.0

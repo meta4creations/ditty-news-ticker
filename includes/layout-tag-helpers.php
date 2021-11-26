@@ -14,7 +14,7 @@ function ditty_layout_render_tag_link( $link, $html, $class, $data, $atts, $pref
 		'rel'			=> isset( $data["{$prefix}link_rel"] ) ? esc_attr( $data["{$prefix}link_rel"] ) : '',
 	);
 	$link_args = shortcode_atts( $link_defaults, $link );
-	
+
 	$defaults = array(
 		'link_before'	=> '',
 		'link_after'	=> '',
@@ -82,6 +82,19 @@ function ditty_layout_tag_author_avatar_data( $item_type, $data, $atts = array()
 	$author_avatar_data = apply_filters( 'ditty_layout_tag_author_avatar_data', array(), $item_type, $data, $atts );
 	if ( ! empty( $author_avatar_data ) ) {
 		return $author_avatar_data;
+	}
+}
+
+/**
+ * The data of the author banner
+ *
+ * @since    3.0
+ * @var      html
+*/
+function ditty_layout_tag_author_banner_data( $item_type, $data, $atts = array() ) {
+	$author_banner_data = apply_filters( 'ditty_layout_tag_author_banner_data', array(), $item_type, $data, $atts );
+	if ( ! empty( $author_banner_data ) ) {
+		return $author_banner_data;
 	}
 }
 

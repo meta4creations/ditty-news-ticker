@@ -40,6 +40,45 @@ function ditty_init_layout_tag_author_avatar( $author_avatar, $item_type, $data,
 add_filter( 'ditty_layout_tag_author_avatar', 'ditty_init_layout_tag_author_avatar', 10, 4 );
 
 /**
+ * Modify the layout author_banner
+ *
+ * @since    3.0
+ * @var      html
+*/
+function ditty_init_layout_tag_author_banner( $author_banner, $item_type, $data, $atts ) {
+	if ( ! $author_banner_data = ditty_layout_tag_author_banner_data( $item_type, $data, $atts ) ) {
+		return $author_banner;
+	}
+	$defaults = array(
+		'width' 	=> '',
+		'height' 	=> '',
+		'fit' 		=> '',
+	);
+	$args = shortcode_atts( $defaults, $atts );
+	$style = '';
+	if ( '' !=  $args['width'] ) {
+		$style .= 'width:' . $args['width'] . ';';
+	}
+	if ( '' !=  $args['height'] ) {
+		$style .= 'height:' . $args['height'] . ';';
+	}
+	if ( '' !=  $args['fit'] ) {
+		$style .= 'object-fit:' . $args['fit'] . ';';
+	}
+	$author_banner_defaults = array(
+		'src' 		=> '',
+		'width' 	=> '',
+		'height' 	=> '',
+		'alt' 		=> '',
+		'style'		=> ( '' != $style ) ? $style : false,
+	);
+	$author_banner_args = shortcode_atts( $author_banner_defaults, $author_banner_data );
+	$author_banner = '<img ' . ditty_attr_to_html( $author_banner_args ) . ' />';
+	return $author_banner;	
+}
+add_filter( 'ditty_layout_tag_author_banner', 'ditty_init_layout_tag_author_banner', 10, 4 );
+
+/**
  * Modify the layout image
  *
  * @since    3.0
@@ -105,7 +144,7 @@ function ditty_init_layout_tag_time( $time, $item_type, $data, $atts ) {
 	if ( ! $timestamp = apply_filters( 'ditty_layout_tag_timestamp', false, $item_type, $data, $atts ) ) {
 		return $time;
 	}	
-	if ( 'true' == $atts['ago'] ) {
+	if ( 'true' == strval( $atts['ago'] ) ) {
 		$time_ago = human_time_diff( $timestamp, current_time( 'timestamp', true ) );
 		$time = sprintf( $atts['ago_string'], $time_ago );
 	} else {

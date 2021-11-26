@@ -82,7 +82,7 @@ class Ditty_Extensions {
 				// if ( isset( $extension['preview'] ) || ! $license_settings ) {
 				// 	continue;	
 				// }
-				if ( ! isset( $license_settings['version'] ) || ! isset( $license_settings['product_id'] ) || ! isset( $license_settings['path'] ) ) {
+				if ( ! isset( $license_settings['version'] ) || ! isset( $license_settings['item_id'] ) || ! isset( $license_settings['path'] ) ) {
 					continue;	
 				}
 				$license_key = isset( $ditty_licenses[$slug] ) ? trim( $ditty_licenses[$slug]['key'] ) : '';
@@ -90,7 +90,7 @@ class Ditty_Extensions {
 					array(
 						'version' => $license_settings['version'],		// current version number
 						'license' => $license_key,										// license key (used get_option above to retrieve from DB)
-						'item_id' => $license_settings['product_id'],	// ID of the product
+						'item_id' => $license_settings['item_id'],	// ID of the product
 						'author'  => isset( $license_settings['author'] ) ? $license_settings['author'] : __( 'Ditty...', 'ditty-news-ticker' ),		// author of this plugin
 						'beta'    => false,
 					)
@@ -376,9 +376,9 @@ class Ditty_Extensions {
 										<label class="ditty-field__label ditty-extension__license__message"><?php echo $license_message; ?></label>
 										<div class="ditty-field__input ditty-extension__license__fields">
 											<input class="ditty-extension__license__input regular-text" name="ditty_licenses[<?php echo $extension; ?>]" type="text" placeholder="<?php _e( 'Add your license key here', 'ditty-news-ticker' ); ?>" value="<?php echo esc_attr( $license_key ); ?>" />
-											<a class="ditty-extension__license__submit ditty-button protip" href="#" data-extension="<?php echo esc_attr( $extension ); ?>" data-extension_id="<?php echo esc_attr( $setting['product_id'] ); ?>" data-extension_name="<?php echo esc_attr( $data['name'] ); ?>" data-pt-title="<?php _e( 'Activate License', 'ditty-news-ticker' ); ?>"><i class="fas fa-check" data-class="fas fa-check"></i></a>
-											<a class="ditty-extension__license__refresh ditty-button protip" href="#" data-extension="<?php echo esc_attr( $extension ); ?>" data-extension_id="<?php echo esc_attr( $setting['product_id'] ); ?>" data-extension_name="<?php echo esc_attr( $data['name'] ); ?>" data-pt-title="<?php _e( 'Refresh License', 'ditty-news-ticker' ); ?>"><i class="fas fa-sync-alt" data-class="fas fa-sync-alt"></i></a>
-											<a class="ditty-extension__license__deactivate ditty-button protip" href="#" data-extension="<?php echo esc_attr( $extension ); ?>" data-extension_id="<?php echo esc_attr( $setting['product_id'] ); ?>" data-extension_name="<?php echo esc_attr( $data['name'] ); ?>" data-pt-title="<?php _e( 'Deactive License', 'ditty-news-ticker' ); ?>"><i class="fas fa-times" data-class="fas fa-times"></i></a>	
+											<a class="ditty-extension__license__submit ditty-button protip" href="#" data-extension="<?php echo esc_attr( $extension ); ?>" data-extension_id="<?php echo esc_attr( $setting['item_id'] ); ?>" data-extension_name="<?php echo esc_attr( $data['name'] ); ?>" data-pt-title="<?php _e( 'Activate License', 'ditty-news-ticker' ); ?>"><i class="fas fa-check" data-class="fas fa-check"></i></a>
+											<a class="ditty-extension__license__refresh ditty-button protip" href="#" data-extension="<?php echo esc_attr( $extension ); ?>" data-extension_id="<?php echo esc_attr( $setting['item_id'] ); ?>" data-extension_name="<?php echo esc_attr( $data['name'] ); ?>" data-pt-title="<?php _e( 'Refresh License', 'ditty-news-ticker' ); ?>"><i class="fas fa-sync-alt" data-class="fas fa-sync-alt"></i></a>
+											<a class="ditty-extension__license__deactivate ditty-button protip" href="#" data-extension="<?php echo esc_attr( $extension ); ?>" data-extension_id="<?php echo esc_attr( $setting['item_id'] ); ?>" data-extension_name="<?php echo esc_attr( $data['name'] ); ?>" data-pt-title="<?php _e( 'Deactive License', 'ditty-news-ticker' ); ?>"><i class="fas fa-times" data-class="fas fa-times"></i></a>	
 										</div>
 									</div>
 									<?php
@@ -483,13 +483,13 @@ class Ditty_Extensions {
 	 * @access public
 	 * @since  3.0
 	 */
-	public function license_activate( $extension, $license_key, $product_id ) {
+	public function license_activate( $extension, $license_key, $item_id ) {
 		
 		// data to send in our API request
 		$api_params = array(
 			'edd_action' 	=> 'activate_license',
 			'license'    	=> $license_key,
-			'item_id'			=> $product_id, // the name of our product in EDD
+			'item_id'			=> $item_id, // the name of our product in EDD
 			'url'        	=> home_url(),
 		);
 		
@@ -577,13 +577,13 @@ class Ditty_Extensions {
 	 * @access public
 	 * @since  3.0
 	 */
-	public function license_deactivate( $extension, $license_key, $product_id ) {
+	public function license_deactivate( $extension, $license_key, $item_id ) {
 		
 		// data to send in our API request
 		$api_params = array(
 			'edd_action' 	=> 'deactivate_license',
 			'license'    	=> $license_key,
-			'item_id'			=> $product_id, // the name of our product in EDD
+			'item_id'			=> $item_id, // the name of our product in EDD
 			'url'        	=> home_url(),
 		);
 

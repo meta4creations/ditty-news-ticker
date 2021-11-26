@@ -361,12 +361,34 @@ class Ditty_Layout {
 	}
 	
 	/**
+	 * Parse layout atts
+	 *
+	 * @access private
+	 * @since    3.0
+	 * @var      array	$parsed_atts
+	*/
+	private function parse_atts( $atts = array(), $s ) {
+		$parsed_atts = array();
+		if ( is_array( $atts ) && count( $atts ) > 0 ) {
+			foreach ( $atts as $key => $value ) {
+				if ( $custom_value = $s->getParameter( $key ) ) {
+					$parsed_atts[$key] = $custom_value;
+				} else {
+					$parsed_atts[$key] = $value;
+				}
+			}
+		}
+		return $parsed_atts;
+	}
+	
+	/**
 	 * Render a layout tag
-	 * @access public
+	 *
+	 * @access private
 	 * @since  3.0
 	 * @return html
 	 */
-	public function render_tag( $tag, $item_type, $data, $atts = array(), $custom_wrapper = false ) {
+	private function render_tag( $tag, $item_type, $data, $atts = array(), $custom_wrapper = false ) {
 		if ( ! $output = apply_filters( "ditty_layout_tag_{$tag}", false, $item_type, $data, $atts ) ) {
 			return false;
 		}
@@ -397,7 +419,7 @@ class Ditty_Layout {
 			foreach ( $tags as $i => $tag ) {
 				$handlers->add( $tag['tag'], function( ShortcodeInterface $s ) use ( $tag, $value ) {
 					$defaults = isset( $tag['atts'] ) ? $tag['atts'] : array();
-					$atts = ditty_layout_parse_atts( $defaults, $s );
+					$atts = $this->parse_atts( $defaults, $s );
 					$content = $s->getContent();
 					if ( isset( $tag['func'] ) && function_exists( $tag['func'] ) ) {
 						return call_user_func( $tag['func'], $this->get_item_type(), $value, $atts, $content );
