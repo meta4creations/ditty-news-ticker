@@ -42,22 +42,7 @@ class Ditty_Item_Type {
 	 * @return array
 	 */
 	public function prepare_items( $meta ) {
-		if ( is_object( $meta ) ) {
-			$meta = ( array ) $meta;
-		}
-		$defaults 					= $this->default_settings();
-		$args 							= shortcode_atts( $defaults, $meta['item_value'] );
-		$meta['item_value'] = $args;
-	
-		$ditty_item 								= $meta;
-		$ditty_item['item_type'] 		= $this->get_type();
-		if ( $layout_id = $this->get_layout_id( 'default', $meta['layout_value'] ) ) {
-			$ditty_item['layout_id']	= $layout_id;	
-		} else {
-			$ditty_item['item_value'] = array( 'ditty_feed_error' => __( 'Ditty Layout does not exist!', 'ditty-instagram-ticker' ) );
-			$ditty_item['has_error'] = true;
-		}
-		
+		$ditty_item	= $meta;
 		return array( $ditty_item );
 	}
 	
@@ -156,7 +141,7 @@ class Ditty_Item_Type {
 	public function get_layout_variation_types() {
 		$layout_variations = array(
 			'default' => array(
-				'template'	=> 'default',
+				'template'		=> 'default',
 				'label'				=> __( 'Default', 'ditty-news-ticker' ),
 				'description' => __( 'Default variation.', 'ditty-news-ticker' ),
 			),
@@ -182,28 +167,13 @@ class Ditty_Item_Type {
 			$variation_defaults = isset( $all_variation_defaults[$this->get_type()] ) ? $all_variation_defaults[$this->get_type()] : array();
 			$variation_types = $this->get_layout_variation_types();
 
-			$defaults_updated = false;
 			if ( is_array( $variation_types ) && count( $variation_types ) > 0 ) {
 				foreach ( $variation_types as $slug => $data ) {
-					$install_default = true;
-					$layout_id = isset( $variation_defaults[$slug] ) ? $variation_defaults[$slug] : false;
-					if ( $layout_id && 'publish' == get_post_status( $layout_id ) ) {
-						$ditty_layout_confirmed_defaults[$this->get_type()][$slug] = $layout_id;
-					} elseif( $default_layout = ditty_layouts_posts( array( 'template' => $data['template'], 'fields' => 'ids', 'version' => 'EXISTS' ) ) ) {
-						$ditty_layout_confirmed_defaults[$this->get_type()][$slug] = end( $default_layout );
-						$defaults_updated = true;
-					} else {
-						$layout_id = Ditty()->layouts->install_default( $data['template'] );
-						$ditty_layout_confirmed_defaults[$this->get_type()][$slug] = $layout_id;
-						$defaults_updated = true;
-					}
+					$ditty_layout_confirmed_defaults[$this->get_type()][$slug] = isset( $variation_defaults[$slug] ) ? $variation_defaults[$slug] : 0;
 				}
 			}		
-			if ( $defaults_updated ) {	
-				$all_variation_defaults[$this->get_type()] = $ditty_layout_confirmed_defaults[$this->get_type()];
-				ditty_settings( 'variation_defaults', $all_variation_defaults );
-			}	
 		}
+		
 		if ( $type ) {
 			if ( isset( $ditty_layout_confirmed_defaults[$this->get_type()][$type] ) ) {
 				return $ditty_layout_confirmed_defaults[$this->get_type()][$type];
@@ -243,33 +213,6 @@ class Ditty_Item_Type {
 		}
 		return $variation_data;
 	}
-	
-	/**
-	 * Get a layout id
-	 *
-	 * @access  public
-	 * @since   3.0
-	 */
-	public function get_layout_id( $type = 'default', $layout_value = array() ) {
-		if ( isset( $layout_value[$type] ) ) {
-			return $layout_value[$type];
-		} else {
-			return $this->get_layout_variation_defaults( $type );
-		}
-	}
-	
-	/**
-	 * Get a layout id
-	 *
-	 * @access  public
-	 * @since   3.0
-	 */
-	// public function get_layout_variation_id( $variation_id ) {
-	// 	$variation_types = $this->get_layout_variation_types();
-	// 	if ( isset( $variation_types[$variation_id] ) ) {
-	// 		return $variation_types[$variation_id];
-	// 	}
-	// }
 
 	/**
 	 * Update values sent from the editor

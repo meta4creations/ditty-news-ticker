@@ -11,6 +11,7 @@
 class Ditty_Display_Item {
 	
 	private $layout_id;
+	private $layout_value;
 	private $layout_object;
 	private $item_id;
 	private $item_uniq_id;
@@ -27,16 +28,19 @@ class Ditty_Display_Item {
 	 * @since   3.0
 	 */
 	public function __construct( $meta ) {	
-		$this->layout_id 			= isset( $meta['layout_id'] ) 			? $meta['layout_id'] 			: false;
+		$this->layout_value 	= isset( $meta['layout_value'] ) 		? maybe_unserialize( $meta['layout_value'] ) 	: false;
+		$this->item_value 		= isset( $meta['item_value'] ) 			? maybe_unserialize( $meta['item_value'] )		: '';		
 		$this->item_id 				= isset( $meta['item_id'] ) 				? $meta['item_id'] 				: -1;
 		$this->item_uniq_id 	= isset( $meta['item_uniq_id'] ) 		? $meta['item_uniq_id'] 	: $this->item_id;
 		$this->item_type 			= isset( $meta['item_type'] ) 			? $meta['item_type'] 			: false;
-		$this->item_value 		= isset( $meta['item_value'] ) 			? $meta['item_value'] 		: '';
 		$this->ditty_id 			= isset( $meta['ditty_id'] ) 				? $meta['ditty_id'] 			: -1;
 		$this->has_error 			= isset( $meta['has_error'] ) 			? $meta['has_error']			: false;
 		$this->custom_classes = isset( $meta['custom_classes'] ) 	? $meta['custom_classes']	: false;
+		if ( ! $this->has_error ) {
+			$this->parse_layout_id();
+		}
 	}
-	
+
 	/**
 	 * Return the item id
 	 *
@@ -102,6 +106,17 @@ class Ditty_Display_Item {
 	public function get_layout_id() {
 		return $this->layout_id;
 	}
+	
+	/**
+	 * Return the layout value
+	 *
+	 * @access public
+	 * @since  3.0
+	 * @return int $layout_id
+	 */
+	public function get_layout_value() {
+		return $this->layout_value;
+	}
 
 	/**
 	 * Return the layout css
@@ -143,6 +158,24 @@ class Ditty_Display_Item {
 			$this->layout_object = new Ditty_Layout( $this->get_layout_id(), $this->get_item_type(), $this->item_value );
 		}
 		return $this->layout_object;
+	}
+	
+	/**
+	 * Confirm that the layout exists
+	 *
+	 * @access public
+	 * @since  3.0
+	 * @return int $id
+	 */
+	private function parse_layout_id() {
+		$layout_value 		= $this->get_layout_value();
+		$layout_id 				= isset( $layout_value['default'] ) ? $layout_value['default'] : 0;
+		$this->layout_id 	= apply_filters( 'ditty_display_item_layout_id', $layout_id, $this );
+		
+		if ( 'publish' != get_post_status( $this->layout_id ) ) {
+			$this->item_value = array( 'ditty_feed_error' => sprintf( __( 'Ditty Layout does not exist for %s item!', 'ditty-news-ticker' ), $this->get_item_type() ) );
+			$this->has_error = true;
+		}
 	}
 
 	/**

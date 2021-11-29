@@ -420,14 +420,14 @@ class Ditty_Item {
 	 * @since  3.0
 	 * @return array $display_meta
 	 */
-	public function get_display_meta() {
-		$item_type_object = $this->get_type_object();
-		if ( ! $item_type_object ) {
-			return false;
-		}
-		$display_meta = $item_type_object->prepare_items( $this->get_values() );
-		return $display_meta;
-	}
+	// public function get_display_meta() {
+	// 	$item_type_object = $this->get_type_object();
+	// 	if ( ! $item_type_object ) {
+	// 		return false;
+	// 	}
+	// 	$display_meta = $item_type_object->prepare_items( $this->get_values() );
+	// 	return $display_meta;
+	// }
 	
 	/**
 	 * Return the display items
@@ -437,7 +437,7 @@ class Ditty_Item {
 	 * @return array $display_items
 	 */
 	public function get_display_items() {
-		$display_meta = $this->get_display_meta();
+		$display_meta = ditty_prepare_display_items( $this->get_values() );
 		$display_items = array();
 		if ( is_array( $display_meta ) && count( $display_meta ) > 0 ) {
 			foreach ( $display_meta as $i => $meta ) {

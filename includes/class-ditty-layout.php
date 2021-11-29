@@ -77,12 +77,16 @@ class Ditty_Layout {
 	 * @since  3.0
 	 */
 	public function construct_from_id( $layout_id ) {
-		$this->layout_id 			= $layout_id;
-		$this->label 					= get_the_title( $layout_id );
-		$this->description		= get_post_meta( $layout_id, '_ditty_layout_description', true );
-		$this->html 					= get_post_meta( $layout_id, '_ditty_layout_html', true );
-		$this->css 						= get_post_meta( $layout_id, '_ditty_layout_css', true );
-		$this->version 				= get_post_meta( $layout_id, '_ditty_layout_version', true );
+		if ( 'publish' == get_post_status( $layout_id ) ) {
+			$this->layout_id 			= $layout_id;
+			$this->label 					= get_the_title( $layout_id );
+			$this->description		= get_post_meta( $layout_id, '_ditty_layout_description', true );
+			$this->html 					= get_post_meta( $layout_id, '_ditty_layout_html', true );
+			$this->css 						= get_post_meta( $layout_id, '_ditty_layout_css', true );
+			$this->version 				= get_post_meta( $layout_id, '_ditty_layout_version', true );
+		} else {
+			$this->label					=  __( 'Ditty Layout does not exist.', 'ditty-news-ticker' );
+		}
 	}
 
 	/**

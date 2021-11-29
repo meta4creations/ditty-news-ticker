@@ -47,11 +47,11 @@ function ditty_settings_display() {
 						'label' 		=> __( 'Global Ditty', 'ditty-news-ticker' ),
 						'fields' 		=> 'ditty_settings_global_ditty',
 					),
-					// 'layouts' => array(
-					// 	'icon'			=> 'fas fa-pencil-ruler',
-					// 	'label' 		=> __( 'Layouts', 'ditty-news-ticker' ),
-					// 	'fields' 		=> 'ditty_settings_layouts',
-					// ),
+					'layout_defaults' => array(
+						'icon'			=> 'fas fa-pencil-ruler',
+						'label' 		=> __( 'Layout Defaults', 'ditty-news-ticker' ),
+						'fields' 		=> 'ditty_settings_variation_defaults',
+					),
 					'layout_templates' => array(
 						'icon'			=> 'fas fa-pencil-ruler',
 						'label' 		=> __( 'Layout Templates', 'ditty-news-ticker' ),
@@ -179,19 +179,13 @@ function ditty_settings_general() {
  *
  * @since    3.0  
 */
-function ditty_settings_layouts() {	
+function ditty_settings_variation_defaults() {	
 	$fields = array(
-		'ditty_layout_ui' => array(
-			'type' 				=> 'radio',
-			'id' 					=> 'ditty_layout_ui',
-			'name' 				=> __( 'Layout Posts', 'ditty-news-ticker' ),
-			'desc' 				=> __( 'Edit Layouts directly as post types.', 'ditty-news-ticker' ),
-			'inline'			=> true,
-			'options'			=> array(
-				'disabled'	=> __( 'Disabled', 'ditty-news-ticker' ),
-				'enabled'		=> __( 'Enabled', 'ditty-news-ticker' ),
-			),
-			'std' 				=> ditty_settings( 'ditty_layout_ui' ),
+		'layout_variation_defaults' => array(
+			'type' 		=> 'html',
+			'id' 			=> 'layout_variation_defaults',
+			'name' 		=> __( 'Layout Variation Defaults', 'ditty-news-ticker' ),
+			'std' 		=> Ditty()->layouts->variation_defaults(),
 		),
 	);
 	ditty_fields( $fields );
@@ -378,13 +372,31 @@ function ditty_settings_save( $data, $json_data ) {
 			$input_updates["global_ditty[{$index}][custom_classes]"] = $sanitized_data['custom_classes'];
 		}
 	}
+	
+	$variation_types = ditty_layout_variation_types();
+	$sanitized_variation_defaults = array();
+	if ( is_array( $variation_types ) && count( $variation_types ) > 0 ) {
+		foreach ( $variation_types as $item_type => $item_type_variations ) {
+			if ( ! isset( $sanitized_variation_defaults[$item_type] ) ) {
+				$sanitized_variation_defaults[$item_type] = array();
+			}
+			if ( is_array( $item_type_variations ) && count( $item_type_variations ) > 0 ) {
+				foreach ( $item_type_variations as $variation_id => $item_type_variation ) {
+					if ( isset( $data["variation_default_{$item_type}_{$variation_id}"] ) ) {
+						$sanitized_variation_defaults[$item_type][$variation_id] = intval( $data["variation_default_{$item_type}_{$variation_id}"] );
+					}
+				}
+			}
+		}
+	}
 
 	$settings = array(
 		'live_refresh'				=> isset( $data['live_refresh'] ) 			? intval( $data['live_refresh'] ) : 10,
 		'ditty_display_ui'		=> isset( $data['ditty_display_ui'] ) 	? esc_attr( $data['ditty_display_ui'] ) : 'disabled',
 		'ditty_layout_ui'			=> isset( $data['ditty_layout_ui'] ) 		? esc_attr( $data['ditty_layout_ui'] ) : 'disabled',
 		'ditty_layouts_sass' 	=> isset( $data['ditty_layouts_sass'] ) ? esc_attr( $data['ditty_layouts_sass'] ) : false,
-		'global_ditty'				=> isset( $data['global_ditty'] )				? $sanitized_global_ditty : array(),
+		'variation_defaults'	=> $sanitized_variation_defaults,
+		'global_ditty'				=> $sanitized_global_ditty,
 		'ditty_news_ticker' 	=> isset( $data['ditty_news_ticker'] ) 	? esc_attr( $data['ditty_news_ticker'] ) : false,
 		'notification_email' 	=> ( isset( $data['notification_email'] ) && is_email( $data['notification_email'] ) ) ? $data['notification_email'] : false,
 	);

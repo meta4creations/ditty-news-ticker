@@ -137,9 +137,66 @@ class Ditty_Layouts {
 		);	
 		wp_send_json( $data );
 	}
+	
+	/**
+	 * List the layout variation defaults
+	 *
+	 * @access public
+	 * @since  3.0
+	 * @param  html
+	 */
+	public function variation_defaults() {
+		$html = '';
+		$item_types = ditty_item_types();
+		$variation_types = ditty_layout_variation_types();
+		$settings = ditty_settings( 'variation_defaults' );
+		$layout_options = $this->select_field_options( __( 'Choose a Layout', 'ditty-news-ticker' ) );
+		
+		//echo '<pre>';print_r($settings);echo '</pre>';
+
+		if ( is_array( $variation_types ) && count( $variation_types ) > 0 ) {
+			$html .= '<div id="ditty-layout-variation-defaults">';
+				$html .= '<h3>' . __( 'Layout Variations', 'ditty-news-ticker' ) . '</h3>';
+				$html .= '<ul>';
+				foreach ( $variation_types as $item_type => $item_type_variations ) {
+					if ( ! isset( $item_types[$item_type] ) ) {
+						continue;
+					}
+					$html .= '<li class="ditty-layout-variation-defaults__item_type">';
+						if ( is_array( $item_type_variations ) && count( $item_type_variations ) > 0 ) {
+							$fields = array();
+							foreach ( $item_type_variations as $variation_id => $item_type_variation ) {
+								$fields[] = array(
+									'id'			=> "variation_default_{$item_type}_{$variation_id}",
+									'type'		=> 'select',
+									'name'		=> $item_type_variation['label'],
+									'desc'		=> $item_type_variation['description'],
+									'options'	=> $layout_options,
+									'std'			=> ( isset( $settings[$item_type] ) && isset( $settings[$item_type][$variation_id] ) ) ? $settings[$item_type][$variation_id] : false,
+								);
+							}
+							$args = array(
+								'id'							=> 'variation_defaults',
+								'type'						=> 'group',
+								'name'						=> "<i class='{$item_types[$item_type]['icon']}'></i> " . $item_types[$item_type]['label'],
+								'collapsible'			=> true,
+								'multiple_fields' => true,
+								'fields'					=> $fields,
+								//'class'						=> 'ditty-field--variation_defaults',
+							);
+							$html .= ditty_field( $args );
+						}
+					$html .= '</li>';
+				}
+				$html .= '</ul>';
+			$html .= '</div>';
+		}
+		
+		return $html;
+	}
 
 	/**
-	 * List the default layouts
+	 * List the layout templates
 	 *
 	 * @access public
 	 * @since  3.0
@@ -395,14 +452,18 @@ class Ditty_Layouts {
 	 * @since   3.0
 	 * @param   array    $options.
 	 */
-	private function select_field_options( $type, $placeholder = false ) {
+	private function select_field_options( $placeholder = false ) {
 		$options = array();
 		if ( $placeholder ) {
 			$options[''] = $placeholder;
 		}
 		if ( $layouts = ditty_layouts_posts() ) {
 			foreach ( $layouts as $layout_post ) {
-				$options[$layout_post->ID] = $layout_post->post_title;
+				$title = $layout_post->post_title;
+				if ( $version = get_post_meta( $layout_post->ID, '_ditty_layout_version', true ) ) {
+					$title .= " (v{$version})";
+				}
+				$options[$layout_post->ID] = $title;
 			}
 		}
 		return $options;

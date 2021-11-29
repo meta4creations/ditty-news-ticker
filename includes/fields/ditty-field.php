@@ -132,7 +132,7 @@ class Ditty_Field {
 			$html .= '<label class="ditty-field__label">';
 			if ( '' != $this->args['name'] ) {
 				$add_space = true;
-				$html .= sanitize_text_field( $this->args['name'] );
+				$html .= wp_kses_post( $this->args['name'] );
 			}
 			if ( '' != $this->args['help'] ) {
 				if ( '' != $this->args['name'] ) {

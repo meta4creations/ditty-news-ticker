@@ -305,7 +305,7 @@ class Ditty_Posts {
 	public function get_ditty_display_items( $ditty_id, $force_load = false ) {
 		$transient_name = "ditty_display_items_{$ditty_id}";
 		$display_items = get_transient( $transient_name );
-		//if ( ! $display_items || $force_load ) {
+		if ( ! $display_items || $force_load ) {
 			$display_items = array();
 			$items_meta = ditty_items_meta( $ditty_id );
 			if ( empty( $items_meta) && 'auto-draft' == get_post_status( $ditty_id ) ) {
@@ -316,8 +316,7 @@ class Ditty_Posts {
 					if ( is_object( $meta ) ) {
 						$meta = ( array ) $meta;
 					}
-					$item_type_object = ditty_item_type_object( $meta['item_type'] );
-					$prepared_items = $item_type_object->prepare_items( $meta );
+					$prepared_items = ditty_prepare_display_items( $meta );
 					if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
 						foreach ( $prepared_items as $i => $prepared_meta ) {
 							$display_item = new Ditty_Display_Item( $prepared_meta );
@@ -326,12 +325,10 @@ class Ditty_Posts {
 							}
 						}
 					}	
-					//$item = new Ditty_Item( $meta );
-					//$display_items = array_merge( $display_items, $item->get_display_items() );	
 				}
 			}
 			set_transient( $transient_name, $display_items, ( MINUTE_IN_SECONDS * ditty_settings( 'live_refresh' ) ) );
-		//}
+		}
 		return $display_items;
 	}
 	
