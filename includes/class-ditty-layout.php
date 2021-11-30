@@ -424,6 +424,7 @@ class Ditty_Layout {
 				$handlers->add( $tag['tag'], function( ShortcodeInterface $s ) use ( $tag, $value ) {
 					$defaults = isset( $tag['atts'] ) ? $tag['atts'] : array();
 					$atts = $this->parse_atts( $defaults, $s );
+					$atts = apply_filters( 'ditty_layout_tag_atts', $atts, $tag['tag'], $this->get_item_type(), $value );
 					$content = $s->getContent();
 					if ( isset( $tag['func'] ) && function_exists( $tag['func'] ) ) {
 						return call_user_func( $tag['func'], $this->get_item_type(), $value, $atts, $content );

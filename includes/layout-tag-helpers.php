@@ -10,7 +10,7 @@ function ditty_layout_render_tag_link( $link, $html, $class, $data, $atts, $pref
 	$link_defaults = array(
 		'url'					=> '',
 		'title'				=> '',
-		'target' 	=> isset( $data["{$prefix}link_target"] ) ? esc_attr( $data["{$prefix}link_target"] ) : '_blank',
+		'target' 	=> isset( $data["{$prefix}link_target"] ) ? esc_attr( $data["{$prefix}link_target"] ) : '_self',
 		'rel'			=> isset( $data["{$prefix}link_rel"] ) ? esc_attr( $data["{$prefix}link_rel"] ) : '',
 	);
 	$link_args = shortcode_atts( $link_defaults, $link );
@@ -46,9 +46,9 @@ function ditty_layout_render_tag_wrapper( $html, $class = '', $atts = array(), $
 	$before = ( '' != $args['before'] ) ? "<span class='{$class}__before'>" . sanitize_text_field( $args['before'] ) . '</span>' : '';
 	$after = ( '' != $args['after'] ) ? "<span class='{$class}__after'>" . sanitize_text_field( $args['after'] ) . '</span>' : '';
 	
-	if ( isset( $args['wrapper'] ) && false != boolval( $args['wrapper'] ) ) {
-		if ( $custom_classes = $args['class'] ) {
-			$class .= ' ' . $custom_classes;
+	if ( isset( $args['wrapper'] ) && 'false' != strval( $args['wrapper'] ) ) {
+		if ( isset( $args['class'] ) && '' != $args['class'] ) {
+			$class .= ' ' . trim( $args['class'] );
 		}
 		$html = sprintf( '<%4$s class="%5$s">%2$s%1$s%3$s</%4$s>', $html, $before, $after, $args['wrapper'], esc_attr( $class ) );
 	}
