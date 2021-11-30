@@ -26,8 +26,12 @@ class Ditty_Posts {
 	 * @since   3.0
 	 */
 	public function __construct() {
-
+	
+	// WP metabox hooks
 		add_action( 'edit_form_top', array( $this, 'edit_preview' ) );
+		
+		// General hooks
+		add_filter( 'post_row_actions', array( $this, 'modify_list_row_actions' ), 10, 2 );
 		
 		// Editor elements
 		add_action( 'ditty_editor_tabs', array( $this, 'editor_tab' ), 100, 2 );
@@ -222,6 +226,23 @@ class Ditty_Posts {
 			</div>
 		</div><!-- /.wrap -->
 		<?php
+	}
+	
+	/**
+	 * Add the post ID to the list row actions
+	 * 
+	 * @since  3.0
+	 * @return void
+	 */
+	public function modify_list_row_actions( $actions, $post ) {
+		if ( $post->post_type == 'ditty' ) {
+			//$id_string = sprintf( __( 'ID: %d', 'ditty-news-ticker' ), $post->ID );
+			$id_array = array(
+				'id' => sprintf( __( 'ID: %d', 'ditty-news-ticker' ), $post->ID ),
+			);
+			$actions = array_merge( $id_array, $actions );
+		}
+		return $actions;
 	}
 	
 	/**
