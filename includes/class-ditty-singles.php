@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Ditty Posts Class
+ * Ditty Singles Class
  *
  * @package     Ditty
- * @subpackage  Classes/Ditty Posts
+ * @subpackage  Classes/Ditty Singles
  * @copyright   Copyright (c) 2021, Metaphor Creations
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       3.0
 */
 
-class Ditty_Posts {
+class Ditty_Singles {
 	
 	/**
 	 * Types
@@ -18,7 +18,6 @@ class Ditty_Posts {
 	 * @since 3.0
 	 */
 	public $types = array();
-
 
 	/**
 	 * Get things started

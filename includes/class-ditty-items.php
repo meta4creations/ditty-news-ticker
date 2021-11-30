@@ -490,25 +490,5 @@ class Ditty_Items {
 			)
 		);
 	}
-	
-	/**
-	 * Search items to add to the live update queue
-	 * Delete items if the Ditty no longer exists
-	 *
-	 * @access public
-	 * @since  3.0
-	 */
-	// public function live_update_search( $search, $item_types=false ) {	
-	// 	$items = Ditty()->db_items->search_items( $search, $item_types );
-	// 	if ( is_array( $items ) && count( $items ) > 0 ) {
-	// 		foreach ( $items as $i => $item ) {
-	// 			if ( ditty_exists( $item->ditty_id ) ) {
-	// 				Ditty()->posts->add_to_live_update_queue( $item->ditty_id );
-	// 			} else {
-	// 				Ditty()->db_items->delete( $item->item_id );
-	// 			}
-	// 		}
-	// 	}
-	// }
 
 }

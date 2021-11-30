@@ -17,14 +17,6 @@
       "oAP" : "\/.gitignore",
       "oF" : 0
     },
-    "\/.nova\/Publishing\/Ditty News Ticker.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/.nova\/Publishing\/Ditty News Ticker-min.json",
-      "oF" : 0,
-      "oO" : 0,
-      "oS" : 1
-    },
     "\/.nova\/Publishing\/TESTING.json" : {
       "ft" : 524288,
       "oA" : 1,
@@ -133,14 +125,6 @@
       "oF" : 0,
       "oO" : 0,
       "oS" : 1
-    },
-    "\/composer.lock" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/composer.lock",
-      "oF" : 0
     },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
@@ -374,20 +358,20 @@
       "oAP" : "\/includes\/class-ditty-loader.php",
       "oF" : 0
     },
-    "\/includes\/class-ditty-posts.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/includes\/class-ditty-posts.php",
-      "oF" : 0
-    },
     "\/includes\/class-ditty-roles.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/includes\/class-ditty-roles.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-singles.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 2,
+      "oAP" : "\/includes\/class-ditty-singles.php",
       "oF" : 0
     },
     "\/includes\/class-ditty.php" : {

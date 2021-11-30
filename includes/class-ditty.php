@@ -52,13 +52,13 @@ class Ditty {
 	protected $version;
 	
 	/**
-	 * Ditty posts object.
+	 * Ditty singles object.
 	 *
 	 * @since    3.0
 	 * @access   public
-	 * @var      object    Ditty_Posts
+	 * @var      object    Ditty_Singles
 	 */
-	public $posts;
+	public $singles;
 	
 	/**
 	 * Ditty items object.
@@ -167,7 +167,7 @@ class Ditty {
 			self::$instance->errors				= new Ditty_Errors();
 			self::$instance->extensions		= new Ditty_Extensions();
 			self::$instance->layouts			= new Ditty_Layouts();
-			self::$instance->posts				= new Ditty_Posts();
+			self::$instance->singles			= new Ditty_Singles();
 			self::$instance->items				= new Ditty_Items();	
 		}
 
@@ -294,7 +294,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-item-type.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-default.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-wp-editor.php';
-		require_once DITTY_DIR . 'includes/class-ditty-posts.php';
+		require_once DITTY_DIR . 'includes/class-ditty-singles.php';
 		
 		require_once DITTY_DIR . 'blocks/ditty-block/index.php';
 		
