@@ -110,10 +110,12 @@ class Ditty_Field {
 			$html .= $this->input( $this->args['id'] );
 		} else {
 			$html .= '<div ' . ditty_attr_to_html( $this->html_atts() ) . '>';
-				$html .= '<div class="ditty-field__heading">';
-					$html .= $this->label();
-					$html .= $this->description();
-				$html .= '</div>';
+				if ( '' != $this->label() || '' != $this->description() ) {
+					$html .= '<div class="ditty-field__heading">';
+						$html .= $this->label();
+						$html .= $this->description();
+					$html .= '</div>';
+				}
 				$html .= $this->input_container();
 			$html .= '</div>';
 		}

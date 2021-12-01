@@ -31,7 +31,7 @@ jQuery( document ).ready( function( $ ) {
 					$input.stop().css( 'marginTop', '-' + height + 'px' );
 					$input.show();
 					$input.stop().animate( {
-						marginTop: 0,
+						marginTop: 0
 					}, 1000, 'easeInOutQuint', function() {
 					} );
 				}

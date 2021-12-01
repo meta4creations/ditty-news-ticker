@@ -262,7 +262,6 @@ function ditty_settings_global_ditty() {
 		'global_ditty' => array(
 			'type' 						=> 'group',
 			'id' 							=> 'global_ditty',
-			'name' 						=> __( 'Global Ditty', 'ditty-news-ticker' ),
 			'clone'						=> true,
 			'clone_button'		=> __( 'Add More Global Tickers', 'ditty-news-ticker' ),
 			'multiple_fields'	=> false,

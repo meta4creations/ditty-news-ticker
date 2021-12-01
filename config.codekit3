@@ -33,9 +33,9 @@
       "ec" : 1,
       "ft" : 4,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/blocks\/css\/editor.css",
-      "oF" : 1,
+      "oF" : 0,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
@@ -66,9 +66,9 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 1,
+      "oA" : 2,
       "oAP" : "\/blocks\/ditty-block\/index.php",
-      "oF" : 1
+      "oF" : 0
     },
     "\/blocks\/ditty-block\/style.scss" : {
       "aP" : 1,
@@ -78,9 +78,9 @@
       "ec" : 1,
       "ft" : 4,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/blocks\/css\/style.css",
-      "oF" : 1,
+      "oF" : 0,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
@@ -250,7 +250,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-displays.php",
       "oF" : 0
     },
@@ -274,7 +274,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-extensions.php",
       "oF" : 0
     },
@@ -346,7 +346,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-layouts.php",
       "oF" : 0
     },
@@ -419,25 +419,25 @@
       "pg" : 0
     },
     "\/includes\/css\/ditty-admin.css" : {
-      "aP" : 0,
+      "aP" : 1,
       "bl" : 0,
       "ci" : 0,
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/css\/ditty-admin-min.css",
       "oF" : 0,
       "pg" : 0
     },
     "\/includes\/css\/ditty.css" : {
-      "aP" : 0,
+      "aP" : 1,
       "bl" : 0,
       "ci" : 0,
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/css\/ditty-min.css",
       "oF" : 0,
       "pg" : 0
@@ -705,7 +705,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/helpers.php",
       "oF" : 0
     },
@@ -797,7 +797,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/js\/class-ditty-display-ticker.min.js",
       "oF" : 0,
@@ -808,7 +808,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/js\/class-ditty-display-ticker.min.min.js",
       "oF" : 0,
@@ -819,7 +819,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/js\/class-ditty-slider.min.js",
       "oF" : 0,
@@ -852,7 +852,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/js\/ditty-admin.min.min.js",
       "oF" : 0,
@@ -874,7 +874,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/js\/ditty-editor.min.min.js",
       "oF" : 0,
@@ -907,7 +907,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/js\/editor.blocks.min.js",
       "oF" : 0,
@@ -918,7 +918,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/js\/editor.blocks.min.min.js",
       "oF" : 0,
@@ -1192,7 +1192,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/libs\/ion.rangeSlider\/js\/ion.rangeSlider.min.js",
       "oF" : 0,
@@ -1203,7 +1203,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/libs\/ion.rangeSlider\/js\/ion.rangeSlider.min.min.js",
       "oF" : 0,
@@ -1226,7 +1226,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/libs\/jquery-minicolors\/jquery.minicolors.min.js",
       "oF" : 0,
@@ -1258,13 +1258,13 @@
       "rq" : 75
     },
     "\/includes\/libs\/protip\/protip.min.css" : {
-      "aP" : 0,
+      "aP" : 1,
       "bl" : 0,
       "ci" : 0,
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/protip\/protip.min-min.css",
       "oF" : 0,
       "pg" : 0
@@ -1273,7 +1273,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/libs\/protip\/protip.min.min.js",
       "oF" : 0,
@@ -1284,7 +1284,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/libs\/protip\/protip.min.min.min.js",
       "oF" : 0,
@@ -1778,7 +1778,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/languages\/ditty-news-ticker-fa_IR.mo",
       "oF" : 0
     },
@@ -1794,7 +1794,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/languages\/ditty-news-ticker-he_IL.po",
       "oF" : 0
     },
@@ -1850,7 +1850,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/languages\/ditty-news-ticker.pot",
       "oF" : 0
     },
@@ -1914,7 +1914,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/legacy\/inc\/admin\/meta-boxes.php",
       "oF" : 0
     },
@@ -2092,7 +2092,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/legacy\/inc\/static\/js\/ditty-news-ticker.min.js",
       "oF" : 0,
@@ -2180,7 +2180,7 @@
       "oAP" : "\/legacy\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.svg",
       "oF" : 0,
       "opt" : 0,
-      "plM" : 3758088159,
+      "plM" : 52780316221407,
       "prP" : 0
     },
     "\/legacy\/inc\/static\/libs\/fontastic\/fonts\/ditty-news-ticker.ttf" : {
@@ -2203,7 +2203,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/legacy\/inc\/static\/libs\/fontastic\/icons-reference.html",
       "oF" : 0
     },
@@ -2220,13 +2220,13 @@
       "pg" : 0
     },
     "\/legacy\/inc\/static\/libs\/protip\/protip.min.css" : {
-      "aP" : 0,
+      "aP" : 1,
       "bl" : 0,
       "ci" : 0,
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/legacy\/inc\/static\/libs\/protip\/protip.min-min.css",
       "oF" : 0,
       "pg" : 0
@@ -2235,7 +2235,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/legacy\/inc\/static\/libs\/protip\/protip.min.min.js",
       "oF" : 0,
@@ -3045,7 +3045,7 @@
       "oA" : 1,
       "oAP" : "\/package-lock-min.json",
       "oF" : 0,
-      "oO" : 0,
+      "oO" : 1,
       "oS" : 1
     },
     "\/package.json" : {
@@ -3072,10 +3072,3001 @@
       "oAP" : "\/uninstall.php",
       "oF" : 0
     },
-    "\/vendor" : {
-      "ft" : 65536,
+    "\/vendor\/autoload.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/autoload.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/autoload_classmap.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/autoload_classmap.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/autoload_namespaces.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/autoload_namespaces.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/autoload_psr4.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/autoload_psr4.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/autoload_real.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/autoload_real.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/autoload_static.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/autoload_static.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/ClassLoader.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/ClassLoader.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installed.json" : {
+      "ft" : 524288,
       "oA" : 1,
-      "oAP" : "\/vendor",
+      "oAP" : "\/vendor\/composer\/installed-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
+    "\/vendor\/composer\/installed.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installed.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/InstalledVersions.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/InstalledVersions.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/.github\/workflows\/continuous-integration.yml" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/.github\/workflows\/continuous-integration.yml",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/.github\/workflows\/lint.yml" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/.github\/workflows\/lint.yml",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/.github\/workflows\/phpstan.yml" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/.github\/workflows\/phpstan.yml",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/composer.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/vendor\/composer\/installers\/composer-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
+    "\/vendor\/composer\/installers\/LICENSE" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/LICENSE",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/phpstan.neon.dist" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/phpstan.neon.dist",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/bootstrap.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/bootstrap.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/AglInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/AglInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/AimeosInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/AimeosInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/AnnotateCmsInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/AnnotateCmsInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/AsgardInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/AsgardInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/AttogramInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/AttogramInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/BaseInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/BaseInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/BitrixInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/BitrixInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/BonefishInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/BonefishInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/CakePHPInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/CakePHPInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ChefInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ChefInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/CiviCrmInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/CiviCrmInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ClanCatsFrameworkInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ClanCatsFrameworkInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/CockpitInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/CockpitInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/CodeIgniterInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/CodeIgniterInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/Concrete5Installer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/Concrete5Installer.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/CraftInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/CraftInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/CroogoInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/CroogoInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/DecibelInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/DecibelInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/DframeInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/DframeInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/DokuWikiInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/DokuWikiInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/DolibarrInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/DolibarrInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/DrupalInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/DrupalInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ElggInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ElggInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/EliasisInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/EliasisInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ExpressionEngineInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ExpressionEngineInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/EzPlatformInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/EzPlatformInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/FuelInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/FuelInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/FuelphpInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/FuelphpInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/GravInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/GravInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/HuradInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/HuradInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ImageCMSInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ImageCMSInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/Installer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/Installer.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ItopInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ItopInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/JoomlaInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/JoomlaInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/KanboardInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/KanboardInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/KirbyInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/KirbyInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/KnownInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/KnownInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/KodiCMSInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/KodiCMSInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/KohanaInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/KohanaInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/LanManagementSystemInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/LanManagementSystemInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/LaravelInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/LaravelInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/LavaLiteInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/LavaLiteInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/LithiumInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/LithiumInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MagentoInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MagentoInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MajimaInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MajimaInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MakoInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MakoInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MantisBTInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MantisBTInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MauticInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MauticInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MayaInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MayaInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MediaWikiInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MediaWikiInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MiaoxingInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MiaoxingInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MicroweberInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MicroweberInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MODULEWorkInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MODULEWorkInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MODXEvoInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MODXEvoInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ModxInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ModxInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MoodleInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/MoodleInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/OctoberInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/OctoberInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/OntoWikiInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/OntoWikiInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/OsclassInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/OsclassInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/OxidInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/OxidInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PantheonInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PantheonInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PhiftyInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PhiftyInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PhpBBInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PhpBBInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PimcoreInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PimcoreInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PiwikInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PiwikInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PlentymarketsInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PlentymarketsInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/Plugin.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/Plugin.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PortoInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PortoInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PPIInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PPIInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PrestashopInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PrestashopInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ProcessWireInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ProcessWireInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PuppetInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PuppetInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PxcmsInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/PxcmsInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/RadPHPInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/RadPHPInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/Redaxo5Installer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/Redaxo5Installer.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/RedaxoInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/RedaxoInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ReIndexInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ReIndexInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/RoundcubeInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/RoundcubeInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ShopwareInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ShopwareInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/SilverStripeInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/SilverStripeInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/SiteDirectInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/SiteDirectInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/SMFInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/SMFInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/StarbugInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/StarbugInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/SyDESInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/SyDESInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/SyliusInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/SyliusInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/Symfony1Installer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/Symfony1Installer.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/TaoInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/TaoInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/TastyIgniterInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/TastyIgniterInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/TheliaInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/TheliaInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/TuskInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/TuskInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/TYPO3CmsInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/TYPO3CmsInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/TYPO3FlowInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/TYPO3FlowInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/UserFrostingInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/UserFrostingInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/VanillaInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/VanillaInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/VgmcpInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/VgmcpInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/WHMCSInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/WHMCSInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/WinterInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/WinterInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/WolfCMSInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/WolfCMSInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/WordPressInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/WordPressInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/YawikInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/YawikInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ZendInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ZendInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ZikulaInstaller.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/installers\/src\/Composer\/Installers\/ZikulaInstaller.php",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/LICENSE" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/LICENSE",
+      "oF" : 0
+    },
+    "\/vendor\/composer\/platform_check.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/composer\/platform_check.php",
+      "oF" : 0
+    },
+    "\/vendor\/padaliyajay\/php-autoprefixer\/.gitignore" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/.gitignore",
+      "oF" : 0
+    },
+    "\/vendor\/padaliyajay\/php-autoprefixer\/composer.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/composer-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
+    "\/vendor\/padaliyajay\/php-autoprefixer\/LICENSE" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/LICENSE",
+      "oF" : 0
+    },
+    "\/vendor\/padaliyajay\/php-autoprefixer\/README.md" : {
+      "cB" : 0,
+      "cS" : 0,
+      "eF" : 1,
+      "eL" : 1,
+      "ema" : 1,
+      "eSQ" : 1,
+      "ft" : 4096,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/README.html",
+      "oF" : 0,
+      "oFM" : 0,
+      "oS" : 0,
+      "pHT" : 0,
+      "pME" : 1,
+      "rFN" : 0,
+      "uCM" : 0
+    },
+    "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Autoprefixer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Autoprefixer.php",
+      "oF" : 0
+    },
+    "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Compile\/AtRule.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Compile\/AtRule.php",
+      "oF" : 0
+    },
+    "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Compile\/DeclarationBlock.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Compile\/DeclarationBlock.php",
+      "oF" : 0
+    },
+    "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Compile\/RuleSet.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Compile\/RuleSet.php",
+      "oF" : 0
+    },
+    "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Parse\/Property.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Parse\/Property.php",
+      "oF" : 0
+    },
+    "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Parse\/Rule.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Parse\/Rule.php",
+      "oF" : 0
+    },
+    "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Parse\/Selector.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Parse\/Selector.php",
+      "oF" : 0
+    },
+    "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Vendor.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Vendor.php",
+      "oF" : 0
+    },
+    "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Vendor\/IE.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Vendor\/IE.php",
+      "oF" : 0
+    },
+    "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Vendor\/Mozilla.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Vendor\/Mozilla.php",
+      "oF" : 0
+    },
+    "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Vendor\/Vendor.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Vendor\/Vendor.php",
+      "oF" : 0
+    },
+    "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Vendor\/Webkit.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Vendor\/Webkit.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/.gitignore" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/.gitignore",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/.travis.yml" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/.travis.yml",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/CHANGELOG.md" : {
+      "cB" : 0,
+      "cS" : 0,
+      "eF" : 1,
+      "eL" : 1,
+      "ema" : 1,
+      "eSQ" : 1,
+      "ft" : 4096,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/CHANGELOG.html",
+      "oF" : 0,
+      "oFM" : 0,
+      "oS" : 0,
+      "pHT" : 0,
+      "pME" : 1,
+      "rFN" : 0,
+      "uCM" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/composer.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/composer-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/Doxyfile" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/Doxyfile",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Comment\/Comment.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Comment\/Comment.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Comment\/Commentable.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Comment\/Commentable.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/CSSList\/AtRuleBlockList.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/CSSList\/AtRuleBlockList.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/CSSList\/CSSBlockList.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/CSSList\/CSSBlockList.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/CSSList\/CSSList.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/CSSList\/CSSList.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/CSSList\/Document.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/CSSList\/Document.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/CSSList\/KeyFrame.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/CSSList\/KeyFrame.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/OutputFormat.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/OutputFormat.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Parser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Parser.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Parsing\/OutputException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Parsing\/OutputException.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Parsing\/ParserState.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Parsing\/ParserState.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Parsing\/SourceException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Parsing\/SourceException.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Parsing\/UnexpectedTokenException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Parsing\/UnexpectedTokenException.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Property\/AtRule.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Property\/AtRule.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Property\/Charset.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Property\/Charset.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Property\/CSSNamespace.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Property\/CSSNamespace.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Property\/Import.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Property\/Import.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Property\/Selector.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Property\/Selector.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Renderable.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Renderable.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Rule\/Rule.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Rule\/Rule.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/RuleSet\/AtRuleSet.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/RuleSet\/AtRuleSet.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/RuleSet\/DeclarationBlock.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/RuleSet\/DeclarationBlock.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/RuleSet\/RuleSet.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/RuleSet\/RuleSet.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Settings.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Settings.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/CalcFunction.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/CalcFunction.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/CalcRuleValueList.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/CalcRuleValueList.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/Color.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/Color.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/CSSFunction.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/CSSFunction.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/CSSString.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/CSSString.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/LineName.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/LineName.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/PrimitiveValue.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/PrimitiveValue.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/RuleValueList.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/RuleValueList.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/Size.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/Size.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/URL.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/URL.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/Value.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/Value.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/ValueList.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/lib\/Sabberworm\/CSS\/Value\/ValueList.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/phpunit.xml" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/phpunit.xml",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/README.md" : {
+      "cB" : 0,
+      "cS" : 0,
+      "eF" : 1,
+      "eL" : 1,
+      "ema" : 1,
+      "eSQ" : 1,
+      "ft" : 4096,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/README.html",
+      "oF" : 0,
+      "oFM" : 0,
+      "oS" : 0,
+      "pHT" : 0,
+      "pME" : 1,
+      "rFN" : 0,
+      "uCM" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/bootstrap.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/bootstrap.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-calc-no-space-around-minus.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-calc-no-space-around-minus-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-charset-after-rule.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-charset-after-rule-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-charset-in-block.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-charset-in-block-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-empty-grid-linename.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-empty-grid-linename-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-empty.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-empty-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-end-token-2.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-end-token-2-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-end-token.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-end-token-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-fault-tolerance.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-fault-tolerance-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-tobedone.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/-tobedone-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/1readme.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/1readme-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/2readme.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/2readme-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/atrules.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/atrules-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/calc-nested.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/calc-nested-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/calc.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/calc-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/case-insensitivity.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/case-insensitivity-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/colortest.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/colortest-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/comments.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/comments-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/create-shorthands.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/create-shorthands-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/docuwiki.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/docuwiki-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/empty-grid-linename.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/empty-grid-linename-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/expand-shorthands.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/expand-shorthands-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/functions.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/functions-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/grid-linename.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/grid-linename-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/hex-alpha.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/hex-alpha-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/ie-hacks.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/ie-hacks-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/ie.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/ie-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/important.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/important-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/inner-color.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/inner-color-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/line-numbers.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/line-numbers-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/missing-property-value.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/missing-property-value-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/ms-filter.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/ms-filter-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/namespaces.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/namespaces-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/nested.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/nested-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/slashed.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/slashed-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/specificity.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/specificity-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/trailing-whitespace.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/trailing-whitespace-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/unicode-range.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/unicode-range-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/unicode.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/unicode-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/unmatched_braces.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/unmatched_braces-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/unopened-close-brackets.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/unopened-close-brackets-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/url.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/url-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/values.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/values-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/webkit.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/webkit-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/whitespace.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/files\/whitespace-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/phpunit.xml" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/phpunit.xml",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/quickdump.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/quickdump.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/Sabberworm\/CSS\/CSSList\/AtRuleBlockListTest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/Sabberworm\/CSS\/CSSList\/AtRuleBlockListTest.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/Sabberworm\/CSS\/CSSList\/DocumentTest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/Sabberworm\/CSS\/CSSList\/DocumentTest.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/Sabberworm\/CSS\/OutputFormatTest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/Sabberworm\/CSS\/OutputFormatTest.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/Sabberworm\/CSS\/ParserTest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/Sabberworm\/CSS\/ParserTest.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/Sabberworm\/CSS\/RuleSet\/DeclarationBlockTest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/Sabberworm\/CSS\/RuleSet\/DeclarationBlockTest.php",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/tests\/Sabberworm\/CSS\/RuleSet\/LenientParsingTest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/tests\/Sabberworm\/CSS\/RuleSet\/LenientParsingTest.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/bin\/pscss" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/bin\/pscss",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/composer.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/composer-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
+    "\/vendor\/scssphp\/scssphp\/LICENSE.md" : {
+      "cB" : 0,
+      "cS" : 0,
+      "eF" : 1,
+      "eL" : 1,
+      "ema" : 1,
+      "eSQ" : 1,
+      "ft" : 4096,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/LICENSE.html",
+      "oF" : 0,
+      "oFM" : 0,
+      "oS" : 0,
+      "pHT" : 0,
+      "pME" : 1,
+      "rFN" : 0,
+      "uCM" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/phpcs.xml.dist" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/phpcs.xml.dist",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/README.md" : {
+      "cB" : 0,
+      "cS" : 0,
+      "eF" : 1,
+      "eL" : 1,
+      "ema" : 1,
+      "eSQ" : 1,
+      "ft" : 4096,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/README.html",
+      "oF" : 0,
+      "oFM" : 0,
+      "oS" : 0,
+      "pHT" : 0,
+      "pME" : 1,
+      "rFN" : 0,
+      "uCM" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/scss.inc.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/scss.inc.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Base\/Range.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Base\/Range.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Block.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Block.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Cache.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Cache.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Colors.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Colors.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/CompilationResult.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/CompilationResult.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Compiler.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Compiler.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Compiler\/CachedResult.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Compiler\/CachedResult.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Compiler\/Environment.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Compiler\/Environment.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Exception\/CompilerException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Exception\/CompilerException.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Exception\/ParserException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Exception\/ParserException.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Exception\/RangeException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Exception\/RangeException.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Exception\/SassException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Exception\/SassException.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Exception\/SassScriptException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Exception\/SassScriptException.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Exception\/ServerException.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Exception\/ServerException.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Formatter.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Formatter.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Formatter\/Compact.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Formatter\/Compact.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Formatter\/Compressed.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Formatter\/Compressed.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Formatter\/Crunched.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Formatter\/Crunched.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Formatter\/Debug.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Formatter\/Debug.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Formatter\/Expanded.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Formatter\/Expanded.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Formatter\/Nested.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Formatter\/Nested.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Formatter\/OutputBlock.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Formatter\/OutputBlock.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Logger\/LoggerInterface.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Logger\/LoggerInterface.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Logger\/QuietLogger.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Logger\/QuietLogger.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Logger\/StreamLogger.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Logger\/StreamLogger.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Node.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Node.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Node\/Number.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Node\/Number.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/OutputStyle.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/OutputStyle.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Parser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Parser.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/SourceMap\/Base64.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/SourceMap\/Base64.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/SourceMap\/Base64VLQ.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/SourceMap\/Base64VLQ.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/SourceMap\/SourceMapGenerator.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/SourceMap\/SourceMapGenerator.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Type.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Type.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Util.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Util.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Util\/Path.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Util\/Path.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/ValueConverter.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/ValueConverter.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Version.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Version.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Warn.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Warn.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/.gitignore" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/.gitignore",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/.symfony.insight.yaml" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/.symfony.insight.yaml",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/.travis.yml" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/.travis.yml",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/CHANGELOG.md" : {
+      "cB" : 0,
+      "cS" : 0,
+      "eF" : 1,
+      "eL" : 1,
+      "ema" : 1,
+      "eSQ" : 1,
+      "ft" : 4096,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/CHANGELOG.html",
+      "oF" : 0,
+      "oFM" : 0,
+      "oS" : 0,
+      "pHT" : 0,
+      "pME" : 1,
+      "rFN" : 0,
+      "uCM" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/composer.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/composer-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
+    "\/vendor\/thunderer\/shortcode\/docker-compose.yaml" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/docker-compose.yaml",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/docker\/php-5.4\/Dockerfile" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/docker\/php-5.4\/Dockerfile",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/LICENSE" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/LICENSE",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/Makefile" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/Makefile",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/phpunit.xml.dist" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/phpunit.xml.dist",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/README.md" : {
+      "cB" : 0,
+      "cS" : 0,
+      "eF" : 1,
+      "eL" : 1,
+      "ema" : 1,
+      "eSQ" : 1,
+      "ft" : 4096,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/README.html",
+      "oF" : 0,
+      "oFM" : 0,
+      "oS" : 0,
+      "pHT" : 0,
+      "pME" : 1,
+      "rFN" : 0,
+      "uCM" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Event\/FilterShortcodesEvent.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Event\/FilterShortcodesEvent.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Event\/ReplaceShortcodesEvent.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Event\/ReplaceShortcodesEvent.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/EventContainer\/EventContainer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/EventContainer\/EventContainer.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/EventContainer\/EventContainerInterface.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/EventContainer\/EventContainerInterface.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/EventHandler\/FilterRawEventHandler.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/EventHandler\/FilterRawEventHandler.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/EventHandler\/ReplaceJoinEventHandler.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/EventHandler\/ReplaceJoinEventHandler.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Events.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Events.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Handler\/ContentHandler.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Handler\/ContentHandler.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Handler\/DeclareHandler.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Handler\/DeclareHandler.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Handler\/EmailHandler.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Handler\/EmailHandler.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Handler\/NameHandler.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Handler\/NameHandler.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Handler\/NullHandler.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Handler\/NullHandler.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Handler\/PlaceholderHandler.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Handler\/PlaceholderHandler.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Handler\/RawHandler.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Handler\/RawHandler.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Handler\/SerializerHandler.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Handler\/SerializerHandler.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Handler\/UrlHandler.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Handler\/UrlHandler.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Handler\/WrapHandler.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Handler\/WrapHandler.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/HandlerContainer\/HandlerContainer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/HandlerContainer\/HandlerContainer.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/HandlerContainer\/HandlerContainerInterface.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/HandlerContainer\/HandlerContainerInterface.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/HandlerContainer\/ImmutableHandlerContainer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/HandlerContainer\/ImmutableHandlerContainer.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Parser\/ParserInterface.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Parser\/ParserInterface.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Parser\/RegexParser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Parser\/RegexParser.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Parser\/RegularParser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Parser\/RegularParser.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Parser\/WordpressParser.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Parser\/WordpressParser.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Processor\/Processor.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Processor\/Processor.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Processor\/ProcessorContext.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Processor\/ProcessorContext.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Processor\/ProcessorInterface.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Processor\/ProcessorInterface.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Serializer\/JsonSerializer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Serializer\/JsonSerializer.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Serializer\/SerializerInterface.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Serializer\/SerializerInterface.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Serializer\/TextSerializer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Serializer\/TextSerializer.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Serializer\/XmlSerializer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Serializer\/XmlSerializer.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Serializer\/YamlSerializer.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Serializer\/YamlSerializer.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Shortcode\/AbstractShortcode.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Shortcode\/AbstractShortcode.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Shortcode\/ParsedShortcode.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Shortcode\/ParsedShortcode.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Shortcode\/ParsedShortcodeInterface.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Shortcode\/ParsedShortcodeInterface.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Shortcode\/ProcessedShortcode.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Shortcode\/ProcessedShortcode.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Shortcode\/ReplacedShortcode.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Shortcode\/ReplacedShortcode.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Shortcode\/Shortcode.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Shortcode\/Shortcode.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Shortcode\/ShortcodeInterface.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Shortcode\/ShortcodeInterface.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/ShortcodeFacade.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/ShortcodeFacade.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Syntax\/CommonSyntax.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Syntax\/CommonSyntax.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Syntax\/Syntax.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Syntax\/Syntax.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Syntax\/SyntaxBuilder.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Syntax\/SyntaxBuilder.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Syntax\/SyntaxInterface.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Syntax\/SyntaxInterface.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/src\/Utility\/RegexBuilderUtility.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/src\/Utility\/RegexBuilderUtility.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/tests\/AbstractTestCase.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/AbstractTestCase.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/tests\/EventsTest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/EventsTest.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/tests\/FacadeTest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/FacadeTest.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/tests\/Fake\/ReverseShortcode.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/Fake\/ReverseShortcode.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/tests\/HandlerContainerTest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/HandlerContainerTest.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/tests\/ParserTest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/ParserTest.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/tests\/ProcessorTest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/ProcessorTest.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/tests\/SerializerTest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/SerializerTest.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/tests\/ShortcodeTest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/ShortcodeTest.php",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/tests\/SyntaxTest.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/SyntaxTest.php",
       "oF" : 0
     },
     "\/webpack.config.js" : {
@@ -3118,7 +6109,7 @@
     "animateCSSInjections" : 1,
     "autoBuildNewItems" : 1,
     "autoprefixerEnableIEGrid" : 0,
-    "babel7PresetType" : 2,
+    "babel7PresetType" : 1,
     "babelAllowRCFiles" : 0,
     "babelAuxiliaryCommentAfter" : "",
     "babelAuxiliaryCommentBefore" : "",
@@ -3397,7 +6388,7 @@
     },
     "babelRetainLines" : 0,
     "babelUseBuiltInsType" : 0,
-    "bowerAbbreviatedPath" : "inc\/static\/bower_components",
+    "bowerAbbreviatedPath" : "bower_components",
     "bowerForceLatestOnConflict" : 1,
     "bowerTargetDependencyListType" : 1,
     "bowerUseExactVersion" : 0,
@@ -3556,7 +6547,7 @@
     "esLintRules" : {
       "accessor-pairs" : {
         "active" : 0,
-        "optionString" : "{'setWithoutGet': true, 'getWithoutSet': false}"
+        "optionString" : "{'setWithoutGet': true, 'getWithoutSet': false, 'enforceForClassMembers': true}"
       },
       "array-bracket-newline" : {
         "active" : 0,
@@ -3568,7 +6559,7 @@
       },
       "array-callback-return" : {
         "active" : 0,
-        "optionString" : ""
+        "optionString" : "{'allowImplicit': false}"
       },
       "array-element-newline" : {
         "active" : 0,
@@ -3603,7 +6594,7 @@
       },
       "camelcase" : {
         "active" : 0,
-        "optionString" : "{'properties': 'always'}"
+        "optionString" : "{'properties': 'always', 'ignoreDestructuring': false, 'ignoreImports': false}"
       },
       "capitalized-comments" : {
         "active" : 0,
@@ -3611,7 +6602,7 @@
       },
       "class-methods-use-this" : {
         "active" : 0,
-        "optionString" : "{'exceptMethods': []}"
+        "optionString" : "{'exceptMethods': [], 'enforceForClassFields': true}"
       },
       "comma-dangle" : {
         "active" : 1,
@@ -3631,7 +6622,7 @@
       },
       "computed-property-spacing" : {
         "active" : 0,
-        "optionString" : "'never'"
+        "optionString" : "'never', {'enforceForClassMembers': true}"
       },
       "consistent-return" : {
         "active" : 0,
@@ -3682,11 +6673,11 @@
       },
       "func-name-matching" : {
         "active" : 0,
-        "optionString" : "'always', {'includeCommonJSModuleExports': false}"
+        "optionString" : "'always', {'considerPropertyDescriptor': false, 'includeCommonJSModuleExports': false}"
       },
       "func-names" : {
         "active" : 0,
-        "optionString" : "'always'"
+        "optionString" : "'always', {'generators': 'always'}"
       },
       "func-style" : {
         "active" : 0,
@@ -3728,7 +6719,7 @@
       },
       "id-match" : {
         "active" : 0,
-        "optionString" : "'^[a-z]+([A-Z][a-z]+)*$', {'properties': false, 'onlyDeclarations': true}"
+        "optionString" : "'^[a-z]+([A-Z][a-z]+)*$', {'properties': false, 'onlyDeclarations': true, 'ignoreDestructuring': false}"
       },
       "implicit-arrow-linebreak" : {
         "active" : 0,
@@ -3736,7 +6727,7 @@
       },
       "indent" : {
         "active" : 0,
-        "optionString" : "4, {'SwitchCase': 0, 'VariableDeclarator': 1, 'outerIIFEBody': 1, }"
+        "optionString" : "4, {'SwitchCase': 0, 'VariableDeclarator': 1, 'outerIIFEBody': 1 }"
       },
       "init-declarations" : {
         "active" : 0,
@@ -3772,7 +6763,7 @@
       },
       "max-classes-per-file" : {
         "active" : 0,
-        "optionString" : "1"
+        "optionString" : "{'ignoreExpressions': false, 'max': 1}"
       },
       "max-depth" : {
         "active" : 0,
@@ -3820,7 +6811,7 @@
       },
       "new-parens" : {
         "active" : 0,
-        "optionString" : ""
+        "optionString" : "'always'"
       },
       "newline-per-chained-call" : {
         "active" : 0,
@@ -3863,7 +6854,7 @@
       },
       "no-confusing-arrow" : {
         "active" : 0,
-        "optionString" : "{'allowParens': false}"
+        "optionString" : "{'allowParens': true}"
       },
       "no-console" : {
         "active" : 1,
@@ -3951,8 +6942,8 @@
         "active" : 0
       },
       "no-extra-parens" : {
-        "active" : 1,
-        "optionString" : "'all', {'conditionalAssign': false, 'returnAssign': false, 'nestedBinaryExpressions': false}"
+        "active" : 0,
+        "optionString" : "'all', {'conditionalAssign': false, 'returnAssign': false, 'nestedBinaryExpressions': false, 'ignoreJSX': 'none', 'enforceForArrowConditionals': false, 'enforceForSequenceExpressions': false, 'enforceForNewInMemberExpressions': false}"
       },
       "no-extra-semi" : {
         "active" : 1
@@ -3967,12 +6958,12 @@
         "active" : 1
       },
       "no-global-assign" : {
-        "active" : 0,
+        "active" : 1,
         "optionString" : "{'exceptions': []}"
       },
       "no-implicit-coercion" : {
         "active" : 0,
-        "optionString" : "{'boolean': true, 'number': true, 'string': true, 'allow': []}"
+        "optionString" : "{'boolean': true, 'number': true, 'string': true, 'disallowTemplateShorthand': false, 'allow': []}"
       },
       "no-implicit-globals" : {
         "active" : 0
@@ -3996,7 +6987,7 @@
       },
       "no-invalid-this" : {
         "active" : 0,
-        "optionString" : ""
+        "optionString" : "{'capIsConstructor': true}"
       },
       "no-irregular-whitespace" : {
         "active" : 1,
@@ -4022,11 +7013,11 @@
         "active" : 0
       },
       "no-loss-of-precision" : {
-        "active" : 0
+        "active" : 1
       },
       "no-magic-numbers" : {
         "active" : 0,
-        "optionString" : "{'ignore': [], 'ignoreArrayIndexes': true, 'enforceConst': false, 'detectObjects': false}"
+        "optionString" : "{'ignore': [], 'ignoreArrayIndexes': true, 'ignoreDefaultValues': false, 'enforceConst': false, 'detectObjects': false}"
       },
       "no-misleading-character-class" : {
         "active" : 0
@@ -4083,7 +7074,7 @@
         "active" : 0
       },
       "no-nonoctal-decimal-escape" : {
-        "active" : 0
+        "active" : 1
       },
       "no-obj-calls" : {
         "active" : 1
@@ -4162,10 +7153,10 @@
       },
       "no-self-assign" : {
         "active" : 1,
-        "optionString" : "{'props': false}"
+        "optionString" : "{'props': true}"
       },
       "no-self-compare" : {
-        "active" : 1
+        "active" : 0
       },
       "no-sequences" : {
         "active" : 0,
@@ -4186,14 +7177,14 @@
       },
       "no-sync" : {
         "active" : 0,
-        "optionString" : ""
+        "optionString" : "{'allowAtRootLevel': false}"
       },
       "no-tabs" : {
         "active" : 0,
-        "optionString" : ""
+        "optionString" : "{allowIndentationTabs: false}"
       },
       "no-template-curly-in-string" : {
-        "active" : 1
+        "active" : 0
       },
       "no-ternary" : {
         "active" : 0
@@ -4206,7 +7197,7 @@
       },
       "no-trailing-spaces" : {
         "active" : 0,
-        "optionString" : "{'skipBlankLines': false}"
+        "optionString" : "{'skipBlankLines': false, 'ignoreComments': false}"
       },
       "no-undef" : {
         "active" : 1,
@@ -4220,7 +7211,7 @@
       },
       "no-underscore-dangle" : {
         "active" : 0,
-        "optionString" : "{'allow': [], 'allowAfterThis': false, 'allowAfterSuper': false}"
+        "optionString" : "{'allow': [], 'allowAfterThis': false, 'allowAfterSuper': false, 'allowAfterThisConstructor': false, 'enforceInMethodNames': false, 'allowFunctionParams': true}"
       },
       "no-unexpected-multiline" : {
         "active" : 1
@@ -4243,16 +7234,16 @@
         "active" : 1
       },
       "no-unsafe-negation" : {
-        "active" : 0,
-        "optionString" : ""
+        "active" : 1,
+        "optionString" : "{'enforceForOrderingRelations': false}"
       },
       "no-unsafe-optional-chaining" : {
-        "active" : 0,
+        "active" : 1,
         "optionString" : "{'disallowArithmeticOperators': false}"
       },
       "no-unused-expressions" : {
         "active" : 0,
-        "optionString" : "{'allowShortCircuit': false, 'allowTernary': false}"
+        "optionString" : "{'allowShortCircuit': false, 'allowTernary': false, 'allowTaggedTemplates': false, 'enforceForJSX': false}"
       },
       "no-unused-labels" : {
         "active" : 1
@@ -4262,14 +7253,14 @@
       },
       "no-unused-vars" : {
         "active" : 1,
-        "optionString" : "{'vars': 'all', 'args': 'after-used', 'caughtErrors': 'none'}"
+        "optionString" : "{'vars': 'all', 'args': 'after-used', 'caughtErrors': 'none', 'ignoreRestSiblings': false}"
       },
       "no-use-before-define" : {
         "active" : 0,
-        "optionString" : "{'functions': true, 'classes': true}"
+        "optionString" : "{'functions': true, 'classes': true, 'variables': true}"
       },
       "no-useless-backreference" : {
-        "active" : 0
+        "active" : 1
       },
       "no-useless-call" : {
         "active" : 0
@@ -4278,8 +7269,8 @@
         "active" : 0
       },
       "no-useless-computed-key" : {
-        "active" : 1,
-        "optionString" : ""
+        "active" : 0,
+        "optionString" : "{'enforceForClassMembers': false}"
       },
       "no-useless-concat" : {
         "active" : 0
@@ -4302,7 +7293,7 @@
       },
       "no-void" : {
         "active" : 0,
-        "optionString" : ""
+        "optionString" : "{'allowAsStatement': false}"
       },
       "no-warning-comments" : {
         "active" : 0,
@@ -4320,7 +7311,7 @@
       },
       "object-curly-newline" : {
         "active" : 0,
-        "optionString" : "{'ObjectExpression': {'multiline': true}, 'ObjectPattern': {'multiline': true}}"
+        "optionString" : "{'ObjectExpression': {'multiline': true, 'consistent': true}, 'ObjectPattern': {'multiline': true, 'consistent': true}}"
       },
       "object-curly-spacing" : {
         "active" : 0,
@@ -4328,7 +7319,7 @@
       },
       "object-property-newline" : {
         "active" : 0,
-        "optionString" : "{'allowMultiplePropertiesPerLine': true}"
+        "optionString" : "{'allowAllPropertiesOnSameLine': true}"
       },
       "object-shorthand" : {
         "active" : 0,
@@ -4403,7 +7394,7 @@
       },
       "quotes" : {
         "active" : 0,
-        "optionString" : "'double', 'avoid-escape'"
+        "optionString" : "'double', {'avoidEscape': true, 'allowTemplateLiterals': true}"
       },
       "radix" : {
         "active" : 0,
@@ -4417,13 +7408,13 @@
       },
       "require-jsdoc" : {
         "active" : 0,
-        "optionString" : "{'require': {'FunctionDeclaration': true, 'MethodDefinition': false, 'ClassDeclaration': false}}"
+        "optionString" : "{'require': {'FunctionDeclaration': true, 'MethodDefinition': false, 'ClassDeclaration': false, 'ArrowFunctionExpression': false}}"
       },
       "require-unicode-regexp" : {
         "active" : 0
       },
       "require-yield" : {
-        "active" : 0
+        "active" : 1
       },
       "rest-spread-spacing" : {
         "active" : 0,
@@ -4443,11 +7434,11 @@
       },
       "sort-imports" : {
         "active" : 0,
-        "optionString" : "{'ignoreCase': false, 'ignoreMemberSort': true, 'memberSyntaxSortOrder': ['none', 'all', 'multiple', 'single']}"
+        "optionString" : "{'ignoreCase': false, 'ignoreMemberSort': true, 'memberSyntaxSortOrder': ['none', 'all', 'multiple', 'single'], 'allowSeparatedGroups': false}"
       },
       "sort-keys" : {
         "active" : 0,
-        "optionString" : "'asc', {'caseSensitive': true, 'natural': false}"
+        "optionString" : "'asc', {'caseSensitive': true, 'natural': false, 'minKeys': 2}"
       },
       "sort-vars" : {
         "active" : 0,
@@ -4502,7 +7493,7 @@
       },
       "use-isnan" : {
         "active" : 1,
-        "optionString" : ""
+        "optionString" : "{'enforceForSwitchCase': true, 'enforceForIndexOf': false}"
       },
       "valid-jsdoc" : {
         "active" : 0,
@@ -4543,14 +7534,14 @@
       "autoOutputPathReplace1" : "",
       "autoOutputPathReplace2" : "",
       "autoOutputPathStyle" : 0,
-      "minifierStyle" : 1,
+      "minifierStyle" : 0,
       "outputStyle" : 0,
       "sourceMapStyle" : 0,
       "syntaxCheckerStyle" : 1,
       "transpilerStyle" : 1
     },
     "languageDefaultsCSS" : {
-      "autoOutputAction" : 2,
+      "autoOutputAction" : 0,
       "autoOutputPathFilenamePattern" : "*-min.css",
       "autoOutputPathRelativePath" : "",
       "autoOutputPathReplace1" : "",
@@ -4559,7 +7550,7 @@
       "combineImports" : 0,
       "cssoStyle" : 0,
       "purgeCSSStyle" : 0,
-      "shouldRunAutoprefixer" : 0,
+      "shouldRunAutoprefixer" : 1,
       "shouldRunBless" : 0,
       "sourceMapStyle" : 0
     },
@@ -4609,7 +7600,7 @@
       "autoOutputPathReplace2" : "",
       "autoOutputPathStyle" : 0,
       "bundleFormat" : 0,
-      "minifierStyle" : 0,
+      "minifierStyle" : 1,
       "sourceMapStyle" : 0,
       "syntaxCheckerStyle" : 3,
       "transpilerStyle" : 0
@@ -4621,7 +7612,7 @@
       "autoOutputPathReplace1" : "",
       "autoOutputPathReplace2" : "",
       "autoOutputPathStyle" : 0,
-      "orderOutput" : 0,
+      "orderOutput" : 1,
       "outputStyle" : 1
     },
     "languageDefaultsKIT" : {
@@ -4641,7 +7632,7 @@
       "autoOutputPathRelativePath" : "..\/css",
       "autoOutputPathReplace1" : "less",
       "autoOutputPathReplace2" : "css",
-      "autoOutputPathStyle" : 2,
+      "autoOutputPathStyle" : 0,
       "cssoStyle" : 0,
       "enableJavascript" : 0,
       "mathStyle" : 0,
@@ -4650,7 +7641,7 @@
       "rewriteURLStyle" : 0,
       "shouldRunAutoprefixer" : 0,
       "shouldRunBless" : 0,
-      "sourceMapStyle" : 1,
+      "sourceMapStyle" : 0,
       "strictImports" : 0,
       "strictUnits" : 0
     },
@@ -4676,7 +7667,7 @@
       "useCompatibilityMode" : 0
     },
     "languageDefaultsOTHER" : {
-      "autoOutputAction" : 2,
+      "autoOutputAction" : 0,
       "autoOutputPathFilenamePattern" : "*.*",
       "autoOutputPathRelativePath" : "",
       "autoOutputPathReplace1" : "",
@@ -4706,7 +7697,7 @@
       "autoOutputPathStyle" : 0,
       "compileDebug" : 1,
       "htmlMinifierStyle" : 0,
-      "outputStyle" : 0,
+      "outputStyle" : 1,
       "shouldRunCacheBuster" : 0
     },
     "languageDefaultsSASS" : {
@@ -4716,13 +7707,13 @@
       "autoOutputPathReplace1" : "sass",
       "autoOutputPathReplace2" : "css",
       "autoOutputPathStyle" : 2,
-      "compilerType" : 1,
+      "compilerType" : 0,
       "cssoStyle" : 0,
       "decimalPrecision" : 10,
       "emitCharset" : 1,
       "outputStyle" : 0,
       "purgeCSSStyle" : 0,
-      "shouldRunAutoprefixer" : 1,
+      "shouldRunAutoprefixer" : 0,
       "shouldRunBless" : 0,
       "sourceMapStyle" : 0
     },
@@ -4747,7 +7738,7 @@
       "autoOutputPathRelativePath" : "..\/css",
       "autoOutputPathReplace1" : "stylus",
       "autoOutputPathReplace2" : "css",
-      "autoOutputPathStyle" : 2,
+      "autoOutputPathStyle" : 0,
       "cssoStyle" : 0,
       "debugStyle" : 0,
       "importCSS" : 0,
@@ -4765,7 +7756,7 @@
       "autoOutputPathReplace1" : "",
       "autoOutputPathReplace2" : "",
       "autoOutputPathStyle" : 0,
-      "pluginMask" : 3758088159
+      "pluginMask" : 52780316221407
     },
     "languageDefaultsTS" : {
       "autoOutputAction" : 0,
@@ -4773,7 +7764,7 @@
       "autoOutputPathRelativePath" : "\/js",
       "autoOutputPathReplace1" : "",
       "autoOutputPathReplace2" : "",
-      "autoOutputPathStyle" : 2,
+      "autoOutputPathStyle" : 0,
       "createDeclarationFile" : 0,
       "jsxMode" : 0,
       "minifierStyle" : 0,
@@ -4833,7 +7824,7 @@
       "ENVIRONMENT:::$NODE_ENV"
     ],
     "rollupTreeshakingEnabled" : 1,
-    "skippedFoldersString" : "log, _logs, logs, _cache, cache, \/storage\/framework\/sessions, node_modules, \/vendor",
+    "skippedFoldersString" : "log, _logs, logs, _cache, cache, .idea, \/storage\/framework\/sessions, node_modules",
     "sourceFolderName" : "source",
     "susyVersion" : 3,
     "tsAllowSyntheticDefaultImports" : 0,
@@ -4922,7 +7913,7 @@
         "flagValue" : -1
       },
       "dead_code" : {
-        "active" : 0,
+        "active" : 1,
         "flagValue" : -1
       },
       "directives" : {
@@ -4954,7 +7945,7 @@
         "flagValue" : -1
       },
       "hoist_funs" : {
-        "active" : 1,
+        "active" : 0,
         "flagValue" : -1
       },
       "hoist_props" : {
@@ -4998,7 +7989,7 @@
         "flagValue" : -1
       },
       "keep_fargs" : {
-        "active" : 0,
+        "active" : 1,
         "flagValue" : -1
       },
       "keep_fnames" : {
@@ -5126,7 +8117,7 @@
         "flagValue" : -1
       },
       "unused" : {
-        "active" : 0,
+        "active" : 1,
         "flagValue" : -1
       },
       "warnings" : {
@@ -5143,7 +8134,7 @@
       }
     },
     "uglifyMangleNames" : 1,
-    "uglifyReservedNamesString" : "$",
+    "uglifyReservedNamesString" : "$,exports,require",
     "webpPresets" : {
 
     },

@@ -56,6 +56,7 @@ jQuery( document ).ready( function( $ ) {
     function liveUpdate( dittyId, items ) {
 	    $( '.ditty[data-id="' + dittyId + '"]' ).each( function() {
 		    var displayType = $( this ).data( 'type' );
+				console.log( 'LIVE UPDATE' );
 		    $( this )['ditty_' + displayType]( 'options', 'items', items );
 		  } );
 	  }

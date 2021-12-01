@@ -43,13 +43,15 @@ class Ditty_Field_Group extends Ditty_Field {
 		}
 		$html = '';
 		$html .= '<div ' . ditty_attr_to_html( $atts ) . '>';
-			$html .= '<div class="ditty-field__heading">';
-				$html .= $this->label();
-				$html .= $this->description();
-				if ( $this->args['collapsible'] ) {
-					$html .= '<a href="#" class="ditty-field__collapsible-toggle"><i class="fas fa-angle-down"></i></a>';
-				}
-			$html .= '</div>';
+			if ( '' != $this->label() || '' != $this->description() ) {
+				$html .= '<div class="ditty-field__heading">';
+					$html .= $this->label();
+					$html .= $this->description();
+					if ( $this->args['collapsible'] ) {
+						$html .= '<a href="#" class="ditty-field__collapsible-toggle"><i class="fas fa-angle-down"></i></a>';
+					}
+				$html .= '</div>';
+			}
 			$html .= $this->input_container();
 		$html .= '</div>';
 		return $html;
@@ -67,6 +69,8 @@ class Ditty_Field_Group extends Ditty_Field {
 
 		if ( $this->args['multiple_fields'] ) {
 			foreach ( $this->args['fields'] as $field_args ) {
+				//$id = $field_args['id'];
+				//$field_args['std'] = isset( $std[$id] ) ? $std[$id] : false;
 				$inputs[] = ditty_field( $field_args );
 			}
 		} else {

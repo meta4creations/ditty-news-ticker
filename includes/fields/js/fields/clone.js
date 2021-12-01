@@ -79,6 +79,8 @@ jQuery( document ).ready( function( $ ) {
 			} else {
 				$field.removeClass( 'ditty-field--clone-enabled--max' );
 			}
+			
+			$field.trigger( 'ditty_field_update' );
     }
     
     /**
@@ -98,6 +100,7 @@ jQuery( document ).ready( function( $ ) {
 			setupButtons( $field, $clone );
 
 			$field.trigger( 'ditty_init_fields' );
+			$field.trigger( 'ditty_field_update' );
     }
     
     /**

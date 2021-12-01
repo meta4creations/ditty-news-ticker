@@ -44,14 +44,16 @@ function ditty_fields( $fields = array(), $values = array(), $action = 'render' 
 }
 
 /**
- * Sanitize field
+ * Sanitize an input
  *
  * @access  public
  * @since   3.0
  */
-function ditty_sanitize_field( $field = array(), $values = array() ) {
+function ditty_sanitize_input( $field, $value = false ) {
+	if ( ! $value ) {
+		return false;
+	}
 	$sanitize_type = isset( $field['sanitize'] ) ? $field['sanitize'] : $field['type'];
-	$value = $values[$field['id']];
 	$sanitized_value = false;
 	switch( $sanitize_type ) {
 		case 'attr':
@@ -93,21 +95,64 @@ function ditty_sanitize_field( $field = array(), $values = array() ) {
 }
 
 /**
- * Sanitize field
+ * Sanitize group field
  *
  * @access  public
  * @since   3.0
  */
-function ditty_sanitize_group( $group = array(), $values = array(), $sanitized_values = array() ) {
+function ditty_sanitize_group( $group = array(), $values = array() ) {
+	$sanitized_values = array();
 	if ( isset( $group['fields'] ) && is_array( $group['fields'] ) && count( $group['fields'] ) > 0 ) {
 		foreach ( $group['fields'] as $field ) {
-			if ( ! isset( $values[$field['id']] ) ) {
+			$value = isset( $values[$field['id']] ) ? $values[$field['id']] : false;
+			if ( ! $value ) {
 				continue;
 			}
-			$sanitized_values[$field['id']] = ditty_sanitize_field( $field, $values );
+			$sanitized_values[$field['id']] = ditty_sanitize_input( $field, $value );
 		}
 	}
 	return $sanitized_values;
+}
+
+/**
+ * Sanitize clone field
+ *
+ * @access  public
+ * @since   3.0
+ */
+function ditty_sanitize_clone( $field = array(), $values = array() ) {
+	$sanitized_values = array();
+	if ( is_array( $values ) && count( $values ) > 0 ) {
+		foreach ( $values as $index => $value ) {
+			if( 'group' == $field['type'] ) {
+				$sanitized_value = ditty_sanitize_group( $field, $value );
+			} else {
+				$sanitized_value = ditty_sanitize_input( $field, $value );
+			}
+			if ( $sanitized_value ) {
+				$sanitized_values[$index] = $sanitized_value;
+			}
+		}
+	}
+	return $sanitized_values;
+}
+
+/**
+ * Sanitize a single fields
+ *
+ * @access  public
+ * @since   3.0
+ */
+function ditty_sanitize_field( $field = array(), $values = array() ) {
+	$sanitized_value = false;
+	if ( isset( $field['clone'] ) && true == $field['clone'] ) {
+		$sanitized_value = ditty_sanitize_clone( $field, $values );
+	} elseif( 'group' == $field['type'] ) {
+		$sanitized_value = ditty_sanitize_group( $field, $values );
+	} else {
+		$sanitized_value = ditty_sanitize_input( $field, $values );
+	}
+	return $sanitized_value;
 }
 
 /**
@@ -120,15 +165,25 @@ function ditty_sanitize_fields( $fields = array(), $values = array() ) {
 	$sanitized_values = array();
 	if ( is_array( $fields ) && count( $fields ) > 0 ) {
 		foreach ( $fields as $field ) {
-			if ( 'group' == $field['type'] ) {
-				$sanitized_values = ditty_sanitize_group( $field, $values, $sanitized_values );
+			if ( 'group' == $field['type'] && isset( $field['multiple_fields'] ) && true == $field['multiple_fields'] ) {
+				if ( isset( $field['fields'] ) && is_array( $field['fields'] ) && count( $field['fields'] ) > 0 ) {
+					foreach ( $field['fields'] as $group_field ) {
+						$group_value = isset( $values[$group_field['id']] ) ? $values[$group_field['id']] : false;
+						if ( ! $group_value ) {
+							continue;
+						}
+						$sanitized_values[$group_field['id']] = ditty_sanitize_field( $group_field, $group_value );
+					}
+				}
 			} else {
-				if ( ! isset( $values[$field['id']] ) ) {
+				$value = isset( $values[$field['id']] ) ? $values[$field['id']] : false;
+				if ( ! $value ) {
 					continue;
 				}
-				$sanitized_values[$field['id']] = ditty_sanitize_field( $field, $values );
+				$sanitized_values[$field['id']] = ditty_sanitize_field( $field, $value );
 			}
-		}
+		}		
 	}
+	ChromePhp::log( '$sanitized_values:', $sanitized_values );
 	return apply_filters( 'ditty_sanitize_fields', $sanitized_values, $fields, $values );
 }
