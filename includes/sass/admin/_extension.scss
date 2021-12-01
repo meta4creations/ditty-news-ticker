@@ -64,5 +64,15 @@
 				background-color: #1DA1F2;
 			}
 		}
+		&--posts {
+			.ditty-extension__header,
+			.ditty-extension__icon,
+			.ditty-extension__icon__small,
+			.ditty-button:hover,
+			.ditty-button--primary,
+			.ditty-extension__tab.active {
+				background-color: #21759b;
+			}
+		}
 	}
 }

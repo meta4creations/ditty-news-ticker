@@ -1267,6 +1267,20 @@ table.wp-list-table .type-ditty_layout .row-actions {
 #ditty-extensions-app .ditty-extension--twitter .ditty-extension__tab.active {
   background-color: #1DA1F2; }
 
+#ditty-extensions .ditty-extension--posts .ditty-extension__header,
+#ditty-extensions .ditty-extension--posts .ditty-extension__icon,
+#ditty-extensions .ditty-extension--posts .ditty-extension__icon__small,
+#ditty-extensions .ditty-extension--posts .ditty-button:hover,
+#ditty-extensions .ditty-extension--posts .ditty-button--primary,
+#ditty-extensions .ditty-extension--posts .ditty-extension__tab.active,
+#ditty-extensions-app .ditty-extension--posts .ditty-extension__header,
+#ditty-extensions-app .ditty-extension--posts .ditty-extension__icon,
+#ditty-extensions-app .ditty-extension--posts .ditty-extension__icon__small,
+#ditty-extensions-app .ditty-extension--posts .ditty-button:hover,
+#ditty-extensions-app .ditty-extension--posts .ditty-button--primary,
+#ditty-extensions-app .ditty-extension--posts .ditty-extension__tab.active {
+  background-color: #21759b; }
+
 #ditty-layout-html .inside,
 #ditty-layout-html .ditty-field,
 #ditty-layout-css .inside,

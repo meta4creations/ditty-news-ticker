@@ -61,27 +61,11 @@ class Ditty_Extensions {
 	public function add_extension_updaters() {
 		if ( wp_doing_ajax() ) {
 			return false;
-		}
-		
+		}	
 		$extension_licenses = ditty_extension_licenses();
-		$ditty_licenses = $this->licenses;
-		
+		$ditty_licenses = $this->licenses;		
 		if ( is_array( $extension_licenses ) && count( $extension_licenses ) > 0 ) {
 			foreach( $extension_licenses as $slug => $license_settings ) {
-				// $settings = isset( $extension['settings'] ) ? $extension['settings'] : false;
-				// $license_settings = false;
-				// if ( is_array( $settings ) && count( $settings ) > 0 ) {
-				// 	foreach ( $settings as $i => $setting ) {
-				// 		if ( 'license' === $setting['id'] ) {
-				// 			$license_settings = $setting;
-				// 			break;
-				// 		}
-				// 	}
-				// }
-				// 
-				// if ( isset( $extension['preview'] ) || ! $license_settings ) {
-				// 	continue;	
-				// }
 				if ( ! isset( $license_settings['version'] ) || ! isset( $license_settings['item_id'] ) || ! isset( $license_settings['path'] ) ) {
 					continue;	
 				}
