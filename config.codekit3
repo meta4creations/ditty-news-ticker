@@ -514,6 +514,14 @@
       "oAP" : "\/includes\/fields\/ditty-field-html.php",
       "oF" : 0
     },
+    "\/includes\/fields\/ditty-field-image.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/fields\/ditty-field-image.php",
+      "oF" : 0
+    },
     "\/includes\/fields\/ditty-field-number.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -675,6 +683,17 @@
       "mi" : 0,
       "oA" : 1,
       "oAP" : "\/includes\/fields\/js\/fields\/group.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/fields\/js\/fields\/image.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/fields\/js\/fields\/image.min.js",
       "oF" : 0,
       "sC" : 3,
       "tS" : 0

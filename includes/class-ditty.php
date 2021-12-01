@@ -236,6 +236,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/fields/ditty-field-divider.php';
 		require_once DITTY_DIR . 'includes/fields/ditty-field-group.php';
 		require_once DITTY_DIR . 'includes/fields/ditty-field-html.php';
+		require_once DITTY_DIR . 'includes/fields/ditty-field-image.php';
 		require_once DITTY_DIR . 'includes/fields/ditty-field-number.php';
 		require_once DITTY_DIR . 'includes/fields/ditty-field-radio.php';
 		require_once DITTY_DIR . 'includes/fields/ditty-field-text.php';
