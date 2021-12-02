@@ -242,24 +242,22 @@ table.wp-list-table .type-ditty_layout .row-actions {
 
 /* Radio */
 .ditty-field-type--radio .ditty-input--radio {
-  margin-bottom: 0; }
-  .ditty-field-type--radio .ditty-input--radio .ditty-field__input__primary {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start; }
-  .ditty-field-type--radio .ditty-input--radio--inline .ditty-field__input__primary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start; }
+  .ditty-field-type--radio .ditty-input--radio--inline {
     flex-direction: row;
     align-items: center; }
-  .ditty-field-type--radio .ditty-input--radio--inline .ditty-input--radio__option {
-    margin-bottom: 0;
-    margin-right: 15px; }
-    .ditty-field-type--radio .ditty-input--radio--inline .ditty-input--radio__option:last-child {
-      margin-right: 0; }
+    .ditty-field-type--radio .ditty-input--radio--inline .ditty-input--radio__option {
+      margin-bottom: 0;
+      margin-right: 15px; }
+      .ditty-field-type--radio .ditty-input--radio--inline .ditty-input--radio__option:last-child {
+        margin-right: 0; }
   .ditty-field-type--radio .ditty-input--radio__option {
-    display: block;
-    margin-top: 2px;
-    margin-bottom: 5px; }
+    margin-bottom: 8px; }
+    .ditty-field-type--radio .ditty-input--radio__option:last-child {
+      margin-bottom: 0; }
 
 /* Slider */
 .ditty-field-type--slider .irs--flat .irs-bar,

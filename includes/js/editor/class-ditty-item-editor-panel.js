@@ -58,7 +58,7 @@
 			this.$form.on( 'keyup change', 'input[type="text"], input[type="number"], textarea, select', { self: this }, this._checkUpdates );
 			this.$form.on( 'click', 'input[type="radio"], input[type="checkbox"]', { self: this }, this._checkUpdates );
 			this.$form.on( 'ditty_input_wysiwyg_update', '.ditty-input--wysiwyg', { self: this }, this._checkUpdates );
-			this.$form.on( 'ditty_field_update', '.ditty-field', { self: this }, this._checkUpdates );
+			this.$form.on( 'ditty_field_update', '.ditty-field__input', { self: this }, this._checkUpdates );
     },
     
     /**
@@ -331,7 +331,7 @@
 			this.$form.off( 'keyup change', 'input[type="text"], input[type="number"], textarea, select', { self: this }, this._checkUpdates );
 			this.$form.off( 'click', 'input[type="radio"], input[type="checkbox"]', { self: this }, this._checkUpdates );
 			this.$form.off( 'ditty_input_wysiwyg_update', '.ditty-input--wysiwyg', { self: this }, this._checkUpdates );
-			this.$form.off( 'ditty_field_update', '.ditty-field', { self: this }, this._checkUpdates );
+			this.$form.off( 'ditty_field_update', '.ditty-field__input', { self: this }, this._checkUpdates );
 			
 	    this.elmt._ditty_item_editor_panel = null;	    
     }

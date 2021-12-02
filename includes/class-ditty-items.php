@@ -293,8 +293,14 @@ class Ditty_Items {
 		if ( ! $editor_item ) {
 			wp_die();
 		}
+		$atts = array(
+			'class' 					=> "ditty-editor-options ditty-editor-options--{$editor_item->get_type()} ditty-metabox",
+			'data-item_id' 		=> $editor_item->get_id(),
+			'data-item_type' 	=> $editor_item->get_type(),
+			'data-ditty_id'		=> $editor_item->get_ditty_id(),
+		);
 		?>
-		<form class="ditty-editor-options ditty-metabox" data-item_id="<?php echo $editor_item->get_id(); ?>" data-item_type="<?php echo $editor_item->get_type(); ?>" data-ditty_id="<?php echo $editor_item->get_ditty_id(); ?>">
+		<form <?php echo ditty_attr_to_html( $atts ); ?> />
 			<div class="ditty-editor-options__contents">
 				<div class="ditty-editor-options__header">
 					<div class="ditty-editor-options__buttons ditty-editor-options__buttons--start">
@@ -315,19 +321,6 @@ class Ditty_Items {
 		<?php
 		wp_die();
 	}
-	// public function editor_item_fields( $post ) {
-	// 	$item_id_ajax = isset( $post['item_id'] ) ? $post['item_id'] : false;	
-	// 	if ( ! current_user_can( 'edit_ditty_items' ) || ! $item_id_ajax ) {
-	// 		return $post;
-	// 	}
-	// 	$editor_item = new Ditty_Item( $item_id_ajax );
-	// 	if ( ! $editor_item ) {
-	// 		return $post;
-	// 	}
-	// 	ob_start();
-	// 	$html = ob_get_clean();
-	// 	return array( 'html' => $html );
-	// }
 	
 	/**
 	 * Add a item via ajax

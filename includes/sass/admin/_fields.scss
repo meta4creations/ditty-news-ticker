@@ -244,13 +244,18 @@
 /* Radio */
 .ditty-field-type--radio {
 	.ditty-input--radio {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		justify-content: flex-start;
+		margin-bottom: 0;
+		.ditty-field__input__primary {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			justify-content: flex-start;
+		}
 		&--inline {
-			flex-direction: row;
-			align-items: center;
+			.ditty-field__input__primary {
+				flex-direction: row;
+				align-items: center;
+			}
 			.ditty-input--radio__option {
 				margin-bottom: 0;
 				margin-right: 15px;
@@ -260,10 +265,9 @@
 			}
 		}
 		&__option {
-			margin-bottom: 8px;
-			&:last-child {
-				margin-bottom: 0;
-			}
+			display: block;
+			margin-top: 2px;
+			margin-bottom: 5px;
 		}
 	}
 }
@@ -557,6 +561,12 @@
 		img {
 			display: block;
 			line-height: 0;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
 		}
 	}
 }

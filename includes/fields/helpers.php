@@ -184,6 +184,5 @@ function ditty_sanitize_fields( $fields = array(), $values = array() ) {
 			}
 		}		
 	}
-	ChromePhp::log( '$sanitized_values:', $sanitized_values );
 	return apply_filters( 'ditty_sanitize_fields', $sanitized_values, $fields, $values );
 }

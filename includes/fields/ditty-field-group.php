@@ -21,10 +21,10 @@ class Ditty_Field_Group extends Ditty_Field {
 	 */
 	public function defaults() {
 		$atts = array(
-			'fields' => array(),
-			'group_title' => '',
-			'collapsible' => false,
-			'default_state' => 'expanded',
+			'fields' 					=> array(),
+			'group_title' 		=> '',
+			'collapsible' 		=> false,
+			'default_state' 	=> 'expanded',
 			'multiple_fields' => false,
 		);
 		return wp_parse_args( $atts, $this->common );
