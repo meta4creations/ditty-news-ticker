@@ -84,7 +84,7 @@ class Ditty_Displays {
 			}
 			if ( isset( $templates[$display_template]['settings'] ) ) {
 				$fields = $display_object->fields();
-				$sanitized_settings = ditty_sanitize_fields( $fields, $templates[$display_template]['settings'] );
+				$sanitized_settings = ditty_sanitize_fields( $fields, $templates[$display_template]['settings'], "ditty_display_type_{$display_type}" );
 				update_post_meta( $new_display_id, '_ditty_display_settings', $sanitized_settings );
 			}
 		}
@@ -744,7 +744,7 @@ class Ditty_Displays {
 						}
 						$display_object = ditty_display_type_object( $display_type );
 						$fields = $display_object->fields();
-						$sanitized_settings = ditty_sanitize_fields( $fields, $display_data['settings'] );
+						$sanitized_settings = ditty_sanitize_fields( $fields, $display_data['settings'], "ditty_display_type_{$display_type}" );
 						update_post_meta( $display_id, '_ditty_display_settings', $sanitized_settings );
 					}
 					

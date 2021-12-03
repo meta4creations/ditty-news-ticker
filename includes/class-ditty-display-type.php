@@ -139,7 +139,7 @@ class Ditty_Display_Type {
 	// TODO: Sanitize display meta
 	public function sanitize_settings( $values ) {
 		$fields = $this->fields();
-		return ditty_sanitize_fields( $fields, $values );
+		return ditty_sanitize_fields( $fields, $values, "ditty_display_type_{$this->get_type()}" );
 	}
 
 	/**

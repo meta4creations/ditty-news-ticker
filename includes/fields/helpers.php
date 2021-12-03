@@ -161,7 +161,7 @@ function ditty_sanitize_field( $field = array(), $values = array() ) {
  * @access  public
  * @since   3.0
  */
-function ditty_sanitize_fields( $fields = array(), $values = array() ) {
+function ditty_sanitize_fields( $fields = array(), $values = array(), $id = '' ) {
 	$sanitized_values = array();
 	if ( is_array( $fields ) && count( $fields ) > 0 ) {
 		foreach ( $fields as $field ) {
@@ -184,5 +184,5 @@ function ditty_sanitize_fields( $fields = array(), $values = array() ) {
 			}
 		}		
 	}
-	return apply_filters( 'ditty_sanitize_fields', $sanitized_values, $fields, $values );
+	return apply_filters( 'ditty_sanitize_fields', $sanitized_values, $fields, $values, $id );
 }

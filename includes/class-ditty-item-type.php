@@ -222,7 +222,7 @@ class Ditty_Item_Type {
 	 */
 	public function sanitize_settings( $values ) {
 		$fields = $this->fields();
-		return ditty_sanitize_fields( $fields, $values );
+		return ditty_sanitize_fields( $fields, $values, "ditty_item_type_{$this->get_type()}" );
 	}
 	
 	/**
