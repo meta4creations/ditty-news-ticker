@@ -38,8 +38,8 @@ class Ditty_Items {
 		add_action( 'ditty_editor_item_elements', array( $this, 'editor_item_move' ), 35 );
 		
 		// Ajax
-		add_action( 'wp_ajax_ditty_editor_item_types', array( $this, 'editor_item_types_ajax' ) );
-		add_action( 'wp_ajax_nopriv_ditty_editor_item_types', array( $this, 'editor_item_types_ajax' ) );
+		//add_action( 'wp_ajax_ditty_editor_item_types', array( $this, 'editor_item_types_ajax' ) );
+		//add_action( 'wp_ajax_nopriv_ditty_editor_item_types', array( $this, 'editor_item_types_ajax' ) );
 		add_action( 'wp_ajax_ditty_editor_item_type_update', array( $this, 'editor_item_type_update_ajax' ) );
 		add_action( 'wp_ajax_nopriv_ditty_editor_item_type_update', array( $this, 'editor_item_type_update_ajax' ) );
 		

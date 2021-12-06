@@ -690,6 +690,44 @@ function ditty_type_exists( $slug ) {
 }
 
 /**
+ * Return display items for a specific Ditty
+ *
+ * @since    3.0
+ * @access   public
+ * @var      array   	$display_items    Array of item objects
+ */
+function ditty_display_items( $ditty_id, $load_type = false ) {
+	$transient_name = "ditty_display_items_{$ditty_id}";
+	$display_items = get_transient( $transient_name );
+	if ( ! $display_items || 'force' == $load_type ) {
+		$display_items = array();
+		$items_meta = ditty_items_meta( $ditty_id );
+		if ( empty( $items_meta) && 'auto-draft' == get_post_status( $ditty_id ) ) {
+			$items_meta = array( ditty_get_new_item_meta( $ditty_id ) );
+		}
+		if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
+			foreach ( $items_meta as $i => $meta ) {
+				if ( is_object( $meta ) ) {
+					$meta = ( array ) $meta;
+				}
+				$prepared_items = ditty_prepare_display_items( $meta );
+				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
+					foreach ( $prepared_items as $i => $prepared_meta ) {
+						$display_item = new Ditty_Display_Item( $prepared_meta );
+						if ( $data = $display_item->compile_data() ) {
+							$display_items[] = $data;
+						}
+					}
+				}	
+			}
+		}
+		$display_items = apply_filters( 'ditty_display_items', $display_items, $ditty_id );
+		set_transient( $transient_name, $display_items, ( MINUTE_IN_SECONDS * ditty_settings( 'live_refresh' ) ) );
+	}
+	return $display_items;
+}
+
+/**
  * Return item data for a Ditty
  *
  * @since    3.0

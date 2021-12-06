@@ -256,6 +256,7 @@
 					items.push( item );
 				}
 			} );
+			console.log( 'items:', items );
 			this.enabledItems = items;
 			this.total = items.length;
 				
@@ -329,10 +330,10 @@
 			if ( undefined === this.settings.items[parseInt( index )] ) {
 				return false;
 			}
-			if ( undefined === this.settings.items[parseInt( index )].isDisabled ) {
+			if ( undefined === this.settings.items[parseInt( index )].is_disabled ) {
 				return true;
 			} else {
-				if ( this.settings.items[parseInt( index )].isDisabled.length > 0 ) {
+				if ( this.settings.items[parseInt( index )].is_disabled.length > 0 ) {
 					return false;
 				} else {
 					return true;
@@ -369,7 +370,10 @@
 	    var self = this;
  	    $.each( this.settings.items, function( i, item ) {
 		    if ( String( item.id ) === String( id ) ) {
-			    self.settings.items[i].isDisabled.push( slug );
+					if ( ! $.isArray( self.settings.items[i].is_disabled ) ) {
+						self.settings.items[i].is_disabled = [];
+					}
+			    self.settings.items[i].is_disabled.push( slug );
 		    }
 			} );
 			this._calculatePages();
@@ -388,9 +392,11 @@
 	    var self = this;
  	    $.each( this.settings.items, function( i, item ) {
 		    if ( String( item.id ) === String( id ) ) {
-			    self.settings.items[i].isDisabled = $.grep( self.settings.items[i].isDisabled, function( value ) {
-					  return value !== slug;
-					} );
+					if ( $.isArray( self.settings.items[i].is_disabled ) && self.settings.items[i].is_disabled.length ) {
+			    	self.settings.items[i].is_disabled = $.grep( self.settings.items[i].is_disabled, function( value ) {
+							return value !== slug;
+						} );
+					}
 		    }
 			} );
 			this._calculatePages();

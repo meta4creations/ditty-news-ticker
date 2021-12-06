@@ -316,43 +316,6 @@ class Ditty_Singles {
 	}
 	
 	/**
-	 * Return item objects for a specific Ditty
-	 *
-	 * @since    3.0
-	 * @access   public
-	 * @var      array   	$display_items    Array of item objects
-	 */
-	public function get_ditty_display_items( $ditty_id, $force_load = false ) {
-		$transient_name = "ditty_display_items_{$ditty_id}";
-		$display_items = get_transient( $transient_name );
-		if ( ! $display_items || $force_load ) {
-			$display_items = array();
-			$items_meta = ditty_items_meta( $ditty_id );
-			if ( empty( $items_meta) && 'auto-draft' == get_post_status( $ditty_id ) ) {
-				$items_meta = array( ditty_get_new_item_meta( $ditty_id ) );
-			}
-			if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
-				foreach ( $items_meta as $i => $meta ) {
-					if ( is_object( $meta ) ) {
-						$meta = ( array ) $meta;
-					}
-					$prepared_items = ditty_prepare_display_items( $meta );
-					if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
-						foreach ( $prepared_items as $i => $prepared_meta ) {
-							$display_item = new Ditty_Display_Item( $prepared_meta );
-							if ( $data = $display_item->compile_data() ) {
-								$display_items[] = $data;
-							}
-						}
-					}	
-				}
-			}
-			set_transient( $transient_name, $display_items, ( MINUTE_IN_SECONDS * ditty_settings( 'live_refresh' ) ) );
-		}
-		return $display_items;
-	}
-	
-	/**
 	 * Parse custom display settings
 	 *
 	 * @access public
@@ -399,6 +362,7 @@ class Ditty_Singles {
 		$display_settings_ajax 	= isset( $_POST['display_settings'] ) ? esc_attr( $_POST['display_settings'] ) 	: false;
 		$editor_ajax 						= isset( $_POST['editor'] )						? intval( $_POST['editor'] ) 							: false;
 		$force_ajax 						= isset( $_POST['force'] )						? intval( $_POST['force'] ) 							: false;
+		$load_type							= ( $force_ajax ) 										? 'force' 																: false;
 
 		// Get the display attributes
 		if ( ! $display_ajax ) {
@@ -419,7 +383,7 @@ class Ditty_Singles {
 		$args['display'] = $display->get_display_id();
 		$args['showEditor'] = $editor_ajax;
 		
-		$items = $this->get_ditty_display_items( $id_ajax, $force_ajax );
+		$items = ditty_display_items( $id_ajax, $load_type );
 		if ( ! is_array( $items ) ) {
 			$items = array();
 		}
@@ -444,17 +408,15 @@ class Ditty_Singles {
 	public function live_updates_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
 		$live_ids = isset( $_POST['live_ids'] ) ? $_POST['live_ids'] 	: false;
-		$api_ids	= isset( $_POST['api_ids'] ) 	? $_POST['api_ids']		: false;
 		if ( ! $live_ids ) {
 			wp_die();
 		}
 		$updated_items = array();
 		if ( is_array( $live_ids ) && count( $live_ids ) > 0 ) {
 			foreach ( $live_ids as $ditty_id => $timestamp ) {
-				$updated_items[$ditty_id] = $this->get_ditty_display_items( $ditty_id );
+				$updated_items[$ditty_id] = ditty_display_items( $ditty_id );
 			}
 		}
-
 		$data = array(
 			'updated_items' => $updated_items,
 		);	
@@ -674,7 +636,7 @@ class Ditty_Singles {
 			Ditty()->db_items->insert( apply_filters( 'ditty_item_db_data', $sanitized_item_data, $ditty_id_ajax ), 'item' );
 		}	
 
-		$display_items = $this->get_ditty_display_items( $ditty_id_ajax, true );
+		$display_items = ditty_display_items( $ditty_id_ajax, 'force' );
 		if ( boolval( $return_items_ajax ) ) {
 			$json_data['display_items'] = $display_items;
 		}
