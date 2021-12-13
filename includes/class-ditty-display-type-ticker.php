@@ -101,7 +101,7 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 						'type'		=> 'radio',
 						'id'			=> 'scrollInit',
 						'name'		=> __( 'Initial Display', 'ditty-news-ticker' ),
-						'help'		=> __( 'Choose how the ticker should initialize', 'ditty-news-ticker' ),
+						'help'		=> __( 'Choose how the ticker should initialize.', 'ditty-news-ticker' ),
 						'options'	=> array(
 							'empty' 	=> __( 'Empty', 'ditty-news-ticker' ),
 							'filled' 	=> __( 'Filled', 'ditty-news-ticker' ),
@@ -113,7 +113,7 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 						'type'				=> 'slider',
 						'id'					=> 'scrollDelay',
 						'name'				=> __( 'Scroll Delay', 'ditty-news-ticker' ),
-						'help'				=> __( 'Delay the start of scrolling for filled tickers', 'ditty-news-ticker' ),
+						'help'				=> __( 'Delay the start of scrolling for filled tickers.', 'ditty-news-ticker' ),
 						'suffix'			=> ' ' . __( 'seconds', 'ditty-news-ticker' ),
 						'js_options'	=> array(
 							'min' 	=> 0,
@@ -148,7 +148,7 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 						'id'		=> 'shuffle',
 						'name'	=> __( 'Shuffle Items', 'ditty-news-ticker' ),
 						'label'	=> __( 'Randomly shuffle items on each page load', 'ditty-news-ticker' ),
-						'help'	=> __( 'Randomly shuffle items on each page load', 'ditty-news-ticker' ),
+						'help'	=> __( 'Randomly shuffle items on each page load.', 'ditty-news-ticker' ),
 						'std'		=> isset( $values['shuffle'] ) ? $values['shuffle'] : false,
 					),
 				),

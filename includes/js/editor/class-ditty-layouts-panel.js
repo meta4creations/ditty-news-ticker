@@ -105,15 +105,11 @@
 			if ( $layout.hasClass( 'active' ) ) {
 				return false;
 			}
-			
-			console.log( 'layoutValue:', layoutValue );
-			console.log( 'layoutId:', layoutId );
 			$.each( layoutValue, function( type ) {
 				if ( self.editorVariationId === type ) {
 					layoutValue[type] = String( layoutId );
 				}
 			} );
-			console.log( 'layoutValue:', layoutValue );
 
 			// Highlight the active layout
 			self.settings.editor.updateStart(); // Start the update overlay

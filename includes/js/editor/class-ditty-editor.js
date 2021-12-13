@@ -642,11 +642,15 @@
 			this.$elmt.addClass( 'ditty-editor--updates-exist' );
 			if ( key ) {
 				this.draftValues[key] = value;
-				//console.log( 'draftValues:', this.draftValues );
+				if ( 'development' === dittyVars.mode && window.console ) {
+					console.log( 'draftValues:', this.draftValues );
+				}
 				return this.draftValues[key];
 			} else {
 				this.draftValues = value;
-				//console.log( 'draftValues:', this.draftValues );
+				if ( 'development' === dittyVars.mode && window.console ) {
+					console.log( 'draftValues:', this.draftValues );
+				}
 				return this.draftValues;
 			}
 			

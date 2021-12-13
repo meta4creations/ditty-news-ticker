@@ -418,7 +418,7 @@ class Ditty {
 			wp_enqueue_style( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.css', false, '1.4.21', false );	
 			wp_enqueue_style( 'ion-rangeslider', DITTY_URL . 'includes/libs/ion.rangeSlider/css/ion.rangeSlider.min.css', false, '2.3.1', false );
 			wp_enqueue_style( 'jquery-minicolors', DITTY_URL . 'includes/libs/jquery-minicolors/jquery.minicolors.css', false, '2.3.5', false );
-			wp_enqueue_style( 'jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' );
+			//wp_enqueue_style( 'jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' );
 		}
 		if ( is_admin() ) {
 			wp_enqueue_style( 'ditty-admin', DITTY_URL . 'includes/css/ditty-admin.css', array(), $this->version, 'all' );
@@ -450,6 +450,7 @@ class Ditty {
 		wp_add_inline_script( 'ditty', 'const dittyVars = ' . json_encode( array(
 			'ajaxurl'					=> admin_url( 'admin-ajax.php' ),
 			'security'				=> wp_create_nonce( 'ditty' ),
+			'mode'						=> WP_DEBUG ? 'development' : 'production',
 			'strings' 				=> ditty_strings(),
 			'adminStrings' 		=> is_admin() ? ditty_admin_strings() : false,
 			'globals'					=> ditty_get_globals(),

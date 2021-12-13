@@ -11,71 +11,65 @@ function ditty_setup_post_types() {
 
 	// Ditty
 	$labels = array(
-		'name' => __( 'Ditty', 'ditty-news-ticker' ),
-		'singular_name' => __( 'Ditty', 'ditty-news-ticker' ),
-		'add_new' => __( 'Add New', 'ditty-news-ticker' ),
-		'add_new_item' => __( 'Add New Ditty', 'ditty-news-ticker' ),
-		'edit_item' => __( 'Edit Ditty', 'ditty-news-ticker' ),
-		'new_item' => __( 'New Ditty', 'ditty-news-ticker' ),
-		'view_item' => __( 'View Ditty', 'ditty-news-ticker' ),
-		'search_items' => __( 'Search Ditty', 'ditty-news-ticker' ),
-		'not_found' => __( 'No Ditty Found', 'ditty-news-ticker' ),
-		'not_found_in_trash' => __( 'No Ditty Found In Trash', 'ditty-news-ticker' ),
-		'parent_item_colon' => '',
-		'menu_name' => __( 'Ditty', 'ditty-news-ticker' )
+		'name' 								=> __( 'Ditty', 'ditty-news-ticker' ),
+		'singular_name' 			=> __( 'Ditty', 'ditty-news-ticker' ),
+		'add_new' 						=> __( 'Add New', 'ditty-news-ticker' ),
+		'add_new_item' 				=> __( 'Add New Ditty', 'ditty-news-ticker' ),
+		'edit_item' 					=> __( 'Edit Ditty', 'ditty-news-ticker' ),
+		'new_item' 						=> __( 'New Ditty', 'ditty-news-ticker' ),
+		'view_item' 					=> __( 'View Ditty', 'ditty-news-ticker' ),
+		'search_items' 				=> __( 'Search Ditty', 'ditty-news-ticker' ),
+		'not_found' 					=> __( 'No Ditty Found', 'ditty-news-ticker' ),
+		'not_found_in_trash' 	=> __( 'No Ditty Found In Trash', 'ditty-news-ticker' ),
+		'parent_item_colon' 	=> '',
+		'menu_name' 					=> __( 'Ditty', 'ditty-news-ticker' )
 	);
 
 	// Create the arguments
 	$args = array(
-		'labels' => $labels,
-		'public' => false,
-		'publicly_queryable' => true,
-		'exclude_from_search' => true,
-		'show_ui' => true,
-		'capability_type' => 'ditty',
-		'map_meta_cap' => true,
-		'show_in_menu' => true, 
-		'query_var' => true,
-		'rewrite' => true,
-		'menu_icon' => 'dashicons-ditty',
-		'supports' => array( 'title', 'author' ),
-		'show_in_rest' => true,
-		'show_in_nav_menus' => false,
+		'labels' 							=> $labels,
+		'public' 							=> false,
+		'show_ui' 						=> true,
+		'capability_type' 		=> 'ditty',
+		'map_meta_cap' 				=> true,
+		'show_in_menu' 				=> true, 
+		'query_var' 					=> true,
+		'rewrite' 						=> false,
+		'menu_icon' 					=> 'dashicons-ditty',
+		'supports'						=> array( 'title', 'author' ),
+		'show_in_rest' 				=> true,
 	);
 	register_post_type( 'ditty', $args );	
 	
 	
 	// Layout
 	$labels = array(
-		'name' => __( 'Layouts', 'ditty-news-ticker' ),
-		'singular_name' => __( 'Layout', 'ditty-news-ticker' ),
-		'add_new' => __( 'Add New', 'ditty-news-ticker' ),
-		'add_new_item' => __( 'Add New Layout', 'ditty-news-ticker' ),
-		'edit_item' => __( 'Edit Layout', 'ditty-news-ticker' ),
-		'new_item' => __( 'New Layout', 'ditty-news-ticker' ),
-		'view_item' => __( 'View Layout', 'ditty-news-ticker' ),
-		'search_items' => __( 'Search Layouts', 'ditty-news-ticker' ),
-		'not_found' => __( 'No Layouts Found', 'ditty-news-ticker' ),
-		'not_found_in_trash' => __( 'No Layouts Found In Trash', 'ditty-news-ticker' ),
-		'parent_item_colon' => '',
-		'menu_name' => __( 'Layouts', 'ditty-news-ticker' )
+		'name' 								=> __( 'Layouts', 'ditty-news-ticker' ),
+		'singular_name' 			=> __( 'Layout', 'ditty-news-ticker' ),
+		'add_new' 						=> __( 'Add New', 'ditty-news-ticker' ),
+		'add_new_item' 				=> __( 'Add New Layout', 'ditty-news-ticker' ),
+		'edit_item' 					=> __( 'Edit Layout', 'ditty-news-ticker' ),
+		'new_item' 						=> __( 'New Layout', 'ditty-news-ticker' ),
+		'view_item' 					=> __( 'View Layout', 'ditty-news-ticker' ),
+		'search_items' 				=> __( 'Search Layouts', 'ditty-news-ticker' ),
+		'not_found' 					=> __( 'No Layouts Found', 'ditty-news-ticker' ),
+		'not_found_in_trash' 	=> __( 'No Layouts Found In Trash', 'ditty-news-ticker' ),
+		'parent_item_colon' 	=> '',
+		'menu_name' 					=> __( 'Layouts', 'ditty-news-ticker' )
 	);
 
 	// Create the arguments
 	$args = array(
-		'labels' => $labels,
-		'public' => false,
-		'publicly_queryable' => true,
-		'exclude_from_search' => true,
-		'show_ui' => true,
-		'capability_type' => 'ditty_layout',
-		'map_meta_cap' => true,
-		'show_in_menu' => 'edit.php?post_type=ditty', 
-		'query_var' => true,
-		'rewrite' => true,
-		'supports' => array( 'title' ),
-		'show_in_rest' => true,
-		'show_in_nav_menus' => false,
+		'labels' 							=> $labels,
+		'public' 							=> false,
+		'show_ui' 						=> true,
+		'capability_type' 		=> 'ditty_layout',
+		'map_meta_cap' 				=> true,
+		'show_in_menu' 				=> 'edit.php?post_type=ditty', 
+		'query_var' 					=> true,
+		'rewrite' 						=> false,
+		'supports' 						=> array( 'title' ),
+		'show_in_rest' 				=> true,
 	);
 	// if ( 'enabled' == ditty_settings( 'ditty_layout_ui' ) || $is_settings_page ) {
 	// 	$args['show_ui'] = true;
@@ -85,35 +79,32 @@ function ditty_setup_post_types() {
 	
 	// Display
 	$labels = array(
-		'name' => __( 'Displays', 'ditty-news-ticker' ),
-		'singular_name' => __( 'Display', 'ditty-news-ticker' ),
-		'add_new' => __( 'Add New', 'ditty-news-ticker' ),
-		'add_new_item' => __( 'Add New Display', 'ditty-news-ticker' ),
-		'edit_item' => __( 'Edit Display', 'ditty-news-ticker' ),
-		'new_item' => __( 'New Display', 'ditty-news-ticker' ),
-		'view_item' => __( 'View Display', 'ditty-news-ticker' ),
-		'search_items' => __( 'Search Displays', 'ditty-news-ticker' ),
-		'not_found' => __( 'No Displays Found', 'ditty-news-ticker' ),
-		'not_found_in_trash' => __( 'No Displays Found In Trash', 'ditty-news-ticker' ),
-		'parent_item_colon' => '',
-		'menu_name' => __( 'Displays', 'ditty-news-ticker' )
+		'name' 								=> __( 'Displays', 'ditty-news-ticker' ),
+		'singular_name' 			=> __( 'Display', 'ditty-news-ticker' ),
+		'add_new' 						=> __( 'Add New', 'ditty-news-ticker' ),
+		'add_new_item' 				=> __( 'Add New Display', 'ditty-news-ticker' ),
+		'edit_item' 					=> __( 'Edit Display', 'ditty-news-ticker' ),
+		'new_item' 						=> __( 'New Display', 'ditty-news-ticker' ),
+		'view_item' 					=> __( 'View Display', 'ditty-news-ticker' ),
+		'search_items' 				=> __( 'Search Displays', 'ditty-news-ticker' ),
+		'not_found' 					=> __( 'No Displays Found', 'ditty-news-ticker' ),
+		'not_found_in_trash' 	=> __( 'No Displays Found In Trash', 'ditty-news-ticker' ),
+		'parent_item_colon' 	=> '',
+		'menu_name' 					=> __( 'Displays', 'ditty-news-ticker' )
 	);
 
 	// Create the arguments
 	$args = array(
-		'labels' => $labels,
-		'public' => false,
-		'publicly_queryable' => true,
-		'exclude_from_search' => true,
-		'show_ui' => true,
-		'capability_type' => 'ditty_display',
-		'map_meta_cap' => true,
-		'show_in_menu' => 'edit.php?post_type=ditty', 
-		'query_var' => true,
-		'rewrite' => true,
-		'supports' => array( 'title' ),
-		'show_in_rest' => true,
-		'show_in_nav_menus' => false,
+		'labels' 							=> $labels,
+		'public' 							=> false,
+		'show_ui' 						=> true,
+		'capability_type' 		=> 'ditty_display',
+		'map_meta_cap' 				=> true,
+		'show_in_menu' 				=> 'edit.php?post_type=ditty', 
+		'query_var' 					=> true,
+		'rewrite' 						=> false,
+		'supports' 						=> array( 'title' ),
+		'show_in_rest' 				=> true,
 	);
 	// if ( 'enabled' == ditty_settings( 'ditty_display_ui' ) || $is_settings_page ) {
 	// 	$args['show_ui'] = true;

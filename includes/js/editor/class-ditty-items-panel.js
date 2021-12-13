@@ -20,6 +20,7 @@
     this.$contents    = $( elmt ).find( '.ditty-editor__panel__contents' );
     this.$list				= $( elmt ).find( '.ditty-data-list' );
     this.$listItems		= $( elmt ).find( '.ditty-data-list__items' );
+		this.isEmptyTicker	= false;
 
     this._init();
   };
@@ -50,6 +51,7 @@
 
 			// Make sure there is at least one item
 			if ( 1 > this.$elmt.find( '.ditty-data-list__item' ).length ) {
+				this.isEmptyTicker = true;
 				this.$add.trigger( 'click' );
 			}
 			
@@ -313,6 +315,13 @@
 			};
 			$.post( dittyVars.ajaxurl, data, function( response ) {
 				if ( response.display_items ) {
+					if ( self.isEmptyTicker ) {
+						var placeholderItems = self.settings.editor.ditty.options( 'items' );
+						$.each( placeholderItems, function( index, data ) {
+							self.settings.editor.ditty.deleteItem( data.id );
+						} );
+						self.isEmptyTicker = false;
+					}
 			    $.each( response.display_items, function( key, value ) {
 				    self.settings.editor.ditty.addItem( value, 0 );
 					} ); 		

@@ -35,8 +35,9 @@ class Ditty_Editor {
 		check_ajax_referer( 'ditty', 'security' );	
 		$ditty_id = isset( $_POST['ditty_id'] ) ? intval( $_POST['ditty_id'] ) : false;	
 		$data = array(
-			'tabs'		=> apply_filters( 'ditty_editor_tabs', array(), $ditty_id ),
-			'panels' 	=> apply_filters( 'ditty_editor_panels', array(), $ditty_id ),
+			'tabs'				=> apply_filters( 'ditty_editor_tabs', array(), $ditty_id ),
+			'panels' 			=> apply_filters( 'ditty_editor_panels', array(), $ditty_id ),
+			'draft_data' 	=> ditty_get_draft_values(),
 		);
 		wp_send_json( $data );
 	}	

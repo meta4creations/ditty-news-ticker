@@ -801,6 +801,7 @@ class Ditty_Layouts {
 		if ( ! current_user_can( 'edit_ditty_layouts' ) ) {
 			wp_die();
 		}
+		ChromePhp::log( '$draft_values_ajax:', $draft_values_ajax );
 		ditty_set_draft_values( $draft_values_ajax );
 		ditty_draft_layout_update( $layout_id_ajax, $edit_type_ajax, $code_ajax );
 		if ( ! $editor_layout = new Ditty_Layout( $layout_id_ajax ) ) {
@@ -813,9 +814,11 @@ class Ditty_Layouts {
 				
 				// Get updated items
 				$item_ids = array_unique( $item_ids_ajax );
+				ChromePhp::log( '$item_ids:', $item_ids );
 				if ( is_array( $item_ids ) && count( $item_ids ) > 0 ) {
 					foreach ( $item_ids as $i => $item_id ) {
 						$editor_item = new Ditty_Item( $item_id );
+						ChromePhp::log( '$editor_item:', $editor_item );
 						$display_items = array_merge( $display_items, $editor_item->get_display_items() );
 					}
 				}
@@ -831,6 +834,8 @@ class Ditty_Layouts {
 		if ( $title_ajax ) {
 			$editor_layout->set_label( $title_ajax );
 		}
+		
+		ChromePhp::log( '$display_items:', $display_items );
 		
 		wp_send_json(
 			array(

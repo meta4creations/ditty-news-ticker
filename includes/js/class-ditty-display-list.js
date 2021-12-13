@@ -256,7 +256,6 @@
 					items.push( item );
 				}
 			} );
-			console.log( 'items:', items );
 			this.enabledItems = items;
 			this.total = items.length;
 				
