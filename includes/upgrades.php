@@ -10,7 +10,7 @@ function ditty_updates() {
 	$save_version = false;
 	$current_version = get_option( 'ditty_version', '0' );
 	if ( version_compare( $current_version, '3.0', '<' ) ) {
-		ditty_v30_upgrades( false );
+		ditty_v3_upgrades( false );
 	}
 	
 	if ( DITTY_VERSION != $current_version ) {
@@ -26,7 +26,7 @@ add_action( 'admin_init', 'ditty_updates' );
  * @since  3.0
  * @return void
  */
-function ditty_v30_upgrades( $run_install = false ) {
+function ditty_v3_upgrades( $run_install = false ) {
 	
 	// Update extension licenses
 	$licenses = ( is_multisite() ) ? get_site_option( 'mtphr_edd_licenses' ) : get_option( 'mtphr_edd_licenses' );

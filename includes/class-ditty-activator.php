@@ -58,15 +58,15 @@ class Ditty_Activator {
 	public static function run_install() {
 
 		// Add Upgraded From Option
-		$current_version = get_option( 'ditty_version', '0' );
-		if ( version_compare( $current_version, '3.0', '<' ) ) {
-			ditty_v30_upgrades();
-		}
-		
-		if ( DITTY_VERSION != $current_version ) {
-			update_option( 'ditty_version_upgraded_from', $current_version );
-			update_option( 'ditty_version', DITTY_VERSION );
-		}
+		// $current_version = get_option( 'ditty_version', '0' );
+		// if ( version_compare( $current_version, '3.0', '<' ) ) {
+		// 	ditty_v3_upgrades();
+		// }
+		// 
+		// if ( DITTY_VERSION != $current_version ) {
+		// 	update_option( 'ditty_version_upgraded_from', $current_version );
+		// 	update_option( 'ditty_version', DITTY_VERSION );
+		// }
 	}
 
 }
