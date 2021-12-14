@@ -171,7 +171,6 @@ class Ditty_Display_Item {
 		$layout_value 		= $this->get_layout_value();
 		$layout_id 				= isset( $layout_value['default'] ) ? $layout_value['default'] : 0;
 		$this->layout_id 	= apply_filters( 'ditty_display_item_layout_id', $layout_id, $this );
-		ChromePhp::log( '$layout_id:', $layout_id );
 		if ( false === strpos( $layout_id, 'new-' ) && 'publish' != get_post_status( $this->layout_id ) ) {
 			$this->item_value = array( 'ditty_feed_error' => sprintf( __( 'Ditty Layout does not exist for %s item!', 'ditty-news-ticker' ), $this->get_item_type() ) );
 			$this->has_error = true;

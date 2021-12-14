@@ -70,6 +70,7 @@
 			this.$form.on( 'click', 'input[type="radio"]', { self: this }, this._radioListeners );
 			this.$form.on( 'click', 'input[type="checkbox"]', { self: this }, this._checkboxListeners );
 			this.$form.on( 'change', 'select', { self: this }, this._selectListeners );
+			this.$form.on( 'ditty_field_clone_update', { self: this }, this._cloneListeners );
 
 			// Trigger the init
       setTimeout( function() {
@@ -219,6 +220,19 @@
 		  // var self 		= e.data.self,
 		  // 		values 	= self.$importExportField.val();
     },
+		
+		/**
+		 * Listen for clone changes
+		 *
+		 * @since    3.0
+		 * @return   null
+		*/
+		_cloneListeners: function( e, fieldData, cloneName ) {
+			var self = e.data.self,
+					$target = $( e.target );
+
+			self.settings.editor.ditty.options( cloneName, fieldData );
+		},
     
     /**
 		 * Listen for textfield changes
@@ -376,6 +390,7 @@
 			this.$form.off( 'click', 'input[type="radio"]', { self: this }, this._radioListeners );
 			this.$form.off( 'click', 'input[type="checkbox"]', { self: this }, this._checkboxListeners );
 			this.$form.off( 'change', 'select', { self: this }, this._selectListeners );
+			this.$form.off( 'ditty_field_clone_update', { self: this }, this._cloneListeners );
 	    
 	    this.elmt._ditty_display_editor_panel = null;	    
     }

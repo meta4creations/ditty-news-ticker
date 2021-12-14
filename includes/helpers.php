@@ -103,14 +103,14 @@ function ditty_display_types() {
 	$display_types['ticker'] = array(
 		'label' 			=> __( 'Ticker', 'ditty-news-ticker' ),
 		'icon' 				=> 'fas fa-ellipsis-h',
-		'description' => __( 'Basic news ticker display', 'ditty-news-ticker' ),
+		'description' => __( 'Basic news ticker display.', 'ditty-news-ticker' ),
 		'class_name'	=> 'Ditty_Display_Type_Ticker',
 		//'class_path'	=> DITTY_DIR . 'includes/class-ditty-display-type-ticker.php',
 	);
 	$display_types['list'] = array(
 		'label' 			=> __( 'List', 'ditty-news-ticker' ),
 		'icon' 				=> 'fas fa-list',
-		'description' => __( 'Display items in a static list', 'ditty-news-ticker' ),
+		'description' => __( 'Display items in a static list.', 'ditty-news-ticker' ),
 		'class_name'	=> 'Ditty_Display_Type_List',
 		//'class_path'	=> DITTY_DIR . 'includes/class-ditty-display-type-list.php',
 	);

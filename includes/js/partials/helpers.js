@@ -1,17 +1,33 @@
 /**
- * Update item css
+ * Update item layout css
  *
  * @since    3.0
  * @return   null
 */
 function dittyLayoutCss( layoutCss, layoutId ) {
-	var $styles = jQuery( 'style#ditty-' + layoutId );
+	var $styles = jQuery( 'style#ditty-layout--' + layoutId );
 	if ( undefined === $styles[0] ) {
-		$styles = jQuery( '<style id="ditty-' + layoutId + '"></style>' );
+		$styles = jQuery( '<style id="ditty-layout--' + layoutId + '"></style>' );
 		jQuery( 'head' ).append( $styles );
 	}
 	layoutCss = layoutCss.replace( '&gt;', '>' );
 	$styles.html( layoutCss );
+}
+
+/**
+ * Update item display css
+ *
+ * @since    3.0
+ * @return   null
+*/
+function dittyDisplayCss( displayCss, displayId ) {
+	var $styles = jQuery( 'style#ditty-display--' + displayId );
+	if ( undefined === $styles[0] ) {
+		$styles = jQuery( '<style id="ditty-display--' + displayId + '"></style>' );
+		jQuery( 'head' ).append( $styles );
+	}
+	displayCss = displayCss.replace( '&gt;', '>' );
+	$styles.html( displayCss );
 }
 
 /**
@@ -62,12 +78,13 @@ function dittyUpdateItems( itemSwaps ) {
 			$updateWrapper.removeAttr( 'style' );
 			$current.unwrap();
 			$current.remove();
-			$new.css( {
-				position: 'relative',
-				top: 'auto',
-				left: 'auto',
-				width: 'auto'
-			} );
+			$new.removeAttr( 'style' );
+			// $new.css( {
+			// 	position: 'relative',
+			// 	top: 'auto',
+			// 	left: 'auto',
+			// 	width: 'auto'
+			// } );
 			if ( $new.hasClass( 'ditty-temp-item' ) ) {
 				$new.remove();
 			}

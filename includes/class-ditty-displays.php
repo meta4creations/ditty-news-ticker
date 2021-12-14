@@ -530,7 +530,7 @@ class Ditty_Displays {
 		ditty_set_draft_values( $draft_values_ajax );
 		$display = new Ditty_Display( $display_id_ajax );
 		?>
-		<form class="ditty-editor-options ditty-metabox">
+		<form class="ditty-editor-options ditty-display-type-options ditty-display-type-options--<?php echo $display->get_display_type(); ?> ditty-metabox">
 			<div class="ditty-editor-options__contents">
 				<div class="ditty-editor-options__header">
 					<div class="ditty-editor-options__buttons ditty-editor-options__buttons--start">

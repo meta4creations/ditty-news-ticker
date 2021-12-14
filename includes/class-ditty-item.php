@@ -61,7 +61,6 @@ class Ditty_Item {
 	 */
 	public function parse_draft_data( $item_id, $meta = array() ) {
 		$draft_values = ditty_draft_item_get_data( $item_id );
-		ChromePhp::log( $item_id . ':', $draft_values );
 		
 		if ( is_object( $meta ) ) {
 			$meta = ( array ) $meta;

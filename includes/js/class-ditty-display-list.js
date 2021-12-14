@@ -375,9 +375,7 @@
 			    self.settings.items[i].is_disabled.push( slug );
 		    }
 			} );
-			this._calculatePages();
-	    this.$elmt.ditty_slider( 'options', 'slides', this.pages );
-	    this.$elmt.ditty_slider( 'showSlide' );
+			this.updateItems( this.settings.items );
 			this.trigger( 'disabled_items_update' );
     },
     
@@ -398,9 +396,7 @@
 					}
 		    }
 			} );
-			this._calculatePages();
-	    this.$elmt.ditty_slider( 'options', 'slides', this.pages );
-	    this.$elmt.ditty_slider( 'showSlide' );
+			this.updateItems( this.settings.items );
 			this.trigger( 'disabled_items_update' );
     },
     
