@@ -99,6 +99,7 @@ function ditty_v3_upgrades( $run_install = false ) {
 	// Install default layouts
 	Ditty()->layouts->install_default( 'default' );
 	Ditty()->layouts->install_default( 'default_image' );
+	Ditty()->layouts->install_default( 'default_post' );
 	Ditty()->displays->install_default( 'ticker', 'default' );
 	Ditty()->displays->install_default( 'list', 'default' );
 	Ditty()->displays->install_default( 'list', 'default_slider' );

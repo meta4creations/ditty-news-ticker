@@ -400,6 +400,42 @@ function ditty_draft_display_update( $display_id, $key = false, $value ) {
  * @since    3.0
  * @var      html
 */
+function ditty_set_variation_default( $item_type, $variation, $layout_id ) {
+	if ( ! $item_type_object = ditty_item_type_object( $item_type ) ) {
+		return false;
+	}
+	$variation_defaults = ditty_settings( 'variation_defaults' );
+	if ( ! isset( $variation_defaults[$item_type] ) ) {
+		$variation_defaults[$item_type] = array();
+	}
+	if ( is_string( $layout_id ) ) {
+		$args = array(
+			'template' 	=> $layout_id,
+			'fields'		=> 'ids',
+		);
+		if ( $posts = ditty_layouts_posts( $args ) ) {
+			$post_layout_id = reset( $posts );
+			$variation_defaults[$item_type][$variation] = $post_layout_id;
+			ditty_settings( 'variation_defaults', $variation_defaults );
+			return $post_layout_id;
+		} elseif( $post_layout_id = Ditty()->layouts->install_default( $layout_id ) ) {
+			$variation_defaults[$item_type][$variation] = $post_layout_id;
+			ditty_settings( 'variation_defaults', $variation_defaults );
+			return $post_layout_id;
+		}
+	} elseif( get_post( $layout_id ) ) {
+		$variation_defaults[$item_type][$variation] = $layout_id;
+		ditty_settings( 'variation_defaults', $variation_defaults );
+		return $layout_id;
+	}
+}
+
+/**
+ * Return all possible item type variations
+ *
+ * @since    3.0
+ * @var      html
+*/
 function ditty_layout_variation_types( $item_type = false ) {
 	if ( $item_type ) {
 		if ( $item_type_object = ditty_item_type_object( $item_type ) ) {

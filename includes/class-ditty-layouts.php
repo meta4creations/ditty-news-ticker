@@ -151,8 +151,6 @@ class Ditty_Layouts {
 		$variation_types = ditty_layout_variation_types();
 		$settings = ditty_settings( 'variation_defaults' );
 		$layout_options = $this->select_field_options( __( 'Choose a Layout', 'ditty-news-ticker' ) );
-		
-		//echo '<pre>';print_r($settings);echo '</pre>';
 
 		if ( is_array( $variation_types ) && count( $variation_types ) > 0 ) {
 			$html .= '<div id="ditty-layout-variation-defaults">';
