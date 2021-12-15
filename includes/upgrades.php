@@ -104,6 +104,10 @@ function ditty_v3_upgrades( $run_install = false ) {
 	Ditty()->displays->install_default( 'list', 'default' );
 	Ditty()->displays->install_default( 'list', 'default_slider' );
 	
+	// Set variation defaults
+	ditty_set_variation_default( 'default', 'default', 'default' );
+	ditty_set_variation_default( 'wp_editor', 'default', 'default' );
+	
 	// If News Tickers exists, enabled legacy code
 	$args = array(
 		'post_type' => 'ditty_news_ticker',
