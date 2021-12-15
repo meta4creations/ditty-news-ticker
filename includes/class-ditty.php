@@ -495,6 +495,7 @@ class Ditty {
 		wp_add_inline_script( 'ditty-admin', 'const dittyAdminVars = ' . json_encode( array(
 			'ajaxurl'				=> admin_url( 'admin-ajax.php' ),
 			'security'			=> wp_create_nonce( 'ditty' ),
+			'mode'					=> WP_DEBUG ? 'development' : 'production',
 			'adminStrings' 	=> is_admin() ? ditty_admin_strings() : false,
 			'updateIcon'		=> 'fas fa-sync-alt fa-spin',
 		) ), 'before' );

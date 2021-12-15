@@ -169,7 +169,7 @@ function ditty_sanitize_fields( $fields = array(), $values = array(), $id = '' )
 				if ( isset( $field['fields'] ) && is_array( $field['fields'] ) && count( $field['fields'] ) > 0 ) {
 					foreach ( $field['fields'] as $group_field ) {
 						$group_value = isset( $values[$group_field['id']] ) ? $values[$group_field['id']] : false;
-						if ( ! $group_value ) {
+						if ( empty( $group_value ) ) {
 							continue;
 						}
 						$sanitized_values[$group_field['id']] = ditty_sanitize_field( $group_field, $group_value );
@@ -177,7 +177,7 @@ function ditty_sanitize_fields( $fields = array(), $values = array(), $id = '' )
 				}
 			} else {
 				$value = isset( $values[$field['id']] ) ? $values[$field['id']] : false;
-				if ( ! $value ) {
+				if ( empty( $value ) ) {
 					continue;
 				}
 				$sanitized_values[$field['id']] = ditty_sanitize_field( $field, $value );

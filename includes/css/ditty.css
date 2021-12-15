@@ -397,6 +397,17 @@
   .ditty-item__clear {
     clear: both; }
 
+#ditty-display-settings.postbox .inside {
+  padding: 0;
+  margin: 0; }
+  #ditty-display-settings.postbox .inside .ditty-display-admin-settings {
+    box-sizing: border-box; }
+    #ditty-display-settings.postbox .inside .ditty-display-admin-settings * {
+      box-sizing: border-box; }
+    #ditty-display-settings.postbox .inside .ditty-display-admin-settings > .ditty-field-type--group > .ditty-field__input__container {
+      padding-left: 12px;
+      padding-right: 12px; }
+
 .ditty-ticker {
   box-sizing: border-box; }
   .ditty-ticker * {

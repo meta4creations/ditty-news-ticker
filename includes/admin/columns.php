@@ -14,7 +14,6 @@ function ditty_manage_posts_columns( $columns, $post_type ){
 			switch( $post_type ) {
 				case 'ditty_display':
 					$new_columns['ditty_display_version'] = __( 'Version', 'ditty-news-ticker' );
-					$new_columns['ditty_display_id'] = __( 'ID', 'ditty-news-ticker' );
 					$new_columns['ditty_display_type'] = __( 'Display Type', 'ditty-news-ticker' );
 					break;
 				case 'ditty_layout':
@@ -79,18 +78,14 @@ function ditty_manage_posts_custom_column( $column, $post_id ){
 			$display_id = get_post_meta( $post_id, '_ditty_display', true );
 			$display = new Ditty_Display( $display_id );
 			$label = $display->get_label();
-			//echo "<a href='edit.php?post_type={$post->post_type}&ditty_display={$meta}'>".$label."</a> - <a href='" . get_edit_post_link( $display->get_display_id() ) . "'>" . __( 'Edit', 'ditty-news-ticker' ) . "</a>";
+			echo "<a href='edit.php?post_type={$post->post_type}&ditty_display={$display_id}'>".$label."</a> - <a href='" . get_edit_post_link( $display->get_display_id() ) . "'>" . __( 'Edit', 'ditty-news-ticker' ) . "</a>";
 			//echo "{$label} - <a href='" . get_edit_post_link( $display->get_display_id() ) . "'>" . __( 'Edit', 'ditty-news-ticker' ) . "</a>";
-			echo $label;
+			//echo $label;
 			break;
 		case 'ditty_display_version':
 			$meta = get_post_meta( $post_id, '_ditty_display_version', true );
 			$label = $meta;
 			echo $label;
-			break;
-		case 'ditty_display_id':
-		case 'ditty_layout_id':
-			echo $post_id;
 			break;
 		default:
 			break;
