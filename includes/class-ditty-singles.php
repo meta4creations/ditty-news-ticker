@@ -50,8 +50,6 @@ class Ditty_Singles {
 		add_action( 'wp_ajax_nopriv_ditty_init', array( $this, 'init_ajax' ) );
 		add_action( 'wp_ajax_ditty_live_updates', array( $this, 'live_updates_ajax' ) );
 		add_action( 'wp_ajax_nopriv_ditty_live_updates', array( $this, 'live_updates_ajax' ) );
-		//add_action( 'wp_ajax_ditty_api_background_updates', array( $this, 'api_background_updates' ) );
-		//add_action( 'wp_ajax_nopriv_ditty_api_background_updates', array( $this, 'api_background_updates' ) );
 		
 		// Editor Ajax
 		add_action( 'wp_ajax_ditty_editor_settings_update', array( $this, 'editor_settings_update_ajax' ) );
@@ -211,7 +209,7 @@ class Ditty_Singles {
 							'uniqid'			=> 'ditty-preview-' . $post->ID,
 							'class'				=> 'ditty-preview',
 							'show_editor'	=> 1,
-							'force_load'	=> 1,
+							//'force_load'	=> 1,
 						);
 						echo ditty_render( $atts );
 						?>
@@ -356,7 +354,6 @@ class Ditty_Singles {
 	 */
 	public function init_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
-
 		$id_ajax 								= isset( $_POST['id'] ) 							? intval( $_POST['id'] ) 									: false;
 		$display_ajax 					= isset( $_POST['display'] ) 					? esc_attr( $_POST['display'] ) 					: false;
 		$display_settings_ajax 	= isset( $_POST['display_settings'] ) ? esc_attr( $_POST['display_settings'] ) 	: false;

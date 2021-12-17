@@ -119,7 +119,7 @@
 			// Load the editor contents
       this._loadContents();
       
-      // Start live updates
+      // Stop live updates
       this.trigger( 'stop_live_updates' );
 			
 			// Trigger the init

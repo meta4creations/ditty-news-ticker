@@ -49,10 +49,7 @@ function ditty_fields( $fields = array(), $values = array(), $action = 'render' 
  * @access  public
  * @since   3.0
  */
-function ditty_sanitize_input( $field, $value = false ) {
-	if ( ! $value ) {
-		return false;
-	}
+function ditty_sanitize_input( $field, $value ) {
 	$sanitize_type = isset( $field['sanitize'] ) ? $field['sanitize'] : $field['type'];
 	$sanitized_value = false;
 	switch( $sanitize_type ) {
@@ -104,11 +101,10 @@ function ditty_sanitize_group( $group = array(), $values = array() ) {
 	$sanitized_values = array();
 	if ( isset( $group['fields'] ) && is_array( $group['fields'] ) && count( $group['fields'] ) > 0 ) {
 		foreach ( $group['fields'] as $field ) {
-			$value = isset( $values[$field['id']] ) ? $values[$field['id']] : false;
-			if ( ! $value ) {
+			if ( ! isset( $values[$field['id']] ) ) {
 				continue;
 			}
-			$sanitized_values[$field['id']] = ditty_sanitize_input( $field, $value );
+			$sanitized_values[$field['id']] = ditty_sanitize_input( $field, $values[$field['id']] );
 		}
 	}
 	return $sanitized_values;
@@ -168,19 +164,17 @@ function ditty_sanitize_fields( $fields = array(), $values = array(), $id = '' )
 			if ( 'group' == $field['type'] && isset( $field['multiple_fields'] ) && true == $field['multiple_fields'] ) {
 				if ( isset( $field['fields'] ) && is_array( $field['fields'] ) && count( $field['fields'] ) > 0 ) {
 					foreach ( $field['fields'] as $group_field ) {
-						$group_value = isset( $values[$group_field['id']] ) ? $values[$group_field['id']] : false;
-						if ( empty( $group_value ) ) {
+						if ( ! isset( $values[$group_field['id']] ) ) {
 							continue;
 						}
-						$sanitized_values[$group_field['id']] = ditty_sanitize_field( $group_field, $group_value );
+						$sanitized_values[$group_field['id']] = ditty_sanitize_field( $group_field, $values[$group_field['id']] );
 					}
 				}
 			} else {
-				$value = isset( $values[$field['id']] ) ? $values[$field['id']] : false;
-				if ( empty( $value ) ) {
+				if ( ! isset( $values[$field['id']] ) ) {
 					continue;
 				}
-				$sanitized_values[$field['id']] = ditty_sanitize_field( $field, $value );
+				$sanitized_values[$field['id']] = ditty_sanitize_field( $field, $values[$field['id']] );
 			}
 		}		
 	}

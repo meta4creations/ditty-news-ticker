@@ -74,7 +74,7 @@
 
 			// Trigger the init
       setTimeout( function() {
-        self.trigger( 'init' ); 
+        self.trigger( 'init', [self] ); 
       }, 1 );
     },
     
@@ -372,13 +372,8 @@
 		 * @return 	null
 		*/
     destroy: function () {
-	    
-	    // Set the ditty options before leaving
-/*
-	    if ( this.$elmt.hasClass( 'ditty-editor__panel' ) ) {
-		  	this.settings.editor.ditty.$elmt['ditty_' + this.displayType]( 'options', this.displayOptions );
-		  }
-*/
+			
+			this.trigger( 'destroy', [this] ); 
 
 	    // Remove actions
 			this.$importExportUpdate.off( 'click', { this: this }, this._importUpdate );

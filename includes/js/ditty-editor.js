@@ -13,6 +13,8 @@
 // @codekit-append 'editor/class-ditty-layouts-panel.js';
 // @codekit-append 'editor/class-ditty-layout-html-editor-panel.js';
 // @codekit-append 'editor/class-ditty-layout-css-editor-panel.js';
+// @codekit-append 'editor/ditty-list-display-editor.js';
+
 jQuery( document ).ready( function( $ ) {
 	
 	// Setup strict mode

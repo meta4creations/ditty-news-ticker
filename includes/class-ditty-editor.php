@@ -20,8 +20,6 @@ class Ditty_Editor {
 	public function __construct() {
 		add_action( 'wp_ajax_ditty_editor_load_contents', array( $this, 'editor_load_contents' ) );
 		add_action( 'wp_ajax_noprive_ditty_editor_load_contents', array( $this, 'editor_load_contents' ) );
-		//add_action( 'wp_ajax_ditty_editor_ajax', array( $this, 'editor_ajax' ) );
-		//add_action( 'wp_ajax_noprive_ditty_editor_ajax', array( $this, 'editor_ajax' ) );
 		add_action( 'init', array( $this, 'editor_update' ) );
 	}
 	
@@ -41,35 +39,7 @@ class Ditty_Editor {
 		);
 		wp_send_json( $data );
 	}	
-	
-	/**
-	 * Load the editor contents
-	 *
-	 * @access public
-	 * @since  3.0
-	 */
-	// public function editor_ajax() {
-	// 	check_ajax_referer( 'ditty', 'security' );
-	// 	$hook_ajax = isset( $_POST['hook'] ) ? $_POST['hook'] : false;	
-	// 	if ( ! $hook_ajax ) {
-	// 		wp_die();
-	// 	}
-	// 	
-	// 	// Set draft values
-	// 	if ( isset( $_POST['draft_values'] ) ) {
-	// 		ditty_set_draft_values( $_POST['draft_values'] );
-	// 		unset( $_POST['draft_values'] );
-	// 	}
-	// 	unset( $_POST['action'] );
-	// 	unset( $_POST['security'] );
-	// 	unset( $_POST['hook'] );
-	// 	
-	// 	$return = apply_filters( $hook_ajax, $_POST );
-	// 	$return['hook'] = $hook_ajax;
-	// 	$return['draft_values'] = ditty_get_draft_values();
-	// 	wp_send_json( $return );
-	// }	
-	
+
 	/**
 	 * Update a ditty from the editor
 	 *

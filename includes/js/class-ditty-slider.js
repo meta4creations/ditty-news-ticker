@@ -21,6 +21,11 @@
 	  	height								:	0,
 	  	heightEase						:	'easeInOutQuint',
 	  	heightSpeed						:	1.5, // 1 - 10
+			initTransition				:	'fade', // fade, slideLeft, slideREight, slideDown, slideUp
+			initTransitionEase		:	'easeInOutQuint',
+			initTransitionSpeed		:	1.5, // 1 - 10
+			initHeightEase				:	'easeInOutQuint',
+			initHeightSpeed				:	0.5, // 1 - 10	
 	  	arrows								: 'none',
 			arrowsIconColor				: '',
 			arrowsBgColor					: '',
@@ -89,6 +94,7 @@
     this.currentHeight			= this.settings.height;
     this.animateTransition 	= false;
     this.animateHeight			= false;
+		this.slidesDisplayed		= 0,
     this.paused							= false;
     this.transitions 				= [
 	    'fade',
@@ -156,6 +162,8 @@
 					}
 				} );
 			}
+			
+			console.log( this.settings );
 			
 			// Convert slide elements into slide data
       this._convertSlideElements();
@@ -424,6 +432,7 @@
 	    this._animateIn( $slide, actionParams );
 	    this._animateHeight();
 	    this._activateBullet();
+			this.slidesDisplayed = this.slidesDisplayed + 1;
 		},
 
 		/**
@@ -433,7 +442,10 @@
 		 * @return   null
 		*/
 		_animateIn: function( $slide, actionParams ) {
-			var self = this;
+			var self = this,
+					transitionSpeed = ( 0 === parseInt( this.slidesDisplayed ) ) ? this.settings.initTransitionSpeed : this.settings.transitionSpeed,
+					transitionEase = ( 0 === parseInt( this.slidesDisplayed ) ) ? this.settings.initTransitionEase : this.settings.transitionEase;
+					
 			this.transitioning = true;
 		  this._timerStop();
 			$slide.show();
@@ -442,7 +454,7 @@
 				left		: 0,
 				top			: 0,
 				opacity	: 1
-			}, parseFloat( this.settings.transitionSpeed ) * 1000, this.settings.transitionEase, function() {
+			}, parseFloat( transitionSpeed ) * 1000, transitionEase, function() {
 				$slide.removeClass( 'ditty-slide-animating' );
 				$slide.css( 'position', 'relative' );
 				self.transitioning = false;
@@ -517,7 +529,7 @@
 			var posX = 0,
 					posY = 0,
 					opacity = 1,
-					transition = this.settings.transition;
+					transition = ( 0 === parseInt( this.slidesDisplayed ) ) ? this.settings.initTransition : this.settings.transition;
 					
 			if ( 'reverse' === direction ) {
 				transition = this._reverseTransition( transition );
@@ -588,13 +600,15 @@
 		*/
 		_animateHeight: function () {
 			var self = this,
-					height = this.$currentSlide.outerHeight();
+					height = this.$currentSlide.outerHeight(),
+					heightSpeed = ( 0 === parseInt( this.slidesDisplayed ) ) ? this.settings.initHeightSpeed : this.settings.heightSpeed,
+					heightEase = ( 0 === parseInt( this.slidesDisplayed ) ) ? this.settings.initHeightEase : this.settings.heightEase;
 
 			this.currentHeight = height;
 				
 			this.$slides.stop( true ).animate( {
 				height: height + 'px'
-			}, parseFloat( this.settings.heightSpeed ) * 1000, this.settings.heightEase, function() {
+			}, parseFloat( heightSpeed ) * 1000, heightEase, function() {
 				self.animateHeight = false;
 				self._removeStaticHeight();
 				self.trigger( 'height_updated' );
