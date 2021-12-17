@@ -41,9 +41,9 @@
       "ec" : 1,
       "ft" : 4,
       "ma" : 0,
-      "oA" : 0,
+      "oA" : 1,
       "oAP" : "\/blocks\/css\/editor.css",
-      "oF" : 0,
+      "oF" : 1,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
@@ -55,7 +55,7 @@
       "mi" : 0,
       "oA" : 1,
       "oAP" : "\/blocks\/ditty-block\/icon.min.js",
-      "oF" : 0,
+      "oF" : 1,
       "sC" : 3,
       "tS" : 0
     },
@@ -64,9 +64,9 @@
       "ft" : 64,
       "ma" : 0,
       "mi" : 0,
-      "oA" : 0,
+      "oA" : 1,
       "oAP" : "\/blocks\/ditty-block\/index.min.js",
-      "oF" : 0,
+      "oF" : 1,
       "sC" : 3,
       "tS" : 0
     },
@@ -74,9 +74,9 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 1,
       "oAP" : "\/blocks\/ditty-block\/index.php",
-      "oF" : 0
+      "oF" : 1
     },
     "\/blocks\/ditty-block\/style.scss" : {
       "aP" : 1,
@@ -86,9 +86,9 @@
       "ec" : 1,
       "ft" : 4,
       "ma" : 0,
-      "oA" : 0,
+      "oA" : 1,
       "oAP" : "\/blocks\/css\/style.css",
-      "oF" : 0,
+      "oF" : 1,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
@@ -98,9 +98,9 @@
       "ft" : 64,
       "ma" : 0,
       "mi" : 0,
-      "oA" : 0,
+      "oA" : 1,
       "oAP" : "\/blocks\/frontend.min.js",
-      "oF" : 0,
+      "oF" : 1,
       "sC" : 3,
       "tS" : 0
     },
@@ -120,9 +120,9 @@
       "ft" : 64,
       "ma" : 0,
       "mi" : 0,
-      "oA" : 0,
+      "oA" : 1,
       "oAP" : "\/blocks\/index.min.js",
-      "oF" : 0,
+      "oF" : 1,
       "sC" : 3,
       "tS" : 0
     },
