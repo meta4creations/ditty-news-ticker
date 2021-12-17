@@ -90,7 +90,6 @@ jQuery( document ).ready( function( $ ) {
 	    var data = {
 				action		: 'ditty_live_updates',
 				live_ids 	: liveIds,
-				//api_ids		: getApiIds(),
 				security	: dittyVars.security
 			};
 			$.post( dittyVars.ajaxurl, data, function( response ) {
@@ -123,11 +122,12 @@ jQuery( document ).ready( function( $ ) {
 		 * @return   null
 		*/
     function startLiveUpdates() {
-	    if ( null !== liveInterval ) {
+	    if ( null !== liveInterval ||  1 > Object.keys( liveIds ).length ) {
 		    return false;
 		  }
-		  cancelAnimationFrame( liveInterval );
 			
+		  cancelAnimationFrame( liveInterval );
+
 			var updateInterval = dittyVars.updateInterval ? parseInt( dittyVars.updateInterval ) : 60,
 					startTime = Date.now();
 					
@@ -175,6 +175,9 @@ jQuery( document ).ready( function( $ ) {
 				if ( data.display && '' !== data.display ) {
 					$ditty.attr( 'data-display', data.display );
 				}
+				if ( data.live_updates && '1' === String( data.live_updates ) ) {
+					$ditty.attr( 'data-live_updates', '1' );
+				}
 				if ( data.customId && '' !== data.customId ) {
 					$ditty.attr( 'id', data.customId );
 				}
@@ -210,10 +213,11 @@ jQuery( document ).ready( function( $ ) {
 			setupGlobalDitty();
 
 			$( '.ditty' ).each( function() {
-				var $ditty 		= $( this ),
-						ajax_load = $ditty.data( 'ajax_load' ) 		? $ditty.data( 'ajax_load' ) 		: false,
-						editor 		= $ditty.data( 'show_editor' ) 	? $ditty.data( 'show_editor' ) 	: false,
-						load_type = $ditty.data( 'load_type' ) 		? $ditty.data( 'load_type' ) 		: false;
+				var $ditty 				= $( this ),
+						ajax_load 		= $ditty.data( 'ajax_load' ) 		? $ditty.data( 'ajax_load' ) 		: false,
+						live_updates 	= $ditty.data( 'live_updates' ) ? $ditty.data( 'live_updates' ) : false,
+						editor 				= $ditty.data( 'show_editor' ) 	? $ditty.data( 'show_editor' ) 	: false,
+						load_type 		= $ditty.data( 'load_type' ) 		? $ditty.data( 'load_type' ) 		: false;
 					
 				// Load the Dittys via ajax	
 				if ( ajax_load ) {
@@ -239,14 +243,14 @@ jQuery( document ).ready( function( $ ) {
 						$ditty['ditty_' + response.display_type]( response.args );
 						
 						// Add to the liveIds
-						if ( ! editor ) {
+						if ( ! editor && live_updates ) {
 							liveIds[$ditty.data( 'id' )] = Math.floor( $.now()/1000 );
 						}
 					}, 'json' );
 					
 				} else {
 					
-					if ( ! editor ) {
+					if ( ! editor && live_updates ) {
 						liveIds[$ditty.data( 'id' )] = Math.floor( $.now()/1000 );
 					}
 				}

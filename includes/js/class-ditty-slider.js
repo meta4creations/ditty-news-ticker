@@ -163,8 +163,6 @@
 				} );
 			}
 			
-			console.log( this.settings );
-			
 			// Convert slide elements into slide data
       this._convertSlideElements();
 			

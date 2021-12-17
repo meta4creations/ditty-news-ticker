@@ -1046,7 +1046,8 @@ function ditty_render( $atts ) {
 	}
 	
 	$ditty_settings = get_post_meta( $args['id'], '_ditty_settings', true );
-	$ajax_load = ( isset( $ditty_settings['ajax'] ) && 'yes' == $ditty_settings['ajax'] ) ? '1' : 0;
+	$ajax_load 			= ( isset( $ditty_settings['ajax_loading'] ) && 'yes' == $ditty_settings['ajax_loading'] ) ? '1' : 0;
+	$live_updates 	= ( isset( $ditty_settings['live_updates'] ) && 'yes' == $ditty_settings['live_updates'] ) ? '1' : 0;
 	
 	ditty_add_scripts( $args['id'], $args['display']);
 	
@@ -1059,6 +1060,7 @@ function ditty_render( $atts ) {
 		'data-show_editor' 			=> ( 0 != intval( $args['show_editor'] ) ) ? '1' : false,
 		'data-load_type' 				=> ( '' != $args['load_type'] ) ? $args['load_type'] : false,
 		'data-ajax_load' 				=> $ajax_load,
+		'data-live_updates' 		=> $live_updates,
 	);
 
 	if ( 0 == $ajax_load ) {
@@ -1185,7 +1187,9 @@ function ditty_get_globals() {
 	$global_ditty = ditty_settings( 'global_ditty' );
 	if ( is_array( $global_ditty ) && count( $global_ditty ) > 0 ) {
 		foreach ( $global_ditty as $i => &$ditty ) {
+			$ditty_settings = get_post_meta( $ditty['ditty'], '_ditty_settings', true );
 			$ditty['selector'] = html_entity_decode( $ditty['selector'] );
+			$ditty['live_updates'] = ( isset( $ditty_settings['live_updates'] ) && 'yes' == $ditty_settings['live_updates'] ) ? '1' : 0;
 			$prepared_ditty[] = $ditty;
 		}
 	}

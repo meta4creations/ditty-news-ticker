@@ -107,6 +107,12 @@ class Ditty_Singles {
 							'std'					=> $title,
 							'placeholder' => ditty_strings( 'add_title' ),
 						),
+						'shortcode' => array(
+							'type'	=> 'text',
+							'id'		=> 'shortcode',
+							'name'	=> __( 'Shortcode', 'ditty-news-ticker' ),
+							'std'		=> $shortcode,
+						),
 						'status' => array(
 							'type'	=> 'radio',
 							'id'		=> 'status',
@@ -118,22 +124,27 @@ class Ditty_Singles {
 							'inline' => true,
 							'std'		=> ( 'publish' != $status ) ? 'draft' : $status,
 						),
-						'ajax' => array(
+						'ajax_loading' => array(
 							'type'	=> 'radio',
-							'id'		=> 'ajax',
+							'id'		=> 'ajax_loading',
 							'name'	=> __( 'Ajax Loading', 'ditty-news-ticker' ),
 							'options' => [
 								'no' 		=> __( 'No', 'ditty-news-ticker' ),
 								'yes' 	=> __( 'Yes', 'ditty-news-ticker' ),
 							],
 							'inline' 	=> true,
-							'std'			=> isset( $settings['ajax'] ) ? $settings['ajax'] : 'no',
+							'std'			=> isset( $settings['ajax_loading'] ) ? $settings['ajax_loading'] : 'no',
 						),
-						'shortcode' => array(
-							'type'	=> 'text',
-							'id'		=> 'shortcode',
-							'name'	=> __( 'Shortcode', 'ditty-news-ticker' ),
-							'std'		=> $shortcode,
+						'live_updates' => array(
+							'type'	=> 'radio',
+							'id'		=> 'live_updates',
+							'name'	=> __( 'Live Updates', 'ditty-news-ticker' ),
+							'options' => [
+								'no' 		=> __( 'No', 'ditty-news-ticker' ),
+								'yes' 	=> __( 'Yes', 'ditty-news-ticker' ),
+							],
+							'inline' 	=> true,
+							'std'			=> isset( $settings['live_updates'] ) ? $settings['live_updates'] : 'no',
 						),
 						'preview_settings' => array(
 							'type' 							=> 'group',
@@ -508,7 +519,8 @@ class Ditty_Singles {
 	 */
 	public function sanitize_settings( $settings ) {	
 		$sanitized_settings = array();
-		$sanitized_settings['ajax'] = isset( $settings['ajax'] ) ? esc_attr( $settings['ajax'] ) : 'no';
+		$sanitized_settings['ajax_loading'] = isset( $settings['ajax_loading'] ) ? esc_attr( $settings['ajax_loading'] ) : 'no';
+		$sanitized_settings['live_updates'] = isset( $settings['live_updates'] ) ? esc_attr( $settings['live_updates'] ) : 'no';
 		$sanitized_settings['previewBg'] = isset( $settings['previewBg'] ) ? sanitize_text_field( $settings['previewBg'] ) : false;
 		$sanitized_padding = array();
 		if ( isset( $settings['previewPadding'] ) && is_array( $settings['previewPadding'] ) && count( $settings['previewPadding'] ) > 0 ) {
