@@ -118,6 +118,17 @@ class Ditty_Singles {
 							'inline' => true,
 							'std'		=> ( 'publish' != $status ) ? 'draft' : $status,
 						),
+						'ajax' => array(
+							'type'	=> 'radio',
+							'id'		=> 'ajax',
+							'name'	=> __( 'Ajax Loading', 'ditty-news-ticker' ),
+							'options' => [
+								'no' 		=> __( 'No', 'ditty-news-ticker' ),
+								'yes' 	=> __( 'Yes', 'ditty-news-ticker' ),
+							],
+							'inline' 	=> true,
+							'std'			=> isset( $settings['ajax'] ) ? $settings['ajax'] : 'no',
+						),
 						'shortcode' => array(
 							'type'	=> 'text',
 							'id'		=> 'shortcode',
@@ -209,7 +220,7 @@ class Ditty_Singles {
 							'uniqid'			=> 'ditty-preview-' . $post->ID,
 							'class'				=> 'ditty-preview',
 							'show_editor'	=> 1,
-							//'force_load'	=> 1,
+							'load_type'		=> '',
 						);
 						echo ditty_render( $atts );
 						?>
@@ -347,7 +358,7 @@ class Ditty_Singles {
 	}
 	
 	/**
-	 * Return a item types to choose
+	 * Return data for a Ditty to load via ajax
 	 *
 	 * @access public
 	 * @since  3.0
@@ -358,8 +369,7 @@ class Ditty_Singles {
 		$display_ajax 					= isset( $_POST['display'] ) 					? esc_attr( $_POST['display'] ) 					: false;
 		$display_settings_ajax 	= isset( $_POST['display_settings'] ) ? esc_attr( $_POST['display_settings'] ) 	: false;
 		$editor_ajax 						= isset( $_POST['editor'] )						? intval( $_POST['editor'] ) 							: false;
-		$force_ajax 						= isset( $_POST['force'] )						? intval( $_POST['force'] ) 							: false;
-		$load_type							= ( $force_ajax ) 										? 'force' 																: false;
+		$load_type 							= isset( $_POST['loud_type'] )				? intval( $_POST['loud_type'] ) 					: '';
 
 		// Get the display attributes
 		if ( ! $display_ajax ) {
@@ -373,7 +383,7 @@ class Ditty_Singles {
 
 		// Setup the ditty values
 		$status = get_post_status( $id_ajax );
-		$args = $display->get_values( 'merged' );
+		$args = $display->get_values();
 		$args['id'] = $id_ajax;
 		$args['title'] 	= ( 'auto-draft' == $status ) ? '' : get_the_title( $id_ajax );
 		$args['status'] = $status;
@@ -394,6 +404,57 @@ class Ditty_Singles {
 			'args' 					=> $args,
 		);
 		wp_send_json( $data );
+	}
+	
+	/**
+	 * Return data for a Ditty to load via ajax
+	 *
+	 * @access public
+	 * @since  3.0
+	 */
+	public function init( $atts ) {
+		if ( ! $atts['data-id'] ) {
+			return false;
+		}
+		
+		$ditty_id 				= $atts['data-id'];
+		$uniqid 					= $atts['data-uniqid'];
+		$display_id 			= isset( $atts['data-display'] ) 					? $atts['data-display'] 					: false;
+		$display_settings = isset( $atts['data-display_settings'] )	? $atts['data-display_settings']	: false;
+		$show_editor 			= isset( $atts['data-show_editor'] ) 			? $atts['data-show_editor'] 			: false;
+		$load_type 				= isset( $atts['load_type'] )							? $atts['load_type'] 							: '';
+	
+		// Get the display attributes
+		if ( ! $display_id ) {
+			$display_id = get_post_meta( $ditty_id, '_ditty_display', true );
+		}
+		if ( ! $display_id || '' == $display_id || ! ditty_display_exists( $display_id ) ) {
+			$display_id = ditty_default_display( $ditty_id );
+		}
+		$display = new Ditty_Display( $display_id );
+	
+		// Setup the ditty values
+		$status = get_post_status( $ditty_id );
+		$args = $display->get_values();
+		
+		$args['id'] 				= $ditty_id;
+		$args['title'] 			= ( 'auto-draft' == $status ) ? '' : get_the_title( $ditty_id );
+		$args['status'] 		= $status;
+		$args['display'] 		= $display->get_display_id();
+		$args['showEditor'] = $show_editor;
+		
+		$items = ditty_display_items( $ditty_id, $load_type );
+		if ( ! is_array( $items ) ) {
+			$items = array();
+		}
+		$args['items'] = $items;
+		$args = $this->parse_custom_display_settings( $args, $display_settings );
+	
+		do_action( 'ditty_init', $ditty_id );
+		
+		?>
+		$( 'div[data-uniqid="<?php echo $uniqid; ?>"]' ).ditty_<?php echo $display->get_display_type(); ?>(<?php echo json_encode( $args ); ?>);
+		<?php
 	}
 	
 	/**
@@ -447,6 +508,7 @@ class Ditty_Singles {
 	 */
 	public function sanitize_settings( $settings ) {	
 		$sanitized_settings = array();
+		$sanitized_settings['ajax'] = isset( $settings['ajax'] ) ? esc_attr( $settings['ajax'] ) : 'no';
 		$sanitized_settings['previewBg'] = isset( $settings['previewBg'] ) ? sanitize_text_field( $settings['previewBg'] ) : false;
 		$sanitized_padding = array();
 		if ( isset( $settings['previewPadding'] ) && is_array( $settings['previewPadding'] ) && count( $settings['previewPadding'] ) > 0 ) {

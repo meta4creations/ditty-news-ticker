@@ -171,7 +171,7 @@ jQuery( document ).ready( function( $ ) {
 				if ( ! data.ditty || undefined === selector[0] ) {
 					return;	
 				}
-				var $ditty = $( '<div class="ditty" data-id="' + data.ditty + '"></div>' );			
+				var $ditty = $( '<div class="ditty" data-id="' + data.ditty + '" data-ajax_load="1"></div>' );			
 				if ( data.display && '' !== data.display ) {
 					$ditty.attr( 'data-display', data.display );
 				}
@@ -208,47 +208,50 @@ jQuery( document ).ready( function( $ ) {
 
 			// Add the global Dittys
 			setupGlobalDitty();
-			
-			// Update extension API calls
-			// if ( $( '.ditty' ).length ) {	
-			// 	updateExtensionApis();
-			// }
 
 			$( '.ditty' ).each( function() {
-				var $ditty = $( this ),
-						editor = $ditty.data( 'show_editor' ) ? $ditty.data( 'show_editor' ) : false,
-						force = $ditty.data( 'force_load' ) ? $ditty.data( 'force_load' ) : false;
-						
-				// Load the dittys via ajax
-				var data = {
-					action						: 'ditty_init',
-					id								: $ditty.data( 'id' ) ? $ditty.data( 'id' ) : false,
-					display						: $ditty.data( 'display' ) ? $ditty.data( 'display' ) : '',
-					display_settings	: $ditty.data( 'display_settings' ) ? $ditty.data( 'display_settings' ) : false,
-					status						: $ditty.data( 'status' ) ? $ditty.data( 'status' ) : false,
-					editor						: editor,
-					force							: force,
-					security					: dittyVars.security
-				};
-				$.post( dittyVars.ajaxurl, data, function( response ) {
-					// Make sure the display type exists
-					if ( ! response.display_type || ( 'function' !== typeof $ditty['ditty_' + response.display_type] ) ) {
-						if ( window.console ) {
-							console.log( 'Ditty Display type not loaded:', response.display_type );
+				var $ditty 		= $( this ),
+						ajax_load = $ditty.data( 'ajax_load' ) 		? $ditty.data( 'ajax_load' ) 		: false,
+						editor 		= $ditty.data( 'show_editor' ) 	? $ditty.data( 'show_editor' ) 	: false,
+						load_type = $ditty.data( 'load_type' ) 		? $ditty.data( 'load_type' ) 		: false;
+					
+				// Load the Dittys via ajax	
+				if ( ajax_load ) {
+					var data = {
+						action						: 'ditty_init',
+						id								: $ditty.data( 'id' ) ? $ditty.data( 'id' ) : false,
+						display						: $ditty.data( 'display' ) ? $ditty.data( 'display' ) : '',
+						display_settings	: $ditty.data( 'display_settings' ) ? $ditty.data( 'display_settings' ) : false,
+						editor						: editor,
+						load_type					: load_type,
+						security					: dittyVars.security
+					};
+					$.post( dittyVars.ajaxurl, data, function( response ) {
+						// Make sure the display type exists
+						if ( ! response.display_type || ( 'function' !== typeof $ditty['ditty_' + response.display_type] ) ) {
+							if ( window.console ) {
+								console.log( 'Ditty Display type not loaded:', response.display_type );
+							}
+							return false;
 						}
-						return false;
-					}
+						
+						// Load the ditty
+						$ditty['ditty_' + response.display_type]( response.args );
+						
+						// Add to the liveIds
+						if ( ! editor ) {
+							liveIds[$ditty.data( 'id' )] = Math.floor( $.now()/1000 );
+						}
+					}, 'json' );
 					
-					// Load the ditty
-					$ditty['ditty_' + response.display_type]( response.args );
+				} else {
 					
-					// Add to the liveIds
 					if ( ! editor ) {
 						liveIds[$ditty.data( 'id' )] = Math.floor( $.now()/1000 );
 					}
-				}, 'json' );
+				}
 			} );
-			
+
 			if ( $( '.ditty' ).length && dittyVars.updateInterval ) {
 				startLiveUpdates();
 			}

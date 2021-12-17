@@ -210,7 +210,7 @@ class Ditty_Display {
 	 * @since  3.0
 	 * @return int $id
 	 */
-	public function get_values( $type = '' ) {
+	public function get_values() {
 		$values = $this->get_settings();
 		if ( ! is_array( $values ) ) {
 			return array();

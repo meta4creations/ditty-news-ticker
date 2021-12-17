@@ -608,6 +608,23 @@ class Ditty {
 				wp_print_scripts( "ditty-display-{$ditty_display_script}" );
 			}
 		}
+		global $ditty_singles;
+		if ( empty( $ditty_singles ) ) {
+			$ditty_singles = array();
+		}
+		if ( is_array( $ditty_singles ) && count( $ditty_singles ) > 0 ) {
+			?>
+			<script id="ditty-singles">
+				jQuery( document ).ready( function( $ ) {
+				<?php
+				foreach ( $ditty_singles as $ditty_atts ) {
+					Ditty()->singles->init( $ditty_atts );
+				}
+				?>
+				} );
+			</script>
+			<?php
+		}
 	}
 
 }

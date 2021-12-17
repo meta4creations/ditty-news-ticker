@@ -1012,6 +1012,10 @@ function ditty_prepare_display_items( $meta ) {
  * @since    3.0
  */
 function ditty_render( $atts ) {
+	global $ditty_singles;
+	if ( empty( $ditty_singles ) ) {
+		$ditty_singles = array();
+	}
 
 	$defaults = array(
 		'id' 								=> '',
@@ -1020,7 +1024,7 @@ function ditty_render( $atts ) {
 		'uniqid' 						=> '',
 		'class' 						=> '',
 		'show_editor' 			=> 0,
-		'force_load' 				=> 0,
+		'load_type' 				=> '',
 	);
 	$args = shortcode_atts( $defaults, $atts );
 
@@ -1041,17 +1045,26 @@ function ditty_render( $atts ) {
 		$class .= ' ' . esc_attr( $args['class'] );
 	}
 	
+	$ditty_settings = get_post_meta( $args['id'], '_ditty_settings', true );
+	$ajax_load = ( isset( $ditty_settings['ajax'] ) && 'yes' == $ditty_settings['ajax'] ) ? '1' : 0;
+	
 	ditty_add_scripts( $args['id'], $args['display']);
 	
-	$atts = array(
+	$ditty_atts = array(
 		'class' 								=> $class,
 		'data-id' 							=> $args['id'],
+		'data-uniqid' 					=> $args['uniqid'],
 		'data-display' 					=> ( '' != $args['display'] ) ? $args['display'] : false,
 		'data-display_settings' => ( '' != $args['display_settings'] ) ? $args['display_settings'] : false,
 		'data-show_editor' 			=> ( 0 != intval( $args['show_editor'] ) ) ? '1' : false,
-		'data-force_load' 			=> ( 0 != intval( $args['force_load'] ) ) ? '1' : false,
+		'data-load_type' 				=> ( '' != $args['load_type'] ) ? $args['load_type'] : false,
+		'data-ajax_load' 				=> $ajax_load,
 	);
-	return '<div ' . ditty_attr_to_html( $atts ) . '></div>';
+
+	if ( 0 == $ajax_load ) {
+		$ditty_singles[] = $ditty_atts;
+	}
+	return '<div ' . ditty_attr_to_html( $ditty_atts ) . '></div>';
 }
 
 /**
