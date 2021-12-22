@@ -746,6 +746,15 @@ function ditty_display_items( $ditty_id, $load_type = false ) {
 				if ( is_object( $meta ) ) {
 					$meta = ( array ) $meta;
 				}
+				if ( $draft_data = ditty_draft_item_get_data( $meta['item_id'] ) ) {
+					if ( isset( $draft_data['item_value'] ) ) {
+						$draft_data['item_value'] = maybe_serialize( $draft_data['item_value'] );
+					}
+					if ( isset( $draft_data['layout_value'] ) ) {
+						$draft_data['layout_value'] = maybe_serialize( $draft_data['layout_value'] );
+					}
+					$meta = shortcode_atts( $meta, $draft_data );
+				}		
 				$prepared_items = ditty_prepare_display_items( $meta );
 				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
 					foreach ( $prepared_items as $i => $prepared_meta ) {

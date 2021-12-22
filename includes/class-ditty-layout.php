@@ -141,7 +141,7 @@ class Ditty_Layout {
 	 */
 	public function get_tags_list() {
 		$tags_list = '';
-		$tags = apply_filters( 'ditty_layout_tags_list', $this->get_layout_tags(), $this->get_item_type() );
+		$tags = apply_filters( 'ditty_layout_tags_list', $this->get_layout_tags(), $this->get_item_type(), 'html' );
 		if ( is_array( $tags ) && count( $tags ) > 0 ) {
 			$tags_list .= '<ul class="ditty-editor-options__tags__list ditty-editor-options__tags__list--' . $this->get_item_type() . '">';
 			foreach ( $tags as $data ) {
@@ -165,13 +165,14 @@ class Ditty_Layout {
 	 * @return int $id
 	 */
 	public function get_css_selectors_list() {
-		$tags = apply_filters( 'ditty_layout_tags_list', $this->get_layout_tags(), $this->get_item_type() );
+		$tags = apply_filters( 'ditty_layout_tags_list', $this->get_layout_tags(), $this->get_item_type(), 'css' );
 		$selectors_list = '';
 		if ( is_array( $tags ) && count( $tags ) > 0 ) {
 			$selectors_list .= '<ul class="ditty-editor-options__tags__list ditty-editor-options__tags__list--' . $this->get_item_type() . '">';
-			foreach ( $tags as $data ) {
-				$selectors_list .= '<li class="ditty-editor-options__tag">.ditty-item__' . $data['tag'] . '</li>';
-			}
+				$selectors_list .= '<li class="ditty-editor-options__tag">.ditty-item__elements</li>';
+				foreach ( $tags as $data ) {
+					$selectors_list .= '<li class="ditty-editor-options__tag">.ditty-item__' . $data['tag'] . '</li>';
+				}
 			$selectors_list .= '</ul>';
 		}
 		return $selectors_list;

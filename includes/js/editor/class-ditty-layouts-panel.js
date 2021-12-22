@@ -104,6 +104,27 @@
 				} );
 			}
 		},
+		
+		/**
+		 * Update new layout ids on save
+		 *
+		 * @since    3.0
+		 * @return   null
+		*/
+		dittyUpdatedDraftLayouts: function( variationType, layoutId ) {
+			var self = this;
+			
+			$.each( $( '.ditty-editor-item' ), function() {
+				var itemID = $( this ).data( 'item_id' ),
+						layoutValue = $( this ).data( 'layout_value' );
+				$.each( layoutValue, function( type, id ) {
+					if ( String( type ) === String( variationType ) ) {
+						layoutValue[type] = String( layoutId );
+						dittyDraftItemUpdateData( self, itemID, 'layout_value', layoutValue );
+					}
+				} );
+			} );
+		},
 
     /**
 		 * Load a new layout
@@ -126,16 +147,17 @@
 			if ( $layout.hasClass( 'active' ) ) {
 				return false;
 			}
-			$.each( layoutValue, function( type ) {
-				if ( self.editorVariationId === type ) {
-					layoutValue[type] = String( layoutId );
-				}
-			} );
+			// $.each( layoutValue, function( type ) {
+			// 	if ( self.editorVariationId === type ) {
+			// 		layoutValue[type] = String( layoutId );
+			// 	}
+			// } );
 
 			// Highlight the active layout
 			self.settings.editor.updateStart(); // Start the update overlay
-			dittyDraftItemUpdateData( self, self.editorItemId, 'layout_id', layoutId );
-			dittyDraftItemUpdateData( self, self.editorItemId, 'layout_value', layoutValue );
+			self.dittyUpdatedDraftLayouts( self.editorVariationId, layoutId );
+			//dittyDraftItemUpdateData( self, self.editorItemId, 'layout_id', layoutId );
+			//dittyDraftItemUpdateData( self, self.editorItemId, 'layout_value', layoutValue );
 			self._activateLayout( $layout );
 
 			// Use ajax to load the new layout
@@ -143,13 +165,14 @@
 				action				: 'ditty_editor_select_layout',
 				layout_id			: layoutId,
 				item_id				: self.editorItemId,
+				ditty_id			: self.editorDittyId,
 				draft_values 	: self.settings.editor.getDraftValues(),
 				security			: dittyVars.security
 			};
 			$.post( dittyVars.ajaxurl, data, function( response ) {
 				self.settings.editor.updateStop(); // Stop the update overlay
 				if ( response.display_items ) {
-					self.settings.editor.ditty.updateItems( response.display_items, self.editorItemId );
+					self.settings.editor.ditty.updateItems( response.display_items, false, false, true );
 				}
 				if ( response.editor_item ) {
 					var $newEditorItem = $( response.editor_item );

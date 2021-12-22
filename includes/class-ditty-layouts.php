@@ -687,6 +687,7 @@ class Ditty_Layouts {
 		check_ajax_referer( 'ditty', 'security' );
 		$layout_id_ajax 		= isset( $_POST['layout_id'] ) 		? $_POST['layout_id'] 		: false;
 		$item_id_ajax 			= isset( $_POST['item_id'] ) 			? $_POST['item_id'] 			: false;
+		$ditty_id_ajax 			= isset( $_POST['ditty_id'] ) 		? $_POST['ditty_id'] 			: false;
 		$draft_values_ajax 	= isset( $_POST['draft_values'] ) ? $_POST['draft_values'] 	: false;
 		if ( ! current_user_can( 'edit_ditty_items' ) || ! $item_id_ajax || ! $layout_id_ajax ) {
 			wp_die();
@@ -696,7 +697,8 @@ class Ditty_Layouts {
 		$editor_layout = new Ditty_Layout( $layout_id_ajax );
 		$data = array(
 			'editor_item' 			=> $editor_item->render_editor_list_item( 'return' ),
-			'display_items' 		=> $editor_item->get_display_items(),
+			//'display_items' 		=> $editor_item->get_display_items(),
+			'display_items'			=> ditty_display_items( $editor_item->get_ditty_id(), 'force' ),
 			'layout_label'			=> $editor_layout->get_label(),
 			'layout_css'				=> $editor_layout->get_css_compiled(),
 		);	
