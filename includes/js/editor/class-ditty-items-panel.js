@@ -93,7 +93,7 @@
 					var $editorItem = $( '#ditty-editor-item--' + draftId );
 					if ( $editorItem.length ) {
 						$editorItem.attr( 'id', 'ditty-editor-item--' + newId );
-						$editorItem.attr( 'data-itemId', newId ).data( 'item_id', newId );
+						$editorItem.attr( 'data-item_id', newId ).data( 'item_id', newId );
 					}
 				} );
 			}
