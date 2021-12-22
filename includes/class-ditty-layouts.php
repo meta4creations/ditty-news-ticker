@@ -15,6 +15,7 @@ use Padaliyajay\PHPAutoprefixer\Autoprefixer;
 class Ditty_Layouts {
 	
 	private $new_layouts;
+	private $updated_layouts;
 
 	/**
 	 * Get things started
@@ -31,6 +32,7 @@ class Ditty_Layouts {
 		add_filter( 'post_row_actions', array( $this, 'modify_list_row_actions' ), 10, 2 );
 		add_action( 'ditty_editor_update', array( $this, 'update_drafts' ), 10, 2 );
 		add_filter( 'ditty_item_db_data', array( $this, 'modify_ditty_item_db_data'), 10, 2 );
+		add_filter( 'ditty_editor_save_data', array( $this, 'editor_add_save_data'), 10, 2 );
 		
 		// Layout elements
 		add_action( 'ditty_editor_layout_elements', array( $this, 'editor_layout_icon' ), 5 );
@@ -885,6 +887,20 @@ class Ditty_Layouts {
 	}
 	
 	/**
+	 * Return the temporary new layout IDs
+	 *
+	 * @access public
+	 * @since  3.0
+	 * @param  array $new_layouts
+	 */
+	private function get_updated_layouts() {
+		if ( empty( $this->updated_layouts ) ) {
+			$this->updated_layouts = array();
+		}
+		return $this->updated_layouts;
+	}
+	
+	/**
 	 * Update the temporary new layout IDs
 	 *
 	 * @access public
@@ -908,12 +924,14 @@ class Ditty_Layouts {
 		if ( isset( $item_data['layout_value'] ) ) {
 			$layout_value = maybe_unserialize( $item_data['layout_value'] );
 			$new_layouts = $this->get_new_layouts();	
+			$updated_layouts = $this->get_updated_layouts();
 			$updated_layout_value = array();
 			if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
 				foreach ( $layout_value as $type => $id ) {
 					if ( false !== strpos( $id, 'new-' ) ) {
 						if ( isset( $new_layouts[$id] ) ) {
 							$updated_layout_value[$type] = $new_layouts[$id];
+							$updated_layouts[$id] = $new_layouts[$id];
 						}
 					} else {
 						$updated_layout_value[$type] = $id;
@@ -921,8 +939,24 @@ class Ditty_Layouts {
 				}
 			}
 			$item_data['layout_value'] = maybe_serialize( $updated_layout_value );
+			$this->updated_layouts = $updated_layouts;
 		}
 		return $item_data;
+	}
+	
+	/**
+	 * Add to the editor save data
+	 *
+	 * @access public
+	 * @since  3.0
+	 * @param   json.
+	 */
+	public function editor_add_save_data( $json_data, $ditty_id ) {
+		$updated_layouts = $this->get_updated_layouts();
+		if ( is_array( $updated_layouts ) && count( $updated_layouts ) > 0 ) {
+			$json_data['ditty_new_layout_ids'] = $updated_layouts;
+		}
+		return $json_data;
 	}
 
 	/**

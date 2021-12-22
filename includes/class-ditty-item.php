@@ -273,9 +273,11 @@ class Ditty_Item {
 	 * @return array $sanitized_item_value
 	 */
 	public function set_item_value( $item_value = array() ) {
-		$sanitized_item_value = $this->item_type_object->sanitize_settings( $item_value );		
-		$this->item_value = maybe_serialize( $sanitized_item_value );
-		return $sanitized_item_value;
+		if ( $item_type_object = $this->get_type_object() ) {
+			$sanitized_item_value = $item_type_object->sanitize_settings( $item_value );		
+			$this->item_value = maybe_serialize( $sanitized_item_value );
+			return $sanitized_item_value;
+		}
 	}
 	
 	/**

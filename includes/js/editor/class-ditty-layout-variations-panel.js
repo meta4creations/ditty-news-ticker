@@ -43,6 +43,7 @@
 			this.$elmt.on( 'click', '.ditty-layout-variation__change', { self: this }, this._changeTemplate );
 			this.$elmt.on( 'click', '.ditty-layout-variation__edit_html', { self: this, editType: 'html' }, this._editLayout );
 			this.$elmt.on( 'click', '.ditty-layout-variation__edit_css', { self: this, editType: 'css' }, this._editLayout );
+			$( 'body' ).on( 'ditty_editor_save_ditty_response', { self: this }, this._dittyEditorSaveResponse );
     },
     
     /**
@@ -67,6 +68,24 @@
 		  var self = e.data.self;
 		  self._showItemList();
     },
+		
+		/**
+		 * Update new item ids on save
+		 *
+		 * @since    3.0
+		 * @return   null
+		*/
+		_dittyEditorSaveResponse: function( e, response ) {
+			var self = e.data.self;
+			if ( response.ditty_new_layout_ids ) {
+				$.each( response.ditty_new_layout_ids, function( draftId, newId ) {
+					var $variationItem = $( '.ditty-layout-variation[data-layout_id="' + draftId + '"]' );
+					if ( $variationItem.length ) {
+						$variationItem.attr( 'data-layout_id', newId ).data( 'layout_id', newId );
+					}
+				} );
+			}
+		},
 
     /**
 		 * Load a new layout
@@ -83,6 +102,8 @@
 					layoutId					= $layoutVariation.data( 'layout_id' ),
 					variationId 			= $layoutVariation.data( 'layout_variation_id' ),
 					variationLabel 		= $layoutVariation.data( 'layout_variation_label' );
+					
+			console.log( 'variation layoutId:', layoutId );
 					
 			dittyVars.editor.currentLayoutVariation = $layoutVariation; // Set the current layout variation
 					
@@ -221,6 +242,7 @@
 			this.$elmt.off( 'click', '.ditty-layout-variation__change', { self: this }, this._changeTemplate );
 			this.$elmt.off( 'click', '.ditty-layout-variation__edit_html', { self: this, editType: 'html' }, this._editLayout );
 			this.$elmt.off( 'click', '.ditty-layout-variation__edit_css', { self: this, editType: 'css' }, this._editLayout );
+			$( 'body' ).off( 'ditty_editor_save_ditty_response', { self: this }, this._dittyEditorSaveResponse );
 	    
 			this.elmt._ditty_layout_variations_panel = null;
     }

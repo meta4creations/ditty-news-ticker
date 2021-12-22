@@ -38,7 +38,7 @@
 	    this.$elmt.addClass( 'init' );
 
 			// Add actions
-			this.settings.editor.$elmt.on( 'ditty_editor_active_items_update', { self: this }, this._dittyActiveItemsUpdated );
+			this.settings.editor.$elmt.on( 'ditty_editor_aactive_items_update', { self: this }, this._dittyActiveItemsUpdated );
 	    this.$add.on( 'click', { self: this }, this._add_item );
 			this.$elmt.on( 'click', '.ditty-data-list__item', { self: this }, this._showItem );
 			this.$elmt.on( 'click', '.ditty-data-list__item__icon', { self: this }, this._editType );
@@ -63,19 +63,43 @@
     },
 		
 		/**
+		 * Update new layout ids on save
+		 *
+		 * @since    3.0
+		 * @return   null
+		*/
+		dittyUpdateSavedDraftLayouts: function( draftId, newID ) {
+			$.each( $( '.ditty-editor-item' ), function() {
+				var layoutValue = $( this ).data( 'layout_value' );
+				$.each( layoutValue, function( type, id ) {
+					if ( String( id ) === String( draftId ) ) {
+						layoutValue[type] = String( newID );
+					}
+				} );
+				$( this ).data( 'layout_value', layoutValue );
+			} );
+		},
+
+		/**
 		 * Update new item ids on save
 		 *
 		 * @since    3.0
 		 * @return   null
 		*/
 		_dittyEditorSaveResponse: function( e, response ) {
+			var self = e.data.self;
 			if ( response.ditty_new_item_ids ) {
-				$.each( response.ditty_new_item_ids, function( old, value ) {
-					var $editorItem = $( '#ditty-editor-item--' + old );
+				$.each( response.ditty_new_item_ids, function( draftId, newId ) {
+					var $editorItem = $( '#ditty-editor-item--' + draftId );
 					if ( $editorItem.length ) {
-						$editorItem.attr( 'id', 'ditty-editor-item--' + value );
-						$editorItem.attr( 'data-itemId', value ).data( 'item_id', value );
+						$editorItem.attr( 'id', 'ditty-editor-item--' + newId );
+						$editorItem.attr( 'data-itemId', newId ).data( 'item_id', newId );
 					}
+				} );
+			}
+			if ( response.ditty_new_layout_ids ) {
+				$.each( response.ditty_new_layout_ids, function( draftId, newID ) {
+					self.dittyUpdateSavedDraftLayouts( draftId, newID );
 				} );
 			}
 		},
