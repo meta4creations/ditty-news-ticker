@@ -350,9 +350,10 @@ class Ditty_Layout {
 			ob_start();
 		}
 		$atts = array(
-			'id' 							=> "ditty-editor-layout--{$this->get_layout_id()}",
-			'class'						=> 'ditty-editor-layout ditty-data-list__item',
-			'data-layout_id' 	=> $this->get_layout_id(),
+			'id' 									=> "ditty-editor-layout--{$this->get_layout_id()}",
+			'class'								=> 'ditty-editor-layout ditty-data-list__item',
+			'data-layout_id' 			=> $this->get_layout_id(),
+			'data-layout_version'	=> $this->get_version(),
 		);
 		?>	
 		<div <?php echo ditty_attr_to_html( $atts ); ?>>

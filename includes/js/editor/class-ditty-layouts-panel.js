@@ -46,6 +46,7 @@
 	    this.$elmt.on( 'click', '.ditty-data-list__item__clone', { self: this }, this._cloneLayout );
 	    this.$elmt.on( 'click', '.ditty-data-list__item__delete', { self: this }, this._deleteLayout );
 			this.$list.on( 'click', '.ditty-editor-layout > a', { self: this }, this._actionClick );
+			$( 'body' ).on( 'ditty_editor_save_ditty_response', { self: this }, this._dittyEditorSaveResponse );
 	    
 	    // Activate the current layout
 	    this._activateLayout( this.$list.find( '#ditty-editor-layout--' + this.editorLayoutId ) );
@@ -84,6 +85,25 @@
 		  var self = e.data.self;
 		  self._showVariationsList();
     },
+		
+		/**
+		 * Update new item ids on save
+		 *
+		 * @since    3.0
+		 * @return   null
+		*/
+		_dittyEditorSaveResponse: function( e, response ) {
+			var self = e.data.self;
+			if ( response.ditty_new_layout_ids ) {
+				$.each( response.ditty_new_layout_ids, function( draftId, newId ) {
+					var $editorItem = $( '#ditty-editor-layout--' + draftId );
+					if ( $editorItem.length ) {
+						$editorItem.attr( 'id', 'ditty-editor-layout--' + newId );
+						$editorItem.attr( 'data-layout_id', newId ).data( 'layout_id', newId );
+					}
+				} );
+			}
+		},
 
     /**
 		 * Load a new layout
@@ -98,9 +118,10 @@
 				return false;
 			}
 			
-			var $layout 		= $( e.target ).is( '.ditty-data-list__item' ) ? $( e.target ) : $( e.target ).parents( '.ditty-data-list__item' ),
-					layoutId 		= $layout.data( 'layout_id' ),
-					layoutValue = self.$editorItem.data( 'layout_value' );
+			var $layout 			= $( e.target ).is( '.ditty-data-list__item' ) ? $( e.target ) : $( e.target ).parents( '.ditty-data-list__item' ),
+					layoutId 			= $layout.data( 'layout_id' ),
+					layoutVersion	= $layout.data( 'layout_version' ),
+					layoutValue 	= self.$editorItem.data( 'layout_value' );
 
 			if ( $layout.hasClass( 'active' ) ) {
 				return false;
@@ -136,9 +157,14 @@
 				}
 
 				// Update the current Ditty
-				self.$editorItem.data( 'layout_value', layoutValue );
-				self.$editorVariation.data( 'layout_id', layoutId );
+				self.$editorItem.attr( 'data-layout_value', layoutValue ).data( 'layout_value', layoutValue );
+				self.$editorVariation.attr( 'data-layout_id', layoutId ).data( 'layout_id', layoutId );
 				self.$editorVariation.find( '.ditty-layout-variation__template > span' ).text( response.layout_label );
+				if ( layoutVersion ) {
+					self.$editorVariation.find( '.ditty-layout-variation__template > small' ).text( '(' + layoutVersion + ')' );
+				} else {
+					self.$editorVariation.find( '.ditty-layout-variation__template > small' ).text( '' );
+				}
 			}, 'json' );	
     },
 
@@ -329,6 +355,7 @@
 			this.$elmt.off( 'click', '.ditty-data-list__item__clone', { self: this }, this._cloneLayout );
 			this.$elmt.off( 'click', '.ditty-data-list__item__delete', { self: this }, this._deleteLayout );
 			this.$list.off( 'click', '.ditty-editor-layout > a', { self: this }, this._actionClick );
+			$( 'body' ).off( 'ditty_editor_save_ditty_response', { self: this }, this._dittyEditorSaveResponse );
 
 	    this.elmt._ditty_layouts_panel = null;
     }

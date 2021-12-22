@@ -648,13 +648,20 @@ class Ditty_Layouts {
 							'fields' => 'ids',
 						);
 						$layouts = ditty_layouts_posts( $args );
+						$drafts = ditty_draft_layout_get();
+						if ( ! is_array( $drafts ) ) {
+							$drafts = array();
+						}
 						if ( is_array( $layouts ) && count( $layouts ) > 0 ) {
 							foreach ( $layouts as $layout_id ) {
+								if ( isset( $drafts[$layout_id] ) && 'DELETE' == $drafts[$layout_id] ) {
+									continue;
+								}
 								$layout = new Ditty_Layout( $layout_id );
 								echo $layout->render_editor_list_item( 'return' );
 							}
 						}
-						if ( $drafts = ditty_draft_layout_get() ) {
+						if ( is_array( $drafts ) && count( $drafts ) > 0 ) {
 							foreach ( $drafts as $layout_id => $data ) {
 								if ( is_string( $layout_id ) && false !== strpos( $layout_id, 'new-' ) ) {
 									$layout = new Ditty_Layout( $layout_id );

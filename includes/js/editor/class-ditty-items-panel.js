@@ -76,7 +76,7 @@
 						layoutValue[type] = String( newID );
 					}
 				} );
-				$( this ).data( 'layout_value', layoutValue );
+				$( this ).attr( 'data-layout_value', layoutValue ).data( 'layout_value', layoutValue );
 			} );
 		},
 
