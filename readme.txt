@@ -7,7 +7,7 @@ Tested up to: 5.8.1
 Stable tag: /trunk/
 License: GPL2
 
-Ditty News Ticker is a multi-functional data display plugin.
+Formerly Ditty News Ticker. Ditty is a multi-functional data display plugin.
 
 == Description ==
 
