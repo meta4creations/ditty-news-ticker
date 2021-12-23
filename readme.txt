@@ -1,51 +1,34 @@
-=== Ditty News Ticker ===
+=== Ditty (formerly Ditty News Ticker) ===
 Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, news, news ticker, rotator, data rotator, lists, data
 Requires at least: 4.5
-Tested up to: 5.8.1
+Tested up to: 5.8.2
 Stable tag: /trunk/
 License: GPL2
 
-Ditty News Ticker is a multi-functional data display plugin.
+Ditty is a multi-functional data display plugin.
 
 == Description ==
 
-Ditty News Ticker is a multi-functional data display plugin. Easily add custom news tickers to your site either through shortcodes, direct functions, or in a custom Ditty News Ticker Widget.
-
-#### There are 3 default ticker modes
-
-* **Scroll Mode** - Scroll the ticker data left, right, up or down
-* **Rotate Mode** - Rotate through the ticker data
-* **List Mode** - Display your ticker data in a list
-
-[**View samples of each mode.**](http://www.dittynewsticker.com/ticker-modes/)
+Ditty is a multi-functional data display plugin. Easily render custom data feeds to your site either through as a news ticker, list, rotator and many other display options.
 
 #### Paid Extensions
-Ditty News Ticker is built to easily be extended to add extra Ticker Types and extra Ticker Modes. We currently have the following extensions for sale:
+Additional plugins can be purchased to extend Ditty and it's functionality. Add more Item types, Display types, and utilities to enhance your Dittys. We currently have the following extensions for sale:
 
-* [**Ditty Posts Ticker**](https://www.metaphorcreations.com/downloads/ditty-posts-ticker/)
-* [**Ditty Twitter Ticker**](https://www.metaphorcreations.com/downloads/ditty-twitter-ticker/)
-* [**Ditty Facebook Ticker**](https://www.metaphorcreations.com/downloads/ditty-facebook-ticker/)
-* [**Ditty RSS Ticker**](https://www.metaphorcreations.com/downloads/ditty-rss-ticker/)
-* [**Ditty Image Ticker**](https://www.metaphorcreations.com/downloads/ditty-image-ticker/)
-* [**Ditty Flickr Ticker**](https://www.metaphorcreations.com/downloads/ditty-flickr-ticker/)
-* [**Ditty Instagram Ticker**](https://www.metaphorcreations.com/downloads/ditty-instagram-ticker/)
-* [**Ditty Mega Ticker**](https://www.metaphorcreations.com/downloads/ditty-mega-ticker/)
-
-We now also offer an extensions bundle that includes all current and future extensions!
-
-* [**Ditty Extensions Bundle**](https://www.metaphorcreations.com/downloads/ditty-news-ticker-bundle/)
-
-<img src="http://metaphorcreations.com/data/wpml-ready-badge.png" />
+* [**Ditty Posts**](https://www.metaphorcreations.com/downloads/ditty-posts-ticker/)
+* [**Ditty Twitter**](https://www.metaphorcreations.com/downloads/ditty-twitter-ticker/)
+* [**Ditty Facebook**](https://www.metaphorcreations.com/downloads/ditty-facebook-ticker/)
+* [**Ditty RSS**](https://www.metaphorcreations.com/downloads/ditty-rss-ticker/)
+* [**Ditty Images**](https://www.metaphorcreations.com/downloads/ditty-image-ticker/)
+* [**Ditty Instagram**](https://www.metaphorcreations.com/downloads/ditty-instagram-ticker/)
 
 == Installation ==
 
 1. Upload `ditty-news-ticker` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Create tickers by going to **News Tickers > Add New**
-4. Insert your tickers by copying and pasting the provided shortcode into another post.
-5. Optionally, insert your tickers by copying and pasting the direct function code directly into your theme or plugin.
+3. Create a Ditty by going to **Ditty > Add New**
+4. Insert your Ditty by copying and pasting the provided shortcode into another post.
 
 [**View full help documentation.**](http://www.dittynewsticker.com/documentation/)
 
@@ -53,11 +36,11 @@ We now also offer an extensions bundle that includes all current and future exte
 
 = Are there any settings I need to configure? =
 
-Each individual Ticker post has multiple settings to customize.
+Each individual Ditty has multiple settings to customize.
 
-= I have added my shortcode but the ticker is not displaying =
+= I have added my shortcode but the Ditty is not displaying =
 
-The most common cause for an unresponsive ticker (when using scroll or rotate mode) is a javascript error on your site coming from another plugin or theme. Any type of javascript error will most likely kill any other javascript that is loaded after it. You will need to resolve any javascript errors before the ticker will start running.
+The most common cause for an unresponsive Ditty (when using scroll or rotate mode) is a javascript error on your site coming from another plugin or theme. Any type of javascript error will most likely kill any other javascript that is loaded after it. You will need to resolve any javascript errors before the Ditty will start render.
 
 [**View full help documentation.**](http://www.dittynewsticker.com/documentation/)
 
@@ -71,6 +54,16 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 5. Embed options
 
 == Changelog ==
+
+= 3.0 =
+* Ditty News Ticker posts have been moved to legacy code.
+* Completely new Ditty post type and functionality.
+* New Ditty Layout post type.
+* New Ditty Display postt ype.
+* New settings page.
+* Added global Ditty rendering.
+* Added Layout and Display templates.
+* New extensions page for licenses and extension settings.
 
 = 2.3.12 =
 * Bug fix in wpml-config.xml file.
@@ -586,4 +579,4 @@ The most common cause for an unresponsive ticker (when using scroll or rotate mo
 
 == Upgrade Notice ==
 
-Bug fix in wpml-config.xml file
+Major upgrade to new Ditty post type

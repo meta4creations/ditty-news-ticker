@@ -103,8 +103,6 @@
 					variationId 			= $layoutVariation.data( 'layout_variation_id' ),
 					variationLabel 		= $layoutVariation.data( 'layout_variation_label' );
 					
-			console.log( 'variation layoutId:', layoutId );
-					
 			dittyVars.editor.currentLayoutVariation = $layoutVariation; // Set the current layout variation
 					
 			self.settings.editor.updateStart(); // Start the update overlay

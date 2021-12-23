@@ -133,8 +133,6 @@
 				if ( ! response ) {
 					return false;
 				}
-				console.log( displayType );
-				console.log( response );
 				self._initDitty( displayType, displayId, response ); // Initialize a new ditty
 				self.settings.editor.updateStop(); // Stop the update overlay
 			}, 'json' );		
