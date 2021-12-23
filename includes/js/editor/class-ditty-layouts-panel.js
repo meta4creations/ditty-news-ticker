@@ -20,6 +20,7 @@
 		this.$editorItem 				= dittyVars.editor.currentItem;
     this.editorDittyId			= this.$editorItem.data( 'ditty_id' );
     this.editorItemId				= this.$editorItem.data( 'item_id' );
+		this.editorItemtype			= this.$editorItem.data( 'item_type' );
     this.$editorVariation 	= dittyVars.editor.currentLayoutVariation;
     this.editorVariationId	= this.$editorVariation.data( 'layout_variation_id' );
     this.editorLayoutId			= this.$editorVariation.data( 'layout_id' );
@@ -116,9 +117,10 @@
 			
 			$.each( $( '.ditty-editor-item' ), function() {
 				var itemID = $( this ).data( 'item_id' ),
+						itemType = $( this ).data( 'item_type' ),
 						layoutValue = $( this ).data( 'layout_value' );
 				$.each( layoutValue, function( type, id ) {
-					if ( String( type ) === String( variationType ) ) {
+					if ( String( itemType ) === String( self.editorItemtype ) && String( type ) === String( variationType ) ) {
 						layoutValue[type] = String( layoutId );
 						dittyDraftItemUpdateData( self, itemID, 'layout_value', layoutValue );
 					}
