@@ -79,7 +79,8 @@ table.wp-list-table .type-ditty_display .row-actions {
   .ditty-field__label {
     display: block;
     font-weight: 600;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    cursor: default; }
   .ditty-field__help {
     font-size: 0.8em; }
   .ditty-field__input {

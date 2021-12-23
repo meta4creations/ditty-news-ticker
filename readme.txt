@@ -7,7 +7,11 @@ Tested up to: 5.8.2
 Stable tag: /trunk/
 License: GPL2
 
+<<<<<<< HEAD
 Ditty is a multi-functional data display plugin.
+=======
+Formerly Ditty News Ticker. Ditty is a multi-functional data display plugin.
+>>>>>>> 02cf0f1b696d9c174fc53eb3e38f7b5f85d10454
 
 == Description ==
 

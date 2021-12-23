@@ -1,16 +1,16 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Ditty\n"
-"POT-Creation-Date: 2021-11-16 08:07-0600\n"
+"POT-Creation-Date: 2021-12-22 16:19-0600\n"
 "PO-Revision-Date: 2021-11-16 08:07-0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: ditty-news-ticker.php\n"
@@ -23,7 +23,6 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 "X-Poedit-SearchPathExcluded-2: node_modules\n"
 
-#. Plugin Name of the plugin/theme
 #: blocks/ditty-block/index.js:24 blocks/ditty-block/index.js:87
 #: includes/admin/upgrade_details.php:26 includes/post-types.php:14
 #: includes/post-types.php:15 includes/post-types.php:25
@@ -34,18 +33,18 @@ msgstr ""
 msgid "Display your Ditty within the content of the post."
 msgstr ""
 
-#: blocks/ditty-block/index.js:32 includes/helpers.php:103
+#: blocks/ditty-block/index.js:32 includes/helpers.php:104
 msgid "Ticker"
 msgstr ""
 
-#: blocks/ditty-block/index.js:33 includes/admin/columns.php:26
-#: includes/admin/settings.php:279 includes/class-ditty-displays.php:428
-#: includes/post-types.php:89
+#: blocks/ditty-block/index.js:33 blocks/ditty-block/index.js:98
+#: includes/admin/columns.php:24 includes/admin/settings.php:300
+#: includes/class-ditty-displays.php:593 includes/post-types.php:83
 msgid "Display"
 msgstr ""
 
-#: blocks/ditty-block/index.js:34 includes/class-ditty-item-type-default.php:33
-#: includes/class-ditty-item-type-wp-editor.php:33
+#: blocks/ditty-block/index.js:34 includes/class-ditty-item-type-default.php:32
+#: includes/class-ditty-item-type-wp-editor.php:32
 #: legacy/inc/admin/fields/fields.php:619
 msgid "Content"
 msgstr ""
@@ -54,7 +53,7 @@ msgstr ""
 msgid "Select a Ticker"
 msgstr ""
 
-#: blocks/ditty-block/index.js:67 includes/admin/settings.php:281
+#: blocks/ditty-block/index.js:67 includes/admin/settings.php:302
 msgid "Use Default Display"
 msgstr ""
 
@@ -66,59 +65,76 @@ msgstr ""
 msgid "Loading Displays"
 msgstr ""
 
-#: blocks/ditty-block/index.js:119 blocks/ditty-block/index.js:137
+#: blocks/ditty-block/index.js:114 blocks/ditty-block/index.js:119
+#: blocks/ditty-block/index.js:137
 msgid "ID:"
 msgstr ""
 
+#: blocks/ditty-block/index.js:115 blocks/ditty-block/index.js:126
 #: blocks/ditty-block/index.js:138
 msgid "Display:"
 msgstr ""
 
-#: includes/admin/EDD_SL_Plugin_Updater.php:262
+#. translators: the plugin name.
+#: includes/admin/EDD_SL_Plugin_Updater.php:224
 #, php-format
-msgid ""
-"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgid "There is a new version of %1$s available."
 msgstr ""
 
-#: includes/admin/EDD_SL_Plugin_Updater.php:270
-#, php-format
-msgid ""
-"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
-"or %5$supdate now%6$s."
+#: includes/admin/EDD_SL_Plugin_Updater.php:230
+msgid "Contact your network administrator to install the update."
 msgstr ""
 
-#: includes/admin/EDD_SL_Plugin_Updater.php:514
+#. translators: 1. opening anchor tag, do not translate 2. the new plugin version 3. closing anchor tag, do not translate.
+#: includes/admin/EDD_SL_Plugin_Updater.php:235
+#, php-format
+msgid "%1$sView version %2$s details%3$s."
+msgstr ""
+
+#: includes/admin/EDD_SL_Plugin_Updater.php:243
+#, php-format
+msgid "%1$sView version %2$s details%3$s or %4$supdate now%5$s."
+msgstr ""
+
+#: includes/admin/EDD_SL_Plugin_Updater.php:254
+msgid "Update now."
+msgstr ""
+
+#: includes/admin/EDD_SL_Plugin_Updater.php:486
 msgid "You do not have permission to install plugin updates"
 msgstr ""
 
-#: includes/admin/EDD_SL_Plugin_Updater.php:514
+#: includes/admin/EDD_SL_Plugin_Updater.php:486
 msgid "Error"
 msgstr ""
 
-#: includes/admin/columns.php:16 includes/admin/columns.php:21
+#: includes/admin/columns.php:16 includes/admin/columns.php:20
 msgid "Version"
 msgstr ""
 
-#: includes/admin/columns.php:17 includes/admin/columns.php:22
-#: legacy/inc/admin/fields/fields.php:137
-msgid "ID"
-msgstr ""
-
-#: includes/admin/columns.php:18 includes/admin/columns.php:27
+#: includes/admin/columns.php:17 includes/admin/columns.php:25
+#: includes/class-ditty-displays.php:332
 msgid "Display Type"
 msgstr ""
 
-#: includes/admin/columns.php:23 includes/class-ditty-layouts.php:297
-msgid "Layout Type"
+#: includes/admin/columns.php:21
+msgid "Layout Template"
 msgstr ""
 
-#: includes/admin/columns.php:186 includes/admin/columns.php:198
-#: legacy/inc/admin/edit-columns.php:138
+#: includes/admin/columns.php:81
+msgid "Edit"
+msgstr ""
+
+#: includes/admin/columns.php:173 legacy/inc/admin/edit-columns.php:138
 msgid "Show all Types"
 msgstr ""
 
+#: includes/admin/columns.php:185
+msgid "Show all Templates"
+msgstr ""
+
 #: includes/admin/settings.php:11 includes/admin/settings.php:12
-#: includes/class-ditty-posts.php:73 legacy/inc/settings.php:11
+#: includes/class-ditty-singles.php:74 legacy/inc/settings.php:11
 #: legacy/inc/settings.php:12
 msgid "Settings"
 msgstr ""
@@ -131,131 +147,161 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: includes/admin/settings.php:47 includes/admin/settings.php:243
+#: includes/admin/settings.php:47
 msgid "Global Ditty"
 msgstr ""
 
 #: includes/admin/settings.php:52
+msgid "Layout Defaults"
+msgstr ""
+
+#: includes/admin/settings.php:57 includes/admin/settings.php:204
+#: includes/class-ditty-layouts.php:210
 msgid "Layout Templates"
 msgstr ""
 
-#: includes/admin/settings.php:57
+#: includes/admin/settings.php:62
 msgid "Display Templates"
 msgstr ""
 
-#: includes/admin/settings.php:62
+#: includes/admin/settings.php:67
 msgid "Advanced"
 msgstr ""
 
-#: includes/admin/settings.php:128
+#: includes/admin/settings.php:133
 msgid "Live Refresh Rate"
 msgstr ""
 
-#: includes/admin/settings.php:129
+#: includes/admin/settings.php:134
 msgid "Minute(s)"
 msgstr ""
 
-#: includes/admin/settings.php:130
+#: includes/admin/settings.php:135
 msgid "Set the live update refresh interval for your Ditty."
 msgstr ""
 
-#: includes/admin/settings.php:182
-msgid "Default Layouts"
+#: includes/admin/settings.php:152
+msgid "Layout Posts"
 msgstr ""
 
-#: includes/admin/settings.php:199
+#: includes/admin/settings.php:153
+msgid "Edit Layouts directly as post types."
+msgstr ""
+
+#: includes/admin/settings.php:156 includes/admin/settings.php:168
+#: includes/class-ditty-singles.php:122
+msgid "Disabled"
+msgstr ""
+
+#: includes/admin/settings.php:157 includes/admin/settings.php:169
+msgid "Enabled"
+msgstr ""
+
+#: includes/admin/settings.php:164
+msgid "Ditty Display Posts"
+msgstr ""
+
+#: includes/admin/settings.php:165
+msgid "Edit Ditty Displays directly as post types."
+msgstr ""
+
+#: includes/admin/settings.php:187
+msgid "Layout Variation Defaults"
+msgstr ""
+
+#: includes/admin/settings.php:221
 msgid "Default Displays"
 msgstr ""
 
-#: includes/admin/settings.php:216 legacy/inc/composer.php:10
+#: includes/admin/settings.php:238 legacy/inc/composer.php:10
 #: legacy/inc/composer.php:17 legacy/inc/help.php:95 legacy/inc/widget.php:14
 msgid "Ditty News Ticker"
 msgstr ""
 
-#: includes/admin/settings.php:217
+#: includes/admin/settings.php:239
 msgid "Enable Ditty News Ticker (Legacy code)"
 msgstr ""
 
-#: includes/admin/settings.php:218
+#: includes/admin/settings.php:240
 msgid ""
 "This will enable loading of all legacy scripts and post types. Only enable "
 "this option if you have active Ditty News Ticker posts displaying on your "
 "site. You must refresh your browser after saving before changes take place."
 msgstr ""
 
-#: includes/admin/settings.php:245
+#: includes/admin/settings.php:266
 msgid "Add More Global Tickers"
 msgstr ""
 
-#: includes/admin/settings.php:251
+#: includes/admin/settings.php:272
 msgid "HTML Selector"
 msgstr ""
 
-#: includes/admin/settings.php:252
+#: includes/admin/settings.php:273
 msgid "Add a jQuery HTML element selector to add a Ditty to."
 msgstr ""
 
-#: includes/admin/settings.php:253
+#: includes/admin/settings.php:274
 msgid "Example: #site-header"
 msgstr ""
 
-#: includes/admin/settings.php:258
+#: includes/admin/settings.php:279
 msgid "Position"
 msgstr ""
 
-#: includes/admin/settings.php:259
+#: includes/admin/settings.php:280
 msgid "Select the position of the Ditty in relation to the HTML selector."
 msgstr ""
 
-#: includes/admin/settings.php:260
+#: includes/admin/settings.php:281
 msgid "Select Position"
 msgstr ""
 
-#: includes/admin/settings.php:262
+#: includes/admin/settings.php:283
 msgid "Start of Element"
 msgstr ""
 
-#: includes/admin/settings.php:263
+#: includes/admin/settings.php:284
 msgid "End of Element"
 msgstr ""
 
-#: includes/admin/settings.php:264
+#: includes/admin/settings.php:285
 msgid "Before Element"
 msgstr ""
 
-#: includes/admin/settings.php:265
+#: includes/admin/settings.php:286
 msgid "After Element"
 msgstr ""
 
-#: includes/admin/settings.php:271
+#: includes/admin/settings.php:292
 msgid "Ditty Ticker"
 msgstr ""
 
-#: includes/admin/settings.php:272
+#: includes/admin/settings.php:293
 msgid "Select a Ditty you want to display globally."
 msgstr ""
 
-#: includes/admin/settings.php:273
+#: includes/admin/settings.php:294
 msgid "Select a Ditty"
 msgstr ""
 
-#: includes/admin/settings.php:280
+#: includes/admin/settings.php:301
 msgid "Optional: Select a custom display to use with the Ditty."
 msgstr ""
 
-#: includes/admin/settings.php:287
+#: includes/admin/settings.php:308
 msgid "Custom ID"
 msgstr ""
 
-#: includes/admin/settings.php:288
+#: includes/admin/settings.php:309
 msgid "Optional: Add a custom ID to the Ditty"
 msgstr ""
 
-#: includes/admin/settings.php:293
+#: includes/admin/settings.php:314
 msgid "Custom Classes"
 msgstr ""
 
-#: includes/admin/settings.php:294
+#: includes/admin/settings.php:315
 msgid "Optional: Add custom classes to the Ditty"
 msgstr ""
 
@@ -305,7 +351,7 @@ msgstr ""
 msgid "Ditty %s Features"
 msgstr ""
 
-#: includes/admin/upgrade_details.php:50
+#: includes/admin/upgrade_details.php:50 includes/class-ditty-singles.php:141
 msgid "Live Updates"
 msgstr ""
 
@@ -368,6 +414,11 @@ msgid ""
 "edit and customize to your needs!"
 msgstr ""
 
+#: includes/class-ditty-display-item.php:175
+#, php-format
+msgid "Ditty Layout does not exist for %s item!"
+msgstr ""
+
 #: includes/class-ditty-display-type-list.php:35
 #: includes/class-ditty-display-type-ticker.php:35
 msgid "General Settings"
@@ -398,11 +449,13 @@ msgstr ""
 
 #: includes/class-ditty-display-type-list.php:58
 #: includes/class-ditty-display-type-list.php:128
+#: includes/class-ditty-singles.php:132 includes/class-ditty-singles.php:143
 msgid "No"
 msgstr ""
 
 #: includes/class-ditty-display-type-list.php:59
 #: includes/class-ditty-display-type-list.php:129
+#: includes/class-ditty-singles.php:133 includes/class-ditty-singles.php:144
 msgid "Yes"
 msgstr ""
 
@@ -440,6 +493,8 @@ msgstr ""
 
 #: includes/class-ditty-display-type-list.php:92
 #: includes/class-ditty-display-type-list.php:113
+#: includes/class-ditty-display-type-list.php:194
+#: includes/class-ditty-display-type-list.php:215
 #: includes/class-ditty-display-type-ticker.php:138
 msgid "second(s)"
 msgstr ""
@@ -502,33 +557,80 @@ msgstr ""
 #: includes/class-ditty-display-type-list.php:158
 #: includes/class-ditty-display-type-list.php:159
 #: includes/class-ditty-display-type-ticker.php:150
-#: includes/class-ditty-display-type-ticker.php:151
 msgid "Randomly shuffle items on each page load"
 msgstr ""
 
-#: includes/class-ditty-display-type-list.php:173
+#: includes/class-ditty-display-type-list.php:170
+msgid "Initial Settings"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:171
+msgid "Configure the initial display settings."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:176
+msgid "Initial Page Transition"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:177
+msgid "Set the transition for initial display."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:184
+msgid "Initial Page Transition Ease"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:185
+msgid "Set the easing for initial display."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:192
+msgid "Initial Page Transition Speed"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:193
+msgid "Set the transition speed for initial display."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:205
+msgid "Initial Height Ease"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:206
+msgid "Set the height easing for initial display."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:213
+msgid "Initial Height Speed"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:214
+msgid "Set the height speed for initial display."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:234
 #: includes/class-ditty-display-type-ticker.php:170
 msgid "Import/Export"
 msgstr ""
 
-#: includes/class-ditty-display-type-list.php:174
+#: includes/class-ditty-display-type-list.php:235
 #: includes/class-ditty-display-type-ticker.php:171
 msgid "Import or export the display settings."
 msgstr ""
 
-#: includes/class-ditty-display-type-list.php:206
+#: includes/class-ditty-display-type-list.php:267
 msgid "Default List"
 msgstr ""
 
-#: includes/class-ditty-display-type-list.php:207
+#: includes/class-ditty-display-type-list.php:268
 msgid "Default list display"
 msgstr ""
 
-#: includes/class-ditty-display-type-list.php:212
+#: includes/class-ditty-display-type-list.php:273
 msgid "Default Slider"
 msgstr ""
 
-#: includes/class-ditty-display-type-list.php:213
+#: includes/class-ditty-display-type-list.php:274
 msgid "Default slider display"
 msgstr ""
 
@@ -607,7 +709,7 @@ msgid "Initial Display"
 msgstr ""
 
 #: includes/class-ditty-display-type-ticker.php:104
-msgid "Choose how the ticker should initialize"
+msgid "Choose how the ticker should initialize."
 msgstr ""
 
 #: includes/class-ditty-display-type-ticker.php:106
@@ -623,7 +725,7 @@ msgid "Scroll Delay"
 msgstr ""
 
 #: includes/class-ditty-display-type-ticker.php:116
-msgid "Delay the start of scrolling for filled tickers"
+msgid "Delay the start of scrolling for filled tickers."
 msgstr ""
 
 #: includes/class-ditty-display-type-ticker.php:129
@@ -632,6 +734,10 @@ msgstr ""
 
 #: includes/class-ditty-display-type-ticker.php:137
 msgid "Set the speed of the ticker height."
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:151
+msgid "Randomly shuffle items on each page load."
 msgstr ""
 
 #: includes/class-ditty-display-type-ticker.php:162
@@ -651,7 +757,7 @@ msgid "Default ticker display"
 msgstr ""
 
 #: includes/class-ditty-display-type.php:202
-#: includes/class-ditty-extensions.php:387 legacy/inc/admin/meta-boxes.php:76
+#: includes/class-ditty-extensions.php:380 legacy/inc/admin/meta-boxes.php:76
 msgid "Update"
 msgstr ""
 
@@ -906,55 +1012,82 @@ msgstr ""
 msgid "Add custom item styles."
 msgstr ""
 
-#: includes/class-ditty-displays.php:109 includes/class-ditty-displays.php:158
-#: includes/class-ditty-displays.php:166 includes/class-ditty-layouts.php:120
-#: includes/class-ditty-layouts.php:169 includes/class-ditty-layouts.php:177
+#: includes/class-ditty-displays.php:119 includes/class-ditty-displays.php:173
+#: includes/class-ditty-displays.php:181 includes/class-ditty-layouts.php:125
+#: includes/class-ditty-layouts.php:229 includes/class-ditty-layouts.php:237
 msgid "Installed"
 msgstr ""
 
-#: includes/class-ditty-displays.php:171 includes/class-ditty-layouts.php:182
+#: includes/class-ditty-displays.php:186 includes/class-ditty-layouts.php:242
 #, php-format
 msgid "Install Version %s"
 msgstr ""
 
-#: includes/class-ditty-displays.php:181 includes/class-ditty-layouts.php:192
+#: includes/class-ditty-displays.php:196 includes/class-ditty-layouts.php:251
 msgid "Install Template"
 msgstr ""
 
-#: includes/class-ditty-displays.php:235 includes/post-types.php:92
+#: includes/class-ditty-displays.php:228 includes/class-ditty-layouts.php:279
+#: includes/class-ditty-singles.php:260
+#, php-format
+msgid "ID: %d"
+msgstr ""
+
+#: includes/class-ditty-displays.php:242
+msgid "Display Info"
+msgstr ""
+
+#: includes/class-ditty-displays.php:243
+msgid "Display Settings"
+msgstr ""
+
+#: includes/class-ditty-displays.php:309
+msgid "Display type does not exist"
+msgstr ""
+
+#: includes/class-ditty-displays.php:341 includes/class-ditty-layouts.php:354
+msgid "Description"
+msgstr ""
+
+#: includes/class-ditty-displays.php:364
+#, php-format
+msgid "% display type does not exist."
+msgstr ""
+
+#: includes/class-ditty-displays.php:400 includes/post-types.php:86
 msgid "Edit Display"
 msgstr ""
 
-#: includes/class-ditty-displays.php:246 includes/class-ditty-items.php:158
-#: includes/class-ditty-layouts.php:501 includes/fields/ditty-field.php:221
+#: includes/class-ditty-displays.php:411 includes/class-ditty-items.php:158
+#: includes/class-ditty-layouts.php:526 includes/fields/ditty-field.php:223
 msgid "Clone"
 msgstr ""
 
-#: includes/class-ditty-displays.php:257 includes/class-ditty-items.php:169
-#: includes/class-ditty-layouts.php:512 includes/fields/ditty-field.php:219
+#: includes/class-ditty-displays.php:422 includes/class-ditty-items.php:169
+#: includes/class-ditty-layouts.php:537 includes/fields/ditty-field.php:221
 msgid "Delete"
 msgstr ""
 
-#: includes/class-ditty-displays.php:408
+#: includes/class-ditty-displays.php:573
 msgid "Display does not exist"
 msgstr ""
 
-#: includes/class-ditty-displays.php:530 includes/class-ditty-layouts.php:723
+#: includes/class-ditty-displays.php:695 includes/class-ditty-layouts.php:764
 msgid "Title Goes Here..."
 msgstr ""
 
-#: includes/class-ditty-displays.php:610 includes/class-ditty-layouts.php:833
+#: includes/class-ditty-displays.php:775 includes/class-ditty-layouts.php:872
 #, php-format
 msgid "%s Clone"
 msgstr ""
 
-#: includes/class-ditty-editor.php:93
+#: includes/class-ditty-editor.php:64
 msgid "Ditty updated"
 msgstr ""
 
 #: includes/class-ditty-extensions.php:49
 #: includes/class-ditty-extensions.php:52
-#: includes/class-ditty-extensions.php:423
+#: includes/class-ditty-extensions.php:422
 msgid "Ditty Extensions"
 msgstr ""
 
@@ -963,172 +1096,185 @@ msgstr ""
 msgid "Extensions"
 msgstr ""
 
-#: includes/class-ditty-extensions.php:90
+#: includes/class-ditty-extensions.php:78
 msgid "Ditty..."
 msgstr ""
 
-#: includes/class-ditty-extensions.php:105 includes/helpers.php:653
+#: includes/class-ditty-extensions.php:93 includes/helpers.php:636
 msgid "License is active."
 msgstr ""
 
-#: includes/class-ditty-extensions.php:106
-#: includes/class-ditty-extensions.php:107 includes/helpers.php:654
-#: includes/helpers.php:655
+#: includes/class-ditty-extensions.php:94
+#: includes/class-ditty-extensions.php:95 includes/helpers.php:637
+#: includes/helpers.php:638
 msgid "An error occurred, please try again."
 msgstr ""
 
-#: includes/class-ditty-extensions.php:108 includes/helpers.php:656
+#: includes/class-ditty-extensions.php:96 includes/helpers.php:639
 #, php-format
 msgid "Your license key expired on %s."
 msgstr ""
 
-#: includes/class-ditty-extensions.php:109
-#: includes/class-ditty-extensions.php:110 includes/helpers.php:657
-#: includes/helpers.php:658
+#: includes/class-ditty-extensions.php:97
+#: includes/class-ditty-extensions.php:98 includes/helpers.php:640
+#: includes/helpers.php:641
 msgid "Your license key has been disabled."
 msgstr ""
 
-#: includes/class-ditty-extensions.php:111 includes/helpers.php:659
+#: includes/class-ditty-extensions.php:99 includes/helpers.php:642
 msgid "Invalid license."
 msgstr ""
 
-#: includes/class-ditty-extensions.php:112
-#: includes/class-ditty-extensions.php:113 includes/helpers.php:660
-#: includes/helpers.php:661
+#: includes/class-ditty-extensions.php:100
+#: includes/class-ditty-extensions.php:101 includes/helpers.php:643
+#: includes/helpers.php:644
 msgid "Your license is not active for this URL."
 msgstr ""
 
-#: includes/class-ditty-extensions.php:114
+#: includes/class-ditty-extensions.php:102
 #, php-format
 msgid "This appears to be an invalid license key for %s."
 msgstr ""
 
-#: includes/class-ditty-extensions.php:115 includes/helpers.php:663
+#: includes/class-ditty-extensions.php:103 includes/helpers.php:646
 msgid "Your license key has reached its activation limit."
 msgstr ""
 
-#: includes/class-ditty-extensions.php:116 includes/helpers.php:664
+#: includes/class-ditty-extensions.php:104 includes/helpers.php:647
 msgid "License is deactivated."
 msgstr ""
 
-#: includes/class-ditty-extensions.php:117 includes/helpers.php:665
+#: includes/class-ditty-extensions.php:105 includes/helpers.php:648
 msgid "Update failed."
 msgstr ""
 
-#: includes/class-ditty-extensions.php:128
+#: includes/class-ditty-extensions.php:116
 #, php-format
 msgid ""
 "Please <a href=\"%s\" target=\"_blank\">update or renew your license</a>."
 msgstr ""
 
-#: includes/class-ditty-extensions.php:339
+#: includes/class-ditty-extensions.php:266
+msgid "License"
+msgstr ""
+
+#: includes/class-ditty-extensions.php:330
 msgid "Preview Extension"
 msgstr ""
 
-#: includes/class-ditty-extensions.php:371 legacy/eddsl/eddsl.php:202
+#: includes/class-ditty-extensions.php:362 legacy/eddsl/eddsl.php:202
 msgid "Add your license key here"
 msgstr ""
 
-#: includes/class-ditty-extensions.php:372 legacy/inc/helpers.php:396
+#: includes/class-ditty-extensions.php:363 legacy/inc/helpers.php:396
 msgid "Activate License"
 msgstr ""
 
-#: includes/class-ditty-extensions.php:373 legacy/inc/helpers.php:397
+#: includes/class-ditty-extensions.php:364 legacy/inc/helpers.php:397
 msgid "Refresh License"
 msgstr ""
 
-#: includes/class-ditty-extensions.php:374
+#: includes/class-ditty-extensions.php:365
 msgid "Deactive License"
 msgstr ""
 
-#: includes/class-ditty-extensions.php:430
+#: includes/class-ditty-extensions.php:429
 msgid "Active Extensions"
 msgstr ""
 
-#: includes/class-ditty-extensions.php:446
+#: includes/class-ditty-extensions.php:445
 msgid "Additional Ditty Extensions"
 msgstr ""
 
-#: includes/class-ditty-item-type-default.php:34
-#: includes/class-ditty-item-type-wp-editor.php:34
+#: includes/class-ditty-item-type-default.php:33
+#: includes/class-ditty-item-type-wp-editor.php:33
 msgid "Add the content of your item. HTML and inline styles are supported."
 msgstr ""
 
-#: includes/class-ditty-item-type-default.php:40
+#: includes/class-ditty-item-type-default.php:39
 #: legacy/inc/admin/meta-boxes.php:288
 msgid "Link"
 msgstr ""
 
-#: includes/class-ditty-item-type-default.php:41
+#: includes/class-ditty-item-type-default.php:40
 msgid ""
 "Add a custom link to your content. You can also add a link directly into "
 "your content."
 msgstr ""
 
-#: includes/class-ditty-item-type-default.php:50
-#: includes/class-ditty-posts.php:105 legacy/inc/admin/fields/fields.php:139
+#: includes/class-ditty-item-type-default.php:49
+#: includes/class-ditty-singles.php:106 legacy/inc/admin/fields/fields.php:139
 msgid "Title"
 msgstr ""
 
-#: includes/class-ditty-item-type-default.php:51
+#: includes/class-ditty-item-type-default.php:50
 msgid "Add a title to the custom lnk."
 msgstr ""
 
-#: includes/class-ditty-item-type-default.php:57
+#: includes/class-ditty-item-type-default.php:56
 #: legacy/inc/admin/meta-boxes.php:296
 msgid "Target"
 msgstr ""
 
-#: includes/class-ditty-item-type-default.php:58
+#: includes/class-ditty-item-type-default.php:57
 #: legacy/inc/admin/meta-boxes.php:297
 msgid "Set a target for your link."
 msgstr ""
 
-#: includes/class-ditty-item-type-default.php:68
+#: includes/class-ditty-item-type-default.php:67
 #: legacy/inc/admin/meta-boxes.php:307
 msgid "No Follow"
 msgstr ""
 
-#: includes/class-ditty-item-type-default.php:69
+#: includes/class-ditty-item-type-default.php:68
 #: legacy/inc/admin/meta-boxes.php:310
 msgid "Add \"nofollow\" to link"
 msgstr ""
 
-#: includes/class-ditty-item-type-default.php:70
+#: includes/class-ditty-item-type-default.php:69
 #: legacy/inc/admin/meta-boxes.php:308
 msgid ""
 "Enabling this setting will add an attribute called 'nofollow' to your link. "
 "This tells search engines to not follow this link."
 msgstr ""
 
-#: includes/class-ditty-item-type-default.php:85
-#: includes/class-ditty-item-type-wp-editor.php:62
+#: includes/class-ditty-item-type-default.php:84
+#: includes/class-ditty-item-type-wp-editor.php:48
 msgid "This is a sample item. Please edit me!"
 msgstr ""
 
-#: includes/class-ditty-item-type-default.php:120
-#: includes/class-ditty-item.php:44
+#: includes/class-ditty-item-type-default.php:119
+#: includes/class-ditty-item.php:35
 msgid "No text set..."
 msgstr ""
 
-#: includes/class-ditty-item-type-posts.php:69
+#: includes/class-ditty-item-type-posts.php:68
 msgid "Limit"
 msgstr ""
 
-#: includes/class-ditty-item-type-posts.php:70
+#: includes/class-ditty-item-type-posts.php:69
 msgid "Set the number of latest posts to display."
 msgstr ""
 
-#: includes/class-ditty-item-type-posts.php:142
+#: includes/class-ditty-item-type-posts.php:141
 #, php-format
 msgid "Displaying the latest %d posts"
 msgstr ""
 
-#: includes/class-ditty-item-type-wp-editor.php:76
+#: includes/class-ditty-item-type-wp-editor.php:62
 msgid "No content set..."
 msgstr ""
 
-#: includes/class-ditty-item.php:564
+#: includes/class-ditty-item-type.php:145 includes/helpers.php:65
+#: legacy/inc/helpers.php:12 legacy/inc/helpers.php:55
+msgid "Default"
+msgstr ""
+
+#: includes/class-ditty-item-type.php:146
+msgid "Default variation."
+msgstr ""
+
+#: includes/class-ditty-item.php:365
 #, php-format
 msgid "<strong>%s</strong> item type does not exist!"
 msgstr ""
@@ -1141,7 +1287,7 @@ msgstr ""
 msgid "Change Type"
 msgstr ""
 
-#: includes/class-ditty-items.php:125 includes/fields/ditty-field.php:218
+#: includes/class-ditty-items.php:125 includes/fields/ditty-field.php:220
 msgid "Re-arrange"
 msgstr ""
 
@@ -1149,7 +1295,7 @@ msgstr ""
 msgid "Edit Item"
 msgstr ""
 
-#: includes/class-ditty-items.php:147 includes/post-types.php:54
+#: includes/class-ditty-items.php:147 includes/post-types.php:51
 msgid "Edit Layout"
 msgstr ""
 
@@ -1169,216 +1315,113 @@ msgstr ""
 msgid "Go Back"
 msgstr ""
 
-#: includes/class-ditty-layout-type-default.php:32
-msgid "The value of the text field."
+#: includes/class-ditty-layout.php:88
+msgid "Ditty Layout does not exist."
 msgstr ""
 
-#: includes/class-ditty-layout-type-default.php:57
-#: includes/class-ditty-layout-type-wp-editor.php:56
-msgid "The class used for the content wrapper element."
+#: includes/class-ditty-layouts.php:155
+msgid "Choose a Layout"
 msgstr ""
 
-#: includes/class-ditty-layout-type-default.php:72
-#: includes/class-ditty-layout-type.php:98 includes/helpers.php:64
-#: includes/helpers.php:141 legacy/inc/helpers.php:12 legacy/inc/helpers.php:55
-msgid "Default"
+#: includes/class-ditty-layouts.php:159
+msgid "Layout Variations"
 msgstr ""
 
-#: includes/class-ditty-layout-type-default.php:73
-msgid "Default layout for Default items."
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-editor.php:32
-msgid "The value of the wp_editor."
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-editor.php:71
-msgid "WP Editor Default"
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-editor.php:72
-msgid "Default layout for WP Editor items."
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-post.php:32
-msgid "The ID of the post."
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-post.php:37
-msgid "The title of the post."
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-post.php:42
-msgid "The date of the post."
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-post.php:47
-msgid "The excerpt of the post."
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-post.php:52
-msgid "The permalink of the post."
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-post.php:57
-msgid "The featured image url of the post."
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-post.php:75
-msgid "The post title."
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-post.php:79
-msgid "The post date"
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-post.php:83
-msgid "The post excerpt"
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-post.php:87
-msgid "The read more link"
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-post.php:102
-msgid "Default Layout"
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-post.php:103
-msgid "Default layout for WordPress posts."
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-post.php:109
-msgid "Default Inline Layout"
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-post.php:110
-msgid "Default inline layout for WordPress posts."
-msgstr ""
-
-#: includes/class-ditty-layout-type-wp-post.php:139
-msgid "Read More"
-msgstr ""
-
-#: includes/class-ditty-layout-type.php:99
-msgid "Default variation."
-msgstr ""
-
-#: includes/class-ditty-layouts.php:221
+#: includes/class-ditty-layouts.php:293
 msgid "Layout Info"
 msgstr ""
 
-#: includes/class-ditty-layouts.php:222
+#: includes/class-ditty-layouts.php:294
 msgid "Layout HTML"
 msgstr ""
 
-#: includes/class-ditty-layouts.php:223
+#: includes/class-ditty-layouts.php:295
 msgid "Layout CSS"
 msgstr ""
 
-#: includes/class-ditty-layouts.php:280
-msgid "Select a Layout Type"
-msgstr ""
-
-#: includes/class-ditty-layouts.php:291
-msgid "Select a Layout"
-msgstr ""
-
-#: includes/class-ditty-layouts.php:304
-msgid "Layout Code"
-msgstr ""
-
-#: includes/class-ditty-layouts.php:305
-msgid "Overwrite the HTML & CSS with another layout's data. Choose carefully!"
-msgstr ""
-
-#: includes/class-ditty-layouts.php:311
-msgid "Description"
-msgstr ""
-
-#: includes/class-ditty-layouts.php:479 includes/class-ditty-layouts.php:569
-#: includes/class-ditty-layouts.php:710
+#: includes/class-ditty-layouts.php:504 includes/class-ditty-layouts.php:599
+#: includes/class-ditty-layouts.php:751
 msgid "Edit HTML"
 msgstr ""
 
-#: includes/class-ditty-layouts.php:490 includes/class-ditty-layouts.php:570
-#: includes/class-ditty-layouts.php:705
+#: includes/class-ditty-layouts.php:515 includes/class-ditty-layouts.php:600
+#: includes/class-ditty-layouts.php:746
 msgid "Edit CSS"
 msgstr ""
 
-#: includes/class-ditty-layouts.php:546
+#: includes/class-ditty-layouts.php:570
 #, php-format
 msgid "Layout: <span>%s</span>"
 msgstr ""
 
-#: includes/class-ditty-layouts.php:566
+#: includes/class-ditty-layouts.php:596
 #, php-format
 msgid "Variation: %s"
 msgstr ""
 
-#: includes/class-ditty-layouts.php:567
+#: includes/class-ditty-layouts.php:597
 #, php-format
 msgid "Template: <span>%s</span>%s"
 msgstr ""
 
-#: includes/class-ditty-layouts.php:573
+#: includes/class-ditty-layouts.php:603
 msgid "Change Template"
 msgstr ""
 
-#: includes/class-ditty-layouts.php:612
+#: includes/class-ditty-layouts.php:642
 #, php-format
 msgid "Variation: <span>%s</span>"
 msgstr ""
 
-#: includes/class-ditty-layouts.php:734
+#: includes/class-ditty-layouts.php:775
 msgid "Tags"
 msgstr ""
 
-#: includes/class-ditty-layouts.php:737
+#: includes/class-ditty-layouts.php:778
 msgid ""
 "Hold the shift key when clicking the tag to paste all default attributes"
 msgstr ""
 
-#: includes/class-ditty-posts.php:94 includes/class-ditty-posts.php:171
-#: includes/class-ditty-posts.php:548
+#: includes/class-ditty-singles.php:95 includes/class-ditty-singles.php:194
+#: includes/class-ditty-singles.php:612
 #, php-format
 msgid "Ditty %d"
 msgstr ""
 
-#: includes/class-ditty-posts.php:112
-msgid "Status"
-msgstr ""
-
-#: includes/class-ditty-posts.php:114
-msgid "Active"
-msgstr ""
-
-#: includes/class-ditty-posts.php:115
-msgid "Disabled"
-msgstr ""
-
-#: includes/class-ditty-posts.php:123 legacy/inc/admin/edit-columns.php:15
+#: includes/class-ditty-singles.php:113 legacy/inc/admin/edit-columns.php:15
 #: legacy/inc/admin/meta-boxes.php:19
 msgid "Shortcode"
 msgstr ""
 
-#: includes/class-ditty-posts.php:132
+#: includes/class-ditty-singles.php:119
+msgid "Status"
+msgstr ""
+
+#: includes/class-ditty-singles.php:121
+msgid "Active"
+msgstr ""
+
+#: includes/class-ditty-singles.php:130
+msgid "Ajax Loading"
+msgstr ""
+
+#: includes/class-ditty-singles.php:155
 msgid "Preview Settings"
 msgstr ""
 
-#: includes/class-ditty-posts.php:133
+#: includes/class-ditty-singles.php:156
 msgid "Configure the editor preview style."
 msgstr ""
 
-#: includes/class-ditty-posts.php:138
+#: includes/class-ditty-singles.php:161
 msgid "Preview Background Color"
 msgstr ""
 
-#: includes/class-ditty-posts.php:139
+#: includes/class-ditty-singles.php:162
 msgid "Set a custom background color for the preview area while editing."
 msgstr ""
 
-#: includes/class-ditty-posts.php:145
+#: includes/class-ditty-singles.php:168
 msgid "Preview Padding"
 msgstr ""
 
@@ -1390,11 +1433,19 @@ msgstr ""
 msgid "Button"
 msgstr ""
 
+#: includes/fields/ditty-field-image.php:25 legacy/inc/static.php:34
+msgid "Upload or select an image"
+msgstr ""
+
+#: includes/fields/ditty-field-image.php:26
+msgid "Insert Image"
+msgstr ""
+
 #: includes/fields/ditty-field.php:37
 msgid "Add More"
 msgstr ""
 
-#: includes/fields/ditty-field.php:220
+#: includes/fields/ditty-field.php:222
 msgid "Add"
 msgstr ""
 
@@ -1407,121 +1458,210 @@ msgstr ""
 msgid "%s class does not exists."
 msgstr ""
 
-#: includes/helpers.php:66
+#: includes/helpers.php:67
 msgid "Manually add HTML to the item."
 msgstr ""
 
-#: includes/helpers.php:72 includes/helpers.php:148
+#: includes/helpers.php:73
 msgid "WP Editor"
 msgstr ""
 
-#: includes/helpers.php:74
+#: includes/helpers.php:75
 msgid "Manually add wp editor content to the item."
 msgstr ""
 
-#: includes/helpers.php:105
-msgid "Basic news ticker display"
+#: includes/helpers.php:106
+msgid "Basic news ticker display."
 msgstr ""
 
-#: includes/helpers.php:110 legacy/inc/helpers.php:141
+#: includes/helpers.php:111 legacy/inc/helpers.php:141
 msgid "List"
 msgstr ""
 
-#: includes/helpers.php:112
-msgid "Display items in a static list"
+#: includes/helpers.php:113
+msgid "Display items in a static list."
 msgstr ""
 
-#: includes/helpers.php:143
-msgid "Display a default item"
-msgstr ""
-
-#: includes/helpers.php:150
-msgid "Display a WP Editor item"
-msgstr ""
-
-#: includes/helpers.php:193
+#: includes/helpers.php:159
 msgid "Instagram"
 msgstr ""
 
-#: includes/helpers.php:205
+#: includes/helpers.php:171
 msgid "RSS"
 msgstr ""
 
-#: includes/helpers.php:211
+#: includes/helpers.php:177
 msgid "Twitter"
 msgstr ""
 
-#: includes/helpers.php:662
+#: includes/helpers.php:645
 msgid "This appears to be an invalid license key."
 msgstr ""
 
-#: includes/helpers.php:666
+#: includes/helpers.php:649
 msgid "Save Settings"
 msgstr ""
 
-#: includes/helpers.php:667
+#: includes/helpers.php:650
 msgid "Saving..."
 msgstr ""
 
-#: includes/helpers.php:668
+#: includes/helpers.php:651
 msgid "Settings have changed, make sure to save them!"
 msgstr ""
 
-#: includes/helpers.php:669
+#: includes/helpers.php:652
 msgid "Settings Updated!"
 msgstr ""
 
-#: includes/helpers.php:670
+#: includes/helpers.php:653
 msgid "Error Updating!"
 msgstr ""
 
-#: includes/helpers.php:694
+#: includes/helpers.php:677
 msgid "Add title"
 msgstr ""
 
-#: includes/helpers.php:695
+#: includes/helpers.php:678
 msgid ""
 "Are you sure you want to delete this Item? This action cannot be undone."
 msgstr ""
 
-#: includes/helpers.php:696
+#: includes/helpers.php:679
 msgid "Are you sure you want to delete this Display?"
 msgstr ""
 
-#: includes/helpers.php:697
+#: includes/helpers.php:680
 msgid "Are you sure you want to delete this Layout?"
 msgstr ""
 
-#: includes/helpers.php:698
+#: includes/helpers.php:681
 msgid "There is an error in your css.<br/>Click to close this message."
 msgstr ""
 
-#: includes/helpers.php:925 legacy/inc/admin/meta-boxes.php:666
+#: includes/helpers.php:956 legacy/inc/admin/meta-boxes.php:666
 msgid "Fade"
 msgstr ""
 
-#: includes/helpers.php:926
+#: includes/helpers.php:957
 msgid "Slide Left"
 msgstr ""
 
-#: includes/helpers.php:927
+#: includes/helpers.php:958
 msgid "Slide Right"
 msgstr ""
 
-#: includes/helpers.php:928
+#: includes/helpers.php:959
 msgid "Slide Down"
 msgstr ""
 
-#: includes/helpers.php:929
+#: includes/helpers.php:960
 msgid "Slide Up"
 msgstr ""
 
-#: includes/hooks.php:115
-msgid "The wrapper around all item elements."
+#: includes/layout-tags.php:12
+msgid "Render the item's author avatar"
 msgstr ""
 
-#: includes/post-types.php:16 includes/post-types.php:52
-#: includes/post-types.php:90 legacy/inc/post-types.php:16
+#: includes/layout-tags.php:30
+msgid "Render the item's author banner"
+msgstr ""
+
+#: includes/layout-tags.php:48
+msgid "Render the item's author biography"
+msgstr ""
+
+#: includes/layout-tags.php:63
+msgid "Render the item's author name"
+msgstr ""
+
+#: includes/layout-tags.php:78
+msgid "Render the item's author screen name"
+msgstr ""
+
+#: includes/layout-tags.php:93
+msgid "Render the item caption."
+msgstr ""
+
+#: includes/layout-tags.php:109
+msgid "Render the item categories"
+msgstr ""
+
+#: includes/layout-tags.php:121
+msgid "Render the item content."
+msgstr ""
+
+#: includes/layout-tags.php:131
+msgid "Render a custom field for the item"
+msgstr ""
+
+#: includes/layout-tags.php:142
+msgid "Render the item excerpt."
+msgstr ""
+
+#: includes/layout-tags.php:160
+msgid "Render the item icon."
+msgstr ""
+
+#: includes/layout-tags.php:175
+msgid "Render the item image."
+msgstr ""
+
+#: includes/layout-tags.php:193
+msgid "Render the item image url."
+msgstr ""
+
+#: includes/layout-tags.php:197
+msgid "Render the item permalink."
+msgstr ""
+
+#: includes/layout-tags.php:201
+msgid "Render the item source."
+msgstr ""
+
+#: includes/layout-tags.php:216
+msgid "Render the item terms"
+msgstr ""
+
+#: includes/layout-tags.php:229
+msgid "Render the item date/time."
+msgstr ""
+
+#: includes/layout-tags.php:234
+#, php-format
+msgid "%s ago"
+msgstr ""
+
+#: includes/layout-tags.php:247
+msgid "Render the item title."
+msgstr ""
+
+#: includes/layout-templates.php:12
+msgid "Default Layout"
+msgstr ""
+
+#: includes/layout-templates.php:13
+msgid "Default layout for custom content."
+msgstr ""
+
+#: includes/layout-templates.php:19
+msgid "Default Image Layout"
+msgstr ""
+
+#: includes/layout-templates.php:20
+msgid "Default layout for Images."
+msgstr ""
+
+#: includes/layout-templates.php:26
+msgid "Default Post Layout"
+msgstr ""
+
+#: includes/layout-templates.php:27
+msgid "Default layout for Posts."
+msgstr ""
+
+#: includes/post-types.php:16 includes/post-types.php:49
+#: includes/post-types.php:84 legacy/inc/post-types.php:16
 msgid "Add New"
 msgstr ""
 
@@ -1553,75 +1693,75 @@ msgstr ""
 msgid "No Ditty Found In Trash"
 msgstr ""
 
-#: includes/post-types.php:50 includes/post-types.php:61
+#: includes/post-types.php:47 includes/post-types.php:58
 msgid "Layouts"
 msgstr ""
 
-#: includes/post-types.php:51
+#: includes/post-types.php:48
 msgid "Layout"
 msgstr ""
 
-#: includes/post-types.php:53
+#: includes/post-types.php:50
 msgid "Add New Layout"
 msgstr ""
 
-#: includes/post-types.php:55
+#: includes/post-types.php:52
 msgid "New Layout"
 msgstr ""
 
-#: includes/post-types.php:56
+#: includes/post-types.php:53
 msgid "View Layout"
 msgstr ""
 
-#: includes/post-types.php:57
+#: includes/post-types.php:54
 msgid "Search Layouts"
 msgstr ""
 
-#: includes/post-types.php:58
+#: includes/post-types.php:55
 msgid "No Layouts Found"
 msgstr ""
 
-#: includes/post-types.php:59
+#: includes/post-types.php:56
 msgid "No Layouts Found In Trash"
 msgstr ""
 
-#: includes/post-types.php:88 includes/post-types.php:99
+#: includes/post-types.php:82 includes/post-types.php:93
 msgid "Displays"
 msgstr ""
 
-#: includes/post-types.php:91
+#: includes/post-types.php:85
 msgid "Add New Display"
 msgstr ""
 
-#: includes/post-types.php:93
+#: includes/post-types.php:87
 msgid "New Display"
 msgstr ""
 
-#: includes/post-types.php:94
+#: includes/post-types.php:88
 msgid "View Display"
 msgstr ""
 
-#: includes/post-types.php:95
+#: includes/post-types.php:89
 msgid "Search Displays"
 msgstr ""
 
-#: includes/post-types.php:96
+#: includes/post-types.php:90
 msgid "No Displays Found"
 msgstr ""
 
-#: includes/post-types.php:97
+#: includes/post-types.php:91
 msgid "No Displays Found In Trash"
 msgstr ""
 
-#: includes/post-types.php:132
+#: includes/post-types.php:123
 msgid "Ditty Updated!"
 msgstr ""
 
-#: includes/post-types.php:133
+#: includes/post-types.php:124
 msgid "Layout Updated!"
 msgstr ""
 
-#: includes/post-types.php:134
+#: includes/post-types.php:125
 msgid "Display Updated!"
 msgstr ""
 
@@ -1728,6 +1868,10 @@ msgstr ""
 #: legacy/inc/admin/fields/fields.php:682
 #: legacy/inc/admin/fields/fields.php:761
 msgid "Missing required data"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:137
+msgid "ID"
 msgstr ""
 
 #: legacy/inc/admin/fields/fields.php:138
@@ -2518,58 +2662,54 @@ msgstr ""
 msgid "Ditty News Ticker Settings"
 msgstr ""
 
-#: legacy/inc/settings.php:114
+#: legacy/inc/settings.php:116
 msgid "Ditty News Ticker settings"
 msgstr ""
 
-#: legacy/inc/settings.php:118
+#: legacy/inc/settings.php:120
 msgid "Visual Editor"
 msgstr ""
 
-#: legacy/inc/settings.php:118
+#: legacy/inc/settings.php:120
 msgid "Use the visual editor to create tick contents"
 msgstr ""
 
-#: legacy/inc/settings.php:122
+#: legacy/inc/settings.php:124
 msgid "Quick Edit Links"
 msgstr ""
 
-#: legacy/inc/settings.php:122
+#: legacy/inc/settings.php:124
 msgid ""
 "Add quick edit links on the front-end of the site for editors and admins"
 msgstr ""
 
-#: legacy/inc/settings.php:126
+#: legacy/inc/settings.php:128
 msgid "Private Ticker Posts"
 msgstr ""
 
-#: legacy/inc/settings.php:126
+#: legacy/inc/settings.php:128
 msgid "Make all ticker posts private"
 msgstr ""
 
-#: legacy/inc/settings.php:130
+#: legacy/inc/settings.php:132
 msgid "Custom CSS"
 msgstr ""
 
-#: legacy/inc/settings.php:130
+#: legacy/inc/settings.php:132
 msgid ""
 "Add custom css to style your ticker without modifying any external files"
 msgstr ""
 
-#: legacy/inc/settings.php:156
+#: legacy/inc/settings.php:158
 msgid "Use the visual editor for ticks"
 msgstr ""
 
-#: legacy/inc/settings.php:170
+#: legacy/inc/settings.php:172
 msgid "Add quick edit links"
 msgstr ""
 
-#: legacy/inc/settings.php:184
+#: legacy/inc/settings.php:186
 msgid "Private ticker posts"
-msgstr ""
-
-#: legacy/inc/static.php:34
-msgid "Upload or select an image"
 msgstr ""
 
 #: legacy/inc/static.php:35
@@ -2602,6 +2742,10 @@ msgstr ""
 
 #: legacy/inc/widget.php:157
 msgid "Hide widget if no ticks exist?"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Ditty (formerly Ditty News Ticker)"
 msgstr ""
 
 #. Plugin URI of the plugin/theme

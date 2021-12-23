@@ -102,22 +102,20 @@ function ditty_kses_allowed_html( $allowed, $context ) {
 add_filter( 'wp_kses_allowed_html', 'ditty_kses_allowed_html', 10, 2 );
 
 /**
- * Add global css selectors
- *
- * @since    3.0
- * @access   public
- * @var      array    $allowed
-*/
-function ditty_layout_css_selectors( $selectors ) {
-	$globals = array(
-		'elements' => array(
-			'selector' 				=> '.ditty-item__elements',
-			'description' => __( 'The wrapper around all item elements.', 'ditty-news-ticker' ),
-		),
-	);
-	return $globals + $selectors;
+ * Filter the available item tags for layout editing
+ * 
+ * @since   3.0
+ */
+function ditty_default_layout_tags_list( $tags, $item_type ) {
+	if ( 'default' == $item_type ||  'wp_editor' == $item_type ) {
+		$allowed_tags = array(
+			'content',
+		);
+		$tags = array_intersect_key( $tags, array_flip( $allowed_tags ) );
+	}
+	return $tags;
 }
-add_filter( 'ditty_layout_css_selectors', 'ditty_layout_css_selectors' );
+add_filter( 'ditty_layout_tags_list', 'ditty_default_layout_tags_list', 10, 2 );
 
 /**
  * Add custom classes to style menu items
