@@ -112,21 +112,21 @@
 		 * @since    3.0
 		 * @return   null
 		*/
-		dittyUpdatedDraftLayouts: function( variationType, layoutId ) {
-			var self = this;
-			
-			$.each( $( '.ditty-editor-item' ), function() {
-				var itemID = $( this ).data( 'item_id' ),
-						itemType = $( this ).data( 'item_type' ),
-						layoutValue = $( this ).data( 'layout_value' );
-				$.each( layoutValue, function( type, id ) {
-					if ( String( itemType ) === String( self.editorItemtype ) && String( type ) === String( variationType ) ) {
-						layoutValue[type] = String( layoutId );
-						dittyDraftItemUpdateData( self, itemID, 'layout_value', layoutValue );
-					}
-				} );
-			} );
-		},
+		// dittyUpdatedDraftLayouts: function( variationType, layoutId ) {
+		// 	var self = this;
+		// 	
+		// 	$.each( $( '.ditty-editor-item' ), function() {
+		// 		var itemID = $( this ).data( 'item_id' ),
+		// 				itemType = $( this ).data( 'item_type' ),
+		// 				layoutValue = $( this ).data( 'layout_value' );
+		// 		$.each( layoutValue, function( type, id ) {
+		// 			if ( String( itemType ) === String( self.editorItemtype ) && String( type ) === String( variationType ) ) {
+		// 				layoutValue[type] = String( layoutId );
+		// 				dittyDraftItemUpdateData( self, itemID, 'layout_value', layoutValue );
+		// 			}
+		// 		} );
+		// 	} );
+		// },
 
     /**
 		 * Load a new layout
@@ -149,17 +149,17 @@
 			if ( $layout.hasClass( 'active' ) ) {
 				return false;
 			}
-			// $.each( layoutValue, function( type ) {
-			// 	if ( self.editorVariationId === type ) {
-			// 		layoutValue[type] = String( layoutId );
-			// 	}
-			// } );
+			$.each( layoutValue, function( type ) {
+				if ( self.editorVariationId === type ) {
+					layoutValue[type] = String( layoutId );
+				}
+			} );
 
 			// Highlight the active layout
 			self.settings.editor.updateStart(); // Start the update overlay
-			self.dittyUpdatedDraftLayouts( self.editorVariationId, layoutId );
+			//self.dittyUpdatedDraftLayouts( self.editorVariationId, layoutId );
 			//dittyDraftItemUpdateData( self, self.editorItemId, 'layout_id', layoutId );
-			//dittyDraftItemUpdateData( self, self.editorItemId, 'layout_value', layoutValue );
+			dittyDraftItemUpdateData( self, self.editorItemId, 'layout_value', layoutValue );
 			self._activateLayout( $layout );
 
 			// Use ajax to load the new layout
@@ -174,7 +174,8 @@
 			$.post( dittyVars.ajaxurl, data, function( response ) {
 				self.settings.editor.updateStop(); // Stop the update overlay
 				if ( response.display_items ) {
-					self.settings.editor.ditty.updateItems( response.display_items, false, false, true );
+					//self.settings.editor.ditty.updateItems( response.display_items, false, false, true );
+					self.settings.editor.ditty.updateItems( response.display_items, self.editorItemId );
 				}
 				if ( response.editor_item ) {
 					var $newEditorItem = $( response.editor_item );

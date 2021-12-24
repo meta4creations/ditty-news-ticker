@@ -740,18 +740,18 @@ function ditty_display_items( $ditty_id, $load_type = false ) {
 		$items_meta = ditty_items_meta( $ditty_id );
 		
 		// Add new draft meta
-		if ( $draft_values = ditty_get_draft_values() ) {
-			if ( isset( $draft_values['items'] ) && is_array( $draft_values['items'] ) && count( $draft_values['items'] ) > 0 ) {
-				foreach ( $draft_values['items'] as $i => $draft_item_meta ) {
-					if ( ! isset( $draft_item_meta['data'] ) || ! isset( $draft_item_meta['data']['item_id'] ) ) {
-						continue;
-					}
-					if ( false !== strpos( $draft_item_meta['data']['item_id'], 'new-' ) ) {
-						$items_meta[] = $draft_item_meta['data'];
-					}
-				}
-			}
-		}
+		// if ( $draft_values = ditty_get_draft_values() ) {
+		// 	if ( isset( $draft_values['items'] ) && is_array( $draft_values['items'] ) && count( $draft_values['items'] ) > 0 ) {
+		// 		foreach ( $draft_values['items'] as $i => $draft_item_meta ) {
+		// 			if ( ! isset( $draft_item_meta['data'] ) || ! isset( $draft_item_meta['data']['item_id'] ) ) {
+		// 				continue;
+		// 			}
+		// 			if ( false !== strpos( $draft_item_meta['data']['item_id'], 'new-' ) ) {
+		// 				$items_meta[] = $draft_item_meta['data'];
+		// 			}
+		// 		}
+		// 	}
+		// }
 
 		if ( empty( $items_meta) && 'auto-draft' == get_post_status( $ditty_id ) ) {
 			$items_meta = array( ditty_get_new_item_meta( $ditty_id ) );
@@ -763,15 +763,15 @@ function ditty_display_items( $ditty_id, $load_type = false ) {
 				}
 				
 				// Check for updated draft meta
-				if ( $draft_data = ditty_draft_item_get_data( $meta['item_id'] ) ) {
-					if ( isset( $draft_data['item_value'] ) ) {
-						$draft_data['item_value'] = maybe_serialize( $draft_data['item_value'] );
-					}
-					if ( isset( $draft_data['layout_value'] ) ) {
-						$draft_data['layout_value'] = maybe_serialize( $draft_data['layout_value'] );
-					}
-					$meta = shortcode_atts( $meta, $draft_data );
-				}		
+				// if ( $draft_data = ditty_draft_item_get_data( $meta['item_id'] ) ) {
+				// 	if ( isset( $draft_data['item_value'] ) ) {
+				// 		$draft_data['item_value'] = maybe_serialize( $draft_data['item_value'] );
+				// 	}
+				// 	if ( isset( $draft_data['layout_value'] ) ) {
+				// 		$draft_data['layout_value'] = maybe_serialize( $draft_data['layout_value'] );
+				// 	}
+				// 	$meta = shortcode_atts( $meta, $draft_data );
+				// }		
 				
 				$prepared_items = ditty_prepare_display_items( $meta );
 				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
