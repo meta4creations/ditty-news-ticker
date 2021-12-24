@@ -149,31 +149,13 @@ function ditty_layout_default_image_css() {
 .ditty-item__icon a {
 	color: #FFF;
 }
-.ditty-tag__heading {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-start;
-	padding: 12px 10px 12px;
-}
-.ditty-item__author_avatar {
-	flex: 0 0 auto;
-	margin-right: 10px;
-}
-.ditty-item__author_avatar img {
-	display: block;
-	line-height: 0;
-	border-radius: 50%;
-}
-.ditty-item__author_name {
-	font-weight: 500;
-}
-.ditty-item__author_name a {
-	color: #050505;
+.ditty-item__caption {
+	margin: 10px 0 0;
 }
 .ditty-item__time {
 	font-size: 13px;
 	font-weight: 300;
+	margin: 10px 0 0;
 }
 .ditty-item__time a {
 	color: #6B6D71;
@@ -182,15 +164,8 @@ function ditty_layout_default_image_css() {
 .ditty-item__time a:hover {
 	text-decoration: underline;
 }
-.ditty-item__caption {
-	padding: 15px;
-}
-.ditty-item__time {
-	padding: 15px; 
-}
 .ditty-item__caption + .ditty-item__time {
-	padding-top: 0;
-	margin-top: -5px;
+	margin-top: 5px;
 }
 	<?php
 	return ob_get_clean();
