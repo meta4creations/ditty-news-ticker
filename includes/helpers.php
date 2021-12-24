@@ -148,29 +148,53 @@ function ditty_extension_licenses() {
 */
 function ditty_extensions() {
 	$extensions = array(
-		// 'facebook' => array(
-		// 	'icon' 		=> 'fab fa-facebook-f',
-		// 	'name' 		=> __( 'Facebook', 'ditty-news-ticker' ),
-		// 	'preview' => true,
-		// 	'url' 		=> 'https://www.dittyticker.com/facebook',
-		// ),
+		'facebook' => array(
+			'icon' 		=> 'fab fa-facebook',
+			'name' 		=> __( 'Facebook', 'ditty-news-ticker' ),
+			'preview' => true,
+			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-facebook-ticker/',
+		),
+		'facebook' => array(
+			'icon' 		=> 'fab fa-facebook',
+			'name' 		=> __( 'Facebook', 'ditty-news-ticker' ),
+			'preview' => true,
+			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-facebook-ticker/',
+		),
+		'grid' => array(
+			'icon' 		=> 'fas fa-th',
+			'name' 		=> __( 'Grid Display', 'ditty-news-ticker' ),
+			'preview' => true,
+			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-grid-display/',
+		),
+		'images' => array(
+			'icon' 		=> 'fas fa-image',
+			'name' 		=> __( 'Images', 'ditty-news-ticker' ),
+			'preview' => true,
+			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-image-ticker/',
+		),
 		'instagram' => array(
 			'icon' 		=> 'fab fa-instagram',
 			'name' 		=> __( 'Instagram', 'ditty-news-ticker' ),
 			'preview' => true,
 			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-instagram-ticker/',
 		),
-		// 'images' => array(
-		// 	'icon' 		=> 'fas fa-image',
-		// 	'name' 		=> __( 'Images', 'ditty-news-ticker' ),
-		// 	'preview' => true,
-		// 	'url' 		=> 'https://www.dittyticker.com/images',
-		// ),
+		'posts' => array(
+			'icon' 		=> 'fab fa-wordpress',
+			'name' 		=> __( 'Posts', 'ditty-news-ticker' ),
+			'preview' => true,
+			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-posts-ticker/',
+		),
 		'rss' => array(
 			'icon' 		=> 'fas fa-rss',
 			'name' 		=> __( 'RSS', 'ditty-news-ticker' ),
 			'preview' => true,
 			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-rss-ticker/',
+		),
+		'timing' => array(
+			'icon' 		=> 'fas fa-clock',
+			'name' 		=> __( 'Timing', 'ditty-news-ticker' ),
+			'preview' => true,
+			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-timed-ticker/',
 		),
 		'twitter' => array(
 			'icon' 		=> 'fab fa-twitter',

@@ -269,15 +269,15 @@ table.wp-list-table .type-ditty_display .row-actions {
 .ditty-field-type--slider .irs--flat .irs-from,
 .ditty-field-type--slider .irs--flat .irs-to,
 .ditty-field-type--slider .irs--flat .irs-single {
-  background-color: #39B449; }
+  background-color: #19BF7C; }
 
 .ditty-field-type--slider .irs--flat .irs-from:before,
 .ditty-field-type--slider .irs--flat .irs-to:before,
 .ditty-field-type--slider .irs--flat .irs-single:before {
-  border-top-color: #39B449; }
+  border-top-color: #19BF7C; }
 
 .ditty-field-type--slider .irs--flat .irs-handle > i:first-child {
-  background-color: #39B449; }
+  background-color: #19BF7C; }
 
 .ditty-field-type--slider .irs--flat .irs-handle {
   top: 0; }
@@ -301,7 +301,7 @@ table.wp-list-table .type-ditty_display .row-actions {
   top: -6px;
   bottom: auto;
   border-top-color: transparent;
-  border-bottom-color: #39B449; }
+  border-bottom-color: #19BF7C; }
 
 /* Color */
 .ditty-field-type--color input[type="text"] {
@@ -337,7 +337,7 @@ table.wp-list-table .type-ditty_display .row-actions {
       .ditty-input--spacing__group .ditty-field__input:before {
         position: absolute;
         content: '';
-        background: #39B449; }
+        background: #19BF7C; }
     .ditty-input--spacing__group .ditty-field:nth-child(1) .ditty-field__input:before {
       top: 0;
       left: 0;
@@ -385,23 +385,23 @@ table.wp-list-table .type-ditty_display .row-actions {
     .ditty-input--radius__group .ditty-field:nth-child(1) .ditty-field__input:before {
       top: 0;
       left: 0;
-      border-top-color: #39B449;
-      border-left-color: #39B449; }
+      border-top-color: #19BF7C;
+      border-left-color: #19BF7C; }
     .ditty-input--radius__group .ditty-field:nth-child(2) .ditty-field__input:before {
       top: 0;
       right: 0;
-      border-top-color: #39B449;
-      border-right-color: #39B449; }
+      border-top-color: #19BF7C;
+      border-right-color: #19BF7C; }
     .ditty-input--radius__group .ditty-field:nth-child(3) .ditty-field__input:before {
       bottom: 0;
       left: 0;
-      border-bottom-color: #39B449;
-      border-left-color: #39B449; }
+      border-bottom-color: #19BF7C;
+      border-left-color: #19BF7C; }
     .ditty-input--radius__group .ditty-field:nth-child(4) .ditty-field__input:before {
       bottom: 0;
       right: 0;
-      border-bottom-color: #39B449;
-      border-right-color: #39B449; }
+      border-bottom-color: #19BF7C;
+      border-right-color: #19BF7C; }
 
 /* Divider */
 .ditty-field-type--divider {
@@ -780,7 +780,7 @@ table.wp-list-table .type-ditty_display .row-actions {
       #ditty-extensions .ditty-extension__tab:hover {
         background-color: rgba(255, 255, 255, 0.2); }
       #ditty-extensions .ditty-extension__tab.active {
-        background-color: #39B449; }
+        background-color: #19BF7C; }
     #ditty-extensions .ditty-extension__panel {
       position: relative; }
       #ditty-extensions .ditty-extension__panel__sublabel {
@@ -825,7 +825,7 @@ table.wp-list-table .type-ditty_display .row-actions {
       border-bottom-left-radius: 0;
       border-top-left-radius: 0; }
       #ditty-extensions .ditty-extension__license__submit:hover {
-        background-color: #39B449; }
+        background-color: #19BF7C; }
     #ditty-extensions .ditty-extension__license__refresh {
       width: 45px;
       text-align: center;
@@ -834,7 +834,7 @@ table.wp-list-table .type-ditty_display .row-actions {
       margin: 0;
       border-radius: 0; }
       #ditty-extensions .ditty-extension__license__refresh:hover {
-        background-color: #39B449; }
+        background-color: #19BF7C; }
     #ditty-extensions .ditty-extension__license__deactivate {
       width: 45px;
       text-align: center;
@@ -844,7 +844,7 @@ table.wp-list-table .type-ditty_display .row-actions {
       border-bottom-left-radius: 0;
       border-top-left-radius: 0; }
       #ditty-extensions .ditty-extension__license__deactivate:hover {
-        background-color: #39B449; }
+        background-color: #19BF7C; }
     #ditty-extensions .ditty-extension__buttons .ditty-button {
       color: #FFF;
       margin: 10px 0 0; }
@@ -1080,7 +1080,7 @@ table.wp-list-table .type-ditty_display .row-actions {
       #ditty-extensions-app .ditty-extension__tab:hover {
         background-color: rgba(255, 255, 255, 0.2); }
       #ditty-extensions-app .ditty-extension__tab.active {
-        background-color: #39B449; }
+        background-color: #19BF7C; }
     #ditty-extensions-app .ditty-extension__panels {
       position: relative; }
     #ditty-extensions-app .ditty-extension__panel {
@@ -1124,7 +1124,7 @@ table.wp-list-table .type-ditty_display .row-actions {
       border-bottom-left-radius: 0;
       border-top-left-radius: 0; }
       #ditty-extensions-app .ditty-extension__license__submit:hover {
-        background-color: #39B449; }
+        background-color: #19BF7C; }
     #ditty-extensions-app .ditty-extension__license__refresh {
       width: 45px;
       text-align: center;
@@ -1133,7 +1133,7 @@ table.wp-list-table .type-ditty_display .row-actions {
       margin: 0;
       border-radius: 0; }
       #ditty-extensions-app .ditty-extension__license__refresh:hover {
-        background-color: #39B449; }
+        background-color: #19BF7C; }
     #ditty-extensions-app .ditty-extension__license__deactivate {
       width: 45px;
       text-align: center;
@@ -1143,7 +1143,7 @@ table.wp-list-table .type-ditty_display .row-actions {
       border-bottom-left-radius: 0;
       border-top-left-radius: 0; }
       #ditty-extensions-app .ditty-extension__license__deactivate:hover {
-        background-color: #39B449; }
+        background-color: #19BF7C; }
     #ditty-extensions-app .ditty-extension__buttons .ditty-button {
       color: #FFF;
       margin: 10px 0 0; }
@@ -1291,7 +1291,7 @@ table.wp-list-table .type-ditty_display .row-actions {
 #ditty-extensions-app .ditty-extension--timing .ditty-button:hover,
 #ditty-extensions-app .ditty-extension--timing .ditty-button--primary,
 #ditty-extensions-app .ditty-extension--timing .ditty-extension__tab.active {
-  background-color: #39B449; }
+  background-color: #19BF7C; }
 
 #ditty-extensions .ditty-extension--twitter .ditty-extension__header,
 #ditty-extensions .ditty-extension--twitter .ditty-extension__icon,
@@ -1438,7 +1438,7 @@ table.wp-list-table .type-ditty_display .row-actions {
     color: #FFF;
     background-color: rgba(255, 255, 255, 0.2); }
   .ditty-settings__tab.active {
-    background-color: #39B449; }
+    background-color: #19BF7C; }
     .ditty-settings__tab.active:after {
       right: 0;
       border: 9px solid transparent;

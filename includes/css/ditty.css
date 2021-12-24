@@ -506,10 +506,10 @@
     padding: 30px; }
   .ditty-button--primary {
     color: #FFF;
-    background: #39B449; }
+    background: #19BF7C; }
     .ditty-button--primary:hover {
       color: #FFF;
-      background: #56ca65; }
+      background: #28e398; }
   .ditty-button--wide {
     width: 100%; }
 
@@ -543,7 +543,7 @@
     color: #FFF; }
   .ditty-data-list__filter.active {
     color: #FFF;
-    background: #39B449; }
+    background: #19BF7C; }
 
 .ditty-data-list__items {
   background: #FFF;
@@ -597,7 +597,7 @@
     .ditty-data-list__item a:focus {
       outline: none;
       box-shadow: none;
-      color: #39B449; }
+      color: #19BF7C; }
     .ditty-data-list__item a:hover {
       color: rgba(0, 0, 0, 0.7); }
       .ditty-data-list__item a:hover i {
@@ -636,7 +636,7 @@
   .ditty-data-list__item.active {
     cursor: default;
     background: #EDF8ED;
-    border-color: #39B449;
+    border-color: #19BF7C;
     /*
 			a:not(.ditty-data-list__item__icon) {
 				color: #89D08D;
@@ -808,7 +808,7 @@
       background-color: rgba(255, 255, 255, 0.2); }
     #ditty-editor .ditty-editor__tab.active {
       color: #FFF;
-      background-color: #39B449; }
+      background-color: #19BF7C; }
       #ditty-editor .ditty-editor__tab.active:after {
         border: 6px solid transparent;
         content: " ";
@@ -872,7 +872,7 @@
     .ditty-editor-options__buttons a:not(.ditty-button):hover,
     .ditty-editor-options__buttons button:not(.ditty-button):hover {
       color: #FFF;
-      background-color: #39B449; }
+      background-color: #19BF7C; }
     .ditty-editor-options__buttons a:not(.ditty-button).ditty-editor-options__preview.ditty-has-updates,
     .ditty-editor-options__buttons button:not(.ditty-button).ditty-editor-options__preview.ditty-has-updates {
       cursor: pointer;
@@ -880,7 +880,7 @@
       opacity: 1; }
       .ditty-editor-options__buttons a:not(.ditty-button).ditty-editor-options__preview.ditty-has-updates:hover,
       .ditty-editor-options__buttons button:not(.ditty-button).ditty-editor-options__preview.ditty-has-updates:hover {
-        background-color: #39B449; }
+        background-color: #19BF7C; }
     .ditty-editor-options__buttons a:not(.ditty-button).ditty-editor-options__preview:not(.ditty-has-updates),
     .ditty-editor-options__buttons button:not(.ditty-button).ditty-editor-options__preview:not(.ditty-has-updates) {
       cursor: default;
