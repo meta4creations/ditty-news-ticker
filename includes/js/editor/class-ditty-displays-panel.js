@@ -38,7 +38,7 @@
 	    this.$elmt.ditty_ui_data_list( {
 		    filter				: '.ditty-display-panel__filter',
 		    item					: '.ditty-editor-display',
-		    itemSelector	: 'type'
+		    itemSelector	: 'display_type'
 	    } );
 
 	    // Activate the current layout
