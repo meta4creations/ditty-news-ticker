@@ -9,8 +9,8 @@ function ditty_settings_defaults() {
 	$defaults = array(
 		'live_refresh'				=> 10,
 		'default_display'			=> false,
-		'ditty_display_ui'		=> 'disabled',
-		'ditty_layout_ui'			=> 'disabled',
+		'ditty_display_ui'		=> 'enabled',
+		'ditty_layout_ui'			=> 'enabled',
 		'ditty_layouts_sass'	=> false,
 		'variation_defaults'	=> array(),
 		'global_ditty'				=> array(),

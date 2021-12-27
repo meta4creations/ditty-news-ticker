@@ -303,7 +303,7 @@ class Ditty {
 			}
 			require_once DITTY_DIR . 'includes/admin/columns.php';
 			require_once DITTY_DIR . 'includes/admin/settings.php';
-			require_once DITTY_DIR . 'includes/admin/upgrade_details.php';
+			require_once DITTY_DIR . 'includes/admin/info.php';
 		}
 		
 		// Possibly add Ditty News Ticker

@@ -158,20 +158,20 @@
       "oAP" : "\/includes\/admin\/EDD_SL_Plugin_Updater.php",
       "oF" : 0
     },
+    "\/includes\/admin\/info.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/admin\/info.php",
+      "oF" : 0
+    },
     "\/includes\/admin\/settings.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/includes\/admin\/settings.php",
-      "oF" : 0
-    },
-    "\/includes\/admin\/upgrade_details.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/includes\/admin\/upgrade_details.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-activator.php" : {
