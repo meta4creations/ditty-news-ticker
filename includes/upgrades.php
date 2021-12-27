@@ -40,7 +40,7 @@ function ditty_v3_upgrades() {
 					$updated_slug = 'facebook';
 					break;
 				case 'ditty-image-ticker':
-					$updated_slug = 'image';
+					$updated_slug = 'images';
 					break;
 				case 'ditty-instagram-ticker':
 					$updated_slug = 'instagram';

@@ -173,27 +173,27 @@ class Ditty_Extensions {
 	private function update_license( $extension, $license_key='', $status='', $expires='', $error=false ) {
 		$licenses = $this->licenses;
 		if ( ! is_array( $licenses ) || empty( $licenses ) ) {
-		  $licenses = array();
-	  }
-	  if ( ! isset( $licenses[$extension] ) ) {
-		  $licenses[$extension] = array();
-	  }
-	  $licenses[$extension]['key'] = sanitize_text_field( $license_key );
-	  $licenses[$extension]['status'] = esc_attr( $status );
-	  $licenses[$extension]['expires'] = sanitize_text_field( $expires );
-	  $licenses[$extension]['error'] = esc_attr( $error );
-	  
-	  $updated_licenses = array();
-	  if ( is_array( $licenses ) && count( $licenses ) > 0 ) {
-	  	foreach ( $licenses as $slug => $license ) {
-	  		if ( '' === $slug ) {
-		  		continue;
-	  		}
-	  		$updated_licenses[$slug] = $license;
-	  	}
-	  }
-	  
-	  return $this->update_licenses( $updated_licenses );
+			$licenses = array();
+		}
+		if ( ! isset( $licenses[$extension] ) ) {
+			$licenses[$extension] = array();
+		}
+		$licenses[$extension]['key'] = sanitize_text_field( $license_key );
+		$licenses[$extension]['status'] = esc_attr( $status );
+		$licenses[$extension]['expires'] = sanitize_text_field( $expires );
+		$licenses[$extension]['error'] = esc_attr( $error );
+		
+		$updated_licenses = array();
+		if ( is_array( $licenses ) && count( $licenses ) > 0 ) {
+			foreach ( $licenses as $slug => $license ) {
+				if ( '' === $slug ) {
+					continue;
+				}
+				$updated_licenses[$slug] = $license;
+			}
+		}
+		
+		return $this->update_licenses( $updated_licenses );
 	}
 	
 	/**
@@ -218,14 +218,14 @@ class Ditty_Extensions {
 	public function get_license_status( $extension ) {
 		$licenses = $this->licenses;
 		if ( ! is_array( $licenses ) || empty( $licenses ) ) {
-		  $licenses = array();
-	  }
-	  if ( ! isset( $licenses[$extension] ) ) {
-		  return false;
-	  }
-	  if ( isset( $licenses[$extension]['status'] ) ) {
-		  return $licenses[$extension]['status'];
-	  }
+			$licenses = array();
+		}
+		if ( ! isset( $licenses[$extension] ) ) {
+			return false;
+		}
+		if ( isset( $licenses[$extension]['status'] ) ) {
+			return $licenses[$extension]['status'];
+		}
 	}
 	
 	/**
@@ -263,6 +263,7 @@ class Ditty_Extensions {
 		if ( $license_settings ) {
 			
 			// Add the license to the settings array
+			$license_settings['id'] = 'license';
 			$license_settings['label'] = __( 'License', 'ditty-news-ticker' );
 			$settings = array( 'license' => $license_settings ) + $settings;
 			

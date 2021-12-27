@@ -132,13 +132,52 @@ function ditty_display_type_object( $type ) {
 }
 
 /**
+ * Add in legacy licenses
+ *
+ * @since    3.0
+*/
+function ditty_extension_legacy_licenses( $licenses ) {
+	$legacy_licenses = apply_filters( 'mtphr_dnt_license_data', array() );
+	if ( is_array( $legacy_licenses ) && count( $legacy_licenses ) > 0 ) {
+		foreach ( $legacy_licenses as $slug => $legacy_license ) {
+			if ( $updated_slug = ditty_updated_extension_slug( $slug ) ) {
+				if ( ! isset( $licenses[$updated_slug] ) ) {
+					$licenses[$updated_slug] = $legacy_license;
+				}
+			}
+		}
+	}
+	return $licenses;
+}
+
+/**
  * Return an array of Ditty extension licenses
  *
  * @since    3.0
 */
 function ditty_extension_licenses() {
 	$licenses = apply_filters( 'ditty_extension_licenses', array() );
+	$licenses = ditty_extension_legacy_licenses( $licenses );
 	return $licenses;
+}
+
+/**
+ * Add in legacy licenses
+ *
+ * @since    3.0
+*/
+function ditty_legacy_extensions( $extensions ) {
+	$legacy_extensions = apply_filters( 'mtphr_dnt_license_data', array() );
+	if ( is_array( $legacy_extensions ) && count( $legacy_extensions ) > 0 ) {
+		foreach ( $legacy_extensions as $slug => $legacy_extension ) {
+			if ( $updated_slug = ditty_updated_extension_slug( $slug ) ) {
+				if ( isset( $extensions[$updated_slug] ) ) {
+					unset( $extensions[$updated_slug]['preview'] );
+				}
+			}
+		}
+	}
+	return $extensions;
 }
 
 /**
@@ -204,6 +243,7 @@ function ditty_extensions() {
 		),
 	);
 	$extensions = apply_filters( 'ditty_extensions', $extensions );
+	$extensions = ditty_legacy_extensions( $extensions );
 	ksort( $extensions );
 	
 	// Set the live extensions to be first
@@ -219,6 +259,45 @@ function ditty_extensions() {
 		}
 	}
 	return $live_extensions + $preview_extensions;
+}
+
+/**
+ * Return an updated legacy slug
+ * @since    3.0
+*/
+function ditty_updated_extension_slug( $slug ) {	
+	$updated_slug = '';
+	switch ( $slug ) {
+		case 'ditty-facebook-ticker':
+			$updated_slug = 'facebook';
+			break;
+		case 'ditty-image-ticker':
+			$updated_slug = 'image';
+			break;
+		case 'ditty-instagram-ticker':
+			$updated_slug = 'instagram';
+			break;
+		case 'ditty-mega-ticker':
+			$updated_slug = 'mega';
+			break;
+		case 'ditty-posts-ticker':
+			$updated_slug = 'posts';
+			break;
+		case 'ditty-rss-ticker':
+			$updated_slug = 'rss';
+			break;
+		case 'ditty-timed-ticker':
+			$updated_slug = 'timing';
+			break;
+		case 'ditty-twitter-ticker':
+			$updated_slug = 'twitter';
+			break;
+		default:
+			break;
+	}
+	if ( '' != $updated_slug ) {
+		return $updated_slug;
+	}
 }
 
 /**
