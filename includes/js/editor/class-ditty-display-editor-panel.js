@@ -216,7 +216,9 @@
 		 * @since    3.0
 		 * @return   null
 		*/
-	  _importUpdate: function() {
+	  _importUpdate: function( e ) {
+			e.preventDefault();
+			
 		  // var self 		= e.data.self,
 		  // 		values 	= self.$importExportField.val();
     },

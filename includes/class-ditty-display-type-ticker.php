@@ -164,17 +164,22 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 					'std'		=> isset( $values['itemMaxWidth'] ) ? $values['itemMaxWidth'] : false,
 				),
 			) ),
-			'importExportDivider' => array(
-				'type' 	=> 'divider',
-				'id'		=> 'importExportDivider',
-				'name' 	=> __( 'Import/Export', 'ditty-news-ticker' ),
-				'help' 	=> __( 'Import or export the display settings.', 'ditty-news-ticker' ),
-			),
-			'importExport' => array(
-				'type'	=> 'html',
-				'id'		=> 'importExport',
-				'std'		=> parent::import_export_settings( $values ),
-			),
+			// 'importExportSettings' 	=> array(
+			// 	'type' 							=> 'group',
+			// 	'id'								=> 'importExportSettings',
+			// 	'collapsible'				=> true,
+			// 	'default_state'			=> 'collapsed',
+			// 	'multiple_fields'		=> true,
+			// 	'name' 							=> __( 'Import/Export', 'ditty-news-ticker' ),
+			// 	'help' 							=> __( 'Import or export the display settings.', 'ditty-news-ticker' ),
+			// 	'fields' 						=> array(
+			// 		'importExport' => array(
+			// 			'type'	=> 'html',
+			// 			'id'		=> 'importExport',
+			// 			'std'		=> parent::import_export_settings( $values ),
+			// 		),
+			// 	),
+			// ),
 		);
 		return $fields;
 	}

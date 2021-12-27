@@ -167,31 +167,31 @@ class Ditty_Display_Type_List extends Ditty_Display_Type {
 				'collapsible'				=> true,
 				'default_state'			=> 'collapsed',
 				'multiple_fields'		=> true,
-				'name' 	=> __( 'Initial Settings', 'ditty-grid-display' ),
-				'help' 	=> __( 'Configure the initial display settings.', 'ditty-grid-display' ),
+				'name' 	=> __( 'Initial Settings', 'ditty-news-ticker' ),
+				'help' 	=> __( 'Configure the initial display settings.', 'ditty-news-ticker' ),
 				'fields' => array(
 					'initTransition' => array(
 						'type'		=> 'select',
 						'id'			=> 'initTransition',
-						'name'		=> __( 'Initial Page Transition', 'ditty-grid-display' ),
-						'help'		=> __( 'Set the transition for initial display.', 'ditty-grid-display' ),
+						'name'		=> __( 'Initial Page Transition', 'ditty-news-ticker' ),
+						'help'		=> __( 'Set the transition for initial display.', 'ditty-news-ticker' ),
 						'options'	=> ditty_slider_transitions(),
 						'std'			=> isset( $values['initTransition'] ) ? $values['initTransition'] : false,
 					),
 					'initTransitionEase' => array(
 						'type'		=> 'select',
 						'id'			=> 'initTransitionEase',
-						'name'		=> __( 'Initial Page Transition Ease', 'ditty-grid-display' ),
-						'help'		=> __( 'Set the easing for initial display.', 'ditty-grid-display' ),
+						'name'		=> __( 'Initial Page Transition Ease', 'ditty-news-ticker' ),
+						'help'		=> __( 'Set the easing for initial display.', 'ditty-news-ticker' ),
 						'options' => ditty_ease_array(),
 						'std'			=> isset( $values['initTransitionEase'] ) ? $values['initTransitionEase'] : false,
 					),
 					'initTransitionSpeed' => array(
 						'type'				=> 'slider',
 						'id'					=> 'initTransitionSpeed',
-						'name'				=> __( 'Initial Page Transition Speed', 'ditty-grid-display' ),
-						'help'				=> __( 'Set the transition speed for initial display.', 'ditty-grid-display' ),
-						'suffix'			=> ' ' . __( 'second(s)', 'ditty-grid-display' ),
+						'name'				=> __( 'Initial Page Transition Speed', 'ditty-news-ticker' ),
+						'help'				=> __( 'Set the transition speed for initial display.', 'ditty-news-ticker' ),
+						'suffix'			=> ' ' . __( 'second(s)', 'ditty-news-ticker' ),
 						'js_options'	=> array(
 							'min' 	=> 0,
 							'max' 	=> 10,
@@ -202,17 +202,17 @@ class Ditty_Display_Type_List extends Ditty_Display_Type {
 					'initHeightEase' => array(
 						'type'		=> 'select',
 						'id'			=> 'initHeightEase',
-						'name'		=> __( 'Initial Height Ease', 'ditty-grid-display' ),
-						'help'		=> __( 'Set the height easing for initial display.', 'ditty-grid-display' ),
+						'name'		=> __( 'Initial Height Ease', 'ditty-news-ticker' ),
+						'help'		=> __( 'Set the height easing for initial display.', 'ditty-news-ticker' ),
 						'options' => ditty_ease_array(),
 						'std'			=> isset( $values['initHeightEase'] ) ? $values['initHeightEase'] : false,
 					),
 					'initHeightSpeed' => array(
 						'type'				=> 'slider',
 						'id'					=> 'initHeightSpeed',
-						'name'				=> __( 'Initial Height Speed', 'ditty-grid-display' ),
-						'help'				=> __( 'Set the height speed for initial display.', 'ditty-grid-display' ),
-						'suffix'			=> ' ' . __( 'second(s)', 'ditty-grid-display' ),	
+						'name'				=> __( 'Initial Height Speed', 'ditty-news-ticker' ),
+						'help'				=> __( 'Set the height speed for initial display.', 'ditty-news-ticker' ),
+						'suffix'			=> ' ' . __( 'second(s)', 'ditty-news-ticker' ),	
 						'js_options'	=> array(
 							'min' 	=> 0,
 							'max' 	=> 10,
@@ -228,17 +228,22 @@ class Ditty_Display_Type_List extends Ditty_Display_Type {
 			'contentStyles' 		=> parent::content_style_settings( $values ),
 			'pageStyles' 				=> parent::page_style_settings( $values ),
 			'itemStyles' 				=> parent::item_style_settings( $values ),
-			'importExportDivider' => array(
-				'type' 	=> 'divider',
-				'id'		=> 'importExportDivider',
-				'name' 	=> __( 'Import/Export', 'ditty-news-ticker' ),
-				'help' 	=> __( 'Import or export the display settings.', 'ditty-news-ticker' ),
-			),
-			'importExport' => array(
-				'type'	=> 'html',
-				'id'		=> 'importExport',
-				'std'		=> parent::import_export_settings( $values ),
-			),
+			// 'importExportSettings' 	=> array(
+			// 	'type' 							=> 'group',
+			// 	'id'								=> 'importExportSettings',
+			// 	'collapsible'				=> true,
+			// 	'default_state'			=> 'collapsed',
+			// 	'multiple_fields'		=> true,
+			// 	'name' 							=> __( 'Import/Export', 'ditty-news-ticker' ),
+			// 	'help' 							=> __( 'Import or export the display settings.', 'ditty-news-ticker' ),
+			// 	'fields' 						=> array(
+			// 		'importExport' => array(
+			// 			'type'	=> 'html',
+			// 			'id'		=> 'importExport',
+			// 			'std'		=> parent::import_export_settings( $values ),
+			// 		),
+			// 	),
+			// ),
 		);	
 		return $fields;
 	}
