@@ -289,7 +289,7 @@ function ditty_settings_global_ditty() {
         array(
 	        'type'			=> 'select',
 	        'id' 				=> 'ditty',
-          'name' 			=> __( 'Ditty Ticker', 'ditty-news-ticker' ),
+          'name' 			=> __( 'Ditty', 'ditty-news-ticker' ),
           'help'				=> __( 'Select a Ditty you want to display globally.', 'ditty-news-ticker' ),
           'placeholder'	=> __( 'Select a Ditty', 'ditty-news-ticker' ),
           'options' 		=> Ditty()->singles->select_field_options(),

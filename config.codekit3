@@ -63,9 +63,9 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 1,
-      "oAP" : "\/blocks\/ditty-block\/index.min.js",
+      "oAP" : "\/blocks\/ditty-block\/index copy.min.js",
       "oF" : 1,
       "sC" : 3,
       "tS" : 0
@@ -423,18 +423,6 @@
       "ma" : 0,
       "oA" : 2,
       "oAP" : "\/includes\/css\/blocks.style-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/includes\/css\/ditty-admin (josephs-mbp.lan's conflicted copy 2021-12-02).css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/css\/ditty-admin (josephs-mbp.lan's conflicted copy 2021-12-02)-min.css",
       "oF" : 0,
       "pg" : 0
     },
@@ -1814,6 +1802,14 @@
       "oAP" : "\/includes\/upgrades.php",
       "oF" : 0
     },
+    "\/includes\/widget.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/widget.php",
+      "oF" : 0
+    },
     "\/languages\/ditty-news-ticker-ar.mo" : {
       "cB" : 0,
       "ft" : 8192,
@@ -3104,12 +3100,6 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/legacy\/legacy.php",
-      "oF" : 0
-    },
-    "\/node_modules" : {
-      "ft" : 65536,
-      "oA" : 2,
-      "oAP" : "\/node_modules",
       "oF" : 0
     },
     "\/package-lock.json" : {

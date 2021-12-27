@@ -257,6 +257,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/layout-templates.php';
 		require_once DITTY_DIR . 'includes/post-types.php';
 		require_once DITTY_DIR . 'includes/upgrades.php';
+		require_once DITTY_DIR . 'includes/widget.php';
 		
 		// Add database files
 		require_once DITTY_DIR . 'includes/class-ditty-db.php';
@@ -287,9 +288,6 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-extensions.php';
 		require_once DITTY_DIR . 'includes/class-ditty-layout.php';
 		require_once DITTY_DIR . 'includes/class-ditty-layouts.php';
-		//require_once DITTY_DIR . 'includes/class-ditty-layout-type.php';
-		//require_once DITTY_DIR . 'includes/class-ditty-layout-type-default.php';
-		//require_once DITTY_DIR . 'includes/class-ditty-layout-type-image.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item.php';
 		require_once DITTY_DIR . 'includes/class-ditty-items.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type.php';
@@ -297,7 +295,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-wp-editor.php';
 		require_once DITTY_DIR . 'includes/class-ditty-singles.php';
 		
-		require_once DITTY_DIR . 'blocks/ditty-block/index.php';
+		//require_once DITTY_DIR . 'blocks/ditty-block/index.php';
 		
 		if ( is_admin() ) {
 			if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
@@ -344,8 +342,8 @@ class Ditty {
 		$this->loader->add_action( 'wp_enqueue_scripts', $this, 'enqueue_styles' );	
 		$this->loader->add_action( 'admin_enqueue_scripts', $this, 'enqueue_scripts' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $this, 'enqueue_scripts' );
-		$this->loader->add_action( 'enqueue_block_editor_assets', $this, 'enqueue_block_editor_assets' );
-		$this->loader->add_action( 'enqueue_block_assets', $this, 'enqueue_block_assets' );
+		//$this->loader->add_action( 'enqueue_block_editor_assets', $this, 'enqueue_block_editor_assets' );
+		//$this->loader->add_action( 'enqueue_block_assets', $this, 'enqueue_block_assets' );
 		$this->loader->add_action( 'admin_footer', $this, 'enqueue_global_scripts', 20 );
 		$this->loader->add_action( 'wp_footer', $this, 'enqueue_global_scripts', 20 );
 	}
@@ -541,47 +539,47 @@ class Ditty {
 	 *
 	 * @since    3.0
 	 */
-	public function enqueue_block_editor_assets() {
-		wp_enqueue_style(
-			'ditty-blocks-editor',
-			DITTY_URL . 'includes/css/blocks.editor.css',
-			[ ],
-			$this->version,
-		);
-
-		wp_enqueue_script(
-			'ditty-blocks-editor',
-			DITTY_URL . 'includes/js/editor.blocks.js',
-			[ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-editor' ],
-			$this->version,
-			true,
-		);
-		wp_add_inline_script( 'ditty-blocks-editor', 'const dittyBlocksEditorVars = ' . json_encode( array(
-			'displays' => Ditty()->displays->get_displays_data(),
-		) ), 'before' );
-	}
+// 	public function enqueue_block_editor_assets() {
+// 		wp_enqueue_style(
+// 			'ditty-blocks-editor',
+// 			DITTY_URL . 'includes/css/blocks.editor.css',
+// 			[ ],
+// 			$this->version,
+// 		);
+// 
+// 		wp_enqueue_script(
+// 			'ditty-blocks-editor',
+// 			DITTY_URL . 'includes/js/editor.blocks.js',
+// 			[ 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-editor' ],
+// 			$this->version,
+// 			true,
+// 		);
+// 		wp_add_inline_script( 'ditty-blocks-editor', 'const dittyBlocksEditorVars = ' . json_encode( array(
+// 			'displays' => Ditty()->displays->get_displays_data(),
+// 		) ), 'before' );
+// 	}
 	
 	/**
 	 * Enqueue front end and editor JavaScript and CSS assets
 	 *
 	 * @since    3.0
 	 */
-	public function enqueue_block_assets() {
-		wp_enqueue_style(
-			'ditty-blocks',
-			DITTY_URL . 'includes/css/blocks.style.css',
-			[],
-			$this->version
-		);
-		
-		wp_enqueue_script(
-			'ditty-blocks',
-			DITTY_URL . 'includes/js/frontend.blocks.js',
-			[],
-			$this->version,
-			true,
-		);
-	}
+	// public function enqueue_block_assets() {
+	// 	wp_enqueue_style(
+	// 		'ditty-blocks',
+	// 		DITTY_URL . 'includes/css/blocks.style.css',
+	// 		[],
+	// 		$this->version
+	// 	);
+	// 	
+	// 	wp_enqueue_script(
+	// 		'ditty-blocks',
+	// 		DITTY_URL . 'includes/js/frontend.blocks.js',
+	// 		[],
+	// 		$this->version,
+	// 		true,
+	// 	);
+	// }
 	
 	/**
 	 * Enqueue global scripts for any Ditty's displayed

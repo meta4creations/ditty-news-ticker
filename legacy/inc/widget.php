@@ -25,15 +25,18 @@ class mtphr_dnt_widget extends WP_Widget {
 		extract( $args );
 	
 		// User-selected settings	
-		$title = $instance['title'];
+		$title = isset( $instance['title'] ) ? $instance['title'] : false;
 		$title = apply_filters( 'widget_title', $title );
 		
-		$ticker = $instance['ticker'];
+		$ticker = isset( $instance['ticker'] ) ? $instance['ticker'] : '';
 		
 		$ticker_title = isset($instance['ticker_title']) ? $instance['ticker_title'] : 0;
 		$ticker_hide = isset( $instance['ticker_hide']) ? $instance['ticker_hide'] : 1;
 				
 		global $mtphr_dnt_meta_data;
+		if ( empty( $mtphr_dnt_meta_data ) ) {
+			$mtphr_dnt_meta_data = array();
+		}
 		
 		// Set custom attributes
 		$atts = array();
@@ -62,11 +65,11 @@ class mtphr_dnt_widget extends WP_Widget {
 		$ticker_output = ob_get_clean();
 		
 		// Only display the widget if ticks exist
-		if( !$ticker_hide || intval($mtphr_dnt_meta_data['_mtphr_dnt_total_ticks']) > 0 ) {
+		if( ! $ticker_hide || ( isset( $mtphr_dnt_meta_data['_mtphr_dnt_total_ticks'] ) && intval( $mtphr_dnt_meta_data['_mtphr_dnt_total_ticks'] ) > 0 ) ) {
 			
 			$display = true;
 			
-			if( intval($mtphr_dnt_meta_data['_mtphr_dnt_total_ticks']) == 1 ) {
+			if( isset( $mtphr_dnt_meta_data['_mtphr_dnt_total_ticks'] ) && intval( $mtphr_dnt_meta_data['_mtphr_dnt_total_ticks'] ) == 1 ) {
 				if( is_array($mtphr_dnt_meta_data['_mtphr_dnt_ticks'][0]) ) {
 					if( $mtphr_dnt_meta_data['_mtphr_dnt_ticks'][0]['tick'] == '' ) {
 						$display = false;

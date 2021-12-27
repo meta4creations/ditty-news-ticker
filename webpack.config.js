@@ -40,8 +40,8 @@ module.exports = {
     path: path.resolve( __dirname ),
     filename: '[name].js',
   },
-  watch: 'production' !== process.env.NODE_ENV,
-  devtool: 'cheap-eval-source-map',
+  //watch: 'production' !== process.env.NODE_ENV,
+  //devtool: 'cheap-eval-source-map',
   module: {
     rules: [
       {
