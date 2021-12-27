@@ -18,7 +18,7 @@ function ditty_manage_posts_columns( $columns, $post_type ){
 					break;
 				case 'ditty_layout':
 					$new_columns['ditty_layout_version'] = __( 'Version', 'ditty-news-ticker' );
-					$new_columns['ditty_layout_template'] = __( 'Layout Template', 'ditty-news-ticker' );
+					//$new_columns['ditty_layout_template'] = __( 'Layout Template', 'ditty-news-ticker' );
 					break;
 				case 'ditty':
 					$new_columns['ditty_display'] = __( 'Display', 'ditty-news-ticker' );
