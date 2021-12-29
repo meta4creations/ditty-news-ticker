@@ -66,7 +66,6 @@ function ditty_item_types() {
 		'icon' 				=> 'fas fa-pencil-alt',
 		'description' => __( 'Manually add HTML to the item.', 'ditty-news-ticker' ),
 		'class_name'	=> 'Ditty_Item_Type_Default',
-		//'class_path'	=> DITTY_DIR . 'includes/class-ditty-item-type-default.php',
 	);
 	$item_types['wp_editor'] = array(
 		'type' 				=> 'wp_editor',
@@ -74,7 +73,13 @@ function ditty_item_types() {
 		'icon' 				=> 'fas fa-edit',
 		'description' => __( 'Manually add wp editor content to the item.', 'ditty-news-ticker' ),
 		'class_name'	=> 'Ditty_Item_Type_WP_Editor',
-		//'class_path'	=> DITTY_DIR . 'includes/class-ditty-item-type-wp-editor.php',
+	);
+	$item_types['posts_feed'] = array(
+		'type' 				=> 'posts_feed',
+		'label' 			=> __( 'WP Posts Feed (Lite)', 'ditty-news-ticker' ),
+		'icon' 				=> 'fab fa-wordpress',
+		'description' => __( 'Add a WP Posts feed.', 'ditty-news-ticker' ),
+		'class_name'	=> 'Ditty_Item_Type_Posts_Lite',
 	);
 	return apply_filters( 'ditty_item_types', $item_types );
 }
@@ -280,7 +285,7 @@ function ditty_updated_extension_slug( $slug ) {
 		case 'ditty-mega-ticker':
 			$updated_slug = 'mega';
 			break;
-		case 'ditty-posts-ticker':
+		case 'ditty-news-ticker':
 			$updated_slug = 'posts';
 			break;
 		case 'ditty-rss-ticker':

@@ -7,34 +7,23 @@ Tested up to: 5.8.2
 Stable tag: /trunk/
 License: GPL2
 
-<<<<<<< HEAD
-Ditty is a multi-functional data display plugin.
-=======
 Formerly Ditty News Ticker. Ditty is a multi-functional data display plugin.
->>>>>>> 02cf0f1b696d9c174fc53eb3e38f7b5f85d10454
 
 == Description ==
 
-Ditty is a multi-functional data display plugin. Easily render custom data feeds to your site either through as a news ticker, list, rotator and many other display options.
+Formerly Ditty News Ticker. Ditty is a multi-functional data display plugin. Ditty is a multi-functional data display plugin. Easily render custom data feeds to your site through a customizable news ticker, list, or slider.
 
 #### Paid Extensions
-Additional plugins can be purchased to extend Ditty and it's functionality. Add more Item types, Display types, and utilities to enhance your Dittys. We currently have the following extensions for sale:
-
-* [**Ditty Posts**](https://www.metaphorcreations.com/downloads/ditty-posts-ticker/)
-* [**Ditty Twitter**](https://www.metaphorcreations.com/downloads/ditty-twitter-ticker/)
-* [**Ditty Facebook**](https://www.metaphorcreations.com/downloads/ditty-facebook-ticker/)
-* [**Ditty RSS**](https://www.metaphorcreations.com/downloads/ditty-rss-ticker/)
-* [**Ditty Images**](https://www.metaphorcreations.com/downloads/ditty-image-ticker/)
-* [**Ditty Instagram**](https://www.metaphorcreations.com/downloads/ditty-instagram-ticker/)
+Additional plugins can be purchased to extend Ditty and it's functionality. Add more Item types, Display types, and utilities to enhance your Ditty. View all [**Extensions**](https://www.metaphorcreations.com/ditty/extensions/).
 
 == Installation ==
 
 1. Upload `ditty-news-ticker` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Create a Ditty by going to **Ditty > Add New**
-4. Insert your Ditty by copying and pasting the provided shortcode into another post.
+4. Insert your Ditty by user the supplied shortcode, widget, or global render option.
 
-[**View full help documentation.**](http://www.dittynewsticker.com/documentation/)
+[**View full help documentation.**](https://www.metaphorcreations.com/article/ditty/)
 
 == Frequently Asked Questions ==
 
@@ -50,12 +39,21 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Screenshots ==
 
-1. Default Ticker Type options
-2. Scroll Mode options
-3. Rotate Mode options
-4. List Mode options
-4. Global options
-5. Embed options
+1. Ditty post settings
+2. Ditty Items list
+3. Ditty Item Types list
+4. Default Item options
+5. WP Editor Item options
+6. WP Posts Feed (Lite) Item options
+7. Ditty Display Types list
+8. Ticker Display options
+9. List Display preview
+10. General Settings
+11. Global Ditty Settings
+12. Layout Default Settings
+13. Layout Templates Settings
+14. Display Templates Settings
+15. Advanced Settings
 
 == Changelog ==
 
@@ -63,8 +61,8 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 * Ditty News Ticker posts have been moved to legacy code.
 * Completely new Ditty post type and functionality.
 * New Ditty Layout post type.
-* New Ditty Display postt ype.
-* New settings page.
+* New Ditty Display post type.
+* New Settings page.
 * Added global Ditty rendering.
 * Added Layout and Display templates.
 * New extensions page for licenses and extension settings.

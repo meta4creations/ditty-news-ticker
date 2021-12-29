@@ -254,6 +254,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/layout-tags.php';
 		require_once DITTY_DIR . 'includes/layout-tag-helpers.php';
 		require_once DITTY_DIR . 'includes/layout-tag-hooks.php';
+		require_once DITTY_DIR . 'includes/layout-tag-hooks-posts.php';
 		require_once DITTY_DIR . 'includes/layout-templates.php';
 		require_once DITTY_DIR . 'includes/post-types.php';
 		require_once DITTY_DIR . 'includes/upgrades.php';
@@ -293,6 +294,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-item-type.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-default.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-wp-editor.php';
+		require_once DITTY_DIR . 'includes/class-ditty-item-type-posts-lite.php';
 		require_once DITTY_DIR . 'includes/class-ditty-singles.php';
 		
 		//require_once DITTY_DIR . 'blocks/ditty-block/index.php';

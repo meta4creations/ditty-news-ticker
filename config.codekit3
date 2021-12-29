@@ -310,12 +310,12 @@
       "oAP" : "\/includes\/class-ditty-item-type-default.php",
       "oF" : 0
     },
-    "\/includes\/class-ditty-item-type-posts.php" : {
+    "\/includes\/class-ditty-item-type-posts-lite.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 2,
-      "oAP" : "\/includes\/class-ditty-item-type-posts.php",
+      "oAP" : "\/includes\/class-ditty-item-type-posts-lite.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-item-type-wp-editor.php" : {
@@ -1185,6 +1185,14 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/includes\/layout-tag-helpers.php",
+      "oF" : 0
+    },
+    "\/includes\/layout-tag-hooks-posts.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/layout-tag-hooks-posts.php",
       "oF" : 0
     },
     "\/includes\/layout-tag-hooks.php" : {
