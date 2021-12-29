@@ -19,13 +19,13 @@ function ditty_updates() {
 		update_option( 'ditty_version', DITTY_VERSION );
 	}
 	
-	if ( $show_info ) {
-		$page = isset( $_GET['page'] ) ? $_GET['page'] : false;
-		if ( 'ditty_info' != $page ) {
-			wp_safe_redirect( admin_url( '?page=ditty_info' ) );
-			exit;
-		}
-	}
+	// if ( $show_info ) {
+	// 	$page = isset( $_GET['page'] ) ? $_GET['page'] : false;
+	// 	if ( 'ditty_info' != $page ) {
+	// 		wp_safe_redirect( admin_url( '?page=ditty_info' ) );
+	// 		exit;
+	// 	}
+	// }
 }
 add_action( 'admin_init', 'ditty_updates' );
 
