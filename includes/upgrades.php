@@ -8,26 +8,27 @@
  */
 function ditty_updates() {
 	$show_info = false;
-	$current_version = get_option( 'ditty_version', '0' );
+	$current_version = get_option( 'ditty_plugin_version' );
+	
 	if ( version_compare( $current_version, '3.0', '<' ) ) {
 		ditty_v3_upgrades();
 		$show_info = true;
 	}
 	
 	if ( DITTY_VERSION != $current_version ) {
-		update_option( 'ditty_version_upgraded_from', $current_version );
-		update_option( 'ditty_version', DITTY_VERSION );
+		update_option( 'ditty_plugin_version_upgraded_from', $current_version );
+		$updated = update_option( 'ditty_plugin_version', '3.0' );
 	}
-	
-	// if ( $show_info ) {
-	// 	$page = isset( $_GET['page'] ) ? $_GET['page'] : false;
-	// 	if ( 'ditty_info' != $page ) {
-	// 		wp_safe_redirect( admin_url( '?page=ditty_info' ) );
-	// 		exit;
-	// 	}
-	// }
+
+	if ( $show_info ) {
+		$page = isset( $_GET['page'] ) ? $_GET['page'] : false;
+		if ( 'ditty_info' != $page ) {
+			wp_safe_redirect( admin_url( '?page=ditty_info' ) );
+			exit;
+		}
+	}
 }
-add_action( 'admin_init', 'ditty_updates' );
+add_action( 'init', 'ditty_updates' );
 
 /**
  * Version 3.0 Updates

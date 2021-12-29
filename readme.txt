@@ -57,6 +57,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.0.1 =
+* Upgrade script bug fix
+
 = 3.0 =
 * Ditty News Ticker posts have been moved to legacy code.
 * Completely new Ditty post type and functionality.
