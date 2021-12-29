@@ -29,24 +29,8 @@
 		}
 	}
 }
-.menu-icon-ditty {
-	.dashicons-before:before {
-		content: '';
-		background-repeat: no-repeat;
-		background-position: center center;
-		background-size: 17px 17px;
-		@include menu_icon_background( #9EA3A8 );
-	}
-	&:hover {
-		.dashicons-before:before {
-			@include menu_icon_background( #72aee6 );
-		}
-	}
-	&.wp-has-current-submenu {
-		.dashicons-before:before {
-			@include menu_icon_background( #FFF );
-		}
-	}
+#adminmenu .menu-icon-ditty div.wp-menu-image.svg {
+	background-size: 16px auto;
 }
 table.wp-list-table .type-ditty .row-actions,
 table.wp-list-table .type-ditty_layout .row-actions,
