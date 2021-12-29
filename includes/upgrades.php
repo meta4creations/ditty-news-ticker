@@ -116,6 +116,7 @@ function ditty_v3_upgrades() {
 	// Set variation defaults
 	ditty_set_variation_default( 'default', 'default', 'default' );
 	ditty_set_variation_default( 'wp_editor', 'default', 'default' );
+	ditty_set_variation_default( 'posts_feed', 'default', 'default' );
 	
 	// If News Tickers exists, enabled legacy code
 	$args = array(

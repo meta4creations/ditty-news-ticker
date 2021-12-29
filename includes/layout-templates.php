@@ -191,7 +191,7 @@ function ditty_layout_default_post_html() {
 	</div>
 </div>
 {title link="post"}
-{content}
+{excerpt}
 	<?php
 	return ob_get_clean();
 }
