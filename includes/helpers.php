@@ -285,7 +285,7 @@ function ditty_updated_extension_slug( $slug ) {
 		case 'ditty-mega-ticker':
 			$updated_slug = 'mega';
 			break;
-		case 'ditty-news-ticker':
+		case 'ditty-posts-ticker':
 			$updated_slug = 'posts';
 			break;
 		case 'ditty-rss-ticker':
