@@ -4,7 +4,7 @@
  * Plugin Name:       Ditty (formerly Ditty News Ticker)
  * Plugin URI:        https://www.metaphorcreations.com/ditty
  * Description:       Formerly Ditty News Ticker. Ditty is a multi-functional data display plugin.
- * Version:           3.0.1
+ * Version:           3.0.2
  * Author:            Metaphor Creations
  * Author URI:        https://www.metaphorcreations.com
  * License:           GPL-2.0+
