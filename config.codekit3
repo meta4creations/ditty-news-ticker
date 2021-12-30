@@ -7,7 +7,7 @@
       "uuidString" : "0B43A184-D1FE-4DF7-BE71-3FAE2291CFE5"
     }
   ],
-  "creatorBuild" : "34324",
+  "creatorBuild" : "34335",
   "files" : {
     "\/.gitignore" : {
       "cB" : 0,
@@ -21,6 +21,14 @@
       "ft" : 524288,
       "oA" : 1,
       "oAP" : "\/.nova\/Publishing\/Ditty News Ticker-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
+    "\/.nova\/Publishing\/Metaphor Creations.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/.nova\/Publishing\/Metaphor Creations-min.json",
       "oF" : 0,
       "oO" : 1,
       "oS" : 1
@@ -133,14 +141,6 @@
       "oF" : 0,
       "oO" : 0,
       "oS" : 1
-    },
-    "\/composer.lock" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/composer.lock",
-      "oF" : 0
     },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
@@ -4144,36 +4144,12 @@
       "oO" : 1,
       "oS" : 1
     },
-    "\/vendor\/padaliyajay\/php-autoprefixer\/composer.lock" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/composer.lock",
-      "oF" : 0
-    },
     "\/vendor\/padaliyajay\/php-autoprefixer\/LICENSE" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/LICENSE",
-      "oF" : 0
-    },
-    "\/vendor\/padaliyajay\/php-autoprefixer\/nbproject\/project.properties" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/nbproject\/project.properties",
-      "oF" : 0
-    },
-    "\/vendor\/padaliyajay\/php-autoprefixer\/nbproject\/project.xml" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/nbproject\/project.xml",
       "oF" : 0
     },
     "\/vendor\/padaliyajay\/php-autoprefixer\/README.md" : {
@@ -4291,86 +4267,6 @@
       "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/src\/Vendor\/Webkit.php",
       "oF" : 0
     },
-    "\/vendor\/padaliyajay\/php-autoprefixer\/test\/composer.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/test\/composer-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
-    "\/vendor\/padaliyajay\/php-autoprefixer\/test\/nbproject\/project.properties" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/test\/nbproject\/project.properties",
-      "oF" : 0
-    },
-    "\/vendor\/padaliyajay\/php-autoprefixer\/test\/nbproject\/project.xml" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/test\/nbproject\/project.xml",
-      "oF" : 0
-    },
-    "\/vendor\/padaliyajay\/php-autoprefixer\/test\/orignal-bootstrap.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/test\/orignal-bootstrap-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/vendor\/padaliyajay\/php-autoprefixer\/test\/prefixed-bootstrap.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/test\/prefixed-bootstrap-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/vendor\/padaliyajay\/php-autoprefixer\/test\/prefixed-bootstrap2.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/test\/prefixed-bootstrap2-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/vendor\/padaliyajay\/php-autoprefixer\/test\/test.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/test\/test.php",
-      "oF" : 0
-    },
-    "\/vendor\/padaliyajay\/php-autoprefixer\/test\/unprefixed-bootstrap.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/test\/unprefixed-bootstrap-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
     "\/vendor\/sabberworm\/php-css-parser\/CHANGELOG.md" : {
       "cB" : 0,
       "cS" : 0,
@@ -4404,6 +4300,14 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/vendor\/sabberworm\/php-css-parser\/LICENSE",
+      "oF" : 0
+    },
+    "\/vendor\/sabberworm\/php-css-parser\/README.html" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/README.html",
       "oF" : 0
     },
     "\/vendor\/sabberworm\/php-css-parser\/README.md" : {

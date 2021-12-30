@@ -1104,7 +1104,7 @@ function ditty_border_styles_array() {
 /**
  * Prepare display items
  *
- * @since    3.0
+ * @since    3.0.5
  * @var      $eases array
 */
 function ditty_prepare_display_items( $meta ) {
@@ -1113,7 +1113,7 @@ function ditty_prepare_display_items( $meta ) {
 	}
 	$prepared_items = array();
 	if ( ! $item_type_object 	= ditty_item_type_object( $meta['item_type'] ) ) {
-		return $prepared_items();
+		return $prepared_items;
 	}
 	$defaults 					= $item_type_object->default_settings();
 	$args 							= shortcode_atts( $defaults, $meta['item_value'] );
