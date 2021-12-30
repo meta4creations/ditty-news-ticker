@@ -1,17 +1,26 @@
 === Ditty (formerly Ditty News Ticker) ===
 Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
-Tags: ticker, news, news ticker, rotator, data rotator, lists, data
+Tags: ticker, news, news ticker, rotator, data rotator, lists, data, aggregator, latest posts
 Requires at least: 4.5
 Tested up to: 5.8.2
-Stable tag: 3.0.3
+Stable tag: 3.0.4
 License: GPL2
 
 Formerly Ditty News Ticker. Ditty is a multi-functional data display plugin.
 
 == Description ==
 
-Formerly Ditty News Ticker. Ditty is a multi-functional data display plugin. Ditty is a multi-functional data display plugin. Easily render custom data feeds to your site through a customizable news ticker, list, or slider.
+Formerly Ditty News Ticker. Ditty is a multi-functional data display plugin. Easily render custom data feeds to your site through a customizable news ticker, list, or slider.
+
+#### Item Types
+* Default - Add custom text to your Ditty.
+* WP Editor - Add custom text to your Ditty using the WP Editor.
+* WP Posts Feed - Add your latest blog posts to your Ditty.
+
+#### Display Types
+* Ticker - Create a unique news ticker using the Ticker Display type. Control the direction, spacing, speed, styling and many other options.
+* List - Create paged lists of your combined content. Multiple settings give you full control of the look and feel on your lists.
 
 #### Paid Extensions
 Additional plugins can be purchased to extend Ditty and it's functionality. Add more Item types, Display types, and utilities to enhance your Ditty. View all [**Extensions**](https://www.metaphorcreations.com/ditty/extensions/).
@@ -56,6 +65,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 15. Advanced Settings
 
 == Changelog ==
+
+= 3.0.4 =
+* Removed trailing comma in class-ditty-extensions.php file
 
 = 3.0.3 =
 * Additional upgrade functionality updates
@@ -590,4 +602,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Additional upgrade functionality updates
+Removed trailing comma in class-ditty-extensions.php file

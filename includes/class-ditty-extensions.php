@@ -357,13 +357,15 @@ class Ditty_Extensions {
 										}	else {
 											$license_message = $this->status_message( $error, $extension );
 										}
+										$item_id = isset( $setting['item_id'] ) ? $setting['item_id'] : '';
+										$item_name = isset( $setting['item_name'] ) ? $setting['item_name'] : '';
 										?>
 										<label class="ditty-field__label ditty-extension__license__message"><?php echo $license_message; ?></label>
 										<div class="ditty-field__input ditty-extension__license__fields">
 											<input class="ditty-extension__license__input regular-text" name="ditty_licenses[<?php echo $extension; ?>]" type="text" placeholder="<?php _e( 'Add your license key here', 'ditty-news-ticker' ); ?>" value="<?php echo esc_attr( $license_key ); ?>" />
-											<a class="ditty-extension__license__submit ditty-button protip" href="#" data-extension="<?php echo esc_attr( $extension ); ?>" data-extension_id="<?php echo esc_attr( $setting['item_id'] ); ?>" data-extension_name="<?php echo esc_attr( $data['name'] ); ?>" data-pt-title="<?php _e( 'Activate License', 'ditty-news-ticker' ); ?>"><i class="fas fa-check" data-class="fas fa-check"></i></a>
-											<a class="ditty-extension__license__refresh ditty-button protip" href="#" data-extension="<?php echo esc_attr( $extension ); ?>" data-extension_id="<?php echo esc_attr( $setting['item_id'] ); ?>" data-extension_name="<?php echo esc_attr( $data['name'] ); ?>" data-pt-title="<?php _e( 'Refresh License', 'ditty-news-ticker' ); ?>"><i class="fas fa-sync-alt" data-class="fas fa-sync-alt"></i></a>
-											<a class="ditty-extension__license__deactivate ditty-button protip" href="#" data-extension="<?php echo esc_attr( $extension ); ?>" data-extension_id="<?php echo esc_attr( $setting['item_id'] ); ?>" data-extension_name="<?php echo esc_attr( $data['name'] ); ?>" data-pt-title="<?php _e( 'Deactive License', 'ditty-news-ticker' ); ?>"><i class="fas fa-times" data-class="fas fa-times"></i></a>	
+											<a class="ditty-extension__license__submit ditty-button protip" href="#" data-extension="<?php echo esc_attr( $extension ); ?>" data-extension_id="<?php echo esc_attr( $item_id ); ?>" data-extension_name="<?php echo esc_attr( $data['name'] ); ?>" data-product_name="<?php echo esc_attr( $item_name ); ?>" data-pt-title="<?php _e( 'Activate License', 'ditty-news-ticker' ); ?>"><i class="fas fa-check" data-class="fas fa-check"></i></a>
+											<a class="ditty-extension__license__refresh ditty-button protip" href="#" data-extension="<?php echo esc_attr( $extension ); ?>" data-extension_id="<?php echo esc_attr( $item_id ); ?>" data-extension_name="<?php echo esc_attr( $data['name'] ); ?>" data-product_name="<?php echo esc_attr( $item_name ); ?>" data-pt-title="<?php _e( 'Refresh License', 'ditty-news-ticker' ); ?>"><i class="fas fa-sync-alt" data-class="fas fa-sync-alt"></i></a>
+											<a class="ditty-extension__license__deactivate ditty-button protip" href="#" data-extension="<?php echo esc_attr( $extension ); ?>" data-extension_id="<?php echo esc_attr( $item_id ); ?>" data-extension_name="<?php echo esc_attr( $data['name'] ); ?>" data-product_name="<?php echo esc_attr( $item_name ); ?>" data-pt-title="<?php _e( 'Deactive License', 'ditty-news-ticker' ); ?>"><i class="fas fa-times" data-class="fas fa-times"></i></a>	
 										</div>
 									</div>
 									<?php
@@ -374,16 +376,15 @@ class Ditty_Extensions {
 										ditty_fields( $setting['fields'] );
 										$update_button = isset( $setting['update_button'] ) ? $setting['update_button'] : 'default';
 										if ( 'disabled' != $update_button ) {
-											echo ditty_field(
-												array(
-													'type'				=> 'button',
-													'id'					=> 'submit',
-													'label'				=> __( 'Update', 'ditty-news-ticker' ),
-													'priority' 		=> 'primary',
-													'full_width'	=> true,
-													'icon_after' 	=> 'fas fa-check',
-												),
+											$field = array(
+												'type'				=> 'button',
+												'id'					=> 'submit',
+												'label'				=> __( 'Update', 'ditty-news-ticker' ),
+												'priority' 		=> 'primary',
+												'full_width'	=> true,
+												'icon_after' 	=> 'fas fa-check',
 											);
+											echo ditty_field( $field );
 										}
 									}
 								}
