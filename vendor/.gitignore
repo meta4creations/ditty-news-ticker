@@ -1,7 +1,0 @@
-composer.lock
-config.codekit3
-/node_modules/
-/logs/
-/reports/
-.DS_Store
-.nova

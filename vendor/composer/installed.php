@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '7ec4bc14e6485630bced6a9788f8cf80d66b3197',
+    'reference' => '1235a3c138c15909678b34f0293d85c8f7f6cdf5',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '7ec4bc14e6485630bced6a9788f8cf80d66b3197',
+      'reference' => '1235a3c138c15909678b34f0293d85c8f7f6cdf5',
     ),
     'composer/installers' => 
     array (
@@ -47,21 +47,21 @@
     ),
     'sabberworm/php-css-parser' => 
     array (
-      'pretty_version' => '8.3.1',
-      'version' => '8.3.1.0',
+      'pretty_version' => '8.4.0',
+      'version' => '8.4.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd217848e1396ef962fb1997cf3e2421acba7f796',
+      'reference' => 'e41d2140031d533348b2192a83f02d8dd8a71d30',
     ),
     'scssphp/scssphp' => 
     array (
-      'pretty_version' => 'v1.8.1',
-      'version' => '1.8.1.0',
+      'pretty_version' => 'v1.9.0',
+      'version' => '1.9.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5e37759a63caf54392a4b709358a39ac7425a69f',
+      'reference' => 'bc8bece4e5e176973a832f3763049ddbba16e6fd',
     ),
     'shama/baton' => 
     array (
