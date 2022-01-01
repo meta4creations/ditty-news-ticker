@@ -311,6 +311,8 @@ class Ditty {
 		// Possibly add Ditty News Ticker
 		if ( ditty_news_ticker_enabled() ) {
 			require_once DITTY_DIR . 'legacy/legacy.php';
+		} else {
+			require_once DITTY_DIR . 'includes/legacy-helpers.php';
 		}
 
 		$this->loader = new Ditty_Loader();
