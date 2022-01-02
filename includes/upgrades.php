@@ -10,13 +10,15 @@ function ditty_updates() {
 	if ( wp_doing_ajax() ) {
 		return false;
 	}
-
 	$current_version = get_option( 'ditty_plugin_version', '0' );
 
 	if ( version_compare( $current_version, '3.0', '<' ) ) {
 		ditty_v3_upgrades();
 	}
-
+	if ( version_compare( $current_version, '3.0.6', '<' ) ) {
+		ditty_v3_0_6_upgrades();
+	}
+	
 	if ( DITTY_VERSION != $current_version ) {
 		update_option( 'ditty_plugin_version_upgraded_from', $current_version );
 		update_option( 'ditty_plugin_version', DITTY_VERSION );
@@ -120,5 +122,23 @@ function ditty_v3_upgrades() {
 	$news_tickers = get_posts( $args );
 	if ( is_array( $news_tickers ) && count( $news_tickers ) > 0 ) {
 		ditty_settings( 'ditty_news_ticker', '1' );
+	}
+}
+
+/**
+ * Version 3.0.6 Updates
+ *
+ * @since  3.0.6
+ * @return void
+ */
+function ditty_v3_0_6_upgrades() {
+	$ditty_notices = get_option( 'ditty_notices', array() );
+	$args = array(
+		'post_type' => 'ditty_news_ticker',
+	);
+	$news_tickers = get_posts( $args );
+	if ( is_array( $news_tickers ) && count( $news_tickers ) > 0 ) {
+		$ditty_notices['v3_0_6'] = 'v3_0_6';
+		update_option( 'ditty_notices', $ditty_notices );
 	}
 }

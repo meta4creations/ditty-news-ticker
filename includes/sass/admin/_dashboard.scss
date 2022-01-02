@@ -1,7 +1,4 @@
-.wp-admin.post-type-ditty {
-	.wrap {
-		margin-right: 2px;
-	}
+.wp-admin.post-php.post-type-ditty {
 	#poststuff {
     min-width: inherit;
 	}
@@ -70,3 +67,31 @@ table.wp-list-table .type-ditty_display .row-actions {
 	padding-bottom: 8px;
 	margin-bottom: -8px;
 }
+
+.ditty-dashboard-notice {
+	&.notice-info {
+		border-left-color: $green;
+	}
+	.ditty-features-list {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		li {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start;
+			color: #FFF;
+			background: $green;
+			border-radius: 3px;
+			padding: 5px 10px;
+			margin: 0 5px 5px 0;
+			i {
+				margin-right: 5px;
+			}
+		}
+	}
+}
+

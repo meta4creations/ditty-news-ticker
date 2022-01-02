@@ -304,6 +304,7 @@ class Ditty {
 				require_once DITTY_DIR . 'includes/admin/EDD_SL_Plugin_Updater.php';
 			}
 			require_once DITTY_DIR . 'includes/admin/columns.php';
+			require_once DITTY_DIR . 'includes/admin/notices.php';
 			require_once DITTY_DIR . 'includes/admin/settings.php';
 			//require_once DITTY_DIR . 'includes/admin/info.php';
 		}

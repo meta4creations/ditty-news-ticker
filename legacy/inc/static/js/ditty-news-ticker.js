@@ -1450,8 +1450,12 @@
 		    /* !Listen for resize event from other plugins - 1.4.1 */
 		    /* --------------------------------------------------------- */
 				
-				$container.on('mtphr_dnt_resize_single', function() {
+				$container.on('mtphr_dnt_resize_single', function( e, reset ) {
+					ticker_width = $ticker.outerWidth(true);
 					if( settings.type === 'scroll' ) {
+						if ( reset ) {
+							mtphr_dnt_scroll_reset_ticks();
+						}
 						mtphr_dnt_scroll_resize_ticks();
 					} else if( settings.type === 'rotate' ) {
 				    mtphr_dnt_rotator_resize_ticks();

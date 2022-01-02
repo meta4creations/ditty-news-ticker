@@ -66,6 +66,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.0.6 =
+* Minor update in legacy ditty-news-ticker.js file
+
 = 3.0.5 =
 * Added checks for auto-enabling Ditty News Ticker if old shortcode or function is used on front-end
 

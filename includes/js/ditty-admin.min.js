@@ -17,6 +17,20 @@ jQuery( document ).ready( function( $ ) {
 		$( '#poststuff' ).trigger( 'ditty_init_fields' );
 		$( '#ditty-settings' ).ditty_settings();
 
+		// Notice close
+		$( '.ditty-dashboard-notice' ).on( 'click', '.notice-dismiss', function() {		
+			var $notice = $( this ).parents( '.ditty-dashboard-notice' ),
+					notice_id = $notice.data( 'notice_id' );
+			
+			var data = {
+				action		: 'ditty_notice_close',
+				notice_id	: notice_id,
+				security	: dittyAdminVars.security
+			};
+			$.post( dittyAdminVars.ajaxurl, data );
+			
+		} );
+
 	}() );
 	
 } );

@@ -1,6 +1,6 @@
 #ditty-page {
 	width: 1200px;
-	max-width: calc( 100% - 22px );
+	max-width: calc( 100% );
 	border-radius: 5px;
 	box-shadow: 0 0 1px rgba( 0, 0, 0, 0.2 );
 	margin-top: 22px;
@@ -43,7 +43,7 @@
 }
 @media screen and ( max-width: 782px ) {
 	#ditty-page {
-		max-width: calc( 100% - 10px );
+		max-width: calc( 100% );
 		margin-top: 10px;
 	}
 }
