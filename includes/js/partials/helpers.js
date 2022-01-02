@@ -39,12 +39,15 @@ function dittyDisplayCss( displayCss, displayId ) {
 function dittyUpdateItems( itemSwaps ) {
 	var animationSpeed = 500;
 	
+	console.log( 'itemSwaps:', itemSwaps );
+	
 	jQuery.each( itemSwaps, function( index, data ) {
 		var $current = data.currentItem,
 				$new = data.newItem;
 		
 		$current.wrap( '<div class="ditty-update-wrapper"></div>' );
-		var $updateWrapper = $current.parent();
+		var $updateWrapper = $current.parent(),
+				newStyle = $new.attr( 'style' );
 		
 		$updateWrapper.stop().css( {
 			height: $current.outerHeight()
@@ -78,13 +81,7 @@ function dittyUpdateItems( itemSwaps ) {
 			$updateWrapper.removeAttr( 'style' );
 			$current.unwrap();
 			$current.remove();
-			$new.removeAttr( 'style' );
-			// $new.css( {
-			// 	position: 'relative',
-			// 	top: 'auto',
-			// 	left: 'auto',
-			// 	width: 'auto'
-			// } );
+			$new.attr( 'style', newStyle );
 			if ( $new.hasClass( 'ditty-temp-item' ) ) {
 				$new.remove();
 			}
