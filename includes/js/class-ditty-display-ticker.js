@@ -50,6 +50,7 @@
 			itemBorderRadius			: {},
 			itemPadding						: {},
 	  	itemMaxWidth					: '',
+			itemElementsWrap			: 'wrap',
 	  	item									: 0,
 			shuffle								: 0,
 	  	showEditor						: 0,
@@ -883,6 +884,9 @@
 			$item.children( '.ditty-item__elements' ).css( this.settings.itemPadding );
 			$item.children( '.ditty-item__elements' ).css( this.settings.itemBorderRadius );
 			$item.children( '.ditty-item__elements' ).css( this.settings.itemBorderWidth );
+			if ( '' !== this.settings.itemElementsWrap ) {
+				$item.children( '.ditty-item__elements' ).css( { whiteSpace: this.settings.itemElementsWrap } );
+			}
 			if ( '' !== this.settings.itemMaxWidth ) {
 				$item.children( '.ditty-item__elements' ).css( { maxWidth: this.settings.itemMaxWidth } );
 			}

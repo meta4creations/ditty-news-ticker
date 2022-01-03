@@ -69,8 +69,23 @@ table.wp-list-table .type-ditty_display .row-actions {
 }
 
 .ditty-dashboard-notice {
+	position: relative;
 	&.notice-info {
 		border-left-color: $green;
+	}
+	&__close {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		display: block;
+		text-decoration: none;
+		color: #3c434a;
+		i {
+			font-size: 15px;
+			&:before {
+				vertical-align: middle;
+			}
+		}
 	}
 	.ditty-features-list {
 		display: flex;

@@ -163,6 +163,18 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 					'help'	=> __( 'Set a maximum width for items', 'ditty-news-ticker' ),
 					'std'		=> isset( $values['itemMaxWidth'] ) ? $values['itemMaxWidth'] : false,
 				),
+				'itemElementsWrap' => array(
+					'type'		=> 'radio',
+					'id'			=> 'itemElementsWrap',
+					'name'		=> __( 'Wrap Elements', 'ditty-news-ticker' ),
+					'help'		=> __( 'Allow item elements to wrap, or force them to not wrap.', 'ditty-news-ticker' ),
+					'inline'	=> true,
+					'options' => array(
+						'wrap' 		=> __( 'Wrap', 'ditty-news-ticker' ),
+						'nowrap' 	=> __( 'No Wrap', 'ditty-news-ticker' ),
+					),
+					'std'			=> isset( $values['itemElementsWrap'] ) ? $values['itemElementsWrap'] : false,
+				),
 			) ),
 			// 'importExportSettings' 	=> array(
 			// 	'type' 							=> 'group',
