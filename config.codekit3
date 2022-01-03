@@ -7,7 +7,7 @@
       "uuidString" : "0B43A184-D1FE-4DF7-BE71-3FAE2291CFE5"
     }
   ],
-  "creatorBuild" : "34335",
+  "creatorBuild" : "34324",
   "files" : {
     "\/.gitignore" : {
       "cB" : 0,
@@ -16,30 +16,6 @@
       "oA" : 0,
       "oAP" : "\/.gitignore",
       "oF" : 0
-    },
-    "\/.nova\/Publishing\/Ditty News Ticker.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/.nova\/Publishing\/Ditty News Ticker-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
-    "\/.nova\/Publishing\/Metaphor Creations.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/.nova\/Publishing\/Metaphor Creations-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
-    "\/.nova\/Publishing\/TESTING.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/.nova\/Publishing\/TESTING-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
     },
     "\/blocks\/ditty-block\/editor.scss" : {
       "aP" : 1,
@@ -974,6 +950,17 @@
       "mi" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/js\/ditty.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/ditty.min.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/ditty.min.min.min.js",
       "oF" : 0,
       "sC" : 3,
       "tS" : 0

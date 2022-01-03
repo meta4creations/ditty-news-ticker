@@ -260,18 +260,18 @@
   max-width: 100%;
   box-sizing: border-box; }
 
-.ditty-item {
-  max-width: 100%; }
-  .ditty-item__elements {
-    max-width: 100%;
+.ditty-item__elements {
+  max-width: 100%;
+  box-sizing: border-box; }
+  .ditty-item__elements * {
     box-sizing: border-box; }
-    .ditty-item__elements * {
-      box-sizing: border-box; }
-  .ditty-item__wrapper {
-    position: relative;
-    overflow: hidden; }
-  .ditty-item__elements {
-    max-width: 100%; }
+
+.ditty-item__wrapper {
+  position: relative;
+  overflow: hidden; }
+
+.ditty-item__elements {
+  max-width: 100%; }
 
 .ditty-update-wrapper {
   position: relative;
@@ -438,7 +438,8 @@
     box-sizing: border-box; }
   .ditty-list .ditty-item {
     position: relative;
-    display: block; }
+    display: block;
+    max-width: 100%; }
 
 .ditty-item-type--wp_editor > *:first-child {
   margin-top: 0; }
@@ -601,7 +602,8 @@
     .ditty-data-list__item a:hover {
       color: rgba(0, 0, 0, 0.7); }
       .ditty-data-list__item a:hover i {
-        transform: scale(1.2); }
+        -webkit-transform: scale(1.2);
+                transform: scale(1.2); }
   .ditty-data-list__item a.ditty-data-list__item__icon,
   .ditty-data-list__item span.ditty-data-list__item__icon {
     font-size: 14px;
@@ -624,7 +626,9 @@
     height: 20px;
     text-align: center;
     line-height: 20px;
-    transition: transform 0.3s ease; }
+    transition: -webkit-transform 0.3s ease;
+    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease; }
     .ditty-data-list__item i:focus {
       outline: none; }
   .ditty-data-list__item:hover {
@@ -680,7 +684,9 @@
       line-height: 20px;
       text-align: center;
       margin-top: -10px;
-      transition: transform .25s ease; }
+      transition: -webkit-transform .25s ease;
+      transition: transform .25s ease;
+      transition: transform .25s ease, -webkit-transform .25s ease; }
   .ditty-accordion__content {
     display: none;
     line-height: 1.5em;
@@ -693,7 +699,8 @@
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0; }
     .ditty-accordion.active > .ditty-accordion__toggle:after {
-      transform: rotate(180deg); }
+      -webkit-transform: rotate(180deg);
+              transform: rotate(180deg); }
 
 /**
  * Ditty Editor Styles
