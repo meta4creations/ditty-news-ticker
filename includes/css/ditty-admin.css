@@ -1,19 +1,25 @@
-.wp-admin.post-php.post-type-ditty #poststuff {
+.wp-admin.post-php.post-type-ditty #poststuff,
+.wp-admin.post-new-php.post-type-ditty #poststuff {
   min-width: inherit; }
 
-.wp-admin.post-php.post-type-ditty #post-body-content {
+.wp-admin.post-php.post-type-ditty #post-body-content,
+.wp-admin.post-new-php.post-type-ditty #post-body-content {
   min-width: inherit; }
 
-.wp-admin.post-php.post-type-ditty #post-body.columns-2 #postbox-container-1 {
+.wp-admin.post-php.post-type-ditty #post-body.columns-2 #postbox-container-1,
+.wp-admin.post-new-php.post-type-ditty #post-body.columns-2 #postbox-container-1 {
   margin-right: -400px;
   width: 380px; }
 
-.wp-admin.post-php.post-type-ditty #poststuff #post-body.columns-2 {
+.wp-admin.post-php.post-type-ditty #poststuff #post-body.columns-2,
+.wp-admin.post-new-php.post-type-ditty #poststuff #post-body.columns-2 {
   margin-right: 400px; }
-  .wp-admin.post-php.post-type-ditty #poststuff #post-body.columns-2 #side-sortables {
+  .wp-admin.post-php.post-type-ditty #poststuff #post-body.columns-2 #side-sortables,
+  .wp-admin.post-new-php.post-type-ditty #poststuff #post-body.columns-2 #side-sortables {
     width: 380px; }
 
-.wp-admin.post-php.post-type-ditty #titlediv {
+.wp-admin.post-php.post-type-ditty #titlediv,
+.wp-admin.post-new-php.post-type-ditty #titlediv {
   display: none; }
 
 @media only screen and (max-width: 850px) {
