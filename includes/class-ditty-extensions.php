@@ -467,7 +467,7 @@ class Ditty_Extensions {
 	 * Attempt to activate a license
 	 *
 	 * @access public
-	 * @since  3.0
+	 * @since  3.0.8
 	 */
 	public function license_activate( $extension, $license_key, $item_id ) {
 		
@@ -534,9 +534,22 @@ class Ditty_Extensions {
 		$license_key_ajax 		= isset( $_POST['license'] ) 				? sanitize_text_field( $_POST['license'] ) 				: false;
 		$extension_ajax 			= isset( $_POST['extension'] ) 			? esc_attr( $_POST['extension'] ) 								: false;
 		$extension_id_ajax 		= isset( $_POST['extension_id'] ) 	? intval( $_POST['extension_id'] ) 								: false;
-		$extension_name_ajax 	= isset( $_POST['extension_name'] ) ? sanitize_text_field( $_POST['extension_name'] )	: false;	
-		if ( ! $license_key_ajax || ! $extension_id_ajax || ! $extension_ajax ) {
-			wp_die();
+			
+		$error = '';
+		if ( ! $license_key_ajax  ) {
+			$error = __( 'Error: License key is missing.', 'ditty-news-ticker' );
+		}
+		if ( ! $extension_id_ajax ) {
+			$error =  __( 'Error: Extension ID is missing.', 'ditty-news-ticker' );
+		}
+		if ( ! $extension_ajax ) {
+			$error =  __( 'Error: Invalid extension.', 'ditty-news-ticker' );
+		}
+		if ( '' != $error ) {
+			$data = array(
+				'error' => $error,
+			);
+			wp_send_json( $data );
 		}
 		$data = $this->license_activate( $extension_ajax, $license_key_ajax, $extension_id_ajax );
 		if ( 'valid' == $data['status'] ) {
@@ -548,10 +561,21 @@ class Ditty_Extensions {
 		check_ajax_referer( 'ditty', 'security' );
 		$extension_ajax 			= isset( $_POST['extension'] ) 			? esc_attr( $_POST['extension'] ) 								: false;
 		$extension_id_ajax 		= isset( $_POST['extension_id'] ) 	? intval( $_POST['extension_id'] ) 								: false;
-		$extension_name_ajax 	= isset( $_POST['extension_name'] ) ? sanitize_text_field( $_POST['extension_name'] )	: false;	
 		$license = $this->get_license( $extension_ajax );
-		if ( ! $extension_id_ajax || ! $extension_ajax || ! isset( $license['key'] ) ) {
-			wp_die();
+		if ( ! isset( $license['key'] )  ) {
+			$error = __( 'Error: License key is missing.', 'ditty-news-ticker' );
+		}
+		if ( ! $extension_id_ajax ) {
+			$error =  __( 'Error: Extension ID is missing.', 'ditty-news-ticker' );
+		}
+		if ( ! $extension_ajax ) {
+			$error =  __( 'Error: Invalid extension.', 'ditty-news-ticker' );
+		}
+		if ( '' != $error ) {
+			$data = array(
+				'error' => $error,
+			);
+			wp_send_json( $data );
 		}
 		$data = $this->license_activate( $extension_ajax, $license['key'], $extension_id_ajax );
 		wp_send_json( $data );
