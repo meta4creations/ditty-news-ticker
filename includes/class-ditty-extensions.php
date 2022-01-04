@@ -563,6 +563,8 @@ class Ditty_Extensions {
 		$extension_ajax 			= isset( $_POST['extension'] ) 			? esc_attr( $_POST['extension'] ) 								: false;
 		$extension_id_ajax 		= isset( $_POST['extension_id'] ) 	? intval( $_POST['extension_id'] ) 								: false;
 		$license = $this->get_license( $extension_ajax );
+		
+		$error = '';
 		if ( ! isset( $license['key'] ) || '' == $license['key'] ) {
 			$error = __( 'Error: License key is missing.', 'ditty-news-ticker' );
 		}
