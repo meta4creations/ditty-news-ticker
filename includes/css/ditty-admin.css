@@ -930,11 +930,11 @@ table.wp-list-table .type-ditty_display .row-actions {
       display: none; }
     #ditty-extensions .ditty-extension:not([data-api_keys="error"]) .ditty-extension__custom-keys-notification {
       display: none; }
-    #ditty-extensions .ditty-extension[data-license_status="invalid"] .ditty-extension__header__overlay, #ditty-extensions .ditty-extension[data-license_status="deactivated"] .ditty-extension__header__overlay {
+    #ditty-extensions .ditty-extension[data-license_status="invalid"] .ditty-extension__header__overlay, #ditty-extensions .ditty-extension[data-license_status="deactivated"] .ditty-extension__header__overlay, #ditty-extensions .ditty-extension[data-license_status="error"] .ditty-extension__header__overlay {
       background-color: rgba(225, 54, 46, 0.5); }
-    #ditty-extensions .ditty-extension[data-license_status="invalid"] .ditty-extension__tab[data-slide_id="license"], #ditty-extensions .ditty-extension[data-license_status="deactivated"] .ditty-extension__tab[data-slide_id="license"] {
+    #ditty-extensions .ditty-extension[data-license_status="invalid"] .ditty-extension__tab[data-slide_id="license"], #ditty-extensions .ditty-extension[data-license_status="deactivated"] .ditty-extension__tab[data-slide_id="license"], #ditty-extensions .ditty-extension[data-license_status="error"] .ditty-extension__tab[data-slide_id="license"] {
       background-color: #E1362E; }
-    #ditty-extensions .ditty-extension[data-license_status="invalid"] .ditty-extension__license__message, #ditty-extensions .ditty-extension[data-license_status="deactivated"] .ditty-extension__license__message {
+    #ditty-extensions .ditty-extension[data-license_status="invalid"] .ditty-extension__license__message, #ditty-extensions .ditty-extension[data-license_status="deactivated"] .ditty-extension__license__message, #ditty-extensions .ditty-extension[data-license_status="error"] .ditty-extension__license__message {
       color: #E1362E; }
     #ditty-extensions .ditty-extension[data-api="unauthorized"] .ditty-extension__tab[data-slide_id="api_connect"] {
       background-color: #FEBB00; }

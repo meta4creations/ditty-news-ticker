@@ -536,7 +536,7 @@ class Ditty_Extensions {
 		$extension_id_ajax 		= isset( $_POST['extension_id'] ) 	? intval( $_POST['extension_id'] ) 								: false;
 			
 		$error = '';
-		if ( ! $license_key_ajax  ) {
+		if ( ! $license_key_ajax || '' == $license_key_ajax  ) {
 			$error = __( 'Error: License key is missing.', 'ditty-news-ticker' );
 		}
 		if ( ! $extension_id_ajax ) {
@@ -547,7 +547,8 @@ class Ditty_Extensions {
 		}
 		if ( '' != $error ) {
 			$data = array(
-				'error' => $error,
+				'status' => 'error',
+				'message' => $error,
 			);
 			wp_send_json( $data );
 		}
@@ -562,7 +563,7 @@ class Ditty_Extensions {
 		$extension_ajax 			= isset( $_POST['extension'] ) 			? esc_attr( $_POST['extension'] ) 								: false;
 		$extension_id_ajax 		= isset( $_POST['extension_id'] ) 	? intval( $_POST['extension_id'] ) 								: false;
 		$license = $this->get_license( $extension_ajax );
-		if ( ! isset( $license['key'] )  ) {
+		if ( ! isset( $license['key'] ) || '' == $license['key'] ) {
 			$error = __( 'Error: License key is missing.', 'ditty-news-ticker' );
 		}
 		if ( ! $extension_id_ajax ) {
@@ -573,11 +574,15 @@ class Ditty_Extensions {
 		}
 		if ( '' != $error ) {
 			$data = array(
-				'error' => $error,
+				'status' => 'error',
+				'message' => $error,
 			);
 			wp_send_json( $data );
 		}
 		$data = $this->license_activate( $extension_ajax, $license['key'], $extension_id_ajax );
+		if ( 'valid' == $data['status'] ) {
+			$data['license_key'] 	= substr( $license['key'], 0, -15 ) . '***************';
+		}
 		wp_send_json( $data );
 	}
 	

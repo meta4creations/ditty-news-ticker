@@ -349,7 +349,8 @@
 			}
 		}
 		&[data-license_status="invalid"],
-		&[data-license_status="deactivated"] {
+		&[data-license_status="deactivated"],
+		&[data-license_status="error"] {
 			.ditty-extension__header__overlay {
 				background-color: transparentize( $error_dark, .5 );
 			}
