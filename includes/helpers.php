@@ -147,6 +147,9 @@ function ditty_extension_legacy_licenses( $licenses ) {
 		foreach ( $legacy_licenses as $slug => $legacy_license ) {
 			if ( $updated_slug = ditty_updated_extension_slug( $slug ) ) {
 				if ( ! isset( $licenses[$updated_slug] ) ) {
+					if ( ! isset( $legacy_license['item_id'] ) ) {
+						$legacy_license['item_id'] = ditty_updated_extension_id( $slug );
+					}
 					$licenses[$updated_slug] = $legacy_license;
 				}
 			}
@@ -303,6 +306,43 @@ function ditty_updated_extension_slug( $slug ) {
 	if ( '' != $updated_slug ) {
 		return $updated_slug;
 	}
+}
+
+/**
+ * Return an updated legacy id
+ * @since    3.0
+*/
+function ditty_updated_extension_id( $slug ) {	
+	$updated_id = false;
+	switch ( $slug ) {
+		case 'ditty-facebook-ticker':
+			$updated_id = 1534;
+			break;
+		case 'ditty-image-ticker':
+			$updated_id = 1548;
+			break;
+		case 'ditty-instagram-ticker':
+			$updated_id = 2134;
+			break;
+		case 'ditty-mega-ticker':
+			$updated_id = 1547;
+			break;
+		case 'ditty-posts-ticker':
+			$updated_id = 1551;
+			break;
+		case 'ditty-rss-ticker':
+			$updated_id = 1549;
+			break;
+		case 'ditty-timed-ticker':
+			$updated_id = 12470;
+			break;
+		case 'ditty-twitter-ticker':
+			$updated_id = 1550;
+			break;
+		default:
+			break;
+	}
+	return $updated_id;
 }
 
 /**

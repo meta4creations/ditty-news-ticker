@@ -3,7 +3,7 @@
 /**
  * Create a class for the widget
  *
- * @since 3.0
+ * @since 3.0.8
  */
 class ditty_widget extends WP_Widget {
 		
@@ -25,7 +25,7 @@ class ditty_widget extends WP_Widget {
 		extract( $args );
 	
 		// User-selected settings	
-		$title = $instance['title'];
+		$title = isset( $instance['title'] ) ? $instance['title'] : '';
 		$title = apply_filters( 'widget_title', $title );
 		
 		$ditty = isset( $instance['ditty'] ) ? $instance['ditty'] : '';

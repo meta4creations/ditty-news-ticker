@@ -66,6 +66,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.0.8 =
+* Minor bug fix in widget.php file
+
 = 3.0.7 =
 * .ditty-item css updates
 * Added wp_enqueue_script check to ensure wp_add_inline_script is only added once

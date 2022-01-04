@@ -7,7 +7,7 @@
       "uuidString" : "0B43A184-D1FE-4DF7-BE71-3FAE2291CFE5"
     }
   ],
-  "creatorBuild" : "34335",
+  "creatorBuild" : "34324",
   "files" : {
     "\/.gitignore" : {
       "cB" : 0,
@@ -16,22 +16,6 @@
       "oA" : 0,
       "oAP" : "\/.gitignore",
       "oF" : 0
-    },
-    "\/.nova\/Publishing\/Ditty News Ticker.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/.nova\/Publishing\/Ditty News Ticker-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
-    "\/.nova\/Publishing\/Metaphor Creations.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/.nova\/Publishing\/Metaphor Creations-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
     },
     "\/.nova\/Publishing\/TESTING.json" : {
       "ft" : 524288,
@@ -146,7 +130,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/ditty-news-ticker.php",
       "oF" : 0
     },
@@ -250,7 +234,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-display-type-ticker.php",
       "oF" : 0
     },
@@ -402,7 +386,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty.php",
       "oF" : 0
     },
@@ -905,7 +889,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/js\/ditty-admin.min.js",
       "oF" : 0,
@@ -1402,7 +1386,7 @@
       "oF" : 0
     },
     "\/includes\/sass\/admin\/_dashboard.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1414,7 +1398,7 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/admin\/_datepicker.scss" : {
       "aP" : 1,
@@ -1747,7 +1731,7 @@
       "sct" : 1
     },
     "\/includes\/sass\/partials\/_general.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1759,7 +1743,7 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/partials\/_items.scss" : {
       "aP" : 1,
@@ -3164,7 +3148,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/readme.txt",
       "oF" : 0
     },
