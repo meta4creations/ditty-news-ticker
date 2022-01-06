@@ -4,14 +4,17 @@
  * @since    3.0
  * @return   null
 */
-function dittyLayoutCss( layoutCss, layoutId ) {
+function dittyLayoutCss( layoutCss, layoutId, updateCSS ) {
 	var $styles = jQuery( 'style#ditty-layout--' + layoutId );
 	if ( undefined === $styles[0] ) {
 		$styles = jQuery( '<style id="ditty-layout--' + layoutId + '"></style>' );
 		jQuery( 'head' ).append( $styles );
+		updateCSS = 'update';
 	}
-	layoutCss = layoutCss.replace( '&gt;', '>' );
-	$styles.html( layoutCss );
+	if ( 'update' === updateCSS ) {
+		layoutCss = layoutCss.replace( '&gt;', '>' );
+		$styles.html( layoutCss );
+	}
 }
 
 /**
@@ -38,8 +41,6 @@ function dittyDisplayCss( displayCss, displayId ) {
 */
 function dittyUpdateItems( itemSwaps ) {
 	var animationSpeed = 500;
-	
-	console.log( 'itemSwaps:', itemSwaps );
 	
 	jQuery.each( itemSwaps, function( index, data ) {
 		var $current = data.currentItem,

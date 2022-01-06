@@ -315,7 +315,7 @@
 					}
 					
 					if ( response.code ) {
-						dittyLayoutCss( response.code, self.layoutId );
+						dittyLayoutCss( response.code, self.layoutId, 'update' );
 					} else {
 						self._showErrorNotice();
 					}

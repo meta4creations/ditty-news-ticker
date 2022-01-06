@@ -66,5 +66,6 @@
     </custom-fields-texts>
     <custom-types>
         <custom-type translate="1">ditty_news_ticker</custom-type>
+        <custom-type translate="1">ditty</custom-type>
     </custom-types>                
 </wpml-config>
