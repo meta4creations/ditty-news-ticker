@@ -390,6 +390,14 @@
       "oAP" : "\/includes\/class-ditty-singles.php",
       "oF" : 0
     },
+    "\/includes\/class-ditty-wpml.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/class-ditty-wpml.php",
+      "oF" : 0
+    },
     "\/includes\/class-ditty.php" : {
       "cB" : 0,
       "ft" : 8192,

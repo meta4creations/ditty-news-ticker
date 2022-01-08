@@ -68,6 +68,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 = 3.0.9 =
 * Ditty editor Layout css update bug fix
+* Added WPML functionality to Ditty post type
 
 = 3.0.8 =
 * Minor bug fix in widget.php file

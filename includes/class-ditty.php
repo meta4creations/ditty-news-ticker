@@ -124,6 +124,15 @@ class Ditty {
 	public $extensions;
 	
 	/**
+	 * Ditty WPML object.
+	 *
+	 * @since    3.0
+	 * @access   public
+	 * @var      object    Ditty_WPML
+	 */
+	public $wpml;
+	
+	/**
 	 * Ditty error object.
 	 *
 	 * @since    3.0
@@ -168,7 +177,8 @@ class Ditty {
 			self::$instance->extensions		= new Ditty_Extensions();
 			self::$instance->layouts			= new Ditty_Layouts();
 			self::$instance->singles			= new Ditty_Singles();
-			self::$instance->items				= new Ditty_Items();	
+			self::$instance->items				= new Ditty_Items();
+			self::$instance->wpml					= new Ditty_WPML();	
 		}
 
 		return self::$instance;
@@ -296,6 +306,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-wp-editor.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-posts-lite.php';
 		require_once DITTY_DIR . 'includes/class-ditty-singles.php';
+		require_once DITTY_DIR . 'includes/class-ditty-wpml.php';
 		
 		//require_once DITTY_DIR . 'blocks/ditty-block/index.php';
 		
