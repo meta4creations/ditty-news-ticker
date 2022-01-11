@@ -31,6 +31,7 @@ class Ditty_Singles {
 		
 		// General hooks
 		add_filter( 'post_row_actions', array( $this, 'modify_list_row_actions' ), 10, 2 );
+		add_action( 'mtphr_post_duplicator_created', array( $this, 'after_duplicate_post' ), 10, 3 );	
 		
 		// Editor elements
 		add_action( 'ditty_editor_tabs', array( $this, 'editor_tab' ), 100, 2 );
@@ -41,8 +42,7 @@ class Ditty_Singles {
 		add_filter( 'get_user_option_screen_layout_ditty', array( $this, 'force_post_layout' ) );
 		add_filter( 'screen_options_show_screen', array( $this, 'remove_screen_options' ), 10, 2 );
 
-		
-
+		// Shortcodes
 		add_shortcode( 'ditty', array( $this, 'do_shortcode' ) );
 		
 		// Ajax
@@ -248,6 +248,27 @@ class Ditty_Singles {
 	}
 	
 	/**
+	 * Duplicate Ditty items on Post Duplicator duplication
+	 * 
+	 * @since  3.0.10
+	 * @return void
+	 */
+	public function after_duplicate_post( $original_id, $duplicate_id, $settings ) {
+		if ( 'ditty' == get_post_type( $original_id ) && 'ditty' == get_post_type( $duplicate_id ) ) {
+			
+			// Duplicate and add original Ditty items
+			$all_meta = Ditty()->db_items->get_items( $original_id );
+			if ( is_array( $all_meta ) && count( $all_meta ) > 0 ) {
+				foreach ( $all_meta as $i => $meta ) {
+					unset( $meta->item_id );
+					$meta->ditty_id = $duplicate_id;
+					Ditty()->db_items->insert( $meta, 'item' );
+				} 
+			}
+		}
+	}
+	
+	/**
 	 * Add the post ID to the list row actions
 	 * 
 	 * @since  3.0
@@ -443,6 +464,7 @@ class Ditty_Singles {
 			$display_id = ditty_default_display( $ditty_id );
 		}
 		$display = new Ditty_Display( $display_id );
+		$display_type = $display->get_display_type();
 	
 		// Setup the ditty values
 		$status = get_post_status( $ditty_id );
@@ -464,7 +486,7 @@ class Ditty_Singles {
 		do_action( 'ditty_init', $ditty_id );
 		
 		?>
-		$( 'div[data-uniqid="<?php echo $uniqid; ?>"]' ).ditty_<?php echo $display->get_display_type(); ?>(<?php echo json_encode( $args ); ?>);
+		$( 'div[data-uniqid="<?php echo esc_attr( $uniqid ); ?>"]' ).ditty_<?php echo esc_attr( $display_type ); ?>(<?php echo json_encode( $args ); ?>);
 		<?php
 	}
 	

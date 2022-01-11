@@ -8,7 +8,6 @@ jQuery( document ).ready( function( $ ) {
     "use strict";
 
 		function modifyHeights( $minHeight, $maxHeight, directionValue ) {
-			console.log( directionValue );
 			if ( 'down' === directionValue || 'up' === directionValue ) {
 				$minHeight.show();
 				$maxHeight.show();

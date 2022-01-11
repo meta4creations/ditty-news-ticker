@@ -1240,7 +1240,7 @@ function ditty_render( $atts ) {
 		'data-ajax_load' 				=> $ajax_load,
 		'data-live_updates' 		=> $live_updates,
 	);
-
+	
 	if ( 0 == $ajax_load ) {
 		$ditty_singles[] = $ditty_atts;
 	}

@@ -849,22 +849,17 @@
 			this.$contents.css( this.settings.contentsBorderWidth );
 			
 			if ( 'up' === this.settings.direction || 'down' === this.settings.direction ) {
-				var height  = this.settings.height ? this.settings.height : '100%',
-						minHeight  = this.settings.minHeight ? this.settings.minHeight : 0,
+				var minHeight  = this.settings.minHeight ? this.settings.minHeight : 0,
 						maxHeight  = this.settings.maxHeight ? this.settings.maxHeight : 'none';
 				this.$items.css( {
-					height: height,
 					minHeight: minHeight,
 					maxHeight: maxHeight
 				} );
-				//this.$contents.css( { height: height } );
 			} else {
 				this.$items.css( {
-					height: 'auto',
 					minHeight: '',
 					maxHeight: ''
 				} );
-				//this.$contents.css( { height: 'auto' } );
 			}
 		},
 		
@@ -932,8 +927,9 @@
 		    	this.updateItems( value );
 		    	break;
 				case 'direction':
-					this.settings[key] = value;
-					this._styleDisplay();
+				this.settings[key] = value;
+				this._styleDisplay();
+				this._setDirection( value );
 					break;
 				case 'minHeight':
 				case 'maxHeight':
