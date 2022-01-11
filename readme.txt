@@ -69,6 +69,8 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 = 3.0.10 =
 * Resolved hammer warning
 * Added Post Duplicator integration
+* Added custom Display settings
+* Ticker Display vertical scrolling updates
 
 = 3.0.9 =
 * Ditty editor Layout css update bug fix
