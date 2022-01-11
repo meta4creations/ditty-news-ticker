@@ -425,9 +425,9 @@ class Ditty {
 	 */
 	public function enqueue_styles() {	
 		wp_enqueue_style( 'ditty', DITTY_URL . 'includes/css/ditty.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
 
 		if ( current_user_can( 'edit_dittys' ) || current_user_can( 'edit_ditty_layouts' ) ) {
-			wp_enqueue_style( 'fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
 			wp_enqueue_style( 'wp-codemirror' );
 			wp_enqueue_style( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.css', false, '1.4.21', false );	
 			wp_enqueue_style( 'ion-rangeslider', DITTY_URL . 'includes/libs/ion.rangeSlider/css/ion.rangeSlider.min.css', false, '2.3.1', false );
@@ -458,7 +458,7 @@ class Ditty {
 	public function enqueue_scripts( $hook ) {
 		$min = WP_DEBUG ? '' : '.min';
 		
-		wp_register_script( 'hammer', DITTY_URL . 'includes/libs/hammer.min.js', array( 'jquery' ), '2.0.8', true );
+		wp_register_script( 'hammer', DITTY_URL . 'includes/libs/hammer.min.js', array( 'jquery' ), '2.0.8.1', true );
 		wp_register_script( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.js', array( 'jquery' ), '1.4.21', true );
 		wp_register_script( 'ditty', DITTY_URL . 'includes/js/ditty.min.js', array( 'jquery', 'jquery-effects-core', ), $this->version, true );
 		wp_add_inline_script( 'ditty', 'const dittyVars = ' . json_encode( array(

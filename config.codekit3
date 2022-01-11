@@ -1247,9 +1247,9 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 1,
       "oAP" : "\/includes\/libs\/ChromePhp.php",
-      "oF" : 0
+      "oF" : 1
     },
     "\/includes\/libs\/css\/mtphr-slider.css" : {
       "aP" : 0,
@@ -1268,9 +1268,9 @@
       "ft" : 64,
       "ma" : 0,
       "mi" : 0,
-      "oA" : 0,
+      "oA" : 1,
       "oAP" : "\/includes\/libs\/hammer.min.min.js",
-      "oF" : 0,
+      "oF" : 1,
       "sC" : 3,
       "tS" : 0
     },
