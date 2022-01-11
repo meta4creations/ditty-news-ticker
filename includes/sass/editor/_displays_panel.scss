@@ -32,3 +32,13 @@
 		-webkit-overflow-scrolling: touch;
 	}
 }
+#ditty-editor__settings .ditty-display-type-options--ticker .ditty-input--group__container > .ditty-field {
+	&.ditty-field--minHeight {
+		width: 50%;
+		padding-right: 7.5px;
+	}
+	&.ditty-field--maxHeight {
+		width: 50%;
+		padding-left: 7.5px;
+	}
+}

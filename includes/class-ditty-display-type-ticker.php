@@ -49,6 +49,20 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 						'inline'	=> true,
 						'std'			=> isset( $values['direction'] ) ? $values['direction'] : false,		
 					),
+					'minHeight' => array(
+						'type'				=> 'text',
+						'id'					=> 'minHeight',
+						'name'				=> __( 'Min. Height', 'ditty-news-ticker' ),
+						'help'				=> __( 'Set the minimum height of the Ditty for vertical scrolling tickers.', 'ditty-news-ticker' ),
+						'std'					=> isset( $values['minHeight'] ) ? $values['minHeight'] : false,
+					),
+					'maxHeight' => array(
+						'type'				=> 'text',
+						'id'					=> 'maxHeight',
+						'name'				=> __( 'Max. Height', 'ditty-news-ticker' ),
+						'help'				=> __( 'Set the maximum height of the Ditty for vertical scrolling tickers.', 'ditty-news-ticker' ),
+						'std'					=> isset( $values['maxHeight'] ) ? $values['maxHeight'] : false,
+					),
 					'spacing' => array(
 						'type'				=> 'slider',
 						'id'					=> 'spacing',
@@ -74,20 +88,6 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 							'step' 	=> 1,
 						),
 						'std'					=> isset( $values['speed'] ) ? $values['speed'] : false,
-					),
-					'minHeight' => array(
-						'type'				=> 'text',
-						'id'					=> 'minHeight',
-						'name'				=> __( 'Min. Height', 'ditty-news-ticker' ),
-						'help'				=> __( 'Set the minimum height of the Ditty for vertical scrolling tickers.', 'ditty-news-ticker' ),
-						'std'					=> isset( $values['minHeight'] ) ? $values['minHeight'] : false,
-					),
-					'maxHeight' => array(
-						'type'				=> 'text',
-						'id'					=> 'maxHeight',
-						'name'				=> __( 'Max. Height', 'ditty-news-ticker' ),
-						'help'				=> __( 'Set the maximum height of the Ditty for vertical scrolling tickers.', 'ditty-news-ticker' ),
-						'std'					=> isset( $values['maxHeight'] ) ? $values['maxHeight'] : false,
 					),
 					'hoverPause' => array(
 						'type'	=> 'checkbox',
@@ -176,22 +176,22 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 					'std'			=> isset( $values['itemElementsWrap'] ) ? $values['itemElementsWrap'] : false,
 				),
 			) ),
-			// 'importExportSettings' 	=> array(
-			// 	'type' 							=> 'group',
-			// 	'id'								=> 'importExportSettings',
-			// 	'collapsible'				=> true,
-			// 	'default_state'			=> 'collapsed',
-			// 	'multiple_fields'		=> true,
-			// 	'name' 							=> __( 'Import/Export', 'ditty-news-ticker' ),
-			// 	'help' 							=> __( 'Import or export the display settings.', 'ditty-news-ticker' ),
-			// 	'fields' 						=> array(
-			// 		'importExport' => array(
-			// 			'type'	=> 'html',
-			// 			'id'		=> 'importExport',
-			// 			'std'		=> parent::import_export_settings( $values ),
-			// 		),
-			// 	),
-			// ),
+			'importExportSettings' 	=> array(
+				'type' 							=> 'group',
+				'id'								=> 'importExportSettings',
+				'collapsible'				=> true,
+				'default_state'			=> 'collapsed',
+				'multiple_fields'		=> true,
+				'name' 							=> __( 'Import/Export', 'ditty-news-ticker' ),
+				'help' 							=> __( 'Import or export the display settings.', 'ditty-news-ticker' ),
+				'fields' 						=> array(
+					'importExport' => array(
+						'type'	=> 'html',
+						'id'		=> 'importExport',
+						'std'		=> parent::import_export_settings( $values ),
+					),
+				),
+			),
 		);
 		return $fields;
 	}
@@ -203,7 +203,7 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 	 */
 	public function default_settings() {	
 		
-		$defaults = json_decode( '{"direction":"left","spacing":"25","speed":"10","minHeight":"","maxHeight":"","hoverPause":"1","scrollInit":"empty","scrollDelay":"3","heightEase":"easeInOutQuint","heightSpeed":"1.5","maxWidth":"","bgColor":"","padding":{"paddingTop":"5px","paddingBottom":"5px","paddingLeft":"5px","paddingRight":"5px"},"margin":{"marginTop":"","marginBottom":"","marginLeft":"","marginRight":""},"borderColor":"","borderStyle":"none","borderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"borderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"contentsBgColor":"rgba(255, 255, 255, 0.5)","contentsPadding":{"paddingTop":"10px","paddingBottom":"10px","paddingLeft":"10px","paddingRight":"10px"},"contentsBorderColor":"","contentsBorderStyle":"none","contentsBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"contentsBorderRadius":{"borderTopLeftRadius":"3px","borderTopRightRadius":"3px","borderBottomLeftRadius":"3px","borderBottomRightRadius":"3px"},"itemTextColor":"","itemBgColor":"","itemPadding":{"paddingTop":"","paddingBottom":"","paddingLeft":"","paddingRight":""},"itemBorderColor":"","itemBorderStyle":"none","itemBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"itemBorderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"itemMaxWidth":"400px","itemElementsWrap":"wrap"}', true );
+		$defaults = json_decode( '{"direction":"left","spacing":"25","speed":"10","minHeight":"300px","maxHeight":"","hoverPause":"1","scrollInit":"empty","scrollDelay":"3","heightEase":"easeInOutQuint","heightSpeed":"1.5","maxWidth":"","bgColor":"","padding":{"paddingTop":"5px","paddingBottom":"5px","paddingLeft":"5px","paddingRight":"5px"},"margin":{"marginTop":"","marginBottom":"","marginLeft":"","marginRight":""},"borderColor":"","borderStyle":"none","borderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"borderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"contentsBgColor":"rgba(255, 255, 255, 0.5)","contentsPadding":{"paddingTop":"10px","paddingBottom":"10px","paddingLeft":"10px","paddingRight":"10px"},"contentsBorderColor":"","contentsBorderStyle":"none","contentsBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"contentsBorderRadius":{"borderTopLeftRadius":"3px","borderTopRightRadius":"3px","borderBottomLeftRadius":"3px","borderBottomRightRadius":"3px"},"itemTextColor":"","itemBgColor":"","itemPadding":{"paddingTop":"","paddingBottom":"","paddingLeft":"","paddingRight":""},"itemBorderColor":"","itemBorderStyle":"none","itemBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"itemBorderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"itemMaxWidth":"400px","itemElementsWrap":"wrap"}', true );
 			
 		return apply_filters( 'ditty_display_default_settings', $defaults, $this->type );
 	}
@@ -221,7 +221,7 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 			'label'				=> __( 'Default Ticker', 'ditty-news-ticker' ),
 			'description' => __( 'Default ticker display', 'ditty-news-ticker' ),
 			'settings'		=> $defaults,
-			'version'			=> '1.1',
+			'version'			=> '1.2',
 		);	
 		return apply_filters( 'ditty_display_type_templates', $templates, $this->type );
 	}

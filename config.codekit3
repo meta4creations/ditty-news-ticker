@@ -25,6 +25,14 @@
       "oO" : 1,
       "oS" : 1
     },
+    "\/.nova\/Publishing\/Metaphor Creations.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/.nova\/Publishing\/Metaphor Creations-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
     "\/.nova\/Publishing\/TESTING.json" : {
       "ft" : 524288,
       "oA" : 1,
@@ -138,7 +146,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/ditty-news-ticker.php",
       "oF" : 0
     },
@@ -242,7 +250,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/class-ditty-display-type-ticker.php",
       "oF" : 0
     },
@@ -402,7 +410,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/class-ditty.php",
       "oF" : 0
     },
@@ -905,7 +913,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 1,
+      "mi" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/js\/ditty-admin.min.js",
       "oF" : 0,
@@ -945,17 +953,6 @@
       "sC" : 3,
       "tS" : 0
     },
-    "\/includes\/js\/ditty-editor.min.min.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/ditty-editor.min.min.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
     "\/includes\/js\/ditty.js" : {
       "bF" : 0,
       "ft" : 64,
@@ -971,7 +968,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/js\/ditty.min.min.js",
       "oF" : 0,
@@ -1070,7 +1067,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 1,
       "oAP" : "\/includes\/js\/editor\/class-ditty-layout-css-editor-panel.min.js",
       "oF" : 0,
@@ -1132,6 +1129,17 @@
       "sC" : 3,
       "tS" : 0
     },
+    "\/includes\/js\/editor\/ditty-ticker-display-editor.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/editor\/ditty-ticker-display-editor.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
     "\/includes\/js\/editor\/helpers.js" : {
       "bF" : 0,
       "ft" : 64,
@@ -1180,7 +1188,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 1,
       "oAP" : "\/includes\/js\/partials\/helpers.min.js",
       "oF" : 0,
@@ -1402,7 +1410,7 @@
       "oF" : 0
     },
     "\/includes\/sass\/admin\/_dashboard.scss" : {
-      "aP" : 0,
+      "aP" : 1,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1414,7 +1422,7 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 0
+      "sct" : 1
     },
     "\/includes\/sass\/admin\/_datepicker.scss" : {
       "aP" : 1,
@@ -1747,7 +1755,7 @@
       "sct" : 1
     },
     "\/includes\/sass\/partials\/_general.scss" : {
-      "aP" : 0,
+      "aP" : 1,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1759,7 +1767,7 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 0
+      "sct" : 1
     },
     "\/includes\/sass\/partials\/_items.scss" : {
       "aP" : 1,
@@ -5596,7 +5604,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/wpml-config.xml",
       "oF" : 0
     }

@@ -852,19 +852,19 @@
 				var height  = this.settings.height ? this.settings.height : '100%',
 						minHeight  = this.settings.minHeight ? this.settings.minHeight : 0,
 						maxHeight  = this.settings.maxHeight ? this.settings.maxHeight : 'none';
-				this.$elmt.css( {
+				this.$items.css( {
 					height: height,
 					minHeight: minHeight,
 					maxHeight: maxHeight
 				} );
-				this.$contents.css( { height: height } );
+				//this.$contents.css( { height: height } );
 			} else {
-				this.$elmt.css( {
+				this.$items.css( {
 					height: 'auto',
-					minHeight: 0,
-					maxHeight: 'none'
+					minHeight: '',
+					maxHeight: ''
 				} );
-				this.$contents.css( { height: 'auto' } );
+				//this.$contents.css( { height: 'auto' } );
 			}
 		},
 		
@@ -931,6 +931,10 @@
 		    case 'items':
 		    	this.updateItems( value );
 		    	break;
+				case 'direction':
+					this.settings[key] = value;
+					this._styleDisplay();
+					break;
 				case 'minHeight':
 				case 'maxHeight':
 		    case 'bgColor':

@@ -1066,6 +1066,14 @@
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch; }
 
+#ditty-editor__settings .ditty-display-type-options--ticker .ditty-input--group__container > .ditty-field.ditty-field--minHeight {
+  width: 50%;
+  padding-right: 7.5px; }
+
+#ditty-editor__settings .ditty-display-type-options--ticker .ditty-input--group__container > .ditty-field.ditty-field--maxHeight {
+  width: 50%;
+  padding-left: 7.5px; }
+
 .ditty-editor-layout {
   cursor: pointer; }
   .ditty-editor-layout:not(.active):hover .ditty-data-list__item__edit_html,
