@@ -27,7 +27,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	 */
 	public function prepare_items( $meta ) {
 		$item_value = maybe_unserialize( $meta['item_value'] );
-		//ChromePhp::log( '$item_value:', $item_value );
+
 		// Set the query args
 		$query_args = array(
 			'posts_per_page' 	=> $item_value['limit'],

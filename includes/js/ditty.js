@@ -218,12 +218,13 @@ jQuery( document ).ready( function( $ ) {
 						live_updates 	= $ditty.data( 'live_updates' ) ? $ditty.data( 'live_updates' ) : false,
 						editor 				= $ditty.data( 'show_editor' ) 	? $ditty.data( 'show_editor' ) 	: false,
 						load_type 		= $ditty.data( 'load_type' ) 		? $ditty.data( 'load_type' ) 		: false;
-					
+
 				// Load the Dittys via ajax	
 				if ( ajax_load ) {
 					var data = {
 						action						: 'ditty_init',
 						id								: $ditty.data( 'id' ) ? $ditty.data( 'id' ) : false,
+						uniqid						: $ditty.data( 'uniqid' ) ? $ditty.data( 'uniqid' ) : false,
 						display						: $ditty.data( 'display' ) ? $ditty.data( 'display' ) : '',
 						display_settings	: $ditty.data( 'display_settings' ) ? $ditty.data( 'display_settings' ) : false,
 						editor						: editor,

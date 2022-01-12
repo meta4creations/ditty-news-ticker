@@ -398,6 +398,7 @@ class Ditty_Singles {
 	public function init_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
 		$id_ajax 								= isset( $_POST['id'] ) 							? intval( $_POST['id'] ) 									: false;
+		$uniqid_ajax 						= isset( $_POST['uniqid'] ) 					? esc_attr( $_POST['uniqid'] ) 						: false;
 		$display_ajax 					= isset( $_POST['display'] ) 					? esc_attr( $_POST['display'] ) 					: false;
 		$display_settings_ajax 	= isset( $_POST['display_settings'] ) ? esc_attr( $_POST['display_settings'] ) 	: false;
 		$editor_ajax 						= isset( $_POST['editor'] )						? intval( $_POST['editor'] ) 							: false;
@@ -415,13 +416,14 @@ class Ditty_Singles {
 
 		// Setup the ditty values
 		$status = get_post_status( $id_ajax );
-		$args = $display->get_values();
-		$args['id'] = $id_ajax;
-		$args['title'] 	= ( 'auto-draft' == $status ) ? '' : get_the_title( $id_ajax );
-		$args['status'] = $status;
-		$args['display'] = $display->get_display_id();
+		$args 							= $display->get_values();
+		$args['id'] 				= $id_ajax;
+		$args['uniqid'] 		= $uniqid_ajax;
+		$args['title'] 			= ( 'auto-draft' == $status ) ? '' : get_the_title( $id_ajax );
+		$args['status'] 		= $status;
+		$args['display'] 		= $display->get_display_id();
 		$args['showEditor'] = $editor_ajax;
-		
+
 		$items = ditty_display_items( $id_ajax, $load_type );
 		if ( ! is_array( $items ) ) {
 			$items = array();
@@ -450,7 +452,7 @@ class Ditty_Singles {
 		}
 		
 		$ditty_id 				= $atts['data-id'];
-		$uniqid 					= $atts['data-uniqid'];
+		$uniqid 					= isset( $atts['data-uniqid'] ) 					? $atts['data-uniqid'] 						: false;
 		$display_id 			= isset( $atts['data-display'] ) 					? $atts['data-display'] 					: false;
 		$display_settings = isset( $atts['data-display_settings'] )	? $atts['data-display_settings']	: false;
 		$show_editor 			= isset( $atts['data-show_editor'] ) 			? $atts['data-show_editor'] 			: false;
@@ -471,6 +473,7 @@ class Ditty_Singles {
 		$args = $display->get_values();
 		
 		$args['id'] 				= $ditty_id;
+		$args['uniqid'] 		= $uniqid;
 		$args['title'] 			= ( 'auto-draft' == $status ) ? '' : get_the_title( $ditty_id );
 		$args['status'] 		= $status;
 		$args['display'] 		= $display->get_display_id();

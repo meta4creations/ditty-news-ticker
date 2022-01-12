@@ -228,22 +228,22 @@ class Ditty_Display_Type_List extends Ditty_Display_Type {
 			'contentStyles' 		=> parent::content_style_settings( $values ),
 			'pageStyles' 				=> parent::page_style_settings( $values ),
 			'itemStyles' 				=> parent::item_style_settings( $values ),
-			// 'importExportSettings' 	=> array(
-			// 	'type' 							=> 'group',
-			// 	'id'								=> 'importExportSettings',
-			// 	'collapsible'				=> true,
-			// 	'default_state'			=> 'collapsed',
-			// 	'multiple_fields'		=> true,
-			// 	'name' 							=> __( 'Import/Export', 'ditty-news-ticker' ),
-			// 	'help' 							=> __( 'Import or export the display settings.', 'ditty-news-ticker' ),
-			// 	'fields' 						=> array(
-			// 		'importExport' => array(
-			// 			'type'	=> 'html',
-			// 			'id'		=> 'importExport',
-			// 			'std'		=> parent::import_export_settings( $values ),
-			// 		),
-			// 	),
-			// ),
+			'importExportSettings' 	=> array(
+				'type' 							=> 'group',
+				'id'								=> 'importExportSettings',
+				'collapsible'				=> true,
+				'default_state'			=> 'collapsed',
+				'multiple_fields'		=> true,
+				'name' 							=> __( 'Import/Export', 'ditty-news-ticker' ),
+				'help' 							=> __( 'Import or export the display settings.', 'ditty-news-ticker' ),
+				'fields' 						=> array(
+					'importExport' => array(
+						'type'	=> 'html',
+						'id'		=> 'importExport',
+						'std'		=> parent::import_export_settings( $values ),
+					),
+				),
+			),
 		);	
 		return $fields;
 	}
