@@ -1,7 +1,7 @@
 === Ditty (formerly Ditty News Ticker) ===
 Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
-Tags: ticker, news, news ticker, rotator, data rotator, lists, data, aggregator, latest posts
+Tags: ticker, post ticker, news ticker, content aggregator, latest posts, live refresh, rotator, data rotator, lists, data, aggregator
 Requires at least: 4.5
 Tested up to: 5.8.3
 Stable tag: 3.0.9
