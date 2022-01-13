@@ -874,33 +874,55 @@ function ditty_type_exists( $slug ) {
 }
 
 /**
- * Return display items for a specific Ditty
+ * Parse custom layouts into an array
  *
  * @since    3.0
  * @access   public
+ * @var      bool
+*/
+function ditty_parse_custom_layouts( $layout_settings ) {
+	$layouts = array();
+	parse_str( html_entity_decode( $layout_settings ), $custom_layout_settings );
+	if ( is_array( $custom_layout_settings ) && count( $custom_layout_settings ) > 0 ) {
+		foreach ( $custom_layout_settings as $item_type => $variations ) {
+			$variation = explode( '|', $variations );
+			if ( is_array( $variation ) && count( $variation ) > 0 ) {
+				$variation_array = array();
+				foreach ( $variation as $variation_data ) {
+					$varation_values = explode( ':', $variation_data );
+					if ( count( $varation_values ) > 1 ) {
+						$variation_array[$varation_values[0]] = $varation_values[1];
+					}
+				}
+				$layouts[$item_type] = maybe_serialize( $variation_array );
+			}
+		}
+	}
+	return $layouts;
+}
+
+/**
+ * Return display items for a specific Ditty
+ *
+ * @since    3.0.10
+ * @access   public
  * @var      array   	$display_items    Array of item objects
  */
-function ditty_display_items( $ditty_id, $load_type = false ) {
+function ditty_display_items( $ditty_id, $load_type = false, $custom_layouts = false ) {
 	$transient_name = "ditty_display_items_{$ditty_id}";
+	
+	// Check for custom layouts
+	$custom_layout_array = array();
+	if ( $custom_layouts ) {
+		$transient_name .= "_{$custom_layouts}";
+		$custom_layout_array = ditty_parse_custom_layouts( $custom_layouts );
+	}
+	
+	// Check for cached display items
 	$display_items = get_transient( $transient_name );
 	if ( ! $display_items || 'force' == $load_type ) {
 		$display_items = array();
 		$items_meta = ditty_items_meta( $ditty_id );
-		
-		// Add new draft meta
-		// if ( $draft_values = ditty_get_draft_values() ) {
-		// 	if ( isset( $draft_values['items'] ) && is_array( $draft_values['items'] ) && count( $draft_values['items'] ) > 0 ) {
-		// 		foreach ( $draft_values['items'] as $i => $draft_item_meta ) {
-		// 			if ( ! isset( $draft_item_meta['data'] ) || ! isset( $draft_item_meta['data']['item_id'] ) ) {
-		// 				continue;
-		// 			}
-		// 			if ( false !== strpos( $draft_item_meta['data']['item_id'], 'new-' ) ) {
-		// 				$items_meta[] = $draft_item_meta['data'];
-		// 			}
-		// 		}
-		// 	}
-		// }
-
 		if ( empty( $items_meta) && 'auto-draft' == get_post_status( $ditty_id ) ) {
 			$items_meta = array( ditty_get_new_item_meta( $ditty_id ) );
 		}
@@ -909,18 +931,10 @@ function ditty_display_items( $ditty_id, $load_type = false ) {
 				if ( is_object( $meta ) ) {
 					$meta = ( array ) $meta;
 				}
-				
-				// Check for updated draft meta
-				// if ( $draft_data = ditty_draft_item_get_data( $meta['item_id'] ) ) {
-				// 	if ( isset( $draft_data['item_value'] ) ) {
-				// 		$draft_data['item_value'] = maybe_serialize( $draft_data['item_value'] );
-				// 	}
-				// 	if ( isset( $draft_data['layout_value'] ) ) {
-				// 		$draft_data['layout_value'] = maybe_serialize( $draft_data['layout_value'] );
-				// 	}
-				// 	$meta = shortcode_atts( $meta, $draft_data );
-				// }		
-				
+				if ( isset( $custom_layout_array[$meta[item_type]] ) ) {
+					$meta['layout_value'] = $custom_layout_array[$meta[item_type]];
+				}
+
 				$prepared_items = ditty_prepare_display_items( $meta );
 				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
 					foreach ( $prepared_items as $i => $prepared_meta ) {
@@ -1196,6 +1210,7 @@ function ditty_render( $atts ) {
 		'id' 								=> '',
 		'display' 					=> '',
 		'display_settings' 	=> '',
+		'layout_settings' 	=> '',
 		'uniqid' 						=> '',
 		'class' 						=> '',
 		'show_editor' 			=> 0,
@@ -1235,6 +1250,7 @@ function ditty_render( $atts ) {
 		'data-uniqid' 					=> $args['uniqid'],
 		'data-display' 					=> ( '' != $args['display'] ) ? $args['display'] : false,
 		'data-display_settings' => ( '' != $args['display_settings'] ) ? $args['display_settings'] : false,
+		'data-layout_settings' 	=> ( '' != $args['layout_settings'] ) ? $args['layout_settings'] : false,
 		'data-show_editor' 			=> ( 0 != intval( $args['show_editor'] ) ) ? '1' : false,
 		'data-load_type' 				=> ( '' != $args['load_type'] ) ? $args['load_type'] : false,
 		'data-ajax_load' 				=> $ajax_load,

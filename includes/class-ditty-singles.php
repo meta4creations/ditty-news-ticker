@@ -401,6 +401,7 @@ class Ditty_Singles {
 		$uniqid_ajax 						= isset( $_POST['uniqid'] ) 					? esc_attr( $_POST['uniqid'] ) 						: false;
 		$display_ajax 					= isset( $_POST['display'] ) 					? esc_attr( $_POST['display'] ) 					: false;
 		$display_settings_ajax 	= isset( $_POST['display_settings'] ) ? esc_attr( $_POST['display_settings'] ) 	: false;
+		$layout_settings_ajax 	= isset( $_POST['layout_settings'] ) 	? esc_attr( $_POST['layout_settings'] ) 	: false;
 		$editor_ajax 						= isset( $_POST['editor'] )						? intval( $_POST['editor'] ) 							: false;
 		$load_type 							= isset( $_POST['loud_type'] )				? intval( $_POST['loud_type'] ) 					: '';
 
@@ -424,7 +425,7 @@ class Ditty_Singles {
 		$args['display'] 		= $display->get_display_id();
 		$args['showEditor'] = $editor_ajax;
 
-		$items = ditty_display_items( $id_ajax, $load_type );
+		$items = ditty_display_items( $id_ajax, $load_type, $layout_settings_ajax );
 		if ( ! is_array( $items ) ) {
 			$items = array();
 		}
@@ -455,6 +456,7 @@ class Ditty_Singles {
 		$uniqid 					= isset( $atts['data-uniqid'] ) 					? $atts['data-uniqid'] 						: false;
 		$display_id 			= isset( $atts['data-display'] ) 					? $atts['data-display'] 					: false;
 		$display_settings = isset( $atts['data-display_settings'] )	? $atts['data-display_settings']	: false;
+		$layout_settings 	= isset( $atts['data-layout_settings'] ) 	? $atts['data-layout_settings'] 	: false;
 		$show_editor 			= isset( $atts['data-show_editor'] ) 			? $atts['data-show_editor'] 			: false;
 		$load_type 				= isset( $atts['load_type'] )							? $atts['load_type'] 							: '';
 	
@@ -479,7 +481,10 @@ class Ditty_Singles {
 		$args['display'] 		= $display->get_display_id();
 		$args['showEditor'] = $show_editor;
 		
-		$items = ditty_display_items( $ditty_id, $load_type );
+		if ( 1 == get_current_user_id() ) {
+			ChromePhp::log( $custom_layouts );
+		}
+		$items = ditty_display_items( $ditty_id, $load_type, $layout_settings );
 		if ( ! is_array( $items ) ) {
 			$items = array();
 		}
