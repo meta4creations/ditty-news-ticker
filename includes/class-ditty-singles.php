@@ -393,7 +393,7 @@ class Ditty_Singles {
 	 * Return data for a Ditty to load via ajax
 	 *
 	 * @access public
-	 * @since  3.0
+	 * @since  3.0.10
 	 */
 	public function init_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
@@ -445,7 +445,7 @@ class Ditty_Singles {
 	 * Return data for a Ditty to load via ajax
 	 *
 	 * @access public
-	 * @since  3.0
+	 * @since  3.0.10
 	 */
 	public function init( $atts ) {
 		if ( ! $atts['data-id'] ) {
@@ -480,10 +480,7 @@ class Ditty_Singles {
 		$args['status'] 		= $status;
 		$args['display'] 		= $display->get_display_id();
 		$args['showEditor'] = $show_editor;
-		
-		if ( 1 == get_current_user_id() ) {
-			ChromePhp::log( $custom_layouts );
-		}
+
 		$items = ditty_display_items( $ditty_id, $load_type, $layout_settings );
 		if ( ! is_array( $items ) ) {
 			$items = array();
