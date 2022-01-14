@@ -876,7 +876,7 @@ function ditty_type_exists( $slug ) {
 /**
  * Parse custom layouts into an array
  *
- * @since    3.0
+ * @since    3.0.10
  * @access   public
  * @var      bool
 */
@@ -1210,7 +1210,6 @@ function ditty_render( $atts ) {
 		'id' 								=> '',
 		'display' 					=> '',
 		'display_settings' 	=> '',
-		'layout_settings' 	=> '',
 		'uniqid' 						=> '',
 		'class' 						=> '',
 		'show_editor' 			=> 0,
@@ -1250,13 +1249,12 @@ function ditty_render( $atts ) {
 		'data-uniqid' 					=> $args['uniqid'],
 		'data-display' 					=> ( '' != $args['display'] ) ? $args['display'] : false,
 		'data-display_settings' => ( '' != $args['display_settings'] ) ? $args['display_settings'] : false,
-		'data-layout_settings' 	=> ( '' != $args['layout_settings'] ) ? $args['layout_settings'] : false,
 		'data-show_editor' 			=> ( 0 != intval( $args['show_editor'] ) ) ? '1' : false,
 		'data-load_type' 				=> ( '' != $args['load_type'] ) ? $args['load_type'] : false,
 		'data-ajax_load' 				=> $ajax_load,
 		'data-live_updates' 		=> $live_updates,
 	);
-	
+
 	if ( 0 == $ajax_load ) {
 		$ditty_singles[] = $ditty_atts;
 	}
