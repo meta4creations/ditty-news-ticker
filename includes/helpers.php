@@ -931,8 +931,8 @@ function ditty_display_items( $ditty_id, $load_type = false, $custom_layouts = f
 				if ( is_object( $meta ) ) {
 					$meta = ( array ) $meta;
 				}
-				if ( isset( $custom_layout_array[$meta[item_type]] ) ) {
-					$meta['layout_value'] = $custom_layout_array[$meta[item_type]];
+				if ( isset( $custom_layout_array[$meta['item_type']] ) ) {
+					$meta['layout_value'] = $custom_layout_array[$meta['item_type']];
 				}
 
 				$prepared_items = ditty_prepare_display_items( $meta );
