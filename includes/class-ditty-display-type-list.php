@@ -228,7 +228,9 @@ class Ditty_Display_Type_List extends Ditty_Display_Type {
 			'contentStyles' 		=> parent::content_style_settings( $values ),
 			'pageStyles' 				=> parent::page_style_settings( $values ),
 			'itemStyles' 				=> parent::item_style_settings( $values ),
-			'importExportSettings' 	=> array(
+		);	
+		if ( WP_DEBUG ) {
+			$fields['importExportSettings'] = array(
 				'type' 							=> 'group',
 				'id'								=> 'importExportSettings',
 				'collapsible'				=> true,
@@ -243,8 +245,8 @@ class Ditty_Display_Type_List extends Ditty_Display_Type {
 						'std'		=> parent::import_export_settings( $values ),
 					),
 				),
-			),
-		);	
+			);
+		}
 		return $fields;
 	}
 	

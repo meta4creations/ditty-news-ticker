@@ -176,7 +176,9 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 					'std'			=> isset( $values['itemElementsWrap'] ) ? $values['itemElementsWrap'] : false,
 				),
 			) ),
-			'importExportSettings' 	=> array(
+		);
+		if ( WP_DEBUG ) {
+			$fields['importExportSettings'] = array(
 				'type' 							=> 'group',
 				'id'								=> 'importExportSettings',
 				'collapsible'				=> true,
@@ -191,8 +193,8 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 						'std'		=> parent::import_export_settings( $values ),
 					),
 				),
-			),
-		);
+			);
+		}
 		return $fields;
 	}
 	
