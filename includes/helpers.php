@@ -882,19 +882,26 @@ function ditty_type_exists( $slug ) {
 */
 function ditty_parse_custom_layouts( $layout_settings ) {
 	$layouts = array();
-	parse_str( html_entity_decode( $layout_settings ), $custom_layout_settings );
-	if ( is_array( $custom_layout_settings ) && count( $custom_layout_settings ) > 0 ) {
-		foreach ( $custom_layout_settings as $item_type => $variations ) {
-			$variation = explode( '|', $variations );
-			if ( is_array( $variation ) && count( $variation ) > 0 ) {
-				$variation_array = array();
-				foreach ( $variation as $variation_data ) {
-					$varation_values = explode( ':', $variation_data );
-					if ( count( $varation_values ) > 1 ) {
-						$variation_array[$varation_values[0]] = $varation_values[1];
+	if ( ctype_digit( $layout_settings ) ) {
+		$variation_array = array(
+			'default' => $layout_settings,
+		);
+		$layouts['all'] = maybe_serialize( $variation_array );
+	} else {
+		parse_str( html_entity_decode( $layout_settings ), $custom_layout_settings );
+		if ( is_array( $custom_layout_settings ) && count( $custom_layout_settings ) > 0 ) {
+			foreach ( $custom_layout_settings as $item_type => $variations ) {
+				$variation = explode( '|', $variations );
+				if ( is_array( $variation ) && count( $variation ) > 0 ) {
+					$variation_array = array();
+					foreach ( $variation as $variation_data ) {
+						$varation_values = explode( ':', $variation_data );
+						if ( count( $varation_values ) > 1 ) {
+							$variation_array[$varation_values[0]] = $varation_values[1];
+						}
 					}
+					$layouts[$item_type] = maybe_serialize( $variation_array );
 				}
-				$layouts[$item_type] = maybe_serialize( $variation_array );
 			}
 		}
 	}
@@ -931,8 +938,14 @@ function ditty_display_items( $ditty_id, $load_type = false, $custom_layouts = f
 				if ( is_object( $meta ) ) {
 					$meta = ( array ) $meta;
 				}
-				if ( isset( $custom_layout_array[$meta['item_type']] ) ) {
-					$meta['layout_value'] = $custom_layout_array[$meta['item_type']];
+				
+				// Add custom layouts
+				if ( ! empty( $custom_layout_array ) ) {
+					if ( isset( $custom_layout_array['all'] ) ) {
+						$meta['layout_value'] = $custom_layout_array['all'];
+					} elseif ( isset( $custom_layout_array[$meta['item_type']] ) ) {
+						$meta['layout_value'] = $custom_layout_array[$meta['item_type']];
+					}
 				}
 
 				$prepared_items = ditty_prepare_display_items( $meta );
