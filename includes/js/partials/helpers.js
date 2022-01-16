@@ -36,7 +36,7 @@ function dittyDisplayCss( displayCss, displayId ) {
 /**
  * Update items
  *
- * @since    3.0
+ * @since    3.0.10
  * @return   null
 */
 function dittyUpdateItems( itemSwaps ) {
@@ -82,7 +82,11 @@ function dittyUpdateItems( itemSwaps ) {
 			$updateWrapper.removeAttr( 'style' );
 			$current.unwrap();
 			$current.remove();
-			$new.attr( 'style', newStyle );
+			if ( newStyle ) {
+				$new.attr( 'style', newStyle );
+			} else {
+				$new.removeAttr( 'style' );
+			}
 			if ( $new.hasClass( 'ditty-temp-item' ) ) {
 				$new.remove();
 			}
