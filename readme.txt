@@ -67,6 +67,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 == Changelog ==
 
 = 3.0.11 =
+* Only possibly load cached ditty on live_updates
 
 = 3.0.10 =
 * Resolved hammer warning

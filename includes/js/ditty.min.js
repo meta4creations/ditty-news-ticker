@@ -218,8 +218,7 @@ jQuery( document ).ready( function( $ ) {
 						live_updates 			= $ditty.data( 'live_updates' ) ? $ditty.data( 'live_updates' ) : false,
 						display_settings	= $ditty.data( 'display_settings' ) ? $ditty.data( 'display_settings' ) : false,
 						layout_settings		= $ditty.data( 'layout_settings' ) ? $ditty.data( 'layout_settings' ) : false,
-						editor 						= $ditty.data( 'show_editor' ) 	? $ditty.data( 'show_editor' ) 	: false,
-						//load_type 				= $ditty.data( 'load_type' ) 		? $ditty.data( 'load_type' ) 		: false;
+						editor 						= $ditty.data( 'show_editor' ) 	? $ditty.data( 'show_editor' ) 	: false;
 
 				// Load the Dittys via ajax	
 				if ( ajax_load ) {
@@ -231,7 +230,6 @@ jQuery( document ).ready( function( $ ) {
 						display_settings	: display_settings,
 						layout_settings		: layout_settings,
 						editor						: editor,
-						//load_type					: load_type,
 						security					: dittyVars.security
 					};
 					$.post( dittyVars.ajaxurl, data, function( response ) {
