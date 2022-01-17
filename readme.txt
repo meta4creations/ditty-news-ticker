@@ -66,6 +66,8 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.0.11 =
+
 = 3.0.10 =
 * Resolved hammer warning
 * Added Post Duplicator integration

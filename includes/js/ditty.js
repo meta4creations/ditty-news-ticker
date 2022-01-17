@@ -83,7 +83,7 @@ jQuery( document ).ready( function( $ ) {
 	  /**
 		 * Check for live updates
 		 *
-		 * @since    3.0
+		 * @since    3.0.11
 		 * @return   null
 		*/
     function checkLiveUpdates() {
@@ -96,7 +96,7 @@ jQuery( document ).ready( function( $ ) {
 				if ( response.updated_items ) {
 					$.each( response.updated_items, function( dittyId, items ) {
 						liveUpdate( dittyId, items );
-						liveIds[dittyId] = Math.floor( $.now() / 1000 );
+						liveIds[dittyId].timestamp = Math.floor( $.now() / 1000 );
 					} );
 				}	
 			}, 'json' );
@@ -204,7 +204,7 @@ jQuery( document ).ready( function( $ ) {
 		/**
 		 * Load all the dittys
 		 *
-		 * @since    3.0
+		 * @since    3.0.11
 		 * @return   null
 		*/
 		function dittyInit() {
@@ -213,11 +213,13 @@ jQuery( document ).ready( function( $ ) {
 			setupGlobalDitty();
 
 			$( '.ditty' ).each( function() {
-				var $ditty 				= $( this ),
-						ajax_load 		= $ditty.data( 'ajax_load' ) 		? $ditty.data( 'ajax_load' ) 		: false,
-						live_updates 	= $ditty.data( 'live_updates' ) ? $ditty.data( 'live_updates' ) : false,
-						editor 				= $ditty.data( 'show_editor' ) 	? $ditty.data( 'show_editor' ) 	: false,
-						load_type 		= $ditty.data( 'load_type' ) 		? $ditty.data( 'load_type' ) 		: false;
+				var $ditty 						= $( this ),
+						ajax_load 				= $ditty.data( 'ajax_load' ) 		? $ditty.data( 'ajax_load' ) 		: false,
+						live_updates 			= $ditty.data( 'live_updates' ) ? $ditty.data( 'live_updates' ) : false,
+						display_settings	= $ditty.data( 'display_settings' ) ? $ditty.data( 'display_settings' ) : false,
+						layout_settings		= $ditty.data( 'layout_settings' ) ? $ditty.data( 'layout_settings' ) : false,
+						editor 						= $ditty.data( 'show_editor' ) 	? $ditty.data( 'show_editor' ) 	: false,
+						//load_type 				= $ditty.data( 'load_type' ) 		? $ditty.data( 'load_type' ) 		: false;
 
 				// Load the Dittys via ajax	
 				if ( ajax_load ) {
@@ -226,9 +228,10 @@ jQuery( document ).ready( function( $ ) {
 						id								: $ditty.data( 'id' ) ? $ditty.data( 'id' ) : false,
 						uniqid						: $ditty.data( 'uniqid' ) ? $ditty.data( 'uniqid' ) : false,
 						display						: $ditty.data( 'display' ) ? $ditty.data( 'display' ) : '',
-						display_settings	: $ditty.data( 'display_settings' ) ? $ditty.data( 'display_settings' ) : false,
+						display_settings	: display_settings,
+						layout_settings		: layout_settings,
 						editor						: editor,
-						load_type					: load_type,
+						//load_type					: load_type,
 						security					: dittyVars.security
 					};
 					$.post( dittyVars.ajaxurl, data, function( response ) {
@@ -245,14 +248,20 @@ jQuery( document ).ready( function( $ ) {
 						
 						// Add to the liveIds
 						if ( ! editor && live_updates ) {
-							liveIds[$ditty.data( 'id' )] = Math.floor( $.now()/1000 );
+							liveIds[$ditty.data( 'id' )] = {
+								timestamp				: Math.floor( $.now()/1000 ),
+								layout_settings	: layout_settings,
+							};
 						}
 					}, 'json' );
 					
 				} else {
 					
 					if ( ! editor && live_updates ) {
-						liveIds[$ditty.data( 'id' )] = Math.floor( $.now()/1000 );
+						liveIds[$ditty.data( 'id' )] = {
+							timestamp				: Math.floor( $.now()/1000 ),
+							layout_settings	: layout_settings,
+						};
 					}
 				}
 			} );

@@ -80,7 +80,7 @@ class Ditty_Singles {
 	 * Add the editor item types panel
 	 *
 	 * @access public
-	 * @since  3.0
+	 * @since  3.0.11
 	 */
 	public function editor_settings_panel( $panels, $ditty_id ) {
 		if ( ! current_user_can( 'edit_dittys' ) ) {
@@ -184,7 +184,7 @@ class Ditty_Singles {
 	/**
 	 * Add the edit page preview
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.0.11
 	 */
 	public function edit_preview() {
 		global $post;
@@ -231,7 +231,7 @@ class Ditty_Singles {
 							'uniqid'			=> 'ditty-preview-' . $post->ID,
 							'class'				=> 'ditty-preview',
 							'show_editor'	=> 1,
-							'load_type'		=> '',
+							//'load_type'		=> '',
 						);
 						echo ditty_render( $atts );
 						?>
@@ -393,7 +393,7 @@ class Ditty_Singles {
 	 * Return data for a Ditty to load via ajax
 	 *
 	 * @access public
-	 * @since  3.0.10
+	 * @since  3.0.11
 	 */
 	public function init_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
@@ -403,7 +403,7 @@ class Ditty_Singles {
 		$display_settings_ajax 	= isset( $_POST['display_settings'] ) ? esc_attr( $_POST['display_settings'] ) 	: false;
 		$layout_settings_ajax 	= isset( $_POST['layout_settings'] ) 	? esc_attr( $_POST['layout_settings'] ) 	: false;
 		$editor_ajax 						= isset( $_POST['editor'] )						? intval( $_POST['editor'] ) 							: false;
-		$load_type 							= isset( $_POST['loud_type'] )				? intval( $_POST['loud_type'] ) 					: '';
+		//$load_type 							= isset( $_POST['loud_type'] )				? intval( $_POST['loud_type'] ) 					: '';
 
 		// Get the display attributes
 		if ( ! $display_ajax ) {
@@ -425,7 +425,7 @@ class Ditty_Singles {
 		$args['display'] 		= $display->get_display_id();
 		$args['showEditor'] = $editor_ajax;
 
-		$items = ditty_display_items( $id_ajax, $load_type, $layout_settings_ajax );
+		$items = ditty_display_items( $id_ajax, 'force', $layout_settings_ajax );
 		if ( ! is_array( $items ) ) {
 			$items = array();
 		}
@@ -458,7 +458,7 @@ class Ditty_Singles {
 		$display_settings = isset( $atts['data-display_settings'] )	? $atts['data-display_settings']	: false;
 		$layout_settings 	= isset( $atts['data-layout_settings'] ) 	? $atts['data-layout_settings'] 	: false;
 		$show_editor 			= isset( $atts['data-show_editor'] ) 			? $atts['data-show_editor'] 			: false;
-		$load_type 				= isset( $atts['load_type'] )							? $atts['load_type'] 							: '';
+		//$load_type 				= isset( $atts['load_type'] )							? $atts['load_type'] 							: '';
 	
 		// Get the display attributes
 		if ( ! $display_id ) {
@@ -481,7 +481,7 @@ class Ditty_Singles {
 		$args['display'] 		= $display->get_display_id();
 		$args['showEditor'] = $show_editor;
 
-		$items = ditty_display_items( $ditty_id, $load_type, $layout_settings );
+		$items = ditty_display_items( $ditty_id, 'force', $layout_settings );
 		if ( ! is_array( $items ) ) {
 			$items = array();
 		}
@@ -499,7 +499,7 @@ class Ditty_Singles {
 	 * Return live updates
 	 *
 	 * @access public
-	 * @since  3.0
+	 * @since  3.0.11
 	 */
 	public function live_updates_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
@@ -509,8 +509,9 @@ class Ditty_Singles {
 		}
 		$updated_items = array();
 		if ( is_array( $live_ids ) && count( $live_ids ) > 0 ) {
-			foreach ( $live_ids as $ditty_id => $timestamp ) {
-				$updated_items[$ditty_id] = ditty_display_items( $ditty_id );
+			foreach ( $live_ids as $ditty_id => $data ) {
+				$layout_settings = isset( $data['layout_settings'] ) ? $data['layout_settings'] : false;
+				$updated_items[$ditty_id] = ditty_display_items( $ditty_id, 'cache', $layout_settings );
 			}
 		}
 		$data = array(
@@ -542,13 +543,13 @@ class Ditty_Singles {
 	 * Sanitize setting values before saving to the database
 	 *
 	 * @access public
-	 * @since  3.0
+	 * @since  3.0.11
 	 */
 	public function sanitize_settings( $settings ) {	
 		$sanitized_settings = array();
-		$sanitized_settings['ajax_loading'] = isset( $settings['ajax_loading'] ) ? esc_attr( $settings['ajax_loading'] ) : 'no';
-		$sanitized_settings['live_updates'] = isset( $settings['live_updates'] ) ? esc_attr( $settings['live_updates'] ) : 'no';
-		$sanitized_settings['previewBg'] = isset( $settings['previewBg'] ) ? sanitize_text_field( $settings['previewBg'] ) : false;
+		$sanitized_settings['ajax_loading'] = isset( $settings['ajax_loading'] ) 	? esc_attr( $settings['ajax_loading'] ) 				: 'no';
+		$sanitized_settings['live_updates'] = isset( $settings['live_updates'] ) 	? esc_attr( $settings['live_updates'] ) 				: 'no';
+		$sanitized_settings['previewBg'] 		= isset( $settings['previewBg'] ) 		? sanitize_text_field( $settings['previewBg'] ) : false;
 		$sanitized_padding = array();
 		if ( isset( $settings['previewPadding'] ) && is_array( $settings['previewPadding'] ) && count( $settings['previewPadding'] ) > 0 ) {
 			foreach ( $settings['previewPadding'] as $key => $value ) {

@@ -3,7 +3,7 @@
 /**
  * Return the settings defaults
  *
- * @since    3.0
+ * @since    3.0.11
 */
 function ditty_settings_defaults() {	
 	$defaults = array(
@@ -50,6 +50,28 @@ function ditty_settings( $key=false, $value='' ) {
 		}
 	} else {
 		return $ditty_settings;
+	}
+}
+
+/**
+ * Return a single Ditty setting
+ *
+ * @since    3.0
+*/
+function ditty_single_settings( $ditty_id, $key = false ) {
+	global $ditty_single_settings;
+	if ( ! isset( $ditty_single_settings[$ditty_id] ) ) {
+		$ditty_single_settings[$ditty_id] = get_post_meta( $ditty_id, '_ditty_settings', true );
+	}
+	if ( ! is_array( $ditty_single_settings[$ditty_id] )  ) {
+		$ditty_single_settings[$ditty_id] = array();
+	}
+	if ( $key ) {
+		if ( isset( $ditty_single_settings[$ditty_id][$key] ) ) {
+			return $ditty_single_settings[$ditty_id][$key];
+		}
+	} else {
+		return $ditty_single_settings[$ditty_id];
 	}
 }
 
@@ -911,11 +933,11 @@ function ditty_parse_custom_layouts( $layout_settings ) {
 /**
  * Return display items for a specific Ditty
  *
- * @since    3.0.10
+ * @since    3.0.11
  * @access   public
  * @var      array   	$display_items    Array of item objects
  */
-function ditty_display_items( $ditty_id, $load_type = false, $custom_layouts = false ) {
+function ditty_display_items( $ditty_id, $load_type = 'cache', $custom_layouts = false ) {
 	$transient_name = "ditty_display_items_{$ditty_id}";
 	
 	// Check for custom layouts
@@ -925,7 +947,7 @@ function ditty_display_items( $ditty_id, $load_type = false, $custom_layouts = f
 		$custom_layout_array = ditty_parse_custom_layouts( $custom_layouts );
 	}
 	
-	// Check for cached display items
+	// Get the display items
 	$display_items = get_transient( $transient_name );
 	if ( ! $display_items || 'force' == $load_type ) {
 		$display_items = array();
@@ -960,7 +982,7 @@ function ditty_display_items( $ditty_id, $load_type = false, $custom_layouts = f
 			}
 		}
 		$display_items = apply_filters( 'ditty_display_items', $display_items, $ditty_id );
-		set_transient( $transient_name, $display_items, ( MINUTE_IN_SECONDS * ditty_settings( 'live_refresh' ) ) );
+		set_transient( $transient_name, $display_items, ( MINUTE_IN_SECONDS * intval( ditty_settings( 'live_refresh' ) ) ) );
 	}
 	return $display_items;
 }
@@ -1211,7 +1233,7 @@ function ditty_prepare_display_items( $meta ) {
 /**
  * Render the Ditty container
  *
- * @since    3.0.9
+ * @since    3.0.11
  */
 function ditty_render( $atts ) {
 	global $ditty_singles;
@@ -1227,7 +1249,7 @@ function ditty_render( $atts ) {
 		'uniqid' 						=> '',
 		'class' 						=> '',
 		'show_editor' 			=> 0,
-		'load_type' 				=> '',
+		//'load_type' 				=> '',
 	);
 	$args = shortcode_atts( $defaults, $atts );
 	
@@ -1265,7 +1287,7 @@ function ditty_render( $atts ) {
 		'data-display_settings' => ( '' != $args['display_settings'] ) ? $args['display_settings'] : false,
 		'data-layout_settings' 	=> ( '' != $args['layout_settings'] ) ? $args['layout_settings'] : false,
 		'data-show_editor' 			=> ( 0 != intval( $args['show_editor'] ) ) ? '1' : false,
-		'data-load_type' 				=> ( '' != $args['load_type'] ) ? $args['load_type'] : false,
+		//'data-load_type' 				=> ( '' != $args['load_type'] ) ? $args['load_type'] : false,
 		'data-ajax_load' 				=> $ajax_load,
 		'data-live_updates' 		=> $live_updates,
 	);
