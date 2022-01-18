@@ -7,15 +7,16 @@
 */
 function ditty_settings_defaults() {	
 	$defaults = array(
-		'live_refresh'				=> 10,
-		'default_display'			=> false,
-		'ditty_display_ui'		=> 'enabled',
-		'ditty_layout_ui'			=> 'enabled',
-		'ditty_layouts_sass'	=> false,
-		'variation_defaults'	=> array(),
-		'global_ditty'				=> array(),
-		'ditty_news_ticker' 	=> '',
-		'notification_email' 	=> '',
+		'live_refresh'					=> 10,
+		'default_display'				=> false,
+		'ditty_display_ui'			=> 'enabled',
+		'ditty_layout_ui'				=> 'enabled',
+		'ditty_layouts_sass'		=> false,
+		'variation_defaults'		=> array(),
+		'global_ditty'					=> array(),
+		'ditty_news_ticker' 		=> '',
+		'disable_fontawesome' 		=> '',
+		'notification_email' 		=> '',
 	);
 	return apply_filters( 'ditty_settings_defaults', $defaults );
 }

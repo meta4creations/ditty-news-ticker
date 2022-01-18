@@ -421,12 +421,15 @@ class Ditty {
 	/**
 	 * Register the stylesheets.
 	 *
-	 * @since    3.0
+	 * @since    3.0.11
 	 */
 	public function enqueue_styles() {	
 		wp_enqueue_style( 'ditty', DITTY_URL . 'includes/css/ditty.css', array(), $this->version, 'all' );
-		wp_enqueue_style( 'fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
-
+		
+		$disable_fontawesome = ditty_settings( 'disable_fontawesome' );
+		if ( ! $disable_fontawesome ) {
+			wp_enqueue_style( 'fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
+		}
 		if ( current_user_can( 'edit_dittys' ) || current_user_can( 'edit_ditty_layouts' ) ) {
 			wp_enqueue_style( 'wp-codemirror' );
 			wp_enqueue_style( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.css', false, '1.4.21', false );	
@@ -436,6 +439,9 @@ class Ditty {
 		}
 		if ( is_admin() ) {
 			wp_enqueue_style( 'ditty-admin', DITTY_URL . 'includes/css/ditty-admin.css', array(), $this->version, 'all' );
+			if ( $disable_fontawesome ) {
+				wp_enqueue_style( 'fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
+			}
 		} else {
 			
 			// Add scripts for the global Dittys
@@ -612,7 +618,6 @@ class Ditty {
 				wp_print_scripts( "ditty-{$ditty_item_script}" );
 			}
 		}
-		echo '<pre>';print_r($ditty_display_scripts);echo '</pre>';
 		if ( is_array( $ditty_display_scripts ) && count( $ditty_display_scripts ) > 0 ) {
 			wp_print_scripts( 'ditty' );
 			foreach ( $ditty_display_scripts as $i => $ditty_display_script ) {
