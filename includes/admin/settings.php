@@ -232,14 +232,22 @@ function ditty_settings_display_templates() {
 */
 function ditty_settings_advanced() {	
 	$fields = array(
+		'disable_fontawesome' => array(
+			'type' 				=> 'checkbox',
+			'id' 					=> 'disable_fontawesome',
+			'name' 				=> __( 'Font Awesome', 'ditty-news-ticker' ),
+			'label' 			=> __( 'Disable Font Awesome from loading on the front-end', 'ditty-news-ticker' ),
+			'help' 				=> __( 'This will disable the rendering of certain icons used in default Layouts and Layout tags.', 'ditty-news-ticker' ),
+			'std' 				=> ditty_settings( 'disable_fontawesome' ),
+		),
 		'ditty_news_ticker' => array(
-				'type' 				=> 'checkbox',
-				'id' 					=> 'ditty_news_ticker',
-				'name' 				=> __( 'Ditty News Ticker', 'ditty-news-ticker' ),
-				'label' 			=> __( 'Enable Ditty News Ticker (Legacy code)', 'ditty-news-ticker' ),
-				'input_desc' 	=> __( 'This will enable loading of all legacy scripts and post types. Only enable this option if you have active Ditty News Ticker posts displaying on your site. You must refresh your browser after saving before changes take place.', 'ditty-news-ticker' ),
-				'std' 				=> ditty_settings( 'ditty_news_ticker' ),
-			),
+			'type' 				=> 'checkbox',
+			'id' 					=> 'ditty_news_ticker',
+			'name' 				=> __( 'Ditty News Ticker', 'ditty-news-ticker' ),
+			'label' 			=> __( 'Enable Ditty News Ticker (Legacy code)', 'ditty-news-ticker' ),
+			'input_desc' 	=> __( 'This will enable loading of all legacy scripts and post types. Only enable this option if you have active Ditty News Ticker posts displaying on your site. You must refresh your browser after saving before changes take place.', 'ditty-news-ticker' ),
+			'std' 				=> ditty_settings( 'ditty_news_ticker' ),
+		),	
 		// 'ditty_layouts_sass' => array(
 		// 	'type' 				=> 'checkbox',
 		// 	'id' 					=> 'ditty_layouts_sass',
@@ -397,6 +405,7 @@ function ditty_settings_save( $data, $json_data ) {
 		'variation_defaults'	=> $sanitized_variation_defaults,
 		'global_ditty'				=> $sanitized_global_ditty,
 		'ditty_news_ticker' 	=> isset( $data['ditty_news_ticker'] ) 	? esc_attr( $data['ditty_news_ticker'] ) : false,
+		'disable_fontawesome' 	=> isset( $data['disable_fontawesome'] ) 	? esc_attr( $data['disable_fontawesome'] ) : false,
 		'notification_email' 	=> ( isset( $data['notification_email'] ) && is_email( $data['notification_email'] ) ) ? $data['notification_email'] : false,
 	);
 	ditty_settings( $settings );

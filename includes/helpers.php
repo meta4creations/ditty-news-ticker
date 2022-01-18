@@ -7,15 +7,16 @@
 */
 function ditty_settings_defaults() {	
 	$defaults = array(
-		'live_refresh'				=> 10,
-		'default_display'			=> false,
-		'ditty_display_ui'		=> 'enabled',
-		'ditty_layout_ui'			=> 'enabled',
-		'ditty_layouts_sass'	=> false,
-		'variation_defaults'	=> array(),
-		'global_ditty'				=> array(),
-		'ditty_news_ticker' 	=> '',
-		'notification_email' 	=> '',
+		'live_refresh'					=> 10,
+		'default_display'				=> false,
+		'ditty_display_ui'			=> 'enabled',
+		'ditty_layout_ui'				=> 'enabled',
+		'ditty_layouts_sass'		=> false,
+		'variation_defaults'		=> array(),
+		'global_ditty'					=> array(),
+		'ditty_news_ticker' 		=> '',
+		'disable_fontawesome' 		=> '',
+		'notification_email' 		=> '',
 	);
 	return apply_filters( 'ditty_settings_defaults', $defaults );
 }
@@ -1249,7 +1250,6 @@ function ditty_render( $atts ) {
 		'uniqid' 						=> '',
 		'class' 						=> '',
 		'show_editor' 			=> 0,
-		//'load_type' 				=> '',
 	);
 	$args = shortcode_atts( $defaults, $atts );
 	
@@ -1287,7 +1287,6 @@ function ditty_render( $atts ) {
 		'data-display_settings' => ( '' != $args['display_settings'] ) ? $args['display_settings'] : false,
 		'data-layout_settings' 	=> ( '' != $args['layout_settings'] ) ? $args['layout_settings'] : false,
 		'data-show_editor' 			=> ( 0 != intval( $args['show_editor'] ) ) ? '1' : false,
-		//'data-load_type' 				=> ( '' != $args['load_type'] ) ? $args['load_type'] : false,
 		'data-ajax_load' 				=> $ajax_load,
 		'data-live_updates' 		=> $live_updates,
 	);
@@ -1301,7 +1300,7 @@ function ditty_render( $atts ) {
 /**
  * Parse ditty script types and add to global
  *
- * @since    3.0
+ * @since    3.0.11
  */
 function ditty_add_scripts( $ditty_id, $display = '' ) {
 		
@@ -1327,7 +1326,7 @@ function ditty_add_scripts( $ditty_id, $display = '' ) {
 	}
 	
 	// Store the display types
-	if ( '' === $display ) {
+	if ( ! $display || '' === $display ) {
 		$display = get_post_meta( $ditty_id, '_ditty_display', true );
 	}
 	$display_obj = new Ditty_Display( $display );
