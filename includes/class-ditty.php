@@ -612,6 +612,7 @@ class Ditty {
 				wp_print_scripts( "ditty-{$ditty_item_script}" );
 			}
 		}
+		echo '<pre>';print_r($ditty_display_scripts);echo '</pre>';
 		if ( is_array( $ditty_display_scripts ) && count( $ditty_display_scripts ) > 0 ) {
 			wp_print_scripts( 'ditty' );
 			foreach ( $ditty_display_scripts as $i => $ditty_display_script ) {

@@ -68,6 +68,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 = 3.0.11 =
 * Only possibly load cached ditty on live_updates
+* Resolved bug in ditty_add_scripts function that was causing a javascript error
 
 = 3.0.10 =
 * Resolved hammer warning
