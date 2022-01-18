@@ -67,8 +67,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 == Changelog ==
 
 = 3.0.11 =
-* Only possibly load cached ditty on live_updates
 * Resolved bug in ditty_add_scripts function that was causing a javascript error
+* Only possibly load cached ditty on live_updates
+* Added option to disable fontawesome on front-end
 
 = 3.0.10 =
 * Resolved hammer warning
