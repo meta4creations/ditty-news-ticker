@@ -636,4 +636,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-WPML integration and Ticker Display vertical scrolling updates
+Multiple updates
