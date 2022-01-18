@@ -248,7 +248,7 @@ jQuery( document ).ready( function( $ ) {
 						if ( ! editor && live_updates ) {
 							liveIds[$ditty.data( 'id' )] = {
 								timestamp				: Math.floor( $.now()/1000 ),
-								layout_settings	: layout_settings,
+								layout_settings	: layout_settings
 							};
 						}
 					}, 'json' );
@@ -258,7 +258,7 @@ jQuery( document ).ready( function( $ ) {
 					if ( ! editor && live_updates ) {
 						liveIds[$ditty.data( 'id' )] = {
 							timestamp				: Math.floor( $.now()/1000 ),
-							layout_settings	: layout_settings,
+							layout_settings	: layout_settings
 						};
 					}
 				}
