@@ -31,14 +31,14 @@
     /**
 		 * Initialize the panel
 		 *
-		 * @since		3.0
+		 * @since		3.0.12
 		 * @return	null
 		*/
     _init: function () {
 	    this.$elmt.addClass( 'init' );
 
 			// Add actions
-			this.settings.editor.$elmt.on( 'ditty_editor_aactive_items_update', { self: this }, this._dittyActiveItemsUpdated );
+			this.settings.editor.$elmt.on( 'ditty_editor_active_items_update', { self: this }, this._dittyActiveItemsUpdated );
 	    this.$add.on( 'click', { self: this }, this._add_item );
 			this.$elmt.on( 'click', '.ditty-data-list__item', { self: this }, this._showItem );
 			this.$elmt.on( 'click', '.ditty-data-list__item__icon', { self: this }, this._editType );

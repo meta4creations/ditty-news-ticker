@@ -602,7 +602,7 @@ class Ditty {
 	/**
 	 * Enqueue global scripts for any Ditty's displayed
 	 *
-	 * @since    3.0
+	 * @since    3.0.12
 	 */
 	public function enqueue_global_scripts() {
 		global $ditty_item_scripts;
@@ -621,6 +621,9 @@ class Ditty {
 		if ( is_array( $ditty_display_scripts ) && count( $ditty_display_scripts ) > 0 ) {
 			wp_print_scripts( 'ditty' );
 			foreach ( $ditty_display_scripts as $i => $ditty_display_script ) {
+				if ( empty( $ditty_display_script ) ) {
+					continue;
+				}
 				wp_print_scripts( "ditty-display-{$ditty_display_script}" );
 			}
 		}

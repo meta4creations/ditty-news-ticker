@@ -68,6 +68,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 = 3.0.12 =
 * Modified custom display check when rendering Ditty
+* Resolved current item bug in Ditty Editor
 
 = 3.0.11 =
 * Resolved bug in ditty_add_scripts function that was causing a javascript error
