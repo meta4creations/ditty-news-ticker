@@ -120,7 +120,7 @@
     /**
 		 * Do actions when panel is visible
 		 *
-		 * @since  	3.0
+		 * @since  	3.0.12
 		 * @return 	null
 		*/
     panelVisible: function () {
@@ -128,9 +128,8 @@
 	    this.editorDittyId	= this.$editorItem.data( 'ditty_id' );
 	    this.editorItemId		= this.$editorItem.data( 'item_id' );
 	    this.currentType		= this.$editorItem.data( 'item_type' );
-			
 			this.$elmt.find( '.ditty-editor-item-type' ).removeClass( 'active' );
-	    this.$elmt.find( '.ditty-editor-item-type[data-itemType="' + this.currentType + '"]' ).addClass( 'active' );
+	    this.$elmt.find( '.ditty-editor-item-type[data-item_type="' + this.currentType + '"]' ).addClass( 'active' );
     },
     
     /**
