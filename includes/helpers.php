@@ -1300,7 +1300,7 @@ function ditty_render( $atts ) {
 /**
  * Parse ditty script types and add to global
  *
- * @since    3.0.11
+ * @since    3.0.12
  */
 function ditty_add_scripts( $ditty_id, $display = '' ) {
 		
@@ -1324,9 +1324,8 @@ function ditty_add_scripts( $ditty_id, $display = '' ) {
 			}
 		}
 	}
-	
-	// Store the display types
-	if ( ! $display || '' === $display ) {
+
+	if ( ! ( $display && ( 'publish' == get_post_status( $display ) ) ) ) {
 		$display = get_post_meta( $ditty_id, '_ditty_display', true );
 	}
 	$display_obj = new Ditty_Display( $display );
