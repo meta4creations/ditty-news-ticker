@@ -7,7 +7,7 @@
 // @codekit-append 'admin/ditty-extensions.js';
 // @codekit-append 'admin/ditty-displays.js';
 
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 	
 	// Setup strict mode
 	(function() {

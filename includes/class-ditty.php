@@ -634,7 +634,7 @@ class Ditty {
 		if ( is_array( $ditty_singles ) && count( $ditty_singles ) > 0 ) {
 			?>
 			<script id="ditty-singles">
-				jQuery( document ).ready( function( $ ) {
+				jQuery( function( $ ) {
 				<?php
 				foreach ( $ditty_singles as $ditty_atts ) {
 					Ditty()->singles->init( $ditty_atts );

@@ -1,4 +1,4 @@
-jQuery( document ).ready( function($) {
+jQuery( function($) {
 	
 	var $settings_select = $('#mtphr-dnt-settings-select'),
 			$admin_bar = $('#wpadminbar');

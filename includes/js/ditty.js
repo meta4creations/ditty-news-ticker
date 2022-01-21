@@ -3,7 +3,7 @@
 
 // @codekit-append 'partials/helpers.js';
 
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 	
 	// Setup strict mode
 	(function() {

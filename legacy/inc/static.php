@@ -83,7 +83,7 @@ add_action( 'wp_head', 'mtphr_dnt_custom_css' );
 
 
 /* --------------------------------------------------------- */
-/* !Initialize the ticker scripts - 1.5.3 */
+/* !Initialize the ticker scripts - 3.0.12 */
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_tickers_init_scripts() {
@@ -103,7 +103,7 @@ function mtphr_dnt_tickers_init_scripts() {
 		}
 		?>
 		<script>
-			jQuery( document ).ready( function($) {
+			jQuery( function( $ ) {
 			<?php foreach( $filtered_tickers as $ticker ) { ?>
 				$( '<?php echo $ticker['ticker']; ?>' ).ditty_news_ticker({
 					id : '<?php echo $ticker['id']; ?>',

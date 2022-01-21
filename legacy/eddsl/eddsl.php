@@ -636,7 +636,7 @@ add_action( 'wp_ajax_mtphr_dnt_license_activate_ajax', 'mtphr_dnt_license_activa
 function mtphr_dnt_license_bug_ajax() {
 	?>
 	<script>
-		jQuery(document).ready(function($){
+		jQuery(function($){
 			
 			$( '#ditty-news-ticker-license-notice' ).on( 'click', '.notice-dismiss', function(e){
 				var data = {

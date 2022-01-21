@@ -16,7 +16,7 @@
 // @codekit-append 'editor/ditty-list-display-editor.js';
 // @codekit-append 'editor/ditty-ticker-display-editor.js';
 
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 	
 	// Setup strict mode
 	(function() {

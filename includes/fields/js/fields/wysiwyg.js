@@ -4,7 +4,7 @@
 /* global QTags:true */
 /* global wp:true */
 
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 	
 	// Setup strict mode
 	(function() {
