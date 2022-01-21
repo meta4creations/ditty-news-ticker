@@ -38,10 +38,12 @@
     /**
 		 * Initialize the data list
 		 *
-		 * @since		3.0
+		 * @since		3.0.12
 		 * @return	null
 		*/
     _init: function () {
+			
+			var self = this;
 
       // Save the initial data
 	    this.initData = this.$form.serialize();
@@ -59,6 +61,11 @@
 			this.$form.on( 'click', 'input[type="radio"], input[type="checkbox"]', { self: this }, this._checkUpdates );
 			this.$form.on( 'ditty_input_wysiwyg_update', '.ditty-input--wysiwyg', { self: this }, this._checkUpdates );
 			this.$form.on( 'ditty_field_update', '.ditty-field__input', { self: this }, this._checkUpdates );
+			
+			// Trigger the init
+			setTimeout( function() {
+				self.trigger( 'init', [self] ); 
+			}, 1 );
     },
     
     /**
@@ -284,7 +291,6 @@
 	    if ( customParams ) {
 		    params = customParams;
 	    }
-
 	    this.$elmt.trigger( 'ditty_item_editor_panel_' + fn, params );
 	
 	    if ( typeof this.settings[fn] === 'function' ) {

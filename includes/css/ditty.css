@@ -723,7 +723,7 @@
     align-items: stretch;
     justify-content: flex-start;
     width: 350px;
-    background: #32373C; }
+    background: #EBEBEB; }
     #ditty-editor__settings .ditty-field {
       padding: 15px;
       border-color: rgba(0, 0, 0, 0.05); }
@@ -935,7 +935,6 @@
 .ditty-editor-options__body {
   position: relative;
   max-height: calc( 100vh - 470px);
-  min-height: 300px;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch; }
   .ditty-editor-options__body__error {
@@ -1012,6 +1011,15 @@
   .ditty-editor-item--error:hover {
     background-color: #fbeaea;
     border-color: #E1362E; }
+
+.ditty-editor__panel--item_editor .ditty-editor-options__body {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap; }
+  .ditty-editor__panel--item_editor .ditty-editor-options__body > .ditty-field {
+    width: 100%; }
 
 @-webkit-keyframes ditty-unsaved-changes {
   0% {
