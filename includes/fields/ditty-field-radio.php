@@ -64,7 +64,7 @@ class Ditty_Field_Radio extends Ditty_Field {
 	/**
 	 * Return the input
 	 *
-	 * @since 3.0
+	 * @since 3.0.12
 	 * @return $html string
 	 */
 	public function input( $name, $std = false ) {
@@ -72,9 +72,9 @@ class Ditty_Field_Radio extends Ditty_Field {
 		if ( is_array( $this->args['options'] ) && count( $this->args['options'] ) > 0 ) {
 			foreach ( $this->args['options'] as $value => $label ) {
 				$input_id = uniqid( 'ditty-input--' );
-				$html .= '<span class="ditty-input--radio__option">';
+				$html .= '<span class="ditty-input--radio__option ditty-input--radio__option--' . esc_attr( $value ) . '">';
 					$sanitized_value = sanitize_text_field( $value );
-					$html .= '<input id="' . $input_id . '" name="' . $name . '" type="radio" value="' . $sanitized_value . '" ' . checked( $sanitized_value, $this->args['std'], false ) . ' /> <label for="' . $input_id . '">' . sanitize_text_field( $label ) . '</label>';
+					$html .= '<input id="' . esc_attr( $input_id ) . '" name="' . esc_attr( $name ) . '" type="radio" value="' . esc_attr( $sanitized_value ) . '" ' . checked( $sanitized_value, $this->args['std'], false ) . ' /> <label for="' . esc_attr( $input_id ) . '">' . sanitize_text_field( $label ) . '</label>';
 				$html .= '</span>';
 			}
 		}
