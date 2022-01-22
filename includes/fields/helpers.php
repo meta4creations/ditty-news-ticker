@@ -25,11 +25,14 @@ function ditty_field( $args = array() ) {
  * Display multiple fields
  *
  * @access  public
- * @since   3.0
+ * @since   3.0.12
  */
 function ditty_fields( $fields = array(), $values = array(), $action = 'render' ) {
 	if ( is_array( $fields ) && count( $fields ) > 0 ) {
 		foreach ( $fields as &$field ) {
+			if ( ! is_array( $field ) ) {
+				continue;
+			}
 			if ( isset( $values[$field['id']] ) ) {
 				$field['std'] = $values[$field['id']];
 			}

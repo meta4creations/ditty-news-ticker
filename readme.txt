@@ -73,6 +73,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 * Modified Default Post Layout and increased version number
 * Added init trigger for Ditty_Item_Editor_Panel js file
 * Removed jQuery document ready in all js files
+* Added link options to Posts Feed Lite
 
 = 3.0.11 =
 * Resolved bug in ditty_add_scripts function that was causing a javascript error
