@@ -58,7 +58,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	 * Setup the type settings
 	 *
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.0.3
 	 */
 	public function fields( $values = array() ) {					
 		$fields = array(
@@ -68,6 +68,36 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 				'name'	=> __( 'Limit', 'ditty-news-ticker' ),
 				'help'	=> __( 'Set the number of Posts to display.', 'ditty-news-ticker' ),
 				'std'		=> isset( $values['limit'] ) ? $values['limit'] : false,
+			),
+			'linkSettings' => array(
+				'type' 							=> 'group',
+				'id'								=> 'linkSettings',
+				'collapsible'				=> true,
+				'default_state'			=> 'expanded',
+				'multiple_fields'		=> true,
+				'name' 	=> __( 'Link Settings', 'ditty-news-ticker' ),
+				'help' 	=> __( 'Configure the link settings for the feed items.', 'ditty-news-ticker' ),
+				'fields' => array(
+					'link_target' => array(
+						'type'			=> 'select',
+						'id'				=> 'link_target',
+						'name'			=> __( 'Link Target', 'ditty-news-ticker' ),
+						'help'			=> __( 'Set a target for your links.', 'ditty-news-ticker' ),
+						'options'		=> array(
+							'_self'		=> '_self',
+							'_blank'	=> '_blank'
+						),
+						'std'		=> isset( $values['link_target'] ) ? $values['link_target'] : false,
+					),
+					'link_nofollow' => array(
+						'type'			=> 'checkbox',
+						'id'				=> 'link_nofollow',
+						'name'			=> __( 'Link No Follow', 'ditty-news-ticker' ),
+						'label'			=> __( 'Add "nofollow" to link', 'ditty-news-ticker' ),
+						'help'			=> __( 'Enabling this setting will add an attribute called \'nofollow\' to your links. This tells search engines to not follow this link.', 'ditty-news-ticker' ),
+						'std'		=> isset( $values['link_nofollow'] ) ? $values['link_nofollow'] : false,
+					),
+				),
 			),
 		);
 		return $fields;
@@ -81,7 +111,9 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	 */
 	public function default_settings() {		
 		$defaults = array(
-			'limit' => 10,
+			'limit' 				=> 10,
+			'link_target' 	=> '_self',
+			'link_nofollow'	=> '',
 		);
 		return apply_filters( 'ditty_type_default_settings', $defaults, $this->slug );
 	}
@@ -90,7 +122,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	 * Set the default layout variation types
 	 *
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.0.3
 	 */
 	public function get_layout_variation_types() {
 		$layout_variations = array(

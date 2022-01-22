@@ -191,7 +191,7 @@ add_filter( 'ditty_layout_tag_excerpt_data', 'ditty_posts_lite_layout_tag_excerp
 /**
  * Modify the layout tag link data
  *
- * @since    3.0
+ * @since    3.0.3
  * @var      html
 */
 function ditty_posts_lite_layout_tag_link_data( $link_data, $item_type, $data, $atts, $prefix ) {
@@ -231,6 +231,7 @@ function ditty_posts_lite_layout_tag_link_data( $link_data, $item_type, $data, $
 		$link_data = array(
 			'url' 		=> esc_url_raw( $link_url ),
 			'title'		=> $link_title,
+			'rel'			=> isset( $data['link_nofollow'] ) ? 'nofollow' : false,
 		);
 		return $link_data;
 	}
