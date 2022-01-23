@@ -58,7 +58,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	 * Setup the type settings
 	 *
 	 * @access  public
-	 * @since   3.0.3
+	 * @since   3.0.12
 	 */
 	public function fields( $values = array() ) {					
 		$fields = array(
@@ -68,6 +68,69 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 				'name'	=> __( 'Limit', 'ditty-news-ticker' ),
 				'help'	=> __( 'Set the number of Posts to display.', 'ditty-news-ticker' ),
 				'std'		=> isset( $values['limit'] ) ? $values['limit'] : false,
+			),
+			'contentSettings' => array(
+				'type' 							=> 'group',
+				'id'								=> 'contentSettings',
+				'collapsible'				=> true,
+				'default_state'			=> 'expanded',
+				'multiple_fields'		=> true,
+				'name' 	=> __( 'Content Settings', 'ditty-news-ticker' ),
+				'help' 	=> __( 'Configure the content settings for the feed items.', 'ditty-news-ticker' ),
+				'fields' => array(
+					'content_display' => array(
+						'type'			=> 'radio',
+						'id'				=> 'content_display',
+						'name'			=> __( 'Content Display', 'ditty-news-ticker' ),
+						'help'			=> __( 'Configure settings for the post content.', 'ditty-news-ticker' ),
+						'options'		=> array(
+							'full'		=> __( 'Full Content', 'ditty-news-ticker' ),
+							'excerpt'	=> __( 'Excerpt', 'ditty-news-ticker' ),
+						),
+						'inline' 		=> true,
+						'std'		=> isset( $values['content_display'] ) ? $values['content_display'] : false,
+					),
+					'more_link' => array(
+						'type'			=> 'radio',
+						'id'				=> 'more_link',
+						'name'			=> __( 'Read More Link', 'ditty-news-ticker' ),
+						'help'			=> __( 'Link the read more text to the post.', 'ditty-news-ticker' ),
+						'options'		=> array(
+							'post'		=> __( 'Yes', 'ditty-news-ticker' ),
+							'false'		=> __( 'No', 'ditty-news-ticker' ),
+						),
+						'inline' 		=> true,
+						'std'				=> isset( $values['more_link'] ) ? $values['more_link'] : false,
+					),
+					'excerpt_length' => array(
+						'type'			=> 'number',
+						'id'				=> 'excerpt_length',
+						'name'			=> __( 'Excerpt Length', 'ditty-news-ticker' ),
+						'help'			=> __( 'Set the length of the excerpt.', 'ditty-news-ticker' ),
+						'std'				=> isset( $values['excerpt_length'] ) ? $values['excerpt_length'] : false,
+					),
+					'more' => array(
+						'type'			=> 'text',
+						'id'				=> 'more',
+						'name'			=> __( 'Read More Text', 'ditty-news-ticker' ),
+						'help'			=> __( 'Add read more text to the excerpt.', 'ditty-news-ticker' ),
+						'std'				=> isset( $values['more'] ) ? $values['more'] : false,
+					),
+					'more_before' => array(
+						'type'			=> 'text',
+						'id'				=> 'more_before',
+						'name'			=> __( 'Read More Before Text', 'ditty-news-ticker' ),
+						'help'			=> __( 'Add text before the Read More text.', 'ditty-news-ticker' ),
+						'std'				=> isset( $values['more_before'] ) ? $values['more_before'] : false,
+					),
+					'more_after' => array(
+						'type'			=> 'text',
+						'id'				=> 'more_after',
+						'name'			=> __( 'Read More After Text', 'ditty-news-ticker' ),
+						'help'			=> __( 'Add text after the Read More text.', 'ditty-news-ticker' ),
+						'std'				=> isset( $values['more_after'] ) ? $values['more_after'] : false,
+					),
+				),
 			),
 			'linkSettings' => array(
 				'type' 							=> 'group',
@@ -107,11 +170,17 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	 * Set the default field values
 	 *
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.0.12
 	 */
 	public function default_settings() {		
 		$defaults = array(
 			'limit' 				=> 10,
+			'content_display' 		=> 'full',
+			'excerpt_length'			=> 200,
+			'more'								=> __( 'Read More', 'ditty-news-ticker' ),
+			'more_link'						=> 'post',
+			'more_before'					=> '...&nbsp;',
+			'more_after'					=> '',
 			'link_target' 	=> '_self',
 			'link_nofollow'	=> '',
 		);
