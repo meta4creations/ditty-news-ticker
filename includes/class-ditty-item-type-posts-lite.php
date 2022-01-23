@@ -175,7 +175,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	public function default_settings() {		
 		$defaults = array(
 			'limit' 				=> 10,
-			'content_display' 		=> 'full',
+			'content_display' 		=> 'excerpt',
 			'excerpt_length'			=> 200,
 			'more'								=> __( 'Read More', 'ditty-news-ticker' ),
 			'more_link'						=> 'post',
