@@ -15,6 +15,7 @@
 // @codekit-append 'editor/class-ditty-layout-css-editor-panel.js';
 // @codekit-append 'editor/ditty-list-display-editor.js';
 // @codekit-append 'editor/ditty-ticker-display-editor.js';
+// @codekit-append 'editor/ditty-item-edit-editor.js';
 
 jQuery( function( $ ) {
 	

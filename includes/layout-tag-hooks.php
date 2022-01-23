@@ -137,7 +137,7 @@ add_filter( 'ditty_layout_tag_categories', 'ditty_init_layout_tag_categories', 1
 /**
  * Modify the layout excerpt
  *
- * @since    3.0
+ * @since    3.0.12
  * @var      html
 */
 function ditty_init_layout_tag_excerpt( $excerpt, $item_type, $data, $atts ) {
@@ -146,12 +146,14 @@ function ditty_init_layout_tag_excerpt( $excerpt, $item_type, $data, $atts ) {
 	}	
 	$more = '';
 	if ( isset( $atts['more'] ) && '' != $atts['more'] ) {
-		$more = $atts['more'];
+		$more 				= $atts['more'];
+		$more_before 	= isset( $atts['more_before'] ) ? sanitize_text_field( $atts['more_before'] ) : '';
+		$more_after 	= isset( $atts['more_after'] ) 	? sanitize_text_field( $atts['more_after'] ) 	: '';
 		$link_data = apply_filters( 'ditty_layout_tag_link_data', array(), $item_type, $data, $atts, 'more_' );
 		if ( ! empty( $link_data ) ) {
 			$more = ditty_layout_render_tag_link( $link_data, $more, 'ditty-item__excerpt__more__link', $data, $atts, 'more_' );
 		}
-		$more = '<span class="ditty-item__excerpt__more">' . $more . '</span>';
+		$more = "<span class='ditty-item__excerpt__more'>{$more_before}{$more}{$more_after}</span>";
 	}
 	$excerpt_length = ( isset( $atts['excerpt_length'] ) && 0 != intval( $atts['excerpt_length'] ) ) ? intval( $atts['excerpt_length'] ) : 200;
 	$excerpt = '<span class="ditty-item__excerpt__content">' . wp_html_excerpt( $excerpt_data, $excerpt_length, $more ) . '</span>';

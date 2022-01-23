@@ -68,7 +68,7 @@ function ditty_posts_lite_tag_value( $data, $key = false ) {
 /**
  * Modify the layout user avatar
  *
- * @since    3.0
+ * @since    3.0.12
  * @var      html
 */
 function ditty_posts_lite_layout_tag_author_avatar_data( $avatar_data, $item_type, $data, $atts ) {
@@ -76,10 +76,11 @@ function ditty_posts_lite_layout_tag_author_avatar_data( $avatar_data, $item_typ
 		'post',	
 		'posts_feed',
 	);
-	if ( in_array(  $item_type, $types ) ) {
+	if ( in_array(  $item_type, $types ) ) {	
+		$author_id = ditty_posts_lite_tag_value( $data, 'post_author' );
 		$avatar_data = array(
-			'src' => get_avatar_url( get_the_author_meta( 'ID' ) ),
-			'alt'	=> get_the_author_meta( 'display_name' ),
+			'src' => get_avatar_url( $author_id ),
+			'alt'	=> get_the_author_meta( 'display_name', $author_id ),
 		);
 	}
 	return $avatar_data;
@@ -89,7 +90,7 @@ add_filter( 'ditty_layout_tag_author_avatar_data', 'ditty_posts_lite_layout_tag_
 /**
  * Modify the layout author name
  *
- * @since    3.0
+ * @since    3.0.12
  * @var      html
 */
 function ditty_posts_lite_layout_tag_author_name( $author_name, $item_type, $data, $atts ) {
@@ -98,7 +99,8 @@ function ditty_posts_lite_layout_tag_author_name( $author_name, $item_type, $dat
 		'posts_feed',
 	);
 	if ( in_array(  $item_type, $types ) ) {
-		$author_name = get_the_author_meta( 'display_name' );
+		$author_id = ditty_posts_lite_tag_value( $data, 'post_author' );
+		$author_name = get_the_author_meta( 'display_name', $author_id );
 	}
 	return $author_name;
 }
@@ -107,7 +109,7 @@ add_filter( 'ditty_layout_tag_author_name', 'ditty_posts_lite_layout_tag_author_
 /**
  * Modify the layout author bio
  *
- * @since    3.0
+ * @since    3.0.12
  * @var      html
 */
 function ditty_posts_lite_layout_tag_author_bio( $author_bio, $item_type, $data, $atts ) {
@@ -116,7 +118,8 @@ function ditty_posts_lite_layout_tag_author_bio( $author_bio, $item_type, $data,
 		'posts_feed',
 	);
 	if ( in_array(  $item_type, $types ) ) {
-		$author_bio = get_the_author_meta( 'description' );
+		$author_id = ditty_posts_lite_tag_value( $data, 'post_author' );
+		$author_bio = get_the_author_meta( 'description', $author_id );
 	}
 	return $author_bio;
 }
@@ -152,7 +155,7 @@ add_filter( 'ditty_layout_tag_category_data', 'ditty_posts_lite_layout_tag_categ
 /**
  * Modify the layout content
  *
- * @since    3.0
+ * @since    3.0.12
  * @var      html
 */
 function ditty_posts_lite_layout_tag_content( $content, $item_type, $data, $atts ) {
@@ -161,7 +164,17 @@ function ditty_posts_lite_layout_tag_content( $content, $item_type, $data, $atts
 		'posts_feed',
 	);
 	if ( in_array(  $item_type, $types ) ) {
-		$content = ditty_posts_lite_tag_value( $data, 'post_content' );
+		// Possibly show the exerpt
+		if ( isset( $data['content_display'] ) && 'excerpt' == $data['content_display'] ) {
+			$atts['excerpt_length'] = isset( $data['excerpt_length'] ) 	? intval( $data['excerpt_length'] ) 					: 200;
+			$atts['more'] 					= isset( $data['more'] ) 						? sanitize_text_field( $data['more'] ) 				: false;
+			$atts['more_link']			= isset( $data['more_link'] ) 			? esc_attr( $data['more_link'] ) 							: false;
+			$atts['more_before'] 		= isset( $data['more_before'] ) 		? sanitize_text_field( $data['more_before'] ) : false;
+			$atts['more_after'] 		= isset( $data['more_after'] ) 			? sanitize_text_field( $data['more_after'] ) 	: false;
+			$content = ditty_init_layout_tag_excerpt( $content, $item_type, $data, $atts );
+		} else {
+			$content = ditty_posts_lite_tag_value( $data, 'post_content' );
+		}
 	}
 	return $content;
 }
@@ -191,7 +204,7 @@ add_filter( 'ditty_layout_tag_excerpt_data', 'ditty_posts_lite_layout_tag_excerp
 /**
  * Modify the layout tag link data
  *
- * @since    3.0.3
+ * @since    3.0.12
  * @var      html
 */
 function ditty_posts_lite_layout_tag_link_data( $link_data, $item_type, $data, $atts, $prefix ) {
@@ -216,13 +229,15 @@ function ditty_posts_lite_layout_tag_link_data( $link_data, $item_type, $data, $
 			$link_title = ditty_posts_lite_tag_value( $data, 'post_title' );
 			break;
 		case 'author':
-			$link_url = get_author_posts_url( get_the_author_meta( 'ID' ) );
-			$link_title = get_the_author_meta( 'display_name' );
+			$author_id = ditty_posts_lite_tag_value( $data, 'post_author' );
+			$link_url = get_author_posts_url( $author_id );
+			$link_title = get_the_author_meta( 'display_name', $author_id );
 			break;
 		case 'author_link':
-			if ( $user_url = get_the_author_meta( 'user_url' ) ) {
+			$author_id = ditty_posts_lite_tag_value( $data, 'post_author' );
+			if ( $user_url = get_the_author_meta( 'user_url', $author_id ) ) {
 				$link_url = $user_url;
-				$link_title = get_the_author_meta( 'display_name' );
+				$link_title = get_the_author_meta( 'display_name', $author_id );
 			}
 		default:
 			break;
