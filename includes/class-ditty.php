@@ -421,7 +421,7 @@ class Ditty {
 	/**
 	 * Register the stylesheets.
 	 *
-	 * @since    3.0.11
+	 * @since    3.0.12
 	 */
 	public function enqueue_styles() {	
 		wp_enqueue_style( 'ditty', DITTY_URL . 'includes/css/ditty.css', array(), $this->version, 'all' );
@@ -430,14 +430,11 @@ class Ditty {
 		if ( ! $disable_fontawesome ) {
 			wp_enqueue_style( 'fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
 		}
-		if ( current_user_can( 'edit_dittys' ) || current_user_can( 'edit_ditty_layouts' ) ) {
+		if ( is_admin() ) {
 			wp_enqueue_style( 'wp-codemirror' );
 			wp_enqueue_style( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.css', false, '1.4.21', false );	
 			wp_enqueue_style( 'ion-rangeslider', DITTY_URL . 'includes/libs/ion.rangeSlider/css/ion.rangeSlider.min.css', false, '2.3.1', false );
 			wp_enqueue_style( 'jquery-minicolors', DITTY_URL . 'includes/libs/jquery-minicolors/jquery.minicolors.css', false, '2.3.5', false );
-			//wp_enqueue_style( 'jquery-ui', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' );
-		}
-		if ( is_admin() ) {
 			wp_enqueue_style( 'ditty-admin', DITTY_URL . 'includes/css/ditty-admin.css', array(), $this->version, 'all' );
 			if ( $disable_fontawesome ) {
 				wp_enqueue_style( 'fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
@@ -459,77 +456,79 @@ class Ditty {
 	/**
 	 * Register the JavaScript for the public-facing side of the site.
 	 *
-	 * @since    3.0.7
+	 * @since    3.0.12
 	 */
 	public function enqueue_scripts( $hook ) {
+		global $ditty_scripts_enqueued;
 		$min = WP_DEBUG ? '' : '.min';
 		
 		wp_register_script( 'hammer', DITTY_URL . 'includes/libs/hammer.min.js', array( 'jquery' ), '2.0.8.1', true );
-		wp_register_script( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.js', array( 'jquery' ), '1.4.21', true );
 		wp_register_script( 'ditty', DITTY_URL . 'includes/js/ditty.min.js', array( 'jquery', 'jquery-effects-core', ), $this->version, true );
-		wp_add_inline_script( 'ditty', 'const dittyVars = ' . json_encode( array(
-			'ajaxurl'					=> admin_url( 'admin-ajax.php' ),
-			'security'				=> wp_create_nonce( 'ditty' ),
-			'mode'						=> WP_DEBUG ? 'development' : 'production',
-			'strings' 				=> ditty_strings(),
-			'adminStrings' 		=> is_admin() ? ditty_admin_strings() : false,
-			'globals'					=> ditty_get_globals(),
-			'updateIcon'			=> 'fas fa-sync-alt fa-spin',
-			'updateInterval'	=> ( MINUTE_IN_SECONDS * ditty_settings( 'live_refresh' ) ),
-			'editor'					=> array(
-				'ditty_layouts_sass' => ditty_settings( 'ditty_layouts_sass' ),
-			),
-		) ), 'before' );
+		if ( empty( $ditty_scripts_enqueued ) ) {
+			wp_add_inline_script( 'ditty', 'const dittyVars = ' . json_encode( array(
+				'ajaxurl'					=> admin_url( 'admin-ajax.php' ),
+				'security'				=> wp_create_nonce( 'ditty' ),
+				'mode'						=> WP_DEBUG ? 'development' : 'production',
+				'strings' 				=> ditty_strings(),
+				'adminStrings' 		=> is_admin() ? ditty_admin_strings() : false,
+				'globals'					=> ditty_get_globals(),
+				'updateIcon'			=> 'fas fa-sync-alt fa-spin',
+				'updateInterval'	=> ( MINUTE_IN_SECONDS * ditty_settings( 'live_refresh' ) ),
+				'editor'					=> array(
+					'ditty_layouts_sass' => ditty_settings( 'ditty_layouts_sass' ),
+				),
+			) ), 'before' );
+		}
 		
 		wp_register_script( 'ditty-slider', DITTY_URL . 'includes/js/class-ditty-slider' . $min . '.js', array( 'jquery', 'hammer' ), $this->version, true );
 		wp_register_script( 'ditty-display-ticker', DITTY_URL . 'includes/js/class-ditty-display-ticker' . $min . '.js', array( 'jquery' ), $this->version, true );
 		wp_register_script( 'ditty-display-list', DITTY_URL . 'includes/js/class-ditty-display-list' . $min . '.js', array( 'jquery', 'ditty-slider' ), $this->version, true );
-		
-		wp_enqueue_script( 'ion-rangeslider', DITTY_URL . 'includes/libs/ion.rangeSlider/js/ion.rangeSlider.min.js', array( 'jquery' ), '2.3.1', true );
-		wp_enqueue_script( 'jquery-minicolors', DITTY_URL . 'includes/libs/jquery-minicolors/jquery.minicolors.min.js', array( 'jquery' ), '2.3.5', true );
-		wp_enqueue_script( 'ditty-fields', DITTY_URL . 'includes/fields/js/ditty-fields.min.js', array(
-			'jquery',
-			'protip',
-			'jquery-effects-core',
-			'wp-codemirror',
-			'ion-rangeslider',
-			'jquery-minicolors',
-		), $this->version, true );
-		wp_register_script( 'ditty-editor', DITTY_URL . 'includes/js/ditty-editor.min.js', array(
-			'jquery',
-			'protip',
-			'iris',
-			'jquery-form',
-			'jquery-ui-core',
-			'jquery-effects-core',
-			'wp-codemirror',
-			'ditty-slider',
-			'ditty-fields',
-		), $this->version, true );
-		wp_register_script( 'ditty-admin', DITTY_URL . 'includes/js/ditty-admin.min.js', array(
-			'jquery',
-			'jquery-ui-core',
-			'jquery-ui-sortable',
-			'wp-i18n',
-		), $this->version, true );
-		
-		global $ditty_scripts_enqueued;
-		if ( empty( $ditty_scripts_enqueued ) ) {
-			wp_add_inline_script( 'ditty-admin', 'const dittyAdminVars = ' . json_encode( array(
-				'ajaxurl'				=> admin_url( 'admin-ajax.php' ),
-				'security'			=> wp_create_nonce( 'ditty' ),
-				'mode'					=> WP_DEBUG ? 'development' : 'production',
-				'adminStrings' 	=> is_admin() ? ditty_admin_strings() : false,
-				'updateIcon'		=> 'fas fa-sync-alt fa-spin',
-			) ), 'before' );
-		}
-		$ditty_scripts_enqueued = 'enqueued';
-		
+
 		if ( is_admin() ) {
 			
 			// Make sure to enqueue the scripts in the admin
 			wp_enqueue_script( 'ditty-display-ticker' );
 			wp_enqueue_script( 'ditty-display-list' );
+			
+			wp_enqueue_script( 'ion-rangeslider', DITTY_URL . 'includes/libs/ion.rangeSlider/js/ion.rangeSlider.min.js', array( 'jquery' ), '2.3.1', true );
+			wp_enqueue_script( 'jquery-minicolors', DITTY_URL . 'includes/libs/jquery-minicolors/jquery.minicolors.min.js', array( 'jquery' ), '2.3.5', true );
+			wp_register_script( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.js', array( 'jquery' ), '1.4.21', true );
+			wp_enqueue_script( 'ditty-fields', DITTY_URL . 'includes/fields/js/ditty-fields.min.js', array(
+				'jquery',
+				'protip',
+				'jquery-effects-core',
+				'wp-codemirror',
+				'ion-rangeslider',
+				'jquery-minicolors',
+			), $this->version, true );
+			wp_register_script( 'ditty-editor', DITTY_URL . 'includes/js/ditty-editor.min.js', array(
+				'jquery',
+				'protip',
+				'iris',
+				'jquery-form',
+				'jquery-ui-core',
+				'jquery-effects-core',
+				'wp-codemirror',
+				'ditty-slider',
+				'ditty-fields',
+			), $this->version, true );
+			wp_register_script( 'ditty-admin', DITTY_URL . 'includes/js/ditty-admin.min.js', array(
+				'jquery',
+				'jquery-ui-core',
+				'jquery-ui-sortable',
+				'wp-i18n',
+			), $this->version, true );
+			
+			
+			if ( empty( $ditty_scripts_enqueued ) ) {
+				wp_add_inline_script( 'ditty-admin', 'const dittyAdminVars = ' . json_encode( array(
+					'ajaxurl'				=> admin_url( 'admin-ajax.php' ),
+					'security'			=> wp_create_nonce( 'ditty' ),
+					'mode'					=> WP_DEBUG ? 'development' : 'production',
+					'adminStrings' 	=> is_admin() ? ditty_admin_strings() : false,
+					'updateIcon'		=> 'fas fa-sync-alt fa-spin',
+				) ), 'before' );
+			}
 
 			if ( current_user_can( 'edit_dittys' ) || current_user_can( 'edit_ditty_layouts' ) ) {
 				wp_enqueue_editor();
@@ -550,6 +549,8 @@ class Ditty {
 				wp_dequeue_script( 'autosave' );
 			}	
 		}
+		
+		$ditty_scripts_enqueued = 'enqueued';
 	}
 	
 	/**
@@ -618,13 +619,17 @@ class Ditty {
 				wp_print_scripts( "ditty-{$ditty_item_script}" );
 			}
 		}
-		if ( is_array( $ditty_display_scripts ) && count( $ditty_display_scripts ) > 0 ) {
-			wp_print_scripts( 'ditty' );
+		if ( is_array( $ditty_display_scripts ) && count( $ditty_display_scripts ) > 0 ) {	
+			$add_ditty = false;
 			foreach ( $ditty_display_scripts as $i => $ditty_display_script ) {
 				if ( empty( $ditty_display_script ) ) {
 					continue;
 				}
 				wp_print_scripts( "ditty-display-{$ditty_display_script}" );
+				$add_ditty = true;
+			}
+			if ( $add_ditty ) {
+				wp_print_scripts( 'ditty' );
 			}
 		}
 		global $ditty_singles;
