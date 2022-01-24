@@ -75,7 +75,7 @@ class Ditty_Extensions {
 						'version' => $license_settings['version'],		// current version number
 						'license' => $license_key,										// license key (used get_option above to retrieve from DB)
 						'item_id' => $license_settings['item_id'],	// ID of the product
-						'author'  => isset( $license_settings['author'] ) ? $license_settings['author'] : __( 'Ditty...', 'ditty-news-ticker' ),		// author of this plugin
+						'author'  => isset( $license_settings['author'] ) ? $license_settings['author'] : __( 'Ditty', 'ditty-news-ticker' ),		// author of this plugin
 						'beta'    => false,
 					)
 				);				
