@@ -530,6 +530,24 @@ table.wp-list-table .type-ditty_display .row-actions {
     -o-object-fit: cover;
        object-fit: cover; }
 
+/* File */
+.ditty-input--file .ditty-field__input__primary {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: flex-start; }
+
+.ditty-input--file input[type="text"] {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important; }
+
+.ditty-input--file .ditty-button {
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0; }
+
 .datepicker-container {
   background-color: #fff;
   direction: ltr;

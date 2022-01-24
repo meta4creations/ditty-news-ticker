@@ -709,7 +709,7 @@ class Ditty_Layouts {
 	 * Return the html field to edit
 	 *
 	 * @access public
-	 * @since  3.0
+	 * @since  3.0.12
 	 * @param   json.
 	 */
 	public function editor_fields_ajax() {
@@ -718,13 +718,14 @@ class Ditty_Layouts {
 		$layout_id_ajax 		= isset( $_POST['layout_id'] ) 		? sanitize_text_field( $_POST['layout_id'] ) 		: false;
 		$layout_title_ajax 	= isset( $_POST['layout_title'] ) ? sanitize_text_field( $_POST['layout_title'] ) : false;
 		$item_type_ajax 		= isset( $_POST['item_type'] ) 		? sanitize_text_field( $_POST['item_type'] ) 		: false;
+		$item_value_ajax 		= isset( $_POST['item_value'] ) 	? $_POST['item_value'] 													: false;
 		$item_id_ajax 			= isset( $_POST['item_id'] ) 			? sanitize_text_field( $_POST['item_id'] ) 			: false;
 		$draft_values_ajax 	= isset( $_POST['draft_values'] ) ? $_POST['draft_values'] 	: false;
 		if ( ! current_user_can( 'edit_ditty_layouts' ) ) {
 			wp_die();
 		}
 		ditty_set_draft_values( $draft_values_ajax );
-		if ( ! $layout = new Ditty_Layout( $layout_id_ajax, $item_type_ajax ) ) {
+		if ( ! $layout = new Ditty_Layout( $layout_id_ajax, $item_type_ajax, $item_value_ajax ) ) {
 			wp_die();
 		}
 		

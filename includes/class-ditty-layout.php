@@ -123,12 +123,12 @@ class Ditty_Layout {
 	/**
 	 * Return the html tags
 	 * @access public
-	 * @since  3.0
+	 * @since  3.0.12
 	 * @return int $id
 	 */
 	public function get_layout_tags() {
 		if ( ! $this->layout_tags ) {
-			$this->layout_tags = ditty_layout_tags( $this->get_item_type() );
+			$this->layout_tags = ditty_layout_tags( $this->get_item_type(), $this->get_item_value() );
 		}
 		return $this->layout_tags;
 	}
@@ -136,12 +136,12 @@ class Ditty_Layout {
 	/**
 	 * Return the html tags list
 	 * @access public
-	 * @since  3.0
+	 * @since  3.0.12
 	 * @return html $tags_list
 	 */
 	public function get_tags_list() {
 		$tags_list = '';
-		$tags = apply_filters( 'ditty_layout_tags_list', $this->get_layout_tags(), $this->get_item_type(), 'html' );
+		$tags = apply_filters( 'ditty_layout_tags_list', $this->get_layout_tags(), $this->get_item_type(), 'html', $this->get_item_value() );
 		if ( is_array( $tags ) && count( $tags ) > 0 ) {
 			$tags_list .= '<ul class="ditty-editor-options__tags__list ditty-editor-options__tags__list--' . $this->get_item_type() . '">';
 			foreach ( $tags as $data ) {
@@ -161,11 +161,11 @@ class Ditty_Layout {
 	/**
 	 * Return the css selectors
 	 * @access public
-	 * @since  3.0
+	 * @since  3.0.12
 	 * @return int $id
 	 */
 	public function get_css_selectors_list() {
-		$tags = apply_filters( 'ditty_layout_tags_list', $this->get_layout_tags(), $this->get_item_type(), 'css' );
+		$tags = apply_filters( 'ditty_layout_tags_list', $this->get_layout_tags(), $this->get_item_type(), 'css', $this->get_item_value() );
 		$selectors_list = '';
 		if ( is_array( $tags ) && count( $tags ) > 0 ) {
 			$selectors_list .= '<ul class="ditty-editor-options__tags__list ditty-editor-options__tags__list--' . $this->get_item_type() . '">';
@@ -293,10 +293,10 @@ class Ditty_Layout {
 	/**
 	 * Return the passed item value
 	 * @access public
-	 * @since  3.0
+	 * @since  3.0.12
 	 * @return string $html
 	 */
-	public function get_value() {
+	public function get_item_value() {
 		return $this->item_value;
 	}
 	
@@ -413,7 +413,7 @@ class Ditty_Layout {
 	public function render() {
 		$tags		= $this->get_layout_tags();
 		$html		= $this->get_html();	
-		$value 	= $this->get_value();	
+		$value 	= $this->get_item_value();	
 		
 		// Return an error if there is one
 		if ( isset( $value['ditty_feed_error'] ) ) {

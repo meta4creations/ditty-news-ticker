@@ -2,10 +2,10 @@
 /**
  * Return all possible layout tags
  *
- * @since    3.0
+ * @since    3.0.12
  * @var      html
 */	
-function ditty_layout_tags( $item_type = false ) {	
+function ditty_layout_tags( $item_type = false, $item_value = false ) {	
 	$tags = array(
 		'author_avatar' => array(
 			'tag' 				=> 'author_avatar',
@@ -258,7 +258,7 @@ function ditty_layout_tags( $item_type = false ) {
 			),
 		),
 	);
-	$tags = apply_filters( 'ditty_layout_tags', $tags, $item_type );
+	$tags = apply_filters( 'ditty_layout_tags', $tags, $item_type, $item_value );
 	ksort( $tags );
 	return $tags;
 }

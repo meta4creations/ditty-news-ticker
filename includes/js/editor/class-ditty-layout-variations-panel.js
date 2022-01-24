@@ -131,7 +131,7 @@
 		/**
 		 * Edit the html or css of a layout
 		 *
-		 * @since    3.0
+		 * @since    3.0.12
 		 * @return   null
 		*/
 		_editLayout: function( e ) { 
@@ -155,12 +155,13 @@
 			$.each( items, function( index, item ) {
 				itemIds.push( item.uniqId );
 			} ); 
-			
+
 			// Load the new display fields		
 			var data = {
 				action				: 'ditty_editor_layout_fields',
 				layout_id			: layoutId,
 				item_type			: itemType,
+				item_value		: self.$editorItem.data( 'item_value' ),
 				ditty_id			: self.editorDittyId,
 				item_id				: self.editorItemId,
 				item_ids			: itemIds,
