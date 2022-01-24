@@ -147,9 +147,9 @@ class Ditty_Layout {
 			foreach ( $tags as $data ) {
 				$class = ( isset( $data['class'] ) && '' != $data['class'] ) ? ' ' . esc_attr( $data['class'] ) : '';			
 				$atts = array(
-					'class' => 'ditty-editor-options__tag protip' . $class,
-					'data-pt-title' => $data['description'],
-					'data-atts' => ( isset( $data['atts'] ) ) ? htmlentities( json_encode( $data['atts'] ) ) : false,
+					'class' 				=> 'ditty-editor-options__tag protip' . $class,
+					'data-pt-title' => isset( $data['description'] ) ? $data['description'] : false,
+					'data-atts' 		=> ( isset( $data['atts'] ) ) ? htmlentities( json_encode( $data['atts'] ) ) : false,
 				);
 				$tags_list .= '<li ' . ditty_attr_to_html( $atts ) . '>{' . $data['tag'] . '}</li>';
 			}
@@ -407,7 +407,7 @@ class Ditty_Layout {
 	/**
 	 * Render the layout
 	 * @access public
-	 * @since  3.0
+	 * @since  3.0.12
 	 * @return html
 	 */
 	public function render() {
@@ -429,7 +429,7 @@ class Ditty_Layout {
 					$atts = apply_filters( 'ditty_layout_tag_atts', $atts, $tag['tag'], $this->get_item_type(), $value );
 					$content = $s->getContent();
 					if ( isset( $tag['func'] ) && function_exists( $tag['func'] ) ) {
-						return call_user_func( $tag['func'], $this->get_item_type(), $value, $atts, $content );
+						return call_user_func( $tag['func'], $tag['tag'], $this->get_item_type(), $value, $atts, $content );
 					} else {
 						return $this->render_tag( $tag['tag'], $this->get_item_type(), $value, $atts, $content );
 					}
