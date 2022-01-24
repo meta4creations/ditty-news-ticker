@@ -698,7 +698,6 @@ class Ditty_Layouts {
 		$data = array(
 			'editor_item' 			=> $editor_item->render_editor_list_item( 'return' ),
 			'display_items' 		=> $editor_item->get_display_items(),
-			//'display_items'			=> ditty_display_items( $editor_item->get_ditty_id(), 'force' ),
 			'layout_label'			=> $editor_layout->get_label(),
 			'layout_css'				=> $editor_layout->get_css_compiled(),
 		);	
