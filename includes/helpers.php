@@ -934,7 +934,7 @@ function ditty_parse_custom_layouts( $layout_settings ) {
 /**
  * Return display items for a specific Ditty
  *
- * @since    3.0.11
+ * @since    3.0.12
  * @access   public
  * @var      array   	$display_items    Array of item objects
  */
@@ -953,7 +953,8 @@ function ditty_display_items( $ditty_id, $load_type = 'cache', $custom_layouts =
 	if ( ! $display_items || 'force' == $load_type ) {
 		$display_items = array();
 		$items_meta = ditty_items_meta( $ditty_id );
-		if ( empty( $items_meta) && 'auto-draft' == get_post_status( $ditty_id ) ) {
+		$initialized = get_post_meta( $ditty_id, '_ditty_init', true );
+		if ( empty( $items_meta) && ! $initialized ) {
 			$items_meta = array( ditty_get_new_item_meta( $ditty_id ) );
 		}
 		if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {

@@ -92,10 +92,11 @@ class Ditty_Singles {
 			<div class="ditty-editor-options__contents">
 				<div class="ditty-editor-options__body">
 					<?php
-					$title = ( 'auto-draft' === get_post_status( $ditty_id ) ) ? sprintf( __( 'Ditty %d', 'ditty-news-ticker' ), $ditty_id ) : get_the_title( $ditty_id );
+					$initialized = get_post_meta( $ditty_id, '_ditty_init', true );
+					$title = ( ! $initialized ) ? sprintf( __( 'Ditty %d', 'ditty-news-ticker' ), $ditty_id ) : get_the_title( $ditty_id );
 					$status = get_post_status( $ditty_id );
 					$settings = get_post_meta( $ditty_id, '_ditty_settings', true );
-					if ( 'auto-draft' == $status ) {
+					if ( ! $initialized ) {
 						$status = 'publish';
 					}
 					$shortcode = "[ditty id={$ditty_id}]";
@@ -184,15 +185,16 @@ class Ditty_Singles {
 	/**
 	 * Add the edit page preview
 	 * @access  public
-	 * @since   3.0.11
+	 * @since   3.0.12
 	 */
 	public function edit_preview() {
 		global $post;
 		if ( 'ditty' != $post->post_type ) {
 			return false;
 		}
-		$title = ( 'auto-draft' === get_post_status( $post->ID ) ) ? sprintf( __( 'Ditty %d', 'ditty-news-ticker' ), $post->ID ) : $post->post_title;
+		$initialized = get_post_meta( $post->ID, '_ditty_init', true );
 		$settings = get_post_meta( $post->ID, '_ditty_settings', true );
+		$title = ( ! $initialized ) ? sprintf( __( 'Ditty %d', 'ditty-news-ticker' ), $post->ID ) : $post->post_title;
 		$style = '';
 		if ( is_array( $settings ) && isset( $settings['previewBg'] ) ) {
 			$style .= "background-color:{$settings['previewBg']};";
@@ -393,7 +395,7 @@ class Ditty_Singles {
 	 * Return data for a Ditty to load via ajax
 	 *
 	 * @access public
-	 * @since  3.0.11
+	 * @since  3.0.12
 	 */
 	public function init_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
@@ -420,7 +422,7 @@ class Ditty_Singles {
 		$args 							= $display->get_values();
 		$args['id'] 				= $id_ajax;
 		$args['uniqid'] 		= $uniqid_ajax;
-		$args['title'] 			= ( 'auto-draft' == $status ) ? '' : get_the_title( $id_ajax );
+		$args['title'] 			= get_the_title( $id_ajax );
 		$args['status'] 		= $status;
 		$args['display'] 		= $display->get_display_id();
 		$args['showEditor'] = $editor_ajax;
@@ -445,7 +447,7 @@ class Ditty_Singles {
 	 * Return data for a Ditty to load via ajax
 	 *
 	 * @access public
-	 * @since  3.0.10
+	 * @since  3.0.12
 	 */
 	public function init( $atts ) {
 		if ( ! $atts['data-id'] ) {
@@ -458,7 +460,6 @@ class Ditty_Singles {
 		$display_settings = isset( $atts['data-display_settings'] )	? $atts['data-display_settings']	: false;
 		$layout_settings 	= isset( $atts['data-layout_settings'] ) 	? $atts['data-layout_settings'] 	: false;
 		$show_editor 			= isset( $atts['data-show_editor'] ) 			? $atts['data-show_editor'] 			: false;
-		//$load_type 				= isset( $atts['load_type'] )							? $atts['load_type'] 							: '';
 	
 		// Get the display attributes
 		if ( ! $display_id ) {
@@ -476,7 +477,7 @@ class Ditty_Singles {
 		
 		$args['id'] 				= $ditty_id;
 		$args['uniqid'] 		= $uniqid;
-		$args['title'] 			= ( 'auto-draft' == $status ) ? '' : get_the_title( $ditty_id );
+		$args['title'] 			= get_the_title( $ditty_id );
 		$args['status'] 		= $status;
 		$args['display'] 		= $display->get_display_id();
 		$args['showEditor'] = $show_editor;
@@ -616,7 +617,7 @@ class Ditty_Singles {
 	 * Save draft values on Ditty editor update
 	 *
 	 * @access public
-	 * @since  3.0
+	 * @since  3.0.12
 	 */
 	public function editor_save_ajax() {	
 		check_ajax_referer( 'ditty', 'security' );
@@ -626,17 +627,16 @@ class Ditty_Singles {
 		if ( ! current_user_can( 'edit_dittys' ) || ! $ditty_id_ajax ) {
 			wp_die();
 		}
+		$initialized = get_post_meta( $ditty_id_ajax, '_ditty_init', true );
 		$add_display = false;
 		$add_item = false;
-		
+
 		do_action( 'ditty_editor_update', $ditty_id_ajax, $draft_values_ajax );
-		
-		//ChromePhp::log( '$draft_values_ajax:', $draft_values_ajax );
-		
+
 		$json_data = array();
 
 		$ditty_post_data = array();
-		if ( 'auto-draft' == get_post_status( $ditty_id_ajax ) ) {
+		if ( ! $initialized ) {
 			$ditty_post_data['post_title'] = sprintf( __( 'Ditty %d', 'ditty-news-ticker' ), $ditty_id_ajax );
 			$ditty_post_data['post_status'] = 'publish';
 		}
@@ -652,11 +652,13 @@ class Ditty_Singles {
 		}
 
 		// Publish the ditty if this is a new post
-		if ( 'auto-draft' == get_post_status( $ditty_id_ajax ) ) {
+		if ( ! $initialized ) {
 			$ditty_post_data['post_type'] = 'ditty';
 			$ditty_post_data['ID'] = $ditty_id_ajax;
 		  wp_update_post( $ditty_post_data );
 		  $json_data['new_ditty_url'] = get_edit_post_link( $ditty_id_ajax );
+			$initialized = 'yes';
+			update_post_meta( $ditty_id_ajax, '_ditty_init', $initialized );
 			$add_display = true;
 			$add_item = true;
 
@@ -665,7 +667,6 @@ class Ditty_Singles {
 			$ditty_post_data['ID'] = $ditty_id_ajax;
 		  wp_update_post( $ditty_post_data );
 		}
-		
 		
 		// Sanitize default post meta
 		$ditty_post_meta = ( isset( $draft_values_ajax['post_meta'] ) && is_array( $draft_values_ajax['post_meta'] ) ) ? $draft_values_ajax['post_meta'] : false;

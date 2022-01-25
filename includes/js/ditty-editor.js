@@ -169,19 +169,15 @@ jQuery( function( $ ) {
 /**
  * Initialize an editor
  *
- * @since    3.0
+ * @since    3.0.12
  * @return   null
 */
 function dittyEditorInit( ditty ) {
 	if ( ! ditty ) {
 		return false;
 	}
-	var status = ditty.options( 'status' ),
-			panel = 'auto-draft' === status ? 'settings' : false;
-	
 	jQuery( '#ditty-editor__settings' ).ditty_editor( {
-		ditty: ditty,
-		panel: panel
+		ditty: ditty
 	} );
 }
 dittyEditorInit();
