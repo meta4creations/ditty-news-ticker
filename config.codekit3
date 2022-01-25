@@ -142,11 +142,19 @@
       "oO" : 0,
       "oS" : 1
     },
+    "\/composer.lock" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/composer.lock",
+      "oF" : 0
+    },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/ditty-news-ticker.php",
       "oF" : 0
     },
@@ -394,7 +402,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/class-ditty-singles.php",
       "oF" : 0
     },
@@ -716,6 +724,17 @@
       "sC" : 3,
       "tS" : 0
     },
+    "\/includes\/fields\/js\/fields\/file.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/fields\/js\/fields\/file.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
     "\/includes\/fields\/js\/fields\/group.js" : {
       "bF" : 0,
       "ft" : 64,
@@ -723,17 +742,6 @@
       "mi" : 0,
       "oA" : 1,
       "oAP" : "\/includes\/fields\/js\/fields\/group.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/fields\/js\/fields\/image copy.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/fields\/js\/fields\/image copy.min.js",
       "oF" : 0,
       "sC" : 3,
       "tS" : 0
@@ -866,7 +874,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/js\/class-ditty-display-list.min.js",
       "oF" : 0,
@@ -932,7 +940,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/js\/ditty-admin.min.js",
       "oF" : 0,
@@ -954,7 +962,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/js\/ditty-editor.min.js",
       "oF" : 0,
@@ -1142,7 +1150,7 @@
       "ft" : 64,
       "ma" : 0,
       "mi" : 1,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/js\/editor\/ditty-item-edit-editor.min.js",
       "oF" : 0,
       "sC" : 3,
@@ -4781,6 +4789,102 @@
       "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Block.php",
       "oF" : 0
     },
+    "\/vendor\/scssphp\/scssphp\/src\/Block\/AtRootBlock.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Block\/AtRootBlock.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Block\/CallableBlock.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Block\/CallableBlock.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Block\/ContentBlock.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Block\/ContentBlock.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Block\/DirectiveBlock.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Block\/DirectiveBlock.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Block\/EachBlock.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Block\/EachBlock.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Block\/ElseBlock.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Block\/ElseBlock.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Block\/ElseifBlock.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Block\/ElseifBlock.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Block\/ForBlock.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Block\/ForBlock.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Block\/IfBlock.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Block\/IfBlock.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Block\/MediaBlock.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Block\/MediaBlock.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Block\/NestedPropertyBlock.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Block\/NestedPropertyBlock.php",
+      "oF" : 0
+    },
+    "\/vendor\/scssphp\/scssphp\/src\/Block\/WhileBlock.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Block\/WhileBlock.php",
+      "oF" : 0
+    },
     "\/vendor\/scssphp\/scssphp\/src\/Cache.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -5069,28 +5173,20 @@
       "oAP" : "\/vendor\/scssphp\/scssphp\/src\/Warn.php",
       "oF" : 0
     },
+    "\/vendor\/thunderer\/shortcode\/.github\/workflows\/test.yaml" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/.github\/workflows\/test.yaml",
+      "oF" : 0
+    },
     "\/vendor\/thunderer\/shortcode\/.gitignore" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/vendor\/thunderer\/shortcode\/.gitignore",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/.symfony.insight.yaml" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/.symfony.insight.yaml",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/.travis.yml" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/.travis.yml",
       "oF" : 0
     },
     "\/vendor\/thunderer\/shortcode\/CHANGELOG.md" : {
@@ -5128,13 +5224,37 @@
       "oAP" : "\/vendor\/thunderer\/shortcode\/docker-compose.yaml",
       "oF" : 0
     },
-    "\/vendor\/thunderer\/shortcode\/docker\/php-5.4\/Dockerfile" : {
+    "\/vendor\/thunderer\/shortcode\/docker\/php-5.x\/Dockerfile" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/docker\/php-5.4\/Dockerfile",
+      "oAP" : "\/vendor\/thunderer\/shortcode\/docker\/php-5.x\/Dockerfile",
       "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/docker\/php\/Dockerfile" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/docker\/php\/Dockerfile",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/docker\/php\/php.ini" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/docker\/php\/php.ini",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/infection.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/infection-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
     },
     "\/vendor\/thunderer\/shortcode\/LICENSE" : {
       "cB" : 0,
@@ -5158,6 +5278,14 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/vendor\/thunderer\/shortcode\/phpunit.xml.dist",
+      "oF" : 0
+    },
+    "\/vendor\/thunderer\/shortcode\/psalm.xml" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/vendor\/thunderer\/shortcode\/psalm.xml",
       "oF" : 0
     },
     "\/vendor\/thunderer\/shortcode\/README.md" : {

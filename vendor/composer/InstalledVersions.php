@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '1235a3c138c15909678b34f0293d85c8f7f6cdf5',
+    'reference' => '3d85d247ec6eed8ec21065f1ec0e66499ea986bf',
     'name' => '__root__',
   ),
   'versions' => 
@@ -31,7 +31,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '1235a3c138c15909678b34f0293d85c8f7f6cdf5',
+      'reference' => '3d85d247ec6eed8ec21065f1ec0e66499ea986bf',
     ),
     'composer/installers' => 
     array (
@@ -69,12 +69,12 @@ private static $installed = array (
     ),
     'scssphp/scssphp' => 
     array (
-      'pretty_version' => 'v1.9.0',
-      'version' => '1.9.0.0',
+      'pretty_version' => 'v1.10.0',
+      'version' => '1.10.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'bc8bece4e5e176973a832f3763049ddbba16e6fd',
+      'reference' => '9699a52a862da4efb43985943afa17150155dd3d',
     ),
     'shama/baton' => 
     array (
@@ -85,12 +85,12 @@ private static $installed = array (
     ),
     'thunderer/shortcode' => 
     array (
-      'pretty_version' => 'v0.7.4',
-      'version' => '0.7.4.0',
+      'pretty_version' => 'v0.7.5',
+      'version' => '0.7.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => '79a219febd774ba1ee66a2992fee1145b4367561',
+      'reference' => 'a4fee30613bd46efb421f8305aff0466a3268a99',
     ),
   ),
 );

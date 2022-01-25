@@ -32,7 +32,7 @@ function ditty_layout_render_tag_link( $link, $html, $class, $data, $atts, $pref
 /**
  * Return a rendered wrapper
  *
- * @since    3.0
+ * @since    3.0.12
  * @var      html
 */
 function ditty_layout_render_tag_wrapper( $html, $class = '', $atts = array(), $custom_wrapper = false ) {
@@ -50,9 +50,11 @@ function ditty_layout_render_tag_wrapper( $html, $class = '', $atts = array(), $
 		if ( isset( $args['class'] ) && '' != $args['class'] ) {
 			$class .= ' ' . trim( $args['class'] );
 		}
+		if ( $custom_wrapper ) {
+			$html = sprintf( $custom_wrapper, $html );
+		}
 		$html = sprintf( '<%4$s class="%5$s">%2$s%1$s%3$s</%4$s>', $html, $before, $after, $args['wrapper'], esc_attr( $class ) );
-	}
-	if ( $custom_wrapper ) {
+	} elseif ( $custom_wrapper ) {
 		$html = sprintf( $custom_wrapper, $html );
 	}
 	return $html;
@@ -69,6 +71,7 @@ function ditty_layout_render_tag( $html, $class, $item_type, $data, $atts = arra
 	if ( ! empty( $link_data ) ) {
 		$html = ditty_layout_render_tag_link( $link_data, $html, "{$class}__link", $data, $atts, $prefix );
 	}
+	ChromePhp::log( '$custom_wrapper: ', $custom_wrapper );
 	return ditty_layout_render_tag_wrapper( $html, $class, $atts, $custom_wrapper );
 }
 

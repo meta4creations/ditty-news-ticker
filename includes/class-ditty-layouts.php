@@ -800,6 +800,7 @@ class Ditty_Layouts {
 	 */
 	public function editor_update_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
+
 		$edit_type_ajax 		= isset( $_POST['edit_type'] ) 					? sanitize_text_field( $_POST['edit_type'] ) 		: false;
 		$layout_id_ajax 		= isset( $_POST['layout_id'] ) 					? sanitize_text_field( $_POST['layout_id'] ) 		: false;
 		$title_ajax 				= isset( $_POST['title'] ) 							? sanitize_text_field( $_POST['title'] ) 				: false;

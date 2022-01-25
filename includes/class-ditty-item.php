@@ -415,23 +415,7 @@ class Ditty_Item {
 			return trim( ob_get_clean() );
 		}
 	}
-	
-	/**
-	 * Return the display meta
-	 *
-	 * @access public
-	 * @since  3.0
-	 * @return array $display_meta
-	 */
-	// public function get_display_meta() {
-	// 	$item_type_object = $this->get_type_object();
-	// 	if ( ! $item_type_object ) {
-	// 		return false;
-	// 	}
-	// 	$display_meta = $item_type_object->prepare_items( $this->get_values() );
-	// 	return $display_meta;
-	// }
-	
+
 	/**
 	 * Return the display items
 	 *
