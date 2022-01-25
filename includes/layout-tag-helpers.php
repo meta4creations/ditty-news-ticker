@@ -63,7 +63,7 @@ function ditty_layout_render_tag_wrapper( $html, $class = '', $atts = array(), $
 /**
  * Return a rendered tag
  *
- * @since    3.0
+ * @since    3.0.12
  * @var      html
 */
 function ditty_layout_render_tag( $html, $class, $item_type, $data, $atts = array(), $custom_wrapper = false, $prefix = '' ) {
@@ -71,8 +71,9 @@ function ditty_layout_render_tag( $html, $class, $item_type, $data, $atts = arra
 	if ( ! empty( $link_data ) ) {
 		$html = ditty_layout_render_tag_link( $link_data, $html, "{$class}__link", $data, $atts, $prefix );
 	}
-	ChromePhp::log( '$custom_wrapper: ', $custom_wrapper );
-	return ditty_layout_render_tag_wrapper( $html, $class, $atts, $custom_wrapper );
+	if ( $html && '' != $html ) {
+		return ditty_layout_render_tag_wrapper( $html, $class, $atts, $custom_wrapper );
+	}
 }
 
 /**

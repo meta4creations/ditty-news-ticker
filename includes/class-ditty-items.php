@@ -394,8 +394,6 @@ class Ditty_Items {
 		unset( $_POST['security'] );
 		unset( $_POST['item_id'] );
 		
-		ChromePhp::log( $draft_values_ajax );
-
 		$editor_item 	= new Ditty_Item( $item_id_ajax );
 		$editor_item->set_item_value( $_POST );	
 		
