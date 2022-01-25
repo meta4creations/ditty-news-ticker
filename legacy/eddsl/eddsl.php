@@ -4,8 +4,8 @@
 /* !Add the plugin updater - 2.1.17 */
 /* --------------------------------------------------------- */
 
-if( !class_exists( 'EDD_SL_Plugin_Updater' ) ) {
-	include( dirname( __FILE__ ) . '/EDD_SL_Plugin_Updater.php' );
+if( !class_exists( 'Ditty_Plugin_Updater' ) ) {
+	include( dirname( __FILE__ ) . '/Ditty_Plugin_Updater.php' );
 }
 
 /**
@@ -47,7 +47,7 @@ function mtphr_dnt_plugin_updater() {
 			$license_key = isset($mtphr_edd_licenses[$slug]) ? trim($mtphr_edd_licenses[$slug]) : '';
 		
 			// setup the updater
-			$edd_updater = new EDD_SL_Plugin_Updater( 'https://www.metaphorcreations.com', $data['path'], array(
+			$edd_updater = new Ditty_Plugin_Updater( 'https://www.metaphorcreations.com', $data['path'], array(
 					'version' 	=> $data['version'], 																								// current version number
 					'license' 	=> $license_key, 																										// license key (used get_option above to retrieve from DB)
 					'item_id' 	=> isset( $data['item_id'] ) ? $data['item_id'] : null, 						// name of this plugin

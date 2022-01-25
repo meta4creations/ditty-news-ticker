@@ -166,12 +166,12 @@
       "oAP" : "\/includes\/admin\/columns.php",
       "oF" : 0
     },
-    "\/includes\/admin\/EDD_SL_Plugin_Updater.php" : {
+    "\/includes\/admin\/Ditty_Plugin_Updater.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/includes\/admin\/EDD_SL_Plugin_Updater.php",
+      "oA" : 0,
+      "oAP" : "\/includes\/admin\/Ditty_Plugin_Updater.php",
       "oF" : 0
     },
     "\/includes\/admin\/info.php" : {

@@ -76,35 +76,35 @@ msgid "Display:"
 msgstr ""
 
 #. translators: the plugin name.
-#: includes/admin/EDD_SL_Plugin_Updater.php:224
+#: includes/admin/Ditty_Plugin_Updater.php:224
 #, php-format
 msgid "There is a new version of %1$s available."
 msgstr ""
 
-#: includes/admin/EDD_SL_Plugin_Updater.php:230
+#: includes/admin/Ditty_Plugin_Updater.php:230
 msgid "Contact your network administrator to install the update."
 msgstr ""
 
 #. translators: 1. opening anchor tag, do not translate 2. the new plugin version 3. closing anchor tag, do not translate.
-#: includes/admin/EDD_SL_Plugin_Updater.php:235
+#: includes/admin/Ditty_Plugin_Updater.php:235
 #, php-format
 msgid "%1$sView version %2$s details%3$s."
 msgstr ""
 
-#: includes/admin/EDD_SL_Plugin_Updater.php:243
+#: includes/admin/Ditty_Plugin_Updater.php:243
 #, php-format
 msgid "%1$sView version %2$s details%3$s or %4$supdate now%5$s."
 msgstr ""
 
-#: includes/admin/EDD_SL_Plugin_Updater.php:254
+#: includes/admin/Ditty_Plugin_Updater.php:254
 msgid "Update now."
 msgstr ""
 
-#: includes/admin/EDD_SL_Plugin_Updater.php:486
+#: includes/admin/Ditty_Plugin_Updater.php:486
 msgid "You do not have permission to install plugin updates"
 msgstr ""
 
-#: includes/admin/EDD_SL_Plugin_Updater.php:486
+#: includes/admin/Ditty_Plugin_Updater.php:486
 msgid "Error"
 msgstr ""
 

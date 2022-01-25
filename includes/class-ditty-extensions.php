@@ -70,7 +70,7 @@ class Ditty_Extensions {
 					continue;	
 				}
 				$license_key = isset( $ditty_licenses[$slug] ) ? trim( $ditty_licenses[$slug]['key'] ) : '';
-				$edd_updater = new EDD_SL_Plugin_Updater( 'https://www.metaphorcreations.com', $license_settings['path'],
+				$edd_updater = new Ditty_Plugin_Updater( 'https://www.metaphorcreations.com', $license_settings['path'],
 					array(
 						'version' => $license_settings['version'],		// current version number
 						'license' => $license_key,										// license key (used get_option above to retrieve from DB)

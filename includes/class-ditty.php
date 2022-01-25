@@ -312,8 +312,8 @@ class Ditty {
 		//require_once DITTY_DIR . 'blocks/ditty-block/index.php';
 		
 		if ( is_admin() ) {
-			if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
-				require_once DITTY_DIR . 'includes/admin/EDD_SL_Plugin_Updater.php';
+			if ( ! class_exists( 'Ditty_Plugin_Updater' ) ) {
+				require_once DITTY_DIR . 'includes/admin/Ditty_Plugin_Updater.php';
 			}
 			require_once DITTY_DIR . 'includes/admin/columns.php';
 			require_once DITTY_DIR . 'includes/admin/notices.php';

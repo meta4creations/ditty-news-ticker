@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author Easy Digital Downloads
  * @version 1.9.1
  */
-class EDD_SL_Plugin_Updater {
+class Ditty_Plugin_Updater {
 
 	private $api_url              = '';
 	private $api_data             = array();
@@ -457,7 +457,7 @@ class EDD_SL_Plugin_Updater {
 	 * will be allowed again. This way if the site is down for some reason we don't bombard
 	 * it with failed API requests.
 	 *
-	 * @see EDD_SL_Plugin_Updater::request_recently_failed
+	 * @see Ditty_Plugin_Updater::request_recently_failed
 	 *
 	 * @since 1.9.1
 	 */
