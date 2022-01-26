@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, post ticker, news ticker, content aggregator, latest posts, live refresh, rotator, data rotator, lists, data, aggregator
 Requires at least: 4.5
-Tested up to: 5.8.3
+Tested up to: 5.9
 Stable tag: 3.0.11
 License: GPL2
 
@@ -655,4 +655,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Multiple updates
+Resolved bug in extension updater. Multiple other updates.
