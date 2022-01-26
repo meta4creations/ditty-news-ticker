@@ -59,6 +59,12 @@ class Ditty_Extensions {
 	 * @since   3.0.12
 	 */
 	public function add_extension_updaters() {
+		if ( wp_doing_ajax() ) {
+			$action = isset( $_POST['action'] ) ? $_POST['action'] : false;
+			if ( 'update-plugin' != $action ) {
+				return false;
+			}
+		}
 		$extension_licenses = ditty_extension_licenses();
 		$ditty_licenses = $this->licenses;		
 		if ( is_array( $extension_licenses ) && count( $extension_licenses ) > 0 ) {
