@@ -27,7 +27,7 @@ function ditty_layout_templates() {
 			'description' => __( 'Default layout for Posts.', 'ditty-news-ticker' ),
 			'html' 				=> ditty_layout_default_post_html(),
 			'css' 				=> ditty_layout_default_post_css(),
-			'version'			=> '1.1',
+			'version'			=> '1.2',
 		),
 	);
 	return apply_filters( 'ditty_layout_templates', $layout_templates );
@@ -191,7 +191,7 @@ function ditty_layout_default_post_html() {
 	</div>
 </div>
 {title link="post"}
-{content}
+{excerpt}
 	<?php
 	return ob_get_clean();
 }
@@ -276,6 +276,9 @@ function ditty_layout_default_post_css() {
 	margin: 0;
 }
 .ditty-item__content {
+	margin-top: 5px;
+}
+.ditty-item__excerpt {
 	margin-top: 5px;
 }
 	<?php
