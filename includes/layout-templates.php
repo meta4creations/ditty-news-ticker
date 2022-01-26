@@ -27,7 +27,7 @@ function ditty_layout_templates() {
 			'description' => __( 'Default layout for Posts.', 'ditty-news-ticker' ),
 			'html' 				=> ditty_layout_default_post_html(),
 			'css' 				=> ditty_layout_default_post_css(),
-			'version'			=> '1.2',
+			'version'			=> '1.1',
 		),
 	);
 	return apply_filters( 'ditty_layout_templates', $layout_templates );
