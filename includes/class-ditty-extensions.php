@@ -56,12 +56,9 @@ class Ditty_Extensions {
 	/**
 	 * Load all the extension updaters
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.0.12
 	 */
 	public function add_extension_updaters() {
-		if ( wp_doing_ajax() ) {
-			return false;
-		}	
 		$extension_licenses = ditty_extension_licenses();
 		$ditty_licenses = $this->licenses;		
 		if ( is_array( $extension_licenses ) && count( $extension_licenses ) > 0 ) {
