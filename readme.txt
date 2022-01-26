@@ -81,6 +81,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 * Added item_value to layout tag filters
 * Removed auto-draft checks
 * Customized plugin updater file and references
+* Resolved bug in extension updater
 
 = 3.0.11 =
 * Resolved bug in ditty_add_scripts function that was causing a javascript error
