@@ -5,6 +5,7 @@
 // @codekit-append 'admin/class-ditty-settings.js';
 // @codekit-append 'admin/class-ditty-extension.js';
 // @codekit-append 'admin/ditty-extensions.js';
+// @codekit-append 'admin/ditty-singles.js';
 // @codekit-append 'admin/ditty-displays.js';
 
 jQuery( function( $ ) {

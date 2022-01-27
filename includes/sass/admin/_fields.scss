@@ -10,6 +10,7 @@
 	}
 	&__label {
 		display: block;
+		font-size: 14px;
 		font-weight: 600;
     margin-bottom: 10px;
 		cursor: default;
@@ -37,6 +38,9 @@
 		}
 		&__after {
 			margin-left: 5px;
+		}
+		&__description {
+			width: 100%;
 		}
 		input:not([type="button"]):not([type="checkbox"]):not([type="radio"]),
 		select,
@@ -107,7 +111,7 @@
 	}
 }
 .ditty-field__label + .ditty-field__description {
-	margin-top: 5px;
+	margin-top: 7px;
 }
 .ditty-field--clone-enabled {
 	.ditty-input--clone {

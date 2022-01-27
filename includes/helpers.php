@@ -3,7 +3,7 @@
 /**
  * Return the settings defaults
  *
- * @since    3.0.11
+ * @since    3.1
 */
 function ditty_settings_defaults() {	
 	$defaults = array(
@@ -15,7 +15,8 @@ function ditty_settings_defaults() {
 		'variation_defaults'		=> array(),
 		'global_ditty'					=> array(),
 		'ditty_news_ticker' 		=> '',
-		'disable_fontawesome' 		=> '',
+		'disable_wizard' 				=> '',
+		'disable_fontawesome' 	=> '',
 		'notification_email' 		=> '',
 	);
 	return apply_filters( 'ditty_settings_defaults', $defaults );
@@ -79,7 +80,7 @@ function ditty_single_settings( $ditty_id, $key = false ) {
 /**
  * Return an array of item types
  * 
- * @since   3.0
+ * @since   3.1
 */
 function ditty_item_types() {
 	$item_types = array();
@@ -104,7 +105,9 @@ function ditty_item_types() {
 		'description' => __( 'Add a WP Posts feed.', 'ditty-news-ticker' ),
 		'class_name'	=> 'Ditty_Item_Type_Posts_Lite',
 	);
-	return apply_filters( 'ditty_item_types', $item_types );
+	$item_types = apply_filters( 'ditty_item_types', $item_types );
+	ksort( $item_types );
+	return $item_types;
 }
 
 /**
@@ -646,6 +649,8 @@ function ditty_layouts_posts( $atts = array() ) {
 		'posts_per_page' 	=> -1,
 		'post_type' 			=> 'ditty_layout',
 		'post_status'			=> 'publish',
+		'orderby'					=> 'title',
+		'order'						=> 'ASC',
 		'fields' 					=> $args['fields'],
 	);
 	$meta_query = array();

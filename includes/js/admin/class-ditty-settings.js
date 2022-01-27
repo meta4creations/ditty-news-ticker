@@ -63,12 +63,18 @@
 		_initSlider: function () {	
 			var initPanel = this.$panels.data( 'init_panel' );
 			this.$panels.ditty_slider( {
-				transition			: 'fade',
-				transitionSpeed	: 0.75,
-				heightSpeed			: 0.75,
-				touchSwipe			: false,
-				slidesEl				: '.ditty-settings__panel',
-				slideId					: ( '' !== initPanel ) ? initPanel : false
+				transition						: 'none',
+				transitionEase				:	'none',
+				transitionSpeed				: 0,
+				heightSpeed						: 0,
+				initTransition				:	'none',
+				initTransitionEase		:	'none',
+				initTransitionSpeed		:	0,
+				initHeightEase				:	'none',
+				initHeightSpeed				:	0,
+				touchSwipe						: false,
+				slidesEl							: '.ditty-settings__panel',
+				slideId								: ( '' !== initPanel ) ? initPanel : false
 			} );
 		},
 		

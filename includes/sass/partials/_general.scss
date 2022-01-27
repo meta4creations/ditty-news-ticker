@@ -32,8 +32,7 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	opacity: 0.10;
-	background: #000;
+	background: rgba( 255, 255, 255, .7 );
 	z-index: 200;
 	display: none;
 	// display: none;
@@ -62,10 +61,18 @@
 	// 		opacity: .5;
 	// 	}
 	// }
-	// i {
-	// 	color: $green;
-	// 	font-size: 30px;
-	// }
+	i {
+		display: none;
+		color: $green;
+		font-size: 20px;
+		line-break: 20px;
+	}
+	&.active {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+	}
 }
 .ditty-notification {
 	font-weight: 600;

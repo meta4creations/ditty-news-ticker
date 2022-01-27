@@ -517,6 +517,7 @@ class Ditty {
 				'jquery',
 				'jquery-ui-core',
 				'jquery-ui-sortable',
+				'jquery-effects-core',
 				'wp-i18n',
 			), $this->version, true );
 			
