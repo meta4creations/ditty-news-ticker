@@ -859,7 +859,7 @@ class Ditty_Layouts {
 	/**
 	 * Clone a layout via ajax
 	 *
-	 * @since    3.0
+	 * @since    3.1
 	 */
 	public function editor_clone_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
@@ -877,10 +877,13 @@ class Ditty_Layouts {
 		$editor_layout->set_layout_id( $draft_id );
 		$editor_layout->set_label( $draft_label );
 		$editor_layout->remove_version();
+		
+		$draft_meta = $editor_layout->custom_meta();
+		unset( $draft_meta['description'] );
 		$data = array(
 			'editor_layout' => $editor_layout->render_editor_list_item( 'return' ),
 			'draft_id' 			=> $draft_id,
-			'draft_meta'		=> $editor_layout->custom_meta(),
+			'draft_meta'		=> $draft_meta,
 		);
 		wp_send_json( $data );
 	}

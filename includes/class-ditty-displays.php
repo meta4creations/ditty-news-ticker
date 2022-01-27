@@ -781,7 +781,6 @@ class Ditty_Displays {
 		$editor_display->set_version( '' );
 		$draft_data = array(
 			'label' 				=> $editor_display->get_label(),
-			'description' 	=> $editor_display->get_description(),
 			'display_type' 	=> $editor_display->get_display_type(),
 			'settings' 			=> $editor_display->get_settings(),
 		);
@@ -790,6 +789,7 @@ class Ditty_Displays {
 			'draft_id' 					=> $draft_id,
 			'draft_data'				=> $draft_data,
 		);
+		ChromePhp::log( 'editor data: ', $data );
 		wp_send_json( $data );		
 	}
 

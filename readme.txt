@@ -71,6 +71,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 * Added Heading field type
 * Default layout updates
 * Updated German translation
+* Add a uniq_id to Layouts & Displays
 
 = 3.0.12 =
 * Modified custom display check when rendering Ditty
