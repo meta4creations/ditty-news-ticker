@@ -159,10 +159,12 @@
 
 			// Trigger the init
       setTimeout( function () {
+				
+				console.log( self );
 	      
 	      // Preload images
-	      for ( var i = 0; i < this.total; i++ ) {
-		      this._preloadItem( this.settings.items[i] );
+	      for ( var i = 0; i < self.total; i++ ) {
+		      self._preloadItem( self.settings.items[i] );
 		    }
 
 	      // Initialize the items

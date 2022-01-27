@@ -15,7 +15,7 @@ function ditty_settings_defaults() {
 		'variation_defaults'		=> array(),
 		'global_ditty'					=> array(),
 		'ditty_news_ticker' 		=> '',
-		'disable_wizard' 				=> '',
+		'ditty_wizard' 					=> 'enabled',
 		'disable_fontawesome' 	=> '',
 		'notification_email' 		=> '',
 	);
@@ -1040,23 +1040,43 @@ function ditty_item_meta( $item_id ) {
 }
 
 /**
+ * Return the default layout
+ *
+ * @since    3.1
+ * @access   public
+ * @var      int    $layout_id
+ */
+function ditty_get_default_layout() {	
+	$variation_defaults = ditty_settings( 'variation_defaults' );
+	$layout_id = ( isset( $variation_defaults['default'] ) && isset( $variation_defaults['default']['default'] ) ) ? $variation_defaults['default']['default'] : 0;
+	if ( ! $layout_id || 0 == $layout_id ) {
+		$atts = array(
+			'template' 	=> 'default',
+			'fields'		=> 'ids',
+		);
+		if ( $layouts = ditty_layouts_posts( $atts ) ) {
+			return reset( $layouts );
+		}
+	}
+	return $layout_id;
+}
+
+/**
  * Return an array of new item meta
  *
- * @since    3.0
+ * @since    3.1
  * @access   public
  * @var      array    $item_meta    Array of item data
  */
 function ditty_get_new_item_meta( $ditty_id ) {	
 	$item_type_object = ditty_item_type_object( 'default' );
 	$item_value = $item_type_object->default_settings();
-	$variation_defaults = ditty_settings( 'variation_defaults' );
-	$layout_id = ( isset( $variation_defaults['default'] ) && isset( $variation_defaults['default']['default'] ) ) ? $variation_defaults['default']['default'] : 0;
 	$meta = array(
 		'item_id' 			=> uniqid( 'new-' ),
 		'item_type' 		=> 'default',
 		'item_value' 		=> $item_value,
 		'ditty_id' 			=> $ditty_id,
-		'layout_value' 	=> array( 'default' => $layout_id ),
+		'layout_value' 	=> array( 'default' => ditty_get_default_layout() ),
 	);
 	return apply_filters( 'ditty_editor_new_item_meta', $meta, $ditty_id );
 }
@@ -1487,8 +1507,19 @@ function ditty_news_ticker_enabled() {
  * @var      boolean
 */
 function ditty_wizard_enabled() {
-	if ( '' != ditty_settings( 'disable_wizard' ) ) {
+	if ( 'enabled' == ditty_settings( 'ditty_wizard' ) ) {
 		return true;
+	}
+}
+
+/**
+ * Write to the Ditty log
+ *
+ * @since    3.1
+*/
+function ditty_log( $log = false ) {
+	if ( $log ) {
+		Ditty()->write_log( $log );
 	}
 }
 

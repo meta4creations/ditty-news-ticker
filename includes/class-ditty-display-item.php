@@ -36,9 +36,9 @@ class Ditty_Display_Item {
 		$this->ditty_id 			= isset( $meta['ditty_id'] ) 				? $meta['ditty_id'] 			: -1;
 		$this->has_error 			= isset( $meta['has_error'] ) 			? $meta['has_error']			: false;
 		$this->custom_classes = isset( $meta['custom_classes'] ) 	? $meta['custom_classes']	: false;
-		if ( ! $this->has_error ) {
+		//if ( ! $this->has_error ) {
 			$this->parse_layout_id();
-		}
+		//}
 	}
 
 	/**
@@ -164,16 +164,21 @@ class Ditty_Display_Item {
 	 * Confirm that the layout exists
 	 *
 	 * @access public
-	 * @since  3.0
+	 * @since  3.1
 	 * @return int $id
 	 */
 	private function parse_layout_id() {
 		$layout_value 		= $this->get_layout_value();
 		$layout_id 				= isset( $layout_value['default'] ) ? $layout_value['default'] : 0;
 		$this->layout_id 	= apply_filters( 'ditty_display_item_layout_id', $layout_id, $this );
-		if ( false === strpos( $layout_id, 'new-' ) && 'publish' != get_post_status( $this->layout_id ) ) {
-			$this->item_value = array( 'ditty_feed_error' => sprintf( __( 'Ditty Layout does not exist for %s item!', 'ditty-news-ticker' ), $this->get_item_type() ) );
-			$this->has_error = true;
+		if ( ! $this->layout_id || ( false === strpos( $layout_id, 'new-' ) && 'publish' != get_post_status( $this->layout_id ) ) ) {
+			$default_layout = ditty_get_default_layout();
+			if ( $default_layout && 'publish' == get_post_status( $this->layout_id )  ) {
+				$this->layout_id = $default_layout;
+			} else {
+				$this->item_value = array( 'ditty_feed_error' => sprintf( __( 'Choose a layout to render your %s item!', 'ditty-news-ticker' ), $this->get_item_type() ) );
+				$this->has_error = true;
+			}
 		}
 	}
 

@@ -194,6 +194,7 @@ class Ditty_Singles {
 			return false;
 		}
 		$initialized = get_post_meta( $post->ID, '_ditty_init', true );
+		echo '<pre>';print_r(ditty_wizard_enabled());echo '</pre>';
 		if ( ! $initialized && ditty_wizard_enabled() ) {
 			$this->initialize_ditty( $post );
 		} else {
@@ -718,7 +719,7 @@ class Ditty_Singles {
 		if ( ! $atts['data-id'] ) {
 			return false;
 		}
-		
+
 		$ditty_id 				= $atts['data-id'];
 		$uniqid 					= isset( $atts['data-uniqid'] ) 					? $atts['data-uniqid'] 						: false;
 		$display_id 			= isset( $atts['data-display'] ) 					? $atts['data-display'] 					: false;
@@ -858,7 +859,7 @@ class Ditty_Singles {
 			$sanitized_item['ditty_id'] = intval( $item_data['ditty_id'] );
 		}
 		if ( isset( $item_data['item_id'] ) ) {
-			$sanitized_item['item_id'] = intval( $item_data['item_id'] );
+			$sanitized_item['item_id'] = esc_attr( $item_data['item_id'] );
 		}
 		if ( isset( $item_data['item_index'] ) ) {
 			$sanitized_item['item_index'] = intval( $item_data['item_index'] );
@@ -882,7 +883,7 @@ class Ditty_Singles {
 	 * Save draft values on Ditty editor update
 	 *
 	 * @access public
-	 * @since  3.0.12
+	 * @since  3.1
 	 */
 	public function editor_save_ajax() {	
 		check_ajax_referer( 'ditty', 'security' );

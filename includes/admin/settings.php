@@ -257,13 +257,17 @@ function ditty_settings_advanced() {
 			'id' 			=> 'heading',
 			'name' 		=> __( 'Advanced Settings', 'ditty-news-ticker' ),
 		),
-		'disable_wizard' => array(
-			'type' 				=> 'checkbox',
-			'id' 					=> 'disable_wizard',
-			'name' 				=> __( 'Ditty Wizard', 'ditty-news-ticker' ),
-			'label' 			=> __( 'Disable the Ditty Wizard', 'ditty-news-ticker' ),
-			'desc' 	=> __( 'This will disable the Ditty Wizard when creating a new Ditty.', 'ditty-news-ticker' ),
-			'std' 				=> ditty_settings( 'disable_wizard' ),
+		'ditty_wizard' => array(
+			'type' 		=> 'radio',
+			'id' 			=> 'ditty_wizard',
+			'name' 		=> __( 'Ditty Wizard', 'ditty-news-ticker' ),
+			'desc' 		=> __( "The Ditty Wizard helps you set up your new Dittys with a step by step guide.", 'ditty-news-ticker' ),
+			'options'	=> array(
+				'enabled' 	=> __( 'Enabled', 'ditty-news-ticker' ),
+				'disabled' 	=> __( 'Disabled', 'ditty-news-ticker' ),
+			),
+			'inline'	=> true,
+			'std' 		=> ditty_settings( 'ditty_wizard' ),
 		),
 		'disable_fontawesome' => array(
 			'type' 				=> 'checkbox',
@@ -444,7 +448,7 @@ function ditty_settings_save( $data, $json_data ) {
 		'variation_defaults'	=> $sanitized_variation_defaults,
 		'global_ditty'				=> $sanitized_global_ditty,
 		'ditty_news_ticker' 	=> isset( $data['ditty_news_ticker'] ) 		? esc_attr( $data['ditty_news_ticker'] ) : false,
-		'disable_wizard' 			=> isset( $data['disable_wizard'] ) 			? esc_attr( $data['disable_wizard'] ) : false,
+		'ditty_wizard' 				=> isset( $data['ditty_wizard'] ) 			? esc_attr( $data['ditty_wizard'] ) : false,
 		'disable_fontawesome' => isset( $data['disable_fontawesome'] )	? esc_attr( $data['disable_fontawesome'] ) : false,
 		'notification_email' 	=> ( isset( $data['notification_email'] ) && is_email( $data['notification_email'] ) ) ? $data['notification_email'] : false,
 	);
