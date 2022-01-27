@@ -13,17 +13,18 @@
 
   var Ditty_Settings = function ( elmt, options ) {
 	  
-    this.elmt						= elmt;
-    this.settings				= $.extend( {}, defaults, $.ditty_settings.defaults, options );
-    this.$elmt					= $( elmt );
-    this.$form					= this.$elmt.find( '.ditty-settings__form' );
-		this.$panels				= this.$elmt.find( '.ditty-settings__panels' );
-		this.saveBtns				= this.$elmt.find( '.ditty-settings__save' );
-		this.tabs						= this.$elmt.find( '.ditty-settings__tab' );
+    this.elmt							= elmt;
+    this.settings					= $.extend( {}, defaults, $.ditty_settings.defaults, options );
+    this.$elmt						= $( elmt );
+    this.$form						= this.$elmt.find( '.ditty-settings__form' );
+		this.$panels					= this.$elmt.find( '.ditty-settings__panels' );
+		this.saveBtns					= this.$elmt.find( '.ditty-settings__save' );
+		this.tabs							= this.$elmt.find( '.ditty-settings__tab' );
 		this.$notice_update 	= this.$elmt.find( '.ditty-notification--updated' );
-		this.$notice_error 	= this.$elmt.find( '.ditty-notification--error' );
-		this.$notice_warning = this.$elmt.find( '.ditty-notification--warning' );
-		this.initData				= null;
+		this.$notice_error 		= this.$elmt.find( '.ditty-notification--error' );
+		this.$notice_warning 	= this.$elmt.find( '.ditty-notification--warning' );
+		this.initData					= null;
+		this.url							= window.location.href;
     this._init();
   };
 
@@ -52,10 +53,15 @@
 			this.$form.on( 'ditty_input_wysiwyg_update', '.ditty-input--wysiwyg', { self: this }, this._checkUpdates );
 			this.$form.on( 'click', '.ditty-default-layout-install', { self: this }, this._installLayout );
 			this.$form.on( 'click', '.ditty-default-display-install', { self: this }, this._installDisplay );
+			
+			if ( this.url.indexOf( "#" ) > 0 ) {
+				var activePanel = this.url.substring( this.url.indexOf( "#" ) + 1 );
+				this._activatePanel( activePanel );
+			}
     },
 		
 		/**
-		 * Initialize the extensions
+		 * Initialize the slider
 		 *
 		 * @since    3.0
 		 * @return   null
@@ -187,6 +193,24 @@
 		},
 		
 		/**
+		 * Activate a panel
+		 *
+		 * @since    3.1
+		 * @return   null
+		*/
+		_activatePanel: function( panelId ) {
+			var $tab = this.$elmt.find( '.ditty-settings__tab[data-panel="' + panelId + '"]' );
+			if ( ! $tab.length ) {
+				return false;
+			}
+
+			this.$elmt.find( '.ditty-settings__tab' ).removeClass( 'active' );
+			$tab.addClass( 'active' );
+			
+			this.$panels.ditty_slider( 'showSlideById', panelId );
+		},
+
+		/**
 		 * Listen for a tab click
 		 *
 		 * @since    3.0
@@ -202,11 +226,17 @@
 			if ( $currentTab === $tab ) {
 				return false;
 			}
-
-			self.$elmt.find( '.ditty-extension__tab' ).removeClass( 'active' );
-			$tab.addClass( 'active' );
 			
-			self.$panels.ditty_slider( 'showSlideById', slideId );
+			var newUrl;			
+			if ( slideId ) {
+				var hash = '#' + slideId;
+				newUrl = self.url.split("#")[0] + hash;
+			} else {
+				newUrl = self.url.split("#")[0];
+			} 
+			history.replaceState( null, null, newUrl );
+			
+			self._activatePanel( slideId );
 		},
 		
 		/**

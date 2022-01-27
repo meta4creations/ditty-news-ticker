@@ -224,7 +224,7 @@ class Ditty {
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
 	 *
-	 * @since    3.0
+	 * @since    3.1
 	 * @access   private
 	 */
 	private function includes() {
@@ -246,6 +246,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/fields/ditty-field-divider.php';
 		require_once DITTY_DIR . 'includes/fields/ditty-field-file.php';
 		require_once DITTY_DIR . 'includes/fields/ditty-field-group.php';
+		require_once DITTY_DIR . 'includes/fields/ditty-field-heading.php';
 		require_once DITTY_DIR . 'includes/fields/ditty-field-html.php';
 		require_once DITTY_DIR . 'includes/fields/ditty-field-image.php';
 		require_once DITTY_DIR . 'includes/fields/ditty-field-number.php';

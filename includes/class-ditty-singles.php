@@ -194,10 +194,7 @@ class Ditty_Singles {
 			return false;
 		}
 		$initialized = get_post_meta( $post->ID, '_ditty_init', true );
-		$settings = get_post_meta( $post->ID, '_ditty_settings', true );
-		
-		echo '<pre>';print_r( $settings );echo '</pre>';
-		if ( ! $initialized ) {
+		if ( ! $initialized && ditty_wizard_enabled() ) {
 			$this->initialize_ditty( $post );
 		} else {
 			$settings = get_post_meta( $post->ID, '_ditty_settings', true );

@@ -1469,13 +1469,25 @@ function ditty_decrypt( $string = '', $key_1 = 'pbQttfc*y2bdNV', $key_2 = '3tq!D
 }
 
 /**
- * Decrypt values
+ * Check if Ditty News Ticker is enabled
  *
  * @since    3.0
- * @var      string $output
+ * @var      boolean
 */
 function ditty_news_ticker_enabled() {
 	if ( '' != ditty_settings( 'ditty_news_ticker' ) ) {
+		return true;
+	}
+}
+
+/**
+ * Check if Ditty Wizard is enabled
+ *
+ * @since    3.1
+ * @var      boolean
+*/
+function ditty_wizard_enabled() {
+	if ( '' != ditty_settings( 'disable_wizard' ) ) {
 		return true;
 	}
 }

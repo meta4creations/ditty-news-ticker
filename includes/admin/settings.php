@@ -127,6 +127,11 @@ function ditty_settings_display() {
 */
 function ditty_settings_general() {	
 	$fields = array(
+		'heading' => array(
+			'type' 		=> 'heading',
+			'id' 			=> 'heading',
+			'name' 		=> __( 'General Settings', 'ditty-news-ticker' ),
+		),
 		'live_refresh' => array(
 			'type' 		=> 'number',
 			'id' 			=> 'live_refresh',
@@ -181,6 +186,11 @@ function ditty_settings_general() {
 */
 function ditty_settings_variation_defaults() {	
 	$fields = array(
+		'heading' => array(
+			'type' 		=> 'heading',
+			'id' 			=> 'heading',
+			'name' 		=> __( 'Variation Defaults', 'ditty-news-ticker' ),
+		),
 		'layout_variation_defaults' => array(
 			'type' 		=> 'html',
 			'id' 			=> 'layout_variation_defaults',
@@ -198,6 +208,11 @@ function ditty_settings_variation_defaults() {
 */
 function ditty_settings_layout_templates() {	
 	$fields = array(
+		'heading' => array(
+			'type' 		=> 'heading',
+			'id' 			=> 'heading',
+			'name' 		=> __( 'Layout Templates', 'ditty-news-ticker' ),
+		),
 		'layout_templates' => array(
 			'type' 		=> 'html',
 			'id' 			=> 'layout_templates',
@@ -215,6 +230,11 @@ function ditty_settings_layout_templates() {
 */
 function ditty_settings_display_templates() {	
 	$fields = array(
+		'heading' => array(
+			'type' 		=> 'heading',
+			'id' 			=> 'heading',
+			'name' 		=> __( 'Display Defaults', 'ditty-news-ticker' ),
+		),
 		'display_templates' => array(
 			'type' 		=> 'html',
 			'id' 			=> 'display_templates',
@@ -232,6 +252,11 @@ function ditty_settings_display_templates() {
 */
 function ditty_settings_advanced() {	
 	$fields = array(
+		'heading' => array(
+			'type' 		=> 'heading',
+			'id' 			=> 'heading',
+			'name' 		=> __( 'Advanced Settings', 'ditty-news-ticker' ),
+		),
 		'disable_wizard' => array(
 			'type' 				=> 'checkbox',
 			'id' 					=> 'disable_wizard',
@@ -275,6 +300,12 @@ function ditty_settings_advanced() {
 */
 function ditty_settings_global_ditty() {
 	$fields = array(
+		'heading' => array(
+			'type' 		=> 'heading',
+			'id' 			=> 'heading',
+			'name' 		=> __( 'Global Ditty', 'ditty-news-ticker' ),
+			'desc'		=> __( 'Add Ditty dynamically anywhere on your site. You just need to specify an html selector and the position for the Ditty in relation to the selector. Then choose a Ditty and optionally set other customization options.', 'ditty-news-ticker' ),
+		),
 		'global_ditty' => array(
 			'type' 						=> 'group',
 			'id' 							=> 'global_ditty',
