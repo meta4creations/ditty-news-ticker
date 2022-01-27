@@ -122,6 +122,12 @@
 			padding-left: 30px;
 		}
     &:focus {
+			color: #FFF;
+			outline: none;
+			//box-shadow: inset 0px 0px 2px;
+			box-shadow: none;
+		}
+		&:active {
 	    color: #FFF;
 			outline: none;
 			box-shadow: none;
@@ -134,6 +140,9 @@
 		}
     &.active {
 	    background-color: $green;
+			&:hover {
+				color: #FFF;
+			}
 			&:after {
 				right: 0;
 				border: 9px solid transparent;

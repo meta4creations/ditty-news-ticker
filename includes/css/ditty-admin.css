@@ -22,6 +22,10 @@
 .wp-admin.post-new-php.post-type-ditty #titlediv {
   display: none; }
 
+.wp-admin.post-new-php.post-type-ditty.ditty-wizard-enabled .wp-heading-inline,
+.wp-admin.post-new-php.post-type-ditty.ditty-wizard-enabled .wp-header-end {
+  display: none; }
+
 @media only screen and (max-width: 850px) {
   .wp-admin.post-type-ditty #poststuff #post-body.columns-2 #side-sortables {
     width: auto; } }
@@ -1525,11 +1529,17 @@ table.wp-list-table .type-ditty_display .row-actions {
     color: #FFF;
     outline: none;
     box-shadow: none; }
+  .ditty-settings__tab:active {
+    color: #FFF;
+    outline: none;
+    box-shadow: none; }
   .ditty-settings__tab:not(.active):hover {
     color: #19BF7C;
     background-color: rgba(0, 0, 0, 0.5); }
   .ditty-settings__tab.active {
     background-color: #19BF7C; }
+    .ditty-settings__tab.active:hover {
+      color: #FFF; }
     .ditty-settings__tab.active:after {
       right: 0;
       border: 9px solid transparent;

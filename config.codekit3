@@ -1933,6 +1933,22 @@
       "oAP" : "\/languages\/ditty-news-ticker-ar.po",
       "oF" : 0
     },
+    "\/languages\/ditty-news-ticker-de_DE.mo" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/languages\/ditty-news-ticker-de_DE.mo",
+      "oF" : 0
+    },
+    "\/languages\/ditty-news-ticker-de_DE.po" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/languages\/ditty-news-ticker-de_DE.po",
+      "oF" : 0
+    },
     "\/languages\/ditty-news-ticker-en_US.mo" : {
       "cB" : 0,
       "ft" : 8192,

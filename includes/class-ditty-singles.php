@@ -32,6 +32,7 @@ class Ditty_Singles {
 		// General hooks
 		add_filter( 'post_row_actions', array( $this, 'modify_list_row_actions' ), 10, 2 );
 		add_action( 'mtphr_post_duplicator_created', array( $this, 'after_duplicate_post' ), 10, 3 );	
+		add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
 		
 		// Editor elements
 		add_action( 'ditty_editor_tabs', array( $this, 'editor_tab' ), 100, 2 );
@@ -194,7 +195,6 @@ class Ditty_Singles {
 			return false;
 		}
 		$initialized = get_post_meta( $post->ID, '_ditty_init', true );
-		echo '<pre>';print_r(ditty_wizard_enabled());echo '</pre>';
 		if ( ! $initialized && ditty_wizard_enabled() ) {
 			$this->initialize_ditty( $post );
 		} else {
@@ -515,6 +515,19 @@ class Ditty_Singles {
 		wp_send_json( $data );
 	}
 	
+	/**
+	 * Add to the admin body class
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function add_admin_body_class( $classes ) {
+		if ( ditty_wizard_enabled() ) {
+			$classes .= ' ditty-wizard-enabled ';
+		}
+		return $classes;
+	}
+
 	/**
 	 * Duplicate Ditty items on Post Duplicator duplication
 	 * 
