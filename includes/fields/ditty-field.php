@@ -107,7 +107,9 @@ class Ditty_Field {
 	public function html() {
 		$html = '';
 		if ( $this->args['field_only'] ) {
-			$html .= $this->input( $this->args['id'] );
+			$html .= '<div class="ditty-field-only ditty-field-only--' . $this->type . ' ditty-field-only--' . $this->args['id'] . '">';
+				$html .= $this->input( $this->args['id'] );
+			$html .= '</div>';
 		} else {
 			$html .= '<div ' . ditty_attr_to_html( $this->html_atts() ) . '>';
 				if ( '' != $this->label() || '' != $this->description() ) {

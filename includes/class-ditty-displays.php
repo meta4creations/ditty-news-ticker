@@ -789,7 +789,6 @@ class Ditty_Displays {
 			'draft_id' 					=> $draft_id,
 			'draft_data'				=> $draft_data,
 		);
-		ChromePhp::log( 'editor data: ', $data );
 		wp_send_json( $data );		
 	}
 

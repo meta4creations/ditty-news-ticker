@@ -28,6 +28,7 @@ function ditty_field( $args = array() ) {
  * @since   3.0.12
  */
 function ditty_fields( $fields = array(), $values = array(), $action = 'render' ) {
+	$rendered_fields = '';
 	if ( is_array( $fields ) && count( $fields ) > 0 ) {
 		foreach ( $fields as &$field ) {
 			if ( ! is_array( $field ) ) {
@@ -36,13 +37,13 @@ function ditty_fields( $fields = array(), $values = array(), $action = 'render' 
 			if ( isset( $values[$field['id']] ) ) {
 				$field['std'] = $values[$field['id']];
 			}
-			
-			if ( 'return' == $action ) {
-				return ditty_field( $field );
-			} else {
-				echo ditty_field( $field );
-			}
+			$rendered_fields .= ditty_field( $field );;
 		}
+	}
+	if ( 'return' == $action ) {
+		return $rendered_fields;
+	} else {
+		echo $rendered_fields;
 	}
 }
 

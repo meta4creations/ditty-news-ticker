@@ -303,74 +303,6 @@ function ditty_settings_advanced() {
 }
 
 /**
- * Setup the import and export fields
- *
- * @since    3.1
-*/
-function ditty_settings_import_export() {	
-	$fields = array(
-		'ditty_heading' => array(
-			'type' 		=> 'heading',
-			'id' 			=> 'heading',
-			'name' 		=> __( 'Ditty Import / Export', 'ditty-news-ticker' ),
-		),
-		'ditty_import' => array(
-			'type'	=> 'html',
-			'id' 		=> 'ditty_import',
-			'name' 	=> __( 'Ditty Import', 'ditty-news-ticker' ),
-			'help'	=> __( 'Import Ditty posts', 'ditty-news-ticker' ),
-			'std'		=> 'Import button should go here',
-		),
-		'ditty_export' => array(
-			'type'	=> 'html',
-			'id' 		=> 'ditty_export',
-			'name' 	=> __( 'Ditty Export', 'ditty-news-ticker' ),
-			'help'	=> __( 'Export Ditty posts', 'ditty-news-ticker' ),
-			'std'		=> 'Export button should go here',
-		),
-		'layout_heading' => array(
-			'type' 		=> 'heading',
-			'id' 			=> 'heading',
-			'name' 		=> __( 'Layout Import / Export', 'ditty-news-ticker' ),
-		),
-		'layout_import' => array(
-			'type'	=> 'html',
-			'id' 		=> 'layout_import',
-			'name' 	=> __( 'Layout Import', 'ditty-news-ticker' ),
-			'help'	=> __( 'Import Layout posts', 'ditty-news-ticker' ),
-			'std'		=> 'Import button should go here',
-		),
-		'layout_export' => array(
-			'type'	=> 'html',
-			'id' 		=> 'layout_export',
-			'name' 	=> __( 'Layout Export', 'ditty-news-ticker' ),
-			'help'	=> __( 'Export Layout posts', 'ditty-news-ticker' ),
-			'std'		=> 'Export button should go here',
-		),
-		'display_heading' => array(
-			'type' 		=> 'heading',
-			'id' 			=> 'heading',
-			'name' 		=> __( 'Display Import / Export', 'ditty-news-ticker' ),
-		),
-		'display_import' => array(
-			'type'	=> 'html',
-			'id' 		=> 'display_import',
-			'name' 	=> __( 'Display Import', 'ditty-news-ticker' ),
-			'help'	=> __( 'Import Display posts', 'ditty-news-ticker' ),
-			'std'		=> 'Import button should go here',
-		),
-		'display_export' => array(
-			'type'	=> 'html',
-			'id' 		=> 'display_export',
-			'name' 	=> __( 'Display Export', 'ditty-news-ticker' ),
-			'help'	=> __( 'Export Display posts', 'ditty-news-ticker' ),
-			'std'		=> 'Export button should go here',
-		),
-	);
-	ditty_fields( $fields );
-}
-
-/**
  * Setup the global Ditty fields
  *
  * @since    3.0  
@@ -443,6 +375,101 @@ function ditty_settings_global_ditty() {
 		),
 	);
 	ditty_fields( $fields );
+}
+
+/**
+ * Setup the import and export fields
+ *
+ * @since    3.1
+*/
+function ditty_settings_import_export() {	
+	$fields = array(
+		'ditty_heading' => array(
+			'type' 		=> 'heading',
+			'id' 			=> 'heading',
+			'name' 		=> __( 'Ditty Import / Export', 'ditty-news-ticker' ),
+		),
+		'ditty_import' => array(
+			'type'	=> 'html',
+			'id' 		=> 'ditty_import',
+			'name' 	=> __( 'Ditty Import', 'ditty-news-ticker' ),
+			'help'	=> __( 'Import Ditty posts', 'ditty-news-ticker' ),
+			'std'		=> 'Import button should go here',
+		),
+		'ditty_export' => array(
+			'type'	=> 'html',
+			'id' 		=> 'ditty_export',
+			'name' 	=> __( 'Ditty Export', 'ditty-news-ticker' ),
+			'desc'	=> __( 'Export Ditty posts', 'ditty-news-ticker' ),
+			'std'		=> ditty_export_ditty(),
+		),
+		'layout_heading' => array(
+			'type' 		=> 'heading',
+			'id' 			=> 'heading',
+			'name' 		=> __( 'Layout Import / Export', 'ditty-news-ticker' ),
+		),
+		'layout_import' => array(
+			'type'	=> 'html',
+			'id' 		=> 'layout_import',
+			'name' 	=> __( 'Layout Import', 'ditty-news-ticker' ),
+			'help'	=> __( 'Import Layout posts', 'ditty-news-ticker' ),
+			'std'		=> 'Import button should go here',
+		),
+		'layout_export' => array(
+			'type'	=> 'html',
+			'id' 		=> 'layout_export',
+			'name' 	=> __( 'Layout Export', 'ditty-news-ticker' ),
+			'help'	=> __( 'Export Layout posts', 'ditty-news-ticker' ),
+			'std'		=> 'Export button should go here',
+		),
+		'display_heading' => array(
+			'type' 		=> 'heading',
+			'id' 			=> 'heading',
+			'name' 		=> __( 'Display Import / Export', 'ditty-news-ticker' ),
+		),
+		'display_import' => array(
+			'type'	=> 'html',
+			'id' 		=> 'display_import',
+			'name' 	=> __( 'Display Import', 'ditty-news-ticker' ),
+			'help'	=> __( 'Import Display posts', 'ditty-news-ticker' ),
+			'std'		=> 'Import button should go here',
+		),
+		'display_export' => array(
+			'type'	=> 'html',
+			'id' 		=> 'display_export',
+			'name' 	=> __( 'Display Export', 'ditty-news-ticker' ),
+			'help'	=> __( 'Export Display posts', 'ditty-news-ticker' ),
+			'std'		=> 'Export button should go here',
+		),
+	);
+	ditty_fields( $fields );
+}
+
+function ditty_export_ditty() {	
+	$fields = array(
+		'ditty_export_type' => array(
+			'type'		=> 'checkboxes',
+			'id' 			=> 'ditty_export_type',
+			'options'	=> array(
+				'layouts' => __( 'Export Attached Layouts', 'ditty-news-ticker' ),
+				'displays' => __( 'Export Attached Displays', 'ditty-news-ticker' ),
+			),
+			'inline' => true,
+			'field_only' => true,
+			'std' => array(
+				'layouts',
+				'displays'
+			),
+		),
+		'ditty_export_button' => array(
+			'type'	=> 'button',
+			'id' 		=> 'ditty_export_button',
+			'label'	=> __( 'Export All Ditty posts', 'ditty-news-ticker' ) . ' <i class="fas fa-sync-alt fa-spin"></i>',
+			'field_only' => true,
+		),
+	);
+	$render_fields = ditty_fields( $fields, false, 'return' );
+	return $render_fields;
 }
 
 /**
