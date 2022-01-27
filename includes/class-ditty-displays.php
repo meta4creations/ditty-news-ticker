@@ -277,6 +277,9 @@ class Ditty_Displays {
 			update_post_meta( $post_id, '_ditty_display_description', $display_description );
 		}
 		
+		// Possibly add a uniq_id
+		ditty_maybe_add_uniq_id( $post_id );
+		
 		// Remove the version number of edited displays
 		delete_post_meta( $post_id, '_ditty_display_template' );
 		delete_post_meta( $post_id, '_ditty_display_version' );
@@ -841,7 +844,7 @@ class Ditty_Displays {
 	 * Save display draft values on Ditty update
 	 *
 	 * @access public
-	 * @since  3.0
+	 * @since  3.1
 	 */
 	public function update_drafts( $ditty_id, $draft_values ) {
 		if ( ! current_user_can( 'edit_ditty_displays' ) ) {
@@ -903,6 +906,9 @@ class Ditty_Displays {
 						$sanitized_settings = ditty_sanitize_fields( $fields, $display_data['settings'], "ditty_display_type_{$display_type}" );
 						update_post_meta( $display_id, '_ditty_display_settings', $sanitized_settings );
 					}
+					
+					// Possibly add a uniq_id
+					ditty_maybe_add_uniq_id( $display_id );
 					
 					// Remove the version number of edited displays
 					delete_post_meta( $display_id, '_ditty_display_version' );

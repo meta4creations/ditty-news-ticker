@@ -1489,6 +1489,19 @@ function ditty_decrypt( $string = '', $key_1 = 'pbQttfc*y2bdNV', $key_2 = '3tq!D
 }
 
 /**
+ * Add a uniq_id to a post if it doesn't exist
+ *
+ * @since    3.1
+ * @var      boolean
+*/
+function ditty_maybe_add_uniq_id( $post_id ) {
+	if ( ! get_post_meta( $post_id, '_ditty_uniq_id', true ) ) {
+		$uniq_id = $post_id . current_time( 'timestamp', true );
+		update_post_meta( $post_id, '_ditty_uniq_id', $uniq_id );
+	}
+}
+
+/**
  * Check if Ditty News Ticker is enabled
  *
  * @since    3.0

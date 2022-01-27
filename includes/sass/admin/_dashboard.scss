@@ -118,4 +118,25 @@ table.wp-list-table .type-ditty_display .row-actions {
 		}
 	}
 }
+.ditty-upgrade {
+	&__element {
+		display: flex;
+		flex-direction: row;
+		align-items: stretch;
+		justify-content: flex-start;
+		flex-wrap: wrap
+	}
+	&__start {
+		flex: 0 0 auto;
+		border-top-right-radius: 0 !important;
+		border-bottom-right-radius: 0 !important;
+	}
+	&__bar {
+		flex: 1;
+		background: #F7F7F7;
+		border: 1px solid #c3c4c7;
+		border-top-right-radius: 3px;
+		border-bottom-right-radius: 3px;
+	}
+}
 

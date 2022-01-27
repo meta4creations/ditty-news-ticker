@@ -332,6 +332,9 @@ class Ditty_Layouts {
 		update_post_meta( $post_id, '_ditty_layout_html', $layout_html );
 		update_post_meta( $post_id, '_ditty_layout_css', $layout_css );
 		
+		// Possibly add a uniq_id
+		ditty_maybe_add_uniq_id( $post_id );
+		
 		// Remove the version number of edited layouts
 		delete_post_meta( $post_id, '_ditty_layout_template' );
 		delete_post_meta( $post_id, '_ditty_layout_version' );
@@ -973,7 +976,7 @@ class Ditty_Layouts {
 	 * Save layout draft values on Ditty update
 	 *
 	 * @access public
-	 * @since  3.0
+	 * @since  3.1
 	 */
 	public function update_drafts( $ditty_id, $draft_values ) {
 		if ( ! current_user_can( 'edit_ditty_layouts' ) ) {
@@ -1028,6 +1031,9 @@ class Ditty_Layouts {
 					if ( isset( $layout_data['css'] ) ) {
 						update_post_meta( $layout_id, '_ditty_layout_css', wp_kses_post( $layout_data['css'] ) );
 					}	
+					
+					// Possibly add a uniq_id
+					ditty_maybe_add_uniq_id( $layout_id );
 					
 					// Remove the version number of edited layouts
 					delete_post_meta( $layout_id, '_ditty_layout_version' );

@@ -100,6 +100,25 @@ table.wp-list-table .type-ditty_display .row-actions {
       .ditty-dashboard-notice .ditty-features-list li i {
         margin-right: 5px; }
 
+.ditty-upgrade__element {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: flex-start;
+  flex-wrap: wrap; }
+
+.ditty-upgrade__start {
+  flex: 0 0 auto;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important; }
+
+.ditty-upgrade__bar {
+  flex: 1;
+  background: #F7F7F7;
+  border: 1px solid #c3c4c7;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px; }
+
 .ditty-field {
   padding: 10px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05); }

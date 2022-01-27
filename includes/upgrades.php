@@ -3,7 +3,7 @@
 /**
  * Run updates
  *
- * @since  3.0.3
+ * @since  3.1
  * @return void
  */
 function ditty_updates() {
@@ -18,13 +18,62 @@ function ditty_updates() {
 	if ( version_compare( $current_version, '3.0.6', '<' ) ) {
 		ditty_v3_0_6_upgrades();
 	}
-	
+	if ( version_compare( $current_version, '3.1', '<' ) ) {
+		//ditty_v3_1_upgrades();
+	}
+
 	if ( DITTY_VERSION != $current_version ) {
 		update_option( 'ditty_plugin_version_upgraded_from', $current_version );
 		update_option( 'ditty_plugin_version', DITTY_VERSION );
 	}
 }
 add_action( 'admin_init', 'ditty_updates' );
+
+/**
+ * Version 3.1 Updates
+ *
+ * @since  3.1
+ * @return void
+ */
+function ditty_v3_1_upgrades() {
+	
+	// Add uniq_ids to each Layout & Display
+	$args = array(
+		'posts_per_page' => -1,
+		'post_type' => array( 'ditty_layout', 'ditty_display' ),
+		'post_status' => 'any',
+		'meta_query' => array(
+			array(
+				'key' 	=> '_ditty_uniq_id',
+				'compare'	=> 'NOT EXISTS',
+			)
+		),
+	);
+	$posts = get_posts( $args );
+	if ( is_array( $posts ) && count( $posts ) > 0 ) {
+		foreach ( $posts as $i => $post ) {
+			ditty_maybe_add_uniq_id( $post->ID );
+		}
+	}
+}
+
+/**
+ * Version 3.0.6 Updates
+ *
+ * @since  3.0.6
+ * @return void
+ */
+function ditty_v3_0_6_upgrades() {
+	$ditty_notices = get_option( 'ditty_notices', array() );
+	$args = array(
+		'post_type' => 'ditty_news_ticker',
+	);
+	$news_tickers = get_posts( $args );
+	if ( is_array( $news_tickers ) && count( $news_tickers ) > 0 ) {
+		$ditty_notices['v3_0_6'] = 'v3_0_6';
+		update_option( 'ditty_notices', $ditty_notices );
+	}
+}
 
 /**
  * Version 3.0 Updates
@@ -126,19 +175,29 @@ function ditty_v3_upgrades() {
 }
 
 /**
- * Version 3.0.6 Updates
+ * Add upgrade notices
  *
- * @since  3.0.6
- * @return void
- */
-function ditty_v3_0_6_upgrades() {
-	$ditty_notices = get_option( 'ditty_notices', array() );
-	$args = array(
-		'post_type' => 'ditty_news_ticker',
+ * @since    3.1
+*/
+function ditty_upgrade_notices() {
+	$ditty_upgrades = get_option( 'ditty_upgrades', array() );
+	$ditty_upgrades = array(
+		'3_1' => 'testing',
 	);
-	$news_tickers = get_posts( $args );
-	if ( is_array( $news_tickers ) && count( $news_tickers ) > 0 ) {
-		$ditty_notices['v3_0_6'] = 'v3_0_6';
-		update_option( 'ditty_notices', $ditty_notices );
+	if ( ! empty( $ditty_upgrades ) ) {
+		?>
+		<div class="notice notice-info ditty-dashboard-notice ditty-dashboard-notice--upgrade">
+			<div class="ditty-dashboard-notice__content">
+				<p><?php printf( __( 'Ditty v%s requires updates. Click the button below to get started!', 'ditty-news-ticker' ), ditty_version() ); ?></p>
+				<p class="ditty-upgrade__element">
+					<a href="#" class="button ditty-upgrade__start"><?php _e( 'Start Update', 'ditty-news-ticker' ); ?></a>
+					<span class="ditty-upgrade__bar">
+						<span class="ditty-upgrade__progress"></span>
+					</span>
+				</p>
+			</div>
+		</div>
+		<?php
 	}
 }
+//add_action( 'admin_notices', 'ditty_upgrade_notices' );
