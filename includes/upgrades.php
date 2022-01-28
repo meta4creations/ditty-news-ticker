@@ -55,6 +55,31 @@ function ditty_v3_1_upgrades() {
 			ditty_maybe_add_uniq_id( $post->ID );
 		}
 	}
+	
+	// Add uniq_ids and init data to each Ditty
+	$args = array(
+		'posts_per_page' => -1,
+		'post_type' => 'ditty',
+		'post_status' => 'any',
+		'meta_query' => array(
+			'relation' => 'OR',
+			array(
+				'key' 		=> '_ditty_uniq_id',
+				'compare'	=> 'NOT EXISTS',
+			),
+			array(
+				'key' 		=> '_ditty_init',
+				'compare'	=> 'NOT EXISTS',
+			)
+		),
+	);
+	$posts = get_posts( $args );
+	if ( is_array( $posts ) && count( $posts ) > 0 ) {
+		foreach ( $posts as $i => $post ) {
+			ditty_maybe_add_uniq_id( $post->ID );
+			update_post_meta( $post->ID, '_ditty_init', 'yes' );
+		}
+	}
 }
 
 /**

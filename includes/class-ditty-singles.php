@@ -495,6 +495,9 @@ class Ditty_Singles {
 		$display = isset( $init_values_ajax['display'] ) ? intval( $init_values_ajax['display'] ) : ditty_default_display( $ditty_id_ajax );
 		update_post_meta( $ditty_id_ajax, '_ditty_display', $display );
 		
+		// Possibly add a uniq_id
+		ditty_maybe_add_uniq_id( $ditty_id_ajax );
+		
 		// Add the first item
 		$item_data = array(
 			'ditty_id'			=> intval( $ditty_id_ajax ),
@@ -1016,7 +1019,10 @@ class Ditty_Singles {
 			unset( $item['item_id'] );
 			$sanitized_item_data = $this->sanitize_item_data( $item );	
 			Ditty()->db_items->insert( apply_filters( 'ditty_item_db_data', $sanitized_item_data, $ditty_id_ajax ), 'item' );
-		}	
+		}
+		
+		// Possibly add a uniq_id
+		ditty_maybe_add_uniq_id( $ditty_id_ajax );
 
 		$display_items = ditty_display_items( $ditty_id_ajax, 'force' );
 		if ( boolval( $return_items_ajax ) ) {
