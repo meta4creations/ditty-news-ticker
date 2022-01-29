@@ -36,6 +36,8 @@
 		this.$editorLayoutVariationTitle	= this.$editorLayoutVariation.find( '.ditty-layout-variation__template span' );
     this.editorDittyId								= this.$editorItem.data( 'ditty_id' );
     this.editorItemId									= this.$editorItem.data( 'item_id' );
+		this.editorItemType								= this.$editorItem.data( 'item_type' );
+		this.editorItemValue							= this.$editorItem.data( 'item_value' );
     this.codeEditor										= null;
     this.codeHasUpdates 							= false;
     this.initData											= null;
@@ -227,7 +229,8 @@
 					layout_title	: self.$title.val(),
 					ditty_id			: self.editorDittyId,
 					item_id				: self.editorItemId,
-					item_type			: self.itemType,
+					item_type			: self.editorItemType,
+					item_value		: self.editorItemValue,
 					edit_type			: 'css',
 					draft_values 	: self.settings.editor.getDraftValues(),
 					security			: dittyVars.security

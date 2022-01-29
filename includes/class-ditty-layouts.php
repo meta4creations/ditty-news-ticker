@@ -730,7 +730,7 @@ class Ditty_Layouts {
 		if ( ! $layout = new Ditty_Layout( $layout_id_ajax, $item_type_ajax, $item_value_ajax ) ) {
 			wp_die();
 		}
-		
+
 		$quick_change = '';
 		$textarea_val = '';
 		$tags_list = '';

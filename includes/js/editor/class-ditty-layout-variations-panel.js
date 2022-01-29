@@ -22,6 +22,7 @@
 		this.editorDittyId			= this.$editorItem.data( 'ditty_id' );
 		this.editorItemId				= this.$editorItem.data( 'item_id' );
 		this.editorItemType			= this.$editorItem.data( 'item_type' );
+		this.editorItemValue		= this.$editorItem.data( 'item_value' );
 
 		this._init();
 	};
@@ -140,8 +141,7 @@
 					editType 					= e.data.editType,
 					$button 					= $( e.target ).is( 'a' ) ? $( e.target ) : $( e.target ).parent( 'a' ),
 					$layoutVariation 	= $button.parents( '.ditty-data-list__item' ),
-					layoutId 					= $layoutVariation.data( 'layout_id' ),
-					itemType					= $layoutVariation.data( 'item_type' );
+					layoutId 					= $layoutVariation.data( 'layout_id' );
 					
 			dittyVars.editor.currentLayoutVariation = $layoutVariation; // Set the current layout variation
 			
@@ -160,8 +160,8 @@
 			var data = {
 				action				: 'ditty_editor_layout_fields',
 				layout_id			: layoutId,
-				item_type			: itemType,
-				item_value		: self.$editorItem.data( 'item_value' ),
+				item_type			: self.editorItemType,
+				item_value		: self.editorItemValue,
 				ditty_id			: self.editorDittyId,
 				item_id				: self.editorItemId,
 				item_ids			: itemIds,

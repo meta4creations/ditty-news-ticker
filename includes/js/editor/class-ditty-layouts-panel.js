@@ -21,6 +21,7 @@
     this.editorDittyId			= this.$editorItem.data( 'ditty_id' );
     this.editorItemId				= this.$editorItem.data( 'item_id' );
 		this.editorItemtype			= this.$editorItem.data( 'item_type' );
+		this.editorItemValue		= this.$editorItem.data( 'item_value' );
     this.$editorVariation 	= dittyVars.editor.currentLayoutVariation;
     this.editorVariationId	= this.$editorVariation.data( 'layout_variation_id' );
     this.editorLayoutId			= this.$editorVariation.data( 'layout_id' );
@@ -289,6 +290,8 @@
 				action				: 'ditty_editor_layout_fields',
 				layout_id			: layoutId,
 				item_id				: self.editorItemId,
+				item_type			: self.editorItemtype,
+				item_value		: self.editorItemValue,
 				edit_type			: editType,
 				draft_values	: self.settings.editor.getDraftValues(),
 				security			: dittyVars.security
