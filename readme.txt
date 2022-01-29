@@ -73,6 +73,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 * Updated German translation
 * Added uniq_id meta to Ditty, Layouts & Displays
 * Added init meta to Ditty
+* Resolved editor layout bugs
 
 
 = 3.0.12 =
