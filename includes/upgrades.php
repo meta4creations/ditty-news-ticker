@@ -87,11 +87,12 @@ function ditty_v3_1_upgrades() {
 			$all_meta = Ditty()->db_items->get_items( $post->ID );
 			if ( is_array( $all_meta ) && count( $all_meta ) > 0 ) {
 				foreach ( $all_meta as $i => $meta ) {
-					$add_dates = array(
+					$add_data = array(
+						'item_author' 	=> intval( $post->post_author ),
 						'date_created' 	=> sanitize_text_field( $post->post_date_gmt ),
 						'date_modified' => sanitize_text_field( $post->post_date_gmt ),
 					);
-					Ditty()->db_items->update( $meta->item_id, $add_dates, 'item_id' );
+					Ditty()->db_items->update( $meta->item_id, $add_data, 'item_id' );
 				} 
 			}
 		}

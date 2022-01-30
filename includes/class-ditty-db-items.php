@@ -44,6 +44,7 @@ class Ditty_DB_Items extends Ditty_DB {
 			'ditty_id' 			=> '%d',
 			'layout_value'	=> '%s',
 			'item_index'  	=> '%d',
+			'item_author'  	=> '%d',
 			'date_created'  => '%s',
 			'date_modified' => '%s',
 		);
@@ -59,9 +60,10 @@ class Ditty_DB_Items extends Ditty_DB {
 			'item_id'     	=> 0,
 			'item_type'  		=> '',
 			'item_value'  	=> '',
-			'ditty_id' 		=> 0,
+			'ditty_id' 			=> 0,
 			'layout_value'	=> '',
 			'item_index'  	=> 0,
+			'item_author'  	=> 0,
 			'date_created'  => date( 'Y-m-d H:i:s' ),
 			'date_modified' => date( 'Y-m-d H:i:s' ),
 		);
@@ -162,6 +164,7 @@ class Ditty_DB_Items extends Ditty_DB {
 			ditty_id bigint(20) NOT NULL,
 			layout_value longtext,
 			item_index bigint(20),
+			item_author bigint(20),
 			date_created datetime NOT NULL,
 			date_modified datetime NOT NULL,
 			PRIMARY KEY  (item_id),

@@ -18,6 +18,7 @@ class Ditty_Display_Item {
 	private $item_type;
 	private $item_type_object;
 	private $item_value;
+	private $item_author;
 	private $ditty_id;
 	private $has_error;
 	private $custom_classes;
@@ -38,6 +39,7 @@ class Ditty_Display_Item {
 		$this->ditty_id 			= isset( $meta['ditty_id'] ) 				? $meta['ditty_id'] 			: -1;
 		$this->has_error 			= isset( $meta['has_error'] ) 			? $meta['has_error']			: false;
 		$this->custom_classes = isset( $meta['custom_classes'] ) 	? $meta['custom_classes']	: false;
+		$this->item_author		= isset( $meta['item_author'] ) 		? intval( $meta['item_author'] )	: false;
 		$this->date_created		= isset( $meta['date_created'] ) 		? $meta['date_created']	: false;
 		$this->date_modified	= isset( $meta['date_modified'] ) 	? $meta['date_modified']	: false;
 		$this->parse_layout_id();
@@ -55,6 +57,7 @@ class Ditty_Display_Item {
 			'item_id' 				=> $this->get_id(),
 			'item_type' 			=> $this->get_item_type(),
 			'item_value' 			=> $this->get_value(),
+			'item_author'			=> $this->get_item_author(),
 			'ditty_id' 				=> $this->get_ditty_id(),
 			'layout_value' 		=> $this->get_layout_value(),
 			'date_created'		=> $this->get_date_created(),
@@ -128,6 +131,17 @@ class Ditty_Display_Item {
 	public function get_item_type() {
 		return $this->item_type;
 	}
+	
+	/**
+	 * Return the item author
+	 *
+	 * @access public
+	 * @since  3.1
+	 * @return int $item_author
+	 */
+	public function get_item_author() {
+		return $this->item_author;
+	}
 
 	/**
 	 * Return the layout id
@@ -159,11 +173,7 @@ class Ditty_Display_Item {
 	 * @return date $date_created
 	 */
 	public function get_date_created() {
-		if ( $this->date_created ) {
-			return $this->date_created;
-		} else {
-			return date( 'Y-m-d H:i:s' );
-		}
+		return $this->date_created;
 	}
 	
 	/**
@@ -174,11 +184,7 @@ class Ditty_Display_Item {
 	 * @return date $date_modified
 	 */
 	public function get_date_modified() {
-		if ( $this->date_modified ) {
-			return $this->date_modified;
-		} else {
-			return date( 'Y-m-d H:i:s' );
-		}
+		return $this->date_modified;
 	}
 
 	/**

@@ -476,7 +476,6 @@ class Ditty_Items {
 		if ( is_array( $item_ids_ajax ) && count( $item_ids_ajax ) > 0 ) {
 			foreach ( $item_ids_ajax as $index => $item_id ) {
 				$editor_item = new Ditty_Item( $item_id );
-				//$editor_item->init_draft( $ditty_id_ajax, $item_id );
 				$editor_item->set_item_index( $index );
 			}
 		}	

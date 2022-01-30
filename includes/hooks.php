@@ -126,6 +126,9 @@ function ditty_default_layout_tags_list( $tags, $item_type ) {
 		$allowed_tags = array(
 			'content',
 			'time',
+			'author_avatar',
+			'author_bio',
+			'author_name',
 		);
 		$tags = array_intersect_key( $tags, array_flip( $allowed_tags ) );
 	}

@@ -20,6 +20,7 @@ class Ditty_Item {
 	private $icon;
 	private $label;
 	private $item_type_object;
+	private $item_author;
 	private $date_created;
 	private $date_modified;
 
@@ -71,11 +72,12 @@ class Ditty_Item {
 			return $meta;
 		}
 		$meta['item_id'] 			= isset( $draft_values['item_id'] ) 			? $draft_values['item_id'] 			: ( isset( $meta['item_id'] ) 			? $meta['item_id'] 			: $this->item_id );
-		$meta['ditty_id'] 		= isset( $draft_values['ditty_id'] ) 			? $draft_values['ditty_id'] 		: ( isset( $meta['ditty_id'] ) 		? $meta['ditty_id'] 		: $this->ditty_id );
+		$meta['ditty_id'] 		= isset( $draft_values['ditty_id'] ) 			? $draft_values['ditty_id'] 		: ( isset( $meta['ditty_id'] ) 			? $meta['ditty_id'] 		: $this->ditty_id );
 		$meta['item_type'] 		= isset( $draft_values['item_type'] ) 		? $draft_values['item_type']		: ( isset( $meta['item_type'] ) 		? $meta['item_type'] 		: $this->item_type );
 		$meta['item_value'] 	= isset( $draft_values['item_value'] ) 		? $draft_values['item_value'] 	: ( isset( $meta['item_value'] ) 		? $meta['item_value'] 	: $this->item_value );
 		$meta['layout_value']	= isset( $draft_values['layout_value'] )	? $draft_values['layout_value'] : ( isset( $meta['layout_value'] )	? $meta['layout_value'] : $this->layout_value );
 		$meta['item_index']		= isset( $draft_values['item_index'] ) 		? $draft_values['item_index'] 	: ( isset( $meta['item_index'] )		? $meta['item_index']		: $this->item_index );
+		$meta['item_author']	= isset( $draft_values['item_author'] ) 	? $draft_values['item_author'] 	: ( isset( $meta['item_author'] )		? $meta['item_author']	: $this->item_author );
 		return $meta;
 	}
 	
@@ -100,6 +102,7 @@ class Ditty_Item {
 			$this->layout_value 	= isset( $meta['layout_value'] ) 	? maybe_unserialize( $meta['layout_value'] ) : $this->layout_value;
 			$this->item_value 		= isset( $meta['item_value'] ) 		? maybe_unserialize( $meta['item_value'] ) : false;
 			$this->item_index 		= isset( $meta['item_index'] ) 		? $meta['item_index'] 		: $this->item_index;
+			$this->item_author 		= isset( $meta['item_author'] ) 	? $meta['item_author'] 		: $this->item_author;
 			$this->date_created 	= isset( $meta['date_created'] ) 	? $meta['date_created'] 	: date( 'Y-m-d H:i:s' );
 			$this->date_modified 	= isset( $meta['date_modified'] ) ? $meta['date_modified'] 	: date( 'Y-m-d H:i:s' );
 			if ( $item_type_object 	= $this->get_type_object() ) {
@@ -124,6 +127,7 @@ class Ditty_Item {
 			'ditty_id' 				=> $this->get_ditty_id(),
 			'layout_value' 		=> $this->get_layout_value(),
 			'item_index'			=> $this->get_index(),
+			'item_author'			=> $this->get_item_author(),
 			'date_created'		=> $this->get_date_created(),
 			'date_modified'		=> $this->get_date_modified(),
 		);
@@ -317,6 +321,33 @@ class Ditty_Item {
 	}
 	
 	/**
+	 * Return the item author
+	 * @access public
+	 * @since  3.1
+	 * @return int $item_author
+	 */
+	public function get_item_author() {
+		if ( $this->item_author ) {
+			return $this->item_author;
+		}
+	}
+	
+	/**
+	 * Set the date created
+	 * @access public
+	 * @since  3.1
+	 * @return int $item_author
+	 */
+	public function set_item_author( $author = false ) {
+		if ( $author ) {
+			$this->item_author = intval( $author );
+		} else {
+			$this->item_author = get_current_user_id();
+		}
+		return $this->item_author;
+	}
+	
+	/**
 	 * Return the date created
 	 * @access public
 	 * @since  3.1
@@ -407,6 +438,7 @@ class Ditty_Item {
 			'item_type' 		=> $this->get_type(),
 			'item_value' 		=> $this->get_value(),
 			'layout_value'	=> $this->get_layout_value(),
+			'item_author' 	=> $this->get_item_author(),
 			'date_created'	=> $this->get_date_created(),
 			'date_modified'	=> $this->get_date_modified(),
 		);

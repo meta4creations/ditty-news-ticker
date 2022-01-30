@@ -1075,6 +1075,7 @@ function ditty_get_new_item_meta( $ditty_id ) {
 		'item_id' 			=> uniqid( 'new-' ),
 		'item_type' 		=> 'default',
 		'item_value' 		=> $item_value,
+		'item_author'		=> get_current_user_id(),
 		'ditty_id' 			=> $ditty_id,
 		'layout_value' 	=> array( 'default' => ditty_get_default_layout() ),
 	);

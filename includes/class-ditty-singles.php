@@ -991,6 +991,9 @@ class Ditty_Singles {
 					if ( isset( $item_data['data'] ) ) {
 						$sanitized_item_data = $this->sanitize_item_data( $item_data['data'] );	
 						if ( false !== strpos( $item_id, 'new-' ) ) {
+							
+							// Set the item_author
+							$sanitized_item_data['item_author'] = get_current_user_id();
 							if ( $new_item_id = Ditty()->db_items->insert( apply_filters( 'ditty_item_db_data', $sanitized_item_data, $ditty_id_ajax ), 'item' ) ) {
 								if ( ! isset( $json_data['ditty_new_item_ids'] ) ) {
 									$json_data['ditty_new_item_ids'] = array();

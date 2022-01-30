@@ -12,11 +12,12 @@ function ditty_default_layout_tag_author_avatar_data( $avatar_data, $item_type, 
 		'wp_editor',
 	);
 	if ( in_array(  $item_type, $types ) ) {	
-		// $author_id = ditty_posts_lite_tag_value( $data, 'post_author' );
-		// $avatar_data = array(
-		// 	'src' => get_avatar_url( $author_id ),
-		// 	'alt'	=> get_the_author_meta( 'display_name', $author_id ),
-		// );
+		if ( $item_author = ditty_layout_item_meta( $data, 'item_author' ) ) {
+			$avatar_data = array(
+				'src' => get_avatar_url( $item_author ),
+				'alt'	=> get_the_author_meta( 'display_name', $item_author ),
+			);
+		}
 	}
 	return $avatar_data;
 }
@@ -34,8 +35,9 @@ function ditty_default_layout_tag_author_name( $author_name, $item_type, $data, 
 		'wp_editor',
 	);
 	if ( in_array(  $item_type, $types ) ) {
-		//$author_id = ditty_posts_lite_tag_value( $data, 'post_author' );
-		//$author_name = get_the_author_meta( 'display_name', $author_id );
+		if ( $item_author = ditty_layout_item_meta( $data, 'item_author' ) ) {
+			$author_name = get_the_author_meta( 'display_name', $item_author );
+		}
 	}
 	return $author_name;
 }
@@ -53,8 +55,9 @@ function ditty_default_layout_tag_author_bio( $author_bio, $item_type, $data, $a
 		'wp_editor',
 	);
 	if ( in_array(  $item_type, $types ) ) {
-		//$author_id = ditty_posts_lite_tag_value( $data, 'post_author' );
-		//$author_bio = get_the_author_meta( 'description', $author_id );
+		if ( $item_author = ditty_layout_item_meta( $data, 'item_author' ) ) {
+			$author_bio = get_the_author_meta( 'description', $item_author );
+		}
 	}
 	return $author_bio;
 }
