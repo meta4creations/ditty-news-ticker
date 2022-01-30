@@ -21,11 +21,13 @@ class Ditty_Display_Item {
 	private $ditty_id;
 	private $has_error;
 	private $custom_classes;
+	private $date_created;
+	private $date_modified;
 	
 	/**
 	 * Get things started\*
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.1
 	 */
 	public function __construct( $meta ) {	
 		$this->layout_value 	= isset( $meta['layout_value'] ) 		? maybe_unserialize( $meta['layout_value'] ) 	: false;
@@ -36,9 +38,29 @@ class Ditty_Display_Item {
 		$this->ditty_id 			= isset( $meta['ditty_id'] ) 				? $meta['ditty_id'] 			: -1;
 		$this->has_error 			= isset( $meta['has_error'] ) 			? $meta['has_error']			: false;
 		$this->custom_classes = isset( $meta['custom_classes'] ) 	? $meta['custom_classes']	: false;
-		//if ( ! $this->has_error ) {
-			$this->parse_layout_id();
-		//}
+		$this->date_created		= isset( $meta['date_created'] ) 		? $meta['date_created']	: false;
+		$this->date_modified	= isset( $meta['date_modified'] ) 	? $meta['date_modified']	: false;
+		$this->parse_layout_id();
+	}
+	
+	/**
+	 * Return the database data for the item
+	 *
+	 * @access public
+	 * @since  3.1
+	 * @return string $db_data
+	 */
+	public function get_db_data() {
+		$db_data = array(
+			'item_id' 				=> $this->get_id(),
+			'item_type' 			=> $this->get_item_type(),
+			'item_value' 			=> $this->get_value(),
+			'ditty_id' 				=> $this->get_ditty_id(),
+			'layout_value' 		=> $this->get_layout_value(),
+			'date_created'		=> $this->get_date_created(),
+			'date_modified'		=> $this->get_date_modified(),
+		);
+		return $db_data;
 	}
 
 	/**
@@ -72,6 +94,17 @@ class Ditty_Display_Item {
 	 */
 	public function get_parent_id() {
 		return 0;
+	}
+	
+	/**
+	 * Return the Ditty id
+	 *
+	 * @access public
+	 * @since  3.1
+	 * @return int $ditty_id
+	 */
+	public function get_ditty_id() {
+		return $this->ditty_id;
 	}
 	
 	/**
@@ -117,6 +150,36 @@ class Ditty_Display_Item {
 	public function get_layout_value() {
 		return $this->layout_value;
 	}
+	
+	/**
+	 * Return the date created
+	 *
+	 * @access public
+	 * @since  3.1
+	 * @return date $date_created
+	 */
+	public function get_date_created() {
+		if ( $this->date_created ) {
+			return $this->date_created;
+		} else {
+			return date( 'Y-m-d H:i:s' );
+		}
+	}
+	
+	/**
+	 * Return the date modified
+	 *
+	 * @access public
+	 * @since  3.1
+	 * @return date $date_modified
+	 */
+	public function get_date_modified() {
+		if ( $this->date_modified ) {
+			return $this->date_modified;
+		} else {
+			return date( 'Y-m-d H:i:s' );
+		}
+	}
 
 	/**
 	 * Return the layout css
@@ -155,7 +218,7 @@ class Ditty_Display_Item {
 	 */
 	public function get_layout_object() {
 		if ( ! $this->layout_object ) {
-			$this->layout_object = new Ditty_Layout( $this->get_layout_id(), $this->get_item_type(), $this->item_value );
+			$this->layout_object = new Ditty_Layout( $this->get_layout_id(), $this->get_item_type(), $this->item_value, $this->get_db_data() );
 		}
 		return $this->layout_object;
 	}

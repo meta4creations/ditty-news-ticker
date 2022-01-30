@@ -20,6 +20,8 @@ class Ditty_Item {
 	private $icon;
 	private $label;
 	private $item_type_object;
+	private $date_created;
+	private $date_modified;
 
 	/**
 	 * Get things started
@@ -91,13 +93,15 @@ class Ditty_Item {
 			$meta = ( array ) $meta;
 		}
 		if ( is_array( $meta ) ) {
-			$this->item_id 			= isset( $meta['item_id'] ) 			? $meta['item_id']			: $this->item_id;
-			$this->item_uniq_id = isset( $meta['item_uniq_id'] )	? $meta['item_uniq_id']	: $this->item_id;
-			$this->ditty_id 		= isset( $meta['ditty_id'] ) 			? $meta['ditty_id'] 		: $this->ditty_id;
-			$this->item_type 		= isset( $meta['item_type'] ) 		? $meta['item_type'] 		: $this->item_type;
-			$this->layout_value = isset( $meta['layout_value'] ) 	? maybe_unserialize( $meta['layout_value'] ) : $this->layout_value;
-			$this->item_value 	= isset( $meta['item_value'] ) 		? maybe_unserialize( $meta['item_value'] ) : false;
-			$this->item_index 	= isset( $meta['item_index'] ) 		? $meta['item_index'] : $this->item_index;
+			$this->item_id 				= isset( $meta['item_id'] ) 			? $meta['item_id']				: $this->item_id;
+			$this->item_uniq_id 	= isset( $meta['item_uniq_id'] )	? $meta['item_uniq_id']		: $this->item_id;
+			$this->ditty_id 			= isset( $meta['ditty_id'] ) 			? $meta['ditty_id'] 			: $this->ditty_id;
+			$this->item_type 			= isset( $meta['item_type'] ) 		? $meta['item_type'] 			: $this->item_type;
+			$this->layout_value 	= isset( $meta['layout_value'] ) 	? maybe_unserialize( $meta['layout_value'] ) : $this->layout_value;
+			$this->item_value 		= isset( $meta['item_value'] ) 		? maybe_unserialize( $meta['item_value'] ) : false;
+			$this->item_index 		= isset( $meta['item_index'] ) 		? $meta['item_index'] 		: $this->item_index;
+			$this->date_created 	= isset( $meta['date_created'] ) 	? $meta['date_created'] 	: date( 'Y-m-d H:i:s' );
+			$this->date_modified 	= isset( $meta['date_modified'] ) ? $meta['date_modified'] 	: date( 'Y-m-d H:i:s' );
 			if ( $item_type_object 	= $this->get_type_object() ) {
 				$this->icon 				= $item_type_object->get_icon();
 				$this->label 				= $item_type_object->get_label();
@@ -109,17 +113,19 @@ class Ditty_Item {
 	/**
 	 * Return the database data for the item
 	 * @access public
-	 * @since  3.0
+	 * @since  3.1
 	 * @return string $db_data
 	 */
 	public function get_db_data() {
 		$db_data = array(
-			'item_id' 			=> $this->get_id(),
-			'item_type' 		=> $this->get_type(),
-			'item_value' 		=> $this->get_value(),
-			'ditty_id' 			=> $this->get_ditty_id(),
-			'layout_value' 	=> $this->get_layout_value(),
-			'item_index'		=> $this->get_index(),	
+			'item_id' 				=> $this->get_id(),
+			'item_type' 			=> $this->get_type(),
+			'item_value' 			=> $this->get_value(),
+			'ditty_id' 				=> $this->get_ditty_id(),
+			'layout_value' 		=> $this->get_layout_value(),
+			'item_index'			=> $this->get_index(),
+			'date_created'		=> $this->get_date_created(),
+			'date_modified'		=> $this->get_date_modified(),
 		);
 		return $db_data;
 	}
@@ -269,13 +275,18 @@ class Ditty_Item {
 	/**
 	 * Set the item value
 	 * @access public
-	 * @since  3.0
+	 * @since  3.1
 	 * @return array $sanitized_item_value
 	 */
 	public function set_item_value( $item_value = array() ) {
 		if ( $item_type_object = $this->get_type_object() ) {
 			$sanitized_item_value = $item_type_object->sanitize_settings( $item_value );		
 			$this->item_value = maybe_serialize( $sanitized_item_value );
+			
+			// Set the modified time
+			$this->set_date_modified();
+			
+			// Return the value
 			return $sanitized_item_value;
 		}
 	}
@@ -303,6 +314,64 @@ class Ditty_Item {
 	public function set_item_index( $item_index ) {
 		$this->item_index = $item_index;
 		return $this->item_index;
+	}
+	
+	/**
+	 * Return the date created
+	 * @access public
+	 * @since  3.1
+	 * @return date $date_created
+	 */
+	public function get_date_created() {
+		if ( $this->date_created ) {
+			return $this->date_created;
+		} else {
+			return date( 'Y-m-d H:i:s' );
+		}
+	}
+	
+	/**
+	 * Set the date created
+	 * @access public
+	 * @since  3.1
+	 * @return date $date_created
+	 */
+	public function set_date_created( $date = false ) {
+		if ( $date ) {
+			$this->date_created = sanitize_text_field( $date );
+		} else {
+			$this->date_created = date( 'Y-m-d H:i:s' );
+		}
+		return $this->date_created;
+	}
+	
+	/**
+	 * Return the date modified
+	 * @access public
+	 * @since  3.1
+	 * @return date $date_modified
+	 */
+	public function get_date_modified() {
+		if ( $this->date_modified ) {
+			return $this->date_modified;
+		} else {
+			return date( 'Y-m-d H:i:s' );
+		}
+	}
+	
+	/**
+	 * Set the date modified
+	 * @access public
+	 * @since  3.1
+	 * @return date $date_created
+	 */
+	public function set_date_modified( $date = false ) {
+		if ( $date ) {
+			$this->date_modified = sanitize_text_field( $date );
+		} else {
+			$this->date_modified = date( 'Y-m-d H:i:s' );
+		}
+		return $this->date_modified;
 	}
 	
 	/**
@@ -338,6 +407,8 @@ class Ditty_Item {
 			'item_type' 		=> $this->get_type(),
 			'item_value' 		=> $this->get_value(),
 			'layout_value'	=> $this->get_layout_value(),
+			'date_created'	=> $this->get_date_created(),
+			'date_modified'	=> $this->get_date_modified(),
 		);
 		return $values;
 	}

@@ -37,6 +37,10 @@ add_action( 'admin_init', 'ditty_updates' );
  */
 function ditty_v3_1_upgrades() {
 	
+	// Update the database
+	$db_items = new Ditty_DB_Items();
+	@$db_items->create_table();
+	
 	// Add uniq_ids to each Layout & Display
 	$args = array(
 		'posts_per_page' => -1,
@@ -78,6 +82,18 @@ function ditty_v3_1_upgrades() {
 		foreach ( $posts as $i => $post ) {
 			ditty_maybe_add_uniq_id( $post->ID );
 			update_post_meta( $post->ID, '_ditty_init', 'yes' );
+
+			// Add a date created and modified based on post created time
+			$all_meta = Ditty()->db_items->get_items( $post->ID );
+			if ( is_array( $all_meta ) && count( $all_meta ) > 0 ) {
+				foreach ( $all_meta as $i => $meta ) {
+					$add_dates = array(
+						'date_created' 	=> sanitize_text_field( $post->post_date_gmt ),
+						'date_modified' => sanitize_text_field( $post->post_date_gmt ),
+					);
+					Ditty()->db_items->update( $meta->item_id, $add_dates, 'item_id' );
+				} 
+			}
 		}
 	}
 }

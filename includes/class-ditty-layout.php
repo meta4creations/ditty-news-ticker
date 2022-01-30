@@ -28,6 +28,7 @@ class Ditty_Layout {
 	private $layout_id;
 	private $item_type;
 	private $item_value;
+	private $item_meta;
 	private $version;
 
 	/**
@@ -35,9 +36,10 @@ class Ditty_Layout {
 	 * @access  public
 	 * @since   3.0
 	 */
-	public function __construct( $layout_id, $item_type = false, $item_value = array() ) {
+	public function __construct( $layout_id, $item_type = false, $item_value = array(), $item_meta = array() ) {
 		$this->item_value = $item_value;	
 		$this->item_type = $item_type;
+		$this->item_meta = $item_meta;
 		
 		// If this is a new layout
 		if ( is_string( $layout_id ) && false !== strpos( $layout_id, 'new-' ) ) {
@@ -48,6 +50,7 @@ class Ditty_Layout {
 			$this->construct_from_id( $layout_id );
 			$this->parse_draft_data( $layout_id );
 		}
+		
 		return $this;
 	}
 	
@@ -118,6 +121,16 @@ class Ditty_Layout {
 	 */
 	public function get_item_type() {
 		return $this->item_type;
+	}
+	
+	/**
+	 * Return the item meta
+	 * @access public
+	 * @since  3.1
+	 * @return string $item_type
+	 */
+	public function get_item_meta() {
+		return $this->item_meta;
 	}
 
 	/**
@@ -424,6 +437,7 @@ class Ditty_Layout {
 		if ( is_array( $tags ) && count( $tags ) > 0 ) {
 			foreach ( $tags as $i => $tag ) {
 				$handlers->add( $tag['tag'], function( ShortcodeInterface $s ) use ( $tag, $value ) {
+					$value['item_meta'] = $this->get_item_meta();
 					$defaults = isset( $tag['atts'] ) ? $tag['atts'] : array();
 					$atts = $this->parse_atts( $defaults, $s );
 					$atts = apply_filters( 'ditty_layout_tag_atts', $atts, $tag['tag'], $this->get_item_type(), $value );

@@ -534,7 +534,7 @@ class Ditty_Singles {
 	/**
 	 * Duplicate Ditty items on Post Duplicator duplication
 	 * 
-	 * @since  3.0.10
+	 * @since  3.1
 	 * @return void
 	 */
 	public function after_duplicate_post( $original_id, $duplicate_id, $settings ) {
@@ -545,6 +545,8 @@ class Ditty_Singles {
 			if ( is_array( $all_meta ) && count( $all_meta ) > 0 ) {
 				foreach ( $all_meta as $i => $meta ) {
 					unset( $meta->item_id );
+					unset( $meta->date_created );
+					unset( $meta->date_modified );
 					$meta->ditty_id = $duplicate_id;
 					Ditty()->db_items->insert( $meta, 'item' );
 				} 
@@ -997,6 +999,7 @@ class Ditty_Singles {
 								$item_id = $new_item_id;
 							}
 						} else {
+							$sanitized_item_data['date_modified'] = date( 'Y-m-d H:i:s' );
 							Ditty()->db_items->update( $item_id, apply_filters( 'ditty_item_db_data', $sanitized_item_data, $ditty_id_ajax ), 'item_id' );
 						}
 					}

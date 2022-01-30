@@ -1252,6 +1252,14 @@
       "oAP" : "\/includes\/layout-tag-helpers.php",
       "oF" : 0
     },
+    "\/includes\/layout-tag-hooks-default.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/layout-tag-hooks-default.php",
+      "oF" : 0
+    },
     "\/includes\/layout-tag-hooks-posts.php" : {
       "cB" : 0,
       "ft" : 8192,

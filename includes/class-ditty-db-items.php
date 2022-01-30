@@ -8,7 +8,7 @@
  * @subpackage  Classes/Ditty DB Items
  * @copyright   Copyright (c) 2021, Metaphor Creations
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       3.0
+ * @since       3.1
  */
 
 // Exit if accessed directly
@@ -26,7 +26,7 @@ class Ditty_DB_Items extends Ditty_DB {
 
 		$this->table_name  = $wpdb->prefix . 'ditty_items';
 		$this->primary_key = 'item_id';
-		$this->version     = '1.0';
+		$this->version     = '1.1';
 
 		add_action( 'plugins_loaded', array( $this, 'register_table' ), 11 );
 	}
@@ -34,7 +34,7 @@ class Ditty_DB_Items extends Ditty_DB {
 	/**
 	 * Get table columns and data types
 	 *
-	 * @since   3.0
+	 * @since   3.1
 	*/
 	public function get_columns() {
 		return array(
@@ -42,16 +42,17 @@ class Ditty_DB_Items extends Ditty_DB {
 			'item_type'  		=> '%s',
 			'item_value'  	=> '%s',
 			'ditty_id' 			=> '%d',
-			'layout_id'			=> '%s',
 			'layout_value'	=> '%s',
 			'item_index'  	=> '%d',
+			'date_created'  => '%s',
+			'date_modified' => '%s',
 		);
 	}
 	
 	/**
 	 * Get default column values
 	 *
-	 * @since   3.0
+	 * @since   3.1
 	*/
 	public function get_column_defaults() {
 		return array(
@@ -59,9 +60,10 @@ class Ditty_DB_Items extends Ditty_DB {
 			'item_type'  		=> '',
 			'item_value'  	=> '',
 			'ditty_id' 		=> 0,
-			'layout_id'  		=> '',
 			'layout_value'	=> '',
 			'item_index'  	=> 0,
+			'date_created'  => date( 'Y-m-d H:i:s' ),
+			'date_modified' => date( 'Y-m-d H:i:s' ),
 		);
 	}
 	
@@ -147,7 +149,7 @@ class Ditty_DB_Items extends Ditty_DB {
 	/**
 	 * Create the table
 	 *
-	 * @since   3.0
+	 * @since   3.1
 	*/
 	public function create_table() {
 
@@ -158,9 +160,10 @@ class Ditty_DB_Items extends Ditty_DB {
 			item_type varchar(255),
 			item_value longtext,
 			ditty_id bigint(20) NOT NULL,
-			layout_id bigint(20),
 			layout_value longtext,
 			item_index bigint(20),
+			date_created datetime NOT NULL,
+			date_modified datetime NOT NULL,
 			PRIMARY KEY  (item_id),
 			KEY ditty_id (ditty_id)
 			) CHARACTER SET utf8 COLLATE utf8_general_ci;";

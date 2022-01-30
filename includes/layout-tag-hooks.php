@@ -267,26 +267,3 @@ function ditty_init_layout_tag_time( $time, $item_type, $data, $atts ) {
 	return $time;	
 }
 add_filter( 'ditty_layout_tag_time', 'ditty_init_layout_tag_time', 10, 4 );
-
-/**
- * Modify the layout content
- *
- * @since    3.0
- * @var      html
-*/
-function ditty_default_layout_tag_content( $content, $item_type, $data, $atts ) {
-	if ( 'default' == $item_type ) {
-		$content = $data['content'];
-		$url = ( isset( $data['link_url'] ) && '' != $data['link_url'] ) ? $data['link_url'] : false;
-		if ( $url ) {
-			$target = isset( $data['link_target'] ) ? $data['link_target'] : '_self';
-			$rel = isset( $data['link_nofollow'] ) ? 'nofollow' : '';
-			$title = isset( $data['link_title'] ) ? $data['link_title'] : '';
-			$content = sprintf( '<a href="%2$s" class="ditty-rss__author__link" target="%3$s" rel="%4$s" title="%5$s">%1$s</a>', $content, $url, $target, $rel, $title );
-		}
-	} elseif ( 'wp_editor' == $item_type ) {
-		$content = $data['content'];
-	}	
-	return $content;	
-}
-add_filter( 'ditty_layout_tag_content', 'ditty_default_layout_tag_content', 10, 4 );

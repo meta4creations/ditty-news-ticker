@@ -266,6 +266,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/layout-tags.php';
 		require_once DITTY_DIR . 'includes/layout-tag-helpers.php';
 		require_once DITTY_DIR . 'includes/layout-tag-hooks.php';
+		require_once DITTY_DIR . 'includes/layout-tag-hooks-default.php';
 		require_once DITTY_DIR . 'includes/layout-tag-hooks-posts.php';
 		require_once DITTY_DIR . 'includes/layout-templates.php';
 		require_once DITTY_DIR . 'includes/post-types.php';

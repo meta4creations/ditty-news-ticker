@@ -365,6 +365,8 @@ class Ditty_Items {
 		$draft_id = uniqid( 'new-' );
 		$draft_index = $editor_item->get_index() + 1;
 		$editor_item->set_id( $draft_id );
+		$editor_item->set_date_created();
+		$editor_item->set_date_modified();
 		$editor_item->set_item_index( $draft_index );
 		$data = array(
 			'editor_item' 	=> $editor_item->render_editor_list_item( 'return' ),
@@ -393,6 +395,8 @@ class Ditty_Items {
 		unset( $_POST['draft_values'] );
 		unset( $_POST['security'] );
 		unset( $_POST['item_id'] );
+		
+		//ChromePhp::log( '$item_id_ajax: ', $item_id_ajax );
 		
 		$editor_item 	= new Ditty_Item( $item_id_ajax );
 		$editor_item->set_item_value( $_POST );	

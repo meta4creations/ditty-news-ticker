@@ -711,7 +711,7 @@ class Ditty_Layouts {
 	 * Return the html field to edit
 	 *
 	 * @access public
-	 * @since  3.0.12
+	 * @since  3.1
 	 * @param   json.
 	 */
 	public function editor_fields_ajax() {
@@ -744,7 +744,8 @@ class Ditty_Layouts {
 		
 		switch( $edit_type_ajax ) {
 			case 'html':
-				$textarea_val = stripslashes( $layout->get_html() );
+				//$textarea_val = stripslashes( $layout->get_html() );
+				$textarea_val = $layout->get_html();
 				$tags_list = $layout->get_tags_list();
 				$quick_change = '<a href="#" class="ditty-editor-options__edit-css protip" data-pt-title="' . __( 'Edit CSS', 'ditty-news-ticker' ) . '"><i class="fas fa-eye" data-class="fas fa-eye"></i></a>';								
 				break;
@@ -1027,7 +1028,8 @@ class Ditty_Layouts {
 					
 					// Update a layout html
 					if ( isset( $layout_data['html'] ) ) {
-						update_post_meta( $layout_id, '_ditty_layout_html', wp_kses_post( $layout_data['html'] ) );
+						$html = str_replace( '\\', '\\\\', $layout_data['html'] );
+						update_post_meta( $layout_id, '_ditty_layout_html', wp_kses_post( $html ) );
 					}
 					
 					// Update a layout css

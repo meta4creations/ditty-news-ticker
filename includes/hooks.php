@@ -102,14 +102,30 @@ function ditty_kses_allowed_html( $allowed, $context ) {
 add_filter( 'wp_kses_allowed_html', 'ditty_kses_allowed_html', 10, 2 );
 
 /**
- * Filter the available item tags for layout editing
+ * Add to the item tags for default item type layouts
  * 
  * @since   3.0
+ */
+function ditty_default_layout_tags( $tags, $item_type ) {
+	if ( 'default' == $item_type || 'wp_editor' == $item_type ) {
+		if ( isset( $tags['time'] ) ) {
+			$tags['time']['atts']['type'] = 'created';
+		}
+	}
+	return $tags;
+}
+add_filter( 'ditty_layout_tags', 'ditty_default_layout_tags', 10, 2 );
+
+/**
+ * Filter the available item tags for layout editing
+ * 
+ * @since   3.1
  */
 function ditty_default_layout_tags_list( $tags, $item_type ) {
 	if ( 'default' == $item_type ||  'wp_editor' == $item_type ) {
 		$allowed_tags = array(
 			'content',
+			'time',
 		);
 		$tags = array_intersect_key( $tags, array_flip( $allowed_tags ) );
 	}

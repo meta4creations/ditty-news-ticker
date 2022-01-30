@@ -1,6 +1,25 @@
 <?php
 
 /**
+ * Return item meta
+ *
+ * @since    3.1
+ * @var      html
+*/
+function ditty_layout_item_meta( $data, $key = false ) {
+	if ( ! is_array( $data ) || ! isset( $data['item_meta'] ) ) {
+		return false;
+	}
+	if ( $key ) {
+		if ( ! isset( $data['item_meta'][$key] ) ) {
+			return false;
+		}
+		return $data['item_meta'][$key];
+	}
+	return $data['item_meta'];
+}
+
+/**
  * Return a rendered link
  *
  * @since    3.0
