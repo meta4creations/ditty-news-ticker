@@ -999,7 +999,10 @@ class Ditty_Singles {
 								$item_id = $new_item_id;
 							}
 						} else {
-							$sanitized_item_data['date_modified'] = date( 'Y-m-d H:i:s' );
+							// Only update the modified date if the value is changed
+							if ( array_key_exists( 'item_value', $sanitized_item_data ) ) {
+								$sanitized_item_data['date_modified'] = date( 'Y-m-d H:i:s' );
+							}
 							Ditty()->db_items->update( $item_id, apply_filters( 'ditty_item_db_data', $sanitized_item_data, $ditty_id_ajax ), 'item_id' );
 						}
 					}
