@@ -104,12 +104,12 @@ add_filter( 'wp_kses_allowed_html', 'ditty_kses_allowed_html', 10, 2 );
 /**
  * Add to the item tags for default item type layouts
  * 
- * @since   3.0
+ * @since   3.1
  */
 function ditty_default_layout_tags( $tags, $item_type ) {
 	if ( 'default' == $item_type || 'wp_editor' == $item_type ) {
 		if ( isset( $tags['time'] ) ) {
-			$tags['time']['atts']['type'] = 'created';
+			$tags['time']['atts']['type'] = 'item_created';
 		}
 	}
 	return $tags;

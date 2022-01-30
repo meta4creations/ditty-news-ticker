@@ -84,22 +84,6 @@ function ditty_default_layout_tag_content( $content, $item_type, $data, $atts ) 
 add_filter( 'ditty_layout_tag_content', 'ditty_default_layout_tag_content', 10, 4 );
 
 /**
- * Modify the layout icon
- *
- * @since    3.1
- * @var      html
-*/
-function ditty_default_layout_tag_icon( $icon, $item_type, $data, $atts ) {
-	if ( 'default' == $item_type ) {
-		return '<i class="fas fa-pencil-alt"></i>';
-	} elseif( 'wp_editor' == $item_type ) {
-		return '<i class="fas fa-edit"></i>';
-	}
-	return $icon;
-}
-add_filter( 'ditty_layout_tag_icon', 'ditty_default_layout_tag_icon', 10, 4 );
-
-/**
  * Modify the layout timestamp
  *
  * @since    3.1
@@ -112,7 +96,7 @@ function ditty_default_layout_tag_timestamp( $timestamp, $item_type, $data, $att
 	);
 	if ( in_array(  $item_type, $types ) ) {
 		$timestamp = false;
-		if ( isset( $atts['type'] ) && 'modified' == $atts['type'] ) {
+		if ( isset( $atts['type'] ) && 'item_modified' == $atts['type'] ) {
 			if ( $date_modified = ditty_layout_item_meta( $data, 'date_modified' ) ) {
 				$timestamp = strtotime( get_date_from_gmt( $date_modified ) );
 			}
