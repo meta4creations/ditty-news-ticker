@@ -77,6 +77,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 * Resolved editor layout bugs
 * Added Item Created and Modified date meta
 * Add Item Author meta and Layout tags
+* Modified field help functionality
 
 
 = 3.0.12 =

@@ -20,6 +20,7 @@
 	  	direction							: 'left',
 	  	spacing								:	20,
 	  	speed									:	10, // 1 - 10
+			cloneItems						: 'yes',
 	  	hoverPause						:	0, // 0, 1
 	  	height								:	null,
 			minHeight							:	null,
