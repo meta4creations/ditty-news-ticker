@@ -5,24 +5,24 @@ jQuery( function( $ ) {
 
     "use strict";
 		
-		var dittyInitialize = {};
+		var dittyWizardValues = {};
 		
 		/**
 		 * Ditty title
 		 *
 		 * @since    3.1
 		*/
-		$( '.ditty-initialize-setting--title input[name="ditty_title"]' ).on( 'keyup', function() {
-			var $setting = $( this ).parents( '.ditty-initialize-setting' ),
+		$( '.ditty-wizard-setting--title input[name="ditty_title"]' ).on( 'keyup', function() {
+			var $setting = $( this ).parents( '.ditty-wizard-setting' ),
 					val = $( this ).val();
 					
 			if ( '' !== val ) {
 				$setting.addClass( 'complete' );
 				
 				// Show the layout settings
-				$( '.ditty-initialize-setting--item-type').css( 'display', 'flex' );
+				$( '.ditty-wizard-setting--item-type').css( 'display', 'flex' );
 			}
-			dittyInitialize.title = val;
+			dittyWizardValues.title = val;
 		} );
 		
 		/**
@@ -30,9 +30,9 @@ jQuery( function( $ ) {
 		 *
 		 * @since    3.1
 		*/
-		$( '.ditty-initialize-setting--item-type .ditty-option-grid__item' ).on( 'click', function( e ) {
+		$( '.ditty-wizard-setting--item-type .ditty-option-grid__item' ).on( 'click', function( e ) {
 			e.preventDefault();
-			var $setting = $( this ).parents( '.ditty-initialize-setting' ),
+			var $setting = $( this ).parents( '.ditty-wizard-setting' ),
 					slug = $( this ).data( 'value' );
 
 			if ( ! $( this ).hasClass( 'active' ) ) {
@@ -41,40 +41,45 @@ jQuery( function( $ ) {
 				$( this ).addClass( 'active' );
 
 				// Reset & show item type settings
-				$( '.ditty-initialize-setting--item-type-settings' ).removeClass( 'complete' );
-				$( '.ditty-initialize-setting--item-type-settings .ditty-option-submit' ).addClass( 'ditty-button--primary' );
-				$( '.ditty-initialize-setting--item-type-settings').css( 'display', 'flex' );
+				$( '.ditty-wizard-setting--item-type-settings' ).removeClass( 'complete' );
+				$( '.ditty-wizard-setting--item-type-settings .ditty-option-submit' ).addClass( 'ditty-button--primary' );
+				$( '.ditty-wizard-setting--item-type-settings').css( 'display', 'flex' );
 				
 				// Display the correct item type settings group
+				var $itemSettings = $( '.ditty-item-type-settings__group[data-id="' + slug + '"]' );
 				$( '.ditty-item-type-settings__group' ).removeClass( 'active' ).hide();
-				$( '.ditty-item-type-settings__group[data-id="' + slug + '"]' ).addClass( 'active' ).show();
-				$( '.ditty-item-type-settings__group[data-id="' + slug + '"]' ).trigger( 'ditty_init_fields' );
+				$itemSettings.addClass( 'active' ).show();
+				$itemSettings.trigger( 'ditty_init_fields' );
+				if ( ! $itemSettings.hasClass( 'init' ) ) {
+					$itemSettings.trigger( 'ditty_wizard_init', [slug] );
+					$itemSettings.addClass( 'init' );
+				}
 				
 				// Reset the layout settings
-				$( '.ditty-initialize-setting--layout' ).removeClass( 'complete' );
-				$( '.ditty-initialize-setting--layout .ditty-option-grid__item' ).removeClass( 'active' );
-				$( '.ditty-initialize-setting--layout').hide();
+				$( '.ditty-wizard-setting--layout' ).removeClass( 'complete' );
+				$( '.ditty-wizard-setting--layout .ditty-option-grid__item' ).removeClass( 'active' );
+				$( '.ditty-wizard-setting--layout').hide();
 				
 				// Display the correct layout variation settings group
-				$( '.ditty-initialize-setting--layout__variation' ).removeClass( 'complete' ).removeClass( 'active' ).hide();
-				$( '.ditty-initialize-setting--layout__variation.' + slug ).addClass( 'active' ).show();
+				$( '.ditty-wizard-setting--layout__variation' ).removeClass( 'complete' ).removeClass( 'active' ).hide();
+				$( '.ditty-wizard-setting--layout__variation.' + slug ).addClass( 'active' ).show();
 				
 				// Reset the display settings
-				$( '.ditty-initialize-setting--display' ).removeClass( 'complete' );
-				$( '.ditty-initialize-setting--display .ditty-option-grid__item' ).removeClass( 'active' );
-				$( '.ditty-initialize-setting--display').hide();
+				$( '.ditty-wizard-setting--display' ).removeClass( 'complete' );
+				$( '.ditty-wizard-setting--display .ditty-option-grid__item' ).removeClass( 'active' );
+				$( '.ditty-wizard-setting--display').hide();
 				
 				// Reset the submit settings
-				$( '.ditty-initialize-setting--submit').hide();
+				$( '.ditty-wizard-setting--submit').hide();
 				
 				// Add to the initialize object
-				dittyInitialize.itemType = $( this ).data( 'value' );
+				dittyWizardValues.itemType = $( this ).data( 'value' );
 				
 				// Animate to the next setting
 				if ( ! $setting.hasClass( 'complete' ) ) {
 					$setting.addClass( 'complete' );
 					$( [document.documentElement, document.body] ).stop().animate( {
-						scrollTop: $( '.ditty-initialize-setting--item-type-settings' ).offset().top
+						scrollTop: $( '.ditty-wizard-setting--item-type-settings' ).offset().top
 					}, 700 );
 				}
 			}
@@ -85,9 +90,9 @@ jQuery( function( $ ) {
 		 *
 		 * @since    3.1
 		*/
-		$( '.ditty-initialize-setting--item-type-settings .ditty-option-submit' ).on( 'click', function( e ) {
+		$( '.ditty-wizard-setting--item-type-settings .ditty-option-submit' ).on( 'click', function( e ) {
 			e.preventDefault();
-			var $setting = $( this ).parents( '.ditty-initialize-setting' ),
+			var $setting = $( this ).parents( '.ditty-wizard-setting' ),
 					$settings_group = $setting.find( '.ditty-item-type-settings__group.active' ),
 					values = {};
 					
@@ -107,16 +112,16 @@ jQuery( function( $ ) {
 			} );
 			
 			// Show the layout settings
-			$( '.ditty-initialize-setting--layout').css( 'display', 'flex' );
+			$( '.ditty-wizard-setting--layout').css( 'display', 'flex' );
 			
 			// Add to the initialize object
-			dittyInitialize.itemTypeValues = values;
+			dittyWizardValues.itemTypeValues = values;
 			
 			// Animate to the next setting
 			if ( ! $setting.hasClass( 'complete' ) ) {
 				$setting.addClass( 'complete' );
 				$( [document.documentElement, document.body] ).stop().animate( {
-					scrollTop: $( '.ditty-initialize-setting--layout' ).offset().top
+					scrollTop: $( '.ditty-wizard-setting--layout' ).offset().top
 				}, 700 );
 			}
 		} );
@@ -126,10 +131,10 @@ jQuery( function( $ ) {
 		 *
 		 * @since    3.1
 		*/
-		$( '.ditty-initialize-setting--layout .ditty-option-grid__item' ).on( 'click', function( e ) {
+		$( '.ditty-wizard-setting--layout .ditty-option-grid__item' ).on( 'click', function( e ) {
 			e.preventDefault();
-			var $setting = $( this ).parents( '.ditty-initialize-setting' ),
-					$variations = $( this ).parents( '.ditty-initialize-setting--layout__variation' );
+			var $setting = $( this ).parents( '.ditty-wizard-setting' ),
+					$variations = $( this ).parents( '.ditty-wizard-setting--layout__variation' );
 		
 			if ( ! $( this ).hasClass( 'active' ) ) {		
 				$( this ).siblings().removeClass( 'active' );
@@ -137,22 +142,22 @@ jQuery( function( $ ) {
 				$variations.addClass( 'complete' );
 				
 				// Check for all variations complete
-				if ( $( '.ditty-initialize-setting--layout__variation.active' ).length === $( '.ditty-initialize-setting--layout__variation.complete' ).length ) {
+				if ( $( '.ditty-wizard-setting--layout__variation.active' ).length === $( '.ditty-wizard-setting--layout__variation.complete' ).length ) {
 					var layoutVariations = {};
-					$( '.ditty-initialize-setting--layout__variation.complete' ).each( function() {
+					$( '.ditty-wizard-setting--layout__variation.complete' ).each( function() {
 						layoutVariations[$( this ).data( 'id' )] = $( this ).find( '.ditty-option-grid__item.active' ).data( 'value' );
 					} );
 					
 					// Show the display settings
-					$( '.ditty-initialize-setting--display').css( 'display', 'flex' );
+					$( '.ditty-wizard-setting--display').css( 'display', 'flex' );
 					
-					dittyInitialize.layoutVariations = layoutVariations;
+					dittyWizardValues.layoutVariations = layoutVariations;
 					
 					// Animate to the next setting
 					if ( ! $setting.hasClass( 'complete' ) ) {
 						$setting.addClass( 'complete' );
 						$( [document.documentElement, document.body] ).stop().animate( {
-							scrollTop: $( '.ditty-initialize-setting--display' ).offset().top
+							scrollTop: $( '.ditty-wizard-setting--display' ).offset().top
 						}, 700 );
 					}
 				}
@@ -164,9 +169,9 @@ jQuery( function( $ ) {
 		 *
 		 * @since    3.1
 		*/
-		$( '.ditty-initialize-setting--display .ditty-option-grid__item' ).on( 'click', function( e ) {
+		$( '.ditty-wizard-setting--display .ditty-option-grid__item' ).on( 'click', function( e ) {
 			e.preventDefault();
-			var $setting = $( this ).parents( '.ditty-initialize-setting' ),
+			var $setting = $( this ).parents( '.ditty-wizard-setting' ),
 					id = $( this ).data( 'value' );
 		
 			if ( ! $( this ).hasClass( 'active' ) ) {		
@@ -174,15 +179,15 @@ jQuery( function( $ ) {
 				$( this ).addClass( 'active' );
 				
 				// Show the submit settings
-				$( '.ditty-initialize-setting--submit').css( 'display', 'flex' );
+				$( '.ditty-wizard-setting--submit').css( 'display', 'flex' );
 				
-				dittyInitialize.display = id;
+				dittyWizardValues.display = id;
 				
 				// Animate to the next setting
 				if ( ! $setting.hasClass( 'complete' ) ) {
 					$setting.addClass( 'complete' );
 					$( [document.documentElement, document.body] ).stop().animate( {
-						scrollTop: $( '.ditty-initialize-setting--submit' ).offset().top
+						scrollTop: $( '.ditty-wizard-setting--submit' ).offset().top
 					}, 700 );
 				}
 			}
@@ -198,14 +203,14 @@ jQuery( function( $ ) {
 			
 			var dittyId = $( this ).data( 'ditty_id' );
 			
-			$( '#ditty-initialize-overlay' ).addClass( 'active' );
+			$( '#ditty-wizard-overlay' ).addClass( 'active' );
 			
 			//$( this ).text( $( this ).data( 'submitting' ) );
 			
 			var data = {
 				action				: 'ditty_submit_wizard',
 				ditty_id			: dittyId,
-				init_values 	: dittyInitialize,
+				init_values 	: dittyWizardValues,
 				security			: dittyVars.security
 			};
 			$.post( dittyVars.ajaxurl, data, function( response ) {

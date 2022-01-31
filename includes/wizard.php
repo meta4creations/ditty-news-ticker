@@ -11,9 +11,25 @@ function ditty_wizard( $post ) {
 	$item_type_variations = array();
 	$counter = 0;
 	?>
-	<div id="ditty-page" class="wrap ditty-initialize">	
-		<div id="ditty-page__header">
+	<div id="ditty-page" class="wrap ditty-wizard">	
+		<div id="ditty-page__header" class="ditty-wizard-header">
 			<h2><?php _e( 'Ditty Wizard', 'ditty-news-ticker' ); ?></h2>
+			<div class="ditty-wizard-header__contents">
+				<ul>
+					<li>
+						<h4><i class="fas fa-stream"></i> <?php esc_html_e( 'Add your first Item type', 'ditty-news-ticker' ); ?></h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</li>
+					<li>
+						<h4><i class="fas fa-pencil-ruler"></i> <?php esc_html_e( 'Select a Layout', 'ditty-news-ticker' ); ?></h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</li>
+					<li>
+						<h4><i class="fas fa-tablet-alt"></i> <?php esc_html_e( 'Select a Display', 'ditty-news-ticker' ); ?></h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+					</li>
+				</ul>
+			</div>
 			<p><?php // _e( 'Complete the wizard to', 'ditty-news-ticker' ); ?></p>
 		</div>	
 		<div id="ditty-page__content">
@@ -21,22 +37,22 @@ function ditty_wizard( $post ) {
 				<div id="ditty-editor__initialize">
 					
 					<?php $counter++; // Ditty title ?>
-					<div class="ditty-initialize-setting ditty-initialize-setting--title">
+					<div class="ditty-wizard-setting ditty-wizard-setting--title">
 						<div class="ditty-instruction-number"><span><?php echo intval( $counter ); ?></span></div>
-						<div class="ditty-initialize-setting__content">
-							<h3 class="ditty-initialize-setting__title"><?php _e( 'Add a title', 'ditty-news-ticker' ); ?></h3>
-							<p class="ditty-initialize-setting__description"><?php _e( 'Set a title for your Ditty.', 'ditty-news-ticker' ); ?></p>
+						<div class="ditty-wizard-setting__content">
+							<h3 class="ditty-wizard-setting__title"><?php _e( 'Add a title', 'ditty-news-ticker' ); ?></h3>
+							<p class="ditty-wizard-setting__description"><?php _e( 'Set a title for your Ditty.', 'ditty-news-ticker' ); ?></p>
 							<input type="text" name="ditty_title" placeholder="<?php printf( __( 'Ditty %d', 'ditty-news-ticker' ), $post->ID ); ?>" />
 						</div>
 					</div>
 					
 					<?php $counter++; // Item type selection ?>
-					<div class="ditty-initialize-setting ditty-initialize-setting--item-type">
+					<div class="ditty-wizard-setting ditty-wizard-setting--item-type">
 						<div class="ditty-instruction-number"><span><?php echo intval( $counter ); ?></span></div>
-						<div class="ditty-initialize-setting__content">
-							<h3 class="ditty-initialize-setting__title"><?php _e( 'Create your first Item', 'ditty-news-ticker' ); ?></h3>
-							<p class="ditty-initialize-setting__description"><?php _e( 'Choose the Item type you want to use with your first item. You will be able to add more once the Ditty has been created!', 'ditty-news-ticker' ); ?></p>
-							<div class="ditty-initialize-option ditty-option-grid">
+						<div class="ditty-wizard-setting__content">
+							<h3 class="ditty-wizard-setting__title"><?php _e( 'Create your first Item', 'ditty-news-ticker' ); ?></h3>
+							<p class="ditty-wizard-setting__description"><?php _e( 'Choose the Item type you want to use with your first item. You will be able to add more once the Ditty has been created!', 'ditty-news-ticker' ); ?></p>
+							<div class="ditty-wizard-option ditty-option-grid">
 								<?php 
 								if ( is_array( $item_types ) && count( $item_types ) > 0 ) {
 									foreach ( $item_types as $slug => $item_type ) {
@@ -67,13 +83,13 @@ function ditty_wizard( $post ) {
 					</div>
 					
 					<?php $counter++; // Item type settings ?>
-					<div class="ditty-initialize-setting ditty-initialize-setting--item-type-settings">
+					<div class="ditty-wizard-setting ditty-wizard-setting--item-type-settings">
 						<div class="ditty-instruction-number"><span><?php echo intval( $counter ); ?></span></div>
-						<div class="ditty-initialize-setting__content">
+						<div class="ditty-wizard-setting__content">
 							
-							<h3 class="ditty-initialize-setting__title"><?php _e( "Set the Item options", 'ditty-news-ticker' ); ?></h3>
-							<p class="ditty-initialize-setting__description"><?php _e( "Each item type has it's own set of options to customize.", 'ditty-news-ticker' ); ?></p>
-							<div class="ditty-initialize-option ditty-item-type-settings">
+							<h3 class="ditty-wizard-setting__title"><?php _e( "Set the Item options", 'ditty-news-ticker' ); ?></h3>
+							<p class="ditty-wizard-setting__description"><?php _e( "Each item type has it's own set of options to customize.", 'ditty-news-ticker' ); ?></p>
+							<div class="ditty-wizard-option ditty-item-type-settings">
 								<?php 
 								if ( is_array( $item_types ) && count( $item_types ) > 0 ) {
 									foreach ( $item_types as $slug => $item_type ) {
@@ -96,15 +112,15 @@ function ditty_wizard( $post ) {
 					</div>
 					
 					<?php $counter++; // Layouts ?>
-					<div class="ditty-initialize-setting ditty-initialize-setting--layout">
+					<div class="ditty-wizard-setting ditty-wizard-setting--layout">
 						<div class="ditty-instruction-number"><span><?php echo intval( $counter ); ?></span></div>
-						<div class="ditty-initialize-setting__content">
-							<h3 class="ditty-initialize-setting__title"><?php _e( 'Select Variation Layouts for the Item', 'ditty-news-ticker' ); ?></h3>
-							<p class="ditty-initialize-setting__description"><?php _e( 'Layouts are used to render the Item data. Each Item type may have multiple Layout variations.', 'ditty-news-ticker' ); ?></p>
+						<div class="ditty-wizard-setting__content">
+							<h3 class="ditty-wizard-setting__title"><?php _e( 'Select Variation Layouts for the Item', 'ditty-news-ticker' ); ?></h3>
+							<p class="ditty-wizard-setting__description"><?php _e( 'Layouts are used to render the Item data. Each Item type may have multiple Layout variations.', 'ditty-news-ticker' ); ?></p>
 							<?php	
 							$layouts = ditty_layouts_posts();
 							$layout_options = '';
-							$layout_options .= '<div class="ditty-initialize-option ditty-option-grid">';
+							$layout_options .= '<div class="ditty-wizard-option ditty-option-grid">';
 								if ( is_array( $layouts ) && count( $layouts ) > 0 ) {
 									foreach ( $layouts as $layout ) {
 										$icon = get_post_meta( $layout->ID, '_ditty_layout_icon', true );
@@ -132,9 +148,9 @@ function ditty_wizard( $post ) {
 							
 							if ( is_array( $item_type_variations ) && count( $item_type_variations ) > 0 ) {
 								foreach ( $item_type_variations as $id => $item_type_variation ) {
-									echo '<div class="ditty-initialize-setting--layout__variation ' . esc_attr( implode( ' ', $item_type_variation['item_types'] ) ) . '" data-id="' . esc_attr( $id ) . '">';
-										echo '<h4 class="ditty-initialize-setting--layout__variation__title">' . sprintf( __( 'Layout Variation: %s', 'ditty-news-ticker' ), sanitize_text_field( $item_type_variation['title'] ) ) . '</h4>';
-										echo '<div class="ditty-initialize-setting--layout__variation__description">' . sanitize_text_field( $item_type_variation['description'] ) . '</div>';
+									echo '<div class="ditty-wizard-setting--layout__variation ' . esc_attr( implode( ' ', $item_type_variation['item_types'] ) ) . '" data-id="' . esc_attr( $id ) . '">';
+										echo '<h4 class="ditty-wizard-setting--layout__variation__title">' . sprintf( __( 'Layout Variation: %s', 'ditty-news-ticker' ), sanitize_text_field( $item_type_variation['title'] ) ) . '</h4>';
+										echo '<div class="ditty-wizard-setting--layout__variation__description">' . sanitize_text_field( $item_type_variation['description'] ) . '</div>';
 										echo $layout_options;
 									echo '</div>';
 								}
@@ -144,11 +160,11 @@ function ditty_wizard( $post ) {
 					</div>
 					
 					<?php $counter++; // Display ?>
-					<div class="ditty-initialize-setting ditty-initialize-setting--display">
+					<div class="ditty-wizard-setting ditty-wizard-setting--display">
 						<div class="ditty-instruction-number"><span><?php echo intval( $counter ); ?></span></div>
-						<div class="ditty-initialize-setting__content">
-							<h3 class="ditty-initialize-setting__title"><?php _e( 'Select a Display', 'ditty-news-ticker' ); ?></h3>
-							<p class="ditty-initialize-setting__description"><?php _e( 'Displays are what ulimately display your Ditty on your site.', 'ditty-news-ticker' ); ?></p>
+						<div class="ditty-wizard-setting__content">
+							<h3 class="ditty-wizard-setting__title"><?php _e( 'Select a Display', 'ditty-news-ticker' ); ?></h3>
+							<p class="ditty-wizard-setting__description"><?php _e( 'Displays are what ulimately display your Ditty on your site.', 'ditty-news-ticker' ); ?></p>
 							<?php
 							$args = array(
 								'posts_per_page' => -1,
@@ -159,7 +175,7 @@ function ditty_wizard( $post ) {
 							$displays = get_posts( $args );
 							$display_types = ditty_display_types();
 							$display_options = '';
-							$display_options .= '<div class="ditty-initialize-option ditty-option-grid">';
+							$display_options .= '<div class="ditty-wizard-option ditty-option-grid">';
 								if ( is_array( $displays ) && count( $displays ) > 0 ) {
 									foreach ( $displays as $display ) {
 										$type = get_post_meta( $display->ID, '_ditty_display_type', true );
@@ -190,11 +206,11 @@ function ditty_wizard( $post ) {
 						</div>
 					</div>
 					
-					<div class="ditty-initialize-setting ditty-initialize-setting--submit">
+					<div class="ditty-wizard-setting ditty-wizard-setting--submit">
 						<button id="ditty-wizard-submit" class="ditty-button ditty-button--primary" data-ditty_id="<?php echo $post->ID; ?>" data-submitting="<?php _e( 'Building Your Ditty...', 'ditty-news-ticker' ); ?>"><?php _e( 'Create Ditty!', 'ditty-news-ticker' ); ?></button>
 					</div>
 					
-					<div id="ditty-initialize-overlay" class="ditty-updating-overlay">
+					<div id="ditty-wizard-overlay" class="ditty-updating-overlay">
 						<div class="ditty-updating-overlay__inner">
 							<i class="fas fa-sync-alt fa-spin"></i>
 						</div>
