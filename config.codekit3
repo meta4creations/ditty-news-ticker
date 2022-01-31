@@ -1917,6 +1917,14 @@
       "oAP" : "\/includes\/widget.php",
       "oF" : 0
     },
+    "\/includes\/wizard.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/wizard.php",
+      "oF" : 0
+    },
     "\/languages\/ditty-news-ticker-ar.mo" : {
       "cB" : 0,
       "ft" : 8192,

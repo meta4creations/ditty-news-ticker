@@ -189,11 +189,11 @@ jQuery( function( $ ) {
 		} );
 		
 		/**
-		 * Submit
+		 * Submit the wizard
 		 *
 		 * @since    3.1
 		*/
-		$( '#ditty-initialize-submit' ).on( 'click', function( e ) {
+		$( '#ditty-wizard-submit' ).on( 'click', function( e ) {
 			e.preventDefault();
 			
 			var dittyId = $( this ).data( 'ditty_id' );
@@ -203,7 +203,7 @@ jQuery( function( $ ) {
 			//$( this ).text( $( this ).data( 'submitting' ) );
 			
 			var data = {
-				action				: 'ditty_build_single',
+				action				: 'ditty_submit_wizard',
 				ditty_id			: dittyId,
 				init_values 	: dittyInitialize,
 				security			: dittyVars.security

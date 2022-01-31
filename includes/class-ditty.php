@@ -272,6 +272,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/post-types.php';
 		require_once DITTY_DIR . 'includes/upgrades.php';
 		require_once DITTY_DIR . 'includes/widget.php';
+		require_once DITTY_DIR . 'includes/wizard.php';
 		
 		// Add database files
 		require_once DITTY_DIR . 'includes/class-ditty-db.php';
