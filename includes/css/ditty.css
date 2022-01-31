@@ -743,7 +743,12 @@
       padding: 15px;
       border-color: rgba(0, 0, 0, 0.05); }
       #ditty-editor__settings .ditty-field__label {
-        font-weight: 400; }
+        font-weight: 600; }
+        #ditty-editor__settings .ditty-field__label .ditty-help-icon {
+          color: #93999F;
+          text-decoration: underline; }
+          #ditty-editor__settings .ditty-field__label .ditty-help-icon.active {
+            color: #19BF7C; }
     #ditty-editor__settings .ditty-field-type--group {
       padding: 0;
       border-color: rgba(0, 0, 0, 0.05); }

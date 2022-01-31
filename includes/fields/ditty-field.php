@@ -101,7 +101,7 @@ class Ditty_Field {
 	/**
 	 * Return the html
 	 *
-	 * @since 3.0
+	 * @since 3.1
 	 * @return $html string
 	 */
 	public function html() {
@@ -115,6 +115,7 @@ class Ditty_Field {
 				if ( '' != $this->label() || '' != $this->description() ) {
 					$html .= '<div class="ditty-field__heading">';
 						$html .= $this->label();
+						$html .= $this->help();
 						$html .= $this->description();
 					$html .= '</div>';
 				}
@@ -142,9 +143,26 @@ class Ditty_Field {
 				if ( '' != $this->args['name'] ) {
 					$html .= ' ';	
 				}
-				$html .= '<i class="ditty-help-icon protip fas fa-question-circle" data-pt-title="' . sanitize_text_field( $this->args['help'] ) . '"></i>';
+				//$html .= '<i class="ditty-help-icon protip fas fa-question-circle" data-pt-title="' . sanitize_text_field( $this->args['help'] ) . '"></i>';
+				$html .= '<a href="#" class="ditty-help-icon protip" data-pt-title="' . esc_html__( 'Toggle Description', 'metaphoravada' ) . '"><i class="fas fa-question-circle"></i></a>';
 			}
 			$html .= '</label>';
+		}
+		return $html;
+	}
+	
+	/**
+	 * Return the help
+	 *
+	 * @since 3.1
+	 * @return $html string
+	 */
+	public function help() {
+		$html = '';
+		if ( '' != $this->args['help'] ) {
+			$html .= '<p class="ditty-field__help">';
+				$html .= wp_kses_post( $this->args['help'] );
+			$html .= '</p>';
 		}
 		return $html;
 	}

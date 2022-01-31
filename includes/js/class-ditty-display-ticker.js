@@ -159,9 +159,7 @@
 
 			// Trigger the init
       setTimeout( function () {
-				
-				console.log( self );
-	      
+
 	      // Preload images
 	      for ( var i = 0; i < self.total; i++ ) {
 		      self._preloadItem( self.settings.items[i] );

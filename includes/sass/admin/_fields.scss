@@ -16,7 +16,9 @@
 		cursor: default;
 	}
 	&__help {
-		font-size: 0.8em;
+		display: none;
+		margin: 7px 0 10px;
+		//font-size: 0.8em;
 	}
 	&__input {
 		display: flex;
@@ -110,7 +112,8 @@
 		}
 	}
 }
-.ditty-field__label + .ditty-field__description {
+.ditty-field__label + .ditty-field__description,
+.ditty-field__help + .ditty-field__description {
 	margin-top: 7px;
 }
 .ditty-field--clone-enabled {
@@ -265,7 +268,7 @@
 			flex-direction: column;
 			align-items: flex-start;
 			justify-content: flex-start;
-			min-height: 36px;
+			//min-height: 36px;
 		}
 		&--inline {
 			.ditty-field__input__primary {
@@ -508,6 +511,7 @@
 	}
 	&__description {
 		width: 100%;
+		margin-bottom: 10px;
 	}
 }
 
