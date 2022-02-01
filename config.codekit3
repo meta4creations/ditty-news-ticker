@@ -142,14 +142,6 @@
       "oO" : 0,
       "oS" : 1
     },
-    "\/composer.lock" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/composer.lock",
-      "oF" : 0
-    },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -258,7 +250,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-display-type-ticker.php",
       "oF" : 0
     },
@@ -654,7 +646,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field.php",
       "oF" : 0
     },
@@ -670,7 +662,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/fields\/js\/ditty-fields.min.js",
       "oF" : 0,
@@ -681,7 +673,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/fields\/js\/ditty-fields.min.min.js",
       "oF" : 0,
@@ -878,13 +870,13 @@
       "sC" : 3,
       "tS" : 0
     },
-    "\/includes\/js\/admin\/ditty-singles.js" : {
+    "\/includes\/js\/admin\/ditty-wizard.js" : {
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
       "mi" : 1,
       "oA" : 1,
-      "oAP" : "\/includes\/js\/admin\/ditty-singles.min.js",
+      "oAP" : "\/includes\/js\/admin\/ditty-wizard.min.js",
       "oF" : 0,
       "sC" : 3,
       "tS" : 0
@@ -1260,6 +1252,14 @@
       "oAP" : "\/includes\/layout-tag-helpers.php",
       "oF" : 0
     },
+    "\/includes\/layout-tag-hooks-default.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/layout-tag-hooks-default.php",
+      "oF" : 0
+    },
     "\/includes\/layout-tag-hooks-posts.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1542,7 +1542,7 @@
       "sct" : 1
     },
     "\/includes\/sass\/admin\/_fields.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1554,7 +1554,7 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/admin\/_metabox.scss" : {
       "aP" : 1,
@@ -1616,6 +1616,21 @@
       "pg" : 0,
       "sct" : 1
     },
+    "\/includes\/sass\/admin\/_wizard.scss" : {
+      "aP" : 0,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_wizard.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 0
+    },
     "\/includes\/sass\/ditty-admin.scss" : {
       "aP" : 1,
       "bl" : 0,
@@ -1662,7 +1677,7 @@
       "sct" : 1
     },
     "\/includes\/sass\/editor\/_editor.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1674,7 +1689,7 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/editor\/_item_types_panel.scss" : {
       "aP" : 1,
@@ -1915,6 +1930,14 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/widget.php",
+      "oF" : 0
+    },
+    "\/includes\/wizard.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/wizard.php",
       "oF" : 0
     },
     "\/languages\/ditty-news-ticker-ar.mo" : {

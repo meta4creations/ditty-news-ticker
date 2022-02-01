@@ -85,25 +85,9 @@
     this.scrollPercent	= 0.13;
     this.running				= false;
     this.interval				= false;
-    // this.easeTimer			= false;
     this.currentHeight	= this.settings.height;
     this.visibleItems 	= [];
-    // this.editItem			= null;
-    // this.cachedItems		= [];
-
-//     this.directions = [
-//       'left',
-//       'right',
-//       'up',
-//       'down'
-//     ];
-// 
-//     if ( this.settings.directionsRegister instanceof Array === false ) {
-//       this.settings.directionsRegister = [ this.settings.directionsRegister ];
-//     }
-// 
-//     this.directions = this.directions.concat( this.settings.directionsRegister );
-
+		
     if ( 1 === parseInt( this.settings.shuffle ) ) {
 			this.shuffle();
 		}
@@ -117,8 +101,6 @@
       var self = this,
           $contents,
           $items;
-					
-			
           
       // Remove the pre class
 	    this.$elmt.removeClass( 'ditty--pre' );
@@ -313,6 +295,11 @@
 	    if ( undefined === this.settings.items[index] ) {
 		    return false;
 		  }
+			
+			var existingItems = this.$items.children( '.ditty-item--' + this.settings.items[index].id );	
+			if ( 'yes' !== this.settings.cloneItems && existingItems.length ) {
+				return false;
+			}
 
 		  // Create and add a new item
 		  var $item = $( this.settings.items[index].html );
