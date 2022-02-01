@@ -101,6 +101,10 @@
       var self = this,
           $contents,
           $items;
+					
+			if ( 0 ===  this.total ) {
+				this.hide();
+			}
           
       // Remove the pre class
 	    this.$elmt.removeClass( 'ditty--pre' );
@@ -919,9 +923,9 @@
 		    	this.updateItems( value );
 		    	break;
 				case 'direction':
-				this.settings[key] = value;
-				this._styleDisplay();
-				this._setDirection( value );
+					this.settings[key] = value;
+					this._styleDisplay();
+					this._setDirection( value );
 					break;
 				case 'minHeight':
 				case 'maxHeight':
@@ -1151,6 +1155,7 @@
 	    if ( undefined === newItems ) {
 		    return false;
 	    }
+
 			var forceSwaps = [];
 					
 			// Update a single item id		
@@ -1158,7 +1163,7 @@
 				var tempCurrentItems = this.settings.items.slice(),
 						tempNewItems = [],
 						tempSwapped = false;
-						
+
 				$.each( tempCurrentItems, function( index, item ) {
 					if ( String( item.id ) === String( itemId ) ) {
 						
@@ -1198,11 +1203,20 @@
 					} );
 					tempSwapped = true;
 				}
-				newItems = tempNewItems;
+				
+				if ( 0 !== this.total ) {
+					newItems = tempNewItems;
+				}	
 			}
-  
+			
 	    this.settings.items = newItems;
 	    this.total = newItems.length;
+			if ( 0 === this.total ) {
+				this.hide();
+			} else {
+				this.show();
+			}
+			
 	    if ( this.nextItem >= this.total ) {
 		    this.nextItem = 0;
 	    } 
@@ -1222,6 +1236,28 @@
 			} ); 
 	    return activeItems;
     },
+		
+		/**
+		 * Hide the ticker
+		 *
+		 * @since    3.0
+		 * @return   null
+		*/
+		hide: function () {
+			this.$elmt.hide();
+			this.pause();
+		},
+		
+		/**
+		 * Show the ticker
+		 *
+		 * @since    3.0
+		 * @return   null
+		*/
+		show: function () {
+			this.$elmt.show();
+			this.play();
+		},
     
     /**
 		 * Trigger events

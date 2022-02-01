@@ -115,6 +115,12 @@ table.wp-list-table .type-ditty_display .row-actions {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px; }
 
+.ditty-help-icon {
+  color: #93999F;
+  text-decoration: underline; }
+  .ditty-help-icon.active {
+    color: #19BF7C; }
+
 .ditty-field {
   padding: 10px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
@@ -239,14 +245,17 @@ table.wp-list-table .type-ditty_display .row-actions {
     flex-wrap: wrap; }
   .ditty-field-type--group > .ditty-field__heading {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: flex-start;
     color: #FFF;
     background: #32373C;
     padding: 15px;
     margin: 0; }
     .ditty-field-type--group > .ditty-field__heading label {
+      margin-bottom: 0; }
+    .ditty-field-type--group > .ditty-field__heading .ditty-field__help,
+    .ditty-field-type--group > .ditty-field__heading .ditty-field__desciption {
       margin-bottom: 0; }
   .ditty-field-type--group .ditty-field__collapsible-toggle {
     position: absolute;
@@ -266,6 +275,8 @@ table.wp-list-table .type-ditty_display .row-actions {
     transition: -webkit-transform .25s ease;
     transition: transform .25s ease;
     transition: transform .25s ease, -webkit-transform .25s ease; }
+  .ditty-field-type--group[data-collapsible] > .ditty-field__heading {
+    padding-right: 40px; }
   .ditty-field-type--group[data-collapsible="expanded"] .ditty-field__collapsible-toggle {
     -webkit-transform: rotate(180deg);
             transform: rotate(180deg); }

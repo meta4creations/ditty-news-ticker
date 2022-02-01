@@ -50,13 +50,6 @@ $update_color: orange;
 			border-color: rgba( 0, 0, 0, 0.05 );
 			&__label {
 				font-weight: 600;
-				.ditty-help-icon {
-					color: #93999F;
-					text-decoration: underline;
-					&.active {
-						color: $green;
-					}
-				}
 			}
 		}
 		.ditty-field-type--group {

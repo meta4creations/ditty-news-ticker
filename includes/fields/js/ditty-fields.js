@@ -25,7 +25,7 @@ jQuery( function( $ ) {
 
 			var $icon = $( this ),
 					$label = $icon.parents( '.ditty-field__label' ),
-					$help = $label.next( '.ditty-field__help' );
+					$help = $label.siblings( '.ditty-field__help' );
 
 			if ( $icon.hasClass( 'active' ) ) {
 				$icon.removeClass( 'active' );

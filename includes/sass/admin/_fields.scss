@@ -1,3 +1,11 @@
+.ditty-help-icon {
+	color: #93999F;
+	text-decoration: underline;
+	&.active {
+		color: $green;
+	}
+}
+
 .ditty-field {
 	//padding: 15px;
 	padding: 10px 0;
@@ -169,14 +177,18 @@
 	}
 	> .ditty-field__heading {
 		display: flex;
-		flex-direction: row;
-		align-items: center;
+		flex-direction: column;
+		align-items: flex-start;
 		justify-content: flex-start;
 		color: #FFF;
 		background: #32373C;
 		padding: 15px;
 		margin: 0;
 		label {
+			margin-bottom: 0;
+		}
+		.ditty-field__help,
+		.ditty-field__desciption {
 			margin-bottom: 0;
 		}
 	}
@@ -196,6 +208,11 @@
 		background: rgba(255, 255, 255, .2);
 		border-radius: 50%;
 		transition: transform .25s ease; 
+	}
+	&[data-collapsible] {
+		> .ditty-field__heading {
+			padding-right: 40px;
+		}
 	}
 	&[data-collapsible="expanded"] {
 		.ditty-field__collapsible-toggle {

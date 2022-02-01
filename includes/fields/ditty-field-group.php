@@ -45,11 +45,12 @@ class Ditty_Field_Group extends Ditty_Field {
 		$html .= '<div ' . ditty_attr_to_html( $atts ) . '>';
 			if ( '' != $this->label() || '' != $this->description() ) {
 				$html .= '<div class="ditty-field__heading">';
-					$html .= $this->label();
-					$html .= $this->description();
+					$html .= $this->label();				
 					if ( $this->args['collapsible'] ) {
 						$html .= '<a href="#" class="ditty-field__collapsible-toggle"><i class="fas fa-angle-down"></i></a>';
 					}
+					$html .= parent::help();
+					$html .= parent::description();
 				$html .= '</div>';
 			}
 			$html .= $this->input_container();
