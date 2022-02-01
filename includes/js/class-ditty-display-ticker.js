@@ -692,13 +692,16 @@
 			
 			fillTimer = setInterval( function() {
 				
-				var $item = self._initializeItem( current ),
-        		data 	= self._filledItemInit( current, $item, posX, posY, tickerW, tickerH );
-				
-				posX 	= data.posX;
-				posY 	= data.posY;
-				filled	= data.filled;	
-				current = self._getNextItem( current );
+				var $item = self._initializeItem( current );
+				if ( $item ) {
+					var data 	= self._filledItemInit( current, $item, posX, posY, tickerW, tickerH );
+					posX 	= data.posX;
+					posY 	= data.posY;
+					filled	= data.filled;	
+					current = self._getNextItem( current );
+				} else {
+					filled = true;
+				}
 
 				if ( filled ) {
 					clearInterval( fillTimer );
@@ -806,6 +809,7 @@
 	    this.settings.direction = direction;
 	    this._timerStop();
 	    this._resetItems();
+			this.settings.item = 0;
 	    this._initializeItems();
 			this.trigger( 'direction' );
     },

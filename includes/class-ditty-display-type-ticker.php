@@ -145,7 +145,7 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 							'no' 		=> __( 'No', 'ditty-news-ticker' ),
 						),
 						'inline'	=> true,
-						'std'		=> isset( $values['hoverPause'] ) ? $values['hoverPause'] : false,
+						'std'		=> isset( $values['cloneItems'] ) ? $values['cloneItems'] : false,
 					),
 					'hoverPause' => array(
 						'type'	=> 'checkbox',

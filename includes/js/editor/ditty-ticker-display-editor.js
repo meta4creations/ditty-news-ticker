@@ -7,10 +7,22 @@ jQuery( function( $ ) {
 
     "use strict";
 
-		function modifyHeights( $minHeight, $maxHeight, directionValue ) {
-			if ( 'down' === directionValue || 'up' === directionValue ) {
+		function setMinHeight( $form ) {
+			var val = $form.find( 'input[name="direction"]:checked' ).val(),
+					$minHeight = $form.find( '.ditty-field--minHeight' ),
+					$maxHeight = $form.find( '.ditty-field--maxHeight' ),
+					$minHeightInput = $form.find( 'input[name="minHeight"]' );
+					
+			if ( 'down' === val || 'up' === val ) {
 				$minHeight.show();
 				$maxHeight.show();
+				if ( '' === $minHeightInput.val() ) {
+					var dittyEditor = $form.parents( '#ditty-editor__settings' )[0],
+							defaultValue = '300px';
+							
+					$minHeightInput.val( defaultValue );
+					dittyEditor._ditty_editor.ditty.options( 'minHeight', defaultValue );
+				}
 			} else {
 				$minHeight.hide();
 				$maxHeight.hide();
@@ -28,14 +40,12 @@ jQuery( function( $ ) {
 
 		$( '#ditty-editor' ).on( 'ditty_display_editor_panel_init', '.ditty-editor__panel--displayEditor', function( e, editorPanel ) {  
 			if ( 'ticker' === editorPanel.displayType ) {
-				var $form = editorPanel.$form,
-						$minHeight = $form.find( '.ditty-field--minHeight' ),
-						$maxHeight = $form.find( '.ditty-field--maxHeight' );
+				var $form = editorPanel.$form;
 				
-				// Set heights
-				modifyHeights( $minHeight, $maxHeight, $form.find( 'input[name="direction"]:checked' ).val() );
-				$form.find( 'input[name="direction"]' ).on( 'change', function() {
-					modifyHeights( $minHeight, $maxHeight, $( this ).val() );
+				// Set minHeight
+				setMinHeight( $form );
+				$form.find( 'input[name="direction"]' ).on( 'click', function() {
+					setMinHeight( $form );
 				} );
 				
 				// Set scroll delay
