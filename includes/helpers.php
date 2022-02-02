@@ -56,9 +56,24 @@ function ditty_settings( $key=false, $value='' ) {
 }
 
 /**
+ * Return the single settings defaults
+ *
+ * @since    3.1
+*/
+function ditty_single_settings_defaults() {	
+	$defaults = array(
+		'ajax_loading'		=> 'no',
+		'live_updates'		=> 'no',
+		'previewBg'				=> false,
+		'previewPadding'	=> array(),
+	);
+	return apply_filters( 'ditty_single_settings_defaults', $defaults );
+}
+
+/**
  * Return a single Ditty setting
  *
- * @since    3.0
+ * @since    3.1
 */
 function ditty_single_settings( $ditty_id, $key = false ) {
 	global $ditty_single_settings;
@@ -68,6 +83,7 @@ function ditty_single_settings( $ditty_id, $key = false ) {
 	if ( ! is_array( $ditty_single_settings[$ditty_id] )  ) {
 		$ditty_single_settings[$ditty_id] = array();
 	}
+	$ditty_single_settings[$ditty_id] = wp_parse_args( $ditty_single_settings[$ditty_id], ditty_single_settings_defaults() );
 	if ( $key ) {
 		if ( isset( $ditty_single_settings[$ditty_id][$key] ) ) {
 			return $ditty_single_settings[$ditty_id][$key];

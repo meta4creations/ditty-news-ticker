@@ -4,8 +4,40 @@
 	* {
 		box-sizing: border-box;
 	}
-	&__contents {
-		//transition: background .25s ease, padding .25s ease, border-radius .25s ease; 
+	&[data-title="left"],
+	&[data-title="right"] {
+		display: flex;
+		flex-direction: column;
+		flex-direction: row;
+		align-items: stretch;
+		.ditty-ticker__title {
+			flex: 0 0 auto;
+			&__contents {
+				height: 100%;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: flex-start;
+			}
+		}
+		.ditty-ticker__contents {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start;
+		}
+		.ditty-ticker__items {
+			width: 100%;
+		}
+		&[data-title="right"] {
+			.ditty-ticker__title {
+				order: 1;	
+			}
+			.ditty-ticker__contents {
+				order: 0;	
+			}
+		}
 	}
 	&__items {
 		position: relative;

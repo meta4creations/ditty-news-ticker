@@ -404,7 +404,8 @@ table.wp-list-table .type-ditty_display .row-actions {
     width: 25%;
     background: transparent;
     padding: 2px !important;
-    margin: 0; }
+    margin: 0;
+    border: none; }
     .ditty-input--spacing__group .ditty-field__input {
       position: relative;
       border-radius: 3px;

@@ -17,6 +17,7 @@
   var defaults = {
 	  	id										: 0,
 	  	title									: '',
+			titleDisplay					: 'none',
 	  	display								: 0,
 			status								: '',
 	  	spacing								: 30,

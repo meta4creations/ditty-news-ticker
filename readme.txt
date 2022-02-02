@@ -79,7 +79,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 * Add Item Author meta and Layout tags
 * Modified field help functionality
 * Added option to not clone ticker items
-
+* Hide ticker display if no items
 
 = 3.0.12 =
 * Modified custom display check when rendering Ditty

@@ -96,11 +96,13 @@ class Ditty_Singles {
 					$initialized = get_post_meta( $ditty_id, '_ditty_init', true );
 					$title = ( ! $initialized ) ? sprintf( __( 'Ditty %d', 'ditty-news-ticker' ), $ditty_id ) : get_the_title( $ditty_id );
 					$status = get_post_status( $ditty_id );
-					$settings = get_post_meta( $ditty_id, '_ditty_settings', true );
 					if ( ! $initialized ) {
 						$status = 'publish';
 					}
 					$shortcode = "[ditty id={$ditty_id}]";
+
+					$settings = ditty_single_settings( $ditty_id );
+
 					$fields = array(
 						'title' => array(
 							'type'				=> 'text',
@@ -425,7 +427,6 @@ class Ditty_Singles {
 		$display_settings_ajax 	= isset( $_POST['display_settings'] ) ? esc_attr( $_POST['display_settings'] ) 	: false;
 		$layout_settings_ajax 	= isset( $_POST['layout_settings'] ) 	? esc_attr( $_POST['layout_settings'] ) 	: false;
 		$editor_ajax 						= isset( $_POST['editor'] )						? intval( $_POST['editor'] ) 							: false;
-		//$load_type 							= isset( $_POST['loud_type'] )				? intval( $_POST['loud_type'] ) 					: '';
 
 		// Get the display attributes
 		if ( ! $display_ajax ) {
@@ -439,13 +440,13 @@ class Ditty_Singles {
 
 		// Setup the ditty values
 		$status = get_post_status( $id_ajax );
-		$args 							= $display->get_values();
-		$args['id'] 				= $id_ajax;
-		$args['uniqid'] 		= $uniqid_ajax;
-		$args['title'] 			= get_the_title( $id_ajax );
-		$args['status'] 		= $status;
-		$args['display'] 		= $display->get_display_id();
-		$args['showEditor'] = $editor_ajax;
+		$args 									= $display->get_values();
+		$args['id'] 						= $id_ajax;
+		$args['uniqid'] 				= $uniqid_ajax;
+		$args['title'] 					= get_the_title( $id_ajax );
+		$args['status'] 				= $status;
+		$args['display'] 				= $display->get_display_id();
+		$args['showEditor'] 		= $editor_ajax;
 
 		$items = ditty_display_items( $id_ajax, 'force', $layout_settings_ajax );
 		if ( ! is_array( $items ) ) {
@@ -564,13 +565,17 @@ class Ditty_Singles {
 	 * Sanitize setting values before saving to the database
 	 *
 	 * @access public
-	 * @since  3.0.11
+	 * @since  3.1
 	 */
 	public function sanitize_settings( $settings ) {	
+		$defaults = ditty_single_settings_defaults();
+		
 		$sanitized_settings = array();
-		$sanitized_settings['ajax_loading'] = isset( $settings['ajax_loading'] ) 	? esc_attr( $settings['ajax_loading'] ) 				: 'no';
-		$sanitized_settings['live_updates'] = isset( $settings['live_updates'] ) 	? esc_attr( $settings['live_updates'] ) 				: 'no';
-		$sanitized_settings['previewBg'] 		= isset( $settings['previewBg'] ) 		? sanitize_text_field( $settings['previewBg'] ) : false;
+		$sanitized_settings['ajax_loading'] = isset( $settings['ajax_loading'] ) ? esc_attr( $settings['ajax_loading'] )	: esc_attr( $defaults['ajax_loading'] ) ;
+		$sanitized_settings['live_updates'] = isset( $settings['live_updates'] ) ? esc_attr( $settings['live_updates'] )	: esc_attr( $defaults['ajax_loading'] ) ;
+		
+		// Sanitize preview settings
+		$sanitized_settings['previewBg'] = isset( $settings['previewBg'] ) ? sanitize_text_field( $settings['previewBg'] ) : sanitize_text_field( $defaults['previewBg'] );
 		$sanitized_padding = array();
 		if ( isset( $settings['previewPadding'] ) && is_array( $settings['previewPadding'] ) && count( $settings['previewPadding'] ) > 0 ) {
 			foreach ( $settings['previewPadding'] as $key => $value ) {

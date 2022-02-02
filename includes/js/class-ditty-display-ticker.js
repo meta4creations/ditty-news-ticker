@@ -43,6 +43,16 @@
 			contentsBorderStyle		: {},
 			contentsBorderWidth		: {},
 			contentsBorderRadius	: {},
+			titleDisplay					: 'none',
+			titleElement					: 'h3',
+			titleColor						: '',
+			titleBgColor						: '',
+			titleMargin						: {},
+			titlePadding					: {},
+			titleBorderColor			: {},
+			titleBorderStyle			: {},
+			titleBorderWidth			: {},
+			titleBorderRadius			: {},
 	  	itemTextColor					: '',
 			itemBgColor						: '',
 			itemBorderColor				: {},
@@ -55,10 +65,6 @@
 	  	item									: 0,
 			shuffle								: 0,
 	  	showEditor						: 0,
-      // init									: function () {},
-      // play									: function () {},
-      // pause									: function () {},
-      // walk									: function () {},
       items									: [
 	      // {
 	      //  id:						null,
@@ -78,6 +84,8 @@
     this.nextItem				= null;
     this.total					= this.settings.items.length;
     this.$elmt					= $( elmt ); 
+		this.$title					= null;
+		this.$titleContents	= null;
     this.$contents			= null;
     this.$items					= null;
     this.$currentItem		= null;
@@ -102,7 +110,7 @@
           $contents,
           $items;
 					
-			if ( 0 ===  this.total ) {
+			if ( 0 === this.total ) {
 				this.hide();
 			}
           
@@ -118,6 +126,11 @@
        // Create the ticker contents
       $contents = $( '<div class="ditty-ticker__contents"></div>' );
       this.$contents = $contents;
+			
+			// Create the ticker title
+			this.$title = $( '<div class="ditty-ticker__title"></div>' );
+			this.$titleContents = $( '<div class="ditty-ticker__title__contents"></div>' );
+			this.$title.append( this.$titleContents );
       
       // Create the ticker items container
       $items = $( '<div class="ditty-ticker__items"></div>' );
@@ -132,10 +145,11 @@
       
       // Setup styles
       this._styleDisplay();
+			this._styleTitle();
       
 			// Add listeners
-      this.$contents.on( 'mouseenter', { self: this }, this._mouseenter );
-      this.$contents.on( 'mouseleave', { self: this }, this._mouseleave );
+      this.$elmt.on( 'mouseenter', { self: this }, this._mouseenter );
+      this.$elmt.on( 'mouseleave', { self: this }, this._mouseleave );
       
       // Show the editor or start live updates
 			if ( this.settings.showEditor ) {
@@ -860,6 +874,45 @@
 		},
 		
 		/**
+		 * Style the title element
+		 *
+		 * @since    3.0
+		 * @return   null
+		*/
+		_styleTitle: function () {
+			this.$elmt.attr( 'data-title', this.settings.titleDisplay );
+			console.log( this.settings.id, this.settings.titleDisplay );
+			if ( 'none' === this.settings.titleDisplay ) {
+				this.$title.remove();
+			} else {
+				var $element = $( '<' + this.settings.titleElement + ' class="ditty-ticker__title__element">' + this.settings.title + '</' + this.settings.titleElement + '>' );
+
+				$element.css( {
+					color: this.settings.titleColor,
+					margin: 0,
+					padding: 0
+				} );
+				
+				this.$title.css( {
+					backgroundColor: this.settings.titleBgColor,
+					borderColor: this.settings.titleBorderColor,
+					borderStyle: this.settings.titleBorderStyle
+				} );
+				this.$title.css( this.settings.titleMargin );
+				this.$title.css( this.settings.titlePadding );
+				this.$title.css( this.settings.titleBorderRadius );
+				this.$title.css( this.settings.titleBorderWidth );
+				
+				this.$titleContents.html( $element );
+				this.$elmt.prepend( this.$title );
+			}
+			
+			if ( 'inline' === this.settings.titleDisplay ) {
+				
+			}
+		},
+		
+		/**
 		 * Style item elemtents
 		 *
 		 * @since    3.0
@@ -917,7 +970,6 @@
 			if ( undefined === value ) {
 				return false; 
 			}
-
 	    switch( key ) {
 		    case 'items':
 		    	this.updateItems( value );
@@ -926,6 +978,19 @@
 					this.settings[key] = value;
 					this._styleDisplay();
 					this._setDirection( value );
+					break;
+				case 'titleDisplay':
+				case 'titleElement':
+				case 'titleColor':
+				case 'titleBgColor':
+				case 'titleMargin':
+				case 'titlePadding':
+				case 'titleBorderColor':
+				case 'titleBorderStyle':
+				case 'titleBorderWidth':
+				case 'titleBorderRadius':
+					this.settings[key] = value;
+					this._styleTitle();
 					break;
 				case 'minHeight':
 				case 'maxHeight':
@@ -946,7 +1011,7 @@
 					this.settings[key] = value;
 					break;
 	    }
-	    
+
 	    this.trigger( 'update' );
     },
 
@@ -1330,8 +1395,8 @@
     destroy: function () {
 			
 			// Remove listeners
-			this.$contents.off( 'mouseenter', { self: this }, this._mouseenter );
-			this.$contents.off( 'mouseleave', { self: this }, this._mouseleave );
+			this.$elmt.off( 'mouseenter', { self: this }, this._mouseenter );
+			this.$elmt.off( 'mouseleave', { self: this }, this._mouseleave );
 			
 	    cancelAnimationFrame( this.interval );
 

@@ -145,7 +145,7 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 							'no' 		=> __( 'No', 'ditty-news-ticker' ),
 						),
 						'inline'	=> true,
-						'std'		=> isset( $values['cloneItems'] ) ? $values['cloneItems'] : false,
+						'std'		=> isset( $values['hoverPause'] ) ? $values['hoverPause'] : false,
 					),
 					'hoverPause' => array(
 						'type'	=> 'checkbox',
@@ -166,6 +166,7 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 				),
 			),
 			'containerStyles' 	=> parent::container_style_settings( $values ),
+			'titleStyles' 			=> parent::title_style_settings( $values ),
 			'contentStyles' 		=> parent::content_style_settings( $values ),
 			'itemStyles' 				=> parent::item_style_settings( $values, false, array(
 				'itemMaxWidth' => array(
@@ -217,7 +218,7 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 	 */
 	public function default_settings() {	
 		
-		$defaults = json_decode( '{"direction":"left","minHeight":"300px","maxHeight":"","spacing":"25","speed":"10","heightEase":"easeInOutQuint","heightSpeed":"1.5","scrollInit":"empty","scrollDelay":"3","cloneItems":"yes","hoverPause":"1","maxWidth":"","bgColor":"","padding":{"paddingTop":"5px","paddingBottom":"5px","paddingLeft":"5px","paddingRight":"5px"},"margin":{"marginTop":"","marginBottom":"","marginLeft":"","marginRight":""},"borderColor":"","borderStyle":"none","borderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"borderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"contentsBgColor":"rgba(255, 255, 255, 0.5)","contentsPadding":{"paddingTop":"10px","paddingBottom":"10px","paddingLeft":"10px","paddingRight":"10px"},"contentsBorderColor":"","contentsBorderStyle":"none","contentsBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"contentsBorderRadius":{"borderTopLeftRadius":"3px","borderTopRightRadius":"3px","borderBottomLeftRadius":"3px","borderBottomRightRadius":"3px"},"itemTextColor":"","itemBgColor":"","itemPadding":{"paddingTop":"","paddingBottom":"","paddingLeft":"","paddingRight":""},"itemBorderColor":"","itemBorderStyle":"none","itemBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"itemBorderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"itemMaxWidth":"400px","itemElementsWrap":"wrap"}', true );
+		$defaults = json_decode( '{"direction":"left","minHeight":"300px","maxHeight":"","spacing":"25","speed":"10","heightEase":"easeInOutQuint","heightSpeed":"1.5","scrollInit":"empty","scrollDelay":"3","hoverPause":"1","maxWidth":"","bgColor":"rgba(222, 36, 36, 1)","padding":{"paddingTop":"5px","paddingBottom":"5px","paddingLeft":"5px","paddingRight":"5px"},"margin":{"marginTop":"","marginBottom":"","marginLeft":"","marginRight":""},"borderColor":"","borderStyle":"none","borderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"borderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"titleDisplay":"left","titleElement":"h3","titleColor":"rgba(255, 255, 255, 1)","titleBgColor":"rgba(0, 0, 0, 1)","titleMargin":{"marginTop":"0","marginBottom":"","marginLeft":"","marginRight":"0"},"titlePadding":{"paddingTop":"10px","paddingBottom":"10px","paddingLeft":"15px","paddingRight":"15px"},"titleBorderColor":"","titleBorderStyle":"none","titleBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"titleBorderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"contentsBgColor":"rgba(255, 255, 255, 0.5)","contentsPadding":{"paddingTop":"10px","paddingBottom":"10px","paddingLeft":"10px","paddingRight":"10px"},"contentsBorderColor":"","contentsBorderStyle":"none","contentsBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"contentsBorderRadius":{"borderTopLeftRadius":"0","borderTopRightRadius":"3px","borderBottomLeftRadius":"0","borderBottomRightRadius":"3px"},"itemTextColor":"","itemBgColor":"","itemPadding":{"paddingTop":"","paddingBottom":"","paddingLeft":"","paddingRight":""},"itemBorderColor":"","itemBorderStyle":"none","itemBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"itemBorderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"itemMaxWidth":"300px","itemElementsWrap":"wrap"}', true );
 			
 		return apply_filters( 'ditty_display_default_settings', $defaults, $this->type );
 	}

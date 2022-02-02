@@ -458,6 +458,94 @@ class Ditty_Display_Type {
 	}
 	
 	/**
+	 * Return title style settings
+	 *
+	 * @since   3.1
+	 * @var     $settings array
+	 */
+	public function title_style_settings( $values, $id = 'titleStyles', $extra_fields = array() ) {
+		$base_fields = array(
+			'titleDisplay' => array(
+				'type'	=> 'radio',
+				'id'		=> 'titleDisplay',
+				'name'	=> __( 'Display', 'ditty-news-ticker' ),
+				'options' => [
+					'none' 		=> __( 'None', 'ditty-news-ticker' ),
+					'top' 		=> __( 'Top', 'ditty-news-ticker' ),
+					'left'		=> __( 'Left', 'ditty-news-ticker' ),
+					'right'		=> __( 'Right', 'ditty-news-ticker' ),
+				],
+				'inline' 	=> true,
+				'std'		=> isset( $values['titleDisplay'] ) ? $values['titleDisplay'] : false,
+			),
+			'titleElement' => array(
+				'type'	=> 'select',
+				'id'		=> 'titleElement',
+				'name'	=> __( 'Element', 'ditty-news-ticker' ),
+				'options' => [
+					'h1' 	=> 'h1',
+					'h2' 	=> 'h2',
+					'h3'	=> 'h3',
+					'h4'	=> 'h4',
+					'h5'	=> 'h5',
+					'h6'	=> 'h6',
+					'p'		=> 'p',
+				],
+				'std'		=> isset( $values['titleElement'] ) ? $values['titleElement'] : false,
+			),
+			'titleColor' => array(
+				'type'	=> 'color',
+				'id'		=> 'titleColor',
+				'name'	=> __( 'Text Color', 'ditty-news-ticker' ),
+				'std'		=> isset( $values['titleColor'] ) ? $values['titleColor'] : false,
+			),
+			'titleBgColor' => array(
+				'type'	=> 'color',
+				'id'		=> 'titleBgColor',
+				'name'	=> __( 'Background Color', 'ditty-news-ticker' ),
+				'std'		=> isset( $values['titleBgColor'] ) ? $values['titleBgColor'] : false,
+			),
+			'titleMargin' => array(
+				'type'	=> 'spacing',
+				'id'		=> 'titleMargin',
+				'name'	=> __( 'Margin', 'ditty-news-ticker' ),
+				'options' => array(
+					'marginTop'			=> __( 'Top', 'ditty-news-ticker' ),
+					'marginBottom'	=> __( 'Bottom', 'ditty-news-ticker' ),
+					'marginLeft'		=> __( 'Left', 'ditty-news-ticker' ),
+					'marginRight'		=> __( 'Right', 'ditty-news-ticker' ),
+				),
+				'std'		=> isset( $values['titleMargin'] ) ? $values['titleMargin'] : false,
+			),
+			'titlePadding' => array(
+				'type'	=> 'spacing',
+				'id'		=> 'titlePadding',
+				'name'	=> __( 'Padding', 'ditty-news-ticker' ),
+				'options' => array(
+					'paddingTop'		=> __( 'Top', 'ditty-news-ticker' ),
+					'paddingBottom'	=> __( 'Bottom', 'ditty-news-ticker' ),
+					'paddingLeft'		=> __( 'Left', 'ditty-news-ticker' ),
+					'paddingRight'	=> __( 'Right', 'ditty-news-ticker' ),
+				),
+				'std'		=> isset( $values['titlePadding'] ) ? $values['titlePadding'] : false,
+			),
+		);
+		$border_fields = $this->border_settings( $values, 'title' );
+		$fields = array_merge( $base_fields, $border_fields, $extra_fields );
+		$settings = array(
+			'type' 							=> 'group',
+			'id'								=> $id,
+			'collapsible'				=> true,
+			'default_state'			=> 'collapsed',
+			'multiple_fields'		=> true,
+			'name' 							=> __( 'Title Styles', 'ditty-news-ticker' ),
+			'help' 							=> __( 'Add custom title styles.', 'ditty-news-ticker' ),
+			'fields' 						=> $fields,
+		);
+		return $settings;
+	}
+	
+	/**
 	 * Return content style settings
 	 *
 	 * @since   3.0
