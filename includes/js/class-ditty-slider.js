@@ -96,14 +96,9 @@
     this.animateHeight			= false;
 		this.slidesDisplayed		= 0,
     this.paused							= false;
-    this.transitions 				= [
-	    'fade',
-      'slideLeft',
-      'slideRight',
-      'slideDown',
-      'slideUp'
-    ];
-    
+    this.transitions 				= ['fade','slideLeft','slideRight','slideDown','slideUp'];
+		this.eases 							= ['linear','swing','jswing','easeInQuad','easeInCubic','easeInQuart','easeInQuint','easeInSine','easeInExpo','easeInCirc','easeInElastic','easeInBack','easeInBounce','easeOutQuad','easeOutCubic','easeOutQuart','easeOutQuint','easeOutSine','easeOutExpo','easeOutCirc','easeOutElastic','easeOutBack','easeOutBounce','easeInOutQuad','easeInOutCubic','easeInOutQuart','easeInOutQuint','easeInOutSine','easeInOutExpo','easeInOutCirc','easeInOutElastic','easeInOutBack','easeInOutBounce'];
+
     this._init();
   };
 
@@ -436,31 +431,44 @@
 		/**
 		 * Animate a slide into view
 		 *
-		 * @since    3.0
+		 * @since    3.0.13
 		 * @return   null
 		*/
 		_animateIn: function( $slide, actionParams ) {
 			var self = this,
 					transitionSpeed = ( 0 === parseInt( this.slidesDisplayed ) ) ? this.settings.initTransitionSpeed : this.settings.transitionSpeed,
 					transitionEase = ( 0 === parseInt( this.slidesDisplayed ) ) ? this.settings.initTransitionEase : this.settings.transitionEase;
-					
-			this.transitioning = true;
-		  this._timerStop();
-			$slide.show();
-			$slide.addClass( 'ditty-slide-animating' );
-			$slide.stop( true ).animate( {
+			
+			var animateCss = {
 				left		: 0,
 				top			: 0,
 				opacity	: 1
-			}, parseFloat( transitionSpeed ) * 1000, transitionEase, function() {
-				$slide.removeClass( 'ditty-slide-animating' );
+			};
+			
+			if ( 0 === parseFloat( transitionSpeed ) ) {
+				$slide.show();
+				$slide.stop().css( animateCss );
 				$slide.css( 'position', 'relative' );
 				self.transitioning = false;
 				self.animateTransition = false;
 				self._removeStaticHeight();
 				self._timerStart();
 				self.trigger( 'after_slide_update', actionParams );
-			});
+			} else {
+				this.transitioning = true;
+		  	this._timerStop();
+				$slide.show();
+				$slide.addClass( 'ditty-slide-animating' );
+				$slide.stop( true ).animate( animateCss, parseFloat( transitionSpeed ) * 1000, transitionEase, function() {
+					$slide.removeClass( 'ditty-slide-animating' );
+					$slide.css( 'position', 'relative' );
+					self.transitioning = false;
+					self.animateTransition = false;
+					self._removeStaticHeight();
+					self._timerStart();
+					self.trigger( 'after_slide_update', actionParams );
+				} );
+			}
 		},
 		
 		/**
@@ -471,9 +479,6 @@
 		*/
 		_animateOut: function( $slide, $nextSlide, direction ) {
 			this.$lastSlide = $slide;
-			
-			$slide.removeClass( 'ditty-slider__slide--current' );
-			$slide.css( 'position', 'absolute' );
 
 			var posX = 0,
 					posY = 0,
@@ -502,19 +507,28 @@
 					break;
 			}
 			
+			$slide.removeClass( 'ditty-slider__slide--current' );
+			$slide.css( 'position', 'absolute' );
 			$slide.css( {
 			  zIndex: 1
 			} );
 			
-			$slide.addClass( 'ditty-slide-animating' );
-			$slide.stop( true ).animate( {
+			var animateCss = {
 				left		: posX + 'px',
 				top			: posY + 'px',
 				opacity	: opacity
-			}, parseFloat( this.settings.transitionSpeed ) * 1000, this.settings.transitionEase, function() {
-					$slide.removeClass( 'ditty-slide-animating' );
-					$slide.hide();
-			} );
+			};
+			
+			if ( 0 === parseFloat( this.settings.transitionSpeed ) ) {
+				$slide.hide();
+				$slide.stop().css( animateCss );
+			} else {
+				$slide.addClass( 'ditty-slide-animating' );
+				$slide.stop( true ).animate( animateCss, parseFloat( this.settings.transitionSpeed ) * 1000, this.settings.transitionEase, function() {
+						$slide.removeClass( 'ditty-slide-animating' );
+						$slide.hide();
+				} );
+			}
 		},
 		
 		/**
@@ -593,7 +607,7 @@
 		/**
 		 * Animate the height of the slider
 		 *
-		 * @since    3.0
+		 * @since    3.0.13
 		 * @return   null
 		*/
 		_animateHeight: function () {
@@ -603,14 +617,23 @@
 					heightEase = ( 0 === parseInt( this.slidesDisplayed ) ) ? this.settings.initHeightEase : this.settings.heightEase;
 
 			this.currentHeight = height;
-				
-			this.$slides.stop( true ).animate( {
+			
+			var animateCss = {
 				height: height + 'px'
-			}, parseFloat( heightSpeed ) * 1000, heightEase, function() {
+			};
+				
+			if ( 0 === parseFloat( heightSpeed ) ) {
+				this.$slides.stop().css( animateCss );
 				self.animateHeight = false;
 				self._removeStaticHeight();
 				self.trigger( 'height_updated' );
-			});
+			} else {
+				this.$slides.stop( true ).animate( animateCss, parseFloat( heightSpeed ) * 1000, heightEase, function() {
+					self.animateHeight = false;
+					self._removeStaticHeight();
+					self.trigger( 'height_updated' );
+				} );
+			}
 		},
 		
 		/**

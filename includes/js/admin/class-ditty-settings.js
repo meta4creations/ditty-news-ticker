@@ -70,14 +70,14 @@
 		_initSlider: function () {	
 			var initPanel = this.$panels.data( 'init_panel' );
 			this.$panels.ditty_slider( {
-				transition						: 'none',
-				transitionEase				:	'none',
+				transition						: 'fade',
+				transitionEase				:	'linear',
 				transitionSpeed				: 0,
 				heightSpeed						: 0,
-				initTransition				:	'none',
-				initTransitionEase		:	'none',
+				initTransition				:	'fade',
+				initTransitionEase		:	'linear',
 				initTransitionSpeed		:	0,
-				initHeightEase				:	'none',
+				initHeightEase				:	'linear',
 				initHeightSpeed				:	0,
 				touchSwipe						: false,
 				slidesEl							: '.ditty-settings__panel',
