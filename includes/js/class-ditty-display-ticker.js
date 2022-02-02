@@ -317,7 +317,7 @@
 		    return false;
 		  }
 			
-			var existingItems = this.$items.children( '.ditty-item--' + this.settings.items[index].id );	
+			var existingItems = this.$items.children( '.ditty-item--' + this.settings.items[index].uniq_id );	
 			if ( 'yes' !== this.settings.cloneItems && existingItems.length ) {
 				return false;
 			}
