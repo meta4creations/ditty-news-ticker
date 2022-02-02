@@ -3,7 +3,7 @@
 /**
  * Run updates
  *
- * @since  3.1
+ * @since  3.0.13
  * @return void
  */
 function ditty_updates() {
@@ -18,8 +18,8 @@ function ditty_updates() {
 	if ( version_compare( $current_version, '3.0.6', '<' ) ) {
 		ditty_v3_0_6_upgrades();
 	}
-	if ( version_compare( $current_version, '3.1', '<' ) ) {
-		//ditty_v3_1_upgrades();
+	if ( version_compare( $current_version, '3.0.13', '<' ) ) {
+		//ditty_v3_0_13_upgrades();
 	}
 
 	if ( DITTY_VERSION != $current_version ) {
@@ -30,12 +30,12 @@ function ditty_updates() {
 add_action( 'admin_init', 'ditty_updates' );
 
 /**
- * Version 3.1 Updates
+ * Version 3.0.13 Updates
  *
- * @since  3.1
+ * @since  3.0.13
  * @return void
  */
-function ditty_v3_1_upgrades() {
+function ditty_v3_0_13_upgrades() {
 	
 	// Update the database
 	$db_items = new Ditty_DB_Items();
@@ -219,7 +219,7 @@ function ditty_v3_upgrades() {
 /**
  * Add upgrade notices
  *
- * @since    3.1
+ * @since    3.0.13
 */
 function ditty_upgrade_notices() {
 	$ditty_upgrades = get_option( 'ditty_upgrades', array() );

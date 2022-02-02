@@ -21,7 +21,7 @@ add_action( 'admin_menu', 'ditty_settings_pages', 5 );
 /**
  * Render the settings page
  *
- * @since    3.1
+ * @since    3.0.13
 */
 function ditty_settings_display() {
 	?>
@@ -380,7 +380,7 @@ function ditty_settings_global_ditty() {
 /**
  * Setup the import and export fields
  *
- * @since    3.1
+ * @since    3.0.13
 */
 function ditty_settings_import_export() {	
 	$fields = array(

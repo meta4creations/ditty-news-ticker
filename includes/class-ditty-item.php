@@ -116,7 +116,7 @@ class Ditty_Item {
 	/**
 	 * Return the database data for the item
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @return string $db_data
 	 */
 	public function get_db_data() {
@@ -279,7 +279,7 @@ class Ditty_Item {
 	/**
 	 * Set the item value
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @return array $sanitized_item_value
 	 */
 	public function set_item_value( $item_value = array() ) {
@@ -323,7 +323,7 @@ class Ditty_Item {
 	/**
 	 * Return the item author
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @return int $item_author
 	 */
 	public function get_item_author() {
@@ -335,7 +335,7 @@ class Ditty_Item {
 	/**
 	 * Set the date created
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @return int $item_author
 	 */
 	public function set_item_author( $author = false ) {
@@ -350,7 +350,7 @@ class Ditty_Item {
 	/**
 	 * Return the date created
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @return date $date_created
 	 */
 	public function get_date_created() {
@@ -364,7 +364,7 @@ class Ditty_Item {
 	/**
 	 * Set the date created
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @return date $date_created
 	 */
 	public function set_date_created( $date = false ) {
@@ -379,7 +379,7 @@ class Ditty_Item {
 	/**
 	 * Return the date modified
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @return date $date_modified
 	 */
 	public function get_date_modified() {
@@ -393,7 +393,7 @@ class Ditty_Item {
 	/**
 	 * Set the date modified
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @return date $date_created
 	 */
 	public function set_date_modified( $date = false ) {

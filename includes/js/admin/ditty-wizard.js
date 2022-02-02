@@ -10,7 +10,7 @@ jQuery( function( $ ) {
 		/**
 		 * Ditty title
 		 *
-		 * @since    3.1
+		 * @since    3.0.13
 		*/
 		$( '.ditty-wizard-setting--title input[name="ditty_title"]' ).on( 'keyup', function() {
 			var $setting = $( this ).parents( '.ditty-wizard-setting' ),
@@ -28,7 +28,7 @@ jQuery( function( $ ) {
 		/**
 		 * Item Type
 		 *
-		 * @since    3.1
+		 * @since    3.0.13
 		*/
 		$( '.ditty-wizard-setting--item-type .ditty-option-grid__item' ).on( 'click', function( e ) {
 			e.preventDefault();
@@ -88,7 +88,7 @@ jQuery( function( $ ) {
 		/**
 		 * Item Type Settings Submit
 		 *
-		 * @since    3.1
+		 * @since    3.0.13
 		*/
 		$( '.ditty-wizard-setting--item-type-settings .ditty-option-submit' ).on( 'click', function( e ) {
 			e.preventDefault();
@@ -129,7 +129,7 @@ jQuery( function( $ ) {
 		/**
 		 * Variation Layout
 		 *
-		 * @since    3.1
+		 * @since    3.0.13
 		*/
 		$( '.ditty-wizard-setting--layout .ditty-option-grid__item' ).on( 'click', function( e ) {
 			e.preventDefault();
@@ -167,7 +167,7 @@ jQuery( function( $ ) {
 		/**
 		 * Display
 		 *
-		 * @since    3.1
+		 * @since    3.0.13
 		*/
 		$( '.ditty-wizard-setting--display .ditty-option-grid__item' ).on( 'click', function( e ) {
 			e.preventDefault();
@@ -196,7 +196,7 @@ jQuery( function( $ ) {
 		/**
 		 * Submit the wizard
 		 *
-		 * @since    3.1
+		 * @since    3.0.13
 		*/
 		$( '#ditty-wizard-submit' ).on( 'click', function( e ) {
 			e.preventDefault();

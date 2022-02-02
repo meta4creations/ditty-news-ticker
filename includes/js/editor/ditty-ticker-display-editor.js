@@ -10,7 +10,7 @@ jQuery( function( $ ) {
 		/**
 		 * Set the min height
 		 *
-		 * @since    3.1
+		 * @since    3.0.13
 		*/
 		function setMinHeight( $form ) {
 			var val = $form.find( 'input[name="direction"]:checked' ).val(),
@@ -37,7 +37,7 @@ jQuery( function( $ ) {
 		/**
 		 * Set the scroll delay field visibility
 		 *
-		 * @since    3.1
+		 * @since    3.0.13
 		*/
 		function setScrollDelay( $form ) {
 			var val = $form.find( 'input[name="scrollInit"]:checked' ).val();
@@ -51,7 +51,7 @@ jQuery( function( $ ) {
 		/**
 		 * Set the title field visibility
 		 *
-		 * @since    3.1
+		 * @since    3.0.13
 		*/
 		function setTitleStyles( $form ) {
 			var val = $form.find( 'select[name="titleDisplay"]' ).val(),

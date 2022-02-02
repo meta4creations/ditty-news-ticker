@@ -260,7 +260,7 @@ class Ditty_Singles {
 	 * Add to the admin body class
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 */
 	public function add_admin_body_class( $classes ) {
 		if ( ditty_wizard_enabled() ) {
@@ -272,7 +272,7 @@ class Ditty_Singles {
 	/**
 	 * Duplicate Ditty items on Post Duplicator duplication
 	 * 
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @return void
 	 */
 	public function after_duplicate_post( $original_id, $duplicate_id, $settings ) {
@@ -565,7 +565,7 @@ class Ditty_Singles {
 	 * Sanitize setting values before saving to the database
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 */
 	public function sanitize_settings( $settings ) {	
 		$defaults = ditty_single_settings_defaults();
@@ -642,7 +642,7 @@ class Ditty_Singles {
 	 * Save draft values on Ditty editor update
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 */
 	public function editor_save_ajax() {	
 		check_ajax_referer( 'ditty', 'security' );

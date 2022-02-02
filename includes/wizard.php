@@ -3,7 +3,7 @@
 /**
  * Render the wizard
  * 
- * @since  3.1
+ * @since  3.0.13
  * @return void
  */
 function ditty_wizard( $post ) {
@@ -227,7 +227,7 @@ function ditty_wizard( $post ) {
  * Save the wizard options
  *
  * @access public
- * @since  3.1
+ * @since  3.0.13
  */
 function ditty_submit_wizard_ajax() {
 	check_ajax_referer( 'ditty', 'security' );

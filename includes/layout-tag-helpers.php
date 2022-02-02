@@ -3,7 +3,7 @@
 /**
  * Return item meta
  *
- * @since    3.1
+ * @since    3.0.13
  * @var      html
 */
 function ditty_layout_item_meta( $data, $key = false ) {

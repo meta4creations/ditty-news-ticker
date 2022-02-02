@@ -711,7 +711,7 @@ class Ditty_Layouts {
 	 * Return the html field to edit
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @param   json.
 	 */
 	public function editor_fields_ajax() {
@@ -860,7 +860,7 @@ class Ditty_Layouts {
 	/**
 	 * Clone a layout via ajax
 	 *
-	 * @since    3.1
+	 * @since    3.0.13
 	 */
 	public function editor_clone_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
@@ -980,7 +980,7 @@ class Ditty_Layouts {
 	 * Save layout draft values on Ditty update
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 */
 	public function update_drafts( $ditty_id, $draft_values ) {
 		if ( ! current_user_can( 'edit_ditty_layouts' ) ) {

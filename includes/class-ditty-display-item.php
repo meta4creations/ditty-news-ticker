@@ -28,7 +28,7 @@ class Ditty_Display_Item {
 	/**
 	 * Get things started\*
 	 * @access  public
-	 * @since   3.1
+	 * @since   3.0.13
 	 */
 	public function __construct( $meta ) {	
 		$this->layout_value 	= isset( $meta['layout_value'] ) 		? maybe_unserialize( $meta['layout_value'] ) 	: false;
@@ -49,7 +49,7 @@ class Ditty_Display_Item {
 	 * Return the database data for the item
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @return string $db_data
 	 */
 	public function get_db_data() {
@@ -103,7 +103,7 @@ class Ditty_Display_Item {
 	 * Return the Ditty id
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @return int $ditty_id
 	 */
 	public function get_ditty_id() {
@@ -136,7 +136,7 @@ class Ditty_Display_Item {
 	 * Return the item author
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @return int $item_author
 	 */
 	public function get_item_author() {
@@ -169,7 +169,7 @@ class Ditty_Display_Item {
 	 * Return the date created
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @return date $date_created
 	 */
 	public function get_date_created() {
@@ -180,7 +180,7 @@ class Ditty_Display_Item {
 	 * Return the date modified
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @return date $date_modified
 	 */
 	public function get_date_modified() {
@@ -233,7 +233,7 @@ class Ditty_Display_Item {
 	 * Confirm that the layout exists
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @return int $id
 	 */
 	private function parse_layout_id() {

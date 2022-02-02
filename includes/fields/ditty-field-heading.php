@@ -7,7 +7,7 @@
  * @subpackage  Classes/Ditty Field Heading
  * @copyright   Copyright (c) 2022, Metaphor Creations
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       3.1
+ * @since       3.0.13
 */
 class Ditty_Field_Heading extends Ditty_Field {	
 	

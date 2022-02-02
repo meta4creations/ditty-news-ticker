@@ -843,7 +843,7 @@ class Ditty_Displays {
 	 * Save display draft values on Ditty update
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 */
 	public function update_drafts( $ditty_id, $draft_values ) {
 		if ( ! current_user_can( 'edit_ditty_displays' ) ) {

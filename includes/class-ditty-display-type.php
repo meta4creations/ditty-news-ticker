@@ -463,7 +463,7 @@ class Ditty_Display_Type {
 	/**
 	 * Return title style settings
 	 *
-	 * @since   3.1
+	 * @since   3.0.13
 	 * @var     $settings array
 	 */
 	public function title_style_settings( $values, $id = 'titleStyles', $extra_fields = array() ) {

@@ -66,7 +66,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
-= 3.1 =
+= 3.0.13 =
 * Added Ditty Wizard
 * Ditty settings page updates
 * Added Heading field type
@@ -76,10 +76,11 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 * Added init meta to Ditty
 * Resolved editor layout bugs
 * Added Item Created and Modified date meta
-* Add Item Author meta and Layout tags
+* Added Item Author meta and Layout tags
 * Modified field help functionality
 * Added option to not clone ticker items
-* Hide ticker display if no items
+* Ticker display now hides if there are no items
+* Added Ticker title settings
 
 = 3.0.12 =
 * Modified custom display check when rendering Ditty

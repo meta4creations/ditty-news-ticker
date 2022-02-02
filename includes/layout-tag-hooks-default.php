@@ -3,7 +3,7 @@
 /**
  * Modify the layout user avatar
  *
- * @since    3.1
+ * @since    3.0.13
  * @var      html
 */
 function ditty_default_layout_tag_author_avatar_data( $avatar_data, $item_type, $data, $atts ) {
@@ -26,7 +26,7 @@ add_filter( 'ditty_layout_tag_author_avatar_data', 'ditty_default_layout_tag_aut
 /**
  * Modify the layout author name
  *
- * @since    3.1
+ * @since    3.0.13
  * @var      html
 */
 function ditty_default_layout_tag_author_name( $author_name, $item_type, $data, $atts ) {
@@ -46,7 +46,7 @@ add_filter( 'ditty_layout_tag_author_name', 'ditty_default_layout_tag_author_nam
 /**
  * Modify the layout author bio
  *
- * @since    3.1
+ * @since    3.0.13
  * @var      html
 */
 function ditty_default_layout_tag_author_bio( $author_bio, $item_type, $data, $atts ) {
@@ -89,7 +89,7 @@ add_filter( 'ditty_layout_tag_content', 'ditty_default_layout_tag_content', 10, 
 /**
  * Modify the layout timestamp
  *
- * @since    3.1
+ * @since    3.0.13
  * @var      html
 */
 function ditty_default_layout_tag_timestamp( $timestamp, $item_type, $data, $atts ) {

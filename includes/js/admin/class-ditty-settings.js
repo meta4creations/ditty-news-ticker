@@ -195,7 +195,7 @@
 		/**
 		 * Activate a panel
 		 *
-		 * @since    3.1
+		 * @since    3.0.13
 		 * @return   null
 		*/
 		_activatePanel: function( panelId ) {

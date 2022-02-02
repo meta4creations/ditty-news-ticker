@@ -17,7 +17,7 @@ class Ditty_Field_Checkboxes extends Ditty_Field {
 	 * Return the default atts
 	 *
 	 * @access  private
-	 * @since   3.1
+	 * @since   3.0.13
 	 */
 	public function defaults() {
 		$atts = array(

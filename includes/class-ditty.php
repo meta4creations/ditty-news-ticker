@@ -224,7 +224,7 @@ class Ditty {
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
 	 *
-	 * @since    3.1
+	 * @since    3.0.13
 	 * @access   private
 	 */
 	private function includes() {

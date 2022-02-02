@@ -126,7 +126,7 @@ class Ditty_Layout {
 	/**
 	 * Return the item meta
 	 * @access public
-	 * @since  3.1
+	 * @since  3.0.13
 	 * @return string $item_type
 	 */
 	public function get_item_meta() {

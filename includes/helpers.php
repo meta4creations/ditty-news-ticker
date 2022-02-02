@@ -3,7 +3,7 @@
 /**
  * Return the settings defaults
  *
- * @since    3.1
+ * @since    3.0.13
 */
 function ditty_settings_defaults() {	
 	$defaults = array(
@@ -15,7 +15,7 @@ function ditty_settings_defaults() {
 		'variation_defaults'		=> array(),
 		'global_ditty'					=> array(),
 		'ditty_news_ticker' 		=> '',
-		'ditty_wizard' 					=> 'enabled',
+		'ditty_wizard' 					=> 'disabled',
 		'disable_fontawesome' 	=> '',
 		'notification_email' 		=> '',
 	);
@@ -58,7 +58,7 @@ function ditty_settings( $key=false, $value='' ) {
 /**
  * Return the single settings defaults
  *
- * @since    3.1
+ * @since    3.0.13
 */
 function ditty_single_settings_defaults() {	
 	$defaults = array(
@@ -73,7 +73,7 @@ function ditty_single_settings_defaults() {
 /**
  * Return a single Ditty setting
  *
- * @since    3.1
+ * @since    3.0.13
 */
 function ditty_single_settings( $ditty_id, $key = false ) {
 	global $ditty_single_settings;
@@ -96,7 +96,7 @@ function ditty_single_settings( $ditty_id, $key = false ) {
 /**
  * Return an array of item types
  * 
- * @since   3.1
+ * @since   3.0.13
 */
 function ditty_item_types() {
 	$item_types = array();
@@ -1058,7 +1058,7 @@ function ditty_item_meta( $item_id ) {
 /**
  * Return the default layout
  *
- * @since    3.1
+ * @since    3.0.13
  * @access   public
  * @var      int    $layout_id
  */
@@ -1080,7 +1080,7 @@ function ditty_get_default_layout() {
 /**
  * Return an array of new item meta
  *
- * @since    3.1
+ * @since    3.0.13
  * @access   public
  * @var      array    $item_meta    Array of item data
  */
@@ -1508,7 +1508,7 @@ function ditty_decrypt( $string = '', $key_1 = 'pbQttfc*y2bdNV', $key_2 = '3tq!D
 /**
  * Add a uniq_id to a post if it doesn't exist
  *
- * @since    3.1
+ * @since    3.0.13
  * @var      boolean
 */
 function ditty_maybe_add_uniq_id( $post_id ) {
@@ -1533,7 +1533,7 @@ function ditty_news_ticker_enabled() {
 /**
  * Check if Ditty Wizard is enabled
  *
- * @since    3.1
+ * @since    3.0.13
  * @var      boolean
 */
 function ditty_wizard_enabled() {
@@ -1545,7 +1545,7 @@ function ditty_wizard_enabled() {
 /**
  * Write to the Ditty log
  *
- * @since    3.1
+ * @since    3.0.13
 */
 function ditty_log( $log = false ) {
 	if ( $log ) {

@@ -101,7 +101,7 @@ class Ditty_Field {
 	/**
 	 * Return the html
 	 *
-	 * @since 3.1
+	 * @since 3.0.13
 	 * @return $html string
 	 */
 	public function html() {
@@ -154,7 +154,7 @@ class Ditty_Field {
 	/**
 	 * Return the help
 	 *
-	 * @since 3.1
+	 * @since 3.0.13
 	 * @return $html string
 	 */
 	public function help() {

@@ -8,7 +8,7 @@
  * @subpackage  Classes/Ditty DB Items
  * @copyright   Copyright (c) 2021, Metaphor Creations
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       3.1
+ * @since       3.0.13
  */
 
 // Exit if accessed directly
@@ -34,7 +34,7 @@ class Ditty_DB_Items extends Ditty_DB {
 	/**
 	 * Get table columns and data types
 	 *
-	 * @since   3.1
+	 * @since   3.0.13
 	*/
 	public function get_columns() {
 		return array(
@@ -53,7 +53,7 @@ class Ditty_DB_Items extends Ditty_DB {
 	/**
 	 * Get default column values
 	 *
-	 * @since   3.1
+	 * @since   3.0.13
 	*/
 	public function get_column_defaults() {
 		return array(
@@ -151,7 +151,7 @@ class Ditty_DB_Items extends Ditty_DB {
 	/**
 	 * Create the table
 	 *
-	 * @since   3.1
+	 * @since   3.0.13
 	*/
 	public function create_table() {
 
