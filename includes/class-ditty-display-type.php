@@ -371,13 +371,14 @@ class Ditty_Display_Type {
 			'type'	=> 'color',
 			'id'		=> "{$prefixed}Color",
 			'name'	=> __( 'Border Color', 'ditty-news-ticker' ),
+			'help' 	=> __( 'Choose a color for the border.', 'ditty-news-ticker' ),
 			'std'		=> isset( $values["{$prefixed}Color"] ) ? $values["{$prefixed}Color"] : false,
 		);
 		$settings["{$prefixed}Style"] = array(
 			'type'		=> 'select',
 			'id'			=> "{$prefixed}Style",
 			'name'		=> __( 'Border Style', 'ditty-news-ticker' ),
-			'help'		=> __( 'A border style must be set for a border to render', 'ditty-news-ticker' ),
+			'help'		=> __( 'A border style must be set for a border to render.', 'ditty-news-ticker' ),
 			'options' => ditty_border_styles_array(),
 			'std'			=> isset( $values["{$prefixed}Style"] ) ? $values["{$prefixed}Style"] : false,		
 		);
@@ -385,6 +386,7 @@ class Ditty_Display_Type {
 			'type'	=> 'spacing',
 			'id'		=> "{$prefixed}Width",
 			'name'	=> __( 'Border Width', 'ditty-news-ticker' ),
+			'help' 	=> __( 'Set custom border widths.', 'ditty-news-ticker' ),
 			'options' => array(
 				'borderTopWidth'		=> __( 'Top', 'ditty-news-ticker' ),
 				'borderBottomWidth'	=> __( 'Bottom', 'ditty-news-ticker' ),
@@ -397,6 +399,7 @@ class Ditty_Display_Type {
 			'type'	=> 'radius',
 			'id'		=> "{$prefixed}Radius",
 			'name'	=> __( 'Border Radius', 'ditty-news-ticker' ),
+			'help' 	=> __( 'Choose a custom border radius.', 'ditty-news-ticker' ),
 			'std'		=> isset( $values["{$prefixed}Radius"] ) ? $values["{$prefixed}Radius"] : false,
 		);
 		return $settings;
@@ -466,22 +469,24 @@ class Ditty_Display_Type {
 	public function title_style_settings( $values, $id = 'titleStyles', $extra_fields = array() ) {
 		$base_fields = array(
 			'titleDisplay' => array(
-				'type'	=> 'radio',
+				'type'	=> 'select',
 				'id'		=> 'titleDisplay',
 				'name'	=> __( 'Display', 'ditty-news-ticker' ),
+				'help' 	=> __( 'Show the Ditty title with your ticker.', 'ditty-news-ticker' ),
 				'options' => [
 					'none' 		=> __( 'None', 'ditty-news-ticker' ),
 					'top' 		=> __( 'Top', 'ditty-news-ticker' ),
+					'bottom' 	=> __( 'Bottom', 'ditty-news-ticker' ),
 					'left'		=> __( 'Left', 'ditty-news-ticker' ),
 					'right'		=> __( 'Right', 'ditty-news-ticker' ),
 				],
-				'inline' 	=> true,
 				'std'		=> isset( $values['titleDisplay'] ) ? $values['titleDisplay'] : false,
 			),
 			'titleElement' => array(
 				'type'	=> 'select',
 				'id'		=> 'titleElement',
 				'name'	=> __( 'Element', 'ditty-news-ticker' ),
+				'help' 	=> __( 'Select the HTML element to use for the title.', 'ditty-news-ticker' ),
 				'options' => [
 					'h1' 	=> 'h1',
 					'h2' 	=> 'h2',
@@ -493,22 +498,39 @@ class Ditty_Display_Type {
 				],
 				'std'		=> isset( $values['titleElement'] ) ? $values['titleElement'] : false,
 			),
+			'titleFontSize' => array(
+				'type'	=> 'text',
+				'id'		=> 'titleFontSize',
+				'name'	=> __( 'Font Size', 'ditty-news-ticker' ),
+				'help' 	=> __( 'Set a custom font size.', 'ditty-news-ticker' ),
+				'std'		=> isset( $values['titleFontSize'] ) ? $values['titleFontSize'] : false,
+			),
+			'titleLineHeight' => array(
+				'type'	=> 'text',
+				'id'		=> 'titleLineHeight',
+				'name'	=> __( 'Line Height', 'ditty-news-ticker' ),
+				'help' 	=> __( 'Set a custom line height.', 'ditty-news-ticker' ),
+				'std'		=> isset( $values['titleLineHeight'] ) ? $values['titleLineHeight'] : false,
+			),
 			'titleColor' => array(
 				'type'	=> 'color',
 				'id'		=> 'titleColor',
 				'name'	=> __( 'Text Color', 'ditty-news-ticker' ),
+				'help' 	=> __( 'Set a custom font color.', 'ditty-news-ticker' ),
 				'std'		=> isset( $values['titleColor'] ) ? $values['titleColor'] : false,
 			),
 			'titleBgColor' => array(
 				'type'	=> 'color',
 				'id'		=> 'titleBgColor',
 				'name'	=> __( 'Background Color', 'ditty-news-ticker' ),
+				'help' 	=> __( 'Add a background title to the title area.', 'ditty-news-ticker' ),
 				'std'		=> isset( $values['titleBgColor'] ) ? $values['titleBgColor'] : false,
 			),
 			'titleMargin' => array(
 				'type'	=> 'spacing',
 				'id'		=> 'titleMargin',
 				'name'	=> __( 'Margin', 'ditty-news-ticker' ),
+				'help' 	=> __( 'Add custom margins around the title area.', 'ditty-news-ticker' ),
 				'options' => array(
 					'marginTop'			=> __( 'Top', 'ditty-news-ticker' ),
 					'marginBottom'	=> __( 'Bottom', 'ditty-news-ticker' ),
@@ -521,6 +543,7 @@ class Ditty_Display_Type {
 				'type'	=> 'spacing',
 				'id'		=> 'titlePadding',
 				'name'	=> __( 'Padding', 'ditty-news-ticker' ),
+				'help' 	=> __( 'Add custom padding around the title area.', 'ditty-news-ticker' ),
 				'options' => array(
 					'paddingTop'		=> __( 'Top', 'ditty-news-ticker' ),
 					'paddingBottom'	=> __( 'Bottom', 'ditty-news-ticker' ),

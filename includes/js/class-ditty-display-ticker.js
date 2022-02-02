@@ -45,6 +45,8 @@
 			contentsBorderRadius	: {},
 			titleDisplay					: 'none',
 			titleElement					: 'h3',
+			titleFontSize					: '',
+			titleLineHeight				: '',
 			titleColor						: '',
 			titleBgColor						: '',
 			titleMargin						: {},
@@ -881,13 +883,14 @@
 		*/
 		_styleTitle: function () {
 			this.$elmt.attr( 'data-title', this.settings.titleDisplay );
-			console.log( this.settings.id, this.settings.titleDisplay );
 			if ( 'none' === this.settings.titleDisplay ) {
 				this.$title.remove();
 			} else {
 				var $element = $( '<' + this.settings.titleElement + ' class="ditty-ticker__title__element">' + this.settings.title + '</' + this.settings.titleElement + '>' );
 
 				$element.css( {
+					fontSize: this.settings.titleFontSize,
+					lineHeight: this.settings.titleLineHeight,
 					color: this.settings.titleColor,
 					margin: 0,
 					padding: 0
@@ -905,10 +908,6 @@
 				
 				this.$titleContents.html( $element );
 				this.$elmt.prepend( this.$title );
-			}
-			
-			if ( 'inline' === this.settings.titleDisplay ) {
-				
 			}
 		},
 		
@@ -981,6 +980,8 @@
 					break;
 				case 'titleDisplay':
 				case 'titleElement':
+				case 'titleFontSize':
+				case 'titleLineHeight':
 				case 'titleColor':
 				case 'titleBgColor':
 				case 'titleMargin':
