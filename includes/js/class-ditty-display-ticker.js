@@ -45,6 +45,7 @@
 			contentsBorderRadius	: {},
 			titleDisplay					: 'none',
 			titleElement					: 'h3',
+			titleElementPosition 	: 'topLeft',
 			titleFontSize					: '',
 			titleLineHeight				: '',
 			titleColor						: '',
@@ -883,6 +884,7 @@
 		*/
 		_styleTitle: function () {
 			this.$elmt.attr( 'data-title', this.settings.titleDisplay );
+			this.$elmt.attr( 'data-title_position', this.settings.titleElementPosition );
 			if ( 'none' === this.settings.titleDisplay ) {
 				this.$title.remove();
 			} else {
@@ -980,6 +982,7 @@
 					break;
 				case 'titleDisplay':
 				case 'titleElement':
+				case 'titleElementPosition':
 				case 'titleFontSize':
 				case 'titleLineHeight':
 				case 'titleColor':

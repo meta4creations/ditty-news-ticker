@@ -498,6 +498,19 @@ class Ditty_Display_Type {
 				],
 				'std'		=> isset( $values['titleElement'] ) ? $values['titleElement'] : false,
 			),
+			'titleElementPosition' => array(
+				'type'	=> 'radio',
+				'id'		=> 'titleElementPosition',
+				'name'	=> __( 'Element Position', 'ditty-news-ticker' ),
+				'help' 	=> __( 'Set the position of the element within the title area.', 'ditty-news-ticker' ),
+				'options'	=> [
+					'start' 	=> __( 'Start', 'ditty-news-ticker' ),
+					'center' 	=> __( 'Center', 'ditty-news-ticker' ),
+					'end' 		=> __( 'End', 'ditty-news-ticker' ),
+				],
+				'inline' => true,
+				'std'		=> isset( $values['titleElementPosition'] ) ? $values['titleElementPosition'] : false,
+			),
 			'titleFontSize' => array(
 				'type'	=> 'text',
 				'id'		=> 'titleFontSize',
