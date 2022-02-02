@@ -1017,7 +1017,7 @@ function ditty_display_items( $ditty_id, $load_type = 'cache', $custom_layouts =
  * @access   public
  * @var      array    $items_meta    Array of items connected to a Ditty
  */
-function ditty_items_meta( $ditty_id=false ) {	
+function ditty_items_meta( $ditty_id = false ) {	
 	$ditty_id = $ditty_id ? $ditty_id : get_the_id();
 	global $items_meta;
 	

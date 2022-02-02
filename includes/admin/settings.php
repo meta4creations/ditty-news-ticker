@@ -67,11 +67,11 @@ function ditty_settings_display() {
 						'label' 		=> __( 'Advanced', 'ditty-news-ticker' ),
 						'fields' 		=> 'ditty_settings_advanced',
 					),
-					'import_export' => array(
-						'icon'			=> 'fas fa-pencil-alt',
-						'label' 		=> __( 'Import / Export', 'ditty-news-ticker' ),
-						'fields' 		=> 'ditty_settings_import_export',
-					),
+					// 'import_export' => array(
+					// 	'icon'			=> 'fas fa-download',
+					// 	'label' 		=> __( 'Import / Export', 'ditty-news-ticker' ),
+					// 	'fields' 		=> 'ditty_settings_import_export',
+					// ),
 				) );
 				?>
 
@@ -265,7 +265,7 @@ function ditty_settings_advanced() {
 		'ditty_wizard' => array(
 			'type' 		=> 'radio',
 			'id' 			=> 'ditty_wizard',
-			'name' 		=> __( 'Ditty Wizard', 'ditty-news-ticker' ),
+			'name' 		=> __( 'Ditty Wizard (Beta)', 'ditty-news-ticker' ),
 			'desc' 		=> __( "The Ditty Wizard helps you set up your new Dittys with a step by step guide.", 'ditty-news-ticker' ),
 			'options'	=> array(
 				'enabled' 	=> __( 'Enabled', 'ditty-news-ticker' ),
@@ -447,9 +447,9 @@ function ditty_settings_import_export() {
 
 function ditty_export_ditty() {	
 	$fields = array(
-		'ditty_export_type' => array(
+		'ditty_export_options' => array(
 			'type'		=> 'checkboxes',
-			'id' 			=> 'ditty_export_type',
+			'id' 			=> 'ditty_export_options',
 			'options'	=> array(
 				'layouts' => __( 'Export Attached Layouts', 'ditty-news-ticker' ),
 				'displays' => __( 'Export Attached Displays', 'ditty-news-ticker' ),
@@ -466,6 +466,10 @@ function ditty_export_ditty() {
 			'id' 		=> 'ditty_export_button',
 			'label'	=> __( 'Export All Ditty posts', 'ditty-news-ticker' ) . ' <i class="fas fa-sync-alt fa-spin"></i>',
 			'field_only' => true,
+			'icon_after' => 'fas fa-sync-alt fa-spin',
+			'atts' => array(
+				'data-export_type' => 'ditty',
+			),
 		),
 	);
 	$render_fields = ditty_fields( $fields, false, 'return' );

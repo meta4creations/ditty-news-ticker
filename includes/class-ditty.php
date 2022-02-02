@@ -319,6 +319,7 @@ class Ditty {
 				require_once DITTY_DIR . 'includes/admin/Ditty_Plugin_Updater.php';
 			}
 			require_once DITTY_DIR . 'includes/admin/columns.php';
+			require_once DITTY_DIR . 'includes/admin/export.php';
 			require_once DITTY_DIR . 'includes/admin/notices.php';
 			require_once DITTY_DIR . 'includes/admin/settings.php';
 			//require_once DITTY_DIR . 'includes/admin/info.php';

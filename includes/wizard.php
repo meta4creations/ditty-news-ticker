@@ -14,7 +14,7 @@ function ditty_wizard( $post ) {
 	<div id="ditty-page" class="wrap ditty-wizard">	
 		<div id="ditty-page__header" class="ditty-wizard-header">
 			<h2><?php _e( 'Ditty Wizard', 'ditty-news-ticker' ); ?></h2>
-			<div class="ditty-wizard-header__contents">
+<!-- 			<div class="ditty-wizard-header__contents">
 				<ul>
 					<li>
 						<h4><i class="fas fa-stream"></i> <?php esc_html_e( 'Add your first Item type', 'ditty-news-ticker' ); ?></h4>
@@ -29,8 +29,7 @@ function ditty_wizard( $post ) {
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 					</li>
 				</ul>
-			</div>
-			<p><?php // _e( 'Complete the wizard to', 'ditty-news-ticker' ); ?></p>
+			</div> -->
 		</div>	
 		<div id="ditty-page__content">
 			<div id="ditty-editor">

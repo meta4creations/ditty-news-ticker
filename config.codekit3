@@ -166,6 +166,14 @@
       "oAP" : "\/includes\/admin\/Ditty_Plugin_Updater.php",
       "oF" : 0
     },
+    "\/includes\/admin\/export.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/admin\/export.php",
+      "oF" : 0
+    },
     "\/includes\/admin\/info.php" : {
       "cB" : 0,
       "ft" : 8192,
