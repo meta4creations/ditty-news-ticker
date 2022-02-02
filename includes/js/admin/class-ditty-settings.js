@@ -53,7 +53,7 @@
 			this.$form.on( 'ditty_input_wysiwyg_update', '.ditty-input--wysiwyg', { self: this }, this._checkUpdates );
 			this.$form.on( 'click', '.ditty-default-layout-install', { self: this }, this._installLayout );
 			this.$form.on( 'click', '.ditty-default-display-install', { self: this }, this._installDisplay );
-			this.$form.on( 'click', 'button[name="ditty_export_button"]', { self: this }, this._exportPosts );
+			//this.$form.on( 'click', 'button[name="ditty_export_button"]', { self: this }, this._exportPosts );
 			
 			if ( this.url.indexOf( "#" ) > 0 ) {
 				var activePanel = this.url.substring( this.url.indexOf( "#" ) + 1 );
@@ -64,7 +64,7 @@
 		/**
 		 * Initialize the slider
 		 *
-		 * @since    3.0
+		 * @since    3.0.13
 		 * @return   null
 		*/
 		_initSlider: function () {	
@@ -375,44 +375,40 @@
 		 * @since    3.0.13
 		 * @return   null
 		*/
-		_exportPosts: function( e ) { 
-			e.preventDefault();
-			var self 						= e.data.self,
-					$button 				= $( e.target ).is( 'button' ) ? $( e.target ) : $( e.target ).parents( 'button' ),
-					$parent					= $button.parent( '.ditty-field-only' ),
-					$options 				= $parent.siblings( '.ditty-field-only--ditty_export_options' ),
-					$icon						= $button.find( 'i' ),
-					export_options 	= [];
-					
-			if ( $button.attr( 'disabled' ) ) {
-				return false;
-			}
-			$button.attr( 'disabled', 'disabled' );
-			$icon.show();
-			
-			if ( $options.length ) {
-				$options.find( 'input[type="checkbox"]' ).each( function() {
-					if ( $( this ).is( ':checked' ) ) {
-						export_options.push( $( this ).val() );
-					}
-				} );			
-			}
-			
-			var data = {
-				action						: 'ditty_export_posts',
-				export_type				: $button.data( 'export_type' ),
-				export_options		: export_options,
-				security					: dittyAdminVars.security
-			};
-			$.post( dittyAdminVars.ajaxurl, data, function( response ) {
-				$icon.hide();
-				self.$elmt.removeAttr( 'disabled' );	
-				//console.log( response );
-				// if ( response ) {
-				// 	$button.replaceWith( response.button );
-				// }
-			} );
-		},
+		// _exportPosts: function( e ) { 
+		// 	e.preventDefault();
+		// 	var self 						= e.data.self,
+		// 			$button 				= $( e.target ).is( 'button' ) ? $( e.target ) : $( e.target ).parents( 'button' ),
+		// 			$parent					= $button.parent( '.ditty-field-only' ),
+		// 			$options 				= $parent.siblings( '.ditty-field-only--ditty_export_options' ),
+		// 			$icon						= $button.find( 'i' ),
+		// 			export_options 	= [];
+		// 			
+		// 	if ( $button.attr( 'disabled' ) ) {
+		// 		return false;
+		// 	}
+		// 	$button.attr( 'disabled', 'disabled' );
+		// 	$icon.show();
+		// 	
+		// 	if ( $options.length ) {
+		// 		$options.find( 'input[type="checkbox"]' ).each( function() {
+		// 			if ( $( this ).is( ':checked' ) ) {
+		// 				export_options.push( $( this ).val() );
+		// 			}
+		// 		} );			
+		// 	}
+		// 	
+		// 	var data = {
+		// 		action						: 'ditty_export_posts',
+		// 		export_type				: $button.data( 'export_type' ),
+		// 		export_options		: export_options,
+		// 		security					: dittyAdminVars.security
+		// 	};
+		// 	$.post( dittyAdminVars.ajaxurl, data, function( response ) {
+		// 		$icon.hide();
+		// 		self.$elmt.removeAttr( 'disabled' );	
+		// 	} );
+		// },
 
 	  /**
 		 * Return a specific setting
@@ -484,7 +480,7 @@
 			this.$form.off( 'ditty_input_wysiwyg_update', '.ditty-input--wysiwyg', { self: this }, this._checkUpdates );
 			this.$form.off( 'click', '.ditty-default-layout-install', { self: this }, this._installLayout );
 			this.$form.off( 'click', '.ditty-default-display-install', { self: this }, this._installDisplay );
-			this.$form.off( 'click', 'button[name="ditty_export_button"]', { self: this }, this._exportPosts );
+			//this.$form.off( 'click', 'button[name="ditty_export_button"]', { self: this }, this._exportPosts );
 
 			this.$panels.ditty_slider( 'destroy' );
 	    this.elmt._ditty_settings = null;	    
