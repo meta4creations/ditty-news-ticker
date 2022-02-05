@@ -22,7 +22,7 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 	 * Setup the fields
 	 *
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.0.14
 	 */
 	public function fields( $values = array() ) {	
 		$fields = array(

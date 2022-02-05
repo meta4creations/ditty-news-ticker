@@ -142,14 +142,6 @@
       "oO" : 0,
       "oS" : 1
     },
-    "\/composer.lock" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/composer.lock",
-      "oF" : 0
-    },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -202,7 +194,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/admin\/settings.php",
       "oF" : 0
     },
@@ -226,7 +218,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/class-ditty-db-items.php",
       "oF" : 0
     },
@@ -250,7 +242,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/class-ditty-display-item.php",
       "oF" : 0
     },
@@ -274,7 +266,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/class-ditty-display-type.php",
       "oF" : 0
     },
@@ -362,7 +354,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/class-ditty-item.php",
       "oF" : 0
     },
@@ -378,7 +370,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/class-ditty-layout.php",
       "oF" : 0
     },
@@ -410,7 +402,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/class-ditty-singles.php",
       "oF" : 0
     },
@@ -426,7 +418,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/class-ditty.php",
       "oF" : 0
     },
@@ -510,7 +502,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/fields\/ditty-field-checkboxes.php",
       "oF" : 0
     },
@@ -558,7 +550,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/fields\/ditty-field-group.php",
       "oF" : 0
     },
@@ -807,7 +799,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/hooks.php",
       "oF" : 0
     },
@@ -857,7 +849,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 1,
+      "mi" : 0,
       "oA" : 1,
       "oAP" : "\/includes\/js\/admin\/class-ditty-settings.min.js",
       "oF" : 0,
@@ -912,7 +904,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 1,
+      "mi" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/js\/class-ditty-display-list.min.min.js",
       "oF" : 0,
@@ -967,7 +959,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 1,
+      "mi" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/js\/ditty-admin.min.js",
       "oF" : 0,
@@ -1264,7 +1256,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/layout-tag-helpers.php",
       "oF" : 0
     },
@@ -1678,7 +1670,7 @@
       "sct" : 1
     },
     "\/includes\/sass\/editor\/_displays_panel.scss" : {
-      "aP" : 0,
+      "aP" : 1,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1690,7 +1682,7 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 0
+      "sct" : 1
     },
     "\/includes\/sass\/editor\/_editor.scss" : {
       "aP" : 0,
@@ -1798,7 +1790,7 @@
       "sct" : 1
     },
     "\/includes\/sass\/partials\/_display_ticker.scss" : {
-      "aP" : 0,
+      "aP" : 1,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1810,7 +1802,7 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 0
+      "sct" : 1
     },
     "\/includes\/sass\/partials\/_displays.scss" : {
       "aP" : 1,
@@ -1936,7 +1928,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/upgrades.php",
       "oF" : 0
     },
