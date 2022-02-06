@@ -33,8 +33,8 @@ class Ditty_Display {
 		
 		// Else, this is an existing display
 		} elseif ( get_post( $display_id ) ) { 
-				$this->construct_from_id( $display_id );
-				$this->parse_draft_data( $display_id );
+			$this->construct_from_id( $display_id );
+			$this->parse_draft_data( $display_id );
 		}
 		$this->construct_display_object_data();
 		return $this;

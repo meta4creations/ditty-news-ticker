@@ -848,9 +848,10 @@
 				borderColor: this.settings.borderColor,
 				borderStyle: this.settings.borderStyle
 			} );
-			this.$elmt.css( this.settings.padding );
-			this.$elmt.css( this.settings.margin );
 			this.$elmt.css( this.settings.borderRadius );
+			this.$elmt.css( this.settings.borderWidth );
+			this.$elmt.css( this.settings.margin );
+			this.$elmt.css( this.settings.padding );
 			
 			this.$contents.css( {
 				backgroundColor: this.settings.contentsBgColor,
