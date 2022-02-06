@@ -435,7 +435,9 @@ class Ditty {
 		if ( ! $disable_fontawesome ) {
 			wp_enqueue_style( 'fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
 		}
-		if ( is_admin() ) {
+		
+		$enqueue_admin_scripts = apply_filters( 'ditty_enqueue_admin_scripts', is_admin() );
+		if ( $enqueue_admin_scripts ) {
 			wp_enqueue_style( 'wp-codemirror' );
 			wp_enqueue_style( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.css', false, '1.4.21', false );	
 			wp_enqueue_style( 'ion-rangeslider', DITTY_URL . 'includes/libs/ion.rangeSlider/css/ion.rangeSlider.min.css', false, '2.3.1', false );
@@ -444,9 +446,10 @@ class Ditty {
 			if ( $disable_fontawesome ) {
 				wp_enqueue_style( 'fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
 			}
-		} else {
-			
-			// Add scripts for the global Dittys
+		}
+		
+		// Add scripts for the global Dittys
+		if ( ! is_admin() ) {
 			$global_ditty = ditty_settings( 'global_ditty' );
 			if ( is_array( $global_ditty ) && count( $global_ditty ) > 0 ) {
 				foreach ( $global_ditty as $i => $global_ditty ) {
