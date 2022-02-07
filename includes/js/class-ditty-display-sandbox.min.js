@@ -42,7 +42,7 @@
 			
 			this.$ditty = $( '.ditty[data-uniqid="' + this.settings.dittyUniqId + '"]' );
 			
-			if ( undefined ===  this.$ditty[0] || null === this.$ditty ) {
+			if ( undefined === this.$ditty[0] || null === this.$ditty ) {
 				this.$elmt.hide();
 				return false;
 			}
@@ -66,11 +66,6 @@
 			this.$form.on( 'click', 'input[type="radio"]', { self: this }, this._radioListeners );
 			this.$form.on( 'click', 'input[type="checkbox"]', { self: this }, this._checkboxListeners );
 			this.$form.on( 'change', 'select', { self: this }, this._selectListeners );
-			
-			// Trigger the init
-			setTimeout( function() {
-				self.trigger( 'init' ); 
-			}, 1 );
     },
 		
 		/**
@@ -82,10 +77,11 @@
 		_initDitty: function( e ) {
 			var self = e.data.self;
 			self.ditty = self.$ditty[0]['_ditty_' + self.settings.displayType];
-			if ( undefined ===  self.ditty || null === self.ditty ) {
+			if ( undefined === self.ditty || null === self.ditty ) {
 				return false;
 			}
 			self.$elmt.removeClass( 'ditty-display-sandbox--disabled' );
+			self.trigger( 'init' ); 
 		},
 		
 		/**
@@ -95,7 +91,10 @@
 		 * @return   null
 		*/
 		_updateDitty: function( name, value ) {
-			//this.ditty.options( name, value );
+			if ( undefined === this.ditty || null === this.ditty ) {
+				return false;
+			}
+			this.ditty.options( name, value );
 		},
 
     /**
@@ -178,7 +177,7 @@
 		 * @return 	null
 		*/
 		trigger: function ( fn ) { 
-			var params = [this.settings];
+			var params = [this.settings, this.ditty];
 			this.$elmt.trigger( 'ditty_display_sandbox_' + fn, params );
 			if ( typeof this.settings[fn] === 'function' ) {
 				this.settings[fn].apply( this.$elmt, params );
