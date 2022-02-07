@@ -21,6 +21,7 @@
     this.settings   = $.extend( {}, defaults, $.ditty_display_sandbox.defaults, options );
     this.$elmt      = $( elmt );
     this.$form			= this.$elmt.find( '.ditty-editor-options' );
+		this.$ditty     = null;
 		this.ditty			= null;
 		
     this._init();
@@ -37,17 +38,15 @@
 		*/
     _init: function () {
 
-			var self = this,
-					$ditty = $( '.ditty[data-uniqid="' + this.settings.dittyUniqId + '"]' )[0];
+			var self = this;
 			
-			if ( undefined ===  $ditty ) {
+			this.$ditty = $( '.ditty[data-uniqid="' + this.settings.dittyUniqId + '"]' );
+			
+			if ( undefined ===  this.$ditty[0] || null === this.$ditty ) {
 				this.$elmt.hide();
 				return false;
 			}
-			
-			// Set the ditty
-			this.ditty = $ditty['_ditty_' + this.settings.displayType];
-			
+
 	    // Initialize dynamic fields
       this.$form.trigger( 'ditty_init_fields' );
 			$.protip( {
@@ -58,6 +57,9 @@
 					classes: 'ditty-protip'
 				}
 			} );
+			
+			// Listen for ditty init
+			this.$ditty.on( 'ditty_init', { self: this }, this._initDitty );
 			
       // Add actions
 			this.$elmt.on( 'change', 'input[type="text"], input[type="number"]', { self: this }, this._textfieldListeners );
@@ -77,8 +79,23 @@
 		 * @since    3.0.14
 		 * @return   null
 		*/
+		_initDitty: function( e ) {
+			var self = e.data.self;
+			self.ditty = self.$ditty[0]['_ditty_' + self.settings.displayType];
+			if ( undefined ===  self.ditty || null === self.ditty ) {
+				return false;
+			}
+			self.$elmt.removeClass( 'ditty-display-sandbox--disabled' );
+		},
+		
+		/**
+		 * Update the Ditty
+		 *
+		 * @since    3.0.14
+		 * @return   null
+		*/
 		_updateDitty: function( name, value ) {
-			this.ditty.options( name, value );
+			//this.ditty.options( name, value );
 		},
 
     /**

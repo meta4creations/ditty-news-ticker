@@ -1696,3 +1696,9 @@
   order: 1; }
   .ditty-editor__panel--item_types .ditty-data-list__item.active {
     order: 0; }
+
+.ditty-display-sandbox {
+  position: relative; }
+
+.ditty-display-sandbox--disabled .ditty-display-sandbox__overlay {
+  display: block; }

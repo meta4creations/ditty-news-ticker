@@ -1425,10 +1425,15 @@ function ditty_display_sandbox_render( $atts ) {
 			'displayType' 	=> $display_type,
 			'dittyUniqId'	=> $args['ditty_uniqid'],
 		);
-		$html = '<div id="' . esc_attr( $uniqid ) . '" class="ditty-display-sandbox">';
+		$html = '<div id="' . esc_attr( $uniqid ) . '" class="ditty-display-sandbox ditty-display-sandbox--disabled">';
 			$html .= "<form class='ditty-editor-options ditty-display-type-options ditty-display-type-options--{$display_type}'>";
 				$html .= $display_type_object->settings( $display_settings, 'return' );
 			$html .= '</form>';
+			$html .= '<div id="ditty-display-sandbox__overlay" class="ditty-updating-overlay">';
+				$html .= '<div class="ditty-updating-overlay__inner">';
+					$html .= '<i class="fas fa-sync-alt fa-spin"></i>';
+				$html .= '</div>';
+			$html .= '</div>';
 		$html .= '</div>';
 		return $html;
 	}	
