@@ -1,5 +1,3 @@
-/* global dittyVars:true */
-
 jQuery( function( $ ) {
 	
 	// Setup strict mode
@@ -63,30 +61,46 @@ jQuery( function( $ ) {
 				$displayField.siblings().show();
 			}
 		}
+		
+		/**
+		 * Set the title field visibility
+		 *
+		 * @since    3.0.13
+		*/
+		function initEditorHooks( $form ) {
+			
+			// Set minHeight
+			setMinHeight( $form );
+			$form.find( 'input[name="direction"]' ).on( 'click', function() {
+				setMinHeight( $form );
+			} );
+			
+			// Set scroll delay
+			setScrollDelay( $form );
+			$form.find( 'input[name="scrollInit"]' ).on( 'click', function() {
+				setScrollDelay( $form );
+			} );
+			
+			// Set the title styles
+			setTitleStyles( $form );
+			$form.find( 'select[name="titleDisplay"]' ).on( 'change', function() {
+				setTitleStyles( $form );
+			} );
+		}
 
 		$( '#ditty-editor' ).on( 'ditty_display_editor_panel_init', '.ditty-editor__panel--displayEditor', function( e, editorPanel ) {  
 			if ( 'ticker' === editorPanel.displayType ) {
 				var $form = editorPanel.$form;
-				
-				// Set minHeight
-				setMinHeight( $form );
-				$form.find( 'input[name="direction"]' ).on( 'click', function() {
-					setMinHeight( $form );
-				} );
-				
-				// Set scroll delay
-				setScrollDelay( $form );
-				$form.find( 'input[name="scrollInit"]' ).on( 'click', function() {
-					setScrollDelay( $form );
-				} );
-				
-				// Set the title styles
-				setTitleStyles( $form );
-				$form.find( 'select[name="titleDisplay"]' ).on( 'change', function() {
-					setTitleStyles( $form );
-				} );
+				initEditorHooks( $form );	
 			}
-		} );   
+		} );
+		
+		$( '.ditty-display-sandbox' ).on( 'ditty_display_sandbox_init', function( e, settings ) {  
+			if ( 'ticker' === settings.displayType ) {
+				var $form = $( this ).find( 'form' );
+				initEditorHooks( $form );	
+			}
+		} );
 
 	}() );
 	

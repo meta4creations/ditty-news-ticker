@@ -142,6 +142,14 @@
       "oO" : 0,
       "oS" : 1
     },
+    "\/composer.lock" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/composer.lock",
+      "oF" : 0
+    },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -418,7 +426,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty.php",
       "oF" : 0
     },
@@ -915,9 +923,20 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 1,
+      "mi" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/js\/class-ditty-display-sandbox.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/class-ditty-display-sandbox.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/class-ditty-display-sandbox.min.min.js",
       "oF" : 0,
       "sC" : 3,
       "tS" : 0
@@ -988,6 +1007,28 @@
       "sC" : 3,
       "tS" : 0
     },
+    "\/includes\/js\/ditty-editor-hooks.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/ditty-editor-hooks.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/ditty-editor-hooks.min.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/ditty-editor-hooks.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
     "\/includes\/js\/ditty-editor.js" : {
       "bF" : 0,
       "ft" : 64,
@@ -1028,6 +1069,39 @@
       "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/js\/ditty.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor_hooks\/ditty-item-edit-editor.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/editor_hooks\/ditty-item-edit-editor.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor_hooks\/ditty-list-display-editor.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/editor_hooks\/ditty-list-display-editor.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/editor_hooks\/ditty-ticker-display-editor.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/includes\/js\/editor_hooks\/ditty-ticker-display-editor.min.js",
       "oF" : 0,
       "sC" : 3,
       "tS" : 0
@@ -1171,39 +1245,6 @@
       "mi" : 0,
       "oA" : 1,
       "oAP" : "\/includes\/js\/editor\/class-ditty-settings-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/ditty-item-edit-editor.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/editor\/ditty-item-edit-editor.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/ditty-list-display-editor.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/ditty-list-display-editor.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/ditty-ticker-display-editor.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/ditty-ticker-display-editor.min.js",
       "oF" : 0,
       "sC" : 3,
       "tS" : 0

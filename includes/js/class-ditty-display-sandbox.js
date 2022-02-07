@@ -1,3 +1,5 @@
+/* global jQuery:true */
+
 /**
  * Ditty Display Sandbox
  *
@@ -15,11 +17,12 @@
 
   var Ditty_Display_Sandbox = function ( elmt, options ) {
 	  
-    this.elmt         				= elmt;
-    this.settings     				= $.extend( {}, defaults, $.ditty_display_sandbox.defaults, options );
-    this.$elmt        				= $( elmt );
-    this.$form								= this.$elmt.find( '.ditty-editor-options' );
-
+    this.elmt     	= elmt;
+    this.settings   = $.extend( {}, defaults, $.ditty_display_sandbox.defaults, options );
+    this.$elmt      = $( elmt );
+    this.$form			= this.$elmt.find( '.ditty-editor-options' );
+		this.ditty			= null;
+		
     this._init();
   };
 
@@ -29,202 +32,59 @@
     /**
 		 * Initialize the data list
 		 *
-		 * @since		3.0
+		 * @since		3.0.14
 		 * @return	null
 		*/
     _init: function () {
-	    
-      var self = this;
 
+			var self = this,
+					$ditty = $( '.ditty[data-uniqid="' + this.settings.dittyUniqId + '"]' )[0];
+			
+			if ( undefined ===  $ditty ) {
+				this.$elmt.hide();
+				return false;
+			}
+			
+			// Set the ditty
+			this.ditty = $ditty['_ditty_' + this.settings.displayType];
+			
 	    // Initialize dynamic fields
-      this.settings.editor.initFields( this.$elmt );
-
-      // Store the current ditty options
-	    displayOptions = this.settings.editor.ditty.$elmt['ditty_' + this.displayType]( 'options' );
-	    this.displayOptions = $.extend( {}, displayOptions );
-
-      this.displayTitle = this.$optionsTitle.val();
-      
+      this.$form.trigger( 'ditty_init_fields' );
+			$.protip( {
+				defaults: {
+					position: 'top',
+					size: 'small',
+					scheme: 'black',
+					classes: 'ditty-protip'
+				}
+			} );
+			
       // Add actions
-      this.$importExportUpdate.on( 'click', { self: this }, this._importUpdate );   
-			this.settings.editor.$elmt.on( 'ditty_editor_add_drafts', { self: this }, this._addDrafts );
-      this.settings.editor.$elmt.on( 'ditty_editor_save_drafts', { self: this }, this._saveDrafts );
-	    this.$form.on( 'submit', { self: this }, this._submitForm );
-	    this.$back.on( 'click', { self: this }, this._backClick );
 			this.$elmt.on( 'change', 'input[type="text"], input[type="number"]', { self: this }, this._textfieldListeners );
 			this.$form.on( 'click', 'input[type="radio"]', { self: this }, this._radioListeners );
 			this.$form.on( 'click', 'input[type="checkbox"]', { self: this }, this._checkboxListeners );
 			this.$form.on( 'change', 'select', { self: this }, this._selectListeners );
-			this.$form.on( 'ditty_field_clone_update', { self: this }, this._cloneListeners );
-
+			
 			// Trigger the init
-      setTimeout( function() {
-        self.trigger( 'init', [self] ); 
-      }, 1 );
-    },
-    
-    /**
-     * Return to the displays list
-		 *
-		 * @since    3.0
-		 * @return   null
-		*/
-	  _showDisplayList: function() {
-			this.settings.editor.$panels.ditty_slider( 'options', 'transition', 'slideRight' );
-			this.settings.editor.$panels.ditty_slider( 'showSlideById', 'displays' );
-    },
-    
-    /**
-		 * Check for updates
-		 *
-		 * @since    3.0
-		 * @return   null
-		*/
-	  _checkUpdates: function() { 
-		  var currentData = this.$form.serialize();
-		  if ( currentData !== this.initData ) {
-			  this.settings.editor.addUpdate( 'displaySettings', this.displayId );
-				this.settings.editor.delayedSubmitEnable(); // Enable the delayed submit since we have changes
-		  }	else {
-			  this.settings.editor.removeUpdate( 'displaySettings', this.displayId );
-		  }
-		},
-		
-		/**
-     * Editor tabs listener
-		 *
-		 * @since    3.0
-		 * @return   null
-		*/
-	  _addDrafts: function( e ) {
-		  var self = e.data.self,
-		  		currentData = self.$form.serialize();
-
-		  if ( currentData !== self.initData ) {
-			  self.$form.trigger( 'submit' );
-		  }	
+			setTimeout( function() {
+				self.trigger( 'init' ); 
+			}, 1 );
     },
 		
 		/**
-		 * Editor updated listener
+		 * Update the Ditty
 		 *
-		 * @since    3.0
+		 * @since    3.0.14
 		 * @return   null
 		*/
-		_saveDrafts: function( e ) {
-			var self = e.data.self,
-					currentData = self.$form.serialize();
-
-			if ( currentData !== self.initData ) {
-				self.afterUpdateAction = 'save';
-				self.$form.trigger( 'submit' );
-			}	
+		_updateDitty: function( name, value ) {
+			this.ditty.options( name, value );
 		},
-    
-    /**
-     * Back click
-		 *
-		 * @since    3.0
-		 * @return   null
-		*/
-	  _backClick: function( e ) {
-		  e.preventDefault();
-		  var self = e.data.self,
-		  		currentData = self.$form.serialize();
-					
-		  if ( currentData === self.initData ) {
-			  self._showDisplayList();
-		  } else {
-			  self.afterUpdateAction = 'return';
-			  self.$form.trigger( 'submit' );
-		  }	
-    },
 
-	  /**
-		 * Cancel click
-		 *
-		 * @since    3.0
-		 * @return   null
-		*/
-	  _submitForm: function( e ) {
-		  e.preventDefault();
-		  var self = e.data.self;
-			
-		  self.settings.editor.updateStart(); // Start the update overlay
-			
-			var data = {
-				action				: 'ditty_editor_display_update',
-				display_id		: self.displayId,
-				draft_values	: self.settings.editor.getDraftValues(),
-				security			: dittyVars.security
-			};
-		  self.$form.ajaxSubmit( {
-		    url				: dittyVars.ajaxurl,
-				type			: 'post',
-				dataType	: 'json',
-				data			: data,
-        success: function( response ) {
-	        self.initData = self.$form.serialize();
-
-					if ( response.draft_id && response.draft_label ) {
-						self.displayTitle = response.draft_label;
-						self.$editorDisplayTitle.text( response.draft_label );
-						dittyDraftDisplayUpdate( self, response.draft_id, 'label', response.draft_label );
-					}
-					if ( response.draft_id && response.draft_settings ) {
-						self.displayOptions = response.draft_settings;
-						dittyDraftDisplayUpdate( self, response.draft_id, 'settings', response.draft_settings );
-					}
-	        if ( response.draft_settings_json && self.$importExportField.length ) {
-		        self.$importExportField.val( response.draft_settings_json );
-	        }
-					
-					self.settings.editor.updateStop(); // Stop the update overlay
-					self.settings.editor.delayedSubmitDisable(); // Remove the delayed submit since we just submitted
-					
-					// Show the display list
-					if ( 'return' === self.afterUpdateAction ) {
-						self._showDisplayList();
-					}
-					// Update the ticker
-					if ( 'save' === self.afterUpdateAction ) {
-						self.settings.editor.saveDitty();
-					}
-					self.afterUpdateAction = '';
-        }
-	    } ); 
-    },
-    
-    /**
-		 * Update the imported values
-		 *
-		 * @since    3.0
-		 * @return   null
-		*/
-	  _importUpdate: function( e ) {
-			e.preventDefault();
-			
-		  // var self 		= e.data.self,
-		  // 		values 	= self.$importExportField.val();
-    },
-		
-		/**
-		 * Listen for clone changes
-		 *
-		 * @since    3.0
-		 * @return   null
-		*/
-		_cloneListeners: function( e, fieldData, cloneName ) {
-			var self = e.data.self,
-					$target = $( e.target );
-
-			self.settings.editor.ditty.options( cloneName, fieldData );
-		},
-    
     /**
 		 * Listen for textfield changes
 		 *
-		 * @since    3.0
+		 * @since    3.0.14
 		 * @return   null
 		*/
     _textfieldListeners: function( e ) {
@@ -243,17 +103,16 @@
 			  	var matches = name.match(/\[(.*)\]/);
 			  	fieldsetValue[matches[1]] = $( this ).val();
 		  	} );
-		  	self.settings.editor.ditty.options( fieldsetName, fieldsetValue );
+				self._updateDitty( fieldsetName, fieldsetValue );
 	  	} else { 
-				self.settings.editor.ditty.options( name, $target.val() );
+				self._updateDitty( name, $target.val() );
 	  	}
-			self._checkUpdates();
 	  },
 	  
 	  /**
 		 * Listen for radio button changes
 		 *
-		 * @since    3.0
+		 * @since    3.0.14
 		 * @return   null
 		*/
     _radioListeners: function( e ) { 
@@ -262,14 +121,13 @@
 					value = $target.val(),
 					name = $target.attr( 'name' );
 
-	  	self.settings.editor.ditty.options( name, value );
-			self._checkUpdates();
+	  	self._updateDitty( name, value );
 	  },
 	  
 	  /**
 		 * Listen for checkbox changes
 		 *
-		 * @since    3.0
+		 * @since    3.0.14
 		 * @return   null
 		*/
     _checkboxListeners: function( e ) {
@@ -278,14 +136,13 @@
 					value = $target.is( ':checked' ) ? $( this ).val() : false,
 					name = $target.attr( 'name' );
 		  				
-	  	self.settings.editor.ditty.options( name, value );
-			self._checkUpdates();
+	  	self._updateDitty( name, value );
 	  },
 	  
 	  /**
 		 * Listen for select changes
 		 *
-		 * @since    3.0
+		 * @since    3.0.14
 		 * @return   null
 		*/
     _selectListeners: function( e ) {
@@ -294,85 +151,37 @@
 					value = $target.val(),
 					name = $target.attr( 'name' ); 
 
-	  	self.settings.editor.ditty.options( name, value );
-			self._checkUpdates();
+	  	self._updateDitty( name, value );
 	  },
 		
-	  /**
-		 * Return a specific setting
-		 *
-		 * @since    3.0
-		 * @return   null
-		*/
-    _options: function ( key ) {
-	    return this.settings[key];
-    },
-
 		/**
 		 * Setup triggers
 		 *
-		 * @since  	3.0
+		 * @since  	3.0.14
 		 * @return 	null
 		*/
-    trigger: function ( fn, customParams ) {
-	    var params = [this.settings]; 
-	    
-	    if ( customParams ) {
-		    params = customParams;
-	    }
-
-	    this.$elmt.trigger( 'ditty_display_sandbox_' + fn, params );
-	
-	    if ( typeof this.settings[fn] === 'function' ) {
-	      this.settings[fn].apply( this.$elmt, params );
-	    }
-    },
-		
-		
-		/**
-		 * Allow settings to be modified
-		 *
-		 * @since  	3.0
-		 * @return 	null
-		*/
-    options: function ( key, value ) {
-
-	    if ( typeof key === 'object' ) {
-	      this.settings = $.extend( {}, defaults, $.ditty_display_sandbox.defaults, key );
-	    } else if ( typeof key === 'string' ) {
-        if ( value === undefined ) {
-	        return this.settings[key];
-        }
-        this.settings[key] = value;
-	    } else {
-        return this.settings;
-	    }
-
-	    this.trigger( 'options_update' );
-    },
-		
+		trigger: function ( fn ) { 
+			var params = [this.settings];
+			this.$elmt.trigger( 'ditty_display_sandbox_' + fn, params );
+			if ( typeof this.settings[fn] === 'function' ) {
+				this.settings[fn].apply( this.$elmt, params );
+			}
+			this.$elmt.trigger( 'ditty_' + fn, params );
+		},	
 		
 		/**
 		 * Destroy the editor
 		 *
-		 * @since  	3.0
+		 * @since  	3.0.14
 		 * @return 	null
 		*/
     destroy: function () {
 			
-			this.trigger( 'destroy', [this] ); 
-
 	    // Remove actions
-			this.$importExportUpdate.off( 'click', { this: this }, this._importUpdate );
-			this.settings.editor.$elmt.off( 'ditty_editor_add_drafts', { self: this }, this._addDrafts );
-	    this.settings.editor.$elmt.off( 'ditty_editor_save_drafts', { self: this }, this._saveDrafts );
- 		 	this.$form.off( 'submit', { this: this }, this._submitForm );
-	    this.$back.off( 'click', { this: this }, this._cancel_click );  
 	    this.$elmt.off( 'change', 'input[type="text"], input[type="number"]', { self: this }, this._textfieldListeners );
 			this.$form.off( 'click', 'input[type="radio"]', { self: this }, this._radioListeners );
 			this.$form.off( 'click', 'input[type="checkbox"]', { self: this }, this._checkboxListeners );
 			this.$form.off( 'change', 'select', { self: this }, this._selectListeners );
-			this.$form.off( 'ditty_field_clone_update', { self: this }, this._cloneListeners );
 	    
 	    this.elmt._ditty_display_sandbox = null;	    
     }
@@ -382,7 +191,7 @@
 	/**
 	 * Create the data list
 	 *
-	 * @since  	3.0
+	 * @since  	3.0.14
 	 * @return 	null
 	*/
   $.fn.ditty_display_sandbox = function( options ) {

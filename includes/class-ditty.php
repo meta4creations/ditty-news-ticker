@@ -465,6 +465,19 @@ class Ditty {
 		$min = WP_DEBUG ? '' : '.min';
 		
 		wp_register_script( 'hammer', DITTY_URL . 'includes/libs/hammer.min.js', array( 'jquery' ), '2.0.8.1', true );
+		wp_register_script( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.js', array( 'jquery' ), '1.4.21', true );
+		wp_register_script( 'ion-rangeslider', DITTY_URL . 'includes/libs/ion.rangeSlider/js/ion.rangeSlider.min.js', array( 'jquery' ), '2.3.1', true );
+		wp_register_script( 'jquery-minicolors', DITTY_URL . 'includes/libs/jquery-minicolors/jquery.minicolors.min.js', array( 'jquery' ), '2.3.5', true );
+		wp_register_script( 'ditty-fields', DITTY_URL . 'includes/fields/js/ditty-fields.min.js', array(
+			'jquery',
+			'protip',
+			'jquery-effects-core',
+			'wp-codemirror',
+			'ion-rangeslider',
+			'jquery-minicolors',
+		), $this->version, true );
+		wp_register_script( 'ditty-editor-hooks', DITTY_URL . 'includes/js/ditty-editor-hooks.min.js', array( 'jquery' ), $this->version, true );
+		
 		wp_register_script( 'ditty', DITTY_URL . 'includes/js/ditty.min.js', array( 'jquery', 'jquery-effects-core', ), $this->version, true );
 		if ( empty( $ditty_scripts_enqueued ) ) {
 			wp_add_inline_script( 'ditty', 'const dittyVars = ' . json_encode( array(
@@ -485,6 +498,9 @@ class Ditty {
 		wp_register_script( 'ditty-slider', DITTY_URL . 'includes/js/class-ditty-slider' . $min . '.js', array( 'jquery', 'hammer' ), $this->version, true );
 		wp_register_script( 'ditty-display-ticker', DITTY_URL . 'includes/js/class-ditty-display-ticker' . $min . '.js', array( 'jquery' ), $this->version, true );
 		wp_register_script( 'ditty-display-list', DITTY_URL . 'includes/js/class-ditty-display-list' . $min . '.js', array( 'jquery', 'ditty-slider' ), $this->version, true );
+		
+		// Register sandbox files
+		wp_register_script( 'ditty-display-sandbox', DITTY_URL . 'includes/js/class-ditty-display-sandbox' . $min . '.js', array( 'jquery' ), $this->version, true );
 
 		if ( is_admin() ) {
 			
@@ -492,17 +508,10 @@ class Ditty {
 			wp_enqueue_script( 'ditty-display-ticker' );
 			wp_enqueue_script( 'ditty-display-list' );
 			
-			wp_enqueue_script( 'ion-rangeslider', DITTY_URL . 'includes/libs/ion.rangeSlider/js/ion.rangeSlider.min.js', array( 'jquery' ), '2.3.1', true );
-			wp_enqueue_script( 'jquery-minicolors', DITTY_URL . 'includes/libs/jquery-minicolors/jquery.minicolors.min.js', array( 'jquery' ), '2.3.5', true );
-			wp_register_script( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.js', array( 'jquery' ), '1.4.21', true );
-			wp_enqueue_script( 'ditty-fields', DITTY_URL . 'includes/fields/js/ditty-fields.min.js', array(
-				'jquery',
-				'protip',
-				'jquery-effects-core',
-				'wp-codemirror',
-				'ion-rangeslider',
-				'jquery-minicolors',
-			), $this->version, true );
+			wp_enqueue_script( 'ion-rangeslider' );
+			wp_enqueue_script( 'jquery-minicolors' );
+			wp_enqueue_script( 'protip' );
+			wp_enqueue_script( 'ditty-fields' );
 			wp_register_script( 'ditty-editor', DITTY_URL . 'includes/js/ditty-editor.min.js', array(
 				'jquery',
 				'protip',
@@ -514,6 +523,7 @@ class Ditty {
 				'ditty-slider',
 				'ditty-fields',
 			), $this->version, true );
+			wp_enqueue_script( 'ditty-editor-hooks' );
 			wp_register_script( 'ditty-admin', DITTY_URL . 'includes/js/ditty-admin.min.js', array(
 				'jquery',
 				'jquery-ui-core',
@@ -671,19 +681,8 @@ class Ditty {
 			<?php
 		}
 		
-		// Add display editor scripts
-		global $ditty_display_sandbox;
-		if ( empty( $ditty_display_sandbox ) ) {
-			$ditty_display_sandbox = array();
-		}
-		if ( is_array( $ditty_display_sandbox ) && count( $ditty_display_sandbox ) > 0 ) {
-			wp_print_styles( 'protip' );	
-			wp_print_styles( 'ion-rangeslider' );
-			wp_print_styles( 'jquery-minicolors' );
-			wp_print_styles( 'ditty-admin' );
-			wp_print_styles( 'fontawesome' );
-		}
-		
+		// Possibly add display sandbox scripts
+		ditty_display_sandbox_add_scripts();		
 	}
 
 }

@@ -1382,7 +1382,7 @@ function ditty_add_scripts( $ditty_id, $display = '' ) {
  * @since    3.0.14
  */
 function ditty_display_sandbox_render( $atts ) {
-	global $ditty_display_sandbox;
+	global $ditty_display_sandbox_scripts;
 
 	$defaults = array(
 		'ditty_id' 					=> false,
@@ -1417,21 +1417,58 @@ function ditty_display_sandbox_render( $atts ) {
 	}
 	
 	if ( $display_type_object = ditty_display_type_object( $display_type ) ) {
-		if ( empty( $ditty_display_sandbox ) ) {
-			$ditty_display_sandbox = array();
+		if ( empty( $ditty_display_sandbox_scripts ) ) {
+			$ditty_display_sandbox_scripts = array();
 		}
 		$uniqid = uniqid( 'ditty-display-sandbox-' );
-		$ditty_display_sandbox[$uniqid] = array(
-			'display_type' 	=> $display_type,
-			'ditty_uniqid'	=> $args['ditty_uniqid'],
+		$ditty_display_sandbox_scripts[$uniqid] = array(
+			'displayType' 	=> $display_type,
+			'dittyUniqId'	=> $args['ditty_uniqid'],
 		);
-		$html .= '<div id="' . esc_attr( $uniqid ) . '" class="ditty-display-sandbox">';
+		$html = '<div id="' . esc_attr( $uniqid ) . '" class="ditty-display-sandbox">';
 			$html .= "<form class='ditty-editor-options ditty-display-type-options ditty-display-type-options--{$display_type}'>";
 				$html .= $display_type_object->settings( $display_settings, 'return' );
 			$html .= '</form>';
 		$html .= '</div>';
 		return $html;
 	}	
+}
+
+/**
+ * Render the Display sandbox container
+ *
+ * @since    3.0.14
+ */
+function ditty_display_sandbox_add_scripts() {
+	global $ditty_display_sandbox_scripts;
+	if ( empty( $ditty_display_sandbox_scripts ) ) {
+		$ditty_display_sandbox_scripts = array();
+	}
+	if ( is_array( $ditty_display_sandbox_scripts ) && count( $ditty_display_sandbox_scripts ) > 0 ) {
+		wp_print_styles( 'protip' );	
+		wp_print_styles( 'ion-rangeslider' );
+		wp_print_styles( 'jquery-minicolors' );
+		wp_print_styles( 'fontawesome' );
+		wp_print_scripts( 'protip' );
+		wp_print_scripts( 'ion-rangeslider' );
+		wp_print_scripts( 'jquery-minicolors' );
+		wp_print_scripts( 'ditty-display-sandbox' );
+		wp_print_scripts( 'ditty-fields' );
+		wp_print_scripts( 'ditty-editor-hooks' );
+		?>
+		<script id="ditty-display-sandbox">
+			jQuery( function( $ ) {
+			<?php
+			foreach ( $ditty_display_sandbox_scripts as $sandbox_id => $args ) {
+				?>
+				$( 'div#<?php echo esc_attr( $sandbox_id ); ?>' ).ditty_display_sandbox(<?php echo json_encode( $args ); ?>);
+				<?php
+			}
+			?>
+			} );
+		</script>
+		<?php
+	}
 }
 
 /**
