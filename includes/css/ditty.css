@@ -1628,21 +1628,13 @@
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch; }
 
-#ditty-editor__settings .ditty-display-type-options--ticker .ditty-input--group__container > .ditty-field.ditty-field--minHeight {
-  width: 50%;
-  padding-right: 7.5px; }
+.ditty-display-type-options--ticker .ditty-input--group__container > .ditty-field.ditty-field--minHeight, .ditty-display-type-options--ticker .ditty-input--group__container > .ditty-field.ditty-field--titleFontSize {
+  width: 50% !important;
+  padding-right: 7.5px !important; }
 
-#ditty-editor__settings .ditty-display-type-options--ticker .ditty-input--group__container > .ditty-field.ditty-field--maxHeight {
-  width: 50%;
-  padding-left: 7.5px; }
-
-#ditty-editor__settings .ditty-display-type-options--ticker .ditty-input--group__container > .ditty-field.ditty-field--titleFontSize {
-  width: 50%;
-  padding-right: 7.5px; }
-
-#ditty-editor__settings .ditty-display-type-options--ticker .ditty-input--group__container > .ditty-field.ditty-field--titleLineHeight {
-  width: 50%;
-  padding-left: 7.5px; }
+.ditty-display-type-options--ticker .ditty-input--group__container > .ditty-field.ditty-field--maxHeight, .ditty-display-type-options--ticker .ditty-input--group__container > .ditty-field.ditty-field--titleLineHeight {
+  width: 50% !important;
+  padding-left: 7.5px !important; }
 
 .ditty-editor-layout {
   cursor: pointer; }

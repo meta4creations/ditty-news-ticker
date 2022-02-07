@@ -1377,6 +1377,96 @@ function ditty_add_scripts( $ditty_id, $display = '' ) {
 }
 
 /**
+ * Render the Display editor container
+ *
+ * @since    3.0.14
+ */
+function ditty_display_editor_render( $atts ) {
+	global $ditty_display_editor;
+
+	$defaults = array(
+		'ditty_id' 					=> false,
+		'display_id' 				=> false,
+		'display_type' 			=> false,
+		'display_settings' 	=> false,
+	);
+	$args = shortcode_atts( $defaults, $atts );
+	
+	$display_type = $args['display_type'];
+	$display_settings = $args['display_settings'];
+	
+	if ( $args['ditty_id'] ) {
+		$display_id = get_post_meta( $args['ditty_id'], '_ditty_display', true );
+	}
+	
+	if ( $args['display_id'] ) {
+		$display_id = $args['display_id'];
+	}
+	
+	if ( $display_id ) {
+		$display_type	= get_post_meta( $display_id, '_ditty_display_type', true );
+		$display_settings	= get_post_meta( $display_id, '_ditty_display_settings', true );
+		if ( $args['display_settings'] ) {
+			$display_settings = Ditty()->singles->parse_custom_display_settings( $display_settings, $args['display_settings'] );
+		}
+	}
+	
+	if ( ! $display_type || ! $display_settings ) {
+		return false;
+	}
+	
+	if ( $display_type_object = ditty_display_type_object( $display_type ) ) {
+		if ( empty( $ditty_display_editor ) ) {
+			$ditty_display_editor = array();
+		}
+		$ditty_display_editor[] = $display_type;
+		
+		$html .= '<div class="ditty-display-editor">';
+			$html .= "<form class='ditty-editor-options ditty-display-type-options ditty-display-type-options--{$display_type}'>";
+				$html .= $display_type_object->settings( $display_settings, 'return' );
+			$html .= '</form>';
+		$html .= '</div>';
+		return $html;
+	}	
+}
+
+/**
+ * Parse ditty script types and add to global
+ *
+ * @since    3.0.12
+ */
+// function ditty_add_scripts( $ditty_id, $display = '' ) {
+// 		
+// 	global $ditty_item_scripts;
+// 	if ( empty( $ditty_item_scripts ) ) {
+// 		$ditty_item_scripts = array();
+// 	}
+// 	global $ditty_display_scripts;
+// 	if ( empty( $ditty_display_scripts ) ) {
+// 		$ditty_display_scripts = array();
+// 	}
+// 	
+// 	// Store the item types
+// 	$items = Ditty()->db_items->get_items( $ditty_id );
+// 	if ( is_array( $items ) && count( $items ) > 0 ) {
+// 		foreach ( $items as $i => $item ) {
+// 			if ( $item_type_object = ditty_item_type_object( $item->item_type ) ) {
+// 				if ( $script_id = $item_type_object->get_script_id() ) {
+// 					$ditty_item_scripts[$script_id] = $script_id;
+// 				}
+// 			}
+// 		}
+// 	}
+// 
+// 	if ( ! ( $display && ( 'publish' == get_post_status( $display ) ) ) ) {
+// 		$display = get_post_meta( $ditty_id, '_ditty_display', true );
+// 	}
+// 	$display_obj = new Ditty_Display( $display );
+// 	$display_type = $display_obj->get_display_type();
+// 	$ditty_display_scripts[$display_type] = $display_type;
+// }
+
+/**
  * Return formatted content
  *
  * @since    3.0

@@ -237,12 +237,12 @@ class Ditty_Display {
 	/**
 	 * Return the display metabox
 	 * @access public
-	 * @since  3.0
+	 * @since  3.0.14
 	 * @return int $id
 	 */
-	public function object_settings() {
+	public function object_settings( $action = 'render' ) {
 		$display_object = $this->get_display_object();
-		return $display_object->settings( $this->get_values() );
+		return $display_object->settings( $this->get_values(), $action );
 	}
 
 	/**

@@ -430,33 +430,27 @@ class Ditty {
 	 */
 	public function enqueue_styles() {	
 		wp_enqueue_style( 'ditty', DITTY_URL . 'includes/css/ditty.css', array(), $this->version, 'all' );
+		wp_register_style( 'ditty-admin', DITTY_URL . 'includes/css/ditty-admin.css', array(), $this->version, 'all' );
+		
+		wp_register_style( 'fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
+		
+		wp_register_style( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.css', false, '1.4.21', false );	
+		wp_register_style( 'ion-rangeslider', DITTY_URL . 'includes/libs/ion.rangeSlider/css/ion.rangeSlider.min.css', false, '2.3.1', false );
+		wp_register_style( 'jquery-minicolors', DITTY_URL . 'includes/libs/jquery-minicolors/jquery.minicolors.css', false, '2.3.5', false );
 		
 		$disable_fontawesome = ditty_settings( 'disable_fontawesome' );
 		if ( ! $disable_fontawesome ) {
-			wp_enqueue_style( 'fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
+			wp_enqueue_style( 'fontawesome' );
 		}
 		
-		$enqueue_admin_scripts = apply_filters( 'ditty_enqueue_admin_scripts', is_admin() );
-		if ( $enqueue_admin_scripts ) {
+		if ( is_admin() ) {
 			wp_enqueue_style( 'wp-codemirror' );
-			wp_enqueue_style( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.css', false, '1.4.21', false );	
-			wp_enqueue_style( 'ion-rangeslider', DITTY_URL . 'includes/libs/ion.rangeSlider/css/ion.rangeSlider.min.css', false, '2.3.1', false );
-			wp_enqueue_style( 'jquery-minicolors', DITTY_URL . 'includes/libs/jquery-minicolors/jquery.minicolors.css', false, '2.3.5', false );
-			wp_enqueue_style( 'ditty-admin', DITTY_URL . 'includes/css/ditty-admin.css', array(), $this->version, 'all' );
+			wp_enqueue_style( 'protip' );	
+			wp_enqueue_style( 'ion-rangeslider' );
+			wp_enqueue_style( 'jquery-minicolors' );
+			wp_enqueue_style( 'ditty-admin' );
 			if ( $disable_fontawesome ) {
-				wp_enqueue_style( 'fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
-			}
-		}
-		
-		// Add scripts for the global Dittys
-		if ( ! is_admin() ) {
-			$global_ditty = ditty_settings( 'global_ditty' );
-			if ( is_array( $global_ditty ) && count( $global_ditty ) > 0 ) {
-				foreach ( $global_ditty as $i => $global_ditty ) {
-					if ( 'publish' === get_post_status( $global_ditty['ditty'] ) ) {
-						ditty_add_scripts( $global_ditty['ditty'], $global_ditty['display'] );
-					}
-				}
+				wp_enqueue_style( 'fontawesome' );
 			}
 		}
 	}
@@ -464,7 +458,7 @@ class Ditty {
 	/**
 	 * Register the JavaScript for the public-facing side of the site.
 	 *
-	 * @since    3.0.12
+	 * @since    3.0.14
 	 */
 	public function enqueue_scripts( $hook ) {
 		global $ditty_scripts_enqueued;
@@ -559,6 +553,18 @@ class Ditty {
 			}	
 		}
 		
+		// Ensure global scripts are being added
+		if ( ! is_admin() ) {
+			$global_ditty = ditty_settings( 'global_ditty' );
+			if ( is_array( $global_ditty ) && count( $global_ditty ) > 0 ) {
+				foreach ( $global_ditty as $i => $global_ditty ) {
+					if ( 'publish' === get_post_status( $global_ditty['ditty'] ) ) {
+						ditty_add_scripts( $global_ditty['ditty'], $global_ditty['display'] );
+					}
+				}
+			}
+		}
+		
 		$ditty_scripts_enqueued = 'enqueued';
 	}
 	
@@ -612,13 +618,17 @@ class Ditty {
 	/**
 	 * Enqueue global scripts for any Ditty's displayed
 	 *
-	 * @since    3.0.12
+	 * @since    3.0.14
 	 */
 	public function enqueue_global_scripts() {
+		
+		// Add item scripts
 		global $ditty_item_scripts;
 		if ( empty( $ditty_item_scripts ) ) {
 			$ditty_item_scripts = array();
 		}
+		
+		// Add display scripts
 		global $ditty_display_scripts;
 		if ( empty( $ditty_display_scripts ) ) {
 			$ditty_display_scripts = array();
@@ -641,6 +651,8 @@ class Ditty {
 				wp_print_scripts( 'ditty' );
 			}
 		}
+		
+		// Add ditty scripts
 		global $ditty_singles;
 		if ( empty( $ditty_singles ) ) {
 			$ditty_singles = array();
@@ -658,6 +670,20 @@ class Ditty {
 			</script>
 			<?php
 		}
+		
+		// Add display editor scripts
+		global $ditty_display_editor;
+		if ( empty( $ditty_display_editor ) ) {
+			$ditty_display_editor = array();
+		}
+		if ( is_array( $ditty_display_editor ) && count( $ditty_display_editor ) > 0 ) {
+			wp_print_styles( 'protip' );	
+			wp_print_styles( 'ion-rangeslider' );
+			wp_print_styles( 'jquery-minicolors' );
+			wp_print_styles( 'ditty-admin' );
+			wp_print_styles( 'fontawesome' );
+		}
+		
 	}
 
 }

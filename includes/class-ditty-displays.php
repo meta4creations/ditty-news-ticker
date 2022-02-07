@@ -246,23 +246,7 @@ class Ditty_Displays {
 		if ( is_admin() ) {
 			return false;	
 		}
-		$defaults = array(
-			'ditty_id' 					=> false,
-			'display_id' 				=> false,
-			'display_type' 			=> false,
-			'display_settings' 	=> false,
-		);
-		$args = shortcode_atts( $defaults, $atts );
-		ob_start();
-		if ( $args['display_id'] ) {
-			$display = new Ditty_Display( $args['display_id'] );
-			if ( $args['display_settings'] ) {
-				$settings	= $display->get_values();
-				$settings = Ditty()->singles->parse_custom_display_settings( $settings, $args['display_settings'] );
-				$display->update_settings( $settings );
-			}
-		}
-		return ob_get_clean();
+		return ditty_display_editor_render( $atts );
 	}
 	
 	/**

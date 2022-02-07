@@ -123,12 +123,17 @@ class Ditty_Display_Type {
 	/**
 	 * Setup the display settings
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.0.14
 	 */
 	public function settings( $display_values = false, $action = 'render'  ) {
 		$values = $this->get_values( $display_values );
 		$fields = $this->fields( $values );
-		ditty_fields( $fields, $values, $action );
+		
+		if ( 'return' == $action ) {
+			return ditty_fields( $fields, $values, $action );
+		} else {
+			ditty_fields( $fields, $values, $action );
+		}
 	}
 	
 	/**
