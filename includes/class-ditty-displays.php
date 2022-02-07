@@ -31,7 +31,7 @@ class Ditty_Displays {
 		add_filter( 'ditty_post_meta_update', array( $this, 'modify_ditty_draft_meta'), 10, 3 );
 		
 		// Shortcodes
-		add_shortcode( 'ditty_display_editor', array( $this, 'shortcode_display_editor' ) );
+		add_shortcode( 'ditty_display_sandbox', array( $this, 'shortcode_display_sandbox' ) );
 
 		// Editior elements
 		add_action( 'ditty_editor_tabs', array( $this, 'editor_tab' ), 10, 2 );
@@ -242,11 +242,11 @@ class Ditty_Displays {
 	 * @access   public
 	 * @var      html
 	 */
-	public function shortcode_display_editor( $atts ) {
+	public function shortcode_display_sandbox( $atts ) {
 		if ( is_admin() ) {
 			return false;	
 		}
-		return ditty_display_editor_render( $atts );
+		return ditty_display_sandbox_render( $atts );
 	}
 	
 	/**

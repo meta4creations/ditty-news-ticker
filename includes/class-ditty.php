@@ -672,11 +672,11 @@ class Ditty {
 		}
 		
 		// Add display editor scripts
-		global $ditty_display_editor;
-		if ( empty( $ditty_display_editor ) ) {
-			$ditty_display_editor = array();
+		global $ditty_display_sandbox;
+		if ( empty( $ditty_display_sandbox ) ) {
+			$ditty_display_sandbox = array();
 		}
-		if ( is_array( $ditty_display_editor ) && count( $ditty_display_editor ) > 0 ) {
+		if ( is_array( $ditty_display_sandbox ) && count( $ditty_display_sandbox ) > 0 ) {
 			wp_print_styles( 'protip' );	
 			wp_print_styles( 'ion-rangeslider' );
 			wp_print_styles( 'jquery-minicolors' );

@@ -142,14 +142,6 @@
       "oO" : 0,
       "oS" : 1
     },
-    "\/composer.lock" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/composer.lock",
-      "oF" : 0
-    },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -915,6 +907,17 @@
       "mi" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/js\/class-ditty-display-list.min.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/js\/class-ditty-display-sandbox.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/js\/class-ditty-display-sandbox.min.js",
       "oF" : 0,
       "sC" : 3,
       "tS" : 0

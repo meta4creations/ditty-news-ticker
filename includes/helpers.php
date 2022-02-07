@@ -1377,15 +1377,16 @@ function ditty_add_scripts( $ditty_id, $display = '' ) {
 }
 
 /**
- * Render the Display editor container
+ * Render the Display sandbox container
  *
  * @since    3.0.14
  */
-function ditty_display_editor_render( $atts ) {
-	global $ditty_display_editor;
+function ditty_display_sandbox_render( $atts ) {
+	global $ditty_display_sandbox;
 
 	$defaults = array(
 		'ditty_id' 					=> false,
+		'ditty_uniqid' 			=> false,
 		'display_id' 				=> false,
 		'display_type' 			=> false,
 		'display_settings' 	=> false,
@@ -1416,12 +1417,15 @@ function ditty_display_editor_render( $atts ) {
 	}
 	
 	if ( $display_type_object = ditty_display_type_object( $display_type ) ) {
-		if ( empty( $ditty_display_editor ) ) {
-			$ditty_display_editor = array();
+		if ( empty( $ditty_display_sandbox ) ) {
+			$ditty_display_sandbox = array();
 		}
-		$ditty_display_editor[] = $display_type;
-		
-		$html .= '<div class="ditty-display-editor">';
+		$uniqid = uniqid( 'ditty-display-sandbox-' );
+		$ditty_display_sandbox[$uniqid] = array(
+			'display_type' 	=> $display_type,
+			'ditty_uniqid'	=> $args['ditty_uniqid'],
+		);
+		$html .= '<div id="' . esc_attr( $uniqid ) . '" class="ditty-display-sandbox">';
 			$html .= "<form class='ditty-editor-options ditty-display-type-options ditty-display-type-options--{$display_type}'>";
 				$html .= $display_type_object->settings( $display_settings, 'return' );
 			$html .= '</form>';
