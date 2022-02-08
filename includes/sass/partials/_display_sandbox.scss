@@ -1,0 +1,8 @@
+.ditty-display-sandbox {
+	position: relative;
+}
+.ditty-display-sandbox--disabled {
+	.ditty-display-sandbox__overlay {
+		display: block;
+	}
+}

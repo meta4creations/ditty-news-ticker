@@ -1,5 +1,3 @@
-/* global dittyVars:true */
-
 jQuery( function( $ ) {
 	
 	// Setup strict mode
