@@ -5,7 +5,8 @@
     color: #19BF7C; }
 
 .ditty-field {
-  padding: 10px 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif !important;
+  padding: 15px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05); }
   .ditty-field:last-of-type {
     border-bottom: none; }
@@ -19,6 +20,8 @@
     cursor: default; }
   .ditty-field__help {
     display: none;
+    font-size: 13px;
+    line-height: 16px;
     margin: 7px 0 10px; }
   .ditty-field__input {
     display: flex;
@@ -38,7 +41,9 @@
     .ditty-field__input__after {
       margin-left: 5px; }
     .ditty-field__input__description {
-      width: 100%; }
+      width: 100%;
+      font-size: 13px;
+      line-height: 16px; }
     .ditty-field__input input:not([type="button"]):not([type="checkbox"]):not([type="radio"]),
     .ditty-field__input select,
     .ditty-field__input textarea {
@@ -188,6 +193,9 @@
     display: block;
     margin-top: 2px;
     margin-bottom: 5px; }
+    .ditty-input--checkboxes__group .ditty-input--checkboxes__option label {
+      font-size: 13px;
+      line-break: 13px; }
   .ditty-input--checkboxes__group--inline {
     flex-direction: row;
     align-items: center; }
@@ -200,6 +208,10 @@
 
 .ditty-field-type--checkbox input[type="checkbox"] {
   margin-top: 0; }
+
+.ditty-field-type--checkbox label {
+  font-size: 13px;
+  line-break: 13px; }
 
 /* Radio */
 .ditty-field-type--radio .ditty-input--radio {
@@ -218,9 +230,16 @@
     .ditty-field-type--radio .ditty-input--radio--inline .ditty-input--radio__option:last-child {
       margin-right: 0; }
   .ditty-field-type--radio .ditty-input--radio__option {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     margin-top: 2px;
     margin-bottom: 5px; }
+    .ditty-field-type--radio .ditty-input--radio__option input[type="checkbox"] {
+      margin: 0; }
+    .ditty-field-type--radio .ditty-input--radio__option label {
+      font-size: 13px;
+      line-break: 13px; }
 
 /* Slider */
 .ditty-field-type--slider .irs--flat .irs-bar,
@@ -493,6 +512,8 @@
     margin-top: 0;
     margin-bottom: 0; }
   .ditty-field-type--heading .ditty-field__description {
+    font-size: 13px;
+    line-height: 16px;
     margin-bottom: 0; }
 
 .ditty-metabox .rwmb-label,
