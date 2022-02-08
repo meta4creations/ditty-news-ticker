@@ -22,7 +22,7 @@
     display: none;
     font-size: 13px;
     line-height: 16px;
-    margin: 7px 0 10px; }
+    margin: 7px 0 10px !important; }
   .ditty-field__input {
     display: flex;
     flex-direction: row;
@@ -101,7 +101,7 @@
 
 .ditty-field__label + .ditty-field__description,
 .ditty-field__help + .ditty-field__description {
-  margin-top: 7px; }
+  margin-top: 7px !important; }
 
 .ditty-field--clone-enabled .ditty-input--clone {
   background: #f7f7f7;
@@ -144,7 +144,7 @@
       margin-bottom: 0; }
     .ditty-field-type--group > .ditty-field__heading .ditty-field__help,
     .ditty-field-type--group > .ditty-field__heading .ditty-field__desciption {
-      margin-bottom: 0; }
+      margin-bottom: 0 !important; }
   .ditty-field-type--group .ditty-field__collapsible-toggle {
     position: absolute;
     right: 10px;
@@ -206,12 +206,13 @@
   .ditty-input--checkboxes__group input[type="checkbox"] {
     margin-top: 0; }
 
-.ditty-field-type--checkbox input[type="checkbox"] {
-  margin-top: 0; }
+.ditty-field-type--checkbox .ditty-field__input__primary input[type="checkbox"] {
+  margin: 0; }
 
-.ditty-field-type--checkbox label {
+.ditty-field-type--checkbox .ditty-field__input__primary label {
   font-size: 13px;
-  line-break: 13px; }
+  line-height: 13px;
+  margin-left: 7px; }
 
 /* Radio */
 .ditty-field-type--radio .ditty-input--radio {
@@ -235,11 +236,12 @@
     align-items: center;
     margin-top: 2px;
     margin-bottom: 5px; }
-    .ditty-field-type--radio .ditty-input--radio__option input[type="checkbox"] {
+    .ditty-field-type--radio .ditty-input--radio__option input[type="radio"] {
       margin: 0; }
     .ditty-field-type--radio .ditty-input--radio__option label {
       font-size: 13px;
-      line-break: 13px; }
+      line-height: 13px;
+      margin-left: 7px; }
 
 /* Slider */
 .ditty-field-type--slider .irs--flat .irs-bar,
@@ -1717,9 +1719,3 @@
   order: 1; }
   .ditty-editor__panel--item_types .ditty-data-list__item.active {
     order: 0; }
-
-.ditty-display-sandbox {
-  position: relative; }
-
-.ditty-display-sandbox--disabled .ditty-display-sandbox__overlay {
-  display: block; }

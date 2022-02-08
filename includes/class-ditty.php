@@ -498,9 +498,6 @@ class Ditty {
 		wp_register_script( 'ditty-slider', DITTY_URL . 'includes/js/class-ditty-slider' . $min . '.js', array( 'jquery', 'hammer' ), $this->version, true );
 		wp_register_script( 'ditty-display-ticker', DITTY_URL . 'includes/js/class-ditty-display-ticker' . $min . '.js', array( 'jquery' ), $this->version, true );
 		wp_register_script( 'ditty-display-list', DITTY_URL . 'includes/js/class-ditty-display-list' . $min . '.js', array( 'jquery', 'ditty-slider' ), $this->version, true );
-		
-		// Register sandbox files
-		wp_register_script( 'ditty-display-sandbox', DITTY_URL . 'includes/js/class-ditty-display-sandbox' . $min . '.js', array( 'jquery' ), $this->version, true );
 
 		if ( is_admin() ) {
 			
@@ -679,10 +676,7 @@ class Ditty {
 				} );
 			</script>
 			<?php
-		}
-		
-		// Possibly add display sandbox scripts
-		ditty_display_sandbox_add_scripts();		
+		}	
 	}
 
 }

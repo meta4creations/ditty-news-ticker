@@ -27,7 +27,7 @@
 		display: none;
 		font-size: 13px;
 		line-height: 16px;
-		margin: 7px 0 10px;
+		margin: 7px 0 10px !important;
 	}
 	&__input {
 		display: flex;
@@ -125,7 +125,7 @@
 }
 .ditty-field__label + .ditty-field__description,
 .ditty-field__help + .ditty-field__description {
-	margin-top: 7px;
+	margin-top: 7px !important;
 }
 .ditty-field--clone-enabled {
 	.ditty-input--clone {
@@ -192,7 +192,7 @@
 		}
 		.ditty-field__help,
 		.ditty-field__desciption {
-			margin-bottom: 0;
+			margin-bottom: 0 !important;
 		}
 	}
 	.ditty-field__collapsible-toggle {
@@ -278,12 +278,15 @@
 	}
 }
 .ditty-field-type--checkbox {
-	input[type="checkbox"] {
-		margin-top: 0;
-	}
-	label {
-		font-size: 13px;
-		line-break: 13px;
+	.ditty-field__input__primary {
+		input[type="checkbox"] {
+			margin: 0;
+		}
+		label {
+			font-size: 13px;
+			line-height: 13px;
+			margin-left: 7px;
+		}
 	}
 }
 
@@ -317,12 +320,13 @@
 			align-items: center;
 			margin-top: 2px;
 			margin-bottom: 5px;
-			input[type="checkbox"] {
+			input[type="radio"] {
 				margin: 0;
 			}
 			label {
 				font-size: 13px;
-				line-break: 13px;
+				line-height: 13px;
+				margin-left: 7px;
 			}
 		}
 	}

@@ -97,7 +97,7 @@ jQuery( function( $ ) {
 			}
 		} );
 		
-		$( '.ditty-display-sandbox' ).on( 'ditty_display_sandbox_init', function( e, settings, ditty ) {  
+		$( '.ditty-sandbox' ).on( 'ditty_sandbox_init', function( e, settings, ditty ) {  
 			if ( 'ticker' === settings.displayType ) {
 				var $form = $( this ).find( 'form' );
 				initEditorHooks( $form, ditty );	
