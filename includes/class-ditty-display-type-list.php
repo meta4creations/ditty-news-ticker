@@ -22,7 +22,7 @@ class Ditty_Display_Type_List extends Ditty_Display_Type {
 	 * Setup the display settings
 	 *
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.0.14
 	 */
 	public function fields( $values = array() ) {	
 		$fields = array(
@@ -247,7 +247,7 @@ class Ditty_Display_Type_List extends Ditty_Display_Type {
 				),
 			);
 		}
-		return $fields;
+		return apply_filters( 'ditty_display_type_fields', $fields, $this->get_type() );
 	}
 	
 	
