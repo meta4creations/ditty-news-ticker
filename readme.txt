@@ -69,6 +69,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 = 3.0.14 =
 * Ticker cloneItems bug fix
 * Ticker container border width render issue fix
+* Data sanitization updates
 
 = 3.0.13 =
 * Added Ditty Wizard (Beta)
