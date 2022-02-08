@@ -66,7 +66,7 @@ add_filter( 'ditty_layout_tag_author_bio', 'ditty_default_layout_tag_author_bio'
 /**
  * Modify the layout content
  *
- * @since    3.0.12
+ * @since    3.0.16
  * @var      html
 */
 function ditty_default_layout_tag_content( $content, $item_type, $data, $atts ) {
@@ -77,7 +77,7 @@ function ditty_default_layout_tag_content( $content, $item_type, $data, $atts ) 
 			$target = isset( $data['link_target'] ) ? $data['link_target'] : '_self';
 			$rel = isset( $data['link_nofollow'] ) ? 'nofollow' : '';
 			$title = isset( $data['link_title'] ) ? $data['link_title'] : '';
-			$content = sprintf( '<a href="%2$s" class="ditty-rss__author__link" target="%3$s" rel="%4$s" title="%5$s">%1$s</a>', $content, $url, $target, $rel, $title );
+			$content = sprintf( '<a href="%2$s" class="ditty-item__link" target="%3$s" rel="%4$s" title="%5$s">%1$s</a>', $content, $url, $target, $rel, $title );
 		}
 	} elseif ( 'wp_editor' == $item_type ) {
 		$content = $data['content'];
