@@ -20,7 +20,7 @@ jQuery( function( $ ) {
 
 		"use strict";
 
-		$( '#ditty-page' ).on( 'click', '.ditty-help-icon', function( e ) {
+		$( 'body' ).on( 'click', '.ditty-help-icon', function( e ) {
 			e.preventDefault();
 
 			var $icon = $( this ),
