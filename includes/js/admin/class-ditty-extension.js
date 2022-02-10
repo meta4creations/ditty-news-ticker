@@ -177,7 +177,7 @@
 	    $.post( dittyAdminVars.ajaxurl, data, function( response ) {
 		    if ( response ) {
 			    self.$elmt.attr( 'data-license_status', response.status );
-			    $message.text( response.message );
+			    $message.html( response.message );
 		    }
 				if ( response.license_key ) {
 					if ( 'DELETE' === response.license_key ) {
