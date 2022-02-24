@@ -54,7 +54,7 @@ class Ditty_Field_Code extends Ditty_Field {
 	 */
 	public function input( $name, $std = false ) {
 		$html = '';
-		$html .= '<textarea name="' . $name . '" ' . ditty_attr_to_html( $this->attributes() ) . '>' . $std . '</textarea>';
+		$html .= '<textarea name="' . $name . '" ' . ditty_attr_to_html( $this->attributes() ) . '>' . stripslashes( $std ) . '</textarea>';
 		return $html;
 	}
 }
