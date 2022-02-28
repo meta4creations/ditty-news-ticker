@@ -463,9 +463,12 @@ function ditty_draft_item_get_meta( $item_id, $key = false ) {
 
 /**
  * Update item draft meta
- * @since    3.0
+ * @since    3.0.16
 */
-function ditty_draft_item_update_meta( $item_id, $key = false, $value ) {	
+function ditty_draft_item_update_meta( $item_id, $key = false, $value = false ) {	
+	if ( ! $value ) {
+		return false;
+	}
 	$draft_values = ditty_get_draft_values();
 	if ( ! $draft_values ) {
 		$draft_values = array();
@@ -516,9 +519,12 @@ function ditty_draft_layout_get( $layout_id = false, $key = false ) {
 
 /**
  * Update a layout draft
- * @since    3.0
+ * @since    3.0.16
 */
-function ditty_draft_layout_update( $layout_id, $key = false, $value ) {	
+function ditty_draft_layout_update( $layout_id, $key = false, $value = false ) {
+	if ( ! $value ) {
+		return false;
+	}
 	$draft_values = ditty_get_draft_values();
 	if ( ! $draft_values ) {
 		$draft_values = array();
@@ -563,9 +569,12 @@ function ditty_draft_display_get( $display_id, $key = false ) {
 
 /**
  * Update a display draft
- * @since    3.0
+ * @since    3.0.16
 */
-function ditty_draft_display_update( $display_id, $key = false, $value ) {	
+function ditty_draft_display_update( $display_id, $key = false, $value = false ) {	
+	if ( ! $value ) {
+		return false;
+	}
 	$draft_values = ditty_get_draft_values();
 	if ( ! $draft_values ) {
 		$draft_values = array();
@@ -1579,18 +1588,24 @@ function ditty_item_get_meta( $item_id, $meta_key = '', $single = true ) {
 /**
  * Add meta data field to a item.
  *
- * @since   3.0
+ * @since   3.0.16
  */
-function ditty_item_add_meta( $item_id, $meta_key = '', $meta_value, $unique = false ) {
+function ditty_item_add_meta( $item_id, $meta_key = '', $meta_value = false, $unique = false ) {
+	if ( ! $meta_value ) {
+		return false;
+	}
 	return Ditty()->db_item_meta->add_meta( $item_id, $meta_key, $meta_value, $unique );
 }
 
 /**
  * Update item meta field based on item ID.
  *
- * @since   3.0
+ * @since   3.0.16
  */
-function ditty_item_update_meta( $item_id, $meta_key = '', $meta_value, $prev_value = '' ) {
+function ditty_item_update_meta( $item_id, $meta_key = '', $meta_value = false, $prev_value = '' ) {
+	if ( ! $meta_value ) {
+		return false;
+	}
 	return Ditty()->db_item_meta->update_meta( $item_id, $meta_key, $meta_value, $prev_value );
 }
 

@@ -159,12 +159,15 @@ function ditty_sanitize_field( $field = array(), $values = array() ) {
  * Sanitize fields
  *
  * @access  public
- * @since   3.0
+ * @since   3.0.16
  */
 function ditty_sanitize_fields( $fields = array(), $values = array(), $id = '' ) {
 	$sanitized_values = array();
 	if ( is_array( $fields ) && count( $fields ) > 0 ) {
 		foreach ( $fields as $field ) {
+			if ( ! is_array( $field ) ) {
+				continue;
+			}
 			if ( 'group' == $field['type'] && isset( $field['multiple_fields'] ) && true == $field['multiple_fields'] ) {
 				if ( isset( $field['fields'] ) && is_array( $field['fields'] ) && count( $field['fields'] ) > 0 ) {
 					foreach ( $field['fields'] as $group_field ) {

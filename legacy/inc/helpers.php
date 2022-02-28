@@ -164,18 +164,18 @@ function mtphr_dnt_settings_tabs() {
 
 
 /* --------------------------------------------------------- */
-/* !Return the ticker class - 2.0.4 */
+/* !Return the ticker class - 3.0.16 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_ticker_class') ) {
-function mtphr_dnt_ticker_class( $id='', $class='', $meta_data ) {
+function mtphr_dnt_ticker_class( $id='', $class='', $meta_data = array() ) {
 
 	return 'class="'.join( ' ', get_mtphr_dnt_ticker_class($id,$class,$meta_data) ).'"';
 }
 }
 
 if( !function_exists('get_mtphr_dnt_ticker_class') ) {
-function get_mtphr_dnt_ticker_class( $id='', $class='', $meta_data ) {
+function get_mtphr_dnt_ticker_class( $id='', $class='', $meta_data = array() ) {
 
 	// Extract the metadata array into variables
 	extract( $meta_data );

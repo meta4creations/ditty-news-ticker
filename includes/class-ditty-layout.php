@@ -383,12 +383,12 @@ class Ditty_Layout {
 	 * Parse layout atts
 	 *
 	 * @access private
-	 * @since    3.0
+	 * @since    3.0.16
 	 * @var      array	$parsed_atts
 	*/
-	private function parse_atts( $atts = array(), $s ) {
+	private function parse_atts( $atts = array(), $s = false ) {
 		$parsed_atts = array();
-		if ( is_array( $atts ) && count( $atts ) > 0 ) {
+		if ( $s && is_array( $atts ) && count( $atts ) > 0 ) {
 			foreach ( $atts as $key => $value ) {
 				if ( $custom_value = $s->getParameter( $key ) ) {
 					$parsed_atts[$key] = $custom_value;

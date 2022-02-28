@@ -89,9 +89,12 @@ class Ditty_DB_Item_Meta extends Ditty_DB {
 	 * @return  bool                  False for failure. True for success.
 	 *
 	 * @access  private
-	 * @since   3.0
+	 * @since   3.0.randombytes_random16()
 	 */
-	public function add_meta( $item_id = 0, $meta_key = '', $meta_value, $unique = false ) {
+	public function add_meta( $item_id = 0, $meta_key = '', $meta_value = false, $unique = false ) {
+		if ( ! $meta_value ) {
+			return false;
+		}
 		$item_id = $this->sanitize_item_id( $item_id );
 		if ( false === $item_id ) {
 			return false;
@@ -117,9 +120,12 @@ class Ditty_DB_Item_Meta extends Ditty_DB {
 	 * @return  bool                  False on failure, true if success.
 	 *
 	 * @access  private
-	 * @since   3.0
+	 * @since   3.0.16
 	 */
-	public function update_meta( $item_id = 0, $meta_key = '', $meta_value, $prev_value = '' ) {
+	public function update_meta( $item_id = 0, $meta_key = '', $meta_value = false, $prev_value = '' ) {
+		if ( ! $meta_value ) {
+			return false;
+		}
 		$item_id = $this->sanitize_item_id( $item_id );
 		if ( false === $item_id ) {
 			return false;
