@@ -71,6 +71,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 * Code field updates
 * PHP 8 updates
 * Item preview & title updates
+* Added ticker display item wrap setting
 
 = 3.0.15 =
 * Ticker container border width render issue fix

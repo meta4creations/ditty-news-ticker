@@ -46,6 +46,20 @@ jQuery( function( $ ) {
 		}
 		
 		/**
+		 * Set the scroll delay field visibility
+		 *
+		 * @since    3.0.13
+		*/
+		function setItemWrap( $form ) {
+			var val = $form.find( 'input[name="cloneItems"]:checked' ).val();
+			if ( 'no' === val ) {
+				$form.find( '.ditty-field--wrapItems' ).show();
+			} else {
+				$form.find( '.ditty-field--wrapItems' ).hide();
+			}
+		}
+		
+		/**
 		 * Set the title field visibility
 		 *
 		 * @since    3.0.13
@@ -78,6 +92,12 @@ jQuery( function( $ ) {
 			setScrollDelay( $form );
 			$form.find( 'input[name="scrollInit"]' ).on( 'click', function() {
 				setScrollDelay( $form );
+			} );
+			
+			// Set item wrap
+			setItemWrap( $form );
+			$form.find( 'input[name="cloneItems"]' ).on( 'click', function() {
+				setItemWrap( $form );
 			} );
 			
 			// Set the title styles

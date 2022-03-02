@@ -5,7 +5,7 @@
 /**
  * Ditty class
  *
- * @since		3.0
+ * @since		3.0.16
  * @return	null
 */
 
@@ -21,6 +21,7 @@
 	  	spacing								:	20,
 	  	speed									:	10, // 1 - 10
 			cloneItems						: 'yes',
+			wrapItems							: 'yes',
 	  	hoverPause						:	0, // 0, 1
 	  	height								:	null,
 			minHeight							:	null,
@@ -96,6 +97,7 @@
     this.scrollPercent	= 0.13;
     this.running				= false;
     this.interval				= false;
+		this.firstItem			= this.settings.item;
     this.currentHeight	= this.settings.height;
     this.visibleItems 	= [];
 		
@@ -205,7 +207,7 @@
 	    
 	    // Initialize the first item
 	    if ( 0 === self.visibleItems.length ) {
-		    var firstItem = self.settings.item;
+		    var firstItem = self.firstItem;
 		    if ( ! this._isItemEnabled( firstItem ) ) {
 			    firstItem = this._getNextItem( firstItem );
 		    }
@@ -319,6 +321,9 @@
 			
 			var existingItems = this.$items.children( '.ditty-item--' + this.settings.items[index].uniq_id );	
 			if ( 'yes' !== this.settings.cloneItems && existingItems.length ) {
+				return false;
+			}
+			if ( 'yes' !== this.settings.cloneItems && 'yes' !== this.settings.wrapItems && this.firstItem === parseInt( index ) && 0 !== parseInt( this.visibleItems.length ) ) {
 				return false;
 			}
 

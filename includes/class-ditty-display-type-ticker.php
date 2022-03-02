@@ -22,7 +22,7 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 	 * Setup the fields
 	 *
 	 * @access  public
-	 * @since   3.0.14
+	 * @since   3.0.16
 	 */
 	public function fields( $values = array() ) {	
 		$fields = array(
@@ -147,6 +147,30 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 						'inline'	=> true,
 						'std'		=> isset( $values['cloneItems'] ) ? $values['cloneItems'] : false,
 					),
+					'cloneItems' => array(
+						'type'	=> 'radio',
+						'id'		=> 'cloneItems',
+						'name'	=> __( 'Clone Items?', 'ditty-news-ticker' ),
+						'help'	=> __( 'Should items continually clone to fill the ticker?', 'ditty-news-ticker' ),
+						'options'	=> array(
+							'yes' 	=> __( 'Yes', 'ditty-news-ticker' ),
+							'no' 		=> __( 'No', 'ditty-news-ticker' ),
+						),
+						'inline'	=> true,
+						'std'		=> isset( $values['cloneItems'] ) ? $values['cloneItems'] : false,
+					),
+					'wrapItems' => array(
+						'type'	=> 'radio',
+						'id'		=> 'wrapItems',
+						'name'	=> __( 'Wrap Items?', 'ditty-news-ticker' ),
+						'help'	=> __( 'Should items restart before all items have finished scrolling?', 'ditty-news-ticker' ),
+						'options'	=> array(
+							'yes' 	=> __( 'Yes', 'ditty-news-ticker' ),
+							'no' 		=> __( 'No', 'ditty-news-ticker' ),
+						),
+						'inline'	=> true,
+						'std'		=> isset( $values['wrapItems'] ) ? $values['wrapItems'] : false,
+					),
 					'hoverPause' => array(
 						'type'	=> 'checkbox',
 						'id'		=> 'hoverPause',
@@ -214,11 +238,11 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 	/**
 	 * Set the metabox defaults
 	 * @access  public
-	 * @since   3.0.13
+	 * @since   3.0.16
 	 */
 	public function default_settings() {	
 		
-		$defaults = json_decode( '{"direction":"left","minHeight":"300px","maxHeight":"","spacing":"25","speed":"10","heightEase":"easeInOutQuint","heightSpeed":"1.5","scrollInit":"empty","scrollDelay":"3","cloneItems":"yes","hoverPause":"1","maxWidth":"","bgColor":"","padding":{"paddingTop":"","paddingBottom":"","paddingLeft":"","paddingRight":""},"margin":{"marginTop":"","marginBottom":"","marginLeft":"","marginRight":""},"borderColor":"","borderStyle":"none","borderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"borderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"titleDisplay":"none","titleElement":"h3","titleElementPosition":"start","titleFontSize":"","titleLineHeight":"","titleColor":"rgba(255, 255, 255, 1)","titleBgColor":"rgba(0, 0, 0, 1)","titleMargin":{"marginTop":"","marginBottom":"","marginLeft":"","marginRight":""},"titlePadding":{"paddingTop":"10px","paddingBottom":"10px","paddingLeft":"15px","paddingRight":"15px"},"titleBorderColor":"","titleBorderStyle":"none","titleBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"titleBorderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"contentsBgColor":"rgba(255, 255, 255, 0.5)","contentsPadding":{"paddingTop":"10px","paddingBottom":"10px","paddingLeft":"10px","paddingRight":"10px"},"contentsBorderColor":"","contentsBorderStyle":"none","contentsBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"contentsBorderRadius":{"borderTopLeftRadius":"0","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"itemTextColor":"","itemBgColor":"","itemPadding":{"paddingTop":"","paddingBottom":"","paddingLeft":"","paddingRight":""},"itemBorderColor":"","itemBorderStyle":"none","itemBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"itemBorderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"itemMaxWidth":"300px","itemElementsWrap":"wrap"}', true );
+		$defaults = json_decode( '{"direction":"left","minHeight":"300px","maxHeight":"","spacing":"25","speed":"10","heightEase":"easeInOutQuint","heightSpeed":"1.5","scrollInit":"empty","scrollDelay":"3","cloneItems":"yes","wrapItems":"yes","hoverPause":"1","maxWidth":"","bgColor":"","padding":{"paddingTop":"","paddingBottom":"","paddingLeft":"","paddingRight":""},"margin":{"marginTop":"","marginBottom":"","marginLeft":"","marginRight":""},"borderColor":"","borderStyle":"none","borderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"borderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"titleDisplay":"none","titleElement":"h3","titleElementPosition":"start","titleFontSize":"","titleLineHeight":"","titleColor":"rgba(255, 255, 255, 1)","titleBgColor":"rgba(0, 0, 0, 1)","titleMargin":{"marginTop":"","marginBottom":"","marginLeft":"","marginRight":""},"titlePadding":{"paddingTop":"10px","paddingBottom":"10px","paddingLeft":"15px","paddingRight":"15px"},"titleBorderColor":"","titleBorderStyle":"none","titleBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"titleBorderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"contentsBgColor":"rgba(255, 255, 255, 0.5)","contentsPadding":{"paddingTop":"10px","paddingBottom":"10px","paddingLeft":"10px","paddingRight":"10px"},"contentsBorderColor":"","contentsBorderStyle":"none","contentsBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"contentsBorderRadius":{"borderTopLeftRadius":"0","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"itemTextColor":"","itemBgColor":"","itemPadding":{"paddingTop":"","paddingBottom":"","paddingLeft":"","paddingRight":""},"itemBorderColor":"","itemBorderStyle":"none","itemBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"itemBorderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"itemMaxWidth":"300px","itemElementsWrap":"wrap"}', true );
 			
 		return apply_filters( 'ditty_display_default_settings', $defaults, $this->type );
 	}
