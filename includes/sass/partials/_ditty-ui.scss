@@ -134,6 +134,10 @@
 		  margin-bottom: 0;
 	  }
 		&__label {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: flex-start;
 			color: #444;
 			padding-right: 5px;
 			margin-right: auto;

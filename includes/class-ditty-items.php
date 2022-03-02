@@ -400,7 +400,7 @@ class Ditty_Items {
 		
 		$editor_item 	= new Ditty_Item( $item_id_ajax );
 		$editor_item->set_item_value( $_POST );	
-		
+
 		// Find updated values
 		$value_updates = array();
 		$sanitized_values = $editor_item->get_value();

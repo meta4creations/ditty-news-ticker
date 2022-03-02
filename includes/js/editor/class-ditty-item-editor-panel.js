@@ -224,8 +224,8 @@
 					}
 					if ( response.editor_item ) {
 						var $item = $( response.editor_item ),
-								itemTitle = $item.children( '.ditty-data-list__item__label' ).text();
-								
+								itemTitle = $item.children( '.ditty-data-list__item__label' ).html();
+
 						// Set the new titles
 						self.$title.html( itemTitle );
 						self.$editorItemTitle.html( itemTitle );

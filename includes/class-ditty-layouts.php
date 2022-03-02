@@ -570,7 +570,7 @@ class Ditty_Layouts {
 					<div class="ditty-editor-options__buttons ditty-editor-options__buttons--start">
 						<a href="#" class="ditty-editor-options__back"><i class="fas fa-chevron-left" data-class="fas fa-chevron-left"></i></a>
 					</div>
-					<h3 class="ditty-editor-options__title"><?php echo sprintf( __( 'Layout: <span>%s</span>', 'ditty-news-ticker' ), stripslashes( $item_label_ajax ) ); ?></h3>
+					<h3 class="ditty-editor-options__title"><?php esc_html_e( 'Layout Variations', 'ditty-news-ticker' ); ?></h3>
 				</div>
 				<div class="ditty-data-list">
 					<div class="ditty-data-list__items">
@@ -642,7 +642,7 @@ class Ditty_Layouts {
 					<div class="ditty-editor-options__buttons ditty-editor-options__buttons--start">
 						<a href="#" class="ditty-editor-options__back"><i class="fas fa-chevron-left" data-class="fas fa-chevron-left"></i></a>
 					</div>
-					<h3 class="ditty-editor-options__title"><?php echo sprintf( __( 'Variation: <span>%s</span>', 'ditty-news-ticker' ), stripslashes( $variation_label_ajax ) ); ?></h3>
+					<h3 class="ditty-editor-options__title"><?php echo sprintf( __( 'Variation:&nbsp;<span>%s</span>', 'ditty-news-ticker' ), stripslashes( $variation_label_ajax ) ); ?></h3>
 				</div>
 				<div class="ditty-data-list">
 					<div class="ditty-data-list__items" data-active="<?php echo $layout_id_ajax; ?>">

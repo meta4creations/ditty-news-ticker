@@ -142,6 +142,14 @@
       "oO" : 0,
       "oS" : 1
     },
+    "\/composer.lock" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/composer.lock",
+      "oF" : 0
+    },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -250,7 +258,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/class-ditty-display-type-list.php",
       "oF" : 0
     },
@@ -838,7 +846,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 1,
+      "mi" : 0,
       "oA" : 1,
       "oAP" : "\/includes\/js\/admin\/class-ditty-extension.min.js",
       "oF" : 0,
@@ -1662,7 +1670,7 @@
       "sct" : 1
     },
     "\/includes\/sass\/ditty.scss" : {
-      "aP" : 0,
+      "aP" : 1,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1674,7 +1682,7 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 0
+      "sct" : 1
     },
     "\/includes\/sass\/editor\/_displays_panel.scss" : {
       "aP" : 1,
