@@ -142,14 +142,6 @@
       "oO" : 0,
       "oS" : 1
     },
-    "\/composer.lock" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/composer.lock",
-      "oF" : 0
-    },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -258,7 +250,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-display-type-list.php",
       "oF" : 0
     },
@@ -846,7 +838,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 1,
       "oAP" : "\/includes\/js\/admin\/class-ditty-extension.min.js",
       "oF" : 0,
@@ -915,28 +907,6 @@
       "mi" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/js\/class-ditty-display-list.min.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/class-ditty-display-sandbox.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/class-ditty-display-sandbox.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/class-ditty-display-sandbox.min.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/class-ditty-display-sandbox.min.min.js",
       "oF" : 0,
       "sC" : 3,
       "tS" : 0
@@ -1692,7 +1662,7 @@
       "sct" : 1
     },
     "\/includes\/sass\/ditty.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1704,7 +1674,7 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/editor\/_displays_panel.scss" : {
       "aP" : 1,
@@ -1825,21 +1795,6 @@
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
-    },
-    "\/includes\/sass\/partials\/_display_sandbox.scss" : {
-      "aP" : 0,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/sass\/css\/_display_sandbox.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 0
     },
     "\/includes\/sass\/partials\/_display_ticker.scss" : {
       "aP" : 1,
