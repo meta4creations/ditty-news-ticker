@@ -62,10 +62,12 @@ class Ditty_Displays {
 	 */
 	public function install_default( $display_type, $display_template = false, $display_version = false ) {	
 		$args = array(
-			'template' 	=> $display_template,
-			'version'		=> $display_version,
+			'display_type'	=> $display_type,
+			'template' 			=> $display_template,
+			'version'				=> $display_version,
+			'fields'				=> 'ids',
 		);
-		if ( $display_ids = ditty_displays_with_type( $display_type, $args ) ) {
+		if ( $display_ids = ditty_display_posts( $args ) ) {
 			return reset( $display_ids );
 		}
 
@@ -156,10 +158,12 @@ class Ditty_Displays {
 						$html .= '<ul id="ditty-templates-list__templates">';
 						foreach ( $display_data['templates'] as $template => $template_data ) {
 							$args = array(
-								'template' 	=> $template,
-								'return'		=> 'versions',
+								'display_type'	=> $display_type,
+								'template' 			=> $template,
+								'fields'				=> 'ids',
+								'return'				=> 'versions',
 							);
-							$display_versions = ditty_displays_with_type( $display_type, $args );
+							$display_versions = ditty_display_posts( $args );
 							$html .= '<li class="ditty-templates-list__template">';
 								$html .= '<div class="ditty-templates-list__template__heading">';
 									$html .= '<h4 class="ditty-templates-list__template__label">';

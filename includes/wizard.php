@@ -117,7 +117,7 @@ function ditty_wizard( $post ) {
 							<h3 class="ditty-wizard-setting__title"><?php _e( 'Select Variation Layouts for the Item', 'ditty-news-ticker' ); ?></h3>
 							<p class="ditty-wizard-setting__description"><?php _e( 'Layouts are used to render the Item data. Each Item type may have multiple Layout variations.', 'ditty-news-ticker' ); ?></p>
 							<?php	
-							$layouts = ditty_layouts_posts();
+							$layouts = ditty_layout_posts();
 							$layout_options = '';
 							$layout_options .= '<div class="ditty-wizard-option ditty-option-grid">';
 								if ( is_array( $layouts ) && count( $layouts ) > 0 ) {

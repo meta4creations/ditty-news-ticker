@@ -79,7 +79,7 @@ class Ditty_Layouts {
 			'version'		=> $layout_version,
 			'fields'		=> 'ids',
 		);
-		if ( $layouts = ditty_layouts_posts( $args ) ) {
+		if ( $layouts = ditty_layout_posts( $args ) ) {
 			return end( $layouts );
 		}
 
@@ -221,7 +221,7 @@ class Ditty_Layouts {
 						'fields'		=> 'ids',
 						'return'		=> 'versions',
 					);
-					$layout_versions = ditty_layouts_posts( $args );
+					$layout_versions = ditty_layout_posts( $args );
 					$html .= '<li class="ditty-templates-list__template">';
 						$html .= '<div class="ditty-templates-list__template__heading">';
 							$html .= '<h4 class="ditty-templates-list__template__label">';
@@ -466,7 +466,7 @@ class Ditty_Layouts {
 		if ( $placeholder ) {
 			$options[''] = $placeholder;
 		}
-		if ( $layouts = ditty_layouts_posts() ) {
+		if ( $layouts = ditty_layout_posts() ) {
 			foreach ( $layouts as $layout_post ) {
 				$title = $layout_post->post_title;
 				if ( $version = get_post_meta( $layout_post->ID, '_ditty_layout_version', true ) ) {
@@ -667,7 +667,7 @@ class Ditty_Layouts {
 						$args = array(
 							'fields' => 'ids',
 						);
-						$layouts = ditty_layouts_posts( $args );
+						$layouts = ditty_layout_posts( $args );
 						$drafts = ditty_draft_layout_get();
 						if ( ! is_array( $drafts ) ) {
 							$drafts = array();

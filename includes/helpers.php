@@ -612,7 +612,7 @@ function ditty_set_variation_default( $item_type, $variation, $layout_id ) {
 			'template' 	=> $layout_id,
 			'fields'		=> 'ids',
 		);
-		if ( $posts = ditty_layouts_posts( $args ) ) {
+		if ( $posts = ditty_layout_posts( $args ) ) {
 			$post_layout_id = reset( $posts );
 			$variation_defaults[$item_type][$variation] = $post_layout_id;
 			ditty_settings( 'variation_defaults', $variation_defaults );
@@ -661,7 +661,7 @@ function ditty_layout_variation_types( $item_type = false ) {
  * @access   public
  * @var      bool
 */
-function ditty_layouts_posts( $atts = array() ) {
+function ditty_layout_posts( $atts = array() ) {
 	$defaults = array(
 		'template' 	=> false,
 		'version'		=> false,
@@ -676,19 +676,19 @@ function ditty_layouts_posts( $atts = array() ) {
 		'post_status'			=> 'publish',
 		'orderby'					=> 'title',
 		'order'						=> 'ASC',
-		'fields' 					=> $args['fields'],
+		'fields' 					=> esc_html( $args['fields'] ),
 	);
 	$meta_query = array();
 	if ( $args['template'] ) {
 		$meta_query['template'] = array(
 			'key' 	=> '_ditty_layout_template',
-			'value'	=> $args['template'],
+			'value'	=> esc_html( $args['template'] ),
 		);
 	}
 	if ( $args['version'] ) {
 		$meta_query['version'] = array(
 			'key' 	=> '_ditty_layout_version',
-			'value'	=> $args['version'],
+			'value'	=> esc_html( $args['version'] ),
 		);
 	}
 	$query_args['meta_query'] = $meta_query;
@@ -713,15 +713,17 @@ function ditty_layouts_posts( $atts = array() ) {
 /**
  * Check if a display type exists
  *
- * @since    3.0
+ * @since    3.0.17
  * @access   public
  * @var      bool
 */
-function ditty_displays_with_type( $display_type, $atts = array() ) {
+function ditty_display_posts( $atts = array() ) {
 	$defaults = array(
-		'template' 	=> false,
-		'version'		=> false,
-		'return'		=> 'ids',
+		'display_type'	=> false,
+		'template' 			=> false,
+		'version'				=> false,
+		'fields'				=> 'all',
+		'return'				=> 'posts',
 	);
 	$args = shortcode_atts( $defaults, $atts );
 		
@@ -729,23 +731,25 @@ function ditty_displays_with_type( $display_type, $atts = array() ) {
 		'posts_per_page' 	=> -1,
 		'post_type' 			=> 'ditty_display',
 		'post_status'			=> 'publish',
-		'fields' 					=> 'ids',
+		'fields' 					=> esc_html( $args['fields'] ),
 	);
 	$meta_query = array();
-	$meta_query['type'] = array(
-		'key' 	=> '_ditty_display_type',
-		'value'	=> $display_type,
-	);
+	if ( $args['display_type'] ) {
+		$meta_query['type'] = array(
+			'key' 	=> '_ditty_display_type',
+			'value'	=> esc_html( $args['display_type'] ),
+		);
+	}
 	if ( $args['template'] ) {
 		$meta_query['template'] = array(
 			'key' 	=> '_ditty_display_template',
-			'value'	=> $args['template'],
+			'value'	=> esc_html( $args['template'] ),
 		);
 	}
 	if ( $args['version'] ) {
 		$meta_query['version'] = array(
 			'key' 	=> '_ditty_display_version',
-			'value'	=> $args['version'],
+			'value'	=> esc_html( $args['version'] ),
 		);
 	}
 	$query_args['meta_query'] = $meta_query;
@@ -1079,7 +1083,7 @@ function ditty_get_default_layout() {
 			'template' 	=> 'default',
 			'fields'		=> 'ids',
 		);
-		if ( $layouts = ditty_layouts_posts( $atts ) ) {
+		if ( $layouts = ditty_layout_posts( $atts ) ) {
 			return reset( $layouts );
 		}
 	}
