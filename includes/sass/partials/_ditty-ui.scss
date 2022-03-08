@@ -27,6 +27,7 @@
 	transition: color .25s ease, background-color .25s ease;
 	&[disabled] {
 		cursor: default;
+		opacity: .5;
 	}
 	&[type="button"],
 	&[type="submit"] {

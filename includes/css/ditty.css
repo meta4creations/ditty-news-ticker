@@ -203,7 +203,7 @@
     margin-bottom: 5px; }
     .ditty-input--checkboxes__group .ditty-input--checkboxes__option label {
       font-size: 13px;
-      line-break: 13px; }
+      line-height: 13px; }
   .ditty-input--checkboxes__group--inline {
     flex-direction: row;
     align-items: center; }
@@ -1053,7 +1053,8 @@
   cursor: pointer;
   transition: color .25s ease, background-color .25s ease; }
   .ditty-button[disabled] {
-    cursor: default; }
+    cursor: default;
+    opacity: .5; }
   .ditty-button[type="button"], .ditty-button[type="submit"] {
     -webkit-appearance: none;
     border: none;

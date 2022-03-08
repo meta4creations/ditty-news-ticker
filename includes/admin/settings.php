@@ -419,8 +419,8 @@ function ditty_settings_import_export() {
 			'type'	=> 'html',
 			'id' 		=> 'layout_export',
 			'name' 	=> esc_html__( 'Layout Export', 'ditty-news-ticker' ),
-			'help'	=> esc_html__( 'Export Layout posts', 'ditty-news-ticker' ),
-			'std'		=> 'Export button should go here',
+			'desc'	=> esc_html__( "Select the Layouts you would like to export. When you click the download button below, Ditty will create a JSON file for you to save to your computer. Once you've saved the download file, you can use the Import tool to import the Layout posts.", 'ditty-news-ticker' ),
+			'std'		=> ditty_export_layouts(),
 		),
 		'display_heading' => array(
 			'type' 		=> 'heading',
@@ -469,6 +469,48 @@ function ditty_export_ditty() {
 			'icon_after' => 'fas fa-sync-alt fa-spin',
 			'atts' => array(
 				'data-export_type' => 'ditty',
+			),
+		),
+	);
+	$render_fields = ditty_fields( $fields, false, 'return' );
+	return $render_fields;
+}
+
+function ditty_export_layouts() {
+	$layouts = ditty_layouts_posts();
+	$options = array(
+		'_select_all' => esc_html__( 'Select All', 'ditty-news-ticker' ),
+	);
+	if ( is_array( $layouts ) && count( $layouts ) > 0 ) {
+		foreach ( $layouts as $i => $layout ) {
+			$version = get_post_meta( $layout->ID, '_ditty_layout_version', true );
+			$version_string = '';
+			if ( $version ) {
+				$version_string = " <small class='ditty-layout-version'>(v{$version})</small>";
+			}
+			$options[$layout->ID] = $layout->post_title . $version_string;
+		}
+	}
+	$fields = array(
+		'ditty_layout_export_options' => array(
+			'type'				=> 'checkboxes',
+			'id' 					=> 'ditty_layout_export_options',
+			'options'			=> $options,
+			'inline' 			=> false,
+			'field_only' 	=> true,
+			'input_class'	=> 'ditty-export-posts',
+		),
+		'ditty_export_button' => array(
+			'type'				=> 'button',
+			'id' 					=> 'ditty_export_button',
+			'label'				=> esc_html__( 'Export Layouts', 'ditty-news-ticker' ) . ' <i class="fas fa-sync-alt fa-spin"></i>',
+			'field_only' 	=> true,
+			'icon_after' 	=> 'fas fa-sync-alt fa-spin',
+			'input_class'	=> 'ditty-export-button',
+			'atts' 				=> array(
+				'data-export_type' 	=> 'layouts',
+				'data-redirect'			=> add_query_arg( 'ditty_export', 'true' ),
+				'disabled'					=> 'disabled',
 			),
 		),
 	);

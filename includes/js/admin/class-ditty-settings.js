@@ -53,7 +53,9 @@
 			this.$form.on( 'ditty_input_wysiwyg_update', '.ditty-input--wysiwyg', { self: this }, this._checkUpdates );
 			this.$form.on( 'click', '.ditty-default-layout-install', { self: this }, this._installLayout );
 			this.$form.on( 'click', '.ditty-default-display-install', { self: this }, this._installDisplay );
-			//this.$form.on( 'click', 'button[name="ditty_export_button"]', { self: this }, this._exportPosts );
+			
+			this.$form.on( 'click', '.ditty-export-posts input[type="checkbox"]', { self: this }, this._exportCheckboxClick );
+			this.$form.on( 'click', '.ditty-export-button', { self: this }, this._exportPosts );
 			
 			if ( this.url.indexOf( "#" ) > 0 ) {
 				var activePanel = this.url.substring( this.url.indexOf( "#" ) + 1 );
@@ -370,45 +372,87 @@
 		},
 		
 		/**
-		 * Export posts
+		 * Listen for export checkbox click
 		 *
-		 * @since    3.0.13
+		 * @since    3.0.17
 		 * @return   null
 		*/
-		// _exportPosts: function( e ) { 
-		// 	e.preventDefault();
-		// 	var self 						= e.data.self,
-		// 			$button 				= $( e.target ).is( 'button' ) ? $( e.target ) : $( e.target ).parents( 'button' ),
-		// 			$parent					= $button.parent( '.ditty-field-only' ),
-		// 			$options 				= $parent.siblings( '.ditty-field-only--ditty_export_options' ),
-		// 			$icon						= $button.find( 'i' ),
-		// 			export_options 	= [];
-		// 			
-		// 	if ( $button.attr( 'disabled' ) ) {
-		// 		return false;
-		// 	}
-		// 	$button.attr( 'disabled', 'disabled' );
-		// 	$icon.show();
-		// 	
-		// 	if ( $options.length ) {
-		// 		$options.find( 'input[type="checkbox"]' ).each( function() {
-		// 			if ( $( this ).is( ':checked' ) ) {
-		// 				export_options.push( $( this ).val() );
-		// 			}
-		// 		} );			
-		// 	}
-		// 	
-		// 	var data = {
-		// 		action						: 'ditty_export_posts',
-		// 		export_type				: $button.data( 'export_type' ),
-		// 		export_options		: export_options,
-		// 		security					: dittyAdminVars.security
-		// 	};
-		// 	$.post( dittyAdminVars.ajaxurl, data, function( response ) {
-		// 		$icon.hide();
-		// 		self.$elmt.removeAttr( 'disabled' );	
-		// 	} );
-		// },
+		_exportCheckboxClick: function( e ) { 
+			var $checkbox 	= $( e.target ),
+					$group 			= $checkbox.parents( '.ditty-input--checkboxes__group' ),
+					$container 	= $checkbox.parents( '.ditty-field__input' ),
+					$button			= $container.find( '.ditty-export-button' ),
+					checkboxes	= $group.find( 'input[type="checkbox"]' ),
+					isChecked 	= $checkbox.is( ':checked' ),
+					value 			= $checkbox.attr( 'value' );
+					
+			if ( '_select_all' === value ) {
+				checkboxes.each( function() {
+					if ( $( this )[0] !== $checkbox[0] ) {
+						$( this ).prop( 'checked', isChecked );
+					}
+				} );
+			}
+			
+			// Check if any checkboxes are selected
+			var enableButton = false;
+			checkboxes.each( function() {
+				if ( $( this ).is( ':checked' ) ) {
+					enableButton = true;
+				}
+			} );
+			
+			if ( enableButton ) {
+				$button.attr( 'disabled', false );
+			} else {
+				$button.attr( 'disabled', 'disabled' );
+			}	
+		},
+		
+		/**
+		 * Export posts
+		 *
+		 * @since    3.0.17
+		 * @return   null
+		*/
+		_exportPosts: function( e ) { 
+			e.preventDefault();
+			var self 						= e.data.self,
+					$button 				= $( e.target ).is( 'button' ) ? $( e.target ) : $( e.target ).parents( 'button' ),
+					$icon						= $button.find( 'i' ),
+					$container 			= $button.parents( '.ditty-field__input' ),
+					$group 					= $container.find( '.ditty-input--checkboxes__group' ),
+					checkboxes			= $group.find( 'input[type="checkbox"]' ),		
+					export_posts 	= [];
+					
+			if ( $button.attr( 'disabled' ) ) {
+				return false;
+			}
+			$button.attr( 'disabled', 'disabled' );
+			$icon.show();
+			
+			checkboxes.each( function() {
+				if ( $( this ).is( ':checked' ) && '_select_all' !== $( this ).attr( 'value' ) ) {
+					export_posts.push( $( this ).val() );
+				}
+			} );	
+
+			var data = {
+				action				: 'ditty_export_posts',
+				export_type		: $button.data( 'export_type' ),
+				export_posts	: export_posts,
+				security			: dittyAdminVars.security
+			};
+			$.post( dittyAdminVars.ajaxurl, data, function( response ) {
+				$icon.hide();
+				checkboxes.each( function() {
+					$( this ).prop( 'checked', false );
+				} );	
+				if ( response.redirect ) {
+					window.location = $button.data( 'redirect' );
+				}
+			} );
+		},
 
 	  /**
 		 * Return a specific setting
@@ -480,7 +524,9 @@
 			this.$form.off( 'ditty_input_wysiwyg_update', '.ditty-input--wysiwyg', { self: this }, this._checkUpdates );
 			this.$form.off( 'click', '.ditty-default-layout-install', { self: this }, this._installLayout );
 			this.$form.off( 'click', '.ditty-default-display-install', { self: this }, this._installDisplay );
-			//this.$form.off( 'click', 'button[name="ditty_export_button"]', { self: this }, this._exportPosts );
+			
+			this.$form.off( 'click', '.ditty-export-posts input[type="checkbox"]', { self: this }, this._exportCheckboxClick );
+			this.$form.on( 'click', '.ditty-export-button', { self: this }, this._exportPosts );
 
 			this.$panels.ditty_slider( 'destroy' );
 	    this.elmt._ditty_settings = null;	    

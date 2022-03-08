@@ -1214,6 +1214,10 @@ table.wp-list-table .type-ditty_display .row-actions {
       .ditty-settings__panel:not(.ditty-settings__panel--global_ditty) > .ditty-field > .ditty-field__input__container > .ditty-field__input {
         margin-top: 0; } }
 
+/* Post exports */
+.ditty-export-button i {
+  display: none; }
+
 .ditty-section {
   background: #FFF;
   padding: 40px; }

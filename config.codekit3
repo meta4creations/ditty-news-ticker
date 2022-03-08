@@ -142,14 +142,6 @@
       "oO" : 0,
       "oS" : 1
     },
-    "\/composer.lock" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/composer.lock",
-      "oF" : 0
-    },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
       "ft" : 8192,

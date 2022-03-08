@@ -41,6 +41,9 @@ class Ditty_Field_Checkboxes extends Ditty_Field {
 			if ( $this->args['inline'] ) {
 				$classes .= ' ditty-input--checkboxes__group--inline';
 			}
+			if ( $this->args['input_class'] ) {
+				$classes .= ' ' . $this->args['input_class'];
+			}
 			$html .= '<div class="' . esc_attr( $classes ) . '">';
 				foreach ( $this->args['options'] as $value => $label ) {
 					$input_id = uniqid( 'ditty-input--' );
