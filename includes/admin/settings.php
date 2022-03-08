@@ -67,11 +67,11 @@ function ditty_settings_display() {
 						'label' 		=> esc_html__( 'Advanced', 'ditty-news-ticker' ),
 						'fields' 		=> 'ditty_settings_advanced',
 					),
-					// 'import_export' => array(
-					// 	'icon'			=> 'fas fa-download',
-					// 	'label' 		=> __( 'Import / Export', 'ditty-news-ticker' ),
-					// 	'fields' 		=> 'ditty_settings_import_export',
-					// ),
+					'import_export' => array(
+						'icon'			=> 'fas fa-download',
+						'label' 		=> __( 'Import / Export', 'ditty-news-ticker' ),
+						'fields' 		=> 'ditty_settings_import_export',
+					),
 				) );
 				?>
 

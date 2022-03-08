@@ -119,6 +119,14 @@
 .ditty-field--clone-enabled.ditty-field--clone-enabled--max > .ditty-field__input__container > .ditty-field__input__container > .ditty-field__input > .ditty-field__input__actions .ditty-field__input__action--clone {
   display: none; }
 
+.postbox-container .inside > .ditty-field {
+  padding-left: 0;
+  padding-right: 0; }
+  .postbox-container .inside > .ditty-field:first-of-type {
+    padding-top: 0; }
+  .postbox-container .inside > .ditty-field:last-of-type {
+    padding-bottom: 0; }
+
 /* Group */
 .ditty-field-type--group {
   padding: 0;
@@ -1672,7 +1680,8 @@
 .ditty-editor-layout {
   cursor: pointer; }
   .ditty-editor-layout:not(.active):hover .ditty-data-list__item__edit_html,
-  .ditty-editor-layout:not(.active):hover .ditty-data-list__item__edit_css {
+  .ditty-editor-layout:not(.active):hover .ditty-data-list__item__edit_css,
+  .ditty-editor-layout:not(.active):hover .ditty-data-list__item__save {
     display: none; }
   .ditty-editor-layout.active .ditty-data-list__item__delete {
     display: none; }

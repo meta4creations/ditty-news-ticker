@@ -3,7 +3,8 @@
 	&:not( .active ) {
 		&:hover {
 			.ditty-data-list__item__edit_html,
-			.ditty-data-list__item__edit_css {
+			.ditty-data-list__item__edit_css,
+			.ditty-data-list__item__save {
 				display: none;
 			}
 		}

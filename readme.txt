@@ -66,6 +66,8 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.0.17 =
+
 = 3.0.16 =
 * Resolved bug in default item link css
 * Code field updates

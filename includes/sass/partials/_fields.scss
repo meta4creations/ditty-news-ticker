@@ -164,6 +164,17 @@
 	}
 }
 
+.postbox-container .inside > .ditty-field {
+	padding-left: 0;
+	padding-right: 0;
+	&:first-of-type {
+		padding-top: 0;
+	}
+	&:last-of-type {
+		padding-bottom: 0;
+	}
+}
+
 /* Group */
 .ditty-field-type--group {
 	padding: 0;

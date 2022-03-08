@@ -47,6 +47,7 @@
 	    this.$elmt.on( 'click', '.ditty-data-list__item__edit_css', { self: this, editType: 'css' }, this._editLayout );
 	    this.$elmt.on( 'click', '.ditty-data-list__item__clone', { self: this }, this._cloneLayout );
 	    this.$elmt.on( 'click', '.ditty-data-list__item__delete', { self: this }, this._deleteLayout );
+			this.$elmt.on( 'click', '.ditty-data-list__item__save', { self: this }, this._saveLayout );
 			this.$list.on( 'click', '.ditty-editor-layout > a', { self: this }, this._actionClick );
 			$( 'body' ).on( 'ditty_editor_save_ditty_response', { self: this }, this._dittyEditorSaveResponse );
 	    
@@ -230,6 +231,35 @@
 		    self.settings.editor.updateStop(); // Stop the update overlay
 			}, 'json' );
 		},
+		
+		/**
+		 * Save a layout preview
+		 *
+		 * @since    3.0
+		 * @return   null
+		*/
+		_saveLayout: function( e ) { 
+			e.preventDefault();
+			var self 				= e.data.self,
+					$button 		= $( e.target ).is( 'a' ) ? $( e.target ) : $( e.target ).parent( 'a' ),
+					$item 			= $button.parents( '.ditty-data-list__item' ),
+					layoutId 		= $item.data( 'layout_id' );
+			
+			//self.settings.editor.updateStart(); // Start the update overlay
+			
+			// Use ajax to clone the layout
+			// var data = {
+			// 	action				: 'ditty_editor_layout_save_preview',
+			// 	layout_id			: layoutId,
+			// 	item_id				: self.editorItemId,
+			// 	draft_values	: self.settings.editor.getDraftValues(),
+			// 	security			: dittyVars.security
+			// };
+			// $.post( dittyVars.ajaxurl, data, function( response ) {
+			// 	console.log( response );
+			// 	self.settings.editor.updateStop(); // Stop the update overlay
+			// }, 'json' );
+		},
 
 		/**
 		 * Delete a layout
@@ -383,6 +413,7 @@
 			this.$elmt.off( 'click', '.ditty-data-list__item__edit_css', { self: this, editType: 'css' }, this._editLayout );
 			this.$elmt.off( 'click', '.ditty-data-list__item__clone', { self: this }, this._cloneLayout );
 			this.$elmt.off( 'click', '.ditty-data-list__item__delete', { self: this }, this._deleteLayout );
+			this.$elmt.off( 'click', '.ditty-data-list__item__save', { self: this }, this._saveLayout );
 			this.$list.off( 'click', '.ditty-editor-layout > a', { self: this }, this._actionClick );
 			$( 'body' ).off( 'ditty_editor_save_ditty_response', { self: this }, this._dittyEditorSaveResponse );
 
