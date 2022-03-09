@@ -1218,6 +1218,9 @@ table.wp-list-table .type-ditty_display .row-actions {
 .ditty-export-button i {
   display: none; }
 
+.ditty-input--checkboxes__option--select_all {
+  width: 100%; }
+
 .ditty-section {
   background: #FFF;
   padding: 40px; }

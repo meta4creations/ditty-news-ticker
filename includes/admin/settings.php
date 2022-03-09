@@ -377,37 +377,6 @@ function ditty_settings_global_ditty() {
 	ditty_fields( $fields );
 }
 
-function ditty_export_ditty() {	
-	$fields = array(
-		'ditty_export_options' => array(
-			'type'		=> 'checkboxes',
-			'id' 			=> 'ditty_export_options',
-			'options'	=> array(
-				'layouts' 	=> esc_html__( 'Export Attached Layouts', 'ditty-news-ticker' ),
-				'displays' 	=> esc_html__( 'Export Attached Displays', 'ditty-news-ticker' ),
-			),
-			'inline' => true,
-			'field_only' => true,
-			'std' => array(
-				'layouts',
-				'displays'
-			),
-		),
-		'ditty_export_button' => array(
-			'type'	=> 'button',
-			'id' 		=> 'ditty_export_button',
-			'label'	=> esc_html__( 'Export All Ditty posts', 'ditty-news-ticker' ) . ' <i class="fas fa-sync-alt fa-spin"></i>',
-			'field_only' => true,
-			'icon_after' => 'fas fa-sync-alt fa-spin',
-			'atts' => array(
-				'data-export_type' => 'ditty',
-			),
-		),
-	);
-	$render_fields = ditty_fields( $fields, false, 'return' );
-	return $render_fields;
-}
-
 /**
  * Save settings via ajax
  *
