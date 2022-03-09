@@ -25,7 +25,7 @@ function ditty_settings_import_export() {
 			'type'				=> 'checkboxes',
 			'id' 					=> 'ditty_export_ditty_ids',
 			'options'			=> ditty_export_ditty_options(),
-			'inline' 			=> true,
+			//'inline' 			=> true,
 			'input_class'	=> 'ditty-export-posts',
 		),
 		'ditty_export_layout_ids' => array(
@@ -34,7 +34,7 @@ function ditty_settings_import_export() {
 			'type'				=> 'checkboxes',
 			'id' 					=> 'ditty_export_layout_ids',
 			'options'			=> ditty_export_layout_options(),
-			'inline' 			=> true,
+			//'inline' 			=> true,
 			'input_class'	=> 'ditty-export-posts',
 		),
 		'ditty_export_display_ids' => array(
@@ -43,7 +43,7 @@ function ditty_settings_import_export() {
 			'type'				=> 'checkboxes',
 			'id' 					=> 'ditty_export_display_ids',
 			'options'			=> ditty_export_display_options(),
-			'inline' 			=> true,
+			//'inline' 			=> true,
 			'input_class'	=> 'ditty-export-posts',
 		),
 		'ditty_export_button' => array(
