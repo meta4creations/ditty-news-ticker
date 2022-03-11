@@ -153,3 +153,22 @@ function ditty_dashboard_menu_classes( $classes ) {
 	return $classes;
 }
 add_filter( 'admin_body_class', 'ditty_dashboard_menu_classes', 99 );
+
+
+
+function sdafdstest() {
+	$custom = Ditty()->db_item_meta->custom_meta( 129 );
+	if ( $custom ) {
+		echo '<pre>';print_r('yes');echo '</pre>';
+	} else {
+		echo '<pre>';print_r('no');echo '</pre>';
+	}
+	if ( is_array( $custom ) && count( $custom ) > 0 ) {
+		foreach ( $custom as $data ) {
+			if ( isset( $data->meta_key ) ) {
+				Ditty()->db_item_meta->delete_meta( 129, $data->meta_key );
+			}			
+		}
+	}
+}
+//add_action( 'admin_init', 'sdafdstest' );

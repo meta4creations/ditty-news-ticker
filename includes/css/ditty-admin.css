@@ -115,6 +115,11 @@ table.wp-list-table .type-ditty_display .row-actions {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px; }
 
+.fusion-module-icon.ditty {
+  width: 15px;
+  height: 15px;
+  background: url("../img/d.svg"); }
+
 .datepicker-container {
   background-color: #fff;
   direction: ltr;
@@ -1214,7 +1219,8 @@ table.wp-list-table .type-ditty_display .row-actions {
       .ditty-settings__panel:not(.ditty-settings__panel--global_ditty) > .ditty-field > .ditty-field__input__container > .ditty-field__input {
         margin-top: 0; } }
 
-/* Post exports */
+/* Post import/exports */
+.ditty-import-button i,
 .ditty-export-button i {
   display: none; }
 

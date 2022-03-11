@@ -642,7 +642,7 @@ class Ditty_Singles {
 	 * Save draft values on Ditty editor update
 	 *
 	 * @access public
-	 * @since  3.0.13
+	 * @since  3.0.17
 	 */
 	public function editor_save_ajax() {	
 		check_ajax_referer( 'ditty', 'security' );
@@ -722,8 +722,8 @@ class Ditty_Singles {
 				
 				if ( 'DELETE' == $item_data ) {
 					
+					ditty_item_delete_all_meta( $item_id );
 					Ditty()->db_items->delete( $item_id );
-					// TODO: Delete all meta associated to item
 					continue;
 					
 				} elseif( is_array( $item_data ) ) {

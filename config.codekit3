@@ -206,6 +206,22 @@
       "oAP" : "\/includes\/admin\/settings.php",
       "oF" : 0
     },
+    "\/includes\/builders\/fusion\/builder.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/builders\/fusion\/builder.php",
+      "oF" : 0
+    },
+    "\/includes\/builders\/fusion\/preview.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/builders\/fusion\/preview.php",
+      "oF" : 0
+    },
     "\/includes\/class-ditty-activator.php" : {
       "cB" : 0,
       "ft" : 8192,

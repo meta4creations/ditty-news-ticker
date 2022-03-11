@@ -1616,12 +1616,38 @@ function ditty_item_update_meta( $item_id, $meta_key = '', $meta_value = false, 
 }
 
 /**
- * Remove metadata matching criteria from a item.
+ * Remove metadata matching criteria from an item.
  *
  * @since   3.0
  */
 function ditty_item_delete_meta( $item_id, $meta_key = '', $meta_value = '' ) {
 	return Ditty()->db_item_meta->delete_meta( $item_id, $meta_key, $meta_value );
+}
+
+/**
+ * Get all metadatafrom an item.
+ *
+ * @since   3.0.17
+ */
+function ditty_item_get_all_meta( $item_id ) {
+	$meta = Ditty()->db_item_meta->custom_meta( $item_id );
+	return $meta;
+}
+
+/**
+ * Remove all metadatafrom an item.
+ *
+ * @since   3.0.17
+ */
+function ditty_item_delete_all_meta( $item_id ) {
+	$meta = ditty_item_get_all_meta( $item_id );
+	if ( is_array( $meta ) && count( $meta ) > 0 ) {
+		foreach ( $meta as $data ) {
+			if ( isset( $data->meta_key ) ) {
+				Ditty()->db_item_meta->delete_meta( $item_id, $data->meta_key );
+			}			
+		}
+	}
 }
 
 /**

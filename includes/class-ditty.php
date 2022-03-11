@@ -274,6 +274,9 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/widget.php';
 		require_once DITTY_DIR . 'includes/wizard.php';
 		
+		// Builders
+		require_once DITTY_DIR . 'includes/builders/fusion/builder.php';
+		
 		// Add database files
 		require_once DITTY_DIR . 'includes/class-ditty-db.php';
 		require_once DITTY_DIR . 'includes/class-ditty-db-items.php';

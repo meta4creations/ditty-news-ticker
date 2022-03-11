@@ -13,6 +13,27 @@ function ditty_settings_import_export() {
 			'name' 		=> esc_html__( 'Ditty Import', 'ditty-news-ticker' ),
 			'desc'	=> esc_html__( "Select the Ditty you would like to export. When you click the download button below, Ditty will create a JSON file for you to save to your computer. Once you've saved the download file, you can use the Import tool to import the Ditty posts. You can optionally include the connected Layouts and Displays for each Ditty.", 'ditty-news-ticker' ),
 		),
+		'ditty_import_posts' => array(
+			'name' 				=> esc_html__( 'Import', 'ditty-news-ticker' ),
+			//'desc'				=> esc_html__( "Select the Ditty you would like to export. All connected Layouts and Displays will automatically be exported as well.", 'ditty-news-ticker' ),
+			'type'				=> 'text',
+			'id' 					=> 'ditty_import_posts[]',
+			'input_class'	=> 'ditty-export-posts',
+			'atts'				=> array(
+				'type' => 'file',
+			),
+		),
+		'ditty_import_button' => array(
+			'type'				=> 'button',
+			'id' 					=> 'ditty_import_button',
+			'name' 				=> ' ',
+			'label'				=> esc_html__( 'Import Posts', 'ditty-news-ticker' ) . ' <i class="fas fa-sync-alt fa-spin"></i>',
+			'icon_after' 	=> 'fas fa-sync-alt fa-spin',
+			'input_class'	=> 'ditty-import-button',
+			'atts' 				=> array(
+				'type' => 'submit',
+			),
+		),
 		'ditty_export_heading' => array(
 			'type' 		=> 'heading',
 			'id' 			=> 'ditty_export_heading',
@@ -25,7 +46,6 @@ function ditty_settings_import_export() {
 			'type'				=> 'checkboxes',
 			'id' 					=> 'ditty_export_ditty_ids',
 			'options'			=> ditty_export_ditty_options(),
-			//'inline' 			=> true,
 			'input_class'	=> 'ditty-export-posts',
 		),
 		'ditty_export_layout_ids' => array(
@@ -34,7 +54,6 @@ function ditty_settings_import_export() {
 			'type'				=> 'checkboxes',
 			'id' 					=> 'ditty_export_layout_ids',
 			'options'			=> ditty_export_layout_options(),
-			//'inline' 			=> true,
 			'input_class'	=> 'ditty-export-posts',
 		),
 		'ditty_export_display_ids' => array(
@@ -43,7 +62,6 @@ function ditty_settings_import_export() {
 			'type'				=> 'checkboxes',
 			'id' 					=> 'ditty_export_display_ids',
 			'options'			=> ditty_export_display_options(),
-			//'inline' 			=> true,
 			'input_class'	=> 'ditty-export-posts',
 		),
 		'ditty_export_button' => array(
@@ -56,7 +74,6 @@ function ditty_settings_import_export() {
 			'atts' 				=> array(
 				'disabled'					=> 'disabled',
 				'type'							=> 'submit',
-				//'value'							=> 'ditty',
 			),
 		),
 	);
@@ -223,6 +240,22 @@ function ditty_export_ditty_posts( $post_ids ) {
 					if ( is_object( $meta ) ) {
 						$meta = ( array ) $meta;
 					}
+					
+					// Clean and store all item custom 
+					$custom_meta = ditty_item_get_all_meta( $meta['item_id'] );
+					if ( is_array( $custom_meta ) && count( $custom_meta ) > 0 ) {
+						$cleaned_meta = array();
+						foreach ( $custom_meta as $data ) {
+							if ( is_object( $data ) ) {
+								$data = ( array ) $data;
+							}
+							unset( $data['meta_id'] );
+							unset( $data['item_id'] );
+							$cleaned_meta[] = $data;
+						}
+						$meta['custom_meta'] = $cleaned_meta;
+					}
+
 					unset( $meta['item_id'] );
 					unset( $meta['date_created'] );
 					unset( $meta['date_modified'] );
@@ -235,7 +268,7 @@ function ditty_export_ditty_posts( $post_ids ) {
 						foreach ( $layout_values as $i => $layout_id ) {
 							$layouts[$layout_id] = $layout_id;
 						}
-					}	
+					}
 				} 
 			}
 	
@@ -258,7 +291,6 @@ function ditty_export_ditty_posts( $post_ids ) {
 	if ( ! empty( $displays ) ) {
 		$export['display_ids'] = array_values( $displays );
 	}
-
 	if ( ! empty( $export ) ) {
 		return $export;
 	}
