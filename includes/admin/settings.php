@@ -14,6 +14,14 @@ function ditty_settings_pages() {
 		'ditty_settings',							// The ID used to represent this submenu item
 		'ditty_settings_display'			// The callback function used to render the options for this submenu item
 	);
+	add_submenu_page(
+		'edit.php?post_type=ditty',		// The ID of the top-level menu page to which this submenu item belongs
+		__( 'Import/Export', 'ditty-news-ticker' ),		// The value used to populate the browser's title bar when the menu page is active
+		__( 'Import/Export', 'ditty-news-ticker' ),		// The label of this submenu item displayed in the menu
+		'manage_ditty_settings',			// What roles are able to access this submenu item
+		'ditty_export',								// The ID used to represent this submenu item
+		'ditty_export_display'				// The callback function used to render the options for this submenu item
+	);
 }
 add_action( 'admin_menu', 'ditty_settings_pages', 5 );
 
@@ -67,11 +75,11 @@ function ditty_settings_display() {
 						'label' 		=> esc_html__( 'Advanced', 'ditty-news-ticker' ),
 						'fields' 		=> 'ditty_settings_advanced',
 					),
-					'import_export' => array(
-						'icon'			=> 'fas fa-download',
-						'label' 		=> __( 'Import / Export', 'ditty-news-ticker' ),
-						'fields' 		=> 'ditty_settings_import_export',
-					),
+					// 'import_export' => array(
+					// 	'icon'			=> 'fas fa-download',
+					// 	'label' 		=> __( 'Import / Export', 'ditty-news-ticker' ),
+					// 	'fields' 		=> 'ditty_settings_import_export',
+					// ),
 				) );
 				?>
 

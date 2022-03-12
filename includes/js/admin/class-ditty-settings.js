@@ -45,7 +45,6 @@
       // Add listeners
 			$( 'body' ).on( 'ditty_field_clone_update', { self: this }, this._enableSettingsUpdates );
 			this.saveBtns.on( 'click', { self: this }, this._submitForm );
-			this.tabs.on( 'click', { self: this }, this._tabClick );
 			this.$panels.on( 'ditty_slider_init', { self: this }, this._sliderInit );
 			this.$panels.on( 'ditty_slider_before_slide_update', { self: this }, this._beforeSlideUpdate );
 			this.$form.on( 'keyup change', 'input[type="text"], input[type="number"], textarea, select', { self: this }, this._checkUpdates );
@@ -56,7 +55,10 @@
 			
 			this.$form.on( 'click', '.ditty-export-posts input[type="checkbox"]', { self: this }, this._exportCheckboxClick );
 			
-			if ( this.url.indexOf( "#" ) > 0 ) {
+			if ( this.$elmt.hasClass( 'dynamic-tabs' ) ) {
+				this.tabs.on( 'click', { self: this }, this._tabClick );
+			}
+			if ( this.$elmt.hasClass( 'dynamic-tabs' ) && this.url.indexOf( "#" ) > 0 ) {
 				var activePanel = this.url.substring( this.url.indexOf( "#" ) + 1 );
 				this._activatePanel( activePanel );
 			}
@@ -69,21 +71,23 @@
 		 * @return   null
 		*/
 		_initSlider: function () {	
-			var initPanel = this.$panels.data( 'init_panel' );
-			this.$panels.ditty_slider( {
-				transition						: 'fade',
-				transitionEase				:	'linear',
-				transitionSpeed				: 0,
-				heightSpeed						: 0,
-				initTransition				:	'fade',
-				initTransitionEase		:	'linear',
-				initTransitionSpeed		:	0,
-				initHeightEase				:	'linear',
-				initHeightSpeed				:	0,
-				touchSwipe						: false,
-				slidesEl							: '.ditty-settings__panel',
-				slideId								: ( '' !== initPanel ) ? initPanel : false
-			} );
+			if ( this.$elmt.hasClass( 'dynamic-tabs' ) ) {
+				var initPanel = this.$panels.data( 'init_panel' );
+				this.$panels.ditty_slider( {
+					transition						: 'fade',
+					transitionEase				:	'linear',
+					transitionSpeed				: 0,
+					heightSpeed						: 0,
+					initTransition				:	'fade',
+					initTransitionEase		:	'linear',
+					initTransitionSpeed		:	0,
+					initHeightEase				:	'linear',
+					initHeightSpeed				:	0,
+					touchSwipe						: false,
+					slidesEl							: '.ditty-settings__panel',
+					slideId								: ( '' !== initPanel ) ? initPanel : false
+				} );
+			}
 		},
 		
 		/**

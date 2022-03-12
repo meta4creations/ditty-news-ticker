@@ -2,6 +2,7 @@
 /* global dittyAdminVars:true */
 /* global console:true */
 
+// @codekit-append 'admin/general.js';
 // @codekit-append 'admin/class-ditty-settings.js';
 // @codekit-append 'admin/class-ditty-extension.js';
 // @codekit-append 'admin/ditty-extensions.js';

@@ -1,11 +1,102 @@
 <?php
 
 /**
+ * Render the import/export page
+ *
+ * @since    3.0.17
+*/
+function ditty_export_display() {
+	?>
+	<div id="ditty-page" class="wrap">
+		
+		<header class="ditty-header">
+			<div class="ditty-header__wrapper">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 258.8 99.21" fill="#FFFFFF"><path d="M0,49.5C0,32.3,8.6,20.4,24.6,20.4a19.93,19.93,0,0,1,6.6,1V3.1H45V62.3l1,10.3H34.2l-.9-5.2h-.5a15.21,15.21,0,0,1-13,6.8C3.8,74.2,0,61.5,0,49.5Zm31.2,7.4V31.7a13.7,13.7,0,0,0-6-1.3c-8.7,0-11.3,8.7-11.3,17.8,0,8.5,1.9,15.8,8.9,15.8C27.9,64,31.2,60.2,31.2,56.9Z"/><path d="M55.7,7.4A7.33,7.33,0,0,1,63.4,0c4.6,0,7.8,3.3,7.8,7.4s-3.2,7.4-7.8,7.4S55.7,11.7,55.7,7.4ZM70.5,21.9V72.6H56.4V21.9Z"/><path d="M95.8,3.1V21.9H112V3.1h14.1V21.9h13V32.8h-13V55.9c0,5.9,2.6,7.6,6.4,7.6a11.9,11.9,0,0,0,6.1-1.9l3.2,9c-3,2-8.2,3.5-13.3,3.5-15.2,0-16.5-8.7-16.5-17.8V32.8H95.8V55.9c0,5.9,2,7.6,5.7,7.6a11.64,11.64,0,0,0,5.7-1.6l2.1,9.4c-2.6,1.7-7.4,2.8-11.1,2.8-15.1,0-16.4-8.7-16.4-17.8V3.1Z"/><path d="M149.6,85.81c0-7.21,4.4-12.81,10.3-17.11-8.4-1.3-13-5.9-13-16V21.9h14V51.6c0,5.4.5,9.1,7,9.1,4,0,7.7-3.2,7.7-8.3V21.9h14V64.2a108.13,108.13,0,0,1-.9,13.9c-1.5,13.5-8.9,21.11-22.4,21.11C155.2,99.21,149.6,94,149.6,85.81Zm26.3-9.11V67.2c-7.4,3.5-14,8.5-14,16.11,0,3.9,2.2,5.79,6,5.79C173.8,89.1,175.9,84.4,175.9,76.7Z"/><path d="M198.7,66.8a7,7,0,0,1,7.4-7.2c5,0,7.7,2.8,7.7,7.1s-2.6,7.5-7.4,7.5C201.3,74.2,198.7,71.1,198.7,66.8Z"/><path d="M221.2,66.8a7,7,0,0,1,7.4-7.2c5,0,7.7,2.8,7.7,7.1s-2.6,7.5-7.4,7.5C223.8,74.2,221.2,71.1,221.2,66.8Z"/><path d="M243.7,66.8a7,7,0,0,1,7.4-7.2c5,0,7.7,2.8,7.7,7.1s-2.6,7.5-7.4,7.5C246.3,74.2,243.7,71.1,243.7,66.8Z"/></svg>
+			</div>
+		</header>
+		
+		<div id="ditty-page__header">
+			<h2><?php esc_html_e( 'Ditty Import/Export', 'ditty-news-ticker' ); ?></h2>
+		</div>
+		
+		<div id="ditty-page__content">
+			<div id="ditty-settings">
+				<?php
+				$current_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : false;
+				$settings = apply_filters( 'ditty_settings_tabs', array(
+					'import' => array(
+						'icon'			=> 'fas fa-file-import',
+						'label' 		=> __( 'Import Posts', 'ditty-news-ticker' ),
+						'fields' 		=> 'ditty_settings_import',
+					),
+					'export_ditty' => array(
+						'icon'			=> 'fas fa-file-export',
+						'label' 		=> __( 'Export Ditty', 'ditty-news-ticker' ),
+						'fields' 		=> 'ditty_settings_export_ditty',
+					),
+					'export_layouts' => array(
+						'icon'			=> 'fas fa-file-export',
+						'label' 		=> __( 'Export Layouts', 'ditty-news-ticker' ),
+						'fields' 		=> 'ditty_settings_export_layouts',
+					),
+					'export_displays' => array(
+						'icon'			=> 'fas fa-file-export',
+						'label' 		=> __( 'Export Displays', 'ditty-news-ticker' ),
+						'fields' 		=> 'ditty_settings_export_displays',
+					),
+				) );
+				?>
+
+				<div class="ditty-settings__tabs">
+					<?php
+					if ( is_array( $settings ) && count( $settings ) > 0 ) {
+						foreach ( $settings as $slug => $setting ) {
+							$active = ( $slug == $current_tab ) ? ' active' : '';
+							echo '<a href="' . add_query_arg( 'tab', $slug ) . '" class="ditty-settings__tab ditty-settings__tab--' . esc_attr( $slug ) . $active . '" data-panel="' . esc_attr( $slug ) . '">';
+								echo '<i class="' . esc_attr( $setting['icon'] ) . '"></i>';
+								echo '<span>' . esc_html( $setting['label'] ) . '</span>';
+							echo '</a>';
+						}
+					}
+					?>
+				</div>
+				
+				<form class="ditty-settings__form" method="post">
+					<div class="ditty-notification-bar">
+						<div class="ditty-notification ditty-notification--updated"><?php echo esc_html( ditty_admin_strings( 'settings_updated' ) ); ?></div>
+						<div class="ditty-notification ditty-notification--warning"><?php echo esc_html( ditty_admin_strings( 'settings_changed' ) ); ?></div>
+						<div class="ditty-notification ditty-notification--error"><?php echo esc_html( ditty_admin_strings( 'settings_error' ) ); ?></div>
+					</div>
+					<div class="ditty-settings__panels">
+						<?php
+						if ( isset( $settings[$current_tab] ) ) {
+							?>
+							<div class="ditty-settings__panel ditty-settings__panel--<?php echo esc_attr( $slug ); ?>" style="display:block;">	
+								<?php
+								if ( isset( $settings[$current_tab]['fields'] ) && function_exists( $settings[$current_tab]['fields'] ) ) {
+									call_user_func( $settings[$current_tab]['fields'] );
+								}
+								?>
+							</div>
+							<?php
+						}	
+						?>
+					</div>
+					<input type="hidden" name="ditty_export_nonce" value="<?php echo wp_create_nonce( basename( __FILE__ ) ); ?>" />
+					<div class="ditty-updating-overlay"></div>
+				</form>
+			</div>
+		</div>
+	</div><!-- /.wrap -->
+	<?php
+}
+
+/**
  * Setup the import and export fields
  *
  * @since    3.0.17
 */
-function ditty_settings_import_export() {
+function ditty_settings_import() {
 	$fields = array(
 		'ditty_import_heading' => array(
 			'type' 		=> 'heading',
@@ -34,6 +125,17 @@ function ditty_settings_import_export() {
 				'type' => 'submit',
 			),
 		),
+	);
+	ditty_fields( $fields );
+}
+
+/**
+ * Export Ditty posts
+ *
+ * @since    3.0.17
+*/
+function ditty_settings_export_ditty() {
+	$fields = array(
 		'ditty_export_heading' => array(
 			'type' 		=> 'heading',
 			'id' 			=> 'ditty_export_heading',
@@ -48,6 +150,35 @@ function ditty_settings_import_export() {
 			'options'			=> ditty_export_ditty_options(),
 			'input_class'	=> 'ditty-export-posts',
 		),
+		'ditty_export_button' => array(
+			'type'				=> 'button',
+			'id' 					=> 'ditty_export_button',
+			'name' 				=> ' ',
+			'label'				=> esc_html__( 'Export Selected Posts', 'ditty-news-ticker' ) . ' <i class="fas fa-sync-alt fa-spin"></i>',
+			'icon_after' 	=> 'fas fa-sync-alt fa-spin',
+			'input_class'	=> 'ditty-export-button',
+			'atts' 				=> array(
+				'disabled'					=> 'disabled',
+				'type'							=> 'submit',
+			),
+		),
+	);
+	ditty_fields( $fields );
+}
+
+/**
+ * Export Ditty posts
+ *
+ * @since    3.0.17
+*/
+function ditty_settings_export_layouts() {
+	$fields = array(
+		'ditty_export_heading' => array(
+			'type' 		=> 'heading',
+			'id' 			=> 'ditty_export_heading',
+			'name' 		=> esc_html__( 'Ditty Export', 'ditty-news-ticker' ),
+			'desc'	=> esc_html__( "Select the Ditty you would like to export. When you click the download button below, Ditty will create a JSON file for you to save to your computer. Once you've saved the download file, you can use the Import tool to import the Ditty posts. You can optionally include the connected Layouts and Displays for each Ditty.", 'ditty-news-ticker' ),
+		),
 		'ditty_export_layout_ids' => array(
 			'name' 				=> esc_html__( 'Layout Posts', 'ditty-news-ticker' ),
 			'desc'				=> esc_html__( "Select the Layouts you would like to export.", 'ditty-news-ticker' ),
@@ -55,6 +186,35 @@ function ditty_settings_import_export() {
 			'id' 					=> 'ditty_export_layout_ids',
 			'options'			=> ditty_export_layout_options(),
 			'input_class'	=> 'ditty-export-posts',
+		),
+		'ditty_export_button' => array(
+			'type'				=> 'button',
+			'id' 					=> 'ditty_export_button',
+			'name' 				=> ' ',
+			'label'				=> esc_html__( 'Export Selected Posts', 'ditty-news-ticker' ) . ' <i class="fas fa-sync-alt fa-spin"></i>',
+			'icon_after' 	=> 'fas fa-sync-alt fa-spin',
+			'input_class'	=> 'ditty-export-button',
+			'atts' 				=> array(
+				'disabled'					=> 'disabled',
+				'type'							=> 'submit',
+			),
+		),
+	);
+	ditty_fields( $fields );
+}
+
+/**
+ * Export Ditty posts
+ *
+ * @since    3.0.17
+*/
+function ditty_settings_export_displays() {
+	$fields = array(
+		'ditty_export_heading' => array(
+			'type' 		=> 'heading',
+			'id' 			=> 'ditty_export_heading',
+			'name' 		=> esc_html__( 'Ditty Export', 'ditty-news-ticker' ),
+			'desc'	=> esc_html__( "Select the Ditty you would like to export. When you click the download button below, Ditty will create a JSON file for you to save to your computer. Once you've saved the download file, you can use the Import tool to import the Ditty posts. You can optionally include the connected Layouts and Displays for each Ditty.", 'ditty-news-ticker' ),
 		),
 		'ditty_export_display_ids' => array(
 			'name' 				=> esc_html__( 'Display Posts', 'ditty-news-ticker' ),
@@ -78,7 +238,6 @@ function ditty_settings_import_export() {
 		),
 	);
 	ditty_fields( $fields );
-	echo '<input type="hidden" name="ditty_export_nonce" value="' . wp_create_nonce( basename( __FILE__ ) ) . '" />';
 }
 
 /**
