@@ -628,8 +628,8 @@ function ditty_export_ditty_posts( $post_ids ) {
 					$items[] = $meta;
 					
 					// Store the layouts for possible exports
-					if ( is_array( $layout_values ) && count( $layout_values ) > 0 ) {
-						foreach ( $layout_values as $i => $layout_id ) {
+					if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
+						foreach ( $layout_value as $i => $layout_id ) {
 							$layouts[$layout_id] = $layout_id;
 						}
 					}
