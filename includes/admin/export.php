@@ -488,16 +488,15 @@ function ditty_import_posts() {
 					$item['item_author'] = get_current_user_id();
 					
 					// Set the layouts
-					$layout_values = maybe_unserialize( $item['layout_value'] );
-					$updated_layout_values = array();
-					if ( is_array( $layout_values ) && count( $layout_values ) > 0 ) {
-						foreach ( $layout_values as $variation => $layout_id ) {
+					$updated_layout_value = array();
+					if ( is_array( $item['layout_value'] ) && count( $item['layout_value'] ) > 0 ) {
+						foreach ( $item['layout_value'] as $variation => $layout_id ) {
 							if ( isset( $layouts[$layout_id] ) ) {
-								$updated_layout_values[$variation] = $layouts[$layout_id];
+								$updated_layout_value[$variation] = $layouts[$layout_id];
 							}
 						}
 					}
-					$item['layout_value'] = maybe_serialize( $updated_layout_values );
+					$item['layout_value'] = $updated_layout_value;
 					
 					// Sanitize and save item data
 					$sanitized_item_data = Ditty()->singles->sanitize_item_data( $item );
@@ -619,20 +618,20 @@ function ditty_export_ditty_posts( $post_ids ) {
 					$meta['item_value'] = $item_value;
 					
 					$layout_value = maybe_unserialize( $meta['layout_value'] );
-					$meta['layout_value'] = $layout_value;
+					$updated_layout_value = array();
+					if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
+						foreach ( $layout_value as $variation => $layout_id ) {
+							$layouts[$layout_id] = $layout_id;
+							$updated_layout_value[$variation] = ditty_maybe_add_uniq_id( $layout_id );
+						}
+					}
+					$meta['layout_value'] = $updated_layout_value;
 
 					unset( $meta['item_id'] );
 					unset( $meta['date_created'] );
 					unset( $meta['date_modified'] );
 					unset( $meta['ditty_id'] );
 					$items[] = $meta;
-					
-					// Store the layouts for possible exports
-					if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
-						foreach ( $layout_value as $i => $layout_id ) {
-							$layouts[$layout_id] = $layout_id;
-						}
-					}
 				} 
 			}
 	
