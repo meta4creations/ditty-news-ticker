@@ -590,7 +590,7 @@ class Ditty_Singles {
 	 * Sanitize item values before saving to the database
 	 *
 	 * @access public
-	 * @since  3.0
+	 * @since  3.0.17
 	 */
 	public function sanitize_item_data( $item_data ) {
 		$item_type 		= isset( $item_data['item_type'] ) ? $item_data['item_type'] : false;
@@ -634,6 +634,9 @@ class Ditty_Singles {
 		}
 		if ( isset( $item_data['layout_value'] ) ) {
 			$sanitized_item['layout_value'] = maybe_serialize( $sanitized_layout_value );
+		}
+		if ( isset( $item_data['item_author'] ) ) {
+			$sanitized_item['item_author'] = intval( $item_data['item_author'] );
 		}
 		return $sanitized_item;
 	}

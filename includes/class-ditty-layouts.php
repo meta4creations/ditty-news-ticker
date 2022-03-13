@@ -33,9 +33,6 @@ class Ditty_Layouts {
 		add_action( 'ditty_editor_update', array( $this, 'update_drafts' ), 10, 2 );
 		add_filter( 'ditty_item_db_data', array( $this, 'modify_ditty_item_db_data' ), 10, 2 );
 		add_filter( 'ditty_editor_save_data', array( $this, 'editor_add_save_data' ), 10, 2 );
-		add_filter( 'bulk_actions-edit-ditty_layout', array( $this, 'bulk_export' ) );
-		add_filter( 'handle_bulk_actions-edit-ditty_layout', array( $this, 'export_posts' ), 10, 3 );
-		add_action( 'init', array( $this, 'export_posts_2' ) );
 		
 		// Layout elements
 		add_action( 'ditty_editor_layout_elements', array( $this, 'editor_layout_icon' ), 5 );
@@ -1003,58 +1000,6 @@ class Ditty_Layouts {
 	public function bulk_export( $bulk_actions ) {
 		$bulk_actions['ditty-export'] = esc_html__( 'Export Layouts', 'ditty-news-ticker' );
 		return $bulk_actions;
-	}
-	
-	/**
-	 * Export the selected posts
-	 *
-	 * @access public
-	 * @since  3.0.17
-	 * @param   json.
-	 */
-	public function export_posts( $redirect_url, $action, $post_ids ) {
-		if ( 'ditty-export' != $action ) {
-			return false;
-		}
-		if ( is_array( $post_ids ) && count( $post_ids ) > 0 ) {
-			$layouts = array();
-			foreach ( $post_ids as $i => $post_id ) {
-				$post_custom = get_post_custom( $post_id );
-				$uniq_id = ditty_maybe_add_uniq_id( $post_id );
-				$layouts[$uniq_id] = array(
-					'label' 			=> get_the_title( $post_id ),
-					'description'	=> get_post_meta( $post_id, '_ditty_layout_description', true ),
-					'html'				=> stripslashes( get_post_meta( $post_id, '_ditty_layout_html', true ) ),
-					'css'					=> get_post_meta( $post_id, '_ditty_layout_css', true ),
-					'version' 		=> get_post_meta( $post_id, '_ditty_layout_version', true ),
-					'uniq_id'			=> $uniq_id,
-				);
-			}
-			set_transient( 'ditty_layout_export', ditty_encrypt( json_encode( $layouts ) ), MINUTE_IN_SECONDS );
-			
-			$redirect_url = add_query_arg( 'ditty_export', count( $post_ids ), $redirect_url );
-		}
-		return $redirect_url;
-	}
-	
-	public function export_posts_2() {
-		if ( ! isset( $_GET['ditty_export'] ) ) {
-			return false;
-		}
-		$file = 'ditty_layouts_' . current_time( 'timestamp' ) . '.json';
-		$txt = fopen( $file, "w" ) or die( "Unable to open file!" );
-		fwrite( $txt, get_transient( 'ditty_layout_export' ) );
-		fclose($txt);
-		delete_transient( 'ditty_layout_export' );
-		
-		header('Content-Description: File Transfer');
-		header('Content-Disposition: attachment; filename='.basename($file));
-		header('Expires: 0');
-		header('Cache-Control: must-revalidate');
-		header('Pragma: public');
-		header('Content-Length: ' . filesize($file));
-		header("Content-Type: text/plain");
-		readfile($file);
 	}
 
 	/**
