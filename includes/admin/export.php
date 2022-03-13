@@ -505,7 +505,7 @@ function ditty_import_posts() {
 						// Add the custom meta
 						if ( is_array( $custom_meta ) && count( $custom_meta ) > 0 ) {
 							foreach ( $custom_meta as $i => $meta ) {
-								ditty_item_add_meta( $new_item_id, esc_attr( $meta['meta_key'] ), wp_kses_post( $meta['meta_value'] ) );
+								ditty_item_add_meta( $new_item_id, esc_attr( $meta['meta_key'] ), $meta['meta_value']  );
 							}
 						}
 					}
@@ -513,57 +513,8 @@ function ditty_import_posts() {
 					
 				}
 			}
-			
-			
 		}
 	}
-
-	
-// 	$export = array();
-// 	$ditty_ids = isset( $_POST['ditty_export_ditty_ids'] ) ? $_POST['ditty_export_ditty_ids'] : array();
-// 	$layout_ids = isset( $_POST['ditty_export_layout_ids'] ) ? $_POST['ditty_export_layout_ids'] : array();
-// 	$display_ids = isset( $_POST['ditty_export_display_ids'] ) ? $_POST['ditty_export_display_ids'] : array();
-// 	
-// 	if ( ! empty( $ditty_ids ) ) {
-// 		if ( $ditty_data = ditty_export_ditty_posts( $ditty_ids ) ) {
-// 			if ( isset( $ditty_data['ditty'] ) ) {
-// 				$export['ditty'] = $ditty_data['ditty'];
-// 			}
-// 			if ( isset( $ditty_data['layout_ids'] ) ) {
-// 				$layout_ids = array_merge( $layout_ids, $ditty_data['layout_ids'] );
-// 				$layout_ids = array_unique( $layout_ids );
-// 			}
-// 			if ( isset( $ditty_data['display_ids'] ) ) {
-// 				$display_ids = array_merge( $display_ids, $ditty_data['display_ids'] );
-// 				$display_ids = array_unique( $display_ids );
-// 			}
-// 		}
-// 	}
-// 	
-// 	if ( ! empty( $layout_ids ) ) {
-// 		if ( $layout_data = ditty_export_ditty_layouts( $layout_ids ) ) {
-// 			$export['layouts'] = $layout_data;
-// 		}
-// 	}
-// 	
-// 	if ( ! empty( $display_ids ) ) {
-// 		if ( $display_data = ditty_export_ditty_displays( $display_ids ) ) {
-// 			$export['displays'] = $display_data;
-// 		}
-// 	}
-// 
-// 	if ( empty( $export ) ) {
-// 		return false;
-// 	}
-// 	
-// 	$export_json = json_encode( $export );
-// 	$filename = 'ditty-export-' . date( 'Y-m-d' ) . '.json';
-// 	$filename = sanitize_file_name( $filename );
-// 	header( 'Content-Description: File Transfer' );
-// 	header( "Content-Disposition: attachment; filename=$filename" );
-// 	header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ), true );
-// 	echo $export_json;
-// 	die();
 }
 add_action( 'admin_init', 'ditty_import_posts' );
 
@@ -607,6 +558,7 @@ function ditty_export_ditty_posts( $post_ids ) {
 							if ( is_object( $data ) ) {
 								$data = ( array ) $data;
 							}
+							$data['meta_value'] = maybe_unserialize( $data['meta_value'] );
 							unset( $data['meta_id'] );
 							unset( $data['item_id'] );
 							$cleaned_meta[] = $data;

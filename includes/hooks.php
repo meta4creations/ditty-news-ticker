@@ -22,6 +22,7 @@ function ditty_delete_post_items( $post_id ) {
 	$items_meta = ditty_items_meta( $post_id );
 	if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
 		foreach ( $items_meta as $i => $item ) {
+			ditty_item_delete_all_meta( $item->item_id );
 			Ditty()->db_items->delete( $item->item_id );
 		}
 	}	
