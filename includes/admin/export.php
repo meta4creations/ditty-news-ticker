@@ -104,17 +104,30 @@ function ditty_settings_import() {
 			'name' 		=> esc_html__( 'Ditty Import', 'ditty-news-ticker' ),
 			'desc'	=> esc_html__( "Select the Ditty you would like to export. When you click the download button below, Ditty will create a JSON file for you to save to your computer. Once you've saved the download file, you can use the Import tool to import the Ditty posts. You can optionally include the connected Layouts and Displays for each Ditty.", 'ditty-news-ticker' ),
 		),
-		'ditty_import_posts' => array(
+	);
+	
+	if ( isset( $_POST['ditty_import_button'] ) ) {
+		$fields['ditty_import_options'] = array(
+			'type'				=> 'html',
+			'id' 					=> 'ditty_import_options',
+			'std' 				=> ditty_import_options(),
+		);
+		$fields['ditty_new_import_button'] = array(
+			'type'				=> 'html',
+			'id' 					=> 'ditty_new_import_button',
+			'std'					=> '<a href="' . admin_url( 'edit.php?post_type=ditty&page=ditty_export&tab=import' ) . '">' . esc_html__( 'New Import', 'ditty-news-ticker' ) . '</a>',
+		);
+	} else {
+		$fields['ditty_import_posts'] = array(
 			'name' 				=> esc_html__( 'Import', 'ditty-news-ticker' ),
-			//'desc'				=> esc_html__( "Select the Ditty you would like to export. All connected Layouts and Displays will automatically be exported as well.", 'ditty-news-ticker' ),
 			'type'				=> 'text',
 			'id' 					=> 'ditty_import_posts',
 			'input_class'	=> 'ditty-export-posts',
 			'atts'				=> array(
 				'type' => 'file',
 			),
-		),
-		'ditty_import_button' => array(
+		);
+		$fields['ditty_import_button'] = array(
 			'type'				=> 'button',
 			'id' 					=> 'ditty_import_button',
 			'name' 				=> ' ',
@@ -124,8 +137,8 @@ function ditty_settings_import() {
 			'atts' 				=> array(
 				'type' => 'submit',
 			),
-		),
-	);
+		);
+	}
 	ditty_fields( $fields );
 }
 
@@ -148,6 +161,22 @@ function ditty_settings_export_ditty() {
 			'type'				=> 'checkboxes',
 			'id' 					=> 'ditty_export_ditty_ids',
 			'options'			=> ditty_export_ditty_options(),
+			'input_class'	=> 'ditty-export-posts',
+		),
+		'ditty_export_connections' => array(
+			'name' 				=> esc_html__( 'Connected Posts', 'ditty-news-ticker' ),
+			'desc'				=> esc_html__( "Do you want to export connected Layouts and Displays for your Ditty?", 'ditty-news-ticker' ),
+			'type'				=> 'checkboxes',
+			'id' 					=> 'ditty_export_connections',
+			'inline'			=> true,
+			'options'			=> array(
+				'layouts' => esc_html__( 'Export connected Layouts', 'ditty-news-ticker' ),
+				'displays' => esc_html__( 'Export connected Displays', 'ditty-news-ticker' ),
+			),
+			'std'					=> array( 
+				'layouts' 	=> 'layouts',
+				'displays'	=> 'displays',
+			),
 			'input_class'	=> 'ditty-export-posts',
 		),
 		'ditty_export_button' => array(
@@ -327,17 +356,18 @@ function ditty_create_export_file() {
 	$ditty_ids = isset( $_POST['ditty_export_ditty_ids'] ) ? $_POST['ditty_export_ditty_ids'] : array();
 	$layout_ids = isset( $_POST['ditty_export_layout_ids'] ) ? $_POST['ditty_export_layout_ids'] : array();
 	$display_ids = isset( $_POST['ditty_export_display_ids'] ) ? $_POST['ditty_export_display_ids'] : array();
+	$connections = isset( $_POST['ditty_export_connections'] ) ? $_POST['ditty_export_connections'] : array();
 	
 	if ( ! empty( $ditty_ids ) ) {
 		if ( $ditty_data = ditty_export_ditty_posts( $ditty_ids ) ) {
 			if ( isset( $ditty_data['ditty'] ) ) {
 				$export['ditty'] = $ditty_data['ditty'];
 			}
-			if ( isset( $ditty_data['layout_ids'] ) ) {
+			if ( isset( $connections['layouts'] ) && isset( $ditty_data['layout_ids'] ) ) {
 				$layout_ids = array_merge( $layout_ids, $ditty_data['layout_ids'] );
 				$layout_ids = array_unique( $layout_ids );
 			}
-			if ( isset( $ditty_data['display_ids'] ) ) {
+			if ( isset( $connections['displays'] ) && isset( $ditty_data['display_ids'] ) ) {
 				$display_ids = array_merge( $display_ids, $ditty_data['display_ids'] );
 				$display_ids = array_unique( $display_ids );
 			}
@@ -360,164 +390,16 @@ function ditty_create_export_file() {
 		return false;
 	}
 	
-	$export_json = json_encode( $export );
-	$filename = 'ditty-export-' . date( 'Y-m-d' ) . '.json';
-	$filename = sanitize_file_name( $filename );
-	header( 'Content-Description: File Transfer' );
-	header( "Content-Disposition: attachment; filename=$filename" );
-	header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ), true );
-	echo $export_json;
-	die();
+	// $export_json = json_encode( $export );
+	// $filename = 'ditty-export-' . date( 'Y-m-d' ) . '.json';
+	// $filename = sanitize_file_name( $filename );
+	// header( 'Content-Description: File Transfer' );
+	// header( "Content-Disposition: attachment; filename=$filename" );
+	// header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ), true );
+	// echo $export_json;
+	// die();
 }
 add_action( 'admin_init', 'ditty_create_export_file' );
-
-/**
- * Create the export file
- *
- * @since    3.0.17
- */
-function ditty_import_posts() {
-	if ( ! isset( $_POST['ditty_import_button'] ) ) {
-		return false;
-	}
-	// verify nonce
-	if ( ! isset( $_POST['ditty_export_nonce'] ) || ! wp_verify_nonce( $_POST['ditty_export_nonce'], basename( __FILE__ ) ) ) {
-		return false;
-	}
-	
-	if ( ! isset( $_FILES['ditty_import_posts'] ) || ! $_FILES['ditty_import_posts']['tmp_name'] ) {
-		return false;	
-	}
-	$json_data = file_get_contents( $_FILES['ditty_import_posts']['tmp_name'] );
-	$data = json_decode( $json_data, 1 );
-	$layouts = array();
-	$displays = array();
-	
-	// Import Layouts
-	if ( isset( $data['layouts'] ) && is_array( $data['layouts'] ) && count( $data['layouts'] ) > 0 ) {
-		foreach ( $data['layouts'] as $uniq_id => $layout_data ) {
-			$postarr = array(
-				'post_type'		=> 'ditty_layout',
-				'post_status'	=> 'publish',
-				'post_title'	=> esc_html( $layout_data['label'] ),
-			);
-			$imported_layout_id = wp_insert_post( $postarr );
-			if ( isset( $layout_data['description'] ) ) {
-				update_post_meta( $imported_layout_id, '_ditty_layout_description', wp_kses_post( $layout_data['description'] ) );
-			}
-			if ( isset( $layout_data['html'] ) ) {
-				$html = str_replace( '\\', '\\\\', $layout_data['html'] );
-				update_post_meta( $imported_layout_id, '_ditty_layout_html', wp_kses_post( $html ) );
-			}
-			if ( isset( $layout_data['css'] ) ) {
-				update_post_meta( $imported_layout_id, '_ditty_layout_css', wp_kses_post( $layout_data['css'] ) );
-			}
-			if ( isset( $layout_data['version'] ) ) {
-				update_post_meta( $imported_layout_id, '_ditty_layout_version', wp_kses_post( $layout_data['version'] ) );
-			}
-			update_post_meta( $imported_layout_id, '_ditty_uniq_id', $uniq_id );
-			$layouts[$uniq_id] = $imported_layout_id;
-		}
-	}
-	
-	// Import Displays
-	if ( isset( $data['displays'] ) && is_array( $data['displays'] ) && count( $data['displays'] ) > 0 ) {
-		foreach ( $data['displays'] as $uniq_id => $display_data ) {
-			$postarr = array(
-				'post_type'		=> 'ditty_display',
-				'post_status'	=> 'publish',
-				'post_title'	=> esc_html( $display_data['label'] ),
-			);
-			$imported_display_id = wp_insert_post( $postarr );
-			if ( isset( $display_data['description'] ) ) {
-				update_post_meta( $imported_display_id, '_ditty_display_description', wp_kses_post( $display_data['description'] ) );
-			}
-			if ( isset( $display_data['display_type'] ) ) {
-				update_post_meta( $imported_display_id, '_ditty_display_type', esc_html( $display_data['display_type'] ) );
-			}
-			if ( $display_object = ditty_display_type_object( $display_data['display_type'] ) ) {
-				$fields = $display_object->fields();
-				$sanitized_settings = ditty_sanitize_fields( $fields, $display_data['settings'], "ditty_display_type_{$display_data['display_type']}" );
-				update_post_meta( $imported_display_id, '_ditty_display_settings', $sanitized_settings );
-			}
-			if ( isset( $display_data['version'] ) ) {
-				update_post_meta( $imported_display_id, '_ditty_display_version', wp_kses_post( $display_data['version'] ) );
-			}
-			update_post_meta( $imported_display_id, '_ditty_uniq_id', $uniq_id );
-			$displays[$uniq_id] = $imported_display_id;
-		}
-	}
-	
-	// Import Ditty
-	if ( isset( $data['ditty'] ) && is_array( $data['ditty'] ) && count( $data['ditty'] ) > 0 ) {
-		foreach ( $data['ditty'] as $uniq_id => $ditty_data ) {
-			$postarr = array(
-				'post_type'		=> 'ditty',
-				'post_status'	=> 'publish',
-				'post_title'	=> esc_html( $ditty_data['label'] ),
-			);
-			$imported_ditty_id = wp_insert_post( $postarr );
-			
-			$settings = isset( $ditty_data['settings'] ) ? $ditty_data['settings'] : array();
-			$sanitized_settings = Ditty()->singles->sanitize_settings( $settings );
-			update_post_meta( $imported_ditty_id, '_ditty_settings', $sanitized_settings );
-			
-			update_post_meta( $imported_ditty_id, '_ditty_init', 'yes' );
-			
-			if ( isset( $displays[$ditty_data['display']] ) ) {
-				update_post_meta( $imported_ditty_id, '_ditty_display', intval( $displays[$ditty_data['display']] ) );
-			}
-			
-			update_post_meta( $imported_ditty_id, '_ditty_uniq_id', $uniq_id );
-			
-			// Add items
-			if ( is_array( $ditty_data['items'] ) && count( $ditty_data['items'] ) > 0 ) {
-				foreach ( $ditty_data['items'] as $i => $item ) {
-					
-					// Gather the custom meta
-					$custom_meta = false;
-					if ( isset( $item['custom_meta'] ) ) {
-						$custom_meta = $item['custom_meta'];
-						unset( $item['custom_meta'] );
-					}
-					
-					// Add the ditty id
-					$item['ditty_id'] = $imported_ditty_id;
-
-					// Add the item author
-					$item['item_author'] = get_current_user_id();
-					
-					// Set the layouts
-					$updated_layout_value = array();
-					if ( is_array( $item['layout_value'] ) && count( $item['layout_value'] ) > 0 ) {
-						foreach ( $item['layout_value'] as $variation => $layout_id ) {
-							if ( isset( $layouts[$layout_id] ) ) {
-								$updated_layout_value[$variation] = $layouts[$layout_id];
-							}
-						}
-					}
-					$item['layout_value'] = $updated_layout_value;
-					
-					// Sanitize and save item data
-					$sanitized_item_data = Ditty()->singles->sanitize_item_data( $item );
-					if ( $new_item_id = Ditty()->db_items->insert( apply_filters( 'ditty_item_db_data', $sanitized_item_data, $imported_ditty_id ), 'item' ) ) {
-						
-						// Add the custom meta
-						if ( is_array( $custom_meta ) && count( $custom_meta ) > 0 ) {
-							foreach ( $custom_meta as $i => $meta ) {
-								ditty_item_add_meta( $new_item_id, esc_attr( $meta['meta_key'] ), $meta['meta_value']  );
-							}
-						}
-					}
-					
-					
-				}
-			}
-		}
-	}
-}
-add_action( 'admin_init', 'ditty_import_posts' );
-
 
 /**
  * Export posts
@@ -671,4 +553,245 @@ function ditty_export_ditty_displays( $post_ids ) {
 	if ( ! empty( $displays ) ) {
 		return $displays;
 	}
+}
+
+/**
+ * Create the export file
+ *
+ * @since    3.0.17
+ */
+function ditty_import_posts() {
+	if ( ! isset( $_POST['ditty_import_button'] ) ) {
+		return false;
+	}
+	// verify nonce
+	if ( ! isset( $_POST['ditty_export_nonce'] ) || ! wp_verify_nonce( $_POST['ditty_export_nonce'], basename( __FILE__ ) ) ) {
+		return false;
+	}
+	if ( ! isset( $_FILES['ditty_import_posts'] ) || ! $_FILES['ditty_import_posts']['tmp_name'] ) {
+		return false;	
+	}
+	
+	$transient_name = 'ditty_import';
+	$transient_data = array();
+	
+	$json_data = file_get_contents( $_FILES['ditty_import_posts']['tmp_name'] );
+	$data = json_decode( $json_data, 1 );
+	$layouts = array();
+	$displays = array();
+	
+	// Import Layouts
+	if ( isset( $data['layouts'] ) && is_array( $data['layouts'] ) && count( $data['layouts'] ) > 0 ) {
+		
+		// Add to the transient data
+		$transient_data['layouts'] = array();
+		
+		foreach ( $data['layouts'] as $uniq_id => $layout_data ) {
+			$postarr = array(
+				'post_type'		=> 'ditty_layout',
+				'post_status'	=> 'publish',
+				'post_title'	=> esc_html( $layout_data['label'] ),
+			);
+			$imported_layout_id = wp_insert_post( $postarr );
+			$imported_data = array(
+				'id' => $imported_layout_id,
+			);
+			
+			if ( isset( $layout_data['description'] ) ) {
+				update_post_meta( $imported_layout_id, '_ditty_layout_description', wp_kses_post( $layout_data['description'] ) );
+			}
+			if ( isset( $layout_data['html'] ) ) {
+				$html = str_replace( '\\', '\\\\', $layout_data['html'] );
+				update_post_meta( $imported_layout_id, '_ditty_layout_html', wp_kses_post( $html ) );
+			}
+			if ( isset( $layout_data['css'] ) ) {
+				update_post_meta( $imported_layout_id, '_ditty_layout_css', wp_kses_post( $layout_data['css'] ) );
+			}
+			if ( isset( $layout_data['version'] ) ) {
+				update_post_meta( $imported_layout_id, '_ditty_layout_version', wp_kses_post( $layout_data['version'] ) );
+			}
+			update_post_meta( $imported_layout_id, '_ditty_uniq_id', $uniq_id );
+			$layouts[$uniq_id] = $imported_layout_id;
+			
+			$transient_data['layouts'][$imported_layout_id] = $imported_data;
+		}
+	}
+	
+	// Import Displays
+	if ( isset( $data['displays'] ) && is_array( $data['displays'] ) && count( $data['displays'] ) > 0 ) {
+		
+		// Add to the transient data
+		$transient_data['displays'] = array();
+		
+		foreach ( $data['displays'] as $uniq_id => $display_data ) {
+			$postarr = array(
+				'post_type'		=> 'ditty_display',
+				'post_status'	=> 'publish',
+				'post_title'	=> esc_html( $display_data['label'] ),
+			);
+			$imported_display_id = wp_insert_post( $postarr );
+			$imported_data = array(
+				'id' => $imported_display_id,
+			);
+			
+			if ( isset( $display_data['description'] ) ) {
+				update_post_meta( $imported_display_id, '_ditty_display_description', wp_kses_post( $display_data['description'] ) );
+			}
+			if ( isset( $display_data['display_type'] ) ) {
+				update_post_meta( $imported_display_id, '_ditty_display_type', esc_html( $display_data['display_type'] ) );
+			}
+			if ( $display_object = ditty_display_type_object( $display_data['display_type'] ) ) {
+				$fields = $display_object->fields();
+				$sanitized_settings = ditty_sanitize_fields( $fields, $display_data['settings'], "ditty_display_type_{$display_data['display_type']}" );
+				update_post_meta( $imported_display_id, '_ditty_display_settings', $sanitized_settings );
+			}
+			if ( isset( $display_data['version'] ) ) {
+				update_post_meta( $imported_display_id, '_ditty_display_version', wp_kses_post( $display_data['version'] ) );
+			}
+			update_post_meta( $imported_display_id, '_ditty_uniq_id', $uniq_id );
+			$displays[$uniq_id] = $imported_display_id;
+			
+			$transient_data['displays'][$imported_display_id] = $imported_data;
+		}
+	}
+	
+	// Import Ditty
+	if ( isset( $data['ditty'] ) && is_array( $data['ditty'] ) && count( $data['ditty'] ) > 0 ) {
+		
+		// Add to the transient data
+		$transient_data['ditty'] = array();
+		
+		foreach ( $data['ditty'] as $uniq_id => $ditty_data ) {
+			$postarr = array(
+				'post_type'		=> 'ditty',
+				'post_status'	=> 'publish',
+				'post_title'	=> esc_html( $ditty_data['label'] ),
+			);
+			$imported_ditty_id = wp_insert_post( $postarr );
+			$imported_data = array(
+				'id' => $imported_ditty_id,
+			);
+			
+			
+			$settings = isset( $ditty_data['settings'] ) ? $ditty_data['settings'] : array();
+			$sanitized_settings = Ditty()->singles->sanitize_settings( $settings );
+			update_post_meta( $imported_ditty_id, '_ditty_settings', $sanitized_settings );
+			
+			update_post_meta( $imported_ditty_id, '_ditty_init', 'yes' );
+			
+			if ( isset( $displays[$ditty_data['display']] ) ) {
+				$imported_data['display'] = $displays[$ditty_data['display']];
+				update_post_meta( $imported_ditty_id, '_ditty_display', intval( $displays[$ditty_data['display']] ) );
+			}
+			
+			update_post_meta( $imported_ditty_id, '_ditty_uniq_id', $uniq_id );
+			
+			// Add items
+			if ( is_array( $ditty_data['items'] ) && count( $ditty_data['items'] ) > 0 ) {
+				foreach ( $ditty_data['items'] as $i => $item ) {
+					
+					// Gather the custom meta
+					$custom_meta = false;
+					if ( isset( $item['custom_meta'] ) ) {
+						$custom_meta = $item['custom_meta'];
+						unset( $item['custom_meta'] );
+					}
+					
+					// Add the ditty id
+					$item['ditty_id'] = $imported_ditty_id;
+
+					// Add the item author
+					$item['item_author'] = get_current_user_id();
+					
+					// Set the layouts
+					$updated_layout_value = array();
+					if ( is_array( $item['layout_value'] ) && count( $item['layout_value'] ) > 0 ) {
+						foreach ( $item['layout_value'] as $variation => $layout_id ) {
+							if ( isset( $layouts[$layout_id] ) ) {
+								$updated_layout_value[$variation] = $layouts[$layout_id];
+							}
+						}
+					}
+					$item['layout_value'] = $updated_layout_value;
+					
+					// Sanitize and save item data
+					$sanitized_item_data = Ditty()->singles->sanitize_item_data( $item );
+					if ( $new_item_id = Ditty()->db_items->insert( apply_filters( 'ditty_item_db_data', $sanitized_item_data, $imported_ditty_id ), 'item' ) ) {
+						
+						// Add the custom meta
+						if ( is_array( $custom_meta ) && count( $custom_meta ) > 0 ) {
+							foreach ( $custom_meta as $i => $meta ) {
+								ditty_item_add_meta( $new_item_id, esc_attr( $meta['meta_key'] ), $meta['meta_value']  );
+							}
+						}
+					}	
+				}
+			}
+			
+			$transient_data['ditty'][$imported_ditty_id] = $imported_data;
+		}
+	}
+	if ( ! empty( $transient_data ) ) {
+		set_transient( $transient_name, $transient_data );
+	}
+}
+add_action( 'admin_init', 'ditty_import_posts' );
+
+/**
+ * Import options for the user
+ *
+ * @since    3.0.17
+ */
+function ditty_import_options() {
+	$transient_name = 'ditty_import';
+	$transient_data = get_transient( $transient_name );
+	if ( ! $transient_data ) {
+		return false;
+	}
+	
+	$html = '';
+	
+	if ( isset( $transient_data['ditty'] ) && is_array( $transient_data['ditty'] ) && count( $transient_data['ditty'] ) > 0 ) {
+		$html .= '<div class="ditty-import__group">';
+			$html .= '<h3>' . esc_html__( 'Imported Ditty', 'ditty-news-ticker' ) . '</h3>';
+			$html .= '<ul class="ditty-import__list">';
+			foreach ( $transient_data['ditty'] as $i => $ditty ) {
+				$html .= '<li class="ditty-import__item">';
+					$html .= '<p class="ditty-import__post-title"><span>' . get_the_title( $ditty['id'] ) . '</span> <a href="' . get_edit_post_link( $ditty['id'] ) . '">' . esc_html__( 'Edit', 'ditty-news-ticker' ) . '</a></p> ';
+					// if ( isset( $ditty['display'] ) ) {
+					// 	$html .= '<p class="ditty-import__display"><strong>' . esc_html__( 'Display', 'ditty-news-ticker' ) . ':</strong> ' . get_the_title( $ditty['display'] ) . ' <a href="' . get_edit_post_link( $ditty['display'] ) . '">' . esc_html__( 'Edit', 'ditty-news-ticker' ) . '</a></p> ';
+					// }
+				$html .= '</li>';
+			}
+			$html .= '</ul>';
+		$html .= '</div>';
+	}
+	
+	if ( isset( $transient_data['layouts'] ) && is_array( $transient_data['layouts'] ) && count( $transient_data['layouts'] ) > 0 ) {
+		$html .= '<div class="ditty-import__group">';
+			$html .= '<h3>' . esc_html__( 'Imported Layouts', 'ditty-news-ticker' ) . '</h3>';
+			$html .= '<ul class="ditty-import__list">';
+			foreach ( $transient_data['layouts'] as $i => $layout ) {
+				$html .= '<li class="ditty-import__item">';
+					$html .= '<p class="ditty-import__post-title"><span>' . get_the_title( $layout['id'] ) . '</span> <a href="' . get_edit_post_link( $layout['id'] ) . '">' . esc_html__( 'Edit', 'ditty-news-ticker' ) . '</a></p> ';
+				$html .= '</li>';
+			}
+			$html .= '</ul>';
+		$html .= '</div>';
+	}
+	
+	if ( isset( $transient_data['displays'] ) && is_array( $transient_data['displays'] ) && count( $transient_data['displays'] ) > 0 ) {
+		$html .= '<div class="ditty-import__group">';
+			$html .= '<h3>' . esc_html__( 'Imported Displays', 'ditty-news-ticker' ) . '</h3>';
+			$html .= '<ul class="ditty-import__list">';
+			foreach ( $transient_data['displays'] as $i => $display ) {
+				$html .= '<li class="ditty-import__item">';
+					$html .= '<p class="ditty-import__post-title"><span>' . get_the_title( $display['id'] ) . '</span> <a href="' . get_edit_post_link( $display['id'] ) . '">' . esc_html__( 'Edit', 'ditty-news-ticker' ) . '</a></p> ';
+				$html .= '</li>';
+			}
+			$html .= '</ul>';
+		$html .= '</div>';
+	}
+	
+	return $html;
 }

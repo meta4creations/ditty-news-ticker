@@ -1311,6 +1311,9 @@ table.wp-list-table .type-ditty_display .row-actions {
   color: #FFF;
   margin: 0; }
 
+.ditty-import__group {
+  margin-bottom: 40px; }
+
 .wp-admin.post-new-php.post-type-ditty.ditty-wizard-enabled .wp-heading-inline,
 .wp-admin.post-new-php.post-type-ditty.ditty-wizard-enabled .wp-header-end {
   display: none; }
