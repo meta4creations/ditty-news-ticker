@@ -155,6 +155,48 @@ function ditty_dashboard_menu_classes( $classes ) {
 }
 add_filter( 'admin_body_class', 'ditty_dashboard_menu_classes', 99 );
 
+/**
+	 * Reorder the Ditty submenus
+	 *
+	 * @since    3.0
+	 * @access   public
+	 * @var      array    $allowed
+	*/
+// function ditty_set_menu_order() {
+// 	global $submenu;
+// 	$new_sub_menu = [];
+// 	foreach ( $submenu as $menu_name => $menu_items ) {
+// 		if ( 'edit.php?post_type=ditty' === $menu_name ) {
+// 			if ( is_array( $menu_items ) && count( $menu_items ) > 0 ) {
+// 				foreach ( $menu_items as $order => $menu_item ) {
+// 					switch( $menu_item[2] ) {
+// 						case 'edit.php?post_type=ditty_layout':
+// 							$new_sub_menu[11] = $menu_item;
+// 							break;
+// 						case 'edit.php?post_type=ditty_display':
+// 							$new_sub_menu[12] = $menu_item;
+// 							break;
+// 						case 'ditty_extensions':
+// 							$new_sub_menu[13] = $menu_item;
+// 							break;
+// 						case 'ditty_settings':
+// 							$new_sub_menu[14] = $menu_item;
+// 							break;
+// 						case 'ditty_export':
+// 							$new_sub_menu[15] = $menu_item;
+// 							break;
+// 						default:
+// 							$new_sub_menu[$order] = $menu_item;
+// 					}
+// 				}
+// 			}
+// 			$submenu['edit.php?post_type=ditty'] = $new_sub_menu;
+// 			break;
+// 		}
+// 	}
+// }
+// add_action('custom_menu_order', 'ditty_set_menu_order' );
+
 
 
 function sdafdstest() {

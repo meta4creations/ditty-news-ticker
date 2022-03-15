@@ -76,11 +76,11 @@ function ditty_manage_posts_custom_column( $column, $post_id ){
 			break;
 		case 'ditty_display':
 			$display_id = get_post_meta( $post_id, '_ditty_display', true );
-			$display = new Ditty_Display( $display_id );
-			$label = $display->get_label();
-			echo "<a href='edit.php?post_type={$post->post_type}&ditty_display={$display_id}'>".$label."</a> - <a href='" . get_edit_post_link( $display->get_display_id() ) . "'>" . __( 'Edit', 'ditty-news-ticker' ) . "</a>";
-			//echo "{$label} - <a href='" . get_edit_post_link( $display->get_display_id() ) . "'>" . __( 'Edit', 'ditty-news-ticker' ) . "</a>";
-			//echo $label;
+			if ( $display_id ) {
+				$display = new Ditty_Display( $display_id );
+				$label = $display->get_label();
+				echo "<a href='edit.php?post_type={$post->post_type}&ditty_display={$display_id}'>".$label."</a> - <a href='" . get_edit_post_link( $display->get_display_id() ) . "'>" . __( 'Edit', 'ditty-news-ticker' ) . "</a>";
+			}
 			break;
 		case 'ditty_display_version':
 			$meta = get_post_meta( $post_id, '_ditty_display_version', true );

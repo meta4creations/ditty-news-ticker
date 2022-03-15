@@ -1,10 +1,9 @@
 #ditty-page {
-	//width: 1200px;
-	//max-width: calc( 100% );
-	//border-radius: 5px;
-	//box-shadow: 0 0 1px rgba( 0, 0, 0, 0.2 );
-	//margin-top: 22px;
-	margin: 0;
+	width: 1200px;
+	max-width: calc( 100% - 20px );
+	border-radius: 5px;
+	box-shadow: 0 0 1px rgba( 0, 0, 0, 0.2 );
+	margin-top: 22px;
 	overflow: hidden;
 	&__header {
 		box-sizing: border-box;
@@ -44,7 +43,7 @@
 }
 @media screen and ( max-width: 782px ) {
 	#ditty-page {
-		max-width: calc( 100% );
+		max-width: calc( 100% - 10px );
 		margin-top: 10px;
 	}
 }
@@ -117,6 +116,13 @@
 			top: 10px;
 			display: block;
 			font-size: 14px;
+			width: 14px;
+		}
+		svg {
+			position: absolute;
+			top: 10px;
+			display: block;
+			width: 14px;
 		}
 		span {
 			display: block;
@@ -298,7 +304,7 @@
 }
 @media (min-width: 1000px) {	
 	.ditty-settings__panel:not(.ditty-settings__panel--global_ditty) {
-		> .ditty-field {
+		> .ditty-field:not(.ditty-field-heading--top) {
 			display: flex;
 			flex-direction: row;
 			align-items: flex-start;
