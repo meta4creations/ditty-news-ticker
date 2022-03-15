@@ -40,7 +40,7 @@ function ditty_settings_display() {
 		</div>
 		
 		<div id="ditty-page__content">
-			<div id="ditty-settings">
+			<div id="ditty-settings" class="dynamic-tabs">
 	
 				<?php
 				$init_panel = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : false;
