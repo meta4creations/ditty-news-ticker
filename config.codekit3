@@ -1661,6 +1661,21 @@
       "pg" : 0,
       "sct" : 0
     },
+    "\/includes\/sass\/admin\/_rtl.scss" : {
+      "aP" : 0,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/includes\/sass\/css\/_rtl.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 0
+    },
     "\/includes\/sass\/admin\/_settings.scss" : {
       "aP" : 0,
       "bl" : 0,

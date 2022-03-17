@@ -69,6 +69,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 = 3.0.17 =
 * Added Import/Export functionality
 * Added Ditty shortcode to Ditty edit screen
+* Re-ordered Ditty sub menu
 
 = 3.0.16 =
 * Resolved bug in default item link css
