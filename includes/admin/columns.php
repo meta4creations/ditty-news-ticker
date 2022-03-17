@@ -23,6 +23,7 @@ function ditty_manage_posts_columns( $columns, $post_type ){
 				case 'ditty':
 					$new_columns['ditty_display'] = __( 'Display', 'ditty-news-ticker' );
 					$new_columns['ditty_display_type'] = __( 'Display Type', 'ditty-news-ticker' );
+					$new_columns['ditty_shortcode'] = __( 'Shortcode', 'ditty-news-ticker' );
 					break;
 			}
 			
@@ -35,7 +36,7 @@ add_filter( 'manage_posts_columns', 'ditty_manage_posts_columns', 10, 2 );
 /**
  * Display the custom edit screen columns
  *
- * @since    3.0
+ * @since    3.0.17
 */
 function ditty_manage_posts_custom_column( $column, $post_id ){
 	global $post;
@@ -86,6 +87,9 @@ function ditty_manage_posts_custom_column( $column, $post_id ){
 			$meta = get_post_meta( $post_id, '_ditty_display_version', true );
 			$label = $meta;
 			echo $label;
+			break;
+		case 'ditty_shortcode':
+			echo "[ditty id={$post_id}]";
 			break;
 		default:
 			break;

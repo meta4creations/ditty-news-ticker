@@ -41,7 +41,7 @@ class Ditty_Layouts {
 		add_action( 'ditty_editor_layout_elements', array( $this, 'editor_layout_edit_css' ), 20 );
 		add_action( 'ditty_editor_layout_elements', array( $this, 'editor_layout_clone' ), 25 );
 		add_action( 'ditty_editor_layout_elements', array( $this, 'editor_layout_delete' ), 30 );
-		add_action( 'ditty_editor_layout_elements', array( $this, 'editor_layout_save' ), 35 );
+		//add_action( 'ditty_editor_layout_elements', array( $this, 'editor_layout_save' ), 35 );
 		
 		// Ajax
 		add_action( 'wp_ajax_ditty_editor_layout_variations', array( $this, 'editor_layout_variations_ajax' ) );

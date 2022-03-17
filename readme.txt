@@ -67,6 +67,8 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 == Changelog ==
 
 = 3.0.17 =
+* Added Import/Export functionality
+* Added Ditty shortcode to Ditty edit screen
 
 = 3.0.16 =
 * Resolved bug in default item link css
@@ -690,4 +692,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-PHP 8 updates & other updates
+Added Import/Export functionality and other updates
