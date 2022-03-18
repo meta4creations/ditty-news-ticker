@@ -324,18 +324,6 @@ class Ditty_Item_Type {
 					'help'			=> esc_html__( 'Set the length of the excerpt.', 'ditty-news-ticker' ),
 					'std'				=> isset( $values['excerpt_length'] ) ? $values['excerpt_length'] : false,
 				),
-				'more_link' => array(
-					'type'			=> 'radio',
-					'id'				=> 'more_link',
-					'name'			=> esc_html__( 'Read More Link', 'ditty-news-ticker' ),
-					'help'			=> esc_html__( 'Link the read more text to the post.', 'ditty-news-ticker' ),
-					'options'		=> array(
-						'post'		=> esc_html__( 'Yes', 'ditty-news-ticker' ),
-						'false'		=> esc_html__( 'No', 'ditty-news-ticker' ),
-					),
-					'inline' 		=> true,
-					'std'				=> isset( $values['more_link'] ) ? $values['more_link'] : false,
-				),
 				'more' => array(
 					'type'			=> 'text',
 					'id'				=> 'more',
@@ -356,6 +344,18 @@ class Ditty_Item_Type {
 					'name'			=> esc_html__( 'Read More After Text', 'ditty-news-ticker' ),
 					'help'			=> esc_html__( 'Add text after the Read More text.', 'ditty-news-ticker' ),
 					'std'				=> isset( $values['more_after'] ) ? $values['more_after'] : false,
+				),
+				'more_link' => array(
+					'type'			=> 'radio',
+					'id'				=> 'more_link',
+					'name'			=> esc_html__( 'Read More Link', 'ditty-news-ticker' ),
+					'help'			=> esc_html__( 'Link the read more text to the post.', 'ditty-news-ticker' ),
+					'options'		=> array(
+						'post'		=> esc_html__( 'Yes', 'ditty-news-ticker' ),
+						'false'		=> esc_html__( 'No', 'ditty-news-ticker' ),
+					),
+					'inline' 		=> true,
+					'std'				=> isset( $values['more_link'] ) ? $values['more_link'] : false,
 				),
 			),
 		);

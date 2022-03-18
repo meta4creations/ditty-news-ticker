@@ -319,7 +319,7 @@ class Ditty_Field {
 			'type' => 'text',
 			'class' => ( $this->args['input_class'] ) ? $this->args['input_class'] : false,
 			'placeholder' => ( $this->args['placeholder'] ) ? $this->args['placeholder'] : false,
-			'value' => $std,
+			'value' => htmlspecialchars( $std ),
 		);
 		if ( is_array( $this->args['atts'] ) && count( $this->args['atts'] ) > 0 ) {
 			foreach ( $this->args['atts'] as $key => $value ) {

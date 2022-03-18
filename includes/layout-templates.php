@@ -3,7 +3,7 @@
 /**
  * Return all possible layout templates
  *
- * @since    3.0.12
+ * @since    3.0.18
  * @var      html
 */
 function ditty_layout_templates() {
@@ -27,7 +27,7 @@ function ditty_layout_templates() {
 			'description' => __( 'Default layout for Posts.', 'ditty-news-ticker' ),
 			'html' 				=> ditty_layout_default_post_html(),
 			'css' 				=> ditty_layout_default_post_css(),
-			'version'			=> '1.1',
+			'version'			=> '1.2',
 		),
 	);
 	return apply_filters( 'ditty_layout_templates', $layout_templates );
@@ -174,7 +174,7 @@ function ditty_layout_default_image_css() {
 /**
  *  The default post template
  *
- * @since    3.0.12
+ * @since    3.0.18
  * @access   private
  * @var      string
 */
@@ -191,7 +191,7 @@ function ditty_layout_default_post_html() {
 	</div>
 </div>
 {title link="post"}
-{excerpt}
+{content}
 	<?php
 	return ob_get_clean();
 }
