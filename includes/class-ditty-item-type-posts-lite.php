@@ -69,8 +69,9 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 				'help'	=> __( 'Set the number of Posts to display.', 'ditty-news-ticker' ),
 				'std'		=> isset( $values['limit'] ) ? $values['limit'] : false,
 			),
-			'titleSettings' => parent::title_settings( $values ),
-			'linkSettings' 	=> parent::link_settings( $values ),
+			'titleSettings' 	=> parent::title_settings( $values ),
+			//'contentSettings' => parent::content_settings( $values ),
+			'linkSettings' 		=> parent::link_settings( $values ),
 		);
 		return $fields;
 	}
@@ -84,12 +85,12 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	public function default_settings() {		
 		$defaults = array(
 			'limit' 				=> 10,
-			// 'content_display' 		=> 'excerpt',
-			// 'excerpt_length'			=> 200,
-			// 'more'								=> __( 'Read More', 'ditty-news-ticker' ),
-			// 'more_link'						=> 'post',
-			// 'more_before'					=> '...&nbsp;',
-			// 'more_after'					=> '',
+			'content_display' 		=> 'excerpt',
+			'excerpt_length'			=> 200,
+			'more'								=> __( 'Read More', 'ditty-news-ticker' ),
+			'more_link'						=> 'post',
+			'more_before'					=> '...&nbsp;',
+			'more_after'					=> '',
 			'title_element'		=> 'default',
 			'title_link'			=> 'default',
 			'link_target' 		=> '_self',

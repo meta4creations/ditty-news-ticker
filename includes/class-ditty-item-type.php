@@ -296,50 +296,70 @@ class Ditty_Item_Type {
 	 * @var      multiple    $updated_value
 	*/
 	public function content_settings( $values ) {
-		$title_settings = array(
+		$content_settings = array(
 			'type' 							=> 'group',
-			'id'								=> 'titleSettings',
+			'id'								=> 'contentSettings',
 			'collapsible'				=> true,
 			'default_state'			=> 'expanded',
 			'multiple_fields'		=> true,
-			'name' 	=> __( 'Title Settings', 'ditty-news-ticker' ),
-			'help' 	=> __( 'Configure settings for the title tag.', 'ditty-news-ticker' ),
+			'name' 	=> esc_html__( 'Content Settings', 'ditty-news-ticker' ),
+			'help' 	=> esc_html__( 'Configure the content settings for the feed items.', 'ditty-news-ticker' ),
 			'fields' => array(
-				'title_element' => array(
-					'type'			=> 'select',
-					'id'				=> 'title_element',
-					'name'			=> esc_html__( 'Title Element', 'ditty-news-ticker' ),
-					'help'			=> esc_html__( 'Choose the html wrapper element for titles.', 'ditty-news-ticker' ),
-					'std'				=> isset( $values['title_element'] ) ? $values['title_element'] : false,
-					'options'		=> array(
-						'default'		=> esc_html__( 'Use Default', 'ditty-news-ticker' ),
-						'none'			=> esc_html__( 'None', 'ditty-news-ticker' ),
-						'h1'				=> 'h1',
-						'h2'				=> 'h2',
-						'h3'				=> 'h3',
-						'h4'				=> 'h4',
-						'h5'				=> 'h5',
-						'h6'				=> 'h6',
-						'div'				=> 'div',
-						'p'					=> 'p',
-					),
-				),
-				'title_link' => array(
+				'content_display' => array(
 					'type'			=> 'radio',
-					'id'				=> 'title_link',
-					'name'			=> esc_html__( 'Title Link', 'ditty-news-ticker' ),
-					'help'			=> esc_html__( 'Add a link to the post.', 'ditty-news-ticker' ),
-					'inline'		=> true,
-					'std'				=> isset( $values['title_link'] ) ? $values['title_link'] : false,
+					'id'				=> 'content_display',
+					'name'			=> esc_html__( 'Content Display', 'ditty-news-ticker' ),
+					'help'			=> esc_html__( 'Configure settings for the post content.', 'ditty-news-ticker' ),
 					'options'		=> array(
-						'default'	=> esc_html__( 'Default', 'ditty-news-ticker' ),
-						'on'			=> esc_html__( 'On', 'ditty-news-ticker' ),
-						'off'			=> esc_html__( 'Off', 'ditty-news-ticker' ),
+						'full'		=> esc_html__( 'Full Content', 'ditty-news-ticker' ),
+						'excerpt'	=> esc_html__( 'Excerpt', 'ditty-news-ticker' ),
 					),
+					'inline' 		=> true,
+					'std'		=> isset( $values['content_display'] ) ? $values['content_display'] : false,
+				),
+				'excerpt_length' => array(
+					'type'			=> 'number',
+					'id'				=> 'excerpt_length',
+					'name'			=> esc_html__( 'Excerpt Length', 'ditty-news-ticker' ),
+					'help'			=> esc_html__( 'Set the length of the excerpt.', 'ditty-news-ticker' ),
+					'std'				=> isset( $values['excerpt_length'] ) ? $values['excerpt_length'] : false,
+				),
+				'more_link' => array(
+					'type'			=> 'radio',
+					'id'				=> 'more_link',
+					'name'			=> esc_html__( 'Read More Link', 'ditty-news-ticker' ),
+					'help'			=> esc_html__( 'Link the read more text to the post.', 'ditty-news-ticker' ),
+					'options'		=> array(
+						'post'		=> esc_html__( 'Yes', 'ditty-news-ticker' ),
+						'false'		=> esc_html__( 'No', 'ditty-news-ticker' ),
+					),
+					'inline' 		=> true,
+					'std'				=> isset( $values['more_link'] ) ? $values['more_link'] : false,
+				),
+				'more' => array(
+					'type'			=> 'text',
+					'id'				=> 'more',
+					'name'			=> esc_html__( 'Read More Text', 'ditty-news-ticker' ),
+					'help'			=> esc_html__( 'Add read more text to the excerpt.', 'ditty-news-ticker' ),
+					'std'				=> isset( $values['more'] ) ? $values['more'] : false,
+				),
+				'more_before' => array(
+					'type'			=> 'text',
+					'id'				=> 'more_before',
+					'name'			=> esc_html__( 'Read More Before Text', 'ditty-news-ticker' ),
+					'help'			=> esc_html__( 'Add text before the Read More text.', 'ditty-news-ticker' ),
+					'std'				=> isset( $values['more_before'] ) ? $values['more_before'] : false,
+				),
+				'more_after' => array(
+					'type'			=> 'text',
+					'id'				=> 'more_after',
+					'name'			=> esc_html__( 'Read More After Text', 'ditty-news-ticker' ),
+					'help'			=> esc_html__( 'Add text after the Read More text.', 'ditty-news-ticker' ),
+					'std'				=> isset( $values['more_after'] ) ? $values['more_after'] : false,
 				),
 			),
 		);
-		return $title_settings;
+		return $content_settings;
 	}
 	
 	/**
@@ -355,14 +375,14 @@ class Ditty_Item_Type {
 			'collapsible'				=> true,
 			'default_state'			=> 'expanded',
 			'multiple_fields'		=> true,
-			'name' 	=> __( 'Link Settings', 'ditty-news-ticker' ),
-			'help' 	=> __( 'Configure the link settings for the item elements.', 'ditty-news-ticker' ),
+			'name' 	=> esc_html__( 'Link Settings', 'ditty-news-ticker' ),
+			'help' 	=> esc_html__( 'Configure the link settings for the item elements.', 'ditty-news-ticker' ),
 			'fields' => array(
 				'link_target' => array(
 					'type'			=> 'select',
 					'id'				=> 'link_target',
-					'name'			=> __( 'Link Target', 'ditty-news-ticker' ),
-					'help'			=> __( 'Set a target for your links.', 'ditty-news-ticker' ),
+					'name'			=> esc_html__( 'Link Target', 'ditty-news-ticker' ),
+					'help'			=> esc_html__( 'Set a target for your links.', 'ditty-news-ticker' ),
 					'options'		=> array(
 						'_self'		=> '_self',
 						'_blank'	=> '_blank'
@@ -372,9 +392,9 @@ class Ditty_Item_Type {
 				'link_nofollow' => array(
 					'type'			=> 'checkbox',
 					'id'				=> 'link_nofollow',
-					'name'			=> __( 'Link No Follow', 'ditty-news-ticker' ),
-					'label'			=> __( 'Add "nofollow" to link', 'ditty-news-ticker' ),
-					'help'			=> __( 'Enabling this setting will add an attribute called \'nofollow\' to your links. This tells search engines to not follow this link.', 'ditty-news-ticker' ),
+					'name'			=> esc_html__( 'Link No Follow', 'ditty-news-ticker' ),
+					'label'			=> esc_html__( 'Add "nofollow" to link', 'ditty-news-ticker' ),
+					'help'			=> esc_html__( 'Enabling this setting will add an attribute called \'nofollow\' to your links. This tells search engines to not follow this link.', 'ditty-news-ticker' ),
 					'std'		=> isset( $values['link_nofollow'] ) ? $values['link_nofollow'] : false,
 				),
 			),
