@@ -281,6 +281,10 @@ function ditty_layout_default_post_css() {
 	line-height: 1.3125;
 	margin: 5px 0 0 0;
 }
+.ditty-item__content p {
+	font-size: 15px;
+	line-height: 1.3125;
+}
 	<?php
 	return ob_get_clean();
 }
