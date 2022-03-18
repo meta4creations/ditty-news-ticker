@@ -8,17 +8,20 @@ jQuery( function( $ ) {
 		function toggle_content_fields( $form ) {
 			var val = $form.find( 'input[name="content_display"]:checked' ).val();
 			if ( 'full' === val  ) {
-				$form.find( '.ditty-field--more_link' ).hide();
 				$form.find( '.ditty-field--excerpt_length' ).hide();
+				$form.find( '.ditty-field--excerpt_element' ).hide();
 				$form.find( '.ditty-field--more' ).hide();
 				$form.find( '.ditty-field--more_before' ).hide();
 				$form.find( '.ditty-field--more_after' ).hide();
+				$form.find( '.ditty-field--more_link' ).hide();
 			} else {
-				$form.find( '.ditty-field--more_link' ).show();
+				
 				$form.find( '.ditty-field--excerpt_length' ).show();
+				$form.find( '.ditty-field--excerpt_element' ).show();
 				$form.find( '.ditty-field--more' ).show();
 				$form.find( '.ditty-field--more_before' ).show();
 				$form.find( '.ditty-field--more_after' ).show();
+				$form.find( '.ditty-field--more_link' ).show();
 			}
 		}
 		

@@ -36,6 +36,20 @@ function ditty_posts_lite_layout_tags_atts( $atts, $tag, $item_type, $data ) {
 				}
 			}
 			break;
+		case 'content':
+			if ( isset( $data['content_display'] ) && 'excerpt' == $data['content_display'] && isset( $data['excerpt_element'] ) ) {
+				switch ( $data['excerpt_element'] ) {
+					case 'default':
+						break;
+					case 'none':
+						$atts['wrapper'] = false;
+						break;
+					default:
+						$atts['wrapper'] = esc_attr( $data['excerpt_element'] );
+						break;
+				}
+			}
+			break;
 		default:
 			break;
 	}
@@ -198,7 +212,7 @@ add_filter( 'ditty_layout_tag_category_data', 'ditty_posts_lite_layout_tag_categ
 /**
  * Modify the layout content
  *
- * @since    3.0.12
+ * @since    3.0.18
  * @var      html
 */
 function ditty_posts_lite_layout_tag_content( $content, $item_type, $data, $atts ) {

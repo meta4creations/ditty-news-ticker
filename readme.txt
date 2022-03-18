@@ -66,6 +66,11 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.0.18 =
+* Added Title settings for Posts feed lite
+* Added Content settings for Posts feed lite
+* Updated the default post Layout
+
 = 3.0.17 =
 * Added Import/Export functionality
 * Added Ditty shortcode to Ditty edit screen
@@ -695,4 +700,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Added Import/Export functionality and other updates
+Added additional Post feed lite settings

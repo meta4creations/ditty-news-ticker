@@ -87,14 +87,15 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 			'limit' 				=> 10,
 			'content_display' 		=> 'full',
 			'excerpt_length'			=> 200,
+			'excerpt_element'			=> 'default',
 			'more'								=> esc_html__( 'Read More', 'ditty-news-ticker' ),
 			'more_link'						=> 'post',
 			'more_before'					=> '...&nbsp;',
 			'more_after'					=> '',
-			'title_element'		=> 'default',
-			'title_link'			=> 'default',
-			'link_target' 		=> '_self',
-			'link_nofollow'		=> '',
+			'title_element'				=> 'default',
+			'title_link'					=> 'default',
+			'link_target' 				=> '_self',
+			'link_nofollow'				=> '',
 		);
 		return apply_filters( 'ditty_type_default_settings', $defaults, $this->slug );
 	}

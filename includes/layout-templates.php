@@ -275,11 +275,11 @@ function ditty_layout_default_post_css() {
 	font-size: 18px;
 	margin: 0;
 }
-.ditty-item__content {
-	margin-top: 5px;
-}
+.ditty-item__content,
 .ditty-item__excerpt {
-	margin-top: 5px;
+	font-size: 15px;
+	line-height: 1.3125;
+	margin: 5px 0 0 0;
 }
 	<?php
 	return ob_get_clean();
