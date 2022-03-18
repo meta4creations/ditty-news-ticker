@@ -58,7 +58,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	 * Setup the type settings
 	 *
 	 * @access  public
-	 * @since   3.0.12
+	 * @since   3.0.18
 	 */
 	public function fields( $values = array() ) {					
 		$fields = array(
@@ -69,9 +69,9 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 				'help'	=> __( 'Set the number of Posts to display.', 'ditty-news-ticker' ),
 				'std'		=> isset( $values['limit'] ) ? $values['limit'] : false,
 			),
-			'titleSettings' 	=> parent::title_settings( $values ),
+			'titleSettings' 	=> method_exists( $this, 'title_settings' ) ? $this->title_settings( $values ) : false,
 			//'contentSettings' => parent::content_settings( $values ),
-			'linkSettings' 		=> parent::link_settings( $values ),
+			'linkSettings' 		=> method_exists( $this, 'link_settings' ) ? $this->link_settings( $values ) : false,
 		);
 		return $fields;
 	}
