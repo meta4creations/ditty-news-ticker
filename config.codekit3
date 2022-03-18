@@ -142,14 +142,6 @@
       "oO" : 0,
       "oS" : 1
     },
-    "\/composer.lock" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/composer.lock",
-      "oF" : 0
-    },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -162,7 +154,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/admin\/columns.php",
       "oF" : 0
     },
@@ -202,7 +194,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/admin\/settings.php",
       "oF" : 0
     },
@@ -426,7 +418,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 2,
       "oAP" : "\/includes\/class-ditty-singles.php",
       "oF" : 0
     },
@@ -883,7 +875,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 1,
+      "mi" : 0,
       "oA" : 1,
       "oAP" : "\/includes\/js\/admin\/class-ditty-settings.min.js",
       "oF" : 0,
@@ -1004,7 +996,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 1,
+      "mi" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/js\/ditty-admin.min.js",
       "oF" : 0,
@@ -1542,7 +1534,7 @@
       "oF" : 0
     },
     "\/includes\/sass\/admin\/_dashboard.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1554,7 +1546,7 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/admin\/_datepicker.scss" : {
       "aP" : 1,
@@ -1722,7 +1714,7 @@
       "sct" : 0
     },
     "\/includes\/sass\/ditty-admin.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1734,7 +1726,7 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/ditty.scss" : {
       "aP" : 1,

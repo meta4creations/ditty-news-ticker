@@ -420,32 +420,32 @@ class Ditty_Layout {
 	/**
 	 * Render the layout
 	 * @access public
-	 * @since  3.0.12
+	 * @since  3.0.18
 	 * @return html
 	 */
 	public function render() {
 		$tags		= $this->get_layout_tags();
 		$html		= $this->get_html();	
-		$value 	= $this->get_item_value();	
+		$data 	= $this->get_item_value();	
 		
 		// Return an error if there is one
-		if ( isset( $value['ditty_feed_error'] ) ) {
-			return $value['ditty_feed_error'];
+		if ( isset( $data['ditty_feed_error'] ) ) {
+			return $data['ditty_feed_error'];
 		}
 		
 		$handlers = new HandlerContainer();
 		if ( is_array( $tags ) && count( $tags ) > 0 ) {
 			foreach ( $tags as $i => $tag ) {
-				$handlers->add( $tag['tag'], function( ShortcodeInterface $s ) use ( $tag, $value ) {
-					$value['item_meta'] = $this->get_item_meta();
+				$handlers->add( $tag['tag'], function( ShortcodeInterface $s ) use ( $tag, $data ) {
+					$data['item_meta'] = $this->get_item_meta();
 					$defaults = isset( $tag['atts'] ) ? $tag['atts'] : array();
 					$atts = $this->parse_atts( $defaults, $s );
-					$atts = apply_filters( 'ditty_layout_tag_atts', $atts, $tag['tag'], $this->get_item_type(), $value );
+					$atts = apply_filters( 'ditty_layout_tag_atts', $atts, $tag['tag'], $this->get_item_type(), $data );
 					$content = $s->getContent();
 					if ( isset( $tag['func'] ) && function_exists( $tag['func'] ) ) {
-						return call_user_func( $tag['func'], $tag['tag'], $this->get_item_type(), $value, $atts, $content );
+						return call_user_func( $tag['func'], $tag['tag'], $this->get_item_type(), $data, $atts, $content );
 					} else {
-						return $this->render_tag( $tag['tag'], $this->get_item_type(), $value, $atts, $content );
+						return $this->render_tag( $tag['tag'], $this->get_item_type(), $data, $atts, $content );
 					}
 				} );
 			}

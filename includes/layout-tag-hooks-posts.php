@@ -1,12 +1,55 @@
 <?php
 
 /**
+ * Modify tag attributes based on settings
+ * 
+ * @since   3.0.18
+ */
+function ditty_posts_lite_layout_tags_atts( $atts, $tag, $item_type, $data ) {
+	if ( 'posts_feed' != $item_type && 'post' != $item_type ) {
+		return $atts;
+	}
+	switch( $tag ) {
+		case 'title':
+			if ( isset( $data['title_element'] ) ) {
+				switch ( $data['title_element'] ) {
+					case 'default':
+						break;
+					case 'none':
+						$atts['wrapper'] = false;
+						break;
+					default:
+						$atts['wrapper'] = esc_attr( $data['title_element'] );
+						break;
+				}
+			}
+			if ( isset( $data['title_link'] ) ) {
+				switch ( $data['title_link'] ) {
+					case 'off':
+						$atts['link'] = false;
+						break;
+					case 'on':
+						$atts['link'] = 'post';
+						break;
+					default:
+						break;
+				}
+			}
+			break;
+		default:
+			break;
+	}
+	return $atts;
+}
+add_filter( 'ditty_layout_tag_atts', 'ditty_posts_lite_layout_tags_atts', 10, 4 );
+
+/**
  * Add to the item tags for layouts
  * 
  * @since   3.0
  */
 function ditty_posts_lite_layout_tags( $tags, $item_type ) {
-	if( 'posts_feed' == $item_type || 'post' == $item_type ) {
+	if ( 'posts_feed' == $item_type || 'post' == $item_type ) {
 		if ( isset( $tags['image'] ) ) {
 			$tags['image']['atts']['size'] = 'large';
 		}

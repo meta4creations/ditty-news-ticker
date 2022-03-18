@@ -235,4 +235,150 @@ class Ditty_Item_Type {
 	public function editor_preview( $value ) {
 		return '';
 	}
+	
+	/**
+	 * Return the item title settings
+	 *
+	 * @since    3.0.18
+	 * @var      multiple    $updated_value
+	*/
+	public function title_settings( $values ) {
+		$title_settings = array(
+			'type' 							=> 'group',
+			'id'								=> 'titleSettings',
+			'collapsible'				=> true,
+			'default_state'			=> 'expanded',
+			'multiple_fields'		=> true,
+			'name' 	=> __( 'Title Settings', 'ditty-news-ticker' ),
+			'help' 	=> __( 'Configure settings for the title tag.', 'ditty-news-ticker' ),
+			'fields' => array(
+				'title_element' => array(
+					'type'			=> 'select',
+					'id'				=> 'title_element',
+					'name'			=> esc_html__( 'Title Element', 'ditty-news-ticker' ),
+					'help'			=> esc_html__( 'Choose the html wrapper element for titles.', 'ditty-news-ticker' ),
+					'std'				=> isset( $values['title_element'] ) ? $values['title_element'] : false,
+					'options'		=> array(
+						'default'		=> esc_html__( 'Use Default', 'ditty-news-ticker' ),
+						'none'			=> esc_html__( 'None', 'ditty-news-ticker' ),
+						'h1'				=> 'h1',
+						'h2'				=> 'h2',
+						'h3'				=> 'h3',
+						'h4'				=> 'h4',
+						'h5'				=> 'h5',
+						'h6'				=> 'h6',
+						'div'				=> 'div',
+						'p'					=> 'p',
+					),
+				),
+				'title_link' => array(
+					'type'			=> 'radio',
+					'id'				=> 'title_link',
+					'name'			=> esc_html__( 'Title Link', 'ditty-news-ticker' ),
+					'help'			=> esc_html__( 'Add a link to the post.', 'ditty-news-ticker' ),
+					'inline'		=> true,
+					'std'				=> isset( $values['title_link'] ) ? $values['title_link'] : false,
+					'options'		=> array(
+						'default'	=> esc_html__( 'Default', 'ditty-news-ticker' ),
+						'on'			=> esc_html__( 'On', 'ditty-news-ticker' ),
+						'off'			=> esc_html__( 'Off', 'ditty-news-ticker' ),
+					),
+				),
+			),
+		);
+		return $title_settings;
+	}
+	
+	/**
+	 * Return the item content settings
+	 *
+	 * @since    3.0.18
+	 * @var      multiple    $updated_value
+	*/
+	public function content_settings( $values ) {
+		$title_settings = array(
+			'type' 							=> 'group',
+			'id'								=> 'titleSettings',
+			'collapsible'				=> true,
+			'default_state'			=> 'expanded',
+			'multiple_fields'		=> true,
+			'name' 	=> __( 'Title Settings', 'ditty-news-ticker' ),
+			'help' 	=> __( 'Configure settings for the title tag.', 'ditty-news-ticker' ),
+			'fields' => array(
+				'title_element' => array(
+					'type'			=> 'select',
+					'id'				=> 'title_element',
+					'name'			=> esc_html__( 'Title Element', 'ditty-news-ticker' ),
+					'help'			=> esc_html__( 'Choose the html wrapper element for titles.', 'ditty-news-ticker' ),
+					'std'				=> isset( $values['title_element'] ) ? $values['title_element'] : false,
+					'options'		=> array(
+						'default'		=> esc_html__( 'Use Default', 'ditty-news-ticker' ),
+						'none'			=> esc_html__( 'None', 'ditty-news-ticker' ),
+						'h1'				=> 'h1',
+						'h2'				=> 'h2',
+						'h3'				=> 'h3',
+						'h4'				=> 'h4',
+						'h5'				=> 'h5',
+						'h6'				=> 'h6',
+						'div'				=> 'div',
+						'p'					=> 'p',
+					),
+				),
+				'title_link' => array(
+					'type'			=> 'radio',
+					'id'				=> 'title_link',
+					'name'			=> esc_html__( 'Title Link', 'ditty-news-ticker' ),
+					'help'			=> esc_html__( 'Add a link to the post.', 'ditty-news-ticker' ),
+					'inline'		=> true,
+					'std'				=> isset( $values['title_link'] ) ? $values['title_link'] : false,
+					'options'		=> array(
+						'default'	=> esc_html__( 'Default', 'ditty-news-ticker' ),
+						'on'			=> esc_html__( 'On', 'ditty-news-ticker' ),
+						'off'			=> esc_html__( 'Off', 'ditty-news-ticker' ),
+					),
+				),
+			),
+		);
+		return $title_settings;
+	}
+	
+	/**
+	 * Return the item link settings
+	 *
+	 * @since    3.0.18
+	 * @var      multiple    $updated_value
+	*/
+	public function link_settings( $values ) {
+		$link_settings = array(
+			'type' 							=> 'group',
+			'id'								=> 'linkSettings',
+			'collapsible'				=> true,
+			'default_state'			=> 'expanded',
+			'multiple_fields'		=> true,
+			'name' 	=> __( 'Link Settings', 'ditty-news-ticker' ),
+			'help' 	=> __( 'Configure the link settings for the item elements.', 'ditty-news-ticker' ),
+			'fields' => array(
+				'link_target' => array(
+					'type'			=> 'select',
+					'id'				=> 'link_target',
+					'name'			=> __( 'Link Target', 'ditty-news-ticker' ),
+					'help'			=> __( 'Set a target for your links.', 'ditty-news-ticker' ),
+					'options'		=> array(
+						'_self'		=> '_self',
+						'_blank'	=> '_blank'
+					),
+					'std'		=> isset( $values['link_target'] ) ? $values['link_target'] : false,
+				),
+				'link_nofollow' => array(
+					'type'			=> 'checkbox',
+					'id'				=> 'link_nofollow',
+					'name'			=> __( 'Link No Follow', 'ditty-news-ticker' ),
+					'label'			=> __( 'Add "nofollow" to link', 'ditty-news-ticker' ),
+					'help'			=> __( 'Enabling this setting will add an attribute called \'nofollow\' to your links. This tells search engines to not follow this link.', 'ditty-news-ticker' ),
+					'std'		=> isset( $values['link_nofollow'] ) ? $values['link_nofollow'] : false,
+				),
+			),
+		);
+		return $link_settings;
+	}
 }
