@@ -66,6 +66,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.0.19 =
+* Added input sanitization updates to extensions settings
+
 = 3.0.18 =
 * Added Title settings for Posts feed lite
 * Added Content settings for Posts feed lite

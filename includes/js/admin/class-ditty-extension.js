@@ -96,9 +96,23 @@
 		},
 		
 		/**
+		 * Update inputs after save and sanitize
+		 *
+		 * @since    3.0.19
+		 * @return   null
+		*/
+		_upateInputs: function( updates ) {
+			$.each( updates, function( inputName, updatedValue ) {
+				if ( $( 'input[name="' + inputName + '"]' ).length ) {
+					$( 'input[name="' + inputName + '"]' ).val( updatedValue );
+				}
+			} );
+		},
+		
+		/**
 		 * Panel update listener
 		 *
-		 * @since    3.0
+		 * @since    3.0.19
 		 * @return   null
 		*/
 		_updatePanel: function ( e ) {
@@ -130,10 +144,13 @@
 	        panel			: panel,
 	        security	: dittyAdminVars.security
 		    },
-        success: function( response ) {
+        success: function( data ) {
 	        $icon.attr( 'class', iconClass );
 					self.$elmt.removeClass( 'updating' );
-					$( '#ditty-extensions' ).trigger( 'ditty_extension_panel_updated', [ response, self.$elmt, $panel ] ); 
+					if ( data.input_updates ) {
+						self._upateInputs( data.input_updates );
+					}
+					$( '#ditty-extensions' ).trigger( 'ditty_extension_panel_updated', [ data, self.$elmt, $panel ] ); 
         }
 	    } );
 		},

@@ -666,9 +666,10 @@ class Ditty_Extensions {
 		}
 
 		$panel_data = array(
-			'post_data' => $_POST,
-			'extension' => $extension_ajax,
-			'panel' 		=> $panel_ajax,
+			'post_data' 		=> $_POST,
+			'extension' 		=> $extension_ajax,
+			'panel' 				=> $panel_ajax,
+			'input_updates'	=> array(),
 		);
 		$panel_data = apply_filters( 'ditty_extension_panel_update', $panel_data );
 		wp_send_json( $panel_data );
