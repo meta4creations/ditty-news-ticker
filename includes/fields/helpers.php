@@ -7,6 +7,9 @@
  * @since   3.0
  */
 function ditty_field( $args = array() ) {
+	if ( empty( $args ) ) {
+		return false;
+	}
 	if ( ! isset( $args['type'] ) ) {
 		return '<div class="ditty-field ditty-field--error"><i class="fas fa-exclamation-circle"></i>' . __( 'No field type specified.', 'ditty-news-ticker' ) . '</div>';
 	}
