@@ -22,7 +22,7 @@ class Ditty_Display_Type_List extends Ditty_Display_Type {
 	 * Setup the display settings
 	 *
 	 * @access  public
-	 * @since   3.0.14
+	 * @since   3.0.19
 	 */
 	public function fields( $values = array() ) {	
 		$fields = array(
@@ -149,7 +149,7 @@ class Ditty_Display_Type_List extends Ditty_Display_Type {
 							'max' 	=> 60,
 							'step' 	=> 0.25,
 						),
-						'std'					=> isset( $values['autoplay'] ) ? $values['autoplay'] : false,
+						'std'					=> isset( $values['autoplaySpeed'] ) ? $values['autoplaySpeed'] : false,
 					),
 					'shuffle' => array(
 						'type'	=> 'checkbox',

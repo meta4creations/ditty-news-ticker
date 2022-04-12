@@ -68,6 +68,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 = 3.0.19 =
 * Added input sanitization updates to extensions settings
+* Bug fix for List display type autoplay speed
 
 = 3.0.18 =
 * Added Title settings for Posts feed lite
