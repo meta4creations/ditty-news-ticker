@@ -136,22 +136,3 @@ table.wp-list-table .type-ditty_display .row-actions {
 	height: 15px;
 	background: url( '../img/d.svg' );
 }
-
-#menu-posts-ditty {
-	.wp-submenu {
-		display: flex;
-		flex-direction: column;
-		li {
-			order: 0;
-			&.ditty_extensions,
-			&.ditty_settings,
-			&.ditty_export {
-				order: 5;
-			}
-			&.ditty_news_ticker,
-			&.mtphr_dnt_settings {
-				order: 10;
-			}
-		}
-	}
-	}

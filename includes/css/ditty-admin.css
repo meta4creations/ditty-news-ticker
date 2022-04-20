@@ -141,20 +141,6 @@ table.wp-list-table .type-ditty_display .row-actions {
   background: url("../img/d.svg");
 }
 
-#menu-posts-ditty .wp-submenu {
-  display: flex;
-  flex-direction: column;
-}
-#menu-posts-ditty .wp-submenu li {
-  order: 0;
-}
-#menu-posts-ditty .wp-submenu li.ditty_extensions, #menu-posts-ditty .wp-submenu li.ditty_settings, #menu-posts-ditty .wp-submenu li.ditty_export {
-  order: 5;
-}
-#menu-posts-ditty .wp-submenu li.ditty_news_ticker, #menu-posts-ditty .wp-submenu li.mtphr_dnt_settings {
-  order: 10;
-}
-
 .datepicker-container {
   background-color: #fff;
   direction: ltr;

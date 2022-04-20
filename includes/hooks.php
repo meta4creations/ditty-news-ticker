@@ -156,6 +156,62 @@ function ditty_dashboard_menu_classes( $classes ) {
 add_filter( 'admin_body_class', 'ditty_dashboard_menu_classes', 99 );
 
 /**
+ * Reorder the menu items
+ *
+ * @since    3.0.20
+*/
+function ditty_dashboard_menu_order( $menu_ord ) {
+		global $submenu;
+		$current_menu = $submenu['edit.php?post_type=ditty'];
+		$current_order = array();
+		$new_menu = array();
+		$extra_items = array();
+		$order = apply_filters( 'ditty_dashboard_menu_order', array(
+			'edit.php?post_type=ditty',
+			'post-new.php?post_type=ditty',
+			'edit.php?post_type=ditty_layout',
+			'edit.php?post_type=ditty_display',
+			'ditty_extensions',
+			'ditty_settings',
+			'ditty_export',
+			'edit.php?post_type=ditty_news_ticker',
+			'mtphr_dnt_settings',
+		), $current_menu );
+		
+		// Find any extra items that aren't in the order list
+		foreach ( $current_menu as $i => $item ) {
+			$current_order[] = $item[2];
+			if ( ! in_array( $item[2], $order ) ) {
+				$extra_items[] = $item;
+			}
+		}
+		
+		// Trim out any extra items in the order so we don't hit an infinite loop
+		$order = array_intersect( $order, $current_order );
+		
+		// Set the order of the new menu
+		while( count( $order ) > 0 ) {
+			foreach ( $current_menu as $i => $item ) {
+				if ( count( $order) > 0 && $order[0] == $item[2] ) {
+					$new_menu[] = $item;
+					array_shift( $order );
+				}
+			}
+		}
+		
+		// Add extra menu items not in the order list
+		foreach ( $extra_items as $i => $item ) {
+			$new_menu[] = $item;
+		}
+		
+		// Set the new menu
+		$submenu['edit.php?post_type=ditty'] = $new_menu;
+
+		return $menu_ord;
+}
+add_filter( 'custom_menu_order', 'ditty_dashboard_menu_order' );
+
+/**
 	 * Reorder the Ditty submenus
 	 *
 	 * @since    3.0
