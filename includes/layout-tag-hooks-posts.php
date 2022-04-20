@@ -75,25 +75,28 @@ add_filter( 'ditty_layout_tags', 'ditty_posts_lite_layout_tags', 10, 2 );
 /**
  * Filter the available item tags for layout editing
  * 
- * @since   3.0
+ * @since   3.0.20
  */
 function ditty_posts_lite_layout_tags_list( $tags, $item_type ) {
-	if ( 'posts_feed' == $item_type || 'post' == $item_type ) {
-		$allowed_tags = array(
-			'author_avatar',
-			'author_bio',
-			'author_name',
-			'categories',
-			'content',
-			'excerpt',
-			'icon',
-			'image',
-			'image_url',
-			'permalink',
-			'time',
-			'title',
-		);
-		$tags = array_intersect_key( $tags, array_flip( $allowed_tags ) );
+	if ( 'posts_feed' == $item_type ) {
+		$item_types = ditty_item_types();
+		if ( 'Ditty_Item_Type_Posts_Lite' == $item_types['posts_feed']['class_name'] ) {
+			$allowed_tags = array(
+				'author_avatar',
+				'author_bio',
+				'author_name',
+				'categories',
+				'content',
+				'excerpt',
+				'icon',
+				'image',
+				'image_url',
+				'permalink',
+				'time',
+				'title',
+			);
+			$tags = array_intersect_key( $tags, array_flip( $allowed_tags ) );
+		}
 	}
 	return $tags;
 }
