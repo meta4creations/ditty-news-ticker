@@ -158,10 +158,15 @@ add_filter( 'admin_body_class', 'ditty_dashboard_menu_classes', 99 );
 /**
  * Reorder the menu items
  *
- * @since    3.0.20
+ * @since    3.0.21
 */
 function ditty_dashboard_menu_order( $menu_ord ) {
 		global $submenu;
+
+		if ( ! isset( $submenu['edit.php?post_type=ditty'] ) ) {
+			return $menu_ord;
+		}
+		
 		$current_menu = $submenu['edit.php?post_type=ditty'];
 		$current_order = array();
 		$new_menu = array();
@@ -179,10 +184,12 @@ function ditty_dashboard_menu_order( $menu_ord ) {
 		), $current_menu );
 		
 		// Find any extra items that aren't in the order list
-		foreach ( $current_menu as $i => $item ) {
-			$current_order[] = $item[2];
-			if ( ! in_array( $item[2], $order ) ) {
-				$extra_items[] = $item;
+		if ( is_array( $current_menu ) && count( $current_menu ) > 0 ) {
+			foreach ( $current_menu as $i => $item ) {
+				$current_order[] = $item[2];
+				if ( ! in_array( $item[2], $order ) ) {
+					$extra_items[] = $item;
+				}
 			}
 		}
 		
@@ -191,17 +198,21 @@ function ditty_dashboard_menu_order( $menu_ord ) {
 		
 		// Set the order of the new menu
 		while( count( $order ) > 0 ) {
-			foreach ( $current_menu as $i => $item ) {
-				if ( count( $order) > 0 && $order[0] == $item[2] ) {
-					$new_menu[] = $item;
-					array_shift( $order );
+			if ( is_array( $current_menu ) && count( $current_menu ) > 0 ) {
+				foreach ( $current_menu as $i => $item ) {
+					if ( count( $order) > 0 && $order[0] == $item[2] ) {
+						$new_menu[] = $item;
+						array_shift( $order );
+					}
 				}
 			}
 		}
 		
 		// Add extra menu items not in the order list
-		foreach ( $extra_items as $i => $item ) {
-			$new_menu[] = $item;
+		if ( is_array( $extra_items ) && count( $extra_items ) > 0 ) {
+			foreach ( $extra_items as $i => $item ) {
+				$new_menu[] = $item;
+			}
 		}
 		
 		// Set the new menu
@@ -210,50 +221,6 @@ function ditty_dashboard_menu_order( $menu_ord ) {
 		return $menu_ord;
 }
 add_filter( 'custom_menu_order', 'ditty_dashboard_menu_order' );
-
-/**
-	 * Reorder the Ditty submenus
-	 *
-	 * @since    3.0
-	 * @access   public
-	 * @var      array    $allowed
-	*/
-// function ditty_set_menu_order() {
-// 	global $submenu;
-// 	$new_sub_menu = [];
-// 	foreach ( $submenu as $menu_name => $menu_items ) {
-// 		if ( 'edit.php?post_type=ditty' === $menu_name ) {
-// 			if ( is_array( $menu_items ) && count( $menu_items ) > 0 ) {
-// 				foreach ( $menu_items as $order => $menu_item ) {
-// 					switch( $menu_item[2] ) {
-// 						case 'edit.php?post_type=ditty_layout':
-// 							$new_sub_menu[11] = $menu_item;
-// 							break;
-// 						case 'edit.php?post_type=ditty_display':
-// 							$new_sub_menu[12] = $menu_item;
-// 							break;
-// 						case 'ditty_extensions':
-// 							$new_sub_menu[13] = $menu_item;
-// 							break;
-// 						case 'ditty_settings':
-// 							$new_sub_menu[14] = $menu_item;
-// 							break;
-// 						case 'ditty_export':
-// 							$new_sub_menu[15] = $menu_item;
-// 							break;
-// 						default:
-// 							$new_sub_menu[$order] = $menu_item;
-// 					}
-// 				}
-// 			}
-// 			$submenu['edit.php?post_type=ditty'] = $new_sub_menu;
-// 			break;
-// 		}
-// 	}
-// }
-// add_action('custom_menu_order', 'ditty_set_menu_order' );
-
-
 
 function sdafdstest() {
 	$custom = Ditty()->db_item_meta->custom_meta( 129 );
