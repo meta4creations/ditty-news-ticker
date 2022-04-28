@@ -73,7 +73,31 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 			'contentSettings' => method_exists( $this, 'content_settings' ) ? $this->content_settings( $values ) : false,
 			'linkSettings' 		=> method_exists( $this, 'link_settings' ) ? $this->link_settings( $values ) : false,
 		);
-		return $fields;
+		return apply_filters( 'ditty_item_type_fields', $fields, $this, $values );
+	}
+	
+	/**
+	 * Set the allowed layout tags
+	 *
+	 * @access  public
+	 * @since   3.0.21
+	 */
+	public function layout_tags() {					
+		$allowed_tags = array(
+			'author_avatar',
+			'author_bio',
+			'author_name',
+			'categories',
+			'content',
+			'excerpt',
+			'icon',
+			'image',
+			'image_url',
+			'permalink',
+			'time',
+			'title',
+		);
+		return $allowed_tags;
 	}
 	
 	/**
@@ -96,6 +120,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 			'title_link'					=> 'default',
 			'link_target' 				=> '_self',
 			'link_nofollow'				=> '',
+			//'layout_tag_title'		=> array(),
 		);
 		return apply_filters( 'ditty_type_default_settings', $defaults, $this->slug );
 	}

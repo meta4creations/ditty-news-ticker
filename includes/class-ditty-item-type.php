@@ -109,12 +109,22 @@ class Ditty_Item_Type {
 	 * Setup the type settings
 	 *
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.21
 	 */
 	public function settings( $item_values = false, $action = 'render' ) {	
 		$values = $this->get_values( $item_values );
 		$fields = $this->fields( $values );
 		ditty_fields( $fields, $values, $action );
+	}
+	
+	/**
+	 * Set the allowed layout tags
+	 *
+	 * @access  public
+	 * @since   3.0.21
+	 */
+	public function layout_tags() {					
+		return array();
 	}
 	
 	/**
