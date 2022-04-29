@@ -441,9 +441,6 @@ class Ditty_Layout {
 					$defaults = isset( $tag['atts'] ) ? $tag['atts'] : array();
 					$atts = $this->parse_atts( $defaults, $s );
 					$atts = apply_filters( 'ditty_layout_tag_atts', $atts, $tag['tag'], $this->get_item_type(), $data );
-					if ( wp_doing_ajax() && 'title' == $tag['tag'] ) {
-						ChromePhp::log( '$atts', $atts );
-					}
 					$content = $s->getContent();
 					if ( isset( $tag['func'] ) && function_exists( $tag['func'] ) ) {
 						return call_user_func( $tag['func'], $tag['tag'], $this->get_item_type(), $data, $atts, $content );
