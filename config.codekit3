@@ -142,14 +142,6 @@
       "oO" : 0,
       "oS" : 1
     },
-    "\/composer.lock" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/composer.lock",
-      "oF" : 0
-    },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -354,7 +346,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-item-type-posts-lite.php",
       "oF" : 0
     },
@@ -370,7 +362,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-item-type.php",
       "oF" : 0
     },
@@ -386,7 +378,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-items.php",
       "oF" : 0
     },
@@ -394,7 +386,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-layout.php",
       "oF" : 0
     },
