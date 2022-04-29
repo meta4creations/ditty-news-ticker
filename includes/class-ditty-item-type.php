@@ -109,12 +109,16 @@ class Ditty_Item_Type {
 	 * Setup the type settings
 	 *
 	 * @access  public
-	 * @since   3.21
+	 * @since   3.0.22
 	 */
 	public function settings( $item_values = false, $action = 'render' ) {	
 		$values = $this->get_values( $item_values );
 		$fields = $this->fields( $values );
-		ditty_fields( $fields, $values, $action );
+		if ( 'return' == $action ) {
+			return ditty_fields( $fields, $values, $action );
+		} else {
+			ditty_fields( $fields, $values, $action );
+		}
 	}
 	
 	/**

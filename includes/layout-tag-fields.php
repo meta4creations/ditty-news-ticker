@@ -50,6 +50,7 @@ function ditty_item_type_layout_tag_fields( $fields, $item_type, $values ) {
 			$tag_name = sprintf( esc_html__( '%s Settings', 'ditty-news-ticker' ), ucwords( implode( ' ', explode( '_', $tag ) ) ) );
 			$fields["layout_tag_{$tag}"] = array(
 				'type' 							=> 'group',
+				'tab'								=> esc_html__( 'Layout Elements', 'ditty-news-ticker' ),
 				'id'								=> "layout_tag_{$tag}",
 				'collapsible'				=> true,
 				'default_state'			=> 'collapsed',

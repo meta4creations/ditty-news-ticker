@@ -207,7 +207,8 @@ class Ditty_Item {
 	 */
 	public function get_setting_fields() {
 		$item_type_object = $this->get_type_object();
-		return $item_type_object->settings( $this->get_value() );
+		$settings = $item_type_object->settings( $this->get_value(), 'return' );
+		return $settings;
 	}
 
 	/**
