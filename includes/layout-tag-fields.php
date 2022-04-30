@@ -41,6 +41,14 @@ function ditty_item_type_layout_tag_fields( $fields, $item_type, $values ) {
 						$field['type'] 		= 'select';
 						$field['options'] = ditty_layout_link_target_options();
 					break;
+					case 'ago':
+						$field['type'] 		= 'select';
+						$field['options'] = array(
+							'' 		=>  esc_html__( 'Use layout value', 'ditty-news-ticker' ),
+							'no' 	=>  esc_html__( 'No', 'ditty-news-ticker' ),
+							'yes' =>  esc_html__( 'Yes', 'ditty-news-ticker' ),
+						);
+					break;
 					default:
 						break;
 				}

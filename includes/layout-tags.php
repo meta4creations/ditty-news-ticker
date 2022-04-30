@@ -2,7 +2,7 @@
 /**
  * Return all possible layout tags
  *
- * @since    3.0.12
+ * @since    3.0.22
  * @var      html
 */	
 function ditty_layout_tags( $item_type = false, $item_value = false ) {	
@@ -229,8 +229,8 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'description' => __( 'Render the item date/time.', 'ditty-news-ticker' ),
 			'atts'				=> array(
 				'wrapper' 		=> 'div',
-				'format' 			=> get_option( 'date_format' ),
 				'ago'					=> '',
+				'format' 			=> get_option( 'date_format' ),
 				'ago_string' 	=> __( '%s ago', 'ditty-news-ticker' ),
 				'before'			=> '',
 				'after'				=> '',

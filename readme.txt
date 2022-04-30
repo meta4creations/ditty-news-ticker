@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: ticker, post ticker, news ticker, content aggregator, latest posts, live refresh, rotator, data rotator, lists, data, aggregator
 Requires at least: 4.5
 Tested up to: 5.9.3
-Stable tag: 3.0.21
+Stable tag: 3.0.22
 License: GPL2
 
 Formerly Ditty News Ticker. Ditty is a multi-functional data display plugin.
@@ -65,6 +65,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 15. Advanced Settings
 
 == Changelog ==
+
+= 3.0.22 =
+* Dashboard menu order updates
 
 = 3.0.21 =
 * Dashboard menu order updates

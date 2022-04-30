@@ -158,7 +158,7 @@ add_filter( 'admin_body_class', 'ditty_dashboard_menu_classes', 99 );
 /**
  * Reorder the menu items
  *
- * @since    3.0.21
+ * @since    3.0.22
 */
 function ditty_dashboard_menu_order( $menu_ord ) {
 		global $submenu;
@@ -168,7 +168,6 @@ function ditty_dashboard_menu_order( $menu_ord ) {
 		}
 		
 		$current_menu = $submenu['edit.php?post_type=ditty'];
-		$current_order = array();
 		$new_menu = array();
 		$extra_items = array();
 		$order = apply_filters( 'ditty_dashboard_menu_order', array(
@@ -183,31 +182,24 @@ function ditty_dashboard_menu_order( $menu_ord ) {
 			'mtphr_dnt_settings',
 		), $current_menu );
 		
-		// Find any extra items that aren't in the order list
+		// Find any extra items that aren't in the order list & find the new order
 		if ( is_array( $current_menu ) && count( $current_menu ) > 0 ) {
 			foreach ( $current_menu as $i => $item ) {
-				$current_order[] = $item[2];
-				if ( ! in_array( $item[2], $order ) ) {
+				if ( in_array( $item[2], $order ) ) {
+					$key = array_search( $item[2], $order );
+					$item['order'] = $key;
+					$new_menu[] = $item;
+				} else {
 					$extra_items[] = $item;
 				}
 			}
 		}
 		
-		// Trim out any extra items in the order so we don't hit an infinite loop
-		$order = array_intersect( $order, $current_order );
-		
-		// Set the order of the new menu
-		while( count( $order ) > 0 ) {
-			if ( is_array( $current_menu ) && count( $current_menu ) > 0 ) {
-				foreach ( $current_menu as $i => $item ) {
-					if ( count( $order) > 0 && $order[0] == $item[2] ) {
-						$new_menu[] = $item;
-						array_shift( $order );
-					}
-				}
-			}
-		}
-		
+		// Sort the new menu by the order key
+		usort( $new_menu, function( $a, $b ) {
+			return $a['order'] - $b['order'];
+		} );
+
 		// Add extra menu items not in the order list
 		if ( is_array( $extra_items ) && count( $extra_items ) > 0 ) {
 			foreach ( $extra_items as $i => $item ) {
