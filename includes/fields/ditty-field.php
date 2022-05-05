@@ -143,7 +143,6 @@ class Ditty_Field {
 				if ( '' != $this->args['name'] ) {
 					$html .= ' ';	
 				}
-				//$html .= '<i class="ditty-help-icon protip fas fa-question-circle" data-pt-title="' . sanitize_text_field( $this->args['help'] ) . '"></i>';
 				$html .= '<a href="#" class="ditty-help-icon protip" data-pt-title="' . esc_html__( 'Toggle Description', 'metaphoravada' ) . '"><i class="fas fa-question-circle"></i></a>';
 			}
 			$html .= '</label>';

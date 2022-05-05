@@ -249,6 +249,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/fields/ditty-field-heading.php';
 		require_once DITTY_DIR . 'includes/fields/ditty-field-html.php';
 		require_once DITTY_DIR . 'includes/fields/ditty-field-image.php';
+		require_once DITTY_DIR . 'includes/fields/ditty-field-layout_element.php';
 		require_once DITTY_DIR . 'includes/fields/ditty-field-number.php';
 		require_once DITTY_DIR . 'includes/fields/ditty-field-radio.php';
 		require_once DITTY_DIR . 'includes/fields/ditty-field-text.php';
@@ -264,7 +265,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/helpers.php';
 		require_once DITTY_DIR . 'includes/hooks.php';
 		require_once DITTY_DIR . 'includes/layout-tags.php';
-		//require_once DITTY_DIR . 'includes/layout-tag-fields.php';
+		require_once DITTY_DIR . 'includes/layout-tag-fields.php';
 		require_once DITTY_DIR . 'includes/layout-tag-helpers.php';
 		require_once DITTY_DIR . 'includes/layout-tag-hooks.php';
 		require_once DITTY_DIR . 'includes/layout-tag-hooks-default.php';

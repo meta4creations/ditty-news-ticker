@@ -56,17 +56,28 @@ $update_color: orange;
 			padding: 0;
 			border-color: rgba(0, 0, 0, 0.05);
 		}
-		.ditty-field-type--checkboxes {
-			.ditty-field {
-				padding: 0 10px 0 0;
-				border: none;	
-			}
-		}
 		.ditty-input--group {
 			&__container {
 				> .ditty-field {
 					width: 100%;
 				}
+			}
+		}
+		.ditty-field-type--layout_element {
+			padding: 0;
+			border-color: rgba(0, 0, 0, 0.05);
+		}
+		.ditty-input--layout_element {
+			&__container {
+				> .ditty-field {
+					width: 100%;
+				}
+			}
+		}
+		.ditty-field-type--checkboxes {
+			.ditty-field {
+				padding: 0 10px 0 0;
+				border: none;	
 			}
 		}
 	}

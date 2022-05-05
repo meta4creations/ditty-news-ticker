@@ -11,31 +11,27 @@
 // @codekit-append 'fields/slider.js
 // @codekit-append 'fields/wysiwyg.js
 // @codekit-append 'fields/group.js
+// @codekit-append 'fields/layout_element.js
 
-
-jQuery( function( $ ) {
-	
+jQuery(function($) {
 	// Setup strict mode
 	(function() {
+		'use strict';
 
-		"use strict";
-
-		$( 'body' ).on( 'click', '.ditty-help-icon', function( e ) {
+		$('body').on('click', '.ditty-help-icon', function(e) {
 			e.preventDefault();
 
-			var $icon = $( this ),
-					$label = $icon.parents( '.ditty-field__label' ),
-					$help = $label.siblings( '.ditty-field__help' );
+			var $icon = $(this),
+				$label = $icon.parents('.ditty-field__label'),
+				$help = $label.siblings('.ditty-field__help');
 
-			if ( $icon.hasClass( 'active' ) ) {
-				$icon.removeClass( 'active' );
+			if ($icon.hasClass('active')) {
+				$icon.removeClass('active');
 				$help.hide();
 			} else {
-				$icon.addClass( 'active' );
+				$icon.addClass('active');
 				$help.show();
 			}
-		} );
-
-	}() );
-	
-} );
+		});
+	})();
+});

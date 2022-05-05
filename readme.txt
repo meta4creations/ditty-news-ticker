@@ -66,6 +66,8 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.0.23 =
+
 = 3.0.22 =
 * Dashboard menu order updates
 
