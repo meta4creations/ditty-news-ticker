@@ -1,29 +1,93 @@
-=== Ditty (formerly Ditty News Ticker) ===
+=== Ditty - WordPress Content Display in a Ticker, Slider, List & More! ===
 Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
-Tags: ticker, post ticker, news ticker, content aggregator, latest posts, live refresh, rotator, data rotator, lists, data, aggregator
+Tags: ticker, post ticker, content slider, content list, responsive slider, content display
 Requires at least: 4.5
 Tested up to: 5.9.3
 Stable tag: 3.0.22
 License: GPL2
 
-Formerly Ditty News Ticker. Ditty is a multi-functional data display plugin.
+Formerly Ditty News Ticker, Ditty is a multi-functional content display WordPress plugin.
 
 == Description ==
 
-Formerly Ditty News Ticker. Ditty is a multi-functional data display plugin. Easily render custom data feeds to your site through a customizable news ticker, list, or slider.
+Formerly Ditty News Ticker, Ditty is a multi-functional content display WordPress plugin. Easily render your latest blog posts or custom content through multiple display options. Included display options are: News Ticker, Slider, and List. Add more content sources and display options through extensions. With extensions you can display RSS feeds, social media, image galleries, custom post types, and more to your site through the included displays or additional display extensions like grid and carousel.
 
-#### Item Types
-* Default - Add custom text to your Ditty.
-* WP Editor - Add custom text to your Ditty using the WP Editor.
-* WP Posts Feed - Add your latest blog posts to your Ditty.
+### Overview
 
-#### Display Types
-* Ticker - Create a unique news ticker using the Ticker Display type. Control the direction, spacing, speed, styling and many other options.
-* List - Create paged lists of your combined content. Multiple settings give you full control of the look and feel on your lists.
+Enhance your website with moving, scrolling, or sliding content. The Ditty plugin makes it easy to display your latest blog posts or custom text on your WordPress website. Display your content in a variety of customizable formats, including ticker, list, and slider. Customize your display with built-in options and use HTML or CSS to further customize the layouts of your content items. Choose from the variety of Ditty extensions to add even more or utilize Ditty Everything to access all features and display types. Ditty is compatible with all WordPress builders including the WordPress Block Editor (Gutenberg), Elementor, Divi, Beaver Builder, and more. Ditty is responsive and SEO friendly!
 
-#### Paid Extensions
-Additional plugins can be purchased to extend Ditty and it's functionality. Add more Item types, Display types, and utilities to enhance your Ditty. View all [**Extensions**](https://www.metaphorcreations.com/ditty/extensions/).
+### Included Display Types
+
+*   **Ticker** - Create a unique news ticker using the Ticker Display type. Control the direction, spacing, speed, styling, and many other options.
+*   **List** - Create paged lists of your combined content. Multiple settings give you full control of the look and feel on your lists.
+*   **Slider** - Display your content in a responsive slider. Get full control over your slider's speed, direction, and design.
+
+### Included Item Types
+
+*   **Default** - Add custom text to your Ditty.
+*   **WP Editor** - Add custom text to your Ditty using the WP Editor.
+*   **WP Posts Feed (Lite)** - Add your latest blog posts to your Ditty. Check out [**Ditty Posts**](https://www.metaphorcreations.com/downloads/ditty-posts/) for custom post types, advanced WordPress queries, custom fields, and more!
+
+### Add more features with Ditty Extensions!
+
+*   [**Ditty Facebook**](https://www.metaphorcreations.com/downloads/ditty-facebook/) - Easily add Facebook posts or images to your site using the Ditty Facebook extension. Add multiple Facebook feeds and Facebook albums.
+*   [**Ditty Grid**](https://www.metaphorcreations.com/downloads/ditty-grid/) - Display your Ditty items in a customizable and responsive grid
+*   [**Ditty Images**](https://www.metaphorcreations.com/downloads/ditty-images/) - Add internal and external images to your site through a Ditty.
+*   [**Ditty Instagram**](https://www.metaphorcreations.com/downloads/ditty-instagram/) - Ditty Instagram allows you to easily add your Instagram feed to your site.
+*   [**Ditty Posts**](https://www.metaphorcreations.com/downloads/ditty-posts/) - Easily add any posts to your site using the Ditty Posts extension. Build out a custom WP\_Query or select a specific post.
+*   [**Ditty RSS**](https://www.metaphorcreations.com/downloads/ditty-rss/) - Easily add multiple RSS feeds to your site.
+*   [**Ditty Timing**](https://www.metaphorcreations.com/downloads/ditty-timing/) - Use date ranges, weekly settings, and daily settings to schedule when your Ditty Items are visible or hidden.
+*   [**Ditty Twitter**](https://www.metaphorcreations.com/downloads/ditty-twitter/) - Easily add Twitter feeds and specific Tweets to your site.
+*   [**Ditty XML**](https://www.metaphorcreations.com/downloads/ditty-xml/) - Easily add multiple XML data feeds to your site.
+
+## Key Features
+
+Web developers and theme builders will love how Ditty's flexible and professional-looking display options help to enhance the look and feel of your website. Because of the HTML and CSS styling capabilities, the Ditty plugin will fit seamlessly into any WordPress website. Key plugin features include:
+
+### Live Updates
+
+Ditty will update in the background for users without the need to refresh the browser. Keep your content fresh and engaging.
+
+### Live Editing
+
+See the changes you make while editing your Ditty as you make them. Add Items, edit Layouts and Displays, and see what it looks like before saving.
+
+### Global Rendering
+
+Easily add your Ditty globally on your site, anywhere, without modifying theme files. Want a ticker scrolling at the top of your site, no problem!
+
+### Mix & Match Content
+
+Combine multiple content feeds or custom content in a single Ditty. Merging custom default Items and feeds from various Ditty extensions together has never been easier.
+
+### Customized Displays
+
+Render your Ditty as a custom ticker, list, slider, or other Display through extensions. Customize multiple settings to show your content the way you want.
+
+### Customized Layouts
+
+Take control of the style of your content. Every Ditty Item type can be customized to reflect the style of your site. Use a pre-made template, or edit and customize it to your needs!
+
+## Easy to Use
+
+The Ditty interface is intuitive and easy to navigate, making managing your content a quick and seamless experience. With a few clicks, you can add content, customize your settings, and see your changes in real-time. Whether you're new to WordPress or a seasoned pro, Ditty will help you to easily add content to your site.
+
+## SEO Friendly
+
+Ditty is built with SEO best practices in mind. With CSS and HTML editing options, you can customize your Ditties to match the style of your website, without compromising on SEO. Not only will you be able to customize your content with SEO in mind, but the plugin files are clean and won't bog down your website with bloated code.
+
+## Extensions
+
+Ditty comes with numerous extensions and growing! Easily add RSS feeds, social media content, images, blog posts, and more to your website through Ditty. With new extensions being added regularly, you'll be able to easily add the content that's important to you and your visitors.
+
+## Responsive & Mobile Friendly
+
+Ditty is responsive and mobile-friendly. All the Ditty display types will adapt to any screen size, including mobile devices. Whether your visitors are viewing Ditty on a desktop computer or using their smartphone, you can be sure that your content will be easily viewed and interactive.
+
+## Technical Support
+
+Whether you're having trouble with a basic plugin feature or customizing advanced display settings, our ongoing support team are here to answer your questions and help get your Ditty up and running on your website. The existing Ditty documentation is also available to help you get started, or if you need a little extra guidance. So what are you waiting for? Start adding Ditty to your WordPress site today and take control of your content!
 
 == Installation ==
 
