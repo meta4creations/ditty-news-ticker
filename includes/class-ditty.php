@@ -265,7 +265,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/helpers.php';
 		require_once DITTY_DIR . 'includes/hooks.php';
 		require_once DITTY_DIR . 'includes/layout-tags.php';
-		require_once DITTY_DIR . 'includes/layout-tag-fields.php';
+		//require_once DITTY_DIR . 'includes/layout-tag-fields.php';
 		require_once DITTY_DIR . 'includes/layout-tag-helpers.php';
 		require_once DITTY_DIR . 'includes/layout-tag-hooks.php';
 		require_once DITTY_DIR . 'includes/layout-tag-hooks-default.php';
@@ -437,15 +437,13 @@ class Ditty {
 		wp_enqueue_style( 'ditty', DITTY_URL . 'includes/css/ditty.css', array(), $this->version, 'all' );
 		wp_register_style( 'ditty-admin', DITTY_URL . 'includes/css/ditty-admin.css', array(), $this->version, 'all' );
 		
-		wp_register_style( 'fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
-		
 		wp_register_style( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.css', false, '1.4.21', false );	
 		wp_register_style( 'ion-rangeslider', DITTY_URL . 'includes/libs/ion.rangeSlider/css/ion.rangeSlider.min.css', false, '2.3.1', false );
 		wp_register_style( 'jquery-minicolors', DITTY_URL . 'includes/libs/jquery-minicolors/jquery.minicolors.css', false, '2.3.5', false );
 		
 		$disable_fontawesome = ditty_settings( 'disable_fontawesome' );
-		if ( ! $disable_fontawesome ) {
-			wp_enqueue_style( 'fontawesome' );
+		if ( ! is_admin() && ! $disable_fontawesome ) {
+			wp_enqueue_style( 'fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
 		}
 		
 		if ( is_admin() ) {
@@ -454,9 +452,7 @@ class Ditty {
 			wp_enqueue_style( 'ion-rangeslider' );
 			wp_enqueue_style( 'jquery-minicolors' );
 			wp_enqueue_style( 'ditty-admin' );
-			if ( $disable_fontawesome ) {
-				wp_enqueue_style( 'fontawesome' );
-			}
+			wp_enqueue_style( 'fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
 		}
 	}
 	
