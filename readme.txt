@@ -131,7 +131,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 == Changelog ==
 
 = 3.0.23 =
-* Fontawesome updates
+* Fontawesome slug update
 
 = 3.0.22 =
 * Dashboard menu order updates
@@ -781,4 +781,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Dashboard menu order updates
+Fontawesome slug update
