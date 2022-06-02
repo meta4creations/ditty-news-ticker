@@ -65,7 +65,7 @@ function ditty_item_type_layout_tag_fields( $fields, $item_type, $values ) {
 				'default_state'			=> 'collapsed',
 				'name' 	=> $tag_name,
 				//'help' 	=> esc_html__( 'Configure the display of the author avatar tag.', 'ditty-news-ticker' ),
-				'fields' => apply_filters( 'ditty_layout_tag_author_avatar_fields', $attribute_fields, $values ),
+				'fields' => apply_filters( 'ditty_layout_tag_attribute_fields', $attribute_fields, $tag, $values ),
 			);
 		}
 	}

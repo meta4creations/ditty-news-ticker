@@ -1,10 +1,10 @@
-=== Ditty - WordPress Content Display in a Ticker, Slider, List & More! ===
+=== Ditty – WordPress Ticker Plugin – Dynamic Content Display ===
 Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, post ticker, content slider, content list, responsive slider, content display
 Requires at least: 4.5
-Tested up to: 5.9.3
-Stable tag: 3.0.23
+Tested up to: 6.0
+Stable tag: 3.0.24
 License: GPL2
 
 Formerly Ditty News Ticker, Ditty is a multi-functional content display WordPress plugin.
@@ -32,7 +32,7 @@ Enhance your website with moving, scrolling, or sliding content. The Ditty plugi
 ### Add more features with Ditty Extensions!
 
 *   [**Ditty Facebook**](https://www.metaphorcreations.com/downloads/ditty-facebook/) - Easily add Facebook posts or images to your site using the Ditty Facebook extension. Add multiple Facebook feeds and Facebook albums.
-*   [**Ditty Grid**](https://www.metaphorcreations.com/downloads/ditty-grid/) - Display your Ditty items in a customizable and responsive grid
+*   [**Ditty Grid**](https://www.metaphorcreations.com/downloads/ditty-grid/) - Display your Ditty items in a customizable and responsive grid.
 *   [**Ditty Images**](https://www.metaphorcreations.com/downloads/ditty-images/) - Add internal and external images to your site through a Ditty.
 *   [**Ditty Instagram**](https://www.metaphorcreations.com/downloads/ditty-instagram/) - Ditty Instagram allows you to easily add your Instagram feed to your site.
 *   [**Ditty Posts**](https://www.metaphorcreations.com/downloads/ditty-posts/) - Easily add any posts to your site using the Ditty Posts extension. Build out a custom WP\_Query or select a specific post.
@@ -129,6 +129,10 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 15. Advanced Settings
 
 == Changelog ==
+
+= 3.0.24 =
+* Title update
+* Version update
 
 = 3.0.23 =
 * Fontawesome slug update
@@ -781,4 +785,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Fontawesome slug update
+Title and version update
