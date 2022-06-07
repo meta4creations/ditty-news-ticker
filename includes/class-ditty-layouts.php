@@ -1006,7 +1006,7 @@ class Ditty_Layouts {
 	 * Save layout draft values on Ditty update
 	 *
 	 * @access public
-	 * @since  3.0.13
+	 * @since  3.0.25
 	 */
 	public function update_drafts( $ditty_id, $draft_values ) {
 		if ( ! current_user_can( 'edit_ditty_layouts' ) ) {
@@ -1054,7 +1054,7 @@ class Ditty_Layouts {
 					
 					// Update a layout html
 					if ( isset( $layout_data['html'] ) ) {
-						$html = str_replace( '\\', '\\\\', $layout_data['html'] );
+						$html = stripslashes( $layout_data['html'] );
 						update_post_meta( $layout_id, '_ditty_layout_html', wp_kses_post( $html ) );
 					}
 					

@@ -427,7 +427,7 @@ class Ditty_Layout {
 		$tags		= $this->get_layout_tags();
 		$html		= $this->get_html();	
 		$data 	= $this->get_item_value();	
-		
+
 		// Return an error if there is one
 		if ( isset( $data['ditty_feed_error'] ) ) {
 			return $data['ditty_feed_error'];
