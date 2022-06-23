@@ -9,16 +9,12 @@
 // @codekit-append 'admin/ditty-displays.js';
 // @codekit-append 'admin/ditty-wizard.js';
 
-jQuery( function( $ ) {
-	
+jQuery(function($) {
 	// Setup strict mode
 	(function() {
+		'use strict';
 
-    "use strict";
-
-		$( '#poststuff' ).trigger( 'ditty_init_fields' );
-		$( '#ditty-settings' ).ditty_settings();
-
-	}() );
-	
-} );
+		$('#poststuff').trigger('ditty_init_fields');
+		$('#ditty-settings').ditty_settings();
+	})();
+});

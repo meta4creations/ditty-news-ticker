@@ -2,7 +2,7 @@
 
 /**
  * Add custom post types
- * @since   3.0
+ * @since   3.0.26
  */
 
 function ditty_setup_post_types() {
@@ -77,9 +77,6 @@ function ditty_setup_post_types() {
 		'supports' 						=> array( 'title' ),
 		'show_in_rest' 				=> true,
 	);
-	// if ( 'enabled' == ditty_settings( 'ditty_layout_ui' ) || $is_settings_page ) {
-	// 	$args['show_ui'] = true;
-	// }
 	register_post_type( 'ditty_layout', $args );
 	
 	
@@ -112,9 +109,6 @@ function ditty_setup_post_types() {
 		'supports' 						=> array( 'title' ),
 		'show_in_rest' 				=> true,
 	);
-	// if ( 'enabled' == ditty_settings( 'ditty_display_ui' ) || $is_settings_page ) {
-	// 	$args['show_ui'] = true;
-	// }
 	register_post_type( 'ditty_display', $args );
 }
 add_action( 'init', 'ditty_setup_post_types' );

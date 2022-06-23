@@ -131,6 +131,8 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 == Changelog ==
 
 = 3.0.26 =
+* Resolved bug in single Display edit page
+* Removed unecessary code
 
 = 3.0.25 =
 * Resolved Layout save bug that was removing attributes

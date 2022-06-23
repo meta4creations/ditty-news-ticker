@@ -309,7 +309,7 @@ class Ditty_Displays {
 		unset( $settings['action'] );
 		unset( $settings['display_id'] );
 		unset( $settings['security'] );
-		
+
 		$json_data = array();
 		$display_type = get_post_meta( $display_id_ajax, '_ditty_display_type', true );
 		if ( $display_type_object = ditty_display_type_object( $display_type ) ) {
