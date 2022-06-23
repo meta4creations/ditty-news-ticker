@@ -232,16 +232,16 @@ table.wp-list-table .type-ditty_display .row-actions {
   width: 30px;
 }
 .datepicker-panel > ul > li:hover {
-  background-color: #e5f2ff;
+  background-color: rgb(229, 242, 255);
 }
 .datepicker-panel > ul > li.muted, .datepicker-panel > ul > li.muted:hover {
   color: #999;
 }
 .datepicker-panel > ul > li.highlighted {
-  background-color: #e5f2ff;
+  background-color: rgb(229, 242, 255);
 }
 .datepicker-panel > ul > li.highlighted:hover {
-  background-color: #cce5ff;
+  background-color: rgb(204, 229, 255);
 }
 .datepicker-panel > ul > li.picked, .datepicker-panel > ul > li.picked:hover {
   color: #39f;
@@ -252,7 +252,7 @@ table.wp-list-table .type-ditty_display .row-actions {
   cursor: default;
 }
 .datepicker-panel > ul > li.disabled.highlighted, .datepicker-panel > ul > li.disabled:hover.highlighted {
-  background-color: #e5f2ff;
+  background-color: rgb(229, 242, 255);
 }
 .datepicker-panel > ul > li[data-view="years prev"], .datepicker-panel > ul > li[data-view="year prev"], .datepicker-panel > ul > li[data-view="month prev"], .datepicker-panel > ul > li[data-view="years next"], .datepicker-panel > ul > li[data-view="year next"], .datepicker-panel > ul > li[data-view="month next"], .datepicker-panel > ul > li[data-view=next] {
   font-size: 18px;
@@ -362,7 +362,7 @@ table.wp-list-table .type-ditty_display .row-actions {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #23282e;
+  background: rgb(35, 40, 46);
   backdrop-filter: blur(5px);
   transition: background-color 0.5s ease;
   border-top-left-radius: 5px;
@@ -731,7 +731,7 @@ table.wp-list-table .type-ditty_display .row-actions {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #23282e;
+  background: rgb(35, 40, 46);
   backdrop-filter: blur(5px);
   transition: background-color 0.5s ease;
 }

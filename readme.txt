@@ -130,8 +130,10 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.0.26 =
+
 = 3.0.25 =
-* Resolve Layout save bug that was removing attributes
+* Resolved Layout save bug that was removing attributes
 * Default Ticker display settings update
 
 = 3.0.24 =

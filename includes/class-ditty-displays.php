@@ -250,7 +250,7 @@ class Ditty_Displays {
 	/**
 	 * Save custom meta
 	 * 
-	 * @since  3.0
+	 * @since  3.0.26
 	 * @return void
 	 */
 	public function metabox_save( $post_id ) {
@@ -274,6 +274,11 @@ class Ditty_Displays {
 			}
 		} elseif ( ! current_user_can( 'edit_ditty_display', $post_id ) ) {
 			return $post_id;
+		}
+		
+		if ( isset( $_POST['_ditty_display_type'] ) ) {
+			$display_type = sanitize_text_field( $_POST['_ditty_display_type'] );
+			update_post_meta( $post_id, '_ditty_display_type', $display_type );
 		}
 
 		if ( isset( $_POST['_ditty_display_description'] ) ) {
@@ -319,29 +324,46 @@ class Ditty_Displays {
 	}
 	
 	/**
-	 * Add the Layout info metabox
+	 * Add the Display info metabox
 	 * 
-	 * @since  3.0
+	 * @since  3.0.26
 	 * @return void
 	 */
 	public function metabox_display_info() {
 		global $post;
+		$display_types = ditty_display_types();
+		$display_types_array = array(
+			'' => esc_html__( 'Select a Display Type', 'ditty-news-ticker' ),
+		);
+		if ( is_array( $display_types ) && count( $display_types ) > 0 ) {
+			foreach ( $display_types as $i => $display_type ) {
+				$display_types_array[$i] = $display_type['label'];
+			}
+		}
+		
 		$display_type = get_post_meta( $post->ID, '_ditty_display_type', true );
 		$display_description = get_post_meta( $post->ID, '_ditty_display_description', true );
-		if ( $display_type_object = ditty_display_type_object( $display_type ) ) {
-			$display_name = $display_type_object->get_label();
-		}
-	
+		$display_name = ( $display_type && isset( $display_types[$display_type] ) ) ? $display_types[$display_type]['label'] : false;
+
 		$fields = array();
-		$fields['type'] = array(
-			'type' 	=> 'text',
-			'id'		=> '_ditty_display_type',
-			'name' 	=> __( 'Display Type', 'ditty-news-ticker' ),
-			'std' 	=> $display_name,
-			'atts'	=> array(
-				'disabled' => 'disabled',
-			),
-		);
+		if ( $display_name ) {
+			$fields['type'] = array(
+				'type' 	=> 'text',
+				'id'		=> '_ditty_display_type',
+				'name' 	=> __( 'Display Type', 'ditty-news-ticker' ),
+				'std' 	=> $display_name,
+				'atts'	=> array(
+					'disabled' => 'disabled',
+				),
+			);
+		} else {
+			$fields['type'] = array(
+				'type' 	=> 'select',
+				'id'		=> '_ditty_display_type',
+				'name' 	=> __( 'Display Type', 'ditty-news-ticker' ),
+				'options'	=> $display_types_array,
+			);
+		}
 		$fields['description'] = array(
 			'type' 	=> 'textarea',
 			'id'		=> '_ditty_display_description',
@@ -361,14 +383,22 @@ class Ditty_Displays {
 	public function metabox_display_settings() {
 		global $post;
 		$display_type = get_post_meta( $post->ID, '_ditty_display_type', true );
-		if ( $display_type_object = ditty_display_type_object( $display_type ) ) {
-			$display_settings = get_post_meta( $post->ID, '_ditty_display_settings', true );
-			$setting_fields = $display_type_object->fields( $display_settings );
-			echo "<div class='ditty-display-admin-settings ditty-display-admin-settings--{$display_type}'>";
-				ditty_fields( $setting_fields );
-			echo '</div>';
+		if ( $display_type ) {
+			if ( $display_type_object = ditty_display_type_object( $display_type ) ) {
+				$display_settings = get_post_meta( $post->ID, '_ditty_display_settings', true );
+				if ( ! is_array( $display_settings ) ) {
+					$display_settings = array();
+				}
+				$display_settings = shortcode_atts( $display_type_object->default_settings(), $display_settings );
+				$setting_fields = $display_type_object->fields( $display_settings );
+				echo "<div class='ditty-display-admin-settings ditty-display-admin-settings--{$display_type}'>";
+					ditty_fields( $setting_fields );
+				echo '</div>';
+			} else {
+				echo sprintf( __( '% display type does not exist.', 'ditty-news-ticier' ), $display_type );
+			}
 		} else {
-			echo sprintf( __( '% display type does not exist.', 'ditty-news-ticier' ), $display_type );
+			echo '<p style="padding:8px 12px;margin:0;">' . esc_html__( 'Select a Display Type in the Display Info metabox and save the post to view settings.', 'ditty-news-ticker' ) . '</p>';
 		}
 	}
 
