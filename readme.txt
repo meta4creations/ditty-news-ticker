@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: ticker, post ticker, content slider, content list, responsive slider, content display
 Requires at least: 4.5
 Tested up to: 6.0
-Stable tag: 3.0.24
+Stable tag: 3.0.26
 License: GPL2
 
 Formerly Ditty News Ticker, Ditty is a multi-functional content display WordPress plugin.
@@ -132,7 +132,8 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 = 3.0.26 =
 * Resolved bug in single Display edit page
-* Removed unecessary code
+* Updated display editor code
+* Removed unnecessary code
 
 = 3.0.25 =
 * Resolved Layout save bug that was removing attributes
@@ -793,4 +794,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Title and version update
+Resolved bug in single Display edit page
