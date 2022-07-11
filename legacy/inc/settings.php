@@ -207,12 +207,13 @@ function mtphr_dnt_general_settings_css( $args ) {
 
 
 /* --------------------------------------------------------- */
-/* !Sanitize the setting fields - 2.2.10 */
+/* !Sanitize the setting fields - 3.0.27 */
 /* --------------------------------------------------------- */
 
-if( !function_exists('mtphr_dnt_general_settings_sanitize') ) {
 function mtphr_dnt_general_settings_sanitize( $fields ) {
-
+	if ( ! is_array( $fields ) ) {
+		$fields = array();
+	}
 	$fields['css'] = isset( $fields['css'] ) ? wp_kses_post($fields['css']) : '';
 	
 	// Clear the permalinks
@@ -223,7 +224,6 @@ function mtphr_dnt_general_settings_sanitize( $fields ) {
 	}
 
 	return $fields;
-}
 }
 
 
