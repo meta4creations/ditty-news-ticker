@@ -32,7 +32,7 @@ add_action( 'delete_post', 'ditty_delete_post_items' );
 /**
  * Check post content for Ditty blocks
  *
- * @since    3.0
+ * @since    3.0.27
  * @access   public
  * @var      null
 */
@@ -50,7 +50,7 @@ function ditty_check_content_for_blocks() {
 			if ( ! is_array( $widget_block ) ) {
 				continue;
 			}
-			$blocks = parse_blocks( $widget_block['content'] );
+			$blocks = isset( $widget_block['content'] ) ? parse_blocks( $widget_block['content'] ) : false;
 			if ( is_array( $blocks ) && count( $blocks ) > 0 ) {
 				foreach ( $blocks as $i => $block ) {
 					if ( 'metaphorcreations/ditty-block' === $block['blockName'] ) {
