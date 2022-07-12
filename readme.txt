@@ -798,4 +798,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Resolved bug in single Display edit page
+Bug fixes
