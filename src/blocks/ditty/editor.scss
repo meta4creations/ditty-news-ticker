@@ -1,17 +1,15 @@
 $ditty_primary: #39b44a;
-.ditty-logo--white,
-.ditty-icon--white {
-  fill: #FFF !important;
-}
-.ditty-logo--green,
-.ditty-icon--green {
-  fill: $ditty_primary !important;
-}
-.wp-block-metaphorcreations-ditty-block {
-  background: rgba( 255, 255, 255, .8 );
+.wp-block-metaphorcreations-ditty {
   border: 2px solid $ditty_primary;
-  padding: 20px;
-  &__info {
+	.ditty-logo {
+		width: 100px;
+		margin-bottom: 15px;
+	}
+	&__contents {
+		background: rgba( 255, 255, 255, .8 );
+  	padding: 20px;
+	}
+	&__info {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -25,8 +23,7 @@ $ditty_primary: #39b44a;
     padding: 5px 10px;
     margin-right: 5px;
   }
-  &__controls {
-    margin-top: 15px;
+	&__controls {
     label {
       width: 60px;
       font-weight: bold;
@@ -35,9 +32,5 @@ $ditty_primary: #39b44a;
   select {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
-  }
-  svg {
-    max-height: 60px;
-    margin-right: 10px;
   }
 }

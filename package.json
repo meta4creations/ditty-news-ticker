@@ -1,27 +1,23 @@
 {
-  "name": "ditty-blocks",
-  "version": "1.0",
-  "license": "MIT",
-  "main": "blocks/index.js",
+  "name": "ditty",
+  "version": "3.0.27",
+  "description": "Blocks and other scripts for Ditty.",
+  "author": "Metaphor Creations, LLC",
+  "license": "GPL-2.0-or-later",
   "scripts": {
-    "dev": "cross-env webpack --watch",
-    "build": "cross-env NODE_ENV=production webpack -p"
+    "build": "wp-scripts build",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "start": "wp-scripts start",
+    "packages-update": "wp-scripts packages-update"
+  },
+  "dependencies": {
+    "@wordpress/block-editor": "9.8.0",
+    "@wordpress/blocks": "11.15.0",
+    "@wordpress/i18n": "4.16.0"
   },
   "devDependencies": {
-    "@wordpress/babel-preset-default": "^1.2.0",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.3",
-    "babel-loader": "^7.1.4",
-    "classnames": "^2.2.5",
-    "cross-env": "^5.1.5",
-    "css-loader": "^0.28.11",
-    "eslint": "^4.19.1",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "node-sass": "^4.9.0",
-    "postcss-loader": "^2.1.5",
-    "raw-loader": "^0.5.1",
-    "sass-loader": "^6.0.7",
-    "style-loader": "^0.19.1",
-    "webpack": "^3.11.0"
+    "@wordpress/scripts": "24.0.0"
   }
 }

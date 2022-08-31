@@ -178,11 +178,11 @@ jQuery( function( $ ) {
 				if ( data.live_updates && '1' === String( data.live_updates ) ) {
 					$ditty.attr( 'data-live_updates', '1' );
 				}
-				if ( data.customId && '' !== data.customId ) {
-					$ditty.attr( 'id', data.customId );
+				if ( data.custom_id && '' !== data.custom_id ) {
+					$ditty.attr( 'id', data.custom_id );
 				}
-				if ( data.customClasses && '' !== data.customClasses ) {
-					$ditty.addClass( data.customClasses );
+				if ( data.custom_classes && '' !== data.custom_classes ) {
+					$ditty.addClass( data.custom_classes );
 				}
 				switch( data.position ) {
 					case 'prepend':

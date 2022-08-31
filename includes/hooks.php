@@ -71,7 +71,7 @@ function ditty_check_content_for_blocks() {
 	$blocks = parse_blocks( $post->post_content );
 	if ( is_array( $blocks ) && count( $blocks ) > 0 ) {
 		foreach ( $blocks as $i => $block ) {
-			if ( 'metaphorcreations/ditty-block' === $block['blockName'] ) {
+			if ( 'metaphorcreations/ditty' === $block['blockName'] ) {
 				$ditty = $block['attrs']['ditty'];
 				$display = isset( $block['attrs']['display'] ) ? $block['attrs']['display'] : '';
 				ditty_add_scripts( $ditty, $display );

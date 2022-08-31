@@ -1305,6 +1305,7 @@ function ditty_render( $atts ) {
 		'layout_settings' 	=> '',
 		'uniqid' 						=> '',
 		'class' 						=> '',
+		'el_id'							=> '',
 		'show_editor' 			=> 0,
 	);
 	$args = shortcode_atts( $defaults, $atts );
@@ -1336,6 +1337,7 @@ function ditty_render( $atts ) {
 	ditty_add_scripts( $args['id'], $args['display']);
 	
 	$ditty_atts = array(
+		'id'										=> ( '' != $args['el_id'] ) ? sanitize_title( $args['el_id'] ) : false,
 		'class' 								=> $class,
 		'data-id' 							=> $args['id'],
 		'data-uniqid' 					=> $args['uniqid'],
