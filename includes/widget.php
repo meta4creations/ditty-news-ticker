@@ -14,7 +14,8 @@ class ditty_widget extends WP_Widget {
 			__( 'Ditty', 'ditty-news-ticker' ),
 			array(
 				'classname' => 'ditty-widget',
-				'description' => __( 'Displays a Ditty.', 'ditty-news-ticker' )
+				'description' => __( 'Displays a Ditty.', 'ditty-news-ticker' ),
+				'show_instance_in_rest' => false,
 			)
 		);
 	}

@@ -9,6 +9,27 @@ registerBlockType("metaphorcreations/ditty", {
 	icon: {
 		src: icons.iconGreen,
 	},
+	// transforms: {
+	// 		from: [
+	// 				{
+	// 						type: 'block',
+	// 						blocks: [ 'core/legacy-widget' ],
+	// 						isMatch: ( { idBase, instance } ) => {
+	// 								if ( ! instance?.raw ) {
+	// 										// Can't transform if raw instance is not shown in REST API.
+	// 										return false;
+	// 								}
+	// 								return idBase === 'ditty-widget';
+	// 						},
+	// 						transform: ( { instance } ) => {
+	// 								return createBlock( 'metaphorcreations/ditty', {
+	// 										ditty: instance.raw.ditty,
+	// 										display: instance.raw.display,
+	// 								} );
+	// 						},
+	// 				},
+	// 		]
+	// },
 	edit: Edit,
 	save,
 });
