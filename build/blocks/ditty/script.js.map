@@ -1,1 +1,0 @@
-{"version":3,"file":"blocks/ditty/script.js","mappings":";;;;;AAAAA,OAAO,CAACC,GAAR,CAAY,SAAZ,E","sources":["webpack://ditty/./src/blocks/ditty/script.js"],"sourcesContent":["console.log(\"testing\");\n"],"names":["console","log"],"sourceRoot":""}

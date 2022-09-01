@@ -14,8 +14,9 @@ import "./editor.scss";
 export default function Edit({
 	isSelected,
 	setAttributes,
-	attributes: { ditty, display, customID, customClasses },
+	attributes,
 }) {
+	const { ditty, display, customID, customClasses } = attributes;
 	const [dittyPosts, setDittyPosts] = useState([]);
 	const [displayPosts, setDisplayPosts] = useState([]);
 

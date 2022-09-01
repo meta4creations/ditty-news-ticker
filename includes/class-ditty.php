@@ -577,7 +577,7 @@ class Ditty {
 	/**
 	 * Enqueue global scripts for any Ditty's displayed
 	 *
-	 * @since    3.0.14
+	 * @since    3.0.28
 	 */
 	public function enqueue_global_scripts() {
 		
@@ -599,11 +599,11 @@ class Ditty {
 		}
 		if ( is_array( $ditty_display_scripts ) && count( $ditty_display_scripts ) > 0 ) {	
 			$add_ditty = false;
-			foreach ( $ditty_display_scripts as $i => $ditty_display_script ) {
-				if ( empty( $ditty_display_script ) ) {
+			foreach ( $ditty_display_scripts as $i => $display_type ) {
+				if ( empty( $display_type ) ) {
 					continue;
 				}
-				wp_print_scripts( "ditty-display-{$ditty_display_script}" );
+				wp_print_scripts( "ditty-display-{$display_type}" );
 				$add_ditty = true;
 			}
 			if ( $add_ditty ) {
