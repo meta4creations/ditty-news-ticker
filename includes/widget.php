@@ -3,21 +3,18 @@
 /**
  * Create a class for the widget
  *
- * @since 3.0.8
+ * @since 3.0.28
  */
 class ditty_widget extends WP_Widget {
 		
 	/** Constructor */
 	function __construct() {
-		parent::__construct(
-			'ditty-widget',
-			__( 'Ditty', 'ditty-news-ticker' ),
-			array(
-				'classname' => 'ditty-widget',
-				'description' => __( 'Displays a Ditty.', 'ditty-news-ticker' ),
-				'show_instance_in_rest' => true,
-			)
+		$widget_ops = array(
+			'description'                 => __( 'Add a navigation menu to your sidebar.' ),
+			'customize_selective_refresh' => true,
+			'show_instance_in_rest'       => true,
 		);
+		parent::__construct( 'ditty-widget', __( 'Ditty', 'ditty-news-ticker' ), $widget_ops );
 	}
 		
 	/** @see WP_Widget::widget */
@@ -30,6 +27,10 @@ class ditty_widget extends WP_Widget {
 		
 		$ditty = isset( $instance['ditty'] ) ? $instance['ditty'] : '';
 		$display = isset( $instance['display'] ) ? $instance['display'] : '';
+		
+		if ( '' == $ditty ) {
+			return;
+		}
 		
 		ob_start();
 		
@@ -127,4 +128,12 @@ function ditty_widget_init() {
 	register_widget( 'ditty_widget' );
 }
 add_action( 'widgets_init', 'ditty_widget_init' );
+
+
+function ditty_hide_widget( $widget_types ) {
+	$widget_types[] = 'ditty-widget';
+	return $widget_types;
+}
+//add_filter( 'widget_types_to_hide_from_legacy_widget_block', 'ditty_hide_widget' );
+
 
