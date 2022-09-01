@@ -15,14 +15,13 @@ class ditty_widget extends WP_Widget {
 			array(
 				'classname' => 'ditty-widget',
 				'description' => __( 'Displays a Ditty.', 'ditty-news-ticker' ),
-				'show_instance_in_rest' => false,
+				'show_instance_in_rest' => true,
 			)
 		);
 	}
 		
 	/** @see WP_Widget::widget */
 	function widget( $args, $instance ) {
-		
 		extract( $args );
 	
 		// User-selected settings	
