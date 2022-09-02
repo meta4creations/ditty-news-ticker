@@ -3,8 +3,8 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: ticker, post ticker, content slider, content list, responsive slider, content display
 Requires at least: 4.5
-Tested up to: 6.0
-Stable tag: 3.0.27
+Tested up to: 6.0.2
+Stable tag: 3.0.28
 License: GPL2
 
 Formerly Ditty News Ticker, Ditty is a multi-functional content display WordPress plugin.
@@ -131,7 +131,8 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 == Changelog ==
 
 = 3.0.28 =
-* Added Ditty block
+* Added Ditty widget block
+* Added functionality to convert classic widget to block
 
 = 3.0.27 =
 * Bug fix in legacy settings code
