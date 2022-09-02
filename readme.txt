@@ -802,4 +802,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Bug fixes
+Added Ditty widget block 

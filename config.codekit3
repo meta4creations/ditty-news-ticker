@@ -1053,40 +1053,6 @@
       "sC" : 3,
       "tS" : 0
     },
-    "\/includes\/js\/editor.blocks.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/editor.blocks-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/includes\/js\/editor.blocks.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/editor.blocks.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor.blocks.min.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/editor.blocks.min.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
     "\/includes\/js\/editor\/class-ditty-display-editor-panel.js" : {
       "bF" : 0,
       "ft" : 64,
@@ -1215,28 +1181,6 @@
       "mi" : 0,
       "oA" : 1,
       "oAP" : "\/includes\/js\/editor\/helpers.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/frontend.blocks.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/frontend.blocks.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/frontend.blocks.min.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/frontend.blocks.min.min.js",
       "oF" : 0,
       "sC" : 3,
       "tS" : 0
