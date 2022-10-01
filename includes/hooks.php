@@ -151,6 +151,9 @@ function ditty_dashboard_menu_classes( $classes ) {
 	if ( 'disabled' == ditty_settings( 'ditty_display_ui' ) ) {
 		$classes .= ' ditty_display_ui--disabled';
 	}
+	if ( isset( $_GET['dittyDev'] ) ) {
+		$classes .= ' dittyDev';
+	}
 	return $classes;
 }
 add_filter( 'admin_body_class', 'ditty_dashboard_menu_classes', 99 );

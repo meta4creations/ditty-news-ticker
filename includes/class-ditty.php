@@ -364,12 +364,21 @@ class Ditty {
 	 * @access   private
 	 */
 	private function define_global_hooks() {
-		$this->loader->add_action( 'admin_enqueue_scripts', $this, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $this, 'enqueue_styles' );	
-		$this->loader->add_action( 'admin_enqueue_scripts', $this, 'enqueue_scripts' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $this, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_footer', $this, 'enqueue_global_scripts', 20 );
-		$this->loader->add_action( 'wp_footer', $this, 'enqueue_global_scripts', 20 );
+		if ( is_ditty_dev() ) {
+			$this->loader->add_action( 'admin_enqueue_scripts', $this, 'dev_enqueue_styles' );
+			$this->loader->add_action( 'wp_enqueue_scripts', $this, 'dev_enqueue_styles' );	
+			$this->loader->add_action( 'admin_enqueue_scripts', $this, 'dev_enqueue_scripts' );
+			$this->loader->add_action( 'wp_enqueue_scripts', $this, 'dev_enqueue_scripts' );
+			$this->loader->add_action( 'admin_footer', $this, 'dev_enqueue_global_scripts', 20 );
+			$this->loader->add_action( 'wp_footer', $this, 'dev_enqueue_global_scripts', 20 );
+		} else {
+			$this->loader->add_action( 'admin_enqueue_scripts', $this, 'enqueue_styles' );
+			$this->loader->add_action( 'wp_enqueue_scripts', $this, 'enqueue_styles' );	
+			$this->loader->add_action( 'admin_enqueue_scripts', $this, 'enqueue_scripts' );
+			$this->loader->add_action( 'wp_enqueue_scripts', $this, 'enqueue_scripts' );
+			$this->loader->add_action( 'admin_footer', $this, 'enqueue_global_scripts', 20 );
+			$this->loader->add_action( 'wp_footer', $this, 'enqueue_global_scripts', 20 );
+		}
 	}
 
 	/**
@@ -629,6 +638,132 @@ class Ditty {
 			</script>
 			<?php
 		}	
+	}
+	
+	
+	/**
+	 * Register the stylesheets.
+	 *
+	 * @since    3.1
+	 */
+	public function dev_enqueue_styles() {	
+		wp_enqueue_style(
+			'ditty-editor', DITTY_URL . 'build/dittyEditor.css',
+			['wp-components'],
+			$this->version,
+			'all'
+		);
+		wp_enqueue_style(
+			'ditty', DITTY_URL . 'build/ditty.css',
+			[],
+			$this->version,
+			'all'
+		);
+		wp_enqueue_style(
+			'ditty-display-ticker',
+			DITTY_URL . 'build/dittyDisplayTicker.css',
+			['ditty'],
+			$this->version,
+			'all'
+		);
+
+		$disable_fontawesome = ditty_settings( 'disable_fontawesome' );
+		if ( ! is_admin() && ! $disable_fontawesome ) {
+			wp_enqueue_style( 'ditty-fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
+		}
+		
+		if ( is_admin() ) {
+			//wp_enqueue_style( 'ditty-admin', DITTY_URL . 'includes/css/ditty-admin.css', array(), $this->version, 'all' );
+			wp_enqueue_style( 'ditty-fontawesome', 'https://use.fontawesome.com/releases/v5.15.3/css/all.css', false, '5.15.3', false );
+		}
+	}
+	
+	/**
+	 * Register the JavaScript for the public-facing side of the site.
+	 *
+	 * @since    3.1
+	 */
+	public function dev_enqueue_scripts( $hook ) {
+		global $ditty_scripts_enqueued;
+
+		wp_register_script( 'ditty',
+			DITTY_URL . 'build/ditty.js',
+			['wp-hooks', 'jquery-effects-core', 'jquery'],
+			$this->version,
+			true
+		);
+		wp_register_script(
+			'ditty-display-ticker',
+			DITTY_URL . 'build/dittyDisplayTicker.js',
+			['ditty'],
+			$this->version,
+			true
+		);
+		wp_register_script(
+			'ditty-item-type',
+			DITTY_URL . 'build/dittyItemType.js',
+			['ditty'],
+			$this->version,
+			true
+		);
+		wp_register_script( 'ditty-editor',
+			DITTY_URL . 'build/dittyEditor.js',
+			['wp-element', 'wp-components', 'wp-hooks', 'ditty', 'ditty-item-type'],
+			$this->version,
+			true
+		);
+	
+		if ( is_admin() ) {
+
+			// Disable autosave for Ditty posts
+			if ( ditty_editing() ) {
+				wp_dequeue_script( 'autosave' );	
+				wp_enqueue_script( 'ditty' );
+				wp_enqueue_script( 'ditty-display-ticker' );
+				wp_enqueue_script( 'ditty-editor' );
+				wp_enqueue_script( 'ditty-item-type' );
+			}	
+		}
+		
+		$ditty_scripts_enqueued = 'enqueued';
+	}
+
+	/**
+	 * Enqueue global scripts for any Ditty's displayed
+	 *
+	 * @since    31
+	 */
+	public function dev_enqueue_global_scripts() {
+		
+		// Add item scripts
+		global $ditty_item_scripts;
+		if ( empty( $ditty_item_scripts ) ) {
+			$ditty_item_scripts = array();
+		}
+		
+		// Add display scripts
+		global $ditty_display_scripts;
+		if ( empty( $ditty_display_scripts ) ) {
+			$ditty_display_scripts = array();
+		}
+		if ( is_array( $ditty_item_scripts ) && count( $ditty_item_scripts ) > 0 ) {
+			foreach ( $ditty_item_scripts as $i => $ditty_item_script ) {
+				wp_print_scripts( "ditty-{$ditty_item_script}" );
+			}
+		}
+		if ( is_array( $ditty_display_scripts ) && count( $ditty_display_scripts ) > 0 ) {	
+			$add_ditty = false;
+			foreach ( $ditty_display_scripts as $i => $display_type ) {
+				if ( empty( $display_type ) ) {
+					continue;
+				}
+				wp_print_scripts( "ditty-display-{$display_type}" );
+				$add_ditty = true;
+			}
+			if ( $add_ditty ) {
+				wp_print_scripts( 'ditty' );
+			}
+		}
 	}
 
 }

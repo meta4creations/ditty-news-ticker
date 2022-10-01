@@ -213,7 +213,6 @@ jQuery( function( $ ) {
 			setupGlobalDitty();
 
 			$( '.ditty' ).each( function() {
-				console.log( $( this )[0]);
 				var $ditty 						= $( this ),
 						ajax_load 				= $ditty.data( 'ajax_load' ) 		? $ditty.data( 'ajax_load' ) 		: false,
 						live_updates 			= $ditty.data( 'live_updates' ) ? $ditty.data( 'live_updates' ) : false,

@@ -38,6 +38,7 @@ if ( ! defined( 'DITTY_FILE' ) ) {
 	define( 'DITTY_FILE', __FILE__ );
 }
 
+
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-ditty-activator.php

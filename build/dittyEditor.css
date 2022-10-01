@@ -1,0 +1,129 @@
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/editor/css/editor.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
+.toplevel_page_ditty {
+  background: #fff;
+}
+.toplevel_page_ditty #wpcontent {
+  display: flex;
+  flex-direction: row;
+  padding-left: 0;
+}
+.toplevel_page_ditty #wpbody {
+  flex: 1;
+}
+.toplevel_page_ditty #wpbody-content {
+  padding: 0;
+  float: none;
+}
+
+#ditty-page {
+  padding-right: 350px;
+  box-sizing: border-box;
+}
+#ditty-page * {
+  box-sizing: border-box;
+}
+#ditty-page__header {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid #ccc;
+}
+#ditty-page__header h2 {
+  margin: 0;
+}
+#ditty-page__content {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+#ditty-preview {
+  flex: 1;
+}
+
+#ditty-editor {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 350px;
+  background: #f7f7f7;
+  border-left: 1px solid #ccc;
+  box-sizing: border-box;
+}
+#ditty-editor * {
+  box-sizing: border-box;
+}
+.wp-admin #ditty-editor {
+  top: 32px;
+}
+
+.ditty-editor__tabs {
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: flex-start;
+  background: #32373c;
+}
+.ditty-editor__tab {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-weight: 400;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  background-color: transparent;
+  border-radius: 0;
+  border: none;
+  cursor: pointer;
+  transition: color 0.25s ease, background-color 0.25s ease;
+}
+.ditty-editor__tab:hover:not(.ditty-editor__tab--active) {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.ditty-editor__tab--active {
+  color: #fff;
+  background-color: #19bf7c;
+}
+.ditty-editor__tab i {
+  flex: 0 0 auto;
+  width: 25px;
+  display: block;
+  font-size: 13px;
+}
+.ditty-editor__tab span {
+  flex: 1;
+  display: block;
+}
+.ditty-editor__panel {
+  padding: 15px;
+}
+
+.ditty-editor-item {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  margin: 0 0 5px;
+  padding: 5px 8px;
+  border-radius: 3px;
+  overflow: hidden;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+.ditty-editor-item__rearrange {
+  margin-left: auto;
+}
+
+/*# sourceMappingURL=dittyEditor.css.map*/

@@ -904,6 +904,28 @@ class Ditty_Layouts {
 	}
 	
 	/**
+	 * Add layout styles
+	 */
+	public function add_styles( $items ) {
+		global $ditty_layout_styles;
+		if ( empty( $ditty_layout_styles ) ) {
+			$ditty_layout_styles = array();
+		}
+		$html = '';
+		if ( is_array( $items ) && count( $items ) > 0 ) {
+			foreach ( $items as $i => $item ) {
+				if ( isset( $ditty_layout_styles[$item['layout_id']] ) ) {
+					continue;
+				}
+				$ditty_layout_styles[$item['layout_id']] = $item['layout_id'];
+				$styles = apply_filters( 'ditty_layout_styles', $item['css'], $item['layout_id'] );
+				$html .= '<style id="ditty-layout--' . $item['layout_id'] . '">' . $styles . '</style>';
+			}
+		}
+		return $html;
+	}
+	
+	/**
 	 * Return the temporary new layout IDs
 	 *
 	 * @access public

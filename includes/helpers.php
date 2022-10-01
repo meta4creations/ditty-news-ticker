@@ -1293,66 +1293,103 @@ function ditty_prepare_display_items( $meta ) {
  * @since    3.0.11
  */
 function ditty_render( $atts ) {
-	global $ditty_singles;
-	if ( empty( $ditty_singles ) ) {
-		$ditty_singles = array();
-	}
-
-	$defaults = array(
-		'id' 								=> '',
-		'display' 					=> '',
-		'display_settings' 	=> '',
-		'layout_settings' 	=> '',
-		'uniqid' 						=> '',
-		'class' 						=> '',
-		'el_id'							=> '',
-		'show_editor' 			=> 0,
-	);
-	$args = shortcode_atts( $defaults, $atts );
+	if ( is_ditty_dev() ) {
+		
+		if ( ! $args = Ditty()->singles->parse_render_atts( $atts ) ) {
+			return false;
+		}
+		$html = '';
+		$html .= Ditty()->displays->add_styles( $args['display_settings'], $args['display'], $args['display_type'] );
+		$html .= Ditty()->layouts->add_styles( $args['items'] );
+		$html .= '<div ' . ditty_attr_to_html( $args['html_atts'] ) . '>';
+		
+			$html .= '<div class="ditty__title">';
+				$html .= '<div class="ditty__title__contents">';
+					$html .= "<{$args['title_settings']['titleElement']} class='ditty__title__element'>";
+						$html .= get_the_title($args['ditty']);
+					$html .= "</{$args['title_settings']['titleElement']}>";
+				$html .= '</div>';
+			$html .= '</div>';
+		
+			$html .= '<div class="ditty__contents">';
+				$html .= '<div class="ditty__items">';
+					if ( is_array( $args['items'] ) && count( $args['items'] ) > 0 ) {
+						foreach ( $args['items'] as $i => $item ) {
+							if ( empty( $item['is_disabled'] ) ) {
+								$html .= $item['html'];
+							}
+						}
+					}
+				$html .= '</div>';
+			$html .= '</div>';
+		
+		$html .= '</div>';
+		
+		return $html;
+		
+	} else {
+		
+		global $ditty_singles;
+		if ( empty( $ditty_singles ) ) {
+			$ditty_singles = array();
+		}
 	
-	// Check for WPML language posts
-	$args['id'] = function_exists('icl_object_id') ? icl_object_id( $args['id'], 'ditty', true ) : $args['id'];
-
-	// Make sure the ditty exists & is published
-	if ( ! ditty_exists( intval( $args['id'] ) ) ) {
-		return false;
-	}
-	if ( ! is_admin() && 'publish' !== get_post_status( intval( $args['id'] ) ) ) {
-		return false;
-	}
-
-	if ( '' == $args['uniqid'] ) {
-		$args['uniqid'] = uniqid( 'ditty-' );
-	}
-
-	$class = 'ditty ditty--pre';
-	if ( '' != $args['class'] ) {
-		$class .= ' ' . esc_attr( $args['class'] );
-	}
+		$defaults = array(
+			'id' 								=> '',
+			'display' 					=> '',
+			'display_settings' 	=> '',
+			'layout_settings' 	=> '',
+			'uniqid' 						=> '',
+			'class' 						=> '',
+			'el_id'							=> '',
+			'show_editor' 			=> 0,
+		);
+		$args = shortcode_atts( $defaults, $atts );
+		
+		// Check for WPML language posts
+		$args['id'] = function_exists('icl_object_id') ? icl_object_id( $args['id'], 'ditty', true ) : $args['id'];
 	
-	$ditty_settings = get_post_meta( $args['id'], '_ditty_settings', true );
-	$ajax_load 			= ( isset( $ditty_settings['ajax_loading'] ) && 'yes' == $ditty_settings['ajax_loading'] ) ? '1' : 0;
-	$live_updates 	= ( isset( $ditty_settings['live_updates'] ) && 'yes' == $ditty_settings['live_updates'] ) ? '1' : 0;
+		// Make sure the ditty exists & is published
+		if ( ! ditty_exists( intval( $args['id'] ) ) ) {
+			return false;
+		}
+		if ( ! is_admin() && 'publish' !== get_post_status( intval( $args['id'] ) ) ) {
+			return false;
+		}
 	
-	ditty_add_scripts( $args['id'], $args['display']);
+		if ( '' == $args['uniqid'] ) {
+			$args['uniqid'] = uniqid( 'ditty-' );
+		}
 	
-	$ditty_atts = array(
-		'id'										=> ( '' != $args['el_id'] ) ? sanitize_title( $args['el_id'] ) : false,
-		'class' 								=> $class,
-		'data-id' 							=> $args['id'],
-		'data-uniqid' 					=> $args['uniqid'],
-		'data-display' 					=> ( '' != $args['display'] ) ? $args['display'] : false,
-		'data-display_settings' => ( '' != $args['display_settings'] ) ? $args['display_settings'] : false,
-		'data-layout_settings' 	=> ( '' != $args['layout_settings'] ) ? $args['layout_settings'] : false,
-		'data-show_editor' 			=> ( 0 != intval( $args['show_editor'] ) ) ? '1' : false,
-		'data-ajax_load' 				=> $ajax_load,
-		'data-live_updates' 		=> $live_updates,
-	);
-
-	if ( 0 == $ajax_load ) {
-		$ditty_singles[] = $ditty_atts;
+		$class = 'ditty ditty--pre';
+		if ( '' != $args['class'] ) {
+			$class .= ' ' . esc_attr( $args['class'] );
+		}
+		
+		$ditty_settings = get_post_meta( $args['id'], '_ditty_settings', true );
+		$ajax_load 			= ( isset( $ditty_settings['ajax_loading'] ) && 'yes' == $ditty_settings['ajax_loading'] ) ? '1' : 0;
+		$live_updates 	= ( isset( $ditty_settings['live_updates'] ) && 'yes' == $ditty_settings['live_updates'] ) ? '1' : 0;
+		
+		ditty_add_scripts( $args['id'], $args['display']);
+		
+		$ditty_atts = array(
+			'id'										=> ( '' != $args['el_id'] ) ? sanitize_title( $args['el_id'] ) : false,
+			'class' 								=> $class,
+			'data-id' 							=> $args['id'],
+			'data-uniqid' 					=> $args['uniqid'],
+			'data-display' 					=> ( '' != $args['display'] ) ? $args['display'] : false,
+			'data-display_settings' => ( '' != $args['display_settings'] ) ? $args['display_settings'] : false,
+			'data-layout_settings' 	=> ( '' != $args['layout_settings'] ) ? $args['layout_settings'] : false,
+			'data-show_editor' 			=> ( 0 != intval( $args['show_editor'] ) ) ? '1' : false,
+			'data-ajax_load' 				=> $ajax_load,
+			'data-live_updates' 		=> $live_updates,
+		);
+	
+		if ( 0 == $ajax_load ) {
+			$ditty_singles[] = $ditty_atts;
+		}
+		return '<div ' . ditty_attr_to_html( $ditty_atts ) . '></div>';
 	}
-	return '<div ' . ditty_attr_to_html( $ditty_atts ) . '></div>';
 }
 
 /**
@@ -1679,4 +1716,32 @@ function ditty_svg_d() {
 	return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 69.31 71.1" fill="currentColor"><path d="M0 46.4c0-17.2 8.6-29.1 24.6-29.1a19.93 19.93 0 0 1 6.6 1V0H45v59.2l1 10.3H34.2l-.9-5.2h-.5a15.21 15.21 0 0 1-13 6.8C3.8 71.1 0 58.4 0 46.4Zm31.2 7.4V28.6a13.7 13.7 0 0 0-6-1.3c-8.7 0-11.3 8.7-11.3 17.8 0 8.5 1.9 15.8 8.9 15.8 5.1 0 8.4-3.8 8.4-7.1ZM61.91 65.6a7 7 0 0 1-7.2-7.4c0-5 2.8-7.7 7.1-7.7s7.5 2.6 7.5 7.4c0 5.1-3.1 7.7-7.4 7.7ZM61.91 43.1a7 7 0 0 1-7.2-7.4c0-5 2.8-7.7 7.1-7.7s7.5 2.6 7.5 7.4c0 5.1-3.1 7.7-7.4 7.7ZM61.91 20.6a7 7 0 0 1-7.2-7.4c0-5 2.8-7.7 7.1-7.7s7.5 2.6 7.5 7.4c0 5.1-3.1 7.7-7.4 7.7Z"/></svg>';
 }
 
+/**
+ * Check if we are in development mode
+ *
+ * @since   3.0
+ */
+function is_ditty_dev() {
+	if ( isset( $_GET['dittyDev'] ) ) {
+		return true;
+	}
+	if ( defined( 'DITTY_DEVELOPMENT' ) ) {
+		return DITTY_DEVELOPMENT;
+	}
+}
 
+
+/**
+ * Check if we are on a ditty edit page
+ *
+ * @since   3.0
+ */
+function ditty_editing() {
+	$page = isset( $_GET['page'] ) ? $_GET['page'] : false;
+	$id = isset( $_GET['id'] ) ? $_GET['id'] : false;
+	if ( 'ditty' == $page ) {
+		if ( $id ) {
+			return $id;
+		}
+	}
+}

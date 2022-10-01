@@ -19,6 +19,16 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 	public $type = 'ticker';
 	
 	/**
+	 * Get things started
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function __construct() {
+		parent::__construct();
+		add_filter( 'ditty_display_styles', array( $this, 'display_styles' ), 10, 4 );
+	}
+	
+	/**
 	 * Setup the fields
 	 *
 	 * @access  public
@@ -263,6 +273,24 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 			'version'			=> '1.4',
 		);	
 		return apply_filters( 'ditty_display_type_templates', $templates, $this->type );
+	}
+	
+	/**
+	 * Add ticker specific css
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function display_styles( $styles, $settings, $display, $type ) {	
+		if ( 'ticker' != $type ) {
+			return $styles;
+		}
+		if ( 'up' == $settings['direction'] || 'down' == $settings['direction'] ) {
+			$styles .= '.ditty[data-display="' . $display . '"] .ditty__items {';
+				$styles .= ( '' != $settings['minHeight'] ) ? "min-height:{$settings['minHeight']};" : '';
+				$styles .= ( '' != $settings['maxHeight'] ) ? "max-height:{$settings['maxHeight']};" : '';
+			$styles .= '}';
+		}
+		return $styles;
 	}
 
 }

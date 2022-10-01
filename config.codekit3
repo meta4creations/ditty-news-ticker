@@ -7,7 +7,7 @@
       "uuidString" : "0B43A184-D1FE-4DF7-BE71-3FAE2291CFE5"
     }
   ],
-  "creatorBuild" : "34418",
+  "creatorBuild" : "34434",
   "files" : {
     "\/.gitignore" : {
       "cB" : 0,
@@ -3856,6 +3856,17 @@
       "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/SyntaxTest.php",
       "oF" : 0
     },
+    "\/webpack.config.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 1,
+      "oAP" : "\/webpack.config.min.js",
+      "oF" : 1,
+      "sC" : 3,
+      "tS" : 0
+    },
     "\/wpml-config.xml" : {
       "cB" : 0,
       "ft" : 8192,
@@ -4583,7 +4594,8 @@
         "active" : 1
       },
       "no-fallthrough" : {
-        "active" : 1
+        "active" : 1,
+        "optionString" : "{'allowEmptyCase': false}"
       },
       "no-floating-decimal" : {
         "active" : 0

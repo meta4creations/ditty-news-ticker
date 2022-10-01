@@ -1,0 +1,69 @@
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/css/dittyDisplay.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
+.ditty {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+.ditty[data-title=left] .ditty__title, .ditty[data-title=right] .ditty__title, .ditty[data-title=top] .ditty__title, .ditty[data-title=bottom] .ditty__title {
+  display: block;
+}
+.ditty[data-title=left], .ditty[data-title=right] {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+.ditty[data-title=left] .ditty__title, .ditty[data-title=right] .ditty__title {
+  flex: 0 0 auto;
+}
+.ditty[data-title=left] .ditty__title__contents, .ditty[data-title=right] .ditty__title__contents {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.ditty[data-title=top] .ditty__title, .ditty[data-title=bottom] .ditty__title {
+  width: 100%;
+}
+.ditty[data-title=bottom] .ditty__title {
+  order: 1;
+}
+.ditty[data-title=bottom] .ditty__contents {
+  order: 0;
+}
+.ditty[data-title_position=center] .ditty__title__contents {
+  align-items: center;
+  justify-content: center;
+}
+.ditty[data-title_position=end] .ditty__title__contents {
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.ditty__title {
+  display: none;
+}
+.ditty__title__contents {
+  display: flex;
+  flex-direction: row;
+}
+.ditty__title__element {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.ditty__contents {
+  flex: 1;
+}
+.ditty__items {
+  position: relative;
+  overflow: hidden;
+}
+.ditty .ditty-item {
+  overflow: hidden;
+}
+
+/*# sourceMappingURL=ditty.css.map*/
