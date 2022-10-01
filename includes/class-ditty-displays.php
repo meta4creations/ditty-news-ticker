@@ -830,6 +830,7 @@ class Ditty_Displays {
 	 * Add display title styles
 	 */
 	private function title_styles( $settings, $display, $type ) {
+		$settings	= $this->title_settings( $settings );
 		$styles = '';
 		$styles .= '.ditty[data-display="' . $display . '"] .ditty__title {';
 			$styles .= ( '' != $settings['titleBgColor'] ) ? "background-color:{$settings['titleBgColor']};" : '';
@@ -952,8 +953,6 @@ class Ditty_Displays {
 			$styles .= ( '' != $settings['itemBorderRadius']['borderTopRightRadius'] ) ? "border-top-right-radius:{$settings['itemBorderRadius']['borderTopRightRadius']};" : '';
 			$styles .= ( '' != $settings['itemBorderRadius']['borderBottomLeftRadius'] ) ? "border-bottom-left-radius:{$settings['itemBorderRadius']['borderBottomLeftRadius']};" : '';
 			$styles .= ( '' != $settings['itemBorderRadius']['borderBottomRightRadius'] ) ? "border-bottom-right-radius:{$settings['itemBorderRadius']['borderBottomRightRadius']};" : '';
-			$styles .= ( '' != $settings['itemMaxWidth'] ) ? "max-width:{$settings['itemMaxWidth']};" : '';
-			$styles .= ( 'nowrap' == $settings['itemElementsWrap'] ) ? 'white-space:nowrap;' : 'white-space:normal;';
 		$styles .= '}';
 	
 		return apply_filters( 'ditty_display_item_styles', $styles, $settings, $display, $type );

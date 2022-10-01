@@ -65,16 +65,16 @@ const Item = _ref => {
   } = _ref;
   let elements = [{
     id: "icon",
-    content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
+    content: window.dittyHooks.applyFilters("dittyEditorItemIcon", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
       className: "fas fa-pencil-alt"
-    })
+    }), data)
   }, {
     id: "label",
-    content: data.item_type
+    content: window.dittyHooks.applyFilters("dittyEditorItemLabel", data.item_type, data)
   }, {
-    id: "rearrange",
+    id: "edit",
     content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
-      className: "fas fa-bars"
+      className: "fas fa-edit"
     })
   }];
   elements = window.dittyHooks.applyFilters("dittyEditorItemElements", elements);
@@ -159,7 +159,7 @@ const Panels = _ref => {
   }];
 
   function renderCurrentPanel() {
-    const selectedPanels = panels.filter(panel => panel === currentPanel);
+    const selectedPanels = panels.filter(panel => panel.id === currentPanel);
     const selectedPanel = selectedPanels.length ? selectedPanels[0] : panels[0];
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: `ditty-editor__panel ditty-editor__panel--${selectedPanel.id}`,

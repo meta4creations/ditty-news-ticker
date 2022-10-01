@@ -4,15 +4,23 @@ const Item = ({ data }) => {
   let elements = [
     {
       id: "icon",
-      content: <i className="fas fa-pencil-alt"></i>,
+      content: window.dittyHooks.applyFilters(
+        "dittyEditorItemIcon",
+        <i className="fas fa-pencil-alt"></i>,
+        data
+      ),
     },
     {
       id: "label",
-      content: data.item_type,
+      content: window.dittyHooks.applyFilters(
+        "dittyEditorItemLabel",
+        data.item_type,
+        data
+      ),
     },
     {
-      id: "rearrange",
-      content: <i className="fas fa-bars"></i>,
+      id: "edit",
+      content: <i className="fas fa-edit"></i>,
     },
   ];
 

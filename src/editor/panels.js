@@ -18,7 +18,7 @@ const Panels = ({ items, currentPanel }) => {
   ];
 
   function renderCurrentPanel() {
-    const selectedPanels = panels.filter((panel) => panel === currentPanel);
+    const selectedPanels = panels.filter((panel) => panel.id === currentPanel);
     const selectedPanel = selectedPanels.length ? selectedPanels[0] : panels[0];
     return (
       <div

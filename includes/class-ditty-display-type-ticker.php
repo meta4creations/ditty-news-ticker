@@ -26,6 +26,7 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 	public function __construct() {
 		parent::__construct();
 		add_filter( 'ditty_display_styles', array( $this, 'display_styles' ), 10, 4 );
+		add_filter( 'ditty_display_item_styles', array( $this, 'display_item_styles' ), 10, 4 );
 	}
 	
 	/**
@@ -290,6 +291,20 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 				$styles .= ( '' != $settings['maxHeight'] ) ? "max-height:{$settings['maxHeight']};" : '';
 			$styles .= '}';
 		}
+		return $styles;
+	}
+
+	/**
+	 * Add ticker item specific css
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function display_item_styles( $styles, $settings, $display, $type ) {	
+		if ( 'ticker' != $type ) {
+			return $styles;
+		}
+		$styles .= ( '' != $settings['itemMaxWidth'] ) ? "max-width:{$settings['itemMaxWidth']};" : '';
+		$styles .= ( 'nowrap' == $settings['itemElementsWrap'] ) ? 'white-space:nowrap;' : 'white-space:normal;';
 		return $styles;
 	}
 

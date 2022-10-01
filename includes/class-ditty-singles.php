@@ -326,7 +326,7 @@ class Ditty_Singles {
 	 */
 	public function modify_edit_post_link( $link, $post_id, $text ) {
 		if ( 'ditty' == get_post_type( $post_id ) ) {
-			return add_query_arg( ['page' => 'ditty', 'id' => $post_id ], admin_url( 'admin.php' ) );
+			return add_query_arg( ['page' => 'ditty', 'id' => $post_id, 'dittyDev' => 1 ], admin_url( 'admin.php' ) );
 		}
 		return $link;
 	}

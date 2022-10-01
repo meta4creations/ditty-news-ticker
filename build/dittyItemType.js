@@ -10,6 +10,16 @@
 
 module.exports = window["wp"]["element"];
 
+/***/ }),
+
+/***/ "@wordpress/i18n":
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+/***/ (function(module) {
+
+module.exports = window["wp"]["i18n"];
+
 /***/ })
 
 /******/ 	});
@@ -89,10 +99,41 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
 
-window.dittyHooks.addFilter("dittyEditorItemElements", "dittyEditor", dittyEditorItemElements);
 
-function dittyEditorItemElements(elements) {
+/**
+ * Modify the item icon
+ */
+
+window.dittyHooks.addFilter("dittyEditorItemIcon", "dittyEditor", (icon, data) => {
+  switch (data.item_type) {
+    case "posts_feed":
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
+        className: "fab fa-wordpress"
+      });
+
+    default:
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
+        className: "fas fa-pencil-alt"
+      });
+  }
+});
+/**
+ * Modify the item label
+ */
+
+window.dittyHooks.addFilter("dittyEditorItemLabel", "dittyEditor", (icon, data) => {
+  switch (data.item_type) {
+    case "posts_feed":
+      return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Posts Feed", "ditty-news-ticker");
+
+    default:
+      return "Add something here";
+  }
+});
+window.dittyHooks.addFilter("dittyEditorItemElements", "dittyEditor", elements => {
   elements.push({
     id: "clone",
     content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
@@ -100,7 +141,7 @@ function dittyEditorItemElements(elements) {
     })
   });
   return elements;
-}
+});
 }();
 /******/ })()
 ;
