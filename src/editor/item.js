@@ -1,26 +1,18 @@
 import { __ } from "@wordpress/i18n";
 
-const Item = ({ data }) => {
+const Item = ({ data, renderIcon, renderLabel }) => {
   let elements = [
     {
       id: "icon",
-      content: window.dittyHooks.applyFilters(
-        "dittyEditorItemIcon",
-        <i className="fas fa-pencil-alt"></i>,
-        data
-      ),
+      content: renderIcon(data),
     },
     {
       id: "label",
-      content: window.dittyHooks.applyFilters(
-        "dittyEditorItemLabel",
-        data.item_type,
-        data
-      ),
+      content: renderLabel(data),
     },
     {
-      id: "edit",
-      content: <i className="fas fa-edit"></i>,
+      id: "settings",
+      content: <i className="fas fa-cog"></i>,
     },
   ];
 

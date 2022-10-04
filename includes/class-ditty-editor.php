@@ -65,6 +65,68 @@ class Ditty_Editor {
 		);
 		wp_send_json( $data );
 	}
+
+	/**
+	 * Get all display data for the editor
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function display_data() {	
+		$args = array(
+			'posts_per_page' => -1,
+			'orderby' 		=> 'post_title',
+			'order' 			=> 'ASC',
+			'post_type' 	=> 'ditty_display',
+		);
+		$posts = get_posts( $args );
+
+		$display_data = array();
+		if ( is_array( $posts ) && count( $posts ) > 0 ) {
+			foreach ( $posts as $i => $post ) {
+				$display_data[] = array(
+					'id' => $post->ID,
+					'type' => get_post_meta( $post->ID, '_ditty_display_type', true ),
+					'label' => $post->post_title,
+					'description' => get_post_meta( $post->ID, '_ditty_display_description', true ),
+					'settings' => get_post_meta( $post->ID, '_ditty_display_settings', true ),
+					'version' => get_post_meta( $post->ID, '_ditty_display_version', true ),
+				);		
+			}
+		}
+		return $display_data;
+	}
+
+	/**
+	 * Get all layout data for the editor
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function layout_data() {
+		$args = array(
+			'posts_per_page' => -1,
+			'orderby' 		=> 'post_title',
+			'order' 			=> 'ASC',
+			'post_type' 	=> 'ditty_layout',
+		);
+		$posts = get_posts( $args );
+
+		$layout_data = array();
+		if ( is_array( $posts ) && count( $posts ) > 0 ) {
+			foreach ( $posts as $i => $post ) {
+				$layout_data[] = array(
+					'id' => $post->ID,
+					'label' => $post->post_title,
+					'description' => get_post_meta( $post->ID, '_ditty_layout_description', true ),
+					'html' => get_post_meta( $post->ID, '_ditty_layout_html', true ),
+					'css' => get_post_meta( $post->ID, '_ditty_layout_css', true ),
+					'version' => get_post_meta( $post->ID, '_ditty_layout_version', true ),
+				);		
+			}
+		}
+		return $layout_data;
+	}
 	
 	
 	

@@ -24,6 +24,8 @@ window.dittyHooks.addFilter(
   "dittyEditor",
   (icon, data) => {
     switch (data.item_type) {
+      case "default":
+        return data.item_value.content;
       case "posts_feed":
         return __("Posts Feed", "ditty-news-ticker");
       default:
@@ -32,14 +34,20 @@ window.dittyHooks.addFilter(
   }
 );
 
+/**
+ * Modify the display icon
+ */
 window.dittyHooks.addFilter(
-  "dittyEditorItemElements",
+  "dittyEditorDisplayIcon",
   "dittyEditor",
-  (elements) => {
-    elements.push({
-      id: "clone",
-      content: <i className="fas fa-clone"></i>,
-    });
-    return elements;
+  (icon, data) => {
+    switch (data.type) {
+      case "list":
+        return <i className="fas fa-list"></i>;
+      case "ticker":
+        return <i className="fas fa-ellipsis-h"></i>;
+      default:
+        return <i className="fas fa-tablet-alt"></i>;
+    }
   }
 );

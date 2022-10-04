@@ -17,6 +17,28 @@
   float: none;
 }
 
+.ditty-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  color: #23282d;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  border-radius: 3px;
+  padding: 10px 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.25s ease, background-color 0.25s ease;
+}
+
 #ditty-page {
   padding-right: 350px;
   box-sizing: border-box;
@@ -104,26 +126,64 @@
   flex: 1;
   display: block;
 }
-.ditty-editor__panel {
-  padding: 15px;
+
+.ditty-editor__panel__header {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.ditty-editor__panel__content {
+  padding: 10px;
 }
 
 .ditty-editor-item {
-  height: 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 10px;
   margin: 0 0 5px;
-  padding: 5px 8px;
   border-radius: 3px;
   overflow: hidden;
   transition: background-color 0.25s ease, border-color 0.25s ease;
+  cursor: grab;
 }
-.ditty-editor-item__rearrange {
-  margin-left: auto;
+.ditty-editor-item:hover:active {
+  cursor: grabbing;
+}
+.ditty-editor-item__icon {
+  flex: 0 0 auto;
+  background: #ccc;
+  margin-right: 10px;
+}
+.ditty-editor-item__icon i {
+  display: block;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+}
+.ditty-editor-item__label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ditty-editor-item__settings {
+  flex: 0 0 auto;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.ditty-editor-item__settings:hover {
+  background: orange;
+}
+.ditty-editor-item__settings i {
+  display: block;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
 }
 
 /*# sourceMappingURL=dittyEditor.css.map*/

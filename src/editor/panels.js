@@ -1,15 +1,20 @@
 import { __ } from "@wordpress/i18n";
-import Items from "./items";
+import { useContext } from "@wordpress/element";
+import { EditorContext } from "./context";
+import PanelItems from "./panelItems";
+import PanelDisplays from "./panelDisplays";
 
-const Panels = ({ items, currentPanel }) => {
+const Panels = () => {
+  const { currentPanel } = useContext(EditorContext);
+
   const panels = [
     {
       id: "items",
-      content: <Items items={items} />,
+      content: <PanelItems />,
     },
     {
       id: "display",
-      content: <h2>Display</h2>,
+      content: <PanelDisplays />,
     },
     {
       id: "settings",

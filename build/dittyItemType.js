@@ -126,6 +126,9 @@ window.dittyHooks.addFilter("dittyEditorItemIcon", "dittyEditor", (icon, data) =
 
 window.dittyHooks.addFilter("dittyEditorItemLabel", "dittyEditor", (icon, data) => {
   switch (data.item_type) {
+    case "default":
+      return data.item_value.content;
+
     case "posts_feed":
       return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Posts Feed", "ditty-news-ticker");
 
@@ -133,14 +136,27 @@ window.dittyHooks.addFilter("dittyEditorItemLabel", "dittyEditor", (icon, data) 
       return "Add something here";
   }
 });
-window.dittyHooks.addFilter("dittyEditorItemElements", "dittyEditor", elements => {
-  elements.push({
-    id: "clone",
-    content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
-      className: "fas fa-clone"
-    })
-  });
-  return elements;
+/**
+ * Modify the display icon
+ */
+
+window.dittyHooks.addFilter("dittyEditorDisplayIcon", "dittyEditor", (icon, data) => {
+  switch (data.type) {
+    case "list":
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
+        className: "fas fa-list"
+      });
+
+    case "ticker":
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
+        className: "fas fa-ellipsis-h"
+      });
+
+    default:
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
+        className: "fas fa-tablet-alt"
+      });
+  }
 });
 }();
 /******/ })()

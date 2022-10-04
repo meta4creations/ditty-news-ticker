@@ -1,6 +1,10 @@
 import { __ } from "@wordpress/i18n";
+import { useContext } from "@wordpress/element";
+import { EditorContext } from "./context";
 
-const Tabs = ({ currentTab, onTabClick }) => {
+const Tabs = () => {
+  const { currentPanel, actions } = useContext(EditorContext);
+
   const tabs = [
     {
       id: "items",
@@ -19,7 +23,7 @@ const Tabs = ({ currentTab, onTabClick }) => {
     },
   ];
 
-  const selectedTabs = tabs.filter((tab) => tab.id === currentTab);
+  const selectedTabs = tabs.filter((tab) => tab.id === currentPanel);
   const selectedTab = selectedTabs.length ? selectedTabs[0] : tabs[0];
 
   function renderButtonClass(tab) {
@@ -37,7 +41,7 @@ const Tabs = ({ currentTab, onTabClick }) => {
           <button
             className={renderButtonClass(tab)}
             key={tab.id}
-            onClick={() => onTabClick(tab.id)}
+            onClick={() => actions.setCurrentPanel(tab.id)}
           >
             <i className={tab.icon}></i>
             <span>{tab.label}</span>

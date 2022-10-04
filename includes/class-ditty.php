@@ -712,6 +712,15 @@ class Ditty {
 			$this->version,
 			true
 		);
+		if ( empty( $ditty_scripts_enqueued ) ) {
+			wp_add_inline_script( 'ditty-editor', 'const dittyEditorVars = ' . json_encode( array(
+				'ajaxurl'				=> admin_url( 'admin-ajax.php' ),
+				'security'			=> wp_create_nonce( 'ditty' ),
+				'mode'					=> WP_DEBUG ? 'development' : 'production',
+				'displays'			=> Ditty()->editor->display_data(),
+				'layouts'				=> Ditty()->editor->layout_data(),
+			) ), 'before' );
+		}
 	
 		if ( is_admin() ) {
 
