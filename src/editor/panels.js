@@ -1,8 +1,10 @@
 import { __ } from "@wordpress/i18n";
 import { useContext } from "@wordpress/element";
+
 import { EditorContext } from "./context";
-import PanelItems from "./panelItems";
-import PanelDisplays from "./panelDisplays";
+import Panel from "./Panel";
+import PanelItems from "./PanelItems";
+import PanelDisplays from "./PanelDisplays";
 
 const Panels = () => {
   const { currentPanel } = useContext(EditorContext);
@@ -10,10 +12,20 @@ const Panels = () => {
   const panels = [
     {
       id: "items",
+      header: (
+        <button className="ditty-button">
+          {__("Add Item", "ditty-news-ticker")}
+        </button>
+      ),
       content: <PanelItems />,
     },
     {
       id: "display",
+      header: (
+        <button className="ditty-button">
+          {__("Add Display", "ditty-news-ticker")}
+        </button>
+      ),
       content: <PanelDisplays />,
     },
     {
@@ -22,18 +34,17 @@ const Panels = () => {
     },
   ];
 
-  function renderCurrentPanel() {
+  const renderCurrentPanel = () => {
     const selectedPanels = panels.filter((panel) => panel.id === currentPanel);
     const selectedPanel = selectedPanels.length ? selectedPanels[0] : panels[0];
     return (
-      <div
-        className={`ditty-editor__panel ditty-editor__panel--${selectedPanel.id}`}
-        key={selectedPanel.id}
-      >
-        {selectedPanel.content}
-      </div>
+      <Panel
+        id={selectedPanel.id}
+        header={selectedPanel.header ? selectedPanel.header : null}
+        content={selectedPanel.content}
+      />
     );
-  }
+  };
 
   return <div className="ditty-editor__panels">{renderCurrentPanel()}</div>;
 };

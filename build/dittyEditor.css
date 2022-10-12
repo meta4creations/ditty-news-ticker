@@ -147,10 +147,6 @@
   border-radius: 3px;
   overflow: hidden;
   transition: background-color 0.25s ease, border-color 0.25s ease;
-  cursor: grab;
-}
-.ditty-editor-item:hover:active {
-  cursor: grabbing;
 }
 .ditty-editor-item__icon {
   flex: 0 0 auto;
@@ -184,6 +180,13 @@
   height: 40px;
   text-align: center;
   line-height: 40px;
+}
+
+.ditty-list--sortable .ditty-editor-item {
+  cursor: grab;
+}
+.ditty-list--sortable .ditty-editor-item:hover:active {
+  cursor: grabbing;
 }
 
 /*# sourceMappingURL=dittyEditor.css.map*/

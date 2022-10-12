@@ -1,47 +1,78 @@
 import { __ } from "@wordpress/i18n";
-import { useContext } from "@wordpress/element";
+import { useContext, useState } from "@wordpress/element";
+import SortableList from "./common/SortableList";
+import Item from "./Item";
 import { EditorContext } from "./context";
-import Item from "./item";
 
 const PanelItems = () => {
-  const { items } = useContext(EditorContext);
+  const { items, actions } = useContext(EditorContext);
 
-  function handleRenderIcon(item) {
+  /**
+   * Render the editorItem icon
+   */
+  const handleRenderIcon = (item) => {
     return window.dittyHooks.applyFilters(
       "dittyEditorItemIcon",
       <i className="fas fa-pencil-alt"></i>,
       item
     );
-  }
+  };
 
-  function handleRenderLabel(item) {
+  /**
+   * Render the editorItem label
+   */
+  const handleRenderLabel = (item) => {
     return window.dittyHooks.applyFilters(
       "dittyEditorItemLabel",
       item.item_type,
       item
     );
-  }
+  };
 
-  return (
-    <>
-      <div className="ditty-editor__panel__header">
-        <button className="ditty-button">
-          {__("Add Item", "ditty-news-ticker")}
-        </button>
-      </div>
-      <div className="ditty-editor__panel__content">
-        {items.map((item) => {
-          return (
-            <Item
-              key={item.item_id}
-              data={item}
-              renderIcon={handleRenderIcon}
-              renderLabel={handleRenderLabel}
-            />
-          );
-        })}
-      </div>
-    </>
-  );
+  const handleItemClick = (e, item) => {
+    console.log("target", e.target);
+  };
+
+  const handleElementClick = (e, elementId, item) => {
+    if ("settings" == elementId) {
+      console.log("item", item);
+    }
+  };
+
+  /**
+   * Pull data from sorted list items to update items
+   * @param {array} sortedListItems
+   */
+  const handleSortEnd = (sortedListItems) => {
+    const updatedItems = sortedListItems.map((item) => {
+      return item.data;
+    });
+    actions.updateItems(updatedItems);
+  };
+
+  /**
+   * Prepare the items for the sortable list
+   * @returns {array}
+   */
+  const prepareItems = () => {
+    return items.map((item, index) => {
+      return {
+        id: item.item_id,
+        data: item,
+        content: (
+          <Item
+            data={item}
+            renderIcon={handleRenderIcon}
+            renderLabel={handleRenderLabel}
+            editable={true}
+            onClick={handleItemClick}
+            onElementClick={handleElementClick}
+          />
+        ),
+      };
+    });
+  };
+
+  return <SortableList items={prepareItems()} onSortEnd={handleSortEnd} />;
 };
 export default PanelItems;

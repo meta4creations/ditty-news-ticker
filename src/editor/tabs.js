@@ -26,13 +26,13 @@ const Tabs = () => {
   const selectedTabs = tabs.filter((tab) => tab.id === currentPanel);
   const selectedTab = selectedTabs.length ? selectedTabs[0] : tabs[0];
 
-  function renderButtonClass(tab) {
+  const renderButtonClass = (tab) => {
     let className = "ditty-editor__tab";
     if (tab === selectedTab) {
       className += " ditty-editor__tab--active";
     }
     return className;
-  }
+  };
 
   return (
     <div className="ditty-editor__tabs">

@@ -1,6 +1,6 @@
 import { __ } from "@wordpress/i18n";
-import Tabs from "./tabs";
-import Panels from "./panels";
+import Tabs from "./Tabs";
+import Panels from "./Panels";
 
 export default () => {
   return (

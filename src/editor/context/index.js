@@ -1,4 +1,5 @@
 import { useState } from "@wordpress/element";
+import { arrayMoveImmutable } from "array-move";
 
 export const EditorContext = React.createContext();
 EditorContext.displayName = "EditorContext";
@@ -18,6 +19,10 @@ export const EditorProvider = (props) => {
 
   const [currentPanel, setCurrentPanel] = useState("");
 
+  function handleUpdateItems(updatedItems) {
+    setItems(updatedItems);
+  }
+
   function handleSetCurrentPanel(panel) {
     setCurrentPanel(panel);
   }
@@ -32,7 +37,10 @@ export const EditorProvider = (props) => {
         layouts,
         currentPanel,
         currentDisplay,
-        actions: { setCurrentPanel: handleSetCurrentPanel },
+        actions: {
+          setCurrentPanel: handleSetCurrentPanel,
+          updateItems: handleUpdateItems,
+        },
       }}
     >
       {props.children}
