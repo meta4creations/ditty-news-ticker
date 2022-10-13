@@ -130,6 +130,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.0.29 =
+* Bug fix in gutenberg block check code
+
 = 3.0.28 =
 * Added Ditty widget block
 * Added functionality to convert classic widget to block

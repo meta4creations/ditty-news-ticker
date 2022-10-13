@@ -32,7 +32,7 @@ add_action( 'delete_post', 'ditty_delete_post_items' );
 /**
  * Check post content for Ditty blocks
  *
- * @since    3.0.27
+ * @since    3.0.29
  * @access   public
  * @var      null
 */
@@ -64,10 +64,10 @@ function ditty_check_content_for_blocks() {
 	}
 
 	// Parse post content for Ditty blocks
-	if ( ! is_singular() ) {
+	global $post;
+	if ( ! is_singular() || ! is_object( $post ) ) {
 		return false;
 	}
-	global $post;
 	$blocks = parse_blocks( $post->post_content );
 	if ( is_array( $blocks ) && count( $blocks ) > 0 ) {
 		foreach ( $blocks as $i => $block ) {
