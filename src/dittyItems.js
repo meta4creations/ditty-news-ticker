@@ -1,4 +1,19 @@
 import { __ } from "@wordpress/i18n";
+import PanelItems from "./editor/PanelItems";
+
+/**
+ * Modify the display icon
+ */
+window.dittyHooks.addFilter(
+  "dittyEditorPanel",
+  "dittyEditor",
+  (panel, panelId, context) => {
+    if ("items" === panelId) {
+      return <PanelItems editor={context} />;
+    }
+    return panel;
+  }
+);
 
 /**
  * Modify the item icon
@@ -25,7 +40,7 @@ window.dittyHooks.addFilter(
   (icon, data) => {
     switch (data.item_type) {
       case "default":
-        return data.item_value.content;
+        return data.item_value.content + "ss";
       case "posts_feed":
         return __("Posts Feed", "ditty-news-ticker");
       default:

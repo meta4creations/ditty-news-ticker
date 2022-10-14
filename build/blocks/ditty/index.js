@@ -86,14 +86,12 @@ function Edit(_ref) {
       });
       setDittyPosts(posts);
     }
-
     async function getDisplayPosts() {
       const posts = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4___default()({
         path: "/wp/v2/ditty_display"
       });
       setDisplayPosts(posts);
     }
-
     getDittyPosts();
     getDisplayPosts();
   }, []);

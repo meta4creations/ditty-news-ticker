@@ -1,11 +1,30 @@
 import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
+import Panel from "./Panel";
 import SortableList from "./common/SortableList";
 import Item from "./Item";
-import { EditorContext } from "./context";
+//import { EditorContext } from "./context";
 
-const PanelItems = () => {
-  const { items, actions } = useContext(EditorContext);
+const PanelItems = ({ editor }) => {
+  const { id, items, actions } = useContext(editor);
+
+  console.log("items", items);
+
+  const defaultItem = {
+    ditty_id: id,
+    item_author: "1",
+    item_id: null,
+    item_index: null,
+    item_type: "default",
+    item_value: {
+      content: "This is a default item again",
+      link_url: "",
+      link_title: "",
+      link_target: "_blank",
+      link_nofollow: "false",
+    },
+    layout_value: 'a:1:{s:7:"default";s:5:"13015";}',
+  };
 
   /**
    * Render the editorItem icon
@@ -29,14 +48,8 @@ const PanelItems = () => {
     );
   };
 
-  const handleItemClick = (e, item) => {
-    console.log("target", e.target);
-  };
-
   const handleElementClick = (e, elementId, item) => {
-    if ("settings" == elementId) {
-      console.log("item", item);
-    }
+    console.log("elementClick", elementId);
   };
 
   /**
@@ -48,6 +61,15 @@ const PanelItems = () => {
       return item.data;
     });
     actions.updateItems(updatedItems);
+  };
+
+  /**
+   * Pull data from sorted list items to update items
+   * @param {array} sortedListItems
+   */
+  const handleAddItem = () => {
+    items.push(defaultItem);
+    actions.updateItems(items);
   };
 
   /**
@@ -65,7 +87,6 @@ const PanelItems = () => {
             renderIcon={handleRenderIcon}
             renderLabel={handleRenderLabel}
             editable={true}
-            onClick={handleItemClick}
             onElementClick={handleElementClick}
           />
         ),
@@ -73,6 +94,18 @@ const PanelItems = () => {
     });
   };
 
-  return <SortableList items={prepareItems()} onSortEnd={handleSortEnd} />;
+  const panelHeader = () => {
+    return (
+      <button className="ditty-button" onClick={handleAddItem}>
+        {__("Add Item Test", "ditty-news-ticker")}
+      </button>
+    );
+  };
+
+  const panelContent = () => {
+    return <SortableList items={prepareItems()} onSortEnd={handleSortEnd} />;
+  };
+
+  return <Panel id="items" header={panelHeader()} content={panelContent()} />;
 };
 export default PanelItems;

@@ -17,7 +17,7 @@ var generalConfig = {
     dittyEditor: "./src/dittyEditor.js",
     ditty: "./src/ditty.js",
     dittyDisplayTicker: "./src/dittyDisplayTicker.js",
-    dittyItemType: "./src/dittyItemType.js",
+    dittyItems: "./src/dittyItems.js",
   },
 };
 

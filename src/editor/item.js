@@ -1,13 +1,6 @@
 import { __ } from "@wordpress/i18n";
 
-const Item = ({
-  data,
-  renderIcon,
-  renderLabel,
-  editable,
-  onClick,
-  onElementClick,
-}) => {
+const Item = ({ data, renderIcon, renderLabel, editable, onElementClick }) => {
   let elements = [
     {
       id: "icon",
@@ -31,12 +24,7 @@ const Item = ({
   );
 
   return (
-    <div
-      className="ditty-editor-item"
-      onClick={(e) => {
-        onClick(e, data);
-      }}
-    >
+    <div className="ditty-editor-item">
       {elements.map((element) => {
         return (
           <span

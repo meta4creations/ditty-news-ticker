@@ -8,30 +8,30 @@ import "./css/dittyDisplay.scss";
 window.ditty = new WeakMap();
 window.dittyHooks = createHooks();
 window.dittyDisplays = {
-	display: DittyDisplay,
+  display: DittyDisplay,
 };
 
 /**
  * Load the Ditty on page load
  */
 window.onload = function () {
-	document.querySelectorAll(".ditty").forEach((dittyEl) => {
-		var type = dittyEl.dataset.type;
-		if (!window.dittyDisplays[type]) {
-			return;
-		}
+  document.querySelectorAll(".ditty").forEach((dittyEl) => {
+    var type = dittyEl.dataset.type;
+    if (!window.dittyDisplays[type]) {
+      return;
+    }
 
-		const args = {
-			element: dittyEl,
-			display: dittyEl.dataset.display,
-			type: type,
-			//items: JSON.parse(dittyEl.dataset.items),
-			...JSON.parse(dittyEl.dataset.settings),
-		};
-		const ditty = new window.dittyDisplays[type](args);
+    const args = {
+      element: dittyEl,
+      display: dittyEl.dataset.display,
+      type: type,
+      //items: JSON.parse(dittyEl.dataset.items),
+      ...JSON.parse(dittyEl.dataset.settings),
+    };
+    const ditty = new window.dittyDisplays[type](args);
 
-		window.ditty.set(dittyEl, ditty);
-	});
+    window.ditty.set(dittyEl, ditty);
+  });
 };
 
 /**
@@ -39,17 +39,17 @@ window.onload = function () {
  */
 document.addEventListener("click", clickHandle);
 function clickHandle(e) {
-	const el = e.target;
-	if (el.closest(".ditty__title")) {
-		e.preventDefault();
-		const dittyEl = el.closest(".ditty");
-		const ditty = window.ditty.get(dittyEl);
-		const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+  const el = e.target;
+  if (el.closest(".ditty__title")) {
+    e.preventDefault();
+    const dittyEl = el.closest(".ditty");
+    const ditty = window.ditty.get(dittyEl);
+    const randomColor = Math.floor(Math.random() * 16777215).toString(16);
 
-		const options = {
-			titleBgColor: `#${randomColor}`,
-			titleElement: "h1",
-		};
-		ditty.options(options);
-	}
+    const options = {
+      titleBgColor: `#${randomColor}`,
+      titleElement: "h1",
+    };
+    ditty.options(options);
+  }
 }

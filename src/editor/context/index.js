@@ -17,9 +17,10 @@ export const EditorProvider = (props) => {
   const [displays, setDisplays] = useState(dittyEditorVars.displays);
   const [layouts, setLayouts] = useState(dittyEditorVars.layouts);
 
-  const [currentPanel, setCurrentPanel] = useState("");
+  const [currentPanel, setCurrentPanel] = useState("items");
 
   function handleUpdateItems(updatedItems) {
+    console.log("handleUpdateItems", updatedItems);
     setItems(updatedItems);
   }
 

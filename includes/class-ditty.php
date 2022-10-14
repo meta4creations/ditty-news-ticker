@@ -699,16 +699,16 @@ class Ditty {
 			$this->version,
 			true
 		);
-		wp_register_script(
-			'ditty-item-type',
-			DITTY_URL . 'build/dittyItemType.js',
-			['ditty'],
+		wp_register_script( 'ditty-editor',
+			DITTY_URL . 'build/dittyEditor.js',
+			['wp-element', 'wp-components', 'wp-hooks', 'ditty'],
 			$this->version,
 			true
 		);
-		wp_register_script( 'ditty-editor',
-			DITTY_URL . 'build/dittyEditor.js',
-			['wp-element', 'wp-components', 'wp-hooks', 'ditty', 'ditty-item-type'],
+		wp_enqueue_script(
+			'ditty-items',
+			DITTY_URL . 'build/dittyItems.js',
+			['ditty', 'wp-element'],
 			$this->version,
 			true
 		);

@@ -568,27 +568,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /**
  * Add ditty global variables for reference
  */
-
 window.ditty = new WeakMap();
 window.dittyHooks = (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__.createHooks)();
 window.dittyDisplays = {
   display: _components_dittyDisplay__WEBPACK_IMPORTED_MODULE_0__["default"]
 };
+
 /**
  * Load the Ditty on page load
  */
-
 window.onload = function () {
   document.querySelectorAll(".ditty").forEach(dittyEl => {
     var type = dittyEl.dataset.type;
-
     if (!window.dittyDisplays[type]) {
       return;
     }
-
     const args = {
       element: dittyEl,
       display: dittyEl.dataset.display,
@@ -600,16 +598,13 @@ window.onload = function () {
     window.ditty.set(dittyEl, ditty);
   });
 };
+
 /**
  * Sample event to modify a Ditty
  */
-
-
 document.addEventListener("click", clickHandle);
-
 function clickHandle(e) {
   const el = e.target;
-
   if (el.closest(".ditty__title")) {
     e.preventDefault();
     const dittyEl = el.closest(".ditty");
