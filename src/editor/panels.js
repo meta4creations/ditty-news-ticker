@@ -9,8 +9,6 @@ import PanelDisplays from "./PanelDisplays";
 const Panels = () => {
   const { currentPanel } = useContext(EditorContext);
 
-  console.log("currentPanel", currentPanel);
-
   const panels = [
     {
       id: "items",

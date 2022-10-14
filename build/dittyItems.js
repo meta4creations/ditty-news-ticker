@@ -5184,59 +5184,6 @@ function findFirstFocusableNode(element) {
 
 /***/ }),
 
-/***/ "./src/editor/Item.js":
-/*!****************************!*\
-  !*** ./src/editor/Item.js ***!
-  \****************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-
-
-const Item = _ref => {
-  let {
-    data,
-    renderIcon,
-    renderLabel,
-    editable,
-    onElementClick
-  } = _ref;
-  let elements = [{
-    id: "icon",
-    content: renderIcon(data)
-  }, {
-    id: "label",
-    content: renderLabel(data)
-  }];
-  if (editable) {
-    elements.push({
-      id: "settings",
-      content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
-        className: "fas fa-cog"
-      })
-    });
-  }
-  elements = window.dittyHooks.applyFilters("dittyEditorItemElements", elements);
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "ditty-editor-item"
-  }, elements.map(element => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-      className: `ditty-editor-item__${element.id}`,
-      key: element.id,
-      onClick: e => {
-        onElementClick(e, element.id, data);
-      }
-    }, element.content);
-  }));
-};
-/* harmony default export */ __webpack_exports__["default"] = (Item);
-
-/***/ }),
-
 /***/ "./src/editor/Panel.js":
 /*!*****************************!*\
   !*** ./src/editor/Panel.js ***!
@@ -5284,14 +5231,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Panel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Panel */ "./src/editor/Panel.js");
 /* harmony import */ var _common_SortableList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./common/SortableList */ "./src/editor/common/SortableList.js");
-/* harmony import */ var _Item__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Item */ "./src/editor/Item.js");
+/* harmony import */ var _item__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./item */ "./src/editor/item.js");
 
 
 
 
 
-
-//import { EditorContext } from "./context";
+ //import { EditorContext } from "./context";
 
 const PanelItems = _ref => {
   let {
@@ -5302,72 +5248,76 @@ const PanelItems = _ref => {
     items,
     actions
   } = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(editor);
-  console.log("items", items);
-  const defaultItem = {
-    ditty_id: id,
-    item_author: "1",
-    item_id: null,
-    item_index: null,
-    item_type: "default",
-    item_value: {
-      content: "This is a default item again",
-      link_url: "",
-      link_title: "",
-      link_target: "_blank",
-      link_nofollow: "false"
-    },
-    layout_value: 'a:1:{s:7:"default";s:5:"13015";}'
-  };
-
   /**
    * Render the editorItem icon
    */
+
   const handleRenderIcon = item => {
     return window.dittyHooks.applyFilters("dittyEditorItemIcon", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
       className: "fas fa-pencil-alt"
     }), item);
   };
-
   /**
    * Render the editorItem label
    */
+
+
   const handleRenderLabel = item => {
     return window.dittyHooks.applyFilters("dittyEditorItemLabel", item.item_type, item);
   };
+
   const handleElementClick = (e, elementId, item) => {
     console.log("elementClick", elementId);
   };
-
   /**
    * Pull data from sorted list items to update items
    * @param {array} sortedListItems
    */
+
+
   const handleSortEnd = sortedListItems => {
     const updatedItems = sortedListItems.map(item => {
       return item.data;
     });
     actions.updateItems(updatedItems);
   };
-
   /**
    * Pull data from sorted list items to update items
    * @param {array} sortedListItems
    */
+
+
   const handleAddItem = () => {
-    items.push(defaultItem);
+    const newItem = {
+      ditty_id: id,
+      item_author: "1",
+      item_id: `new-${Date.now()}`,
+      item_index: null,
+      item_type: "default",
+      item_value: {
+        content: "This is a default item again",
+        link_url: "",
+        link_title: "",
+        link_target: "_blank",
+        link_nofollow: "false"
+      },
+      layout_value: 'a:1:{s:7:"default";s:5:"13015";}'
+    };
+    items.push(newItem);
     actions.updateItems(items);
   };
-
   /**
    * Prepare the items for the sortable list
    * @returns {array}
    */
+
+
   const prepareItems = () => {
     return items.map((item, index) => {
       return {
         id: item.item_id,
         data: item,
-        content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Item__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_item__WEBPACK_IMPORTED_MODULE_4__["default"], {
           data: item,
           renderIcon: handleRenderIcon,
           renderLabel: handleRenderLabel,
@@ -5377,24 +5327,28 @@ const PanelItems = _ref => {
       };
     });
   };
+
   const panelHeader = () => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
       className: "ditty-button",
       onClick: handleAddItem
     }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Add Item Test", "ditty-news-ticker"));
   };
+
   const panelContent = () => {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_common_SortableList__WEBPACK_IMPORTED_MODULE_3__["default"], {
       items: prepareItems(),
       onSortEnd: handleSortEnd
     });
   };
+
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Panel__WEBPACK_IMPORTED_MODULE_2__["default"], {
     id: "items",
     header: panelHeader(),
     content: panelContent()
   });
 };
+
 /* harmony default export */ __webpack_exports__["default"] = (PanelItems);
 
 /***/ }),
@@ -5532,6 +5486,63 @@ const SortableList = _ref => {
 
 /***/ }),
 
+/***/ "./src/editor/item.js":
+/*!****************************!*\
+  !*** ./src/editor/item.js ***!
+  \****************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const Item = _ref => {
+  let {
+    data,
+    renderIcon,
+    renderLabel,
+    editable,
+    onElementClick
+  } = _ref;
+  let elements = [{
+    id: "icon",
+    content: renderIcon(data)
+  }, {
+    id: "label",
+    content: renderLabel(data)
+  }];
+
+  if (editable) {
+    elements.push({
+      id: "settings",
+      content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
+        className: "fas fa-cog"
+      })
+    });
+  }
+
+  elements = window.dittyHooks.applyFilters("dittyEditorItemElements", elements);
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "ditty-editor-item"
+  }, elements.map(element => {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: `ditty-editor-item__${element.id}`,
+      key: element.id,
+      onClick: e => {
+        onElementClick(e, element.id, data);
+      }
+    }, element.content);
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Item);
+
+/***/ }),
+
 /***/ "react":
 /*!************************!*\
   !*** external "React" ***!
@@ -5586,12 +5597,14 @@ function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
+
       for (var key in source) {
         if (Object.prototype.hasOwnProperty.call(source, key)) {
           target[key] = source[key];
         }
       }
     }
+
     return target;
   };
   return _extends.apply(this, arguments);
@@ -5682,62 +5695,68 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 /**
  * Modify the display icon
  */
+
 window.dittyHooks.addFilter("dittyEditorPanel", "dittyEditor", (panel, panelId, context) => {
   if ("items" === panelId) {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_editor_PanelItems__WEBPACK_IMPORTED_MODULE_2__["default"], {
       editor: context
     });
   }
+
   return panel;
 });
-
 /**
  * Modify the item icon
  */
+
 window.dittyHooks.addFilter("dittyEditorItemIcon", "dittyEditor", (icon, data) => {
   switch (data.item_type) {
     case "posts_feed":
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
         className: "fab fa-wordpress"
       });
+
     default:
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
         className: "fas fa-pencil-alt"
       });
   }
 });
-
 /**
  * Modify the item label
  */
+
 window.dittyHooks.addFilter("dittyEditorItemLabel", "dittyEditor", (icon, data) => {
   switch (data.item_type) {
     case "default":
-      return data.item_value.content + "ss";
+      return data.item_value.content;
+
     case "posts_feed":
       return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Posts Feed", "ditty-news-ticker");
+
     default:
       return "Add something here";
   }
 });
-
 /**
  * Modify the display icon
  */
+
 window.dittyHooks.addFilter("dittyEditorDisplayIcon", "dittyEditor", (icon, data) => {
   switch (data.type) {
     case "list":
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
         className: "fas fa-list"
       });
+
     case "ticker":
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
         className: "fas fa-ellipsis-h"
       });
+
     default:
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
         className: "fas fa-tablet-alt"

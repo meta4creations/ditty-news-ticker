@@ -40,7 +40,7 @@ window.dittyHooks.addFilter(
   (icon, data) => {
     switch (data.item_type) {
       case "default":
-        return data.item_value.content + "ss";
+        return data.item_value.content;
       case "posts_feed":
         return __("Posts Feed", "ditty-news-ticker");
       default:

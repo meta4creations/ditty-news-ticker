@@ -2,29 +2,11 @@ import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
 import Panel from "./Panel";
 import SortableList from "./common/SortableList";
-import Item from "./Item";
+import Item from "./item";
 //import { EditorContext } from "./context";
 
 const PanelItems = ({ editor }) => {
   const { id, items, actions } = useContext(editor);
-
-  console.log("items", items);
-
-  const defaultItem = {
-    ditty_id: id,
-    item_author: "1",
-    item_id: null,
-    item_index: null,
-    item_type: "default",
-    item_value: {
-      content: "This is a default item again",
-      link_url: "",
-      link_title: "",
-      link_target: "_blank",
-      link_nofollow: "false",
-    },
-    layout_value: 'a:1:{s:7:"default";s:5:"13015";}',
-  };
 
   /**
    * Render the editorItem icon
@@ -68,7 +50,22 @@ const PanelItems = ({ editor }) => {
    * @param {array} sortedListItems
    */
   const handleAddItem = () => {
-    items.push(defaultItem);
+    const newItem = {
+      ditty_id: id,
+      item_author: "1",
+      item_id: `new-${Date.now()}`,
+      item_index: null,
+      item_type: "default",
+      item_value: {
+        content: "This is a default item again",
+        link_url: "",
+        link_title: "",
+        link_target: "_blank",
+        link_nofollow: "false",
+      },
+      layout_value: 'a:1:{s:7:"default";s:5:"13015";}',
+    };
+    items.push(newItem);
     actions.updateItems(items);
   };
 

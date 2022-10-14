@@ -83,7 +83,14 @@
   top: 32px;
 }
 
+.ditty-editor__contents {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
 .ditty-editor__tabs {
+  flex: 0 0 auto;
   height: 60px;
   display: flex;
   flex-direction: row;
@@ -125,6 +132,24 @@
 .ditty-editor__tab span {
   flex: 1;
   display: block;
+}
+.ditty-editor__panels {
+  flex: 1;
+  overflow: hidden;
+}
+.ditty-editor__panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.ditty-editor__panel__header {
+  flex: 0 0 auto;
+}
+.ditty-editor__panel__content {
+  flex: 1;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .ditty-editor__panel__header {

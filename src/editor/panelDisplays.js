@@ -1,7 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import { useContext } from "@wordpress/element";
 import List from "./common/List";
-import Item from "./Item";
+import Item from "./item";
 import { EditorContext } from "./context";
 
 const PanelDisplays = () => {
