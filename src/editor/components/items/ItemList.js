@@ -1,13 +1,10 @@
 import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
 import Panel from "./Panel";
-import SortableList from "./common/SortableList";
-import Item from "./item";
-//import { EditorContext } from "./context";
+import SortableList from "../common/SortableList";
+import Item from "./Item";
 
-const PanelItems = ({ editor }) => {
-  const { id, items, actions } = useContext(editor);
-
+const ItemList = ({ items }) => {
   /**
    * Render the editorItem icon
    */
@@ -31,7 +28,11 @@ const PanelItems = ({ editor }) => {
   };
 
   const handleElementClick = (e, elementId, item) => {
-    console.log("elementClick", elementId);
+    if ("settings" === elementId) {
+      setCurrentItem(item);
+      console.log("item", item);
+      console.log("testing again");
+    }
   };
 
   /**
@@ -105,4 +106,4 @@ const PanelItems = ({ editor }) => {
 
   return <Panel id="items" header={panelHeader()} content={panelContent()} />;
 };
-export default PanelItems;
+export default ItemList;

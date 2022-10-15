@@ -1,6 +1,6 @@
-import DittyDisplay from "./components/dittyDisplay";
 import { createHooks } from "@wordpress/hooks";
-import "./css/dittyDisplay.scss";
+import DittyDisplay from "./displays/components/dittyDisplay";
+import "./displays/css/dittyDisplay.scss";
 
 /**
  * Add ditty global variables for reference

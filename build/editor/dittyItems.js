@@ -5184,332 +5184,6 @@ function findFirstFocusableNode(element) {
 
 /***/ }),
 
-/***/ "./src/editor/Panel.js":
-/*!*****************************!*\
-  !*** ./src/editor/Panel.js ***!
-  \*****************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-const Panel = props => {
-  const {
-    id,
-    header,
-    content
-  } = props;
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: `ditty-editor__panel ditty-editor__panel--${id}`,
-    key: id
-  }, header && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "ditty-editor__panel__header"
-  }, header), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "ditty-editor__panel__content"
-  }, content));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Panel);
-
-/***/ }),
-
-/***/ "./src/editor/PanelDisplays.js":
-/*!*************************************!*\
-  !*** ./src/editor/PanelDisplays.js ***!
-  \*************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _common_List__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./common/List */ "./src/editor/common/List.js");
-/* harmony import */ var _item__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./item */ "./src/editor/item.js");
-/* harmony import */ var _context__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./context */ "./src/editor/context/index.js");
-
-
-
-
-
-
-
-const PanelDisplays = () => {
-  const {
-    displays
-  } = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context__WEBPACK_IMPORTED_MODULE_4__.EditorContext);
-  console.log("displays", displays);
-
-  const handleRenderIcon = display => {
-    return window.dittyHooks.applyFilters("dittyEditorDisplayIcon", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
-      className: "fas fa-tablet-alt"
-    }), display);
-  };
-
-  const handleRenderLabel = display => {
-    return display.label;
-  };
-
-  const handleItemClick = (e, item) => {
-    console.log("target", e.target);
-  };
-
-  const handleElementClick = (e, elementId, item) => {
-    console.log("elementId", elementId);
-  };
-
-  const renderItems = () => {
-    return displays.map((display, index) => {
-      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_item__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        key: display.id,
-        index: index,
-        data: display,
-        renderIcon: handleRenderIcon,
-        renderLabel: handleRenderLabel,
-        onClick: handleItemClick,
-        onElementClick: handleElementClick
-      });
-    });
-  };
-
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_common_List__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    items: renderItems()
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (PanelDisplays);
-
-/***/ }),
-
-/***/ "./src/editor/PanelItems.js":
-/*!**********************************!*\
-  !*** ./src/editor/PanelItems.js ***!
-  \**********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Panel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Panel */ "./src/editor/Panel.js");
-/* harmony import */ var _common_SortableList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./common/SortableList */ "./src/editor/common/SortableList.js");
-/* harmony import */ var _item__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./item */ "./src/editor/item.js");
-
-
-
-
-
- //import { EditorContext } from "./context";
-
-const PanelItems = _ref => {
-  let {
-    editor
-  } = _ref;
-  const {
-    id,
-    items,
-    actions
-  } = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(editor);
-  /**
-   * Render the editorItem icon
-   */
-
-  const handleRenderIcon = item => {
-    return window.dittyHooks.applyFilters("dittyEditorItemIcon", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
-      className: "fas fa-pencil-alt"
-    }), item);
-  };
-  /**
-   * Render the editorItem label
-   */
-
-
-  const handleRenderLabel = item => {
-    return window.dittyHooks.applyFilters("dittyEditorItemLabel", item.item_type, item);
-  };
-
-  const handleElementClick = (e, elementId, item) => {
-    console.log("elementClick", elementId);
-  };
-  /**
-   * Pull data from sorted list items to update items
-   * @param {array} sortedListItems
-   */
-
-
-  const handleSortEnd = sortedListItems => {
-    const updatedItems = sortedListItems.map(item => {
-      return item.data;
-    });
-    actions.updateItems(updatedItems);
-  };
-  /**
-   * Pull data from sorted list items to update items
-   * @param {array} sortedListItems
-   */
-
-
-  const handleAddItem = () => {
-    const newItem = {
-      ditty_id: id,
-      item_author: "1",
-      item_id: `new-${Date.now()}`,
-      item_index: null,
-      item_type: "default",
-      item_value: {
-        content: "This is a default item again",
-        link_url: "",
-        link_title: "",
-        link_target: "_blank",
-        link_nofollow: "false"
-      },
-      layout_value: 'a:1:{s:7:"default";s:5:"13015";}'
-    };
-    items.push(newItem);
-    actions.updateItems(items);
-  };
-  /**
-   * Prepare the items for the sortable list
-   * @returns {array}
-   */
-
-
-  const prepareItems = () => {
-    return items.map((item, index) => {
-      return {
-        id: item.item_id,
-        data: item,
-        content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_item__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          data: item,
-          renderIcon: handleRenderIcon,
-          renderLabel: handleRenderLabel,
-          editable: true,
-          onElementClick: handleElementClick
-        })
-      };
-    });
-  };
-
-  const panelHeader = () => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-      className: "ditty-button",
-      onClick: handleAddItem
-    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Add Item Test", "ditty-news-ticker"));
-  };
-
-  const panelContent = () => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_common_SortableList__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      items: prepareItems(),
-      onSortEnd: handleSortEnd
-    });
-  };
-
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Panel__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    id: "items",
-    header: panelHeader(),
-    content: panelContent()
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (PanelItems);
-
-/***/ }),
-
-/***/ "./src/editor/Tabs.js":
-/*!****************************!*\
-  !*** ./src/editor/Tabs.js ***!
-  \****************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./context */ "./src/editor/context/index.js");
-
-
-
-
-
-const Tabs = () => {
-  const {
-    currentPanel,
-    actions
-  } = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context__WEBPACK_IMPORTED_MODULE_2__.EditorContext);
-  const tabs = [{
-    id: "items",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Items", "ditty-news-ticker"),
-    icon: "fas fa-stream"
-  }, {
-    id: "display",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Display", "ditty-news-ticker"),
-    icon: "fas fa-tablet-alt"
-  }, {
-    id: "settings",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Settings", "ditty-news-ticker"),
-    icon: "fas fa-cog"
-  }];
-  const selectedTabs = tabs.filter(tab => tab.id === currentPanel);
-  const selectedTab = selectedTabs.length ? selectedTabs[0] : tabs[0];
-
-  const renderButtonClass = tab => {
-    let className = "ditty-editor__tab";
-
-    if (tab === selectedTab) {
-      className += " ditty-editor__tab--active";
-    }
-
-    return className;
-  };
-
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "ditty-editor__tabs"
-  }, tabs.map(tab => {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-      className: renderButtonClass(tab),
-      key: tab.id,
-      onClick: () => actions.setCurrentPanel(tab.id)
-    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
-      className: tab.icon
-    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, tab.label));
-  }));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Tabs);
-
-/***/ }),
-
-/***/ "./src/editor/common/List.js":
-/*!***********************************!*\
-  !*** ./src/editor/common/List.js ***!
-  \***********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-
-
-const List = _ref => {
-  let {
-    items
-  } = _ref;
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "ditty-list"
-  }, items);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (List);
-
-/***/ }),
-
 /***/ "./src/editor/common/SortableItem.js":
 /*!*******************************************!*\
   !*** ./src/editor/common/SortableItem.js ***!
@@ -5643,93 +5317,10 @@ const SortableList = _ref => {
 
 /***/ }),
 
-/***/ "./src/editor/context/index.js":
-/*!*************************************!*\
-  !*** ./src/editor/context/index.js ***!
-  \*************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "EditorConsumer": function() { return /* binding */ EditorConsumer; },
-/* harmony export */   "EditorContext": function() { return /* binding */ EditorContext; },
-/* harmony export */   "EditorProvider": function() { return /* binding */ EditorProvider; }
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-const EditorContext = React.createContext();
-EditorContext.displayName = "EditorContext";
-class EditorProvider extends _wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Component {
-  constructor() {
-    super(...arguments);
-
-    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "data", this.props.data);
-
-    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "initialTitle", this.data.title ? this.data.title : "");
-
-    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "initialItems", this.data.items ? JSON.parse(this.data.items) : []);
-
-    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "initialDisplay", this.data.display ? this.data.display : 0);
-
-    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "id", this.data.id);
-
-    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "state", {
-      title: this.initialTitle,
-      items: this.initialItems,
-      displays: dittyEditorVars.displays,
-      layouts: dittyEditorVars.layouts,
-      currentDisplay: this.initialDisplay,
-      currentPanel: "items"
-    });
-
-    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "handleUpdateItems", updatedItems => {
-      const orderedItems = updatedItems.map((item, index) => {
-        item.item_index = index.toString();
-        return item;
-      });
-      this.setState({
-        items: orderedItems
-      });
-    });
-
-    (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(this, "handleSetCurrentPanel", panel => {
-      this.setState({
-        currentPanel: panel
-      });
-    });
-  }
-
-  render() {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(EditorContext.Provider, {
-      value: {
-        id: this.id,
-        title: this.state.title,
-        items: this.state.items,
-        displays: this.state.displays,
-        layouts: this.state.layouts,
-        currentPanel: this.state.currentPanel,
-        currentDisplay: this.state.currentDisplay,
-        actions: {
-          setCurrentPanel: this.handleSetCurrentPanel,
-          updateItems: this.handleUpdateItems
-        }
-      }
-    }, this.props.children);
-  }
-
-}
-const EditorConsumer = EditorContext.Consumer;
-
-/***/ }),
-
-/***/ "./src/editor/editor.js":
-/*!******************************!*\
-  !*** ./src/editor/editor.js ***!
-  \******************************/
+/***/ "./src/editor/components/Item.js":
+/*!***************************************!*\
+  !*** ./src/editor/components/Item.js ***!
+  \***************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -5737,32 +5328,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Tabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Tabs */ "./src/editor/Tabs.js");
-/* harmony import */ var _panels__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./panels */ "./src/editor/panels.js");
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = (() => {
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "ditty-editor__contents"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Tabs__WEBPACK_IMPORTED_MODULE_2__["default"], null), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_panels__WEBPACK_IMPORTED_MODULE_3__["default"], null));
-});
-
-/***/ }),
-
-/***/ "./src/editor/item.js":
-/*!****************************!*\
-  !*** ./src/editor/item.js ***!
-  \****************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-
 
 
 const Item = _ref => {
@@ -5780,7 +5345,6 @@ const Item = _ref => {
     id: "label",
     content: renderLabel(data)
   }];
-
   if (editable) {
     elements.push({
       id: "settings",
@@ -5789,7 +5353,6 @@ const Item = _ref => {
       })
     });
   }
-
   elements = window.dittyHooks.applyFilters("dittyEditorItemElements", elements);
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "ditty-editor-item"
@@ -5803,15 +5366,14 @@ const Item = _ref => {
     }, element.content);
   }));
 };
-
 /* harmony default export */ __webpack_exports__["default"] = (Item);
 
 /***/ }),
 
-/***/ "./src/editor/panels.js":
-/*!******************************!*\
-  !*** ./src/editor/panels.js ***!
-  \******************************/
+/***/ "./src/editor/components/Panel.js":
+/*!****************************************!*\
+  !*** ./src/editor/components/Panel.js ***!
+  \****************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -5819,74 +5381,157 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _context__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./context */ "./src/editor/context/index.js");
-/* harmony import */ var _PanelItems__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PanelItems */ "./src/editor/PanelItems.js");
-/* harmony import */ var _PanelDisplays__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PanelDisplays */ "./src/editor/PanelDisplays.js");
 
 
-
- //import Panel from "./Panel";
-
-
-
-
-const Panels = () => {
+const Panel = props => {
   const {
-    currentPanel
-  } = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context__WEBPACK_IMPORTED_MODULE_2__.EditorContext);
-  const panels = [{
-    id: "items",
-    // header: (
-    //   <button className="ditty-button">
-    //     {__("Add Item", "ditty-news-ticker")}
-    //   </button>
-    // ),
-    content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_PanelItems__WEBPACK_IMPORTED_MODULE_3__["default"], null)
-  }, {
-    id: "display",
-    // header: (
-    //   <button className="ditty-button">
-    //     {__("Add Display", "ditty-news-ticker")}
-    //   </button>
-    // ),
-    content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_PanelDisplays__WEBPACK_IMPORTED_MODULE_4__["default"], null)
-  }, {
-    id: "settings",
-    content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Settings")
-  }];
-
-  const renderCurrentPanel = () => {
-    const selectedPanels = panels.filter(panel => panel.id === currentPanel);
-    const selectedPanel = selectedPanels.length ? selectedPanels[0] : panels[0]; //return selectedPanel.content;
-
-    return window.dittyHooks.applyFilters("dittyEditorPanel", "", currentPanel, _context__WEBPACK_IMPORTED_MODULE_2__.EditorContext); // return (
-    //   <Panel
-    //     id={selectedPanel.id}
-    //     header={selectedPanel.header ? selectedPanel.header : null}
-    //     content={selectedPanel.content}
-    //   />
-    // );
-  };
-
-  console.log("currentPanel", currentPanel);
+    id,
+    header,
+    content
+  } = props;
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "ditty-editor__panels"
-  }, renderCurrentPanel());
+    className: `ditty-editor__panel ditty-editor__panel--${id}`,
+    key: id
+  }, header && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "ditty-editor__panel__header"
+  }, header), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "ditty-editor__panel__content"
+  }, content));
 };
-
-/* harmony default export */ __webpack_exports__["default"] = (Panels);
+/* harmony default export */ __webpack_exports__["default"] = (Panel);
 
 /***/ }),
 
-/***/ "./src/editor/css/editor.scss":
-/*!************************************!*\
-  !*** ./src/editor/css/editor.scss ***!
-  \************************************/
+/***/ "./src/editor/components/PanelItems.js":
+/*!*********************************************!*\
+  !*** ./src/editor/components/PanelItems.js ***!
+  \*********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Panel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Panel */ "./src/editor/components/Panel.js");
+/* harmony import */ var _common_SortableList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../common/SortableList */ "./src/editor/common/SortableList.js");
+/* harmony import */ var _Item__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Item */ "./src/editor/components/Item.js");
 
+
+
+
+
+
+//import { EditorContext } from "./context";
+
+const PanelItems = _ref => {
+  let {
+    editor
+  } = _ref;
+  const {
+    id,
+    items,
+    actions
+  } = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(editor);
+  const [currentPanel, setCurrentPanel] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)("list");
+  const [currentItem, setCurrentItem] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+
+  /**
+   * Render the editorItem icon
+   */
+  const handleRenderIcon = item => {
+    return window.dittyHooks.applyFilters("dittyEditorItemIcon", (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
+      className: "fas fa-pencil-alt"
+    }), item);
+  };
+
+  /**
+   * Render the editorItem label
+   */
+  const handleRenderLabel = item => {
+    return window.dittyHooks.applyFilters("dittyEditorItemLabel", item.item_type, item);
+  };
+  const handleElementClick = (e, elementId, item) => {
+    if ("settings" === elementId) {
+      setCurrentItem(item);
+      console.log("item", item);
+      console.log("testing again");
+    }
+  };
+
+  /**
+   * Pull data from sorted list items to update items
+   * @param {array} sortedListItems
+   */
+  const handleSortEnd = sortedListItems => {
+    const updatedItems = sortedListItems.map(item => {
+      return item.data;
+    });
+    actions.updateItems(updatedItems);
+  };
+
+  /**
+   * Pull data from sorted list items to update items
+   * @param {array} sortedListItems
+   */
+  const handleAddItem = () => {
+    const newItem = {
+      ditty_id: id,
+      item_author: "1",
+      item_id: `new-${Date.now()}`,
+      item_index: null,
+      item_type: "default",
+      item_value: {
+        content: "This is a default item again",
+        link_url: "",
+        link_title: "",
+        link_target: "_blank",
+        link_nofollow: "false"
+      },
+      layout_value: 'a:1:{s:7:"default";s:5:"13015";}'
+    };
+    items.push(newItem);
+    actions.updateItems(items);
+  };
+
+  /**
+   * Prepare the items for the sortable list
+   * @returns {array}
+   */
+  const prepareItems = () => {
+    return items.map((item, index) => {
+      return {
+        id: item.item_id,
+        data: item,
+        content: (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Item__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          data: item,
+          renderIcon: handleRenderIcon,
+          renderLabel: handleRenderLabel,
+          editable: true,
+          onElementClick: handleElementClick
+        })
+      };
+    });
+  };
+  const panelHeader = () => {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+      className: "ditty-button",
+      onClick: handleAddItem
+    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Add Item Test", "ditty-news-ticker"));
+  };
+  const panelContent = () => {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_common_SortableList__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      items: prepareItems(),
+      onSortEnd: handleSortEnd
+    });
+  };
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Panel__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    id: "items",
+    header: panelHeader(),
+    content: panelContent()
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (PanelItems);
 
 /***/ }),
 
@@ -5930,33 +5575,6 @@ module.exports = window["wp"]["i18n"];
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/esm/defineProperty.js ***!
-  \*******************************************************************/
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ _defineProperty; }
-/* harmony export */ });
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-/***/ }),
-
 /***/ "./node_modules/@babel/runtime/helpers/esm/extends.js":
 /*!************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/extends.js ***!
@@ -5971,14 +5589,12 @@ function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
-
       for (var key in source) {
         if (Object.prototype.hasOwnProperty.call(source, key)) {
           target[key] = source[key];
         }
       }
     }
-
     return target;
   };
   return _extends.apply(this, arguments);
@@ -6057,31 +5673,81 @@ function _extends() {
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 !function() {
-/*!****************************!*\
-  !*** ./src/dittyEditor.js ***!
-  \****************************/
+/*!**********************************!*\
+  !*** ./src/editor/dittyItems.js ***!
+  \**********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _editor_context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./editor/context */ "./src/editor/context/index.js");
-/* harmony import */ var _editor_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./editor/editor */ "./src/editor/editor.js");
-/* harmony import */ var _editor_css_editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor/css/editor.scss */ "./src/editor/css/editor.scss");
-
-const {
-  render
-} = wp.element; //we are using wp.element here!
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_PanelItems__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/PanelItems */ "./src/editor/components/PanelItems.js");
 
 
 
 
+/**
+ * Modify the display icon
+ */
+window.dittyHooks.addFilter("dittyEditorPanel", "dittyEditor", (panel, panelId, context) => {
+  if ("items" === panelId) {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_PanelItems__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      editor: context
+    });
+  }
+  return panel;
+});
 
-if (document.getElementById("ditty-editor")) {
-  const $dittyEditor = document.getElementById("ditty-editor");
-  render((0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_editor_context__WEBPACK_IMPORTED_MODULE_1__.EditorProvider, {
-    data: $dittyEditor.dataset
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_editor_editor__WEBPACK_IMPORTED_MODULE_2__["default"], null)), document.getElementById("ditty-editor"));
-}
+/**
+ * Modify the item icon
+ */
+window.dittyHooks.addFilter("dittyEditorItemIcon", "dittyEditor", (icon, data) => {
+  switch (data.item_type) {
+    case "posts_feed":
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
+        className: "fab fa-wordpress"
+      });
+    default:
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
+        className: "fas fa-pencil-alt"
+      });
+  }
+});
+
+/**
+ * Modify the item label
+ */
+window.dittyHooks.addFilter("dittyEditorItemLabel", "dittyEditor", (icon, data) => {
+  switch (data.item_type) {
+    case "default":
+      return data.item_value.content;
+    case "posts_feed":
+      return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Posts Feed", "ditty-news-ticker");
+    default:
+      return "Add something here";
+  }
+});
+
+/**
+ * Modify the display icon
+ */
+window.dittyHooks.addFilter("dittyEditorDisplayIcon", "dittyEditor", (icon, data) => {
+  switch (data.type) {
+    case "list":
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
+        className: "fas fa-list"
+      });
+    case "ticker":
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
+        className: "fas fa-ellipsis-h"
+      });
+    default:
+      return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
+        className: "fas fa-tablet-alt"
+      });
+  }
+});
 }();
 /******/ })()
 ;
-//# sourceMappingURL=dittyEditor.js.map
+//# sourceMappingURL=dittyItems.js.map

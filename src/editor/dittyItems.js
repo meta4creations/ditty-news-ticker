@@ -1,5 +1,5 @@
 import { __ } from "@wordpress/i18n";
-import PanelItems from "./editor/PanelItems";
+import PanelItems from "./components/PanelItems";
 
 /**
  * Modify the display icon

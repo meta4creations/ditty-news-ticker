@@ -14,11 +14,41 @@ var generalConfig = {
   ...defaultConfig,
   entry: {
     ...getWebpackEntryPoints(),
-    dittyEditor: "./src/dittyEditor.js",
-    ditty: "./src/ditty.js",
-    dittyDisplayTicker: "./src/dittyDisplayTicker.js",
-    dittyItems: "./src/dittyItems.js",
   },
 };
 
-module.exports = [generalConfig];
+var dittyConfig = {
+  ...defaultConfig,
+  entry: {
+    ditty: "./src/ditty.js",
+  },
+  output: {
+    filename: "[name].js",
+    path: path.resolve(process.cwd(), "build"),
+  },
+};
+
+var displayConfig = {
+  ...defaultConfig,
+  entry: {
+    dittyDisplayTicker: "./src/displays/dittyDisplayTicker.js",
+  },
+  output: {
+    filename: "[name].js",
+    path: path.resolve(process.cwd(), "build/displays"),
+  },
+};
+
+var editorConfig = {
+  ...defaultConfig,
+  entry: {
+    dittyEditor: "./src/editor/dittyEditor.js",
+    dittyItems: "./src/editor/dittyItems.js",
+  },
+  output: {
+    filename: "[name].js",
+    path: path.resolve(process.cwd(), "build/editor"),
+  },
+};
+
+module.exports = [generalConfig, dittyConfig, displayConfig, editorConfig];

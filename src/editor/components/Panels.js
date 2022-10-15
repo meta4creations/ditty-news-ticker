@@ -1,7 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import { useContext } from "@wordpress/element";
 
-import { EditorContext } from "./context";
+import { EditorContext } from "../context";
 //import Panel from "./Panel";
 import PanelItems from "./PanelItems";
 import PanelDisplays from "./PanelDisplays";
@@ -54,8 +54,6 @@ const Panels = () => {
     //   />
     // );
   };
-
-  console.log("currentPanel", currentPanel);
 
   return <div className="ditty-editor__panels">{renderCurrentPanel()}</div>;
 };

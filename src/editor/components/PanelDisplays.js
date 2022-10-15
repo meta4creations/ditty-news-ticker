@@ -1,12 +1,11 @@
 import { __ } from "@wordpress/i18n";
 import { useContext } from "@wordpress/element";
-import List from "./common/List";
-import Item from "./item";
-import { EditorContext } from "./context";
+import List from "../common/List";
+import Item from "./Item";
+import { EditorContext } from "../context";
 
 const PanelDisplays = () => {
   const { displays } = useContext(EditorContext);
-  console.log("displays", displays);
 
   const handleRenderIcon = (display) => {
     return window.dittyHooks.applyFilters(
