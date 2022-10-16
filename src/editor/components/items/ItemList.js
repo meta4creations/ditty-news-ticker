@@ -1,10 +1,9 @@
 import { __ } from "@wordpress/i18n";
-import { useContext, useState } from "@wordpress/element";
-import Panel from "./Panel";
-import SortableList from "../common/SortableList";
-import Item from "./Item";
+import Panel from "../Panel";
+import SortableList from "../../common/SortableList";
+import Item from "../Item";
 
-const ItemList = ({ items }) => {
+const ItemList = ({ id, items, actions, editItem }) => {
   /**
    * Render the editorItem icon
    */
@@ -29,9 +28,7 @@ const ItemList = ({ items }) => {
 
   const handleElementClick = (e, elementId, item) => {
     if ("settings" === elementId) {
-      setCurrentItem(item);
-      console.log("item", item);
-      console.log("testing again");
+      editItem(item);
     }
   };
 
