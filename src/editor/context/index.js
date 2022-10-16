@@ -28,6 +28,13 @@ export class EditorProvider extends Component {
     this.setState({ items: orderedItems });
   };
 
+  handleUpdateItem = (updatedItem) => {
+    const updatedItems = this.state.items.map((item) => {
+      return updatedItem.item_id === item.item_id ? updatedItem : item;
+    });
+    this.setState({ items: updatedItems });
+  };
+
   handleSetCurrentPanel = (panel) => {
     this.setState({ currentPanel: panel });
   };
@@ -46,6 +53,7 @@ export class EditorProvider extends Component {
           actions: {
             setCurrentPanel: this.handleSetCurrentPanel,
             updateItems: this.handleUpdateItems,
+            updateItem: this.handleUpdateItem,
           },
         }}
       >

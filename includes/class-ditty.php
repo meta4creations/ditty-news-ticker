@@ -708,6 +708,13 @@ class Ditty {
 		wp_enqueue_script(
 			'ditty-items',
 			DITTY_URL . 'build/editor/dittyItems.js',
+			['ditty', 'wp-element', 'wp-components'],
+			$this->version,
+			true
+		);
+		wp_enqueue_script(
+			'ditty-displays',
+			DITTY_URL . 'build/editor/dittyDisplays.js',
 			['ditty', 'wp-element'],
 			$this->version,
 			true

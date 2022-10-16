@@ -44,6 +44,7 @@ var editorConfig = {
   entry: {
     dittyEditor: "./src/editor/dittyEditor.js",
     dittyItems: "./src/editor/dittyItems.js",
+    dittyDisplays: "./src/editor/dittyDisplays.js",
   },
   output: {
     filename: "[name].js",

@@ -4,8 +4,9 @@ import SortableList from "../../common/SortableList";
 import Item from "../Item";
 
 const ItemList = ({ id, items, actions, editItem }) => {
+  console.log("items", items);
   /**
-   * Render the editorItem icon
+   * Render the icon
    */
   const handleRenderIcon = (item) => {
     return window.dittyHooks.applyFilters(

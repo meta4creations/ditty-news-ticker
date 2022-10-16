@@ -1,36 +1,53 @@
 import { __ } from "@wordpress/i18n";
-import { useContext, useState } from "@wordpress/element";
+import { useState } from "@wordpress/element";
+import Tabs from "../Tabs";
 import Panel from "../Panel";
 
-const ItemEdit = ({ item, goBack }) => {
-  const [currentTab, setCurrentTab] = useState("edit");
+const ItemEdit = ({ item, goBack, editor }) => {
+  const [currentTabId, setCurrentTabId] = useState("settings");
 
-  const tabs = window.dittyHooks.applyFilters(
-    "dittyItemsTabs",
-    [
-      {
-        id: "edit",
-        icon: "",
-        label: __("Edit", "ditty-news-ticker"),
-        content: <h2>Edit panel</h2>,
-      },
-    ],
-    currentPanel,
-    editor
-  );
+  const tabs = window.dittyHooks.applyFilters("dittyItemEditTabs", [
+    {
+      id: "settings",
+      icon: "fas fa-edit",
+      label: __("Settings", "ditty-news-ticker"),
+    },
+    {
+      id: "layout",
+      icon: "fas fa-pencil-ruler",
+      label: __("Layout", "ditty-news-ticker"),
+    },
+  ]);
 
-  console.log(tabs);
+  const handleTabClick = (tab) => {
+    setCurrentTabId(tab.id);
+  };
 
   const panelHeader = () => {
     return (
       <button className="ditty-button" onClick={goBack}>
-        {__("Go Back", "ditty-news-ticker")}
+        {__("Back", "ditty-news-ticker")}
       </button>
     );
   };
 
   const panelContent = () => {
-    return <h1>Item #{item.item_id}</h1>;
+    return (
+      <>
+        <Tabs
+          tabs={tabs}
+          currentTabId={currentTabId}
+          tabClick={handleTabClick}
+        />
+        {window.dittyHooks.applyFilters(
+          "dittyItemEditPanel",
+          "",
+          currentTabId,
+          item,
+          editor
+        )}
+      </>
+    );
   };
 
   return (

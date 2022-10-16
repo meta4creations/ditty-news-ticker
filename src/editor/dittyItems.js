@@ -1,14 +1,15 @@
 import { __ } from "@wordpress/i18n";
 import PanelItems from "./components/PanelItems";
+import ItemSettings from "./components/items/ItemSettings";
 
 /**
- * Modify the display icon
+ * Render the Items panel
  */
 window.dittyHooks.addFilter(
   "dittyEditorPanel",
   "dittyEditor",
-  (panel, panelId, context) => {
-    if ("items" === panelId) {
+  (panel, tabId, context) => {
+    if ("items" === tabId) {
       return <PanelItems editor={context} />;
     }
     return panel;
@@ -64,5 +65,19 @@ window.dittyHooks.addFilter(
       default:
         return <i className="fas fa-tablet-alt"></i>;
     }
+  }
+);
+
+/**
+ * Render the Items Edit panel
+ */
+window.dittyHooks.addFilter(
+  "dittyItemEditPanel",
+  "dittyEditor",
+  (panel, tabId, item, editor) => {
+    if ("settings" === tabId) {
+      return <ItemSettings item={item} editor={editor} />;
+    }
+    return panel;
   }
 );

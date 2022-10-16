@@ -1,48 +1,30 @@
 import { __ } from "@wordpress/i18n";
-import { useContext } from "@wordpress/element";
-import List from "../common/List";
-import Item from "./Item";
-import { EditorContext } from "../context";
+import { useState, useContext } from "@wordpress/element";
+import DisplayList from "./displays/DisplayList";
+import DisplayEdit from "./displays/DisplayEdit";
 
-const PanelDisplays = () => {
-  const { displays } = useContext(EditorContext);
+const PanelDisplays = ({ editor }) => {
+  const { id, displays, actions } = useContext(editor);
+  const [currentDisplay, setCurrentDisplay] = useState(null);
 
-  const handleRenderIcon = (display) => {
-    return window.dittyHooks.applyFilters(
-      "dittyEditorDisplayIcon",
-      <i className="fas fa-tablet-alt"></i>,
-      display
-    );
+  const handleEditDisplay = (display) => {
+    console.log(display);
+    setCurrentDisplay(display);
   };
 
-  const handleRenderLabel = (display) => {
-    return display.label;
+  const handleGoBack = () => {
+    currentDisplay(null);
   };
 
-  const handleItemClick = (e, item) => {
-    console.log("target", e.target);
-  };
-
-  const handleElementClick = (e, elementId, item) => {
-    console.log("elementId", elementId);
-  };
-
-  const renderItems = () => {
-    return displays.map((display, index) => {
-      return (
-        <Item
-          key={display.id}
-          index={index}
-          data={display}
-          renderIcon={handleRenderIcon}
-          renderLabel={handleRenderLabel}
-          onClick={handleItemClick}
-          onElementClick={handleElementClick}
-        />
-      );
-    });
-  };
-
-  return <List items={renderItems()} />;
+  return currentDisplay ? (
+    <DisplayEdit display={currentDisplay} goBack={handleGoBack} />
+  ) : (
+    <DisplayList
+      id={id}
+      displays={displays}
+      actions={actions}
+      editDisplay={handleEditDisplay}
+    />
+  );
 };
 export default PanelDisplays;

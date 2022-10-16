@@ -1,50 +1,57 @@
 import { __ } from "@wordpress/i18n";
-import { useContext } from "@wordpress/element";
-import { EditorContext } from "../context";
 
-const Tabs = () => {
-  const { currentPanel, actions } = useContext(EditorContext);
+const Tabs = ({ tabs, type, currentTabId, tabClick }) => {
+  /**
+   * Render the tabs container class name
+   * @returns className
+   */
+  const renderTabsClass = () => {
+    let className = "ditty-editor__tabs";
+    if (type && "" !== type) {
+      className += ` ditty-editor__tabs--${type}`;
+    }
+    return className;
+  };
 
-  const tabs = [
-    {
-      id: "items",
-      label: __("Items", "ditty-news-ticker"),
-      icon: "fas fa-stream",
-    },
-    {
-      id: "display",
-      label: __("Display", "ditty-news-ticker"),
-      icon: "fas fa-tablet-alt",
-    },
-    {
-      id: "settings",
-      label: __("Settings", "ditty-news-ticker"),
-      icon: "fas fa-cog",
-    },
-  ];
-
-  const selectedTabs = tabs.filter((tab) => tab.id === currentPanel);
-  const selectedTab = selectedTabs.length ? selectedTabs[0] : tabs[0];
-
+  /**
+   * Render a tabs class name
+   * @param {object} tab
+   * @returns className
+   */
   const renderButtonClass = (tab) => {
     let className = "ditty-editor__tab";
-    if (tab === selectedTab) {
+    if (tab.id === currentTabId) {
       className += " ditty-editor__tab--active";
     }
     return className;
   };
 
+  /**
+   * Render a tabs content
+   * @param {object} tab
+   * @returns className
+   */
+  const renderButtonContent = (tab) => {
+    return tab.id === currentTabId ? (
+      <span>{tab.label}</span>
+    ) : (
+      <i className={tab.icon}></i>
+    );
+  };
+
+  /**
+   * Return the tabs
+   */
   return (
-    <div className="ditty-editor__tabs">
+    <div className={renderTabsClass()}>
       {tabs.map((tab) => {
         return (
           <button
             className={renderButtonClass(tab)}
             key={tab.id}
-            onClick={() => actions.setCurrentPanel(tab.id)}
+            onClick={() => tabClick(tab)}
           >
-            <i className={tab.icon}></i>
-            <span>{tab.label}</span>
+            {renderButtonContent(tab)}
           </button>
         );
       })}

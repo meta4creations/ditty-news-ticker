@@ -48,7 +48,7 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 				'id'				=> 'link_title',
 				'name'			=> __( 'Title', 'ditty-news-ticker' ),
 				'help'			=> __( 'Add a title to the custom lnk.', 'ditty-news-ticker' ),
-				'std'		=> isset( $values['link_title'] ) ? $values['link_title'] : false,
+				'std'			=> isset( $values['link_title'] ) ? $values['link_title'] : false,
 			),
 			'link_target' => array(
 				'type'			=> 'select',

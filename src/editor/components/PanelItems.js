@@ -22,7 +22,7 @@ const PanelItems = ({ editor }) => {
   };
 
   return currentItem ? (
-    <ItemEdit item={currentItem} goBack={handleGoBack} />
+    <ItemEdit item={currentItem} goBack={handleGoBack} editor={editor} />
   ) : (
     <ItemList
       id={id}
