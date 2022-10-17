@@ -1,20 +1,27 @@
 import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
+import { useContext, useState } from "@wordpress/element";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPenToSquare,
+  faPenRuler,
+  faAngleLeft,
+} from "@fortawesome/pro-regular-svg-icons";
 import Tabs from "../Tabs";
 import Panel from "../Panel";
 
 const ItemEdit = ({ item, goBack, editor }) => {
+  const { items } = useContext(editor);
   const [currentTabId, setCurrentTabId] = useState("settings");
 
   const tabs = window.dittyHooks.applyFilters("dittyItemEditTabs", [
     {
       id: "settings",
-      icon: "fas fa-edit",
+      icon: <FontAwesomeIcon icon={faPenToSquare} />,
       label: __("Settings", "ditty-news-ticker"),
     },
     {
       id: "layout",
-      icon: "fas fa-pencil-ruler",
+      icon: <FontAwesomeIcon icon={faPenRuler} />,
       label: __("Layout", "ditty-news-ticker"),
     },
   ]);
@@ -24,9 +31,11 @@ const ItemEdit = ({ item, goBack, editor }) => {
   };
 
   const panelHeader = () => {
+    const count = items.length;
     return (
       <button className="ditty-button" onClick={goBack}>
-        {__("Back", "ditty-news-ticker")}
+        <FontAwesomeIcon icon={faAngleLeft} />
+        {__(`Back - ${count} items`, "ditty-news-ticker")}
       </button>
     );
   };
@@ -34,11 +43,6 @@ const ItemEdit = ({ item, goBack, editor }) => {
   const panelContent = () => {
     return (
       <>
-        <Tabs
-          tabs={tabs}
-          currentTabId={currentTabId}
-          tabClick={handleTabClick}
-        />
         {window.dittyHooks.applyFilters(
           "dittyItemEditPanel",
           "",
@@ -51,7 +55,14 @@ const ItemEdit = ({ item, goBack, editor }) => {
   };
 
   return (
-    <Panel id="itemEdit" header={panelHeader()} content={panelContent()} />
+    <Panel
+      id="itemEdit"
+      header={panelHeader()}
+      tabs={tabs}
+      tabClick={handleTabClick}
+      currentTabId={currentTabId}
+      content={panelContent()}
+    />
   );
 };
 export default ItemEdit;

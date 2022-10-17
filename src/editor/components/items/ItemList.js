@@ -1,17 +1,18 @@
 import { __ } from "@wordpress/i18n";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil } from "@fortawesome/pro-regular-svg-icons";
 import Panel from "../Panel";
 import SortableList from "../../common/SortableList";
 import Item from "../Item";
 
 const ItemList = ({ id, items, actions, editItem }) => {
-  console.log("items", items);
   /**
    * Render the icon
    */
   const handleRenderIcon = (item) => {
     return window.dittyHooks.applyFilters(
       "dittyEditorItemIcon",
-      <i className="fas fa-pencil-alt"></i>,
+      <FontAwesomeIcon icon={faPencil} />,
       item
     );
   };

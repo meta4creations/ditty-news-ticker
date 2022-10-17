@@ -1,6 +1,10 @@
 import { __ } from "@wordpress/i18n";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil } from "@fortawesome/pro-light-svg-icons";
+import { faWordpress } from "@fortawesome/free-brands-svg-icons";
 import PanelItems from "./components/PanelItems";
 import ItemSettings from "./components/items/ItemSettings";
+import LayoutList from "./components/layouts/LayoutList";
 
 /**
  * Render the Items panel
@@ -25,9 +29,9 @@ window.dittyHooks.addFilter(
   (icon, data) => {
     switch (data.item_type) {
       case "posts_feed":
-        return <i className="fab fa-wordpress"></i>;
+        return <FontAwesomeIcon icon={faWordpress} />;
       default:
-        return <i className="fas fa-pencil-alt"></i>;
+        return <FontAwesomeIcon icon={faPencil} />;
     }
   }
 );
@@ -51,33 +55,20 @@ window.dittyHooks.addFilter(
 );
 
 /**
- * Modify the display icon
- */
-window.dittyHooks.addFilter(
-  "dittyEditorDisplayIcon",
-  "dittyEditor",
-  (icon, data) => {
-    switch (data.type) {
-      case "list":
-        return <i className="fas fa-list"></i>;
-      case "ticker":
-        return <i className="fas fa-ellipsis-h"></i>;
-      default:
-        return <i className="fas fa-tablet-alt"></i>;
-    }
-  }
-);
-
-/**
  * Render the Items Edit panel
  */
 window.dittyHooks.addFilter(
   "dittyItemEditPanel",
   "dittyEditor",
   (panel, tabId, item, editor) => {
-    if ("settings" === tabId) {
-      return <ItemSettings item={item} editor={editor} />;
+    console.log("tabId", tabId);
+    switch (tabId) {
+      case "settings":
+        return <ItemSettings item={item} editor={editor} />;
+      case "layout":
+        return <LayoutList item={item} editor={editor} />;
+      default:
+        return panel;
     }
-    return panel;
   }
 );

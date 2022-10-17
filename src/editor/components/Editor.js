@@ -1,5 +1,11 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBarsStaggered,
+  faTabletScreen,
+  faGear,
+} from "@fortawesome/pro-regular-svg-icons";
 import Tabs from "./Tabs";
 import { EditorContext } from "../context";
 
@@ -10,17 +16,17 @@ export default () => {
     {
       id: "items",
       label: __("Items", "ditty-news-ticker"),
-      icon: "fas fa-stream",
+      icon: <FontAwesomeIcon icon={faBarsStaggered} />,
     },
     {
       id: "display",
       label: __("Display", "ditty-news-ticker"),
-      icon: "fas fa-tablet-alt",
+      icon: <FontAwesomeIcon icon={faTabletScreen} />,
     },
     {
       id: "settings",
       label: __("Settings", "ditty-news-ticker"),
-      icon: "fas fa-cog",
+      icon: <FontAwesomeIcon icon={faGear} />,
     },
   ]);
 
@@ -45,7 +51,7 @@ export default () => {
         tabClick={handleTabClick}
         type="primary"
       />
-      <div className="ditty-editor__panels">{renderCurrentPanel()}</div>;
+      <div className="ditty-editor__panels">{renderCurrentPanel()}</div>
     </div>
   );
 };

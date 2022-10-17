@@ -96,7 +96,7 @@
   align-items: stretch;
   justify-content: flex-start;
   gap: 1px;
-  height: 54px;
+  height: 40px;
   font-size: 14px;
   background: #e8e9eb;
 }
@@ -115,6 +115,9 @@
 .ditty-editor__tabs--primary .ditty-editor__tab--active {
   color: #fff;
   background-color: #19bf7c;
+}
+.ditty-editor__tabs--secondary {
+  border-bottom: 1px solid #ccc;
 }
 .ditty-editor__tab {
   position: relative;
@@ -145,12 +148,12 @@
   padding-right: 30px;
   background-color: #fff;
 }
-.ditty-editor__tab i {
+.ditty-editor__tab__icon {
   flex: 0 0 auto;
   display: block;
   font-size: 18px;
 }
-.ditty-editor__tab span {
+.ditty-editor__tab__label {
   flex: 1;
   display: block;
 }
@@ -158,27 +161,26 @@
   flex: 1;
   overflow: hidden;
 }
-.ditty-editor__panel {
+.ditty-editor__panels > .ditty-editor__panel {
   height: 100%;
+}
+.ditty-editor__panels > .ditty-editor__panel > .ditty-editor__panel__content {
+  padding: 10px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+.ditty-editor__panel {
   display: flex;
   flex-direction: column;
   align-items: stretch;
 }
 .ditty-editor__panel__header {
   flex: 0 0 auto;
-}
-.ditty-editor__panel__content {
-  flex: 1;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-}
-
-.ditty-editor__panel__header {
   padding: 10px;
   border-bottom: 1px solid #ccc;
 }
 .ditty-editor__panel__content {
-  padding: 10px;
+  flex: 1;
 }
 
 .ditty-editor-item {
@@ -196,13 +198,19 @@
 }
 .ditty-editor-item__icon {
   flex: 0 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
   background: #ccc;
   margin-right: 10px;
 }
-.ditty-editor-item__icon i {
+.ditty-editor-item__icon i,
+.ditty-editor-item__icon svg {
   display: block;
-  width: 40px;
-  height: 40px;
+  font-size: 15px;
   text-align: center;
   line-height: 40px;
 }
@@ -214,6 +222,12 @@
 }
 .ditty-editor-item__settings {
   flex: 0 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
   margin-left: 10px;
   cursor: pointer;
 }
@@ -222,8 +236,7 @@
 }
 .ditty-editor-item__settings i {
   display: block;
-  width: 40px;
-  height: 40px;
+  font-size: 20px;
   text-align: center;
   line-height: 40px;
 }

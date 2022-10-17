@@ -1,24 +1,27 @@
 import { __ } from "@wordpress/i18n";
+import { useContext, useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTabletScreen } from "@fortawesome/pro-light-svg-icons";
+import { faPenRuler } from "@fortawesome/pro-light-svg-icons";
 import Panel from "../Panel";
 import List from "../../common/List";
 import Item from "../Item";
 
-const DisplayList = ({ id, displays, actions, editItem }) => {
+const LayoutList = ({ item, editor }) => {
+  const { layouts } = useContext(editor);
+
   /**
    * Render the icon
    */
-  const handleRenderIcon = (display) => {
+  const handleRenderIcon = (layout) => {
     return window.dittyHooks.applyFilters(
-      "dittyEditorDisplayIcon",
-      <FontAwesomeIcon icon={faTabletScreen} />,
-      display
+      "dittyEditorLayoutIcon",
+      <FontAwesomeIcon icon={faPenRuler} />,
+      layout
     );
   };
 
-  const handleRenderLabel = (display) => {
-    return display.label;
+  const handleRenderLabel = (layout) => {
+    return layout.label;
   };
 
   const handleItemClick = (e, item) => {
@@ -30,12 +33,12 @@ const DisplayList = ({ id, displays, actions, editItem }) => {
   };
 
   const renderItems = () => {
-    return displays.map((display, index) => {
+    return layouts.map((layout, index) => {
       return (
         <Item
-          key={display.id}
+          key={layout.id}
           index={index}
-          data={display}
+          data={layout}
           renderIcon={handleRenderIcon}
           renderLabel={handleRenderLabel}
           onClick={handleItemClick}
@@ -49,6 +52,6 @@ const DisplayList = ({ id, displays, actions, editItem }) => {
     return <List items={renderItems()} />;
   };
 
-  return <Panel id="displays" content={panelContent()} />;
+  return <Panel id="layouts" content={panelContent()} />;
 };
-export default DisplayList;
+export default LayoutList;

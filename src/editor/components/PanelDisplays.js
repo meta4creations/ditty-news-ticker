@@ -8,7 +8,6 @@ const PanelDisplays = ({ editor }) => {
   const [currentDisplay, setCurrentDisplay] = useState(null);
 
   const handleEditDisplay = (display) => {
-    console.log(display);
     setCurrentDisplay(display);
   };
 

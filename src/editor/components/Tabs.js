@@ -32,11 +32,15 @@ const Tabs = ({ tabs, type, currentTabId, tabClick }) => {
    * @returns className
    */
   const renderButtonContent = (tab) => {
-    return tab.id === currentTabId ? (
-      <span>{tab.label}</span>
-    ) : (
-      <i className={tab.icon}></i>
-    );
+    if (tab.icon) {
+      return tab.id === currentTabId ? (
+        <span className="ditty-editor__tab__label">{tab.label}</span>
+      ) : (
+        <span className="ditty-editor__tab__icon">{tab.icon}</span>
+      );
+    } else {
+      return <span className="ditty-editor__tab__label">{tab.label}</span>;
+    }
   };
 
   /**

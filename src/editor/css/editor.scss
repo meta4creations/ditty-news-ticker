@@ -91,7 +91,7 @@ $green: #19bf7c;
     align-items: stretch;
     justify-content: flex-start;
     gap: 1px;
-    height: 54px;
+    height: 40px;
     font-size: 14px;
     background: #e8e9eb;
     &--primary {
@@ -111,6 +111,9 @@ $green: #19bf7c;
           background-color: $green;
         }
       }
+    }
+    &--secondary {
+      border-bottom: 1px solid #ccc;
     }
   }
   &__tab {
@@ -143,12 +146,12 @@ $green: #19bf7c;
       padding-right: 30px;
       background-color: #fff;
     }
-    i {
+    &__icon {
       flex: 0 0 auto;
       display: block;
       font-size: 18px;
     }
-    span {
+    &__label {
       flex: 1;
       display: block;
     }
@@ -156,29 +159,30 @@ $green: #19bf7c;
   &__panels {
     flex: 1;
     overflow: hidden;
+    > .ditty-editor__panel {
+      height: 100%;
+      > .ditty-editor__panel__content {
+        padding: 10px;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
   }
   &__panel {
-    height: 100%;
+    //height: 100%;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     &__header {
       flex: 0 0 auto;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
     }
     &__content {
       flex: 1;
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
+      //overflow-y: scroll;
+      //-webkit-overflow-scrolling: touch;
     }
-  }
-}
-.ditty-editor__panel {
-  &__header {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-  }
-  &__content {
-    padding: 10px;
   }
 }
 .ditty-editor-item {
@@ -195,12 +199,18 @@ $green: #19bf7c;
   transition: background-color 0.25s ease, border-color 0.25s ease;
   &__icon {
     flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
     background: #ccc;
     margin-right: 10px;
-    i {
+    i,
+    svg {
       display: block;
-      width: 40px;
-      height: 40px;
+      font-size: 15px;
       text-align: center;
       line-height: 40px;
     }
@@ -213,6 +223,12 @@ $green: #19bf7c;
   }
   &__settings {
     flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
     margin-left: 10px;
     cursor: pointer;
     &:hover {
@@ -220,8 +236,7 @@ $green: #19bf7c;
     }
     i {
       display: block;
-      width: 40px;
-      height: 40px;
+      font-size: 20px;
       text-align: center;
       line-height: 40px;
     }

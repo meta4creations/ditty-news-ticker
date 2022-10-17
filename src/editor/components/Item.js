@@ -1,4 +1,6 @@
 import { __ } from "@wordpress/i18n";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGear } from "@fortawesome/pro-regular-svg-icons";
 
 const Item = ({ data, renderIcon, renderLabel, editable, onElementClick }) => {
   let elements = [
@@ -14,7 +16,7 @@ const Item = ({ data, renderIcon, renderLabel, editable, onElementClick }) => {
   if (editable) {
     elements.push({
       id: "settings",
-      content: <i className="fas fa-cog"></i>,
+      content: <FontAwesomeIcon icon={faGear} />,
     });
   }
 

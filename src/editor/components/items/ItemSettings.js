@@ -85,11 +85,6 @@ const ItemSettings = ({ item, editor }) => {
     });
   };
 
-  return (
-    <>
-      <h2>{item.item_id}</h2>
-      <div className="dittyEditorFields">{renderFields()}</div>
-    </>
-  );
+  return <div className="dittyEditorFields">{renderFields()}</div>;
 };
 export default ItemSettings;
