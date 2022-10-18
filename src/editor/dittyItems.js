@@ -1,7 +1,4 @@
 import { __ } from "@wordpress/i18n";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil } from "@fortawesome/pro-light-svg-icons";
-import { faWordpress } from "@fortawesome/free-brands-svg-icons";
 import PanelItems from "./components/PanelItems";
 import ItemSettings from "./components/items/ItemSettings";
 import LayoutList from "./components/layouts/LayoutList";
@@ -17,22 +14,6 @@ window.dittyHooks.addFilter(
       return <PanelItems editor={context} />;
     }
     return panel;
-  }
-);
-
-/**
- * Modify the item icon
- */
-window.dittyHooks.addFilter(
-  "dittyEditorItemIcon",
-  "dittyEditor",
-  (icon, data) => {
-    switch (data.item_type) {
-      case "posts_feed":
-        return <FontAwesomeIcon icon={faWordpress} />;
-      default:
-        return <FontAwesomeIcon icon={faPencil} />;
-    }
   }
 );
 
@@ -61,7 +42,6 @@ window.dittyHooks.addFilter(
   "dittyItemEditPanel",
   "dittyEditor",
   (panel, tabId, item, editor) => {
-    console.log("tabId", tabId);
     switch (tabId) {
       case "settings":
         return <ItemSettings item={item} editor={editor} />;

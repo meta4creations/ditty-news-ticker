@@ -1,44 +1,50 @@
 import { __ } from "@wordpress/i18n";
+import { useContext } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTabletScreen } from "@fortawesome/pro-light-svg-icons";
+import { faGear } from "@fortawesome/pro-regular-svg-icons";
 import Panel from "../Panel";
 import List from "../../common/List";
 import Item from "../Item";
 
-const DisplayList = ({ id, displays, actions, editItem }) => {
+const DisplayList = ({ editItem, editor }) => {
+  const { displays, helpers, actions } = useContext(editor);
+
   /**
-   * Render the icon
+   * Set up the elements
    */
-  const handleRenderIcon = (display) => {
-    return window.dittyHooks.applyFilters(
-      "dittyEditorDisplayIcon",
-      <FontAwesomeIcon icon={faTabletScreen} />,
-      display
-    );
-  };
-
-  const handleRenderLabel = (display) => {
-    return display.label;
-  };
-
-  const handleItemClick = (e, item) => {
-    console.log("target", e.target);
-  };
+  const elements = window.dittyHooks.applyFilters(
+    "dittyEditorDisplayListElements",
+    [
+      {
+        id: "icon",
+        content: (display) => {
+          return helpers.displayTypeIcon(display);
+        },
+      },
+      {
+        id: "label",
+        content: "test",
+        content: (display) => display.label,
+      },
+      {
+        id: "settings",
+        content: <FontAwesomeIcon icon={faGear} />,
+      },
+    ],
+    editor
+  );
 
   const handleElementClick = (e, elementId, item) => {
     console.log("elementId", elementId);
   };
 
   const renderItems = () => {
-    return displays.map((display, index) => {
+    return displays.map((display) => {
       return (
         <Item
           key={display.id}
-          index={index}
           data={display}
-          renderIcon={handleRenderIcon}
-          renderLabel={handleRenderLabel}
-          onClick={handleItemClick}
+          elements={elements}
           onElementClick={handleElementClick}
         />
       );

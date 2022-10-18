@@ -5,11 +5,11 @@ import {
   faPenToSquare,
   faPenRuler,
   faAngleLeft,
+  faPencil,
 } from "@fortawesome/pro-regular-svg-icons";
-import Tabs from "../Tabs";
 import Panel from "../Panel";
 
-const ItemEdit = ({ item, goBack, editor }) => {
+const ItemEdit = ({ item, goBack, deleteItem, editor }) => {
   const { items } = useContext(editor);
   const [currentTabId, setCurrentTabId] = useState("settings");
 
@@ -33,10 +33,19 @@ const ItemEdit = ({ item, goBack, editor }) => {
   const panelHeader = () => {
     const count = items.length;
     return (
-      <button className="ditty-button" onClick={goBack}>
-        <FontAwesomeIcon icon={faAngleLeft} />
-        {__(`Back - ${count} items`, "ditty-news-ticker")}
-      </button>
+      <>
+        <button onClick={goBack}>
+          <FontAwesomeIcon icon={faAngleLeft} />
+          {__(`Back - ${count} items`, "ditty-news-ticker")}
+        </button>
+        <button
+          onClick={() => {
+            deleteItem(item);
+          }}
+        >
+          {__("Delete", "ditty-news-ticker")}
+        </button>
+      </>
     );
   };
 

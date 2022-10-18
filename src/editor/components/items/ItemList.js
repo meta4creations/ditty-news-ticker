@@ -1,32 +1,44 @@
 import { __ } from "@wordpress/i18n";
+import { useContext } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil } from "@fortawesome/pro-regular-svg-icons";
+import { faGear } from "@fortawesome/pro-regular-svg-icons";
 import Panel from "../Panel";
 import SortableList from "../../common/SortableList";
 import Item from "../Item";
 
-const ItemList = ({ id, items, actions, editItem }) => {
-  /**
-   * Render the icon
-   */
-  const handleRenderIcon = (item) => {
-    return window.dittyHooks.applyFilters(
-      "dittyEditorItemIcon",
-      <FontAwesomeIcon icon={faPencil} />,
-      item
-    );
-  };
+const ItemList = ({ editItem, addItem, editor }) => {
+  const { items, helpers, actions } = useContext(editor);
 
   /**
-   * Render the editorItem label
+   * Set up the elements
    */
-  const handleRenderLabel = (item) => {
-    return window.dittyHooks.applyFilters(
-      "dittyEditorItemLabel",
-      item.item_type,
-      item
-    );
-  };
+  const elements = window.dittyHooks.applyFilters(
+    "dittyEditorItemListElements",
+    [
+      {
+        id: "icon",
+        content: (item) => {
+          return helpers.itemTypeIcon(item);
+        },
+      },
+      {
+        id: "label",
+        content: "test",
+        content: (item) => {
+          return window.dittyHooks.applyFilters(
+            "dittyEditorItemLabel",
+            item.item_type,
+            item
+          );
+        },
+      },
+      {
+        id: "settings",
+        content: <FontAwesomeIcon icon={faGear} />,
+      },
+    ],
+    editor
+  );
 
   const handleElementClick = (e, elementId, item) => {
     if ("settings" === elementId) {
@@ -46,44 +58,18 @@ const ItemList = ({ id, items, actions, editItem }) => {
   };
 
   /**
-   * Pull data from sorted list items to update items
-   * @param {array} sortedListItems
-   */
-  const handleAddItem = () => {
-    const newItem = {
-      ditty_id: id,
-      item_author: "1",
-      item_id: `new-${Date.now()}`,
-      item_index: null,
-      item_type: "default",
-      item_value: {
-        content: "This is a default item again",
-        link_url: "",
-        link_title: "",
-        link_target: "_blank",
-        link_nofollow: "false",
-      },
-      layout_value: 'a:1:{s:7:"default";s:5:"13015";}',
-    };
-    items.push(newItem);
-    actions.updateItems(items);
-  };
-
-  /**
    * Prepare the items for the sortable list
    * @returns {array}
    */
   const prepareItems = () => {
-    return items.map((item, index) => {
+    return items.map((item) => {
       return {
         id: item.item_id,
         data: item,
         content: (
           <Item
             data={item}
-            renderIcon={handleRenderIcon}
-            renderLabel={handleRenderLabel}
-            editable={true}
+            elements={elements}
             onElementClick={handleElementClick}
           />
         ),
@@ -93,7 +79,7 @@ const ItemList = ({ id, items, actions, editItem }) => {
 
   const panelHeader = () => {
     return (
-      <button className="ditty-button" onClick={handleAddItem}>
+      <button className="ditty-button" onClick={() => addItem()}>
         {__("Add Item Test", "ditty-news-ticker")}
       </button>
     );

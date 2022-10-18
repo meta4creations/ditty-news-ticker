@@ -23,6 +23,7 @@ const PanelDisplays = ({ editor }) => {
       displays={displays}
       actions={actions}
       editDisplay={handleEditDisplay}
+      editor={editor}
     />
   );
 };

@@ -67,8 +67,6 @@ const ItemSettings = ({ item, editor }) => {
   };
 
   const renderFields = () => {
-    console.log("fields", fields);
-
     return fields.map((field) => {
       const value = item.item_value[field.id]
         ? item.item_value[field.id]
