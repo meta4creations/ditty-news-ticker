@@ -1,9 +1,36 @@
 import { __ } from "@wordpress/i18n";
 import { useContext } from "@wordpress/element";
 import Panel from "../Panel";
+import List from "../../common/List";
+import Item from "../Item";
 
 const ItemTypes = ({ addItem, cancelItem, editor }) => {
-  const { itemTypes } = useContext(editor);
+  const { helpers, itemTypes } = useContext(editor);
+
+  /**
+   * Set up the elements
+   */
+  const elements = window.dittyHooks.applyFilters(
+    "dittyEditorItemTypesListElements",
+    [
+      {
+        id: "icon",
+        content: (itemType) => itemType.icon,
+      },
+      {
+        id: "content",
+        content: (itemType) => {
+          return (
+            <>
+              <h3>{itemType.label}</h3>
+              <p>{itemType.description}</p>
+            </>
+          );
+        },
+      },
+    ],
+    editor
+  );
 
   const panelHeader = () => {
     return (
@@ -11,22 +38,30 @@ const ItemTypes = ({ addItem, cancelItem, editor }) => {
     );
   };
 
-  const panelContent = () => {
+  const handleItemClick = (e, itemType) => {
+    addItem(itemType.id);
+  };
+
+  const handleElementClick = (e, elementId, itemType) => {
+    console.log("elementId", elementId);
+  };
+
+  const renderItems = () => {
     return itemTypes.map((itemType) => {
       return (
-        <div
-          className="ditty-editor-item-type"
+        <Item
           key={itemType.id}
-          onClick={() => addItem(itemType.id)}
-        >
-          <span className="ditty-editor-item-type__icon">{itemType.icon}</span>
-          <div className="ditty-editor-item-type__contents">
-            <h3>{itemType.label}</h3>
-            <p>{itemType.description}</p>
-          </div>
-        </div>
+          data={itemType}
+          elements={elements}
+          onItemClick={handleItemClick}
+          onElementClick={handleElementClick}
+        />
       );
     });
+  };
+
+  const panelContent = () => {
+    return <List items={renderItems()} />;
   };
 
   return (

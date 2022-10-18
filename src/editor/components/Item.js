@@ -2,7 +2,7 @@ import { __ } from "@wordpress/i18n";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/pro-regular-svg-icons";
 
-const Item = ({ data, elements, onElementClick }) => {
+const Item = ({ data, elements, onItemClick, onElementClick }) => {
   const renderElement = (element) => {
     if (element.content) {
       return (
@@ -22,7 +22,12 @@ const Item = ({ data, elements, onElementClick }) => {
   };
 
   return (
-    <div className="ditty-editor-item">
+    <div
+      className="ditty-editor-item"
+      onClick={(e) => {
+        onItemClick && onItemClick(e, data);
+      }}
+    >
       {elements.map((element) => {
         return renderElement(element);
       })}
