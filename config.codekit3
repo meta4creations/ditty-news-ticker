@@ -41,6 +41,14 @@
       "oO" : 1,
       "oS" : 1
     },
+    "\/.npmrc" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/.npmrc",
+      "oF" : 0
+    },
     "\/build" : {
       "ft" : 65536,
       "oA" : 1,
@@ -1290,6 +1298,294 @@
       "oAP" : "\/includes\/libs\/css\/mtphr-slider-min.css",
       "oF" : 0,
       "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/all.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/all-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/all.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/all.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/brands.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/brands-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/brands.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/brands.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/fontawesome.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/fontawesome-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/fontawesome.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/fontawesome.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/regular.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/regular-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/regular.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/regular.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/solid.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/solid-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/solid.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/solid.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/svg-with-js.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/svg-with-js-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/svg-with-js.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/svg-with-js.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/v4-font-face.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/v4-font-face-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/v4-font-face.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/v4-font-face.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/v4-shims.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/v4-shims-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/v4-shims.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/v4-shims.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/v5-font-face.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/v5-font-face-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/css\/v5-font-face.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/v5-font-face.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/LICENSE.txt" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/LICENSE.txt",
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-brands-400.ttf" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-brands-400.ttf",
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-brands-400.woff2" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-brands-400.woff2",
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-regular-400.ttf" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-regular-400.ttf",
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-regular-400.woff2" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-regular-400.woff2",
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-solid-900.ttf" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-solid-900.ttf",
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-solid-900.woff2" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-solid-900.woff2",
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-v4compatibility.ttf" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-v4compatibility.ttf",
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-v4compatibility.woff2" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-v4compatibility.woff2",
+      "oF" : 0
     },
     "\/includes\/libs\/hammer.min.js" : {
       "bF" : 0,

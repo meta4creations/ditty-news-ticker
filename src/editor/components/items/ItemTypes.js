@@ -5,7 +5,7 @@ import List from "../../common/List";
 import Item from "../Item";
 
 const ItemTypes = ({ addItem, cancelItem, editor }) => {
-  const { helpers, itemTypes } = useContext(editor);
+  const { itemTypes } = useContext(editor);
 
   /**
    * Set up the elements
@@ -34,7 +34,12 @@ const ItemTypes = ({ addItem, cancelItem, editor }) => {
 
   const panelHeader = () => {
     return (
-      <button onClick={cancelItem}>{__("Cancel", "ditty-news-ticker")}</button>
+      <>
+        <h2>{__("Item Types", "ditty-news-ticker")}</h2>
+        <button onClick={cancelItem}>
+          {__("Cancel", "ditty-news-ticker")}
+        </button>
+      </>
     );
   };
 

@@ -132,6 +132,8 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 = 3.0.29 =
 * Bug fix in gutenberg block check code
+* Fontawesome version update
+* Include Fontawesome directly in plugin
 
 = 3.0.28 =
 * Added Ditty widget block

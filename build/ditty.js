@@ -65,8 +65,7 @@ class DittyDisplay {
       type: "",
       wrapItems: "no"
     };
-    this.config = {
-      ...defaults,
+    this.config = { ...defaults,
       ...config
     };
     this.$ditty = this.config.element;
@@ -89,38 +88,45 @@ class DittyDisplay {
     this.itemsInit = false;
     this.paused = false;
   }
+
   dittyInit() {
     this.init = true;
     this.$ditty.classList.add("ditty--init");
   }
+
   dittyItemsInit() {
     this.itemsInit = true;
     this.$ditty.classList.add("ditty--init");
   }
+
   getNextItemIndex(index) {
     let nextItemIndex = parseInt(index) + 1;
+
     if (nextItemIndex >= parseInt(this.total)) {
       nextItemIndex = 0;
-    }
-    // Set the next item
+    } // Set the next item
+
+
     return nextItemIndex;
   }
-
   /**
    * Add to the visible item list
    * @param {int} index
    * @param {object} $item
    */
+
+
   addVisibleItem($item) {
     this.visibleItems.push($item);
     this.setActiveItems();
   }
-
   /**
    * Remove from the visible item list
    * @param {int} index
    * @param {object} $item
    */
+
+
   removeVisibleItem($item) {
     const visibleItems = this.visibleItems.filter($visibleItem => {
       return $visibleItem !== $item;
@@ -128,10 +134,11 @@ class DittyDisplay {
     this.visibleItems = visibleItems;
     this.setActiveItems();
   }
-
   /**
    * Set the active items
    */
+
+
   setActiveItems() {
     this.activeItems = [];
     this.visibleItems.forEach($item => {
@@ -140,16 +147,18 @@ class DittyDisplay {
     });
     window.dittyHooks.doAction("dittyActiveItemsUpdate", this.$ditty, this.activeItems);
   }
-
   /**
    * Check if an item is enabled
    * @param {int} index
    * @returns bool
    */
+
+
   itemEnabled(index) {
     if (undefined === this.items[parseInt(index)]) {
       return false;
     }
+
     if (undefined === this.items[parseInt(index)].dataset.isDisabled) {
       return true;
     } else {
@@ -160,17 +169,19 @@ class DittyDisplay {
       }
     }
   }
-
   /**
    * Set an option
    * @param {string} key
    * @param {string} value
    * @returns null
    */
+
+
   setOption(key, value) {
     if (undefined === value) {
       return false;
     }
+
     switch (key) {
       // case "items":
       // 	//this.updateItems(value);
@@ -184,6 +195,7 @@ class DittyDisplay {
         this.config[key] = value;
         (0,_dittyDisplayStyles_js__WEBPACK_IMPORTED_MODULE_0__.updateTitleElement)(this.$ditty, this.config, this.config.type);
         break;
+
       case "titleDisplay":
       case "titleElementPosition":
       case "titleFontSize":
@@ -208,30 +220,37 @@ class DittyDisplay {
       case "contentsPadding":
       case "contentsBorderRadius":
         this.config[key] = value;
-        (0,_dittyDisplayStyles_js__WEBPACK_IMPORTED_MODULE_0__.updateDisplayStyles)(this.config, this.config.display, this.config.type);
-        // 	this._setCurrentHeight();
+        (0,_dittyDisplayStyles_js__WEBPACK_IMPORTED_MODULE_0__.updateDisplayStyles)(this.config, this.config.display, this.config.type); // 	this._setCurrentHeight();
+
         break;
+
       default:
         this.config[key] = value;
         break;
     }
   }
+
   getOption(key) {
     switch (key) {
       case "ditty":
         return this;
+
       case "type":
         return this.config.type;
+
       case "display":
         return this.config.display;
+
       case "items":
         return this.items;
       // case "height":
       // 	return this.currentHeight;
+
       default:
         return this.config[key];
     }
   }
+
   options(key, value) {
     if (typeof key === "object") {
       for (const property in key) {
@@ -241,11 +260,13 @@ class DittyDisplay {
       if (value === undefined) {
         return this.getOption(key);
       }
+
       this.setOption(key, value);
     } else {
       return this.config;
     }
   }
+
 }
 
 /***/ }),
@@ -275,13 +296,13 @@ function updateTitleElement($ditty, settings, type) {
   $titleElement.remove();
   $titleContents.append($newTitleElement);
 }
-
 /**
  * Update the display title styles
  * @param {int} display
  * @param {object} settings
  * @param {string} type
  */
+
 function displayTitleStyles(settings, display, type) {
   let styles = "";
   styles += `.ditty[data-display="${display}"] .ditty__title {`;
@@ -294,6 +315,7 @@ function displayTitleStyles(settings, display, type) {
   styles += "" != settings["titlePadding"]["paddingRight"] ? `padding-right:${settings["titlePadding"]["paddingRight"]};` : "";
   styles += "" != settings["titlePadding"]["paddingBottom"] ? `padding-bottom:${settings["titlePadding"]["paddingBottom"]};` : "";
   styles += "" != settings["titlePadding"]["paddingLeft"] ? `padding-left:${settings["titlePadding"]["paddingLeft"]};` : "";
+
   if ("none" != settings["titleBorderStyle"]) {
     styles += `border-style:${settings["titleBorderStyle"]};`;
     styles += "" != settings["titleBorderColor"] ? `border-color:${settings["titleBorderColor"]};` : "";
@@ -302,6 +324,7 @@ function displayTitleStyles(settings, display, type) {
     styles += "" != settings["titleBorderWidth"]["borderBottomWidth"] ? `border-bottom-width:${settings["titleBorderWidth"]["borderBottomWidth"]};` : "";
     styles += "" != settings["titleBorderWidth"]["borderLeftWidth"] ? `border-left-width:${settings["titleBorderWidth"]["borderLeftWidth"]};` : "";
   }
+
   styles += "" != settings["titleBorderRadius"]["borderTopLeftRadius"] ? `border-top-left-radius:${settings["titleBorderRadius"]["borderTopLeftRadius"]};` : "";
   styles += "" != settings["titleBorderRadius"]["borderTopRightRadius"] ? `border-top-right-radius:${settings["titleBorderRadius"]["borderTopRightRadius"]};` : "";
   styles += "" != settings["titleBorderRadius"]["borderBottomLeftRadius"] ? `border-bottom-left-radius:${settings["titleBorderRadius"]["borderBottomLeftRadius"]};` : "";
@@ -314,13 +337,14 @@ function displayTitleStyles(settings, display, type) {
   styles += "}";
   return window.dittyHooks.applyFilters("dittyDisplayTitleStyles", styles, settings, display, type);
 }
-
 /**
  * Update the display container styles
  * @param {int} display
  * @param {object} settings
  * @param {string} type
  */
+
+
 function displayContainerStyles(settings, display, type) {
   let styles = "";
   styles += `.ditty[data-display="${display}"] {`;
@@ -334,6 +358,7 @@ function displayContainerStyles(settings, display, type) {
   styles += "" != settings["margin"]["marginRight"] ? `margin-right:${settings["margin"]["marginRight"]};` : "";
   styles += "" != settings["margin"]["marginBottom"] ? `margin-bottom:${settings["margin"]["marginBottom"]};` : "";
   styles += "" != settings["margin"]["marginLeft"] ? `margin-left:${settings["margin"]["marginLeft"]};` : "";
+
   if ("none" != settings["borderStyle"]) {
     styles += `border-style:${settings["borderStyle"]};`;
     styles += "" != settings["borderColor"] ? `border-color:${settings["borderColor"]};` : "";
@@ -342,6 +367,7 @@ function displayContainerStyles(settings, display, type) {
     styles += "" != settings["borderWidth"]["borderBottomWidth"] ? `border-bottom-width:${settings["borderWidth"]["borderBottomWidth"]};` : "";
     styles += "" != settings["borderWidth"]["borderLeftWidth"] ? `border-left-width:${settings["borderWidth"]["borderLeftWidth"]};` : "";
   }
+
   styles += "" != settings["borderRadius"]["borderTopLeftRadius"] ? `border-top-left-radius:${settings["borderRadius"]["borderTopLeftRadius"]};` : "";
   styles += "" != settings["borderRadius"]["borderTopRightRadius"] ? `border-top-right-radius:${settings["borderRadius"]["borderTopRightRadius"]};` : "";
   styles += "" != settings["borderRadius"]["borderBottomLeftRadius"] ? `border-bottom-left-radius:${settings["borderRadius"]["borderBottomLeftRadius"]};` : "";
@@ -349,13 +375,14 @@ function displayContainerStyles(settings, display, type) {
   styles += "}";
   return window.dittyHooks.applyFilters("dittyDisplayContainerStyles", styles, settings, display, type);
 }
-
 /**
  * Update the display content styles
  * @param {int} display
  * @param {object} settings
  * @param {string} type
  */
+
+
 function displayContentStyles(settings, display, type) {
   let styles = "";
   styles += `.ditty[data-display="${display}"] .ditty__contents {`;
@@ -364,6 +391,7 @@ function displayContentStyles(settings, display, type) {
   styles += "" != settings["contentsPadding"]["paddingRight"] ? `padding-right:${settings["contentsPadding"]["paddingRight"]};` : "";
   styles += "" != settings["contentsPadding"]["paddingBottom"] ? `padding-bottom:${settings["contentsPadding"]["paddingBottom"]};` : "";
   styles += "" != settings["contentsPadding"]["paddingLeft"] ? `padding-left:${settings["contentsPadding"]["paddingLeft"]};` : "";
+
   if ("none" != settings["contentsBorderStyle"]) {
     styles += `border-style:${settings["contentsBorderStyle"]};`;
     styles += "" != settings["contentsBorderColor"] ? `border-color:${settings["contentsBorderColor"]};` : "";
@@ -372,6 +400,7 @@ function displayContentStyles(settings, display, type) {
     styles += "" != settings["contentsBorderWidth"]["borderBottomWidth"] ? `border-bottom-width:${settings["contentsBorderWidth"]["borderBottomWidth"]};` : "";
     styles += "" != settings["contentsBorderWidth"]["borderLeftWidth"] ? `border-left-width:${settings["contentsBorderWidth"]["borderLeftWidth"]};` : "";
   }
+
   styles += "" != settings["contentsBorderRadius"]["borderTopLeftRadius"] ? `border-top-left-radius:${settings["contentsBorderRadius"]["borderTopLeftRadius"]};` : "";
   styles += "" != settings["contentsBorderRadius"]["borderTopRightRadius"] ? `border-top-right-radius:${settings["contentsBorderRadius"]["borderTopRightRadius"]};` : "";
   styles += "" != settings["contentsBorderRadius"]["borderBottomLeftRadius"] ? `border-bottom-left-radius:${settings["contentsBorderRadius"]["borderBottomLeftRadius"]};` : "";
@@ -379,13 +408,14 @@ function displayContentStyles(settings, display, type) {
   styles += "}";
   return window.dittyHooks.applyFilters("dittyDisplayContentStyles", styles, settings, display, type);
 }
-
 /**
  * Update the display item styles
  * @param {int} display
  * @param {object} settings
  * @param {string} type
  */
+
+
 function displayItemStyles(settings, display, type) {
   let styles = "";
   styles += `.ditty[data-display="${display}"] .ditty-item__elements {`;
@@ -395,6 +425,7 @@ function displayItemStyles(settings, display, type) {
   styles += "" != settings["itemPadding"]["paddingRight"] ? `padding-right:${settings["itemPadding"]["paddingRight"]};` : "";
   styles += "" != settings["itemPadding"]["paddingBottom"] ? `padding-bottom:${settings["itemPadding"]["paddingBottom"]};` : "";
   styles += "" != settings["itemPadding"]["paddingLeft"] ? `padding-left:${settings["itemPadding"]["paddingLeft"]};` : "";
+
   if ("none" != settings["itemBorderStyle"]) {
     styles += `border-style:${settings["itemBorderStyle"]};`;
     styles += "" != settings["itemBorderColor"] ? `border-color:${settings["itemBorderColor"]};` : "";
@@ -403,6 +434,7 @@ function displayItemStyles(settings, display, type) {
     styles += "" != settings["itemBorderWidth"]["borderBottomWidth"] ? `border-bottom-width:${settings["itemBorderWidth"]["borderBottomWidth"]};` : "";
     styles += "" != settings["itemBorderWidth"]["borderLeftWidth"] ? `border-left-width:${settings["itemBorderWidth"]["borderLeftWidth"]};` : "";
   }
+
   styles += "" != settings["itemBorderRadius"]["borderTopLeftRadius"] ? `border-top-left-radius:${settings["itemBorderRadius"]["borderTopLeftRadius"]};` : "";
   styles += "" != settings["itemBorderRadius"]["borderTopRightRadius"] ? `border-top-right-radius:${settings["itemBorderRadius"]["borderTopRightRadius"]};` : "";
   styles += "" != settings["itemBorderRadius"]["borderBottomLeftRadius"] ? `border-bottom-left-radius:${settings["itemBorderRadius"]["borderBottomLeftRadius"]};` : "";
@@ -412,13 +444,14 @@ function displayItemStyles(settings, display, type) {
   styles += "}";
   return window.dittyHooks.applyFilters("dittyDisplayItemStyles", styles, settings, display, type);
 }
-
 /**
  * Update the display style element
  * @param {int} display
  * @param {object} settings
  * @param {string} type
  */
+
+
 function updateDisplayStyles(settings, display, type) {
   const styleEl = document.getElementById(`ditty-display--${display}`);
   let styles = "";
@@ -535,25 +568,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 /**
  * Add ditty global variables for reference
  */
+
 window.ditty = new WeakMap();
 window.dittyHooks = (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__.createHooks)();
 window.dittyDisplays = {
   display: _displays_components_dittyDisplay__WEBPACK_IMPORTED_MODULE_1__["default"]
 };
-
 /**
  * Load the Ditty on page load
  */
+
 window.onload = function () {
   document.querySelectorAll(".ditty").forEach(dittyEl => {
     var type = dittyEl.dataset.type;
+
     if (!window.dittyDisplays[type]) {
       return;
     }
+
     const args = {
       element: dittyEl,
       display: dittyEl.dataset.display,
@@ -565,13 +600,16 @@ window.onload = function () {
     window.ditty.set(dittyEl, ditty);
   });
 };
-
 /**
  * Sample event to modify a Ditty
  */
+
+
 document.addEventListener("click", clickHandle);
+
 function clickHandle(e) {
   const el = e.target;
+
   if (el.closest(".ditty__title")) {
     e.preventDefault();
     const dittyEl = el.closest(".ditty");

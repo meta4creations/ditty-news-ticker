@@ -1,9 +1,9 @@
 import { __ } from "@wordpress/i18n";
 import {
+  CheckboxControl,
+  SelectControl,
   TextControl,
   TextareaControl,
-  SelectControl,
-  CheckboxControl,
 } from "@wordpress/components";
 
 const Field = ({ field, value, onFieldUpdate }) => {
@@ -24,11 +24,20 @@ const Field = ({ field, value, onFieldUpdate }) => {
 
   const renderField = () => {
     switch (field.type) {
-      case "textarea":
+      case "checkbox":
         return (
-          <TextareaControl
+          <CheckboxControl
+            label={field.label}
+            value={value}
+            onChange={(value) => updateValue(value)}
+          />
+        );
+      case "number":
+        return (
+          <TextControl
             label={field.name}
             value={value}
+            type="number"
             onChange={(value) => updateValue(value)}
           />
         );
@@ -41,10 +50,18 @@ const Field = ({ field, value, onFieldUpdate }) => {
             onChange={(value) => updateValue(value)}
           />
         );
-      case "checkbox":
+      case "textarea":
         return (
-          <CheckboxControl
-            label={field.label}
+          <TextareaControl
+            label={field.name}
+            value={value}
+            onChange={(value) => updateValue(value)}
+          />
+        );
+      case "wysiwyg":
+        return (
+          <TextareaControl
+            label={field.name}
             value={value}
             onChange={(value) => updateValue(value)}
           />
