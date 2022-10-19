@@ -726,6 +726,7 @@ class Ditty {
 				'mode'					=> WP_DEBUG ? 'development' : 'production',
 				'displays'			=> Ditty()->editor->display_data(),
 				'layouts'				=> Ditty()->editor->layout_data(),
+				'itemTypes'			=> array_values( ditty_item_types() ),
 			) ), 'before' );
 		}
 	
