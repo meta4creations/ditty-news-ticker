@@ -279,6 +279,44 @@ class Ditty_Singles {
 		}
 		$ditty = get_post( $ditty_id );
 		$initialized = get_post_meta( $ditty_id, '_ditty_init', true );
+		
+		$settings = get_post_meta( $ditty_id, '_ditty_settings', true );
+		$title = ( ! $initialized ) ? sprintf( __( 'Ditty %d', 'ditty-news-ticker' ), $ditty->ID ) : $ditty->post_title;
+		$items_meta = ditty_items_meta( $ditty_id );
+
+		$display = get_post_meta( $ditty->ID, '_ditty_display', true );
+		if ( ! $display || ! ditty_display_exists( $display ) ) {
+			$display = ditty_default_display( $ditty->ID );
+		}
+		$atts = array(
+			'id' 					=> $ditty->ID,
+			'display' 		=> $display,
+			'uniqid'			=> 'ditty-preview-' . $ditty->ID,
+			'class'				=> 'ditty-preview',
+			//'show_editor'	=> 1,
+			//'load_type'		=> '',
+		);
+		$ditty_render = ditty_render( $atts );
+
+		$atts = array(
+			'data-id' => $ditty_id,
+			'data-title' => $title,
+			'data-settings' => json_encode( $settings ),
+			'data-items' => json_encode( $items_meta ),
+			'data-render'	=> htmlentities( $ditty_render ),
+		);
+		?>
+		<div id="ditty-editor__wrapper" <?php echo ditty_attr_to_html( $atts ); ?>></div>
+		<?php
+	}
+
+	public function page_displayxxx() {
+		$ditty_id = ditty_editing();
+		if ( ! $ditty_id ) {
+			return false;
+		}
+		$ditty = get_post( $ditty_id );
+		$initialized = get_post_meta( $ditty_id, '_ditty_init', true );
 		$settings = get_post_meta( $ditty_id, '_ditty_settings', true );
 		$title = ( ! $initialized ) ? sprintf( __( 'Ditty %d', 'ditty-news-ticker' ), $ditty->ID ) : $ditty->post_title;
 		?>
@@ -298,22 +336,22 @@ class Ditty_Singles {
 						'display' 		=> $display,
 						'uniqid'			=> 'ditty-preview-' . $ditty->ID,
 						'class'				=> 'ditty-preview',
-						'show_editor'	=> 1,
+						//'show_editor'	=> 1,
 						//'load_type'		=> '',
 					);
 					echo ditty_render( $atts );
 					?>
 				</div>
 			</div>
-			<?php
-			$items_meta = ditty_items_meta( $ditty_id );
-			$atts = array(
-				'data-id' => $ditty_id,
-				'data-title' => $title,
-				'data-items' => json_encode( $items_meta )
-			);
-			?>
 		</div>
+		<?php
+		$items_meta = ditty_items_meta( $ditty_id );
+		$atts = array(
+			'data-id' => $ditty_id,
+			'data-title' => $title,
+			'data-items' => json_encode( $items_meta )
+		);
+		?>
 		<div id="ditty-editor" <?php echo ditty_attr_to_html( $atts ); ?>></div>
 		<?php
 	}

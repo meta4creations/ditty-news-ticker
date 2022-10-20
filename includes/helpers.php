@@ -1719,7 +1719,7 @@ function ditty_svg_d() {
 /**
  * Check if we are in development mode
  *
- * @since   3.0
+ * @since   3.1
  */
 function is_ditty_dev() {
 	if ( isset( $_GET['dittyDev'] ) ) {
@@ -1727,6 +1727,17 @@ function is_ditty_dev() {
 	}
 	if ( defined( 'DITTY_DEVELOPMENT' ) ) {
 		return DITTY_DEVELOPMENT;
+	}
+}
+
+/**
+ * Check if we are previewing a ditty
+ *
+ * @since   3.1
+ */
+function is_ditty_preview() {
+	if ( isset( $_GET['ditty_edit'] ) && isset( $_GET['ditty_edit_id'] ) ) {
+		return $_GET['ditty_edit_id'];
 	}
 }
 

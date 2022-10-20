@@ -9,7 +9,7 @@ import {
 import Tabs from "./Tabs";
 import { EditorContext } from "../context";
 
-export default () => {
+const Editor = () => {
   const [currentTabId, setCurrentTabId] = useState("items");
 
   const tabs = window.dittyHooks.applyFilters("dittyEditorTabs", [
@@ -44,7 +44,7 @@ export default () => {
   };
 
   return (
-    <div className="ditty-editor__contents">
+    <div id="ditty-editor__editor">
       <Tabs
         tabs={tabs}
         currentTabId={currentTabId}
@@ -55,3 +55,4 @@ export default () => {
     </div>
   );
 };
+export default Editor;

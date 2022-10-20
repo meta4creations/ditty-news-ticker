@@ -724,6 +724,7 @@ class Ditty {
 				'ajaxurl'				=> admin_url( 'admin-ajax.php' ),
 				'security'			=> wp_create_nonce( 'ditty' ),
 				'mode'					=> WP_DEBUG ? 'development' : 'production',
+				'siteUrl'				=> site_url(),
 				'displays'			=> Ditty()->editor->display_data(),
 				'layouts'				=> Ditty()->editor->layout_data(),
 				'itemTypes'			=> array_values( ditty_item_types() ),

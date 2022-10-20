@@ -14,6 +14,7 @@ EditorContext.displayName = "EditorContext";
 
 export class EditorProvider extends Component {
   data = this.props.data;
+  dittyRender = this.data.render ? this.data.render : "";
   initialTitle = this.data.title ? this.data.title : "";
   initialItems = this.data.items ? JSON.parse(this.data.items) : [];
   initialDisplay = this.data.display ? this.data.display : 0;
@@ -60,6 +61,7 @@ export class EditorProvider extends Component {
     return (
       <EditorContext.Provider
         value={{
+          dittyRender: this.dittyRender,
           id: this.id,
           title: this.state.title,
           itemTypes: getItemTypes(),
