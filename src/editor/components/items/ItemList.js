@@ -23,7 +23,6 @@ const ItemList = ({ editItem, addItem, editor }) => {
       },
       {
         id: "label",
-        content: "test",
         content: (item) => {
           return window.dittyHooks.applyFilters(
             "dittyEditorItemLabel",

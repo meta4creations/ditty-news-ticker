@@ -8,6 +8,11 @@ import {
   getItemTypeIcon,
   getItemTypeFields,
 } from "../utils/ItemTypes";
+import {
+  getDisplayTypes,
+  getDisplayTypeIcon,
+  getDisplayTypeFields,
+} from "../utils/DisplayTypes";
 
 export const EditorContext = React.createContext();
 EditorContext.displayName = "EditorContext";
@@ -66,6 +71,7 @@ export class EditorProvider extends Component {
           title: this.state.title,
           itemTypes: getItemTypes(),
           items: this.state.items,
+          displayTypes: getDisplayTypes(),
           displays: this.state.displays,
           layouts: this.state.layouts,
           currentPanel: this.state.currentPanel,
@@ -74,6 +80,7 @@ export class EditorProvider extends Component {
             itemTypeIcon: getItemTypeIcon,
             itemTypeFields: getItemTypeFields,
             displayTypeIcon: this.getDisplayTypeIcon,
+            displayTypeFields: getDisplayTypeFields,
           },
           actions: {
             setCurrentPanel: this.handleSetCurrentPanel,

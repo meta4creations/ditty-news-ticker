@@ -1,26 +1,21 @@
 import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
-import Tabs from "../Tabs";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft } from "@fortawesome/pro-regular-svg-icons";
 import Panel from "../Panel";
 
 const DisplayEdit = ({ display, goBack }) => {
   const [currentTab, setCurrentTab] = useState("edit");
 
-  const tabs = window.dittyHooks.applyFilters(
-    "dittyDisplaysTabs",
-    [
-      {
-        id: "back",
-        icon: "",
-        label: __("Go Back", "ditty-news-ticker"),
-        content: <h2>Edit panel</h2>,
-      },
-    ],
-    currentTab
-  );
-
   const panelHeader = () => {
-    return <Tabs tabs={tabs} />;
+    return (
+      <>
+        <button onClick={goBack}>
+          <FontAwesomeIcon icon={faAngleLeft} />
+          {__(`Back`, "ditty-news-ticker")}
+        </button>
+      </>
+    );
   };
 
   const panelContent = () => {

@@ -143,7 +143,7 @@ function ditty_item_type_object( $type ) {
 /**
  * Return an array of ditty displays
  * 
- * @since   3.0  
+ * @since   3.1
  */
 function ditty_display_types() {
 	$display_types = array();	
@@ -161,6 +161,15 @@ function ditty_display_types() {
 		'class_name'	=> 'Ditty_Display_Type_List',
 		//'class_path'	=> DITTY_DIR . 'includes/class-ditty-display-type-list.php',
 	);
+
+	$display_types = apply_filters( 'ditty_display_types', $display_types );
+	if ( is_array( $display_types ) && count( $display_types ) > 0 ) {
+		foreach ( $display_types as $slug => &$display_type ) {
+			if ( ! isset( $display_type['type'] ) ) {
+				$display_type['type'] = $slug;
+			}
+		}
+	}
 	return apply_filters( 'ditty_display_types', $display_types );
 }
 

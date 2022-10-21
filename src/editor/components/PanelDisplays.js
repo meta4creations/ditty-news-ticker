@@ -12,7 +12,7 @@ const PanelDisplays = ({ editor }) => {
   };
 
   const handleGoBack = () => {
-    currentDisplay(null);
+    setCurrentDisplay(null);
   };
 
   return currentDisplay ? (
