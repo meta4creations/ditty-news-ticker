@@ -10,10 +10,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/pro-regular-svg-icons";
 import Panel from "../Panel";
 import List from "../../common/List";
-import Item from "../Item";
+import Item from "../../common/Item";
 
 const DisplayList = ({ editDisplay, editor }) => {
-  const { displays, helpers, displayTypes, actions } = useContext(editor);
+  const { currentDisplay, displays, displayTypes, helpers, actions } =
+    useContext(editor);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState(null);
 
@@ -32,7 +33,14 @@ const DisplayList = ({ editDisplay, editor }) => {
       {
         id: "label",
         content: "test",
-        content: (display) => display.label,
+        content: (display) => {
+          return (
+            <>
+              <span>{display.label}</span>
+              <span>{`ID: ${display.id}`}</span>
+            </>
+          );
+        },
       },
       {
         id: "settings",
@@ -61,29 +69,29 @@ const DisplayList = ({ editDisplay, editor }) => {
           />
         </div>
         <div className="ditty-list__filters__filters">
-          {displayTypes.map((displayType) => {
-            const className = selectedType === displayType.id ? "active" : "";
-            return (
-              <button
-                key={displayType.id}
-                className={className}
-                onClick={() => setFilteredType(displayType.id)}
-              >
-                {displayType.icon}
-              </button>
-            );
-          })}
+          <div className="ditty-button-group">
+            {displayTypes.map((displayType) => {
+              const className = selectedType === displayType.id ? "active" : "";
+              return (
+                <button
+                  key={displayType.id}
+                  className={className}
+                  onClick={() => setFilteredType(displayType.id)}
+                >
+                  {displayType.icon}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
     );
   };
 
-  const handleElementClick = (e, elementId, display) => {
-    if ("settings" === elementId) {
-      editDisplay(display);
-    }
-  };
-
+  /**
+   * Render the display items
+   * @returns array
+   */
   const renderDisplays = () => {
     let filteredDisplays = displays;
     if (selectedType) {
@@ -98,11 +106,19 @@ const DisplayList = ({ editDisplay, editor }) => {
     }
 
     return filteredDisplays.map((display) => {
+      const isActive =
+        typeof currentDisplay !== "object" &&
+        display.id === Number(currentDisplay)
+          ? true
+          : false;
+
       return (
         <Item
           key={display.id}
           data={display}
           elements={elements}
+          isActive={isActive}
+          onItemClick={handleItemClick}
           onElementClick={handleElementClick}
         />
       );
@@ -113,6 +129,32 @@ const DisplayList = ({ editDisplay, editor }) => {
     return <List items={renderDisplays()} />;
   };
 
+  /**
+   * Perform actions on item click
+   * @param {object} e
+   * @param {object} display
+   */
+  const handleItemClick = (e, display) => {
+    if (!e.target.closest(".ditty-editor-item__settings")) {
+      actions.setCurrentDisplay(display.id);
+    }
+  };
+
+  /**
+   * Perform actions on element click
+   * @param {object} e
+   * @param {int} elementId
+   * @param {object} display
+   */
+  const handleElementClick = (e, elementId, display) => {
+    if ("settings" === elementId) {
+      editDisplay(display);
+    }
+  };
+
+  /**
+   * Return the display list panel
+   */
   return (
     <Panel id="displays" header={panelHeader()} content={panelContent()} />
   );

@@ -22,8 +22,8 @@ class Ditty_Editor {
 		add_action( 'wp_ajax_noprive_ditty_editor_load_contents', array( $this, 'editor_load_contents' ) );
 		add_action( 'init', array( $this, 'editor_update' ) );
 
-		add_action( 'wp_head', array( $this, 'preview_styles' ) );
-		add_action( 'wp', array( $this, 'render_preview' ) );
+		// add_action( 'wp_head', array( $this, 'preview_styles' ) );
+		// add_action( 'wp', array( $this, 'render_preview' ) );
 	}
 	
 	/**
@@ -130,49 +130,5 @@ class Ditty_Editor {
 		}
 		return $layout_data;
 	}
-
-	/**
-	 * Add styles to the preview iframe
-	 *
-	 * @access public
-	 * @since  3.1
-	 */
-	public function preview_styles() {
-		if ( $ditty_id = is_ditty_preview() ) {
-			?>
-			<style>body{margin:0;}</style>
-			<?php
-		}
-	}
-
-	/**
-	 * Render the preview
-	 *
-	 * @access public
-	 * @since  3.1
-	 */
-	public function render_preview() {
-		if ( $ditty_id = is_ditty_preview() ) {
-			$display = get_post_meta( $ditty_id, '_ditty_display', true );
-			if ( ! $display || ! ditty_display_exists( $display ) ) {
-				$display = ditty_default_display( $ditty_id );
-			}
-			$atts = array(
-				'id' 					=> $ditty_id,
-				'display' 		=> $display,
-				'uniqid'			=> 'ditty-preview-' . $ditty_id,
-				'class'				=> 'ditty-preview',
-			);
-			echo ditty_render( $atts );
-			wp_footer();
-			exit;
-		}
-	}
-	
-	
-	
-	
-	
-	
 	
 }

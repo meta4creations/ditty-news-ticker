@@ -118,6 +118,9 @@
   border-radius: 3px;
   overflow: hidden;
   transition: background-color 0.25s ease, border-color 0.25s ease;
+  &.active {
+    background: #eee;
+  }
   &__icon {
     flex: 0 0 auto;
     display: flex;

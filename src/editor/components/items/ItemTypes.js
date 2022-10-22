@@ -2,7 +2,7 @@ import { __ } from "@wordpress/i18n";
 import { useContext } from "@wordpress/element";
 import Panel from "../Panel";
 import List from "../../common/List";
-import Item from "../Item";
+import Item from "../../common/Item";
 
 const ItemTypes = ({ addItem, cancelItem, editor }) => {
   const { itemTypes } = useContext(editor);

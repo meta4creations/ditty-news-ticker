@@ -62,6 +62,10 @@ export class EditorProvider extends Component {
     this.setState({ currentPanel: panel });
   };
 
+  handleSetCurrentDisplay = (display) => {
+    this.setState({ currentDisplay: display });
+  };
+
   render() {
     return (
       <EditorContext.Provider
@@ -84,6 +88,7 @@ export class EditorProvider extends Component {
           },
           actions: {
             setCurrentPanel: this.handleSetCurrentPanel,
+            setCurrentDisplay: this.handleSetCurrentDisplay,
             updateItems: this.handleUpdateItems,
             updateItem: this.handleUpdateItem,
           },

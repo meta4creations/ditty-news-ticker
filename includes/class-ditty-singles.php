@@ -299,11 +299,12 @@ class Ditty_Singles {
 		$ditty_render = ditty_render( $atts );
 
 		$atts = array(
-			'data-id' => $ditty_id,
-			'data-title' => $title,
+			'data-id' 			=> $ditty_id,
+			'data-title' 		=> $title,
 			'data-settings' => json_encode( $settings ),
-			'data-items' => json_encode( $items_meta ),
-			'data-render'	=> htmlentities( $ditty_render ),
+			'data-items' 		=> json_encode( $items_meta ),
+			'data-display' 	=> $display,
+			'data-render'		=> htmlentities( $ditty_render ),
 		);
 		?>
 		<div id="ditty-editor__wrapper" <?php echo ditty_attr_to_html( $atts ); ?>></div>

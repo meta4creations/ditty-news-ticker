@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/pro-regular-svg-icons";
 import Panel from "../Panel";
 import SortableList from "../../common/SortableList";
-import Item from "../Item";
+import Item from "../../common/Item";
 
 const ItemList = ({ editItem, addItem, editor }) => {
   const { items, helpers, actions } = useContext(editor);

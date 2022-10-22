@@ -39,6 +39,44 @@
   transition: color 0.25s ease, background-color 0.25s ease;
 }
 
+.ditty-button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: flex-start;
+  background: #32373c;
+  border-radius: 3px;
+  overflow: hidden;
+  gap: 1px;
+}
+.ditty-button-group button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  padding: 10px 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.25s ease, background-color 0.25s ease;
+}
+.ditty-button-group button:not(.active):hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.ditty-button-group button.active {
+  color: #fff;
+  background-color: #19bf7c;
+}
+
 #ditty-editor {
   flex: 1;
   display: flex;
@@ -211,6 +249,9 @@
   overflow: hidden;
   transition: background-color 0.25s ease, border-color 0.25s ease;
 }
+.ditty-editor-item.active {
+  background: #eee;
+}
 .ditty-editor-item__icon {
   flex: 0 0 auto;
   display: flex;
@@ -261,6 +302,10 @@
 }
 .ditty-list--sortable .ditty-editor-item:hover:active {
   cursor: grabbing;
+}
+
+.ditty-editor__panel--displays .ditty-editor-item {
+  cursor: pointer;
 }
 
 .ditty-editor__panel--itemTypes .ditty-editor-item__content h3 {
