@@ -1,4 +1,10 @@
 .ditty-editor {
+  &__wrapper {
+    box-sizing: border-box;
+    * {
+      box-sizing: border-box;
+    }
+  }
   &__contents {
     height: 100%;
     display: flex;
@@ -79,6 +85,7 @@
   }
   &__panels {
     flex: 1;
+    height: calc(100% - 60px);
     overflow: hidden;
     > .ditty-editor__panel {
       height: 100%;

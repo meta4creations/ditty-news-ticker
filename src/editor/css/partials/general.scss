@@ -72,6 +72,7 @@
   }
 }
 #ditty-editor {
+  height: calc(100% - 60px);
   &__wrapper {
     display: flex;
     flex-direction: column;

@@ -16,7 +16,11 @@ const PanelDisplays = ({ editor }) => {
   };
 
   return currentDisplay ? (
-    <DisplayEdit display={currentDisplay} goBack={handleGoBack} />
+    <DisplayEdit
+      display={currentDisplay}
+      goBack={handleGoBack}
+      editor={editor}
+    />
   ) : (
     <DisplayList
       id={id}

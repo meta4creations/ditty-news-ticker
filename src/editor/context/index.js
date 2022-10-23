@@ -7,12 +7,12 @@ import {
   getItemTypes,
   getItemTypeIcon,
   getItemTypeFields,
-} from "../utils/ItemTypes";
+} from "../utils/itemTypes";
 import {
   getDisplayTypes,
   getDisplayTypeIcon,
   getDisplayTypeFields,
-} from "../utils/DisplayTypes";
+} from "../utils/displayTypes";
 
 export const EditorContext = React.createContext();
 EditorContext.displayName = "EditorContext";
@@ -22,26 +22,24 @@ export class EditorProvider extends Component {
   dittyRender = this.data.render ? this.data.render : "";
   initialTitle = this.data.title ? this.data.title : "";
   initialItems = this.data.items ? JSON.parse(this.data.items) : [];
+  initialDisplays = dittyEditorVars.displays ? dittyEditorVars.displays : [];
+  initialLayouts = dittyEditorVars.layouts ? dittyEditorVars.layouts : [];
   initialDisplay = this.data.display ? this.data.display : 0;
   id = this.data.id;
 
   state = {
     title: this.initialTitle,
     items: this.initialItems,
-    displays: dittyEditorVars.displays,
-    layouts: dittyEditorVars.layouts,
+    displays: this.initialDisplays,
+    layouts: this.initialLayouts,
     currentDisplay: this.initialDisplay,
     currentPanel: "items",
   };
 
-  getDisplayTypeIcon = (display) => {
-    return window.dittyHooks.applyFilters(
-      "dittyEditorDisplayIcon",
-      <FontAwesomeIcon icon={faTabletScreen} />,
-      display
-    );
-  };
-
+  /**
+   * Update all items
+   * @param {object} updatedItems
+   */
   handleUpdateItems = (updatedItems) => {
     const orderedItems = updatedItems.map((item, index) => {
       item.item_index = index.toString();
@@ -51,6 +49,10 @@ export class EditorProvider extends Component {
     this.setState({ items: orderedItems });
   };
 
+  /**
+   * Update a single item
+   * @param {object} updatedItem
+   */
   handleUpdateItem = (updatedItem) => {
     const updatedItems = this.state.items.map((item) => {
       return updatedItem.item_id === item.item_id ? updatedItem : item;
@@ -58,10 +60,29 @@ export class EditorProvider extends Component {
     this.setState({ items: updatedItems });
   };
 
+  /**
+   * Update a single display
+   * @param {object} updatedDisplay
+   */
+  handleUpdateDisplay = (updatedDisplay) => {
+    const updatedDisplays = this.state.displays.map((display) => {
+      return updatedDisplay.id === display.id ? updatedDisplay : display;
+    });
+    this.setState({ displays: updatedDisplays });
+  };
+
+  /**
+   * Set the current display
+   * @param {string} panel
+   */
   handleSetCurrentPanel = (panel) => {
     this.setState({ currentPanel: panel });
   };
 
+  /**
+   * Set the current display
+   * @param {object} display
+   */
   handleSetCurrentDisplay = (display) => {
     this.setState({ currentDisplay: display });
   };
@@ -83,7 +104,7 @@ export class EditorProvider extends Component {
           helpers: {
             itemTypeIcon: getItemTypeIcon,
             itemTypeFields: getItemTypeFields,
-            displayTypeIcon: this.getDisplayTypeIcon,
+            displayTypeIcon: getDisplayTypeIcon,
             displayTypeFields: getDisplayTypeFields,
           },
           actions: {
@@ -91,6 +112,7 @@ export class EditorProvider extends Component {
             setCurrentDisplay: this.handleSetCurrentDisplay,
             updateItems: this.handleUpdateItems,
             updateItem: this.handleUpdateItem,
+            updateDisplay: this.handleUpdateDisplay,
           },
         }}
       >

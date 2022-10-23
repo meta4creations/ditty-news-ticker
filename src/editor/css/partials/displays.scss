@@ -3,3 +3,13 @@
     cursor: pointer;
   }
 }
+.ditty-editor__panel--displayTypes {
+  .ditty-editor-item__content {
+    h3 {
+      margin: 0;
+    }
+    p {
+      margin: 0;
+    }
+  }
+}

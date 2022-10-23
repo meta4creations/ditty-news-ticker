@@ -6,6 +6,8 @@ import {
   faEllipsis,
 } from "@fortawesome/pro-light-svg-icons";
 import PanelDisplays from "./components/PanelDisplays";
+import DisplaySettings from "./components/displays/DisplaySettings";
+import DisplayTypes from "./components/displays/DisplayTypes";
 
 /**
  * Render the Items panel
@@ -22,19 +24,19 @@ window.dittyHooks.addFilter(
 );
 
 /**
- * Modify the display icon
+ * Render the Items Edit panel
  */
 window.dittyHooks.addFilter(
-  "dittyEditorDisplayIcon",
+  "dittyDisplayEditPanel",
   "dittyEditor",
-  (icon, data) => {
-    switch (data.type) {
-      case "list":
-        return <FontAwesomeIcon icon={faList} />;
-      case "ticker":
-        return <FontAwesomeIcon icon={faEllipsis} />;
+  (panel, tabId, display, editor) => {
+    switch (tabId) {
+      case "settings":
+        return <DisplaySettings display={display} editor={editor} />;
+      case "type":
+        return <DisplayTypes display={display} editor={editor} />;
       default:
-        return <FontAwesomeIcon icon={faTabletScreen} />;
+        return panel;
     }
   }
 );

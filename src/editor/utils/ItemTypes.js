@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faPencil } from "@fortawesome/pro-light-svg-icons";
 import { faWordpress } from "@fortawesome/free-brands-svg-icons";
 import _ from "lodash";
-import { migrateItemTypes } from "../utils/Migrate";
+import { migrateItemTypes } from "./migrate";
 
 /**
  * Return all itemm types
