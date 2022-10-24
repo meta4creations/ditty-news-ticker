@@ -916,6 +916,7 @@ const DisplayList = _ref => {
   } = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useContext)(editor);
   const [searchQuery, setSearchQuery] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)("");
   const [selectedType, setSelectedType] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  console.log("currentDisplay", currentDisplay);
 
   /**
    * Set up the elements

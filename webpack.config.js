@@ -32,6 +32,7 @@ var displayConfig = {
   ...defaultConfig,
   entry: {
     dittyDisplayTicker: "./src/displays/dittyDisplayTicker.js",
+    dittyDisplayList: "./src/displays/dittyDisplayList.js",
   },
   output: {
     filename: "[name].js",

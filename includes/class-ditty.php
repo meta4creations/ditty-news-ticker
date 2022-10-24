@@ -699,6 +699,13 @@ class Ditty {
 			$this->version,
 			true
 		);
+		wp_register_script(
+			'ditty-display-list',
+			DITTY_URL . 'build/displays/dittyDisplayList.js',
+			['ditty'],
+			$this->version,
+			true
+		);
 		wp_register_script( 'ditty-editor',
 			DITTY_URL . 'build/editor/dittyEditor.js',
 			['wp-element', 'wp-components', 'wp-hooks', 'lodash', 'ditty'],

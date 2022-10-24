@@ -18,6 +18,8 @@ const DisplayList = ({ editDisplay, editor }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState(null);
 
+  console.log("currentDisplay", currentDisplay);
+
   /**
    * Set up the elements
    */
