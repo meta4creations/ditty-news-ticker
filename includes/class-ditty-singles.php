@@ -283,6 +283,15 @@ class Ditty_Singles {
 		$settings = get_post_meta( $ditty_id, '_ditty_settings', true );
 		$title = ( ! $initialized ) ? sprintf( __( 'Ditty %d', 'ditty-news-ticker' ), $ditty->ID ) : $ditty->post_title;
 		$items_meta = ditty_items_meta( $ditty_id );
+		
+		// Do not pass serialized data
+		$unserialized_items = array();
+		if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
+			foreach ( $items_meta as $i => $item_meta ) {
+				$item_meta->layout_value = maybe_unserialize( $item_meta->layout_value );
+				$unserialized_items[] = $item_meta;
+			}
+		}
 
 		$display = get_post_meta( $ditty->ID, '_ditty_display', true );
 		if ( ! $display || ! ditty_display_exists( $display ) ) {
@@ -302,7 +311,7 @@ class Ditty_Singles {
 			'data-id' 			=> $ditty_id,
 			'data-title' 		=> $title,
 			'data-settings' => json_encode( $settings ),
-			'data-items' 		=> json_encode( $items_meta ),
+			'data-items' 		=> json_encode( $unserialized_items ),
 			'data-display' 	=> $display,
 			'data-render'		=> htmlentities( $ditty_render ),
 		);
