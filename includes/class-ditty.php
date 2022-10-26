@@ -648,7 +648,7 @@ class Ditty {
 	 */
 	public function dev_enqueue_styles() {	
 		wp_enqueue_style(
-			'ditty-editor', DITTY_URL . 'build/editor/dittyEditor.css',
+			'ditty-editor', DITTY_URL . 'build/dittyEditor.css',
 			['wp-components'],
 			$this->version,
 			'all'
@@ -707,22 +707,15 @@ class Ditty {
 			true
 		);
 		wp_register_script( 'ditty-editor',
-			DITTY_URL . 'build/editor/dittyEditor.js',
+			DITTY_URL . 'build/dittyEditor.js',
 			['wp-element', 'wp-components', 'wp-hooks', 'lodash', 'ditty'],
 			$this->version,
 			true
 		);
 		wp_enqueue_script(
-			'ditty-items',
-			DITTY_URL . 'build/editor/dittyItems.js',
+			'ditty-scripts',
+			DITTY_URL . 'build/dittyScripts.js',
 			['ditty', 'wp-element', 'wp-components'],
-			$this->version,
-			true
-		);
-		wp_enqueue_script(
-			'ditty-displays',
-			DITTY_URL . 'build/editor/dittyDisplays.js',
-			['ditty', 'wp-element'],
 			$this->version,
 			true
 		);

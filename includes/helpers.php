@@ -96,16 +96,17 @@ function ditty_single_settings( $ditty_id, $key = false ) {
 /**
  * Return an array of item types
  * 
- * @since   3.0.13
+ * @since   3.1
 */
 function ditty_item_types() {
 	$item_types = array();
 	$item_types['default'] = array(
-		'type' 				=> 'default',
-		'label' 			=> __( 'Default', 'ditty-news-ticker' ),
-		'icon' 				=> 'fas fa-pencil-alt',
-		'description' => __( 'Manually add HTML to the item.', 'ditty-news-ticker' ),
-		'class_name'	=> 'Ditty_Item_Type_Default',
+		'type' 						=> 'default',
+		'label' 					=> __( 'Default', 'ditty-news-ticker' ),
+		'icon' 						=> 'fas fa-pencil-alt',
+		'description' 		=> __( 'Manually add HTML to the item.', 'ditty-news-ticker' ),
+		'class_name'			=> 'Ditty_Item_Type_Default',
+		'ditty_version' 	=> '3.1'
 	);
 	$item_types['wp_editor'] = array(
 		'type' 				=> 'wp_editor',
@@ -113,6 +114,7 @@ function ditty_item_types() {
 		'icon' 				=> 'fas fa-edit',
 		'description' => __( 'Manually add wp editor content to the item.', 'ditty-news-ticker' ),
 		'class_name'	=> 'Ditty_Item_Type_WP_Editor',
+		'ditty_version' 	=> '3.1'
 	);
 	$item_types['posts_feed'] = array(
 		'type' 				=> 'posts_feed',
@@ -1749,7 +1751,6 @@ function is_ditty_preview() {
 		return $_GET['ditty_edit_id'];
 	}
 }
-
 
 /**
  * Check if we are on a ditty edit page

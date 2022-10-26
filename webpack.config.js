@@ -21,6 +21,12 @@ var dittyConfig = {
   ...defaultConfig,
   entry: {
     ditty: "./src/ditty.js",
+    dittyEditor: "./src/editor/dittyEditor.js",
+    dittyScripts: [
+      "./src/partials/dittyItems.js",
+      "./src/partials/dittyDisplays.js",
+      "./src/partials/itemTypeDefault.js",
+    ],
   },
   output: {
     filename: "[name].js",
@@ -40,17 +46,4 @@ var displayConfig = {
   },
 };
 
-var editorConfig = {
-  ...defaultConfig,
-  entry: {
-    dittyEditor: "./src/editor/dittyEditor.js",
-    dittyItems: "./src/editor/dittyItems.js",
-    dittyDisplays: "./src/editor/dittyDisplays.js",
-  },
-  output: {
-    filename: "[name].js",
-    path: path.resolve(process.cwd(), "build/editor"),
-  },
-};
-
-module.exports = [generalConfig, dittyConfig, displayConfig, editorConfig];
+module.exports = [generalConfig, dittyConfig, displayConfig];
