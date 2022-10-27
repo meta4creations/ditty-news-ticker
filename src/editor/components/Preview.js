@@ -11,6 +11,10 @@ const Preview = () => {
   //   console.log(window.ditty);
   // }, []);
 
-  return <Ditty id={id} />;
+  return (
+    <div id="ditty-editor__preview">
+      <Ditty id={id} />
+    </div>
+  );
 };
 export default Preview;

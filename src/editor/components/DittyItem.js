@@ -47,6 +47,14 @@ const DittyItem = ({ item }) => {
     return layoutData;
   };
 
+  /**
+   * Render the layout tag wrapper
+   * @param {component} element
+   * @param {string} className
+   * @param {object} atts
+   * @param {string} customWrapper
+   * @returns
+   */
   const renderLayoutTagWrapper = (
     element,
     className,
@@ -85,6 +93,16 @@ const DittyItem = ({ item }) => {
       return element;
     }
   };
+
+  /**
+   * Render a layout tag
+   * @param {string} tag
+   * @param {string} type
+   * @param {object} values
+   * @param {object} atts
+   * @param {string} customWrapper
+   * @returns
+   */
   const renderLayoutTag = (tag, type, values, atts, customWrapper) => {
     const itemType = _.upperFirst(_.camelCase(type));
     const element = window.dittyHooks.applyFilters(
@@ -136,7 +154,9 @@ const DittyItem = ({ item }) => {
     <div className={getClassName()} key={item.item_id}>
       <div
         className="ditty-item__elements"
-        dangerouslySetInnerHTML={{ __html: renderLayout(item) }}
+        dangerouslySetInnerHTML={{
+          __html: item.elements ? item.elements : renderLayout(item),
+        }}
       ></div>
     </div>
   );

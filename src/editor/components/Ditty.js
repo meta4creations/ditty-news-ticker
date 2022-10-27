@@ -1,24 +1,53 @@
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
-import { useContext, useEffect } from "@wordpress/element";
+import { useContext, useEffect, useState } from "@wordpress/element";
 import { EditorContext } from "../context";
 import DittyItem from "./DittyItem";
 
 const Ditty = () => {
   const { id, items } = useContext(EditorContext);
+  const [displayItems, setDisplayItems] = useState([]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log("dittystarted");
+    function getDisplayItems() {
+      const dItems = items.reduce((itemsArray, item) => {
+        const itemType = _.upperFirst(_.camelCase(item.item_type));
+        if (item.rendered_items) {
+          return itemsArray.concat(item.rendered_items);
+        } else {
+          return itemsArray.concat(
+            window.dittyHooks.applyFilters(
+              `dittyDisplayItems${itemType}`,
+              [],
+              item
+            )
+          );
+        }
+      }, []);
+      setDisplayItems(dItems);
+    }
+    getDisplayItems();
+  }, []);
 
   const renderDisplayItems = () => {
-    const displayItems = items.reduce((itemsArray, item) => {
-      const itemType = _.upperFirst(_.camelCase(item.item_type));
-      return itemsArray.concat(
-        window.dittyHooks.applyFilters(`dittyDisplayItems${itemType}`, [], item)
-      );
-    }, []);
+    // const displayItems = items.reduce((itemsArray, item) => {
+    //   const itemType = _.upperFirst(_.camelCase(item.item_type));
+    //   if (item.rendered_items) {
+    //     return itemsArray.concat(item.rendered_items);
+    //   } else {
+    //     return itemsArray.concat(
+    //       window.dittyHooks.applyFilters(
+    //         `dittyDisplayItems${itemType}`,
+    //         [],
+    //         item
+    //       )
+    //     );
+    //   }
+    // }, []);
 
     return displayItems.map((item, index) => {
-      return <DittyItem item={item} key={item.item_id} />;
+      return <DittyItem item={item} key={item.uniq_id} />;
     });
   };
 

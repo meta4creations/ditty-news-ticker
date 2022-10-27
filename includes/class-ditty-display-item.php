@@ -299,6 +299,19 @@ class Ditty_Display_Item {
 	 * Render the item via layout
 	 *
 	 * @access public
+	 * @since  3.1
+	 * @return html
+	 */
+	public function get_elements() {
+		if ( $layout_object = $this->get_layout_object() ) {
+			return do_shortcode( $layout_object->render() );
+		}
+	}
+
+	/**
+	 * Render the item via layout
+	 *
+	 * @access public
 	 * @since  3.0
 	 * @return html
 	 */
@@ -316,7 +329,7 @@ class Ditty_Display_Item {
 			
 			$html .= '<div ' . ditty_attr_to_html( $atts ) . '>';	
 				$html .= '<div class="ditty-item__elements">';
-					$html .= do_shortcode( $layout_object->render() );
+					$html .= $this->get_elements();
 				$html .= '</div>';
 			$html .= '</div>';
 		}
@@ -338,18 +351,33 @@ class Ditty_Display_Item {
 	 * @since  3.0
 	 * @return html
 	 */
-	public function compile_data() {
-		if ( $html = $this->render_html( 'return' ) ) {
-			$data = array(
-				'id'	 				=> ( string ) $this->get_id(),
-				'uniq_id'	 		=> ( string ) $this->get_uniq_id(),
-				'parent_id'	 	=> ( string ) $this->get_parent_id(),
-				'html' 				=> $html,
-				'css'					=> $this->get_layout_css(),
-				'layout_id'		=> $this->get_layout_id(),
-				'is_disabled' => array_unique( apply_filters( 'ditty_item_disabled', array(), $this->get_id() ) ),
-			);
-			return $data;
+	public function compile_data( $type = 'php' ) {
+		if ( 'javascript' == $type ) {
+			if ( $elements = $this->get_elements() ) {
+				$data = array(
+					'item_id'	 		=> ( string ) $this->get_id(),
+					'uniq_id'	 		=> ( string ) $this->get_uniq_id(),
+					'parent_id'	 	=> ( string ) $this->get_parent_id(),
+					'elements' 		=> $elements,
+					'css'					=> $this->get_layout_css(),
+					'layout_id'		=> $this->get_layout_id(),
+					'is_disabled' => array_unique( apply_filters( 'ditty_item_disabled', array(), $this->get_id() ) ),
+				);
+				return $data;
+			}
+		} else {
+			if ( $html = $this->render_html( 'return' ) ) {
+				$data = array(
+					'id'	 				=> ( string ) $this->get_id(),
+					'uniq_id'	 		=> ( string ) $this->get_uniq_id(),
+					'parent_id'	 	=> ( string ) $this->get_parent_id(),
+					'html' 				=> $html,
+					'css'					=> $this->get_layout_css(),
+					'layout_id'		=> $this->get_layout_id(),
+					'is_disabled' => array_unique( apply_filters( 'ditty_item_disabled', array(), $this->get_id() ) ),
+				);
+				return $data;
+			}
 		}
 	}
 

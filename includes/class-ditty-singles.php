@@ -290,10 +290,29 @@ class Ditty_Singles {
 		$unserialized_items = array();
 		if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
 			foreach ( $items_meta as $i => $item_meta ) {
+				
+				// Possibly render items if they aren't set to render via javascript
+				$item_type_data =  isset( $item_types[$item_meta->item_type] ) ? $item_types[$item_meta->item_type] : array();
+				if ( ! isset( $item_type_data['ditty_version'] ) || version_compare( $item_type_data['ditty_version'], DITTY_VERSION, '<' ) ) {
+					$rendered_items = [];
+					$prepared_items = ditty_prepare_display_items( $item_meta );
+					if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
+						foreach ( $prepared_items as $i => $prepared_meta ) {
+							$display_item = new Ditty_Display_Item( $prepared_meta );
+							if ( $data = $display_item->compile_data( 'javascript' ) ) {
+								$rendered_items[] = $data;
+							}
+						}
+					}
+					$item_meta->rendered_items = $rendered_items;
+				}
+
 				$item_meta->layout_value = maybe_unserialize( $item_meta->layout_value );
 				$unserialized_items[] = $item_meta;
 			}
 		}
+
+		
 
 		$display = get_post_meta( $ditty->ID, '_ditty_display', true );
 		if ( ! $display || ! ditty_display_exists( $display ) ) {

@@ -72,7 +72,7 @@
   }
 }
 #ditty-editor {
-  height: calc(100% - 60px);
+  height: calc(100% - 100px);
   &__wrapper {
     display: flex;
     flex-direction: column;
@@ -83,9 +83,6 @@
       height: calc(100vh - 32px);
     }
   }
-  &__adminbar {
-    flex: 0 0 auto;
-  }
   flex: 1;
   display: flex;
   flex-wrap: nowrap;
@@ -95,6 +92,8 @@
   }
   &__preview {
     flex: 1;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     body {
       margin: 0;
     }
