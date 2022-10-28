@@ -20,7 +20,6 @@ const PanelItems = ({ editor }) => {
    */
   const handleAddItem = (itemType = false) => {
     if (itemType) {
-      console.log("itemType", itemType);
       const newItem = {
         ditty_id: id,
         item_author: "1",
@@ -34,7 +33,9 @@ const PanelItems = ({ editor }) => {
           link_target: "_blank",
           link_nofollow: "false",
         },
-        layout_value: 'a:1:{s:7:"default";s:5:"13015";}',
+        layout_value: {
+          default: "13464",
+        },
       };
       items.push(newItem);
       actions.updateItems(items);

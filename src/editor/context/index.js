@@ -13,6 +13,7 @@ import {
   getDisplayTypeIcon,
   getDisplayTypeFields,
 } from "../utils/displayTypes";
+import { saveDitty } from "../../services/httpService";
 
 export const EditorContext = React.createContext();
 EditorContext.displayName = "EditorContext";
@@ -29,9 +30,9 @@ export class EditorProvider extends Component {
 
   state = {
     title: this.initialTitle,
-    items: this.initialItems,
-    displays: this.initialDisplays,
-    layouts: this.initialLayouts,
+    items: [...this.initialItems],
+    displays: [...this.initialDisplays],
+    layouts: [...this.initialLayouts],
     currentDisplay: this.initialDisplay,
     currentPanel: "items",
   };
@@ -87,6 +88,42 @@ export class EditorProvider extends Component {
     this.setState({ currentDisplay: display });
   };
 
+  /**
+   * Save the ditty
+   */
+  handleSaveDitty = async () => {
+    const deletedItems = this.initialItems.filter((initialItem) => {
+      const existingItems = this.state.items.some((item) => {
+        return item.item_id === initialItem.item_id;
+      });
+      if (!existingItems) {
+        return true;
+      }
+    });
+    // console.log("initialItems", this.initialItems);
+
+    // console.log("deletedItems", deletedItems);
+    // console.log("display", this.state.currentDisplay);
+
+    // Save the initialItems
+    const initialItems = [...this.initialItems];
+    this.initialItems = [...this.state.items];
+
+    try {
+      await saveDitty(
+        this.id,
+        this.state.items,
+        deletedItems,
+        this.state.currentDisplay
+      );
+    } catch (ex) {
+      console.log(ex);
+      if (ex.response && ex.response.status === 404) {
+      }
+      this.initialItems = initialItems;
+    }
+  };
+
   render() {
     return (
       <EditorContext.Provider
@@ -113,6 +150,7 @@ export class EditorProvider extends Component {
             updateItems: this.handleUpdateItems,
             updateItem: this.handleUpdateItem,
             updateDisplay: this.handleUpdateDisplay,
+            saveDitty: this.handleSaveDitty,
           },
         }}
       >

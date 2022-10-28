@@ -140,6 +140,8 @@ class Ditty {
 	 * @var      object    Ditty_Errors
 	 */
 	public $errors;
+	public $api;
+
 	
 	
 	/**
@@ -169,6 +171,7 @@ class Ditty {
 			self::$instance->define_global_hooks();
 			self::$instance->run();
 			
+			self::$instance->api					= new Ditty_API();	
 			self::$instance->db_items			= new Ditty_DB_Items();
 			self::$instance->db_item_meta	= new Ditty_DB_Item_Meta();
 			self::$instance->displays			= new Ditty_Displays();
@@ -283,6 +286,9 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-db.php';
 		require_once DITTY_DIR . 'includes/class-ditty-db-items.php';
 		require_once DITTY_DIR . 'includes/class-ditty-db-item-meta.php';
+
+		// Add api files
+		require_once DITTY_DIR . 'includes/class-ditty-api.php';
 
 		// Add 3rd party files
 		//require_once DITTY_DIR . 'includes/libs/scssphp/scss.inc.php';
