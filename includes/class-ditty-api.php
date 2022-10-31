@@ -79,10 +79,19 @@ class Ditty_API {
 
 		// Update display
 		if ( $display ) {
-			update_post_meta( $id, '_ditty_display', $display );
+			if ( ! update_post_meta( $id, '_ditty_display', $display ) ) {
+				$display = 'error';
+			}
 		}
 
-		return new WP_REST_Response( $testing, 200 );
+		// Update settings
+		if ( $settings ) {
+			if ( ! update_post_meta( $id, '_ditty_settings', $settings ) ) {
+				$settings = 'error';
+			}
+		}
+
+		return new WP_REST_Response( $settings, 200 );
 	}
 
 }

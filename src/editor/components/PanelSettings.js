@@ -67,16 +67,20 @@ const PanelSettings = ({ editor }) => {
       type: "spacing",
       id: "previewPadding",
       name: __("Preview Padding", "ditty-news-ticker"),
-      std: { paddingLeft: 0, paddingRight: 0, paddingTop: 0, paddingBottom: 0 },
+      std: { left: 0, right: 0, top: 0, bottom: 0 },
     },
   ]);
 
   const handleFieldUpdate = (field, value) => {
+    //console.log("field", field);
+    //console.log("value", value);
     if ("title" === field.id) {
       actions.updateTitle(value);
+    } else {
+      settings[field.id] = value;
+      actions.updateSettings(settings);
     }
-    console.log("field", field);
-    console.log("value", value);
+
     // const itemValue = item.item_value;
     // itemValue[field.id] = value;
     // actions.updateItem(item, "item_value", itemValue);
@@ -96,8 +100,6 @@ const PanelSettings = ({ editor }) => {
       );
     });
   };
-
-  console.log("settings", settings);
 
   return <Panel id="settings" content={renderFields()} />;
 };

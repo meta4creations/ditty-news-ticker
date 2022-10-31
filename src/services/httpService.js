@@ -23,8 +23,6 @@ export function saveDitty(
 ) {
   const apiURL = `${apiEndpoint}/save`;
 
-  console.log("display", display);
-  console.log("settings", settings);
   const apiData = {
     security: dittyEditorVars.security,
     id: id,

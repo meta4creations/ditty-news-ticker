@@ -1,12 +1,14 @@
 import { __ } from "@wordpress/i18n";
 import {
   CheckboxControl,
+  DimensionControl,
   RadioControl,
   RangeControl,
   SelectControl,
   TextControl,
   TextareaControl,
 } from "@wordpress/components";
+import Spacing from "./fields/Spacing";
 
 const Field = ({ field, value, onFieldUpdate }) => {
   const convertFieldOptions = (options) => {
@@ -69,6 +71,15 @@ const Field = ({ field, value, onFieldUpdate }) => {
             label={field.name}
             value={value}
             options={convertFieldOptions(field.options)}
+            onChange={(value) => updateValue(value)}
+          />
+        );
+      case "spacing":
+        return (
+          <Spacing
+            label={field.name}
+            value={value}
+            options={field.options}
             onChange={(value) => updateValue(value)}
           />
         );

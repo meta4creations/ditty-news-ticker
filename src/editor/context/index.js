@@ -32,7 +32,7 @@ export class EditorProvider extends Component {
     displays: [...this.initialDisplays],
     layouts: [...this.initialLayouts],
     currentDisplay: this.initialDisplay,
-    settings: { ...this.initialSettings },
+    settings: _.cloneDeep(this.initialSettings),
     currentPanel: "items",
   };
 
@@ -118,6 +118,15 @@ export class EditorProvider extends Component {
   };
 
   /**
+   * Update the settings
+   * @param {object} updatedSettings
+   */
+  handleUpdateSettings = (updatedSettings) => {
+    console.log("updatedSettings", updatedSettings);
+    this.setState({ settings: updatedSettings });
+  };
+
+  /**
    * Set the current display
    * @param {string} panel
    */
@@ -185,7 +194,7 @@ export class EditorProvider extends Component {
       ? false
       : this.state.settings;
 
-    console.log("updatedDisplay", updatedDisplay);
+    console.log("updatedSettings", updatedSettings);
 
     try {
       await saveDitty(
@@ -242,6 +251,7 @@ export class EditorProvider extends Component {
             updateItem: this.handleUpdateItem,
             updateDisplay: this.handleUpdateDisplay,
             updateTitle: this.handleUpdateTitle,
+            updateSettings: this.handleUpdateSettings,
             saveDitty: this.handleSaveDitty,
           },
         }}
