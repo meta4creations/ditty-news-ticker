@@ -164,7 +164,7 @@ function mtphr_dnt_settings_tabs() {
 
 
 /* --------------------------------------------------------- */
-/* !Return the ticker class - 3.0.16 */
+/* !Return the ticker class - 3.0.30 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_ticker_class') ) {
@@ -176,32 +176,37 @@ function mtphr_dnt_ticker_class( $id='', $class='', $meta_data = array() ) {
 
 if( !function_exists('get_mtphr_dnt_ticker_class') ) {
 function get_mtphr_dnt_ticker_class( $id='', $class='', $meta_data = array() ) {
-
-	// Extract the metadata array into variables
-	extract( $meta_data );
-
+	
+	$defaults = array(
+		'_mtphr_dnt_type' => 'default',
+		'_mtphr_dnt_mode' => 'scroll',
+		'_mtphr_dnt_scroll_direction' => 'left',
+		'_mtphr_dnt_rotate_type' => 'fade',
+		'_mtphr_dnt_trim_ticks' => false,
+		'_mtphr_dnt_styled' => false,
+	);
+	$args = wp_parse_args( $meta_data, $defaults );
+	
 	$classes = array();
 
 	$classes[] = 'mtphr-dnt';
 	$classes[] = 'mtphr-dnt-'.$id;
-	$classes[] = 'mtphr-dnt-'.$_mtphr_dnt_type;
-	$classes[] = 'mtphr-dnt-'.$_mtphr_dnt_mode;
+	$classes[] = 'mtphr-dnt-'.$args['_mtphr_dnt_type'];
+	$classes[] = 'mtphr-dnt-'.$args['_mtphr_dnt_mode'];
 
-	if( $_mtphr_dnt_mode == 'scroll' ) {
-		$classes[] = 'mtphr-dnt-'.$_mtphr_dnt_mode.'-'.$_mtphr_dnt_scroll_direction;
+	if( $args['_mtphr_dnt_mode'] == 'scroll' ) {
+		$classes[] = 'mtphr-dnt-'.$args['_mtphr_dnt_mode'].'-'.$args['_mtphr_dnt_scroll_direction'];
 	}
-	if( $_mtphr_dnt_mode == 'rotate' ) {
-		$classes[] = 'mtphr-dnt-'.$_mtphr_dnt_mode.'-'.$_mtphr_dnt_rotate_type;
+	if( $args['_mtphr_dnt_mode'] == 'rotate' ) {
+		$classes[] = 'mtphr-dnt-'.$args['_mtphr_dnt_mode'].'-'.$args['_mtphr_dnt_rotate_type'];
 	}
-	if( isset($_mtphr_dnt_trim_ticks) && $_mtphr_dnt_trim_ticks ) {
+	if( $args['_mtphr_dnt_trim_ticks'] ) {
 		$classes[] = 'mtphr-dnt-trim-ticks';
 	}
 
 	// Set the styles class
-	if( isset($_mtphr_dnt_styled) ) {
-		if( $_mtphr_dnt_styled ) {
-			$classes[] = 'mtphr-dnt-styled';
-		}
+	if( $args['_mtphr_dnt_styled'] ) {
+		$classes[] = 'mtphr-dnt-styled';
 	}
 
 	if ( !empty( $class ) ) {
