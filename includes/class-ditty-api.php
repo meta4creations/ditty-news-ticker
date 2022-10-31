@@ -32,18 +32,14 @@ class Ditty_API {
       'methods' 	=> 'POST',
       'callback' 	=> array( $this, 'save_ditty' )
     ) );
-
-
-		// register_rest_route( "dittyEditor/v{$this->version}/ditty/(?P<id>[\d]+)", array(
-    //   'methods' 	=> 'GET',
-    //   'callback' 	=> array( $this, 'get_ditty' )
-    // ) );
-		// register_rest_route( "dittyEditor/v{$this->version}/save", array(
-    //   'methods' 	=> 'POST',
-    //   'callback' 	=> array( $this, 'save_ditty' )
-    // ) );
 	}
 
+	/**
+	 * Save updated Ditty values
+	 *
+	 * @access public
+	 * @since  1.0
+	 */
 	public function save_ditty( $request ) {
 		$params = $request->get_params();
 		if ( ! isset( $params['apiData'] ) ) {
@@ -54,6 +50,9 @@ class Ditty_API {
 		$items = isset( $apiData['items'] ) ? $apiData['items'] : array();
 		$deletedItems = isset( $apiData['deletedItems'] ) ? $apiData['deletedItems'] : array();
 		$display = isset( $apiData['display'] ) ? $apiData['display'] : false;
+		$settings = isset( $apiData['settings'] ) ? $apiData['settings'] : false;
+
+		$testing = array();
 
 		// Update items
 		if ( is_array( $items ) && count( $items ) > 0 ) {
@@ -61,74 +60,29 @@ class Ditty_API {
 				if ( is_object( $item ) ) {
 					$item = ( array ) $item;
 				}
+
+				//Set the modified date of the item
+				if ( isset( $item['item_value'] ) ) {
+					$item['date_modified'] = date( 'Y-m-d H:i:s' );
+				}
+
 				if ( is_array( $item ) && count( $item ) > 0 ) {
 					foreach ( $item as $key => $value ) {
 						$item[$key] = maybe_serialize( $value );
 					}
 				}
+				$testing[] = $item;
+
 				Ditty()->db_items->update( $item['item_id'], $item, 'item_id' );
 			}
 		}
 
-		return new WP_REST_Response( $apiData, 200 );
+		// Update display
+		if ( $display ) {
+			update_post_meta( $id, '_ditty_display', $display );
+		}
+
+		return new WP_REST_Response( $testing, 200 );
 	}
-
-	/**
-	 * Get a Ditty
-	 *
-	 * @access public
-	 * @since  1.0
-	 */
-	public function get_ditty( $request ) {
-    $params = $request->get_params();
-		//$id = $params['id'];
-		$data = array(
-			'id' => 'testing',
-		);
-		// if ( ! isset( $params['id'] ) || ! isset( $params['apiData'] ) ) {
-		// 	return new WP_Error( 'no_id', __( 'No Ditty id or data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
-		// }
-		//$apiData = $params['apiData'];
-		//$items = isset( $apiData['items'] ) ? $apiData['items'] : array();
-		//$deletedItems = isset( $apiData['deletedItems'] ) ? $apiData['deletedItems'] : array();
-		//$display = isset( $apiData['display'] ) ? $apiData['display'] : false;
-
-		// Update items
-		// if ( is_array( $items ) && count( $items ) > 0 ) {
-		// 	foreach ( $items as $i => $item ) {
-				
-		// 	}
-		// }
-
-
-		return new WP_REST_Response( $data, 200 );
-	}
-
-	/**
-	 * Save a Ditty
-	 *
-	 * @access public
-	 * @since  1.0
-	 */
-	// public function save_ditty( $request ) {
-  //   $params = $request->get_params();
-	// 	// if ( ! isset( $params['id'] ) || ! isset( $params['apiData'] ) ) {
-	// 	// 	return new WP_Error( 'no_id', __( 'No Ditty id or data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
-	// 	// }
-	// 	$apiData = $params['apiData'];
-	// 	//$items = isset( $apiData['items'] ) ? $apiData['items'] : array();
-	// 	//$deletedItems = isset( $apiData['deletedItems'] ) ? $apiData['deletedItems'] : array();
-	// 	//$display = isset( $apiData['display'] ) ? $apiData['display'] : false;
-
-	// 	// Update items
-	// 	// if ( is_array( $items ) && count( $items ) > 0 ) {
-	// 	// 	foreach ( $items as $i => $item ) {
-				
-	// 	// 	}
-	// 	// }
-
-
-	// 	return new WP_REST_Response( $apiData, 200 );
-	// }
 
 }

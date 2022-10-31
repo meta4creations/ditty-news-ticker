@@ -14,16 +14,24 @@ export const getDittyData = (dittyId) => {
   });
 };
 
-export function saveDitty(id, items, deletedItems, display) {
+export function saveDitty(
+  id,
+  items,
+  deletedItems,
+  display = false,
+  settings = false
+) {
   const apiURL = `${apiEndpoint}/save`;
 
-  console.log("items", items);
+  console.log("display", display);
+  console.log("settings", settings);
   const apiData = {
     security: dittyEditorVars.security,
     id: id,
     items: items,
     deletedItems: deletedItems,
     display: display,
+    settings: settings,
   };
   axios.post(apiURL, { apiData }).then((res) => {
     console.log("res", res);

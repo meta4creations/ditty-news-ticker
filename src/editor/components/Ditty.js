@@ -30,22 +30,11 @@ const Ditty = () => {
     getDisplayItems();
   }, []);
 
+  /**
+   * Render the display items
+   * @returns DittyItem
+   */
   const renderDisplayItems = () => {
-    // const displayItems = items.reduce((itemsArray, item) => {
-    //   const itemType = _.upperFirst(_.camelCase(item.item_type));
-    //   if (item.rendered_items) {
-    //     return itemsArray.concat(item.rendered_items);
-    //   } else {
-    //     return itemsArray.concat(
-    //       window.dittyHooks.applyFilters(
-    //         `dittyDisplayItems${itemType}`,
-    //         [],
-    //         item
-    //       )
-    //     );
-    //   }
-    // }, []);
-
     return displayItems.map((item, index) => {
       return <DittyItem item={item} key={item.uniq_id} />;
     });

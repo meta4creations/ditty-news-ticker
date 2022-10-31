@@ -53,7 +53,7 @@ const ItemList = ({ editItem, addItem, editor }) => {
     const updatedItems = sortedListItems.map((item) => {
       return item.data;
     });
-    actions.updateItems(updatedItems);
+    actions.sortItems(updatedItems);
   };
 
   /**

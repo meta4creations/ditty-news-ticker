@@ -37,8 +37,7 @@ const PanelItems = ({ editor }) => {
           default: "13464",
         },
       };
-      items.push(newItem);
-      actions.updateItems(items);
+      actions.addItem(newItem);
       setCurrentItem(newItem);
     } else {
       setCurrentItem("new");
@@ -50,10 +49,7 @@ const PanelItems = ({ editor }) => {
    * @param {object} deltedItem
    */
   const handleDeleteItem = (deltedItem) => {
-    const updatedItems = items.filter(
-      (item) => item.item_id !== deltedItem.item_id
-    );
-    actions.updateItems(updatedItems);
+    actions.deleteItem(deltedItem);
     setCurrentItem(null);
   };
 

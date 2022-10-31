@@ -6,9 +6,9 @@ const ItemSettings = ({ item, editor }) => {
   const { helpers, actions } = useContext(editor);
 
   const handleFieldUpdate = (field, value) => {
-    const updatedItem = item;
-    updatedItem.item_value[field.id] = value;
-    actions.updateItem(updatedItem);
+    const itemValue = item.item_value;
+    itemValue[field.id] = value;
+    actions.updateItem(item, "item_value", itemValue);
   };
 
   const renderFields = () => {
