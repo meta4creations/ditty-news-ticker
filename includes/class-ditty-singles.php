@@ -283,6 +283,7 @@ class Ditty_Singles {
 		$initialized = get_post_meta( $ditty_id, '_ditty_init', true );
 		
 		$settings = get_post_meta( $ditty_id, '_ditty_settings', true );
+		
 		$title = ( ! $initialized ) ? sprintf( __( 'Ditty %d', 'ditty-news-ticker' ), $ditty->ID ) : $ditty->post_title;
 		$items_meta = ditty_items_meta( $ditty_id );
 		

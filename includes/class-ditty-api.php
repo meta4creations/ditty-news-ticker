@@ -14,7 +14,7 @@ class Ditty_API {
   /**
 	 * Get things started
 	 * @access  public
-	 * @since   1.0
+	 * @since   3.1
 	 */
 	public function __construct() {
 		$this->version = '1';	
@@ -25,20 +25,37 @@ class Ditty_API {
 	 * Add to the update queue
 	 *
 	 * @access public
-	 * @since  1.0
+	 * @since  3.1
 	 */
 	public function register_routes() {
 		register_rest_route( 'dittyeditor/v' . $this->version, 'save', array(
       'methods' 	=> 'POST',
-      'callback' 	=> array( $this, 'save_ditty' )
+      'callback' 	=> array( $this, 'save_ditty' ),
+			'permission_callback' => array( $this, 'save_ditty_permissions_check' ),
     ) );
+	}
+
+	/**
+	 * Check the permissions of the user
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function save_ditty_permissions_check( $request ) {
+		$params = $request->get_params();
+		$apiData = isset( $params['apiData'] ) ? $params['apiData'] : array();
+		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
+		if ( ! user_can( $userId, 'edit_dittys' ) ) {
+			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allow to edit Ditty.', 'ditty-news-ticker' ), array( 'status' => 401 ) );
+		}
+		return true;
 	}
 
 	/**
 	 * Save updated Ditty values
 	 *
 	 * @access public
-	 * @since  1.0
+	 * @since  3.1
 	 */
 	public function save_ditty( $request ) {
 		$params = $request->get_params();
@@ -46,11 +63,13 @@ class Ditty_API {
 			return new WP_Error( 'no_id', __( 'No Ditty id or data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
 		}
 		$apiData = $params['apiData'];
+		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
 		$id = isset( $apiData['id'] ) ? $apiData['id'] : array();
 		$items = isset( $apiData['items'] ) ? $apiData['items'] : array();
 		$deletedItems = isset( $apiData['deletedItems'] ) ? $apiData['deletedItems'] : array();
 		$display = isset( $apiData['display'] ) ? $apiData['display'] : false;
 		$settings = isset( $apiData['settings'] ) ? $apiData['settings'] : false;
+		$title = isset( $apiData['title'] ) ? $apiData['title'] : false;
 
 		$testing = array();
 
@@ -85,13 +104,26 @@ class Ditty_API {
 		}
 
 		// Update settings
-		if ( $settings ) {
+		if ( $settings ) {	
 			if ( ! update_post_meta( $id, '_ditty_settings', $settings ) ) {
 				$settings = 'error';
 			}
 		}
 
-		return new WP_REST_Response( $settings, 200 );
+		// Update title
+		if ( $title ) {	
+			$ditty_post_data = array(
+				'ID' => $id,
+				'post_title' => $title,
+			);
+			wp_update_post( $ditty_post_data );
+		}
+
+		$testing = array(
+			'user_id' => $userId,
+		);
+
+		return rest_ensure_response( $settings );
 	}
 
 }

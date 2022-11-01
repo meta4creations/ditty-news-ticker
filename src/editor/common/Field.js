@@ -1,14 +1,15 @@
 import { __ } from "@wordpress/i18n";
 import {
   CheckboxControl,
+  ColorPicker,
   DimensionControl,
   RadioControl,
   RangeControl,
   SelectControl,
   TextControl,
   TextareaControl,
+  __experimentalBoxControl as BoxControl,
 } from "@wordpress/components";
-import Spacing from "./fields/Spacing";
 
 const Field = ({ field, value, onFieldUpdate }) => {
   const convertFieldOptions = (options) => {
@@ -33,7 +34,15 @@ const Field = ({ field, value, onFieldUpdate }) => {
           <CheckboxControl
             label={field.label}
             value={value}
-            onChange={(value) => updateValue(value)}
+            onChange={(updatedValue) => updateValue(updatedValue)}
+          />
+        );
+      case "color":
+        return (
+          <ColorPicker
+            color={value}
+            onChange={(updatedValue) => updateValue(updatedValue)}
+            enableAlpha
           />
         );
       case "number":
@@ -42,7 +51,7 @@ const Field = ({ field, value, onFieldUpdate }) => {
             label={field.name}
             value={Number(value)}
             type="number"
-            onChange={(value) => updateValue(value)}
+            onChange={(updatedValue) => updateValue(updatedValue)}
           />
         );
       case "slider":
@@ -52,7 +61,7 @@ const Field = ({ field, value, onFieldUpdate }) => {
             value={Number(value)}
             min={field.min}
             max={field.max}
-            onChange={(value) => updateValue(value)}
+            onChange={(updatedValue) => updateValue(updatedValue)}
           />
         );
       case "radio":
@@ -62,7 +71,7 @@ const Field = ({ field, value, onFieldUpdate }) => {
             help={field.help}
             selected={value}
             options={convertFieldOptions(field.options)}
-            onChange={(value) => updateValue(value)}
+            onChange={(updatedValue) => updateValue(updatedValue)}
           />
         );
       case "select":
@@ -71,16 +80,15 @@ const Field = ({ field, value, onFieldUpdate }) => {
             label={field.name}
             value={value}
             options={convertFieldOptions(field.options)}
-            onChange={(value) => updateValue(value)}
+            onChange={(updatedValue) => updateValue(updatedValue)}
           />
         );
       case "spacing":
         return (
-          <Spacing
+          <BoxControl
             label={field.name}
-            value={value}
-            options={field.options}
-            onChange={(value) => updateValue(value)}
+            values={value}
+            onChange={(updatedValue) => updateValue(updatedValue)}
           />
         );
       case "textarea":
@@ -88,7 +96,7 @@ const Field = ({ field, value, onFieldUpdate }) => {
           <TextareaControl
             label={field.name}
             value={value}
-            onChange={(value) => updateValue(value)}
+            onChange={(updatedValue) => updateValue(updatedValue)}
           />
         );
       case "wysiwyg":
@@ -96,7 +104,7 @@ const Field = ({ field, value, onFieldUpdate }) => {
           <TextareaControl
             label={field.name}
             value={value}
-            onChange={(value) => updateValue(value)}
+            onChange={(updatedValue) => updateValue(updatedValue)}
           />
         );
       default:
@@ -104,7 +112,7 @@ const Field = ({ field, value, onFieldUpdate }) => {
           <TextControl
             label={field.name}
             value={value}
-            onChange={(value) => updateValue(value)}
+            onChange={(updatedValue) => updateValue(updatedValue)}
           />
         );
     }

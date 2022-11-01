@@ -72,18 +72,12 @@ const PanelSettings = ({ editor }) => {
   ]);
 
   const handleFieldUpdate = (field, value) => {
-    //console.log("field", field);
-    //console.log("value", value);
     if ("title" === field.id) {
       actions.updateTitle(value);
     } else {
       settings[field.id] = value;
       actions.updateSettings(settings);
     }
-
-    // const itemValue = item.item_value;
-    // itemValue[field.id] = value;
-    // actions.updateItem(item, "item_value", itemValue);
   };
 
   const renderFields = () => {

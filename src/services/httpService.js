@@ -2,6 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
+const userId = dittyEditorVars.userId;
 
 export const getDittyData = (dittyId) => {
   const apiURL = `${apiEndpoint}/${dittyId}`;
@@ -19,17 +20,20 @@ export function saveDitty(
   items,
   deletedItems,
   display = false,
-  settings = false
+  settings = false,
+  title = false
 ) {
   const apiURL = `${apiEndpoint}/save`;
 
   const apiData = {
     security: dittyEditorVars.security,
+    userId: userId,
     id: id,
     items: items,
     deletedItems: deletedItems,
     display: display,
     settings: settings,
+    title: title,
   };
   axios.post(apiURL, { apiData }).then((res) => {
     console.log("res", res);

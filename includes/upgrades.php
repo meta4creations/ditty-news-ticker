@@ -21,6 +21,9 @@ function ditty_updates() {
 	if ( version_compare( $current_version, '3.0.14', '<' ) ) {
 		ditty_v3_0_14_upgrades();
 	}
+	if ( version_compare( $current_version, '3.1', '<' ) ) {
+		//ditty_v3_1_upgrades();
+	}
 
 	if ( DITTY_VERSION != $current_version ) {
 		update_option( 'ditty_plugin_version_upgraded_from', $current_version );
@@ -28,6 +31,37 @@ function ditty_updates() {
 	}
 }
 add_action( 'admin_init', 'ditty_updates' );
+
+/**
+ * Version 3.1 Updates
+ *
+ * @since  3.1
+ * @return void
+ */
+function ditty_v3_1_upgrades() {
+	
+	// Update the Ditty preview padding
+	$args = array(
+		'post_type' => 'ditty',
+	);
+	$dittys = get_posts( $args );
+	if ( is_array( $dittys ) && count( $dittys ) > 0 ) {
+		foreach ( $dittys as $i => $ditty ) {
+			$settings = get_post_meta( $ditty->ID, '_ditty_settings', true );
+			if ( ! is_array( $settings ) ) {
+				$settings = array();
+			}
+			$padding = isset( $settings['previewPadding'] ) ? $settings['previewPadding'] : [];
+			$settings['previewPadding'] = [
+				'top' => isset( $padding['paddingTop'] ) ? $padding['paddingTop'] : 0,
+				'left' => isset( $padding['paddingLeft'] ) ? $padding['paddingLeft'] : 0,
+				'right' => isset( $padding['paddingRight'] ) ? $padding['paddingRight'] : 0,
+				'bottom' => isset( $padding['paddingBottom'] ) ? $padding['paddingBottom'] : 0,
+			];
+			update_post_meta( $ditty->ID, '_ditty_settings', $settings );
+		}
+	}
+}
 
 /**
  * Version 3.0.13 Updates

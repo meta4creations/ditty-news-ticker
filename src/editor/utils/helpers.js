@@ -1,4 +1,4 @@
-const easeOptions = () => {
+export const easeOptions = () => {
   const eases = array(
     "linear",
     "swing",
@@ -39,4 +39,12 @@ const easeOptions = () => {
     easeObject[eases[i]] = eases[i];
   }
   return easeObject;
+};
+
+export const convertBoxControlValues = (values, args) => {
+  const updatedValues = {};
+  for (const [objKey, objValue] of Object.entries(args)) {
+    updatedValues[objValue] = values[objKey];
+  }
+  return updatedValues;
 };

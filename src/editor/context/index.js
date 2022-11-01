@@ -122,7 +122,6 @@ export class EditorProvider extends Component {
    * @param {object} updatedSettings
    */
   handleUpdateSettings = (updatedSettings) => {
-    console.log("updatedSettings", updatedSettings);
     this.setState({ settings: updatedSettings });
   };
 
@@ -194,6 +193,10 @@ export class EditorProvider extends Component {
       ? false
       : this.state.settings;
 
+    const updatedTitle = _.isEqual(this.state.title, this.initialTitle)
+      ? false
+      : this.state.title;
+
     console.log("updatedSettings", updatedSettings);
 
     try {
@@ -202,7 +205,8 @@ export class EditorProvider extends Component {
         trimmedUpdatedItems,
         deletedItems,
         updatedDisplay,
-        updatedSettings
+        updatedSettings,
+        updatedTitle
       );
 
       this.initialItems = resetItemUpdates;
@@ -214,6 +218,10 @@ export class EditorProvider extends Component {
 
       if (updatedSettings) {
         this.initialSettings = updatedSettings;
+      }
+
+      if (updatedTitle) {
+        this.initialTitle = updatedTitle;
       }
     } catch (ex) {
       console.log(ex);

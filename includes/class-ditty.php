@@ -730,6 +730,7 @@ class Ditty {
 				'ajaxurl'				=> admin_url( 'admin-ajax.php' ),
 				'security'			=> wp_create_nonce( 'ditty' ),
 				'mode'					=> WP_DEBUG ? 'development' : 'production',
+				'userId'				=> get_current_user_id(),
 				'siteUrl'				=> site_url(),
 				'displays'			=> Ditty()->editor->display_data(),
 				'layouts'				=> Ditty()->editor->layout_data(),
