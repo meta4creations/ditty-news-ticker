@@ -6,9 +6,7 @@ const DisplaySettings = ({ display, editor }) => {
   const { helpers, actions } = useContext(editor);
 
   const handleFieldUpdate = (field, value) => {
-    const updatedDisplay = display;
-    updatedDisplay.settings[field.id] = value;
-    actions.updateDisplay(updatedDisplay);
+    actions.updateDisplay(display, field, value);
   };
 
   const renderFields = () => {

@@ -102,7 +102,14 @@ export class EditorProvider extends Component {
    * Update a single display
    * @param {object} updatedDisplay
    */
-  handleUpdateDisplay = (updatedDisplay) => {
+  handleUpdateDisplay = (display, field, value) => {
+    const dittyEl = document.getElementById("ditty-editor__ditty");
+    const ditty = window.ditty.get(dittyEl);
+    ditty.options(field.id, value);
+
+    const updatedDisplay = display;
+    updatedDisplay.settings[field.id] = value;
+
     const updatedDisplays = this.state.displays.map((display) => {
       return updatedDisplay.id === display.id ? updatedDisplay : display;
     });

@@ -31,9 +31,18 @@ const Ditty = () => {
   }, []);
 
   /**
-   * Get the current display type
+   * Get the current display settings
    * @returns object
    */
+  const getDisplayObject = () => {
+    if (typeof currentDisplay === "object") {
+    } else {
+      const filteredDisplays = displays.filter((display) => {
+        return Number(display.id) === Number(currentDisplay);
+      });
+      return filteredDisplays.length ? filteredDisplays[0] : {};
+    }
+  };
   const getDisplayType = () => {
     if (typeof currentDisplay === "object") {
     } else {
@@ -41,6 +50,20 @@ const Ditty = () => {
         return Number(display.id) === Number(currentDisplay);
       });
       return filteredDisplays.length ? filteredDisplays[0].type : "ticker";
+    }
+  };
+
+  /**
+   * Get the current display type
+   * @returns object
+   */
+  const getDisplaySettings = () => {
+    if (typeof currentDisplay === "object") {
+    } else {
+      const filteredDisplays = displays.filter((display) => {
+        return Number(display.id) === Number(currentDisplay);
+      });
+      return filteredDisplays.length ? filteredDisplays[0].settings : {};
     }
   };
 
@@ -54,17 +77,28 @@ const Ditty = () => {
     });
   };
 
+  const displayObject = getDisplayObject();
+
   return (
-    <div className="ditty" data-type={getDisplayType()}>
-      <div className="ditty__title">
-        <div className="ditty__title__contents">
-          <h1>Ditty Title</h1>
+    <>
+      <style id={`ditty-display--${displayObject.id}`}></style>
+      <div
+        id="ditty-editor__ditty"
+        className="ditty"
+        data-type={displayObject.type}
+        data-display={displayObject.id}
+        data-settings={JSON.stringify(displayObject.settings)}
+      >
+        <div className="ditty__title">
+          <div className="ditty__title__contents">
+            <h1 className="ditty__title__element">Ditty Title</h1>
+          </div>
+        </div>
+        <div className="ditty__contents">
+          <div className="ditty__items">{renderDisplayItems()}</div>
         </div>
       </div>
-      <div className="ditty__contents">
-        <div className="ditty__items">{renderDisplayItems()}</div>
-      </div>
-    </div>
+    </>
   );
 };
 export default Ditty;
