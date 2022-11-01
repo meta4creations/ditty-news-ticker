@@ -10,7 +10,7 @@ import { migrateDisplayTypes } from "./migrate";
 import { easeOptions } from "./helpers";
 
 /**
- * Return all displya types
+ * Return all display types
  * @returns array
  */
 export const getDisplayTypes = () => {

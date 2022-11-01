@@ -142,6 +142,21 @@ export class EditorProvider extends Component {
   };
 
   /**
+   * Return the display type of a specific display
+   * @returns array
+   */
+  handleGetDisplayType = (display) => {
+    if (typeof display === "object") {
+    } else {
+      const filteredDisplays = this.state.displays.filter((d) => {
+        return Number(d.id) === Number(display);
+      });
+      return filteredDisplays.length ? filteredDisplays[0].type : "ticker";
+    }
+    return "test";
+  };
+
+  /**
    * Save the ditty
    */
   handleSaveDitty = async () => {
@@ -247,6 +262,7 @@ export class EditorProvider extends Component {
           helpers: {
             itemTypeIcon: getItemTypeIcon,
             itemTypeFields: getItemTypeFields,
+            getDisplayType: this.handleGetDisplayType,
             displayTypeIcon: getDisplayTypeIcon,
             displayTypeFields: getDisplayTypeFields,
           },

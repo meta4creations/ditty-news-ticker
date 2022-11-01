@@ -554,12 +554,13 @@ window.onload = function () {
     if (!window.dittyDisplays[type]) {
       return;
     }
+    const settings = dittyEl.dataset.settings ? JSON.parse(dittyEl.dataset.settings) : {};
     const args = {
       element: dittyEl,
       display: dittyEl.dataset.display,
       type: type,
       //items: JSON.parse(dittyEl.dataset.items),
-      ...JSON.parse(dittyEl.dataset.settings)
+      ...settings
     };
     const ditty = new window.dittyDisplays[type](args);
     window.ditty.set(dittyEl, ditty);

@@ -5,7 +5,7 @@ import { EditorContext } from "../context";
 import DittyItem from "./DittyItem";
 
 const Ditty = () => {
-  const { id, items } = useContext(EditorContext);
+  const { id, items, displays, currentDisplay } = useContext(EditorContext);
   const [displayItems, setDisplayItems] = useState([]);
 
   useEffect(() => {
@@ -31,6 +31,20 @@ const Ditty = () => {
   }, []);
 
   /**
+   * Get the current display type
+   * @returns object
+   */
+  const getDisplayType = () => {
+    if (typeof currentDisplay === "object") {
+    } else {
+      const filteredDisplays = displays.filter((display) => {
+        return Number(display.id) === Number(currentDisplay);
+      });
+      return filteredDisplays.length ? filteredDisplays[0].type : "ticker";
+    }
+  };
+
+  /**
    * Render the display items
    * @returns DittyItem
    */
@@ -41,7 +55,7 @@ const Ditty = () => {
   };
 
   return (
-    <div className="ditty">
+    <div className="ditty" data-type={getDisplayType()}>
       <div className="ditty__title">
         <div className="ditty__title__contents">
           <h1>Ditty Title</h1>
