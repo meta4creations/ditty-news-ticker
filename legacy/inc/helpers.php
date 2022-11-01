@@ -1,4 +1,68 @@
 <?php
+
+/**
+ * Return an array default meta values
+ * @since   3.0.30
+ */
+function mtphr_dnt_meta_defaults() {
+	$defaults = array(
+		'_mtphr_dnt_type' => 'default',
+		'_mtphr_dnt_mode' => 'scroll',
+		'_mtphr_dnt_scroll_direction' => 'left',
+		'_mtphr_dnt_scroll_init' => '',
+		'_mtphr_dnt_scroll_init_delay' => '2',
+		'_mtphr_dnt_scroll_width' => 0,
+		'_mtphr_dnt_scroll_height' => 0,
+		'_mtphr_dnt_scroll_padding' => 0,
+		'_mtphr_dnt_scroll_margin' => 0,
+		'_mtphr_dnt_scroll_speed' => 10,
+		'_mtphr_dnt_scroll_pause' => 0,
+		'_mtphr_dnt_scroll_tick_spacing' => 0,
+		'_mtphr_dnt_rotate_type' => 'fade',
+		'_mtphr_dnt_rotate_directional_nav_reverse' => '',
+		'_mtphr_dnt_rotate_height' => 0,
+		'_mtphr_dnt_rotate_padding' => 0,
+		'_mtphr_dnt_rotate_margin' => 0,
+		'_mtphr_dnt_auto_rotate' => '',
+		'_mtphr_dnt_rotate_delay' => 7,
+		'_mtphr_dnt_rotate_pause' => '',
+		'_mtphr_dnt_rotate_speed' => 10,
+		'_mtphr_dnt_rotate_ease' => 'easeInOutQuint',
+		'_mtphr_dnt_rotate_directional_nav' => '1',
+		'_mtphr_dnt_rotate_directional_nav_hide' => '',
+		'_mtphr_dnt_rotate_control_nav' => '1',
+		'_mtphr_dnt_rotate_control_nav_type' => 'button',
+		'_mtphr_dnt_rotate_disable_touchswipe' => '',
+		'_mtphr_dnt_list_padding' => 0,
+		'_mtphr_dnt_list_margin' => 0,
+		'_mtphr_dnt_list_tick_spacing' => 10,
+		'_mtphr_dnt_list_tick_paging' => '',
+		'_mtphr_dnt_list_tick_count' => 10,
+		'_mtphr_dnt_list_tick_prev_next' => '',
+		'_mtphr_dnt_list_tick_prev_text' => __('« Previous', 'ditty-news-ticker'),
+		'_mtphr_dnt_list_tick_next_text' => __('Next »', 'ditty-news-ticker'),
+		'_mtphr_dnt_ajax' => '',
+		'_mtphr_dnt_title' => '',
+		'_mtphr_dnt_inline_title' => '',
+		'_mtphr_dnt_hide' => '',
+		'_mtphr_dnt_shuffle' => '',
+		'_mtphr_dnt_reverse' => '',
+		'_mtphr_dnt_ticker_width' => 0,
+		'_mtphr_dnt_offset' => 20,
+		'_mtphr_dnt_trim_ticks' => '',
+		'_mtphr_dnt_pause_button' => '',
+		'_mtphr_dnt_grid' => '',
+		'_mtphr_dnt_grid_empty_rows' => '',
+		'_mtphr_dnt_grid_equal_width' => '',
+		'_mtphr_dnt_grid_cols' => 2,
+		'_mtphr_dnt_grid_rows' => 2,
+		'_mtphr_dnt_grid_padding' => 5,
+		'_mtphr_dnt_grid_remove_padding' => '',
+		'_mtphr_dnt_styled' => false,
+	);
+	return $defaults;
+}
+
 	
 /**
  * Return an array of ticker types
@@ -176,16 +240,8 @@ function mtphr_dnt_ticker_class( $id='', $class='', $meta_data = array() ) {
 
 if( !function_exists('get_mtphr_dnt_ticker_class') ) {
 function get_mtphr_dnt_ticker_class( $id='', $class='', $meta_data = array() ) {
-	
-	$defaults = array(
-		'_mtphr_dnt_type' => 'default',
-		'_mtphr_dnt_mode' => 'scroll',
-		'_mtphr_dnt_scroll_direction' => 'left',
-		'_mtphr_dnt_rotate_type' => 'fade',
-		'_mtphr_dnt_trim_ticks' => false,
-		'_mtphr_dnt_styled' => false,
-	);
-	$args = wp_parse_args( $meta_data, $defaults );
+	$defaults = mtphr_dnt_meta_defaults();
+	$args = wp_parse_args( $meta_data, mtphr_dnt_meta_defaults() );
 	
 	$classes = array();
 
@@ -265,29 +321,29 @@ function get_mtphr_dnt_tick_class( $class='' ) {
 
 
 /* --------------------------------------------------------- */
-/* !Create the tick open structure - 2.0.0 */
+/* !Create the tick open structure - 3.0.30 */
 /* --------------------------------------------------------- */
 
 if( !function_exists('mtphr_dnt_tick_open') ) {
 function mtphr_dnt_tick_open( $tick_obj, $i, $id, $meta_data, $total=false ) {
-	
-	extract( $meta_data );
+	$defaults = mtphr_dnt_meta_defaults();
+	$args = wp_parse_args( $meta_data, $defaults );
 	
 	// Create and save element styles
 	$width='';$height='';$spacing='';
 
-	if( $_mtphr_dnt_mode == 'scroll' ) {
-		$width = ( intval($_mtphr_dnt_scroll_width) != 0 ) ? 'white-space:normal;width:'.intval($_mtphr_dnt_scroll_width).'px;' : '';
-		$height = ( intval($_mtphr_dnt_scroll_height) != 0 ) ? 'height:'.intval($_mtphr_dnt_scroll_height).'px;' : '';
-	} elseif( $_mtphr_dnt_mode == 'rotate' ) {
-		$height = ( intval($_mtphr_dnt_rotate_height) != 0 ) ? 'height:'.intval($_mtphr_dnt_rotate_height).'px;' : '';
+	if( $args['_mtphr_dnt_mode'] == 'scroll' ) {
+		$width = ( intval($args['_mtphr_dnt_scroll_width']) != 0 ) ? 'white-space:normal;width:'.intval($args['_mtphr_dnt_scroll_width']).'px;' : '';
+		$height = ( intval($args['_mtphr_dnt_scroll_height']) != 0 ) ? 'height:'.intval($args['_mtphr_dnt_scroll_height']).'px;' : '';
+	} elseif( $args['_mtphr_dnt_mode'] == 'rotate' ) {
+		$height = ( intval($args['_mtphr_dnt_rotate_height']) != 0 ) ? 'height:'.intval($args['_mtphr_dnt_rotate_height']).'px;' : '';
 	}
 
 	// Filter the variables
 	$width = apply_filters( 'mtphr_dnt_tick_width', $width );
 	$height = apply_filters( 'mtphr_dnt_tick_height', $height );
 	
-	$type = ( is_array($tick_obj) && isset($tick_obj['type']) ) ? $tick_obj['type'] : $_mtphr_dnt_type;
+	$type = ( is_array($tick_obj) && isset($tick_obj['type']) ) ? $tick_obj['type'] : $args['_mtphr_dnt_type'];
 	$tick_class = ( is_array($tick_obj) && isset($tick_obj['tick_class']) ) ? $tick_obj['tick_class'] : '';
 	$data_attributes = '';
 	if( is_array($tick_obj) && isset($tick_obj['data']) && is_array($tick_obj['data']) ) {
@@ -299,7 +355,7 @@ function mtphr_dnt_tick_open( $tick_obj, $i, $id, $meta_data, $total=false ) {
 	}
 
 	// Set the list spacing depending on the tick position
-	$spacing = ( $_mtphr_dnt_mode == 'list' && ($i != intval($total-1)) ) ? 'margin-bottom:'.intval($_mtphr_dnt_list_tick_spacing).'px;' : '';
+	$spacing = ( $args['_mtphr_dnt_mode'] == 'list' && ($i != intval($total-1)) ) ? 'margin-bottom:'.intval($args['_mtphr_dnt_list_tick_spacing']).'px;' : '';
 	$spacing = apply_filters( 'mtphr_dnt_list_tick_spacing', $spacing, $i, $total );
 	$tick_style = ( $width != '' || $height != '' || $spacing != '' ) ? ' style="'.$width.$height.$spacing.'"' : '';
 

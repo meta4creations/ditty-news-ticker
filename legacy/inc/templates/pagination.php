@@ -2,12 +2,13 @@
 
 // Get and extract the metadata array into variables
 global $mtphr_dnt_meta_data;
-extract( $mtphr_dnt_meta_data );
+$defaults = mtphr_dnt_meta_defaults();
+$args = wp_parse_args( $mtphr_dnt_meta_data, mtphr_dnt_meta_defaults() );
 
-if( $_mtphr_dnt_mode == 'list' && isset($_mtphr_dnt_list_tick_paging) && $_mtphr_dnt_list_tick_paging ) {
+if( $args['_mtphr_dnt_mode'] == 'list' && isset($args['_mtphr_dnt_list_tick_paging']) && $args['_mtphr_dnt_list_tick_paging'] ) {
 	
-	$spacing = 'margin-top:'.intval($_mtphr_dnt_list_tick_spacing).'px;';
-	$total_pages = ceil( $_mtphr_dnt_total_ticks/$_mtphr_dnt_list_tick_count );
+	$spacing = 'margin-top:'.intval($args['_mtphr_dnt_list_tick_spacing']).'px;';
+	$total_pages = ceil( $args['_mtphr_dnt_total_ticks']/$args['_mtphr_dnt_list_tick_count'] );
 	$current_page = isset( $_GET['tickpage'] ) ? intval($_GET['tickpage']) : 1;
 	
 	$big = 999999999;
@@ -19,9 +20,9 @@ if( $_mtphr_dnt_mode == 'list' && isset($_mtphr_dnt_list_tick_paging) && $_mtphr
 		'show_all'		 => false,
 		'end_size'     => 1,
 		'mid_size'     => 2,
-		'prev_next'    => $_mtphr_dnt_list_tick_prev_next,
-		'prev_text'    => $_mtphr_dnt_list_tick_prev_text,
-		'next_text'    => $_mtphr_dnt_list_tick_next_text,
+		'prev_next'    => $args['_mtphr_dnt_list_tick_prev_next'],
+		'prev_text'    => $args['_mtphr_dnt_list_tick_prev_text'],
+		'next_text'    => $args['_mtphr_dnt_list_tick_next_text'],
 		'type'         => 'plain',
 		'add_args'     => false,
 		'add_fragment' => ''

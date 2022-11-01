@@ -147,62 +147,61 @@ add_filter( 'mtphr_dnt_tick_array_transform', 'mtphr_dnt_tick_grid', 10, 3 );
 /* --------------------------------------------------------- */
 
 function mtphr_dnt_add_to_global( $id, $meta_data ) {
-
-	// Extract the metadata array into variables
-	extract( $meta_data );
+	$defaults = mtphr_dnt_meta_defaults();
+	$args = wp_parse_args( $meta_data, mtphr_dnt_meta_defaults() );
 
 	// Add to the global script variable
-	if( $_mtphr_dnt_mode == 'scroll' || $_mtphr_dnt_mode == 'rotate' ) {
+	if( $args['_mtphr_dnt_mode'] == 'scroll' || $args['_mtphr_dnt_mode'] == 'rotate' ) {
 
 		global $mtphr_dnt_ticker_scripts;
 
 		// Add a unique id class, if there is one
-		if( isset($_mtphr_dnt_unique_id) ) {
-			if( $_mtphr_dnt_unique_id != '' ) {
-				$id = $id.'-'.sanitize_html_class( $_mtphr_dnt_unique_id );
+		if( isset($args['_mtphr_dnt_unique_id']) ) {
+			if( $args['_mtphr_dnt_unique_id'] != '' ) {
+				$id = $id.'-'.sanitize_html_class( $args['_mtphr_dnt_unique_id'] );
 			}
 		}
 		
 		$ticker = '#mtphr-dnt-'.$id;
 
 		$scroll_pause = 0; $scroll_init = 0; $disable_touchswipe = 0;
-		if( isset($_mtphr_dnt_scroll_pause) ) {
-			$scroll_pause = $_mtphr_dnt_scroll_pause ? 1 : 0;
+		if( isset($args['_mtphr_dnt_scroll_pause']) ) {
+			$scroll_pause = $args['_mtphr_dnt_scroll_pause'] ? 1 : 0;
 		}
-		if( isset($_mtphr_dnt_scroll_init) ) {
-			$scroll_init = $_mtphr_dnt_scroll_init ? 1 : 0;
+		if( isset($args['_mtphr_dnt_scroll_init']) ) {
+			$scroll_init = $args['_mtphr_dnt_scroll_init'] ? 1 : 0;
 		}
-		$scroll_init_delay =  isset( $_mtphr_dnt_scroll_init_delay ) ? intval( $_mtphr_dnt_scroll_init_delay ) : 2;
+		$scroll_init_delay =  isset( $args['_mtphr_dnt_scroll_init_delay'] ) ? intval( $args['_mtphr_dnt_scroll_init_delay'] ) : 2;
 		$rotate = 0; $rotate_pause = 0; $nav_autohide = 0; $nav_reverse = 0;
-		if( isset($_mtphr_dnt_auto_rotate) ) {
-			$rotate = $_mtphr_dnt_auto_rotate ? 1 : 0;
+		if( isset($args['_mtphr_dnt_auto_rotate']) ) {
+			$rotate = $args['_mtphr_dnt_auto_rotate'] ? 1 : 0;
 		}
-		if( isset($_mtphr_dnt_rotate_pause) ) {
-			$rotate_pause = $_mtphr_dnt_rotate_pause ? 1 : 0;
+		if( isset($args['_mtphr_dnt_rotate_pause']) ) {
+			$rotate_pause = $args['_mtphr_dnt_rotate_pause'] ? 1 : 0;
 		}
-		if( isset($_mtphr_dnt_rotate_directional_nav_reverse) ) {
-			$nav_reverse = $_mtphr_dnt_rotate_directional_nav_reverse ? 1 : 0;
+		if( isset($args['_mtphr_dnt_rotate_directional_nav_reverse']) ) {
+			$nav_reverse = $args['_mtphr_dnt_rotate_directional_nav_reverse'] ? 1 : 0;
 		}
-		if( isset($_mtphr_dnt_rotate_disable_touchswipe) ) {
-			$disable_touchswipe = $_mtphr_dnt_rotate_disable_touchswipe ? 1 : 0;
+		if( isset($args['_mtphr_dnt_rotate_disable_touchswipe']) ) {
+			$disable_touchswipe = $args['_mtphr_dnt_rotate_disable_touchswipe'] ? 1 : 0;
 		}
-		$offset = isset($_mtphr_dnt_offset) ? intval($_mtphr_dnt_offset) : 20;
+		$offset = isset($args['_mtphr_dnt_offset']) ? intval($args['_mtphr_dnt_offset']) : 20;
 		$mtphr_dnt_ticker_scripts[] = array(
 			'ticker' => $ticker,
 			'id' => $id,
-			'type' => $_mtphr_dnt_mode,
-			'scroll_direction' => $_mtphr_dnt_scroll_direction,
-			'scroll_speed' => intval($_mtphr_dnt_scroll_speed),
+			'type' => $args['_mtphr_dnt_mode'],
+			'scroll_direction' => $args['_mtphr_dnt_scroll_direction'],
+			'scroll_speed' => intval($args['_mtphr_dnt_scroll_speed']),
 			'scroll_pause' => $scroll_pause,
-			'scroll_spacing' => intval($_mtphr_dnt_scroll_tick_spacing),
+			'scroll_spacing' => intval($args['_mtphr_dnt_scroll_tick_spacing']),
 			'scroll_init' => $scroll_init,
 			'scroll_init_delay' => $scroll_init_delay,
-			'rotate_type' => $_mtphr_dnt_rotate_type,
+			'rotate_type' => $args['_mtphr_dnt_rotate_type'],
 			'auto_rotate' => $rotate,
-			'rotate_delay' => intval($_mtphr_dnt_rotate_delay),
+			'rotate_delay' => intval($args['_mtphr_dnt_rotate_delay']),
 			'rotate_pause' => $rotate_pause,
-			'rotate_speed' => intval($_mtphr_dnt_rotate_speed),
-			'rotate_ease' => $_mtphr_dnt_rotate_ease,
+			'rotate_speed' => intval($args['_mtphr_dnt_rotate_speed']),
+			'rotate_ease' => $args['_mtphr_dnt_rotate_ease'],
 			'nav_reverse' => $nav_reverse,
 			'disable_touchswipe' => $disable_touchswipe,
 			'offset' => $offset
@@ -281,10 +280,11 @@ function mtphr_dnt_playpause() {
 	
 	// Get and extract the metadata array into variables
 	global $mtphr_dnt_meta_data;
-	extract( $mtphr_dnt_meta_data );
+	$defaults = mtphr_dnt_meta_defaults();
+	$args = wp_parse_args( $mtphr_dnt_meta_data, mtphr_dnt_meta_defaults() );
 	
-	if( $_mtphr_dnt_mode == 'scroll' || ($_mtphr_dnt_mode == 'rotate' && $_mtphr_dnt_auto_rotate) ) {
-		if( isset($_mtphr_dnt_pause_button) && $_mtphr_dnt_pause_button ) {
+	if( $args['_mtphr_dnt_mode'] == 'scroll' || ($args['_mtphr_dnt_mode'] == 'rotate' && $args['_mtphr_dnt_auto_rotate']) ) {
+		if( isset($args['_mtphr_dnt_pause_button']) && $args['_mtphr_dnt_pause_button'] ) {
 			mtphr_dnt_get_template_part( 'play_pause' );
 		}
 	}

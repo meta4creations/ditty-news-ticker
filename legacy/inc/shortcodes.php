@@ -13,17 +13,18 @@ add_shortcode( 'ditty_news_ticker', 'ditty_news_ticker_display' );
  * @since 1.0.0
  */
 function ditty_news_ticker_display( $atts, $content = null ) {
-	extract( shortcode_atts( array(
+	$defaults = array(
 		'id' => '',
 		'class' => ''
-	), $atts ) );
-	
+	);
+	$args = shortcode_atts( $defaults, $atts );
+
 	// Remove the id & class before passing the atts
 	unset( $atts['id'] );
 	unset( $atts['class'] );
 	
 	// Return the ticker
-	return get_mtphr_dnt_ticker( $id, $class, $atts );
+	return get_mtphr_dnt_ticker( $args['id'], $args['class'], $atts );
 }
 
 
