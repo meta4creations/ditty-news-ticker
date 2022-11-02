@@ -1,3 +1,7 @@
+/**
+ * Return easing options
+ * @returns array
+ */
 export const easeOptions = () => {
   const eases = array(
     "linear",
@@ -41,10 +45,29 @@ export const easeOptions = () => {
   return easeObject;
 };
 
+/**
+ * Convert default box controls to custom control keys
+ * @returns object
+ */
 export const convertBoxControlValues = (values, args) => {
   const updatedValues = {};
   for (const [objKey, objValue] of Object.entries(args)) {
     updatedValues[objValue] = values[objKey];
   }
   return updatedValues;
+};
+
+/**
+ * Get the current display object
+ * @returns object
+ */
+export const getDisplayObject = (display, displays) => {
+  if (typeof display === "object") {
+    return display;
+  } else {
+    const filteredDisplays = displays.filter((d) => {
+      return Number(d.id) === Number(display);
+    });
+    return filteredDisplays.length ? filteredDisplays[0] : {};
+  }
 };

@@ -246,6 +246,9 @@ class DittyDisplay {
       return this.config;
     }
   }
+  destroy() {
+    console.log("destroy");
+  }
 }
 
 /***/ }),

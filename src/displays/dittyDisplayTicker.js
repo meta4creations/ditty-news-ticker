@@ -603,6 +603,10 @@ export default class DittyDisplayTicker extends DittyDisplay {
     }
     return styles;
   }
+
+  destroy() {
+    this.stopTicker();
+  }
 }
 
 window.dittyDisplays.ticker = DittyDisplayTicker;

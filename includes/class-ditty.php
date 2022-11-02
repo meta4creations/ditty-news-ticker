@@ -712,6 +712,13 @@ class Ditty {
 			$this->version,
 			true
 		);
+		wp_register_script(
+			'ditty-display-grid',
+			DITTY_URL . 'build/displays/dittyDisplayGrid.js',
+			['ditty'],
+			$this->version,
+			true
+		);
 		wp_register_script( 'ditty-editor',
 			DITTY_URL . 'build/dittyEditor.js',
 			['wp-element', 'wp-components', 'wp-hooks', 'lodash', 'ditty'],
@@ -746,6 +753,8 @@ class Ditty {
 				wp_dequeue_script( 'autosave' );	
 				wp_enqueue_script( 'ditty' );
 				wp_enqueue_script( 'ditty-display-ticker' );
+				wp_enqueue_script( 'ditty-display-list' );
+				wp_enqueue_script( 'ditty-display-grid' );
 				wp_enqueue_script( 'ditty-editor' );
 				wp_enqueue_script( 'ditty-item-type' );
 			}	

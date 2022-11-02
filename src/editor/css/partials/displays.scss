@@ -1,6 +1,30 @@
 .ditty-editor__panel--displays {
+  .ditty-list__filters {
+    margin-bottom: 10px;
+  }
   .ditty-editor-item {
     cursor: pointer;
+    &__select {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      margin-left: 10px;
+    }
+    &.currentDisplay {
+      .ditty-editor-item {
+        &__select {
+          color: #fff;
+          background: $green;
+          border-color: $green;
+        }
+      }
+    }
   }
 }
 .ditty-editor__panel--displayTypes {

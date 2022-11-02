@@ -257,6 +257,12 @@
   padding: 10px;
   border-bottom: 1px solid #ccc;
 }
+.ditty-editor__panel__header__buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+}
 .ditty-editor__panel__content {
   flex: 1;
 }
@@ -329,8 +335,28 @@
   cursor: grabbing;
 }
 
+.ditty-editor__panel--displays .ditty-list__filters {
+  margin-bottom: 10px;
+}
 .ditty-editor__panel--displays .ditty-editor-item {
   cursor: pointer;
+}
+.ditty-editor__panel--displays .ditty-editor-item__select {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-left: 10px;
+}
+.ditty-editor__panel--displays .ditty-editor-item.currentDisplay .ditty-editor-item__select {
+  color: #fff;
+  background: #19bf7c;
+  border-color: #19bf7c;
 }
 
 .ditty-editor__panel--displayTypes .ditty-editor-item__content h3 {

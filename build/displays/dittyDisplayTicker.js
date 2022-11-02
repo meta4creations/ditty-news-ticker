@@ -246,6 +246,9 @@ class DittyDisplay {
       return this.config;
     }
   }
+  destroy() {
+    console.log("destroy");
+  }
 }
 
 /***/ }),
@@ -1055,6 +1058,9 @@ class DittyDisplayTicker extends _components_dittyDisplay__WEBPACK_IMPORTED_MODU
       styles += "}";
     }
     return styles;
+  }
+  destroy() {
+    this.stopTicker();
   }
 }
 window.dittyDisplays.ticker = DittyDisplayTicker;

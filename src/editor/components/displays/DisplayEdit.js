@@ -8,8 +8,9 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import Panel from "../Panel";
 
-const DisplayEdit = ({ display, goBack, editor }) => {
+const DisplayEdit = ({ currentDisplay, goBack, editor }) => {
   const [currentTabId, setCurrentTabId] = useState("settings");
+  console.log("currentDisplay", currentDisplay);
 
   const tabs = window.dittyHooks.applyFilters("dittyItemEditTabs", [
     {
@@ -46,7 +47,7 @@ const DisplayEdit = ({ display, goBack, editor }) => {
           "dittyDisplayEditPanel",
           "",
           currentTabId,
-          display,
+          currentDisplay,
           editor
         )}
       </>

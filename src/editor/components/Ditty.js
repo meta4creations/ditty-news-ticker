@@ -3,13 +3,14 @@ import _ from "lodash";
 import { useContext, useEffect, useState } from "@wordpress/element";
 import { EditorContext } from "../context";
 import DittyItem from "./DittyItem";
+import { getDisplayObject } from "../utils/helpers";
 
 const Ditty = () => {
   const { id, items, displays, currentDisplay } = useContext(EditorContext);
   const [displayItems, setDisplayItems] = useState([]);
+  const displayObject = getDisplayObject(currentDisplay, displays);
 
   useEffect(() => {
-    console.log("dittystarted");
     function getDisplayItems() {
       const dItems = items.reduce((itemsArray, item) => {
         const itemType = _.upperFirst(_.camelCase(item.item_type));
@@ -28,44 +29,15 @@ const Ditty = () => {
       setDisplayItems(dItems);
     }
     getDisplayItems();
+
+    function setDittyAttributes() {
+      const dittyEl = document.getElementById("ditty-editor__ditty");
+      dittyEl.dataset.type = displayObject.type;
+      dittyEl.dataset.display = displayObject.id;
+      dittyEl.dataset.settings = JSON.stringify(displayObject.settings);
+    }
+    setDittyAttributes();
   }, []);
-
-  /**
-   * Get the current display settings
-   * @returns object
-   */
-  const getDisplayObject = () => {
-    if (typeof currentDisplay === "object") {
-    } else {
-      const filteredDisplays = displays.filter((display) => {
-        return Number(display.id) === Number(currentDisplay);
-      });
-      return filteredDisplays.length ? filteredDisplays[0] : {};
-    }
-  };
-  const getDisplayType = () => {
-    if (typeof currentDisplay === "object") {
-    } else {
-      const filteredDisplays = displays.filter((display) => {
-        return Number(display.id) === Number(currentDisplay);
-      });
-      return filteredDisplays.length ? filteredDisplays[0].type : "ticker";
-    }
-  };
-
-  /**
-   * Get the current display type
-   * @returns object
-   */
-  const getDisplaySettings = () => {
-    if (typeof currentDisplay === "object") {
-    } else {
-      const filteredDisplays = displays.filter((display) => {
-        return Number(display.id) === Number(currentDisplay);
-      });
-      return filteredDisplays.length ? filteredDisplays[0].settings : {};
-    }
-  };
 
   /**
    * Render the display items
@@ -77,18 +49,10 @@ const Ditty = () => {
     });
   };
 
-  const displayObject = getDisplayObject();
-
   return (
     <>
       <style id={`ditty-display--${displayObject.id}`}></style>
-      <div
-        id="ditty-editor__ditty"
-        className="ditty"
-        data-type={displayObject.type}
-        data-display={displayObject.id}
-        data-settings={JSON.stringify(displayObject.settings)}
-      >
+      <div id="ditty-editor__ditty" className="ditty">
         <div className="ditty__title">
           <div className="ditty__title__contents">
             <h1 className="ditty__title__element">Ditty Title</h1>

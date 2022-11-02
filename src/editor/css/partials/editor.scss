@@ -105,6 +105,12 @@
       flex: 0 0 auto;
       padding: 10px;
       border-bottom: 1px solid #ccc;
+      &__buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
     }
     &__content {
       flex: 1;

@@ -40,6 +40,7 @@ var displayConfig = {
   entry: {
     dittyDisplayTicker: "./src/displays/dittyDisplayTicker.js",
     dittyDisplayList: "./src/displays/dittyDisplayList.js",
+    dittyDisplayGrid: "./src/displays/dittyDisplayGrid.js",
   },
   output: {
     filename: "[name].js",
