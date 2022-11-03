@@ -42,6 +42,21 @@ export const getDisplayTypes = () => {
 };
 
 /**
+ * Get the current display object
+ * @returns object
+ */
+export const getDisplayObject = (display, displays) => {
+  if (typeof display === "object") {
+    return display;
+  } else {
+    const filteredDisplays = displays.filter((d) => {
+      return Number(d.id) === Number(display);
+    });
+    return filteredDisplays.length ? filteredDisplays[0] : {};
+  }
+};
+
+/**
  * Return a display type icon from the display
  * @param {object} item
  * @returns element
@@ -56,6 +71,19 @@ export const getDisplayTypeIcon = (display) => {
   ) : (
     <FontAwesomeIcon icon={faTabletScreen} />
   );
+};
+
+/**
+ * Return a display type label from the display
+ * @param {object} item
+ * @returns element
+ */
+export const getDisplayTypeLabel = (display) => {
+  const displayTypes = getDisplayTypes();
+  const displayType = displayTypes.filter(
+    (displayType) => displayType.id === display.type
+  );
+  return displayType.length && displayType[0].label;
 };
 
 /**

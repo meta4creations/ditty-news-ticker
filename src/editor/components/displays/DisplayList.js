@@ -40,7 +40,7 @@ const DisplayList = ({ editDisplay, goBack, editor }) => {
         content: (display) => {
           return (
             <>
-              <span>{display.label}</span>
+              <span>{display.title}</span>
               <span>{`ID: ${display.id}`}</span>
             </>
           );

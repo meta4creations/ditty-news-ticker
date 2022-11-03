@@ -1,5 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
+import { Button, ButtonGroup } from "@wordpress/components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleLeft,
@@ -7,6 +8,7 @@ import {
   faTabletScreen,
 } from "@fortawesome/pro-regular-svg-icons";
 import Panel from "../Panel";
+import { getDisplayTypeLabel } from "../../utils/displayTypes";
 
 const DisplayEdit = ({ currentDisplay, goBack, editor }) => {
   const [currentTabId, setCurrentTabId] = useState("settings");
@@ -32,10 +34,17 @@ const DisplayEdit = ({ currentDisplay, goBack, editor }) => {
   const panelHeader = () => {
     return (
       <>
-        <button onClick={goBack}>
-          <FontAwesomeIcon icon={faAngleLeft} />
-          {__(`Back`, "ditty-news-ticker")}
-        </button>
+        <h3>
+          {__(
+            `Custom ${getDisplayTypeLabel(currentDisplay)} display`,
+            "ditty-news-ticker"
+          )}
+        </h3>
+        <ButtonGroup>
+          <Button variant="secondary">
+            {__("Save as Template", "ditty-news-ticker")}
+          </Button>
+        </ButtonGroup>
       </>
     );
   };

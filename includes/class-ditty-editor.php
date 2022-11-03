@@ -90,10 +90,11 @@ class Ditty_Editor {
 				$display_data[] = array(
 					'id' => $post->ID,
 					'type' => get_post_meta( $post->ID, '_ditty_display_type', true ),
-					'label' => $post->post_title,
+					'title' => $post->post_title,
 					'description' => get_post_meta( $post->ID, '_ditty_display_description', true ),
 					'settings' => get_post_meta( $post->ID, '_ditty_display_settings', true ),
 					'version' => get_post_meta( $post->ID, '_ditty_display_version', true ),
+					'edit_url' => get_edit_post_link( $post->ID, 'code' ),
 				);		
 			}
 		}
@@ -120,11 +121,12 @@ class Ditty_Editor {
 			foreach ( $posts as $i => $post ) {
 				$layout_data[] = array(
 					'id' => $post->ID,
-					'label' => $post->post_title,
+					'title' => $post->post_title,
 					'description' => get_post_meta( $post->ID, '_ditty_layout_description', true ),
 					'html' => get_post_meta( $post->ID, '_ditty_layout_html', true ),
 					'css' => get_post_meta( $post->ID, '_ditty_layout_css', true ),
 					'version' => get_post_meta( $post->ID, '_ditty_layout_version', true ),
+					'edit_url' => get_edit_post_link( $post->ID, 'code' ),
 				);		
 			}
 		}

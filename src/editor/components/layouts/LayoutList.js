@@ -23,7 +23,7 @@ const LayoutList = ({ item, editor }) => {
       {
         id: "label",
         content: "test",
-        content: (layout) => layout.label,
+        content: (layout) => layout.title,
       },
       {
         id: "settings",

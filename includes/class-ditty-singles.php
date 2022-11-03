@@ -316,7 +316,7 @@ class Ditty_Singles {
 		
 
 		$display = get_post_meta( $ditty->ID, '_ditty_display', true );
-		if ( ! $display || ! ditty_display_exists( $display ) ) {
+		if ( (! $display && ! is_array( $display ) ) || ! ditty_display_exists( $display ) ) {
 			$display = ditty_default_display( $ditty->ID );
 		}
 		// $atts = array(
@@ -332,7 +332,7 @@ class Ditty_Singles {
 			'data-title' 		=> $title,
 			'data-settings' => json_encode( $settings ),
 			'data-items' 		=> json_encode( $unserialized_items ),
-			'data-display' 	=> $display,
+			'data-display' 	=> is_array( $display ) ? json_encode( $display ) : $display,
 			//'data-render'		=> htmlentities( $ditty_render ),
 		);
 		?>

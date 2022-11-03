@@ -3,7 +3,7 @@ import _ from "lodash";
 import { useContext, useEffect, useState } from "@wordpress/element";
 import { EditorContext } from "../context";
 import DittyItem from "./DittyItem";
-import { getDisplayObject } from "../utils/helpers";
+import { getDisplayObject } from "../utils/displayTypes";
 
 const Ditty = () => {
   const { id, items, displays, currentDisplay } = useContext(EditorContext);

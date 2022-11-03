@@ -56,18 +56,3 @@ export const convertBoxControlValues = (values, args) => {
   }
   return updatedValues;
 };
-
-/**
- * Get the current display object
- * @returns object
- */
-export const getDisplayObject = (display, displays) => {
-  if (typeof display === "object") {
-    return display;
-  } else {
-    const filteredDisplays = displays.filter((d) => {
-      return Number(d.id) === Number(display);
-    });
-    return filteredDisplays.length ? filteredDisplays[0] : {};
-  }
-};

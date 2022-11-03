@@ -366,6 +366,47 @@
   margin: 0;
 }
 
+.ditty-display-template {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  border-radius: 3px;
+}
+.ditty-display-template__header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.ditty-display-template__icon {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #ccc;
+  margin-right: 10px;
+}
+.ditty-display-template__icon i,
+.ditty-display-template__icon svg {
+  display: block;
+  font-size: 15px;
+  text-align: center;
+  line-height: 40px;
+}
+.ditty-display-template__title {
+  margin: 0;
+}
+.ditty-display-template__type {
+  margin: 0;
+}
+.ditty-display-template__postid {
+  margin: 0;
+}
+
 .ditty-editor__panel--itemTypes .ditty-editor-item__content h3 {
   margin: 0;
 }

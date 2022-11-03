@@ -8,6 +8,8 @@ const PanelDisplays = ({ editor }) => {
   const { id, currentDisplay, displays, actions } = useContext(editor);
   const [currentPanel, setCurrentPanel] = useState("edit");
 
+  console.log("currentDisplay");
+
   const handleViewTemplates = () => {
     setCurrentPanel("list");
   };

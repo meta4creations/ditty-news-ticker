@@ -22,7 +22,7 @@ export class EditorProvider extends Component {
   initialItems = this.data.items ? JSON.parse(this.data.items) : [];
   initialDisplays = dittyEditorVars.displays ? dittyEditorVars.displays : [];
   initialLayouts = dittyEditorVars.layouts ? dittyEditorVars.layouts : [];
-  initialDisplay = this.data.display ? this.data.display : 0;
+  initialDisplay = this.data.display ? JSON.parse(this.data.display) : {};
   initialSettings = this.data.settings ? JSON.parse(this.data.settings) : {};
   id = this.data.id;
 
@@ -195,6 +195,8 @@ export class EditorProvider extends Component {
     )
       ? false
       : this.state.currentDisplay;
+
+    console.log("updatedDisplay", updatedDisplay);
 
     const updatedSettings = _.isEqual(this.state.settings, this.initialSettings)
       ? false
