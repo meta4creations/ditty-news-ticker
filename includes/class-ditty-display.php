@@ -27,8 +27,16 @@ class Ditty_Display {
 	 */
 	public function __construct( $display_id ) {
 		
+		// If this is a custom display
+		if ( is_array( $display_id ) ) {
+			$this->label 				= '';
+			$this->description 	= '';
+			$this->display_type = $display_id['type'];
+			$this->settings 		= $display_id['settings'];
+			$this->version			= '';
+		
 		// If this is a new display
-		if ( false !== strpos( $display_id, 'new-' ) ) {
+		} elseif ( ! false !== strpos( $display_id, 'new-' ) ) {
 			$this->parse_draft_data( $display_id );
 		
 		// Else, this is an existing display
