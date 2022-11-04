@@ -36,7 +36,7 @@ class Ditty_Display {
 			$this->version			= '';
 		
 		// If this is a new display
-		} elseif ( ! false !== strpos( $display_id, 'new-' ) ) {
+		} elseif ( false !== strpos( $display_id, 'new-' ) ) {
 			$this->parse_draft_data( $display_id );
 		
 		// Else, this is an existing display

@@ -7,29 +7,22 @@ import { getDisplayObject } from "../utils/displayTypes";
 
 const Ditty = () => {
   const { id, items, displays, currentDisplay } = useContext(EditorContext);
-  const [displayItems, setDisplayItems] = useState([]);
   const displayObject = getDisplayObject(currentDisplay, displays);
 
-  useEffect(() => {
-    function getDisplayItems() {
-      const dItems = items.reduce((itemsArray, item) => {
-        const itemType = _.upperFirst(_.camelCase(item.item_type));
-        if (item.rendered_items) {
-          return itemsArray.concat(item.rendered_items);
-        } else {
-          return itemsArray.concat(
-            window.dittyHooks.applyFilters(
-              `dittyDisplayItems${itemType}`,
-              [],
-              item
-            )
-          );
-        }
-      }, []);
-      setDisplayItems(dItems);
-    }
-    getDisplayItems();
+  // $ditty_atts = array(
+  //   'id'										=> ( '' != $args['el_id'] ) ? sanitize_title( $args['el_id'] ) : false,
+  //   'class' 								=> $class,
+  //   'data-id' 							=> $args['id'],
+  //   'data-uniqid' 					=> $args['uniqid'],
+  //   'data-display' 					=> ( '' != $args['display'] ) ? $args['display'] : false,
+  //   'data-display_settings' => ( '' != $args['display_settings'] ) ? $args['display_settings'] : false,
+  //   'data-layout_settings' 	=> ( '' != $args['layout_settings'] ) ? $args['layout_settings'] : false,
+  //   'data-show_editor' 			=> ( 0 != intval( $args['show_editor'] ) ) ? '1' : false,
+  //   'data-ajax_load' 				=> $ajax_load,
+  //   'data-live_updates' 		=> $live_updates,
+  // );
 
+  useEffect(() => {
     function setDittyAttributes() {
       const dittyEl = document.getElementById("ditty-editor__ditty");
       dittyEl.dataset.type = displayObject.type;
@@ -39,29 +32,16 @@ const Ditty = () => {
     setDittyAttributes();
   }, []);
 
-  /**
-   * Render the display items
-   * @returns DittyItem
-   */
-  const renderDisplayItems = () => {
-    return displayItems.map((item, index) => {
-      return <DittyItem item={item} key={item.uniq_id} />;
+  const renderjQuery = () => {
+    jQuery(function ($) {
+      $("div#ditty-editor__ditty").ditty_ticker({});
     });
   };
 
   return (
     <>
-      <style id={`ditty-display--${displayObject.id}`}></style>
-      <div id="ditty-editor__ditty" className="ditty">
-        <div className="ditty__title">
-          <div className="ditty__title__contents">
-            <h1 className="ditty__title__element">Ditty Title</h1>
-          </div>
-        </div>
-        <div className="ditty__contents">
-          <div className="ditty__items">{renderDisplayItems()}</div>
-        </div>
-      </div>
+      <div id="ditty-editor__ditty" className="ditty" data-id={id}></div>
+      <script>{renderjQuery()}</script>
     </>
   );
 };

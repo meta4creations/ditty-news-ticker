@@ -240,6 +240,7 @@ export class EditorProvider extends Component {
   };
 
   render() {
+    console.log(this.initialItems);
     return (
       <EditorContext.Provider
         value={{
