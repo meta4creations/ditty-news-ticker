@@ -1,12 +1,20 @@
 import { __ } from "@wordpress/i18n";
 import { useContext } from "@wordpress/element";
 import Field from "../../common/Field";
+import { updateDisplayOptions } from "../../../services/dittyService";
 
 const DisplaySettings = ({ display, editor }) => {
   const { helpers, actions } = useContext(editor);
 
   const handleFieldUpdate = (field, value) => {
-    actions.updateDisplay(display, field, value);
+    // Update the Ditty options
+    const dittyEl = document.getElementById("ditty-editor__ditty");
+    updateDisplayOptions(dittyEl, display.type, field.id, value);
+
+    // Update the editor display
+    const updatedDisplay = { ...display };
+    updatedDisplay.settings[field.id] = value;
+    actions.setCurrentDisplay(updatedDisplay);
   };
 
   const renderFields = () => {

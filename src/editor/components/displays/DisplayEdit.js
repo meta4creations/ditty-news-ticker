@@ -12,7 +12,6 @@ import { getDisplayTypeLabel } from "../../utils/displayTypes";
 
 const DisplayEdit = ({ currentDisplay, goBack, editor }) => {
   const [currentTabId, setCurrentTabId] = useState("settings");
-  console.log("currentDisplay", currentDisplay);
 
   const tabs = window.dittyHooks.applyFilters("dittyItemEditTabs", [
     {

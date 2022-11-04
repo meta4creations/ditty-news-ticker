@@ -647,6 +647,9 @@ class Ditty_Displays {
 		if ( ! $display_id ) {
 			$display_id = ditty_default_display( $ditty_id );
 		}
+		if ( is_array( $display_id ) ) {
+			$display_id = htmlentities( json_encode( $display_id ) );
+		}
 		$display_types = ditty_display_types();
 		ob_start();
 		?>

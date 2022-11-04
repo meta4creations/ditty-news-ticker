@@ -33,9 +33,7 @@ const LayoutList = ({ item, editor }) => {
     editor
   );
 
-  const handleElementClick = (e, elementId, item) => {
-    console.log("elementId", elementId);
-  };
+  const handleElementClick = (e, elementId, item) => {};
 
   const renderItems = () => {
     return layouts.map((layout) => {

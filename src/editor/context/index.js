@@ -20,6 +20,9 @@ export class EditorProvider extends Component {
   data = this.props.data;
   initialTitle = this.data.title ? this.data.title : "";
   initialItems = this.data.items ? JSON.parse(this.data.items) : [];
+  initialDisplayItems = this.data.displayitems
+    ? JSON.parse(this.data.displayitems)
+    : [];
   initialDisplays = dittyEditorVars.displays ? dittyEditorVars.displays : [];
   initialLayouts = dittyEditorVars.layouts ? dittyEditorVars.layouts : [];
   initialDisplay = this.data.display ? JSON.parse(this.data.display) : {};
@@ -29,9 +32,13 @@ export class EditorProvider extends Component {
   state = {
     title: this.initialTitle,
     items: [...this.initialItems],
+    displayItems: [...this.initialDisplayItems],
     displays: [...this.initialDisplays],
     layouts: [...this.initialLayouts],
-    currentDisplay: this.initialDisplay,
+    currentDisplay:
+      typeof this.initialDisplay === "object"
+        ? { ...this.initialDisplay }
+        : this.initialDisplay,
     settings: _.cloneDeep(this.initialSettings),
     currentPanel: "items",
   };
@@ -102,14 +109,7 @@ export class EditorProvider extends Component {
    * Update a single display
    * @param {object} updatedDisplay
    */
-  handleUpdateDisplay = (display, field, value) => {
-    const dittyEl = document.getElementById("ditty-editor__ditty");
-    const ditty = window.ditty.get(dittyEl);
-    ditty.options(field.id, value);
-
-    const updatedDisplay = display;
-    updatedDisplay.settings[field.id] = value;
-
+  handleUpdateDisplay = (updatedDisplay) => {
     const updatedDisplays = this.state.displays.map((display) => {
       return updatedDisplay.id === display.id ? updatedDisplay : display;
     });
@@ -181,22 +181,12 @@ export class EditorProvider extends Component {
     });
 
     // Reset the item updates
-    const items = [...this.state.items];
     const resetItemUpdates = this.state.items.map((item) => {
       if (item.item_updates) {
         delete item.item_updates;
       }
       return item;
     });
-
-    const updatedDisplay = _.isEqual(
-      this.state.currentDisplay,
-      this.initialDisplay
-    )
-      ? false
-      : this.state.currentDisplay;
-
-    console.log("updatedDisplay", updatedDisplay);
 
     const updatedSettings = _.isEqual(this.state.settings, this.initialSettings)
       ? false
@@ -209,21 +199,17 @@ export class EditorProvider extends Component {
     console.log("updatedSettings", updatedSettings);
 
     try {
-      await saveDitty(
-        this.id,
-        trimmedUpdatedItems,
-        deletedItems,
-        updatedDisplay,
-        updatedSettings,
-        updatedTitle
-      );
+      await saveDitty({
+        id: this.id,
+        items: trimmedUpdatedItems,
+        deletedItems: deletedItems,
+        display: this.state.currentDisplay,
+        settings: updatedSettings,
+        title: updatedTitle,
+      });
 
       this.initialItems = resetItemUpdates;
       this.setState({ items: resetItemUpdates });
-
-      if (updatedDisplay) {
-        this.initialDisplay = updatedDisplay;
-      }
 
       if (updatedSettings) {
         this.initialSettings = updatedSettings;
@@ -240,7 +226,6 @@ export class EditorProvider extends Component {
   };
 
   render() {
-    console.log(this.initialItems);
     return (
       <EditorContext.Provider
         value={{
@@ -248,6 +233,7 @@ export class EditorProvider extends Component {
           title: this.state.title,
           itemTypes: getItemTypes(),
           items: this.state.items,
+          displayItems: this.state.displayItems,
           displayTypes: getDisplayTypes(),
           displays: this.state.displays,
           layouts: this.state.layouts,

@@ -19,9 +19,6 @@ const DisplayList = ({ editDisplay, goBack, editor }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState(null);
 
-  console.log("currentDisplay", currentDisplay);
-  console.log("previewDisplay", previewDisplay);
-
   /**
    * Set up the elements
    */

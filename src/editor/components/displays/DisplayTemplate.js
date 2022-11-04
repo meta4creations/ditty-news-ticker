@@ -10,7 +10,6 @@ import {
 const DisplayTemplate = ({ viewTemplates, editor }) => {
   const { currentDisplay, displays, helpers, actions } = useContext(editor);
   const displayObject = getDisplayObject(currentDisplay, displays);
-  console.log("displayObject", displayObject);
 
   const panelHeader = () => {
     return (

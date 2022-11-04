@@ -63,6 +63,14 @@
       "oO" : 0,
       "oS" : 1
     },
+    "\/composer.lock" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/composer.lock",
+      "oF" : 0
+    },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1923,6 +1931,21 @@
       "ma" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/css\/ditty-admin.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 0
+    },
+    "\/includes\/sass\/ditty-editor.scss" : {
+      "aP" : 0,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/css\/ditty-editor.css",
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
