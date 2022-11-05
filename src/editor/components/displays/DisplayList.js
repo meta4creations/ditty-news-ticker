@@ -1,20 +1,18 @@
 import { __ } from "@wordpress/i18n";
 import { useState, useContext } from "@wordpress/element";
-import {
-  CheckboxControl,
-  SelectControl,
-  TextControl,
-  TextareaControl,
-} from "@wordpress/components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear, faCheck } from "@fortawesome/pro-regular-svg-icons";
+import { TextControl } from "@wordpress/components";
 import Panel from "../Panel";
 import List from "../../common/List";
 import Item from "../../common/Item";
+import { getDisplayObject } from "../../utils/DisplayTypes";
+import { setDittyDisplayTemplate } from "../../../services/dittyService";
 
 const DisplayList = ({ editDisplay, goBack, editor }) => {
   const { currentDisplay, displays, displayTypes, helpers, actions } =
     useContext(editor);
+
+  const dittyEl = document.getElementById("ditty-editor__ditty");
+  const currentDisplayObject = getDisplayObject(currentDisplay, displays);
   const [previewDisplay, setPreviewDisplay] = useState(currentDisplay);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState(null);
@@ -43,10 +41,6 @@ const DisplayList = ({ editDisplay, goBack, editor }) => {
           );
         },
       },
-      // {
-      //   id: "select",
-      //   content: <FontAwesomeIcon icon={faCheck} />,
-      // },
     ],
     editor
   );
@@ -56,6 +50,15 @@ const DisplayList = ({ editDisplay, goBack, editor }) => {
   };
 
   const handleCancel = () => {
+    if (Number(previewDisplay) !== Number(currentDisplay)) {
+      const previewDisplayObject = getDisplayObject(previewDisplay, displays);
+      setDittyDisplayTemplate(
+        dittyEl,
+        currentDisplayObject,
+        previewDisplayObject
+      );
+    }
+
     actions.setCurrentDisplay(previewDisplay);
     goBack();
   };
@@ -74,30 +77,11 @@ const DisplayList = ({ editDisplay, goBack, editor }) => {
    * @param {object} display
    */
   const handleItemClick = (e, display) => {
-    if (Number(display.id) === Number(currentDisplay.id)) {
+    if (Number(display.id) === Number(currentDisplay)) {
       return false;
     }
-
-    const dittyEl = document.getElementById("ditty-editor__ditty");
-    const ditty = window.ditty.get(dittyEl);
-    ditty.destroy();
-
-    dittyEl.dataset.type = display.type;
-    dittyEl.dataset.display = display.id;
-    dittyEl.dataset.settings = JSON.stringify(display.settings);
-
-    const args = {
-      element: dittyEl,
-      display: display.id,
-      type: display.type,
-      ...display.setings,
-    };
-    console.log(window.dittyDisplays);
-    if (window.dittyDisplays[display.type]) {
-      const newDitty = new window.dittyDisplays[display.type](args);
-      window.ditty.set(dittyEl, newDitty);
-      actions.setCurrentDisplay(display.id);
-    }
+    setDittyDisplayTemplate(dittyEl, currentDisplayObject, display);
+    actions.setCurrentDisplay(display.id);
   };
 
   /**
@@ -135,11 +119,7 @@ const DisplayList = ({ editDisplay, goBack, editor }) => {
     }
 
     return filteredDisplays.map((display) => {
-      const isActive =
-        typeof currentDisplay !== "object" &&
-        display.id === Number(currentDisplay)
-          ? true
-          : false;
+      const isActive = display.id === Number(currentDisplay) ? true : false;
 
       return (
         <Item
