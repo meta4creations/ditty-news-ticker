@@ -3,11 +3,22 @@ import { useContext } from "@wordpress/element";
 import { EditorContext } from "../context";
 
 const AdminBar = () => {
-  const { title, actions } = useContext(EditorContext);
+  const { title, helpers, actions } = useContext(EditorContext);
+
+  const getButtonClass = () => {
+    let className = "ditty-button";
+    const updates = helpers.dittyUpdates();
+    console.log(updates);
+    if (Object.keys(updates).length !== 0) {
+      className += " ditty-has-updates";
+    }
+    return className;
+  };
+
   return (
     <div id="ditty-editor__adminbar">
       <h2>{title}</h2>
-      <button className="ditty-button" onClick={actions.saveDitty}>
+      <button className={getButtonClass()} onClick={actions.saveDitty}>
         {__("Save", "ditty-news-ticker")}
       </button>
     </div>

@@ -39,11 +39,14 @@ const DisplayEdit = ({ currentDisplay, goBack, editor }) => {
             "ditty-news-ticker"
           )}
         </h3>
-        <ButtonGroup>
+        <div className="ditty-editor__panel__header__buttons">
           <Button variant="secondary">
             {__("Save as Template", "ditty-news-ticker")}
           </Button>
-        </ButtonGroup>
+          <Button onClick={goBack} variant="link">
+            {__("Cancel", "ditty-news-ticker")}
+          </Button>
+        </div>
       </>
     );
   };

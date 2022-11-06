@@ -7,7 +7,7 @@ import {
   getDisplayTypeLabel,
 } from "../../utils/displayTypes";
 
-const DisplayTemplate = ({ viewTemplates, editor }) => {
+const DisplayTemplate = ({ viewTemplates, editTemplate, editor }) => {
   const { currentDisplay, displays, helpers, actions } = useContext(editor);
   const displayObject = getDisplayObject(currentDisplay, displays);
 
@@ -26,7 +26,7 @@ const DisplayTemplate = ({ viewTemplates, editor }) => {
                 settings: displayObject.settings,
                 template: displayObject.id,
               };
-              actions.setCurrentDisplay(modifiedObject);
+              editTemplate(modifiedObject);
             }}
             variant="secondary"
           >

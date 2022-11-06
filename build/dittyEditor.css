@@ -136,6 +136,10 @@
 #ditty-editor__adminbar h2 {
   margin: 0;
 }
+#ditty-editor__adminbar button.ditty-has-updates {
+  color: #fff;
+  background: #19bf7c;
+}
 
 #ditty-editor__footerbar {
   flex: 0 0 auto;

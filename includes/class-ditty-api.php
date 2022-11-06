@@ -71,7 +71,8 @@ class Ditty_API {
 		$settings = isset( $apiData['settings'] ) ? $apiData['settings'] : false;
 		$title = isset( $apiData['title'] ) ? $apiData['title'] : false;
 
-		$testing = array();
+		$updates = array();
+		$errors = array();
 
 		// Update items
 		if ( is_array( $items ) && count( $items ) > 0 ) {
@@ -90,23 +91,35 @@ class Ditty_API {
 						$item[$key] = maybe_serialize( $value );
 					}
 				}
-				$testing[] = $item;
 
-				Ditty()->db_items->update( $item['item_id'], $item, 'item_id' );
+				if ( Ditty()->db_items->update( $item['item_id'], $item, 'item_id' ) ) {
+					if ( ! isset( $updates['items'] ) ) {
+						$updates['items'] = array();
+					}
+					$updates['items'][] = $item;
+				} else {
+					if ( ! isset( $errors['items'] ) ) {
+						$errors['items'][] = $item;
+					}
+				}
 			}
 		}
 
 		// Update display
 		if ( $display ) {
-			if ( ! update_post_meta( $id, '_ditty_display', $display ) ) {
-				$display = 'error';
+			if ( update_post_meta( $id, '_ditty_display', $display ) ) {
+				$updates['display'] = $display;
+			} else {
+				$errors['display'] = $display;
 			}
 		}
 
 		// Update settings
 		if ( $settings ) {	
-			if ( ! update_post_meta( $id, '_ditty_settings', $settings ) ) {
-				$settings = 'error';
+			if ( update_post_meta( $id, '_ditty_settings', $settings ) ) {
+				$updates['settings'] = $settings;
+			} else {
+				$errors['settings'] = $settings;
 			}
 		}
 
@@ -116,14 +129,22 @@ class Ditty_API {
 				'ID' => $id,
 				'post_title' => $title,
 			);
-			wp_update_post( $ditty_post_data );
+			if ( wp_update_post( $ditty_post_data ) ) {
+				$updates['title'] = $title;
+			} else {
+				$errors['title'] = $title;
+			}
 		}
 
-		$testing = array(
+		$data = array(
+			'id'	=> $id,
 			'user_id' => $userId,
+			'updates' => $updates,
+			'errors'	=> $errors,
+			'aipData'	=> $apiData,
 		);
 
-		return rest_ensure_response( $settings );
+		return rest_ensure_response( $data );
 	}
 
 }

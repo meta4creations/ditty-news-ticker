@@ -1,19 +1,20 @@
 import { __ } from "@wordpress/i18n";
 import { useState, useContext } from "@wordpress/element";
-import { TextControl } from "@wordpress/components";
+import { TextControl, Button } from "@wordpress/components";
 import Panel from "../Panel";
 import List from "../../common/List";
 import Item from "../../common/Item";
 import { getDisplayObject } from "../../utils/DisplayTypes";
 import { setDittyDisplayTemplate } from "../../../services/dittyService";
 
-const DisplayList = ({ editDisplay, goBack, editor }) => {
+const DisplayList = ({ goBack, editor }) => {
   const { currentDisplay, displays, displayTypes, helpers, actions } =
     useContext(editor);
 
   const dittyEl = document.getElementById("ditty-editor__ditty");
   const currentDisplayObject = getDisplayObject(currentDisplay, displays);
-  const [previewDisplay, setPreviewDisplay] = useState(currentDisplay);
+  const [previewDisplayObject, setPreviewDisplay] =
+    useState(currentDisplayObject);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState(null);
 
@@ -46,20 +47,18 @@ const DisplayList = ({ editDisplay, goBack, editor }) => {
   );
 
   const handleApprove = () => {
-    goBack(previewDisplay);
+    actions.setCurrentDisplay(previewDisplayObject.id);
+    goBack();
   };
 
   const handleCancel = () => {
-    if (Number(previewDisplay) !== Number(currentDisplay)) {
-      const previewDisplayObject = getDisplayObject(previewDisplay, displays);
+    if (Number(previewDisplayObject.id) !== Number(currentDisplayObject.id)) {
       setDittyDisplayTemplate(
         dittyEl,
         currentDisplayObject,
         previewDisplayObject
       );
     }
-
-    actions.setCurrentDisplay(previewDisplay);
     goBack();
   };
 
@@ -77,28 +76,11 @@ const DisplayList = ({ editDisplay, goBack, editor }) => {
    * @param {object} display
    */
   const handleItemClick = (e, display) => {
-    if (Number(display.id) === Number(currentDisplay)) {
+    if (Number(display.id) === Number(previewDisplayObject.id)) {
       return false;
     }
-    setDittyDisplayTemplate(dittyEl, currentDisplayObject, display);
-    actions.setCurrentDisplay(display.id);
-  };
-
-  /**
-   * Render the panel header
-   * @returns html
-   */
-  const panelHeader = () => {
-    return (
-      <div className="ditty-editor__panel__header__buttons">
-        <button className="ditty-button" onClick={handleApprove}>
-          {__("Use Template", "ditty-news-ticker")}
-        </button>
-        <button onClick={handleCancel}>
-          {__("Cancel", "ditty-news-ticker")}
-        </button>
-      </div>
-    );
+    setDittyDisplayTemplate(dittyEl, display, previewDisplayObject);
+    setPreviewDisplay(display);
   };
 
   /**
@@ -119,7 +101,8 @@ const DisplayList = ({ editDisplay, goBack, editor }) => {
     }
 
     return filteredDisplays.map((display) => {
-      const isActive = display.id === Number(currentDisplay) ? true : false;
+      const isActive =
+        display.id === Number(previewDisplayObject.id) ? true : false;
 
       return (
         <Item
@@ -131,6 +114,29 @@ const DisplayList = ({ editDisplay, goBack, editor }) => {
         />
       );
     });
+  };
+
+  /**
+   * Render the panel header
+   * @returns html
+   */
+  const panelHeader = () => {
+    return (
+      <div className="ditty-editor__panel__header__buttons">
+        <Button
+          onClick={handleApprove}
+          variant="primary"
+          disabled={
+            Number(currentDisplayObject.id) === Number(previewDisplayObject.id)
+          }
+        >
+          {__("Change Template", "ditty-news-ticker")}
+        </Button>
+        <Button onClick={handleCancel} variant="link">
+          {__("Cancel", "ditty-news-ticker")}
+        </Button>
+      </div>
+    );
   };
 
   const panelContent = () => {

@@ -25,7 +25,11 @@ export class EditorProvider extends Component {
     : [];
   initialDisplays = dittyEditorVars.displays ? dittyEditorVars.displays : [];
   initialLayouts = dittyEditorVars.layouts ? dittyEditorVars.layouts : [];
-  initialDisplay = this.data.display ? JSON.parse(this.data.display) : {};
+  initialDisplay = this.data.display
+    ? "Object" === typeof this.data.display
+      ? JSON.parse(this.data.display)
+      : this.data.display
+    : 0;
   initialSettings = this.data.settings ? JSON.parse(this.data.settings) : {};
   id = this.data.id;
 
@@ -149,9 +153,12 @@ export class EditorProvider extends Component {
   };
 
   /**
-   * Save the ditty
+   * Check for updates to the Ditty
+   * @returns object
    */
-  handleSaveDitty = async () => {
+  getDittyUpdates = () => {
+    const updates = {};
+
     // Create an array of deleted items
     const deletedItems = this.initialItems.filter((initialItem) => {
       const existingItems = this.state.items.some((item) => {
@@ -161,6 +168,9 @@ export class EditorProvider extends Component {
         return true;
       }
     });
+    if (deletedItems.length) {
+      updates.deletedItems = deletedItems;
+    }
 
     // Create an array of updated items
     const updatedItems = this.state.items.filter((item) => {
@@ -179,44 +189,62 @@ export class EditorProvider extends Component {
       );
       return trimmedItem;
     });
+    if (trimmedUpdatedItems.length) {
+      updates.items = trimmedUpdatedItems;
+    }
 
-    // Reset the item updates
-    const resetItemUpdates = this.state.items.map((item) => {
-      if (item.item_updates) {
-        delete item.item_updates;
-      }
-      return item;
-    });
+    // Check if the display has changes]
+    if (!_.isEqual(this.state.currentDisplay, this.initialDisplay)) {
+      updates.display = this.state.currentDisplay;
+    }
 
-    const updatedSettings = _.isEqual(this.state.settings, this.initialSettings)
-      ? false
-      : this.state.settings;
+    // Check if the title has changes
+    if (!_.isEqual(this.state.title, this.initialTitle)) {
+      updates.title = this.state.title;
+    }
 
-    const updatedTitle = _.isEqual(this.state.title, this.initialTitle)
-      ? false
-      : this.state.title;
+    // Check if settings have changed
+    if (!_.isEqual(this.state.settings, this.initialSettings)) {
+      updates.settings = this.state.settings;
+    }
 
-    console.log("updatedSettings", updatedSettings);
+    return updates;
+  };
+
+  /**
+   * Save the ditty
+   */
+  handleSaveDitty = async () => {
+    // Get the updates
+    const updates = this.getDittyUpdates();
+    updates.id = this.id;
+
+    console.log("updates", updates);
 
     try {
-      await saveDitty({
-        id: this.id,
-        items: trimmedUpdatedItems,
-        deletedItems: deletedItems,
-        display: this.state.currentDisplay,
-        settings: updatedSettings,
-        title: updatedTitle,
+      await saveDitty(updates);
+
+      // Reset the item updates
+      const resetItemUpdates = this.state.items.map((item) => {
+        if (item.item_updates) {
+          delete item.item_updates;
+        }
+        return item;
       });
 
       this.initialItems = resetItemUpdates;
       this.setState({ items: resetItemUpdates });
 
-      if (updatedSettings) {
-        this.initialSettings = updatedSettings;
+      if (updates.display) {
+        this.initialDisplay = updates.display;
       }
 
-      if (updatedTitle) {
-        this.initialTitle = updatedTitle;
+      if (updates.settings) {
+        this.initialSettings = updates.settings;
+      }
+
+      if (updates.title) {
+        this.initialTitle = updates.title;
       }
     } catch (ex) {
       console.log(ex);
@@ -241,6 +269,7 @@ export class EditorProvider extends Component {
           currentDisplay: this.state.currentDisplay,
           settings: this.state.settings,
           helpers: {
+            dittyUpdates: this.getDittyUpdates,
             itemTypeIcon: getItemTypeIcon,
             itemTypeFields: getItemTypeFields,
             displayTypeIcon: getDisplayTypeIcon,
