@@ -8,7 +8,6 @@ const AdminBar = () => {
   const getButtonClass = () => {
     let className = "ditty-button";
     const updates = helpers.dittyUpdates();
-    console.log(updates);
     if (Object.keys(updates).length !== 0) {
       className += " ditty-has-updates";
     }

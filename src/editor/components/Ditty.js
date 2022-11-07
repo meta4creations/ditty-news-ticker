@@ -8,12 +8,14 @@ import { initializeDitty } from "../../services/dittyService";
 const Ditty = () => {
   const { id, title, displayItems, displays, currentDisplay } =
     useContext(EditorContext);
+
+  console.log("currentDisplay", currentDisplay);
   const displayObject = getDisplayObject(currentDisplay, displays);
 
   useEffect(() => {
     const dittyEl = document.getElementById("ditty-editor__ditty");
     const args = displayObject.settings;
-    args["id"] = displayObject.id;
+    //args["id"] = displayObject.id;
     args["display"] = id;
     args["title"] = title;
     args["status"] = "";

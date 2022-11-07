@@ -3,21 +3,23 @@ import { useState, useContext } from "@wordpress/element";
 import DisplayList from "./displays/DisplayList";
 import DisplayEdit from "./displays/DisplayEdit";
 import DisplayTemplate from "./displays/DisplayTemplate";
+import { getDisplayObject } from "../utils/DisplayTypes";
 
 const PanelDisplays = ({ editor }) => {
   const { id, currentDisplay, displays, actions } = useContext(editor);
-
-  //const initialPanel = "Object" === typeof currentDisplay ? "edit" : "template";
+  const currentDisplayObject = getDisplayObject(currentDisplay, displays);
   const [currentPanel, setCurrentPanel] = useState("template");
-  const [customDisplay, setCustomDisplay] = useState({});
 
   const handleViewTemplates = () => {
     setCurrentPanel("list");
   };
 
-  const handleEditTemplate = (customDisplay) => {
-    setCustomDisplay(customDisplay);
-    setCurrentPanel("edit");
+  const handleEditTemplate = (displayObject) => {
+    const customDisplayObject = {
+      type: displayObject.type,
+      settings: displayObject.settings,
+    };
+    actions.setCurrentDisplay(customDisplayObject);
   };
 
   const handleGoBack = (panel = "template") => {
@@ -25,17 +27,21 @@ const PanelDisplays = ({ editor }) => {
   };
 
   const renderContent = () => {
-    if ("edit" === currentPanel) {
+    if (!currentDisplayObject.id) {
       return (
         <DisplayEdit
-          currentDisplay={currentDisplay}
+          displayObject={currentDisplayObject}
           goBack={handleGoBack}
           editor={editor}
         />
       );
     } else if ("template" === currentPanel) {
       return (
-        <DisplayTemplate editor={editor} viewTemplates={handleViewTemplates} />
+        <DisplayTemplate
+          editor={editor}
+          viewTemplates={handleViewTemplates}
+          editTemplate={handleEditTemplate}
+        />
       );
     } else {
       return (

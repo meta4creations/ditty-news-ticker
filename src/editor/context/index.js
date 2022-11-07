@@ -25,11 +25,9 @@ export class EditorProvider extends Component {
     : [];
   initialDisplays = dittyEditorVars.displays ? dittyEditorVars.displays : [];
   initialLayouts = dittyEditorVars.layouts ? dittyEditorVars.layouts : [];
-  initialDisplay = this.data.display
-    ? "Object" === typeof this.data.display
-      ? JSON.parse(this.data.display)
-      : this.data.display
-    : 0;
+  initialDisplay = this.data.displayobject
+    ? JSON.parse(this.data.displayobject)
+    : this.data.display;
   initialSettings = this.data.settings ? JSON.parse(this.data.settings) : {};
   id = this.data.id;
 
@@ -254,6 +252,7 @@ export class EditorProvider extends Component {
   };
 
   render() {
+    console.log(this.data.display);
     return (
       <EditorContext.Provider
         value={{

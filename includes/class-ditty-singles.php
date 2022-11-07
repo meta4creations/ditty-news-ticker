@@ -333,12 +333,13 @@ class Ditty_Singles {
 		// $ditty_render = ditty_render( $atts );
 		//echo '<pre>';print_r($unserialized_items);echo '</pre>';
 		$atts = array(
-			'data-id' 					=> $ditty_id,
-			'data-title' 				=> $title,
-			'data-settings' 		=> json_encode( $settings ),
-			'data-items' 				=> json_encode( $unserialized_items ),
-			'data-displayitems' => json_encode( $display_items ),
-			'data-display' 			=> is_array( $display ) ? json_encode( $display ) : $display,
+			'data-id' 						=> $ditty_id,
+			'data-title' 					=> $title,
+			'data-settings' 			=> json_encode( $settings ),
+			'data-items' 					=> json_encode( $unserialized_items ),
+			'data-displayitems' 	=> json_encode( $display_items ),
+			'data-display' 				=> is_array( $display ) ? false : $display,
+			'data-displayobject' 	=> is_array( $display ) ? json_encode( $display ) : false,
 			//'data-render'		=> htmlentities( $ditty_render ),
 		);
 		//echo '<pre>';print_r($atts);echo '</pre>';

@@ -10,7 +10,7 @@ import {
 import Panel from "../Panel";
 import { getDisplayTypeLabel } from "../../utils/displayTypes";
 
-const DisplayEdit = ({ currentDisplay, goBack, editor }) => {
+const DisplayEdit = ({ displayObject, goBack, editor }) => {
   const [currentTabId, setCurrentTabId] = useState("settings");
 
   const tabs = window.dittyHooks.applyFilters("dittyItemEditTabs", [
@@ -35,7 +35,7 @@ const DisplayEdit = ({ currentDisplay, goBack, editor }) => {
       <>
         <h3>
           {__(
-            `Custom ${getDisplayTypeLabel(currentDisplay)} display`,
+            `Custom ${getDisplayTypeLabel(displayObject)} display`,
             "ditty-news-ticker"
           )}
         </h3>
@@ -58,7 +58,7 @@ const DisplayEdit = ({ currentDisplay, goBack, editor }) => {
           "dittyDisplayEditPanel",
           "",
           currentTabId,
-          currentDisplay,
+          displayObject,
           editor
         )}
       </>

@@ -20,17 +20,13 @@ const DisplayTemplate = ({ viewTemplates, editTemplate, editor }) => {
             {__("Change Template", "ditty-news-ticker")}
           </Button>
           <Button
-            onClick={() => {
-              const modifiedObject = {
-                type: displayObject.type,
-                settings: displayObject.settings,
-                template: displayObject.id,
-              };
-              editTemplate(modifiedObject);
-            }}
+            onClick={() => editTemplate(displayObject)}
             variant="secondary"
           >
-            {__("Customize", "ditty-news-ticker")}
+            {__(
+              "Create Custom Display Based on this Template",
+              "ditty-news-ticker"
+            )}
           </Button>
         </ButtonGroup>
       </>

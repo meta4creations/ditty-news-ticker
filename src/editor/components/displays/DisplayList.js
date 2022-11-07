@@ -96,7 +96,7 @@ const DisplayList = ({ goBack, editor }) => {
     }
     if (searchQuery) {
       filteredDisplays = filteredDisplays.filter((display) =>
-        display.label.toLowerCase().includes(searchQuery.toLowerCase())
+        display.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
