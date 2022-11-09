@@ -4,7 +4,7 @@ import { TextControl, Button } from "@wordpress/components";
 import Panel from "../Panel";
 import List from "../../common/List";
 import Item from "../../common/Item";
-import { getDisplayObject } from "../../utils/DisplayTypes";
+import { getDisplayObject } from "../../utils/displayTypes";
 import { setDittyDisplayTemplate } from "../../../services/dittyService";
 
 const DisplayList = ({ goBack, editor }) => {

@@ -9,7 +9,6 @@ const Ditty = () => {
   const { id, title, displayItems, displays, currentDisplay } =
     useContext(EditorContext);
 
-  console.log("currentDisplay", currentDisplay);
   const displayObject = getDisplayObject(currentDisplay, displays);
 
   useEffect(() => {

@@ -1,6 +1,5 @@
 import { __ } from "@wordpress/i18n";
 import PanelDisplays from "../editor/components/PanelDisplays";
-import DisplaySettings from "../editor/components/displays/DisplaySettings";
 import DisplayTypes from "../editor/components/displays/DisplayTypes";
 
 /**
@@ -14,23 +13,5 @@ window.dittyHooks.addFilter(
       return <PanelDisplays editor={context} />;
     }
     return panel;
-  }
-);
-
-/**
- * Render the Items Edit panel
- */
-window.dittyHooks.addFilter(
-  "dittyDisplayEditPanel",
-  "dittyEditor",
-  (panel, tabId, display, editor) => {
-    switch (tabId) {
-      case "settings":
-        return <DisplaySettings display={display} editor={editor} />;
-      case "type":
-        return <DisplayTypes display={display} editor={editor} />;
-      default:
-        return panel;
-    }
   }
 );

@@ -27,6 +27,7 @@ var dittyConfig = {
       "./src/partials/dittyDisplays.js",
       "./src/partials/editorSettings.js",
       "./src/partials/itemTypeDefault.js",
+      "./src/partials/displayTypeTicker.js",
     ],
   },
   output: {

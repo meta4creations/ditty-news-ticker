@@ -1,35 +1,45 @@
 import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
-import { Button, ButtonGroup } from "@wordpress/components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAngleLeft,
-  faPenToSquare,
-  faTabletScreen,
-} from "@fortawesome/pro-regular-svg-icons";
+import { Button } from "@wordpress/components";
 import Panel from "../Panel";
+import Field from "../../common/Field";
+import { updateDisplayOptions } from "../../../services/dittyService";
 import { getDisplayTypeLabel } from "../../utils/displayTypes";
 
 const DisplayEdit = ({ displayObject, goBack, editor }) => {
-  const [currentTabId, setCurrentTabId] = useState("settings");
+  const { helpers, actions } = useContext(editor);
+  const tabs = helpers.displayTypeFields(displayObject.type);
+  const initialTab = tabs.length ? tabs[0].id : "";
+  const [currentTabId, setCurrentTabId] = useState(initialTab);
 
-  const tabs = window.dittyHooks.applyFilters("dittyItemEditTabs", [
-    {
-      id: "settings",
-      icon: <FontAwesomeIcon icon={faPenToSquare} />,
-      label: __("Settings", "ditty-news-ticker"),
-    },
-    {
-      id: "type",
-      icon: <FontAwesomeIcon icon={faTabletScreen} />,
-      label: __("Type", "ditty-news-ticker"),
-    },
-  ]);
-
+  /**
+   * Set the current tab
+   * @param {string} tab
+   */
   const handleTabClick = (tab) => {
     setCurrentTabId(tab.id);
   };
 
+  /**
+   * Update the Display on field update
+   * @param {object} field
+   * @param {string} value
+   */
+  const handleFieldUpdate = (field, value) => {
+    // Update the Ditty options
+    const dittyEl = document.getElementById("ditty-editor__ditty");
+    updateDisplayOptions(dittyEl, displayObject.type, field.id, value);
+
+    // Update the editor display
+    const updatedDisplay = { ...displayObject };
+    updatedDisplay.settings[field.id] = value;
+    actions.setCurrentDisplay(updatedDisplay);
+  };
+
+  /**
+   * Render the panel header
+   * @returns components
+   */
   const panelHeader = () => {
     return (
       <>
@@ -51,17 +61,32 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
     );
   };
 
+  /**
+   * Render the panel content
+   * @returns components
+   */
   const panelContent = () => {
+    const index = tabs.findIndex((tab) => {
+      return tab.id === currentTabId;
+    });
+
+    const fields = tabs[index].fields;
+    console.log("fields", fields);
     return (
-      <>
-        {window.dittyHooks.applyFilters(
-          "dittyDisplayEditPanel",
-          "",
-          currentTabId,
-          displayObject,
-          editor
-        )}
-      </>
+      fields &&
+      fields.map((field) => {
+        const value = displayObject.settings[field.id]
+          ? displayObject.settings[field.id]
+          : field.std;
+        return (
+          <Field
+            key={field.id}
+            field={field}
+            value={value}
+            onFieldUpdate={handleFieldUpdate}
+          />
+        );
+      })
     );
   };
 
