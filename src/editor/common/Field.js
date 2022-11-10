@@ -2,12 +2,12 @@ import { __ } from "@wordpress/i18n";
 import {
   CheckboxControl,
   ColorPicker,
-  DimensionControl,
   RadioControl,
   RangeControl,
   SelectControl,
   TextControl,
   TextareaControl,
+  __experimentalBorderControl as BorderControl,
   __experimentalBoxControl as BoxControl,
 } from "@wordpress/components";
 
@@ -29,6 +29,14 @@ const Field = ({ field, value, onFieldUpdate }) => {
 
   const renderField = () => {
     switch (field.type) {
+      case "border":
+        return (
+          <BorderControl
+            label={field.name}
+            values={value}
+            onChange={(updatedValue) => updateValue(updatedValue)}
+          />
+        );
       case "checkbox":
         return (
           <CheckboxControl

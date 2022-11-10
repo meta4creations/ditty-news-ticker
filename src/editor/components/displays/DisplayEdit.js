@@ -27,7 +27,7 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
     [
       {
         id: "general",
-        label: __("General Settings", "ditty-news-ticker"),
+        label: __("General", "ditty-news-ticker"),
         icon: <FontAwesomeIcon icon={faPenToSquare} />,
         fields: window.dittyHooks.applyFilters(
           "dittyDisplayEditFieldsGeneral",
@@ -37,23 +37,68 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
       },
       {
         id: "arrows",
-        label: __("Arrow Navigation", "ditty-news-ticker"),
+        label: __("Arrows", "ditty-news-ticker"),
         icon: <FontAwesomeIcon icon={faArrowsLeftRight} />,
         fields: window.dittyHooks.applyFilters(
           "dittyDisplayEditFieldsArrow",
           [
             {
-              type: "radio",
-              id: "direction",
-              name: __("Direction", "ditty-news-ticker"),
-              help: __("Set the direction of the ticker.", "ditty-news-ticker"),
+              type: "select",
+              id: "arrows",
+              name: __("Arrows", "ditty-news-ticker"),
+              help: __("Set the arrow navigation style", "ditty-news-ticker"),
               options: {
-                left: __("Left", "ditty-news-ticker"),
-                right: __("Right", "ditty-news-ticker"),
-                down: __("Down", "ditty-news-ticker"),
-                up: __("Up", "ditty-news-ticker"),
+                none: __("Hide", "ditty-news-ticker"),
+                style1: __("Show", "ditty-news-ticker"),
               },
-              inline: true,
+            },
+            {
+              type: "color",
+              id: "arrowsIconColor",
+              name: __("Arrows Icon Color", "ditty-news-ticker"),
+              help: __(
+                "Add a custom icon color to the arrows",
+                "ditty-news-ticker"
+              ),
+            },
+            {
+              type: "color",
+              id: "arrowsBgColor",
+              name: __("Arrows Background Color", "ditty-news-ticker"),
+              help: __(
+                "Add a custom background color to the arrows",
+                "ditty-news-ticker"
+              ),
+            },
+            {
+              type: "select",
+              id: "arrowsPosition",
+              name: __("Arrows Position", "ditty-news-ticker"),
+              help: __("Set the position of the arrows", "ditty-news-ticker"),
+              options: {
+                flexStart: __("Top", "ditty-news-ticker"),
+                center: __("Center", "ditty-news-ticker"),
+                flexEnd: __("Bottom", "ditty-news-ticker"),
+              },
+            },
+            {
+              type: "spacing",
+              id: "arrowsPadding",
+              name: __("Arrows Padding", "ditty-news-ticker"),
+              help: __(
+                "Add padding to the arrows container",
+                "ditty-news-ticker"
+              ),
+            },
+            {
+              type: "checkbox",
+              id: "arrowsStatic",
+              name: __("Arrows Visibility", "ditty-news-ticker"),
+              label: __(
+                "Keep arrows visible at all times",
+                "ditty-news-ticker"
+              ),
+              help: __("Keep arrows visible at all times", "ditty-news-ticker"),
             },
           ],
           displayObject.type
@@ -61,23 +106,76 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
       },
       {
         id: "bullets",
-        label: __("Bullet Naviation", "ditty-news-ticker"),
+        label: __("Bullets", "ditty-news-ticker"),
         icon: <FontAwesomeIcon icon={faEllipsis} />,
         fields: window.dittyHooks.applyFilters(
           "dittyDisplayEditFieldsBullets",
           [
             {
-              type: "radio",
-              id: "direction",
-              name: __("Direction", "ditty-news-ticker"),
-              help: __("Set the direction of the ticker.", "ditty-news-ticker"),
+              type: "select",
+              id: "bullets",
+              name: __("Bullets", "ditty-news-ticker"),
+              help: __("Set the bullet navigation style", "ditty-news-ticker"),
               options: {
-                left: __("Left", "ditty-news-ticker"),
-                right: __("Right", "ditty-news-ticker"),
-                down: __("Down", "ditty-news-ticker"),
-                up: __("Up", "ditty-news-ticker"),
+                none: __("Hide", "ditty-news-ticker"),
+                style1: __("Show", "ditty-news-ticker"),
               },
-              inline: true,
+            },
+            {
+              type: "color",
+              id: "bulletsColor",
+              name: __("Bullets Color", "ditty-news-ticker"),
+              help: __(
+                "Add a custom color to the bullets",
+                "ditty-news-ticker"
+              ),
+            },
+            {
+              type: "color",
+              id: "bulletsColorActive",
+              name: __("Bullets Active Color", "ditty-news-ticker"),
+              help: __(
+                "Add a custom color to the active bullet",
+                "ditty-news-ticker"
+              ),
+            },
+            {
+              type: "select",
+              id: "bulletsPosition",
+              name: __("Bullets Position", "ditty-news-ticker"),
+              help: __("Set the position of the bullets", "ditty-news-ticker"),
+              options: {
+                topLeft: __("Top Left", "ditty-news-ticker"),
+                topCenter: __("Top Center", "ditty-news-ticker"),
+                topRight: __("Top Right", "ditty-news-ticker"),
+                bottomLeft: __("Bottom Left", "ditty-news-ticker"),
+                bottomCenter: __("Bottom Center", "ditty-news-ticker"),
+                bottomRight: __("Bottom Right", "ditty-news-ticker"),
+              },
+            },
+            {
+              type: "slider",
+              id: "bulletsSpacing",
+              name: __("Bullets Spacing", "ditty-news-ticker"),
+              help: __(
+                "Set the amount of space between bullets (in pixels).",
+                "ditty-news-ticker"
+              ),
+              suffix: "px",
+              js_options: {
+                min: 0,
+                max: 50,
+                step: 1,
+              },
+            },
+            {
+              type: "spacing",
+              id: "bulletsPadding",
+              name: __("Bullets Padding", "ditty-news-ticker"),
+              help: __(
+                "Add padding to the bullets container",
+                "ditty-news-ticker"
+              ),
             },
           ],
           displayObject.type
@@ -85,23 +183,45 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
       },
       {
         id: "container",
-        label: __("Container Settings", "ditty-news-ticker"),
+        label: __("Container", "ditty-news-ticker"),
         icon: <FontAwesomeIcon icon={faContainerStorage} />,
         fields: window.dittyHooks.applyFilters(
           "dittyDisplayEditFieldsContainer",
           [
             {
-              type: "radio",
-              id: "direction",
-              name: __("Direction", "ditty-news-ticker"),
-              help: __("Set the direction of the ticker.", "ditty-news-ticker"),
+              type: "text",
+              id: "maxWidth",
+              name: __("Max. Width", "ditty-news-ticker"),
+              help: __(
+                "Set a maximum width for the container",
+                "ditty-news-ticker"
+              ),
+            },
+            {
+              type: "color",
+              id: "bgColor",
+              name: __("Background Color", "ditty-news-ticker"),
+            },
+            {
+              type: "spacing",
+              id: "padding",
+              name: __("Padding", "ditty-news-ticker"),
+            },
+            {
+              type: "spacing",
+              id: "margin",
+              name: __("Margin", "ditty-news-ticker"),
               options: {
-                left: __("Left", "ditty-news-ticker"),
-                right: __("Right", "ditty-news-ticker"),
-                down: __("Down", "ditty-news-ticker"),
-                up: __("Up", "ditty-news-ticker"),
+                marginTop: __("Top", "ditty-news-ticker"),
+                marginBottom: __("Bottom", "ditty-news-ticker"),
+                marginLeft: __("Left", "ditty-news-ticker"),
+                marginRight: __("Right", "ditty-news-ticker"),
               },
-              inline: true,
+            },
+            {
+              type: "border",
+              id: "border",
+              name: __("Border", "ditty-news-ticker"),
             },
           ],
           displayObject.type
@@ -109,7 +229,7 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
       },
       {
         id: "content",
-        label: __("Content Settings", "ditty-news-ticker"),
+        label: __("Content", "ditty-news-ticker"),
         icon: <FontAwesomeIcon icon={faLayerGroup} />,
         fields: window.dittyHooks.applyFilters(
           "dittyDisplayEditFieldsContent",
@@ -133,7 +253,7 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
       },
       {
         id: "page",
-        label: __("Page Settings", "ditty-news-ticker"),
+        label: __("Page", "ditty-news-ticker"),
         icon: <FontAwesomeIcon icon={faPage} />,
         fields: window.dittyHooks.applyFilters(
           "dittyDisplayEditFieldsPage",
@@ -157,7 +277,7 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
       },
       {
         id: "item",
-        label: __("Item Settings", "ditty-news-ticker"),
+        label: __("Item", "ditty-news-ticker"),
         icon: <FontAwesomeIcon icon={faObjectsColumn} />,
         fields: window.dittyHooks.applyFilters(
           "dittyDisplayEditFieldsItem",
@@ -273,6 +393,7 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
       tabs={fieldGroups}
       tabClick={handleTabClick}
       currentTabId={currentTabId}
+      tabsType="cloud"
       content={panelContent()}
     />
   );

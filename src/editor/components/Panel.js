@@ -1,8 +1,8 @@
 import { __ } from "@wordpress/i18n";
-import Tabs from "./Tabs";
+import Tabs from "../common/Tabs";
 
 const Panel = (props) => {
-  const { id, header, tabs, currentTabId, tabClick, content } = props;
+  const { id, header, tabs, currentTabId, tabsType, tabClick, content } = props;
 
   const renderPanelClass = () => {
     let className = `ditty-editor__panel ditty-editor__panel--${id}`;
@@ -17,7 +17,7 @@ const Panel = (props) => {
           tabs={tabs}
           currentTabId={currentTabId}
           tabClick={tabClick}
-          type="secondary"
+          type={tabsType ? tabsType : "secondary"}
         />
       )}
       <div className="ditty-editor__panel__content">{content}</div>

@@ -1,0 +1,118 @@
+.toplevel_page_ditty {
+  background: #fff;
+  #wpcontent {
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+  }
+  #wpbody {
+    flex: 1;
+  }
+  #wpbody-content {
+    padding: 0;
+    float: none;
+  }
+}
+.ditty-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  color: #23282d;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  border-radius: 3px;
+  padding: 10px 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.25s ease, background-color 0.25s ease;
+}
+.ditty-button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: flex-start;
+  background: #32373c;
+  border-radius: 3px;
+  overflow: hidden;
+  gap: 1px;
+  button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    padding: 10px 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.25s ease, background-color 0.25s ease;
+    &:not(.active):hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    &.active {
+      color: #fff;
+      background-color: $green;
+    }
+  }
+}
+#ditty-editor {
+  height: calc(100% - 100px);
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 100vh;
+    overflow: hidden;
+    .wp-admin & {
+      height: calc(100vh - 32px);
+    }
+  }
+  flex: 1;
+  display: flex;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+  * {
+    box-sizing: border-box;
+  }
+  &__preview {
+    flex: 1;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    body {
+      margin: 0;
+    }
+  }
+  &__editor {
+    // position: fixed;
+    // top: 0;
+    // bottom: 0;
+    // right: 0;
+    width: 350px;
+    height: 100%;
+    background: #f7f7f7;
+    border-left: 1px solid #ccc;
+    box-sizing: border-box;
+    * {
+      box-sizing: border-box;
+    }
+    .wp-admin & {
+      top: 32px;
+    }
+  }
+}

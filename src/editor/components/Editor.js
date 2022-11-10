@@ -6,7 +6,7 @@ import {
   faTabletScreen,
   faGear,
 } from "@fortawesome/pro-regular-svg-icons";
-import Tabs from "./Tabs";
+import Tabs from "../common/Tabs";
 import { EditorContext } from "../context";
 
 const Editor = () => {

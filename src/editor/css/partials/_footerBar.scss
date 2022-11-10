@@ -1,0 +1,16 @@
+#ditty-editor__footerbar {
+  flex: 0 0 auto;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border-top: 1px solid #ccc;
+  box-sizing: border-box;
+  * {
+    box-sizing: border-box;
+  }
+  h2 {
+    margin: 0;
+  }
+}

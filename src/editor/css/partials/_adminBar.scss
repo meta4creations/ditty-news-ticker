@@ -1,0 +1,21 @@
+#ditty-editor__adminbar {
+  flex: 0 0 auto;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box;
+  * {
+    box-sizing: border-box;
+  }
+  h2 {
+    margin: 0;
+  }
+  button.ditty-has-updates {
+    color: #fff;
+    background: $green;
+  }
+}

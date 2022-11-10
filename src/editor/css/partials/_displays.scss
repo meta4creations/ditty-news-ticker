@@ -1,0 +1,80 @@
+.ditty-editor__panel--displays {
+  .ditty-list__filters {
+    margin-bottom: 10px;
+  }
+  .ditty-editor-item {
+    cursor: pointer;
+    &__select {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      margin-left: 10px;
+    }
+    &.currentDisplay {
+      .ditty-editor-item {
+        &__select {
+          color: #fff;
+          background: $green;
+          border-color: $green;
+        }
+      }
+    }
+  }
+}
+.ditty-editor__panel--displayTypes {
+  .ditty-editor-item__content {
+    h3 {
+      margin: 0;
+    }
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.ditty-display-template {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  border-radius: 3px;
+  &__header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  &__icon {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #ccc;
+    margin-right: 10px;
+    i,
+    svg {
+      display: block;
+      font-size: 15px;
+      text-align: center;
+      line-height: 40px;
+    }
+  }
+  &__title {
+    margin: 0;
+  }
+  &__type {
+    margin: 0;
+  }
+  &__postid {
+    margin: 0;
+  }
+}
