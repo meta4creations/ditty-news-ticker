@@ -1,7 +1,33 @@
 import { __ } from "@wordpress/i18n";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/pro-regular-svg-icons";
+import {
+  generalSettings,
+  containerStyles,
+  contentStyles,
+  itemStyles,
+} from "../editor/utils/fieldGroups";
 import { easeOptions } from "../editor/utils/helpers";
+
+/**
+ * Add the ticker fields
+ */
+window.dittyHooks.addFilter(
+  "dittyDisplayEditFieldGroups",
+  "dittyEditor",
+  (groups, displayType) => {
+    if ("ticker" !== displayType) {
+      return groups;
+    }
+    const tickerGroups = [
+      generalSettings(displayType),
+      containerStyles(displayType),
+      contentStyles(displayType),
+      itemStyles(displayType),
+    ];
+    return tickerGroups;
+  }
+);
 
 /**
  * Add the ticker fields

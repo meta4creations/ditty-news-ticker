@@ -1,8 +1,8 @@
 import { __ } from "@wordpress/i18n";
+import { useState } from "@wordpress/element";
 import {
   CheckboxControl,
   ColorPicker,
-  RadioControl,
   RangeControl,
   SelectControl,
   TextControl,
@@ -10,8 +10,14 @@ import {
   __experimentalBorderControl as BorderControl,
   __experimentalBoxControl as BoxControl,
 } from "@wordpress/components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleQuestion } from "@fortawesome/pro-solid-svg-icons";
+import TextField from "./fields/TextField";
+import RadioField from "./fields/RadioField";
 
 const Field = ({ field, value, onFieldUpdate }) => {
+  const [displayHelp, setDisplayHelp] = useState(false);
+
   const convertFieldOptions = (options) => {
     const optionsArray = [];
     for (const key in options) {
@@ -27,12 +33,21 @@ const Field = ({ field, value, onFieldUpdate }) => {
     onFieldUpdate(field, value);
   };
 
+  const toggleHelp = () => {
+    if (displayHelp) {
+      setDisplayHelp(false);
+    } else {
+      setDisplayHelp(true);
+    }
+  };
+
   const renderField = () => {
     switch (field.type) {
       case "border":
         return (
           <BorderControl
             label={field.name}
+            hideLabelFromVision="true"
             values={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
           />
@@ -41,6 +56,7 @@ const Field = ({ field, value, onFieldUpdate }) => {
         return (
           <CheckboxControl
             label={field.label}
+            hideLabelFromVision="true"
             value={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
           />
@@ -48,6 +64,8 @@ const Field = ({ field, value, onFieldUpdate }) => {
       case "color":
         return (
           <ColorPicker
+            label={field.label}
+            hideLabelFromVision="true"
             color={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
             enableAlpha
@@ -55,8 +73,7 @@ const Field = ({ field, value, onFieldUpdate }) => {
         );
       case "number":
         return (
-          <TextControl
-            label={field.name}
+          <TextField
             value={Number(value)}
             type="number"
             onChange={(updatedValue) => updateValue(updatedValue)}
@@ -65,8 +82,11 @@ const Field = ({ field, value, onFieldUpdate }) => {
       case "slider":
         return (
           <RangeControl
-            label={field.name}
+            label={field.label}
+            hideLabelFromVision="true"
             value={Number(value)}
+            step={1}
+            widthInputField="true"
             min={field.min}
             max={field.max}
             onChange={(updatedValue) => updateValue(updatedValue)}
@@ -74,9 +94,7 @@ const Field = ({ field, value, onFieldUpdate }) => {
         );
       case "radio":
         return (
-          <RadioControl
-            label={field.name}
-            help={field.help}
+          <RadioField
             selected={value}
             options={convertFieldOptions(field.options)}
             onChange={(updatedValue) => updateValue(updatedValue)}
@@ -85,7 +103,8 @@ const Field = ({ field, value, onFieldUpdate }) => {
       case "select":
         return (
           <SelectControl
-            label={field.name}
+            label={field.label}
+            hideLabelFromVision="true"
             value={value}
             options={convertFieldOptions(field.options)}
             onChange={(updatedValue) => updateValue(updatedValue)}
@@ -94,7 +113,8 @@ const Field = ({ field, value, onFieldUpdate }) => {
       case "spacing":
         return (
           <BoxControl
-            label={field.name}
+            label={field.label}
+            hideLabelFromVision="true"
             values={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
           />
@@ -102,7 +122,8 @@ const Field = ({ field, value, onFieldUpdate }) => {
       case "textarea":
         return (
           <TextareaControl
-            label={field.name}
+            label={field.label}
+            hideLabelFromVision="true"
             value={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
           />
@@ -110,15 +131,15 @@ const Field = ({ field, value, onFieldUpdate }) => {
       case "wysiwyg":
         return (
           <TextareaControl
-            label={field.name}
+            label={field.label}
+            hideLabelFromVision="true"
             value={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
           />
         );
       default:
         return (
-          <TextControl
-            label={field.name}
+          <TextField
             value={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
           />
@@ -128,10 +149,23 @@ const Field = ({ field, value, onFieldUpdate }) => {
 
   return (
     <div
-      className={`dittyEditorField dittyEditorField--${field.type}`}
+      className={`ditty-field ditty-field--${field.type} ${
+        field.help && displayHelp ? " ditty-field--help" : ""
+      }`}
       key={field.id}
     >
-      {renderField()}
+      <div className="ditty-field__heading">
+        <label className="ditty-field__label">
+          {field.name}{" "}
+          {field.help && (
+            <FontAwesomeIcon icon={faCircleQuestion} onClick={toggleHelp} />
+          )}
+        </label>
+        {field.help && displayHelp && (
+          <div className="ditty-field__help">{field.help}</div>
+        )}
+      </div>
+      <div className="ditty-field__input">{renderField()}</div>
     </div>
   );
 };

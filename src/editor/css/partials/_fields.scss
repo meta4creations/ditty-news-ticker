@@ -1,0 +1,15 @@
+.ditty-field {
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  &__label {
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+  &__help {
+    font-size: 13px;
+    line-height: 16px;
+    margin: 7px 0 10px;
+  }
+}

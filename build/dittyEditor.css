@@ -470,4 +470,20 @@
   margin: 0;
 }
 
+.ditty-field {
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.ditty-field__label {
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+.ditty-field__help {
+  font-size: 13px;
+  line-height: 16px;
+  margin: 7px 0 10px;
+}
+
 /*# sourceMappingURL=dittyEditor.css.map*/
