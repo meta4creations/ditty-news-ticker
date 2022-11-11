@@ -1,7 +1,7 @@
-=== Ditty – WordPress Ticker Plugin – Dynamic Content Display ===
+=== Ditty WordPress Plugin – Responsive Slider, List, and Ticker Display ===
 Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
-Tags: ticker, post ticker, content slider, content list, responsive slider, content display
+Tags: responsive slider, content slider, html slider, post slider, ticker
 Requires at least: 4.5
 Tested up to: 6.1
 Stable tag: 3.0.30
