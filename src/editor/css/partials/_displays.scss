@@ -37,6 +37,12 @@
     }
   }
 }
+.ditty-editor__panels > .ditty-editor__panel--displayEdit {
+  > .ditty-editor__panel__content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
 
 .ditty-display-template {
   background: #fff;

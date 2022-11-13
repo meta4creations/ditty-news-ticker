@@ -4,13 +4,17 @@ import { TextControl, Button } from "@wordpress/components";
 import Panel from "../Panel";
 import List from "../../common/List";
 import Item from "../../common/Item";
-import { getDisplayObject } from "../../utils/displayTypes";
+import {
+  getDisplayTypes,
+  getDisplayObject,
+  getDisplayTypeIcon,
+} from "../../utils/displayTypes";
 import { setDittyDisplayTemplate } from "../../../services/dittyService";
 
 const DisplayList = ({ goBack, editor }) => {
-  const { currentDisplay, displays, displayTypes, helpers, actions } =
-    useContext(editor);
+  const { currentDisplay, displays, actions } = useContext(editor);
 
+  const displayTypes = getDisplayTypes();
   const dittyEl = document.getElementById("ditty-editor__ditty");
   const currentDisplayObject = getDisplayObject(currentDisplay, displays);
   const [previewDisplayObject, setPreviewDisplay] =
@@ -27,7 +31,7 @@ const DisplayList = ({ goBack, editor }) => {
       {
         id: "icon",
         content: (display) => {
-          return helpers.displayTypeIcon(display);
+          return getDisplayTypeIcon(display);
         },
       },
       {

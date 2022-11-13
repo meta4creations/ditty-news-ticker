@@ -1,32 +1,21 @@
 import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
 import { Button } from "@wordpress/components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPenToSquare,
-  faArrowsLeftRight,
-  faEllipsis,
-  faContainerStorage,
-  faLayerGroup,
-  faPage,
-  faObjectsColumn,
-} from "@fortawesome/pro-regular-svg-icons";
 import Panel from "../Panel";
 import Field from "../../common/Field";
 import { updateDisplayOptions } from "../../../services/dittyService";
-import { getDisplayTypeLabel } from "../../utils/displayTypes";
+import {
+  getDisplayTypeLabel,
+  getDisplayTypeSettings,
+} from "../../utils/displayTypes";
 
 const DisplayEdit = ({ displayObject, goBack, editor }) => {
-  const { helpers, actions } = useContext(editor);
+  const { actions } = useContext(editor);
 
   /**
    * Set the initial fields
    */
-  const fieldGroups = window.dittyHooks.applyFilters(
-    "dittyDisplayEditFieldGroups",
-    [],
-    displayObject.type
-  );
+  const fieldGroups = getDisplayTypeSettings(displayObject);
 
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
   const [currentTabId, setCurrentTabId] = useState(initialTab);
@@ -52,6 +41,7 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
     // Update the editor display
     const updatedDisplay = { ...displayObject };
     updatedDisplay.settings[field.id] = value;
+    updatedDisplay.updated = Date.now();
     actions.setCurrentDisplay(updatedDisplay);
   };
 
@@ -95,13 +85,13 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
     const fields = fieldGroups[index].fields;
     return (
       fields &&
-      fields.map((field) => {
+      fields.map((field, index) => {
         const value = displayObject.settings[field.id]
           ? displayObject.settings[field.id]
           : field.std;
         return (
           <Field
-            key={field.id}
+            key={field.id ? field.id : `${field.id}${index}`}
             field={field}
             value={value}
             onFieldUpdate={handleFieldUpdate}

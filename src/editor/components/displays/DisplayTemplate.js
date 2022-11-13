@@ -1,14 +1,15 @@
 import { __ } from "@wordpress/i18n";
-import { useContext, useState } from "@wordpress/element";
+import { useContext } from "@wordpress/element";
 import { Button, ButtonGroup } from "@wordpress/components";
 import Panel from "../Panel";
 import {
   getDisplayObject,
   getDisplayTypeLabel,
+  getDisplayTypeIcon,
 } from "../../utils/displayTypes";
 
 const DisplayTemplate = ({ viewTemplates, editTemplate, editor }) => {
-  const { currentDisplay, displays, helpers, actions } = useContext(editor);
+  const { currentDisplay, displays } = useContext(editor);
   const displayObject = getDisplayObject(currentDisplay, displays);
 
   const panelHeader = () => {
@@ -39,7 +40,7 @@ const DisplayTemplate = ({ viewTemplates, editTemplate, editor }) => {
         <div className="ditty-display-template">
           <div className="ditty-display-template__header">
             <div className="ditty-display-template__icon">
-              {helpers.displayTypeIcon(displayObject)}
+              {getDisplayTypeIcon(displayObject)}
             </div>
             <h3 className="ditty-display-template__title">
               {displayObject.title}

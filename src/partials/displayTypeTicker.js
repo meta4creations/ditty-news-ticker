@@ -1,39 +1,11 @@
 import { __ } from "@wordpress/i18n";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/pro-regular-svg-icons";
-import {
-  generalSettings,
-  containerStyles,
-  contentStyles,
-  itemStyles,
-} from "../editor/utils/fieldGroups";
 import { easeOptions } from "../editor/utils/helpers";
 
 /**
  * Add the ticker fields
  */
 window.dittyHooks.addFilter(
-  "dittyDisplayEditFieldGroups",
-  "dittyEditor",
-  (groups, displayType) => {
-    if ("ticker" !== displayType) {
-      return groups;
-    }
-    const tickerGroups = [
-      generalSettings(displayType),
-      containerStyles(displayType),
-      contentStyles(displayType),
-      itemStyles(displayType),
-    ];
-    return tickerGroups;
-  }
-);
-
-/**
- * Add the ticker fields
- */
-window.dittyHooks.addFilter(
-  "dittyDisplayEditFieldsGeneral",
+  "dittyDisplaySettingsGeneralFields",
   "dittyEditor",
   (fields, displayType) => {
     if ("ticker" !== displayType) {
@@ -54,7 +26,7 @@ window.dittyHooks.addFilter(
         inline: true,
       },
       {
-        type: "text",
+        type: "unit",
         id: "minHeight",
         name: __("Min. Height", "ditty-news-ticker"),
         help: __(
@@ -63,7 +35,7 @@ window.dittyHooks.addFilter(
         ),
       },
       {
-        type: "text",
+        type: "unit",
         id: "maxHeight",
         name: __("Max. Height", "ditty-news-ticker"),
         help: __(
@@ -155,6 +127,11 @@ window.dittyHooks.addFilter(
         // },
       },
       {
+        type: "heading",
+        level: 4,
+        std: "This is a test",
+      },
+      {
         type: "radio",
         id: "cloneItems",
         name: __("Clone Items?", "ditty-news-ticker"),
@@ -205,5 +182,41 @@ window.dittyHooks.addFilter(
     ];
 
     return fields;
+  }
+);
+
+/**
+ * Add the ticker fields
+ */
+window.dittyHooks.addFilter(
+  "dittyDisplayEditFieldsItem",
+  "dittyEditor",
+  (fields, displayType) => {
+    console.log("displayType", displayType);
+    if ("ticker" !== displayType) {
+      return fields;
+    }
+    return fields.concat([
+      {
+        type: "unit",
+        id: "itemMaxWidth",
+        name: __("Max Width", "ditty-news-ticker"),
+        help: __("Set a maximum width for items", "ditty-news-ticker"),
+      },
+      {
+        type: "radio",
+        id: "itemElementsWrap",
+        name: __("Wrap Elements", "ditty-news-ticker"),
+        help: __(
+          "Allow item elements to wrap, or force them to not wrap.",
+          "ditty-news-ticker"
+        ),
+        inline: true,
+        options: {
+          wrap: __("Wrap", "ditty-news-ticker"),
+          nowrap: __("No Wrap", "ditty-news-ticker"),
+        },
+      },
+    ]);
   }
 );

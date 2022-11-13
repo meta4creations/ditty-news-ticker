@@ -6,11 +6,6 @@ import {
   getItemTypeIcon,
   getItemTypeFields,
 } from "../utils/itemTypes";
-import {
-  getDisplayTypes,
-  getDisplayTypeIcon,
-  getDisplayTypeFields,
-} from "../utils/displayTypes";
 import { saveDitty } from "../../services/httpService";
 
 export const EditorContext = React.createContext();
@@ -234,7 +229,9 @@ export class EditorProvider extends Component {
       this.setState({ items: resetItemUpdates });
 
       if (updates.display) {
+        delete updates.display.updated;
         this.initialDisplay = updates.display;
+        this.setState({ currentDisplay: updates.display });
       }
 
       if (updates.settings) {
@@ -260,7 +257,6 @@ export class EditorProvider extends Component {
           itemTypes: getItemTypes(),
           items: this.state.items,
           displayItems: this.state.displayItems,
-          displayTypes: getDisplayTypes(),
           displays: this.state.displays,
           layouts: this.state.layouts,
           currentPanel: this.state.currentPanel,
@@ -270,8 +266,6 @@ export class EditorProvider extends Component {
             dittyUpdates: this.getDittyUpdates,
             itemTypeIcon: getItemTypeIcon,
             itemTypeFields: getItemTypeFields,
-            displayTypeIcon: getDisplayTypeIcon,
-            displayTypeFields: getDisplayTypeFields,
           },
           actions: {
             setCurrentPanel: this.handleSetCurrentPanel,

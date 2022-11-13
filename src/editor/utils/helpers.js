@@ -2,8 +2,8 @@
  * Return easing options
  * @returns array
  */
-export const easeOptions = () => {
-  const eases = array(
+const getEaseOptions = () => {
+  const eases = [
     "linear",
     "swing",
     "jswing",
@@ -36,14 +36,15 @@ export const easeOptions = () => {
     "easeInOutCirc",
     "easeInOutElastic",
     "easeInOutBack",
-    "easeInOutBounce"
-  );
+    "easeInOutBounce",
+  ];
   const easeObject = {};
   for (let i = 0; i < eases.length; i++) {
     easeObject[eases[i]] = eases[i];
   }
   return easeObject;
 };
+export const easeOptions = getEaseOptions();
 
 /**
  * Convert default box controls to custom control keys

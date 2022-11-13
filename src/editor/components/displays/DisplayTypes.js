@@ -3,9 +3,14 @@ import { useContext } from "@wordpress/element";
 import Panel from "../Panel";
 import List from "../../common/List";
 import Item from "../../common/Item";
+import {
+  getDisplayTypes,
+  getDisplayObject,
+  getDisplayTypeIcon,
+} from "../../utils/displayTypes";
 
 const DisplayTypes = ({ display, editor }) => {
-  const { displayTypes } = useContext(editor);
+  const displayTypes = getDisplayTypes();
 
   /**
    * Set up the elements
