@@ -94,6 +94,7 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
             key={field.id ? field.id : `${field.id}${index}`}
             field={field}
             value={value}
+            allValues={displayObject.settings}
             onFieldUpdate={handleFieldUpdate}
           />
         );

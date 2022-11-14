@@ -70,6 +70,7 @@ const ItemEdit = ({ item, goBack, deleteItem, editor }) => {
       tabs={tabs}
       tabClick={handleTabClick}
       currentTabId={currentTabId}
+      tabsType="cloud"
       content={panelContent()}
     />
   );

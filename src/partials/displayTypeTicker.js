@@ -33,6 +33,13 @@ window.dittyHooks.addFilter(
           "Set the minimum height of the Ditty for vertical scrolling tickers.",
           "ditty-news-ticker"
         ),
+        show: {
+          relation: "OR",
+          fields: [
+            { key: "direction", value: "down", compare: "=" },
+            { key: "direction", value: "up", compare: "=" },
+          ],
+        },
       },
       {
         type: "unit",
@@ -42,6 +49,13 @@ window.dittyHooks.addFilter(
           "Set the maximum height of the Ditty for vertical scrolling tickers.",
           "ditty-news-ticker"
         ),
+        show: {
+          relation: "OR",
+          fields: [
+            { key: "direction", value: "down", compare: "=" },
+            { key: "direction", value: "up", compare: "=" },
+          ],
+        },
       },
       {
         type: "slider",

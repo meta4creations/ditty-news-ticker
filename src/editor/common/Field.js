@@ -17,7 +17,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/pro-solid-svg-icons";
 
-const Field = ({ field, value, onFieldUpdate }) => {
+const Field = ({ field, value, allValues, onFieldUpdate }) => {
   const [displayHelp, setDisplayHelp] = useState(false);
 
   const convertFieldOptions = (options) => {
@@ -43,7 +43,7 @@ const Field = ({ field, value, onFieldUpdate }) => {
     }
   };
 
-  const renderField = () => {
+  const renderInput = () => {
     switch (field.type) {
       case "border":
         return (
@@ -186,31 +186,66 @@ const Field = ({ field, value, onFieldUpdate }) => {
     return className;
   };
 
-  return (
-    <div
-      className={`ditty-field ditty-field--${field.type} ${
-        field.help && displayHelp ? "ditty-field--help" : ""
-      }`}
-      key={field.id}
-    >
-      <div className="ditty-field__heading">
-        <label className="ditty-field__label">
-          {field.name}{" "}
-          {field.help && (
-            <FontAwesomeIcon
-              className="ditty-field__help-icon"
-              icon={faCircleQuestion}
-              onClick={toggleHelp}
-            />
+  const showField = () => {
+    if (!field.show) {
+      return true;
+    }
+
+    const operators = {
+      "=": (a, b) => {
+        return a === b;
+      },
+      "!=": (a, b) => {
+        return a !== b;
+      },
+    };
+
+    if (field.show) {
+      const relation = field.show.relation ? field.show.relation : "AND";
+      const checks = field.show.fields.map((f) => {
+        if (operators[f.compare](allValues[f.key], f.value)) {
+          return "pass";
+        } else {
+          return "fail";
+        }
+      });
+      if ("OR" === relation) {
+        return checks.includes("pass");
+      } else {
+        return checks.every((v) => v === "pass");
+      }
+    }
+  };
+
+  if (showField()) {
+    return (
+      <div
+        className={`ditty-field ditty-field--${field.type} ${
+          field.help && displayHelp ? "ditty-field--help" : ""
+        }`}
+        key={field.id}
+      >
+        <div className="ditty-field__heading">
+          <label className="ditty-field__label">
+            {field.name}{" "}
+            {field.help && (
+              <FontAwesomeIcon
+                className="ditty-field__help-icon"
+                icon={faCircleQuestion}
+                onClick={toggleHelp}
+              />
+            )}
+          </label>
+          {field.help && displayHelp && (
+            <div className="ditty-field__help">{field.help}</div>
           )}
-        </label>
-        {field.help && displayHelp && (
-          <div className="ditty-field__help">{field.help}</div>
-        )}
+        </div>
+        <div className={getInputClass()}>{renderInput()}</div>
       </div>
-      <div className={getInputClass()}>{renderField()}</div>
-    </div>
-  );
+    );
+  } else {
+    return false;
+  }
 };
 
 export default Field;

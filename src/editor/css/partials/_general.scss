@@ -1,5 +1,6 @@
 .toplevel_page_ditty {
   background: #fff;
+  overflow: hidden;
   #wpcontent {
     display: flex;
     flex-direction: row;
@@ -99,10 +100,6 @@
     }
   }
   &__editor {
-    // position: fixed;
-    // top: 0;
-    // bottom: 0;
-    // right: 0;
     width: 350px;
     height: 100%;
     background: #f7f7f7;
