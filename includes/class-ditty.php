@@ -265,6 +265,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/fields/helpers.php';
 		
 		// Add general files
+		require_once DITTY_DIR . 'includes/blocks.php';
 		require_once DITTY_DIR . 'includes/helpers.php';
 		require_once DITTY_DIR . 'includes/hooks.php';
 		require_once DITTY_DIR . 'includes/layout-tags.php';
@@ -322,8 +323,6 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-posts-lite.php';
 		require_once DITTY_DIR . 'includes/class-ditty-singles.php';
 		require_once DITTY_DIR . 'includes/class-ditty-wpml.php';
-		
-		require_once DITTY_DIR . 'src/blocks/ditty/index.php';
 		
 		if ( is_admin() ) {
 			if ( ! class_exists( 'Ditty_Plugin_Updater' ) ) {
