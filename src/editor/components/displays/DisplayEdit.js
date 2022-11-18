@@ -1,8 +1,9 @@
 import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
-import { Button } from "@wordpress/components";
+import { Animate } from "@wordpress/components";
 import Panel from "../Panel";
 import Field from "../../common/Field";
+import Modal from "../Modal";
 import { updateDisplayOptions } from "../../../services/dittyService";
 import {
   getDisplayTypeLabel,
@@ -19,6 +20,15 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
 
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
   const [currentTabId, setCurrentTabId] = useState(initialTab);
+  const [modalStatus, setModalStatus] = useState(false);
+  const toggleModalStatus = (status) => {
+    console.log("status", status);
+    if (status === modalStatus) {
+      setModalStatus(false);
+    } else {
+      setModalStatus(status);
+    }
+  };
 
   /**
    * Set the current tab
@@ -46,25 +56,19 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
   };
 
   /**
-   * Render the panel header
+   * Render the panel Footer
    * @returns components
    */
-  const panelHeader = () => {
+  const panelFooter = () => {
     return (
       <>
-        <h3>
-          {__(
-            `Custom ${getDisplayTypeLabel(displayObject)} display`,
-            "ditty-news-ticker"
-          )}
-        </h3>
         <div className="ditty-editor__panel__header__buttons">
-          <Button variant="secondary">
+          <button
+            className="ditty-button"
+            onClick={() => toggleModalStatus("save")}
+          >
             {__("Save as Template", "ditty-news-ticker")}
-          </Button>
-          <Button onClick={goBack} variant="link">
-            {__("Cancel", "ditty-news-ticker")}
-          </Button>
+          </button>
         </div>
       </>
     );
@@ -102,16 +106,30 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
     );
   };
 
+  const renderSaveModal = () => {
+    return (
+      <Modal
+        closeModal={toggleModalStatus}
+        label="Save Display Settings as a Template"
+      >
+        Popover is toggled!
+      </Modal>
+    );
+  };
+
   return (
-    <Panel
-      id="displayEdit"
-      header={panelHeader()}
-      tabs={fieldGroups}
-      tabClick={handleTabClick}
-      currentTabId={currentTabId}
-      tabsType="cloud"
-      content={panelContent()}
-    />
+    <>
+      <Panel
+        id="displayEdit"
+        footer={panelFooter()}
+        tabs={fieldGroups}
+        tabClick={handleTabClick}
+        currentTabId={currentTabId}
+        tabsType="cloud"
+        content={panelContent()}
+      />
+      {"save" === modalStatus && renderSaveModal()}
+    </>
   );
 };
 export default DisplayEdit;

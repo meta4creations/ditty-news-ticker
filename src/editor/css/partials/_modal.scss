@@ -1,0 +1,49 @@
+.ditty-editor__modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  &__content {
+    width: 100%;
+    height: 100%;
+    max-width: 600px;
+    max-height: 500px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+  }
+  &__toolbar {
+    flex: 0 0 auto;
+    display: flex;
+    border-bottom: 1px solid;
+    span {
+      padding: 10px;
+    }
+  }
+  &__close {
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+  }
+  &__header {
+    flex: 0 0 auto;
+    padding: 20px;
+    border-bottom: 1px solid;
+  }
+  &__body {
+    flex: 1;
+    padding: 20px;
+  }
+  &__footer {
+    flex: 0 0 auto;
+    padding: 20px;
+    border-top: 1px solid;
+  }
+}

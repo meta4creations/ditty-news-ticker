@@ -2,7 +2,16 @@ import { __ } from "@wordpress/i18n";
 import Tabs from "../common/Tabs";
 
 const Panel = (props) => {
-  const { id, header, tabs, currentTabId, tabsType, tabClick, content } = props;
+  const {
+    id,
+    header,
+    footer,
+    tabs,
+    currentTabId,
+    tabsType,
+    tabClick,
+    content,
+  } = props;
 
   const renderPanelClass = () => {
     let className = `ditty-editor__panel ditty-editor__panel--${id}`;
@@ -21,6 +30,7 @@ const Panel = (props) => {
         />
       )}
       <div className="ditty-editor__panel__content">{content}</div>
+      {footer && <div className="ditty-editor__panel__footer">{footer}</div>}
     </div>
   );
 };

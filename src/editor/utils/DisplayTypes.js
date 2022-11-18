@@ -299,44 +299,46 @@ const displaySettingsStyle = (
               "dittyDisplaySettingsStylesContainerFields",
               [
                 {
-                  type: "heading",
-                  std: __("Container", "ditty-news-ticker"),
+                  type: "group",
+                  name: __("Container", "ditty-news-ticker"),
                   desc: __("Add custom container styles.", "ditty-news-ticker"),
-                },
-                {
-                  type: "text",
-                  id: "maxWidth",
-                  name: __("Max. Width", "ditty-news-ticker"),
-                  help: __(
-                    "Set a maximum width for the container",
-                    "ditty-news-ticker"
-                  ),
-                },
-                {
-                  type: "color",
-                  id: "bgColor",
-                  name: __("Background Color", "ditty-news-ticker"),
-                },
-                {
-                  type: "spacing",
-                  id: "padding",
-                  name: __("Padding", "ditty-news-ticker"),
-                },
-                {
-                  type: "spacing",
-                  id: "margin",
-                  name: __("Margin", "ditty-news-ticker"),
-                  options: {
-                    marginTop: __("Top", "ditty-news-ticker"),
-                    marginBottom: __("Bottom", "ditty-news-ticker"),
-                    marginLeft: __("Left", "ditty-news-ticker"),
-                    marginRight: __("Right", "ditty-news-ticker"),
-                  },
-                },
-                {
-                  type: "border",
-                  id: "border",
-                  name: __("Border", "ditty-news-ticker"),
+                  fields: [
+                    {
+                      type: "text",
+                      id: "maxWidth",
+                      name: __("Max. Width", "ditty-news-ticker"),
+                      help: __(
+                        "Set a maximum width for the container",
+                        "ditty-news-ticker"
+                      ),
+                    },
+                    {
+                      type: "color",
+                      id: "bgColor",
+                      name: __("Background Color", "ditty-news-ticker"),
+                    },
+                    {
+                      type: "spacing",
+                      id: "padding",
+                      name: __("Padding", "ditty-news-ticker"),
+                    },
+                    {
+                      type: "spacing",
+                      id: "margin",
+                      name: __("Margin", "ditty-news-ticker"),
+                      options: {
+                        marginTop: __("Top", "ditty-news-ticker"),
+                        marginBottom: __("Bottom", "ditty-news-ticker"),
+                        marginLeft: __("Left", "ditty-news-ticker"),
+                        marginRight: __("Right", "ditty-news-ticker"),
+                      },
+                    },
+                    {
+                      type: "border",
+                      id: "border",
+                      name: __("Border", "ditty-news-ticker"),
+                    },
+                  ],
                 },
               ],
               displayType

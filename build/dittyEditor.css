@@ -109,15 +109,12 @@
 #ditty-editor__editor {
   width: 350px;
   height: 100%;
-  background: #f7f7f7;
+  background: #fff;
   border-left: 1px solid #ccc;
   box-sizing: border-box;
 }
 #ditty-editor__editor * {
   box-sizing: border-box;
-}
-.wp-admin #ditty-editor__editor {
-  top: 32px;
 }
 
 .ditty-editor__tabs {
@@ -178,11 +175,11 @@
 
 .ditty-editor__tabs--primary {
   height: 60px;
-  background: #32373c;
+  background: #1d2327;
 }
 .ditty-editor__tabs--primary .ditty-editor__tab {
   color: rgba(255, 255, 255, 0.8);
-  background: #32373c;
+  background: #1d2327;
 }
 .ditty-editor__tabs--primary .ditty-editor__tab:hover:not(.ditty-editor__tab--active) {
   color: #fff;
@@ -198,30 +195,35 @@
 }
 
 .ditty-editor__tabs--cloud {
+  gap: 5px;
+  padding: 5px;
   flex-wrap: wrap;
   height: auto;
-  background: #32373c;
+  background: #fff;
+  color: #1d2327;
+  border-bottom: 1px solid #ccc;
 }
 .ditty-editor__tabs--cloud .ditty-editor__tab {
-  width: 25%;
+  width: calc(25% - 5px);
   height: 60px;
   flex: 0 0 auto;
   flex-direction: column;
   align-items: center;
-  color: rgba(255, 255, 255, 0.6);
-  background: transparent;
+  color: rgba(29, 35, 39, 0.8);
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 3px;
   padding: 5px;
 }
-.ditty-editor__tabs--cloud .ditty-editor__tab:hover {
-  background: rgba(255, 255, 255, 0.1);
-  background: transparent;
+.ditty-editor__tabs--cloud .ditty-editor__tab:hover:not(.ditty-editor__tab--active) {
+  color: #1d2327;
+  background: rgba(0, 0, 0, 0.05);
 }
 .ditty-editor__tabs--cloud .ditty-editor__tab--active {
-  width: 25%;
+  background: #19bf7c;
 }
 .ditty-editor__tabs--cloud .ditty-editor__tab--active .ditty-editor__tab__icon {
-  color: #19bf7c;
   display: block;
+  color: #fff;
 }
 .ditty-editor__tabs--cloud .ditty-editor__tab--active .ditty-editor__tab__label {
   color: #fff;
@@ -270,6 +272,18 @@
 }
 .ditty-editor__panel__content {
   flex: 1;
+}
+.ditty-editor__panel__footer {
+  flex: 0 0 auto;
+  padding: 10px;
+  background: #fff;
+  border-top: 1px solid #ccc;
+}
+.ditty-editor__panel__footer__buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
 }
 
 #ditty-editor__adminbar {
@@ -424,8 +438,7 @@
 }
 
 .ditty-editor__panels > .ditty-editor__panel--displayEdit > .ditty-editor__panel__content {
-  padding-left: 0;
-  padding-right: 0;
+  padding: 0;
 }
 
 .ditty-display-template {
@@ -504,6 +517,56 @@
 }
 .ditty-field__input--inline .components-flex > * {
   margin-right: 15px;
+}
+
+.ditty-editor__modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.2);
+}
+.ditty-editor__modal__content {
+  width: 100%;
+  height: 100%;
+  max-width: 600px;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+.ditty-editor__modal__toolbar {
+  flex: 0 0 auto;
+  display: flex;
+  border-bottom: 1px solid;
+}
+.ditty-editor__modal__toolbar span {
+  padding: 10px;
+}
+.ditty-editor__modal__close {
+  width: 20px;
+  height: 20px;
+  margin-left: auto;
+}
+.ditty-editor__modal__header {
+  flex: 0 0 auto;
+  padding: 20px;
+  border-bottom: 1px solid;
+}
+.ditty-editor__modal__body {
+  flex: 1;
+  padding: 20px;
+}
+.ditty-editor__modal__footer {
+  flex: 0 0 auto;
+  padding: 20px;
+  border-top: 1px solid;
 }
 
 /*# sourceMappingURL=dittyEditor.css.map*/

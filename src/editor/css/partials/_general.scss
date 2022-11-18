@@ -102,14 +102,17 @@
   &__editor {
     width: 350px;
     height: 100%;
-    background: #f7f7f7;
+    background: #fff;
     border-left: 1px solid #ccc;
     box-sizing: border-box;
     * {
       box-sizing: border-box;
     }
-    .wp-admin & {
-      top: 32px;
-    }
+    // .wp-admin & {
+    //   top: 32px;
+    // }
+    // > .ditty-editor__tabs {
+    //   border-bottom: 1px solid #616b75;
+    // }
   }
 }

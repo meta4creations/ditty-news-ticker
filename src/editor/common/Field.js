@@ -1,5 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
+import styled from "@emotion/styled";
+import { more } from "@wordpress/icons";
 import {
   CheckboxControl,
   ColorPicker,
@@ -9,10 +11,15 @@ import {
   SelectControl,
   TextControl,
   TextareaControl,
+  Panel,
+  PanelBody,
+  PanelRow,
+  __experimentalToolsPanel as ToolsPanel,
+  __experimentalToolsPanelItem as ToolsPanelItem,
+  __experimentalUnitControl as UnitControl,
   __experimentalBorderControl as BorderControl,
   __experimentalBoxControl as BoxControl,
   __experimentalHeading as Heading,
-  __experimentalUnitControl as UnitControl,
 } from "@wordpress/components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/pro-solid-svg-icons";
@@ -42,6 +49,14 @@ const Field = ({ field, value, allValues, onFieldUpdate }) => {
       setDisplayHelp(true);
     }
   };
+
+  const PanelDescription = styled.div`
+    grid-column: span 2;
+  `;
+
+  const SingleColumnItem = styled(ToolsPanelItem)`
+    grid-column: span 1;
+  `;
 
   const renderInput = () => {
     switch (field.type) {
@@ -82,6 +97,21 @@ const Field = ({ field, value, allValues, onFieldUpdate }) => {
             enableAlpha
           />
         );
+      case "group":
+        return (
+          <Panel>
+            <PanelBody title={field.name} icon={more} initialOpen={true}>
+              <PanelRow>
+                <TextControl
+                // label={field.name}
+                // value={Number(value)}
+                // type="number"
+                // onChange={(updatedValue) => updateValue(updatedValue)}
+                />
+              </PanelRow>
+            </PanelBody>
+          </Panel>
+        );
       case "heading":
         const level = field.level ? field.level : 3;
         return <Heading level={level}>{value}</Heading>;
@@ -96,18 +126,24 @@ const Field = ({ field, value, allValues, onFieldUpdate }) => {
         );
       case "slider":
         return (
-          <RangeControl
-            label={field.name}
-            hideLabelFromVision="true"
-            value={Number(value)}
-            step={1}
-            widthInputField="true"
-            min={field.min}
-            max={field.max}
-            color="#19bf7c"
-            trackColor="#19bf7c"
-            onChange={(updatedValue) => updateValue(updatedValue)}
-          />
+          <Panel header="My Panel">
+            <PanelBody title="My Block Settings" icon={more} initialOpen={true}>
+              <PanelRow>
+                <RangeControl
+                  label={field.name}
+                  hideLabelFromVision="true"
+                  value={Number(value)}
+                  step={1}
+                  widthInputField="true"
+                  min={field.min}
+                  max={field.max}
+                  color="#19bf7c"
+                  trackColor="#19bf7c"
+                  onChange={(updatedValue) => updateValue(updatedValue)}
+                />
+              </PanelRow>
+            </PanelBody>
+          </Panel>
         );
       case "radio":
         return (
@@ -149,13 +185,24 @@ const Field = ({ field, value, allValues, onFieldUpdate }) => {
         );
       case "unit":
         return (
-          <UnitControl
-            label={field.name}
-            hideLabelFromVision="true"
-            value={value}
-            size="default"
-            onChange={(updatedValue) => updateValue(updatedValue)}
-          />
+          <ToolsPanel label={__("Dimensions")}>
+            <PanelDescription>
+              Select dimensions or spacing related settings from the menu for
+              additional controls.
+            </PanelDescription>
+            <SingleColumnItem
+              label={__("Height")}
+              hasValue={() => true}
+              isShownByDefault
+            >
+              <UnitControl
+                label={field.name}
+                hideLabelFromVision="true"
+                value={value}
+                onChange={(updatedValue) => updateValue(updatedValue)}
+              />
+            </SingleColumnItem>
+          </ToolsPanel>
         );
       case "wysiwyg":
         return (
