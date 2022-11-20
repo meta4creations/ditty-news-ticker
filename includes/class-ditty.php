@@ -731,7 +731,7 @@ class Ditty {
 		// );
 		wp_register_script( 'ditty-editor',
 			DITTY_URL . 'build/dittyEditor.js',
-			['wp-element', 'wp-components', 'wp-hooks', 'lodash', 'ditty'],
+			['wp-element', 'wp-components', 'wp-hooks', 'lodash', 'ditty', 'jquery'],
 			$this->version,
 			true
 		);
