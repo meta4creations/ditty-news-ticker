@@ -1,21 +1,19 @@
 import { __ } from "@wordpress/i18n";
-import IonRangeSlider from "react-ion-slider";
+import { RangeControl } from "@wordpress/components";
+import BaseField from "./BaseField";
 
-const SliderField = ({ type, min, max, from, to, step, values, keyboard }) => {
+const SliderField = (props) => {
+  const { value, min, max, step, onChange } = props;
   return (
-    <IonRangeSlider
-      type={type}
-      min={min}
-      max={max}
-      from={from}
-      to={to}
-      step={step}
-      values={values}
-      keyboard={keyboard}
-      onUpdate={(test) => {
-        console.log(test);
-      }}
-    />
+    <BaseField {...props}>
+      <RangeControl
+        value={value}
+        onChange={(updatedValue) => onChange(updatedValue)}
+        min={min}
+        max={max}
+        step={step}
+      />
+    </BaseField>
   );
 };
 

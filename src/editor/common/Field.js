@@ -9,14 +9,26 @@ import {
   SelectControl,
   TextControl,
   TextareaControl,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Panel,
+  PanelBody,
+  PanelRow,
   __experimentalBorderControl as BorderControl,
   __experimentalBoxControl as BoxControl,
   __experimentalHeading as Heading,
+  __experimentalText as Text,
   __experimentalUnitControl as UnitControl,
 } from "@wordpress/components";
-import SliderField from "./fields/SliderField";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/pro-solid-svg-icons";
+import CheckboxField from "./fields/CheckboxField";
+import RadioField from "./fields/RadioField";
+import SelectField from "./fields/SelectField";
+import SliderField from "./fields/SliderField";
+import UnitField from "./fields/UnitField";
 
 const Field = ({ field, value, allValues, onFieldUpdate }) => {
   const [displayHelp, setDisplayHelp] = useState(false);
@@ -44,84 +56,85 @@ const Field = ({ field, value, allValues, onFieldUpdate }) => {
     }
   };
 
-  const renderInput = () => {
-    switch (field.type) {
+  const renderInput = (inputField) => {
+    switch (inputField.type) {
       case "border":
         return (
           <BorderControl
-            label={field.name}
-            //hideLabelFromVision="true"
+            label={inputField.name}
+            help={inputField.help}
             values={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
           />
         );
       case "checkbox":
         return (
-          <CheckboxControl
-            label={field.label}
-            checked={value ? value : false}
+          <CheckboxField
+            value={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
+            {...field}
           />
         );
       case "color":
         return (
           <ColorPicker
-            label={field.name}
-            //hideLabelFromVision="true"
+            label={inputField.name}
+            help={inputField.help}
             color={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
             enableAlpha
           />
         );
-      case "dimension":
-        return (
-          <DimensionControl
-            label={field.name}
-            //hideLabelFromVision="true"
-            color={value}
-            onChange={(updatedValue) => updateValue(updatedValue)}
-            enableAlpha
-          />
-        );
+      // case "dimension":
+      //   return (
+      //     <DimensionControl
+      //       label={inputField.name}
+      //       onChange={(updatedValue) => updateValue(updatedValue)}
+      //       {...field}
+      //     />
+      //   );
       case "heading":
-        const level = field.level ? field.level : 3;
+        const level = inputField.level ? inputField.level : 3;
         return <Heading level={level}>{value}</Heading>;
       case "number":
         return (
           <TextControl
-            label={field.name}
+            label={inputField.name}
+            help={inputField.help}
             value={Number(value)}
             type="number"
             onChange={(updatedValue) => updateValue(updatedValue)}
           />
         );
       case "slider":
-        return <SliderField {...field} />;
+        return (
+          <SliderField
+            value={value}
+            onChange={(updatedValue) => updateValue(updatedValue)}
+            {...field}
+          />
+        );
       case "radio":
         return (
-          <RadioControl
-            label={field.name}
-            hideLabelFromVision="true"
-            selected={value}
-            options={convertFieldOptions(field.options)}
+          <RadioField
+            value={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
+            {...field}
           />
         );
       case "select":
         return (
-          <SelectControl
-            label={field.name}
-            hideLabelFromVision="true"
+          <SelectField
             value={value}
-            options={convertFieldOptions(field.options)}
             onChange={(updatedValue) => updateValue(updatedValue)}
+            {...field}
           />
         );
       case "spacing":
         return (
           <BoxControl
-            label={field.name}
-            //hideLabelFromVision="true"
+            label={inputField.name}
+            help={inputField.help}
             values={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
           />
@@ -129,27 +142,25 @@ const Field = ({ field, value, allValues, onFieldUpdate }) => {
       case "textarea":
         return (
           <TextareaControl
-            label={field.name}
-            //hideLabelFromVision="true"
+            label={inputField.name}
+            help={inputField.help}
             value={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
           />
         );
       case "unit":
         return (
-          <UnitControl
-            label={field.name}
-            hideLabelFromVision="true"
+          <UnitField
             value={value}
-            size="default"
             onChange={(updatedValue) => updateValue(updatedValue)}
+            {...field}
           />
         );
       case "wysiwyg":
         return (
           <TextareaControl
-            label={field.name}
-            //hideLabelFromVision="true"
+            label={inputField.name}
+            help={inputField.help}
             value={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
           />
@@ -157,8 +168,8 @@ const Field = ({ field, value, allValues, onFieldUpdate }) => {
       default:
         return (
           <TextControl
-            label={field.name}
-            hideLabelFromVision="true"
+            label={inputField.name}
+            help={inputField.help}
             value={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
           />
@@ -166,16 +177,16 @@ const Field = ({ field, value, allValues, onFieldUpdate }) => {
     }
   };
 
-  const getInputClass = () => {
-    let className = `ditty-field__input ditty-field__input--${field.type}`;
-    if (field.inline) {
+  const getInputClass = (inputField) => {
+    let className = `ditty-field__input ditty-field__input--${inputField.type}`;
+    if (inputField.inline) {
       className += " ditty-field__input--inline";
     }
     return className;
   };
 
-  const showField = () => {
-    if (!field.show) {
+  const showField = (inputField) => {
+    if (!inputField.show) {
       return true;
     }
 
@@ -188,9 +199,11 @@ const Field = ({ field, value, allValues, onFieldUpdate }) => {
       },
     };
 
-    if (field.show) {
-      const relation = field.show.relation ? field.show.relation : "AND";
-      const checks = field.show.fields.map((f) => {
+    if (inputField.show) {
+      const relation = inputField.show.relation
+        ? inputField.show.relation
+        : "AND";
+      const checks = inputField.show.fields.map((f) => {
         if (operators[f.compare](allValues[f.key], f.value)) {
           return "pass";
         } else {
@@ -205,32 +218,8 @@ const Field = ({ field, value, allValues, onFieldUpdate }) => {
     }
   };
 
-  if (showField()) {
-    return (
-      <div
-        className={`ditty-field ditty-field--${field.type} ${
-          field.help && displayHelp ? "ditty-field--help" : ""
-        }`}
-        key={field.id}
-      >
-        <div className="ditty-field__heading">
-          <label className="ditty-field__label">
-            {field.name}{" "}
-            {field.help && (
-              <FontAwesomeIcon
-                className="ditty-field__help-icon"
-                icon={faCircleQuestion}
-                onClick={toggleHelp}
-              />
-            )}
-          </label>
-          {field.help && displayHelp && (
-            <div className="ditty-field__help">{field.help}</div>
-          )}
-        </div>
-        <div className={getInputClass()}>{renderInput()}</div>
-      </div>
-    );
+  if (showField(field)) {
+    return renderInput(field);
   } else {
     return false;
   }

@@ -5,10 +5,7 @@ import Panel from "../Panel";
 import Field from "../../common/Field";
 import Modal from "../Modal";
 import { updateDisplayOptions } from "../../../services/dittyService";
-import {
-  getDisplayTypeLabel,
-  getDisplayTypeSettings,
-} from "../../utils/displayTypes";
+import { getDisplayTypeSettings } from "../../utils/displayTypes";
 
 const DisplayEdit = ({ displayObject, goBack, editor }) => {
   const { actions } = useContext(editor);

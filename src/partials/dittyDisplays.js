@@ -1,6 +1,5 @@
 import { __ } from "@wordpress/i18n";
 import PanelDisplays from "../editor/components/PanelDisplays";
-import DisplayTypes from "../editor/components/displays/DisplayTypes";
 
 /**
  * Render the Items panel

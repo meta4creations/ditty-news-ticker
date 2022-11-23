@@ -300,7 +300,7 @@ const displaySettingsStyle = (
               [
                 {
                   type: "group",
-                  name: __("Container", "ditty-news-ticker"),
+                  name: __("Container Styles", "ditty-news-ticker"),
                   desc: __("Add custom container styles.", "ditty-news-ticker"),
                   fields: [
                     {
@@ -350,19 +350,21 @@ const displaySettingsStyle = (
               "dittyDisplaySettingsStylesContentFields",
               [
                 {
-                  type: "heading",
-                  std: __("Content", "ditty-news-ticker"),
+                  type: "group",
+                  name: __("Content Styles", "ditty-news-ticker"),
                   desc: __("Add custom content styles.", "ditty-news-ticker"),
-                },
-                {
-                  type: "color",
-                  id: "contentsBgColor",
-                  name: __("Background Color", "ditty-news-ticker"),
-                },
-                {
-                  type: "spacing",
-                  id: "contentsPadding",
-                  name: __("Padding", "ditty-news-ticker"),
+                  fields: [
+                    {
+                      type: "color",
+                      id: "contentsBgColor",
+                      name: __("Background Color", "ditty-news-ticker"),
+                    },
+                    {
+                      type: "spacing",
+                      id: "contentsPadding",
+                      name: __("Padding", "ditty-news-ticker"),
+                    },
+                  ],
                 },
               ],
               displayType
@@ -374,19 +376,21 @@ const displaySettingsStyle = (
               "dittyDisplaySettingsStylesPageFields",
               [
                 {
-                  type: "heading",
-                  std: __("Page", "ditty-news-ticker"),
+                  type: "group",
+                  name: __("Page Styles", "ditty-news-ticker"),
                   desc: __("Add custom page styles.", "ditty-news-ticker"),
-                },
-                {
-                  type: "color",
-                  id: "pageBgColor",
-                  name: __("Background Color", "ditty-news-ticker"),
-                },
-                {
-                  type: "spacing",
-                  id: "pagePadding",
-                  name: __("Padding", "ditty-news-ticker"),
+                  fields: [
+                    {
+                      type: "color",
+                      id: "pageBgColor",
+                      name: __("Background Color", "ditty-news-ticker"),
+                    },
+                    {
+                      type: "spacing",
+                      id: "pagePadding",
+                      name: __("Padding", "ditty-news-ticker"),
+                    },
+                  ],
                 },
               ],
               displayType
@@ -398,24 +402,26 @@ const displaySettingsStyle = (
               "dittyDisplaySettingsStylesItemFields",
               [
                 {
-                  type: "heading",
-                  std: __("Item", "ditty-news-ticker"),
+                  type: "group",
+                  name: __("Item Styles", "ditty-news-ticker"),
                   desc: __("Add custom item styles.", "ditty-news-ticker"),
-                },
-                {
-                  type: "color",
-                  id: "itemTextColor",
-                  name: __("Text Color", "ditty-news-ticker"),
-                },
-                {
-                  type: "color",
-                  id: "itemBgColor",
-                  name: __("Background Color", "ditty-news-ticker"),
-                },
-                {
-                  type: "spacing",
-                  id: "itemPadding",
-                  name: __("Padding", "ditty-news-ticker"),
+                  fields: [
+                    {
+                      type: "color",
+                      id: "itemTextColor",
+                      name: __("Text Color", "ditty-news-ticker"),
+                    },
+                    {
+                      type: "color",
+                      id: "itemBgColor",
+                      name: __("Background Color", "ditty-news-ticker"),
+                    },
+                    {
+                      type: "spacing",
+                      id: "itemPadding",
+                      name: __("Padding", "ditty-news-ticker"),
+                    },
+                  ],
                 },
               ],
               displayType

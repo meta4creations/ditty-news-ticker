@@ -67,13 +67,8 @@ window.dittyHooks.addFilter(
         ),
         min: 0,
         max: 100,
-        //suffix: "px",
-        // js_options: {
-        //   min: 0,
-        //   max: 100,
-        //   step: 1,
-        //   postfix: "px",
-        // },
+        step: 1,
+        suffix: "px",
       },
       {
         type: "slider",
@@ -82,11 +77,7 @@ window.dittyHooks.addFilter(
         help: __("Set the speed of the ticker.", "ditty-news-ticker"),
         min: 0,
         max: 50,
-        // js_options: {
-        //   min: 0,
-        //   max: 50,
-        //   step: 1,
-        // },
+        step: 1,
       },
       {
         type: "select",
@@ -102,12 +93,8 @@ window.dittyHooks.addFilter(
         help: __("Set the speed of the ticker height.", "ditty-news-ticker"),
         min: 0,
         max: 10,
-        // suffix: " " + __("second(s)", "ditty-news-ticker"),
-        // js_options: {
-        //   min: 0,
-        //   max: 10,
-        //   step: 0.25,
-        // },
+        step: 0.25,
+        suffix: __("second(s)", "ditty-news-ticker"),
       },
       {
         type: "radio",
@@ -133,17 +120,8 @@ window.dittyHooks.addFilter(
         ),
         min: 0,
         max: 10,
-        // suffix: " " + __("seconds", "ditty-news-ticker"),
-        // js_options: {
-        //   min: 0,
-        //   max: 10,
-        //   step: 0.25,
-        // },
-      },
-      {
-        type: "heading",
-        level: 4,
-        std: "This is a test",
+        step: 0.25,
+        suffix: __("second(s)", "ditty-news-ticker"),
       },
       {
         type: "radio",

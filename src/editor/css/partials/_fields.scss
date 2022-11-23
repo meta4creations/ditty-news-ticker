@@ -20,14 +20,51 @@
       color: $green;
     }
   }
+  &__input {
+    flex: 1;
+    &__container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+  .components-base-control__field {
+    margin: 0;
+  }
+  input:not([type="button"]):not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    width: 100%;
+    min-height: 0;
+    font-size: 14px;
+    line-height: 24px;
+    border: 1px solid #dfdfdf;
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin: 0;
+  }
 }
 
-.ditty-field__input--inline {
-  .components-flex {
-    flex-direction: row;
-    justify-content: flex-start;
-    > * {
-      margin-right: 15px;
+.ditty-field__input--radio {
+  div[role="radiogroup"] {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  &.ditty-field__input--inline {
+    div[role="radiogroup"] {
+      flex-direction: row;
+      gap: 15px;
     }
+  }
+}
+
+.ditty-field__input--unit {
+  display: flex;
+  align-items: stretch;
+  gap: 5px;
+  select {
+    flex: 0 0 auto;
+    width: 60px;
   }
 }
