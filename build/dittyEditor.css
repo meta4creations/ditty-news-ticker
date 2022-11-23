@@ -588,24 +588,59 @@
   top: calc(100% + 5px);
 }
 
-.ditty-field__input--spacing {
+.ditty-field__input--spacing,
+.ditty-field__input--radius {
   display: flex;
   gap: 5px;
 }
-.ditty-field__input--spacing__box {
+.ditty-field__input--spacing__box,
+.ditty-field__input--radius__box {
   flex: 0 0 auto;
   position: relative;
   width: 20px;
   height: 20px;
 }
-.ditty-field__input--spacing__box span {
+.ditty-field__input--spacing__box span,
+.ditty-field__input--radius__box span {
   position: absolute;
   display: block;
   background: #ccc;
 }
-.ditty-field__input--spacing__box span.active {
-  background: #1d2327;
+.ditty-field__input--spacing__box span.active,
+.ditty-field__input--radius__box span.active {
+  background-color: #1d2327;
 }
+.ditty-field__input--spacing__inputs,
+.ditty-field__input--radius__inputs {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.ditty-field__input--spacing__input,
+.ditty-field__input--radius__input {
+  width: calc(50% - 5px);
+}
+.ditty-field__input--spacing .ditty-field--unit,
+.ditty-field__input--radius .ditty-field--unit {
+  padding: 0;
+  border: none;
+}
+.ditty-field__input--spacing .ditty-field__input--unit,
+.ditty-field__input--radius .ditty-field__input--unit {
+  gap: 0;
+}
+.ditty-field__input--spacing .ditty-field__input--unit input,
+.ditty-field__input--radius .ditty-field__input--unit input {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-right: none !important;
+}
+.ditty-field__input--spacing .ditty-field__input--unit select,
+.ditty-field__input--radius .ditty-field__input--unit select {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
 .ditty-field__input--spacing__box span:nth-child(1) {
   top: 0;
   left: 3px;
@@ -630,29 +665,52 @@
   height: calc(100% - 6px);
   width: 2px;
 }
-.ditty-field__input--spacing__inputs {
-  display: flex;
-  gap: 5px;
-  flex-wrap: wrap;
+
+.ditty-field__input--radius__box {
+  border-radius: 5px;
+  overflow: hidden;
 }
-.ditty-field__input--spacing__input {
-  width: calc(50% - 5px);
+.ditty-field__input--radius__box:before {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  content: "";
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  z-index: 9;
+  transform: rotate(45deg);
 }
-.ditty-field__input--spacing .ditty-field--unit {
-  padding: 0;
-  border: none;
+.ditty-field__input--radius__box:after {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  content: "";
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 3px;
+  z-index: 9;
 }
-.ditty-field__input--spacing .ditty-field__input--unit {
-  gap: 0;
+.ditty-field__input--radius__box span {
+  width: 10px;
+  height: 10px;
 }
-.ditty-field__input--spacing .ditty-field__input--unit input {
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
-  border-right: none !important;
+.ditty-field__input--radius__box span:nth-child(1) {
+  top: 0;
+  left: 0;
 }
-.ditty-field__input--spacing .ditty-field__input--unit select {
-  border-top-left-radius: 0 !important;
-  border-bottom-left-radius: 0 !important;
+.ditty-field__input--radius__box span:nth-child(2) {
+  top: 0;
+  right: 0;
+}
+.ditty-field__input--radius__box span:nth-child(3) {
+  bottom: 0;
+  left: 0;
+}
+.ditty-field__input--radius__box span:nth-child(4) {
+  bottom: 0;
+  right: 0;
 }
 
 .ditty-editor__modal {

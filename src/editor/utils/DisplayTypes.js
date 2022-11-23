@@ -163,6 +163,63 @@ const displaySettingsGeneral = (displayType) => {
   };
 };
 
+const borderSettings = (prefix) => {
+  const prefixed = prefix ? `${prefix}Border` : "border";
+  return [
+    {
+      id: `${prefixed}Color`,
+      type: "color",
+      name: __("Border Color", "ditty-news-ticker"),
+      help: __("Choose a color for the border.", "ditty-news-ticker"),
+    },
+    {
+      id: `${prefixed}Style`,
+      type: "select",
+      name: __("Border Style", "ditty-news-ticker"),
+      help: __(
+        "A border style must be set for a border to render.",
+        "ditty-news-ticker"
+      ),
+      options: [
+        "none",
+        "dotted",
+        "dashed",
+        "solid",
+        "double",
+        "groove",
+        "ridge",
+        "inset",
+        "outset",
+        "hidden",
+      ],
+    },
+    {
+      id: `${prefixed}Width`,
+      type: "spacing",
+      name: __("Border Width", "ditty-news-ticker"),
+      help: __("Set custom border widths.", "ditty-news-ticker"),
+      options: {
+        borderTopWidth: __("Top", "ditty-news-ticker"),
+        borderBottomWidth: __("Bottom", "ditty-news-ticker"),
+        borderLeftWidth: __("Left", "ditty-news-ticker"),
+        borderRightWidth: __("Right", "ditty-news-ticker"),
+      },
+    },
+    {
+      id: `${prefixed}Radius`,
+      type: "radius",
+      name: __("Border Radius", "ditty-news-ticker"),
+      help: __("Choose a custom border radius.", "ditty-news-ticker"),
+      options: {
+        borderTopLeftRadius: __("Top Left", "ditty-news-ticker"),
+        borderTopRightRadius: __("Top Right", "ditty-news-ticker"),
+        borderBottomLeftRadius: __("Bottom Left", "ditty-news-ticker"),
+        borderBottomRightRadius: __("Bottom Right", "ditty-news-ticker"),
+      },
+    },
+  ];
+};
+
 const displaySettingsTitle = (displayType) => {
   return {
     id: "title",
@@ -277,6 +334,7 @@ const displaySettingsTitle = (displayType) => {
             paddingRight: __("Right", "ditty-news-ticker"),
           },
         },
+        ...borderSettings("title"),
       ],
       displayType
     ),

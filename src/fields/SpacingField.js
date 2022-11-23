@@ -4,9 +4,8 @@ import BaseField from "./BaseField";
 import UnitField from "./UnitField";
 
 const SpacingField = (props) => {
-  const { options, value, onChange } = props;
+  const { type, options, value, onChange } = props;
   const [current, setCurrent] = useState(false);
-  console.log("current", current);
 
   const defaults = {
     paddingTop: __("Top", "ditty-news-ticker"),
@@ -18,7 +17,6 @@ const SpacingField = (props) => {
   const args = options ? options : defaults;
 
   const updateValue = (key, updatedValue) => {
-    console.log(key, updatedValue);
     value[key] = updatedValue;
     onChange(value);
   };
@@ -39,10 +37,11 @@ const SpacingField = (props) => {
   const renderField = () => {
     const fields = [];
     for (const [objKey, objValue] of Object.entries(args)) {
+      const unitValue = value[objKey] ? value[objKey] : "";
       fields.push(
         <div
           key={objKey}
-          className="ditty-field__input--spacing__input"
+          className={`ditty-field__input--${type}__input`}
           onFocus={(e) => {
             setCurrent(objKey);
           }}
@@ -51,7 +50,7 @@ const SpacingField = (props) => {
           }}
         >
           <UnitField
-            value={value[objKey]}
+            value={unitValue}
             placeholder={objValue}
             onChange={(updatedValue) => updateValue(objKey, updatedValue)}
           />
@@ -63,20 +62,10 @@ const SpacingField = (props) => {
 
   return (
     <BaseField {...props}>
-      {/* {current && (
-        <div
-          style={{
-            position: "fixed",
-            top: "0px",
-            right: "0px",
-            bottom: "0px",
-            left: "0px",
-          }}
-          onClick={() => setCurrent(false)}
-        />
-      )} */}
-      <div className="ditty-field__input--spacing__box">{renderBox()}</div>
-      <div className="ditty-field__input--spacing__inputs">{renderField()}</div>
+      <div className={`ditty-field__input--${type}__box`}>{renderBox()}</div>
+      <div className={`ditty-field__input--${type}__inputs`}>
+        {renderField()}
+      </div>
     </BaseField>
   );
 };

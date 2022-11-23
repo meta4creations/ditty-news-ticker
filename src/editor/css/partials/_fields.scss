@@ -105,7 +105,10 @@
   }
 }
 
-.ditty-field__input--spacing {
+$spacing_color: #ccc;
+$spacing_highlight_color: $dark_gray;
+.ditty-field__input--spacing,
+.ditty-field__input--radius {
   display: flex;
   gap: 5px;
   &__box {
@@ -116,10 +119,41 @@
     span {
       position: absolute;
       display: block;
-      background: #ccc;
+      background: $spacing_color;
       &.active {
-        background: $dark_gray;
+        background-color: $dark_gray;
       }
+    }
+  }
+  &__inputs {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  &__input {
+    width: calc(50% - 5px);
+  }
+  .ditty-field--unit {
+    padding: 0;
+    border: none;
+  }
+  .ditty-field__input--unit {
+    gap: 0;
+    input {
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+      border-right: none !important;
+    }
+    select {
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+    }
+  }
+}
+
+.ditty-field__input--spacing {
+  &__box {
+    span {
       &:nth-child(1) {
         top: 0;
         left: 3px;
@@ -146,28 +180,55 @@
       }
     }
   }
-  &__inputs {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-  }
-  &__input {
-    width: calc(50% - 5px);
-  }
-  .ditty-field--unit {
-    padding: 0;
-    border: none;
-  }
-  .ditty-field__input--unit {
-    gap: 0;
-    input {
-      border-top-right-radius: 0 !important;
-      border-bottom-right-radius: 0 !important;
-      border-right: none !important;
+}
+
+$radius: 9px;
+.ditty-field__input--radius {
+  &__box {
+    border-radius: 5px;
+    overflow: hidden;
+    &:before {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      content: "";
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      z-index: 9;
+      transform: rotate(45deg);
     }
-    select {
-      border-top-left-radius: 0 !important;
-      border-bottom-left-radius: 0 !important;
+    &:after {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      content: "";
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 3px;
+      z-index: 9;
+    }
+    span {
+      width: 10px;
+      height: 10px;
+
+      &:nth-child(1) {
+        top: 0;
+        left: 0;
+      }
+      &:nth-child(2) {
+        top: 0;
+        right: 0;
+      }
+      &:nth-child(3) {
+        bottom: 0;
+        left: 0;
+      }
+      &:nth-child(4) {
+        bottom: 0;
+        right: 0;
+      }
     }
   }
 }

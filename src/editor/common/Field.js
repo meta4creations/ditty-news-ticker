@@ -1,45 +1,21 @@
 import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
 import {
   TextControl,
   TextareaControl,
   __experimentalBorderControl as BorderControl,
   __experimentalHeading as Heading,
 } from "@wordpress/components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleQuestion } from "@fortawesome/pro-solid-svg-icons";
-import ColorField from "./fields/ColorField";
-import CheckboxField from "./fields/CheckboxField";
-import RadioField from "./fields/RadioField";
-import SelectField from "./fields/SelectField";
-import SliderField from "./fields/SliderField";
-import SpacingField from "./fields/SpacingField";
-import UnitField from "./fields/UnitField";
+import ColorField from "../../fields/ColorField";
+import CheckboxField from "../../fields/CheckboxField";
+import RadioField from "../../fields/RadioField";
+import SelectField from "../../fields/SelectField";
+import SliderField from "../../fields/SliderField";
+import SpacingField from "../../fields/SpacingField";
+import UnitField from "../../fields/UnitField";
 
-const Field = ({ field, value, allValues, onFieldUpdate }) => {
-  const [displayHelp, setDisplayHelp] = useState(false);
-
-  const convertFieldOptions = (options) => {
-    const optionsArray = [];
-    for (const key in options) {
-      optionsArray.push({
-        label: options[key],
-        value: key,
-      });
-    }
-    return optionsArray;
-  };
-
+const Field = ({ field, value = "", allValues, onFieldUpdate }) => {
   const updateValue = (value) => {
     onFieldUpdate(field, value);
-  };
-
-  const toggleHelp = () => {
-    if (displayHelp) {
-      setDisplayHelp(false);
-    } else {
-      setDisplayHelp(true);
-    }
   };
 
   const renderInput = (inputField) => {
@@ -106,6 +82,14 @@ const Field = ({ field, value, allValues, onFieldUpdate }) => {
             {...field}
           />
         );
+      case "radius":
+        return (
+          <SpacingField
+            value={value}
+            onChange={(updatedValue) => updateValue(updatedValue)}
+            {...field}
+          />
+        );
       case "spacing":
         return (
           <SpacingField
@@ -150,14 +134,6 @@ const Field = ({ field, value, allValues, onFieldUpdate }) => {
           />
         );
     }
-  };
-
-  const getInputClass = (inputField) => {
-    let className = `ditty-field__input ditty-field__input--${inputField.type}`;
-    if (inputField.inline) {
-      className += " ditty-field__input--inline";
-    }
-    return className;
   };
 
   const showField = (inputField) => {
