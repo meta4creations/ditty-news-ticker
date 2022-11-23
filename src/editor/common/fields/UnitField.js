@@ -4,7 +4,7 @@ import BaseField from "./BaseField";
 import { arrayMove } from "react-sortable-hoc";
 
 const UnitField = (props) => {
-  const { value, onChange } = props;
+  const { placeholder, value, onChange } = props;
   const unitOptions = [
     {
       value: "px",
@@ -89,7 +89,7 @@ const UnitField = (props) => {
   };
 
   return (
-    <BaseField {...props}>
+    <BaseField type="unit" {...props}>
       <input
         autoComplete="off"
         inputMode="numeric"
@@ -98,6 +98,7 @@ const UnitField = (props) => {
         step="1"
         type="number"
         value={numberValue()}
+        placeholder={placeholder}
         onChange={(e) => updateInputValue(e.target.value)}
       />
       <select

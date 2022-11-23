@@ -1,33 +1,19 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import {
-  CheckboxControl,
-  ColorPicker,
-  DimensionControl,
-  RangeControl,
-  RadioControl,
-  SelectControl,
   TextControl,
   TextareaControl,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Panel,
-  PanelBody,
-  PanelRow,
   __experimentalBorderControl as BorderControl,
-  __experimentalBoxControl as BoxControl,
   __experimentalHeading as Heading,
-  __experimentalText as Text,
-  __experimentalUnitControl as UnitControl,
 } from "@wordpress/components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/pro-solid-svg-icons";
+import ColorField from "./fields/ColorField";
 import CheckboxField from "./fields/CheckboxField";
 import RadioField from "./fields/RadioField";
 import SelectField from "./fields/SelectField";
 import SliderField from "./fields/SliderField";
+import SpacingField from "./fields/SpacingField";
 import UnitField from "./fields/UnitField";
 
 const Field = ({ field, value, allValues, onFieldUpdate }) => {
@@ -77,22 +63,12 @@ const Field = ({ field, value, allValues, onFieldUpdate }) => {
         );
       case "color":
         return (
-          <ColorPicker
-            label={inputField.name}
-            help={inputField.help}
-            color={value}
+          <ColorField
+            value={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
-            enableAlpha
+            {...field}
           />
         );
-      // case "dimension":
-      //   return (
-      //     <DimensionControl
-      //       label={inputField.name}
-      //       onChange={(updatedValue) => updateValue(updatedValue)}
-      //       {...field}
-      //     />
-      //   );
       case "heading":
         const level = inputField.level ? inputField.level : 3;
         return <Heading level={level}>{value}</Heading>;
@@ -132,11 +108,10 @@ const Field = ({ field, value, allValues, onFieldUpdate }) => {
         );
       case "spacing":
         return (
-          <BoxControl
-            label={inputField.name}
-            help={inputField.help}
-            values={value}
+          <SpacingField
+            value={value}
             onChange={(updatedValue) => updateValue(updatedValue)}
+            {...field}
           />
         );
       case "textarea":

@@ -38,19 +38,23 @@ const BaseField = ({
       }`}
       key={id}
     >
-      <div className="ditty-field__heading">
-        <label className="ditty-field__label">
-          {name}{" "}
-          {help && (
-            <FontAwesomeIcon
-              className="ditty-field__help-icon"
-              icon={faCircleQuestion}
-              onClick={toggleHelp}
-            />
+      {(name || help) && (
+        <div className="ditty-field__heading">
+          <label className="ditty-field__label">
+            {name}{" "}
+            {help && (
+              <FontAwesomeIcon
+                className="ditty-field__help-icon"
+                icon={faCircleQuestion}
+                onClick={toggleHelp}
+              />
+            )}
+          </label>
+          {help && displayHelp && (
+            <div className="ditty-field__help">{help}</div>
           )}
-        </label>
-        {help && displayHelp && <div className="ditty-field__help">{help}</div>}
-      </div>
+        </div>
+      )}
       <div className="ditty-field__input__container">
         {prefix && <div className="ditty-field__input__prefix">{prefix}</div>}
         <div className={getInputClass()}>{children}</div>

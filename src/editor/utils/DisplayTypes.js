@@ -188,6 +188,21 @@ const displaySettingsTitle = (displayType) => {
           },
         },
         {
+          id: "titleElementPosition",
+          type: "radio",
+          name: __("Element Position", "ditty-news-ticker"),
+          help: __(
+            "Set the position of the element within the title area.",
+            "ditty-news-ticker"
+          ),
+          options: {
+            start: __("Start", "ditty-news-ticker"),
+            center: __("Center", "ditty-news-ticker"),
+            end: __("End", "ditty-news-ticker"),
+          },
+          inline: true,
+        },
+        {
           id: "titleElement",
           type: "select",
           name: __("Element", "ditty-news-ticker"),
@@ -206,29 +221,14 @@ const displaySettingsTitle = (displayType) => {
           },
         },
         {
-          id: "titleElementPosition",
-          type: "radio",
-          name: __("Element Position", "ditty-news-ticker"),
-          help: __(
-            "Set the position of the element within the title area.",
-            "ditty-news-ticker"
-          ),
-          options: {
-            start: __("Start", "ditty-news-ticker"),
-            center: __("Center", "ditty-news-ticker"),
-            end: __("End", "ditty-news-ticker"),
-          },
-          inline: true,
-        },
-        {
           id: "titleFontSize",
-          type: "text",
+          type: "unit",
           name: __("Font Size", "ditty-news-ticker"),
           help: __("Set a custom font size.", "ditty-news-ticker"),
         },
         {
           id: "titleLineHeight",
-          type: "text",
+          type: "unit",
           name: __("Line Height", "ditty-news-ticker"),
           help: __("Set a custom line height.", "ditty-news-ticker"),
         },

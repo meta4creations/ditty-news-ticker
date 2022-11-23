@@ -19,7 +19,6 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
   const [currentTabId, setCurrentTabId] = useState(initialTab);
   const [modalStatus, setModalStatus] = useState(false);
   const toggleModalStatus = (status) => {
-    console.log("status", status);
     if (status === modalStatus) {
       setModalStatus(false);
     } else {
