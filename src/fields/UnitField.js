@@ -50,6 +50,7 @@ const UnitField = (props) => {
     if (numbers) {
       return numbers[0];
     }
+    return "";
   };
 
   const unitValue = () => {
@@ -62,6 +63,7 @@ const UnitField = (props) => {
     } else {
       return value;
     }
+    return "";
   };
 
   const updateInputValue = (val) => {

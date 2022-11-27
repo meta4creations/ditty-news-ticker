@@ -7,6 +7,7 @@ const BaseField = ({
   type,
   id,
   name,
+  desc,
   help,
   inline,
   prefix,
@@ -53,13 +54,16 @@ const BaseField = ({
           {help && displayHelp && (
             <div className="ditty-field__help">{help}</div>
           )}
+          {desc && <div className="ditty-field__description">{desc}</div>}
         </div>
       )}
-      <div className="ditty-field__input__container">
-        {prefix && <div className="ditty-field__input__prefix">{prefix}</div>}
-        <div className={getInputClass()}>{children}</div>
-        {suffix && <div className="ditty-field__input__suffix">{suffix}</div>}
-      </div>
+      {children && (
+        <div className="ditty-field__input__container">
+          {prefix && <div className="ditty-field__input__prefix">{prefix}</div>}
+          <div className={getInputClass()}>{children}</div>
+          {suffix && <div className="ditty-field__input__suffix">{suffix}</div>}
+        </div>
+      )}
     </div>
   );
 };

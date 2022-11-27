@@ -4,6 +4,7 @@ import BaseField from "./BaseField";
 
 const SliderField = (props) => {
   const { value, min, max, step, onChange } = props;
+
   return (
     <BaseField {...props}>
       <RangeControl

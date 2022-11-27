@@ -4,7 +4,7 @@ import BaseField from "./BaseField";
 import UnitField from "./UnitField";
 
 const SpacingField = (props) => {
-  const { type, options, value, onChange } = props;
+  const { type, options, value = {}, onChange } = props;
   const [current, setCurrent] = useState(false);
 
   const defaults = {

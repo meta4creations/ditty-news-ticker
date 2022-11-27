@@ -1,16 +1,20 @@
 import { __ } from "@wordpress/i18n";
+import BaseField from "./BaseField";
 
-const TextField = ({ value, type, onChange }) => {
+const TextField = (props) => {
+  const { value, type, onChange } = props;
   const inputType = type ? type : "text";
 
   return (
-    <input
-      type={inputType}
-      value={value}
-      onChange={(e) => {
-        onChange(e.target.value);
-      }}
-    />
+    <BaseField {...props}>
+      <input
+        type={inputType}
+        value={value}
+        onChange={(e) => {
+          onChange(e.target.value);
+        }}
+      />
+    </BaseField>
   );
 };
 

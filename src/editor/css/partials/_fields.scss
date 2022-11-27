@@ -11,6 +11,7 @@
     color: #93999f;
   }
   &__help {
+    width: 100%;
     font-size: 13px;
     line-height: 16px;
     margin: 7px 0 10px;
@@ -19,6 +20,12 @@
     .ditty-field__help-icon {
       color: $green;
     }
+  }
+  &__description {
+    width: 100%;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 2px 0 10px;
   }
   &__input {
     flex: 1;
@@ -42,6 +49,47 @@
     border-radius: 3px;
     padding: 5px 10px;
     margin: 0;
+  }
+}
+
+.ditty-field--group {
+  padding: 0;
+  border-bottom: none;
+  > .ditty-field__heading {
+    display: flex;
+    align-items: center;
+    padding: 15px 15px 15px 10px;
+    background: #fbfbfb;
+    border-bottom: 1px solid #dfdfdf;
+    cursor: pointer;
+    > .ditty-field__heading__contents {
+      > .ditty-field__label {
+        margin-bottom: 0;
+      }
+      > .ditty-field__help {
+        margin-bottom: 0;
+      }
+      > .ditty-field__description {
+        margin-bottom: 0;
+      }
+    }
+    > .ditty-field__toggle {
+      margin-left: auto;
+    }
+  }
+}
+.ditty-field--heading {
+  background: #fbfbfb;
+  > .ditty-field__heading {
+    > .ditty-field__label {
+      margin-bottom: 0;
+    }
+    > .ditty-field__help {
+      margin-bottom: 0;
+    }
+    > .ditty-field__description {
+      margin-bottom: 0;
+    }
   }
 }
 

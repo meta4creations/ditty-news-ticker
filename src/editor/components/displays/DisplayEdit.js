@@ -2,7 +2,7 @@ import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
 import { Animate } from "@wordpress/components";
 import Panel from "../Panel";
-import Field from "../../common/Field";
+import Field from "../../../fields/Field";
 import Modal from "../Modal";
 import { updateDisplayOptions } from "../../../services/dittyService";
 import { getDisplayTypeSettings } from "../../utils/displayTypes";
@@ -39,7 +39,7 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
    * @param {object} field
    * @param {string} value
    */
-  const handleFieldUpdate = (field, value) => {
+  const handleUpdateValue = (field, value) => {
     // Update the Ditty options
     const dittyEl = document.getElementById("ditty-editor__ditty");
     updateDisplayOptions(dittyEl, displayObject.type, field.id, value);
@@ -88,14 +88,16 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
       fields.map((field, index) => {
         const value = displayObject.settings[field.id]
           ? displayObject.settings[field.id]
-          : field.std;
+          : field.std
+          ? field.std
+          : "";
         return (
           <Field
-            key={field.id ? field.id : `${field.id}${index}`}
+            key={field.id ? field.id : index}
             field={field}
             value={value}
             allValues={displayObject.settings}
-            onFieldUpdate={handleFieldUpdate}
+            updateValue={handleUpdateValue}
           />
         );
       })

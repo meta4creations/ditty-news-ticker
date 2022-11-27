@@ -13,6 +13,14 @@ window.dittyHooks.addFilter(
     }
     fields = [
       {
+        type: "heading",
+        name: __("General Settings", "ditty-news-ticker"),
+        desc: __(
+          "Set the general settings of the ticker.",
+          "ditty-news-ticker"
+        ),
+      },
+      {
         type: "radio",
         id: "direction",
         name: __("Direction", "ditty-news-ticker"),
@@ -181,10 +189,9 @@ window.dittyHooks.addFilter(
  * Add the ticker fields
  */
 window.dittyHooks.addFilter(
-  "dittyDisplayEditFieldsItem",
+  "dittyDisplaySettingsStylesItemFields",
   "dittyEditor",
   (fields, displayType) => {
-    console.log("displayType", displayType);
     if ("ticker" !== displayType) {
       return fields;
     }
@@ -192,13 +199,13 @@ window.dittyHooks.addFilter(
       {
         type: "unit",
         id: "itemMaxWidth",
-        name: __("Max Width", "ditty-news-ticker"),
+        name: __("Item Max Width", "ditty-news-ticker"),
         help: __("Set a maximum width for items", "ditty-news-ticker"),
       },
       {
         type: "radio",
         id: "itemElementsWrap",
-        name: __("Wrap Elements", "ditty-news-ticker"),
+        name: __("Item Wrap Elements", "ditty-news-ticker"),
         help: __(
           "Allow item elements to wrap, or force them to not wrap.",
           "ditty-news-ticker"

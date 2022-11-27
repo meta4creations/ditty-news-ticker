@@ -1,7 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
 import Panel from "./Panel";
-import Field from "../common/Field";
+import Field from "../../fields/Field";
 
 const PanelSettings = ({ editor }) => {
   const { id, title, settings, actions } = useContext(editor);

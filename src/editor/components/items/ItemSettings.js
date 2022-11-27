@@ -1,6 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import { useContext } from "@wordpress/element";
-import Field from "../../common/Field";
+import Field from "../../../fields/Field";
 
 const ItemSettings = ({ item, editor }) => {
   const { helpers, actions } = useContext(editor);
