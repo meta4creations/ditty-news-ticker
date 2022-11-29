@@ -243,7 +243,7 @@ __webpack_require__.r(__webpack_exports__);
           idBase,
           instance
         } = _ref;
-        if (!(instance !== null && instance !== void 0 && instance.raw)) {
+        if (!instance?.raw) {
           // Can't transform if raw instance is not shown in REST API.
           return false;
         }

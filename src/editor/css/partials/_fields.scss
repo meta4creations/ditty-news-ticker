@@ -1,6 +1,14 @@
 .ditty-field {
-  padding: 15px 10px;
+  padding: 15px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  &__heading {
+    display: flex;
+  }
+  &__icon {
+    font-size: 18px;
+    margin-right: 15px;
+    margin-top: 2px;
+  }
   &__label {
     display: block;
     font-size: 14px;
@@ -58,7 +66,7 @@
   > .ditty-field__heading {
     display: flex;
     align-items: center;
-    padding: 15px 15px 15px 10px;
+    padding: 15px;
     background: #fbfbfb;
     border-bottom: 1px solid #dfdfdf;
     cursor: pointer;
@@ -81,14 +89,27 @@
 .ditty-field--heading {
   background: #fbfbfb;
   > .ditty-field__heading {
-    > .ditty-field__label {
-      margin-bottom: 0;
+    > .ditty-field__heading__contents {
+      > .ditty-field__label {
+        margin-bottom: 0;
+      }
+      > .ditty-field__help {
+        margin-bottom: 0;
+      }
+      > .ditty-field__description {
+        margin-bottom: 0;
+      }
     }
-    > .ditty-field__help {
-      margin-bottom: 0;
-    }
-    > .ditty-field__description {
-      margin-bottom: 0;
+  }
+}
+.ditty-field--panel-heading {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  > .ditty-field__heading {
+    > .ditty-field__heading__contents {
+      > .ditty-field__label {
+        font-size: 16px;
+      }
     }
   }
 }
@@ -110,7 +131,11 @@
 .ditty-field__input--unit {
   display: flex;
   align-items: stretch;
-  gap: 5px;
+  input {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-right: none !important;
+  }
   select {
     flex: 0 0 auto;
     width: 40px;
@@ -119,6 +144,8 @@
     padding-left: 5px;
     padding-right: 5px;
     background: transparent;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
   }
 }
 
@@ -184,18 +211,6 @@ $spacing_highlight_color: $dark_gray;
   .ditty-field--unit {
     padding: 0;
     border: none;
-  }
-  .ditty-field__input--unit {
-    gap: 0;
-    input {
-      border-top-right-radius: 0 !important;
-      border-bottom-right-radius: 0 !important;
-      border-right: none !important;
-    }
-    select {
-      border-top-left-radius: 0 !important;
-      border-bottom-left-radius: 0 !important;
-    }
   }
 }
 

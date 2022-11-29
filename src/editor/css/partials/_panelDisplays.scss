@@ -1,0 +1,19 @@
+.ditty-editor__panel--displayEdit {
+  .ditty-displayEdit {
+    &__links {
+      display: flex;
+      gap: 5px;
+      margin-top: 10px;
+    }
+    &__types {
+      padding-top: 20px;
+      .ditty-editor__tabs--cloud {
+        padding: 0;
+        border-bottom: none;
+        .ditty-editor__tab {
+          width: 25%;
+        }
+      }
+    }
+  }
+}

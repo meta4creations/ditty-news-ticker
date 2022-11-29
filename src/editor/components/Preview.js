@@ -16,16 +16,6 @@ const Preview = () => {
 
   const styles = { ...padding };
   styles.backgroundColor = settings.previewBg;
-  //console.log(settings.previewPadding);
-
-  // console.log("padding", padding);
-
-  //const styles = { ...settings.previewPadding };
-
-  // useEffect(() => {
-  //   console.log("useEffect", id);
-  //   console.log(window.ditty);
-  // }, []);
 
   return (
     <div id="ditty-editor__preview" style={styles}>

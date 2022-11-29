@@ -93,7 +93,7 @@ export const getDisplayTypeObject = (display) => {
 export const getDisplayTypeIcon = (display) => {
   const displayType = getDisplayTypeObject(display);
   return displayType ? (
-    displayType[0].icon
+    displayType.icon
   ) : (
     <FontAwesomeIcon icon={faTabletScreen} />
   );
@@ -107,6 +107,16 @@ export const getDisplayTypeIcon = (display) => {
 export const getDisplayTypeLabel = (display) => {
   const displayType = getDisplayTypeObject(display);
   return displayType && displayType.label;
+};
+
+/**
+ * Return a display type label from the display
+ * @param {object} item
+ * @returns element
+ */
+export const getDisplayTypeDescription = (display) => {
+  const displayType = getDisplayTypeObject(display);
+  return displayType && displayType.description;
 };
 
 /**
@@ -148,19 +158,6 @@ export const getDisplayTypeSettings = (display) => {
     }
   }
   return fieldGroups;
-};
-
-const displaySettingsGeneral = (displayType) => {
-  return {
-    id: "general",
-    label: __("General", "ditty-news-ticker"),
-    icon: <FontAwesomeIcon icon={faSliders} />,
-    fields: window.dittyHooks.applyFilters(
-      "dittyDisplaySettingsGeneralFields",
-      [],
-      displayType
-    ),
-  };
 };
 
 const borderSettings = (prefix, namePrefix) => {
@@ -221,10 +218,33 @@ const borderSettings = (prefix, namePrefix) => {
   ];
 };
 
+const displaySettingsGeneral = (displayType) => {
+  return {
+    id: "general",
+    label: __("General", "ditty-news-ticker"),
+    name: __("General Settings", "ditty-news-ticker"),
+    desc: __(
+      `Set the general settings of the ${displayType}.`,
+      "ditty-news-ticker"
+    ),
+    icon: <FontAwesomeIcon icon={faSliders} />,
+    fields: window.dittyHooks.applyFilters(
+      "dittyDisplaySettingsGeneralFields",
+      [],
+      displayType
+    ),
+  };
+};
+
 const displaySettingsTitle = (displayType) => {
   return {
     id: "title",
     label: __("Title", "ditty-news-ticker"),
+    name: __("Title Settings", "ditty-news-ticker"),
+    desc: __(
+      `Set the title settings of the ${displayType}.`,
+      "ditty-news-ticker"
+    ),
     icon: <FontAwesomeIcon icon={faHeading} />,
     fields: window.dittyHooks.applyFilters(
       "dittyDisplaySettingsTitleFields",
@@ -349,6 +369,11 @@ const displaySettingsStyle = (
   return {
     id: "styles",
     label: __("Styles", "ditty-news-ticker"),
+    name: __("Styles Settings", "ditty-news-ticker"),
+    desc: __(
+      `Set various element styles of the ${displayType}.`,
+      "ditty-news-ticker"
+    ),
     icon: <FontAwesomeIcon icon={faBrush} />,
     fields: groups.reduce((currentFields, group) => {
       switch (group) {

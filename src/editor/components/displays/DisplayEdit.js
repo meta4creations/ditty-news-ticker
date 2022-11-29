@@ -5,10 +5,19 @@ import Panel from "../Panel";
 import Field from "../../../fields/Field";
 import Modal from "../Modal";
 import { updateDisplayOptions } from "../../../services/dittyService";
-import { getDisplayTypeSettings } from "../../utils/displayTypes";
+import {
+  getDisplayTypes,
+  getDisplayTypeSettings,
+  getDisplayTypeObject,
+} from "../../utils/displayTypes";
+import Tabs from "../../common/Tabs";
+import IconBlock from "../../common/IconBlock";
+import IconButton from "../../common/IconButton";
 
 const DisplayEdit = ({ displayObject, goBack, editor }) => {
   const { actions } = useContext(editor);
+  const displayTypeObject = getDisplayTypeObject(displayObject);
+  const displayTypes = getDisplayTypes();
 
   /**
    * Set the initial fields
@@ -17,6 +26,10 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
 
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
   const [currentTabId, setCurrentTabId] = useState(initialTab);
+  const [showDisplayTypes, setShowDisplayTypes] = useState(false);
+  const [currentDisplayType, setCurrentDisplayType] = useState(
+    displayObject.type
+  );
   const [modalStatus, setModalStatus] = useState(false);
   const toggleModalStatus = (status) => {
     if (status === modalStatus) {
@@ -51,6 +64,49 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
     actions.setCurrentDisplay(updatedDisplay);
   };
 
+  const handleTypeClick = (displayType) => {
+    setCurrentDisplayType(displayType.id);
+  };
+
+  const renderDisplayTypes = () => {
+    return (
+      <Tabs
+        tabs={displayTypes}
+        currentTabId={currentDisplayType}
+        tabClick={handleTypeClick}
+        type="cloud"
+      />
+    );
+  };
+
+  /**
+   * Render the panel Header
+   * @returns components
+   */
+  const panelHeader = () => {
+    return (
+      <>
+        <IconBlock icon={displayTypeObject.icon}>
+          <h2>{displayTypeObject.label}</h2>
+          <p>{displayTypeObject.description}</p>
+          <div className="ditty-displayEdit__links">
+            <button
+              className="ditty-link"
+              onClick={() => setShowDisplayTypes(true)}
+            >
+              {__("Change Type", "ditty-news-ticker")}
+            </button>
+            <button className="ditty-link">
+              {__("Use Template", "ditty-news-ticker")}
+            </button>
+          </div>
+        </IconBlock>
+
+        <div className="ditty-displayEdit__types">{renderDisplayTypes()}</div>
+      </>
+    );
+  };
+
   /**
    * Render the panel Footer
    * @returns components
@@ -82,10 +138,11 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
       return false;
     }
 
-    const fields = fieldGroups[index].fields;
-    return (
-      fields &&
-      fields.map((field, index) => {
+    const fieldGroup = fieldGroups[index];
+
+    const fields =
+      fieldGroup.fields &&
+      fieldGroup.fields.map((field, index) => {
         const value = displayObject.settings[field.id]
           ? displayObject.settings[field.id]
           : field.std
@@ -100,7 +157,23 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
             updateValue={handleUpdateValue}
           />
         );
-      })
+      });
+
+    return (
+      <>
+        <Field
+          key={`${fieldGroup.id}Panel`}
+          field={{
+            id: `${fieldGroup.id}Panel`,
+            type: "heading",
+            name: fieldGroup.name,
+            desc: fieldGroup.desc,
+            icon: fieldGroup.icon,
+            class: "ditty-field--panel-heading",
+          }}
+        />
+        {fields}
+      </>
     );
   };
 
@@ -119,6 +192,7 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
     <>
       <Panel
         id="displayEdit"
+        header={panelHeader()}
         footer={panelFooter()}
         tabs={fieldGroups}
         tabClick={handleTabClick}

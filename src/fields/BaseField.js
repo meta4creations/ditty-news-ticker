@@ -3,17 +3,9 @@ import { useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/pro-solid-svg-icons";
 
-const BaseField = ({
-  type,
-  id,
-  name,
-  desc,
-  help,
-  inline,
-  prefix,
-  suffix,
-  children,
-}) => {
+const BaseField = (props) => {
+  const { type, id, name, desc, help, icon, inline, prefix, suffix, children } =
+    props;
   const [displayHelp, setDisplayHelp] = useState(false);
 
   const toggleHelp = () => {
@@ -22,6 +14,16 @@ const BaseField = ({
     } else {
       setDisplayHelp(true);
     }
+  };
+
+  const getFieldClass = (inputField) => {
+    let className = `ditty-field ditty-field--${type} ${
+      help && displayHelp ? "ditty-field--help" : ""
+    }`;
+    if (props.class) {
+      className += ` ${props.class}`;
+    }
+    return className;
   };
 
   const getInputClass = (inputField) => {
@@ -33,28 +35,26 @@ const BaseField = ({
   };
 
   return (
-    <div
-      className={`ditty-field ditty-field--${type} ${
-        help && displayHelp ? "ditty-field--help" : ""
-      }`}
-      key={id}
-    >
-      {(name || help) && (
+    <div className={getFieldClass()} key={id}>
+      {(name || help || icon) && (
         <div className="ditty-field__heading">
-          <label className="ditty-field__label">
-            {name}{" "}
-            {help && (
-              <FontAwesomeIcon
-                className="ditty-field__help-icon"
-                icon={faCircleQuestion}
-                onClick={toggleHelp}
-              />
+          {icon && <div className="ditty-field__icon">{icon}</div>}
+          <div className="ditty-field__heading__contents">
+            <label className="ditty-field__label">
+              {name}{" "}
+              {help && (
+                <FontAwesomeIcon
+                  className="ditty-field__help-icon"
+                  icon={faCircleQuestion}
+                  onClick={toggleHelp}
+                />
+              )}
+            </label>
+            {help && displayHelp && (
+              <div className="ditty-field__help">{help}</div>
             )}
-          </label>
-          {help && displayHelp && (
-            <div className="ditty-field__help">{help}</div>
-          )}
-          {desc && <div className="ditty-field__description">{desc}</div>}
+            {desc && <div className="ditty-field__description">{desc}</div>}
+          </div>
         </div>
       )}
       {children && (

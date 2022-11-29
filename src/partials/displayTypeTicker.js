@@ -13,14 +13,6 @@ window.dittyHooks.addFilter(
     }
     fields = [
       {
-        type: "heading",
-        name: __("General Settings", "ditty-news-ticker"),
-        desc: __(
-          "Set the general settings of the ticker.",
-          "ditty-news-ticker"
-        ),
-      },
-      {
         type: "radio",
         id: "direction",
         name: __("Direction", "ditty-news-ticker"),
