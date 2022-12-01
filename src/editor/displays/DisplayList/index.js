@@ -1,14 +1,13 @@
 import { __ } from "@wordpress/i18n";
 import { useState, useContext } from "@wordpress/element";
 import { TextControl, Button } from "@wordpress/components";
-import { updateDittyDisplayTemplate } from "../../services/dittyService";
-import { List, ListItem } from "../../components";
-import Panel from "../components/Panel";
+import { updateDittyDisplayTemplate } from "../../../services/dittyService";
+import { List, ListItem, Panel } from "../../../components";
 import {
   getDisplayTypes,
   getDisplayObject,
   getDisplayTypeIcon,
-} from "../utils/displayTypes";
+} from "../../utils/displayTypes";
 
 const DisplayList = ({ goBack, editor }) => {
   const { currentDisplay, displays, actions } = useContext(editor);

@@ -2,9 +2,9 @@ import { __ } from "@wordpress/i18n";
 import _ from "lodash";
 import { useContext, useEffect } from "@wordpress/element";
 import reactElementToJSXString from "react-element-to-jsx-string";
-import { EditorContext } from "../context";
-import { getLayoutTags } from "../utils/layouts";
-import { replace } from "../utils/shortcode";
+import { EditorContext } from "./context";
+import { getLayoutTags } from "./utils/layouts";
+import { replace } from "./utils/shortcode";
 
 const DittyItem = ({ item }) => {
   const { layouts } = useContext(EditorContext);

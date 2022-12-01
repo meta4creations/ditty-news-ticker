@@ -1,7 +1,7 @@
 import { __ } from "@wordpress/i18n";
-import { useContext, useEffect } from "@wordpress/element";
-import { convertBoxControlValues } from "../utils/helpers";
-import { EditorContext } from "../context";
+import { useContext } from "@wordpress/element";
+import { convertBoxControlValues } from "./utils/helpers";
+import { EditorContext } from "./context";
 import Ditty from "./Ditty";
 
 const Preview = () => {

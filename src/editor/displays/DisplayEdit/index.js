@@ -6,19 +6,26 @@ import { faCubes } from "@fortawesome/pro-light-svg-icons";
 import {
   updateDisplayOptions,
   updateDittyDisplayTemplate,
-} from "../../services/dittyService";
-import { Button, ButtonGroup, IconBlock, Link, Popup } from "../../components";
+} from "../../../services/dittyService";
+import {
+  Button,
+  ButtonGroup,
+  IconBlock,
+  Link,
+  Panel,
+  Popup,
+} from "../../../components";
+import { Field } from "../../../fields";
 import {
   getDisplayTypeSettings,
   getDisplayTypeObject,
 } from "../../utils/displayTypes";
-import Field from "../../fields/Field";
 
-import Panel from "../components/Panel";
-import { DisplayTypeSelector, DisplayTemplateSelector } from "../displays";
+import DisplayTypeSelector from "../DisplayTypeSelector";
+import DisplayTemplateSelector from "../DisplayTemplateSelector";
 
 const DisplayEdit = ({ displayObject, goBack, editor }) => {
-  const { displays, actions } = useContext(editor);
+  const { actions } = useContext(editor);
   const displayTypeObject = getDisplayTypeObject(displayObject);
 
   /**

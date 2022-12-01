@@ -1,6 +1,6 @@
 import { __ } from "@wordpress/i18n";
-import { Tabs, List, ListItem } from "../../../components";
-
+import { useContext } from "@wordpress/element";
+import { List, ListItem } from "../../../components";
 import { getDisplayTypeIcon } from "../../utils/displayTypes";
 
 const DisplayTemplateSelector = ({ selected, onSelected, editor }) => {

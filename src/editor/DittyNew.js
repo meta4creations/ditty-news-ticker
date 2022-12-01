@@ -1,9 +1,9 @@
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
 import { useContext, useEffect, useState } from "@wordpress/element";
-import { EditorContext } from "../context";
+import { EditorContext } from "./context";
 import DittyItem from "./DittyItem";
-import { getDisplayObject } from "../utils/displayTypes";
+import { getDisplayObject } from "./utils/displayTypes";
 
 const DittyNew = () => {
   const { id, items, displays, currentDisplay } = useContext(EditorContext);

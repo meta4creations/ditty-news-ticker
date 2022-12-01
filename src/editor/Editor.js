@@ -6,8 +6,8 @@ import {
   faTabletScreen,
   faGear,
 } from "@fortawesome/pro-regular-svg-icons";
-import { Tabs } from "../../components";
-import { EditorContext } from "../context";
+import { Tabs } from "../components";
+import { EditorContext } from "./context";
 
 const Editor = () => {
   const [currentTabId, setCurrentTabId] = useState("items");

@@ -1,12 +1,12 @@
 import { __ } from "@wordpress/i18n";
 import { Component } from "@wordpress/element";
 import _ from "lodash";
+import { saveDitty } from "../../services/httpService";
 import {
   getItemTypes,
   getItemTypeIcon,
   getItemTypeFields,
 } from "../utils/itemTypes";
-import { saveDitty } from "../../services/httpService";
 
 export const EditorContext = React.createContext();
 EditorContext.displayName = "EditorContext";

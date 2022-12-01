@@ -1,6 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import { useContext } from "@wordpress/element";
-import { EditorContext } from "../context";
+import { EditorContext } from "./context";
 
 const AdminBar = () => {
   const { title, helpers, actions } = useContext(EditorContext);

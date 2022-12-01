@@ -1,7 +1,7 @@
 import { __ } from "@wordpress/i18n";
-import PanelItems from "../editor/components/PanelItems";
-import ItemSettings from "../editor/components/items/ItemSettings";
-import LayoutList from "../editor/components/layouts/LayoutList";
+import PanelItems from "../editor/PanelItems";
+import { ItemSettings } from "../editor/items";
+import { LayoutList } from "../editor/layouts";
 
 /**
  * Render the Items panel

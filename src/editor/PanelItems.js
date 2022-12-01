@@ -1,8 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
-import ItemList from "./items/ItemList";
-import ItemEdit from "./items/ItemEdit";
-import ItemTypes from "./items/ItemTypes";
+import { ItemEdit, ItemList, ItemTypes } from "./items";
 
 const PanelItems = ({ editor }) => {
   const { id, items, actions } = useContext(editor);

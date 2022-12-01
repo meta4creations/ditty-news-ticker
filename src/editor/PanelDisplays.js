@@ -1,7 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import { useState, useContext } from "@wordpress/element";
-import { DisplayEdit, DisplayList, DisplayTemplate } from "../displays";
-import { getDisplayObject } from "../utils/displayTypes";
+import { DisplayEdit, DisplayList, DisplayTemplate } from "./displays";
+import { getDisplayObject } from "./utils/displayTypes";
 
 const PanelDisplays = ({ editor }) => {
   const { id, currentDisplay, displays, actions } = useContext(editor);

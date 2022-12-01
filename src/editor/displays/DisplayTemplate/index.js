@@ -1,12 +1,11 @@
 import { __ } from "@wordpress/i18n";
 import { useContext } from "@wordpress/element";
-import { Button, ButtonGroup } from "@wordpress/components";
+import { Button, ButtonGroup, Panel } from "../../../components";
 import {
   getDisplayObject,
   getDisplayTypeLabel,
   getDisplayTypeIcon,
 } from "../../utils/displayTypes";
-import Panel from "../componets/Panel";
 
 const DisplayTemplate = ({ viewTemplates, editTemplate, editor }) => {
   const { currentDisplay, displays } = useContext(editor);

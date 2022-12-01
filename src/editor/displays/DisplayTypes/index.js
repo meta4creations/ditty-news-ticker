@@ -1,14 +1,8 @@
 import { __ } from "@wordpress/i18n";
-import { useContext } from "@wordpress/element";
-import { List, ListItem } from "../../../components";
-import {
-  getDisplayTypes,
-  getDisplayObject,
-  getDisplayTypeIcon,
-} from "../../utils/displayTypes";
-import Panel from "../components/Panel";
+import { List, ListItem, Panel } from "../../../components";
+import { getDisplayTypes } from "../../utils/displayTypes";
 
-const DisplayTypes = ({ display, editor }) => {
+const DisplayTypes = ({ editor }) => {
   const displayTypes = getDisplayTypes();
 
   /**

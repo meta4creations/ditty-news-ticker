@@ -1,6 +1,6 @@
 const { render } = wp.element; //we are using wp.element here!
 import { EditorProvider } from "./context";
-import App from "./components/App";
+import App from "./App";
 import "./css/editor.scss";
 
 if (document.getElementById("ditty-editor__wrapper")) {
