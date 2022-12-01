@@ -4,7 +4,8 @@ import ButtonGroup from "../ButtonGroup";
 import Link from "../Link";
 
 const Popup = (props) => {
-  const { id, header, footer, children, onClose, onSubmit } = props;
+  const { id, header, submitLabel, footer, children, onClose, onSubmit } =
+    props;
 
   const getPopupClass = () => {
     let className = "ditty-popup";
@@ -27,7 +28,7 @@ const Popup = (props) => {
             <ButtonGroup justify="flex-end" gap="20px">
               <Link onClick={onClose}>{__("Cancel", "ditty-news-ticker")}</Link>
               <Button type="primary" onClick={onSubmit}>
-                {__("Select", "ditty-news-ticker")}
+                {submitLabel ? submitLabel : __("Submit", "ditty-news-ticker")}
               </Button>
             </ButtonGroup>
           </div>

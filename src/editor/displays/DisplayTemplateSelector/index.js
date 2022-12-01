@@ -5,8 +5,6 @@ import { getDisplayTypeIcon } from "../../utils/displayTypes";
 
 const DisplayTemplateSelector = ({ selected, onSelected, editor }) => {
   const { displays } = useContext(editor);
-  console.log("displays", displays);
-
   const elements = window.dittyHooks.applyFilters(
     "dittyDisplayTemplatesListElements",
     [
@@ -35,7 +33,15 @@ const DisplayTemplateSelector = ({ selected, onSelected, editor }) => {
   return (
     <List>
       {displays.map((display) => (
-        <ListItem key={display.id} data={display} elements={elements} />
+        <ListItem
+          key={display.id}
+          data={display}
+          elements={elements}
+          isActive={selected === display}
+          onItemClick={(e, data) => {
+            onSelected(data);
+          }}
+        />
       ))}
     </List>
   );

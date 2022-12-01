@@ -166,6 +166,7 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
         return (
           <Popup
             id={popupStatus}
+            submitLabel={__("Update Type", "ditty-news-ticker")}
             header={
               <IconBlock icon={displayTypeSelection.icon}>
                 <h2>{displayTypeSelection.label}</h2>
@@ -174,6 +175,18 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
             }
             onClose={() => {
               setPopupStatus(false);
+              if (displayTypeObject.id === displayTypeSelection.id) {
+                return false;
+              }
+
+              // Update the Ditty options
+              const dittyEl = document.getElementById("ditty-editor__ditty");
+              const prevDisplay = { ...displayObject };
+              prevDisplay.type = displayTypeSelection.id;
+              const updatedDisplay = { ...displayObject };
+              updatedDisplay.type = displayTypeObject.id;
+              updateDittyDisplayTemplate(dittyEl, updatedDisplay, prevDisplay);
+
               setDisplayTypeSelection(displayTypeObject);
             }}
             onSubmit={() => {
@@ -187,20 +200,30 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
               updatedDisplay.type = displayTypeSelection.id;
               updatedDisplay.updated = Date.now();
 
-              // Update the Ditty options
-              const dittyEl = document.getElementById("ditty-editor__ditty");
-              updateDittyDisplayTemplate(
-                dittyEl,
-                updatedDisplay,
-                displayObject
-              );
-
               actions.setCurrentDisplay(updatedDisplay);
             }}
           >
             <DisplayTypeSelector
               selected={displayTypeSelection.id}
-              onSelected={setDisplayTypeSelection}
+              onSelected={(selectedType) => {
+                if (selectedType.id === displayTypeSelection.id) {
+                  return false;
+                }
+
+                // Update the Ditty options
+                const dittyEl = document.getElementById("ditty-editor__ditty");
+                const prevDisplay = { ...displayObject };
+                prevDisplay.type = displayTypeSelection.id;
+                const updatedDisplay = { ...displayObject };
+                updatedDisplay.type = selectedType.id;
+                updateDittyDisplayTemplate(
+                  dittyEl,
+                  updatedDisplay,
+                  prevDisplay
+                );
+
+                setDisplayTypeSelection(selectedType);
+              }}
             />
           </Popup>
         );
@@ -208,6 +231,7 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
         return (
           <Popup
             id={popupStatus}
+            submitLabel={__("Use Template", "ditty-news-ticker")}
             header={
               <IconBlock icon={<FontAwesomeIcon icon={faCubes} />}>
                 <h2>
@@ -223,28 +247,48 @@ const DisplayEdit = ({ displayObject, goBack, editor }) => {
             }
             onClose={() => {
               setPopupStatus(false);
+              if (displayObject.id === displayTemplateSelection.id) {
+                return false;
+              }
+
+              // Update the Ditty options
+              const dittyEl = document.getElementById("ditty-editor__ditty");
+              updateDittyDisplayTemplate(
+                dittyEl,
+                displayObject,
+                displayTemplateSelection
+              );
+              setDisplayTemplateSelection(false);
             }}
             onSubmit={() => {
               setPopupStatus(false);
-              // if (displayTypeObject.id === displayTypeSelection.id) {
-              //   return false;
-              // }
-
-              // // Update the editor display
-              // const updatedDisplay = { ...displayObject };
-              // updatedDisplay.type = displayTypeSelection.id;
-              // updatedDisplay.updated = Date.now();
-
-              // // Update the Ditty options
-              // const dittyEl = document.getElementById("ditty-editor__ditty");
-              // updateDittyDisplayTemplate(dittyEl, updatedDisplay, displayObject);
-
-              // actions.setCurrentDisplay(updatedDisplay);
+              if (displayObject.id === displayTemplateSelection.id) {
+                return false;
+              }
+              actions.setCurrentDisplay(displayTemplateSelection);
             }}
           >
             <DisplayTemplateSelector
               selected={displayTemplateSelection}
-              onSelected={setDisplayTemplateSelection}
+              onSelected={(selectedTemplate) => {
+                if (selectedTemplate.id === displayTemplateSelection.id) {
+                  return false;
+                }
+
+                // Update the Ditty options
+                const dittyEl = document.getElementById("ditty-editor__ditty");
+                let prevDisplay = displayTemplateSelection;
+                if (!prevDisplay) {
+                  prevDisplay = { ...displayObject };
+                  prevDisplay.type = displayTypeSelection.id;
+                }
+                updateDittyDisplayTemplate(
+                  dittyEl,
+                  selectedTemplate,
+                  prevDisplay
+                );
+                setDisplayTemplateSelection(selectedTemplate);
+              }}
               editor={editor}
             />
           </Popup>
