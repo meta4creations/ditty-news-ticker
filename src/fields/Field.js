@@ -60,7 +60,7 @@ const Field = ({ field, value = "", allValues, updateValue }) => {
       case "number":
         return (
           <NumberField
-            value={inputValue}
+            value={String(inputValue)}
             onChange={(updatedValue) => updateValue(inputField, updatedValue)}
             {...inputField}
           />
@@ -92,7 +92,7 @@ const Field = ({ field, value = "", allValues, updateValue }) => {
       case "slider":
         return (
           <SliderField
-            value={inputValue}
+            value={String(inputValue)}
             onChange={(updatedValue) => updateValue(inputField, updatedValue)}
             {...inputField}
           />

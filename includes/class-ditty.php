@@ -663,6 +663,11 @@ class Ditty {
 			$this->version,
 			'all'
 		);
+		
+		$disable_fontawesome = ditty_settings( 'disable_fontawesome' );
+		if ( ! is_admin() && ! $disable_fontawesome ) {
+			wp_enqueue_style( 'ditty-fontawesome', DITTY_URL . '/includes/libs/fontawesome-6.2.0/css/all.css', false, '6.2.0', false );
+		}
 		// wp_enqueue_style(
 		// 	'ditty', DITTY_URL . 'build/ditty.css',
 		// 	[],
@@ -765,7 +770,6 @@ class Ditty {
 				wp_enqueue_script( 'ditty-helpers' );
 				wp_enqueue_script( 'ditty-display-ticker' );
 				wp_enqueue_script( 'ditty-display-list' );
-				//wp_enqueue_script( 'ditty-display-grid' );
 				wp_enqueue_script( 'ditty-editor' );
 				wp_enqueue_script( 'ditty-item-type' );
 			}	

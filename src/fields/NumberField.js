@@ -8,9 +8,9 @@ const NumberField = (props) => {
     <BaseField {...props}>
       <input
         type="number"
-        value={value}
+        value={Number(value)}
         onChange={(e) => {
-          onChange(e.target.value);
+          onChange(String(e.target.value));
         }}
       />
     </BaseField>

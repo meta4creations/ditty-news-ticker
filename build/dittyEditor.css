@@ -18,133 +18,6 @@
   float: none;
 }
 
-.ditty-link {
-  text-decoration: underline;
-  border: none;
-  background: transparent;
-  padding: 0;
-}
-
-.ditty-button {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 500;
-  text-align: center;
-  text-decoration: none;
-  color: #23282d;
-  background: rgba(0, 0, 0, 0.2);
-  border: none;
-  border-radius: 3px;
-  padding: 10px 15px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: color 0.25s ease, background-color 0.25s ease;
-}
-
-.ditty-button-group {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: flex-start;
-  background: #32373c;
-  border-radius: 3px;
-  overflow: hidden;
-  gap: 1px;
-}
-.ditty-button-group button {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 500;
-  text-align: center;
-  text-decoration: none;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.2);
-  border: none;
-  padding: 10px 15px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: color 0.25s ease, background-color 0.25s ease;
-}
-.ditty-button-group button:not(.active):hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-.ditty-button-group button.active {
-  color: #fff;
-  background-color: #19bf7c;
-}
-
-.ditty-icon-button {
-  height: 60px;
-  flex: 0 0 auto;
-  flex-direction: column;
-  align-items: center;
-  color: rgba(29, 35, 39, 0.8);
-  background: rgba(0, 0, 0, 0.02);
-  border-radius: 3px;
-  padding: 5px;
-}
-.ditty-icon-button:hover:not(.ditty-icon-button--active) {
-  color: #1d2327;
-  background: rgba(0, 0, 0, 0.05);
-}
-.ditty-icon-button--active {
-  background: #19bf7c;
-}
-.ditty-icon-button--active .ditty-icon-button__icon {
-  display: block;
-  color: #fff;
-}
-.ditty-icon-button--active .ditty-icon-button__label {
-  color: #fff;
-}
-.ditty-icon-button__icon {
-  height: 20px;
-  flex: 0 0 auto;
-}
-.ditty-icon-button__label {
-  display: block;
-  font-size: 11px;
-  font-weight: 400;
-  margin-top: 5px;
-  flex: 0 0 auto;
-}
-
-.ditty-icon-block {
-  display: flex;
-}
-.ditty-icon-block__icon {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: #ccc;
-  margin-right: 10px;
-}
-.ditty-icon-block h1,
-.ditty-icon-block h2,
-.ditty-icon-block h3,
-.ditty-icon-block h4,
-.ditty-icon-block h5,
-.ditty-icon-block h6,
-.ditty-icon-block p {
-  margin: 0;
-}
-
 #ditty-editor {
   height: calc(100% - 100px);
   flex: 1;
@@ -182,6 +55,167 @@
 }
 #ditty-editor__editor * {
   box-sizing: border-box;
+}
+
+.ditty-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  color: #23282d;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  border-radius: 3px;
+  padding: 10px 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.25s ease, background-color 0.25s ease;
+}
+.ditty-button.is-primary {
+  color: #fff;
+  background: #19bf7c;
+}
+
+.ditty-button-group {
+  display: flex;
+  gap: 10px;
+}
+.ditty-button-group.is-tabbed {
+  align-items: stretch;
+  justify-content: flex-start;
+  background: #32373c;
+  border-radius: 3px;
+  overflow: hidden;
+  gap: 1px;
+}
+.ditty-button-group.is-tabbed .ditty-button {
+  border-radius: 0;
+}
+
+.ditty-icon-block {
+  display: flex;
+}
+.ditty-icon-block__icon {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #ccc;
+  border-radius: 3px;
+  margin-right: 10px;
+}
+.ditty-icon-block__icon svg {
+  width: 40%;
+  height: 40%;
+}
+.ditty-icon-block h1,
+.ditty-icon-block h2,
+.ditty-icon-block h3,
+.ditty-icon-block h4,
+.ditty-icon-block h5,
+.ditty-icon-block h6,
+.ditty-icon-block p {
+  margin: 0 0 5px;
+}
+
+.ditty-icon-button {
+  height: 60px;
+  min-width: 60px;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  color: rgba(29, 35, 39, 0.8);
+  background: rgba(0, 0, 0, 0.02);
+  border: none;
+  border-radius: 3px;
+  padding: 5px;
+}
+.ditty-icon-button:hover:not(.ditty-icon-button--active) {
+  color: #1d2327;
+  background: rgba(0, 0, 0, 0.05);
+}
+.ditty-icon-button--active {
+  background: #19bf7c;
+}
+.ditty-icon-button--active .ditty-icon-button__icon {
+  display: block;
+  color: #fff;
+}
+.ditty-icon-button--active .ditty-icon-button__label {
+  color: #fff;
+}
+.ditty-icon-button__icon {
+  height: 20px;
+  flex: 0 0 auto;
+}
+.ditty-icon-button__label {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  margin-top: 5px;
+  flex: 0 0 auto;
+}
+
+.ditty-link {
+  color: #323438;
+  text-decoration: underline;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+.ditty-link:hover {
+  color: #1d2327;
+}
+
+.ditty-popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ditty-popup__overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+}
+.ditty-popup__contents {
+  position: relative;
+  width: 600px;
+  max-width: calc(100% - 60px);
+  max-height: calc(100% - 60px);
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 3px;
+}
+.ditty-popup__header {
+  padding: 15px;
+  border-bottom: 1px solid #ccc;
+}
+.ditty-popup__body {
+  flex: 1;
+}
+.ditty-popup__footer {
+  padding: 15px;
+  border-top: 1px solid #ccc;
 }
 
 .ditty-editor__tabs {
@@ -263,12 +297,10 @@
 
 .ditty-editor__tabs--cloud {
   gap: 5px;
-  padding: 5px;
   flex-wrap: wrap;
   height: auto;
   background: #fff;
   color: #1d2327;
-  border-bottom: 1px solid #ccc;
 }
 .ditty-editor__tabs--cloud .ditty-editor__tab {
   width: calc(25% - 5px);
@@ -351,6 +383,10 @@
   flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
+}
+.ditty-editor__panel .ditty-editor__tabs--cloud {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
 }
 
 #ditty-editor__adminbar {
@@ -612,8 +648,33 @@
   line-height: 24px;
   border: 1px solid #dfdfdf;
   border-radius: 3px;
-  padding: 5px 10px;
+  padding: 5px 8px;
   margin: 0;
+}
+
+.ditty-field__input--color {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+.ditty-field__input--color__swatch {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #dfdfdf;
+  border-right: none;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  cursor: pointer;
+}
+.ditty-field__input--color input {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+.ditty-field__input--color__popover {
+  position: absolute;
+  z-index: 9;
+  top: calc(100% + 5px);
 }
 
 .ditty-field--group {
@@ -662,37 +723,6 @@
   font-size: 16px;
 }
 
-.ditty-field__input--radio div[role=radiogroup] {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.ditty-field__input--radio.ditty-field__input--inline div[role=radiogroup] {
-  flex-direction: row;
-  gap: 15px;
-}
-
-.ditty-field__input--unit {
-  display: flex;
-  align-items: stretch;
-}
-.ditty-field__input--unit input {
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
-  border-right: none !important;
-}
-.ditty-field__input--unit select {
-  flex: 0 0 auto;
-  width: 40px;
-  font-size: 12px;
-  text-align: center;
-  padding-left: 5px;
-  padding-right: 5px;
-  background: transparent;
-  border-top-left-radius: 0 !important;
-  border-bottom-left-radius: 0 !important;
-}
-
 .ditty-field__input--slider .components-range-control__track {
   color: #19bf7c;
 }
@@ -701,25 +731,6 @@
 }
 .ditty-field__input--slider .components-range-control__track + span span:before {
   background-color: rgba(25, 191, 124, 0.5);
-}
-
-.ditty-field__input--color {
-  position: relative;
-  display: flex;
-  align-items: stretch;
-  gap: 5px;
-}
-.ditty-field__input--color__swatch {
-  flex: 0 0 auto;
-  width: 36px;
-  height: 36px;
-  border: 1px solid #dfdfdf;
-  border-radius: 3px;
-}
-.ditty-field__input--color__popover {
-  position: absolute;
-  z-index: 9;
-  top: calc(100% + 5px);
 }
 
 .ditty-field__input--spacing,
@@ -832,6 +843,37 @@
   right: 0;
 }
 
+.ditty-field__input--radio div[role=radiogroup] {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.ditty-field__input--radio.ditty-field__input--inline div[role=radiogroup] {
+  flex-direction: row;
+  gap: 15px;
+}
+
+.ditty-field__input--unit {
+  display: flex;
+  align-items: stretch;
+}
+.ditty-field__input--unit input {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-right: none !important;
+}
+.ditty-field__input--unit select {
+  flex: 0 0 auto;
+  width: 40px;
+  font-size: 12px;
+  text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+  background: transparent;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
 .ditty-editor__modal {
   position: absolute;
   top: 0;
@@ -882,20 +924,13 @@
   border-top: 1px solid;
 }
 
-.ditty-editor__panel--displayEdit .ditty-displayEdit__links {
-  display: flex;
-  gap: 5px;
-  margin-top: 10px;
+.ditty-popup--displayTypeSelect .displayTypeSelector {
+  padding: 10px;
 }
-.ditty-editor__panel--displayEdit .ditty-displayEdit__types {
-  padding-top: 20px;
-}
-.ditty-editor__panel--displayEdit .ditty-displayEdit__types .ditty-editor__tabs--cloud {
-  padding: 0;
-  border-bottom: none;
-}
-.ditty-editor__panel--displayEdit .ditty-displayEdit__types .ditty-editor__tabs--cloud .ditty-editor__tab {
-  width: 25%;
+
+.displayTypeSelector .ditty-editor__tab {
+  width: 100px;
+  height: 100px;
 }
 
 /*# sourceMappingURL=dittyEditor.css.map*/

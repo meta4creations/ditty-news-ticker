@@ -17,8 +17,9 @@ const SpacingField = (props) => {
   const args = options ? options : defaults;
 
   const updateValue = (key, updatedValue) => {
-    value[key] = updatedValue;
-    onChange(value);
+    const valueObj = typeof value !== "object" ? {} : value;
+    valueObj[key] = updatedValue;
+    onChange(valueObj);
   };
 
   const renderBox = () => {

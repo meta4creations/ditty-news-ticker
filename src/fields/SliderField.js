@@ -8,8 +8,8 @@ const SliderField = (props) => {
   return (
     <BaseField {...props}>
       <RangeControl
-        value={value}
-        onChange={(updatedValue) => onChange(updatedValue)}
+        value={Number(value)}
+        onChange={(updatedValue) => onChange(String(updatedValue))}
         min={min}
         max={max}
         step={step}

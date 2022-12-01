@@ -178,7 +178,7 @@ window.dittyHooks.addFilter(
 );
 
 /**
- * Add the ticker fields
+ * Additional item style fields
  */
 window.dittyHooks.addFilter(
   "dittyDisplaySettingsStylesItemFields",

@@ -1,19 +1,11 @@
-.ditty-editor__panel--displayEdit {
-  .ditty-displayEdit {
-    &__links {
-      display: flex;
-      gap: 5px;
-      margin-top: 10px;
-    }
-    &__types {
-      padding-top: 20px;
-      .ditty-editor__tabs--cloud {
-        padding: 0;
-        border-bottom: none;
-        .ditty-editor__tab {
-          width: 25%;
-        }
-      }
-    }
+.ditty-popup--displayTypeSelect {
+  .displayTypeSelector {
+    padding: 10px;
+  }
+}
+.displayTypeSelector {
+  .ditty-editor__tab {
+    width: 100px;
+    height: 100px;
   }
 }

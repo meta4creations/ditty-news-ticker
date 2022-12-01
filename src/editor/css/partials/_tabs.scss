@@ -78,12 +78,10 @@
 }
 .ditty-editor__tabs--cloud {
   gap: 5px;
-  padding: 5px;
   flex-wrap: wrap;
   height: auto;
   background: #fff;
   color: $dark_gray;
-  border-bottom: 1px solid #ccc;
   .ditty-editor__tab {
     width: calc(25% - 5px);
     height: 60px;

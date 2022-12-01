@@ -1,3 +1,5 @@
+import { __ } from "@wordpress/i18n";
+
 /**
  * Return easing options
  * @returns array
@@ -45,6 +47,17 @@ const getEaseOptions = () => {
   return easeObject;
 };
 export const easeOptions = getEaseOptions();
+
+function getSliderTransitions() {
+  return {
+    fade: __("Fade", "ditty-news-ticker"),
+    slideLeft: __("Slide Left", "ditty-news-ticker"),
+    slideRight: __("Slide Right", "ditty-news-ticker"),
+    slideDown: __("Slide Down", "ditty-news-ticker"),
+    slideUp: __("Slide Up", "ditty-news-ticker"),
+  };
+}
+export const sliderTransitions = getSliderTransitions();
 
 /**
  * Convert default box controls to custom control keys

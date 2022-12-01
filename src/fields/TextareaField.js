@@ -9,12 +9,11 @@ const TextareaField = (props) => {
       <textarea
         cols={cols}
         rows={rows}
+        defaultValue={value}
         onChange={(e) => {
           onChange(e.target.value);
         }}
-      >
-        {value}
-      </textarea>
+      />
     </BaseField>
   );
 };

@@ -2,13 +2,14 @@ import { __ } from "@wordpress/i18n";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faArrowsLeftRight,
   faList,
   faEllipsis,
   faTabletScreen,
   faSliders,
   faBrush,
   faHeading,
-} from "@fortawesome/pro-regular-svg-icons";
+} from "@fortawesome/pro-light-svg-icons";
 import { migrateDisplayTypes } from "./migrate";
 
 /**
@@ -38,7 +39,8 @@ export const getDisplayTypes = () => {
       description: __("Display items in a static list.", "ditty-news-ticker"),
       settings: {
         general: true,
-        title: true,
+        //title: true,
+        navigation: ["arrows", "bullets"],
         styles: ["container", "content", "page", "item"],
       },
     },
@@ -134,6 +136,9 @@ export const getDisplayTypeSettings = (display) => {
         break;
       case "title":
         fieldGroups.push(displaySettingsTitle(displayTypeObject.id));
+        break;
+      case "navigation":
+        fieldGroups.push(displaySettingsNavigation(displayTypeObject.id));
         break;
       case "styles":
         fieldGroups.push(
@@ -359,6 +364,215 @@ const displaySettingsTitle = (displayType) => {
       ],
       displayType
     ),
+  };
+};
+
+const displaySettingsNavigation = (
+  displayType,
+  groups = ["arrows", "bullets"]
+) => {
+  return {
+    id: "navigation",
+    label: __("Navigation", "ditty-news-ticker"),
+    name: __("Navigation Settings", "ditty-news-ticker"),
+    desc: __(
+      `Set the navigation settings of the ${displayType}.`,
+      "ditty-news-ticker"
+    ),
+    icon: <FontAwesomeIcon icon={faArrowsLeftRight} />,
+    fields: groups.reduce((currentFields, group) => {
+      switch (group) {
+        case "arrows":
+          return currentFields.concat([
+            {
+              type: "group",
+              name: __("Arrow Settings", "ditty-news-ticker"),
+              desc: __(
+                "Configure the arrow navigation settings.",
+                "ditty-news-ticker"
+              ),
+              fields: window.dittyHooks.applyFilters(
+                "dittyDisplaySettingsArrowFields",
+                [
+                  {
+                    type: "select",
+                    id: "arrows",
+                    name: __("Arrows", "ditty-news-ticker"),
+                    help: __(
+                      "Set the arrow navigation style",
+                      "ditty-news-ticker"
+                    ),
+                    options: {
+                      none: __("Hide", "ditty-news-ticker"),
+                      style1: __("Show", "ditty-news-ticker"),
+                    },
+                    std: "style1",
+                  },
+                  {
+                    type: "color",
+                    id: "arrowsIconColor",
+                    name: __("Arrows Icon Color", "ditty-news-ticker"),
+                    help: __(
+                      "Add a custom icon color to the arrows",
+                      "ditty-news-ticker"
+                    ),
+                    std: "#777",
+                  },
+                  {
+                    type: "color",
+                    id: "arrowsBgColor",
+                    name: __("Arrows Background Color", "ditty-news-ticker"),
+                    help: __(
+                      "Add a custom background color to the arrows",
+                      "ditty-news-ticker"
+                    ),
+                  },
+                  {
+                    type: "select",
+                    id: "arrowsPosition",
+                    name: __("Arrows Position", "ditty-news-ticker"),
+                    help: __(
+                      "Set the position of the arrows",
+                      "ditty-news-ticker"
+                    ),
+                    options: {
+                      flexStart: __("Top", "ditty-news-ticker"),
+                      center: __("Center", "ditty-news-ticker"),
+                      flexEnd: __("Bottom", "ditty-news-ticker"),
+                    },
+                    std: "center",
+                  },
+                  {
+                    type: "spacing",
+                    id: "arrowsPadding",
+                    name: __("Arrows Padding", "ditty-news-ticker"),
+                    help: __(
+                      "Add padding to the arrows container",
+                      "ditty-news-ticker"
+                    ),
+                  },
+                  {
+                    type: "checkbox",
+                    id: "arrowsStatic",
+                    name: __("Arrows Visibility", "ditty-news-ticker"),
+                    label: __(
+                      "Keep arrows visible at all times",
+                      "ditty-news-ticker"
+                    ),
+                    help: __(
+                      "Keep arrows visible at all times",
+                      "ditty-news-ticker"
+                    ),
+                    std: 1,
+                  },
+                ],
+                displayType
+              ),
+            },
+          ]);
+        case "bullets":
+          return currentFields.concat([
+            {
+              type: "group",
+              name: __("Bullet Settings", "ditty-news-ticker"),
+              desc: __(
+                "Configure the bullet navigation settings.",
+                "ditty-news-ticker"
+              ),
+              fields: window.dittyHooks.applyFilters(
+                "dittyDisplaySettingsBulletFields",
+                [
+                  {
+                    type: "select",
+                    id: "bullets",
+                    name: __("Bullets", "ditty-news-ticker"),
+                    help: __(
+                      "Set the bullet navigation style",
+                      "ditty-news-ticker"
+                    ),
+                    options: {
+                      none: __("Hide", "ditty-news-ticker"),
+                      style1: __("Show", "ditty-news-ticker"),
+                    },
+                    std: "style1",
+                  },
+                  {
+                    type: "color",
+                    id: "bulletsColor",
+                    name: __("Bullets Color", "ditty-news-ticker"),
+                    help: __(
+                      "Add a custom color to the bullets",
+                      "ditty-news-ticker"
+                    ),
+                    std: "#777",
+                  },
+                  {
+                    type: "color",
+                    id: "bulletsColorActive",
+                    name: __("Bullets Active Color", "ditty-news-ticker"),
+                    help: __(
+                      "Add a custom color to the active bullet",
+                      "ditty-news-ticker"
+                    ),
+                    std: "#000",
+                  },
+                  {
+                    type: "select",
+                    id: "bulletsPosition",
+                    name: __("Bullets Position", "ditty-news-ticker"),
+                    help: __(
+                      "Set the position of the bullets",
+                      "ditty-news-ticker"
+                    ),
+                    options: {
+                      topLeft: __("Top Left", "ditty-news-ticker"),
+                      topCenter: __("Top Center", "ditty-news-ticker"),
+                      topRight: __("Top Right", "ditty-news-ticker"),
+                      bottomLeft: __("Bottom Left", "ditty-news-ticker"),
+                      bottomCenter: __("Bottom Center", "ditty-news-ticker"),
+                      bottomRight: __("Bottom Right", "ditty-news-ticker"),
+                    },
+                    std: "bottomCenter",
+                  },
+                  {
+                    type: "slider",
+                    id: "bulletsSpacing",
+                    name: __("Bullets Spacing", "ditty-news-ticker"),
+                    help: __(
+                      "Set the amount of space between bullets (in pixels).",
+                      "ditty-news-ticker"
+                    ),
+                    suffix: "px",
+                    min: 0,
+                    max: 50,
+                    step: 1,
+                    std: "5",
+                  },
+                  {
+                    type: "spacing",
+                    id: "bulletsPadding",
+                    name: __("Bullets Padding", "ditty-news-ticker"),
+                    help: __(
+                      "Add padding to the bullets container",
+                      "ditty-news-ticker"
+                    ),
+                  },
+                ],
+                displayType
+              ),
+            },
+          ]);
+        default:
+          return currentFields.concat(
+            window.dittyHooks.applyFilters(
+              "dittyDisplaySettingsNavigationCustomFields",
+              [],
+              group,
+              displayType
+            )
+          );
+      }
+    }, []),
   };
 };
 

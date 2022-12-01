@@ -2,7 +2,7 @@ export const initializeDitty = (dittyEl, displayType, args) => {
   jQuery(dittyEl)["ditty_" + displayType](args);
 };
 
-export const setDittyDisplayTemplate = (dittyEl, display, prevDisplay) => {
+export const updateDittyDisplayTemplate = (dittyEl, display, prevDisplay) => {
   if (prevDisplay.type === display.type) {
     dittyEl["_ditty_" + display.type].options(display.settings);
   } else {

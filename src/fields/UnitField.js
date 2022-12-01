@@ -1,7 +1,5 @@
 import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
 import BaseField from "./BaseField";
-import { arrayMove } from "react-sortable-hoc";
 
 const UnitField = (props) => {
   const { placeholder, value, onChange } = props;
@@ -63,7 +61,6 @@ const UnitField = (props) => {
     } else {
       return value;
     }
-    return "";
   };
 
   const updateInputValue = (val) => {
