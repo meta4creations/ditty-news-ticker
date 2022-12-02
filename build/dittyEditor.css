@@ -117,15 +117,22 @@
 .ditty-icon-block__icon svg {
   width: 40%;
   height: 40%;
+  min-width: 15px;
+  min-height: 15px;
+  max-width: 25px;
+  max-height: 25px;
 }
-.ditty-icon-block h1,
-.ditty-icon-block h2,
-.ditty-icon-block h3,
-.ditty-icon-block h4,
-.ditty-icon-block h5,
-.ditty-icon-block h6,
-.ditty-icon-block p {
+.ditty-icon-block__contents h1,
+.ditty-icon-block__contents h2,
+.ditty-icon-block__contents h3,
+.ditty-icon-block__contents h4,
+.ditty-icon-block__contents h5,
+.ditty-icon-block__contents h6,
+.ditty-icon-block__contents p {
   margin: 0 0 5px;
+}
+.ditty-icon-block__contents > *:last-child {
+  margin-bottom: 0;
 }
 
 .ditty-icon-button {
@@ -348,7 +355,6 @@
   height: 100%;
 }
 .ditty-editor__panels > .ditty-editor__panel > .ditty-editor__panel__content {
-  padding: 10px;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
@@ -509,39 +515,40 @@
   cursor: grabbing;
 }
 
-.ditty-editor__panel--displays .ditty-list__filters {
-  margin-bottom: 10px;
+.ditty-popup--displayTypeSelect .displayTypeSelector {
+  padding: 10px;
 }
-.ditty-editor__panel--displays .ditty-editor-item {
-  cursor: pointer;
+
+.displayTypeSelector .ditty-editor__tab {
+  width: 100px;
+  height: 100px;
 }
-.ditty-editor__panel--displays .ditty-editor-item__select {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: row;
+
+.displayEditType {
   align-items: center;
-  justify-content: center;
+  margin-bottom: 10px;
+  padding: 5px 15px 5px 5px;
+  background: #1d2327;
+  border-radius: 5px;
+}
+.displayEditType .ditty-icon-block__icon {
   width: 30px;
   height: 30px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  margin-left: 10px;
+  background: #fff;
+  border-radius: 2px;
 }
-.ditty-editor__panel--displays .ditty-editor-item.currentDisplay .ditty-editor-item__select {
+.displayEditType .ditty-icon-block__contents {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  flex: 1;
+}
+.displayEditType .ditty-icon-block__contents h3 {
+  margin-bottom: 0;
+}
+.displayEditType .ditty-icon-block__contents * {
   color: #fff;
-  background: #19bf7c;
-  border-color: #19bf7c;
-}
-
-.ditty-editor__panel--displayTypes .ditty-editor-item__content h3 {
-  margin: 0;
-}
-.ditty-editor__panel--displayTypes .ditty-editor-item__content p {
-  margin: 0;
-}
-
-.ditty-editor__panels > .ditty-editor__panel--displayEdit > .ditty-editor__panel__content {
-  padding: 0;
 }
 
 .ditty-display-template {
@@ -922,15 +929,6 @@
   flex: 0 0 auto;
   padding: 20px;
   border-top: 1px solid;
-}
-
-.ditty-popup--displayTypeSelect .displayTypeSelector {
-  padding: 10px;
-}
-
-.displayTypeSelector .ditty-editor__tab {
-  width: 100px;
-  height: 100px;
 }
 
 /*# sourceMappingURL=dittyEditor.css.map*/

@@ -68,7 +68,9 @@ const ItemTypes = ({ addItem, cancelItem, editor }) => {
   };
 
   return (
-    <Panel id="itemTypes" header={panelHeader()} content={panelContent()} />
+    <Panel id="itemTypes" header={panelHeader()}>
+      {panelContent()}
+    </Panel>
   );
 };
 export default ItemTypes;

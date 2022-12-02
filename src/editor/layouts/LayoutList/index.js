@@ -49,6 +49,6 @@ const LayoutList = ({ item, editor }) => {
     return <List>{renderItems()}</List>;
   };
 
-  return <Panel id="layouts" content={panelContent()} />;
+  return <Panel id="layouts">{panelContent()}</Panel>;
 };
 export default LayoutList;

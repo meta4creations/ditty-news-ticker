@@ -61,24 +61,13 @@ const PanelSettings = ({ editor }) => {
         "Set a custom background color for the preview area while editing.",
         "ditty-news-ticker"
       ),
-      std: false,
     },
     {
       type: "spacing",
       id: "previewPadding",
       name: __("Preview Padding", "ditty-news-ticker"),
-      std: { left: 0, right: 0, top: 0, bottom: 0 },
     },
   ]);
-
-  const handleFieldUpdate = (field, value) => {
-    if ("title" === field.id) {
-      actions.updateTitle(value);
-    } else {
-      settings[field.id] = value;
-      actions.updateSettings(settings);
-    }
-  };
 
   const renderFields = () => {
     return settingsFields.map((field) => {
@@ -89,12 +78,19 @@ const PanelSettings = ({ editor }) => {
           key={field.id}
           field={field}
           value={value}
-          onFieldUpdate={handleFieldUpdate}
+          updateValue={(field, value) => {
+            if ("title" === field.id) {
+              actions.updateTitle(value);
+            } else {
+              settings[field.id] = value;
+              actions.updateSettings(settings);
+            }
+          }}
         />
       );
     });
   };
 
-  return <Panel id="settings" content={renderFields()} />;
+  return <Panel id="settings">{renderFields()}</Panel>;
 };
 export default PanelSettings;

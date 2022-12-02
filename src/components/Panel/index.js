@@ -10,7 +10,7 @@ const Panel = (props) => {
     currentTabId,
     tabsType,
     tabClick,
-    content,
+    children,
   } = props;
 
   const renderPanelClass = () => {
@@ -29,7 +29,7 @@ const Panel = (props) => {
           type={tabsType ? tabsType : "secondary"}
         />
       )}
-      <div className="ditty-editor__panel__content">{content}</div>
+      <div className="ditty-editor__panel__content">{children}</div>
       {footer && <div className="ditty-editor__panel__footer">{footer}</div>}
     </div>
   );

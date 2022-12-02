@@ -86,6 +86,10 @@ const ItemList = ({ editItem, addItem, editor }) => {
     return <SortableList items={prepareItems()} onSortEnd={handleSortEnd} />;
   };
 
-  return <Panel id="items" header={panelHeader()} content={panelContent()} />;
+  return (
+    <Panel id="items" header={panelHeader()}>
+      {panelContent()}
+    </Panel>
+  );
 };
 export default ItemList;

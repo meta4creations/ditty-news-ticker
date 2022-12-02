@@ -14,7 +14,20 @@ import TextField from "../TextField";
 import TextareaField from "../TextareaField";
 import UnitField from "../UnitField";
 
-const Field = ({ field, value = "", allValues, updateValue }) => {
+const Field = ({ field, value, allValues, updateValue }) => {
+  let confirmedValue = value;
+  if (!confirmedValue) {
+    if (allValues) {
+      confirmedValue = allValues[field.id]
+        ? allValues[field.id]
+        : field.std
+        ? field.std
+        : "";
+    } else {
+      confirmedValue = "";
+    }
+  }
+
   const renderInput = (inputField, inputValue) => {
     switch (inputField.type) {
       case "checkbox":
@@ -175,7 +188,7 @@ const Field = ({ field, value = "", allValues, updateValue }) => {
   };
 
   if (showField(field)) {
-    return renderInput(field, value);
+    return renderInput(field, confirmedValue);
   } else {
     return false;
   }

@@ -7,6 +7,7 @@ import {
   getItemTypeIcon,
   getItemTypeFields,
 } from "../utils/itemTypes";
+import { getDisplayObject } from "../utils/displayTypes";
 
 export const EditorContext = React.createContext();
 EditorContext.displayName = "EditorContext";
@@ -35,7 +36,7 @@ export class EditorProvider extends Component {
     currentDisplay:
       typeof this.initialDisplay === "object"
         ? { ...this.initialDisplay }
-        : this.initialDisplay,
+        : getDisplayObject(this.initialDisplay, [...this.initialDisplays]),
     settings: _.cloneDeep(this.initialSettings),
     currentPanel: "items",
   };
