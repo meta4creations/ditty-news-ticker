@@ -20,7 +20,7 @@
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.05);
   padding: 10px;
-  margin: 0 0 5px;
+  margin: 5px;
   border-radius: 3px;
   overflow: hidden;
   transition: background-color 0.25s ease, border-color 0.25s ease;
@@ -36,6 +36,7 @@
     width: 40px;
     height: 40px;
     background: #ccc;
+    border-radius: 3px;
     margin-right: 10px;
     i,
     svg {

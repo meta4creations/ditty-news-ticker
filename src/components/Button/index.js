@@ -3,6 +3,7 @@ import classnames from "classnames";
 const Button = ({
   children,
   className,
+  disabled,
   icon,
   type,
   isPressed,
@@ -19,7 +20,11 @@ const Button = ({
   });
 
   return (
-    <button className={classes} onClick={onClick}>
+    <button
+      className={classes}
+      onClick={onClick}
+      disabled={disabled ? "disabled" : false}
+    >
       {children}
     </button>
   );

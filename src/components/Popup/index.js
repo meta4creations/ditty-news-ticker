@@ -3,9 +3,17 @@ import Button from "../Button";
 import ButtonGroup from "../ButtonGroup";
 import Link from "../Link";
 
-const Popup = (props) => {
-  const { id, header, submitLabel, footer, children, onClose, onSubmit } =
-    props;
+const Popup = ({
+  id,
+  header,
+  submitLabel,
+  submitDisabled,
+  footer,
+  children,
+  onClose,
+  onSubmit,
+}) => {
+  console.log("submitDisabled", submitDisabled);
 
   const getPopupClass = () => {
     let className = "ditty-popup";
@@ -27,7 +35,11 @@ const Popup = (props) => {
           <div className="ditty-popup__footer">
             <ButtonGroup justify="flex-end" gap="20px">
               <Link onClick={onClose}>{__("Cancel", "ditty-news-ticker")}</Link>
-              <Button type="primary" onClick={onSubmit}>
+              <Button
+                type="primary"
+                onClick={onSubmit}
+                disabled={submitDisabled}
+              >
                 {submitLabel ? submitLabel : __("Submit", "ditty-news-ticker")}
               </Button>
             </ButtonGroup>

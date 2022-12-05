@@ -6,7 +6,7 @@ const TextField = (props) => {
   const inputType = type ? type : "text";
 
   return (
-    <BaseField {...props}>
+    <BaseField {...props} type={inputType}>
       <input
         type={inputType}
         value={value}

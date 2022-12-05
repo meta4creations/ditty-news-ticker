@@ -9,6 +9,19 @@
     height: 100px;
   }
 }
+.ditty-popup--displayTemplateSelector {
+  .ditty-filter {
+    margin-top: 10px;
+  }
+  .ditty-editor-item {
+    cursor: pointer;
+    &__content {
+      h3 {
+        margin: 0;
+      }
+    }
+  }
+}
 
 .displayEditType {
   align-items: center;

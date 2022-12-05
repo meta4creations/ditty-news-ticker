@@ -23,6 +23,10 @@
     color: #fff;
     background: $green;
   }
+  &:disabled {
+    cursor: default;
+    opacity: 0.6;
+  }
 }
 
 // Button Group
@@ -39,6 +43,17 @@
     .ditty-button {
       border-radius: 0;
     }
+  }
+}
+
+// Filter
+.ditty-filter {
+  &__search {
+    margin-bottom: 10px;
+  }
+  .ditty-button.active {
+    color: #fff;
+    background: $green;
   }
 }
 
@@ -164,7 +179,7 @@
     border-radius: 3px;
   }
   &__header {
-    padding: 15px;
+    padding: 10px;
     border-bottom: 1px solid $border_color_light;
   }
   &__body {

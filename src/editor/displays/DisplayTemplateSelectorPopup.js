@@ -1,11 +1,15 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCubes } from "@fortawesome/pro-light-svg-icons";
+import { faTabletScreen } from "@fortawesome/pro-light-svg-icons";
 
 import { updateDittyDisplayTemplate } from "../../services/dittyService";
-import { IconBlock, List, ListItem, Popup } from "../../components";
-import { getDisplayTypeIcon } from "../utils/displayTypes";
+import { IconBlock, Filter, List, ListItem, Popup } from "../../components";
+import {
+  displayTypes,
+  getDisplayTypeIcon,
+  getDisplayTypeLabel,
+} from "../utils/displayTypes";
 
 const DisplayTemplateSelectorPopup = ({
   activeTemplate,
@@ -15,6 +19,7 @@ const DisplayTemplateSelectorPopup = ({
   dittyEl,
 }) => {
   const [currentTemplate, setCurrentTemplate] = useState(activeTemplate);
+  const [filteredTemplates, setFilteredTemplates] = useState(templates);
 
   const elements = [
     {
@@ -24,25 +29,22 @@ const DisplayTemplateSelectorPopup = ({
       },
     },
     {
-      id: "label",
-      content: "test",
+      id: "content",
       content: (template) => {
         return (
           <>
-            <span>{template.title}</span>
-            <span>{`ID: ${template.id}`}</span>
+            <h3>{template.title}</h3>
+            <span>{getDisplayTypeLabel(template)}</span>
           </>
         );
       },
     },
   ];
 
-  return (
-    <Popup
-      id="displayTemplateSelector"
-      submitLabel={__("Use Template", "ditty-news-ticker")}
-      header={
-        <IconBlock icon={<FontAwesomeIcon icon={faCubes} />}>
+  const popupHeader = () => {
+    return (
+      <>
+        <IconBlock icon={<FontAwesomeIcon icon={faTabletScreen} />}>
           <h2>{__("Choose a saved Display template", "ditty-news-ticker")}</h2>
           <p>
             {__(
@@ -51,19 +53,29 @@ const DisplayTemplateSelectorPopup = ({
             )}
           </p>
         </IconBlock>
-      }
-      onClose={() => {
-        if (activeTemplate.id !== currentTemplate.id && dittyEl) {
-          updateDittyDisplayTemplate(dittyEl, activeTemplate);
-        }
-        onClose();
-      }}
-      onSubmit={() => {
-        onUpdate(currentTemplate);
-      }}
-    >
-      <List>
-        {templates.map((template) => (
+        <Filter
+          data={templates}
+          filters={displayTypes}
+          filterKey="type"
+          searchKey="title"
+          searchLabel={__("Search Templates", "ditty-news-ticker")}
+          onUpdate={(data) => {
+            console.log(data);
+            setFilteredTemplates(data);
+          }}
+        />
+      </>
+    );
+  };
+
+  /**
+   * Render the display items
+   * @returns array
+   */
+  const renderTemplates = () => {
+    return filteredTemplates.length ? (
+      filteredTemplates.map((template) => {
+        return (
           <ListItem
             key={template.id}
             data={template}
@@ -79,8 +91,36 @@ const DisplayTemplateSelectorPopup = ({
               setCurrentTemplate(data);
             }}
           />
-        ))}
-      </List>
+        );
+      })
+    ) : (
+      <ListItem
+        elements={[
+          {
+            id: "label",
+            content: __("Sorry, no resultes", "ditty-news-ticker"),
+          },
+        ]}
+      />
+    );
+  };
+
+  return (
+    <Popup
+      id="displayTemplateSelector"
+      submitLabel={__("Use Template", "ditty-news-ticker")}
+      header={popupHeader()}
+      onClose={() => {
+        if (activeTemplate.id !== currentTemplate.id && dittyEl) {
+          updateDittyDisplayTemplate(dittyEl, activeTemplate);
+        }
+        onClose();
+      }}
+      onSubmit={() => {
+        onUpdate(currentTemplate);
+      }}
+    >
+      <List>{renderTemplates()}</List>
     </Popup>
   );
 };

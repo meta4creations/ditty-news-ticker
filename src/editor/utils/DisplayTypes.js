@@ -16,7 +16,7 @@ import { migrateDisplayTypes } from "./migrate";
  * Return all display types
  * @returns array
  */
-export const getDisplayTypes = () => {
+const getDisplayTypes = () => {
   const displayTypes = window.dittyHooks.applyFilters("dittyDisplayTypes", [
     {
       id: "ticker",
@@ -54,6 +54,7 @@ export const getDisplayTypes = () => {
   );
   return sortedDisplayTypes;
 };
+export const displayTypes = getDisplayTypes();
 
 /**
  * Get the current display object

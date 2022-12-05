@@ -2,7 +2,7 @@ import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import { updateDittyDisplayType } from "../../services/dittyService";
 import { IconBlock, Popup, Tabs } from "../../components";
-import { getDisplayTypes, getDisplayTypeObject } from "../utils/displayTypes";
+import { displayTypes, getDisplayTypeObject } from "../utils/displayTypes";
 
 const DisplayTypeSelectorPopup = ({
   activeType,
@@ -10,7 +10,6 @@ const DisplayTypeSelectorPopup = ({
   onUpdate,
   dittyEl,
 }) => {
-  const displayTypes = getDisplayTypes();
   const [currentType, setCurrentType] = useState(activeType);
   const displayTypeObject = getDisplayTypeObject(currentType);
 

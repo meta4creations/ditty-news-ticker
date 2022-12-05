@@ -1,7 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import { useContext } from "@wordpress/element";
 import { Panel } from "../components";
-import { Field } from "../fields";
+import { Field, FieldList } from "../fields";
 
 const PanelSettings = ({ editor }) => {
   const { id, title, settings, actions } = useContext(editor);
@@ -91,6 +91,10 @@ const PanelSettings = ({ editor }) => {
     });
   };
 
-  return <Panel id="settings">{renderFields()}</Panel>;
+  return (
+    <Panel id="settings">
+      <FieldList>{renderFields()}</FieldList>
+    </Panel>
+  );
 };
 export default PanelSettings;

@@ -1,6 +1,10 @@
+.ditty-field-list {
+  .ditty-field:not(.ditty-field--group) {
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+}
 .ditty-field {
-  padding: 15px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   &__heading {
     display: flex;
   }
@@ -88,8 +92,6 @@
 
 // Group
 .ditty-field--group {
-  padding: 0;
-  border-bottom: none;
   > .ditty-field__heading {
     display: flex;
     align-items: center;

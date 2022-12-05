@@ -2,15 +2,16 @@ import { __ } from "@wordpress/i18n";
 import { useState, useContext } from "@wordpress/element";
 import { updateDisplayOptions } from "../services/dittyService";
 import { Button, ButtonGroup, IconBlock, Link, Panel } from "../components";
-import { Field } from "../fields";
+import { Field, FieldList } from "../fields";
 import {
   getDisplayTypeObject,
   getDisplayTypeSettings,
 } from "./utils/displayTypes";
 import { EditorContext } from "./context";
 import {
-  DisplayTypeSelectorPopup,
+  DisplayTemplateSavePopup,
   DisplayTemplateSelectorPopup,
+  DisplayTypeSelectorPopup,
 } from "./displays";
 
 const PanelDisplays = () => {
@@ -45,22 +46,22 @@ const PanelDisplays = () => {
    */
   const renderPopup = () => {
     switch (popupStatus) {
-      case "displayTypeSelect":
+      case "displayTemplateSave":
         return (
-          <DisplayTypeSelectorPopup
-            activeType={currentDisplay.type}
-            dittyEl={dittyEl}
+          <DisplayTemplateSavePopup
+            activeTemplate={currentDisplay}
+            templates={displays}
             onClose={() => {
               setPopupStatus(false);
             }}
-            onUpdate={(updatedType) => {
-              setPopupStatus(false);
-              if (currentDisplay.type === updatedType) {
-                return false;
-              }
-              const updatedDisplay = { ...currentDisplay };
-              updatedDisplay.type = updatedType;
-              actions.setCurrentDisplay(updatedDisplay);
+            onUpdate={(updatedTemplate) => {
+              console.log("onUpdate", updatedTemplate);
+              // setStatus(false);
+              // setPopupStatus(false);
+              // if (currentDisplay.id === updatedTemplate.id) {
+              //   return false;
+              // }
+              // actions.setCurrentDisplay(updatedTemplate);
             }}
           />
         );
@@ -80,6 +81,25 @@ const PanelDisplays = () => {
                 return false;
               }
               actions.setCurrentDisplay(updatedTemplate);
+            }}
+          />
+        );
+      case "displayTypeSelect":
+        return (
+          <DisplayTypeSelectorPopup
+            activeType={currentDisplay.type}
+            dittyEl={dittyEl}
+            onClose={() => {
+              setPopupStatus(false);
+            }}
+            onUpdate={(updatedType) => {
+              setPopupStatus(false);
+              if (currentDisplay.type === updatedType) {
+                return false;
+              }
+              const updatedDisplay = { ...currentDisplay };
+              updatedDisplay.type = updatedType;
+              actions.setCurrentDisplay(updatedDisplay);
             }}
           />
         );
@@ -126,7 +146,7 @@ const PanelDisplays = () => {
         </Button>
         <Button
           onClick={() => {
-            console.log("Save as template");
+            setPopupStatus("displayTemplateSave");
           }}
         >
           {__("Save as Template", "ditty-news-ticker")}
@@ -179,16 +199,20 @@ const PanelDisplays = () => {
       }
 
       const fieldGroup = fieldGroups[index];
-      return fieldGroup.fields.map((field, index) => {
-        return (
-          <Field
-            key={field.id ? field.id : index}
-            field={field}
-            allValues={currentDisplay.settings}
-            updateValue={handleUpdateValue}
-          />
-        );
-      });
+      return (
+        <FieldList>
+          {fieldGroup.fields.map((field, index) => {
+            return (
+              <Field
+                key={field.id ? field.id : index}
+                field={field}
+                allValues={currentDisplay.settings}
+                updateValue={handleUpdateValue}
+              />
+            );
+          })}
+        </FieldList>
+      );
     }
   };
 

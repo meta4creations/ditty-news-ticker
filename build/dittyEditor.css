@@ -82,6 +82,10 @@
   color: #fff;
   background: #19bf7c;
 }
+.ditty-button:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
 
 .ditty-button-group {
   display: flex;
@@ -97,6 +101,14 @@
 }
 .ditty-button-group.is-tabbed .ditty-button {
   border-radius: 0;
+}
+
+.ditty-filter__search {
+  margin-bottom: 10px;
+}
+.ditty-filter .ditty-button.active {
+  color: #fff;
+  background: #19bf7c;
 }
 
 .ditty-icon-block {
@@ -214,7 +226,7 @@
   border-radius: 3px;
 }
 .ditty-popup__header {
-  padding: 15px;
+  padding: 10px;
   border-bottom: 1px solid #ccc;
 }
 .ditty-popup__body {
@@ -455,7 +467,7 @@
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.05);
   padding: 10px;
-  margin: 0 0 5px;
+  margin: 5px;
   border-radius: 3px;
   overflow: hidden;
   transition: background-color 0.25s ease, border-color 0.25s ease;
@@ -472,6 +484,7 @@
   width: 40px;
   height: 40px;
   background: #ccc;
+  border-radius: 3px;
   margin-right: 10px;
 }
 .ditty-editor-item__icon i,
@@ -522,6 +535,16 @@
 .displayTypeSelector .ditty-editor__tab {
   width: 100px;
   height: 100px;
+}
+
+.ditty-popup--displayTemplateSelector .ditty-filter {
+  margin-top: 10px;
+}
+.ditty-popup--displayTemplateSelector .ditty-editor-item {
+  cursor: pointer;
+}
+.ditty-popup--displayTemplateSelector .ditty-editor-item__content h3 {
+  margin: 0;
 }
 
 .displayEditType {
@@ -599,10 +622,11 @@
   margin: 0;
 }
 
-.ditty-field {
+.ditty-field-list .ditty-field:not(.ditty-field--group) {
   padding: 15px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
+
 .ditty-field__heading {
   display: flex;
 }
@@ -684,10 +708,6 @@
   top: calc(100% + 5px);
 }
 
-.ditty-field--group {
-  padding: 0;
-  border-bottom: none;
-}
 .ditty-field--group > .ditty-field__heading {
   display: flex;
   align-items: center;
