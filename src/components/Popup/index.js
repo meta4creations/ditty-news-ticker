@@ -1,4 +1,6 @@
 import { __ } from "@wordpress/i18n";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLoader } from "@fortawesome/pro-light-svg-icons";
 import Button from "../Button";
 import ButtonGroup from "../ButtonGroup";
 import Link from "../Link";
@@ -8,13 +10,11 @@ const Popup = ({
   header,
   submitLabel,
   submitDisabled,
-  footer,
   children,
   onClose,
   onSubmit,
+  showSpinner,
 }) => {
-  console.log("submitDisabled", submitDisabled);
-
   const getPopupClass = () => {
     let className = "ditty-popup";
     if (id) {
@@ -40,7 +40,14 @@ const Popup = ({
                 onClick={onSubmit}
                 disabled={submitDisabled}
               >
-                {submitLabel ? submitLabel : __("Submit", "ditty-news-ticker")}
+                {showSpinner && (
+                  <FontAwesomeIcon icon={faLoader} className="fa-spin" />
+                )}
+                <span>
+                  {submitLabel
+                    ? submitLabel
+                    : __("Submit", "ditty-news-ticker")}
+                </span>
               </Button>
             </ButtonGroup>
           </div>

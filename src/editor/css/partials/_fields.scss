@@ -1,5 +1,5 @@
 .ditty-field-list {
-  .ditty-field:not(.ditty-field--group) {
+  .ditty-field {
     padding: 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   }
@@ -92,6 +92,10 @@
 
 // Group
 .ditty-field--group {
+  .ditty-field-list & {
+    padding: 0;
+    border-bottom: none;
+  }
   > .ditty-field__heading {
     display: flex;
     align-items: center;

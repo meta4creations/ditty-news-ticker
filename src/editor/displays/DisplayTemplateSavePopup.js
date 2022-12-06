@@ -2,14 +2,21 @@ import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTabletScreen } from "@fortawesome/pro-light-svg-icons";
-
-import { IconBlock, Filter, List, ListItem, Popup } from "../../components";
+import { saveDisplay } from "../../services/httpService";
+import {
+  IconBlock,
+  Filter,
+  List,
+  ListItem,
+  Popup,
+  Tabs,
+} from "../../components";
 import {
   displayTypes,
   getDisplayTypeIcon,
-  getDisplayTypeLabel,
+  getDisplayTypeDescription,
 } from "../utils/displayTypes";
-import { TextField } from "../../fields";
+import { FieldList, TextField, TextareaField } from "../../fields";
 
 const DisplayTemplateSavePopup = ({
   activeTemplate,
@@ -17,9 +24,16 @@ const DisplayTemplateSavePopup = ({
   onClose,
   onUpdate,
 }) => {
-  const [templateName, setTemplateName] = useState("");
+  const [templateName, setTemplateName] = useState(
+    activeTemplate.title ? activeTemplate.title : ""
+  );
+  const [templateDescription, setTemplateDescription] = useState(
+    activeTemplate.description ? activeTemplate.description : ""
+  );
   const [currentTemplate, setCurrentTemplate] = useState(activeTemplate);
   const [filteredTemplates, setFilteredTemplates] = useState(templates);
+  const [currentTabId, setCurrentTabId] = useState("new");
+  const [showSpinner, setShowSpinner] = useState(false);
 
   const elements = [
     {
@@ -34,7 +48,7 @@ const DisplayTemplateSavePopup = ({
         return (
           <>
             <h3>{template.title}</h3>
-            <span>{getDisplayTypeLabel(template)}</span>
+            <span>{getDisplayTypeDescription(template)}</span>
           </>
         );
       },
@@ -44,7 +58,10 @@ const DisplayTemplateSavePopup = ({
   const popupHeader = () => {
     return (
       <>
-        <IconBlock icon={<FontAwesomeIcon icon={faTabletScreen} />}>
+        <IconBlock
+          icon={<FontAwesomeIcon icon={faTabletScreen} />}
+          style={{ marginBottom: "10px" }}
+        >
           <h2>{__("Save as Template", "ditty-news-ticker")}</h2>
           <p>
             {__(
@@ -53,23 +70,33 @@ const DisplayTemplateSavePopup = ({
             )}
           </p>
         </IconBlock>
-        <TextField
-          id="dittyTemplateName"
-          name={__("Template Name", "ditty-news-ticker")}
-          value={templateName}
-          onChange={(value) => setTemplateName(value)}
+        <Tabs
+          tabs={[
+            {
+              id: "new",
+              label: __("New Template", "ditty-news-ticker"),
+            },
+            {
+              id: "existing",
+              label: __("Existing Template", "ditty-news-ticker"),
+            },
+          ]}
+          currentTabId={currentTabId}
+          tabClick={(tab) => setCurrentTabId(tab.id)}
+          type="secondary"
         />
-        {/* <Filter
-          data={templates}
-          filters={displayTypes}
-          filterKey="type"
-          searchKey="title"
-          searchLabel={__("Search Templates", "ditty-news-ticker")}
-          onUpdate={(data) => {
-            console.log(data);
-            setFilteredTemplates(data);
-          }}
-        /> */}
+        {"existing" === currentTabId && (
+          <Filter
+            data={templates}
+            filters={displayTypes}
+            filterKey="type"
+            searchKey="title"
+            searchLabel={__("Search Templates", "ditty-news-ticker")}
+            onUpdate={(data) => {
+              setFilteredTemplates(data);
+            }}
+          />
+        )}
       </>
     );
   };
@@ -88,7 +115,11 @@ const DisplayTemplateSavePopup = ({
             elements={elements}
             isActive={currentTemplate === template}
             onItemClick={(e, data) => {
-              setCurrentTemplate(data);
+              if (currentTemplate.id && currentTemplate.id === data.id) {
+                setCurrentTemplate(activeTemplate);
+              } else {
+                setCurrentTemplate(data);
+              }
             }}
           />
         );
@@ -105,20 +136,77 @@ const DisplayTemplateSavePopup = ({
     );
   };
 
+  const handleApiData = (apiData) => {
+    if (apiData.errors.length) {
+    } else {
+      onUpdate({ ...currentTemplate, ...apiData.updates });
+    }
+  };
+
+  const handleSaveDisplay = async () => {
+    const data =
+      "existing" === currentTabId
+        ? {
+            display: {
+              ...currentTemplate,
+              type: activeTemplate.type,
+              settings: activeTemplate.settings,
+              updated: Date.now(),
+            },
+          }
+        : {
+            title: templateName,
+            description: templateDescription,
+            display: currentTemplate,
+          };
+    setShowSpinner(true);
+    try {
+      await saveDisplay(data, handleApiData);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404) {
+      }
+      setShowSpinner(false);
+    }
+  };
+
   return (
     <Popup
       id="displayTemplateSelector"
-      submitLabel={__("Create & Save Template", "ditty-news-ticker")}
-      submitDisabled={!templateName || templateName === ""}
+      submitLabel={
+        "existing" === currentTabId
+          ? __("Overwrite Template", "ditty-news-ticker")
+          : __("Create Template", "ditty-news-ticker")
+      }
+      submitDisabled={
+        ("existing" === currentTabId && !currentTemplate.id) ||
+        ("new" === currentTabId && "" === templateName)
+      }
       header={popupHeader()}
+      showSpinner={showSpinner}
       onClose={() => {
         onClose();
       }}
-      onSubmit={() => {
-        onUpdate(currentTemplate);
-      }}
+      onSubmit={handleSaveDisplay}
     >
-      <List>{renderTemplates()}</List>
+      {"new" === currentTabId ? (
+        <FieldList>
+          <TextField
+            id="dittyTemplateName"
+            name={__("Template Name", "ditty-news-ticker")}
+            value={templateName}
+            onChange={(value) => setTemplateName(value)}
+          />
+          <TextareaField
+            id="dittyTemplateDescription"
+            name={__("Template Description", "ditty-news-ticker")}
+            value={templateDescription}
+            onChange={(value) => setTemplateDescription(value)}
+            style={{ marginTop: "10px" }}
+          />
+        </FieldList>
+      ) : (
+        <List>{renderTemplates()}</List>
+      )}
     </Popup>
   );
 };

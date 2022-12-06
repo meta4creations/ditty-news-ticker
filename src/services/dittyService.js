@@ -9,9 +9,9 @@ export const updateDittyDisplayTemplate = (dittyEl, display) => {
   } else {
     const oldDitty = dittyEl["_ditty_" + prevType];
     const args = display.settings;
-    args["id"] = oldDitty.options("id");
+    args["id"] = display.id;
     args["display"] = display.type;
-    args["title"] = oldDitty.options("title");
+    args["title"] = display.title;
     args["status"] = oldDitty.options("status");
     args["items"] = oldDitty.options("items");
 

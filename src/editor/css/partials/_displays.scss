@@ -10,8 +10,30 @@
   }
 }
 .ditty-popup--displayTemplateSelector {
+  .ditty-popup__header {
+    padding: 0;
+    .ditty-icon-block {
+      padding: 10px;
+    }
+  }
+  .ditty-editor__tabs {
+    border-top: 1px solid #ccc;
+    border-bottom: none;
+    .ditty-editor__tab {
+      &--active {
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #fff;
+        margin-bottom: -1px;
+      }
+      &:first-child.ditty-editor__tab--active {
+        border-left: none;
+      }
+    }
+  }
   .ditty-filter {
-    margin-top: 10px;
+    border-top: 1px solid #ccc;
+    padding: 15px;
   }
   .ditty-editor-item {
     cursor: pointer;

@@ -15,7 +15,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 62px;
   font-weight: 600;
   padding: 0 15px;
   text-align: center;
@@ -33,17 +32,8 @@
     }
   }
   &--active {
-    width: auto;
     color: $green;
-    padding-left: 30px;
-    padding-right: 30px;
     background-color: #fff;
-    .ditty-editor__tab__label {
-      display: block;
-    }
-    .ditty-editor__tab__icon {
-      display: none;
-    }
   }
   &__icon {
     flex: 0 0 auto;
@@ -52,15 +42,18 @@
   }
   &__label {
     flex: 1;
-    display: none;
   }
 }
 .ditty-editor__tabs--primary {
   height: 60px;
   background: $dark_gray;
   .ditty-editor__tab {
+    width: 62px;
     color: rgba(255, 255, 255, 0.8);
     background: $dark_gray;
+    &__label {
+      display: none;
+    }
     &:hover {
       &:not(.ditty-editor__tab--active) {
         color: #fff;
@@ -68,12 +61,22 @@
       }
     }
     &--active {
+      width: auto;
       color: #fff;
       background-color: $green;
+      padding-left: 30px;
+      padding-right: 30px;
+      .ditty-editor__tab__label {
+        display: block;
+      }
+      .ditty-editor__tab__icon {
+        display: none;
+      }
     }
   }
 }
 .ditty-editor__tabs--secondary {
+  background: #f2f3f5;
   border-bottom: 1px solid #ccc;
 }
 .ditty-editor__tabs--cloud {

@@ -5,14 +5,13 @@ const Tabs = ({ className, tabs, type, currentTabId, tabClick }) => {
   /**
    * Render a tabs class name
    * @param {object} tab
-   * @returns className
+   * @returns buttonClasses
    */
   const renderButtonClass = (tab) => {
-    let className = "ditty-editor__tab";
-    if (tab.id === currentTabId) {
-      className += " ditty-editor__tab--active";
-    }
-    return className;
+    const buttonClasses = classnames("ditty-editor__tab", {
+      "ditty-editor__tab--active": tab.id === currentTabId,
+    });
+    return buttonClasses;
   };
 
   /**
@@ -23,14 +22,19 @@ const Tabs = ({ className, tabs, type, currentTabId, tabClick }) => {
   const renderButtonContent = (tab) => {
     return (
       <>
-        <span className="ditty-editor__tab__icon">{tab.icon}</span>
-        <span className="ditty-editor__tab__label">{tab.label}</span>
+        {tab.icon && (
+          <span className="ditty-editor__tab__icon">{tab.icon}</span>
+        )}
+        {tab.label && (
+          <span className="ditty-editor__tab__label">{tab.label}</span>
+        )}
       </>
     );
   };
 
   const classes = classnames("ditty-editor__tabs", className, {
     "ditty-editor__tabs--primary": type === "primary",
+    "ditty-editor__tabs--secondary": type === "secondary",
     "ditty-editor__tabs--cloud": type === "cloud",
   });
 

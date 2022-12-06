@@ -4,9 +4,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/pro-solid-svg-icons";
 import classnames from "classnames";
 
-const BaseField = (props) => {
-  const { type, id, name, desc, help, icon, inline, prefix, suffix, children } =
-    props;
+const BaseField = ({
+  type,
+  id,
+  name,
+  desc,
+  help,
+  icon,
+  inline,
+  prefix,
+  suffix,
+  className,
+  style,
+  children,
+}) => {
   const [displayHelp, setDisplayHelp] = useState(false);
 
   const toggleHelp = () => {
@@ -17,20 +28,25 @@ const BaseField = (props) => {
     }
   };
 
-  const fieldClasses = classnames("ditty-field", `ditty-field--${type}`, {
-    "ditty-field--help": inline,
-  });
+  const fieldClasses = classnames(
+    "ditty-field",
+    `ditty-field--${type}`,
+    className,
+    {
+      "ditty-field--help": displayHelp,
+    }
+  );
 
   const inputClasses = classnames(
     "ditty-field__input",
     `ditty-field__input--${type}`,
     {
-      "ditty-field__input--inline": help && displayHelp,
+      "ditty-field__input--inline": inline,
     }
   );
 
   return (
-    <div className={fieldClasses} key={id}>
+    <div className={fieldClasses} key={id} style={style}>
       {(name || help || icon) && (
         <div className="ditty-field__heading">
           {icon && <div className="ditty-field__icon">{icon}</div>}

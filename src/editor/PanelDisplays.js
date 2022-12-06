@@ -55,13 +55,10 @@ const PanelDisplays = () => {
               setPopupStatus(false);
             }}
             onUpdate={(updatedTemplate) => {
-              console.log("onUpdate", updatedTemplate);
-              // setStatus(false);
-              // setPopupStatus(false);
-              // if (currentDisplay.id === updatedTemplate.id) {
-              //   return false;
-              // }
-              // actions.setCurrentDisplay(updatedTemplate);
+              setStatus(false);
+              setPopupStatus(false);
+              actions.updateDisplay(updatedTemplate);
+              actions.setCurrentDisplay(updatedTemplate);
             }}
           />
         );
@@ -109,8 +106,11 @@ const PanelDisplays = () => {
   };
 
   const templateButtons = () => {
-    return "editDisplay" === status ? (
+    return (
       <>
+        <Button onClick={() => setPopupStatus("displayTemplateSelect")}>
+          {__("Change Template", "ditty-news-ticker")}
+        </Button>
         <Button
           onClick={() => {
             const customDisplay = {
@@ -118,21 +118,10 @@ const PanelDisplays = () => {
               settings: currentDisplay.settings,
             };
             actions.setCurrentDisplay(customDisplay);
+            setStatus("editDisplay");
           }}
         >
-          {__("Convert to Custom Display", "ditty-news-ticker")}
-        </Button>
-        <Link onClick={() => setStatus(false)}>
-          {__("Cancel", "ditty-news-ticker")}
-        </Link>
-      </>
-    ) : (
-      <>
-        <Button onClick={() => setPopupStatus("displayTemplateSelect")}>
-          {__("Change Template", "ditty-news-ticker")}
-        </Button>
-        <Button onClick={() => setStatus("editDisplay")}>
-          {__("Edit Template", "ditty-news-ticker")}
+          {__("Customize", "ditty-news-ticker")}
         </Button>
       </>
     );

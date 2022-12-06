@@ -26,18 +26,19 @@ export function saveDitty(data) {
     console.log("res", res);
     console.log("data", res.data);
   });
+}
 
-  // const apiURL = `${apiEndpoint}/save`;
-  // console.log("apiURL", apiURL);
-  // const apiData = {
-  //   security: dittyEditorVars.security,
-  //   id: id,
-  //   items: items,
-  //   deletedItems: deletedItems,
-  //   display: display,
-  // };
-  // axios.post(apiURL, { apiData }).then((res) => {
-  //   console.log("res", res);
-  //   console.log("data", res.data);
-  // });
+export function saveDisplay(data, onComplete) {
+  const apiURL = `${apiEndpoint}/saveDisplay`;
+
+  const apiData = {
+    security: dittyEditorVars.security,
+    userId: dittyEditorVars.userId,
+    ...data,
+  };
+  return axios.post(apiURL, { apiData }).then((res) => {
+    //console.log("saveDisplay - res", res);
+    //console.log("data", res.data);
+    onComplete(res.data);
+  });
 }

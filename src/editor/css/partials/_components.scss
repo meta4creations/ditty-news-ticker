@@ -4,6 +4,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  gap: 5px;
   font-size: 14px;
   line-height: 20px;
   font-weight: 500;
@@ -48,12 +49,18 @@
 
 // Filter
 .ditty-filter {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
   &__search {
-    margin-bottom: 10px;
+    flex: 1;
   }
-  .ditty-button.active {
-    color: #fff;
-    background: $green;
+  .ditty-button {
+    height: 36px;
+    &.active {
+      color: #fff;
+      background: $green;
+    }
   }
 }
 
@@ -81,6 +88,7 @@
     }
   }
   &__contents {
+    flex: 1;
     h1,
     h2,
     h3,
@@ -171,8 +179,8 @@
   &__contents {
     position: relative;
     width: 600px;
-    max-width: calc(100% - 60px);
-    max-height: calc(100% - 60px);
+    width: calc(100% - 150px);
+    height: calc(100% - 150px);
     display: flex;
     flex-direction: column;
     background: #fff;
@@ -184,6 +192,8 @@
   }
   &__body {
     flex: 1;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
   }
   &__footer {
     padding: 15px;

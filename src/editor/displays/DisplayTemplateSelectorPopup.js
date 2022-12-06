@@ -8,7 +8,7 @@ import { IconBlock, Filter, List, ListItem, Popup } from "../../components";
 import {
   displayTypes,
   getDisplayTypeIcon,
-  getDisplayTypeLabel,
+  getDisplayTypeDescription,
 } from "../utils/displayTypes";
 
 const DisplayTemplateSelectorPopup = ({
@@ -34,7 +34,7 @@ const DisplayTemplateSelectorPopup = ({
         return (
           <>
             <h3>{template.title}</h3>
-            <span>{getDisplayTypeLabel(template)}</span>
+            <span>{getDisplayTypeDescription(template)}</span>
           </>
         );
       },
@@ -60,7 +60,6 @@ const DisplayTemplateSelectorPopup = ({
           searchKey="title"
           searchLabel={__("Search Templates", "ditty-news-ticker")}
           onUpdate={(data) => {
-            console.log(data);
             setFilteredTemplates(data);
           }}
         />

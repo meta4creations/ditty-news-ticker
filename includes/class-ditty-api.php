@@ -33,10 +33,15 @@ class Ditty_API {
       'callback' 	=> array( $this, 'save_ditty' ),
 			'permission_callback' => array( $this, 'save_ditty_permissions_check' ),
     ) );
+		register_rest_route( 'dittyeditor/v' . $this->version, 'saveDisplay', array(
+      'methods' 	=> 'POST',
+      'callback' 	=> array( $this, 'save_display' ),
+			'permission_callback' => array( $this, 'save_display_permissions_check' ),
+    ) );
 	}
 
 	/**
-	 * Check the permissions of the user
+	 * Check the Ditty permissions of the user
 	 *
 	 * @access public
 	 * @since  3.1
@@ -47,6 +52,22 @@ class Ditty_API {
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
 		if ( ! user_can( $userId, 'edit_dittys' ) ) {
 			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allow to edit Ditty.', 'ditty-news-ticker' ), array( 'status' => 401 ) );
+		}
+		return true;
+	}
+
+	/**
+	 * Check the Display permissions of the user
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function save_display_permissions_check( $request ) {
+		$params = $request->get_params();
+		$apiData = isset( $params['apiData'] ) ? $params['apiData'] : array();
+		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
+		if ( ! user_can( $userId, 'edit_ditty_displays' ) ) {
+			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allow to edit Displays.', 'ditty-news-ticker' ), array( 'status' => 401 ) );
 		}
 		return true;
 	}
@@ -139,6 +160,81 @@ class Ditty_API {
 		$data = array(
 			'id'	=> $id,
 			'user_id' => $userId,
+			'updates' => $updates,
+			'errors'	=> $errors,
+			'aipData'	=> $apiData,
+		);
+
+		return rest_ensure_response( $data );
+	}
+
+	/**
+	 * Save updated Ditty values
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function save_display( $request ) {
+		$params = $request->get_params();
+		if ( ! isset( $params['apiData'] ) ) {
+			return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+		$apiData = $params['apiData'];
+
+		if ( ! isset( $apiData['display'] ) ) {
+			return new WP_Error( 'no_id', __( 'No Display data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
+		$display_title = isset( $apiData['title'] ) ? $apiData['title'] : false;
+		$display_description = isset( $apiData['description'] ) ? $apiData['description'] : false;
+		$display = isset( $apiData['display'] ) ? $apiData['display'] : array();
+		$display_id = isset( $display['id'] ) ? $display['id'] : false;
+		$display_type = isset( $display['type'] ) ? $display['type'] : false;
+		$display_settings = isset( $display['settings'] ) ? $display['settings'] : false;
+
+		$updates = array();
+		$errors = array();
+
+		if ( $display_id ) {
+			if ( $display_title ) {
+				$postarr = array(
+					'ID'					=> $display_id,
+					'post_title'	=> $display_title,
+				);
+				wp_update_post( $postarr );
+			}
+		} else {
+			$postarr = array(
+				'post_type'		=> 'ditty_display',
+				'post_status'	=> 'publish',
+				'post_title'	=> $display_title,
+			);
+			$display_id = wp_insert_post( $postarr );
+			$updates['id'] = $display_id;
+			$updates['title'] = $display_title;
+			$updates['edit_url'] = get_edit_post_link( $display_id, 'code' );
+		}
+
+		// Update a display description
+		if ( isset( $display_description ) ) {
+			$sanitized_description = wp_kses_post( $display_description );
+			update_post_meta( $display_id, '_ditty_display_description', $sanitized_description );
+			$updates['description'] = $sanitized_description;
+		}
+		
+		// Update a display type
+		if ( $display_type ) {
+			update_post_meta( $display_id, '_ditty_display_type', $display_type );
+			$updates['type'] = $display_type;
+		}
+
+		// Update a display settings
+		if ( $display_settings ) {
+			update_post_meta( $display_id, '_ditty_display_settings', $display_settings );
+			$updates['settings'] = $display_settings;
+		}
+
+		$data = array(
 			'updates' => $updates,
 			'errors'	=> $errors,
 			'aipData'	=> $apiData,

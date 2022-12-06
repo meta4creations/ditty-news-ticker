@@ -108,9 +108,18 @@ export class EditorProvider extends Component {
    * @param {object} updatedDisplay
    */
   handleUpdateDisplay = (updatedDisplay) => {
+    let addDisplay = true;
     const updatedDisplays = this.state.displays.map((display) => {
-      return updatedDisplay.id === display.id ? updatedDisplay : display;
+      if (updatedDisplay.id === display.id) {
+        addDisplay = false;
+        return updatedDisplay;
+      } else {
+        return display;
+      }
     });
+    if (addDisplay) {
+      updatedDisplays.push(updatedDisplay);
+    }
     this.setState({ displays: updatedDisplays });
   };
 

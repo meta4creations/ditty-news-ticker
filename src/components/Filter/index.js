@@ -9,13 +9,16 @@ const Filter = ({
   data,
   filters,
   filterKey,
+  initialFilter,
   searchKey,
   searchLabel,
   className,
   onUpdate,
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedFilter, setSelectedFilter] = useState(null);
+  const [selectedFilter, setSelectedFilter] = useState(
+    initialFilter ? initialFilter : null
+  );
   const classes = classnames("ditty-filter", className);
 
   /**
