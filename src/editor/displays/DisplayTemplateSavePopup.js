@@ -58,10 +58,7 @@ const DisplayTemplateSavePopup = ({
   const popupHeader = () => {
     return (
       <>
-        <IconBlock
-          icon={<FontAwesomeIcon icon={faTabletScreen} />}
-          style={{ marginBottom: "10px" }}
-        >
+        <IconBlock icon={<FontAwesomeIcon icon={faTabletScreen} />}>
           <h2>{__("Save as Template", "ditty-news-ticker")}</h2>
           <p>
             {__(

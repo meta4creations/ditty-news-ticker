@@ -1,4 +1,4 @@
-.ditty-editor__tabs {
+.ditty-tabs {
   flex: 0 0 auto;
   display: flex;
   flex-direction: row;
@@ -9,7 +9,7 @@
   font-size: 14px;
   background: #e8e9eb;
 }
-.ditty-editor__tab {
+.ditty-tab {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -26,7 +26,7 @@
   cursor: pointer;
   transition: color 0.25s ease, background-color 0.25s ease;
   &:hover {
-    &:not(.ditty-editor__tab--active) {
+    &:not(.ditty-tab--active) {
       color: #fff;
       background-color: $green;
     }
@@ -44,10 +44,10 @@
     flex: 1;
   }
 }
-.ditty-editor__tabs--primary {
+.ditty-tabs--primary {
   height: 60px;
   background: $dark_gray;
-  .ditty-editor__tab {
+  .ditty-tab {
     width: 62px;
     color: rgba(255, 255, 255, 0.8);
     background: $dark_gray;
@@ -55,7 +55,7 @@
       display: none;
     }
     &:hover {
-      &:not(.ditty-editor__tab--active) {
+      &:not(.ditty-tab--active) {
         color: #fff;
         background-color: rgba(255, 255, 255, 0.2);
       }
@@ -66,26 +66,26 @@
       background-color: $green;
       padding-left: 30px;
       padding-right: 30px;
-      .ditty-editor__tab__label {
+      .ditty-tab__label {
         display: block;
       }
-      .ditty-editor__tab__icon {
+      .ditty-tab__icon {
         display: none;
       }
     }
   }
 }
-.ditty-editor__tabs--secondary {
+.ditty-tabs--secondary {
   background: #f2f3f5;
   border-bottom: 1px solid #ccc;
 }
-.ditty-editor__tabs--cloud {
+.ditty-tabs--cloud {
   gap: 5px;
   flex-wrap: wrap;
   height: auto;
   background: #fff;
   color: $dark_gray;
-  .ditty-editor__tab {
+  .ditty-tab {
     width: calc(25% - 5px);
     height: 60px;
     flex: 0 0 auto;
@@ -96,18 +96,18 @@
     border-radius: 3px;
     padding: 5px;
     &:hover {
-      &:not(.ditty-editor__tab--active) {
+      &:not(.ditty-tab--active) {
         color: $dark_gray;
         background: rgba(0, 0, 0, 0.05);
       }
     }
     &--active {
       background: $green;
-      .ditty-editor__tab__icon {
+      .ditty-tab__icon {
         display: block;
         color: #fff;
       }
-      .ditty-editor__tab__label {
+      .ditty-tab__label {
         color: #fff;
       }
     }

@@ -4,7 +4,7 @@
   }
 }
 .displayTypeSelector {
-  .ditty-editor__tab {
+  .ditty-tab {
     width: 100px;
     height: 100px;
   }
@@ -16,17 +16,17 @@
       padding: 10px;
     }
   }
-  .ditty-editor__tabs {
+  .ditty-tabs {
     border-top: 1px solid #ccc;
     border-bottom: none;
-    .ditty-editor__tab {
+    .ditty-tab {
       &--active {
         border-left: 1px solid #ccc;
         border-right: 1px solid #ccc;
         border-bottom: 1px solid #fff;
         margin-bottom: -1px;
       }
-      &:first-child.ditty-editor__tab--active {
+      &:first-child.ditty-tab--active {
         border-left: none;
       }
     }
@@ -50,7 +50,7 @@
   margin-bottom: 10px;
   padding: 5px 15px 5px 5px;
   background: #1d2327;
-  border-radius: 5px;
+  border-radius: 1px;
   .ditty-icon-block__icon {
     width: 30px;
     height: 30px;
