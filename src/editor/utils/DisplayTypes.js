@@ -39,7 +39,6 @@ const getDisplayTypes = () => {
       description: __("Display items in a static list.", "ditty-news-ticker"),
       settings: {
         general: true,
-        //title: true,
         navigation: ["arrows", "bullets"],
         styles: ["container", "content", "page", "item"],
       },
@@ -130,40 +129,63 @@ export const getDisplayTypeDescription = (display) => {
 export const getDisplayTypeSettings = (display) => {
   const displayTypeObject = getDisplayTypeObject(display);
   const fieldGroups = [];
-  for (const key in displayTypeObject.settings) {
-    switch (key) {
-      case "general":
-        fieldGroups.push(displaySettingsGeneral(displayTypeObject.id));
-        break;
-      case "title":
-        fieldGroups.push(displaySettingsTitle(displayTypeObject.id));
-        break;
-      case "navigation":
-        fieldGroups.push(displaySettingsNavigation(displayTypeObject.id));
-        break;
-      case "styles":
-        fieldGroups.push(
-          displaySettingsStyle(
-            displayTypeObject.id,
-            displayTypeObject.settings[key]
-          )
-        );
-        break;
-      case "css":
-        //fieldGroups.push(displaySettingsGeneral(displayTypeObject.id));
-        break;
-      default:
-        fieldGroups.push(
-          window.dittyHooks.applyFilters(
-            "getDisplayTypeSettingsCustom",
-            [],
-            displayType
-          )
-        );
-        break;
+  if (displayTypeObject.phpSettings) {
+    fieldGroups.push(
+      phpDisplayTypeSettings(
+        displayTypeObject.type,
+        displayTypeObject.phpSettings
+      )
+    );
+  } else {
+    for (const key in displayTypeObject.settings) {
+      switch (key) {
+        case "general":
+          fieldGroups.push(displaySettingsGeneral(displayTypeObject.id));
+          break;
+        case "title":
+          fieldGroups.push(displaySettingsTitle(displayTypeObject.id));
+          break;
+        case "navigation":
+          fieldGroups.push(displaySettingsNavigation(displayTypeObject.id));
+          break;
+        case "styles":
+          fieldGroups.push(
+            displaySettingsStyle(
+              displayTypeObject.id,
+              displayTypeObject.settings[key]
+            )
+          );
+          break;
+        case "css":
+          //fieldGroups.push(displaySettingsGeneral(displayTypeObject.id));
+          break;
+        default:
+          fieldGroups.push(
+            window.dittyHooks.applyFilters(
+              "getDisplayTypeSettingsCustom",
+              [],
+              displayType
+            )
+          );
+          break;
+      }
     }
   }
   return fieldGroups;
+};
+
+const phpDisplayTypeSettings = (displayType, settings) => {
+  return {
+    id: "settings",
+    label: __("Settings", "ditty-news-ticker"),
+    name: __("Settings", "ditty-news-ticker"),
+    desc: __(
+      `Configure the settings of the ${displayType}.`,
+      "ditty-news-ticker"
+    ),
+    icon: <FontAwesomeIcon icon={faSliders} />,
+    fields: settings,
+  };
 };
 
 const borderSettings = (prefix, namePrefix) => {

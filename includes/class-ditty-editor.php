@@ -75,6 +75,28 @@ class Ditty_Editor {
 	 * @access public
 	 * @since  3.1
 	 */
+	public function display_type_data() {	
+		$display_types = ditty_display_types();
+		$display_type_data = array();
+		if ( is_array( $display_types ) && count( $display_types ) > 0 ) {
+			foreach ( $display_types as $i => $type ) {
+				if ( $type['type'] == 'ticker' || $type['type'] == 'list' ) {
+					continue;
+				}
+				$display_type_object = ditty_display_type_object( $type['type'] );
+				$type['settings'] = array_values( $display_type_object->fields() );
+				$display_type_data[] = $type;
+			}
+		}
+		return array_values( $display_type_data );
+	}
+
+	/**
+	 * Get all display data for the editor
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
 	public function display_data() {	
 		$args = array(
 			'posts_per_page' => -1,

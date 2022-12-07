@@ -128,6 +128,7 @@ class Ditty_API {
 
 		// Update display
 		if ( $display ) {
+			$display = isset( $display['id'] ) ? $display['id'] : $display;
 			if ( update_post_meta( $id, '_ditty_display', $display ) ) {
 				$updates['display'] = $display;
 			} else {

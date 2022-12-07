@@ -20,6 +20,7 @@ const DisplayTemplateSelectorPopup = ({
 }) => {
   const [currentTemplate, setCurrentTemplate] = useState(activeTemplate);
   const [filteredTemplates, setFilteredTemplates] = useState(templates);
+  console.log("currentTemplate", currentTemplate);
 
   const elements = [
     {
@@ -79,7 +80,7 @@ const DisplayTemplateSelectorPopup = ({
             key={template.id}
             data={template}
             elements={elements}
-            isActive={currentTemplate === template}
+            isActive={currentTemplate.id === template.id}
             onItemClick={(e, data) => {
               if (data.id === currentTemplate.id) {
                 return false;

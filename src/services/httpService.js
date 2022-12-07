@@ -14,7 +14,7 @@ export const getDittyData = (dittyId) => {
   });
 };
 
-export function saveDitty(data) {
+export function saveDitty(data, onComplete) {
   const apiURL = `${apiEndpoint}/save`;
 
   const apiData = {
@@ -22,9 +22,8 @@ export function saveDitty(data) {
     userId: dittyEditorVars.userId,
     ...data,
   };
-  axios.post(apiURL, { apiData }).then((res) => {
-    console.log("res", res);
-    console.log("data", res.data);
+  return axios.post(apiURL, { apiData }).then((res) => {
+    onComplete(res.data);
   });
 }
 
@@ -37,8 +36,6 @@ export function saveDisplay(data, onComplete) {
     ...data,
   };
   return axios.post(apiURL, { apiData }).then((res) => {
-    //console.log("saveDisplay - res", res);
-    //console.log("data", res.data);
     onComplete(res.data);
   });
 }

@@ -44,6 +44,7 @@ export function migrateDisplayTypes(displayTypes) {
           icon: <i className={phpType.icon}></i>,
           label: phpType.label,
           description: phpType.description,
+          phpSettings: phpType.settings,
         });
       }
       return filtered;

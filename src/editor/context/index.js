@@ -23,7 +23,7 @@ export class EditorProvider extends Component {
   initialLayouts = dittyEditorVars.layouts ? dittyEditorVars.layouts : [];
   initialDisplay = this.data.displayobject
     ? JSON.parse(this.data.displayobject)
-    : this.data.display;
+    : getDisplayObject(this.data.display, [...this.initialDisplays]);
   initialSettings = this.data.settings ? JSON.parse(this.data.settings) : {};
   id = this.data.id;
 
@@ -33,10 +33,7 @@ export class EditorProvider extends Component {
     displayItems: [...this.initialDisplayItems],
     displays: [...this.initialDisplays],
     layouts: [...this.initialLayouts],
-    currentDisplay:
-      typeof this.initialDisplay === "object"
-        ? { ...this.initialDisplay }
-        : getDisplayObject(this.initialDisplay, [...this.initialDisplays]),
+    currentDisplay: { ...this.initialDisplay },
     settings: _.cloneDeep(this.initialSettings),
     currentPanel: "items",
   };
@@ -217,7 +214,7 @@ export class EditorProvider extends Component {
   /**
    * Save the ditty
    */
-  handleSaveDitty = async () => {
+  handleSaveDitty = async (onComplete) => {
     // Get the updates
     const updates = this.getDittyUpdates();
     updates.id = this.id;
@@ -225,7 +222,7 @@ export class EditorProvider extends Component {
     console.log("updates", updates);
 
     try {
-      await saveDitty(updates);
+      await saveDitty(updates, onComplete);
 
       // Reset the item updates
       const resetItemUpdates = this.state.items.map((item) => {

@@ -28,6 +28,22 @@ const Field = ({ field, value, allValues, updateValue }) => {
     }
   }
 
+  /**
+   * Convert an objec to an array
+   * @param {mixed} data
+   * @returns array
+   */
+  const arrayValues = (data) => {
+    if (typeof data === "object") {
+      const modifiedArray = [];
+      for (const key in data) {
+        modifiedArray.push(data[key]);
+      }
+      return modifiedArray;
+    }
+    return data;
+  };
+
   const renderInput = (inputField, inputValue) => {
     switch (inputField.type) {
       case "checkbox":
@@ -47,9 +63,10 @@ const Field = ({ field, value, allValues, updateValue }) => {
           />
         );
       case "group":
+        const fields = arrayValues(inputField.fields);
         return (
           <GroupField value={inputValue} {...inputField}>
-            {inputField.fields.map((groupField, index) => {
+            {fields.map((groupField, index) => {
               if (showField(groupField)) {
                 const groupFieldValue = allValues[groupField.id]
                   ? allValues[groupField.id]
