@@ -31,6 +31,7 @@ const BaseField = ({
   const fieldClasses = classnames(
     "ditty-field",
     `ditty-field--${type}`,
+    `ditty-field-id--${id}`,
     className,
     {
       "ditty-field--help": displayHelp,

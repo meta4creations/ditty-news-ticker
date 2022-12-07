@@ -84,7 +84,8 @@ class Ditty_Editor {
 					continue;
 				}
 				$display_type_object = ditty_display_type_object( $type['type'] );
-				$type['settings'] = array_values( $display_type_object->fields() );
+				$default_settings = $display_type_object->default_settings();
+				$type['settings'] = array_values( $display_type_object->fields( $default_settings ) );
 				$display_type_data[] = $type;
 			}
 		}
@@ -109,12 +110,21 @@ class Ditty_Editor {
 		$display_data = array();
 		if ( is_array( $posts ) && count( $posts ) > 0 ) {
 			foreach ( $posts as $i => $post ) {
+
+				$display_type = get_post_meta( $post->ID, '_ditty_display_type', true );
+				$display_settings = get_post_meta( $post->ID, '_ditty_display_settings', true );
+				if ( ! is_array( $display_settings ) ) {
+					$display_settings = array();
+				}
+				if ( $display_type_object = ditty_display_type_object( $display_type ) ) {
+					$display_settings = shortcode_atts( $display_type_object->default_settings(), $display_settings );
+				}
 				$display_data[] = array(
 					'id' => $post->ID,
-					'type' => get_post_meta( $post->ID, '_ditty_display_type', true ),
+					'type' => $display_type,
 					'title' => $post->post_title,
 					'description' => get_post_meta( $post->ID, '_ditty_display_description', true ),
-					'settings' => get_post_meta( $post->ID, '_ditty_display_settings', true ),
+					'settings' => $display_settings,
 					'version' => get_post_meta( $post->ID, '_ditty_display_version', true ),
 					'edit_url' => get_edit_post_link( $post->ID, 'code' ),
 				);		

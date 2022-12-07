@@ -6,8 +6,10 @@ import {
   faChevronDown,
   faChevronUp,
 } from "@fortawesome/pro-solid-svg-icons";
+import classnames from "classnames";
 
-const GroupField = ({ id, name, desc, help, children }) => {
+const GroupField = (props) => {
+  const { id, name, desc, help, className, children } = props;
   const [displayHelp, setDisplayHelp] = useState(false);
   const [displayContent, setDisplayContent] = useState(false);
 
@@ -24,13 +26,24 @@ const GroupField = ({ id, name, desc, help, children }) => {
     }
   };
 
+  const fieldClasses = classnames(
+    "ditty-field",
+    "ditty-field--group",
+    `ditty-field-id--${id}`,
+    className,
+    {
+      "ditty-field--help": displayHelp,
+    }
+  );
+
+  console.log("groupId", id);
+  if ("breakPoints0" == id) {
+    console.log("what the f");
+    console.log(children);
+  }
+
   return (
-    <div
-      className={`ditty-field ditty-field--group ${
-        help && displayHelp ? "ditty-field--help" : ""
-      }`}
-      key={id}
-    >
+    <div className={fieldClasses} key={id}>
       {(name || help) && (
         <div className="ditty-field__heading" onClick={toggleContent}>
           <div className="ditty-field__heading__contents">
