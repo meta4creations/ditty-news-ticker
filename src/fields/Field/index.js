@@ -3,7 +3,8 @@ import { Fragment } from "@wordpress/element";
 
 import BaseField from "../BaseField";
 import ColorField from "../ColorField";
-import CloneField from "../CloneField";
+import Clone from "../Clone";
+import CloneContainer from "../CloneContainer";
 import CheckboxField from "../CheckboxField";
 import GroupField from "../GroupField";
 import NumberField from "../NumberField";
@@ -15,8 +16,8 @@ import TextField from "../TextField";
 import TextareaField from "../TextareaField";
 import UnitField from "../UnitField";
 
-const Field = ({ field, value, allValues, updateValue }) => {
-  let confirmedValue = value;
+const Field = ({ field, fieldValue, allValues, updateValue }) => {
+  let confirmedValue = fieldValue;
   if (!confirmedValue) {
     if (allValues) {
       confirmedValue = allValues[field.id]
@@ -45,33 +46,79 @@ const Field = ({ field, value, allValues, updateValue }) => {
     return data;
   };
 
-  const renderInput = (inputField, inputValue) => {
-    if (inputField.clone) {
-      const cloneValues = Array.isArray(inputValue) ? inputValue : [inputValue];
-      return cloneValues.map((cloneValue, index) => {
-        const cloneField = { ...inputField };
-        cloneField.id = `${inputField.id}${index}`;
-        delete cloneField.clone;
-        delete cloneField.clone_button;
-        delete cloneField.std;
+  const getCloneValues = (field, value = confirmedValue) => {
+    return Array.isArray(value) ? value : [value];
+  };
 
-        return (
-          <CloneField key={`${cloneField.id}${index}`}>
-            <div
-              className={`CLONEFIELD type-${cloneField.type} id-${cloneField.id}`}
+  const addCloneValue = (field, cloneValues, value, index) => {
+    if (index && index <= cloneValues.length) {
+      cloneValues.splice(index, 0, value);
+    } else {
+      cloneValues.push(value);
+    }
+
+    updateValue(field, cloneValues);
+    return cloneValues;
+  };
+
+  const handleUpdateValue = (field, value) => {
+    if (field.cloneIndex) {
+      const cloneValues = getCloneValues(field);
+      cloneValues[Number(field.cloneIndex)] = value;
+      updateValue(field, cloneValues);
+    } else {
+      updateValue(field, value);
+    }
+  };
+
+  const renderClones = (inputField, inputValue) => {
+    const cloneValues = getCloneValues(inputField, inputValue);
+
+    return (
+      <CloneContainer
+        {...inputField}
+        onClone={() => {
+          addCloneValue(inputField, cloneValues, "");
+        }}
+      >
+        {cloneValues.map((cloneValue, cloneIndex) => {
+          const cloneField = { ...inputField };
+          delete cloneField.clone;
+          delete cloneField.clone_button;
+          cloneField.cloneIndex = `${cloneIndex}`;
+
+          return (
+            <Clone
+              key={`${inputField.id}${cloneIndex}`}
+              value={cloneValue}
+              onDelete={() => {
+                cloneValues.splice(cloneIndex, 1);
+                updateValue(inputField, cloneValues);
+              }}
+              onClone={(value = "") => {
+                addCloneValue(inputField, cloneValues, value, cloneIndex + 1);
+              }}
             >
               {renderInput(cloneField, cloneValue)}
-            </div>
-          </CloneField>
-        );
-      });
+            </Clone>
+          );
+        })}
+      </CloneContainer>
+    );
+  };
+
+  const renderInput = (inputField, inputValue) => {
+    if (inputField.clone) {
+      return renderClones(inputField, inputValue);
     } else {
       switch (inputField.type) {
         case "checkbox":
           return (
             <CheckboxField
               value={inputValue}
-              onChange={(updatedValue) => updateValue(inputField, updatedValue)}
+              onChange={(updatedValue) =>
+                handleUpdateValue(inputField, updatedValue)
+              }
               {...inputField}
             />
           );
@@ -79,15 +126,14 @@ const Field = ({ field, value, allValues, updateValue }) => {
           return (
             <ColorField
               value={inputValue}
-              onChange={(updatedValue) => updateValue(inputField, updatedValue)}
+              onChange={(updatedValue) =>
+                handleUpdateValue(inputField, updatedValue)
+              }
               {...inputField}
             />
           );
         case "group":
           const fields = arrayValues(inputField.fields);
-          if (inputField.id === "breakPoints") {
-            console.log("inputField", inputField);
-          }
           return (
             <GroupField {...inputField}>
               {fields.map((groupField, index) => {
@@ -126,7 +172,9 @@ const Field = ({ field, value, allValues, updateValue }) => {
           return (
             <NumberField
               value={String(inputValue)}
-              onChange={(updatedValue) => updateValue(inputField, updatedValue)}
+              onChange={(updatedValue) =>
+                handleUpdateValue(inputField, updatedValue)
+              }
               {...inputField}
             />
           );
@@ -134,7 +182,9 @@ const Field = ({ field, value, allValues, updateValue }) => {
           return (
             <RadioField
               value={inputValue}
-              onChange={(updatedValue) => updateValue(inputField, updatedValue)}
+              onChange={(updatedValue) =>
+                handleUpdateValue(inputField, updatedValue)
+              }
               {...inputField}
             />
           );
@@ -142,7 +192,9 @@ const Field = ({ field, value, allValues, updateValue }) => {
           return (
             <SpacingField
               value={inputValue}
-              onChange={(updatedValue) => updateValue(inputField, updatedValue)}
+              onChange={(updatedValue) =>
+                handleUpdateValue(inputField, updatedValue)
+              }
               {...inputField}
             />
           );
@@ -150,7 +202,9 @@ const Field = ({ field, value, allValues, updateValue }) => {
           return (
             <SelectField
               value={inputValue}
-              onChange={(updatedValue) => updateValue(inputField, updatedValue)}
+              onChange={(updatedValue) =>
+                handleUpdateValue(inputField, updatedValue)
+              }
               {...inputField}
             />
           );
@@ -158,7 +212,9 @@ const Field = ({ field, value, allValues, updateValue }) => {
           return (
             <SliderField
               value={String(inputValue)}
-              onChange={(updatedValue) => updateValue(inputField, updatedValue)}
+              onChange={(updatedValue) =>
+                handleUpdateValue(inputField, updatedValue)
+              }
               {...inputField}
             />
           );
@@ -167,7 +223,9 @@ const Field = ({ field, value, allValues, updateValue }) => {
           return (
             <SpacingField
               value={inputValue}
-              onChange={(updatedValue) => updateValue(inputField, updatedValue)}
+              onChange={(updatedValue) =>
+                handleUpdateValue(inputField, updatedValue)
+              }
               {...inputField}
             />
           );
@@ -175,7 +233,9 @@ const Field = ({ field, value, allValues, updateValue }) => {
           return (
             <TextareaField
               value={inputValue}
-              onChange={(updatedValue) => updateValue(inputField, updatedValue)}
+              onChange={(updatedValue) =>
+                handleUpdateValue(inputField, updatedValue)
+              }
               {...field}
             />
           );
@@ -183,7 +243,9 @@ const Field = ({ field, value, allValues, updateValue }) => {
           return (
             <UnitField
               value={inputValue}
-              onChange={(updatedValue) => updateValue(inputField, updatedValue)}
+              onChange={(updatedValue) =>
+                handleUpdateValue(inputField, updatedValue)
+              }
               {...inputField}
             />
           );
@@ -191,7 +253,9 @@ const Field = ({ field, value, allValues, updateValue }) => {
           return (
             <TextareaField
               value={inputValue}
-              onChange={(updatedValue) => updateValue(inputField, updatedValue)}
+              onChange={(updatedValue) =>
+                handleUpdateValue(inputField, updatedValue)
+              }
               {...inputField}
             />
           );
@@ -199,7 +263,9 @@ const Field = ({ field, value, allValues, updateValue }) => {
           return (
             <TextField
               value={inputValue}
-              onChange={(updatedValue) => updateValue(inputField, updatedValue)}
+              onChange={(updatedValue) =>
+                handleUpdateValue(inputField, updatedValue)
+              }
               {...inputField}
             />
           );

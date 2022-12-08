@@ -16,6 +16,14 @@ const PanelSettings = ({ editor }) => {
     },
     {
       type: "text",
+      id: "testing",
+      name: __("Testing", "ditty-news-ticker"),
+      placeholder: __("Add title", "ditty-news-ticker"),
+      clone: true,
+      cloneButton: __("Add More Tests", "ditty-news-ticker"),
+    },
+    {
+      type: "text",
       id: "shortcode",
       name: __("Shortcode", "ditty-news-ticker"),
       std: `[ditty id=${id}]`,
@@ -77,7 +85,7 @@ const PanelSettings = ({ editor }) => {
         <Field
           key={field.id}
           field={field}
-          value={value}
+          fieldValue={value}
           updateValue={(field, value) => {
             if ("title" === field.id) {
               actions.updateTitle(value);
