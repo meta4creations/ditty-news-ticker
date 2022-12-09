@@ -66,17 +66,33 @@
 
 // Clone
 .ditty-clone {
-  &__footer {
-    padding: 0 10px 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 5px;
   }
   &__field {
+    border: 1px dashed #ddd;
+    //display: flex;
     &__actions {
+      //flex-direction: column;
+      //order: 2;
       padding: 10px;
+      background: #eee;
       .ditty-button {
         padding: 5px;
         //background: transparent;
       }
     }
+    > .ditty-field {
+      border-bottom: none;
+    }
+  }
+  &__footer {
+    padding: 0 15px 15px;
+    justify-content: flex-end;
   }
 }
 
