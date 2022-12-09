@@ -1,7 +1,7 @@
 === Ditty WordPress Plugin – Responsive Slider, List, and Ticker Display ===
 Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
-Tags: responsive slider, content slider, html slider, post slider, ticker
+Tags: responsive slider, content slider, post slider, news ticker, post ticker
 Requires at least: 4.5
 Tested up to: 6.1
 Stable tag: 3.0.30
@@ -129,6 +129,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 15. Advanced Settings
 
 == Changelog ==
+
+= 3.0.31 =
+* Ditty block registration updates
 
 = 3.0.30 =
 * Removed extract() functionality from legacy code

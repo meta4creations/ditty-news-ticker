@@ -720,6 +720,16 @@
   margin: 0;
 }
 
+.ditty-clone__footer {
+  padding: 0 10px 10px;
+}
+.ditty-clone__field__actions {
+  padding: 10px;
+}
+.ditty-clone__field__actions .ditty-button {
+  padding: 5px;
+}
+
 .ditty-field__input--color {
   position: relative;
   display: flex;

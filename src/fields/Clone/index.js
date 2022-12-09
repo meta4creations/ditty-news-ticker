@@ -1,32 +1,18 @@
 import { __ } from "@wordpress/i18n";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinus, faPlus, faClone } from "@fortawesome/pro-light-svg-icons";
 import classnames from "classnames";
 import { Button, ButtonGroup } from "../../components";
 
-const Clone = ({ className, value, onClone, onDelete, children }) => {
+const Clone = ({ cloneButton, className, onClone, children }) => {
   const fieldClasses = classnames("ditty-clone", className);
 
   return (
     <div className={fieldClasses}>
-      <div className="ditty-clone__actions">
-        <ButtonGroup>
-          <Button onClick={onDelete}>
-            <FontAwesomeIcon icon={faMinus} />
-          </Button>
-          <Button onClick={() => onClone()}>
-            <FontAwesomeIcon icon={faPlus} />
-          </Button>
-          <Button
-            onClick={() => {
-              onClone(value);
-            }}
-          >
-            <FontAwesomeIcon icon={faClone} />
-          </Button>
-        </ButtonGroup>
-      </div>
-      {children}
+      <div className="ditty-clone__fields">{children}</div>
+      <ButtonGroup className="ditty-clone__footer">
+        <Button onClick={onClone} className="ditty-clone__button">
+          {cloneButton ? cloneButton : __("Add More", "ditty-news-ticker")}
+        </Button>
+      </ButtonGroup>
     </div>
   );
 };

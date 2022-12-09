@@ -64,6 +64,22 @@
   }
 }
 
+// Clone
+.ditty-clone {
+  &__footer {
+    padding: 0 10px 10px;
+  }
+  &__field {
+    &__actions {
+      padding: 10px;
+      .ditty-button {
+        padding: 5px;
+        //background: transparent;
+      }
+    }
+  }
+}
+
 // Color
 .ditty-field__input--color {
   position: relative;

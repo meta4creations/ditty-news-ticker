@@ -4,7 +4,7 @@ import { Fragment } from "@wordpress/element";
 import BaseField from "../BaseField";
 import ColorField from "../ColorField";
 import Clone from "../Clone";
-import CloneContainer from "../CloneContainer";
+import CloneField from "../CloneField";
 import CheckboxField from "../CheckboxField";
 import GroupField from "../GroupField";
 import NumberField from "../NumberField";
@@ -75,7 +75,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
     const cloneValues = getCloneValues(inputField, inputValue);
 
     return (
-      <CloneContainer
+      <Clone
         {...inputField}
         onClone={() => {
           addCloneValue(inputField, cloneValues, "");
@@ -88,7 +88,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
           cloneField.cloneIndex = `${cloneIndex}`;
 
           return (
-            <Clone
+            <CloneField
               key={`${inputField.id}${cloneIndex}`}
               value={cloneValue}
               onDelete={() => {
@@ -100,10 +100,10 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
               }}
             >
               {renderInput(cloneField, cloneValue)}
-            </Clone>
+            </CloneField>
           );
         })}
-      </CloneContainer>
+      </Clone>
     );
   };
 
