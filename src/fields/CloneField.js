@@ -1,6 +1,11 @@
 import { __ } from "@wordpress/i18n";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinus, faPlus, faClone } from "@fortawesome/pro-light-svg-icons";
+import {
+  faMinus,
+  faPlus,
+  faClone,
+  faSort,
+} from "@fortawesome/pro-light-svg-icons";
 import classnames from "classnames";
 import { Button, ButtonGroup } from "../components";
 
@@ -9,11 +14,13 @@ const CloneField = ({ className, value, onClone, onDelete, children }) => {
 
   return (
     <div className={fieldClasses}>
-      <ButtonGroup
-        gap="5px"
-        className="ditty-clone__field__actions"
-        justify="flex-end"
-      >
+      <ButtonGroup className="ditty-clone__field__buttons ditty-clone__field__buttons--start">
+        <Button>
+          <FontAwesomeIcon icon={faSort} />
+        </Button>
+      </ButtonGroup>
+      {children}
+      <ButtonGroup className="ditty-clone__field__buttons ditty-clone__field__buttons--end">
         <Button onClick={onDelete}>
           <FontAwesomeIcon icon={faMinus} />
         </Button>
@@ -28,7 +35,6 @@ const CloneField = ({ className, value, onClone, onDelete, children }) => {
           <FontAwesomeIcon icon={faClone} />
         </Button>
       </ButtonGroup>
-      {children}
     </div>
   );
 };

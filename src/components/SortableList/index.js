@@ -11,9 +11,10 @@ import {
   sortableKeyboardCoordinates,
   arrayMove,
 } from "@dnd-kit/sortable";
+import classnames from "classnames";
 import SortableItem from "../SortableItem";
 
-const SortableList = ({ items, onSortEnd }) => {
+const SortableList = ({ items, onSortEnd, className }) => {
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, {
@@ -35,8 +36,10 @@ const SortableList = ({ items, onSortEnd }) => {
     }
   }
 
+  const classes = classnames("ditty-list ditty-list--sortable", className);
+
   return (
-    <div className="ditty-list ditty-list--sortable">
+    <div className={classes}>
       <DndContext
         onDragEnd={handleDragEnd}
         sensors={sensors}

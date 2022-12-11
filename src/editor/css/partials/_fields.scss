@@ -74,19 +74,34 @@
     gap: 5px;
   }
   &__field {
-    border: 1px dashed #ddd;
-    //display: flex;
-    &__actions {
-      //flex-direction: column;
-      //order: 2;
-      padding: 10px;
-      background: #eee;
+    display: flex;
+    border: 1px dashed $border_color_light;
+    border-radius: 3px;
+    overflow: hidden;
+    &__buttons {
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 0;
+      &--start {
+        border-right: 1px solid rgba(0, 0, 0, 0.05);
+        .ditty-button {
+          height: 100%;
+        }
+      }
+      &--end {
+        border-left: 1px solid rgba(0, 0, 0, 0.05);
+      }
       .ditty-button {
         padding: 5px;
-        //background: transparent;
+        background: transparent;
+        border-radius: 0;
+        &:hover {
+          background: rgba(0, 0, 0, 0.05);
+        }
       }
     }
     > .ditty-field {
+      flex: 1;
       border-bottom: none;
     }
   }

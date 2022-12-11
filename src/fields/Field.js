@@ -73,37 +73,45 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
 
   const renderClones = (inputField, inputValue) => {
     const cloneValues = getCloneValues(inputField, inputValue);
+    const cloneFields = cloneValues.map((cloneValue, cloneIndex) => {
+      const cloneField = { ...inputField };
+      delete cloneField.clone;
+      delete cloneField.clone_button;
+      cloneField.cloneIndex = `${cloneIndex}`;
+
+      return {
+        id: `${inputField.id}${cloneIndex}`,
+        data: cloneValue,
+        content: (
+          <CloneField
+            key={`${inputField.id}${cloneIndex}`}
+            value={cloneValue}
+            onDelete={() => {
+              cloneValues.splice(cloneIndex, 1);
+              updateValue(inputField, cloneValues);
+            }}
+            onClone={(value = "") => {
+              addCloneValue(inputField, cloneValues, value, cloneIndex + 1);
+            }}
+          >
+            {renderInput(cloneField, cloneValue)}
+          </CloneField>
+        ),
+      };
+    });
 
     return (
       <Clone
         {...inputField}
+        fields={cloneFields}
+        onSort={(sortedValues) => {
+          console.log("sortedValues", sortedValues);
+          updateValue(inputField, sortedValues);
+        }}
         onClone={() => {
           addCloneValue(inputField, cloneValues, "");
         }}
-      >
-        {cloneValues.map((cloneValue, cloneIndex) => {
-          const cloneField = { ...inputField };
-          delete cloneField.clone;
-          delete cloneField.clone_button;
-          cloneField.cloneIndex = `${cloneIndex}`;
-
-          return (
-            <CloneField
-              key={`${inputField.id}${cloneIndex}`}
-              value={cloneValue}
-              onDelete={() => {
-                cloneValues.splice(cloneIndex, 1);
-                updateValue(inputField, cloneValues);
-              }}
-              onClone={(value = "") => {
-                addCloneValue(inputField, cloneValues, value, cloneIndex + 1);
-              }}
-            >
-              {renderInput(cloneField, cloneValue)}
-            </CloneField>
-          );
-        })}
-      </Clone>
+      />
     );
   };
 
