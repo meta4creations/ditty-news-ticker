@@ -1,16 +1,13 @@
 import { __ } from "@wordpress/i18n";
 import classnames from "classnames";
 import { Button, ButtonGroup, SortableList } from "../components";
+import FieldHeader from "./FieldHeader";
 
-const Clone = ({
-  fields,
-  cloneButton,
-  className,
-  onClone,
-  onSort,
-  children,
-}) => {
+const Clone = (props) => {
+  const { fields, cloneButton, className, onClone, onSort, children } = props;
   const fieldClasses = classnames("ditty-clone", className);
+
+  console.log("fields", fields);
 
   /**
    * Pull data from sorted list items to update items
@@ -25,7 +22,7 @@ const Clone = ({
 
   return (
     <div className={fieldClasses}>
-      {/* <div className="ditty-clone__fields">{children}</div> */}
+      <FieldHeader {...props} />
       <SortableList
         className="ditty-clone__fields"
         items={fields}

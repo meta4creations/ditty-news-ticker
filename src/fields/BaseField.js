@@ -19,6 +19,7 @@ const BaseField = (props) => {
     className,
     style,
     children,
+    hideHeader,
   } = props;
   const [displayHelp, setDisplayHelp] = useState(false);
 
@@ -50,7 +51,7 @@ const BaseField = (props) => {
 
   return (
     <div className={fieldClasses} key={id} style={style}>
-      <FieldHeader {...props} />
+      {!hideHeader && <FieldHeader {...props} />}
       {children && (
         <div className="ditty-field__input__container">
           {prefix && <div className="ditty-field__input__prefix">{prefix}</div>}

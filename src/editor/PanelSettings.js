@@ -18,6 +18,8 @@ const PanelSettings = ({ editor }) => {
       type: "text",
       id: "testing",
       name: __("Testing", "ditty-news-ticker"),
+      help: "Help can be found here!",
+      desc: "This is the description.",
       placeholder: __("Add title", "ditty-news-ticker"),
       clone: true,
       cloneButton: __("Add More Tests", "ditty-news-ticker"),

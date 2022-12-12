@@ -47,7 +47,11 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
   };
 
   const getCloneValues = (field, value = confirmedValue) => {
-    return Array.isArray(value) ? value : [value];
+    let cloneValues = Array.isArray(value) ? value : [value];
+    if (cloneValues.length < 1) {
+      cloneValues.push("");
+    }
+    return cloneValues;
   };
 
   const addCloneValue = (field, cloneValues, value, index) => {
@@ -77,6 +81,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
       const cloneField = { ...inputField };
       delete cloneField.clone;
       delete cloneField.clone_button;
+      cloneField.hideHeader = true;
       cloneField.cloneIndex = `${cloneIndex}`;
 
       return {
@@ -105,7 +110,6 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
         {...inputField}
         fields={cloneFields}
         onSort={(sortedValues) => {
-          console.log("sortedValues", sortedValues);
           updateValue(inputField, sortedValues);
         }}
         onClone={() => {

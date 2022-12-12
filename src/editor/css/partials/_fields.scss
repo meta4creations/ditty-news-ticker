@@ -67,6 +67,12 @@
 // Clone
 .ditty-clone {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  > .ditty-field__heading {
+    padding: 15px 15px 0;
+    + .ditty-clone__fields {
+      padding-top: 0;
+    }
+  }
   &__fields {
     display: flex;
     flex-direction: column;
@@ -75,6 +81,7 @@
   }
   &__field {
     display: flex;
+    background: #fff;
     border: 1px dashed $border_color_light;
     border-radius: 3px;
     overflow: hidden;

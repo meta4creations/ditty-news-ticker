@@ -1,22 +1,13 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleQuestion,
-  faChevronDown,
-  faChevronUp,
-} from "@fortawesome/pro-solid-svg-icons";
+import { faChevronDown, faChevronUp } from "@fortawesome/pro-solid-svg-icons";
 import classnames from "classnames";
 import FieldHeader from "./FieldHeader";
 
 const GroupField = (props) => {
-  const { id, name, desc, help, className, children } = props;
-  const [displayHelp, setDisplayHelp] = useState(false);
+  const { id, className, children } = props;
   const [displayContent, setDisplayContent] = useState(false);
-
-  const toggleHelp = () => {
-    setDisplayHelp(!displayHelp);
-  };
 
   const toggleContent = (e) => {
     if (
@@ -36,12 +27,6 @@ const GroupField = (props) => {
       "ditty-field--help": displayHelp,
     }
   );
-
-  console.log("groupId", id);
-  if ("breakPoints0" == id) {
-    console.log("what the f");
-    console.log(children);
-  }
 
   return (
     <div className={fieldClasses} key={id}>

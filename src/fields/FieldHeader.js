@@ -2,7 +2,6 @@ import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/pro-solid-svg-icons";
-import classnames from "classnames";
 
 const FieldHeader = ({
   name,
