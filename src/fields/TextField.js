@@ -11,6 +11,7 @@ const TextField = (props) => {
         type={inputType}
         value={value}
         onChange={(e) => {
+          console.log(e.target.value);
           onChange(e.target.value);
         }}
       />

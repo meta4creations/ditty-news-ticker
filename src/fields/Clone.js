@@ -7,8 +7,6 @@ const Clone = (props) => {
   const { fields, cloneButton, className, onClone, onSort, children } = props;
   const fieldClasses = classnames("ditty-clone", className);
 
-  console.log("fields", fields);
-
   /**
    * Pull data from sorted list items to update items
    * @param {array} sortedListItems
@@ -23,6 +21,10 @@ const Clone = (props) => {
   return (
     <div className={fieldClasses}>
       <FieldHeader {...props} />
+      {/* {fields.map((value, index) => {
+        return value.content;
+      })} */}
+
       <SortableList
         className="ditty-clone__fields"
         items={fields}

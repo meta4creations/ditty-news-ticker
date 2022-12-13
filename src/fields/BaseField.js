@@ -9,10 +9,6 @@ const BaseField = (props) => {
   const {
     type,
     id,
-    name,
-    desc,
-    help,
-    icon,
     inline,
     prefix,
     suffix,
@@ -21,24 +17,11 @@ const BaseField = (props) => {
     children,
     hideHeader,
   } = props;
-  const [displayHelp, setDisplayHelp] = useState(false);
-
-  const toggleHelp = () => {
-    if (displayHelp) {
-      setDisplayHelp(false);
-    } else {
-      setDisplayHelp(true);
-    }
-  };
-
   const fieldClasses = classnames(
     "ditty-field",
     `ditty-field--${type}`,
     `ditty-field-id--${id}`,
-    className,
-    {
-      "ditty-field--help": displayHelp,
-    }
+    className
   );
 
   const inputClasses = classnames(

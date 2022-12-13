@@ -29,6 +29,9 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
       confirmedValue = "";
     }
   }
+  // if (field.clone) {
+  //   console.log("fieldValue", fieldValue);
+  // }
 
   /**
    * Convert an objec to an array
@@ -51,7 +54,17 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
     if (cloneValues.length < 1) {
       cloneValues.push("");
     }
-    return cloneValues;
+
+    //return cloneValues;
+
+    const cloneValueObjects = cloneValues.map((cloneValue, cloneIndex) => {
+      const cloneValueObject =
+        typeof cloneValue === "object" && cloneValue._id
+          ? cloneValue
+          : { _id: Date.now() + cloneIndex, _value: cloneValue };
+      return cloneValueObject;
+    });
+    return cloneValueObjects;
   };
 
   const addCloneValue = (field, cloneValues, value, index) => {
@@ -68,7 +81,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
   const handleUpdateValue = (field, value) => {
     if (field.cloneIndex) {
       const cloneValues = getCloneValues(field);
-      cloneValues[Number(field.cloneIndex)] = value;
+      cloneValues[Number(field.cloneIndex)]._value = value;
       updateValue(field, cloneValues);
     } else {
       updateValue(field, value);
@@ -83,14 +96,15 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
       delete cloneField.clone_button;
       cloneField.hideHeader = true;
       cloneField.cloneIndex = `${cloneIndex}`;
+      cloneField.cloneId = cloneValue._id;
 
       return {
-        id: `${inputField.id}${cloneIndex}`,
+        id: cloneValue._id,
         data: cloneValue,
         content: (
           <CloneField
             key={`${inputField.id}${cloneIndex}`}
-            value={cloneValue}
+            value={cloneValue._value}
             onDelete={() => {
               cloneValues.splice(cloneIndex, 1);
               updateValue(inputField, cloneValues);
@@ -99,7 +113,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
               addCloneValue(inputField, cloneValues, value, cloneIndex + 1);
             }}
           >
-            {renderInput(cloneField, cloneValue)}
+            {renderInput(cloneField, cloneValue._value)}
           </CloneField>
         ),
       };
@@ -110,6 +124,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
         {...inputField}
         fields={cloneFields}
         onSort={(sortedValues) => {
+          console.log("sortedValues", sortedValues);
           updateValue(inputField, sortedValues);
         }}
         onClone={() => {
@@ -248,7 +263,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
               onChange={(updatedValue) =>
                 handleUpdateValue(inputField, updatedValue)
               }
-              {...field}
+              {...inputField}
             />
           );
         case "unit":
