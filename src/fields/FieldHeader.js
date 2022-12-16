@@ -10,6 +10,7 @@ const FieldHeader = ({
   icon,
   beforeContents,
   afterContents,
+  style,
   onClick,
 }) => {
   const [displayHelp, setDisplayHelp] = useState(false);
@@ -23,7 +24,7 @@ const FieldHeader = ({
   };
 
   return name || help || icon ? (
-    <div className="ditty-field__heading" onClick={onClick}>
+    <div className="ditty-field__heading" onClick={onClick} style={style}>
       {icon && <div className="ditty-field__icon">{icon}</div>}
       {beforeContents}
       <div className="ditty-field__heading__contents">

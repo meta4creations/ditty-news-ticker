@@ -677,6 +677,7 @@
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 10px;
+  cursor: default;
 }
 .ditty-field__help-icon {
   color: #93999f;
@@ -808,7 +809,6 @@
   padding: 15px;
   background: #fbfbfb;
   border-bottom: 1px solid #dfdfdf;
-  cursor: pointer;
 }
 .ditty-field--group > .ditty-field__heading > .ditty-field__heading__contents > .ditty-field__label {
   margin-bottom: 0;

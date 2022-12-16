@@ -1,7 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import { useContext } from "@wordpress/element";
 import { Panel } from "../components";
-import { Field, FieldList } from "../fields";
+import { FieldList } from "../fields";
 
 const PanelSettings = ({ editor }) => {
   const { id, title, settings, actions } = useContext(editor);
@@ -16,14 +16,68 @@ const PanelSettings = ({ editor }) => {
     },
     {
       type: "text",
-      id: "testing",
-      name: __("Testing", "ditty-news-ticker"),
-      help: "Help can be found here!",
-      desc: "This is the description.",
-      placeholder: __("Add title", "ditty-news-ticker"),
+      id: "cloneTest",
+      name: __("CloneTest", "ditty-news-ticker"),
+      std: "wha wha",
       clone: true,
-      cloneButton: __("Add More Tests", "ditty-news-ticker"),
     },
+    {
+      type: "group",
+      id: "multipleFieldTest",
+      name: __("Mutlipe Fields Group", "ditty-news-ticker"),
+      multipleFields: true,
+      //defaultState: "expanded",
+      collapsible: true,
+      //clone: true,
+      //cloneButton: __("Add More Tests", "ditty-news-ticker"),
+      fields: [
+        {
+          type: "text",
+          id: "testTitle",
+          name: __("Title", "ditty-news-ticker"),
+          placeholder: __("Add title", "ditty-news-ticker"),
+        },
+        {
+          type: "select",
+          id: "testSubject",
+          name: __("Subject", "ditty-news-ticker"),
+          placeholder: __("Your subject", "ditty-news-ticker"),
+          options: {
+            1: "for fun",
+            2: "for the dough",
+            3: "to get luck",
+          },
+        },
+      ],
+    },
+    // {
+    //   type: "group",
+    //   id: "singleFieldTest",
+    //   name: __("Single Field Group", "ditty-news-ticker"),
+    //   defaultState: "collapsed",
+    //   collapsible: true,
+    //   //clone: true,
+    //   //cloneButton: __("Add More Tests", "ditty-news-ticker"),
+    //   fields: [
+    //     {
+    //       type: "text",
+    //       id: "testTitle",
+    //       name: __("Title", "ditty-news-ticker"),
+    //       placeholder: __("Add title", "ditty-news-ticker"),
+    //     },
+    //     {
+    //       type: "select",
+    //       id: "testSubject",
+    //       name: __("Subject", "ditty-news-ticker"),
+    //       placeholder: __("Your subject", "ditty-news-ticker"),
+    //       options: {
+    //         1: "for fun",
+    //         2: "for the dough",
+    //         3: "to get luck",
+    //       },
+    //     },
+    //   ],
+    // },
     {
       type: "text",
       id: "shortcode",
@@ -79,31 +133,22 @@ const PanelSettings = ({ editor }) => {
     },
   ]);
 
-  const renderFields = () => {
-    return settingsFields.map((field) => {
-      const value = settings[field.id] ? settings[field.id] : field.std;
-
-      return (
-        <Field
-          key={field.id}
-          field={field}
-          fieldValue={value}
-          updateValue={(field, value) => {
-            if ("title" === field.id) {
-              actions.updateTitle(value);
-            } else {
-              settings[field.id] = value;
-              actions.updateSettings(settings);
-            }
-          }}
-        />
-      );
-    });
+  const handleOnUpdate = (id, value) => {
+    if ("title" === id) {
+      actions.updateTitle(value);
+    } else {
+      settings[id] = value;
+      actions.updateSettings(settings);
+    }
   };
 
   return (
     <Panel id="settings">
-      <FieldList>{renderFields()}</FieldList>
+      <FieldList
+        fields={settingsFields}
+        values={settings}
+        onUpdate={handleOnUpdate}
+      />
     </Panel>
   );
 };

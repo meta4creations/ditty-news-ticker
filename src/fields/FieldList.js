@@ -1,9 +1,81 @@
 import { __ } from "@wordpress/i18n";
 import classnames from "classnames";
+import Field from "./Field";
 
-const FieldList = ({ className, children }) => {
+const FieldList = ({ fields, values, className, children, onUpdate }) => {
   const classes = classnames("ditty-field-list", className);
-  return <div className={classes}>{children}</div>;
+
+  const fieldValue = (field) => {
+    let value = values[field.id]
+      ? values[field.id]
+      : field.std
+      ? field.std
+      : "";
+    if ("group" === field.type && field.multipleFields) {
+      value = field.fields.map((f) => {
+        return {
+          id: f.id,
+          value: values[f.id] ? values[f.id] : f.std ? f.std : "",
+        };
+      });
+    }
+
+    if ("group" === field.type) {
+      //console.log(field.id, value);
+    }
+    return value;
+  };
+
+  /**
+   * Check field visibility based on other field values
+   * @param {object} field
+   * @returns
+   */
+  const showField = (field) => {
+    if (!field.show) {
+      return true;
+    }
+
+    const operators = {
+      "=": (a, b) => {
+        return a === b;
+      },
+      "!=": (a, b) => {
+        return a !== b;
+      },
+    };
+
+    if (field.show) {
+      const relation = field.show.relation ? field.show.relation : "AND";
+      const checks = field.show.fields.map((f) => {
+        if (operators[f.compare](values[f.key], f.value)) {
+          return "pass";
+        } else {
+          return "fail";
+        }
+      });
+      if ("OR" === relation) {
+        return checks.includes("pass");
+      } else {
+        return checks.every((v) => v === "pass");
+      }
+    }
+  };
+
+  return (
+    <div className={classes}>
+      {fields.map((field) => {
+        return showField(field) ? (
+          <Field
+            key={field.id}
+            field={field}
+            fieldValue={fieldValue(field)}
+            updateValue={onUpdate}
+          />
+        ) : null;
+      })}
+    </div>
+  );
 };
 
 export default FieldList;

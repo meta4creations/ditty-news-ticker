@@ -1,5 +1,5 @@
 import { __ } from "@wordpress/i18n";
-import { Fragment } from "@wordpress/element";
+import { useState } from "@wordpress/element";
 
 import BaseField from "./BaseField";
 import ColorField from "./ColorField";
@@ -17,45 +17,13 @@ import TextareaField from "./TextareaField";
 import UnitField from "./UnitField";
 
 const Field = ({ field, fieldValue, allValues, updateValue }) => {
-  let confirmedValue = fieldValue;
-  if (!confirmedValue) {
-    if (allValues) {
-      confirmedValue = allValues[field.id]
-        ? allValues[field.id]
-        : field.std
-        ? field.std
-        : "";
-    } else {
-      confirmedValue = "";
-    }
-  }
-  // if (field.clone) {
-  //   console.log("fieldValue", fieldValue);
-  // }
+  const [fieldVal, setFieldVal] = useState(fieldValue);
 
-  /**
-   * Convert an objec to an array
-   * @param {mixed} data
-   * @returns array
-   */
-  const arrayValues = (data) => {
-    if (typeof data === "object") {
-      const modifiedArray = [];
-      for (const key in data) {
-        modifiedArray.push(data[key]);
-      }
-      return modifiedArray;
-    }
-    return data;
-  };
-
-  const getCloneValues = (field, value = confirmedValue) => {
+  const getCloneValues = (field, value = fieldVal) => {
     let cloneValues = Array.isArray(value) ? value : [value];
     if (cloneValues.length < 1) {
       cloneValues.push("");
     }
-
-    //return cloneValues;
 
     const cloneValueObjects = cloneValues.map((cloneValue, cloneIndex) => {
       const cloneValueObject =
@@ -69,26 +37,38 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
 
   const addCloneValue = (field, cloneValues, value, index) => {
     if (index && index <= cloneValues.length) {
-      cloneValues.splice(index, 0, value);
+      cloneValues.splice(index, 0, { _id: Date.now() + index, _value: value });
     } else {
-      cloneValues.push(value);
+      cloneValues.push({ _id: Date.now() + cloneValues.length, _value: value });
     }
 
-    updateValue(field, cloneValues);
-    return cloneValues;
+    handleUpdateCloneValue(field, cloneValues);
+  };
+
+  const handleUpdateCloneValue = (field, cloneValues) => {
+    const cleanedValues = cloneValues.map((cloneValue) => {
+      return cloneValue._id ? cloneValue._value : cloneValue;
+    });
+    updateValue(field.id, cleanedValues);
+    setFieldVal(cloneValues);
   };
 
   const handleUpdateValue = (field, value) => {
     if (field.cloneIndex) {
       const cloneValues = getCloneValues(field);
       cloneValues[Number(field.cloneIndex)]._value = value;
-      updateValue(field, cloneValues);
+      handleUpdateCloneValue(field, cloneValues);
     } else {
-      updateValue(field, value);
+      if (Array.isArray(value)) {
+        value.map((v) => updateValue(v.id, v.value));
+      } else {
+        updateValue(field.id, value);
+      }
+      setFieldVal(value);
     }
   };
 
-  const renderClones = (inputField, inputValue) => {
+  const renderClone = (inputField, inputValue) => {
     const cloneValues = getCloneValues(inputField, inputValue);
     const cloneFields = cloneValues.map((cloneValue, cloneIndex) => {
       const cloneField = { ...inputField };
@@ -107,7 +87,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
             value={cloneValue._value}
             onDelete={() => {
               cloneValues.splice(cloneIndex, 1);
-              updateValue(inputField, cloneValues);
+              handleUpdateCloneValue(inputField, cloneValues);
             }}
             onClone={(value = "") => {
               addCloneValue(inputField, cloneValues, value, cloneIndex + 1);
@@ -124,8 +104,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
         {...inputField}
         fields={cloneFields}
         onSort={(sortedValues) => {
-          console.log("sortedValues", sortedValues);
-          updateValue(inputField, sortedValues);
+          handleUpdateCloneValue(inputField, sortedValues);
         }}
         onClone={() => {
           addCloneValue(inputField, cloneValues, "");
@@ -134,18 +113,20 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
     );
   };
 
-  const renderInput = (inputField, inputValue) => {
+  const renderInput = (
+    inputField,
+    inputValue,
+    onUpdate = handleUpdateValue
+  ) => {
     if (inputField.clone) {
-      return renderClones(inputField, inputValue);
+      return renderClone(inputField, inputValue);
     } else {
       switch (inputField.type) {
         case "checkbox":
           return (
             <CheckboxField
               value={inputValue}
-              onChange={(updatedValue) =>
-                handleUpdateValue(inputField, updatedValue)
-              }
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />
           );
@@ -153,45 +134,21 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
           return (
             <ColorField
               value={inputValue}
-              onChange={(updatedValue) =>
-                handleUpdateValue(inputField, updatedValue)
-              }
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />
           );
         case "group":
-          const fields = arrayValues(inputField.fields);
           return (
-            <GroupField {...inputField}>
-              {fields.map((groupField, index) => {
-                if (showField(groupField)) {
-                  const groupFieldValue = inputValue[groupField.id]
-                    ? inputValue[groupField.id]
-                    : groupField.std
-                    ? groupField.std
-                    : "";
-
-                  return (
-                    <Fragment
-                      key={
-                        groupField.id
-                          ? `${inputField.id}${groupField.id}`
-                          : `${inputField.id}${index}`
-                      }
-                    >
-                      <div
-                        className={`GROUPFIELD type-${groupField.type} id-${groupField.id}`}
-                      >
-                        {renderInput(groupField, groupFieldValue)}
-                      </div>
-                    </Fragment>
-                  );
-                } else {
-                  console.log("no show");
-                  return false;
-                }
-              })}
-            </GroupField>
+            <GroupField
+              value={inputValue}
+              allValues={allValues}
+              renderInput={renderInput}
+              onChange={(updatedValue) => {
+                onUpdate(inputField, updatedValue);
+              }}
+              {...inputField}
+            />
           );
         case "heading":
           return <BaseField {...inputField} />;
@@ -199,9 +156,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
           return (
             <NumberField
               value={String(inputValue)}
-              onChange={(updatedValue) =>
-                handleUpdateValue(inputField, updatedValue)
-              }
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />
           );
@@ -209,9 +164,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
           return (
             <RadioField
               value={inputValue}
-              onChange={(updatedValue) =>
-                handleUpdateValue(inputField, updatedValue)
-              }
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />
           );
@@ -219,9 +172,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
           return (
             <SpacingField
               value={inputValue}
-              onChange={(updatedValue) =>
-                handleUpdateValue(inputField, updatedValue)
-              }
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />
           );
@@ -229,9 +180,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
           return (
             <SelectField
               value={inputValue}
-              onChange={(updatedValue) =>
-                handleUpdateValue(inputField, updatedValue)
-              }
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />
           );
@@ -239,9 +188,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
           return (
             <SliderField
               value={String(inputValue)}
-              onChange={(updatedValue) =>
-                handleUpdateValue(inputField, updatedValue)
-              }
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />
           );
@@ -250,9 +197,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
           return (
             <SpacingField
               value={inputValue}
-              onChange={(updatedValue) =>
-                handleUpdateValue(inputField, updatedValue)
-              }
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />
           );
@@ -260,9 +205,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
           return (
             <TextareaField
               value={inputValue}
-              onChange={(updatedValue) =>
-                handleUpdateValue(inputField, updatedValue)
-              }
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />
           );
@@ -270,9 +213,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
           return (
             <UnitField
               value={inputValue}
-              onChange={(updatedValue) =>
-                handleUpdateValue(inputField, updatedValue)
-              }
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />
           );
@@ -280,9 +221,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
           return (
             <TextareaField
               value={inputValue}
-              onChange={(updatedValue) =>
-                handleUpdateValue(inputField, updatedValue)
-              }
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />
           );
@@ -290,9 +229,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
           return (
             <TextField
               value={inputValue}
-              onChange={(updatedValue) =>
-                handleUpdateValue(inputField, updatedValue)
-              }
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />
           );
@@ -300,44 +237,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
     }
   };
 
-  const showField = (inputField) => {
-    if (!inputField.show) {
-      return true;
-    }
-
-    const operators = {
-      "=": (a, b) => {
-        return a === b;
-      },
-      "!=": (a, b) => {
-        return a !== b;
-      },
-    };
-
-    if (inputField.show) {
-      const relation = inputField.show.relation
-        ? inputField.show.relation
-        : "AND";
-      const checks = inputField.show.fields.map((f) => {
-        if (operators[f.compare](allValues[f.key], f.value)) {
-          return "pass";
-        } else {
-          return "fail";
-        }
-      });
-      if ("OR" === relation) {
-        return checks.includes("pass");
-      } else {
-        return checks.every((v) => v === "pass");
-      }
-    }
-  };
-
-  if (showField(field)) {
-    return renderInput(field, confirmedValue);
-  } else {
-    return false;
-  }
+  return renderInput(field, fieldVal, handleUpdateValue);
 };
 
 export default Field;

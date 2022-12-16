@@ -620,6 +620,8 @@ const displaySettingsStyle = (
               type: "group",
               name: __("Container Styles", "ditty-news-ticker"),
               desc: __("Add custom container styles.", "ditty-news-ticker"),
+              defaultState: "collapsed",
+              collapsible: true,
               fields: window.dittyHooks.applyFilters(
                 "dittyDisplaySettingsStylesContainerFields",
                 [
@@ -665,6 +667,8 @@ const displaySettingsStyle = (
               type: "group",
               name: __("Content Styles", "ditty-news-ticker"),
               desc: __("Add custom content styles.", "ditty-news-ticker"),
+              defaultState: "collapsed",
+              collapsible: true,
               fields: window.dittyHooks.applyFilters(
                 "dittyDisplaySettingsStylesContentFields",
                 [
@@ -693,6 +697,8 @@ const displaySettingsStyle = (
               type: "group",
               name: __("Page Styles", "ditty-news-ticker"),
               desc: __("Add custom page styles.", "ditty-news-ticker"),
+              defaultState: "collapsed",
+              collapsible: true,
               fields: window.dittyHooks.applyFilters(
                 "dittyDisplaySettingsStylesPageFields",
                 [
@@ -718,6 +724,8 @@ const displaySettingsStyle = (
               type: "group",
               name: __("Item Styles", "ditty-news-ticker"),
               desc: __("Add custom item styles.", "ditty-news-ticker"),
+              defaultState: "collapsed",
+              collapsible: true,
               fields: window.dittyHooks.applyFilters(
                 "dittyDisplaySettingsStylesItemFields",
                 [
