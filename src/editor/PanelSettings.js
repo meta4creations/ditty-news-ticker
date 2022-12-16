@@ -26,7 +26,8 @@ const PanelSettings = ({ editor }) => {
       id: "singleFieldTest",
       name: __("Single Field Group", "ditty-news-ticker"),
       //defaultState: "collapsed",
-      //collapsible: true,
+      collapsible: true,
+      cloneLabel: "${testTitle}: ${testSubject}",
       clone: true,
       cloneButton: __("Add More Groups", "ditty-news-ticker"),
       fields: [

@@ -36,10 +36,17 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
   };
 
   const addCloneValue = (field, cloneValues, value, index) => {
+    const cloneValue = typeof value === "object" ? { ...value } : value;
     if (index && index <= cloneValues.length) {
-      cloneValues.splice(index, 0, { _id: Date.now() + index, _value: value });
+      cloneValues.splice(index, 0, {
+        _id: Date.now() + index,
+        _value: cloneValue,
+      });
     } else {
-      cloneValues.push({ _id: Date.now() + cloneValues.length, _value: value });
+      cloneValues.push({
+        _id: Date.now() + cloneValues.length,
+        _value: cloneValue,
+      });
     }
 
     handleUpdateCloneValue(field, cloneValues);
