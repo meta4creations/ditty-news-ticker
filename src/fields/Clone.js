@@ -39,7 +39,35 @@ const Clone = (props) => {
     handleUpdateCloneValue(updatedValues);
   };
 
-  const addCloneValue = (value, index) => {
+  const handleMoveUp = (data) => {
+    const updatedValues = [...cloneValues];
+    const fromIndex = updatedValues.findIndex((object) => {
+      return object._id === data._id;
+    });
+    if (fromIndex <= 0) {
+      return false;
+    }
+    let toIndex = fromIndex - 1;
+    updatedValues.splice(fromIndex, 1);
+    updatedValues.splice(toIndex, 0, data);
+    handleUpdateCloneValue(updatedValues);
+  };
+
+  const handleMoveDown = (data) => {
+    const updatedValues = [...cloneValues];
+    const fromIndex = updatedValues.findIndex((object) => {
+      return object._id === data._id;
+    });
+    if (fromIndex >= updatedValues.length - 1) {
+      return false;
+    }
+    const toIndex = fromIndex + 1;
+    updatedValues.splice(fromIndex, 1);
+    updatedValues.splice(toIndex, 0, data);
+    handleUpdateCloneValue(updatedValues);
+  };
+
+  const handleAddClone = (value, index) => {
     const cloneValue = typeof value === "object" ? { ...value } : value;
     const updatedValues = [...cloneValues];
     if (index && index <= updatedValues.length) {
@@ -70,7 +98,8 @@ const Clone = (props) => {
         data: cloneValue,
         content: (
           <CloneField
-            key={`${field.id}${cloneIndex}`}
+            key={cloneValue._id}
+            data={cloneValue}
             value={cloneValue._value}
             onDelete={() => {
               const updatedValues = [...cloneValues];
@@ -78,8 +107,10 @@ const Clone = (props) => {
               handleUpdateCloneValue(updatedValues);
             }}
             onClone={(value = "") => {
-              addCloneValue(value, cloneIndex + 1);
+              handleAddClone(value, cloneIndex + 1);
             }}
+            onMoveUp={handleMoveUp}
+            onMoveDown={handleMoveDown}
           >
             {renderInput(cloneField, cloneValue._value, handleUpdateValue)}
           </CloneField>
@@ -109,7 +140,7 @@ const Clone = (props) => {
       />
       <ButtonGroup className="ditty-clone__footer">
         <Button
-          onClick={() => addCloneValue("")}
+          onClick={() => handleAddClone("")}
           className="ditty-clone__button"
         >
           {cloneButton ? cloneButton : __("Add More", "ditty-news-ticker")}

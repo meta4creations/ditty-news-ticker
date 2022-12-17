@@ -4,19 +4,31 @@ import {
   faMinus,
   faPlus,
   faClone,
-  faSort,
+  faAngleUp,
+  faAngleDown,
 } from "@fortawesome/pro-light-svg-icons";
 import classnames from "classnames";
 import { Button, ButtonGroup } from "../components";
 
-const CloneField = ({ className, value, onClone, onDelete, children }) => {
+const CloneField = ({
+  className,
+  data,
+  onMoveUp,
+  onMoveDown,
+  onClone,
+  onDelete,
+  children,
+}) => {
   const fieldClasses = classnames("ditty-clone__field", className);
 
   return (
     <div className={fieldClasses}>
       <ButtonGroup className="ditty-clone__field__buttons ditty-clone__field__buttons--start">
-        <Button>
-          <FontAwesomeIcon icon={faSort} />
+        <Button onClick={() => onMoveUp(data)}>
+          <FontAwesomeIcon icon={faAngleUp} />
+        </Button>
+        <Button onClick={() => onMoveDown(data)}>
+          <FontAwesomeIcon icon={faAngleDown} />
         </Button>
       </ButtonGroup>
       {children}
@@ -29,7 +41,7 @@ const CloneField = ({ className, value, onClone, onDelete, children }) => {
         </Button>
         <Button
           onClick={() => {
-            onClone(value);
+            onClone(data._value);
           }}
         >
           <FontAwesomeIcon icon={faClone} />
