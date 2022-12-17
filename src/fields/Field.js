@@ -1,10 +1,7 @@
 import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
-
 import BaseField from "./BaseField";
 import ColorField from "./ColorField";
 import Clone from "./Clone";
-import CloneField from "./CloneField";
 import CheckboxField from "./CheckboxField";
 import GroupField from "./GroupField";
 import NumberField from "./NumberField";
@@ -16,108 +13,13 @@ import TextField from "./TextField";
 import TextareaField from "./TextareaField";
 import UnitField from "./UnitField";
 
-const Field = ({ field, fieldValue, allValues, updateValue }) => {
-  const [fieldVal, setFieldVal] = useState(fieldValue);
-
-  const getCloneValues = (field, value = fieldVal) => {
-    let cloneValues = Array.isArray(value) ? value : [value];
-    if (cloneValues.length < 1) {
-      cloneValues.push("");
-    }
-
-    const cloneValueObjects = cloneValues.map((cloneValue, cloneIndex) => {
-      const cloneValueObject =
-        typeof cloneValue === "object" && cloneValue._id
-          ? cloneValue
-          : { _id: Date.now() + cloneIndex, _value: cloneValue };
-      return cloneValueObject;
-    });
-    return cloneValueObjects;
-  };
-
-  const addCloneValue = (field, cloneValues, value, index) => {
-    const cloneValue = typeof value === "object" ? { ...value } : value;
-    if (index && index <= cloneValues.length) {
-      cloneValues.splice(index, 0, {
-        _id: Date.now() + index,
-        _value: cloneValue,
-      });
-    } else {
-      cloneValues.push({
-        _id: Date.now() + cloneValues.length,
-        _value: cloneValue,
-      });
-    }
-
-    handleUpdateCloneValue(field, cloneValues);
-  };
-
-  const handleUpdateCloneValue = (field, cloneValues) => {
-    const cleanedValues = cloneValues.map((cloneValue) => {
-      return cloneValue._id ? cloneValue._value : cloneValue;
-    });
-    updateValue(field.id, cleanedValues);
-    setFieldVal(cloneValues);
-  };
-
+const Field = ({ field, fieldValue, updateValue }) => {
   const handleUpdateValue = (field, value) => {
-    if (field.cloneIndex) {
-      const cloneValues = getCloneValues(field);
-      cloneValues[Number(field.cloneIndex)]._value = value;
-      handleUpdateCloneValue(field, cloneValues);
+    if (Array.isArray(value) && !field.clone) {
+      value.map((v) => updateValue(v.id, v.value));
     } else {
-      if (Array.isArray(value)) {
-        value.map((v) => updateValue(v.id, v.value));
-      } else {
-        updateValue(field.id, value);
-      }
-      setFieldVal(value);
+      updateValue(field.id, value);
     }
-  };
-
-  const renderClone = (inputField, inputValue) => {
-    const cloneValues = getCloneValues(inputField, inputValue);
-    const cloneFields = cloneValues.map((cloneValue, cloneIndex) => {
-      const cloneField = { ...inputField };
-      delete cloneField.clone;
-      delete cloneField.clone_button;
-      cloneField.hideHeader = true;
-      cloneField.cloneIndex = `${cloneIndex}`;
-      cloneField.cloneId = cloneValue._id;
-
-      return {
-        id: cloneValue._id,
-        data: cloneValue,
-        content: (
-          <CloneField
-            key={`${inputField.id}${cloneIndex}`}
-            value={cloneValue._value}
-            onDelete={() => {
-              cloneValues.splice(cloneIndex, 1);
-              handleUpdateCloneValue(inputField, cloneValues);
-            }}
-            onClone={(value = "") => {
-              addCloneValue(inputField, cloneValues, value, cloneIndex + 1);
-            }}
-          >
-            {renderInput(cloneField, cloneValue._value)}
-          </CloneField>
-        ),
-      };
-    });
-
-    return (
-      <Clone
-        {...inputField}
-        fields={cloneFields}
-        onSort={(sortedValues) => {
-          handleUpdateCloneValue(inputField, sortedValues);
-        }}
-        onClone={() => {
-          addCloneValue(inputField, cloneValues, "");
-        }}
-      />
-    );
   };
 
   const renderInput = (
@@ -126,7 +28,16 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
     onUpdate = handleUpdateValue
   ) => {
     if (inputField.clone) {
-      return renderClone(inputField, inputValue);
+      return (
+        <Clone
+          field={inputField}
+          value={inputValue}
+          renderInput={renderInput}
+          onChange={(updatedValue) => {
+            onUpdate(inputField, updatedValue);
+          }}
+        />
+      );
     } else {
       switch (inputField.type) {
         case "checkbox":
@@ -149,7 +60,6 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
           return (
             <GroupField
               value={inputValue}
-              allValues={allValues}
               renderInput={renderInput}
               onChange={(updatedValue) => {
                 onUpdate(inputField, updatedValue);
@@ -244,7 +154,7 @@ const Field = ({ field, fieldValue, allValues, updateValue }) => {
     }
   };
 
-  return renderInput(field, fieldVal, handleUpdateValue);
+  return renderInput(field, fieldValue, handleUpdateValue);
 };
 
 export default Field;

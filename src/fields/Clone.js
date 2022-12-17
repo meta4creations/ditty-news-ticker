@@ -1,32 +1,64 @@
 import { __ } from "@wordpress/i18n";
+import { useState } from "@wordpress/element";
 import classnames from "classnames";
 import { Button, ButtonGroup, SortableList } from "../components";
 import FieldHeader from "./FieldHeader";
+import CloneField from "./CloneField";
 
 const Clone = (props) => {
-  const { fields, cloneButton, className, onClone, onSort, children } = props;
+  const { field, value, renderInput, onChange, cloneButton, className } = props;
   const fieldClasses = classnames("ditty-clone", className);
 
-  const getCloneValues = (field, value = fieldVal) => {
-    let cloneValues = Array.isArray(value) ? value : [value];
-    if (cloneValues.length < 1) {
-      cloneValues.push("");
+  const getCloneValues = () => {
+    let values = Array.isArray(value) ? value : [value];
+    if (values.length < 1) {
+      values.push("");
     }
-
-    const cloneValueObjects = cloneValues.map((cloneValue, cloneIndex) => {
-      const cloneValueObject =
+    const valueObjects = values.map((cloneValue, cloneIndex) => {
+      const valueObject =
         typeof cloneValue === "object" && cloneValue._id
           ? cloneValue
           : { _id: Date.now() + cloneIndex, _value: cloneValue };
-      return cloneValueObject;
+      return valueObject;
     });
-    return cloneValueObjects;
+    return valueObjects;
+  };
+  const [cloneValues, setCloneValues] = useState(getCloneValues());
+
+  const handleUpdateCloneValue = (updatedValues) => {
+    const cleanedValues = updatedValues.map((cloneValue) => {
+      return cloneValue._id ? cloneValue._value : cloneValue;
+    });
+    setCloneValues(updatedValues);
+    onChange(cleanedValues);
+  };
+
+  const handleUpdateValue = (inputField, updatedValue) => {
+    const updatedValues = [...cloneValues];
+    updatedValues[Number(inputField.cloneIndex)]._value = updatedValue;
+    handleUpdateCloneValue(updatedValues);
+  };
+
+  const addCloneValue = (value, index) => {
+    const cloneValue = typeof value === "object" ? { ...value } : value;
+    const updatedValues = [...cloneValues];
+    if (index && index <= updatedValues.length) {
+      updatedValues.splice(index, 0, {
+        _id: Date.now() + index,
+        _value: cloneValue,
+      });
+    } else {
+      updatedValues.push({
+        _id: Date.now() + updatedValues.length,
+        _value: cloneValue,
+      });
+    }
+    handleUpdateCloneValue(updatedValues);
   };
 
   const getCloneFields = () => {
-    const cloneValues = getCloneValues(inputField, inputValue);
     return cloneValues.map((cloneValue, cloneIndex) => {
-      const cloneField = { ...inputField };
+      const cloneField = { ...field };
       delete cloneField.clone;
       delete cloneField.clone_button;
       cloneField.hideHeader = true;
@@ -38,17 +70,18 @@ const Clone = (props) => {
         data: cloneValue,
         content: (
           <CloneField
-            key={`${inputField.id}${cloneIndex}`}
+            key={`${field.id}${cloneIndex}`}
             value={cloneValue._value}
             onDelete={() => {
-              cloneValues.splice(cloneIndex, 1);
-              handleUpdateCloneValue(inputField, cloneValues);
+              const updatedValues = [...cloneValues];
+              updatedValues.splice(cloneIndex, 1);
+              handleUpdateCloneValue(updatedValues);
             }}
             onClone={(value = "") => {
-              addCloneValue(inputField, cloneValues, value, cloneIndex + 1);
+              addCloneValue(value, cloneIndex + 1);
             }}
           >
-            {renderInput(cloneField, cloneValue._value)}
+            {renderInput(cloneField, cloneValue._value, handleUpdateValue)}
           </CloneField>
         ),
       };
@@ -63,23 +96,22 @@ const Clone = (props) => {
     const updatedItems = sortedListItems.map((item) => {
       return item.data;
     });
-    onSort(updatedItems);
+    handleUpdateCloneValue(updatedItems);
   };
 
   return (
     <div className={fieldClasses}>
       <FieldHeader {...props} />
-      {/* {fields.map((value, index) => {
-        return value.content;
-      })} */}
-
       <SortableList
         className="ditty-clone__fields"
-        items={fields}
+        items={getCloneFields()}
         onSortEnd={handleSortEnd}
       />
       <ButtonGroup className="ditty-clone__footer">
-        <Button onClick={onClone} className="ditty-clone__button">
+        <Button
+          onClick={() => addCloneValue("")}
+          className="ditty-clone__button"
+        >
           {cloneButton ? cloneButton : __("Add More", "ditty-news-ticker")}
         </Button>
       </ButtonGroup>
