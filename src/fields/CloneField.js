@@ -24,10 +24,16 @@ const CloneField = ({
   return (
     <div className={fieldClasses}>
       <ButtonGroup className="ditty-clone__field__buttons ditty-clone__field__buttons--start">
-        <Button onClick={() => onMoveUp(data)}>
+        <Button
+          onClick={() => onMoveUp(data)}
+          disabled={!onMoveUp && "disabled"}
+        >
           <FontAwesomeIcon icon={faAngleUp} />
         </Button>
-        <Button onClick={() => onMoveDown(data)}>
+        <Button
+          onClick={() => onMoveDown(data)}
+          disabled={!onMoveDown && "disabled"}
+        >
           <FontAwesomeIcon icon={faAngleDown} />
         </Button>
       </ButtonGroup>

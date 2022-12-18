@@ -13,7 +13,8 @@
     "packages-update": "wp-scripts packages-update"
   },
   "dependencies": {
-    "@dnd-kit/core": "6.0.5",
+    "@dnd-kit/core": "6.0.6",
+    "@dnd-kit/modifiers": "6.0.1",
     "@dnd-kit/sortable": "7.0.1",
     "@fortawesome/fontawesome-svg-core": "6.2.0",
     "@fortawesome/free-brands-svg-icons": "6.2.0",

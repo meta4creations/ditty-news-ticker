@@ -1,5 +1,15 @@
-import { useSortable } from "@dnd-kit/sortable";
+import { useSortable, defaultAnimateLayoutChanges } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+
+function animateLayoutChanges(args) {
+  const { isSorting, wasSorting } = args;
+
+  if (isSorting || wasSorting) {
+    return defaultAnimateLayoutChanges(args);
+  }
+
+  return true;
+}
 
 export default function SortableItem(props) {
   const {
@@ -9,7 +19,7 @@ export default function SortableItem(props) {
     transform,
     transition,
     activeIndex,
-  } = useSortable({ id: props.id });
+  } = useSortable({ animateLayoutChanges, id: props.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),

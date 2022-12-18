@@ -109,8 +109,10 @@ const Clone = (props) => {
             onClone={(value = "") => {
               handleAddClone(value, cloneIndex + 1);
             }}
-            onMoveUp={handleMoveUp}
-            onMoveDown={handleMoveDown}
+            onMoveUp={cloneIndex > 0 ? handleMoveUp : null}
+            onMoveDown={
+              cloneIndex < cloneValues.length - 1 ? handleMoveDown : null
+            }
           >
             {renderInput(cloneField, cloneValue._value, handleUpdateValue)}
           </CloneField>

@@ -1,4 +1,4 @@
-/******/ (function() { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
@@ -6,11 +6,11 @@
 /*!*************************************************!*\
   !*** ./src/displays/components/dittyDisplay.js ***!
   \*************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ DittyDisplay; }
+/* harmony export */   "default": () => (/* binding */ DittyDisplay)
 /* harmony export */ });
 /* harmony import */ var _dittyDisplayStyles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dittyDisplayStyles.js */ "./src/displays/components/dittyDisplayStyles.js");
 
@@ -257,12 +257,12 @@ class DittyDisplay {
 /*!*******************************************************!*\
   !*** ./src/displays/components/dittyDisplayStyles.js ***!
   \*******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "updateDisplayStyles": function() { return /* binding */ updateDisplayStyles; },
-/* harmony export */   "updateTitleElement": function() { return /* binding */ updateTitleElement; }
+/* harmony export */   "updateDisplayStyles": () => (/* binding */ updateDisplayStyles),
+/* harmony export */   "updateTitleElement": () => (/* binding */ updateTitleElement)
 /* harmony export */ });
 /**
  * Update the title element
@@ -464,43 +464,43 @@ function updateDisplayStyles(settings, display, type) {
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 		__webpack_require__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
 /******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	!function() {
-/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
-/******/ 	}();
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
+/******/ 		__webpack_require__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
-!function() {
+(() => {
 /*!******************************************!*\
   !*** ./src/displays/dittyDisplayList.js ***!
   \******************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ DittyDisplayList; }
+/* harmony export */   "default": () => (/* binding */ DittyDisplayList)
 /* harmony export */ });
 /* harmony import */ var _components_dittyDisplay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/dittyDisplay */ "./src/displays/components/dittyDisplay.js");
 
@@ -554,7 +554,8 @@ class DittyDisplayList extends _components_dittyDisplay__WEBPACK_IMPORTED_MODULE
   }
 }
 window.dittyDisplays.list = DittyDisplayList;
-}();
+})();
+
 /******/ })()
 ;
 //# sourceMappingURL=dittyDisplayList.js.map
