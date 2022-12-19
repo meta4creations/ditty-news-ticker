@@ -30,7 +30,7 @@ const Clone = (props) => {
       return cloneValue._id ? cloneValue._value : cloneValue;
     });
     setCloneValues(updatedValues);
-    onChange(cleanedValues);
+    //onChange(cleanedValues);
   };
 
   const handleUpdateValue = (inputField, updatedValue) => {
@@ -134,7 +134,7 @@ const Clone = (props) => {
 
   return (
     <div className={fieldClasses}>
-      <FieldHeader {...props} />
+      <FieldHeader {...field} />
       <SortableList
         className="ditty-clone__fields"
         items={getCloneFields()}

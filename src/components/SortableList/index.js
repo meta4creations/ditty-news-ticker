@@ -5,22 +5,16 @@ import {
   PointerSensor,
   KeyboardSensor,
   closestCenter,
-  MeasuringStrategy,
 } from "@dnd-kit/core";
 import {
   SortableContext,
   sortableKeyboardCoordinates,
   arrayMove,
+  verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import classnames from "classnames";
 import SortableItem from "../SortableItem";
-
-const measuringConfig = {
-  droppable: {
-    strategy: MeasuringStrategy.Always,
-  },
-};
 
 const SortableList = ({ items, onSortEnd, className }) => {
   const sensors = useSensors(
@@ -49,13 +43,15 @@ const SortableList = ({ items, onSortEnd, className }) => {
   return (
     <div className={classes}>
       <DndContext
-        onDragEnd={handleDragEnd}
         sensors={sensors}
         collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
         modifiers={[restrictToVerticalAxis]}
-        measuring={measuringConfig}
       >
-        <SortableContext items={items.map((i) => i?.id)}>
+        <SortableContext
+          items={items.map((i) => i?.id)}
+          strategy={verticalListSortingStrategy}
+        >
           {items.map((value, index) => {
             return (
               <SortableItem key={value.id} id={value?.id} index={index}>
