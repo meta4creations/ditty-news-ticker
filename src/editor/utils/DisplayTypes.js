@@ -9,6 +9,7 @@ import {
   faSliders,
   faBrush,
   faHeading,
+  faTh,
 } from "@fortawesome/pro-light-svg-icons";
 import { migrateDisplayTypes } from "./migrate";
 
@@ -37,6 +38,20 @@ const getDisplayTypes = () => {
       icon: <FontAwesomeIcon icon={faList} />,
       label: __("List", "ditty-news-ticker"),
       description: __("Display items in a static list.", "ditty-news-ticker"),
+      settings: {
+        general: true,
+        navigation: ["arrows", "bullets"],
+        styles: ["container", "content", "page", "item"],
+      },
+    },
+    {
+      id: "grid",
+      icon: <FontAwesomeIcon icon={faTh} />,
+      label: __("Grid", "ditty-news-ticker"),
+      description: __(
+        "Display items in a responsive grid.",
+        "ditty-news-ticker"
+      ),
       settings: {
         general: true,
         navigation: ["arrows", "bullets"],
@@ -620,6 +635,7 @@ const displaySettingsStyle = (
               type: "group",
               name: __("Container Styles", "ditty-news-ticker"),
               desc: __("Add custom container styles.", "ditty-news-ticker"),
+              multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
               fields: window.dittyHooks.applyFilters(
@@ -667,6 +683,7 @@ const displaySettingsStyle = (
               type: "group",
               name: __("Content Styles", "ditty-news-ticker"),
               desc: __("Add custom content styles.", "ditty-news-ticker"),
+              multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
               fields: window.dittyHooks.applyFilters(
@@ -697,6 +714,7 @@ const displaySettingsStyle = (
               type: "group",
               name: __("Page Styles", "ditty-news-ticker"),
               desc: __("Add custom page styles.", "ditty-news-ticker"),
+              multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
               fields: window.dittyHooks.applyFilters(
@@ -724,6 +742,7 @@ const displaySettingsStyle = (
               type: "group",
               name: __("Item Styles", "ditty-news-ticker"),
               desc: __("Add custom item styles.", "ditty-news-ticker"),
+              multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
               fields: window.dittyHooks.applyFilters(

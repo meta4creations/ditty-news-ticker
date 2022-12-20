@@ -22,20 +22,23 @@ const PanelDisplays = () => {
   const [currentTabId, setCurrentTabId] = useState(initialTab);
   const [status, setStatus] = useState(!currentDisplay.id && "editDisplay");
   const [popupStatus, setPopupStatus] = useState(false);
-  const dittyEl = document.getElementById("ditty-editor__ditty");
 
   /**
    * Update the Display on field update
    * @param {object} field
    * @param {string} value
    */
-  const handleUpdateValue = (field, value) => {
+  const handleOnUpdate = (id, value) => {
+    console.log("id", id);
+    console.log("value", value);
+
     // Update the Ditty options
-    updateDisplayOptions(dittyEl, field.id, value);
+    const dittyEl = document.getElementById("ditty-editor__ditty");
+    updateDisplayOptions(dittyEl, id, value);
 
     // Update the editor display
     const updatedDisplay = { ...currentDisplay };
-    updatedDisplay.settings[field.id] = value;
+    updatedDisplay.settings[id] = value;
     updatedDisplay.updated = Date.now();
     actions.setCurrentDisplay(updatedDisplay);
   };
@@ -45,6 +48,7 @@ const PanelDisplays = () => {
    * @returns Popup component
    */
   const renderPopup = () => {
+    const dittyEl = document.getElementById("ditty-editor__ditty");
     switch (popupStatus) {
       case "displayTemplateSave":
         return (
@@ -189,18 +193,11 @@ const PanelDisplays = () => {
 
       const fieldGroup = fieldGroups[index];
       return (
-        <FieldList>
-          {fieldGroup.fields.map((field, index) => {
-            return (
-              <Field
-                key={field.id ? field.id : index}
-                field={field}
-                allValues={currentDisplay.settings}
-                updateValue={handleUpdateValue}
-              />
-            );
-          })}
-        </FieldList>
+        <FieldList
+          fields={fieldGroup.fields}
+          values={currentDisplay.settings}
+          onUpdate={handleOnUpdate}
+        />
       );
     }
   };

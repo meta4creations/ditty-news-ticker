@@ -2,8 +2,21 @@ import { __ } from "@wordpress/i18n";
 import classnames from "classnames";
 import Field from "./Field";
 
-const FieldList = ({ fields, values, className, children, onUpdate }) => {
+const FieldList = ({ fields, values, className, onUpdate }) => {
   const classes = classnames("ditty-field-list", className);
+
+  const groupFields = (gFields) => {
+    if (Array.isArray(gFields)) {
+      return gFields;
+    }
+    if ("object" === typeof gFields) {
+      const fieldsArray = [];
+      for (const key in gFields) {
+        fieldsArray.push(gFields[key]);
+      }
+      return fieldsArray;
+    }
+  };
 
   const fieldValue = (field) => {
     let value = values[field.id]
@@ -11,17 +24,16 @@ const FieldList = ({ fields, values, className, children, onUpdate }) => {
       : field.std
       ? field.std
       : "";
-    if ("group" === field.type && field.multipleFields) {
-      value = field.fields.map((f) => {
+    if (
+      "group" === field.type &&
+      (field.multipleFields || field.multiple_fields)
+    ) {
+      value = groupFields(field.fields).map((f) => {
         return {
           id: f.id,
           value: values[f.id] ? values[f.id] : f.std ? f.std : "",
         };
       });
-    }
-
-    if ("group" === field.type) {
-      //console.log(field.id, value);
     }
     return value;
   };
@@ -64,10 +76,10 @@ const FieldList = ({ fields, values, className, children, onUpdate }) => {
 
   return (
     <div className={classes}>
-      {fields.map((field) => {
+      {fields.map((field, index) => {
         return showField(field) ? (
           <Field
-            key={field.id}
+            key={field.id ? field.id : index}
             field={field}
             fieldValue={fieldValue(field)}
             updateValue={onUpdate}

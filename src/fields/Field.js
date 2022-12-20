@@ -57,6 +57,12 @@ const Field = ({ field, fieldValue, updateValue }) => {
             />
           );
         case "group":
+          if (inputField.multiple_fields) {
+            inputField.multipleFields = inputField.multiple_fields;
+          }
+          if (inputField.default_state) {
+            inputField.defaultState = inputField.default_state;
+          }
           return (
             <GroupField
               value={inputValue}

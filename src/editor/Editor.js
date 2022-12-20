@@ -11,7 +11,7 @@ import PanelDisplays from "./PanelDisplays";
 import { EditorContext } from "./context";
 
 const Editor = () => {
-  const [currentTabId, setCurrentTabId] = useState("settings");
+  const [currentTabId, setCurrentTabId] = useState("display");
 
   const tabs = window.dittyHooks.applyFilters(
     "dittyEditorTabs",

@@ -28,6 +28,7 @@ var dittyConfig = {
       "./src/partials/itemTypeDefault.js",
       "./src/partials/displayTypeTicker.js",
       "./src/partials/displayTypeList.js",
+      "./src/partials/displayTypeGrid.js",
     ],
   },
   output: {

@@ -15,14 +15,6 @@ const PanelSettings = ({ editor }) => {
       placeholder: __("Add title", "ditty-news-ticker"),
     },
     // {
-    //   type: "text",
-    //   id: "cloneTest",
-    //   name: __("CloneTest", "ditty-news-ticker"),
-    //   help: "testing here",
-    //   std: "wha wha",
-    //   clone: true,
-    // },
-    // {
     //   type: "group",
     //   id: "singleFieldTest",
     //   name: __("Single Field Group", "ditty-news-ticker"),
@@ -31,35 +23,6 @@ const PanelSettings = ({ editor }) => {
     //   cloneLabel: "${testTitle}: ${testSubject}",
     //   clone: true,
     //   cloneButton: __("Add More Groups", "ditty-news-ticker"),
-    //   fields: [
-    //     {
-    //       type: "text",
-    //       id: "testTitle",
-    //       name: __("Title", "ditty-news-ticker"),
-    //       placeholder: __("Add title", "ditty-news-ticker"),
-    //     },
-    //     {
-    //       type: "select",
-    //       id: "testSubject",
-    //       name: __("Subject", "ditty-news-ticker"),
-    //       placeholder: __("Your subject", "ditty-news-ticker"),
-    //       options: {
-    //         1: "for fun",
-    //         2: "for the dough",
-    //         3: "to get luck",
-    //       },
-    //     },
-    //   ],
-    // },
-    // {
-    //   type: "group",
-    //   id: "multipleFieldTest",
-    //   name: __("Mutlipe Fields Group", "ditty-news-ticker"),
-    //   multipleFields: true,
-    //   //defaultState: "expanded",
-    //   collapsible: true,
-    //   //clone: true,
-    //   //cloneButton: __("Add More Tests", "ditty-news-ticker"),
     //   fields: [
     //     {
     //       type: "text",

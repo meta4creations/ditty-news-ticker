@@ -13,7 +13,7 @@ const GroupField = (props) => {
     className,
     collapsible,
     defaultState = "expanded",
-    multipleFields,
+    multipleFields = false,
     onChange,
     renderInput,
   } = props;
@@ -63,6 +63,19 @@ const GroupField = (props) => {
     value.map((v) => (groupValues[v.id] = v.value));
   }
 
+  const groupFields = () => {
+    if (Array.isArray(fields)) {
+      return fields;
+    }
+    if ("object" === typeof fields) {
+      const fieldsArray = [];
+      for (const key in fields) {
+        fieldsArray.push(fields[key]);
+      }
+      return fieldsArray;
+    }
+  };
+
   return (
     <div className={fieldClasses} key={id}>
       <FieldHeader
@@ -81,7 +94,7 @@ const GroupField = (props) => {
       {displayContent && fields && (
         <div className="ditty-field__input__container">
           <div className="ditty-field__input ditty-field__input--group">
-            {fields.map((groupField, index) => {
+            {groupFields().map((groupField, index) => {
               const groupFieldValue = groupValues[groupField.id]
                 ? groupValues[groupField.id]
                 : groupField.std
