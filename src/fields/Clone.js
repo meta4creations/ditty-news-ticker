@@ -88,7 +88,7 @@ const Clone = (props) => {
     return cloneValues.map((cloneValue, cloneIndex) => {
       const cloneField = { ...field };
       delete cloneField.clone;
-      delete cloneField.clone_button;
+      delete cloneField.cloneButton;
       cloneField.hideHeader = true;
       cloneField.cloneIndex = `${cloneIndex}`;
       cloneField.cloneId = cloneValue._id;

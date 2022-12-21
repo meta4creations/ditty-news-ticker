@@ -2,7 +2,7 @@ import { __ } from "@wordpress/i18n";
 import { useState, useContext } from "@wordpress/element";
 import { updateDisplayOptions } from "../services/dittyService";
 import { Button, ButtonGroup, IconBlock, Link, Panel } from "../components";
-import { Field, FieldList } from "../fields";
+import { FieldList } from "../fields";
 import {
   getDisplayTypeObject,
   getDisplayTypeSettings,
@@ -29,9 +29,6 @@ const PanelDisplays = () => {
    * @param {string} value
    */
   const handleOnUpdate = (id, value) => {
-    console.log("id", id);
-    console.log("value", value);
-
     // Update the Ditty options
     const dittyEl = document.getElementById("ditty-editor__ditty");
     updateDisplayOptions(dittyEl, id, value);

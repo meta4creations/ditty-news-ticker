@@ -21,7 +21,7 @@ var dittyConfig = {
   ...defaultConfig,
   entry: {
     ditty: "./src/ditty.js",
-    dittyEditor: "./src/editor/dittyEditor.js",
+    dittyEditor: "./src/dittyEditor.js",
     dittyScripts: [
       "./src/partials/dittyItems.js",
       "./src/partials/editorSettings.js",
@@ -42,7 +42,6 @@ var displayConfig = {
   entry: {
     dittyDisplayTicker: "./src/displays/dittyDisplayTicker.js",
     dittyDisplayList: "./src/displays/dittyDisplayList.js",
-    dittyDisplayGrid: "./src/displays/dittyDisplayGrid.js",
   },
   output: {
     filename: "[name].js",

@@ -1,5 +1,5 @@
 import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
+import { useState, useContext } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBarsStaggered,
@@ -11,6 +11,7 @@ import PanelDisplays from "./PanelDisplays";
 import { EditorContext } from "./context";
 
 const Editor = () => {
+  const { currentDisplay } = useContext(EditorContext);
   const [currentTabId, setCurrentTabId] = useState("display");
 
   const tabs = window.dittyHooks.applyFilters(
@@ -25,7 +26,7 @@ const Editor = () => {
         id: "display",
         label: __("Display", "ditty-news-ticker"),
         icon: <FontAwesomeIcon icon={faTabletScreen} />,
-        content: <PanelDisplays />,
+        content: <PanelDisplays key={currentDisplay.type} />,
       },
       {
         id: "settings",

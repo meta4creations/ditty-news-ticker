@@ -20,7 +20,6 @@ const DisplayTemplateSelectorPopup = ({
 }) => {
   const [currentTemplate, setCurrentTemplate] = useState(activeTemplate);
   const [filteredTemplates, setFilteredTemplates] = useState(templates);
-  console.log("currentTemplate", currentTemplate);
 
   const elements = [
     {

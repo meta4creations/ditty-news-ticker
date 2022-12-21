@@ -5,7 +5,7 @@ const TextareaField = (props) => {
   const { value, cols, rows, onChange } = props;
 
   return (
-    <BaseField {...props}>
+    <BaseField {...props} type="textarea">
       <textarea
         cols={cols}
         rows={rows}

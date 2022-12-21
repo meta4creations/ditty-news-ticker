@@ -198,7 +198,6 @@ const DisplayTemplateSavePopup = ({
             name={__("Template Description", "ditty-news-ticker")}
             value={templateDescription}
             onChange={(value) => setTemplateDescription(value)}
-            style={{ marginTop: "10px" }}
           />
         </FieldList>
       ) : (

@@ -75,29 +75,6 @@ class Ditty_Editor {
 	 * @access public
 	 * @since  3.1
 	 */
-	public function display_type_data() {	
-		$display_types = ditty_display_types();
-		$display_type_data = array();
-		if ( is_array( $display_types ) && count( $display_types ) > 0 ) {
-			foreach ( $display_types as $i => $type ) {
-				if ( $type['type'] == 'ticker' || $type['type'] == 'list' ) {
-					continue;
-				}
-				$display_type_object = ditty_display_type_object( $type['type'] );
-				$default_settings = $display_type_object->default_settings();
-				$type['settings'] = array_values( $display_type_object->fields( $default_settings ) );
-				$display_type_data[] = $type;
-			}
-		}
-		return array_values( $display_type_data );
-	}
-
-	/**
-	 * Get all display data for the editor
-	 *
-	 * @access public
-	 * @since  3.1
-	 */
 	public function display_data() {	
 		$args = array(
 			'posts_per_page' => -1,
@@ -163,6 +140,74 @@ class Ditty_Editor {
 			}
 		}
 		return $layout_data;
+	}
+
+	/**
+	 * Get all display data for the editor
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function display_type_data() {	
+		$display_types = ditty_display_types();
+		$display_type_data = array();
+		if ( is_array( $display_types ) && count( $display_types ) > 0 ) {
+			foreach ( $display_types as $i => $type ) {
+				if ( $type['type'] == 'ticker' || $type['type'] == 'list' ) {
+					continue;
+				}
+				$display_type_object = ditty_display_type_object( $type['type'] );
+				$default_settings = $display_type_object->default_settings();
+				$type['settings'] = $this->format_js_fields( $display_type_object->fields( $default_settings ) );
+				$display_type_data[] = $type;
+			}
+		}
+		return array_values( $display_type_data );
+	}
+
+	// Convert fields for js
+	private function convert_js_field_keys( &$field ) {
+		if ( isset( $field['multiple_fields'] ) ) {
+			$field['multipleFields'] = $field['multiple_fields'];
+			unset( $field['multiple_fields'] );
+		}
+		if ( isset( $field['default_state'] ) ) {
+			$field['defaultState'] = $field['default_state'];
+			unset( $field['default_state'] );
+		}
+		if ( isset( $field['clone_button'] ) ) {
+			$field['cloneButton'] = $field['clone_button'];
+			unset( $field['clone_button'] );
+		}
+		if ( isset( $field['js_options'] ) ) {
+			if ( is_array( $field['js_options'] ) && count( $field['js_options'] ) > 0 ) {
+				foreach ( $field['js_options'] as $key => $value ) {
+					$field[$key] = $value;
+				}
+			}
+			unset( $field['js_options'] );
+		}
+	}
+	private function format_js_field( $field ) {
+		$this->convert_js_field_keys( $field );
+		if ( isset( $field['fields'] ) && is_array( $field['fields'] ) && count( $field['fields'] ) > 0 ) {
+			$field['fields'] = array_values( $field['fields'] );
+			foreach ( $field['fields'] as $i => &$f ) {
+				$this->convert_js_field_keys( $f );
+				if ( 'group' == $f['type'] ) {
+					$f = $this->format_js_field( $f );
+				}
+			}
+		}
+		return $field;
+	}
+	private function format_js_fields( $fields ) {
+		if ( is_array( $fields ) && count( $fields ) > 0 ) {
+			foreach ( $fields as $i => &$field ) {
+				$field = $this->format_js_field( $field );
+			}
+		}
+		return array_values( $fields );
 	}
 	
 }

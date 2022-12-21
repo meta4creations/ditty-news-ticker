@@ -2,7 +2,7 @@ import { __ } from "@wordpress/i18n";
 import classnames from "classnames";
 import Field from "./Field";
 
-const FieldList = ({ fields, values, className, onUpdate }) => {
+const FieldList = ({ fields, children, values, className, onUpdate }) => {
   const classes = classnames("ditty-field-list", className);
 
   const groupFields = (gFields) => {
@@ -24,10 +24,7 @@ const FieldList = ({ fields, values, className, onUpdate }) => {
       : field.std
       ? field.std
       : "";
-    if (
-      "group" === field.type &&
-      (field.multipleFields || field.multiple_fields)
-    ) {
+    if ("group" === field.type && field.multipleFields) {
       value = groupFields(field.fields).map((f) => {
         return {
           id: f.id,
@@ -76,16 +73,18 @@ const FieldList = ({ fields, values, className, onUpdate }) => {
 
   return (
     <div className={classes}>
-      {fields.map((field, index) => {
-        return showField(field) ? (
-          <Field
-            key={field.id ? field.id : index}
-            field={field}
-            fieldValue={fieldValue(field)}
-            updateValue={onUpdate}
-          />
-        ) : null;
-      })}
+      {children && children}
+      {fields &&
+        fields.map((field, index) => {
+          return showField(field) ? (
+            <Field
+              key={field.id ? field.id : index}
+              field={field}
+              fieldValue={fieldValue(field)}
+              updateValue={onUpdate}
+            />
+          ) : null;
+        })}
     </div>
   );
 };

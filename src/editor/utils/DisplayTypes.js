@@ -44,20 +44,20 @@ const getDisplayTypes = () => {
         styles: ["container", "content", "page", "item"],
       },
     },
-    {
-      id: "grid",
-      icon: <FontAwesomeIcon icon={faTh} />,
-      label: __("Grid", "ditty-news-ticker"),
-      description: __(
-        "Display items in a responsive grid.",
-        "ditty-news-ticker"
-      ),
-      settings: {
-        general: true,
-        navigation: ["arrows", "bullets"],
-        styles: ["container", "content", "page", "item"],
-      },
-    },
+    // {
+    //   id: "grid",
+    //   icon: <FontAwesomeIcon icon={faTh} />,
+    //   label: __("Grid", "ditty-news-ticker"),
+    //   description: __(
+    //     "Display items in a responsive grid.",
+    //     "ditty-news-ticker"
+    //   ),
+    //   settings: {
+    //     general: true,
+    //     navigation: ["arrows", "bullets"],
+    //     styles: ["container", "content", "page", "item"],
+    //   },
+    // },
   ]);
 
   const migratedDisplayTypes = migrateDisplayTypes(displayTypes);
