@@ -10,7 +10,7 @@ const AdminBar = () => {
   const [showSpinner, setShowSpinner] = useState(false);
   const updates = helpers.dittyUpdates();
 
-  const onComplete = () => {
+  const onComplete = (data) => {
     setShowSpinner(false);
   };
 

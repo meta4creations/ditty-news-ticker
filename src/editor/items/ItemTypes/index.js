@@ -46,7 +46,7 @@ const ItemTypes = ({ addItem, cancelItem, editor }) => {
   };
 
   const handleElementClick = (e, elementId, itemType) => {
-    console.log("elementId", elementId);
+    //console.log("elementId", elementId);
   };
 
   const renderItems = () => {

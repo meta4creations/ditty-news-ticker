@@ -29,15 +29,15 @@ const PanelDisplays = () => {
    * @param {string} value
    */
   const handleOnUpdate = (id, value) => {
-    // Update the Ditty options
-    const dittyEl = document.getElementById("ditty-editor__ditty");
-    updateDisplayOptions(dittyEl, id, value);
-
     // Update the editor display
     const updatedDisplay = { ...currentDisplay };
     updatedDisplay.settings[id] = value;
     updatedDisplay.updated = Date.now();
     actions.setCurrentDisplay(updatedDisplay);
+
+    // Update the Ditty options
+    const dittyEl = document.getElementById("ditty-editor__ditty");
+    updateDisplayOptions(dittyEl, id, value);
   };
 
   /**

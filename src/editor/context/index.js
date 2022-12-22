@@ -219,8 +219,6 @@ export class EditorProvider extends Component {
     const updates = this.getDittyUpdates();
     updates.id = this.id;
 
-    console.log("updates", updates);
-
     try {
       await saveDitty(updates, onComplete);
 

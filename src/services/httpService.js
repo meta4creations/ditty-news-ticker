@@ -9,8 +9,8 @@ export const getDittyData = (dittyId) => {
     security: dittyEditorVars.security,
   };
   axios.post(apiURL, { apiData }).then((res) => {
-    console.log("res", res);
-    console.log("data", res.data);
+    //console.log("res", res);
+    //console.log("data", res.data);
   });
 };
 
