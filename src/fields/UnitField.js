@@ -44,7 +44,7 @@ const UnitField = (props) => {
     if (!value) {
       return "";
     }
-    const numbers = value.match(/\d+/);
+    const numbers = String(value).match(/\d+/);
     if (numbers) {
       return numbers[0];
     }
@@ -55,9 +55,9 @@ const UnitField = (props) => {
     if (!value) {
       return unitOptions[0].value;
     }
-    const numbers = value.match(/\d+/);
+    const numbers = String(value).match(/\d+/);
     if (numbers) {
-      return value.substr(numbers[0].length, value.length);
+      return String(value).substr(numbers[0].length, value.length);
     } else {
       return value;
     }
@@ -68,9 +68,9 @@ const UnitField = (props) => {
       onChange(`${val}${unitOptions[0].value}`);
     } else {
       let unit;
-      const numbers = value.match(/\d+/);
+      const numbers = String(value).match(/\d+/);
       if (numbers) {
-        unit = value.substr(numbers[0].length, value.length);
+        unit = String(value).substr(numbers[0].length, value.length);
       } else {
         unit = value;
       }
@@ -79,7 +79,7 @@ const UnitField = (props) => {
   };
 
   const updateUnitValue = (val) => {
-    const numbers = value ? value.match(/\d+/) : false;
+    const numbers = value ? String(value).match(/\d+/) : false;
     if (numbers) {
       onChange(`${numbers[0]}${val}`);
     } else {

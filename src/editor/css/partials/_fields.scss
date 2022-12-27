@@ -1,4 +1,16 @@
 .ditty-field-list {
+  &__heading {
+    background: $border_color_light;
+    padding: 20px;
+    h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 5px;
+    }
+    p {
+      margin: 0;
+    }
+  }
   .ditty-field {
     padding: 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);

@@ -14,8 +14,8 @@ const Ditty = () => {
   useEffect(() => {
     const dittyEl = document.getElementById("ditty-editor__ditty");
     const args = displayObject.settings;
-    //args["id"] = displayObject.id;
-    args["display"] = id;
+    args["id"] = id;
+    args["display"] = displayObject.id ? displayObject.id : id;
     args["title"] = title;
     args["status"] = "";
     args["items"] = displayItems;
@@ -28,7 +28,7 @@ const Ditty = () => {
         id="ditty-editor__ditty"
         className="ditty"
         data-id={id}
-        data-display={displayObject.id}
+        data-display={displayObject.id ? displayObject.id : id}
       ></div>
     </>
   );

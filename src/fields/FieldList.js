@@ -2,7 +2,15 @@ import { __ } from "@wordpress/i18n";
 import classnames from "classnames";
 import Field from "./Field";
 
-const FieldList = ({ fields, children, values, className, onUpdate }) => {
+const FieldList = ({
+  name,
+  desc,
+  fields,
+  children,
+  values,
+  className,
+  onUpdate,
+}) => {
   const classes = classnames("ditty-field-list", className);
 
   const groupFields = (gFields) => {
@@ -73,6 +81,11 @@ const FieldList = ({ fields, children, values, className, onUpdate }) => {
 
   return (
     <div className={classes}>
+      {(name || desc) && (
+        <div className="ditty-field-list__heading">
+          {name && <h3>{name}</h3>} {desc && <p>{desc}</p>}
+        </div>
+      )}
       {children && children}
       {fields &&
         fields.map((field, index) => {

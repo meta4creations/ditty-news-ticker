@@ -44,22 +44,7 @@ const getDisplayTypes = () => {
         styles: ["container", "content", "page", "item"],
       },
     },
-    // {
-    //   id: "grid",
-    //   icon: <FontAwesomeIcon icon={faTh} />,
-    //   label: __("Grid", "ditty-news-ticker"),
-    //   description: __(
-    //     "Display items in a responsive grid.",
-    //     "ditty-news-ticker"
-    //   ),
-    //   settings: {
-    //     general: true,
-    //     navigation: ["arrows", "bullets"],
-    //     styles: ["container", "content", "page", "item"],
-    //   },
-    // },
   ]);
-
   const migratedDisplayTypes = migrateDisplayTypes(displayTypes);
   const sortedDisplayTypes = _.orderBy(
     migratedDisplayTypes,
@@ -153,36 +138,44 @@ export const getDisplayTypeSettings = (display) => {
     );
   } else {
     for (const key in displayTypeObject.settings) {
-      switch (key) {
-        case "general":
-          fieldGroups.push(displaySettingsGeneral(displayTypeObject.id));
-          break;
-        case "title":
-          fieldGroups.push(displaySettingsTitle(displayTypeObject.id));
-          break;
-        case "navigation":
-          fieldGroups.push(displaySettingsNavigation(displayTypeObject.id));
-          break;
-        case "styles":
-          fieldGroups.push(
-            displaySettingsStyle(
-              displayTypeObject.id,
-              displayTypeObject.settings[key]
-            )
-          );
-          break;
-        case "css":
-          //fieldGroups.push(displaySettingsGeneral(displayTypeObject.id));
-          break;
-        default:
-          fieldGroups.push(
-            window.dittyHooks.applyFilters(
-              "getDisplayTypeSettingsCustom",
-              [],
-              displayType
-            )
-          );
-          break;
+      if (
+        typeof displayTypeObject.settings[key] === "object" &&
+        !Array.isArray(displayTypeObject.settings[key])
+      ) {
+        fieldGroups.push(displayTypeObject.settings[key]);
+      } else {
+        switch (key) {
+          case "general":
+            fieldGroups.push(displaySettingsGeneral(displayTypeObject.id));
+            break;
+          case "title":
+            fieldGroups.push(displaySettingsTitle(displayTypeObject.id));
+            break;
+          case "navigation":
+            fieldGroups.push(displaySettingsNavigation(displayTypeObject.id));
+            break;
+          case "styles":
+            fieldGroups.push(
+              displaySettingsStyle(
+                displayTypeObject.id,
+                displayTypeObject.settings[key]
+              )
+            );
+            break;
+          case "css":
+            //fieldGroups.push(displaySettingsGeneral(displayTypeObject.id));
+            break;
+          default:
+            fieldGroups.push(
+              window.dittyHooks.applyFilters(
+                "getDisplayTypeSettingsCustom",
+                [],
+                displayTypeObject.id,
+                key
+              )
+            );
+            break;
+        }
       }
     }
   }
@@ -429,6 +422,8 @@ const displaySettingsNavigation = (
                 "Configure the arrow navigation settings.",
                 "ditty-news-ticker"
               ),
+              defaultState: "collapsed",
+              collapsible: true,
               fields: window.dittyHooks.applyFilters(
                 "dittyDisplaySettingsArrowFields",
                 [
@@ -517,6 +512,8 @@ const displaySettingsNavigation = (
                 "Configure the bullet navigation settings.",
                 "ditty-news-ticker"
               ),
+              defaultState: "collapsed",
+              collapsible: true,
               fields: window.dittyHooks.applyFilters(
                 "dittyDisplaySettingsBulletFields",
                 [
@@ -621,7 +618,7 @@ const displaySettingsStyle = (
   return {
     id: "styles",
     label: __("Styles", "ditty-news-ticker"),
-    name: __("Styles Settings", "ditty-news-ticker"),
+    name: __("Style Settings", "ditty-news-ticker"),
     desc: __(
       `Set various element styles of the ${displayType}.`,
       "ditty-news-ticker"

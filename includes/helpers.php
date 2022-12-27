@@ -1619,16 +1619,6 @@ function ditty_log( $log = false ) {
 }
 
 /**
- * Return the current version
- *
- * @since    3.0
- * @var      string $output
-*/
-function ditty_version() {
-	return DITTY_VERSION;
-}
-
-/**
  * Retrieve meta field for a item.
  *
  * @since   3.0
@@ -1765,4 +1755,16 @@ function ditty_editing() {
 			return $id;
 		}
 	}
+}
+
+/**
+ * Return the current Ditty version
+ *
+ * @since   3.1
+ */
+function ditty_version() {
+	if ( is_ditty_dev() ) {
+		return '3.1';
+	}
+	return DITTY_VERSION;
 }

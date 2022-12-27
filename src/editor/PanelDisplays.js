@@ -191,6 +191,8 @@ const PanelDisplays = () => {
       const fieldGroup = fieldGroups[index];
       return (
         <FieldList
+          name={fieldGroup.name}
+          desc={fieldGroup.desc}
           fields={fieldGroup.fields}
           values={currentDisplay.settings}
           onUpdate={handleOnUpdate}

@@ -13,9 +13,9 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 1,
       "oAP" : "\/.gitignore",
-      "oF" : 0
+      "oF" : 1
     },
     "\/.nova\/Publishing\/Ditty News Ticker.json" : {
       "ft" : 524288,
@@ -45,9 +45,9 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 1,
       "oAP" : "\/.npmrc",
-      "oF" : 0
+      "oF" : 1
     },
     "\/build" : {
       "ft" : 65536,
@@ -63,13 +63,21 @@
       "oO" : 0,
       "oS" : 1
     },
+    "\/composer.lock" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 1,
+      "oAP" : "\/composer.lock",
+      "oF" : 1
+    },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 1,
       "oAP" : "\/ditty-news-ticker.php",
-      "oF" : 0
+      "oF" : 1
     },
     "\/includes\/admin\/columns.php" : {
       "cB" : 0,
@@ -3648,9 +3656,9 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 1,
       "oAP" : "\/readme.txt",
-      "oF" : 0
+      "oF" : 1
     },
     "\/src" : {
       "ft" : 65536,
@@ -3662,571 +3670,14 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 1,
       "oAP" : "\/uninstall.php",
-      "oF" : 0
+      "oF" : 1
     },
-    "\/vendor\/autoload.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/autoload.php",
-      "oF" : 0
-    },
-    "\/vendor\/composer\/autoload_classmap.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/composer\/autoload_classmap.php",
-      "oF" : 0
-    },
-    "\/vendor\/composer\/autoload_namespaces.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/composer\/autoload_namespaces.php",
-      "oF" : 0
-    },
-    "\/vendor\/composer\/autoload_psr4.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/composer\/autoload_psr4.php",
-      "oF" : 0
-    },
-    "\/vendor\/composer\/autoload_real.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/composer\/autoload_real.php",
-      "oF" : 0
-    },
-    "\/vendor\/composer\/autoload_static.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/composer\/autoload_static.php",
-      "oF" : 0
-    },
-    "\/vendor\/composer\/ClassLoader.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/composer\/ClassLoader.php",
-      "oF" : 0
-    },
-    "\/vendor\/composer\/installed.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/vendor\/composer\/installed-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
-    "\/vendor\/composer\/installed.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/composer\/installed.php",
-      "oF" : 0
-    },
-    "\/vendor\/composer\/InstalledVersions.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/composer\/InstalledVersions.php",
-      "oF" : 0
-    },
-    "\/vendor\/composer\/installers\/.github\/workflows\/continuous-integration.yml" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/composer\/installers\/.github\/workflows\/continuous-integration.yml",
-      "oF" : 0
-    },
-    "\/vendor\/composer\/installers\/.github\/workflows\/lint.yml" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/composer\/installers\/.github\/workflows\/lint.yml",
-      "oF" : 0
-    },
-    "\/vendor\/composer\/installers\/.github\/workflows\/phpstan.yml" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/composer\/installers\/.github\/workflows\/phpstan.yml",
-      "oF" : 0
-    },
-    "\/vendor\/composer\/installers\/composer.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/vendor\/composer\/installers\/composer-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
-    "\/vendor\/composer\/installers\/LICENSE" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/composer\/installers\/LICENSE",
-      "oF" : 0
-    },
-    "\/vendor\/composer\/installers\/phpstan.neon.dist" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/composer\/installers\/phpstan.neon.dist",
-      "oF" : 0
-    },
-    "\/vendor\/composer\/installers\/src" : {
+    "\/vendor" : {
       "ft" : 65536,
       "oA" : 1,
-      "oAP" : "\/vendor\/composer\/installers\/src",
-      "oF" : 0
-    },
-    "\/vendor\/composer\/LICENSE" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/composer\/LICENSE",
-      "oF" : 0
-    },
-    "\/vendor\/composer\/platform_check.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/composer\/platform_check.php",
-      "oF" : 0
-    },
-    "\/vendor\/padaliyajay\/php-autoprefixer\/.gitignore" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/.gitignore",
-      "oF" : 0
-    },
-    "\/vendor\/padaliyajay\/php-autoprefixer\/composer.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/composer-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
-    "\/vendor\/padaliyajay\/php-autoprefixer\/LICENSE" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/LICENSE",
-      "oF" : 0
-    },
-    "\/vendor\/padaliyajay\/php-autoprefixer\/README.md" : {
-      "cB" : 0,
-      "cS" : 0,
-      "eF" : 1,
-      "eL" : 1,
-      "ema" : 1,
-      "eSQ" : 1,
-      "ft" : 4096,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/README.html",
-      "oF" : 0,
-      "oFM" : 0,
-      "oS" : 0,
-      "pHT" : 0,
-      "pME" : 1,
-      "rFN" : 0,
-      "uCM" : 0
-    },
-    "\/vendor\/padaliyajay\/php-autoprefixer\/src" : {
-      "ft" : 65536,
-      "oA" : 1,
-      "oAP" : "\/vendor\/padaliyajay\/php-autoprefixer\/src",
-      "oF" : 0
-    },
-    "\/vendor\/sabberworm\/php-css-parser\/CHANGELOG.md" : {
-      "cB" : 0,
-      "cS" : 0,
-      "eF" : 1,
-      "eL" : 1,
-      "ema" : 1,
-      "eSQ" : 1,
-      "ft" : 4096,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/CHANGELOG.html",
-      "oF" : 0,
-      "oFM" : 0,
-      "oS" : 0,
-      "pHT" : 0,
-      "pME" : 1,
-      "rFN" : 0,
-      "uCM" : 0
-    },
-    "\/vendor\/sabberworm\/php-css-parser\/composer.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/composer-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
-    "\/vendor\/sabberworm\/php-css-parser\/LICENSE" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/LICENSE",
-      "oF" : 0
-    },
-    "\/vendor\/sabberworm\/php-css-parser\/README.html" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/README.html",
-      "oF" : 0
-    },
-    "\/vendor\/sabberworm\/php-css-parser\/README.md" : {
-      "cB" : 0,
-      "cS" : 0,
-      "eF" : 1,
-      "eL" : 1,
-      "ema" : 1,
-      "eSQ" : 1,
-      "ft" : 4096,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/README.html",
-      "oF" : 0,
-      "oFM" : 0,
-      "oS" : 0,
-      "pHT" : 0,
-      "pME" : 1,
-      "rFN" : 0,
-      "uCM" : 0
-    },
-    "\/vendor\/sabberworm\/php-css-parser\/src" : {
-      "ft" : 65536,
-      "oA" : 1,
-      "oAP" : "\/vendor\/sabberworm\/php-css-parser\/src",
-      "oF" : 0
-    },
-    "\/vendor\/scssphp\/scssphp\/bin\/pscss" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/scssphp\/scssphp\/bin\/pscss",
-      "oF" : 0
-    },
-    "\/vendor\/scssphp\/scssphp\/composer.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/vendor\/scssphp\/scssphp\/composer-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
-    "\/vendor\/scssphp\/scssphp\/LICENSE.md" : {
-      "cB" : 0,
-      "cS" : 0,
-      "eF" : 1,
-      "eL" : 1,
-      "ema" : 1,
-      "eSQ" : 1,
-      "ft" : 4096,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/scssphp\/scssphp\/LICENSE.html",
-      "oF" : 0,
-      "oFM" : 0,
-      "oS" : 0,
-      "pHT" : 0,
-      "pME" : 1,
-      "rFN" : 0,
-      "uCM" : 0
-    },
-    "\/vendor\/scssphp\/scssphp\/phpcs.xml.dist" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/scssphp\/scssphp\/phpcs.xml.dist",
-      "oF" : 0
-    },
-    "\/vendor\/scssphp\/scssphp\/README.md" : {
-      "cB" : 0,
-      "cS" : 0,
-      "eF" : 1,
-      "eL" : 1,
-      "ema" : 1,
-      "eSQ" : 1,
-      "ft" : 4096,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/scssphp\/scssphp\/README.html",
-      "oF" : 0,
-      "oFM" : 0,
-      "oS" : 0,
-      "pHT" : 0,
-      "pME" : 1,
-      "rFN" : 0,
-      "uCM" : 0
-    },
-    "\/vendor\/scssphp\/scssphp\/scss.inc.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/scssphp\/scssphp\/scss.inc.php",
-      "oF" : 0
-    },
-    "\/vendor\/scssphp\/scssphp\/src" : {
-      "ft" : 65536,
-      "oA" : 1,
-      "oAP" : "\/vendor\/scssphp\/scssphp\/src",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/.github\/workflows\/test.yaml" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/.github\/workflows\/test.yaml",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/.gitignore" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/.gitignore",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/CHANGELOG.md" : {
-      "cB" : 0,
-      "cS" : 0,
-      "eF" : 1,
-      "eL" : 1,
-      "ema" : 1,
-      "eSQ" : 1,
-      "ft" : 4096,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/CHANGELOG.html",
-      "oF" : 0,
-      "oFM" : 0,
-      "oS" : 0,
-      "pHT" : 0,
-      "pME" : 1,
-      "rFN" : 0,
-      "uCM" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/composer.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/composer-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
-    "\/vendor\/thunderer\/shortcode\/docker-compose.yaml" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/docker-compose.yaml",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/docker\/php-5.x\/Dockerfile" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/docker\/php-5.x\/Dockerfile",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/docker\/php\/Dockerfile" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/docker\/php\/Dockerfile",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/docker\/php\/php.ini" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/docker\/php\/php.ini",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/infection.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/infection-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
-    "\/vendor\/thunderer\/shortcode\/LICENSE" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/LICENSE",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/Makefile" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/Makefile",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/phpunit.xml.dist" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/phpunit.xml.dist",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/psalm.xml" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/psalm.xml",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/README.md" : {
-      "cB" : 0,
-      "cS" : 0,
-      "eF" : 1,
-      "eL" : 1,
-      "ema" : 1,
-      "eSQ" : 1,
-      "ft" : 4096,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/README.html",
-      "oF" : 0,
-      "oFM" : 0,
-      "oS" : 0,
-      "pHT" : 0,
-      "pME" : 1,
-      "rFN" : 0,
-      "uCM" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/src" : {
-      "ft" : 65536,
-      "oA" : 1,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/src",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/tests\/AbstractTestCase.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/AbstractTestCase.php",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/tests\/EventsTest.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/EventsTest.php",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/tests\/FacadeTest.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/FacadeTest.php",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/tests\/Fake\/ReverseShortcode.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/Fake\/ReverseShortcode.php",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/tests\/HandlerContainerTest.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/HandlerContainerTest.php",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/tests\/ParserTest.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/ParserTest.php",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/tests\/ProcessorTest.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/ProcessorTest.php",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/tests\/SerializerTest.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/SerializerTest.php",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/tests\/ShortcodeTest.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/ShortcodeTest.php",
-      "oF" : 0
-    },
-    "\/vendor\/thunderer\/shortcode\/tests\/SyntaxTest.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/vendor\/thunderer\/shortcode\/tests\/SyntaxTest.php",
+      "oAP" : "\/vendor",
       "oF" : 0
     },
     "\/webpack.config.js" : {
@@ -4255,9 +3706,9 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 1,
       "oAP" : "\/wpml-config.xml",
-      "oF" : 0
+      "oF" : 1
     }
   },
   "hooks" : [
@@ -5827,7 +5278,7 @@
       "ENVIRONMENT:::$NODE_ENV"
     ],
     "rollupTreeshakingEnabled" : 1,
-    "skippedFoldersString" : "\/storage\/framework\/sessions,node_modules,_logs,logs,log,.idea,_cache,cache,src,build",
+    "skippedFoldersString" : "\/storage\/framework\/sessions,src,node_modules,_logs,logs,log,.idea,_cache,cache,build,vendor",
     "sourceFolderName" : "source",
     "susyVersion" : 3,
     "tsAllowSyntheticDefaultImports" : 0,
