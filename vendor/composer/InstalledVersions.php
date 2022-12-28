@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '3d85d247ec6eed8ec21065f1ec0e66499ea986bf',
+    'reference' => '7e97c04443c7b97124e2c8af26d648f22d70f007',
     'name' => '__root__',
   ),
   'versions' => 
@@ -31,7 +31,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '3d85d247ec6eed8ec21065f1ec0e66499ea986bf',
+      'reference' => '7e97c04443c7b97124e2c8af26d648f22d70f007',
     ),
     'composer/installers' => 
     array (
@@ -44,12 +44,12 @@ private static $installed = array (
     ),
     'padaliyajay/php-autoprefixer' => 
     array (
-      'pretty_version' => '1.3',
-      'version' => '1.3.0.0',
+      'pretty_version' => '1.4',
+      'version' => '1.4.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f05f374f0c1e463db62209613f52b38bf4b52430',
+      'reference' => '17ac9d20c0e4521163a061d4f99f3d31f88e797e',
     ),
     'roundcube/plugin-installer' => 
     array (
@@ -69,12 +69,12 @@ private static $installed = array (
     ),
     'scssphp/scssphp' => 
     array (
-      'pretty_version' => 'v1.10.0',
-      'version' => '1.10.0.0',
+      'pretty_version' => 'v1.11.0',
+      'version' => '1.11.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '9699a52a862da4efb43985943afa17150155dd3d',
+      'reference' => '33749d12c2569bb24071f94e9af828662dabb068',
     ),
     'shama/baton' => 
     array (
@@ -82,6 +82,15 @@ private static $installed = array (
       array (
         0 => '*',
       ),
+    ),
+    'tedivm/jshrink' => 
+    array (
+      'pretty_version' => 'v1.4.0',
+      'version' => '1.4.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '0513ba1407b1f235518a939455855e6952a48bbc',
     ),
     'thunderer/shortcode' => 
     array (

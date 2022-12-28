@@ -1304,41 +1304,41 @@ function ditty_prepare_display_items( $meta ) {
  * @since    3.0.11
  */
 function ditty_render( $atts ) {
-	if ( is_ditty_dev() ) {
+	// if ( is_ditty_dev() ) {
 		
-		if ( ! $args = Ditty()->singles->parse_render_atts( $atts ) ) {
-			return false;
-		}
-		$html = '';
-		$html .= Ditty()->displays->add_styles( $args['display_settings'], $args['display'], $args['display_type'] );
-		$html .= Ditty()->layouts->add_styles( $args['items'] );
-		$html .= '<div ' . ditty_attr_to_html( $args['html_atts'] ) . '>';
+	// 	if ( ! $args = Ditty()->singles->parse_render_atts( $atts ) ) {
+	// 		return false;
+	// 	}
+	// 	$html = '';
+	// 	$html .= Ditty()->displays->add_styles( $args['display_settings'], $args['display'], $args['display_type'] );
+	// 	$html .= Ditty()->layouts->add_styles( $args['items'] );
+	// 	$html .= '<div ' . ditty_attr_to_html( $args['html_atts'] ) . '>';
 		
-			$html .= '<div class="ditty__title">';
-				$html .= '<div class="ditty__title__contents">';
-					$html .= "<{$args['title_settings']['titleElement']} class='ditty__title__element'>";
-						$html .= get_the_title($args['ditty']);
-					$html .= "</{$args['title_settings']['titleElement']}>";
-				$html .= '</div>';
-			$html .= '</div>';
+	// 		$html .= '<div class="ditty__title">';
+	// 			$html .= '<div class="ditty__title__contents">';
+	// 				$html .= "<{$args['title_settings']['titleElement']} class='ditty__title__element'>";
+	// 					$html .= get_the_title($args['ditty']);
+	// 				$html .= "</{$args['title_settings']['titleElement']}>";
+	// 			$html .= '</div>';
+	// 		$html .= '</div>';
 		
-			$html .= '<div class="ditty__contents">';
-				$html .= '<div class="ditty__items">';
-					if ( is_array( $args['items'] ) && count( $args['items'] ) > 0 ) {
-						foreach ( $args['items'] as $i => $item ) {
-							if ( empty( $item['is_disabled'] ) ) {
-								$html .= $item['html'];
-							}
-						}
-					}
-				$html .= '</div>';
-			$html .= '</div>';
+	// 		$html .= '<div class="ditty__contents">';
+	// 			$html .= '<div class="ditty__items">';
+	// 				if ( is_array( $args['items'] ) && count( $args['items'] ) > 0 ) {
+	// 					foreach ( $args['items'] as $i => $item ) {
+	// 						if ( empty( $item['is_disabled'] ) ) {
+	// 							$html .= $item['html'];
+	// 						}
+	// 					}
+	// 				}
+	// 			$html .= '</div>';
+	// 		$html .= '</div>';
 		
-		$html .= '</div>';
+	// 	$html .= '</div>';
 		
-		return $html;
+	// 	return $html;
 		
-	} else {
+	// } else {
 		
 		global $ditty_singles;
 		if ( empty( $ditty_singles ) ) {
@@ -1400,7 +1400,7 @@ function ditty_render( $atts ) {
 			$ditty_singles[] = $ditty_atts;
 		}
 		return '<div ' . ditty_attr_to_html( $ditty_atts ) . '></div>';
-	}
+	//}
 }
 
 /**

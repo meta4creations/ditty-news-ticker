@@ -180,9 +180,7 @@ class Ditty {
 			self::$instance->errors				= new Ditty_Errors();
 			self::$instance->extensions		= new Ditty_Extensions();
 			self::$instance->layouts			= new Ditty_Layouts();
-			if ( is_ditty_dev() ) {
-				self::$instance->scripts			= new Ditty_Scripts();
-			}
+			self::$instance->scripts			= new Ditty_Scripts();
 			self::$instance->singles			= new Ditty_Singles();
 			self::$instance->items				= new Ditty_Items();
 			self::$instance->wpml					= new Ditty_WPML();	
@@ -241,6 +239,8 @@ class Ditty {
 			require_once DITTY_DIR . 'includes/libs/ChromePhp.php';
 		}
 		require_once DITTY_DIR . 'vendor/autoload.php';	
+
+		require_once DITTY_DIR . 'includes/class-ditty-scripts.php';
 
 		// Add custom fields
 		require_once DITTY_DIR . 'includes/fields/ditty-field.php';
@@ -328,10 +328,6 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-singles.php';
 		require_once DITTY_DIR . 'includes/class-ditty-wpml.php';
 
-		if ( is_ditty_dev() ) {
-			require_once DITTY_DIR . 'includes/class-ditty-scripts.php';
-		}
-		
 		if ( is_admin() ) {
 			if ( ! class_exists( 'Ditty_Plugin_Updater' ) ) {
 				require_once DITTY_DIR . 'includes/admin/Ditty_Plugin_Updater.php';
@@ -665,6 +661,7 @@ class Ditty {
 		ditty_register_style( 'display', [
 				'ditty-displays',
 				DITTY_URL . 'includes/css/ditty-displays.css',
+				DITTY_DIR . 'includes/css/ditty-displays.css',
 				[],
 				$this->version
 			]
@@ -685,6 +682,7 @@ class Ditty {
 		ditty_register_script( 'display', [
 				'ditty-display-ticker',
 				DITTY_URL . 'includes/js/class-ditty-display-ticker' . $min . '.js',
+				DITTY_DIR . 'includes/js/class-ditty-display-ticker' . $min . '.js',
 				[ 'jquery', 'ditty-helpers' ],
 				$this->version
 			]
@@ -692,6 +690,7 @@ class Ditty {
 		ditty_register_script( 'display', [
 				'ditty-display-list',
 				DITTY_URL . 'includes/js/class-ditty-display-list' . $min . '.js',
+				DITTY_DIR . 'includes/js/class-ditty-display-list' . $min . '.js',
 				array( 'jquery', 'ditty-slider', 'ditty-helpers' ),
 				$this->version
 			]
@@ -699,6 +698,7 @@ class Ditty {
 		ditty_register_script( 'editor', [
 				'dittyScripts',
 				DITTY_URL . 'build/dittyScripts.js',
+				DITTY_DIR . 'build/dittyScripts.js',
 				[],
 				$this->version,
 			]

@@ -3,6 +3,7 @@
     "padaliyajay/php-autoprefixer": "^1.2",
     "composer/installers": "^1",
     "thunderer/shortcode": "^0.7",
-    "scssphp/scssphp": "^1.8.1"
+    "scssphp/scssphp": "^1.8.1",
+    "tedivm/jshrink": "~1.0"
   }
 }
