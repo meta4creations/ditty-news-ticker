@@ -1,6 +1,7 @@
 .ditty-field-list {
   &__heading {
-    background: $border_color_light;
+    background: #fbfbfb;
+    border-bottom: 1px solid $border_color_light;
     padding: 20px;
     h3 {
       font-size: 14px;

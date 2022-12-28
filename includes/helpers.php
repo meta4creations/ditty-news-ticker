@@ -1775,7 +1775,7 @@ function ditty_version() {
  * @since   3.1
  */
 function ditty_register_style( $type, $args ) {
-	Ditty()->register_style( $type, $args );
+	Ditty()->scripts->register_style( $type, $args );
 }
 
 /**
@@ -1784,5 +1784,5 @@ function ditty_register_style( $type, $args ) {
  * @since   3.1
  */
 function ditty_register_script( $type, $args ) {
-	Ditty()->register_script( $type, $args );
+	Ditty()->scripts->register_script( $type, $args );
 }
