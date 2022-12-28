@@ -1768,3 +1768,21 @@ function ditty_version() {
 	}
 	return DITTY_VERSION;
 }
+
+/**
+ * Register Ditty styles
+ *
+ * @since   3.1
+ */
+function ditty_register_style( $type, $args ) {
+	Ditty()->register_style( $type, $args );
+}
+
+/**
+ * Register Ditty scripts
+ *
+ * @since   3.1
+ */
+function ditty_register_script( $type, $args ) {
+	Ditty()->register_script( $type, $args );
+}
