@@ -163,7 +163,7 @@ class Ditty_API {
 			'user_id' => $userId,
 			'updates' => $updates,
 			'errors'	=> $errors,
-			'aipData'	=> $apiData,
+			'apiData'	=> $apiData,
 		);
 
 		return rest_ensure_response( $data );
@@ -238,7 +238,7 @@ class Ditty_API {
 		$data = array(
 			'updates' => $updates,
 			'errors'	=> $errors,
-			'aipData'	=> $apiData,
+			'apiData'	=> $apiData,
 		);
 
 		return rest_ensure_response( $data );

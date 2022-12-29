@@ -18,6 +18,7 @@ function ditty_settings_defaults() {
 		'ditty_wizard' 					=> 'disabled',
 		'disable_fontawesome' 	=> '',
 		'notification_email' 		=> '',
+		'edit_links'						=> 'enabled',
 	);
 	return apply_filters( 'ditty_settings_defaults', $defaults );
 }
@@ -1301,7 +1302,7 @@ function ditty_prepare_display_items( $meta ) {
 /**
  * Render the Ditty container
  *
- * @since    3.0.11
+ * @since    3.0.32
  */
 function ditty_render( $atts ) {
 	// if ( is_ditty_dev() ) {
@@ -1399,7 +1400,10 @@ function ditty_render( $atts ) {
 		if ( 0 == $ajax_load ) {
 			$ditty_singles[] = $ditty_atts;
 		}
-		return '<div ' . ditty_attr_to_html( $ditty_atts ) . '></div>';
+		$html = '<div ' . ditty_attr_to_html( $ditty_atts ) . '>';
+			$html .= ditty_edit_links( $args['id'] );
+		$html .= '</div>';
+		return $html;
 	//}
 }
 
@@ -1523,6 +1527,7 @@ function ditty_get_globals() {
 			$ditty_settings = get_post_meta( $ditty['ditty'], '_ditty_settings', true );
 			$ditty['selector'] = html_entity_decode( $ditty['selector'] );
 			$ditty['live_updates'] = ( isset( $ditty_settings['live_updates'] ) && 'yes' == $ditty_settings['live_updates'] ) ? '1' : 0;
+			$ditty['edit_links'] = html_entity_decode( ditty_edit_links( $ditty['ditty'] ) );
 			$prepared_ditty[] = $ditty;
 		}
 	}
@@ -1754,6 +1759,17 @@ function ditty_editing() {
 		if ( $id ) {
 			return $id;
 		}
+	}
+}
+
+/**
+ * Check if we are on a ditty edit page
+ *
+ * @since   3.0.32
+ */
+function ditty_edit_links( $ditty_id ) {
+	if ( ! is_admin() && current_user_can( 'edit_dittys' ) && 'enabled' === ditty_settings( 'edit_links' ) ) {
+		return '<a class="ditty__edit-link" href="'.get_edit_post_link( $ditty_id ).'">' . __('Edit Ditty', 'ditty-news-ticker') . '</a>';
 	}
 }
 

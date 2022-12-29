@@ -63,10 +63,14 @@ export const getDisplayObject = (display, displays) => {
   if (typeof display === "object") {
     return display;
   } else {
-    const filteredDisplays = displays.filter((d) => {
-      return Number(d.id) === Number(display);
+    const index = displays.findIndex((object) => {
+      return Number(object.id) === Number(display);
     });
-    return filteredDisplays.length ? filteredDisplays[0] : {};
+    if (index >= 0) {
+      const displayObject = _.cloneDeep(displays[index]);
+      return displayObject;
+    }
+    return {};
   }
 };
 

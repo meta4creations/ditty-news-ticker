@@ -1,5 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import { useContext } from "@wordpress/element";
+import _ from "lodash";
 import { Panel } from "../components";
 import { FieldList } from "../fields";
 
@@ -102,8 +103,9 @@ const PanelSettings = ({ editor }) => {
     if ("title" === id) {
       actions.updateTitle(value);
     } else {
-      settings[id] = value;
-      actions.updateSettings(settings);
+      const updatedSettings = _.cloneDeep(settings);
+      updatedSettings[id] = value;
+      actions.updateSettings(updatedSettings);
     }
   };
 

@@ -13,14 +13,17 @@ export const EditorContext = React.createContext();
 EditorContext.displayName = "EditorContext";
 
 export class EditorProvider extends Component {
-  data = this.props.data;
+  data = { ...this.props.data };
+  editorVars = { ...dittyEditorVars };
   initialTitle = this.data.title ? this.data.title : "";
   initialItems = this.data.items ? JSON.parse(this.data.items) : [];
   initialDisplayItems = this.data.displayitems
     ? JSON.parse(this.data.displayitems)
     : [];
-  initialDisplays = dittyEditorVars.displays ? dittyEditorVars.displays : [];
-  initialLayouts = dittyEditorVars.layouts ? dittyEditorVars.layouts : [];
+  initialDisplays = this.editorVars.displays
+    ? [...this.editorVars.displays]
+    : [];
+  initialLayouts = this.editorVars.layouts ? [...this.editorVars.layouts] : [];
   initialDisplay = this.data.displayobject
     ? JSON.parse(this.data.displayobject)
     : getDisplayObject(this.data.display, [...this.initialDisplays]);
@@ -33,7 +36,7 @@ export class EditorProvider extends Component {
     displayItems: [...this.initialDisplayItems],
     displays: [...this.initialDisplays],
     layouts: [...this.initialLayouts],
-    currentDisplay: { ...this.initialDisplay },
+    currentDisplay: _.cloneDeep(this.initialDisplay),
     settings: _.cloneDeep(this.initialSettings),
     currentPanel: "items",
   };

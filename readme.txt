@@ -130,6 +130,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.0.32 =
+* Added edit link to frontend Ditty
+
 = 3.0.31 =
 * Ditty block registration updates
 

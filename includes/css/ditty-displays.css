@@ -96,6 +96,26 @@
   max-width: 100%;
   box-sizing: border-box;
 }
+.ditty__edit-link {
+  position: absolute;
+  z-index: 99999;
+  top: 5px;
+  left: 5px;
+  font-family: Arial, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 16px !important;
+  text-decoration: none !important;
+  color: #666 !important;
+  background: #FFF;
+  padding: 6px 8px 4px 7px;
+  border-radius: 2px;
+  opacity: 0.5;
+  transition: opacity 0.2s linear;
+}
+.ditty__edit-link:hover {
+  opacity: 1;
+}
+
 .ditty-item__elements {
   max-width: 100%;
   box-sizing: border-box;

@@ -13,7 +13,7 @@ const Ditty = () => {
 
   useEffect(() => {
     const dittyEl = document.getElementById("ditty-editor__ditty");
-    const args = displayObject.settings;
+    const args = _.cloneDeep(displayObject.settings);
     args["id"] = id;
     args["display"] = displayObject.id ? displayObject.id : id;
     args["title"] = title;

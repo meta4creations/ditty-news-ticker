@@ -87,14 +87,10 @@ class Ditty_Editor {
 		$display_data = array();
 		if ( is_array( $posts ) && count( $posts ) > 0 ) {
 			foreach ( $posts as $i => $post ) {
-
 				$display_type = get_post_meta( $post->ID, '_ditty_display_type', true );
 				$display_settings = get_post_meta( $post->ID, '_ditty_display_settings', true );
 				if ( ! is_array( $display_settings ) ) {
 					$display_settings = array();
-				}
-				if ( $display_type_object = ditty_display_type_object( $display_type ) ) {
-					$display_settings = shortcode_atts( $display_type_object->default_settings(), $display_settings );
 				}
 				$display_data[] = array(
 					'id' => $post->ID,

@@ -136,7 +136,7 @@ function ditty_settings_display() {
 /**
  * Setup the general settings fields
  *
- * @since    3.0.14  
+ * @since    3.0.32
 */
 function ditty_settings_general() {	
 	$fields = array(
@@ -152,6 +152,18 @@ function ditty_settings_general() {
 			'after' 	=> esc_html__( 'Minute(s)', 'ditty-news-ticker' ),
 			'desc'		=> esc_html__( 'Set the live update refresh interval for your Ditty.', 'ditty-news-ticker' ),
 			'std' 		=> ditty_settings( 'live_refresh' ),
+		),
+		'edit_links' => array(
+			'type' 				=> 'radio',
+			'id' 					=> 'edit_links',
+			'name' 				=> esc_html__( 'Edit Links', 'ditty-news-ticker' ),
+			'desc' 				=> esc_html__( 'Display links to edit Ditty', 'ditty-news-ticker' ),
+			'inline'			=> true,
+			'options'			=> array(
+				'disabled'	=> esc_html__( 'Disabled', 'ditty-news-ticker' ),
+				'enabled'		=> esc_html__( 'Enabled', 'ditty-news-ticker' ),
+			),
+			'std' 				=> ditty_settings( 'edit_links' ),
 		),
 		// 'notification_email' => array(
 		// 	'type' 				=> 'text',
@@ -403,7 +415,7 @@ add_action( 'wp_ajax_ditty_settings_save', 'ditty_settings_save_ajax' );
 /**
  * Save settings
  *
- * @since    3.0.14
+ * @since    3.0.32
  */
 function ditty_settings_save( $data, $json_data ) {
 
@@ -455,8 +467,9 @@ function ditty_settings_save( $data, $json_data ) {
 
 	$settings = array(
 		'live_refresh'				=> isset( $data['live_refresh'] ) 				? intval( $data['live_refresh'] ) : 10,
-		'ditty_display_ui'		=> isset( $data['ditty_display_ui'] ) 		? sanitize_key( $data['ditty_display_ui'] ) : 'disabled',
-		'ditty_layout_ui'			=> isset( $data['ditty_layout_ui'] ) 			? sanitize_key( $data['ditty_layout_ui'] ) : 'disabled',
+		'edit_links'					=> isset( $data['edit_links'] ) 					? sanitize_key( $data['edit_links'] ) : 'enabled',
+		'ditty_display_ui'		=> isset( $data['ditty_display_ui'] ) 		? sanitize_key( $data['ditty_display_ui'] ) : 'enabled',
+		'ditty_layout_ui'			=> isset( $data['ditty_layout_ui'] ) 			? sanitize_key( $data['ditty_layout_ui'] ) : 'enabled',
 		'ditty_layouts_sass' 	=> isset( $data['ditty_layouts_sass'] ) 	? sanitize_key( $data['ditty_layouts_sass'] ) : false,
 		'variation_defaults'	=> $sanitized_variation_defaults,
 		'global_ditty'				=> $sanitized_global_ditty,

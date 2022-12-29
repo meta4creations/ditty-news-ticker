@@ -407,7 +407,7 @@ class Ditty_Layouts {
 	/**
 	 * Render the layout css styles
 	 *
-	 * @since    3.0
+	 * @since    3.1
 	 * @access   public
 	 * @var      string    $css
 	*/
@@ -437,7 +437,7 @@ class Ditty_Layouts {
 		// Compile the sass & remove whitespace
 		try {
 			$scss = new Compiler();
-			$compiled_styles = $scss->compile( $styles );
+			$compiled_styles = $scss->compileString( $styles )->getCss();
 		} catch ( \Exception $e ) {
 			return false;
 		}

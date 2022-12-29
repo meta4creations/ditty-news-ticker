@@ -171,7 +171,8 @@ jQuery( function( $ ) {
 				if ( ! data.ditty || undefined === selector[0] ) {
 					return;	
 				}
-				var $ditty = $( '<div class="ditty" data-id="' + data.ditty + '" data-ajax_load="1"></div>' );			
+				var $edit_links = data.edit_links ? data.edit_links : '';
+				var $ditty = $( '<div class="ditty" data-id="' + data.ditty + '" data-ajax_load="1">'+$edit_links+'</div>' );			
 				if ( data.display && '' !== data.display ) {
 					$ditty.attr( 'data-display', data.display );
 				}

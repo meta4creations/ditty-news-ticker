@@ -313,8 +313,6 @@ class Ditty_Singles {
 			}
 		}
 
-		
-
 		$display = get_post_meta( $ditty->ID, '_ditty_display', true );
 		if ( (! $display && ! is_array( $display ) ) || ! ditty_display_exists( $display ) ) {
 			$display = ditty_default_display( $ditty->ID );
@@ -324,25 +322,19 @@ class Ditty_Singles {
 		if ( ! is_array( $display_items ) ) {
 			$display_items = array();
 		}
-		// $atts = array(
-		// 	'id' 					=> $ditty->ID,
-		// 	'display' 		=> $display,
-		// 	'uniqid'			=> 'ditty-preview-' . $ditty->ID,
-		// 	'class'				=> 'ditty-preview',
-		// );
-		// $ditty_render = ditty_render( $atts );
-		//echo '<pre>';print_r($unserialized_items);echo '</pre>';
+
 		$atts = array(
 			'data-id' 						=> $ditty_id,
 			'data-title' 					=> $title,
 			'data-settings' 			=> json_encode( $settings ),
 			'data-items' 					=> json_encode( $unserialized_items ),
 			'data-displayitems' 	=> json_encode( $display_items ),
-			'data-display' 				=> is_array( $display ) ? false : $display,
-			'data-displayobject' 	=> is_array( $display ) ? json_encode( $display ) : false,
-			//'data-render'		=> htmlentities( $ditty_render ),
 		);
-		//echo '<pre>';print_r($atts);echo '</pre>';
+		if ( is_array( $display ) ) {
+			$atts['data-displayobject'] = json_encode( $display );
+		} else {
+			$atts['data-display'] = $display;
+		}
 		?>
 		<div id="ditty-editor__wrapper" <?php echo ditty_attr_to_html( $atts ); ?>></div>
 		<?php
