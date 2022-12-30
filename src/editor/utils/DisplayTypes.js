@@ -81,14 +81,14 @@ export const getDisplayObject = (display, displays) => {
  */
 export const getDisplayTypeObject = (display) => {
   const displayTypes = getDisplayTypes();
-  const displayType = displayTypes.filter((displayType) => {
+  const displayTypeObject = displayTypes.filter((displayType) => {
     if (typeof display === "object") {
       return displayType.id === display.type;
     } else {
       return displayType.id === display;
     }
   });
-  return displayType.length ? displayType[0] : false;
+  return displayTypeObject.length ? displayTypeObject[0] : false;
 };
 
 /**

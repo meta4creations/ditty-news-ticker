@@ -4,6 +4,7 @@
  * @returns array
  */
 export function migrateItemTypes(itemTypes) {
+  return itemTypes;
   const phpItemTypes =
     dittyEditorVars.itemTypes &&
     dittyEditorVars.itemTypes.reduce((filtered, phpType) => {

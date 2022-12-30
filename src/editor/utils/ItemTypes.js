@@ -33,10 +33,26 @@ export const getItemTypes = () => {
       description: __("Add a WP Posts feed.", "ditty-news-ticker"),
     },
   ]);
-
   const migratedItemTypes = migrateItemTypes(itemTypes);
   const sortedItemTypes = _.orderBy(migratedItemTypes, ["label"], ["asc"]);
   return sortedItemTypes;
+};
+export const itemTypes = getItemTypes();
+
+/**
+ * Return a display type icon from the display
+ * @param {object} item
+ * @returns element
+ */
+export const getItemTypeObject = (item) => {
+  const itemTypeObject = itemTypes.filter((itemType) => {
+    if (typeof item === "object") {
+      return itemType.id === item.type;
+    } else {
+      return itemType.id === item;
+    }
+  });
+  return itemTypeObject.length ? itemTypeObject[0] : false;
 };
 
 /**

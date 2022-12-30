@@ -12,7 +12,7 @@ import { EditorContext } from "./context";
 
 const Editor = () => {
   const { currentDisplay } = useContext(EditorContext);
-  const [currentTabId, setCurrentTabId] = useState("display");
+  const [currentTabId, setCurrentTabId] = useState("items");
 
   const tabs = window.dittyHooks.applyFilters(
     "dittyEditorTabs",

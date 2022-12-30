@@ -1,9 +1,13 @@
 import { __ } from "@wordpress/i18n";
 import { useState, useContext } from "@wordpress/element";
-import { updateDisplayOptions } from "../services/dittyService";
+import {
+  updateDisplayOptions,
+  updateDittyDisplayType,
+} from "../services/dittyService";
 import { Button, ButtonGroup, IconBlock, Link, Panel } from "../components";
 import { FieldList } from "../fields";
 import {
+  displayTypes,
   getDisplayTypeObject,
   getDisplayTypeSettings,
 } from "./utils/displayTypes";
@@ -11,8 +15,8 @@ import { EditorContext } from "./context";
 import {
   DisplayTemplateSavePopup,
   DisplayTemplateSelectorPopup,
-  DisplayTypeSelectorPopup,
 } from "./displays";
+import TypeSelectorPopup from "./TypeSelectorPopup";
 
 const PanelDisplays = () => {
   const { actions, currentDisplay, displays } = useContext(EditorContext);
@@ -84,11 +88,18 @@ const PanelDisplays = () => {
         );
       case "displayTypeSelect":
         return (
-          <DisplayTypeSelectorPopup
+          <TypeSelectorPopup
             activeType={currentDisplay.type}
-            dittyEl={dittyEl}
-            onClose={() => {
+            types={displayTypes}
+            getTypeObject={getDisplayTypeObject}
+            onChange={(selectedType) => {
+              updateDittyDisplayType(dittyEl, selectedType);
+            }}
+            onClose={(selectedType) => {
               setPopupStatus(false);
+              if (currentDisplay.type !== selectedType) {
+                updateDittyDisplayType(dittyEl, currentDisplay.type);
+              }
             }}
             onUpdate={(updatedType) => {
               setPopupStatus(false);

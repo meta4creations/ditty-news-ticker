@@ -1,6 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
-import { ItemEdit, ItemList, ItemTypes } from "./items";
+import { ItemEdit, ItemList } from "./items";
 
 const PanelItems = ({ editor }) => {
   const { id, items, actions } = useContext(editor);
@@ -16,30 +16,26 @@ const PanelItems = ({ editor }) => {
   /**
    * Add a new item
    */
-  const handleAddItem = (itemType = false) => {
-    if (itemType) {
-      const newItem = {
-        ditty_id: id,
-        item_author: "1",
-        item_id: `new-${Date.now()}`,
-        item_index: null,
-        item_type: itemType,
-        item_value: {
-          content: "This is a default item",
-          link_url: "",
-          link_title: "",
-          link_target: "_blank",
-          link_nofollow: "false",
-        },
-        layout_value: {
-          default: "13464",
-        },
-      };
-      actions.addItem(newItem);
-      setCurrentItem(newItem);
-    } else {
-      setCurrentItem("new");
-    }
+  const handleAddItem = (itemType) => {
+    const newItem = {
+      ditty_id: id,
+      item_author: "1",
+      item_id: `new-${Date.now()}`,
+      item_index: null,
+      item_type: itemType,
+      item_value: {
+        content: "This is a default item",
+        link_url: "",
+        link_title: "",
+        link_target: "_blank",
+        link_nofollow: "false",
+      },
+      layout_value: {
+        default: "13464",
+      },
+    };
+    actions.addItem(newItem);
+    setCurrentItem(newItem);
   };
 
   /**
@@ -59,20 +55,12 @@ const PanelItems = ({ editor }) => {
   };
 
   return currentItem ? (
-    "new" === currentItem ? (
-      <ItemTypes
-        addItem={handleAddItem}
-        cancelItem={handleGoBack}
-        editor={editor}
-      />
-    ) : (
-      <ItemEdit
-        item={currentItem}
-        goBack={handleGoBack}
-        deleteItem={handleDeleteItem}
-        editor={editor}
-      />
-    )
+    <ItemEdit
+      item={currentItem}
+      goBack={handleGoBack}
+      deleteItem={handleDeleteItem}
+      editor={editor}
+    />
   ) : (
     <ItemList
       items={items}
