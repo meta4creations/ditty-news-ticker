@@ -1,26 +1,28 @@
 import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
 import { ItemEdit, ItemList } from "./items";
+import { EditorContext } from "./context";
 
-const PanelItems = ({ editor }) => {
-  const { id, items, actions } = useContext(editor);
-  const [currentItem, setCurrentItem] = useState(null);
+const PanelItems = () => {
+  const { id, items, actions } = useContext(EditorContext);
+  const [currentItemId, setCurrentItemId] = useState(null);
 
   /**
    * Edit an item
    */
   const handleEditItem = (item) => {
-    setCurrentItem(item);
+    setCurrentItemId(item);
   };
 
   /**
    * Add a new item
    */
   const handleAddItem = (itemType) => {
+    const itemId = `new-${Date.now()}`;
     const newItem = {
       ditty_id: id,
       item_author: "1",
-      item_id: `new-${Date.now()}`,
+      item_id: itemId,
       item_index: null,
       item_type: itemType,
       item_value: {
@@ -35,7 +37,7 @@ const PanelItems = ({ editor }) => {
       },
     };
     actions.addItem(newItem);
-    setCurrentItem(newItem);
+    setCurrentItemId(itemId);
   };
 
   /**
@@ -44,22 +46,35 @@ const PanelItems = ({ editor }) => {
    */
   const handleDeleteItem = (deltedItem) => {
     actions.deleteItem(deltedItem);
-    setCurrentItem(null);
+    setCurrentItemId(null);
   };
 
   /**
    * Go back to the list
    */
   const handleGoBack = () => {
-    setCurrentItem(null);
+    setCurrentItemId(null);
   };
 
-  return currentItem ? (
+  /**
+   * Go back to the list
+   */
+  const getCurrentItem = () => {
+    const index = items.findIndex((item) => {
+      return item.item_id === currentItemId || item.temp_id === currentItemId;
+    });
+    if (-1 === index) {
+      return false;
+    }
+    return items[index];
+  };
+
+  return currentItemId ? (
     <ItemEdit
-      item={currentItem}
+      item={getCurrentItem()}
+      items={items}
       goBack={handleGoBack}
       deleteItem={handleDeleteItem}
-      editor={editor}
     />
   ) : (
     <ItemList
@@ -67,7 +82,7 @@ const PanelItems = ({ editor }) => {
       actions={actions}
       editItem={handleEditItem}
       addItem={handleAddItem}
-      editor={editor}
+      editor={EditorContext}
     />
   );
 };

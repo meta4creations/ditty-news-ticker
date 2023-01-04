@@ -3,29 +3,29 @@
  * @param {array} itemTypes
  * @returns array
  */
-export function migrateItemTypes(itemTypes) {
-  return itemTypes;
-  const phpItemTypes =
-    dittyEditorVars.itemTypes &&
-    dittyEditorVars.itemTypes.reduce((filtered, phpType) => {
-      const existingType = itemTypes.filter((type) => type.id === phpType.type);
-      if (!existingType.length) {
-        filtered.push({
-          id: phpType.type,
-          icon: <i className={phpType.icon}></i>,
-          label: phpType.label,
-          description: phpType.description,
-        });
-      }
-      return filtered;
-    }, []);
-  if (phpItemTypes && phpItemTypes.length) {
-    const updatedItemTypes = itemTypes.concat(phpItemTypes);
-    return updatedItemTypes;
-  } else {
-    return itemTypes;
-  }
-}
+// export function migrateItemTypes(itemTypes) {
+//   return itemTypes;
+//   const phpItemTypes =
+//     dittyEditorVars.itemTypes &&
+//     dittyEditorVars.itemTypes.reduce((filtered, phpType) => {
+//       const existingType = itemTypes.filter((type) => type.id === phpType.type);
+//       if (!existingType.length) {
+//         filtered.push({
+//           id: phpType.type,
+//           icon: <i className={phpType.icon}></i>,
+//           label: phpType.label,
+//           description: phpType.description,
+//         });
+//       }
+//       return filtered;
+//     }, []);
+//   if (phpItemTypes && phpItemTypes.length) {
+//     const updatedItemTypes = itemTypes.concat(phpItemTypes);
+//     return updatedItemTypes;
+//   } else {
+//     return itemTypes;
+//   }
+// }
 
 /**
  * Migrate php display types

@@ -113,15 +113,47 @@ class Ditty_API {
 					}
 				}
 
-				if ( Ditty()->db_items->update( $item['item_id'], $item, 'item_id' ) ) {
+				if ( false !== strpos( $item['item_id'], 'new-' ) ) {
+					if ( $new_item_id = Ditty()->db_items->insert( apply_filters( 'ditty_item_db_data', $item, $id ), 'item' ) ) {
+						if ( ! isset( $updates['items'] ) ) {
+							$updates['items'] = [];
+						}
+						$item['new_id'] = strval( $new_item_id );
+						$updates['items'][] = $item;
+					} else {
+						if ( ! isset( $errors['items'] ) ) {
+							$errors['items'] = [];
+						}
+						$errors['items'][] = $item;
+					}
+				} elseif ( Ditty()->db_items->update( $item['item_id'], apply_filters( 'ditty_item_db_data', $item, $id ), 'item_id' ) ) {
 					if ( ! isset( $updates['items'] ) ) {
-						$updates['items'] = array();
+						$updates['items'] = [];
 					}
 					$updates['items'][] = $item;
 				} else {
 					if ( ! isset( $errors['items'] ) ) {
-						$errors['items'][] = $item;
+						$errors['items'] = [];
 					}
+					$errors['items'][] = $item;
+				}
+			}
+		}
+
+		// Delete items
+		if ( is_array( $deletedItems ) && count( $deletedItems ) > 0 ) {
+			foreach ( $deletedItems as $i => $deletedItem ) {
+				ditty_item_delete_all_meta( $deletedItem['item_id'] );
+				if ( Ditty()->db_items->delete( $deletedItem['item_id'] ) ) {
+					if ( ! isset( $updates['deletedItems'] ) ) {
+						$updates['deletedItems'] = [];
+					}
+					$updates['deletedItems'][] = $deletedItem;
+				} else {
+					if ( ! isset( $errors['deletedItems'] ) ) {
+						$errors['deletedItems'] = [];
+					}
+					$errors['deletedItems'][] = $deletedItem;
 				}
 			}
 		}

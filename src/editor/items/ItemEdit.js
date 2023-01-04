@@ -1,29 +1,28 @@
 import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
+import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenToSquare,
   faPenRuler,
   faAngleLeft,
 } from "@fortawesome/pro-light-svg-icons";
-import { Panel } from "../../components";
+import { Panel, ButtonGroup, Button } from "../../components";
+import ItemSettings from "./ItemSettings";
+import { LayoutList } from "../layouts";
+import { EditorContext } from "../context";
 
-const ItemEdit = ({ item, goBack, deleteItem, editor }) => {
-  const { items } = useContext(editor);
+const ItemEdit = ({ item, items, goBack, deleteItem }) => {
+  const { actions } = useContext(EditorContext);
   const [currentTabId, setCurrentTabId] = useState("settings");
 
-  const tabs = window.dittyHooks.applyFilters("dittyItemEditTabs", [
-    {
-      id: "settings",
-      icon: <FontAwesomeIcon icon={faPenToSquare} />,
-      label: __("Settings", "ditty-news-ticker"),
-    },
-    {
-      id: "layout",
-      icon: <FontAwesomeIcon icon={faPenRuler} />,
-      label: __("Layout", "ditty-news-ticker"),
-    },
-  ]);
+  const handleOnUpdateSettings = (item, id, value) => {
+    const updatedItem = { ...item };
+    const updatedItemValue = _.cloneDeep(item.item_value);
+    updatedItemValue[id] = value;
+    updatedItem.item_value = updatedItemValue;
+    actions.updateItem(updatedItem, "item_value");
+  };
 
   const handleTabClick = (tab) => {
     setCurrentTabId(tab.id);
@@ -32,34 +31,47 @@ const ItemEdit = ({ item, goBack, deleteItem, editor }) => {
   const panelHeader = () => {
     const count = items.length;
     return (
-      <>
-        <button onClick={goBack}>
+      <ButtonGroup>
+        <Button onClick={goBack}>
           <FontAwesomeIcon icon={faAngleLeft} />
           {__(`Back - ${count} items`, "ditty-news-ticker")}
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => {
             deleteItem(item);
           }}
         >
           {__("Delete", "ditty-news-ticker")}
-        </button>
-      </>
+        </Button>
+      </ButtonGroup>
     );
   };
 
+  const tabs = window.dittyHooks.applyFilters("dittyItemEditTabs", [
+    {
+      id: "settings",
+      icon: <FontAwesomeIcon icon={faPenToSquare} />,
+      label: __("Settings", "ditty-news-ticker"),
+      content: (
+        <ItemSettings item={item} onUpdateSettings={handleOnUpdateSettings} />
+      ),
+    },
+    {
+      id: "layout",
+      icon: <FontAwesomeIcon icon={faPenRuler} />,
+      label: __("Layout", "ditty-news-ticker"),
+      content: <LayoutList item={item} editor={EditorContext} />,
+    },
+  ]);
+
   const panelContent = () => {
-    return (
-      <>
-        {window.dittyHooks.applyFilters(
-          "dittyItemEditPanel",
-          "",
-          currentTabId,
-          item,
-          editor
-        )}
-      </>
-    );
+    const index = tabs.findIndex((tab) => {
+      return tab.id === currentTabId;
+    });
+    if (-1 === index) {
+      return false;
+    }
+    return tabs[index].content;
   };
 
   return (

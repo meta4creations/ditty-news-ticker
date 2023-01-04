@@ -4,12 +4,17 @@ import { updateDisplayOptions } from "../../services/dittyService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/pro-light-svg-icons";
 import { Panel, ListItem, SortableList } from "../../components";
-import { itemTypes, getItemTypeObject } from "../utils/itemTypes";
+import {
+  getItemTypes,
+  getItemTypeObject,
+  getItemTypeIcon,
+} from "../utils/itemTypes";
 import TypeSelectorPopup from "../TypeSelectorPopup";
 
 const ItemList = ({ editItem, addItem, editor }) => {
-  const { items, helpers, actions, displayItems } = useContext(editor);
+  const { items, actions, displayItems } = useContext(editor);
   const [popupStatus, setPopupStatus] = useState(false);
+  const itemTypes = getItemTypes();
 
   /**
    * Set up the elements
@@ -20,7 +25,7 @@ const ItemList = ({ editItem, addItem, editor }) => {
       {
         id: "icon",
         content: (item) => {
-          return helpers.itemTypeIcon(item);
+          return getItemTypeIcon(item);
         },
       },
       {
@@ -43,7 +48,7 @@ const ItemList = ({ editItem, addItem, editor }) => {
 
   const handleElementClick = (e, elementId, item) => {
     if ("settings" === elementId) {
-      editItem(item);
+      editItem(item.item_id);
     }
   };
 

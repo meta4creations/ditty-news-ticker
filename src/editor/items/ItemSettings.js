@@ -1,34 +1,18 @@
 import { __ } from "@wordpress/i18n";
-import { useContext } from "@wordpress/element";
-import { Field } from "../../fields";
+import { FieldList } from "../../fields";
+import { getItemTypeFields } from "../utils/itemTypes";
 
-const ItemSettings = ({ item, editor }) => {
-  const { helpers, actions } = useContext(editor);
-
-  const handleFieldUpdate = (field, value) => {
-    const itemValue = item.item_value;
-    itemValue[field.id] = value;
-    actions.updateItem(item, "item_value", itemValue);
-  };
-
+const ItemSettings = ({ item, onUpdateSettings }) => {
   const renderFields = () => {
-    const fields = helpers.itemTypeFields(item.item_type);
+    const fields = getItemTypeFields(item.item_type);
     return (
-      fields &&
-      fields.map((field) => {
-        const value = item.item_value[field.id]
-          ? item.item_value[field.id]
-          : field.std;
-
-        return (
-          <Field
-            key={field.id}
-            field={field}
-            value={value}
-            onFieldUpdate={handleFieldUpdate}
-          />
-        );
-      })
+      <FieldList
+        fields={fields}
+        values={item.item_value}
+        onUpdate={(id, value) => {
+          onUpdateSettings(item, id, value);
+        }}
+      />
     );
   };
 

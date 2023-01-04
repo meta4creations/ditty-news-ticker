@@ -1780,7 +1780,7 @@ function ditty_edit_links( $ditty_id ) {
  */
 function ditty_version() {
 	if ( is_ditty_dev() ) {
-		return '3.1';
+		return WP_DEBUG ? time() : '3.1';
 	}
 	return DITTY_VERSION;
 }

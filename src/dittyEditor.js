@@ -1,8 +1,8 @@
 const { render } = wp.element; //we are using wp.element here!
 import { EditorProvider } from "./editor/context";
 import App from "./editor/app";
-import "./editor/css/editor.scss";
 import { easeOptions, sliderTransitions } from "./editor/utils/helpers";
+import "./editor/css/editor.scss";
 
 window.dittyEditor = {
   helpers: {

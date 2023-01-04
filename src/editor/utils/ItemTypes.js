@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faPencil } from "@fortawesome/pro-light-svg-icons";
 import { faWordpress } from "@fortawesome/free-brands-svg-icons";
 import _ from "lodash";
-import { migrateItemTypes } from "./migrate";
 
 /**
  * Return all itemm types
@@ -37,7 +36,34 @@ export const getItemTypes = () => {
   const sortedItemTypes = _.orderBy(migratedItemTypes, ["label"], ["asc"]);
   return sortedItemTypes;
 };
-export const itemTypes = getItemTypes();
+
+/**
+ * Integrate migrated php item types
+ * @param {object} item
+ * @returns element
+ */
+function migrateItemTypes(itemTypes) {
+  const phpItemTypes =
+    dittyEditorVars.itemTypes &&
+    dittyEditorVars.itemTypes.reduce((filtered, phpType) => {
+      const existingType = itemTypes.filter((type) => type.id === phpType.type);
+      if (!existingType.length) {
+        filtered.push({
+          id: phpType.type,
+          icon: <i className={phpType.icon}></i>,
+          label: phpType.label,
+          description: phpType.description,
+        });
+      }
+      return filtered;
+    }, []);
+  if (phpItemTypes && phpItemTypes.length) {
+    const updatedItemTypes = itemTypes.concat(phpItemTypes);
+    return updatedItemTypes;
+  } else {
+    return itemTypes;
+  }
+}
 
 /**
  * Return a display type icon from the display
@@ -45,6 +71,7 @@ export const itemTypes = getItemTypes();
  * @returns element
  */
 export const getItemTypeObject = (item) => {
+  const itemTypes = getItemTypes();
   const itemTypeObject = itemTypes.filter((itemType) => {
     if (typeof item === "object") {
       return itemType.id === item.type;

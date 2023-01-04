@@ -7,6 +7,7 @@ import {
   faGear,
 } from "@fortawesome/pro-regular-svg-icons";
 import { Tabs } from "../components";
+import PanelItems from "./PanelItems";
 import PanelDisplays from "./PanelDisplays";
 import { EditorContext } from "./context";
 
@@ -21,6 +22,7 @@ const Editor = () => {
         id: "items",
         label: __("Items", "ditty-news-ticker"),
         icon: <FontAwesomeIcon icon={faBarsStaggered} />,
+        content: <PanelItems />,
       },
       {
         id: "display",

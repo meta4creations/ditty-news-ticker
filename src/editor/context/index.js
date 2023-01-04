@@ -2,11 +2,6 @@ import { __ } from "@wordpress/i18n";
 import { Component } from "@wordpress/element";
 import _ from "lodash";
 import { saveDitty } from "../../services/httpService";
-import {
-  getItemTypes,
-  getItemTypeIcon,
-  getItemTypeFields,
-} from "../utils/itemTypes";
 import { getDisplayObject } from "../utils/displayTypes";
 
 export const EditorContext = React.createContext();
@@ -88,7 +83,7 @@ export class EditorProvider extends Component {
    * Update a single item
    * @param {object} updatedItem
    */
-  handleUpdateItem = (updatedItem, key, value) => {
+  handleUpdateItem = (updatedItem, key) => {
     const updatedItems = this.state.items.map((item) => {
       if (updatedItem.item_id === item.item_id) {
         if (!updatedItem.item_updates) {
@@ -183,6 +178,13 @@ export class EditorProvider extends Component {
     });
     const trimmedUpdatedItems = updatedItems.map((item) => {
       const updates = Object.keys(item.item_updates);
+
+      // If this is a new item, include everything
+      if (updates.includes("new_item")) {
+        return item;
+      }
+
+      // Else, only include updated data
       const trimmedItem = updates.reduce(
         (trimmed, update) => {
           trimmed[update] = item[update];
@@ -215,15 +217,47 @@ export class EditorProvider extends Component {
   };
 
   /**
+   * Check for updates to the Ditty
+   * @returns object
+   */
+  handleAfterSaveDitty = (data, onComplete) => {
+    if (data.updates && data.updates.items) {
+      const updatedItems = this.state.items.map((item) => {
+        let temp_id;
+        let updated_id;
+        const index = data.updates.items.findIndex((i) => {
+          if (i.new_id && i.item_id === item.item_id) {
+            temp_id = i.item_id;
+            updated_id = i.new_id;
+            return true;
+          }
+        });
+        if (index >= 0) {
+          item.temp_id = temp_id;
+          item.item_id = updated_id;
+        }
+        return item;
+      });
+      this.setState({ items: updatedItems });
+    }
+    if (onComplete) {
+      onComplete(data);
+    }
+  };
+
+  /**
    * Save the ditty
    */
   handleSaveDitty = async (onComplete) => {
     // Get the updates
     const updates = this.getDittyUpdates();
+    console.log("updates", updates);
     updates.id = this.id;
 
     try {
-      await saveDitty(updates, onComplete);
+      await saveDitty(updates, (data) => {
+        this.handleAfterSaveDitty(data, onComplete);
+      });
 
       // Reset the item updates
       const resetItemUpdates = this.state.items.map((item) => {
@@ -262,7 +296,6 @@ export class EditorProvider extends Component {
         value={{
           id: this.id,
           title: this.state.title,
-          itemTypes: getItemTypes(),
           items: this.state.items,
           displayItems: this.state.displayItems,
           displays: this.state.displays,
@@ -272,8 +305,6 @@ export class EditorProvider extends Component {
           settings: this.state.settings,
           helpers: {
             dittyUpdates: this.getDittyUpdates,
-            itemTypeIcon: getItemTypeIcon,
-            itemTypeFields: getItemTypeFields,
           },
           actions: {
             setCurrentPanel: this.handleSetCurrentPanel,
