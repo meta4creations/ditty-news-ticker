@@ -74,7 +74,7 @@ export const getItemTypeObject = (item) => {
   const itemTypes = getItemTypes();
   const itemTypeObject = itemTypes.filter((itemType) => {
     if (typeof item === "object") {
-      return itemType.id === item.type;
+      return itemType.id === item.item_type;
     } else {
       return itemType.id === item;
     }

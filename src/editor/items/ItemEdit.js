@@ -7,14 +7,17 @@ import {
   faPenRuler,
   faAngleLeft,
 } from "@fortawesome/pro-light-svg-icons";
-import { Panel, ButtonGroup, Button } from "../../components";
-import ItemSettings from "./ItemSettings";
+import { ButtonGroup, Button, IconBlock, Link, Panel } from "../../components";
+import { getItemTypeObject } from "../utils/itemTypes";
 import { LayoutList } from "../layouts";
 import { EditorContext } from "../context";
+import ItemSettings from "./ItemSettings";
 
 const ItemEdit = ({ item, items, goBack, deleteItem }) => {
   const { actions } = useContext(EditorContext);
   const [currentTabId, setCurrentTabId] = useState("settings");
+  const itemTypeObject = getItemTypeObject(item);
+  console.log("item", item);
 
   const handleOnUpdateSettings = (item, id, value) => {
     const updatedItem = { ...item };
@@ -30,20 +33,29 @@ const ItemEdit = ({ item, items, goBack, deleteItem }) => {
 
   const panelHeader = () => {
     const count = items.length;
+    console.log("itemTypeObject", itemTypeObject);
     return (
-      <ButtonGroup>
-        <Button onClick={goBack}>
-          <FontAwesomeIcon icon={faAngleLeft} />
-          {__(`Back - ${count} items`, "ditty-news-ticker")}
-        </Button>
-        <Button
-          onClick={() => {
-            deleteItem(item);
-          }}
-        >
-          {__("Delete", "ditty-news-ticker")}
-        </Button>
-      </ButtonGroup>
+      <>
+        <IconBlock icon={itemTypeObject.icon}>
+          <h3>{itemTypeObject.label}</h3>
+          {/* <Link onClick={() => setPopupStatus("displayTypeSelect")}>
+            {__("Change Type", "ditty-news-ticker")}
+          </Link> */}
+        </IconBlock>
+        <ButtonGroup>
+          <Button onClick={goBack}>
+            <FontAwesomeIcon icon={faAngleLeft} />
+            {__(`Back - ${count} items`, "ditty-news-ticker")}
+          </Button>
+          <Button
+            onClick={() => {
+              deleteItem(item);
+            }}
+          >
+            {__("Delete", "ditty-news-ticker")}
+          </Button>
+        </ButtonGroup>
+      </>
     );
   };
 
