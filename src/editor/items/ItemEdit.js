@@ -17,7 +17,6 @@ const ItemEdit = ({ item, items, goBack, deleteItem }) => {
   const { actions } = useContext(EditorContext);
   const [currentTabId, setCurrentTabId] = useState("settings");
   const itemTypeObject = getItemTypeObject(item);
-  console.log("item", item);
 
   const handleOnUpdateSettings = (item, id, value) => {
     const updatedItem = { ...item };
@@ -33,7 +32,6 @@ const ItemEdit = ({ item, items, goBack, deleteItem }) => {
 
   const panelHeader = () => {
     const count = items.length;
-    console.log("itemTypeObject", itemTypeObject);
     return (
       <>
         <IconBlock icon={itemTypeObject.icon}>

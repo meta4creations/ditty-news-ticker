@@ -251,7 +251,6 @@ export class EditorProvider extends Component {
   handleSaveDitty = async (onComplete) => {
     // Get the updates
     const updates = this.getDittyUpdates();
-    console.log("updates", updates);
     updates.id = this.id;
 
     try {

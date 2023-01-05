@@ -1121,7 +1121,7 @@
 	    var self = this;
  	    $.each( this.settings.items, function( i, item ) {
 		    if ( String( item.id ) === String( id ) ) {
-					if ( ! $.isArray( self.settings.items[i].is_disabled ) ) {
+					if ( ! Array.isArray( self.settings.items[i].is_disabled ) ) {
 						self.settings.items[i].is_disabled = [];
 					}
 			    self.settings.items[i].is_disabled.push( slug );
@@ -1140,7 +1140,7 @@
 	    var self = this;
  	    $.each( this.settings.items, function( i, item ) {
 		    if ( String( item.id ) === String( id ) ) {
-					if ( $.isArray( self.settings.items[i].is_disabled ) && self.settings.items[i].is_disabled.length ) {
+					if ( Array.isArray( self.settings.items[i].is_disabled ) && self.settings.items[i].is_disabled.length ) {
 			    	self.settings.items[i].is_disabled = $.grep( self.settings.items[i].is_disabled, function( value ) {
 					  	return value !== slug;
 						} );
