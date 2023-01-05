@@ -6,7 +6,7 @@
  * @since    3.0
  * @var      array    $new_columns
 */
-function ditty_manage_posts_columns( $columns, $post_type ){
+function ditty_manage_posts_columns( $columns, $post_type = false ) {
 	$new_columns = array();
 	foreach( $columns as $key => $value ) {
 		$new_columns[$key] = $value;
