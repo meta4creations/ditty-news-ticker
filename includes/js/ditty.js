@@ -57,7 +57,7 @@ jQuery( function( $ ) {
 	    $( '.ditty[data-id="' + dittyId + '"]' ).each( function() {
 		    var displayType = $( this ).data( 'type' );
 				if ( 'development' === dittyVars.mode && window.console ) {
-					console.log( 'LIVE UPDATE' );
+					console.log( `LIVE UPDATE: ${dittyId}` );
 				}
 		    $( this )['ditty_' + displayType]( 'options', 'items', items );
 		  } );
@@ -91,7 +91,7 @@ jQuery( function( $ ) {
 				action		: 'ditty_live_updates',
 				live_ids 	: liveIds,
 				security	: dittyVars.security
-			};
+			};	
 			$.post( dittyVars.ajaxurl, data, function( response ) {
 				if ( response.updated_items ) {
 					$.each( response.updated_items, function( dittyId, items ) {
@@ -125,7 +125,6 @@ jQuery( function( $ ) {
 	    if ( null !== liveInterval ||  1 > Object.keys( liveIds ).length ) {
 		    return false;
 		  }
-			
 		  cancelAnimationFrame( liveInterval );
 
 			var updateInterval = dittyVars.updateInterval ? parseInt( dittyVars.updateInterval ) : 60,
@@ -251,6 +250,7 @@ jQuery( function( $ ) {
 								timestamp				: Math.floor( $.now()/1000 ),
 								layout_settings	: layout_settings
 							};
+							startLiveUpdates();
 						}
 					}, 'json' );
 					
@@ -261,13 +261,10 @@ jQuery( function( $ ) {
 							timestamp				: Math.floor( $.now()/1000 ),
 							layout_settings	: layout_settings
 						};
+						startLiveUpdates();
 					}
 				}
 			} );
-
-			if ( $( '.ditty' ).length && dittyVars.updateInterval ) {
-				startLiveUpdates();
-			}
 		}
 		dittyInit();
 
