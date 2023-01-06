@@ -8,15 +8,18 @@ import {
   faAngleLeft,
 } from "@fortawesome/pro-light-svg-icons";
 import { ButtonGroup, Button, IconBlock, Link, Panel } from "../../components";
-import { getItemTypeObject } from "../utils/itemTypes";
+import { getItemTypes, getItemTypeObject } from "../utils/itemTypes";
 import { LayoutList } from "../layouts";
 import { EditorContext } from "../context";
+import TypeSelectorPopup from "../TypeSelectorPopup";
 import ItemSettings from "./ItemSettings";
 
 const ItemEdit = ({ item, items, goBack, deleteItem }) => {
   const { actions } = useContext(EditorContext);
   const [currentTabId, setCurrentTabId] = useState("settings");
+  const [popupStatus, setPopupStatus] = useState(false);
   const itemTypeObject = getItemTypeObject(item);
+  const itemTypes = getItemTypes();
 
   const handleOnUpdateSettings = (item, id, value) => {
     const updatedItem = { ...item };
@@ -30,15 +33,49 @@ const ItemEdit = ({ item, items, goBack, deleteItem }) => {
     setCurrentTabId(tab.id);
   };
 
+  /**
+   * Render a popup component
+   * @returns Popup component
+   */
+  const renderPopup = () => {
+    const dittyEl = document.getElementById("ditty-editor__ditty");
+    switch (popupStatus) {
+      case "itemTypeSelect":
+        return (
+          <TypeSelectorPopup
+            activeType={item.item_type}
+            types={itemTypes}
+            getTypeObject={getItemTypeObject}
+            onClose={() => {
+              setPopupStatus(false);
+            }}
+            onUpdate={(updatedType) => {
+              setPopupStatus(false);
+              console.log("updatedType", updatedType);
+              console.log("item", item);
+              // if (currentDisplay.type === updatedType) {
+              //   return false;
+              // }
+              // const updatedDisplay = { ...currentDisplay };
+              // updatedDisplay.type = updatedType;
+              // actions.setCurrentDisplay(updatedDisplay);
+            }}
+          />
+        );
+      default:
+        return;
+    }
+  };
+
   const panelHeader = () => {
     const count = items.length;
     return (
       <>
-        <IconBlock icon={itemTypeObject.icon}>
+        <IconBlock icon={itemTypeObject.icon} className="displayEditType">
           <h3>{itemTypeObject.label}</h3>
-          {/* <Link onClick={() => setPopupStatus("displayTypeSelect")}>
+          <Link onClick={() => setPopupStatus("itemTypeSelect")}>
             {__("Change Type", "ditty-news-ticker")}
-          </Link> */}
+          </Link>
         </IconBlock>
         <ButtonGroup>
           <Button onClick={goBack}>
@@ -85,16 +122,19 @@ const ItemEdit = ({ item, items, goBack, deleteItem }) => {
   };
 
   return (
-    <Panel
-      id="itemEdit"
-      header={panelHeader()}
-      tabs={tabs}
-      tabClick={handleTabClick}
-      currentTabId={currentTabId}
-      tabsType="cloud"
-    >
-      {panelContent()}
-    </Panel>
+    <>
+      <Panel
+        id="itemEdit"
+        header={panelHeader()}
+        tabs={tabs}
+        tabClick={handleTabClick}
+        currentTabId={currentTabId}
+        tabsType="cloud"
+      >
+        {panelContent()}
+      </Panel>
+      {renderPopup()}
+    </>
   );
 };
 export default ItemEdit;

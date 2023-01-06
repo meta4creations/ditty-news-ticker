@@ -130,6 +130,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.0.33 =
+* Live update bug fix
+
 = 3.0.32 =
 * Added edit link to frontend Ditty
 * manage_posts_columns filter update
