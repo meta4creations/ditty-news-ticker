@@ -1,6 +1,7 @@
 import { createHooks } from "@wordpress/hooks";
 import DittyDisplay from "./displays/components/dittyDisplay";
 import "./displays/css/dittyDisplay.scss";
+import { easeOptions, sliderTransitions } from "./editor/utils/helpers";
 
 /**
  * Add ditty global variables for reference
@@ -9,6 +10,22 @@ window.dittyRenders = new WeakMap();
 window.dittyHooks = createHooks();
 window.dittyDisplays = {
   display: DittyDisplay,
+};
+
+const editorHooks = createHooks();
+dittyEditor.addFilter = (action, callable, priority) => {
+  editorHooks.addFilter(action, "dittyEditor", callable, priority);
+};
+dittyEditor.applyFilters = editorHooks.applyFilters;
+dittyEditor.helpers = {
+  easeOptions,
+  sliderTransitions,
+};
+dittyEditor.registerDisplayType = (displayType) => {
+  dittyEditor.addFilter("dittyDisplayTypes", (displayTypes) => {
+    displayTypes.push(displayType);
+    return displayTypes;
+  });
 };
 
 /**
@@ -57,16 +74,3 @@ function clickHandle(e) {
     ditty.options(options);
   }
 }
-
-// class DittyDisplayTypes {}
-
-// ditty.registerDisplayType = (displayType) => {
-//   window.dittyHooks.addFilter(
-//     "dittyDisplayTypes",
-//     "dittyEditor",
-//     (displayTypes) => {
-//       displayTypes.push(displayType);
-//       return displayTypes;
-//     }
-//   );
-// };

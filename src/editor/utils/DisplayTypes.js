@@ -16,33 +16,7 @@ import {
  * @returns array
  */
 export const getDisplayTypes = () => {
-  const displayTypes = dittyEditor.applyFilters("dittyDisplayTypes", [
-    {
-      id: "ticker",
-      icon: <FontAwesomeIcon icon={faEllipsis} />,
-      label: __("Ticker", "ditty-news-ticker"),
-      description: __(
-        "Display items in a basic news ticker.",
-        "ditty-news-ticker"
-      ),
-      settings: {
-        general: true,
-        title: true,
-        styles: ["container", "content", "item"],
-      },
-    },
-    {
-      id: "list",
-      icon: <FontAwesomeIcon icon={faList} />,
-      label: __("List", "ditty-news-ticker"),
-      description: __("Display items in a static list.", "ditty-news-ticker"),
-      settings: {
-        general: true,
-        navigation: ["arrows", "bullets"],
-        styles: ["container", "content", "page", "item"],
-      },
-    },
-  ]);
+  const displayTypes = dittyEditor.applyFilters("dittyDisplayTypes", []);
   const migratedDisplayTypes = migrateDisplayTypes(displayTypes);
   const sortedDisplayTypes = _.orderBy(
     migratedDisplayTypes,

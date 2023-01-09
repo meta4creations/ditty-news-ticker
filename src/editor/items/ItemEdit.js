@@ -55,9 +55,6 @@ const ItemEdit = ({ item, items, goBack, deleteItem }) => {
               const updatedItem = { ...item };
               updatedItem.item_type = updatedType;
               actions.updateItem(updatedItem, "item_type");
-
-              console.log("updatedType", updatedType);
-              console.log("item", item);
               // if (currentDisplay.type === updatedType) {
               //   return false;
               // }

@@ -31,7 +31,6 @@ const ItemList = ({ editItem, addItem, editor }) => {
       {
         id: "label",
         content: (item) => {
-          console.log("item", item);
           return dittyEditor.applyFilters("itemLabel", item.item_type, item);
         },
       },

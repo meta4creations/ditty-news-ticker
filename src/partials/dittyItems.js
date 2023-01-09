@@ -4,8 +4,6 @@ import { __ } from "@wordpress/i18n";
  * Modify the item label
  */
 dittyEditor.addFilter("itemLabel", (itemType, item) => {
-  //console.log("itemType", itemType);
-  //console.log("item", item);
   switch (itemType) {
     case "default":
       return item.item_value.content;
