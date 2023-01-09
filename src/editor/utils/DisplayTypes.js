@@ -9,16 +9,14 @@ import {
   faSliders,
   faBrush,
   faHeading,
-  faTh,
 } from "@fortawesome/pro-light-svg-icons";
-import { migrateDisplayTypes } from "./migrate";
 
 /**
  * Return all display types
  * @returns array
  */
-const getDisplayTypes = () => {
-  const displayTypes = window.dittyHooks.applyFilters("dittyDisplayTypes", [
+export const getDisplayTypes = () => {
+  const displayTypes = dittyEditor.applyFilters("dittyDisplayTypes", [
     {
       id: "ticker",
       icon: <FontAwesomeIcon icon={faEllipsis} />,
@@ -53,7 +51,37 @@ const getDisplayTypes = () => {
   );
   return sortedDisplayTypes;
 };
-export const displayTypes = getDisplayTypes();
+
+/**
+ * Migrate php display types
+ * @param {array} displayTypes
+ * @returns array
+ */
+const migrateDisplayTypes = (displayTypes) => {
+  const phpDisplayTypes =
+    dittyEditorVars.displayTypes &&
+    dittyEditorVars.displayTypes.reduce((filtered, phpType) => {
+      const existingType = displayTypes.filter(
+        (type) => type.id === phpType.type
+      );
+      if (!existingType.length) {
+        filtered.push({
+          id: phpType.type,
+          icon: <i className={phpType.icon}></i>,
+          label: phpType.label,
+          description: phpType.description,
+          phpSettings: phpType.settings,
+        });
+      }
+      return filtered;
+    }, []);
+  if (phpDisplayTypes && phpDisplayTypes.length) {
+    const updatedDisplayTypes = displayTypes.concat(phpDisplayTypes);
+    return updatedDisplayTypes;
+  } else {
+    return displayTypes;
+  }
+};
 
 /**
  * Get the current display object
@@ -171,7 +199,7 @@ export const getDisplayTypeSettings = (display) => {
             break;
           default:
             fieldGroups.push(
-              window.dittyHooks.applyFilters(
+              dittyEditor.applyFilters(
                 "getDisplayTypeSettingsCustom",
                 [],
                 displayTypeObject.id,
@@ -268,8 +296,8 @@ const displaySettingsGeneral = (displayType) => {
       "ditty-news-ticker"
     ),
     icon: <FontAwesomeIcon icon={faSliders} />,
-    fields: window.dittyHooks.applyFilters(
-      "dittyDisplaySettingsGeneralFields",
+    fields: dittyEditor.applyFilters(
+      "displaySettingsGeneralFields",
       [],
       displayType
     ),
@@ -286,8 +314,8 @@ const displaySettingsTitle = (displayType) => {
       "ditty-news-ticker"
     ),
     icon: <FontAwesomeIcon icon={faHeading} />,
-    fields: window.dittyHooks.applyFilters(
-      "dittyDisplaySettingsTitleFields",
+    fields: dittyEditor.applyFilters(
+      "displaySettingsTitleFields",
       [
         {
           id: "titleDisplay",
@@ -428,8 +456,8 @@ const displaySettingsNavigation = (
               ),
               defaultState: "collapsed",
               collapsible: true,
-              fields: window.dittyHooks.applyFilters(
-                "dittyDisplaySettingsArrowFields",
+              fields: dittyEditor.applyFilters(
+                "displaySettingsArrowFields",
                 [
                   {
                     type: "select",
@@ -518,8 +546,8 @@ const displaySettingsNavigation = (
               ),
               defaultState: "collapsed",
               collapsible: true,
-              fields: window.dittyHooks.applyFilters(
-                "dittyDisplaySettingsBulletFields",
+              fields: dittyEditor.applyFilters(
+                "displaySettingsBulletFields",
                 [
                   {
                     type: "select",
@@ -603,8 +631,8 @@ const displaySettingsNavigation = (
           ]);
         default:
           return currentFields.concat(
-            window.dittyHooks.applyFilters(
-              "dittyDisplaySettingsNavigationCustomFields",
+            dittyEditor.applyFilters(
+              "displaySettingsNavigationCustomFields",
               [],
               group,
               displayType
@@ -639,8 +667,8 @@ const displaySettingsStyle = (
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
-              fields: window.dittyHooks.applyFilters(
-                "dittyDisplaySettingsStylesContainerFields",
+              fields: dittyEditor.applyFilters(
+                "displaySettingsStylesContainerFields",
                 [
                   {
                     type: "unit",
@@ -687,8 +715,8 @@ const displaySettingsStyle = (
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
-              fields: window.dittyHooks.applyFilters(
-                "dittyDisplaySettingsStylesContentFields",
+              fields: dittyEditor.applyFilters(
+                "displaySettingsStylesContentFields",
                 [
                   {
                     type: "color",
@@ -718,8 +746,8 @@ const displaySettingsStyle = (
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
-              fields: window.dittyHooks.applyFilters(
-                "dittyDisplaySettingsStylesPageFields",
+              fields: dittyEditor.applyFilters(
+                "displaySettingsStylesPageFields",
                 [
                   {
                     type: "color",
@@ -746,8 +774,8 @@ const displaySettingsStyle = (
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
-              fields: window.dittyHooks.applyFilters(
-                "dittyDisplaySettingsStylesItemFields",
+              fields: dittyEditor.applyFilters(
+                "displaySettingsStylesItemFields",
                 [
                   {
                     type: "color",
@@ -772,8 +800,8 @@ const displaySettingsStyle = (
           ]);
         default:
           return currentFields.concat(
-            window.dittyHooks.applyFilters(
-              "dittyDisplaySettingsStylesCustomFields",
+            dittyEditor.applyFilters(
+              "displaySettingsStylesCustomFields",
               [],
               group,
               displayType

@@ -544,7 +544,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Add ditty global variables for reference
  */
-window.ditty = new WeakMap();
+window.dittyRenders = new WeakMap();
 window.dittyHooks = (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__.createHooks)();
 window.dittyDisplays = {
   display: _displays_components_dittyDisplay__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -568,7 +568,7 @@ window.onload = function () {
       ...settings
     };
     const ditty = new window.dittyDisplays[type](args);
-    window.ditty.set(dittyEl, ditty);
+    window.dittyRenders.set(dittyEl, ditty);
   });
 };
 
@@ -581,7 +581,7 @@ function clickHandle(e) {
   if (el.closest(".ditty__title")) {
     e.preventDefault();
     const dittyEl = el.closest(".ditty");
-    const ditty = window.ditty.get(dittyEl);
+    const ditty = window.dittyRenders.get(dittyEl);
     const randomColor = Math.floor(Math.random() * 16777215).toString(16);
     const options = {
       titleBgColor: `#${randomColor}`,
@@ -590,6 +590,19 @@ function clickHandle(e) {
     ditty.options(options);
   }
 }
+
+// class DittyDisplayTypes {}
+
+// ditty.registerDisplayType = (displayType) => {
+//   window.dittyHooks.addFilter(
+//     "dittyDisplayTypes",
+//     "dittyEditor",
+//     (displayTypes) => {
+//       displayTypes.push(displayType);
+//       return displayTypes;
+//     }
+//   );
+// };
 })();
 
 /******/ })()

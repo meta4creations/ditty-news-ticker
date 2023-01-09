@@ -400,6 +400,9 @@ class Ditty_Scripts {
 			ditty_version(),
 			true
 		);
+		if ( empty( $ditty_scripts_enqueued ) ) {
+			wp_add_inline_script( 'ditty', 'const ditty={};', 'before' );
+		}
 
 		
 		if ( $this->cache_enabled ) {
@@ -419,18 +422,6 @@ class Ditty_Scripts {
 		if ( ditty_editing() ) {
 			wp_dequeue_script( 'autosave' );
 
-			if ( $this->cache_enabled ) {
-				$cache = $this->get_cache();
-				wp_enqueue_script(
-					'ditty-editor-cache',
-					$cache['editor_js_url'],
-					$cache['editor_js_required'],
-					null,
-					true
-				);
-			} else {
-				$this->load_external_scripts( 'editor', ['ditty', 'wp-element', 'wp-components'], 'enqueue' );
-			}
 			wp_enqueue_script( 'dittyEditor',
 				DITTY_URL . 'build/dittyEditor.js',
 				array_merge(['wp-element', 'wp-components', 'wp-hooks', 'lodash', 'ditty'], $display_slugs),
@@ -438,6 +429,7 @@ class Ditty_Scripts {
 				true
 			);
 			if ( empty( $ditty_scripts_enqueued ) ) {
+				wp_add_inline_script( 'dittyEditor', 'const dittyEditor={};', 'before' );
 				wp_add_inline_script( 'dittyEditor', 'const dittyEditorVars = ' . json_encode( array(
 					'ajaxurl'				=> admin_url( 'admin-ajax.php' ),
 					'security'			=> wp_create_nonce( 'ditty' ),
@@ -449,6 +441,19 @@ class Ditty_Scripts {
 					'itemTypes'			=> array_values( ditty_item_types() ),
 					'displayTypes'	=> Ditty()->editor->display_type_data(),
 				) ), 'before' );
+			}
+
+			if ( $this->cache_enabled ) {
+				$cache = $this->get_cache();
+				wp_enqueue_script(
+					'ditty-editor-cache',
+					$cache['editor_js_url'],
+					$cache['editor_js_required'],
+					null,
+					true
+				);
+			} else {
+				$this->load_external_scripts( 'editor', ['ditty', 'dittyEditor', 'wp-element', 'wp-components'], 'enqueue' );
 			}
 		}	
 

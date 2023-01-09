@@ -12,7 +12,7 @@ import {
   Tabs,
 } from "../../components";
 import {
-  displayTypes,
+  getDisplayTypes,
   getDisplayTypeIcon,
   getDisplayTypeDescription,
 } from "../utils/displayTypes";
@@ -34,6 +34,7 @@ const DisplayTemplateSavePopup = ({
   const [filteredTemplates, setFilteredTemplates] = useState(templates);
   const [currentTabId, setCurrentTabId] = useState("new");
   const [showSpinner, setShowSpinner] = useState(false);
+  const displayTypes = getDisplayTypes();
 
   const elements = [
     {

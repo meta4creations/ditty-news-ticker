@@ -19,8 +19,8 @@ const ItemList = ({ editItem, addItem, editor }) => {
   /**
    * Set up the elements
    */
-  const elements = window.dittyHooks.applyFilters(
-    "dittyEditorItemListElements",
+  const elements = dittyEditor.applyFilters(
+    "itemListElements",
     [
       {
         id: "icon",
@@ -31,11 +31,8 @@ const ItemList = ({ editItem, addItem, editor }) => {
       {
         id: "label",
         content: (item) => {
-          return window.dittyHooks.applyFilters(
-            "dittyEditorItemLabel",
-            item.item_type,
-            item
-          );
+          console.log("item", item);
+          return dittyEditor.applyFilters("itemLabel", item.item_type, item);
         },
       },
       {

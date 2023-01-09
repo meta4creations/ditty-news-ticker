@@ -18,11 +18,7 @@ const DittyNew = () => {
           return itemsArray.concat(item.rendered_items);
         } else {
           return itemsArray.concat(
-            window.dittyHooks.applyFilters(
-              `dittyDisplayItems${itemType}`,
-              [],
-              item
-            )
+            dittyEditor.applyFilters(`dittyDisplayItems${itemType}`, [], item)
           );
         }
       }, []);

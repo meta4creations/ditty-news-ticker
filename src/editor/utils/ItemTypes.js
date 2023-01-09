@@ -9,7 +9,7 @@ import _ from "lodash";
  * @returns array
  */
 export const getItemTypes = () => {
-  const itemTypes = window.dittyHooks.applyFilters("dittyItemTypes", [
+  const itemTypes = dittyEditor.applyFilters("dittyItemTypes", [
     {
       id: "default",
       icon: <FontAwesomeIcon icon={faPencil} />,
@@ -42,7 +42,7 @@ export const getItemTypes = () => {
  * @param {object} item
  * @returns element
  */
-function migrateItemTypes(itemTypes) {
+const migrateItemTypes = (itemTypes) => {
   const phpItemTypes =
     dittyEditorVars.itemTypes &&
     dittyEditorVars.itemTypes.reduce((filtered, phpType) => {
@@ -63,7 +63,7 @@ function migrateItemTypes(itemTypes) {
   } else {
     return itemTypes;
   }
-}
+};
 
 /**
  * Return a display type icon from the display
@@ -105,7 +105,7 @@ export const getItemTypeIcon = (item) => {
  * @returns object
  */
 export const getItemTypeFields = (itemType) => {
-  const itemTypeFields = window.dittyHooks.applyFilters("dittyItemTypeFields", [
+  const itemTypeFields = dittyEditor.applyFilters("dittyItemTypeFields", [
     {
       id: "default",
       fields: [

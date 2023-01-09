@@ -69,9 +69,12 @@ const PanelItems = () => {
     return items[index];
   };
 
+  const currentItem = getCurrentItem();
+
   return currentItemId ? (
     <ItemEdit
-      item={getCurrentItem()}
+      key={currentItem.item_type}
+      item={currentItem}
       items={items}
       goBack={handleGoBack}
       deleteItem={handleDeleteItem}

@@ -2,7 +2,7 @@ import { __ } from "@wordpress/i18n";
 
 export const getLayoutTags = () => {
   const dateFormat = "";
-  const tags = window.dittyHooks.applyFilters("dittyItemLayoutId", [
+  const tags = dittyEditor.applyFilters("dittyItemLayoutId", [
     {
       tag: "author_avatar",
       description: __("Render the item's author avatar", "ditty-news-ticker"),

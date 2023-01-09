@@ -24,7 +24,6 @@ var dittyConfig = {
     dittyEditor: "./src/dittyEditor.js",
     dittyScripts: [
       "./src/partials/dittyItems.js",
-      "./src/partials/editorSettings.js",
       "./src/partials/itemTypeDefault.js",
       "./src/partials/displayTypeTicker.js",
       "./src/partials/displayTypeList.js",

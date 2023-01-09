@@ -7,7 +7,7 @@ import {
 import { Button, ButtonGroup, IconBlock, Link, Panel } from "../components";
 import { FieldList } from "../fields";
 import {
-  displayTypes,
+  getDisplayTypes,
   getDisplayTypeObject,
   getDisplayTypeSettings,
 } from "./utils/displayTypes";
@@ -26,6 +26,7 @@ const PanelDisplays = () => {
   const [currentTabId, setCurrentTabId] = useState(initialTab);
   const [status, setStatus] = useState(!currentDisplay.id && "editDisplay");
   const [popupStatus, setPopupStatus] = useState(false);
+  const displayTypes = getDisplayTypes();
 
   /**
    * Update the Display on field update

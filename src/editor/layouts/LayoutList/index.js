@@ -10,8 +10,8 @@ const LayoutList = ({ item, editor }) => {
   /**
    * Set up the elements
    */
-  const elements = window.dittyHooks.applyFilters(
-    "dittyEditorLayoutListElements",
+  const elements = dittyEditor.applyFilters(
+    "layoutListElements",
     [
       {
         id: "icon",

@@ -51,6 +51,11 @@ const ItemEdit = ({ item, items, goBack, deleteItem }) => {
             }}
             onUpdate={(updatedType) => {
               setPopupStatus(false);
+
+              const updatedItem = { ...item };
+              updatedItem.item_type = updatedType;
+              actions.updateItem(updatedItem, "item_type");
+
               console.log("updatedType", updatedType);
               console.log("item", item);
               // if (currentDisplay.type === updatedType) {
@@ -94,7 +99,7 @@ const ItemEdit = ({ item, items, goBack, deleteItem }) => {
     );
   };
 
-  const tabs = window.dittyHooks.applyFilters("dittyItemEditTabs", [
+  const tabs = dittyEditor.applyFilters("dittyItemEditTabs", [
     {
       id: "settings",
       icon: <FontAwesomeIcon icon={faPenToSquare} />,

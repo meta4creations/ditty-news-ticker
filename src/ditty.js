@@ -5,7 +5,7 @@ import "./displays/css/dittyDisplay.scss";
 /**
  * Add ditty global variables for reference
  */
-window.ditty = new WeakMap();
+window.dittyRenders = new WeakMap();
 window.dittyHooks = createHooks();
 window.dittyDisplays = {
   display: DittyDisplay,
@@ -34,7 +34,7 @@ window.onload = function () {
     };
     const ditty = new window.dittyDisplays[type](args);
 
-    window.ditty.set(dittyEl, ditty);
+    window.dittyRenders.set(dittyEl, ditty);
   });
 };
 
@@ -47,7 +47,7 @@ function clickHandle(e) {
   if (el.closest(".ditty__title")) {
     e.preventDefault();
     const dittyEl = el.closest(".ditty");
-    const ditty = window.ditty.get(dittyEl);
+    const ditty = window.dittyRenders.get(dittyEl);
     const randomColor = Math.floor(Math.random() * 16777215).toString(16);
 
     const options = {
@@ -57,3 +57,16 @@ function clickHandle(e) {
     ditty.options(options);
   }
 }
+
+// class DittyDisplayTypes {}
+
+// ditty.registerDisplayType = (displayType) => {
+//   window.dittyHooks.addFilter(
+//     "dittyDisplayTypes",
+//     "dittyEditor",
+//     (displayTypes) => {
+//       displayTypes.push(displayType);
+//       return displayTypes;
+//     }
+//   );
+// };

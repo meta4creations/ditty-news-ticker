@@ -6,7 +6,7 @@ import { faTabletScreen } from "@fortawesome/pro-light-svg-icons";
 import { updateDittyDisplayTemplate } from "../../services/dittyService";
 import { IconBlock, Filter, List, ListItem, Popup } from "../../components";
 import {
-  displayTypes,
+  getDisplayTypes,
   getDisplayTypeIcon,
   getDisplayTypeDescription,
 } from "../utils/displayTypes";
@@ -20,6 +20,7 @@ const DisplayTemplateSelectorPopup = ({
 }) => {
   const [currentTemplate, setCurrentTemplate] = useState(activeTemplate);
   const [filteredTemplates, setFilteredTemplates] = useState(templates);
+  const displayTypes = getDisplayTypes();
 
   const elements = [
     {

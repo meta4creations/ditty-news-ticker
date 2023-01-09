@@ -7,7 +7,7 @@ import { FieldList } from "../fields";
 const PanelSettings = ({ editor }) => {
   const { id, title, settings, actions } = useContext(editor);
 
-  const settingsFields = window.dittyHooks.applyFilters("dittySettingsFields", [
+  const settingsFields = dittyEditor.applyFilters("dittySettingsFields", [
     {
       type: "text",
       id: "title",

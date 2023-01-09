@@ -27,7 +27,7 @@ const DittyItem = ({ item }) => {
     }
 
     // Get the layout ID from the variation values
-    let layoutId = window.dittyHooks.applyFilters(
+    let layoutId = dittyEditor.applyFilters(
       "dittyItemLayoutId",
       variationLayouts[0].value,
       item.item_type,
@@ -105,7 +105,7 @@ const DittyItem = ({ item }) => {
    */
   const renderLayoutTag = (tag, type, values, atts, customWrapper) => {
     const itemType = _.upperFirst(_.camelCase(type));
-    const element = window.dittyHooks.applyFilters(
+    const element = dittyEditor.applyFilters(
       `dittyLayoutTag${itemType}`,
       "",
       tag,

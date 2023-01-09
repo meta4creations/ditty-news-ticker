@@ -9,13 +9,14 @@ import {
 import { Tabs } from "../components";
 import PanelItems from "./PanelItems";
 import PanelDisplays from "./PanelDisplays";
+import PanelSettings from "./PanelSettings";
 import { EditorContext } from "./context";
 
 const Editor = () => {
   const { currentDisplay } = useContext(EditorContext);
   const [currentTabId, setCurrentTabId] = useState("items");
 
-  const tabs = window.dittyHooks.applyFilters(
+  const tabs = dittyEditor.applyFilters(
     "dittyEditorTabs",
     [
       {
@@ -34,6 +35,7 @@ const Editor = () => {
         id: "settings",
         label: __("Settings", "ditty-news-ticker"),
         icon: <FontAwesomeIcon icon={faGear} />,
+        content: <PanelSettings editor={EditorContext} />,
       },
     ],
     EditorContext
@@ -50,7 +52,7 @@ const Editor = () => {
     const content =
       -1 === index ? "" : tabs[index].content ? tabs[index].content : "";
 
-    return window.dittyHooks.applyFilters(
+    return dittyEditor.applyFilters(
       "dittyEditorPanel",
       content,
       currentTabId,
