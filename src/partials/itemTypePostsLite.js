@@ -36,16 +36,9 @@ if (dittyEditor) {
         ],
       },
     },
-  });
-
-  /**
-   * Modify the editor item label
-   */
-  dittyEditor.addFilter("itemLabel", (label, item) => {
-    if ("posts_feed" !== item.item_type) {
-      return label;
-    }
-    const limit = item.item_value.limit ? item.item_value.limit : 10;
-    return `${limit} Posts`;
+    itemLabel: (item) => {
+      const limit = item.item_value.limit ? item.item_value.limit : 10;
+      return `${limit} Posts`;
+    },
   });
 }

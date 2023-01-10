@@ -4,7 +4,7 @@
   }
 }
 .typeSelector {
-  justify-content: space-between;
+  justify-content: flex-start;
   .ditty-tab {
     width: 94px;
     height: 94px;
@@ -17,6 +17,30 @@
       &:last-child {
         margin-bottom: 0;
       }
+    }
+  }
+}
+
+.ditty-popup--itemEdit {
+  .ditty-popup__header {
+    .ditty-icon-block__contents {
+      overflow: hidden;
+      p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+.itemEdit__header {
+  &__type {
+    display: flex;
+    align-content: flex-end;
+    gap: 5px;
+    margin-bottom: 5px;
+    h2 {
+      margin-bottom: 0;
     }
   }
 }

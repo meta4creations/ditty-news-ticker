@@ -84,6 +84,13 @@ const PanelSettings = ({ editor }) => {
       std: "no",
     },
     {
+      type: "number",
+      id: "editorWidth",
+      name: __("Editor Width", "ditty-news-ticker"),
+      help: __("Set the width of the editor (in pixels).", "ditty-news-ticker"),
+      std: 350,
+    },
+    {
       type: "color",
       id: "previewBg",
       name: __("Preview Background Color", "ditty-news-ticker"),

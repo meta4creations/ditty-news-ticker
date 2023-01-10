@@ -10,6 +10,8 @@ const TypeSelectorPopup = ({
   onChange,
   onClose,
   onUpdate,
+  className,
+  level,
 }) => {
   const [selectedType, setSelectedType] = useState(activeType);
   const itemTypeObject = getTypeObject(selectedType);
@@ -32,6 +34,8 @@ const TypeSelectorPopup = ({
       onSubmit={() => {
         onUpdate(selectedType);
       }}
+      level={level}
+      className={className}
     >
       <Tabs
         tabs={types}

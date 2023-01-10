@@ -74,19 +74,12 @@ if (dittyEditor) {
         ],
       },
     },
-  });
-
-  /**
-   * Modify the editor item label
-   */
-  dittyEditor.addFilter("itemLabel", (label, item) => {
-    if ("default" !== item.item_type) {
-      return label;
-    }
-    const content = item.item_value.content
-      ? item.item_value.content
-      : __("This is a sample item. Please edit me!", "ditty-news-ticker");
-    return content;
+    itemLabel: (item) => {
+      const content = item.item_value.content
+        ? item.item_value.content
+        : __("This is a sample item. Please edit me!", "ditty-news-ticker");
+      return content;
+    },
   });
 
   /**

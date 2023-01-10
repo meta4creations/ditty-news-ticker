@@ -2,17 +2,20 @@ import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
 import { updateDisplayOptions } from "../../services/dittyService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear } from "@fortawesome/pro-light-svg-icons";
+import { faGear, faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
 import { Panel, ListItem, SortableList } from "../../components";
+import ItemEditPopup from "./ItemEditPopup";
 import {
   getItemTypes,
   getItemTypeObject,
   getItemTypeIcon,
+  getItemLabel,
 } from "../utils/itemTypes";
 import TypeSelectorPopup from "../TypeSelectorPopup";
 
 const ItemList = ({ editItem, addItem, editor }) => {
   const { items, actions, displayItems } = useContext(editor);
+  const [currentItem, setCurrentItem] = useState(null);
   const [popupStatus, setPopupStatus] = useState(false);
   const itemTypes = getItemTypes();
 
@@ -31,12 +34,17 @@ const ItemList = ({ editItem, addItem, editor }) => {
       {
         id: "label",
         content: (item) => {
-          return dittyEditor.applyFilters("itemLabel", item.item_type, item);
+          return getItemLabel(item);
+          //return dittyEditor.applyFilters("itemLabel", item.item_type, item);
         },
       },
       {
         id: "settings",
         content: <FontAwesomeIcon icon={faGear} />,
+      },
+      {
+        id: "layout",
+        content: <FontAwesomeIcon icon={faPaintbrushPencil} />,
       },
     ],
     editor
@@ -44,7 +52,9 @@ const ItemList = ({ editItem, addItem, editor }) => {
 
   const handleElementClick = (e, elementId, item) => {
     if ("settings" === elementId) {
-      editItem(item.item_id);
+      setCurrentItem(item);
+      setPopupStatus("editItem");
+      //editItem(item.item_id);
     }
   };
 
@@ -130,6 +140,22 @@ const ItemList = ({ editItem, addItem, editor }) => {
       //       }}
       //     />
       //   );
+      case "editItem":
+        return (
+          <ItemEditPopup
+            item={currentItem}
+            //types={itemTypes}
+            //getTypeObject={getItemTypeObject}
+            //submitLabel={__("Add Item", "ditty-news-ticker")}
+            onClose={() => {
+              setPopupStatus(false);
+            }}
+            onUpdate={(itemType) => {
+              setPopupStatus(false);
+              //addItem(itemType);
+            }}
+          />
+        );
       case "addItem":
         return (
           <TypeSelectorPopup

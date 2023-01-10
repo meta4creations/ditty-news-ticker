@@ -129,7 +129,7 @@ const ItemEdit = ({ item, items, goBack, deleteItem }) => {
       <Panel
         id="itemEdit"
         header={panelHeader()}
-        tabs={fieldGroups}
+        tabs={fieldGroups.length > 1 ? fieldGroups : null}
         tabClick={(tab) => setCurrentTabId(tab.id)}
         currentTabId={currentTabId}
         tabsType="cloud"

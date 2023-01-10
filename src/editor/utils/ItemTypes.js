@@ -109,3 +109,15 @@ export const getItemTypeSettings = (item) => {
   }
   return fieldGroups;
 };
+
+/**
+ * Return an item types icon from item
+ * @param {object} item
+ * @returns element
+ */
+export const getItemLabel = (item) => {
+  const itemTypeObject = getItemTypeObject(item);
+  return itemTypeObject.itemLabel
+    ? itemTypeObject.itemLabel(item)
+    : item.item_type;
+};

@@ -1,5 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import { useState, useContext } from "@wordpress/element";
+import _ from "lodash";
 import {
   updateDisplayOptions,
   updateDittyDisplayType,
@@ -130,7 +131,7 @@ const PanelDisplays = () => {
           onClick={() => {
             const customDisplay = {
               type: currentDisplay.type,
-              settings: currentDisplay.settings,
+              settings: _.cloneDeep(currentDisplay.settings),
             };
             actions.setCurrentDisplay(customDisplay);
             setStatus("editDisplay");

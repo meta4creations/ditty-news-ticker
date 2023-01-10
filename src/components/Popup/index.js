@@ -1,4 +1,5 @@
 import { __ } from "@wordpress/i18n";
+import classnames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLoader } from "@fortawesome/pro-light-svg-icons";
 import Button from "../Button";
@@ -14,18 +15,17 @@ const Popup = ({
   onClose,
   onSubmit,
   showSpinner,
+  className,
+  level,
 }) => {
-  const getPopupClass = () => {
-    let className = "ditty-popup";
-    if (id) {
-      className += ` ditty-popup--${id}`;
-    }
-    return className;
-  };
+  const classes = classnames("ditty-popup", className, `ditty-popup--${id}`, {
+    "ditty-popup--level-2": level === "2",
+    "ditty-popup--level-3": level === "3",
+  });
 
   return (
     <>
-      <div className={getPopupClass()}>
+      <div className={classes}>
         <div className="ditty-popup__overlay" onClick={onClose}></div>
         <div className="ditty-popup__contents">
           {header && <div className="ditty-popup__header">{header}</div>}

@@ -164,7 +164,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 99;
   width: 100%;
   height: 100%;
   display: flex;
@@ -198,5 +198,13 @@
   &__footer {
     padding: 15px;
     border-top: 1px solid $border_color_light;
+  }
+  &--level-2 {
+    z-index: 999;
+    .ditty-popup__contents {
+      width: calc(100% - 40px);
+      height: calc(100% - 40px);
+      margin-top: 20px;
+    }
   }
 }
