@@ -451,7 +451,7 @@ class Ditty_Scripts {
 					'siteUrl'				=> site_url(),
 					'displays'			=> Ditty()->editor->display_data(),
 					'layouts'				=> Ditty()->editor->layout_data(),
-					'itemTypes'			=> array_values( ditty_item_types() ),
+					'itemTypes'			=> Ditty()->editor->item_type_data(),
 					'displayTypes'	=> Ditty()->editor->display_type_data(),
 				) ), 'before' );
 			}

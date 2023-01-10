@@ -25,13 +25,7 @@ const PanelItems = () => {
       item_id: itemId,
       item_index: null,
       item_type: itemType,
-      item_value: {
-        content: "This is a default item",
-        link_url: "",
-        link_title: "",
-        link_target: "_blank",
-        link_nofollow: "false",
-      },
+      item_value: {},
       layout_value: {
         default: "13464",
       },

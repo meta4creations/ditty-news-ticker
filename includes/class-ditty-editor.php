@@ -139,7 +139,30 @@ class Ditty_Editor {
 	}
 
 	/**
-	 * Get all display data for the editor
+	 * Get all item type data for the editor
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function item_type_data() {	
+		$item_types = ditty_item_types();
+		$item_type_data = array();
+		if ( is_array( $item_types ) && count( $item_types ) > 0 ) {
+			foreach ( $item_types as $i => $type ) {
+				if ( $type['type'] == 'default' || $type['type'] == 'wp_editor' ) {
+					continue;
+				}
+				$item_type_object = ditty_item_type_object( $type['type'] );
+				$default_settings = $item_type_object->default_settings();
+				$type['settings'] = $this->format_js_fields( $item_type_object->fields( $default_settings ) );
+				$item_type_data[] = $type;
+			}
+		}
+		return array_values( $item_type_data );
+	}
+
+	/**
+	 * Get all display type data for the editor
 	 *
 	 * @access public
 	 * @since  3.1
@@ -189,9 +212,10 @@ class Ditty_Editor {
 		$this->convert_js_field_keys( $field );
 		if ( isset( $field['fields'] ) && is_array( $field['fields'] ) && count( $field['fields'] ) > 0 ) {
 			$field['fields'] = array_values( $field['fields'] );
+			
 			foreach ( $field['fields'] as $i => &$f ) {
 				$this->convert_js_field_keys( $f );
-				if ( 'group' == $f['type'] ) {
+				if ( isset( $f['type'] ) && 'group' == $f['type'] ) {
 					$f = $this->format_js_field( $f );
 				}
 			}

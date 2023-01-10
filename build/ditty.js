@@ -1,1 +1,684 @@
-(()=>{"use strict";const t=window.wp.hooks;const e=window.wp.i18n,i=(()=>{const t=["linear","swing","jswing","easeInQuad","easeInCubic","easeInQuart","easeInQuint","easeInSine","easeInExpo","easeInCirc","easeInElastic","easeInBack","easeInBounce","easeOutQuad","easeOutCubic","easeOutQuart","easeOutQuint","easeOutSine","easeOutExpo","easeOutCirc","easeOutElastic","easeOutBack","easeOutBounce","easeInOutQuad","easeInOutCubic","easeInOutQuart","easeInOutQuint","easeInOutSine","easeInOutExpo","easeInOutCirc","easeInOutElastic","easeInOutBack","easeInOutBounce"],e={};for(let i=0;i<t.length;i++)e[t[i]]=t[i];return e})(),d={fade:(0,e.__)("Fade","ditty-news-ticker"),slideLeft:(0,e.__)("Slide Left","ditty-news-ticker"),slideRight:(0,e.__)("Slide Right","ditty-news-ticker"),slideDown:(0,e.__)("Slide Down","ditty-news-ticker"),slideUp:(0,e.__)("Slide Up","ditty-news-ticker")};window.dittyRenders=new WeakMap,window.dittyHooks=(0,t.createHooks)(),window.dittyDisplays={display:class{constructor(t){this.config={element:null,id:0,cloneItems:"no",display:0,heightEase:"easeInOutQuint",heightSpeed:1.5,maxWidth:"",bgColor:"",padding:{},margin:{},borderColor:{},borderStyle:{},borderWidth:{},borderRadius:{},contentsBgColor:"",contentsPadding:{},contentsBorderColor:{},contentsBorderStyle:{},contentsBorderWidth:{},contentsBorderRadius:{},titleDisplay:"none",titleElement:"h3",titleElementPosition:"topLeft",titleFontSize:"",titleLineHeight:"",titleColor:"",titleBgColor:"",titleMargin:{},titlePadding:{},titleBorderColor:{},titleBorderStyle:{},titleBorderWidth:{},titleBorderRadius:{},itemTextColor:"",itemBgColor:"",itemBorderColor:{},itemBorderStyle:{},itemBorderWidth:{},itemBorderRadius:{},itemPadding:{},item:0,items:[],shuffle:0,showEditor:0,type:"",wrapItems:"no",...t},this.$ditty=this.config.element,this.$ditty.classList.remove("ditty--pre"),this.$ditty.classList.add(`ditty-${this.config.type}`),this.$title=this.$ditty.getElementsByClassName("ditty__title")[0],this.$titleContents=this.$ditty.getElementsByClassName("ditty__title__contents")[0],this.$titleElement=this.$ditty.getElementsByClassName("ditty__title__element")[0],this.$contents=this.$ditty.getElementsByClassName("ditty__contents")[0],this.$items=this.$contents.getElementsByClassName("ditty__items")[0],this.currentHeight=0,this.firstItemIndex=this.config.item,this.nextItem=null,this.item=this.config.item,this.items=this.$contents.getElementsByClassName("ditty-item"),this.total=this.items.length,this.activeItems=[],this.visibleItems=[],this.init=!1,this.itemsInit=!1,this.paused=!1}dittyInit(){this.init=!0,this.$ditty.classList.add("ditty--init")}dittyItemsInit(){this.itemsInit=!0,this.$ditty.classList.add("ditty--init")}getNextItemIndex(t){let e=parseInt(t)+1;return e>=parseInt(this.total)&&(e=0),e}addVisibleItem(t){this.visibleItems.push(t),this.setActiveItems()}removeVisibleItem(t){const e=this.visibleItems.filter((e=>e!==t));this.visibleItems=e,this.setActiveItems()}setActiveItems(){this.activeItems=[],this.visibleItems.forEach((t=>{const e=t.dataset.item_id;this.activeItems[e]=e})),window.dittyHooks.doAction("dittyActiveItemsUpdate",this.$ditty,this.activeItems)}itemEnabled(t){return void 0!==this.items[parseInt(t)]&&(void 0===this.items[parseInt(t)].dataset.isDisabled||!this.items[parseInt(t)].dataset.isDisabled)}setOption(t,e){if(void 0===e)return!1;switch(t){case"titleElement":this.config[t]=e,function(t,e,i){const d=t.getElementsByClassName("ditty__title__contents")[0],o=t.getElementsByClassName("ditty__title__element")[0],r=document.createElement(e.titleElement);r.classList.add("ditty__title__element"),r.innerHTML=o.innerHTML,o.remove(),d.append(r)}(this.$ditty,this.config,this.config.type);break;case"titleDisplay":case"titleElementPosition":case"titleFontSize":case"titleLineHeight":case"titleColor":case"titleBgColor":case"titleMargin":case"titlePadding":case"titleBorderColor":case"titleBorderStyle":case"titleBorderWidth":case"titleBorderRadius":case"minHeight":case"maxHeight":case"bgColor":case"padding":case"borderColor":case"borderStyle":case"borderWidth":case"borderRadius":case"contentsBgColor":case"contentsPadding":case"contentsBorderRadius":this.config[t]=e,function(t,e,i){const d=document.getElementById(`ditty-display--${e}`);console.log("display",e),console.log("type",i);let o="";o+=function(t,e,i){let d="";return d+=`.ditty[data-display="${e}"] .ditty__title {`,d+=""!=t.titleBgColor?`background-color:${t.titleBgColor};`:"",d+=""!=t.titleMargin.marginTop?`margin-top:${t.titleMargin.marginTop};`:"",d+=""!=t.titleMargin.marginRight?`margin-right:${t.titleMargin.marginRight};`:"",d+=""!=t.titleMargin.marginBottom?`margin-bottom:${t.titleMargin.marginBottom};`:"",d+=""!=t.titleMargin.marginLeft?`margin-left:${t.titleMargin.marginLeft};`:"",d+=""!=t.titlePadding.paddingTop?`padding-top:${t.titlePadding.paddingTop};`:"",d+=""!=t.titlePadding.paddingRight?`padding-right:${t.titlePadding.paddingRight};`:"",d+=""!=t.titlePadding.paddingBottom?`padding-bottom:${t.titlePadding.paddingBottom};`:"",d+=""!=t.titlePadding.paddingLeft?`padding-left:${t.titlePadding.paddingLeft};`:"","none"!=t.titleBorderStyle&&(d+=`border-style:${t.titleBorderStyle};`,d+=""!=t.titleBorderColor?`border-color:${t.titleBorderColor};`:"",d+=""!=t.titleBorderWidth.borderTopWidth?`border-top-width:${t.titleBorderWidth.borderTopWidth};`:"",d+=""!=t.titleBorderWidth.borderRightWidth?`border-right-width:${t.titleBorderWidth.borderRightWidth};`:"",d+=""!=t.titleBorderWidth.borderBottomWidth?`border-bottom-width:${t.titleBorderWidth.borderBottomWidth};`:"",d+=""!=t.titleBorderWidth.borderLeftWidth?`border-left-width:${t.titleBorderWidth.borderLeftWidth};`:""),d+=""!=t.titleBorderRadius.borderTopLeftRadius?`border-top-left-radius:${t.titleBorderRadius.borderTopLeftRadius};`:"",d+=""!=t.titleBorderRadius.borderTopRightRadius?`border-top-right-radius:${t.titleBorderRadius.borderTopRightRadius};`:"",d+=""!=t.titleBorderRadius.borderBottomLeftRadius?`border-bottom-left-radius:${t.titleBorderRadius.borderBottomLeftRadius};`:"",d+=""!=t.titleBorderRadius.borderBottomRightRadius?`border-bottom-right-radius:${t.titleBorderRadius.borderBottomRightRadius};`:"",d+="}",d+=`.ditty[data-display="${e}"] .ditty__title__element {`,d+=""!=t.titleColor?`color:${t.titleColor};`:"",d+=""!=t.titleFontSize?`font-size:${t.titleFontSize};`:"",d+=""!=t.titleLineHeight?`line-height:${t.titleLineHeight};`:"",d+="}",window.dittyHooks.applyFilters("dittyDisplayTitleStyles",d,t,e,i)}(t,e,i),o+=function(t,e,i){let d="";return d+=`.ditty[data-display="${e}"] {`,d+=""!=t.maxWidth?`max-width:${t.maxWidth};`:"",d+=""!=t.bgColor?`background-color:${t.bgColor};`:"",d+=""!=t.padding.paddingTop?`padding-top:${t.padding.paddingTop};`:"",d+=""!=t.padding.paddingRight?`padding-right:${t.padding.paddingRight};`:"",d+=""!=t.padding.paddingBottom?`padding-bottom:${t.padding.paddingBottom};`:"",d+=""!=t.padding.paddingLeft?`padding-left:${t.padding.paddingLeft};`:"",d+=""!=t.margin.marginTop?`margin-top:${t.margin.marginTop};`:"",d+=""!=t.margin.marginRight?`margin-right:${t.margin.marginRight};`:"",d+=""!=t.margin.marginBottom?`margin-bottom:${t.margin.marginBottom};`:"",d+=""!=t.margin.marginLeft?`margin-left:${t.margin.marginLeft};`:"","none"!=t.borderStyle&&(d+=`border-style:${t.borderStyle};`,d+=""!=t.borderColor?`border-color:${t.borderColor};`:"",d+=""!=t.borderWidth.borderTopWidth?`border-top-width:${t.borderWidth.borderTopWidth};`:"",d+=""!=t.borderWidth.borderRightWidth?`border-right-width:${t.borderWidth.borderRightWidth};`:"",d+=""!=t.borderWidth.borderBottomWidth?`border-bottom-width:${t.borderWidth.borderBottomWidth};`:"",d+=""!=t.borderWidth.borderLeftWidth?`border-left-width:${t.borderWidth.borderLeftWidth};`:""),d+=""!=t.borderRadius.borderTopLeftRadius?`border-top-left-radius:${t.borderRadius.borderTopLeftRadius};`:"",d+=""!=t.borderRadius.borderTopRightRadius?`border-top-right-radius:${t.borderRadius.borderTopRightRadius};`:"",d+=""!=t.borderRadius.borderBottomLeftRadius?`border-bottom-left-radius:${t.borderRadius.borderBottomLeftRadius};`:"",d+=""!=t.borderRadius.borderBottomRightRadius?`border-bottom-right-radius:${t.borderRadius.borderBottomRightRadius};`:"",d+="}",window.dittyHooks.applyFilters("dittyDisplayContainerStyles",d,t,e,i)}(t,e,i),o+=function(t,e,i){let d="";return d+=`.ditty[data-display="${e}"] .ditty__contents {`,d+=""!=t.contentsBgColor?`background-color:${t.contentsBgColor};`:"",d+=""!=t.contentsPadding.paddingTop?`padding-top:${t.contentsPadding.paddingTop};`:"",d+=""!=t.contentsPadding.paddingRight?`padding-right:${t.contentsPadding.paddingRight};`:"",d+=""!=t.contentsPadding.paddingBottom?`padding-bottom:${t.contentsPadding.paddingBottom};`:"",d+=""!=t.contentsPadding.paddingLeft?`padding-left:${t.contentsPadding.paddingLeft};`:"","none"!=t.contentsBorderStyle&&(d+=`border-style:${t.contentsBorderStyle};`,d+=""!=t.contentsBorderColor?`border-color:${t.contentsBorderColor};`:"",d+=""!=t.contentsBorderWidth.borderTopWidth?`border-top-width:${t.contentsBorderWidth.borderTopWidth};`:"",d+=""!=t.contentsBorderWidth.borderRightWidth?`border-right-width:${t.contentsBorderWidth.borderRightWidth};`:"",d+=""!=t.contentsBorderWidth.borderBottomWidth?`border-bottom-width:${t.contentsBorderWidth.borderBottomWidth};`:"",d+=""!=t.contentsBorderWidth.borderLeftWidth?`border-left-width:${t.contentsBorderWidth.borderLeftWidth};`:""),d+=""!=t.contentsBorderRadius.borderTopLeftRadius?`border-top-left-radius:${t.contentsBorderRadius.borderTopLeftRadius};`:"",d+=""!=t.contentsBorderRadius.borderTopRightRadius?`border-top-right-radius:${t.contentsBorderRadius.borderTopRightRadius};`:"",d+=""!=t.contentsBorderRadius.borderBottomLeftRadius?`border-bottom-left-radius:${t.contentsBorderRadius.borderBottomLeftRadius};`:"",d+=""!=t.contentsBorderRadius.borderBottomRightRadius?`border-bottom-right-radius:${t.contentsBorderRadius.borderBottomRightRadius};`:"",d+="}",window.dittyHooks.applyFilters("dittyDisplayContentStyles",d,t,e,i)}(t,e,i),o+=function(t,e,i){let d="";return d+=`.ditty[data-display="${e}"] .ditty-item__elements {`,d+=""!=t.itemTextColor?`color:${t.itemTextColor};`:"",d+=""!=t.itemBgColor?`background-color:${t.itemBgColor};`:"",d+=""!=t.itemPadding.paddingTop?`padding-top:${t.itemPadding.paddingTop};`:"",d+=""!=t.itemPadding.paddingRight?`padding-right:${t.itemPadding.paddingRight};`:"",d+=""!=t.itemPadding.paddingBottom?`padding-bottom:${t.itemPadding.paddingBottom};`:"",d+=""!=t.itemPadding.paddingLeft?`padding-left:${t.itemPadding.paddingLeft};`:"","none"!=t.itemBorderStyle&&(d+=`border-style:${t.itemBorderStyle};`,d+=""!=t.itemBorderColor?`border-color:${t.itemBorderColor};`:"",d+=""!=t.itemBorderWidth.borderTopWidth?`border-top-width:${t.itemBorderWidth.borderTopWidth};`:"",d+=""!=t.itemBorderWidth.borderRightWidth?`border-right-width:${t.itemBorderWidth.borderRightWidth};`:"",d+=""!=t.itemBorderWidth.borderBottomWidth?`border-bottom-width:${t.itemBorderWidth.borderBottomWidth};`:"",d+=""!=t.itemBorderWidth.borderLeftWidth?`border-left-width:${t.itemBorderWidth.borderLeftWidth};`:""),d+=""!=t.itemBorderRadius.borderTopLeftRadius?`border-top-left-radius:${t.itemBorderRadius.borderTopLeftRadius};`:"",d+=""!=t.itemBorderRadius.borderTopRightRadius?`border-top-right-radius:${t.itemBorderRadius.borderTopRightRadius};`:"",d+=""!=t.itemBorderRadius.borderBottomLeftRadius?`border-bottom-left-radius:${t.itemBorderRadius.borderBottomLeftRadius};`:"",d+=""!=t.itemBorderRadius.borderBottomRightRadius?`border-bottom-right-radius:${t.itemBorderRadius.borderBottomRightRadius};`:"",d+=""!=t.itemMaxWidth?`max-width:${t.itemMaxWidth};`:"",d+="nowrap"==t.itemElementsWrap?"white-space:nowrap;":"white-space:normal;",d+="}",window.dittyHooks.applyFilters("dittyDisplayItemStyles",d,t,e,i)}(t,e,i),d.innerHTML=window.dittyHooks.applyFilters("dittyDisplayStyles",o,t,e,i)}(this.config,this.config.display,this.config.type);break;default:this.config[t]=e}}getOption(t){switch(t){case"ditty":return this;case"type":return this.config.type;case"display":return this.config.display;case"items":return this.items;default:return this.config[t]}}options(t,e){if("object"==typeof t)for(const e in t)this.setOption(e,t[e]);else{if("string"!=typeof t)return this.config;if(void 0===e)return this.getOption(t);this.setOption(t,e)}}destroy(){console.log("destroy")}}};const o=(0,t.createHooks)();dittyEditor.addFilter=(t,e,i)=>{o.addFilter(t,"dittyEditor",e,i)},dittyEditor.applyFilters=o.applyFilters,dittyEditor.helpers={easeOptions:i,sliderTransitions:d},dittyEditor.registerDisplayType=t=>{dittyEditor.addFilter("dittyDisplayTypes",(e=>(e.push(t),e)))},window.onload=function(){document.querySelectorAll(".ditty").forEach((t=>{var e=t.dataset.type;if(!window.dittyDisplays[e])return;const i=t.dataset.settings?JSON.parse(t.dataset.settings):{},d={element:t,display:t.dataset.display,type:e,...i},o=new window.dittyDisplays[e](d);window.dittyRenders.set(t,o)}))},document.addEventListener("click",(function(t){const e=t.target;if(e.closest(".ditty__title")){t.preventDefault();const i=e.closest(".ditty"),d=window.dittyRenders.get(i),o={titleBgColor:`#${Math.floor(16777215*Math.random()).toString(16)}`,titleElement:"h1"};d.options(o)}}))})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/displays/components/dittyDisplay.js":
+/*!*************************************************!*\
+  !*** ./src/displays/components/dittyDisplay.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ DittyDisplay)
+/* harmony export */ });
+/* harmony import */ var _dittyDisplayStyles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dittyDisplayStyles.js */ "./src/displays/components/dittyDisplayStyles.js");
+
+class DittyDisplay {
+  constructor(config) {
+    const defaults = {
+      element: null,
+      id: 0,
+      cloneItems: "no",
+      display: 0,
+      heightEase: "easeInOutQuint",
+      heightSpeed: 1.5,
+      // 1 - 10
+      maxWidth: "",
+      bgColor: "",
+      padding: {},
+      margin: {},
+      borderColor: {},
+      borderStyle: {},
+      borderWidth: {},
+      borderRadius: {},
+      contentsBgColor: "",
+      contentsPadding: {},
+      contentsBorderColor: {},
+      contentsBorderStyle: {},
+      contentsBorderWidth: {},
+      contentsBorderRadius: {},
+      titleDisplay: "none",
+      titleElement: "h3",
+      titleElementPosition: "topLeft",
+      titleFontSize: "",
+      titleLineHeight: "",
+      titleColor: "",
+      titleBgColor: "",
+      titleMargin: {},
+      titlePadding: {},
+      titleBorderColor: {},
+      titleBorderStyle: {},
+      titleBorderWidth: {},
+      titleBorderRadius: {},
+      itemTextColor: "",
+      itemBgColor: "",
+      itemBorderColor: {},
+      itemBorderStyle: {},
+      itemBorderWidth: {},
+      itemBorderRadius: {},
+      itemPadding: {},
+      item: 0,
+      items: [],
+      shuffle: 0,
+      showEditor: 0,
+      type: "",
+      wrapItems: "no"
+    };
+    this.config = {
+      ...defaults,
+      ...config
+    };
+    this.$ditty = this.config.element;
+    this.$ditty.classList.remove("ditty--pre");
+    this.$ditty.classList.add(`ditty-${this.config.type}`);
+    this.$title = this.$ditty.getElementsByClassName("ditty__title")[0];
+    this.$titleContents = this.$ditty.getElementsByClassName("ditty__title__contents")[0];
+    this.$titleElement = this.$ditty.getElementsByClassName("ditty__title__element")[0];
+    this.$contents = this.$ditty.getElementsByClassName("ditty__contents")[0];
+    this.$items = this.$contents.getElementsByClassName("ditty__items")[0];
+    this.currentHeight = 0;
+    this.firstItemIndex = this.config.item;
+    this.nextItem = null;
+    this.item = this.config.item;
+    this.items = this.$contents.getElementsByClassName("ditty-item");
+    this.total = this.items.length;
+    this.activeItems = [];
+    this.visibleItems = [];
+    this.init = false;
+    this.itemsInit = false;
+    this.paused = false;
+  }
+  dittyInit() {
+    this.init = true;
+    this.$ditty.classList.add("ditty--init");
+  }
+  dittyItemsInit() {
+    this.itemsInit = true;
+    this.$ditty.classList.add("ditty--init");
+  }
+  getNextItemIndex(index) {
+    let nextItemIndex = parseInt(index) + 1;
+    if (nextItemIndex >= parseInt(this.total)) {
+      nextItemIndex = 0;
+    }
+    // Set the next item
+    return nextItemIndex;
+  }
+
+  /**
+   * Add to the visible item list
+   * @param {int} index
+   * @param {object} $item
+   */
+  addVisibleItem($item) {
+    this.visibleItems.push($item);
+    this.setActiveItems();
+  }
+
+  /**
+   * Remove from the visible item list
+   * @param {int} index
+   * @param {object} $item
+   */
+  removeVisibleItem($item) {
+    const visibleItems = this.visibleItems.filter($visibleItem => {
+      return $visibleItem !== $item;
+    });
+    this.visibleItems = visibleItems;
+    this.setActiveItems();
+  }
+
+  /**
+   * Set the active items
+   */
+  setActiveItems() {
+    this.activeItems = [];
+    this.visibleItems.forEach($item => {
+      const itemID = $item.dataset.item_id;
+      this.activeItems[itemID] = itemID;
+    });
+    window.dittyHooks.doAction("dittyActiveItemsUpdate", this.$ditty, this.activeItems);
+  }
+
+  /**
+   * Check if an item is enabled
+   * @param {int} index
+   * @returns bool
+   */
+  itemEnabled(index) {
+    if (undefined === this.items[parseInt(index)]) {
+      return false;
+    }
+    if (undefined === this.items[parseInt(index)].dataset.isDisabled) {
+      return true;
+    } else {
+      if (this.items[parseInt(index)].dataset.isDisabled) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
+
+  /**
+   * Set an option
+   * @param {string} key
+   * @param {string} value
+   * @returns null
+   */
+  setOption(key, value) {
+    if (undefined === value) {
+      return false;
+    }
+    switch (key) {
+      // case "items":
+      // 	//this.updateItems(value);
+      // 	break;
+      // case "direction":
+      // 	// this.config[key] = value;
+      // 	// this._styleDisplay();
+      // 	// this._setDirection(value);
+      // 	break;
+      case "titleElement":
+        this.config[key] = value;
+        (0,_dittyDisplayStyles_js__WEBPACK_IMPORTED_MODULE_0__.updateTitleElement)(this.$ditty, this.config, this.config.type);
+        break;
+      case "titleDisplay":
+      case "titleElementPosition":
+      case "titleFontSize":
+      case "titleLineHeight":
+      case "titleColor":
+      case "titleBgColor":
+      case "titleMargin":
+      case "titlePadding":
+      case "titleBorderColor":
+      case "titleBorderStyle":
+      case "titleBorderWidth":
+      case "titleBorderRadius":
+      case "minHeight":
+      case "maxHeight":
+      case "bgColor":
+      case "padding":
+      case "borderColor":
+      case "borderStyle":
+      case "borderWidth":
+      case "borderRadius":
+      case "contentsBgColor":
+      case "contentsPadding":
+      case "contentsBorderRadius":
+        this.config[key] = value;
+        (0,_dittyDisplayStyles_js__WEBPACK_IMPORTED_MODULE_0__.updateDisplayStyles)(this.config, this.config.display, this.config.type);
+        // 	this._setCurrentHeight();
+        break;
+      default:
+        this.config[key] = value;
+        break;
+    }
+  }
+  getOption(key) {
+    switch (key) {
+      case "ditty":
+        return this;
+      case "type":
+        return this.config.type;
+      case "display":
+        return this.config.display;
+      case "items":
+        return this.items;
+      // case "height":
+      // 	return this.currentHeight;
+      default:
+        return this.config[key];
+    }
+  }
+  options(key, value) {
+    if (typeof key === "object") {
+      for (const property in key) {
+        this.setOption(property, key[property]);
+      }
+    } else if (typeof key === "string") {
+      if (value === undefined) {
+        return this.getOption(key);
+      }
+      this.setOption(key, value);
+    } else {
+      return this.config;
+    }
+  }
+  destroy() {
+    console.log("destroy");
+  }
+}
+
+/***/ }),
+
+/***/ "./src/displays/components/dittyDisplayStyles.js":
+/*!*******************************************************!*\
+  !*** ./src/displays/components/dittyDisplayStyles.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "updateDisplayStyles": () => (/* binding */ updateDisplayStyles),
+/* harmony export */   "updateTitleElement": () => (/* binding */ updateTitleElement)
+/* harmony export */ });
+/**
+ * Update the title element
+ * @param {element} $ditty
+ * @param {object} settings
+ */
+function updateTitleElement($ditty, settings, type) {
+  const $titleContents = $ditty.getElementsByClassName("ditty__title__contents")[0];
+  const $titleElement = $ditty.getElementsByClassName("ditty__title__element")[0];
+  const $newTitleElement = document.createElement(settings["titleElement"]);
+  $newTitleElement.classList.add("ditty__title__element");
+  $newTitleElement.innerHTML = $titleElement.innerHTML;
+  $titleElement.remove();
+  $titleContents.append($newTitleElement);
+}
+
+/**
+ * Update the display title styles
+ * @param {int} display
+ * @param {object} settings
+ * @param {string} type
+ */
+function displayTitleStyles(settings, display, type) {
+  let styles = "";
+  styles += `.ditty[data-display="${display}"] .ditty__title {`;
+  styles += "" != settings["titleBgColor"] ? `background-color:${settings["titleBgColor"]};` : "";
+  styles += "" != settings["titleMargin"]["marginTop"] ? `margin-top:${settings["titleMargin"]["marginTop"]};` : "";
+  styles += "" != settings["titleMargin"]["marginRight"] ? `margin-right:${settings["titleMargin"]["marginRight"]};` : "";
+  styles += "" != settings["titleMargin"]["marginBottom"] ? `margin-bottom:${settings["titleMargin"]["marginBottom"]};` : "";
+  styles += "" != settings["titleMargin"]["marginLeft"] ? `margin-left:${settings["titleMargin"]["marginLeft"]};` : "";
+  styles += "" != settings["titlePadding"]["paddingTop"] ? `padding-top:${settings["titlePadding"]["paddingTop"]};` : "";
+  styles += "" != settings["titlePadding"]["paddingRight"] ? `padding-right:${settings["titlePadding"]["paddingRight"]};` : "";
+  styles += "" != settings["titlePadding"]["paddingBottom"] ? `padding-bottom:${settings["titlePadding"]["paddingBottom"]};` : "";
+  styles += "" != settings["titlePadding"]["paddingLeft"] ? `padding-left:${settings["titlePadding"]["paddingLeft"]};` : "";
+  if ("none" != settings["titleBorderStyle"]) {
+    styles += `border-style:${settings["titleBorderStyle"]};`;
+    styles += "" != settings["titleBorderColor"] ? `border-color:${settings["titleBorderColor"]};` : "";
+    styles += "" != settings["titleBorderWidth"]["borderTopWidth"] ? `border-top-width:${settings["titleBorderWidth"]["borderTopWidth"]};` : "";
+    styles += "" != settings["titleBorderWidth"]["borderRightWidth"] ? `border-right-width:${settings["titleBorderWidth"]["borderRightWidth"]};` : "";
+    styles += "" != settings["titleBorderWidth"]["borderBottomWidth"] ? `border-bottom-width:${settings["titleBorderWidth"]["borderBottomWidth"]};` : "";
+    styles += "" != settings["titleBorderWidth"]["borderLeftWidth"] ? `border-left-width:${settings["titleBorderWidth"]["borderLeftWidth"]};` : "";
+  }
+  styles += "" != settings["titleBorderRadius"]["borderTopLeftRadius"] ? `border-top-left-radius:${settings["titleBorderRadius"]["borderTopLeftRadius"]};` : "";
+  styles += "" != settings["titleBorderRadius"]["borderTopRightRadius"] ? `border-top-right-radius:${settings["titleBorderRadius"]["borderTopRightRadius"]};` : "";
+  styles += "" != settings["titleBorderRadius"]["borderBottomLeftRadius"] ? `border-bottom-left-radius:${settings["titleBorderRadius"]["borderBottomLeftRadius"]};` : "";
+  styles += "" != settings["titleBorderRadius"]["borderBottomRightRadius"] ? `border-bottom-right-radius:${settings["titleBorderRadius"]["borderBottomRightRadius"]};` : "";
+  styles += "}";
+  styles += `.ditty[data-display="${display}"] .ditty__title__element {`;
+  styles += "" != settings["titleColor"] ? `color:${settings["titleColor"]};` : "";
+  styles += "" != settings["titleFontSize"] ? `font-size:${settings["titleFontSize"]};` : "";
+  styles += "" != settings["titleLineHeight"] ? `line-height:${settings["titleLineHeight"]};` : "";
+  styles += "}";
+  return window.dittyHooks.applyFilters("dittyDisplayTitleStyles", styles, settings, display, type);
+}
+
+/**
+ * Update the display container styles
+ * @param {int} display
+ * @param {object} settings
+ * @param {string} type
+ */
+function displayContainerStyles(settings, display, type) {
+  let styles = "";
+  styles += `.ditty[data-display="${display}"] {`;
+  styles += "" != settings["maxWidth"] ? `max-width:${settings["maxWidth"]};` : "";
+  styles += "" != settings["bgColor"] ? `background-color:${settings["bgColor"]};` : "";
+  styles += "" != settings["padding"]["paddingTop"] ? `padding-top:${settings["padding"]["paddingTop"]};` : "";
+  styles += "" != settings["padding"]["paddingRight"] ? `padding-right:${settings["padding"]["paddingRight"]};` : "";
+  styles += "" != settings["padding"]["paddingBottom"] ? `padding-bottom:${settings["padding"]["paddingBottom"]};` : "";
+  styles += "" != settings["padding"]["paddingLeft"] ? `padding-left:${settings["padding"]["paddingLeft"]};` : "";
+  styles += "" != settings["margin"]["marginTop"] ? `margin-top:${settings["margin"]["marginTop"]};` : "";
+  styles += "" != settings["margin"]["marginRight"] ? `margin-right:${settings["margin"]["marginRight"]};` : "";
+  styles += "" != settings["margin"]["marginBottom"] ? `margin-bottom:${settings["margin"]["marginBottom"]};` : "";
+  styles += "" != settings["margin"]["marginLeft"] ? `margin-left:${settings["margin"]["marginLeft"]};` : "";
+  if ("none" != settings["borderStyle"]) {
+    styles += `border-style:${settings["borderStyle"]};`;
+    styles += "" != settings["borderColor"] ? `border-color:${settings["borderColor"]};` : "";
+    styles += "" != settings["borderWidth"]["borderTopWidth"] ? `border-top-width:${settings["borderWidth"]["borderTopWidth"]};` : "";
+    styles += "" != settings["borderWidth"]["borderRightWidth"] ? `border-right-width:${settings["borderWidth"]["borderRightWidth"]};` : "";
+    styles += "" != settings["borderWidth"]["borderBottomWidth"] ? `border-bottom-width:${settings["borderWidth"]["borderBottomWidth"]};` : "";
+    styles += "" != settings["borderWidth"]["borderLeftWidth"] ? `border-left-width:${settings["borderWidth"]["borderLeftWidth"]};` : "";
+  }
+  styles += "" != settings["borderRadius"]["borderTopLeftRadius"] ? `border-top-left-radius:${settings["borderRadius"]["borderTopLeftRadius"]};` : "";
+  styles += "" != settings["borderRadius"]["borderTopRightRadius"] ? `border-top-right-radius:${settings["borderRadius"]["borderTopRightRadius"]};` : "";
+  styles += "" != settings["borderRadius"]["borderBottomLeftRadius"] ? `border-bottom-left-radius:${settings["borderRadius"]["borderBottomLeftRadius"]};` : "";
+  styles += "" != settings["borderRadius"]["borderBottomRightRadius"] ? `border-bottom-right-radius:${settings["borderRadius"]["borderBottomRightRadius"]};` : "";
+  styles += "}";
+  return window.dittyHooks.applyFilters("dittyDisplayContainerStyles", styles, settings, display, type);
+}
+
+/**
+ * Update the display content styles
+ * @param {int} display
+ * @param {object} settings
+ * @param {string} type
+ */
+function displayContentStyles(settings, display, type) {
+  let styles = "";
+  styles += `.ditty[data-display="${display}"] .ditty__contents {`;
+  styles += "" != settings["contentsBgColor"] ? `background-color:${settings["contentsBgColor"]};` : "";
+  styles += "" != settings["contentsPadding"]["paddingTop"] ? `padding-top:${settings["contentsPadding"]["paddingTop"]};` : "";
+  styles += "" != settings["contentsPadding"]["paddingRight"] ? `padding-right:${settings["contentsPadding"]["paddingRight"]};` : "";
+  styles += "" != settings["contentsPadding"]["paddingBottom"] ? `padding-bottom:${settings["contentsPadding"]["paddingBottom"]};` : "";
+  styles += "" != settings["contentsPadding"]["paddingLeft"] ? `padding-left:${settings["contentsPadding"]["paddingLeft"]};` : "";
+  if ("none" != settings["contentsBorderStyle"]) {
+    styles += `border-style:${settings["contentsBorderStyle"]};`;
+    styles += "" != settings["contentsBorderColor"] ? `border-color:${settings["contentsBorderColor"]};` : "";
+    styles += "" != settings["contentsBorderWidth"]["borderTopWidth"] ? `border-top-width:${settings["contentsBorderWidth"]["borderTopWidth"]};` : "";
+    styles += "" != settings["contentsBorderWidth"]["borderRightWidth"] ? `border-right-width:${settings["contentsBorderWidth"]["borderRightWidth"]};` : "";
+    styles += "" != settings["contentsBorderWidth"]["borderBottomWidth"] ? `border-bottom-width:${settings["contentsBorderWidth"]["borderBottomWidth"]};` : "";
+    styles += "" != settings["contentsBorderWidth"]["borderLeftWidth"] ? `border-left-width:${settings["contentsBorderWidth"]["borderLeftWidth"]};` : "";
+  }
+  styles += "" != settings["contentsBorderRadius"]["borderTopLeftRadius"] ? `border-top-left-radius:${settings["contentsBorderRadius"]["borderTopLeftRadius"]};` : "";
+  styles += "" != settings["contentsBorderRadius"]["borderTopRightRadius"] ? `border-top-right-radius:${settings["contentsBorderRadius"]["borderTopRightRadius"]};` : "";
+  styles += "" != settings["contentsBorderRadius"]["borderBottomLeftRadius"] ? `border-bottom-left-radius:${settings["contentsBorderRadius"]["borderBottomLeftRadius"]};` : "";
+  styles += "" != settings["contentsBorderRadius"]["borderBottomRightRadius"] ? `border-bottom-right-radius:${settings["contentsBorderRadius"]["borderBottomRightRadius"]};` : "";
+  styles += "}";
+  return window.dittyHooks.applyFilters("dittyDisplayContentStyles", styles, settings, display, type);
+}
+
+/**
+ * Update the display item styles
+ * @param {int} display
+ * @param {object} settings
+ * @param {string} type
+ */
+function displayItemStyles(settings, display, type) {
+  let styles = "";
+  styles += `.ditty[data-display="${display}"] .ditty-item__elements {`;
+  styles += "" != settings["itemTextColor"] ? `color:${settings["itemTextColor"]};` : "";
+  styles += "" != settings["itemBgColor"] ? `background-color:${settings["itemBgColor"]};` : "";
+  styles += "" != settings["itemPadding"]["paddingTop"] ? `padding-top:${settings["itemPadding"]["paddingTop"]};` : "";
+  styles += "" != settings["itemPadding"]["paddingRight"] ? `padding-right:${settings["itemPadding"]["paddingRight"]};` : "";
+  styles += "" != settings["itemPadding"]["paddingBottom"] ? `padding-bottom:${settings["itemPadding"]["paddingBottom"]};` : "";
+  styles += "" != settings["itemPadding"]["paddingLeft"] ? `padding-left:${settings["itemPadding"]["paddingLeft"]};` : "";
+  if ("none" != settings["itemBorderStyle"]) {
+    styles += `border-style:${settings["itemBorderStyle"]};`;
+    styles += "" != settings["itemBorderColor"] ? `border-color:${settings["itemBorderColor"]};` : "";
+    styles += "" != settings["itemBorderWidth"]["borderTopWidth"] ? `border-top-width:${settings["itemBorderWidth"]["borderTopWidth"]};` : "";
+    styles += "" != settings["itemBorderWidth"]["borderRightWidth"] ? `border-right-width:${settings["itemBorderWidth"]["borderRightWidth"]};` : "";
+    styles += "" != settings["itemBorderWidth"]["borderBottomWidth"] ? `border-bottom-width:${settings["itemBorderWidth"]["borderBottomWidth"]};` : "";
+    styles += "" != settings["itemBorderWidth"]["borderLeftWidth"] ? `border-left-width:${settings["itemBorderWidth"]["borderLeftWidth"]};` : "";
+  }
+  styles += "" != settings["itemBorderRadius"]["borderTopLeftRadius"] ? `border-top-left-radius:${settings["itemBorderRadius"]["borderTopLeftRadius"]};` : "";
+  styles += "" != settings["itemBorderRadius"]["borderTopRightRadius"] ? `border-top-right-radius:${settings["itemBorderRadius"]["borderTopRightRadius"]};` : "";
+  styles += "" != settings["itemBorderRadius"]["borderBottomLeftRadius"] ? `border-bottom-left-radius:${settings["itemBorderRadius"]["borderBottomLeftRadius"]};` : "";
+  styles += "" != settings["itemBorderRadius"]["borderBottomRightRadius"] ? `border-bottom-right-radius:${settings["itemBorderRadius"]["borderBottomRightRadius"]};` : "";
+  styles += "" != settings["itemMaxWidth"] ? `max-width:${settings["itemMaxWidth"]};` : "";
+  styles += "nowrap" == settings["itemElementsWrap"] ? "white-space:nowrap;" : "white-space:normal;";
+  styles += "}";
+  return window.dittyHooks.applyFilters("dittyDisplayItemStyles", styles, settings, display, type);
+}
+
+/**
+ * Update the display style element
+ * @param {int} display
+ * @param {object} settings
+ * @param {string} type
+ */
+function updateDisplayStyles(settings, display, type) {
+  const styleEl = document.getElementById(`ditty-display--${display}`);
+  console.log("display", display);
+  console.log("type", type);
+  let styles = "";
+  styles += displayTitleStyles(settings, display, type);
+  styles += displayContainerStyles(settings, display, type);
+  styles += displayContentStyles(settings, display, type);
+  styles += displayItemStyles(settings, display, type);
+  styleEl.innerHTML = window.dittyHooks.applyFilters("dittyDisplayStyles", styles, settings, display, type);
+}
+
+/***/ }),
+
+/***/ "./src/editor/utils/helpers.js":
+/*!*************************************!*\
+  !*** ./src/editor/utils/helpers.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "convertBoxControlValues": () => (/* binding */ convertBoxControlValues),
+/* harmony export */   "easeOptions": () => (/* binding */ easeOptions),
+/* harmony export */   "sliderTransitions": () => (/* binding */ sliderTransitions)
+/* harmony export */ });
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * Return easing options
+ * @returns array
+ */
+const getEaseOptions = () => {
+  const eases = ["linear", "swing", "jswing", "easeInQuad", "easeInCubic", "easeInQuart", "easeInQuint", "easeInSine", "easeInExpo", "easeInCirc", "easeInElastic", "easeInBack", "easeInBounce", "easeOutQuad", "easeOutCubic", "easeOutQuart", "easeOutQuint", "easeOutSine", "easeOutExpo", "easeOutCirc", "easeOutElastic", "easeOutBack", "easeOutBounce", "easeInOutQuad", "easeInOutCubic", "easeInOutQuart", "easeInOutQuint", "easeInOutSine", "easeInOutExpo", "easeInOutCirc", "easeInOutElastic", "easeInOutBack", "easeInOutBounce"];
+  const easeObject = {};
+  for (let i = 0; i < eases.length; i++) {
+    easeObject[eases[i]] = eases[i];
+  }
+  return easeObject;
+};
+const easeOptions = getEaseOptions();
+function getSliderTransitions() {
+  return {
+    fade: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Fade", "ditty-news-ticker"),
+    slideLeft: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Slide Left", "ditty-news-ticker"),
+    slideRight: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Slide Right", "ditty-news-ticker"),
+    slideDown: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Slide Down", "ditty-news-ticker"),
+    slideUp: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Slide Up", "ditty-news-ticker")
+  };
+}
+const sliderTransitions = getSliderTransitions();
+
+/**
+ * Convert default box controls to custom control keys
+ * @returns object
+ */
+const convertBoxControlValues = (values, args) => {
+  const updatedValues = {};
+  for (const [objKey, objValue] of Object.entries(args)) {
+    updatedValues[objValue] = values[objKey];
+  }
+  return updatedValues;
+};
+
+/***/ }),
+
+/***/ "./src/displays/css/dittyDisplay.scss":
+/*!********************************************!*\
+  !*** ./src/displays/css/dittyDisplay.scss ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "@wordpress/hooks":
+/*!*******************************!*\
+  !*** external ["wp","hooks"] ***!
+  \*******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["hooks"];
+
+/***/ }),
+
+/***/ "@wordpress/i18n":
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["i18n"];
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+/*!**********************!*\
+  !*** ./src/ditty.js ***!
+  \**********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _displays_components_dittyDisplay__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./displays/components/dittyDisplay */ "./src/displays/components/dittyDisplay.js");
+/* harmony import */ var _displays_css_dittyDisplay_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./displays/css/dittyDisplay.scss */ "./src/displays/css/dittyDisplay.scss");
+/* harmony import */ var _editor_utils_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor/utils/helpers */ "./src/editor/utils/helpers.js");
+
+
+
+
+
+/**
+ * Add ditty global variables for reference
+ */
+window.dittyRenders = new WeakMap();
+window.dittyHooks = (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__.createHooks)();
+window.dittyDisplays = {
+  display: _displays_components_dittyDisplay__WEBPACK_IMPORTED_MODULE_1__["default"]
+};
+const editorHooks = (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__.createHooks)();
+dittyEditor.addFilter = (action, callable, priority) => {
+  editorHooks.addFilter(action, "dittyEditor", callable, priority);
+};
+dittyEditor.applyFilters = editorHooks.applyFilters;
+dittyEditor.helpers = {
+  easeOptions: _editor_utils_helpers__WEBPACK_IMPORTED_MODULE_3__.easeOptions,
+  sliderTransitions: _editor_utils_helpers__WEBPACK_IMPORTED_MODULE_3__.sliderTransitions
+};
+dittyEditor.registerItemType = itemType => {
+  dittyEditor.addFilter("dittyItemTypes", itemTypes => {
+    itemTypes.push(itemType);
+    return itemTypes;
+  });
+};
+dittyEditor.registerDisplayType = displayType => {
+  dittyEditor.addFilter("dittyDisplayTypes", displayTypes => {
+    displayTypes.push(displayType);
+    return displayTypes;
+  });
+};
+
+/**
+ * Load the Ditty on page load
+ */
+window.onload = function () {
+  document.querySelectorAll(".ditty").forEach(dittyEl => {
+    var type = dittyEl.dataset.type;
+    if (!window.dittyDisplays[type]) {
+      return;
+    }
+    const settings = dittyEl.dataset.settings ? JSON.parse(dittyEl.dataset.settings) : {};
+    const args = {
+      element: dittyEl,
+      display: dittyEl.dataset.display,
+      type: type,
+      //items: JSON.parse(dittyEl.dataset.items),
+      ...settings
+    };
+    const ditty = new window.dittyDisplays[type](args);
+    window.dittyRenders.set(dittyEl, ditty);
+  });
+};
+
+/**
+ * Sample event to modify a Ditty
+ */
+document.addEventListener("click", clickHandle);
+function clickHandle(e) {
+  const el = e.target;
+  if (el.closest(".ditty__title")) {
+    e.preventDefault();
+    const dittyEl = el.closest(".ditty");
+    const ditty = window.dittyRenders.get(dittyEl);
+    const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+    const options = {
+      titleBgColor: `#${randomColor}`,
+      titleElement: "h1"
+    };
+    ditty.options(options);
+  }
+}
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=ditty.js.map

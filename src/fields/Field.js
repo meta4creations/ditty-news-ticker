@@ -3,6 +3,7 @@ import BaseField from "./BaseField";
 import ColorField from "./ColorField";
 import Clone from "./Clone";
 import CheckboxField from "./CheckboxField";
+import CheckboxesField from "./CheckboxesField";
 import GroupField from "./GroupField";
 import NumberField from "./NumberField";
 import RadioField from "./RadioField";
@@ -15,7 +16,7 @@ import UnitField from "./UnitField";
 
 const Field = ({ field, fieldValue, updateValue }) => {
   const handleUpdateValue = (field, value) => {
-    if (Array.isArray(value) && !field.clone) {
+    if ("group" === field.type && Array.isArray(value) && !field.clone) {
       value.map((v) => updateValue(v.id, v.value));
     } else {
       updateValue(field.id, value);
@@ -43,6 +44,14 @@ const Field = ({ field, fieldValue, updateValue }) => {
         case "checkbox":
           return (
             <CheckboxField
+              value={inputValue}
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
+              {...inputField}
+            />
+          );
+        case "checkboxes":
+          return (
+            <CheckboxesField
               value={inputValue}
               onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}

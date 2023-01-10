@@ -23,9 +23,11 @@ const PanelDisplays = () => {
   const displayTypeObject = getDisplayTypeObject(currentDisplay);
   const fieldGroups = getDisplayTypeSettings(currentDisplay);
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
+
   const [currentTabId, setCurrentTabId] = useState(initialTab);
   const [status, setStatus] = useState(!currentDisplay.id && "editDisplay");
   const [popupStatus, setPopupStatus] = useState(false);
+
   const displayTypes = getDisplayTypes();
 
   /**
@@ -160,7 +162,7 @@ const PanelDisplays = () => {
   const panelHeader = () => {
     return (
       <>
-        <IconBlock icon={displayTypeObject.icon} className="displayEditType">
+        <IconBlock icon={displayTypeObject.icon} className="editType">
           <h3>{displayTypeObject.label}</h3>
           {"editDisplay" === status && (
             <Link onClick={() => setPopupStatus("displayTypeSelect")}>

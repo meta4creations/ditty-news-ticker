@@ -3,8 +3,6 @@ import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowsLeftRight,
-  faList,
-  faEllipsis,
   faTabletScreen,
   faSliders,
   faBrush,
@@ -129,7 +127,7 @@ export const getDisplayTypeDescription = (display) => {
 
 /**
  * Return the fields for an item type
- * @param {string} itemType
+ * @param {string} display
  * @returns object
  */
 export const getDisplayTypeSettings = (display) => {

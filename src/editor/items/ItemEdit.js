@@ -3,34 +3,37 @@ import { useContext, useState } from "@wordpress/element";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faPenToSquare,
-  faPenRuler,
   faAngleLeft,
+  faPaintbrushPencil,
 } from "@fortawesome/pro-light-svg-icons";
 import { ButtonGroup, Button, IconBlock, Link, Panel } from "../../components";
-import { getItemTypes, getItemTypeObject } from "../utils/itemTypes";
+import { FieldList } from "../../fields";
+import {
+  getItemTypes,
+  getItemTypeSettings,
+  getItemTypeObject,
+} from "../utils/itemTypes";
 import { LayoutList } from "../layouts";
 import { EditorContext } from "../context";
 import TypeSelectorPopup from "../TypeSelectorPopup";
-import ItemSettings from "./ItemSettings";
 
 const ItemEdit = ({ item, items, goBack, deleteItem }) => {
   const { actions } = useContext(EditorContext);
-  const [currentTabId, setCurrentTabId] = useState("settings");
-  const [popupStatus, setPopupStatus] = useState(false);
   const itemTypeObject = getItemTypeObject(item);
+  const fieldGroups = getItemTypeSettings(item);
+  const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
+
+  const [currentTabId, setCurrentTabId] = useState(initialTab);
+  const [popupStatus, setPopupStatus] = useState(false);
+
   const itemTypes = getItemTypes();
 
-  const handleOnUpdateSettings = (item, id, value) => {
+  const handleOnUpdateSettings = (id, value) => {
     const updatedItem = { ...item };
     const updatedItemValue = _.cloneDeep(item.item_value);
     updatedItemValue[id] = value;
     updatedItem.item_value = updatedItemValue;
     actions.updateItem(updatedItem, "item_value");
-  };
-
-  const handleTabClick = (tab) => {
-    setCurrentTabId(tab.id);
   };
 
   /**
@@ -55,12 +58,6 @@ const ItemEdit = ({ item, items, goBack, deleteItem }) => {
               const updatedItem = { ...item };
               updatedItem.item_type = updatedType;
               actions.updateItem(updatedItem, "item_type");
-              // if (currentDisplay.type === updatedType) {
-              //   return false;
-              // }
-              // const updatedDisplay = { ...currentDisplay };
-              // updatedDisplay.type = updatedType;
-              // actions.setCurrentDisplay(updatedDisplay);
             }}
           />
         );
@@ -73,54 +70,58 @@ const ItemEdit = ({ item, items, goBack, deleteItem }) => {
     const count = items.length;
     return (
       <>
-        <IconBlock icon={itemTypeObject.icon} className="displayEditType">
-          <h3>{itemTypeObject.label}</h3>
-          <Link onClick={() => setPopupStatus("itemTypeSelect")}>
-            {__("Change Type", "ditty-news-ticker")}
-          </Link>
-        </IconBlock>
         <ButtonGroup>
           <Button onClick={goBack}>
             <FontAwesomeIcon icon={faAngleLeft} />
             {__(`Back - ${count} items`, "ditty-news-ticker")}
           </Button>
-          <Button
+          <Link
             onClick={() => {
               deleteItem(item);
             }}
           >
             {__("Delete", "ditty-news-ticker")}
-          </Button>
+          </Link>
         </ButtonGroup>
+        <IconBlock
+          icon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
+          className="editType"
+        >
+          <h3>Layout name</h3>
+          <Link onClick={() => setPopupStatus("layoutSelect")}>
+            {__("Change Layout", "ditty-news-ticker")}
+          </Link>
+        </IconBlock>
+        <IconBlock icon={itemTypeObject.icon} className="editType">
+          <h3>{itemTypeObject.label}</h3>
+          <Link onClick={() => setPopupStatus("itemTypeSelect")}>
+            {__("Change Type", "ditty-news-ticker")}
+          </Link>
+        </IconBlock>
       </>
     );
   };
 
-  const tabs = dittyEditor.applyFilters("dittyItemEditTabs", [
-    {
-      id: "settings",
-      icon: <FontAwesomeIcon icon={faPenToSquare} />,
-      label: __("Settings", "ditty-news-ticker"),
-      content: (
-        <ItemSettings item={item} onUpdateSettings={handleOnUpdateSettings} />
-      ),
-    },
-    {
-      id: "layout",
-      icon: <FontAwesomeIcon icon={faPenRuler} />,
-      label: __("Layout", "ditty-news-ticker"),
-      content: <LayoutList item={item} editor={EditorContext} />,
-    },
-  ]);
-
   const panelContent = () => {
-    const index = tabs.findIndex((tab) => {
-      return tab.id === currentTabId;
+    const index = fieldGroups.findIndex((fieldGroup) => {
+      return fieldGroup.id === currentTabId;
     });
     if (-1 === index) {
       return false;
     }
-    return tabs[index].content;
+
+    const fieldGroup = fieldGroups[index];
+    return (
+      <FieldList
+        name={fieldGroup.name}
+        desc={fieldGroup.desc}
+        fields={fieldGroup.fields}
+        values={item.item_value}
+        onUpdate={(id, value) => {
+          handleOnUpdateSettings(id, value);
+        }}
+      />
+    );
   };
 
   return (
@@ -128,8 +129,8 @@ const ItemEdit = ({ item, items, goBack, deleteItem }) => {
       <Panel
         id="itemEdit"
         header={panelHeader()}
-        tabs={tabs}
-        tabClick={handleTabClick}
+        tabs={fieldGroups}
+        tabClick={(tab) => setCurrentTabId(tab.id)}
         currentTabId={currentTabId}
         tabsType="cloud"
       >

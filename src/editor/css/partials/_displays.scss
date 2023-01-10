@@ -45,33 +45,6 @@
   }
 }
 
-.displayEditType {
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 5px 15px 5px 5px;
-  background: #1d2327;
-  border-radius: 3px;
-  .ditty-icon-block__icon {
-    width: 30px;
-    height: 30px;
-    background: #fff;
-    border-radius: 2px;
-  }
-  .ditty-icon-block__contents {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 5px;
-    flex: 1;
-    h3 {
-      margin-bottom: 0;
-    }
-    * {
-      color: #fff;
-    }
-  }
-}
-
 .ditty-display-template {
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.05);

@@ -21,6 +21,12 @@ dittyEditor.helpers = {
   easeOptions,
   sliderTransitions,
 };
+dittyEditor.registerItemType = (itemType) => {
+  dittyEditor.addFilter("dittyItemTypes", (itemTypes) => {
+    itemTypes.push(itemType);
+    return itemTypes;
+  });
+};
 dittyEditor.registerDisplayType = (displayType) => {
   dittyEditor.addFilter("dittyDisplayTypes", (displayTypes) => {
     displayTypes.push(displayType);
