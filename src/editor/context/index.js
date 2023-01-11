@@ -89,7 +89,12 @@ export class EditorProvider extends Component {
         if (!updatedItem.item_updates) {
           updatedItem.item_updates = {};
         }
-        updatedItem.item_updates[key] = true;
+        if (Array.isArray(key)) {
+          key.map((k) => (updatedItem.item_updates[k] = true));
+        } else {
+          updatedItem.item_updates[key] = true;
+        }
+        console.log("updatedItem", updatedItem);
         return updatedItem;
       } else {
         return item;

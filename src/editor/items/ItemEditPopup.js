@@ -1,12 +1,15 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
+import _ from "lodash";
 import {
   getItemTypeObject,
   getItemLabel,
   getItemTypes,
+  getItemTypeSettings,
 } from "../utils/itemTypes";
 import { IconBlock, Link, Popup, Tabs } from "../../components";
-import TypeSelectorPopup from "../TypeSelectorPopup";
+import { FieldList } from "../../fields";
+import PopupTypeSelector from "../PopupTypeSelector";
 
 const ItemEditPopup = ({
   item,
@@ -16,10 +19,24 @@ const ItemEditPopup = ({
   onUpdate,
 }) => {
   const [editItem, setEditItem] = useState(item);
+  const [updateKeys, setUpdateKeys] = useState([]);
   const [popupStatus, setPopupStatus] = useState(false);
 
   const itemTypeObject = getItemTypeObject(editItem);
   const itemTypes = getItemTypes();
+
+  const fieldGroups = getItemTypeSettings(editItem);
+  const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
+  const [currentTabId, setCurrentTabId] = useState(initialTab);
+
+  const addItemUpdate = (updatedItem, key) => {
+    setEditItem(updatedItem);
+    if (!updateKeys.includes(key)) {
+      updateKeys.push(key);
+      setUpdateKeys(updateKeys);
+    }
+    onChange(updatedItem);
+  };
 
   /**
    * Render a popup component
@@ -29,9 +46,9 @@ const ItemEditPopup = ({
     switch (popupStatus) {
       case "itemTypeSelect":
         return (
-          <TypeSelectorPopup
+          <PopupTypeSelector
             level="2"
-            activeType={editItem.item_type}
+            currentType={editItem.item_type}
             types={itemTypes}
             getTypeObject={getItemTypeObject}
             onClose={() => {
@@ -42,7 +59,7 @@ const ItemEditPopup = ({
 
               const updatedItem = { ...editItem };
               updatedItem.item_type = updatedType;
-              setEditItem(updatedItem);
+              addItemUpdate(updatedItem, "item_type");
             }}
           />
         );
@@ -50,6 +67,18 @@ const ItemEditPopup = ({
         return;
     }
   };
+
+  const getCurrentFieldGroup = () => {
+    const index = fieldGroups.findIndex((fieldGroup) => {
+      return fieldGroup.id === currentTabId;
+    });
+    if (-1 === index) {
+      return false;
+    }
+    return fieldGroups[index];
+  };
+
+  const currentFieldGroup = getCurrentFieldGroup();
 
   return (
     <>
@@ -70,28 +99,37 @@ const ItemEditPopup = ({
               </div>
               <p>{getItemLabel(editItem)}</p>
             </IconBlock>
+            {fieldGroups.length > 1 && (
+              <Tabs
+                type="cloud"
+                tabs={fieldGroups}
+                currentTabId={currentTabId}
+                tabClick={(tab) => setCurrentTabId(tab.id)}
+                className="itemEdit__header__tabs"
+              />
+            )}
           </>
         }
         onClose={() => {
           onClose("onClose");
         }}
         onSubmit={() => {
-          onUpdate("onUpdate");
+          onUpdate(editItem, updateKeys);
         }}
       >
-        {/* <Tabs
-        tabs={types}
-        currentTabId={selectedType}
-        type="cloud"
-        className="typeSelector"
-        tabClick={(data) => {
-          if (data.id === selectedType) {
-            return false;
-          }
-          onChange && onChange(data.id);
-          setSelectedType(data.id);
-        }}
-      /> */}
+        <FieldList
+          name={currentFieldGroup.name}
+          desc={currentFieldGroup.desc}
+          fields={currentFieldGroup.fields}
+          values={editItem.item_value}
+          onUpdate={(id, value) => {
+            const updatedItem = { ...editItem };
+            const updatedItemValue = _.cloneDeep(editItem.item_value);
+            updatedItemValue[id] = value;
+            updatedItem.item_value = updatedItemValue;
+            addItemUpdate(updatedItem, "item_value");
+          }}
+        />
       </Popup>
       {renderPopup()}
     </>

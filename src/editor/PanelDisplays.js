@@ -1,23 +1,25 @@
 import { __ } from "@wordpress/i18n";
 import { useState, useContext } from "@wordpress/element";
 import _ from "lodash";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTabletScreen } from "@fortawesome/pro-light-svg-icons";
 import {
   updateDisplayOptions,
+  updateDittyDisplayTemplate,
   updateDittyDisplayType,
 } from "../services/dittyService";
 import { Button, ButtonGroup, IconBlock, Link, Panel } from "../components";
 import { FieldList } from "../fields";
 import {
   getDisplayTypes,
+  getDisplayTypeIcon,
   getDisplayTypeObject,
   getDisplayTypeSettings,
 } from "./utils/displayTypes";
 import { EditorContext } from "./context";
-import {
-  DisplayTemplateSavePopup,
-  DisplayTemplateSelectorPopup,
-} from "./displays";
-import TypeSelectorPopup from "./TypeSelectorPopup";
+import PopupTemplateSave from "./PopupTemplateSave";
+import PopupTypeSelector from "./PopupTypeSelector";
+import PopupTemplateSelector from "./PopupTemplateSelector";
 
 const PanelDisplays = () => {
   const { actions, currentDisplay, displays } = useContext(EditorContext);
@@ -57,9 +59,15 @@ const PanelDisplays = () => {
     switch (popupStatus) {
       case "displayTemplateSave":
         return (
-          <DisplayTemplateSavePopup
-            activeTemplate={currentDisplay}
+          <PopupTemplateSave
+            currentTemplate={currentDisplay}
             templates={displays}
+            filterKey="type"
+            filters={getDisplayTypes()}
+            headerIcon={<FontAwesomeIcon icon={faTabletScreen} />}
+            templateIcon={(template) => {
+              return getDisplayTypeIcon(template);
+            }}
             onClose={() => {
               setPopupStatus(false);
             }}
@@ -73,12 +81,23 @@ const PanelDisplays = () => {
         );
       case "displayTemplateSelect":
         return (
-          <DisplayTemplateSelectorPopup
-            activeTemplate={currentDisplay}
+          <PopupTemplateSelector
+            currentTemplate={currentDisplay}
             templates={displays}
-            dittyEl={dittyEl}
-            onClose={() => {
+            filterKey="type"
+            filters={getDisplayTypes()}
+            headerIcon={<FontAwesomeIcon icon={faTabletScreen} />}
+            templateIcon={(template) => {
+              return getDisplayTypeIcon(template);
+            }}
+            onChange={(selectedTemplate) => {
+              updateDittyDisplayTemplate(dittyEl, selectedTemplate);
+            }}
+            onClose={(selectedTemplate) => {
               setPopupStatus(false);
+              if (currentDisplay.id !== selectedTemplate.id) {
+                updateDittyDisplayTemplate(dittyEl, currentDisplay);
+              }
             }}
             onUpdate={(updatedTemplate) => {
               setStatus(false);
@@ -92,8 +111,8 @@ const PanelDisplays = () => {
         );
       case "displayTypeSelect":
         return (
-          <TypeSelectorPopup
-            activeType={currentDisplay.type}
+          <PopupTypeSelector
+            currentType={currentDisplay.type}
             types={displayTypes}
             getTypeObject={getDisplayTypeObject}
             onChange={(selectedType) => {

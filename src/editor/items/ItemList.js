@@ -11,10 +11,11 @@ import {
   getItemTypeIcon,
   getItemLabel,
 } from "../utils/itemTypes";
-import TypeSelectorPopup from "../TypeSelectorPopup";
+import PopupTypeSelector from "../PopupTypeSelector";
+import PopupEditLayoutVariations from "../PopupEditLayoutVariations";
 
 const ItemList = ({ editItem, addItem, editor }) => {
-  const { items, actions, displayItems } = useContext(editor);
+  const { items, actions, displayItems, layouts } = useContext(editor);
   const [currentItem, setCurrentItem] = useState(null);
   const [popupStatus, setPopupStatus] = useState(false);
   const itemTypes = getItemTypes();
@@ -35,7 +36,6 @@ const ItemList = ({ editItem, addItem, editor }) => {
         id: "label",
         content: (item) => {
           return getItemLabel(item);
-          //return dittyEditor.applyFilters("itemLabel", item.item_type, item);
         },
       },
       {
@@ -54,7 +54,9 @@ const ItemList = ({ editItem, addItem, editor }) => {
     if ("settings" === elementId) {
       setCurrentItem(item);
       setPopupStatus("editItem");
-      //editItem(item.item_id);
+    } else if ("layout" === elementId) {
+      setCurrentItem(item);
+      setPopupStatus("editLayout");
     }
   };
 
@@ -121,45 +123,44 @@ const ItemList = ({ editItem, addItem, editor }) => {
       //       }}
       //     />
       //   );
-      // case "displayTemplateSelect":
-      //   return (
-      //     <DisplayTemplateSelectorPopup
-      //       activeTemplate={currentDisplay}
-      //       templates={displays}
-      //       dittyEl={dittyEl}
-      //       onClose={() => {
-      //         setPopupStatus(false);
-      //       }}
-      //       onUpdate={(updatedTemplate) => {
-      //         setStatus(false);
-      //         setPopupStatus(false);
-      //         if (currentDisplay.id === updatedTemplate.id) {
-      //           return false;
-      //         }
-      //         actions.setCurrentDisplay(updatedTemplate);
-      //       }}
-      //     />
-      //   );
+      case "editLayout":
+        return (
+          <PopupEditLayoutVariations
+            item={currentItem}
+            layouts={layouts}
+            onClose={() => {
+              setPopupStatus(false);
+            }}
+            // onUpdate={(updatedTemplate) => {
+            //   setStatus(false);
+            //   setPopupStatus(false);
+            //   if (currentDisplay.id === updatedTemplate.id) {
+            //     return false;
+            //   }
+            //   actions.setCurrentDisplay(updatedTemplate);
+            // }}
+          />
+        );
       case "editItem":
         return (
           <ItemEditPopup
             item={currentItem}
-            //types={itemTypes}
-            //getTypeObject={getItemTypeObject}
-            //submitLabel={__("Add Item", "ditty-news-ticker")}
             onClose={() => {
               setPopupStatus(false);
             }}
-            onUpdate={(itemType) => {
+            onChange={(updatedItem) => {
+              //console.log("updatedItem", updatedItem);
+            }}
+            onUpdate={(updatedItem, updateKeys) => {
               setPopupStatus(false);
-              //addItem(itemType);
+              actions.updateItem(updatedItem, updateKeys);
             }}
           />
         );
       case "addItem":
         return (
-          <TypeSelectorPopup
-            activeType="default"
+          <PopupTypeSelector
+            currentType="default"
             types={itemTypes}
             getTypeObject={getItemTypeObject}
             submitLabel={__("Add Item", "ditty-news-ticker")}

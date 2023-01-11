@@ -48,7 +48,7 @@ if (dittyEditor) {
             type: "text",
             id: "link_title",
             name: __("Title", "ditty-news-ticker"),
-            help: __("Add a title to the custom lnk.", "ditty-news-ticker"),
+            help: __("Add a title to the custom link.", "ditty-news-ticker"),
           },
           {
             type: "select",

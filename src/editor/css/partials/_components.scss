@@ -195,6 +195,9 @@
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
   }
+  &__scroll {
+    min-height: 100%;
+  }
   &__footer {
     padding: 15px;
     border-top: 1px solid $border_color_light;

@@ -44,7 +44,7 @@ const migrateItemTypes = (itemTypes) => {
 };
 
 /**
- * Return a display type icon from the display
+ * Return an Item Type object
  * @param {object} item
  * @returns element
  */

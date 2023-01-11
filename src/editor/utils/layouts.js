@@ -1,4 +1,25 @@
 import { __ } from "@wordpress/i18n";
+import _ from "lodash";
+
+/**
+ * Return a Layout object
+ * @param {object} layout
+ * @returns element
+ */
+export const getLayoutObject = (layout, layouts) => {
+  if (typeof layout === "object") {
+    return layout;
+  } else {
+    const index = layouts.findIndex((object) => {
+      return Number(object.id) === Number(layout);
+    });
+    if (index >= 0) {
+      const layoutObject = _.cloneDeep(layouts[index]);
+      return layoutObject;
+    }
+    return {};
+  }
+};
 
 export const getLayoutTags = () => {
   const dateFormat = "";

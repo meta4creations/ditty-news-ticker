@@ -74,22 +74,23 @@ const Filter = ({
       </div>
       <div className="ditty-filter__filters">
         <ButtonGroup gap="2px">
-          {filters.map((filter) => {
-            const className = selectedFilter === filter.id ? "active" : "";
-            return (
-              <Button
-                key={filter.id}
-                className={className}
-                onClick={() => filterResults(filter.id)}
-              >
-                {filter.icon
-                  ? filter.icon
-                  : filter.label
-                  ? filter.label
-                  : filter.id}
-              </Button>
-            );
-          })}
+          {filters &&
+            filters.map((filter) => {
+              const className = selectedFilter === filter.id ? "active" : "";
+              return (
+                <Button
+                  key={filter.id}
+                  className={className}
+                  onClick={() => filterResults(filter.id)}
+                >
+                  {filter.icon
+                    ? filter.icon
+                    : filter.label
+                    ? filter.label
+                    : filter.id}
+                </Button>
+              );
+            })}
         </ButtonGroup>
       </div>
     </div>

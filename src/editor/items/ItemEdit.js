@@ -15,7 +15,7 @@ import {
 } from "../utils/itemTypes";
 import { LayoutList } from "../layouts";
 import { EditorContext } from "../context";
-import TypeSelectorPopup from "../TypeSelectorPopup";
+import PopupTypeSelector from "../PopupTypeSelector";
 
 const ItemEdit = ({ item, items, goBack, deleteItem }) => {
   const { actions } = useContext(EditorContext);
@@ -45,8 +45,8 @@ const ItemEdit = ({ item, items, goBack, deleteItem }) => {
     switch (popupStatus) {
       case "itemTypeSelect":
         return (
-          <TypeSelectorPopup
-            activeType={item.item_type}
+          <PopupTypeSelector
+            currentType={item.item_type}
             types={itemTypes}
             getTypeObject={getItemTypeObject}
             onClose={() => {
