@@ -1,10 +1,11 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
-import { saveDisplay } from "../services/httpService";
+import { saveDisplay, saveLayout } from "../services/httpService";
 import { IconBlock, Filter, List, ListItem, Popup, Tabs } from "../components";
 import { FieldList, TextField, TextareaField } from "../fields";
 
 const PopupTemplateSave = ({
+  templateType,
   currentTemplate,
   templates,
   filters,
@@ -16,6 +17,7 @@ const PopupTemplateSave = ({
     "ditty-news-ticker"
   ),
   templateIcon,
+  saveData,
   onClose,
   onUpdate,
 }) => {
@@ -89,7 +91,7 @@ const PopupTemplateSave = ({
   };
 
   /**
-   * Render the display items
+   * Render the template items
    * @returns array
    */
   const renderTemplates = () => {
@@ -130,25 +132,20 @@ const PopupTemplateSave = ({
     }
   };
 
-  const handleSaveDisplay = async () => {
-    const data =
-      "existing" === currentTabId
-        ? {
-            display: {
-              ...selectedTemplate,
-              type: currentTemplate.type,
-              settings: currentTemplate.settings,
-              updated: Date.now(),
-            },
-          }
-        : {
-            title: templateName,
-            description: templateDescription,
-            display: selectedTemplate,
-          };
+  const handleSaveTemplate = async () => {
+    const data = saveData(
+      currentTabId,
+      selectedTemplate,
+      templateName,
+      templateDescription
+    );
     setShowSpinner(true);
     try {
-      await saveDisplay(data, handleApiData);
+      if ("display" === templateType) {
+        await saveDisplay(data, handleApiData);
+      } else if ("layout" === templateType) {
+        await saveLayout(data, handleApiData);
+      }
     } catch (ex) {
       if (ex.response && ex.response.status === 404) {
       }
@@ -173,7 +170,7 @@ const PopupTemplateSave = ({
       onClose={() => {
         onClose();
       }}
-      onSubmit={handleSaveDisplay}
+      onSubmit={handleSaveTemplate}
     >
       {"new" === currentTabId ? (
         <FieldList>

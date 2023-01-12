@@ -1,11 +1,13 @@
 import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
+import { useState, useContext } from "@wordpress/element";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
 import { getItemTypeObject, getItemLabel } from "./utils/itemTypes";
 import { getLayoutObject } from "./utils/layouts";
 import { Button, ButtonGroup, IconBlock, Popup } from "../components";
+import { EditorContext } from "./context";
+import PopupTemplateSave from "./PopupTemplateSave";
 import PopupTemplateSelector from "./PopupTemplateSelector";
 import PopupEditLayout from "./PopupEditLayout";
 
@@ -18,12 +20,13 @@ const PopupEditLayoutVariations = ({
   onUpdate,
   level,
 }) => {
+  const { actions } = useContext(EditorContext);
   const [editItem, setEditItem] = useState(item);
-  const [updateKeys, setUpdateKeys] = useState([]);
   const [layoutVariations, setLayoutVariations] = useState(item.layout_value);
   const [selectedVariation, setSelectedVariation] = useState();
-  const [status, setStatus] = useState();
   const [popupStatus, setPopupStatus] = useState(false);
+
+  //console.log("layoutVariations", layoutVariations);
 
   const itemTypeObject = getItemTypeObject(editItem);
 
@@ -47,6 +50,42 @@ const PopupEditLayoutVariations = ({
    */
   const renderPopup = () => {
     switch (popupStatus) {
+      case "layoutTemplateSave":
+        const currentLayout = getVariationLayoutObject(selectedVariation);
+        return (
+          <PopupTemplateSave
+            level="2"
+            templateType="layout"
+            currentTemplate={currentLayout}
+            templates={layouts}
+            headerIcon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
+            templateIcon={() => <FontAwesomeIcon icon={faPaintbrushPencil} />}
+            saveData={(type, selectedTemplate, name, description) => {
+              return "existing" === type
+                ? {
+                    layout: {
+                      ...selectedTemplate,
+                      html: currentLayout.html,
+                      css: currentLayout.css,
+                      updated: Date.now(),
+                    },
+                  }
+                : {
+                    title: name,
+                    description: description,
+                    layout: selectedTemplate,
+                  };
+            }}
+            onClose={() => {
+              setPopupStatus(false);
+            }}
+            onUpdate={(updatedTemplate) => {
+              setPopupStatus(false);
+              actions.updateLayout(updatedTemplate);
+              setVariationLayout(selectedVariation, updatedTemplate);
+            }}
+          />
+        );
       case "layoutTemplateSelect":
         return (
           <PopupTemplateSelector
@@ -83,7 +122,6 @@ const PopupEditLayoutVariations = ({
             }}
             onUpdate={(updatedLayout) => {
               setPopupStatus(false);
-              console.log("updatedLayout", updatedLayout);
               setVariationLayout(selectedVariation, updatedLayout);
             }}
           />

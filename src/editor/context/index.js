@@ -124,6 +124,26 @@ export class EditorProvider extends Component {
   };
 
   /**
+   * Update a single layout
+   * @param {object} updatedLayout
+   */
+  handleUpdateLayout = (updatedLayout) => {
+    let addLayout = true;
+    const updatedLayouts = this.state.layouts.map((layout) => {
+      if (updatedLayout.id === layout.id) {
+        addLayout = false;
+        return updatedLayout;
+      } else {
+        return layout;
+      }
+    });
+    if (addLayout) {
+      updatedLayouts.push(updatedLayout);
+    }
+    this.setState({ layouts: updatedLayouts });
+  };
+
+  /**
    * Update the title
    * @param {object} updatedTitle
    */
@@ -318,6 +338,7 @@ export class EditorProvider extends Component {
             deleteItem: this.handleDeleteItem,
             updateItem: this.handleUpdateItem,
             updateDisplay: this.handleUpdateDisplay,
+            updateLayout: this.handleUpdateLayout,
             updateTitle: this.handleUpdateTitle,
             updateSettings: this.handleUpdateSettings,
             saveDitty: this.handleSaveDitty,

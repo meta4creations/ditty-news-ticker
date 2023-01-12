@@ -19,7 +19,7 @@ import { cssTransition } from "react-toastify";
 const PopupEditLayout = ({
   layout,
   layouts,
-  submitLabel = __("Save Layout", "ditty-news-ticker"),
+  submitLabel = __("Update Layout", "ditty-news-ticker"),
   onChange,
   onClose,
   onUpdate,
@@ -27,7 +27,6 @@ const PopupEditLayout = ({
 }) => {
   const [editLayout, setEditLayout] = useState(layout);
   const [currentTabId, setCurrentTabId] = useState("html");
-  console.log("editLayout", editLayout);
 
   /**
    * Render a popup component

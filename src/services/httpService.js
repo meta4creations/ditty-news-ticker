@@ -29,6 +29,19 @@ export function saveDitty(data, onComplete) {
 
 export function saveDisplay(data, onComplete) {
   const apiURL = `${apiEndpoint}/saveDisplay`;
+  console.log("data", data);
+  const apiData = {
+    security: dittyEditorVars.security,
+    userId: dittyEditorVars.userId,
+    ...data,
+  };
+  return axios.post(apiURL, { apiData }).then((res) => {
+    onComplete(res.data);
+  });
+}
+
+export function saveLayout(data, onComplete) {
+  const apiURL = `${apiEndpoint}/saveLayout`;
 
   const apiData = {
     security: dittyEditorVars.security,

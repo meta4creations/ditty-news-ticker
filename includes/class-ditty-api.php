@@ -38,6 +38,11 @@ class Ditty_API {
       'callback' 	=> array( $this, 'save_display' ),
 			'permission_callback' => array( $this, 'save_display_permissions_check' ),
     ) );
+		register_rest_route( 'dittyeditor/v' . $this->version, 'saveLayout', array(
+      'methods' 	=> 'POST',
+      'callback' 	=> array( $this, 'save_layout' ),
+			'permission_callback' => array( $this, 'save_layout_permissions_check' ),
+    ) );
 	}
 
 	/**
@@ -68,6 +73,22 @@ class Ditty_API {
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
 		if ( ! user_can( $userId, 'edit_ditty_displays' ) ) {
 			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allow to edit Displays.', 'ditty-news-ticker' ), array( 'status' => 401 ) );
+		}
+		return true;
+	}
+
+	/**
+	 * Check the Layout permissions of the user
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function save_layout_permissions_check( $request ) {
+		$params = $request->get_params();
+		$apiData = isset( $params['apiData'] ) ? $params['apiData'] : array();
+		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
+		if ( ! user_can( $userId, 'edit_ditty_layouts' ) ) {
+			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allow to edit Layouts.', 'ditty-news-ticker' ), array( 'status' => 401 ) );
 		}
 		return true;
 	}
@@ -202,7 +223,7 @@ class Ditty_API {
 	}
 
 	/**
-	 * Save updated Ditty values
+	 * Save updated Display values
 	 *
 	 * @access public
 	 * @since  3.1
@@ -245,7 +266,7 @@ class Ditty_API {
 			$display_id = wp_insert_post( $postarr );
 			$updates['id'] = $display_id;
 			$updates['title'] = $display_title;
-			$updates['edit_url'] = get_edit_post_link( $display_id, 'code' );
+			$updates['edit_url'] = admin_url( "post.php?post={$layout_id}&action=edit" );
 		}
 
 		// Update a display description
@@ -265,6 +286,82 @@ class Ditty_API {
 		if ( $display_settings ) {
 			update_post_meta( $display_id, '_ditty_display_settings', $display_settings );
 			$updates['settings'] = $display_settings;
+		}
+
+		$data = array(
+			'updates' => $updates,
+			'errors'	=> $errors,
+			'apiData'	=> $apiData,
+		);
+
+		return rest_ensure_response( $data );
+	}
+
+	/**
+	 * Save updated Layout values
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function save_layout( $request ) {
+		$params = $request->get_params();
+		if ( ! isset( $params['apiData'] ) ) {
+			return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+		$apiData = $params['apiData'];
+
+		if ( ! isset( $apiData['layout'] ) ) {
+			return new WP_Error( 'no_id', __( 'No Layout data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
+		$layout_title = isset( $apiData['title'] ) ? $apiData['title'] : false;
+		$layout_description = isset( $apiData['description'] ) ? $apiData['description'] : false;
+		$layout = isset( $apiData['layout'] ) ? $apiData['layout'] : array();
+		$layout_id = isset( $layout['id'] ) ? $layout['id'] : false;
+		$layout_html = isset( $layout['html'] ) ? $layout['html'] : false;
+		$layout_css = isset( $layout['css'] ) ? $layout['css'] : false;
+
+		$updates = array();
+		$errors = array();
+
+		if ( $layout_id ) {
+			if ( $layout_title ) {
+				$postarr = array(
+					'ID'					=> $layout_id,
+					'post_title'	=> $layout_title,
+				);
+				wp_update_post( $postarr );
+			}
+		} else {
+			$postarr = array(
+				'post_type'		=> 'ditty_layout',
+				'post_status'	=> 'publish',
+				'post_title'	=> $layout_title,
+			);
+			$layout_id = wp_insert_post( $postarr );
+			$updates['id'] = $layout_id;
+			$updates['title'] = $layout_title;
+			$updates['edit_url'] = admin_url( "post.php?post={$layout_id}&action=edit" );
+		}
+
+		// Update the layout description
+		if ( isset( $layout_description ) ) {
+			$sanitized_description = wp_kses_post( $layout_description );
+			update_post_meta( $layout_id, '_ditty_layout_description', $sanitized_description );
+			$updates['description'] = $sanitized_description;
+		}
+		
+		// Update the layout type
+		if ( $layout_html ) {
+			$html = stripslashes( $layout_html );
+			update_post_meta( $layout_id, '_ditty_layout_html', wp_kses_post( $html ) );
+			$updates['html'] = $html;
+		}
+
+		// Update the layout settings
+		if ( $layout_css ) {
+			update_post_meta( $layout_id, '_ditty_layout_css', wp_kses_post( $layout_css ) );
+			$updates['css'] = $layout_css;
 		}
 
 		$data = array(

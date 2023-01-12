@@ -60,6 +60,7 @@ const PanelDisplays = () => {
       case "displayTemplateSave":
         return (
           <PopupTemplateSave
+            templateType="display"
             currentTemplate={currentDisplay}
             templates={displays}
             filterKey="type"
@@ -67,6 +68,22 @@ const PanelDisplays = () => {
             headerIcon={<FontAwesomeIcon icon={faTabletScreen} />}
             templateIcon={(template) => {
               return getDisplayTypeIcon(template);
+            }}
+            saveData={(type, selectedTemplate, name, description) => {
+              return "existing" === type
+                ? {
+                    display: {
+                      ...selectedTemplate,
+                      type: currentDisplay.type,
+                      settings: currentDisplay.settings,
+                      updated: Date.now(),
+                    },
+                  }
+                : {
+                    title: name,
+                    description: description,
+                    display: selectedTemplate,
+                  };
             }}
             onClose={() => {
               setPopupStatus(false);
