@@ -101,6 +101,13 @@
     this.currentHeight	= this.settings.height;
     this.visibleItems 	= [];
 		
+		this.framesPerSecond = 60;
+		this.previousTime = performance.now();
+		this.frameInterval = 1000 / this.framesPerSecond;
+		this.deltaTimeMultiplier = 1;
+		this.deltaTime = 0;
+		this.averageDeltaTime = [];
+		
     if ( 1 === parseInt( this.settings.shuffle ) ) {
 			this.shuffle();
 		}
@@ -250,8 +257,22 @@
 	    
 	    cancelAnimationFrame( this.interval );
 
-			function ditty_tickerLoop() {
+			function ditty_tickerLoop(currentTime) {
+				var lengthLimit = 20;
+				var timeDiff = currentTime - self.previousTime;
+				self.averageDeltaTime.unshift( timeDiff );
+				if ( self.averageDeltaTime.length > lengthLimit ) {
+					self.averageDeltaTime.length = lengthLimit;
+				}
+				var sum = self.averageDeltaTime.reduce((partialSum, a) => partialSum + a, 0);
+				var average = Math.ceil(sum / lengthLimit);
+				//console.log('average', average);
+				
+				self.deltaTime = currentTime - self.previousTime;
+				//console.log('timeDiff', timeDiff);
+				self.deltaTimeMultiplier = self.deltaTime / self.frameInterval;
 				self._positionItems();
+				self.previousTime = currentTime;
 				self.interval = requestAnimationFrame( ditty_tickerLoop );
 			}
 			
@@ -601,9 +622,18 @@
 					posY = 0,
 					increment = parseFloat( this.settings.speed ) * this.scrollPercent;
 					
+			var useDeltaMultiplier = 1;
 			if ( distance ) {
 				increment = distance;
+			} else if ( useDeltaMultiplier ) {
+				increment = increment * this.deltaTimeMultiplier;
 			}
+			
+			// if ( useDeltaMultiplier ) {
+			// 	console.log('DELTA increment', increment);
+			// } else {
+			// 	console.log('increment', increment);
+			// }
 			
 			switch( this.settings.direction ) {
 				case 'left':

@@ -60,16 +60,8 @@
       "oA" : 1,
       "oAP" : "\/composer-min.json",
       "oF" : 0,
-      "oO" : 0,
+      "oO" : 1,
       "oS" : 1
-    },
-    "\/composer.lock" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 1,
-      "oAP" : "\/composer.lock",
-      "oF" : 1
     },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
@@ -123,7 +115,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/admin\/settings.php",
       "oF" : 0
     },
@@ -251,7 +243,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-editor.php",
       "oF" : 0
     },
