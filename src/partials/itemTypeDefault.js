@@ -3,6 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faSliders } from "@fortawesome/pro-light-svg-icons";
 
 if (dittyEditor) {
+  console.log(dittyEditor);
+
+  const { content } = dittyEditor.layoutTags;
+
   /**
    * Register the item type
    */
@@ -80,44 +84,52 @@ if (dittyEditor) {
         : __("This is a sample item. Please edit me!", "ditty-news-ticker");
       return content;
     },
+    tags: {
+      content: {
+        ...dittyEditor.layoutTags.content,
+        render: (value) => {
+          return value.content;
+        },
+      },
+    },
   });
 
   /**
    * Return the display items
    */
-  dittyEditor.addFilter("dittyDisplayItemsDefault", (displayItems, item) => {
-    item.uniq_id = item.item_id;
-    displayItems.push(item);
-    return displayItems;
-  });
+  // dittyEditor.addFilter("dittyDisplayItemsDefault", (displayItems, item) => {
+  //   item.uniq_id = item.item_id;
+  //   displayItems.push(item);
+  //   return displayItems;
+  // });
 
   /**
    * Render the Items Edit panel
    */
-  dittyEditor.addFilter(
-    "dittyLayoutTagDefault",
-    (element, tag, values, atts) => {
-      if ("content" === tag) {
-        const target = values.link_target ? values.link_target : "_self";
-        const rel = values.link_nofollow ? "nofollow" : "";
-        const title = values.link_title ? values.link_title : "";
+  // dittyEditor.addFilter(
+  //   "dittyLayoutTagDefault",
+  //   (element, tag, values, atts) => {
+  //     if ("content" === tag) {
+  //       const target = values.link_target ? values.link_target : "_self";
+  //       const rel = values.link_nofollow ? "nofollow" : "";
+  //       const title = values.link_title ? values.link_title : "";
 
-        element =
-          values.link_url && "" !== values.link_url ? (
-            <a
-              href={values.link_url}
-              class="ditty-item__link"
-              target={target}
-              rel={rel}
-              title={title}
-            >
-              {values.content.trim()}
-            </a>
-          ) : (
-            values.content.trim()
-          );
-      }
-      return element;
-    }
-  );
+  //       element =
+  //         values.link_url && "" !== values.link_url ? (
+  //           <a
+  //             href={values.link_url}
+  //             class="ditty-item__link"
+  //             target={target}
+  //             rel={rel}
+  //             title={title}
+  //           >
+  //             {values.content.trim()}
+  //           </a>
+  //         ) : (
+  //           values.content.trim()
+  //         );
+  //     }
+  //     return element;
+  //   }
+  // );
 }

@@ -5,19 +5,39 @@ import reactElementToJSXString from "react-element-to-jsx-string";
 import { initializeDitty } from "../services/dittyService";
 import { EditorContext } from "./context";
 import { getDisplayObject } from "./utils/displayTypes";
+import { getLayoutObject } from "./utils/layouts";
 import DittyItem from "./DittyItem";
+import { replace } from "./utils/shortcode";
 
 const Ditty = () => {
-  const { id, title, items, displayItems, displays, currentDisplay } =
+  const { id, title, items, displayItems, displays, layouts, currentDisplay } =
     useContext(EditorContext);
 
   const displayObject = getDisplayObject(currentDisplay, displays);
 
+  const getLayoutObjects = (variations) => {
+    const variationLayouts = [];
+    for (const key in variations) {
+      variationLayouts.push({
+        id: key,
+        value: getLayoutObject(variations[key], layouts),
+      });
+    }
+    console.log(variationLayouts);
+  };
+
+  const getDisplayItems = (item) => {
+    //console.log("item", item);
+    const layoutObjects = getLayoutObjects(item.layout_value);
+    const displayItems = item.display_items.map((displayItem) => {
+      //console.log("displayItem", displayItem);
+    });
+  };
+
   useEffect(() => {
-    console.log("Ditty items", items);
-    // const rendererdItems = items.map((item) => {
-    //   return <DittyItem item={item} />;
-    // });
+    const rendererdItems = items.map((item) => {
+      getDisplayItems(item);
+    });
 
     // console.log("rendererdItems", reactElementToJSXString(rendererdItems[0]));
 

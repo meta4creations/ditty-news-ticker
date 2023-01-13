@@ -2,6 +2,7 @@ import { createHooks } from "@wordpress/hooks";
 import DittyDisplay from "./displays/components/dittyDisplay";
 import "./displays/css/dittyDisplay.scss";
 import { easeOptions, sliderTransitions } from "./editor/utils/helpers";
+import { layoutTags } from "./editor/utils/layoutTags";
 
 /**
  * Add ditty global variables for reference
@@ -21,6 +22,7 @@ dittyEditor.helpers = {
   easeOptions,
   sliderTransitions,
 };
+dittyEditor.layoutTags = layoutTags;
 dittyEditor.registerItemType = (itemType) => {
   dittyEditor.addFilter("dittyItemTypes", (itemTypes) => {
     itemTypes.push(itemType);

@@ -15,6 +15,7 @@ const PopupTemplateSelector = ({
   onUpdate,
   level,
 }) => {
+  console.log("currentTemplate", currentTemplate);
   const [selectedTemplate, setSelectedTemplate] = useState(currentTemplate);
   const [filteredTemplates, setFilteredTemplates] = useState(templates);
 
@@ -69,6 +70,7 @@ const PopupTemplateSelector = ({
    * @returns array
    */
   const renderTemplates = () => {
+    console.log("selectedTemplate", selectedTemplate);
     return filteredTemplates.length ? (
       filteredTemplates.map((template) => {
         return (
@@ -76,9 +78,11 @@ const PopupTemplateSelector = ({
             key={template.id}
             data={template}
             elements={elements}
-            isActive={selectedTemplate.id === template.id}
+            isActive={
+              selectedTemplate.id && selectedTemplate.id === template.id
+            }
             onItemClick={(e, data) => {
-              if (data.id === selectedTemplate.id) {
+              if (selectedTemplate.id && selectedTemplate.id === data.id) {
                 return false;
               }
               onChange && onChange(data);
