@@ -1,5 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
+import reactElementToJSXString from "react-element-to-jsx-string";
+import { replace } from "./shortcode";
 
 /**
  * Return a Layout object
@@ -68,51 +70,29 @@ const renderLayoutTagWrapper = (
   }
 };
 
-/**
- * Render a layout tag
- * @param {string} tag
- * @param {string} type
- * @param {object} values
- * @param {object} atts
- * @param {string} customWrapper
- * @returns
- */
-const renderLayoutTag = (tag, type, values, atts, customWrapper) => {
-  const itemType = _.upperFirst(_.camelCase(type));
-  const element = dittyEditor.applyFilters(
-    `dittyLayoutTag${itemType}`,
-    "",
-    tag,
-    values,
-    atts
-  );
-
-  const className = `ditty-item__${tag}`;
-  const wrappedElement = renderLayoutTagWrapper(
-    element,
-    className,
-    atts,
-    customWrapper
-  );
-  return reactElementToJSXString(wrappedElement);
+const getLayoutData = (item, variations, itemType) => {
+  const layoutData = variations[0].value;
+  return layoutData;
 };
 
-export const renderLayout = (item) => {
-  const layoutData = getLayoutData(item);
-  const html = layoutTags.reduce((template, tag) => {
+export const renderLayout = (item, variations, itemType) => {
+  const layoutData = getLayoutData(item, variations, itemType);
+  const html = itemType.tags.reduce((template, tag) => {
     const updatedTemplate = replace(tag.tag, template, (data) => {
       const atts = tag.atts ? { ...tag.atts, ...data.attrs.named } : null;
-      return renderLayoutTag(
-        tag.tag,
-        item.item_type,
-        item.item_value,
+      const element = tag.render(item.item_value);
+      console.log("data", data);
+      const className = `ditty-item__${tag.tag}`;
+      const wrappedElement = renderLayoutTagWrapper(
+        element,
+        className,
         atts,
         data.content
       );
+      return reactElementToJSXString(wrappedElement);
     });
     return updatedTemplate;
   }, layoutData.html);
-
   return html;
 };
 

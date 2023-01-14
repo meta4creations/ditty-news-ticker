@@ -6,17 +6,25 @@ import {
   getItemLabel,
   getItemTypes,
   getItemTypeSettings,
-} from "../utils/itemTypes";
-import { IconBlock, Link, Popup, Tabs } from "../../components";
-import { FieldList } from "../../fields";
-import PopupTypeSelector from "../PopupTypeSelector";
+} from "./utils/itemTypes";
+import {
+  Button,
+  ButtonGroup,
+  IconBlock,
+  Link,
+  Popup,
+  Tabs,
+} from "../components";
+import { FieldList } from "../fields";
+import PopupTypeSelector from "./PopupTypeSelector";
 
-const ItemEditPopup = ({
+const PopupItemEdit = ({
   item,
   submitLabel = __("Update Item", "ditty-news-ticker"),
   onChange,
   onClose,
   onUpdate,
+  onDelete,
 }) => {
   const [editItem, setEditItem] = useState(item);
   const [updateKeys, setUpdateKeys] = useState([]);
@@ -110,6 +118,27 @@ const ItemEditPopup = ({
             )}
           </>
         }
+        footer={
+          <ButtonGroup justify="flex-end" gap="20px">
+            <Link
+              style={{ marginRight: "auto", color: "#cc1818" }}
+              onClick={onDelete}
+            >
+              {__("Delete", "ditty-news-ticker")}
+            </Link>
+            <Link onClick={onClose}>{__("Cancel", "ditty-news-ticker")}</Link>
+            <Button
+              type="primary"
+              onClick={() => {
+                onUpdate(editItem, updateKeys);
+              }}
+            >
+              <span>
+                {submitLabel ? submitLabel : __("Submit", "ditty-news-ticker")}
+              </span>
+            </Button>
+          </ButtonGroup>
+        }
         onClose={() => {
           onClose("onClose");
         }}
@@ -135,4 +164,4 @@ const ItemEditPopup = ({
     </>
   );
 };
-export default ItemEditPopup;
+export default PopupItemEdit;

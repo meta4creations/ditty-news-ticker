@@ -3,6 +3,7 @@ import classnames from "classnames";
 const Link = ({
   children,
   className,
+  style,
   icon,
   type,
   isPressed,
@@ -19,7 +20,7 @@ const Link = ({
   });
 
   return (
-    <button className={classes} onClick={onClick}>
+    <button className={classes} style={style} onClick={onClick}>
       {children}
     </button>
   );

@@ -1,18 +1,26 @@
 import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
-import { ItemEdit, ItemList } from "./items";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGear, faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
+import { updateDisplayOptions } from "../services/dittyService";
+import { Panel, ListItem, SortableList } from "../components";
 import { EditorContext } from "./context";
+import {
+  getItemTypes,
+  getItemTypeObject,
+  getItemTypeIcon,
+  getItemLabel,
+} from "./utils/itemTypes";
+import PopupItemEdit from "./PopupItemEdit";
+import PopupTypeSelector from "./PopupTypeSelector";
+import PopupEditLayoutVariations from "./PopupEditLayoutVariations";
 
 const PanelItems = () => {
-  const { id, items, actions } = useContext(EditorContext);
-  const [currentItemId, setCurrentItemId] = useState(null);
-
-  /**
-   * Edit an item
-   */
-  const handleEditItem = (item) => {
-    setCurrentItemId(item);
-  };
+  const { id, items, displayItems, layouts, actions } =
+    useContext(EditorContext);
+  const [currentItem, setCurrentItem] = useState(null);
+  const [popupStatus, setPopupStatus] = useState(false);
+  const itemTypes = getItemTypes();
 
   /**
    * Add a new item
@@ -31,7 +39,7 @@ const PanelItems = () => {
       },
     };
     actions.addItem(newItem);
-    setCurrentItemId(itemId);
+    setCurrentItem(newItem);
   };
 
   /**
@@ -40,47 +48,171 @@ const PanelItems = () => {
    */
   const handleDeleteItem = (deltedItem) => {
     actions.deleteItem(deltedItem);
-    setCurrentItemId(null);
+    setCurrentItem(null);
   };
 
   /**
-   * Go back to the list
+   * Render a popup component
+   * @returns Popup component
    */
-  const handleGoBack = () => {
-    setCurrentItemId(null);
-  };
-
-  /**
-   * Go back to the list
-   */
-  const getCurrentItem = () => {
-    const index = items.findIndex((item) => {
-      return item.item_id === currentItemId || item.temp_id === currentItemId;
-    });
-    if (-1 === index) {
-      return false;
+  const renderPopup = () => {
+    const dittyEl = document.getElementById("ditty-editor__ditty");
+    switch (popupStatus) {
+      case "editLayout":
+        return (
+          <PopupEditLayoutVariations
+            item={currentItem}
+            layouts={layouts}
+            onClose={() => {
+              setPopupStatus(false);
+            }}
+            // onUpdate={(updatedTemplate) => {
+            //   setStatus(false);
+            //   setPopupStatus(false);
+            //   if (currentDisplay.id === updatedTemplate.id) {
+            //     return false;
+            //   }
+            //   actions.setCurrentDisplay(updatedTemplate);
+            // }}
+          />
+        );
+      case "editItem":
+        return (
+          <PopupItemEdit
+            item={currentItem}
+            onClose={() => setPopupStatus(false)}
+            onChange={(updatedItem) => {
+              //console.log("updatedItem", updatedItem);
+            }}
+            onDelete={() => {
+              setPopupStatus(false);
+              handleDeleteItem(currentItem);
+            }}
+            onUpdate={(updatedItem, updateKeys) => {
+              setPopupStatus(false);
+              actions.updateItem(updatedItem, updateKeys);
+            }}
+          />
+        );
+      case "addItem":
+        return (
+          <PopupTypeSelector
+            currentType="default"
+            types={itemTypes}
+            getTypeObject={getItemTypeObject}
+            submitLabel={__("Add Item", "ditty-news-ticker")}
+            onClose={() => {
+              setPopupStatus(false);
+            }}
+            onUpdate={(itemType) => {
+              handleAddItem(itemType);
+              setPopupStatus("editItem");
+            }}
+          />
+        );
+      default:
+        return;
     }
-    return items[index];
   };
 
-  const currentItem = getCurrentItem();
+  /**
+   * Set up the elements
+   */
+  const elements = dittyEditor.applyFilters(
+    "itemListElements",
+    [
+      {
+        id: "icon",
+        content: (item) => {
+          return getItemTypeIcon(item);
+        },
+      },
+      {
+        id: "label",
+        content: (item) => {
+          return getItemLabel(item);
+        },
+      },
+      {
+        id: "settings",
+        content: <FontAwesomeIcon icon={faGear} />,
+      },
+      {
+        id: "layout",
+        content: <FontAwesomeIcon icon={faPaintbrushPencil} />,
+      },
+    ],
+    EditorContext
+  );
 
-  return currentItemId ? (
-    <ItemEdit
-      key={currentItem.item_type}
-      item={currentItem}
-      items={items}
-      goBack={handleGoBack}
-      deleteItem={handleDeleteItem}
-    />
-  ) : (
-    <ItemList
-      items={items}
-      actions={actions}
-      editItem={handleEditItem}
-      addItem={handleAddItem}
-      editor={EditorContext}
-    />
+  const handleElementClick = (e, elementId, item) => {
+    if ("settings" === elementId) {
+      setCurrentItem(item);
+      setPopupStatus("editItem");
+    } else if ("layout" === elementId) {
+      setCurrentItem(item);
+      setPopupStatus("editLayout");
+    }
+  };
+
+  /**
+   * Pull data from sorted list items to update items
+   * @param {array} sortedListItems
+   */
+  const handleSortEnd = (sortedListItems) => {
+    const updatedItems = sortedListItems.map((item) => {
+      return item.data;
+    });
+    actions.sortItems(updatedItems);
+
+    // Update the Ditty options
+    const updatedDisplayItems = updatedItems.map((item) => {
+      const index = displayItems.map((i) => i.id).indexOf(item.item_id);
+      return displayItems[index];
+    });
+
+    const dittyEl = document.getElementById("ditty-editor__ditty");
+    updateDisplayOptions(dittyEl, "items", updatedDisplayItems);
+  };
+
+  const panelHeader = () => {
+    return (
+      <button
+        className="ditty-button"
+        onClick={() => setPopupStatus("addItem")}
+      >
+        {__("Add Item Test", "ditty-news-ticker")}
+      </button>
+    );
+  };
+
+  /**
+   * Prepare the items for the sortable list
+   * @returns {array}
+   */
+  const prepareItems = () => {
+    return items.map((item) => {
+      return {
+        id: item.item_id,
+        data: item,
+        content: (
+          <ListItem
+            data={item}
+            elements={elements}
+            onElementClick={handleElementClick}
+          />
+        ),
+      };
+    });
+  };
+
+  return (
+    <>
+      <Panel id="items" header={panelHeader()}>
+        <SortableList items={prepareItems()} onSortEnd={handleSortEnd} />
+      </Panel>
+      {renderPopup()}
+    </>
   );
 };
 export default PanelItems;

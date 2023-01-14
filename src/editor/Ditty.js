@@ -5,7 +5,8 @@ import reactElementToJSXString from "react-element-to-jsx-string";
 import { initializeDitty } from "../services/dittyService";
 import { EditorContext } from "./context";
 import { getDisplayObject } from "./utils/displayTypes";
-import { getLayoutObject } from "./utils/layouts";
+import { getItemTypeObject } from "./utils/itemTypes";
+import { renderLayout, getLayoutObject } from "./utils/layouts";
 import DittyItem from "./DittyItem";
 import { replace } from "./utils/shortcode";
 
@@ -15,22 +16,24 @@ const Ditty = () => {
 
   const displayObject = getDisplayObject(currentDisplay, displays);
 
-  const getLayoutObjects = (variations) => {
+  const getVariationLayouts = (variations) => {
     const variationLayouts = [];
     for (const key in variations) {
       variationLayouts.push({
-        id: key,
+        variation: key,
         value: getLayoutObject(variations[key], layouts),
       });
     }
-    console.log(variationLayouts);
+    return variationLayouts;
   };
 
   const getDisplayItems = (item) => {
-    //console.log("item", item);
-    const layoutObjects = getLayoutObjects(item.layout_value);
+    const variationLayouts = getVariationLayouts(item.layout_value);
+    //console.log("layoutObjects", layoutObjects);
     const displayItems = item.display_items.map((displayItem) => {
-      //console.log("displayItem", displayItem);
+      const itemTypeObject = getItemTypeObject(displayItem.item_type);
+      const html = renderLayout(displayItem, variationLayouts, itemTypeObject);
+      console.log("html", html);
     });
   };
 

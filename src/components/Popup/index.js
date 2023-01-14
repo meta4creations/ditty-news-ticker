@@ -9,6 +9,7 @@ import Link from "../Link";
 const Popup = ({
   id,
   header,
+  footer,
   submitLabel,
   submitDisabled,
   children,
@@ -33,23 +34,29 @@ const Popup = ({
             <div className="ditty-popup__scroll">{children}</div>
           </div>
           <div className="ditty-popup__footer">
-            <ButtonGroup justify="flex-end" gap="20px">
-              <Link onClick={onClose}>{__("Cancel", "ditty-news-ticker")}</Link>
-              <Button
-                type="primary"
-                onClick={onSubmit}
-                disabled={submitDisabled}
-              >
-                {showSpinner && (
-                  <FontAwesomeIcon icon={faLoader} className="fa-spin" />
-                )}
-                <span>
-                  {submitLabel
-                    ? submitLabel
-                    : __("Submit", "ditty-news-ticker")}
-                </span>
-              </Button>
-            </ButtonGroup>
+            {footer ? (
+              footer
+            ) : (
+              <ButtonGroup justify="flex-end" gap="20px">
+                <Link onClick={onClose}>
+                  {__("Cancel", "ditty-news-ticker")}
+                </Link>
+                <Button
+                  type="primary"
+                  onClick={onSubmit}
+                  disabled={submitDisabled}
+                >
+                  {showSpinner && (
+                    <FontAwesomeIcon icon={faLoader} className="fa-spin" />
+                  )}
+                  <span>
+                    {submitLabel
+                      ? submitLabel
+                      : __("Submit", "ditty-news-ticker")}
+                  </span>
+                </Button>
+              </ButtonGroup>
+            )}
           </div>
         </div>
       </div>

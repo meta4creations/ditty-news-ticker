@@ -3,10 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil, faSliders } from "@fortawesome/pro-light-svg-icons";
 
 if (dittyEditor) {
-  console.log(dittyEditor);
-
-  const { content } = dittyEditor.layoutTags;
-
   /**
    * Register the item type
    */
@@ -84,14 +80,14 @@ if (dittyEditor) {
         : __("This is a sample item. Please edit me!", "ditty-news-ticker");
       return content;
     },
-    tags: {
-      content: {
+    tags: [
+      {
         ...dittyEditor.layoutTags.content,
         render: (value) => {
           return value.content;
         },
       },
-    },
+    ],
   });
 
   /**
