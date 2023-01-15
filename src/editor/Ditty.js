@@ -28,21 +28,32 @@ const Ditty = () => {
   };
 
   const getDisplayItems = (item) => {
+    const itemTypeObject = getItemTypeObject(item.item_type);
     const variationLayouts = getVariationLayouts(item.layout_value);
-    //console.log("layoutObjects", layoutObjects);
-    const displayItems = item.display_items.map((displayItem) => {
-      const itemTypeObject = getItemTypeObject(displayItem.item_type);
-      const html = renderLayout(displayItem, variationLayouts, itemTypeObject);
-      console.log("html", html);
+    const layoutData = variationLayouts[0].value;
+    const dItems = item.display_items.map((dItem) => {
+      const html = renderLayout(dItem, layoutData, itemTypeObject);
+      return {
+        id: dItem.item_id,
+        uniq_id: dItem.item_uniq_id ? dItem.item_uniq_id : dItem.item_id,
+        parent_id: 0,
+        layout_id: layoutData.id,
+        css: layoutData.css,
+        html: html,
+      };
     });
+    return dItems;
   };
 
   useEffect(() => {
-    const rendererdItems = items.map((item) => {
-      getDisplayItems(item);
-    });
+    const rendererdItems = items.reduce((items, item) => {
+      const dItems = getDisplayItems(item);
+      return items.concat(dItems);
+    }, []);
 
-    // console.log("rendererdItems", reactElementToJSXString(rendererdItems[0]));
+    //console.log("rendererdItems", reactElementToJSXString(rendererdItems[0]));
+    //console.log("rendererdItems", rendererdItems);
+    //console.log("displayItems", displayItems);
 
     const dittyEl = document.getElementById("ditty-editor__ditty");
     const args = _.cloneDeep(displayObject.settings);
@@ -50,7 +61,7 @@ const Ditty = () => {
     args["display"] = displayObject.id ? displayObject.id : id;
     args["title"] = title;
     args["status"] = "";
-    args["items"] = displayItems;
+    args["items"] = rendererdItems;
     initializeDitty(dittyEl, displayObject.type, args);
   }, []);
 

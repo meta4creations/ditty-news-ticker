@@ -45,321 +45,41 @@ const renderLayoutTagWrapper = (
   };
   const args = { ...defaults, ...atts };
   const before =
-    "" != args.before ? (
-      <span className={`${className}__before`}>{args.before}</span>
-    ) : (
-      ""
-    );
+    "" != args.before
+      ? `<span class="${className}__before">${args.before}</span>`
+      : "";
   const after =
-    "" != args.after ? (
-      <span className={`${className}__after`}>{args.after}</span>
-    ) : (
-      ""
-    );
+    "" != args.after
+      ? `<span class="${className}__after">${args.after}</span>`
+      : "";
   if (args.wrapper) {
-    const Wrapper = args.wrapper;
-    return (
-      <Wrapper className={className}>
-        {before}
-        {element}
-        {after}
-      </Wrapper>
-    );
+    return `<${args.wrapper} class="${className}">${before}${element}${after}</${args.wrapper}>`;
   } else {
     return element;
   }
 };
 
-const getLayoutData = (item, variations, itemType) => {
-  const layoutData = variations[0].value;
-  return layoutData;
-};
+export const renderLayout = (item, layoutData, itemType) => {
+  const html = itemType.tags
+    ? itemType.tags.reduce((template, tag) => {
+        const updatedTemplate = replace(tag.tag, template, (data) => {
+          const atts = tag.atts ? { ...tag.atts, ...data.attrs.named } : null;
+          const element = tag.render(item.item_value);
+          const className = `ditty-item__${tag.tag}`;
+          return renderLayoutTagWrapper(element, className, atts, data.content);
+        });
+        return updatedTemplate;
+      }, layoutData.html)
+    : layoutData.html;
 
-export const renderLayout = (item, variations, itemType) => {
-  const layoutData = getLayoutData(item, variations, itemType);
-  const html = itemType.tags.reduce((template, tag) => {
-    const updatedTemplate = replace(tag.tag, template, (data) => {
-      const atts = tag.atts ? { ...tag.atts, ...data.attrs.named } : null;
-      const element = tag.render(item.item_value);
-      console.log("data", data);
-      const className = `ditty-item__${tag.tag}`;
-      const wrappedElement = renderLayoutTagWrapper(
-        element,
-        className,
-        atts,
-        data.content
-      );
-      return reactElementToJSXString(wrappedElement);
-    });
-    return updatedTemplate;
-  }, layoutData.html);
-  return html;
-};
-
-export const getLayoutTags = () => {
-  const dateFormat = "";
-  const tags = dittyEditor.applyFilters("dittyItemLayoutId", [
-    {
-      tag: "author_avatar",
-      description: __("Render the item's author avatar", "ditty-news-ticker"),
-      atts: {
-        wrapper: "div",
-        before: "",
-        after: "",
-        width: "",
-        height: "",
-        fit: "",
-        link: "",
-        link_target: "",
-        link_rel: "",
-        link_before: "",
-        link_after: "",
-        class: "",
-      },
-    },
-    {
-      tag: "author_banner",
-      description: __("Render the item's author banner", "ditty-news-ticker"),
-      atts: {
-        wrapper: "div",
-        before: "",
-        after: "",
-        width: "",
-        height: "",
-        fit: "",
-        link: "",
-        link_target: "",
-        link_rel: "",
-        link_before: "",
-        link_after: "",
-        class: "",
-      },
-    },
-    {
-      tag: "author_bio",
-      description: __(
-        "Render the item's author biography",
-        "ditty-news-ticker"
-      ),
-      atts: {
-        wrapper: "div",
-        before: "",
-        after: "",
-        link: "",
-        link_target: "",
-        link_rel: "",
-        link_before: "",
-        link_after: "",
-        class: "",
-      },
-    },
-    {
-      tag: "author_name",
-      description: __("Render the item's author name", "ditty-news-ticker"),
-      atts: {
-        wrapper: "div",
-        before: "",
-        after: "",
-        link: "",
-        link_target: "",
-        link_rel: "",
-        link_before: "",
-        link_after: "",
-        class: "",
-      },
-    },
-    {
-      tag: "author_screen_name",
-      description: __(
-        "Render the item's author screen name",
-        "ditty-news-ticker"
-      ),
-      atts: {
-        wrapper: "div",
-        before: "",
-        after: "",
-        link: "",
-        link_target: "",
-        link_rel: "",
-        link_before: "",
-        link_after: "",
-        class: "",
-      },
-    },
-    {
-      tag: "caption",
-      description: __("Render the item caption.", "ditty-news-ticker"),
-      atts: {
-        wrapper: "div",
-        wpautop: "",
-        before: "",
-        after: "",
-        link: "",
-        link_target: "",
-        link_rel: "",
-        link_before: "",
-        link_after: "",
-        class: "",
-      },
-    },
-    {
-      tag: "categories",
-      description: __("Render the item categories", "ditty-news-ticker"),
-      atts: {
-        wrapper: "div",
-        before: "",
-        after: "",
-        link_target: "",
-        separator: ", ",
-        class: "",
-      },
-    },
-    {
-      tag: "content",
-      description: __("Render the item content.", "ditty-news-ticker"),
-      atts: {
-        wrapper: "div",
-        before: "",
-        after: "",
-        class: "",
-      },
-    },
-    {
-      tag: "custom_field",
-      description: __(
-        "Render a custom field for the item",
-        "ditty-news-ticker"
-      ),
-      atts: {
-        id: "",
-        wrapper: "div",
-        before: "",
-        after: "",
-        class: "",
-      },
-    },
-    {
-      tag: "excerpt",
-      description: __("Render the item excerpt.", "ditty-news-ticker"),
-      atts: {
-        wrapper: "div",
-        wpautop: false,
-        before: "",
-        after: "",
-        excerpt_length: "200",
-        more: "...",
-        more_link: "post",
-        more_link_target: "",
-        more_link_rel: "",
-        more_before: "",
-        more_after: "",
-        class: "",
-      },
-    },
-    {
-      tag: "icon",
-      description: __("Render the item icon.", "ditty-news-ticker"),
-      atts: {
-        wrapper: "div",
-        before: "",
-        after: "",
-        link: "",
-        link_target: "",
-        link_rel: "",
-        link_before: "",
-        link_after: "",
-        class: "",
-      },
-    },
-    {
-      tag: "image",
-      description: __("Render the item image.", "ditty-news-ticker"),
-      atts: {
-        wrapper: "div",
-        before: "",
-        after: "",
-        width: "",
-        height: "",
-        fit: "",
-        link: "",
-        link_target: "",
-        link_rel: "",
-        link_before: "",
-        link_after: "",
-        class: "",
-      },
-    },
-    {
-      tag: "image_url",
-      description: __("Render the item image url.", "ditty-news-ticker"),
-    },
-    {
-      tag: "permalink",
-      description: __("Render the item permalink.", "ditty-news-ticker"),
-    },
-    {
-      tag: "source",
-      description: __("Render the item source.", "ditty-news-ticker"),
-      atts: {
-        wrapper: "div",
-        before: "",
-        after: "",
-        link: "",
-        link_target: "",
-        link_rel: "",
-        link_before: "",
-        link_after: "",
-        class: "",
-      },
-    },
-    {
-      tag: "terms",
-      description: __("Render the item terms", "ditty-news-ticker"),
-      atts: {
-        wrapper: "div",
-        before: "",
-        after: "",
-        term: "",
-        link_target: "",
-        separator: ", ",
-        class: "",
-      },
-    },
-    {
-      tag: "time",
-      description: __("Render the item date/time.", "ditty-news-ticker"),
-      atts: {
-        wrapper: "div",
-        ago: "",
-        format: dateFormat,
-        ago_string: __("%s ago", "ditty-news-ticker"),
-        before: "",
-        after: "",
-        link: "",
-        link_target: "",
-        link_rel: "",
-        link_before: "",
-        link_after: "",
-        class: "",
-      },
-    },
-    {
-      tag: "title",
-      description: __("Render the item title.", "ditty-news-ticker"),
-      atts: {
-        wrapper: "h3",
-        before: "",
-        after: "",
-        link: "",
-        link_target: "",
-        link_rel: "",
-        link_before: "",
-        link_after: "",
-        class: "",
-      },
-    },
-  ]);
-  // $tags = apply_filters( 'ditty_layout_tags', $tags, $item_type, $item_value );
-  // ksort( $tags );
-  return tags;
+  return `<div
+      class="ditty-item ditty-item--${item.item_id} ditty-item-type--${item.item_type} ditty-layout--${layoutData.id}"
+      data-item_id="${item.item_id}"
+      data-item_uniq_id="${item.item_uniq_id}"
+      data-parent_id="0"
+      data-item_type="${item.item_type}"
+      data-layout_id="${layoutData.id}"
+    >
+      <div  class="ditty-item__elements">${html}</div>
+    </div>`;
 };
