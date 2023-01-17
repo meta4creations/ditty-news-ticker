@@ -6,7 +6,11 @@ import { initializeDitty } from "../services/dittyService";
 import { EditorContext } from "./context";
 import { getDisplayObject } from "./utils/displayTypes";
 import { getItemTypeObject } from "./utils/itemTypes";
-import { renderLayout, getLayoutObject } from "./utils/layouts";
+import {
+  renderLayout,
+  getLayoutObject,
+  getDefaultLayout,
+} from "./utils/layouts";
 import DittyItem from "./DittyItem";
 import { replace } from "./utils/shortcode";
 
@@ -30,14 +34,16 @@ const Ditty = () => {
   const getDisplayItems = (item) => {
     const itemTypeObject = getItemTypeObject(item.item_type);
     const variationLayouts = getVariationLayouts(item.layout_value);
-    const layoutData = variationLayouts[0].value;
+    const layoutData = variationLayouts.length
+      ? variationLayouts[0].value
+      : getDefaultLayout();
     const dItems = item.display_items.map((dItem) => {
       const html = renderLayout(dItem, layoutData, itemTypeObject);
       return {
         id: dItem.item_id,
         uniq_id: dItem.item_uniq_id ? dItem.item_uniq_id : dItem.item_id,
         parent_id: 0,
-        layout_id: layoutData.id,
+        layout_id: layoutData.id ? layoutData.id : false,
         css: layoutData.css,
         html: html,
       };
@@ -52,7 +58,7 @@ const Ditty = () => {
     }, []);
 
     //console.log("rendererdItems", reactElementToJSXString(rendererdItems[0]));
-    //console.log("rendererdItems", rendererdItems);
+    console.log("rendererdItems", rendererdItems);
     //console.log("displayItems", displayItems);
 
     const dittyEl = document.getElementById("ditty-editor__ditty");

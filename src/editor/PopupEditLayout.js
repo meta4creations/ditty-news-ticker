@@ -10,6 +10,7 @@ import {
 import CodeMirror from "@uiw/react-codemirror";
 import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
+import { EditorView } from "@codemirror/view";
 import { getItemTypeObject, getItemLabel } from "./utils/itemTypes";
 import { getLayoutObject } from "./utils/layouts";
 import { Button, ButtonGroup, IconBlock, Popup, Tabs } from "../components";
@@ -104,7 +105,7 @@ const PopupEditLayout = ({
       return (
         <CodeMirror
           value={editLayout.css}
-          extensions={[css()]}
+          extensions={[css(), EditorView.lineWrapping]}
           onChange={(value) => updateLayout("css", value)}
         />
       );
@@ -112,7 +113,7 @@ const PopupEditLayout = ({
       return (
         <CodeMirror
           value={editLayout.html}
-          extensions={[html()]}
+          extensions={[html(), EditorView.lineWrapping]}
           onChange={(value) => updateLayout("html", value)}
         />
       );

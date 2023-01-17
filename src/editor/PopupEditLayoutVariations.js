@@ -4,7 +4,7 @@ import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
 import { getItemTypeObject, getItemLabel } from "./utils/itemTypes";
-import { getLayoutObject } from "./utils/layouts";
+import { getLayoutObject, getDefaultLayout } from "./utils/layouts";
 import { Button, ButtonGroup, IconBlock, Popup } from "../components";
 import { EditorContext } from "./context";
 import PopupTemplateSave from "./PopupTemplateSave";
@@ -22,26 +22,36 @@ const PopupEditLayoutVariations = ({
 }) => {
   const { actions } = useContext(EditorContext);
   const [editItem, setEditItem] = useState(item);
-  const [layoutVariations, setLayoutVariations] = useState(item.layout_value);
   const [selectedVariation, setSelectedVariation] = useState();
   const [popupStatus, setPopupStatus] = useState(false);
 
-  //console.log("layoutVariations", layoutVariations);
-
   const itemTypeObject = getItemTypeObject(editItem);
 
+  const getLayoutVariations = () => {
+    const layoutVariations = editItem.layout_value;
+    if (!Object.keys(layoutVariations).length) {
+      return { default: getDefaultLayout() };
+    }
+    return layoutVariations;
+  };
+
   const getVariationLayoutObject = (variation) => {
-    for (const v in layoutVariations) {
-      if (v === variation) {
-        return getLayoutObject(layoutVariations[v], layouts);
+    const layoutVariations = getLayoutVariations();
+    for (const variationId in layoutVariations) {
+      if (variationId === variation) {
+        return getLayoutObject(layoutVariations[variationId], layouts);
       }
     }
   };
 
   const setVariationLayout = (variation, layout) => {
-    const updatedLayoutVariations = { ...layoutVariations };
+    const updatedLayoutVariations = { ...editItem.layout_value };
     updatedLayoutVariations[variation] = layout.id ? String(layout.id) : layout;
-    setLayoutVariations(updatedLayoutVariations);
+    //setLayoutVariations(updatedLayoutVariations);
+
+    const updatedEditItem = { ...editItem };
+    updatedEditItem.layout_value = updatedLayoutVariations;
+    setEditItem(updatedEditItem);
   };
 
   /**
@@ -165,11 +175,17 @@ const PopupEditLayoutVariations = ({
         >
           {__("Customize", "ditty-news-ticker")}
         </Button>
-        <Button onClick={() => setPopupStatus("layoutTemplateSelect")}>
+        <Button
+          onClick={() => {
+            setSelectedVariation(variation);
+            setPopupStatus("layoutTemplateSelect");
+          }}
+        >
           {__("Use Template", "ditty-news-ticker")}
         </Button>
         <Button
           onClick={() => {
+            setSelectedVariation(variation);
             setPopupStatus("layoutTemplateSave");
           }}
         >
@@ -181,6 +197,7 @@ const PopupEditLayoutVariations = ({
 
   const renderVariationsList = () => {
     const layoutBlocks = [];
+    const layoutVariations = getLayoutVariations();
     for (const variation in layoutVariations) {
       const layout = layoutVariations[variation];
       const layoutObject = getLayoutObject(layout, layouts);
@@ -237,7 +254,7 @@ const PopupEditLayoutVariations = ({
           onClose("onClose");
         }}
         onSubmit={() => {
-          //onUpdate(editItem, updateKeys);
+          onUpdate(editItem);
         }}
         level={level}
       >

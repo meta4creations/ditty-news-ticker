@@ -6,6 +6,7 @@ export const layoutTags = {};
 layoutTags.author_avatar = {
   tag: "author_avatar",
   description: __("Render the item's author avatar", "ditty-news-ticker"),
+  type: "image",
   atts: {
     wrapper: "div",
     before: "",

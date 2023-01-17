@@ -130,7 +130,9 @@ class Ditty_API {
 
 				if ( is_array( $item ) && count( $item ) > 0 ) {
 					foreach ( $item as $key => $value ) {
-						$item[$key] = maybe_serialize( $value );
+						$item[$key] = $value;
+						//$item[$key] = maybe_serialize( $value );
+						//ChromePhp::log( $key, maybe_serialize( $value ) );
 					}
 				}
 

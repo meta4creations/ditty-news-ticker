@@ -16,13 +16,14 @@ export const getDittyData = (dittyId) => {
 
 export function saveDitty(data, onComplete) {
   const apiURL = `${apiEndpoint}/save`;
-
   const apiData = {
     security: dittyEditorVars.security,
     userId: dittyEditorVars.userId,
     ...data,
   };
+  console.log("data", data);
   return axios.post(apiURL, { apiData }).then((res) => {
+    console.log("res.data", res.data);
     onComplete(res.data);
   });
 }

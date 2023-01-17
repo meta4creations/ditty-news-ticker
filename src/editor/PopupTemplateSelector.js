@@ -15,7 +15,6 @@ const PopupTemplateSelector = ({
   onUpdate,
   level,
 }) => {
-  console.log("currentTemplate", currentTemplate);
   const [selectedTemplate, setSelectedTemplate] = useState(currentTemplate);
   const [filteredTemplates, setFilteredTemplates] = useState(templates);
 
@@ -70,19 +69,24 @@ const PopupTemplateSelector = ({
    * @returns array
    */
   const renderTemplates = () => {
-    console.log("selectedTemplate", selectedTemplate);
     return filteredTemplates.length ? (
-      filteredTemplates.map((template) => {
+      filteredTemplates.map((template, index) => {
         return (
           <ListItem
             key={template.id}
             data={template}
             elements={elements}
             isActive={
-              selectedTemplate.id && selectedTemplate.id === template.id
+              selectedTemplate &&
+              selectedTemplate.id &&
+              selectedTemplate.id === template.id
             }
             onItemClick={(e, data) => {
-              if (selectedTemplate.id && selectedTemplate.id === data.id) {
+              if (
+                selectedTemplate &&
+                selectedTemplate.id &&
+                selectedTemplate.id === data.id
+              ) {
                 return false;
               }
               onChange && onChange(data);
@@ -108,6 +112,7 @@ const PopupTemplateSelector = ({
       id="templateSelector"
       submitLabel={submitLabel}
       header={popupHeader()}
+      submitDisabled={!selectedTemplate || selectedTemplate === currentTemplate}
       onClose={() => {
         onClose(selectedTemplate);
       }}

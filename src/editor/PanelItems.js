@@ -66,14 +66,10 @@ const PanelItems = () => {
             onClose={() => {
               setPopupStatus(false);
             }}
-            // onUpdate={(updatedTemplate) => {
-            //   setStatus(false);
-            //   setPopupStatus(false);
-            //   if (currentDisplay.id === updatedTemplate.id) {
-            //     return false;
-            //   }
-            //   actions.setCurrentDisplay(updatedTemplate);
-            // }}
+            onUpdate={(updatedItem) => {
+              setPopupStatus(false);
+              actions.updateItem(updatedItem, "layout_value");
+            }}
           />
         );
       case "editItem":

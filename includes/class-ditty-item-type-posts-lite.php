@@ -39,7 +39,14 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 			global $post;
 			$item_value 				= maybe_unserialize( $meta['item_value'] );
 			$item_value['item'] = $post;
-			
+			$item_value['item']->permalink = get_permalink( $post );
+			$item_value['item']->author = [
+				'avatar_url' => get_avatar_url( $post->post_author ),
+				'name' => get_the_author_meta( 'display_name', $post->post_author ),
+				'bio' => get_the_author_meta( 'description', $post->post_author ),
+				'posts_url' => get_author_posts_url( $post->post_author ),
+				'link_url' => get_the_author_meta( 'user_url', $post->post_author ),
+			];
 			$ditty_item 								= $meta;
 			$ditty_item['item_uniq_id'] = $ditty_item['item_id'] . '_' . get_the_ID();
 			$ditty_item['item_value'] 	= $item_value;
