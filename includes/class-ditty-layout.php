@@ -49,6 +49,8 @@ class Ditty_Layout {
 		} elseif ( get_post( $layout_id ) ) {
 			$this->construct_from_id( $layout_id );
 			$this->parse_draft_data( $layout_id );
+		} else {
+			echo '<pre>';print_r('testing');echo '</pre>';
 		}
 		
 		return $this;

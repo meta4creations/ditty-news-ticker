@@ -58,7 +58,7 @@ const Ditty = () => {
     }, []);
 
     //console.log("rendererdItems", reactElementToJSXString(rendererdItems[0]));
-    console.log("rendererdItems", rendererdItems);
+    //console.log("rendererdItems", rendererdItems);
     //console.log("displayItems", displayItems);
 
     const dittyEl = document.getElementById("ditty-editor__ditty");

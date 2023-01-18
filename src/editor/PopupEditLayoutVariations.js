@@ -29,7 +29,11 @@ const PopupEditLayoutVariations = ({
 
   const getLayoutVariations = () => {
     const layoutVariations = editItem.layout_value;
-    if (!Object.keys(layoutVariations).length) {
+    if (
+      !layoutVariations ||
+      typeof layoutVariations !== "object" ||
+      !Object.keys(layoutVariations).length
+    ) {
       return { default: getDefaultLayout() };
     }
     return layoutVariations;

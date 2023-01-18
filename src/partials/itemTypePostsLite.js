@@ -101,14 +101,23 @@ if (dittyEditor) {
       },
       {
         ...dittyEditor.layoutTags.content,
-        render: (data) => {
+        render: (data, atts) => {
           return data.item.post_content;
         },
       },
       {
         ...dittyEditor.layoutTags.excerpt,
         render: (data, atts) => {
-          return "excerpt";
+          const item = data.item;
+          console.log("excerpt_length", data.excerpt_length);
+
+          let excerpt = item.post_excerpt
+            ? item.post_excerpt
+            : item.post_content;
+
+          excerpt = excerpt.slice(0, data.excerpt_length);
+          console.log(data);
+          return excerpt;
         },
       },
       {

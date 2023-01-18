@@ -115,6 +115,7 @@ class Ditty_API {
 
 		$updates = array();
 		$errors = array();
+		$test = array();
 
 		// Update items
 		if ( is_array( $items ) && count( $items ) > 0 ) {
@@ -130,9 +131,26 @@ class Ditty_API {
 
 				if ( is_array( $item ) && count( $item ) > 0 ) {
 					foreach ( $item as $key => $value ) {
-						$item[$key] = $value;
-						//$item[$key] = maybe_serialize( $value );
-						//ChromePhp::log( $key, maybe_serialize( $value ) );
+						if ( 'layout_value' == $key ) {
+							$layout_value = array();
+							if ( is_array( $value ) && count( $value ) > 0 ) {
+								foreach ( $value as $variation => $v ) {
+									if ( is_array( $v ) ) {
+										$layout_value[$variation] = json_encode($v);
+										// //$layout_value[$variation] = isset( $v['html'] ) ? wp_kses_post( $v['html'] ) : '';
+										// $layout_value[$variation] = array(
+										// 	'css' => isset( $v['css'] ) ? wp_kses_post( $v['css'] ) : '',
+										// );
+									} else {
+										$layout_value[$variation] = $v;
+									}
+								}
+							}
+							$test[$key] = $layout_value;
+							$item[$key] = maybe_serialize( $layout_value );
+						} else {
+							$item[$key] = maybe_serialize( $value );
+						}
 					}
 				}
 
@@ -218,6 +236,7 @@ class Ditty_API {
 			'user_id' => $userId,
 			'updates' => $updates,
 			'errors'	=> $errors,
+			'test'		=> $test,
 			'apiData'	=> $apiData,
 		);
 
