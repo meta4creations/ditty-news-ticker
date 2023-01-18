@@ -43,6 +43,11 @@ class Ditty_API {
       'callback' 	=> array( $this, 'save_layout' ),
 			'permission_callback' => array( $this, 'save_layout_permissions_check' ),
     ) );
+		register_rest_route( 'dittyeditor/v' . $this->version, 'displayItems', array(
+      'methods' 	=> 'POST',
+      'callback' 	=> array( $this, 'get_display_items' ),
+			'permission_callback' => array( $this, 'save_ditty_permissions_check' ),
+    ) );
 	}
 
 	/**
@@ -389,6 +394,58 @@ class Ditty_API {
 			'updates' => $updates,
 			'errors'	=> $errors,
 			'apiData'	=> $apiData,
+		);
+
+		return rest_ensure_response( $data );
+	}
+
+	/**
+	 * Save updated Layout values
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function get_display_items( $request ) {
+		$params = $request->get_params();
+		if ( ! isset( $params['apiData'] ) ) {
+			return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+		$apiData = $params['apiData'];
+
+		if ( ! isset( $apiData['items'] ) ) {
+			return new WP_Error( 'no_id', __( 'No Items data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+		if ( ! isset( $apiData['layouts'] ) ) {
+			return new WP_Error( 'no_id', __( 'No Layouts data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+		$items = isset( $apiData['items'] ) ? $apiData['items'] : [];
+		$layouts = isset( $apiData['layouts'] ) ? $apiData['layouts'] : [];
+
+		$display_items = array();
+		if ( is_array( $items ) && count( $items ) > 0 ) {
+			foreach ( $items as $item ) {
+				$display_items[$item['item_id']] = [];
+				$prepared_items = ditty_prepare_display_items( $item );
+				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
+					foreach ( $prepared_items as $prepared_item ) {
+						$display_item = new Ditty_Display_Item_New( ( array ) $prepared_meta, $layouts );
+						//$display_items[$item['item_id']][] = $display_item->ditty_data();
+						$display_items[$item['item_id']][] = $prepared_item;
+					}
+				}
+			}
+		}
+	
+
+		$updates = array();
+		$errors = array();
+
+		$data = array(
+			'items'		=> $items,
+			'layouts'	=> $layouts,
+			'updates' => $updates,
+			'errors'	=> $errors,
+			'display_items'	=> $display_items,
 		);
 
 		return rest_ensure_response( $data );

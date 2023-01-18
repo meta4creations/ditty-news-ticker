@@ -2,7 +2,7 @@ import { __ } from "@wordpress/i18n";
 import { Component } from "@wordpress/element";
 import _ from "lodash";
 import { saveDitty } from "../../services/httpService";
-import { getDisplayObject } from "../utils/displayTypes";
+import { getDisplayObject } from "../../utils/displayTypes";
 
 export const EditorContext = React.createContext();
 EditorContext.displayName = "EditorContext";
@@ -94,13 +94,13 @@ export class EditorProvider extends Component {
         } else {
           updatedItem.item_updates[key] = true;
         }
-        console.log("updatedItem", updatedItem);
         return updatedItem;
       } else {
         return item;
       }
     });
     this.setState({ items: updatedItems });
+    return updatedItems;
   };
 
   /**

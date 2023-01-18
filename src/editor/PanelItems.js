@@ -2,7 +2,10 @@ import { __ } from "@wordpress/i18n";
 import { useContext, useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear, faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
-import { updateDisplayOptions } from "../services/dittyService";
+import {
+  updateDisplayOptions,
+  updateDittyItems,
+} from "../services/dittyService";
 import { Panel, ListItem, SortableList } from "../components";
 import { EditorContext } from "./context";
 import {
@@ -10,7 +13,7 @@ import {
   getItemTypeObject,
   getItemTypeIcon,
   getItemLabel,
-} from "./utils/itemTypes";
+} from "../utils/itemTypes";
 import PopupItemEdit from "./PopupItemEdit";
 import PopupTypeSelector from "./PopupTypeSelector";
 import PopupEditLayoutVariations from "./PopupEditLayoutVariations";
@@ -86,7 +89,8 @@ const PanelItems = () => {
             }}
             onUpdate={(updatedItem, updateKeys) => {
               setPopupStatus(false);
-              actions.updateItem(updatedItem, updateKeys);
+              const updatedItems = actions.updateItem(updatedItem, updateKeys);
+              updateDittyItems(dittyEl, updatedItems, layouts);
             }}
           />
         );
@@ -177,7 +181,7 @@ const PanelItems = () => {
         className="ditty-button"
         onClick={() => setPopupStatus("addItem")}
       >
-        {__("Add Item Test", "ditty-news-ticker")}
+        {__("Add Item", "ditty-news-ticker")}
       </button>
     );
   };

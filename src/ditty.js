@@ -1,8 +1,8 @@
 import { createHooks } from "@wordpress/hooks";
 import DittyDisplay from "./displays/components/dittyDisplay";
 import "./displays/css/dittyDisplay.scss";
-import { easeOptions, sliderTransitions } from "./editor/utils/helpers";
-import { layoutTags } from "./editor/utils/layoutTags";
+import { easeOptions, sliderTransitions } from "./utils/helpers";
+import { layoutTags } from "./utils/layoutTags";
 
 /**
  * Add ditty global variables for reference

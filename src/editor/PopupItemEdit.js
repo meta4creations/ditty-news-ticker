@@ -6,7 +6,7 @@ import {
   getItemLabel,
   getItemTypes,
   getItemTypeSettings,
-} from "./utils/itemTypes";
+} from "../utils/itemTypes";
 import {
   Button,
   ButtonGroup,
@@ -153,9 +153,14 @@ const PopupItemEdit = ({
           values={editItem.item_value}
           onUpdate={(id, value) => {
             const updatedItem = { ...editItem };
-            const updatedItemValue = _.cloneDeep(editItem.item_value);
-            updatedItemValue[id] = value;
-            updatedItem.item_value = updatedItemValue;
+            if (
+              !updatedItem.item_value ||
+              typeof updatedItem.item_value !== "object" ||
+              Array.isArray(updatedItem.item_value)
+            ) {
+              updatedItem.item_value = {};
+            }
+            updatedItem.item_value[id] = value;
             addItemUpdate(updatedItem, "item_value");
           }}
         />

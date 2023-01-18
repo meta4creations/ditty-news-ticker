@@ -318,6 +318,11 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-errors.php';
 		require_once DITTY_DIR . 'includes/class-ditty-extensions.php';
 		require_once DITTY_DIR . 'includes/class-ditty-layout.php';
+		
+		//
+		require_once DITTY_DIR . 'includes/class-ditty-display-item-new.php';
+		//
+
 		require_once DITTY_DIR . 'includes/class-ditty-layouts.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item.php';
 		require_once DITTY_DIR . 'includes/class-ditty-items.php';

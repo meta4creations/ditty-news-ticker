@@ -309,6 +309,11 @@ class Ditty_Singles {
 					$prepared_items = ditty_prepare_display_items( $item_meta );
 					if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
 						foreach ( $prepared_items as $i => $prepared_meta ) {
+
+							$display_item = new Ditty_Display_Item_New( $prepared_meta );
+							//$html = $display_item->ditty_data();
+							//echo '<pre>';print_r($html);echo '</pre>';
+
 							$prepared_meta['layout_value'] = $layout_variations;
 							$display_items[] = $prepared_meta;
 							// $display_item = new Ditty_Display_Item( $prepared_meta );
@@ -318,7 +323,7 @@ class Ditty_Singles {
 						}
 					}
 					//$item_meta->rendered_items = $rendered_items;
-					$item_meta->display_items = $display_items;
+					//$item_meta->display_items = $display_items;
 				//}
 
 				$item_meta->layout_value = $layout_variations;

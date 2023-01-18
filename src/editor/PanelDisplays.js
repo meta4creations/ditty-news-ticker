@@ -15,7 +15,7 @@ import {
   getDisplayTypeIcon,
   getDisplayTypeObject,
   getDisplayTypeSettings,
-} from "./utils/displayTypes";
+} from "../utils/displayTypes";
 import { EditorContext } from "./context";
 import PopupTemplateSave from "./PopupTemplateSave";
 import PopupTypeSelector from "./PopupTypeSelector";

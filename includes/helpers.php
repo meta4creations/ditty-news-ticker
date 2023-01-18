@@ -1275,7 +1275,7 @@ function ditty_prepare_display_items( $meta ) {
 	}
 	$defaults 					= $item_type_object->default_settings();
 	$args 							= wp_parse_args( $meta['item_value'], $defaults );
-	$meta['item_value'] = $args;	
+	$meta['item_value'] = $args;
 	
 	return $item_type_object->prepare_items( $meta );
 }

@@ -3,7 +3,7 @@ import apiFetch from "@wordpress/api-fetch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSliders } from "@fortawesome/pro-light-svg-icons";
 import { faWordpress } from "@fortawesome/free-brands-svg-icons";
-import { imageElement } from "../editor/utils/layouts";
+import { imageElement } from "../utils/layouts";
 
 if (dittyEditor) {
   /**

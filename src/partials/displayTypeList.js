@@ -1,5 +1,5 @@
 import { __ } from "@wordpress/i18n";
-import { easeOptions, sliderTransitions } from "../editor/utils/helpers";
+import { easeOptions, sliderTransitions } from "../utils/helpers";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList } from "@fortawesome/pro-light-svg-icons";
