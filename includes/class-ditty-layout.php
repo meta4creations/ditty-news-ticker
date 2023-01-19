@@ -50,7 +50,7 @@ class Ditty_Layout {
 			$this->construct_from_id( $layout_id );
 			$this->parse_draft_data( $layout_id );
 		} else {
-			echo '<pre>';print_r('testing');echo '</pre>';
+			//echo '<pre>';print_r('testing');echo '</pre>';
 		}
 		
 		return $this;

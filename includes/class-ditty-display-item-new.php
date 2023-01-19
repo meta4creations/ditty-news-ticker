@@ -17,25 +17,16 @@ use Thunder\Shortcode\Syntax\Syntax;
 use Thunder\Shortcode\Syntax\SyntaxBuilder;
 
 class Ditty_Display_Item_New {
-	
-	private $css;
-	private $css_compiled;
-	private $css_selectors;
-	private $description;
-	private $html;
-	private $label;
-	private $layout_tags;
-	private $layout_id;
-	private $item_type;
-	private $item_value;
-	private $item_meta;
-	private $version;
-
 	private $id;
 	private $uniq_id;
 	private $parent_id;
+	private $item_meta;
+	private $item_type;
+	private $item_value;
 	private $layout;
-	private $layouts;
+	private $layout_id;
+	private $layout_tags;
+	private $css_compiled;
 
 	/**
 	 * Get things started
@@ -43,20 +34,53 @@ class Ditty_Display_Item_New {
 	 * @since   3.0
 	 */
 	public function __construct( $prepared_meta, $layouts = false ) {
+		$this->item_meta = $prepared_meta;
 		$this->id = $prepared_meta['item_id'];
 		$this->uniq_id = isset( $prepared_meta['item_uniq_id'] ) ? $prepared_meta['item_uniq_id'] : $prepared_meta['item_id'];
 		$this->parent_id = isset( $prepared_meta['parent_id'] ) ? $prepared_meta['parent_id'] : 0;
 		$this->item_value = $prepared_meta['item_value'];	
 		$this->item_type = $prepared_meta['item_type'];
-		if ( isset( $prepared_meta['layout'] ) ) {
-			$this->layout = $prepared_meta['layout'];
+		$this->configure_layout( $prepared_meta, $layouts );
+	}
+
+	/**
+	 * Return the item type
+	 * @access public
+	 * @since  3.0
+	 * @return string $item_type
+	 */
+	private function configure_layout( $meta, $layouts = false ) {
+		if ( isset( $meta['layout'] ) ) {
+			$layout = $meta['layout'];
 		} else {
-			$layout_value = maybe_unserialize( $prepared_meta['layout_value'] );
-			$this->layout = $layout_value['default'];
+			$layout_value = maybe_unserialize( $meta['layout_value'] );
+			$layout = isset( $layout_value['default'] ) ? json_decode($layout_value['default'], true) : 0;
 		}
-		 if ( $layouts ) {
-			$this->layouts = $layouts;
-		 }
+		
+		if ( is_array( $layout ) ) {
+			$this->layout_id = $this->uniq_id;
+			$this->layout = $layout;
+		} else {
+			$this->layout_id = $layout;
+			if ( $layouts ) {
+				if ( is_array( $layouts ) && count( $layouts ) > 0 ) {
+					foreach ( $layouts as $layout_obj ) {
+						if ( $layout == $layout_obj['id'] ) {
+							$this->layout = array(
+								'html' => $layout_obj['html'],
+								'css' => $layout_obj['css'],
+							);
+							break;
+						}
+					}
+				}
+			} else {
+				$this->layout = array(
+					'html' => get_post_meta( $layout , '_ditty_layout_html', true ),
+					'css' => get_post_meta( $layout , '_ditty_layout_css', true ),
+				);
+			}
+		}
 	}
 
 	/**
@@ -86,11 +110,7 @@ class Ditty_Display_Item_New {
 	 * @return string $html
 	 */
 	public function get_layout_id() {
-		if ( is_array( $this->layout ) ) {
-			return $this->uniq_id;
-		} else {
-			return $this->layout;
-		}
+		return $this->layout_id;
 	}
 
 	/**
@@ -113,25 +133,9 @@ class Ditty_Display_Item_New {
 	 * @return string $html
 	 */
 	public function get_html() {
-		if ( empty( $this->html ) ) {
-			if ( is_array( $this->layout ) ) {
-				$this->html = $this->layout['html'];
-			} else {
-				if ( $this->layouts ) {
-					if ( is_array( $this->layouts ) && count( $this->layouts ) > 0 ) {
-						foreach ( $this->layouts as $layout ) {
-							if ( $this->layout === $layout['id'] ) {
-								$this->html = $layout['html'];
-								break;
-							}
-						}
-					}
-				} else {
-					$this->html = get_post_meta( $this->layout, '_ditty_layout_html', true );
-				}
-			}
+		if ( ! empty( $this->layout ) ) {
+			return stripslashes( $this->layout['html'] );
 		}
-		return stripslashes( $this->html );
 	}
 	
 	/**
@@ -141,25 +145,9 @@ class Ditty_Display_Item_New {
 	 * @return string $html
 	 */
 	public function get_css() {
-		if ( empty( $this->css ) ) {
-			if ( is_array( $this->layout ) ) {
-				$this->css = $this->layout['css'];
-			} else {
-				if ( $this->layouts ) {
-					if ( is_array( $this->layouts ) && count( $this->layouts ) > 0 ) {
-						foreach ( $this->layouts as $layout ) {
-							if ( $this->layout === $layout['id'] ) {
-								$this->html = $layout['css'];
-								break;
-							}
-						}
-					}
-				} else {
-					$this->css = get_post_meta( $this->layout, '_ditty_layout_css', true );
-				}
-			}
+		if ( ! empty( $this->layout ) ) {
+			return stripslashes( $this->layout['css'] );
 		}
-		return stripslashes( $this->css );
 	}
 	
 	/**
@@ -170,7 +158,7 @@ class Ditty_Display_Item_New {
 	 */
 	public function get_css_compiled() {
 		if ( empty( $this->css_compiled ) ) {
-			$this->css_compiled = Ditty()->layouts->compile_layout_style( $this->css, $this->layout_id );
+			$this->css_compiled = Ditty()->layouts->compile_layout_style( $this->get_css(), $this->layout_id );
 		}
 		return $this->css_compiled;
 	}

@@ -415,37 +415,35 @@ class Ditty_API {
 		if ( ! isset( $apiData['items'] ) ) {
 			return new WP_Error( 'no_id', __( 'No Items data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
 		}
-		if ( ! isset( $apiData['layouts'] ) ) {
-			return new WP_Error( 'no_id', __( 'No Layouts data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
-		}
 		$items = isset( $apiData['items'] ) ? $apiData['items'] : [];
-		$layouts = isset( $apiData['layouts'] ) ? $apiData['layouts'] : [];
+		$layouts = isset( $apiData['layouts'] ) ? $apiData['layouts'] : false;
 
 		$display_items = array();
+		$display_items_grouped = array();
 		if ( is_array( $items ) && count( $items ) > 0 ) {
 			foreach ( $items as $item ) {
-				$display_items[$item['item_id']] = [];
+				$item = ( array ) $item;
+				$grouped_displays = [];			
 				$prepared_items = ditty_prepare_display_items( $item );
 				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
 					foreach ( $prepared_items as $prepared_item ) {
-						$display_item = new Ditty_Display_Item_New( ( array ) $prepared_meta, $layouts );
-						//$display_items[$item['item_id']][] = $display_item->ditty_data();
-						$display_items[$item['item_id']][] = $prepared_item;
+						$display_item = new Ditty_Display_Item_New( $prepared_item, $layouts );
+						$ditty_data = $display_item->ditty_data();
+						$display_items[] = $ditty_data;
+						$grouped_displays[] = $ditty_data;
 					}
 				}
+				$display_items_grouped[$item['item_id']] = $grouped_displays;
 			}
 		}
 	
-
 		$updates = array();
 		$errors = array();
 
 		$data = array(
-			'items'		=> $items,
-			'layouts'	=> $layouts,
-			'updates' => $updates,
 			'errors'	=> $errors,
 			'display_items'	=> $display_items,
+			'display_items_grouped'	=> $display_items_grouped,
 		);
 
 		return rest_ensure_response( $data );

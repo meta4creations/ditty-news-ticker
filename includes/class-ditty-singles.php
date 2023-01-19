@@ -289,6 +289,7 @@ class Ditty_Singles {
 		
 		// Do not pass serialized data
 		$unserialized_items = array();
+		$display_items = array();
 		if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
 			foreach ( $items_meta as $i => $item_meta ) {
 
@@ -305,17 +306,18 @@ class Ditty_Singles {
 				$item_type_data =  isset( $item_types[$item_meta->item_type] ) ? $item_types[$item_meta->item_type] : array();
 				//if ( ! isset( $item_type_data['ditty_version'] ) || version_compare( $item_type_data['ditty_version'], DITTY_VERSION, '<' ) ) {
 					$rendered_items = [];
-					$display_items = [];
+					//$display_items = [];
 					$prepared_items = ditty_prepare_display_items( $item_meta );
 					if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
 						foreach ( $prepared_items as $i => $prepared_meta ) {
 
 							$display_item = new Ditty_Display_Item_New( $prepared_meta );
-							//$html = $display_item->ditty_data();
+							$ditty_data = $display_item->ditty_data();
+							$display_items[] = $ditty_data;
 							//echo '<pre>';print_r($html);echo '</pre>';
 
 							$prepared_meta['layout_value'] = $layout_variations;
-							$display_items[] = $prepared_meta;
+							//$display_items[] = $prepared_meta;
 							// $display_item = new Ditty_Display_Item( $prepared_meta );
 							// if ( $data = $display_item->compile_data( 'javascript' ) ) {
 							// 	$rendered_items[] = $data;
@@ -341,12 +343,14 @@ class Ditty_Singles {
 		// 	$display_items = array();
 		// }
 
+		//echo '<pre>';print_r($display_items);echo '</pre>';
+
 		$atts = array(
 			'data-id' 						=> $ditty_id,
 			'data-title' 					=> $title,
 			'data-settings' 			=> json_encode( $settings ),
 			'data-items' 					=> json_encode( $unserialized_items ),
-			//'data-displayitems' 	=> json_encode( $display_items ),
+			'data-displayitems' 	=> json_encode( $display_items ),
 		);
 		if ( is_array( $display ) ) {
 			$atts['data-displayobject'] = json_encode( $display );

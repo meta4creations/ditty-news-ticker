@@ -5,29 +5,39 @@ import {
   initializeDitty,
   getRenderedItems,
   getRenderedItemsAlt,
+  updateDisplayOptions,
 } from "../services/dittyService";
 import { EditorContext } from "./context";
 import { getDisplayObject } from "../utils/displayTypes";
 
 const Ditty = () => {
-  const { id, title, items, displays, layouts, currentDisplay } =
+  const { id, title, items, displayItems, displays, layouts, currentDisplay } =
     useContext(EditorContext);
+
+  console.log("displayItems", displayItems);
 
   const displayObject = getDisplayObject(currentDisplay, displays);
 
-  useEffect(() => {
-    const rendererdItems = getRenderedItems(items, layouts);
+  const populateItems = (data) => {
+    if (data.display_items) {
+      console.log("display_items", data.display_items);
+      //const dittyEl = document.getElementById("ditty-editor__ditty");
+      //updateDisplayOptions(dittyEl, "items", data.display_items);
+    }
+  };
 
-    const testItems = async () => {
-      try {
-        await getRenderedItemsAlt(items, layouts);
-      } catch (ex) {
-        console.log(ex);
-        if (ex.response && ex.response.status === 404) {
-        }
-      }
-    };
-    const testing = testItems();
+  useEffect(() => {
+    // const rendererdItems = getRenderedItems(items, layouts);
+    // const testItems = async () => {
+    //   try {
+    //     await getRenderedItemsAlt(items, layouts, populateItems);
+    //   } catch (ex) {
+    //     console.log(ex);
+    //     if (ex.response && ex.response.status === 404) {
+    //     }
+    //   }
+    // };
+    // const testing = testItems();
 
     const dittyEl = document.getElementById("ditty-editor__ditty");
     const args = _.cloneDeep(displayObject.settings);
@@ -35,7 +45,7 @@ const Ditty = () => {
     args["display"] = displayObject.id ? displayObject.id : id;
     args["title"] = title;
     args["status"] = "";
-    args["items"] = rendererdItems;
+    args["items"] = displayItems;
     initializeDitty(dittyEl, displayObject.type, args);
   }, []);
 

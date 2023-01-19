@@ -108,9 +108,7 @@ export function getRenderedItemsAlt(items, layouts, onComplete) {
     items: items,
     layouts: layouts,
   };
-  console.log("apiData", apiData);
   return axios.post(apiURL, { apiData }).then((res) => {
-    console.log("res.data", res.data);
     onComplete && onComplete(res.data);
   });
 }
