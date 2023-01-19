@@ -14,8 +14,6 @@ const Ditty = () => {
   const { id, title, items, displayItems, displays, layouts, currentDisplay } =
     useContext(EditorContext);
 
-  console.log("displayItems", displayItems);
-
   const displayObject = getDisplayObject(currentDisplay, displays);
 
   const populateItems = (data) => {

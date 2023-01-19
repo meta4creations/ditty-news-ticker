@@ -1,10 +1,12 @@
 import { __ } from "@wordpress/i18n";
+import _ from "lodash";
 import { useContext, useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear, faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
 import {
   updateDisplayOptions,
-  updateDittyItems,
+  updateDittyItem,
+  addDittyItem,
 } from "../services/dittyService";
 import { Panel, ListItem, SortableList } from "../components";
 import { EditorContext } from "./context";
@@ -29,6 +31,7 @@ const PanelItems = () => {
    * Add a new item
    */
   const handleAddItem = (itemType) => {
+    const dittyEl = document.getElementById("ditty-editor__ditty");
     const itemId = `new-${Date.now()}`;
     const newItem = {
       ditty_id: id,
@@ -43,6 +46,7 @@ const PanelItems = () => {
     };
     actions.addItem(newItem);
     setCurrentItem(newItem);
+    addDittyItem(dittyEl, newItem, layouts, 0, actions.addDisplayItems);
   };
 
   /**
@@ -66,8 +70,16 @@ const PanelItems = () => {
           <PopupEditLayoutVariations
             item={currentItem}
             layouts={layouts}
-            onClose={() => {
+            onClose={(editedItem) => {
               setPopupStatus(false);
+              if (
+                !_.isEqual(editedItem.layout_value, currentItem.layout_value)
+              ) {
+                updateDittyItem(dittyEl, currentItem, layouts);
+              }
+            }}
+            onChange={(updatedItem) => {
+              updateDittyItem(dittyEl, updatedItem, layouts);
             }}
             onUpdate={(updatedItem) => {
               setPopupStatus(false);
@@ -89,8 +101,8 @@ const PanelItems = () => {
             }}
             onUpdate={(updatedItem, updateKeys) => {
               setPopupStatus(false);
-              const updatedItems = actions.updateItem(updatedItem, updateKeys);
-              updateDittyItems(dittyEl, updatedItems, layouts);
+              actions.updateItem(updatedItem, updateKeys);
+              updateDittyItem(dittyEl, updatedItem, layouts);
             }}
           />
         );
@@ -165,11 +177,15 @@ const PanelItems = () => {
     });
     actions.sortItems(updatedItems);
 
+    console.log("updatedItems", updatedItems);
+
     // Update the Ditty options
     const updatedDisplayItems = updatedItems.map((item) => {
       const index = displayItems.map((i) => i.id).indexOf(item.item_id);
       return displayItems[index];
     });
+
+    console.log("updatedDisplayItems", updatedDisplayItems);
 
     const dittyEl = document.getElementById("ditty-editor__ditty");
     updateDisplayOptions(dittyEl, "items", updatedDisplayItems);

@@ -27,6 +27,9 @@ class Ditty_Display_Item_New {
 	private $layout_id;
 	private $layout_tags;
 	private $css_compiled;
+	private $has_error;
+	private $custom_classes;
+	
 
 	/**
 	 * Get things started
@@ -40,6 +43,8 @@ class Ditty_Display_Item_New {
 		$this->parent_id = isset( $prepared_meta['parent_id'] ) ? $prepared_meta['parent_id'] : 0;
 		$this->item_value = $prepared_meta['item_value'];	
 		$this->item_type = $prepared_meta['item_type'];
+		$this->has_error = isset( $prepared_meta['has_error'] ) ? $prepared_meta['has_error'] : false;
+		$this->custom_classes = isset( $prepared_meta['custom_classes'] ) ? $prepared_meta['custom_classes'] : false;
 		$this->configure_layout( $prepared_meta, $layouts );
 	}
 
@@ -263,12 +268,83 @@ class Ditty_Display_Item_New {
 		return stripslashes( $processor->process( $html ) );
 	}
 
+	/**
+	 * Return custom classes
+	 *
+	 * @access private
+	 * @since  3.0
+	 * @return string $classes
+	 */
+	private function get_custom_classes() {	
+		if ( $this->custom_classes ) {
+			$classes = explode( ' ', $this->custom_classes );
+			return $classes;
+		}
+	}
+
+	/**
+	 * Setup the item classes
+	 *
+	 * @access private
+	 * @since  3.0
+	 * @return string $classes
+	 */
+	private function get_classes() {	
+		$classes = array();
+		$classes[] = 'ditty-item';
+		$classes[] = 'ditty-item--' . esc_attr( $this->id );
+		if ( $this->id != $this->uniq_id ) {
+			$classes[] = 'ditty-item--' . esc_attr( $this->uniq_id );
+		}
+		$classes[] = 'ditty-item-type--' . esc_attr( $this->item_type );
+		if ( $this->layout_id ) {
+			$classes[] = 'ditty-layout--' . esc_attr( $this->layout_id );
+		} else {
+			$classes[] = 'ditty-layout--default';
+		}
+		if ( $this->has_error ) {
+			$classes[] = 'ditty-item--error';
+		}
+		if ( $custom_classes = $this->get_custom_classes() ) {
+			$classes = array_merge( $classes, $custom_classes );
+		}		
+		$classes = apply_filters( 'ditty_display_item_classes', $classes, $this->id );	
+		return implode( ' ', $classes );
+	}
+
+	/**
+	 * Render item html
+	 *
+	 * @access private
+	 * @since  3.1
+	 * @return html
+	 */
+	private function render_html() {
+		$atts = array(
+			'class' 						=> $this->get_classes(),
+			'data-item_id' 			=> $this->id,
+			'data-item_uniq_id' => $this->uniq_id,
+			'data-parent_id' 		=> $this->parent_id,
+			'data-item_type' 		=> $this->item_type,
+			'data-layout_id' 		=> $this->layout_id,
+		);
+		
+		$html = '<div ' . ditty_attr_to_html( $atts ) . '>';	
+			$html .= '<div class="ditty-item__elements">';
+				$html .= $this->get_layout_html();
+			$html .= '</div>';
+		$html .= '</div>';
+
+		// Filter the html
+		return apply_filters( 'ditty_render_item', $html, $this );
+	}
+
 	public function ditty_data() {
 		$data = array(
 			'id'	 				=> ( string ) $this->id,
 			'uniq_id'	 		=> ( string ) $this->uniq_id,
 			'parent_id'	 	=> ( string ) $this->parent_id,
-			'html' 				=> $this->get_layout_html(),
+			'html' 				=> $this->render_html(),
 			'css'					=> $this->get_layout_css(),
 			'layout_id'		=> $this->get_layout_id(),
 			'is_disabled' => array_unique( apply_filters( 'ditty_item_disabled', array(), $this->id ) ),

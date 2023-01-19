@@ -53,3 +53,16 @@ export function saveLayout(data, onComplete) {
     onComplete(res.data);
   });
 }
+
+export function getRenderedItems(items, layouts, onComplete) {
+  const apiURL = `${apiEndpoint}/displayItems`;
+  const apiData = {
+    security: dittyEditorVars.security,
+    userId: dittyEditorVars.userId,
+    items: items,
+    layouts: layouts,
+  };
+  return axios.post(apiURL, { apiData }).then((res) => {
+    onComplete && onComplete(res.data);
+  });
+}

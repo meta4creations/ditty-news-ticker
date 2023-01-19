@@ -22,6 +22,7 @@ const PopupEditLayoutVariations = ({
 }) => {
   const { actions } = useContext(EditorContext);
   const [editItem, setEditItem] = useState(item);
+  const [layoutVariations, setLayoutVariations] = useState(item.layout_value);
   const [selectedVariation, setSelectedVariation] = useState();
   const [popupStatus, setPopupStatus] = useState(false);
 
@@ -48,14 +49,33 @@ const PopupEditLayoutVariations = ({
     }
   };
 
-  const setVariationLayout = (variation, layout) => {
+  const tempSetVariationLayout = (variation, layout) => {
     const updatedLayoutVariations = { ...editItem.layout_value };
     updatedLayoutVariations[variation] = layout.id ? String(layout.id) : layout;
-    //setLayoutVariations(updatedLayoutVariations);
+    const updatedEditItem = { ...editItem };
+    updatedEditItem.layout_value = updatedLayoutVariations;
+    onChange(updatedEditItem);
+  };
+
+  const previewLayout = (variation, layout) => {
+    const updatedLayoutVariations = { ...editItem.layout_value };
+    updatedLayoutVariations[variation] = layout.id ? String(layout.id) : layout;
+
+    const updatedEditItem = { ...editItem };
+    updatedEditItem.layout_value = updatedLayoutVariations;
+    onChange(updatedEditItem);
+  };
+
+  const setVariationLayout = (variation, layout, preview = false) => {
+    const updatedLayoutVariations = { ...editItem.layout_value };
+    updatedLayoutVariations[variation] = layout.id ? String(layout.id) : layout;
 
     const updatedEditItem = { ...editItem };
     updatedEditItem.layout_value = updatedLayoutVariations;
     setEditItem(updatedEditItem);
+    if (preview) {
+      onChange(updatedEditItem);
+    }
   };
 
   /**
@@ -110,10 +130,11 @@ const PopupEditLayoutVariations = ({
             templateIcon={() => <FontAwesomeIcon icon={faPaintbrushPencil} />}
             submitLabel={__("Use Layout", "ditty-news-ticker")}
             onChange={(selectedTemplate) => {
-              setVariationLayout(selectedVariation, selectedTemplate);
+              previewLayout(selectedVariation, selectedTemplate);
             }}
             onClose={() => {
               setPopupStatus(false);
+              onChange(editItem);
             }}
             onUpdate={(updatedTemplate) => {
               setPopupStatus(false);
@@ -136,7 +157,7 @@ const PopupEditLayoutVariations = ({
             }}
             onUpdate={(updatedLayout) => {
               setPopupStatus(false);
-              setVariationLayout(selectedVariation, updatedLayout);
+              setVariationLayout(selectedVariation, updatedLayout, true);
             }}
           />
         );
@@ -255,7 +276,7 @@ const PopupEditLayoutVariations = ({
           </>
         }
         onClose={() => {
-          onClose("onClose");
+          onClose(editItem);
         }}
         onSubmit={() => {
           onUpdate(editItem);

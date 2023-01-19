@@ -1,3 +1,4 @@
+import { getRenderedItems } from "./httpService";
 import { getItemTypeObject } from "../utils/itemTypes";
 import {
   renderLayout,
@@ -49,12 +50,44 @@ export const updateDisplayOptions = (dittyEl, option, value) => {
   dittyEl["_ditty_" + type].options(option, value);
 };
 
-export const updateDittyItems = (dittyEl, items, layouts) => {
-  console.log("items", items);
-  const renderedItems = getRenderedItems(items, layouts);
-  const type = dittyEl.dataset.type;
-  console.log("renderedItems", renderedItems);
-  dittyEl["_ditty_" + type].options("items", renderedItems);
+export const updateDittyItem = async (dittyEl, item, layouts) => {
+  try {
+    await getRenderedItems([item], layouts, (data) => {
+      if (data.display_items) {
+        const type = dittyEl.dataset.type;
+        dittyEl["_ditty_" + type].updateItems(data.display_items, item.item_id);
+      }
+      //this.handleAfterSaveDitty(data, onComplete)
+    });
+  } catch (ex) {
+    console.log("catch", ex);
+    if (ex.response && ex.response.status === 404) {
+    }
+  }
+};
+
+export const addDittyItem = async (
+  dittyEl,
+  item,
+  layouts,
+  index = 0,
+  onComplete
+) => {
+  try {
+    await getRenderedItems([item], layouts, (data) => {
+      if (data.display_items) {
+        const type = dittyEl.dataset.type;
+        data.display_items.map((displayItem) =>
+          dittyEl["_ditty_" + type].addItem(displayItem)
+        );
+        onComplete && onComplete(data.display_items);
+      }
+    });
+  } catch (ex) {
+    console.log("catch", ex);
+    if (ex.response && ex.response.status === 404) {
+    }
+  }
 };
 
 const getVariationLayouts = (variations, layouts) => {
@@ -92,23 +125,9 @@ const getDisplayItems = (item, layouts) => {
   // return dItems;
 };
 
-export const getRenderedItems = (items, layouts) => {
-  return items.reduce((items, item) => {
-    const dItems = getDisplayItems(item, layouts);
-    return items.concat(dItems);
-  }, []);
-};
-
-export function getRenderedItemsAlt(items, layouts, onComplete) {
-  const apiURL = `${apiEndpoint}/displayItems`;
-  console.log("apiURL", apiURL);
-  const apiData = {
-    security: dittyEditorVars.security,
-    userId: dittyEditorVars.userId,
-    items: items,
-    layouts: layouts,
-  };
-  return axios.post(apiURL, { apiData }).then((res) => {
-    onComplete && onComplete(res.data);
-  });
-}
+// export const getRenderedItems = (items, layouts) => {
+//   return items.reduce((items, item) => {
+//     const dItems = getDisplayItems(item, layouts);
+//     return items.concat(dItems);
+//   }, []);
+// };

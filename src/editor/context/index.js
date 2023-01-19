@@ -64,8 +64,23 @@ export class EditorProvider extends Component {
     };
 
     const updatedItems = this.state.items;
-    updatedItems.push(newItem);
+    updatedItems.unshift(newItem);
     this.handleSortItems(updatedItems);
+  };
+
+  /**
+   * Add to the display items
+   * @param {object} newItem
+   */
+  handleAddDisplayItems = (newDisplayItems) => {
+    const mergedDisplayItems = [...this.state.displayItems, ...newDisplayItems];
+    const updatedDisplayItems = this.state.items.reduce((itemsArray, item) => {
+      const displayItems = mergedDisplayItems.filter((displayItem) => {
+        return displayItem.id === item.item_id;
+      });
+      return [...itemsArray, ...displayItems];
+    }, []);
+    this.setState({ displayItems: updatedDisplayItems });
   };
 
   /**
@@ -335,6 +350,7 @@ export class EditorProvider extends Component {
             setCurrentDisplay: this.handleSetCurrentDisplay,
             sortItems: this.handleSortItems,
             addItem: this.handleAddItem,
+            addDisplayItems: this.handleAddDisplayItems,
             deleteItem: this.handleDeleteItem,
             updateItem: this.handleUpdateItem,
             updateDisplay: this.handleUpdateDisplay,

@@ -132,6 +132,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 = 3.0.33 =
 * Live update bug fix
+* Security updates
 
 = 3.0.32 =
 * Added edit link to frontend Ditty

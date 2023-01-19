@@ -11,10 +11,10 @@
  /**
  * Display the ticker
  *
- * @since 1.0.0
+ * @since 3.0.33
  */
 function ditty_news_ticker( $id='', $class='', $atts=false ) {
-	echo get_mtphr_dnt_ticker( $id, $class, $atts );	
+	echo get_mtphr_dnt_ticker( intval( $id ), sanitize_html_class( $class ), $atts );	
 }
 
 /**
@@ -42,7 +42,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 	$id = function_exists('icl_object_id') ? icl_object_id( $id, 'ditty_news_ticker', true ) : $id;
 	
 	// Get the current mode for the ticker
-	$mode = ( is_array($atts) && isset($atts['mode']) ) ? $atts['mode'] : get_post_meta( $id, '_mtphr_dnt_mode', true );
+	$mode = ( is_array($atts) && isset($atts['mode']) ) ? esc_attr( $atts['mode'] ) : get_post_meta( $id, '_mtphr_dnt_mode', true );
 	
 	// Make sure the ticker exists and is published
 	$ticker = get_post( $id );
