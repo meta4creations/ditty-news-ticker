@@ -119,6 +119,14 @@ export class EditorProvider extends Component {
   };
 
   /**
+   * Update a single item
+   * @param {object} updatedDisplayItems
+   */
+  handleUpdateDisplayItems = (updatedDisplayItems) => {
+    this.setState({ displayItems: updatedDisplayItems });
+  };
+
+  /**
    * Update a single display
    * @param {object} updatedDisplay
    */
@@ -354,6 +362,7 @@ export class EditorProvider extends Component {
             addDisplayItems: this.handleAddDisplayItems,
             deleteItem: this.handleDeleteItem,
             updateItem: this.handleUpdateItem,
+            updateDisplayItems: this.handleUpdateDisplayItems,
             updateDisplay: this.handleUpdateDisplay,
             updateLayout: this.handleUpdateLayout,
             updateTitle: this.handleUpdateTitle,

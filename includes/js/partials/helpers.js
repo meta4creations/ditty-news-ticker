@@ -39,7 +39,7 @@ function dittyDisplayCss(displayCss, displayId) {
  * @since    3.0.33
  * @return   null
  */
-function dittyGetUpdatedItemData(prevItems, newItems) {
+function dittyGetUpdatedItemData(prevItems, newItems, type = "replace") {
   const prevGroupedItems = prevItems.reduce((items, item) => {
     const index = items.findIndex((i) => {
       return i.id === item.id;
@@ -71,22 +71,27 @@ function dittyGetUpdatedItemData(prevItems, newItems) {
     return items;
   }, []);
 
-  const updatedGroupedItems = newGroupedItems.reduce((groups, newItems) => {
-    const index = groups.findIndex((group) => {
-      return group.id === newItems.id;
-    });
-    if (index < 0) {
-      groups.push(newItems);
-    } else {
-      groups[index] = newItems;
-    }
-    return groups;
-  }, prevGroupedItems);
-
-  const flattenedItems = updatedGroupedItems.reduce((items, group) => {
-    return [...items, ...group.items];
-  }, []);
-
+  let flattenedItems;
+  if ("update" === type) {
+    const updatedGroupedItems = newGroupedItems.reduce((groups, newItems) => {
+      const index = groups.findIndex((group) => {
+        return group.id === newItems.id;
+      });
+      if (index < 0) {
+        groups.push(newItems);
+      } else {
+        groups[index] = newItems;
+      }
+      return groups;
+    }, prevGroupedItems);
+    flattenedItems = updatedGroupedItems.reduce((items, group) => {
+      return [...items, ...group.items];
+    }, []);
+  } else {
+    flattenedItems = newGroupedItems.reduce((items, group) => {
+      return [...items, ...group.items];
+    }, []);
+  }
   const updatedIndexes = [];
   const updatedItems = flattenedItems.map((item, index) => {
     if (item.updated) {

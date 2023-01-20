@@ -41,21 +41,31 @@ export const updateDisplayOptions = (dittyEl, option, value) => {
   dittyEl["_ditty_" + type].options(option, value);
 };
 
-export const updateDittyItems = async (dittyEl, items, layouts) => {
+export const updateDittyItems = async (
+  dittyEl,
+  items,
+  layouts,
+  returnDisplayItems
+) => {
   const itemsArray = Array.isArray(items) ? items : [items];
   //console.log("itemsArray", itemsArray);
   try {
     await getRenderedItems(itemsArray, layouts, (data) => {
-      if (data.display_items_grouped) {
+      if (data.display_items) {
         const type = dittyEl.dataset.type;
-        const groupedItems = data.display_items_grouped;
-        for (const itemId in groupedItems) {
-          dittyEl["_ditty_" + type].updateItemsNew(
-            groupedItems[itemId],
-            itemId
-          );
-        }
+        dittyEl["_ditty_" + type].updateItemsNew(data.display_items, "update");
+        returnDisplayItems && returnDisplayItems(data.display_items, "update");
       }
+      // if (data.display_items_grouped) {
+      //   const type = dittyEl.dataset.type;
+      //   const groupedItems = data.display_items_grouped;
+      //   for (const itemId in groupedItems) {
+      //     dittyEl["_ditty_" + type].updateItemsNew(
+      //       groupedItems[itemId],
+      //       itemId
+      //     );
+      //   }
+      // }
     });
   } catch (ex) {
     console.log("catch", ex);

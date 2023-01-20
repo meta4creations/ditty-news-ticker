@@ -498,10 +498,11 @@
       this.updateItems(updatedItems);
     },
 
-    updateItemsNew: function (newItems, itemId, type, forceSwapAll) {
+    updateItemsNew: function (newItems, type = "replace") {
       const { updatedItems, updatedIndexes } = dittyGetUpdatedItemData(
         this.settings.items,
-        newItems
+        newItems,
+        type
       );
 
       this.settings.items = updatedItems;
@@ -553,7 +554,6 @@
         }
         currentCounter++;
       }
-
       dittyUpdateItems(itemSwaps);
     },
 
@@ -829,7 +829,7 @@
       switch (key) {
         case "items":
           updateSlider = false;
-          this.updateItems(value);
+          this.updateItemsNew(value);
           break;
         case "perPage":
         case "paging":

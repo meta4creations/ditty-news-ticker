@@ -60,11 +60,13 @@ class Ditty_Display_Item_New {
 				$layout = $meta['layout'];
 			} else {
 				$layout = ( '{' == substr( $meta['layout'], 0, 1 ) ) ? json_decode( $meta['layout'], true ) : $meta['layout'];
-			}
-			
+			}		
 		} else {
 			$layout_value = maybe_unserialize( $meta['layout_value'] );
-			$layout = isset( $layout_value['default'] ) ? json_decode($layout_value['default'], true) : 0;
+			$layout = 0;
+			if ( isset( $layout_value['default'] ) ) {
+				$layout = is_array( $layout_value['default'] ) ? $layout_value['default'] : ( ( '{' == substr( $layout_value['default'], 0, 1 ) ) ? json_decode( $layout_value['default'], true ) : $layout_value['default'] );
+			}
 		}
 		
 		if ( is_array( $layout ) ) {
