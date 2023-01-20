@@ -80,10 +80,6 @@ if (dittyEditor) {
         : __("This is a sample item. Please edit me!", "ditty-news-ticker");
       return content;
     },
-    displayItems: (item) => {
-      console.log("displayItems", item);
-      return item;
-    },
     tags: [
       {
         ...dittyEditor.layoutTags.content,

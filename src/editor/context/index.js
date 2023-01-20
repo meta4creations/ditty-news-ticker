@@ -323,7 +323,7 @@ export class EditorProvider extends Component {
         this.initialTitle = updates.title;
       }
     } catch (ex) {
-      console.log(ex);
+      console.log("catch", ex);
       if (ex.response && ex.response.status === 404) {
       }
     }

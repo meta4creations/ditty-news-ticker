@@ -1,13 +1,4 @@
 import { getRenderedItems } from "./httpService";
-import { getItemTypeObject } from "../utils/itemTypes";
-import {
-  renderLayout,
-  getLayoutObject,
-  getDefaultLayout,
-} from "../utils/layouts";
-
-import axios from "axios";
-const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
 
 export const initializeDitty = (dittyEl, displayType, args) => {
   jQuery(dittyEl)["ditty_" + displayType](args);
@@ -77,6 +68,7 @@ export const addDittyItem = async (
     await getRenderedItems([item], layouts, (data) => {
       if (data.display_items) {
         const type = dittyEl.dataset.type;
+        console.log("data.display_items", data.display_items);
         data.display_items.map((displayItem) =>
           dittyEl["_ditty_" + type].addItem(displayItem)
         );
@@ -89,45 +81,3 @@ export const addDittyItem = async (
     }
   }
 };
-
-const getVariationLayouts = (variations, layouts) => {
-  const variationLayouts = [];
-  for (const key in variations) {
-    variationLayouts.push({
-      variation: key,
-      value: getLayoutObject(variations[key], layouts),
-    });
-  }
-  return variationLayouts;
-};
-
-const getDisplayItems = (item, layouts) => {
-  const itemTypeObject = getItemTypeObject(item.item_type);
-  if (itemTypeObject.getDisplayItems) {
-    const displayItems = itemTypeObject.getDisplayItems(item);
-  }
-  //console.log("itemTypeObject", itemTypeObject);
-  // const variationLayouts = getVariationLayouts(item.layout_value, layouts);
-  // const layoutData = variationLayouts.length
-  //   ? variationLayouts[0].value
-  //   : getDefaultLayout();
-  // const dItems = item.display_items.map((dItem) => {
-  //   const html = renderLayout(dItem, layoutData, itemTypeObject);
-  //   return {
-  //     id: dItem.item_id,
-  //     uniq_id: dItem.item_uniq_id ? dItem.item_uniq_id : dItem.item_id,
-  //     parent_id: 0,
-  //     layout_id: layoutData.id ? layoutData.id : false,
-  //     css: layoutData.css,
-  //     html: html,
-  //   };
-  // });
-  // return dItems;
-};
-
-// export const getRenderedItems = (items, layouts) => {
-//   return items.reduce((items, item) => {
-//     const dItems = getDisplayItems(item, layouts);
-//     return items.concat(dItems);
-//   }, []);
-// };

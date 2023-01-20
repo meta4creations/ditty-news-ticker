@@ -21,16 +21,13 @@ export function saveDitty(data, onComplete) {
     userId: dittyEditorVars.userId,
     ...data,
   };
-  console.log("data", data);
   return axios.post(apiURL, { apiData }).then((res) => {
-    console.log("res.data", res.data);
     onComplete(res.data);
   });
 }
 
 export function saveDisplay(data, onComplete) {
   const apiURL = `${apiEndpoint}/saveDisplay`;
-  console.log("data", data);
   const apiData = {
     security: dittyEditorVars.security,
     userId: dittyEditorVars.userId,

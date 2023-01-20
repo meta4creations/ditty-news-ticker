@@ -1,12 +1,11 @@
 import { __ } from "@wordpress/i18n";
-import { useState, useContext } from "@wordpress/element";
+import { useState } from "@wordpress/element";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
 import { getItemTypeObject, getItemLabel } from "../utils/itemTypes";
 import { getLayoutObject, getDefaultLayout } from "../utils/layouts";
 import { Button, ButtonGroup, IconBlock, Popup } from "../components";
-import { EditorContext } from "./context";
 import PopupTemplateSave from "./PopupTemplateSave";
 import PopupTemplateSelector from "./PopupTemplateSelector";
 import PopupEditLayout from "./PopupEditLayout";
@@ -18,11 +17,10 @@ const PopupEditLayoutVariations = ({
   onChange,
   onClose,
   onUpdate,
+  onTemplateSave,
   level,
 }) => {
-  const { actions } = useContext(EditorContext);
   const [editItem, setEditItem] = useState(item);
-  const [layoutVariations, setLayoutVariations] = useState(item.layout_value);
   const [selectedVariation, setSelectedVariation] = useState();
   const [popupStatus, setPopupStatus] = useState(false);
 
@@ -47,14 +45,6 @@ const PopupEditLayoutVariations = ({
         return getLayoutObject(layoutVariations[variationId], layouts);
       }
     }
-  };
-
-  const tempSetVariationLayout = (variation, layout) => {
-    const updatedLayoutVariations = { ...editItem.layout_value };
-    updatedLayoutVariations[variation] = layout.id ? String(layout.id) : layout;
-    const updatedEditItem = { ...editItem };
-    updatedEditItem.layout_value = updatedLayoutVariations;
-    onChange(updatedEditItem);
   };
 
   const previewLayout = (variation, layout) => {
@@ -115,8 +105,8 @@ const PopupEditLayoutVariations = ({
             }}
             onUpdate={(updatedTemplate) => {
               setPopupStatus(false);
-              actions.updateLayout(updatedTemplate);
               setVariationLayout(selectedVariation, updatedTemplate);
+              onTemplateSave(updatedTemplate);
             }}
           />
         );

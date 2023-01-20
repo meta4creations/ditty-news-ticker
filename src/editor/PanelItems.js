@@ -85,6 +85,20 @@ const PanelItems = () => {
               setPopupStatus(false);
               actions.updateItem(updatedItem, "layout_value");
             }}
+            onTemplateSave={(savedTemplate) => {
+              actions.updateLayout(savedTemplate);
+              const modifiedItems = items.filter((item) => {
+                for (const variation in item.layout_value) {
+                  if (
+                    item.item_id !== currentItem.item_id &&
+                    item.layout_value[variation] === savedTemplate.id
+                  ) {
+                    return true;
+                  }
+                }
+              });
+              console.log("modifiedItems", modifiedItems);
+            }}
           />
         );
       case "editItem":
@@ -92,9 +106,7 @@ const PanelItems = () => {
           <PopupItemEdit
             item={currentItem}
             onClose={() => setPopupStatus(false)}
-            onChange={(updatedItem) => {
-              //console.log("updatedItem", updatedItem);
-            }}
+            onChange={(updatedItem) => {}}
             onDelete={() => {
               setPopupStatus(false);
               handleDeleteItem(currentItem);
@@ -177,15 +189,11 @@ const PanelItems = () => {
     });
     actions.sortItems(updatedItems);
 
-    console.log("updatedItems", updatedItems);
-
     // Update the Ditty options
     const updatedDisplayItems = updatedItems.map((item) => {
       const index = displayItems.map((i) => i.id).indexOf(item.item_id);
       return displayItems[index];
     });
-
-    console.log("updatedDisplayItems", updatedDisplayItems);
 
     const dittyEl = document.getElementById("ditty-editor__ditty");
     updateDisplayOptions(dittyEl, "items", updatedDisplayItems);

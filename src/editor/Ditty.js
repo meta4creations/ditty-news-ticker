@@ -1,42 +1,17 @@
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
 import { useContext, useEffect } from "@wordpress/element";
-import {
-  initializeDitty,
-  getRenderedItems,
-  getRenderedItemsAlt,
-  updateDisplayOptions,
-} from "../services/dittyService";
+import { initializeDitty } from "../services/dittyService";
 import { EditorContext } from "./context";
 import { getDisplayObject } from "../utils/displayTypes";
 
 const Ditty = () => {
-  const { id, title, items, displayItems, displays, layouts, currentDisplay } =
+  const { id, title, displayItems, displays, currentDisplay } =
     useContext(EditorContext);
 
   const displayObject = getDisplayObject(currentDisplay, displays);
 
-  const populateItems = (data) => {
-    if (data.display_items) {
-      console.log("display_items", data.display_items);
-      //const dittyEl = document.getElementById("ditty-editor__ditty");
-      //updateDisplayOptions(dittyEl, "items", data.display_items);
-    }
-  };
-
   useEffect(() => {
-    // const rendererdItems = getRenderedItems(items, layouts);
-    // const testItems = async () => {
-    //   try {
-    //     await getRenderedItemsAlt(items, layouts, populateItems);
-    //   } catch (ex) {
-    //     console.log(ex);
-    //     if (ex.response && ex.response.status === 404) {
-    //     }
-    //   }
-    // };
-    // const testing = testItems();
-
     const dittyEl = document.getElementById("ditty-editor__ditty");
     const args = _.cloneDeep(displayObject.settings);
     args["id"] = id;
