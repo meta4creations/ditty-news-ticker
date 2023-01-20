@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear, faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
 import {
   updateDisplayOptions,
-  updateDittyItem,
+  updateDittyItems,
   addDittyItem,
 } from "../services/dittyService";
 import { Panel, ListItem, SortableList } from "../components";
@@ -75,29 +75,26 @@ const PanelItems = () => {
               if (
                 !_.isEqual(editedItem.layout_value, currentItem.layout_value)
               ) {
-                updateDittyItem(dittyEl, currentItem, layouts);
+                updateDittyItems(dittyEl, currentItem, layouts);
               }
             }}
             onChange={(updatedItem) => {
-              updateDittyItem(dittyEl, updatedItem, layouts);
+              updateDittyItems(dittyEl, updatedItem, layouts);
             }}
             onUpdate={(updatedItem) => {
               setPopupStatus(false);
               actions.updateItem(updatedItem, "layout_value");
             }}
             onTemplateSave={(savedTemplate) => {
-              actions.updateLayout(savedTemplate);
+              const updatedLayouts = actions.updateLayout(savedTemplate);
               const modifiedItems = items.filter((item) => {
                 for (const variation in item.layout_value) {
-                  if (
-                    item.item_id !== currentItem.item_id &&
-                    item.layout_value[variation] === savedTemplate.id
-                  ) {
+                  if (item.layout_value[variation] === savedTemplate.id) {
                     return true;
                   }
                 }
               });
-              console.log("modifiedItems", modifiedItems);
+              updateDittyItems(dittyEl, modifiedItems, updatedLayouts);
             }}
           />
         );
@@ -114,7 +111,7 @@ const PanelItems = () => {
             onUpdate={(updatedItem, updateKeys) => {
               setPopupStatus(false);
               actions.updateItem(updatedItem, updateKeys);
-              updateDittyItem(dittyEl, updatedItem, layouts);
+              updateDittyItems(dittyEl, updatedItem, layouts);
             }}
           />
         );

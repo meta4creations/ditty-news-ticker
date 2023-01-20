@@ -156,6 +156,7 @@ export class EditorProvider extends Component {
       updatedLayouts.push(updatedLayout);
     }
     this.setState({ layouts: updatedLayouts });
+    return updatedLayouts;
   };
 
   /**

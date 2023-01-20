@@ -56,7 +56,12 @@ class Ditty_Display_Item_New {
 	 */
 	private function configure_layout( $meta, $layouts = false ) {
 		if ( isset( $meta['layout'] ) ) {
-			$layout = ( '{' == substr( $meta['layout'], 0, 1 ) ) ? json_decode( $meta['layout'], true ) : $meta['layout'];
+			if ( is_array( $meta['layout'] ) ) {
+				$layout = $meta['layout'];
+			} else {
+				$layout = ( '{' == substr( $meta['layout'], 0, 1 ) ) ? json_decode( $meta['layout'], true ) : $meta['layout'];
+			}
+			
 		} else {
 			$layout_value = maybe_unserialize( $meta['layout_value'] );
 			$layout = isset( $layout_value['default'] ) ? json_decode($layout_value['default'], true) : 0;

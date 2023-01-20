@@ -299,6 +299,7 @@
 					}
 					
 					if ( response.display_items ) {
+						console.log('response.display_items', response.display_items);
 		        self.settings.editor.ditty.updateItems( response.display_items, false, false, true );
 	        }
 					if ( response.draft_id && response.draft_meta ) {

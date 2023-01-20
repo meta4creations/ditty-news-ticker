@@ -498,6 +498,65 @@
       this.updateItems(updatedItems);
     },
 
+    updateItemsNew: function (newItems, itemId, type, forceSwapAll) {
+      const { updatedItems, updatedIndexes } = dittyGetUpdatedItemData(
+        this.settings.items,
+        newItems
+      );
+
+      this.settings.items = updatedItems;
+      this.total = updatedItems.length;
+      this._calculatePages();
+      this.$elmt.ditty_slider("options", "slides", this.pages);
+
+      var $currentPage = this.$elmt.ditty_slider("options", "currentSlide"),
+        currentItems = $currentPage.children(".ditty-item"),
+        pageIndex = this.$elmt.ditty_slider("options", "slide"),
+        minIndex = this.settings.paging ? this.settings.perPage * pageIndex : 0,
+        maxIndex = this.settings.paging
+          ? this.settings.perPage * pageIndex + (this.settings.perPage - 1)
+          : currentItems.length,
+        itemSwaps = [];
+
+      // Swap out items
+      let currentCounter = 0;
+      for (var i = minIndex; i <= maxIndex; i++) {
+        if (updatedIndexes.indexOf(i) !== -1) {
+          const $newItem = $(updatedItems[i].html);
+          this._styleItem($newItem);
+
+          // If an item exists
+          if (currentItems[currentCounter]) {
+            itemSwaps.push({
+              currentItem: $(currentItems[currentCounter]),
+              newItem: $newItem,
+            });
+
+            // If adding an item
+          } else {
+            var $tempItem = $('<div class="ditty-temp-item"></div>');
+            $currentPage.append($tempItem);
+            itemSwaps.push({
+              currentItem: $tempItem,
+              newItem: $newItem,
+            });
+          }
+
+          // If removing items
+        } else if (currentCounter >= this.total) {
+          if (currentItems[currentCounter]) {
+            itemSwaps.push({
+              currentItem: $(currentItems[currentCounter]),
+              newItem: $('<div class="ditty-temp-item"></div>'),
+            });
+          }
+        }
+        currentCounter++;
+      }
+
+      dittyUpdateItems(itemSwaps);
+    },
+
     /**
      * Update the current items
      *

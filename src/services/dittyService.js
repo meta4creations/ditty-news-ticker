@@ -41,14 +41,21 @@ export const updateDisplayOptions = (dittyEl, option, value) => {
   dittyEl["_ditty_" + type].options(option, value);
 };
 
-export const updateDittyItem = async (dittyEl, item, layouts) => {
+export const updateDittyItems = async (dittyEl, items, layouts) => {
+  const itemsArray = Array.isArray(items) ? items : [items];
+  //console.log("itemsArray", itemsArray);
   try {
-    await getRenderedItems([item], layouts, (data) => {
-      if (data.display_items) {
+    await getRenderedItems(itemsArray, layouts, (data) => {
+      if (data.display_items_grouped) {
         const type = dittyEl.dataset.type;
-        dittyEl["_ditty_" + type].updateItems(data.display_items, item.item_id);
+        const groupedItems = data.display_items_grouped;
+        for (const itemId in groupedItems) {
+          dittyEl["_ditty_" + type].updateItemsNew(
+            groupedItems[itemId],
+            itemId
+          );
+        }
       }
-      //this.handleAfterSaveDitty(data, onComplete)
     });
   } catch (ex) {
     console.log("catch", ex);
@@ -59,7 +66,7 @@ export const updateDittyItem = async (dittyEl, item, layouts) => {
 
 export const addDittyItem = async (
   dittyEl,
-  item,
+  items,
   layouts,
   index = 0,
   onComplete
@@ -68,7 +75,6 @@ export const addDittyItem = async (
     await getRenderedItems([item], layouts, (data) => {
       if (data.display_items) {
         const type = dittyEl.dataset.type;
-        console.log("data.display_items", data.display_items);
         data.display_items.map((displayItem) =>
           dittyEl["_ditty_" + type].addItem(displayItem)
         );
