@@ -56,16 +56,6 @@ export const updateDittyItems = async (
         dittyEl["_ditty_" + type].updateItemsNew(data.display_items, "update");
         returnDisplayItems && returnDisplayItems(data.display_items, "update");
       }
-      // if (data.display_items_grouped) {
-      //   const type = dittyEl.dataset.type;
-      //   const groupedItems = data.display_items_grouped;
-      //   for (const itemId in groupedItems) {
-      //     dittyEl["_ditty_" + type].updateItemsNew(
-      //       groupedItems[itemId],
-      //       itemId
-      //     );
-      //   }
-      // }
     });
   } catch (ex) {
     console.log("catch", ex);
@@ -76,7 +66,7 @@ export const updateDittyItems = async (
 
 export const addDittyItem = async (
   dittyEl,
-  items,
+  item,
   layouts,
   index = 0,
   onComplete

@@ -524,6 +524,13 @@
       for (var i = minIndex; i <= maxIndex; i++) {
         if (updatedIndexes.indexOf(i) !== -1) {
           const $newItem = $(updatedItems[i].html);
+          if (updatedItems[i].css) {
+            dittyLayoutCss(
+              updatedItems[i].css,
+              updatedItems[i].layout_id,
+              "update"
+            );
+          }
           this._styleItem($newItem);
 
           // If an item exists

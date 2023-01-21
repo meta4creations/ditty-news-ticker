@@ -107,7 +107,6 @@ const PanelItems = () => {
             onUpdate={(updatedItem) => {
               setPopupStatus(false);
               actions.updateItem(updatedItem, "layout_value");
-              console.log("tempDisplayItems", tempDisplayItems);
               tempDisplayItems && actions.updateDisplayItems(tempDisplayItems);
               setTempDisplayItems(null);
             }}

@@ -27,6 +27,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	 */
 	public function prepare_items( $meta ) {
 		$item_value = maybe_unserialize( $meta['item_value'] );
+		$layout_value = maybe_unserialize( $meta['layout_value'] );
 
 		// Set the query args
 		$query_args = array(
@@ -50,6 +51,10 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 			$ditty_item 								= $meta;
 			$ditty_item['item_uniq_id'] = $ditty_item['item_id'] . '_' . get_the_ID();
 			$ditty_item['item_value'] 	= $item_value;
+
+			// Find the variation & layout - for future use
+			$ditty_item['layout_variation'] = isset( $layout_value['default'] ) ? 'default' : false;
+			$ditty_item['layout'] = isset( $layout_value['default'] ) ? $layout_value['default'] : false;
 
 			$prepared_meta[] = $ditty_item;
 		

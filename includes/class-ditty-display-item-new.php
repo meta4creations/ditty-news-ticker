@@ -24,6 +24,7 @@ class Ditty_Display_Item_New {
 	private $item_type;
 	private $item_value;
 	private $layout;
+	private $variation_id;
 	private $layout_id;
 	private $layout_tags;
 	private $css_compiled;
@@ -70,7 +71,8 @@ class Ditty_Display_Item_New {
 		}
 		
 		if ( is_array( $layout ) ) {
-			$this->layout_id = $this->uniq_id;
+			$variation_id = isset( $meta['layout_variation'] ) ? $meta['layout_variation'] : 'default';
+			$this->layout_id = "{$this->id}_{$variation_id}";
 			$this->layout = $layout;
 		} else {
 			$this->layout_id = $layout;
