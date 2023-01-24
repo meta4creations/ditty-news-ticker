@@ -1314,60 +1314,66 @@
         return false;
       }
 
-      var forceSwaps = [];
+      // var forceSwaps = [];
 
-      // Update a single item id
-      if (itemId) {
-        var tempCurrentItems = this.settings.items.slice(),
-          tempNewItems = [],
-          tempSwapped = false;
+      // // Update a single item id
+      // if (itemId) {
+      //   var tempCurrentItems = this.settings.items.slice(),
+      //     tempNewItems = [],
+      //     tempSwapped = false;
 
-        $.each(tempCurrentItems, function (index, item) {
-          if (String(item.id) === String(itemId)) {
-            // Add after the id
-            if ("after" === type) {
-              tempNewItems.push(item);
-              $.each(newItems, function (index, newItem) {
-                tempNewItems.push(newItem);
-              });
-              tempSwapped = true;
+      //   $.each(tempCurrentItems, function (index, item) {
+      //     if (String(item.id) === String(itemId)) {
+      //       // Add after the id
+      //       if ("after" === type) {
+      //         tempNewItems.push(item);
+      //         $.each(newItems, function (index, newItem) {
+      //           tempNewItems.push(newItem);
+      //         });
+      //         tempSwapped = true;
 
-              // Add before the id
-            } else if ("before" === type) {
-              $.each(newItems, function (index, newItem) {
-                tempNewItems.push(newItem);
-              });
-              tempNewItems.push(item);
-              tempSwapped = true;
+      //         // Add before the id
+      //       } else if ("before" === type) {
+      //         $.each(newItems, function (index, newItem) {
+      //           tempNewItems.push(newItem);
+      //         });
+      //         tempNewItems.push(item);
+      //         tempSwapped = true;
 
-              // Else swap the ID
-            } else {
-              if (!tempSwapped) {
-                $.each(newItems, function (index, newItem) {
-                  tempNewItems.push(newItem);
-                  forceSwaps.push(String(newItem.uniq_id));
-                });
-                tempSwapped = true;
-              }
-            }
-          } else {
-            tempNewItems.push(item);
-          }
-        });
-        if (!tempSwapped) {
-          $.each(this.settings.items, function (index, item) {
-            tempNewItems.push(item);
-          });
-          tempSwapped = true;
-        }
+      //         // Else swap the ID
+      //       } else {
+      //         if (!tempSwapped) {
+      //           $.each(newItems, function (index, newItem) {
+      //             tempNewItems.push(newItem);
+      //             forceSwaps.push(String(newItem.uniq_id));
+      //           });
+      //           tempSwapped = true;
+      //         }
+      //       }
+      //     } else {
+      //       tempNewItems.push(item);
+      //     }
+      //   });
+      //   if (!tempSwapped) {
+      //     $.each(this.settings.items, function (index, item) {
+      //       tempNewItems.push(item);
+      //     });
+      //     tempSwapped = true;
+      //   }
 
-        if (0 !== this.total) {
-          newItems = tempNewItems;
-        }
-      }
+      //   if (0 !== this.total) {
+      //     newItems = tempNewItems;
+      //   }
+      // }
 
-      this.settings.items = newItems;
-      this.total = newItems.length;
+      const { updatedItems } = dittyGetUpdatedItemData(
+        this.settings.items,
+        newItems,
+        type
+      );
+
+      this.settings.items = updatedItems;
+      this.total = updatedItems.length;
       if (0 === this.total) {
         this.hide();
       } else {

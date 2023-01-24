@@ -126,6 +126,7 @@ const PopupTemplateSave = ({
   };
 
   const handleApiData = (apiData) => {
+    console.log("apiData", apiData);
     if (apiData.errors.length) {
     } else {
       onUpdate({ ...selectedTemplate, ...apiData.updates });

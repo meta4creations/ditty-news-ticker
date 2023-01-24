@@ -296,7 +296,7 @@ class Ditty_API {
 		}
 
 		// Update a display description
-		if ( isset( $display_description ) ) {
+		if ( $display_description ) {
 			$sanitized_description = wp_kses_post( $display_description );
 			update_post_meta( $display_id, '_ditty_display_description', $sanitized_description );
 			$updates['description'] = $sanitized_description;
@@ -371,7 +371,7 @@ class Ditty_API {
 		}
 
 		// Update the layout description
-		if ( isset( $layout_description ) ) {
+		if ( $layout_description ) {
 			$sanitized_description = wp_kses_post( $layout_description );
 			update_post_meta( $layout_id, '_ditty_layout_description', $sanitized_description );
 			$updates['description'] = $sanitized_description;

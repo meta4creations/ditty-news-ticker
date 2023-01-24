@@ -83,9 +83,6 @@ if (dittyEditor) {
     tags: [
       {
         ...dittyEditor.layoutTags.content,
-        render: (value) => {
-          return value.content;
-        },
       },
     ],
   });

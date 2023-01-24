@@ -19,6 +19,7 @@ import { cssTransition } from "react-toastify";
 
 const PopupEditLayout = ({
   layout,
+  itemTypeObject,
   layouts,
   submitLabel = __("Update Layout", "ditty-news-ticker"),
   onChange,
@@ -28,6 +29,8 @@ const PopupEditLayout = ({
 }) => {
   const [editLayout, setEditLayout] = useState(layout);
   const [currentTabId, setCurrentTabId] = useState("html");
+
+  console.log("itemTypeObject", itemTypeObject.tags);
 
   /**
    * Render a popup component
@@ -100,22 +103,64 @@ const PopupEditLayout = ({
     );
   };
 
-  const renderPopupContents = () => {
+  const insertTag = (tag) => {
+    console.log("tag", tag);
+  };
+
+  const renderPopupFooterBefore = () => {
     if ("css" === currentTabId) {
       return (
-        <CodeMirror
-          value={editLayout.css}
-          extensions={[css(), EditorView.lineWrapping]}
-          onChange={(value) => updateLayout("css", value)}
-        />
+        <div className="layoutEdit__tagCloud">
+          <h3>{__("Tags:", "ditty-news-ticker")}</h3>
+          <div className="layoutEdit__tagCloud__tags">
+            {itemTypeObject.tags &&
+              itemTypeObject.tags.map((tag) => {
+                return <span key={tag.tag}>{tag.tag}</span>;
+              })}
+          </div>
+        </div>
       );
     } else {
       return (
-        <CodeMirror
-          value={editLayout.html}
-          extensions={[html(), EditorView.lineWrapping]}
-          onChange={(value) => updateLayout("html", value)}
-        />
+        <div className="layoutEdit__tagCloud">
+          <h3>{__("Tags:", "ditty-news-ticker")}</h3>
+          <div className="layoutEdit__tagCloud__tags">
+            {itemTypeObject.tags &&
+              itemTypeObject.tags.map((tag) => {
+                return (
+                  <span
+                    key={tag.tag}
+                    onClick={() => insertTag(tag)}
+                  >{`{${tag.tag}}`}</span>
+                );
+              })}
+          </div>
+        </div>
+      );
+    }
+  };
+
+  const renderPopupContents = () => {
+    if ("css" === currentTabId) {
+      return (
+        <>
+          <CodeMirror
+            value={editLayout.css}
+            extensions={[css(), EditorView.lineWrapping]}
+            onChange={(value) => updateLayout("css", value)}
+          />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <CodeMirror
+            value={editLayout.html}
+            minHeight="100%"
+            extensions={[html(), EditorView.lineWrapping]}
+            onChange={(value) => updateLayout("html", value)}
+          />
+        </>
       );
     }
   };
@@ -126,6 +171,7 @@ const PopupEditLayout = ({
         id="layoutEdit"
         submitLabel={submitLabel}
         header={renderPopupHeader()}
+        footerBefore={renderPopupFooterBefore()}
         onClose={() => {
           onClose("onClose");
         }}

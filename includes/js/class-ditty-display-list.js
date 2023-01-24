@@ -498,7 +498,11 @@
       this.updateItems(updatedItems);
     },
 
-    updateItemsNew: function (newItems, type = "replace") {
+    updateItems: function (newItems, itemId, type = "replace", forceSwapAll) {
+      if (undefined === newItems) {
+        return false;
+      }
+
       const { updatedItems, updatedIndexes } = dittyGetUpdatedItemData(
         this.settings.items,
         newItems,
@@ -570,7 +574,7 @@
      * @since    3.0
      * @return   null
      */
-    updateItems: function (newItems, itemId, type, forceSwapAll) {
+    updateItemsOld: function (newItems, itemId, type, forceSwapAll) {
       if (undefined === newItems) {
         return false;
       }

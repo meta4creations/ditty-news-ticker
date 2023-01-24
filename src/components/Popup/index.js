@@ -10,6 +10,7 @@ const Popup = ({
   id,
   header,
   footer,
+  footerBefore,
   submitLabel,
   submitDisabled,
   children,
@@ -34,6 +35,7 @@ const Popup = ({
             <div className="ditty-popup__scroll">{children}</div>
           </div>
           <div className="ditty-popup__footer">
+            {footerBefore && footerBefore}
             {footer ? (
               footer
             ) : (

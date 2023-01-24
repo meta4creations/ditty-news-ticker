@@ -139,6 +139,7 @@ const PopupEditLayoutVariations = ({
           <PopupEditLayout
             level="2"
             layout={customLayout}
+            itemTypeObject={itemTypeObject}
             onChange={(selectedTemplate) => {
               //setVariationLayout(selectedVariation, selectedTemplate);
             }}

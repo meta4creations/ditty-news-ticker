@@ -199,8 +199,10 @@
     min-height: 100%;
   }
   &__footer {
-    padding: 15px;
     border-top: 1px solid $border_color_light;
+    .ditty-button-group {
+      padding: 15px;
+    }
   }
   &--level-2 {
     z-index: 999;
