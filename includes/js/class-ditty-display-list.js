@@ -498,7 +498,7 @@
       this.updateItems(updatedItems);
     },
 
-    updateItems: function (newItems, itemId, type = "replace", forceSwapAll) {
+    updateItemsNew: function (newItems, itemId, type = "replace", forceSwapAll) {
       if (undefined === newItems) {
         return false;
       }
@@ -574,7 +574,7 @@
      * @since    3.0
      * @return   null
      */
-    updateItemsOld: function (newItems, itemId, type, forceSwapAll) {
+    updateItems: function (newItems, itemId, type, forceSwapAll) {
       if (undefined === newItems) {
         return false;
       }
@@ -840,7 +840,7 @@
       switch (key) {
         case "items":
           updateSlider = false;
-          this.updateItemsNew(value);
+          this.updateItems(value);
           break;
         case "perPage":
         case "paging":

@@ -17,38 +17,6 @@
       "oAP" : "\/.gitignore",
       "oF" : 1
     },
-    "\/.nova\/Publishing\/Ditty News Ticker.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/.nova\/Publishing\/Ditty News Ticker-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
-    "\/.nova\/Publishing\/Metaphor Creations.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/.nova\/Publishing\/Metaphor Creations-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
-    "\/.nova\/Publishing\/TESTING.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/.nova\/Publishing\/TESTING-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
-    "\/.npmrc" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 1,
-      "oAP" : "\/.npmrc",
-      "oF" : 1
-    },
     "\/build" : {
       "ft" : 65536,
       "oA" : 1,
@@ -3636,12 +3604,6 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/legacy\/legacy.php",
-      "oF" : 0
-    },
-    "\/node_modules" : {
-      "ft" : 65536,
-      "oA" : 2,
-      "oAP" : "\/node_modules",
       "oF" : 0
     },
     "\/package-lock.json" : {
