@@ -821,4 +821,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Added Edit Ditty links to front end. manage_posts_columns update.
+Live update bug fix and security updates
