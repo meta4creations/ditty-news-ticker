@@ -1,0 +1,51 @@
+.ditty-popup--displayTypeSelect {
+  .displayTypeSelector {
+    padding: 10px;
+  }
+}
+.displayTypeSelector {
+  .ditty-tab {
+    width: 100px;
+    height: 100px;
+  }
+}
+.ditty-display-template {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  border-radius: 3px;
+  &__header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  &__icon {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #ccc;
+    margin-right: 10px;
+    i,
+    svg {
+      display: block;
+      font-size: 15px;
+      text-align: center;
+      line-height: 40px;
+    }
+  }
+  &__title {
+    margin: 0;
+  }
+  &__type {
+    margin: 0;
+  }
+  &__postid {
+    margin: 0;
+  }
+}

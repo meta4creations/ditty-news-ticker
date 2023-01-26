@@ -1,44 +1,71 @@
 <wpml-config>
-		<custom-fields>
-        <custom-field action="translate">_mtphr_dnt_ticks</custom-field>    
-        <custom-field action="ignore">_mtphr_dnt_line_breaks</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_type</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_mode</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_scroll_direction</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_scroll_width</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_scroll_height</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_scroll_padding</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_scroll_margin</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_scroll_speed</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_scroll_pause</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_scroll_tick_spacing</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_scroll_init</custom-field> 
-        <custom-field action="ignore">_mtphr_dnt_rotate_type</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_rotate_directional_nav_reverse</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_rotate_height</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_rotate_padding</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_rotate_margin</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_auto_rotate</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_rotate_delay</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_rotate_pause</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_rotate_speed</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_rotate_ease</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_rotate_directional_nav</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_rotate_directional_nav_hide</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_rotate_control_nav</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_rotate_control_nav_type</custom-field>   
-        <custom-field action="ignore">_mtphr_dnt_list_padding</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_list_margin</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_list_tick_spacing</custom-field>      
-        <custom-field action="ignore">_mtphr_dnt_title</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_inline_title</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_shuffle</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_ticker_width</custom-field>
-        <custom-field action="ignore">_mtphr_dnt_offset</custom-field>
+	<custom-fields>
+        <custom-field action="translate">_mtphr_dnt_ticks</custom-field>
+        <custom-field action="copy">_mtphr_dnt_admin_tab</custom-field>
+        <custom-field action="copy">_mtphr_dnt_mixed_ticks</custom-field>
+        <custom-field action="copy">_mtphr_dnt_line_breaks</custom-field>
+        <custom-field action="copy">_mtphr_dnt_type</custom-field>
+        <custom-field action="copy">_mtphr_dnt_mode</custom-field>
+        <custom-field action="copy">_mtphr_dnt_scroll_direction</custom-field>
+        <custom-field action="copy">_mtphr_dnt_scroll_width</custom-field>
+        <custom-field action="copy">_mtphr_dnt_scroll_height</custom-field>
+        <custom-field action="copy">_mtphr_dnt_scroll_padding</custom-field>
+        <custom-field action="copy">_mtphr_dnt_scroll_margin</custom-field>
+        <custom-field action="copy">_mtphr_dnt_scroll_speed</custom-field>
+        <custom-field action="copy">_mtphr_dnt_scroll_pause</custom-field>
+        <custom-field action="copy">_mtphr_dnt_scroll_tick_spacing</custom-field>
+        <custom-field action="copy">_mtphr_dnt_scroll_init</custom-field> 
+        <custom-field action="copy">_mtphr_dnt_scroll_init_delay</custom-field> 
+        <custom-field action="copy">_mtphr_dnt_rotate_type</custom-field>
+        <custom-field action="copy">_mtphr_dnt_rotate_directional_nav_reverse</custom-field>
+        <custom-field action="copy">_mtphr_dnt_rotate_height</custom-field>
+        <custom-field action="copy">_mtphr_dnt_rotate_padding</custom-field>
+        <custom-field action="copy">_mtphr_dnt_rotate_margin</custom-field>
+        <custom-field action="copy">_mtphr_dnt_auto_rotate</custom-field>
+        <custom-field action="copy">_mtphr_dnt_rotate_delay</custom-field>
+        <custom-field action="copy">_mtphr_dnt_rotate_pause</custom-field>
+        <custom-field action="copy">_mtphr_dnt_rotate_speed</custom-field>
+        <custom-field action="copy">_mtphr_dnt_rotate_ease</custom-field>
+        <custom-field action="copy">_mtphr_dnt_rotate_directional_nav</custom-field>
+        <custom-field action="copy">_mtphr_dnt_rotate_directional_nav_hide</custom-field>
+        <custom-field action="copy">_mtphr_dnt_rotate_control_nav</custom-field>
+        <custom-field action="copy">_mtphr_dnt_rotate_control_nav_type</custom-field>   
+        <custom-field action="copy">_mtphr_dnt_rotate_disable_touchswipe</custom-field>   
+        <custom-field action="copy">_mtphr_dnt_list_padding</custom-field>
+        <custom-field action="copy">_mtphr_dnt_list_margin</custom-field>
+        <custom-field action="copy">_mtphr_dnt_list_tick_spacing</custom-field>     
+        <custom-field action="copy">_mtphr_dnt_list_tick_paging</custom-field>     
+        <custom-field action="copy">_mtphr_dnt_list_tick_count</custom-field>
+        <custom-field action="copy">_mtphr_dnt_list_tick_prev_next</custom-field>
+        <custom-field action="copy">_mtphr_dnt_list_tick_prev_text</custom-field>
+        <custom-field action="copy">_mtphr_dnt_list_tick_next_text</custom-field>
+        <custom-field action="copy">_mtphr_dnt_title</custom-field>
+        <custom-field action="copy">_mtphr_dnt_inline_title</custom-field>
+        <custom-field action="copy">_mtphr_dnt_hide</custom-field>
+        <custom-field action="copy">_mtphr_dnt_shuffle</custom-field>
+        <custom-field action="copy">_mtphr_dnt_reverse</custom-field>
+        <custom-field action="copy">_mtphr_dnt_ticker_width</custom-field>
+        <custom-field action="copy">_mtphr_dnt_offset</custom-field>
+        <custom-field action="copy">_mtphr_dnt_trim_ticks</custom-field>
+        <custom-field action="copy">_mtphr_dnt_pause_button</custom-field>
+        <custom-field action="copy">_mtphr_dnt_grid</custom-field>
+        <custom-field action="copy">_mtphr_dnt_grid_empty_rows</custom-field>
+        <custom-field action="copy">_mtphr_dnt_grid_equal_width</custom-field>
+        <custom-field action="copy">_mtphr_dnt_grid_cols</custom-field>
+        <custom-field action="copy">_mtphr_dnt_grid_rows</custom-field>
+        <custom-field action="copy">_mtphr_dnt_grid_padding</custom-field>
+        <custom-field action="copy">_mtphr_dnt_grid_remove_padding</custom-field>
     </custom-fields>
+    <custom-fields-texts>
+        <key name="_mtphr_dnt_ticks">
+            <key name="*">
+                <key name="*-tick" />
+                <key name="*-link" />
+            </key>
+        </key>
+    </custom-fields-texts>
     <custom-types>
         <custom-type translate="1">ditty_news_ticker</custom-type>
+        <custom-type translate="1">ditty</custom-type>
     </custom-types>                
 </wpml-config>
-
-

@@ -1,0 +1,38 @@
+.ditty[data-type="ticker"] {
+  .ditty__contents {
+    overflow: hidden;
+  }
+  .ditty__items {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    opacity: 1;
+  }
+  .ditty-item {
+    //position: absolute;
+    line-height: 1;
+    flex: 0 0 auto;
+  }
+  //&.ditty-ticker--filled {
+  .ditty-item__elements {
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  .ditty-item--active {
+    .ditty-item__elements {
+      opacity: 1;
+    }
+  }
+  //}
+  &.ditty--init {
+    .ditty__items {
+      display: flex;
+      opacity: 1;
+    }
+    .ditty-item {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+}

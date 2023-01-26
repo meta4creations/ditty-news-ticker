@@ -1,67 +1,516 @@
-=== Ditty News Ticker ===
+=== Ditty WordPress Plugin – Responsive Slider, List, and Ticker Display ===
 Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
-Tags: ticker, news, news ticker, rotator, data rotator, lists, data
-Requires at least: 4.0
-Tested up to: 4.5.2
-Stable tag: /trunk/
+Tags: responsive slider, content slider, post slider, news ticker, post ticker
+Requires at least: 5.6
+Tested up to: 6.1.1
+Stable tag: 3.0.32
 License: GPL2
 
-Ditty News Ticker is a multi-functional data display plugin.
+Formerly Ditty News Ticker, Ditty is a multi-functional content display WordPress plugin.
 
 == Description ==
 
-Ditty News Ticker is a multi-functional data display plugin. Easily add custom news tickers to your site either through shortcodes, direct functions, or in a custom Ditty News Ticker Widget.
+Formerly Ditty News Ticker, Ditty is a multi-functional content display WordPress plugin. Easily render your latest blog posts or custom content through multiple display options. Included display options are: News Ticker, Slider, and List. Add more content sources and display options through extensions. With extensions you can display RSS feeds, social media, image galleries, custom post types, and more to your site through the included displays or additional display extensions like grid and carousel.
 
-#### There are 3 default ticker modes
+### Overview
 
-* **Scroll Mode** - Scroll the ticker data left, right, up or down
-* **Rotate Mode** - Rotate through the ticker data
-* **List Mode** - Display your ticker data in a list
+Enhance your website with moving, scrolling, or sliding content. The Ditty plugin makes it easy to display your latest blog posts or custom text on your WordPress website. Display your content in a variety of customizable formats, including ticker, list, and slider. Customize your display with built-in options and use HTML or CSS to further customize the layouts of your content items. Choose from the variety of Ditty extensions to add even more or utilize Ditty Everything to access all features and display types. Ditty is compatible with all WordPress builders including the WordPress Block Editor (Gutenberg), Elementor, Divi, Beaver Builder, and more. Ditty is responsive and SEO friendly!
 
-[**View samples of each mode.**](http://www.dittynewsticker.com/ticker-modes/)
+### Included Display Types
 
-#### Paid Extensions
-Ditty News Ticker is built to easily be extended to add extra Ticker Types and extra Ticker Modes. We currently have the following extensions for sale:
-* [**Ditty Posts Ticker**](https://www.metaphorcreations.com/downloads/ditty-posts-ticker/)
-* [**Ditty Twitter Ticker**](https://www.metaphorcreations.com/downloads/ditty-twitter-ticker/)
-* [**Ditty Facebook Ticker**](https://www.metaphorcreations.com/downloads/ditty-facebook-ticker/)
-* [**Ditty RSS Ticker**](https://www.metaphorcreations.com/downloads/ditty-rss-ticker/)
-* [**Ditty Image Ticker**](https://www.metaphorcreations.com/downloads/ditty-image-ticker/)
-* [**Ditty Flickr Ticker**](https://www.metaphorcreations.com/downloads/ditty-flickr-ticker/)
-* [**Ditty Mega Ticker**](https://www.metaphorcreations.com/downloads/ditty-mega-ticker/)
+*   **Ticker** - Create a unique news ticker using the Ticker Display type. Control the direction, spacing, speed, styling, and many other options.
+*   **List** - Create paged lists of your combined content. Multiple settings give you full control of the look and feel on your lists.
+*   **Slider** - Display your content in a responsive slider. Get full control over your slider's speed, direction, and design.
 
-We now also offer an extensions bundle that includes all current and future extensions!
-* [**Ditty Extensions Bundle**](https://www.metaphorcreations.com/downloads/ditty-news-ticker-bundle/)
+### Included Item Types
 
-<img src="http://metaphorcreations.com/data/wpml-ready-badge.png" />
+*   **Default** - Add custom text to your Ditty.
+*   **WP Editor** - Add custom text to your Ditty using the WP Editor.
+*   **WP Posts Feed (Lite)** - Add your latest blog posts to your Ditty. Check out [**Ditty Posts**](https://www.metaphorcreations.com/downloads/ditty-posts/) for custom post types, advanced WordPress queries, custom fields, and more!
+
+### Add more features with Ditty Extensions!
+
+*   [**Ditty Facebook**](https://www.metaphorcreations.com/downloads/ditty-facebook/) - Easily add Facebook posts or images to your site using the Ditty Facebook extension. Add multiple Facebook feeds and Facebook albums.
+*   [**Ditty Grid**](https://www.metaphorcreations.com/downloads/ditty-grid/) - Display your Ditty items in a customizable and responsive grid.
+*   [**Ditty Images**](https://www.metaphorcreations.com/downloads/ditty-images/) - Add internal and external images to your site through a Ditty.
+*   [**Ditty Instagram**](https://www.metaphorcreations.com/downloads/ditty-instagram/) - Ditty Instagram allows you to easily add your Instagram feed to your site.
+*   [**Ditty Posts**](https://www.metaphorcreations.com/downloads/ditty-posts/) - Easily add any posts to your site using the Ditty Posts extension. Build out a custom WP\_Query or select a specific post.
+*   [**Ditty RSS**](https://www.metaphorcreations.com/downloads/ditty-rss/) - Easily add multiple RSS feeds to your site.
+*   [**Ditty Timing**](https://www.metaphorcreations.com/downloads/ditty-timing/) - Use date ranges, weekly settings, and daily settings to schedule when your Ditty Items are visible or hidden.
+*   [**Ditty Twitter**](https://www.metaphorcreations.com/downloads/ditty-twitter/) - Easily add Twitter feeds and specific Tweets to your site.
+*   [**Ditty XML**](https://www.metaphorcreations.com/downloads/ditty-xml/) - Easily add multiple XML data feeds to your site.
+
+## Key Features
+
+Web developers and theme builders will love how Ditty's flexible and professional-looking display options help to enhance the look and feel of your website. Because of the HTML and CSS styling capabilities, the Ditty plugin will fit seamlessly into any WordPress website. Key plugin features include:
+
+### Live Updates
+
+Ditty will update in the background for users without the need to refresh the browser. Keep your content fresh and engaging.
+
+### Live Editing
+
+See the changes you make while editing your Ditty as you make them. Add Items, edit Layouts and Displays, and see what it looks like before saving.
+
+### Global Rendering
+
+Easily add your Ditty globally on your site, anywhere, without modifying theme files. Want a ticker scrolling at the top of your site, no problem!
+
+### Mix & Match Content
+
+Combine multiple content feeds or custom content in a single Ditty. Merging custom default Items and feeds from various Ditty extensions together has never been easier.
+
+### Customized Displays
+
+Render your Ditty as a custom ticker, list, slider, or other Display through extensions. Customize multiple settings to show your content the way you want.
+
+### Customized Layouts
+
+Take control of the style of your content. Every Ditty Item type can be customized to reflect the style of your site. Use a pre-made template, or edit and customize it to your needs!
+
+## Easy to Use
+
+The Ditty interface is intuitive and easy to navigate, making managing your content a quick and seamless experience. With a few clicks, you can add content, customize your settings, and see your changes in real-time. Whether you're new to WordPress or a seasoned pro, Ditty will help you to easily add content to your site.
+
+## SEO Friendly
+
+Ditty is built with SEO best practices in mind. With CSS and HTML editing options, you can customize your Ditties to match the style of your website, without compromising on SEO. Not only will you be able to customize your content with SEO in mind, but the plugin files are clean and won't bog down your website with bloated code.
+
+## Extensions
+
+Ditty comes with numerous extensions and growing! Easily add RSS feeds, social media content, images, blog posts, and more to your website through Ditty. With new extensions being added regularly, you'll be able to easily add the content that's important to you and your visitors.
+
+## Responsive & Mobile Friendly
+
+Ditty is responsive and mobile-friendly. All the Ditty display types will adapt to any screen size, including mobile devices. Whether your visitors are viewing Ditty on a desktop computer or using their smartphone, you can be sure that your content will be easily viewed and interactive.
+
+## Technical Support
+
+Whether you're having trouble with a basic plugin feature or customizing advanced display settings, our ongoing support team are here to answer your questions and help get your Ditty up and running on your website. The existing Ditty documentation is also available to help you get started, or if you need a little extra guidance. So what are you waiting for? Start adding Ditty to your WordPress site today and take control of your content!
 
 == Installation ==
 
 1. Upload `ditty-news-ticker` directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Create tickers by going to **News Tickers > Add New**
-4. Insert your tickers by copying and pasting the provided shortcode into another post.
-5. Optionally, insert your tickers by copying and pasting the direct function code directly into your theme or plugin.
+3. Create a Ditty by going to **Ditty > Add New**
+4. Insert your Ditty by user the supplied shortcode, widget, or global render option.
 
-[**View full help documentation.**](http://www.dittynewsticker.com/documentation/)
+[**View full help documentation.**](https://www.metaphorcreations.com/article/ditty/)
 
 == Frequently Asked Questions ==
 
 = Are there any settings I need to configure? =
 
-Each individual Ticker post has multiple settings to customize.
+Each individual Ditty has multiple settings to customize.
+
+= I have added my shortcode but the Ditty is not displaying =
+
+The most common cause for an unresponsive Ditty (when using scroll or rotate mode) is a javascript error on your site coming from another plugin or theme. Any type of javascript error will most likely kill any other javascript that is loaded after it. You will need to resolve any javascript errors before the Ditty will start render.
 
 [**View full help documentation.**](http://www.dittynewsticker.com/documentation/)
 
 == Screenshots ==
 
-1. Default Ticker Type options
-2. Scroll Mode options
-3. Rotate Mode options
-4. List Mode options
+1. Ditty post settings
+2. Ditty Items list
+3. Ditty Item Types list
+4. Default Item options
+5. WP Editor Item options
+6. WP Posts Feed (Lite) Item options
+7. Ditty Display Types list
+8. Ticker Display options
+9. List Display preview
+10. General Settings
+11. Global Ditty Settings
+12. Layout Default Settings
+13. Layout Templates Settings
+14. Display Templates Settings
+15. Advanced Settings
 
 == Changelog ==
+
+= 3.0.33 =
+* Live update bug fix
+* Security updates
+
+= 3.0.32 =
+* Added edit link to frontend Ditty
+* manage_posts_columns filter update
+
+= 3.0.31 =
+* Ditty block registration updates
+
+= 3.0.30 =
+* Removed extract() functionality from legacy code
+
+= 3.0.29 =
+* Bug fix in gutenberg block check code
+* Fontawesome version update
+* Include Fontawesome directly in plugin
+
+= 3.0.28 =
+* Added Ditty widget block
+* Added functionality to convert classic widget to block
+
+= 3.0.27 =
+* Bug fix in legacy settings code
+* Bug fix in gutenberg block check code
+
+= 3.0.26 =
+* Resolved bug in single Display edit page
+* Updated display editor code
+* Removed unnecessary code
+
+= 3.0.25 =
+* Resolved Layout save bug that was removing attributes
+* Default Ticker display settings update
+
+= 3.0.24 =
+* Title update
+* Version update
+
+= 3.0.23 =
+* Fontawesome slug update
+
+= 3.0.22 =
+* Dashboard menu order updates
+
+= 3.0.21 =
+* Dashboard menu order updates
+
+= 3.0.20 =
+* Layout tag filter updates
+* Dashboard menu order updates
+
+= 3.0.19 =
+* Added input sanitization updates to extensions settings
+* Bug fix for List display type autoplay speed
+
+= 3.0.18 =
+* Added Title settings for Posts feed lite
+* Added Content settings for Posts feed lite
+* Updated the default post Layout
+
+= 3.0.17 =
+* Added Import/Export functionality
+* Added Ditty shortcode to Ditty edit screen
+* Re-ordered Ditty sub menu
+* RTL admin updates
+* Added Avada builder element
+
+= 3.0.16 =
+* Resolved bug in default item link css
+* Code field updates
+* PHP 8 updates
+* Item preview & title updates
+* Added ticker display item wrap setting
+* Editor item css updates
+
+= 3.0.15 =
+* Ticker container border width render issue fix
+* Data sanitization updates
+* Added Display type fields filter
+
+= 3.0.14 =
+* Ticker cloneItems bug fix
+
+= 3.0.13 =
+* Added Ditty Wizard (Beta)
+* Ditty settings page updates
+* Added Heading field type
+* Default layout updates
+* Updated German translation
+* Added uniq_id meta to Ditty, Layouts & Displays
+* Added init meta to Ditty
+* Resolved editor layout bugs
+* Added Item Created and Modified date meta
+* Added Item Author meta and Layout tags
+* Modified field help functionality
+* Added option to not clone ticker items
+* Ticker display now hides if there are no items
+* Added Ticker title settings
+
+= 3.0.12 =
+* Modified custom display check when rendering Ditty
+* Resolved current Item(s) bug in Ditty Editor
+* Resolved current Item Type bug in Ditty Editor
+* Modified Default Post Layout and increased version number
+* Added init trigger for Ditty_Item_Editor_Panel js file
+* Removed jQuery document ready in all js files
+* Added link options to Posts Feed Lite
+* Added content options to Posts Feed Lite
+* Radio field update
+* Asset loading optimization
+* Added file field type
+* Added item_value to layout tag filters
+* Removed auto-draft checks
+* Customized plugin updater file and references
+* Resolved bug in extension updater
+* Ticker editor min height updates
+
+= 3.0.11 =
+* Resolved bug in ditty_add_scripts function that was causing a javascript error
+* Only possibly load cached ditty on live_updates
+* Added option to disable fontawesome on front-end
+
+= 3.0.10 =
+* Resolved hammer warning
+* Added Post Duplicator integration
+* Added custom Display settings
+* Ticker Display vertical scrolling updates
+* dittyUpdateItems javascript bug fix
+
+= 3.0.9 =
+* Ditty editor Layout css update bug fix
+* Added WPML functionality to Ditty post type
+* Ticker Display vertical scrolling updates
+
+= 3.0.8 =
+* Minor bug fix in widget.php file
+* Added legacy helper for old extension versions
+* Added extension license error notices
+
+= 3.0.7 =
+* .ditty-item css updates
+* Added wp_enqueue_script check to ensure wp_add_inline_script is only added once
+* Removed ajax Ditty notification close
+* Added php Ditty notification close
+* Added Wrap Elements option to Ticker display
+
+= 3.0.6 =
+* Ditty Editor Items javascript helper update
+* Minor update in legacy ditty-news-ticker.js file
+
+= 3.0.5 =
+* Added checks for auto-enabling Ditty News Ticker if old shortcode or function is used on front-end
+
+= 3.0.4 =
+* Removed trailing comma in class-ditty-extensions.php file
+
+= 3.0.3 =
+* Additional upgrade functionality updates
+
+= 3.0.2 =
+* Removed 3.0 upgrade redirect to info screen
+
+= 3.0.1 =
+* Upgrade script bug fix
+
+= 3.0 =
+* Ditty News Ticker posts have been moved to legacy code.
+* Completely new Ditty post type and functionality.
+* New Ditty Layout post type.
+* New Ditty Display post type.
+* New Settings page.
+* Added global Ditty rendering.
+* Added Layout and Display templates.
+* New extensions page for licenses and extension settings.
+
+= 2.3.12 =
+* Bug fix in wpml-config.xml file.
+
+= 2.3.11 =
+* Updated wpml-config.xml file.
+
+= 2.3.10 =
+* Resolved new widgets page bug. Note, all tickers will show in list mode on the widgets page.
+
+= 2.3.9 =
+* Modified javascript to force ticker to resume scroll after clicking a link
+
+= 2.3.8 =
+* Removed string translation from news ticker post type slug
+
+= 2.3.7 =
+* Javascript bug fix
+* Added scroll pause option for showing first tick on it
+
+= 2.3.6 =
+* Javascript bug fix
+* Added scroll pause option for showing first tick on it
+
+= 2.3.5 =
+* Javascript updates to scroll functionality
+
+= 2.3.4 =
+* Javascript updates to scroll functionality
+* Admin tick drag order updates
+
+= 2.3.3 =
+* Javascript updates to scroll functionality
+* EDD Software Licensing updates
+
+= 2.3.2 =
+* Deprecated javascript updates
+
+= 2.3.1 =
+* Deprecated javascript updates
+
+= 2.3 =
+* Reworked scroll functionality for better performance
+
+= 2.2.19 =
+* Added aria-label to previous and next nav elements
+
+= 2.2.18 =
+* Javascript update for WP 5.5
+
+= 2.2.17 =
+* Bug fix with scrolling ticker
+
+= 2.2.16 =
+* Swapped play and pause button icons
+
+= 2.2.15 =
+* CSS Fix for list mode
+
+= 2.2.14 =
+* Resolved display issue with tickers using external fonts
+
+= 2.2.13 =
+* Resolved wp_editor bug when sorting
+
+= 2.2.12 =
+* Resolved javascript imagesloaded issue
+
+= 2.2.11 =
+* Resolved RTL, scrolling right issues
+
+= 2.2.10 =
+* Added settings option to make ticker posts private
+
+= 2.2.9 =
+* Updated error codes for license connections
+
+= 2.2.8 =
+* Resolved possible missing variable bug in grid display code
+
+= 2.2.7 =
+* Constant variable bug fix
+
+= 2.2.6 =
+* Resolved undefined variable bug in eddsl.php file
+
+= 2.2.5 =
+* Updated extension license check for multisite networks
+
+= 2.2.4 =
+* Bug fix
+
+= 2.2.3 =
+* Bug fix
+
+= 2.2.2 =
+* Bug fix
+
+= 2.2 =
+* Code cleanup and maintenance
+* Directory structure reconfiguration
+
+= 2.1.26 =
+* RTL bug fix for scrolling right tickers
+
+= 2.1.25 =
+* Minor admin css update
+
+= 2.1.24 =
+* Added 'Reverse the order of the ticks' to the ticker Global Settings panel
+
+= 2.1.23 =
+* Escaped $_GET variables for additional security measures
+
+= 2.1.22 =
+* Modified how scripts are enqueued
+
+= 2.1.21 =
+* Fixed browser resize bug
+
+= 2.1.20 =
+* Fixed scroll left jquery bug
+
+= 2.1.19 =
+* Fixed wp_query bug when hide ticker option is enabled
+
+= 2.1.18 =
+* Fixed bug in extension license page
+
+= 2.1.17 =
+* Fixed widget ticker title bug.
+* Added a centralized licensing system for all extensions. Extensions will be updated soon to utilize this feature.
+
+= 2.1.16 =
+* Minor javascript update for scrolling tickers.
+
+= 2.1.15 =
+* Resolved bug in ticker widget.
+
+= 2.1.14 =
+* Added shortcode option to reverse the tick order for rotating tickers. Use reverse="1".
+
+= 2.1.13 =
+* Added shortcode option to reverse the tick order. Use reverse="1".
+
+= 2.1.12 =
+* Resolved bug from last update
+
+= 2.1.11 =
+* Resolved custom capabilities bug
+
+= 2.1.10 =
+* Added option to hide ticker if no ticks exist
+* Added option to hide widget if no ticks exist
+* Admin css updates
+
+= 2.1.9 =
+* Bug fixes
+
+= 2.1.8 =
+* Grid bug fix from last update
+
+= 2.1.7 =
+* Removed mtphr_dnt_default_sanitized_tick filter
+* Added mtphr_dnt_sanitized_tick filter
+* Added mtphr_dnt_mixed_ticks_meta filter
+* Added mtphr_dnt_mixed_tick_array filter
+* Added mtphr_dnt_list_heading_class filter
+* Added mtphr_dnt_list_item filter
+* Added mtphr_dnt_list_item_class filter
+* Updated mixed ticker function
+* Modified default ticker data
+
+= 2.1.6 =
+* Added mtphr_dnt_default_sanitized_tick filter
+
+= 2.1.5 =
+* Added ditty_news_ticker function check in widgets.php file
+
+= 2.1.4 =
+* Removed testing code from last update
+
+= 2.1.3 =
+* Added check to ensure VC version is 5 or greater before adding VC shortcode
+
+= 2.1.2 =
+* Updated qtip scripts
+* Updated paths to enqueued files
+
+= 2.1.1 =
+* Bug fix from last update
+* Added custom News Tickers Settings capability for admins
+
+= 2.1.0 =
+* Added custom capabilities for the ditty_news_ticker post type and settings
+
+= 2.0.18 =
+* .mtphr-dnt-image-container css display update
+* Metabox text update
+
+= 2.0.17 =
+* Image container css updates
+
+= 2.0.16 =
+* Image container css updates
 
 = 2.0.15 =
 * Tick width and height detection modification in jQuery script
@@ -291,7 +740,7 @@ Each individual Ticker post has multiple settings to customize.
 * Added setting to display first scroll tick on init.
 
 = 1.1.7 =
-* Modified structure & CSS to move the rotate navigation up a level.
+* Resolved undefined variable bug in eddsl.php file
 
 = 1.1.6 =
 * Fixed pause on hover functionality.
@@ -372,4 +821,4 @@ Each individual Ticker post has multiple settings to customize.
 
 == Upgrade Notice ==
 
-Tick width and height detection modification in jQuery script
+Added Edit Ditty links to front end. manage_posts_columns update.

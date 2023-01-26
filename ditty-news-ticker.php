@@ -1,125 +1,81 @@
 <?php
-/*
-Plugin Name: Ditty News Ticker
-Plugin URI: http://dittynewsticker.com/
-Description: Ditty News Ticker is a multi-functional data display plugin
-Text Domain: ditty-news-ticker
-Domain Path: languages
-Version: 2.0.15
-Author: Metaphor Creations
-Author URI: http://www.metaphorcreations.com
-Contributors: metaphorcreations
-License: GPL2
-*/
 
-/*
-Copyright 2012 Metaphor Creations  (email : joe@metaphorcreations.com)
+/**
+ * Plugin Name:       Ditty
+ * Plugin URI:        https://www.metaphorcreations.com/ditty
+ * Description:       Formerly Ditty News Ticker, Ditty is a multi-functional content display WordPress plugin.
+ * Version:           3.0.32
+ * Author:            Metaphor Creations
+ * Author URI:        https://www.metaphorcreations.com
+ * License:           GPL-2.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Text Domain:       ditty-news-ticker
+ * Domain Path:       /languages
+ */
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License, version 2, as
-published by the Free Software Foundation.
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+// Plugin version.
+if ( ! defined( 'DITTY_VERSION' ) ) {
+	define( 'DITTY_VERSION', '3.0.32' );
+}
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
+// Plugin Folder Path.
+if ( ! defined( 'DITTY_DIR' ) ) {
+	define( 'DITTY_DIR', plugin_dir_path( __FILE__ ) );
+}
 
+// Plugin Folder URL.
+if ( ! defined( 'DITTY_URL' ) ) {
+	define( 'DITTY_URL', plugin_dir_url( __FILE__ ) );
+}
 
-
-/* --------------------------------------------------------- */
-/* !Define constants - 2.0.15 */
-/* --------------------------------------------------------- */
-
-define ( 'MTPHR_DNT_VERSION', '2.0.15' );
-define ( 'MTPHR_DNT_DIR', trailingslashit(plugin_dir_path(__FILE__)) );
-define ( 'MTPHR_DNT_URL', trailingslashit(plugins_url()).'ditty-news-ticker/' );
-
-
-
-/* --------------------------------------------------------- */
-/* !Include files - 1.5.0 */
-/* --------------------------------------------------------- */
-
-// Load the general functions
-require_once( MTPHR_DNT_DIR.'includes/helpers.php' );
-require_once( MTPHR_DNT_DIR.'includes/post-types.php' );
-require_once( MTPHR_DNT_DIR.'includes/settings.php' );
-require_once( MTPHR_DNT_DIR.'includes/widget.php' );
-require_once( MTPHR_DNT_DIR.'includes/composer.php' );
-
-if( is_admin() ) {
-
-	// Load admin specific code
-	require_once( MTPHR_DNT_DIR.'includes/admin/ajax.php' );
-	require_once( MTPHR_DNT_DIR.'includes/admin/meta-boxes.php' );
-	require_once( MTPHR_DNT_DIR.'includes/admin/edit-columns.php' );
-	require_once( MTPHR_DNT_DIR.'includes/admin/fields/helpers.php' );
-	require_once( MTPHR_DNT_DIR.'includes/admin/fields/fields.php' );
-	require_once( MTPHR_DNT_DIR.'includes/admin/filters.php' );
-	require_once( MTPHR_DNT_DIR.'includes/admin/upgrades.php' );
-	require_once( MTPHR_DNT_DIR.'includes/admin/scripts.php' );
-} else {
-	
-	// Load front-end specific code
-	require_once( MTPHR_DNT_DIR.'includes/filters.php' );
-	require_once( MTPHR_DNT_DIR.'includes/functions.php' );
-	require_once( MTPHR_DNT_DIR.'includes/scripts.php' );
-	require_once( MTPHR_DNT_DIR.'includes/shortcodes.php' );
-	require_once( MTPHR_DNT_DIR.'classes/class-mtphr-dnt.php' );
-	require_once( MTPHR_DNT_DIR.'classes/class-mtphr-dnt-tick.php' );
-	require_once( MTPHR_DNT_DIR.'classes/class-mtphr-dnt-image.php' );
-	require_once( MTPHR_DNT_DIR.'classes/helpers/class-mtphr-dnt-string-replacement.php' );
-	require_once( MTPHR_DNT_DIR.'includes/templates.php' );
+// Plugin Root File.
+if ( ! defined( 'DITTY_FILE' ) ) {
+	define( 'DITTY_FILE', __FILE__ );
 }
 
 
-
-/* --------------------------------------------------------- */
-/* !Register the post type & flush the rewrite rules - 1.4.6 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_activation() {
-	mtphr_dnt_posttype();
-	flush_rewrite_rules();
+/**
+ * The code that runs during plugin activation.
+ * This action is documented in includes/class-ditty-activator.php
+ */
+function ditty_activate() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-ditty-activator.php';
+	Ditty_Activator::activate();
 }
-register_activation_hook( __FILE__, 'mtphr_dnt_activation' );
 
-
-
-/* --------------------------------------------------------- */
-/* !Flush the rewrite rules - 1.4.6 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_deactivation() {
-	flush_rewrite_rules();
+/**
+ * The code that runs during plugin deactivation.
+ * This action is documented in includes/class-ditty-deactivator.php
+ */
+function ditty_deactivate() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-ditty-deactivator.php';
+	Ditty_Deactivator::deactivate();
 }
-register_deactivation_hook( __FILE__, 'mtphr_dnt_deactivation' );
 
+register_activation_hook( __FILE__, 'ditty_activate' );
+register_deactivation_hook( __FILE__, 'ditty_deactivate' );
 
+/**
+ * The core plugin class that is used to define internationalization,
+ * admin-specific hooks, and public-facing site hooks.
+ */
+require plugin_dir_path( __FILE__ ) . 'includes/class-ditty.php';
 
-/* --------------------------------------------------------- */
-/* !Setup localization - 1.1.5 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_localization() {
-	load_plugin_textdomain( 'ditty-news-ticker', false, 'ditty-news-ticker/languages/' );
+/**
+ * Begins execution of the plugin.
+ *
+ * Since everything within the plugin is registered via hooks,
+ * then kicking off the plugin from this point in the file does
+ * not affect the page life cycle.
+ *
+ * @since    1.0
+ */
+function Ditty() {
+	return Ditty::instance();
 }
-add_action( 'plugins_loaded', 'mtphr_dnt_localization' );
-
-
-
-/* --------------------------------------------------------- */
-/* !Set a custom Unyson extension location - 2.0.6 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_unyson_extension( $locations ) {
-  $locations[ MTPHR_DNT_DIR.'unyson' ] = MTPHR_DNT_URL.'unyson';
-  return $locations;
-}
-add_filter( 'fw_extensions_locations', 'mtphr_dnt_unyson_extension' );
-
+Ditty();

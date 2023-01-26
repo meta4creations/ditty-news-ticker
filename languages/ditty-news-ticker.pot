@@ -1,0 +1,2766 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Ditty\n"
+"POT-Creation-Date: 2021-12-22 16:19-0600\n"
+"PO-Revision-Date: 2021-11-16 08:07-0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: ditty-news-ticker.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: vendor\n"
+"X-Poedit-SearchPathExcluded-2: node_modules\n"
+
+#: blocks/ditty-block/index.js:24 blocks/ditty-block/index.js:87
+#: includes/admin/upgrade_details.php:26 includes/post-types.php:14
+#: includes/post-types.php:15 includes/post-types.php:25
+msgid "Ditty"
+msgstr ""
+
+#: blocks/ditty-block/index.js:25
+msgid "Display your Ditty within the content of the post."
+msgstr ""
+
+#: blocks/ditty-block/index.js:32 includes/helpers.php:104
+msgid "Ticker"
+msgstr ""
+
+#: blocks/ditty-block/index.js:33 blocks/ditty-block/index.js:98
+#: includes/admin/columns.php:24 includes/admin/settings.php:300
+#: includes/class-ditty-displays.php:593 includes/post-types.php:83
+msgid "Display"
+msgstr ""
+
+#: blocks/ditty-block/index.js:34 includes/class-ditty-item-type-default.php:32
+#: includes/class-ditty-item-type-wp-editor.php:32
+#: legacy/inc/admin/fields/fields.php:619
+msgid "Content"
+msgstr ""
+
+#: blocks/ditty-block/index.js:59 legacy/inc/helpers.php:349
+msgid "Select a Ticker"
+msgstr ""
+
+#: blocks/ditty-block/index.js:67 includes/admin/settings.php:302
+msgid "Use Default Display"
+msgstr ""
+
+#: blocks/ditty-block/index.js:93
+msgid "Loading Tickers"
+msgstr ""
+
+#: blocks/ditty-block/index.js:104
+msgid "Loading Displays"
+msgstr ""
+
+#: blocks/ditty-block/index.js:114 blocks/ditty-block/index.js:119
+#: blocks/ditty-block/index.js:137
+msgid "ID:"
+msgstr ""
+
+#: blocks/ditty-block/index.js:115 blocks/ditty-block/index.js:126
+#: blocks/ditty-block/index.js:138
+msgid "Display:"
+msgstr ""
+
+#. translators: the plugin name.
+#: includes/admin/Ditty_Plugin_Updater.php:224
+#, php-format
+msgid "There is a new version of %1$s available."
+msgstr ""
+
+#: includes/admin/Ditty_Plugin_Updater.php:230
+msgid "Contact your network administrator to install the update."
+msgstr ""
+
+#. translators: 1. opening anchor tag, do not translate 2. the new plugin version 3. closing anchor tag, do not translate.
+#: includes/admin/Ditty_Plugin_Updater.php:235
+#, php-format
+msgid "%1$sView version %2$s details%3$s."
+msgstr ""
+
+#: includes/admin/Ditty_Plugin_Updater.php:243
+#, php-format
+msgid "%1$sView version %2$s details%3$s or %4$supdate now%5$s."
+msgstr ""
+
+#: includes/admin/Ditty_Plugin_Updater.php:254
+msgid "Update now."
+msgstr ""
+
+#: includes/admin/Ditty_Plugin_Updater.php:486
+msgid "You do not have permission to install plugin updates"
+msgstr ""
+
+#: includes/admin/Ditty_Plugin_Updater.php:486
+msgid "Error"
+msgstr ""
+
+#: includes/admin/columns.php:16 includes/admin/columns.php:20
+msgid "Version"
+msgstr ""
+
+#: includes/admin/columns.php:17 includes/admin/columns.php:25
+#: includes/class-ditty-displays.php:332
+msgid "Display Type"
+msgstr ""
+
+#: includes/admin/columns.php:21
+msgid "Layout Template"
+msgstr ""
+
+#: includes/admin/columns.php:81
+msgid "Edit"
+msgstr ""
+
+#: includes/admin/columns.php:173 legacy/inc/admin/edit-columns.php:138
+msgid "Show all Types"
+msgstr ""
+
+#: includes/admin/columns.php:185
+msgid "Show all Templates"
+msgstr ""
+
+#: includes/admin/settings.php:11 includes/admin/settings.php:12
+#: includes/class-ditty-singles.php:74 legacy/inc/settings.php:11
+#: legacy/inc/settings.php:12
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/settings.php:31
+msgid "Ditty Settings"
+msgstr ""
+
+#: includes/admin/settings.php:42
+msgid "General"
+msgstr ""
+
+#: includes/admin/settings.php:47
+msgid "Global Ditty"
+msgstr ""
+
+#: includes/admin/settings.php:52
+msgid "Layout Defaults"
+msgstr ""
+
+#: includes/admin/settings.php:57 includes/admin/settings.php:204
+#: includes/class-ditty-layouts.php:210
+msgid "Layout Templates"
+msgstr ""
+
+#: includes/admin/settings.php:62
+msgid "Display Templates"
+msgstr ""
+
+#: includes/admin/settings.php:67
+msgid "Advanced"
+msgstr ""
+
+#: includes/admin/settings.php:133
+msgid "Live Refresh Rate"
+msgstr ""
+
+#: includes/admin/settings.php:134
+msgid "Minute(s)"
+msgstr ""
+
+#: includes/admin/settings.php:135
+msgid "Set the live update refresh interval for your Ditty."
+msgstr ""
+
+#: includes/admin/settings.php:152
+msgid "Layout Posts"
+msgstr ""
+
+#: includes/admin/settings.php:153
+msgid "Edit Layouts directly as post types."
+msgstr ""
+
+#: includes/admin/settings.php:156 includes/admin/settings.php:168
+#: includes/class-ditty-singles.php:122
+msgid "Disabled"
+msgstr ""
+
+#: includes/admin/settings.php:157 includes/admin/settings.php:169
+msgid "Enabled"
+msgstr ""
+
+#: includes/admin/settings.php:164
+msgid "Ditty Display Posts"
+msgstr ""
+
+#: includes/admin/settings.php:165
+msgid "Edit Ditty Displays directly as post types."
+msgstr ""
+
+#: includes/admin/settings.php:187
+msgid "Layout Variation Defaults"
+msgstr ""
+
+#: includes/admin/settings.php:221
+msgid "Default Displays"
+msgstr ""
+
+#: includes/admin/settings.php:238 legacy/inc/composer.php:10
+#: legacy/inc/composer.php:17 legacy/inc/help.php:95 legacy/inc/widget.php:14
+msgid "Ditty News Ticker"
+msgstr ""
+
+#: includes/admin/settings.php:239
+msgid "Enable Ditty News Ticker (Legacy code)"
+msgstr ""
+
+#: includes/admin/settings.php:240
+msgid ""
+"This will enable loading of all legacy scripts and post types. Only enable "
+"this option if you have active Ditty News Ticker posts displaying on your "
+"site. You must refresh your browser after saving before changes take place."
+msgstr ""
+
+#: includes/admin/settings.php:266
+msgid "Add More Global Tickers"
+msgstr ""
+
+#: includes/admin/settings.php:272
+msgid "HTML Selector"
+msgstr ""
+
+#: includes/admin/settings.php:273
+msgid "Add a jQuery HTML element selector to add a Ditty to."
+msgstr ""
+
+#: includes/admin/settings.php:274
+msgid "Example: #site-header"
+msgstr ""
+
+#: includes/admin/settings.php:279
+msgid "Position"
+msgstr ""
+
+#: includes/admin/settings.php:280
+msgid "Select the position of the Ditty in relation to the HTML selector."
+msgstr ""
+
+#: includes/admin/settings.php:281
+msgid "Select Position"
+msgstr ""
+
+#: includes/admin/settings.php:283
+msgid "Start of Element"
+msgstr ""
+
+#: includes/admin/settings.php:284
+msgid "End of Element"
+msgstr ""
+
+#: includes/admin/settings.php:285
+msgid "Before Element"
+msgstr ""
+
+#: includes/admin/settings.php:286
+msgid "After Element"
+msgstr ""
+
+#: includes/admin/settings.php:292
+msgid "Ditty Ticker"
+msgstr ""
+
+#: includes/admin/settings.php:293
+msgid "Select a Ditty you want to display globally."
+msgstr ""
+
+#: includes/admin/settings.php:294
+msgid "Select a Ditty"
+msgstr ""
+
+#: includes/admin/settings.php:301
+msgid "Optional: Select a custom display to use with the Ditty."
+msgstr ""
+
+#: includes/admin/settings.php:308
+msgid "Custom ID"
+msgstr ""
+
+#: includes/admin/settings.php:309
+msgid "Optional: Add a custom ID to the Ditty"
+msgstr ""
+
+#: includes/admin/settings.php:314
+msgid "Custom Classes"
+msgstr ""
+
+#: includes/admin/settings.php:315
+msgid "Optional: Add custom classes to the Ditty"
+msgstr ""
+
+#: includes/admin/upgrade_details.php:11
+msgid "Ditty Upgrade Details"
+msgstr ""
+
+#: includes/admin/upgrade_details.php:12
+msgid "Upgrade Details"
+msgstr ""
+
+#: includes/admin/upgrade_details.php:25
+#, php-format
+msgid "Ditty v%s"
+msgstr ""
+
+#: includes/admin/upgrade_details.php:27
+msgid "News Ticker was just the beginning"
+msgstr ""
+
+#: includes/admin/upgrade_details.php:33
+msgid ""
+"<strong>Ditty News Ticker</strong> has now become <strong>Ditty</strong>!"
+msgstr ""
+
+#: includes/admin/upgrade_details.php:34
+msgid ""
+"This update has been a long time in the making! Due to the complete rebuild "
+"of code for <strong>Ditty 3.0</strong> we decided to limit the upgrade "
+"process. We created a new post type you can start using right away without "
+"potentially causing issues with your existing <strong>News Tickers</strong>."
+msgstr ""
+
+#: includes/admin/upgrade_details.php:35
+msgid ""
+"Don't worry, all of your existing <strong>News Tickers</strong> will still "
+"work! Although, we do urge you to start upgrading and updating your tickers "
+"to the new <strong>Ditty</strong> post type. <strong>Ditty News Ticker</"
+"strong> is now relagated to legacy code and there will be very limited "
+"updates from this point on. Most development time will now be assigned to "
+"<strong>Ditty</strong> and existing and new <strong>Ditty</strong> "
+"extensions."
+msgstr ""
+
+#: includes/admin/upgrade_details.php:41
+#, php-format
+msgid "Ditty %s Features"
+msgstr ""
+
+#: includes/admin/upgrade_details.php:50 includes/class-ditty-singles.php:141
+msgid "Live Updates"
+msgstr ""
+
+#: includes/admin/upgrade_details.php:51
+msgid ""
+"Ditty will update in the background for users without the need to refresh "
+"the browser. Keep your content fresh and engaging."
+msgstr ""
+
+#: includes/admin/upgrade_details.php:59
+msgid "Live Editing"
+msgstr ""
+
+#: includes/admin/upgrade_details.php:60
+msgid ""
+"See the changes you make while editing your Ditty as you make them. Add "
+"Items, edit Layouts and Displays and see what it looks like before saving."
+msgstr ""
+
+#: includes/admin/upgrade_details.php:68
+msgid "Global Rendering"
+msgstr ""
+
+#: includes/admin/upgrade_details.php:69
+msgid ""
+"Easily add your Ditty globally on your site, anywhere, without modifying "
+"theme files. Want a ticker scrolling at the top of your site, no problem!"
+msgstr ""
+
+#: includes/admin/upgrade_details.php:77
+msgid "Mix & Match Content"
+msgstr ""
+
+#: includes/admin/upgrade_details.php:78
+msgid ""
+"Combine multiple content feeds or custom content in a single Ditty. Merging "
+"custom default Items and feeds from various Ditty extensions together has "
+"never been easier."
+msgstr ""
+
+#: includes/admin/upgrade_details.php:86
+msgid "Customized Displays"
+msgstr ""
+
+#: includes/admin/upgrade_details.php:87
+msgid ""
+"Render your Ditty as a custom ticker, list, slider, or other Display through "
+"extensions. Customize multiple settings to show your content the way you "
+"want."
+msgstr ""
+
+#: includes/admin/upgrade_details.php:95
+msgid "Customized Layouts"
+msgstr ""
+
+#: includes/admin/upgrade_details.php:96
+msgid ""
+"Take control of the the style of your content. Every Ditty Item type can be "
+"customized to reflect the style of your site. Use a pre-made template, or "
+"edit and customize to your needs!"
+msgstr ""
+
+#: includes/class-ditty-display-item.php:175
+#, php-format
+msgid "Ditty Layout does not exist for %s item!"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:35
+#: includes/class-ditty-display-type-ticker.php:35
+msgid "General Settings"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:36
+#: includes/class-ditty-display-type-ticker.php:36
+msgid "Configure the general functionality settings."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:41
+#: includes/class-ditty-display-type-ticker.php:55
+msgid "Spacing"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:42
+#: includes/class-ditty-display-type-ticker.php:56
+msgid "Set the amount of space between items (in pixels)."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:54
+msgid "Paging"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:55
+msgid "Split the list into pages"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:58
+#: includes/class-ditty-display-type-list.php:128
+#: includes/class-ditty-singles.php:132 includes/class-ditty-singles.php:143
+msgid "No"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:59
+#: includes/class-ditty-display-type-list.php:129
+#: includes/class-ditty-singles.php:133 includes/class-ditty-singles.php:144
+msgid "Yes"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:66
+msgid "Items Per Page"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:67
+msgid "Set the number of items to show per page"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:74
+msgid "Page Transition"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:75
+msgid "Set the type of transition to use between pages"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:82
+msgid "Page Transition Ease"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:83
+msgid "Set the easing of the transition between pages."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:90
+msgid "Page Transition Speed"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:91
+msgid "Set the speed of the transition between pages."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:92
+#: includes/class-ditty-display-type-list.php:113
+#: includes/class-ditty-display-type-list.php:194
+#: includes/class-ditty-display-type-list.php:215
+#: includes/class-ditty-display-type-ticker.php:138
+msgid "second(s)"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:103
+#: includes/class-ditty-display-type-ticker.php:128
+msgid "Height Ease"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:104
+msgid "Set the easing of the list height."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:111
+#: includes/class-ditty-display-type-ticker.php:136
+msgid "Height Speed"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:112
+msgid "Set the speed of the list height."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:124
+msgid "Auto Play"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:125
+msgid "Auto play the slider"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:136
+msgid "Pause Autoplay on Hover"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:137
+#: includes/class-ditty-display-type-list.php:138
+msgid "Pause the autoplay on mouse over"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:144
+msgid "Auto Play Speed"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:145
+msgid "Set the amount of delay between slides"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:146
+#: includes/class-ditty-display-type-ticker.php:117
+#: legacy/inc/admin/fields/fields.php:609
+#: legacy/inc/admin/fields/fields.php:625
+msgid "seconds"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:157
+#: includes/class-ditty-display-type-ticker.php:149
+msgid "Shuffle Items"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:158
+#: includes/class-ditty-display-type-list.php:159
+#: includes/class-ditty-display-type-ticker.php:150
+msgid "Randomly shuffle items on each page load"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:170
+msgid "Initial Settings"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:171
+msgid "Configure the initial display settings."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:176
+msgid "Initial Page Transition"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:177
+msgid "Set the transition for initial display."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:184
+msgid "Initial Page Transition Ease"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:185
+msgid "Set the easing for initial display."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:192
+msgid "Initial Page Transition Speed"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:193
+msgid "Set the transition speed for initial display."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:205
+msgid "Initial Height Ease"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:206
+msgid "Set the height easing for initial display."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:213
+msgid "Initial Height Speed"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:214
+msgid "Set the height speed for initial display."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:234
+#: includes/class-ditty-display-type-ticker.php:170
+msgid "Import/Export"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:235
+#: includes/class-ditty-display-type-ticker.php:171
+msgid "Import or export the display settings."
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:267
+msgid "Default List"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:268
+msgid "Default list display"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:273
+msgid "Default Slider"
+msgstr ""
+
+#: includes/class-ditty-display-type-list.php:274
+msgid "Default slider display"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:41
+msgid "Direction"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:42
+msgid "Set the direction of the ticker."
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:44
+#: includes/class-ditty-display-type.php:391
+#: includes/class-ditty-display-type.php:439
+#: includes/fields/ditty-field-spacing.php:27
+#: legacy/inc/admin/meta-boxes.php:481
+msgid "Left"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:45
+#: includes/class-ditty-display-type.php:392
+#: includes/class-ditty-display-type.php:440
+#: includes/fields/ditty-field-spacing.php:28
+#: legacy/inc/admin/meta-boxes.php:482
+msgid "Right"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:46
+#: legacy/inc/admin/meta-boxes.php:484
+msgid "Down"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:47
+#: legacy/inc/admin/meta-boxes.php:483
+msgid "Up"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:69
+msgid "Speed"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:70
+msgid "Set the speed of the ticker."
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:81
+msgid "Min. Height"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:82
+msgid "Set the minimum height of the Ditty for vertical scrolling tickers."
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:88
+msgid "Max. Height"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:89
+msgid "Set the maximum height of the Ditty for vertical scrolling tickers."
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:95
+msgid "Hover Pause"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:96
+msgid "Pause the ticker on mouse over"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:97
+msgid "Pause the ticker on mouse over."
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:103
+msgid "Initial Display"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:104
+msgid "Choose how the ticker should initialize."
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:106
+msgid "Empty"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:107
+msgid "Filled"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:115
+msgid "Scroll Delay"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:116
+msgid "Delay the start of scrolling for filled tickers."
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:129
+msgid "Set the easing of the ticker height."
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:137
+msgid "Set the speed of the ticker height."
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:151
+msgid "Randomly shuffle items on each page load."
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:162
+msgid "Max Width"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:163
+msgid "Set a maximum width for items"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:204
+msgid "Default Ticker"
+msgstr ""
+
+#: includes/class-ditty-display-type-ticker.php:205
+msgid "Default ticker display"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:202
+#: includes/class-ditty-extensions.php:380 legacy/inc/admin/meta-boxes.php:76
+msgid "Update"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:220
+msgid "Arrow Navigation Settings"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:221
+msgid "Configure arrow navigation settings."
+msgstr ""
+
+#: includes/class-ditty-display-type.php:226
+msgid "Arrows"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:227
+msgid "Set the arrow navigation style"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:229
+#: includes/class-ditty-display-type.php:302
+msgid "Hide"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:230
+#: includes/class-ditty-display-type.php:303
+msgid "Show"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:237
+msgid "Arrows Icon Color"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:238
+msgid "Add a custom icon color to the arrows"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:244
+msgid "Arrows Background Color"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:245
+msgid "Add a custom background color to the arrows"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:251
+msgid "Arrows Position"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:252
+msgid "Set the position of the arrows"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:254
+#: includes/class-ditty-display-type.php:389
+#: includes/class-ditty-display-type.php:437
+#: includes/fields/ditty-field-spacing.php:25
+msgid "Top"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:255
+msgid "Center"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:256
+#: includes/class-ditty-display-type.php:390
+#: includes/class-ditty-display-type.php:438
+#: includes/fields/ditty-field-spacing.php:26
+msgid "Bottom"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:263
+msgid "Arrows Padding"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:264
+msgid "Add padding to the arrows container"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:270
+msgid "Arrows Visibility"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:271
+#: includes/class-ditty-display-type.php:272
+msgid "Keep arrows visible at all times"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:293
+msgid "Bullet Navigation Settings"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:294
+msgid "Configure bullet navigation settings."
+msgstr ""
+
+#: includes/class-ditty-display-type.php:299
+msgid "Bullets"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:300
+msgid "Set the bullet navigation style"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:310
+msgid "Bullets Color"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:311
+msgid "Add a custom color to the bullets"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:317
+msgid "Bullets Active Color"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:318
+msgid "Add a custom color to the active bullet"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:324
+msgid "Bullets Position"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:325
+msgid "Set the position of the bullets"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:327
+#: includes/fields/ditty-field-radius.php:25
+msgid "Top Left"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:328
+msgid "Top Center"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:329
+#: includes/fields/ditty-field-radius.php:26
+msgid "Top Right"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:330
+#: includes/fields/ditty-field-radius.php:27
+msgid "Bottom Left"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:331
+msgid "Bottom Center"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:332
+#: includes/fields/ditty-field-radius.php:28
+msgid "Bottom Right"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:339
+msgid "Bullets Spacing"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:340
+msgid "Set the amount of space between bullets (in pixels)."
+msgstr ""
+
+#: includes/class-ditty-display-type.php:352
+msgid "Bullets Padding"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:353
+msgid "Add padding to the bullets container"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:373
+msgid "Border Color"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:379
+msgid "Border Style"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:380
+msgid "A border style must be set for a border to render"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:387
+msgid "Border Width"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:399
+msgid "Border Radius"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:416
+msgid "Max. Width"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:417
+msgid "Set a maximum width for the container"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:423
+#: includes/class-ditty-display-type.php:471
+#: includes/class-ditty-display-type.php:507
+#: includes/class-ditty-display-type.php:549
+msgid "Background Color"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:429
+#: includes/class-ditty-display-type.php:477
+#: includes/class-ditty-display-type.php:513
+#: includes/class-ditty-display-type.php:555
+msgid "Padding"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:435
+msgid "Margin"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:453
+msgid "Container Styles"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:454
+msgid "Add custom container styles."
+msgstr ""
+
+#: includes/class-ditty-display-type.php:489
+msgid "Content Styles"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:490
+msgid "Add custom content styles."
+msgstr ""
+
+#: includes/class-ditty-display-type.php:525
+msgid "Page Styles"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:526
+msgid "Add custom page styles."
+msgstr ""
+
+#: includes/class-ditty-display-type.php:543
+msgid "Text Color"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:567
+msgid "Item Styles"
+msgstr ""
+
+#: includes/class-ditty-display-type.php:568
+msgid "Add custom item styles."
+msgstr ""
+
+#: includes/class-ditty-displays.php:119 includes/class-ditty-displays.php:173
+#: includes/class-ditty-displays.php:181 includes/class-ditty-layouts.php:125
+#: includes/class-ditty-layouts.php:229 includes/class-ditty-layouts.php:237
+msgid "Installed"
+msgstr ""
+
+#: includes/class-ditty-displays.php:186 includes/class-ditty-layouts.php:242
+#, php-format
+msgid "Install Version %s"
+msgstr ""
+
+#: includes/class-ditty-displays.php:196 includes/class-ditty-layouts.php:251
+msgid "Install Template"
+msgstr ""
+
+#: includes/class-ditty-displays.php:228 includes/class-ditty-layouts.php:279
+#: includes/class-ditty-singles.php:260
+#, php-format
+msgid "ID: %d"
+msgstr ""
+
+#: includes/class-ditty-displays.php:242
+msgid "Display Info"
+msgstr ""
+
+#: includes/class-ditty-displays.php:243
+msgid "Display Settings"
+msgstr ""
+
+#: includes/class-ditty-displays.php:309
+msgid "Display type does not exist"
+msgstr ""
+
+#: includes/class-ditty-displays.php:341 includes/class-ditty-layouts.php:354
+msgid "Description"
+msgstr ""
+
+#: includes/class-ditty-displays.php:364
+#, php-format
+msgid "% display type does not exist."
+msgstr ""
+
+#: includes/class-ditty-displays.php:400 includes/post-types.php:86
+msgid "Edit Display"
+msgstr ""
+
+#: includes/class-ditty-displays.php:411 includes/class-ditty-items.php:158
+#: includes/class-ditty-layouts.php:526 includes/fields/ditty-field.php:223
+msgid "Clone"
+msgstr ""
+
+#: includes/class-ditty-displays.php:422 includes/class-ditty-items.php:169
+#: includes/class-ditty-layouts.php:537 includes/fields/ditty-field.php:221
+msgid "Delete"
+msgstr ""
+
+#: includes/class-ditty-displays.php:573
+msgid "Display does not exist"
+msgstr ""
+
+#: includes/class-ditty-displays.php:695 includes/class-ditty-layouts.php:764
+msgid "Title Goes Here..."
+msgstr ""
+
+#: includes/class-ditty-displays.php:775 includes/class-ditty-layouts.php:872
+#, php-format
+msgid "%s Clone"
+msgstr ""
+
+#: includes/class-ditty-editor.php:64
+msgid "Ditty updated"
+msgstr ""
+
+#: includes/class-ditty-extensions.php:49
+#: includes/class-ditty-extensions.php:52
+#: includes/class-ditty-extensions.php:422
+msgid "Ditty Extensions"
+msgstr ""
+
+#: includes/class-ditty-extensions.php:49
+#: includes/class-ditty-extensions.php:52
+msgid "Extensions"
+msgstr ""
+
+#: includes/class-ditty-extensions.php:78
+msgid "Ditty..."
+msgstr ""
+
+#: includes/class-ditty-extensions.php:93 includes/helpers.php:636
+msgid "License is active."
+msgstr ""
+
+#: includes/class-ditty-extensions.php:94
+#: includes/class-ditty-extensions.php:95 includes/helpers.php:637
+#: includes/helpers.php:638
+msgid "An error occurred, please try again."
+msgstr ""
+
+#: includes/class-ditty-extensions.php:96 includes/helpers.php:639
+#, php-format
+msgid "Your license key expired on %s."
+msgstr ""
+
+#: includes/class-ditty-extensions.php:97
+#: includes/class-ditty-extensions.php:98 includes/helpers.php:640
+#: includes/helpers.php:641
+msgid "Your license key has been disabled."
+msgstr ""
+
+#: includes/class-ditty-extensions.php:99 includes/helpers.php:642
+msgid "Invalid license."
+msgstr ""
+
+#: includes/class-ditty-extensions.php:100
+#: includes/class-ditty-extensions.php:101 includes/helpers.php:643
+#: includes/helpers.php:644
+msgid "Your license is not active for this URL."
+msgstr ""
+
+#: includes/class-ditty-extensions.php:102
+#, php-format
+msgid "This appears to be an invalid license key for %s."
+msgstr ""
+
+#: includes/class-ditty-extensions.php:103 includes/helpers.php:646
+msgid "Your license key has reached its activation limit."
+msgstr ""
+
+#: includes/class-ditty-extensions.php:104 includes/helpers.php:647
+msgid "License is deactivated."
+msgstr ""
+
+#: includes/class-ditty-extensions.php:105 includes/helpers.php:648
+msgid "Update failed."
+msgstr ""
+
+#: includes/class-ditty-extensions.php:116
+#, php-format
+msgid ""
+"Please <a href=\"%s\" target=\"_blank\">update or renew your license</a>."
+msgstr ""
+
+#: includes/class-ditty-extensions.php:266
+msgid "License"
+msgstr ""
+
+#: includes/class-ditty-extensions.php:330
+msgid "Preview Extension"
+msgstr ""
+
+#: includes/class-ditty-extensions.php:362 legacy/eddsl/eddsl.php:202
+msgid "Add your license key here"
+msgstr ""
+
+#: includes/class-ditty-extensions.php:363 legacy/inc/helpers.php:396
+msgid "Activate License"
+msgstr ""
+
+#: includes/class-ditty-extensions.php:364 legacy/inc/helpers.php:397
+msgid "Refresh License"
+msgstr ""
+
+#: includes/class-ditty-extensions.php:365
+msgid "Deactive License"
+msgstr ""
+
+#: includes/class-ditty-extensions.php:429
+msgid "Active Extensions"
+msgstr ""
+
+#: includes/class-ditty-extensions.php:445
+msgid "Additional Ditty Extensions"
+msgstr ""
+
+#: includes/class-ditty-item-type-default.php:33
+#: includes/class-ditty-item-type-wp-editor.php:33
+msgid "Add the content of your item. HTML and inline styles are supported."
+msgstr ""
+
+#: includes/class-ditty-item-type-default.php:39
+#: legacy/inc/admin/meta-boxes.php:288
+msgid "Link"
+msgstr ""
+
+#: includes/class-ditty-item-type-default.php:40
+msgid ""
+"Add a custom link to your content. You can also add a link directly into "
+"your content."
+msgstr ""
+
+#: includes/class-ditty-item-type-default.php:49
+#: includes/class-ditty-singles.php:106 legacy/inc/admin/fields/fields.php:139
+msgid "Title"
+msgstr ""
+
+#: includes/class-ditty-item-type-default.php:50
+msgid "Add a title to the custom lnk."
+msgstr ""
+
+#: includes/class-ditty-item-type-default.php:56
+#: legacy/inc/admin/meta-boxes.php:296
+msgid "Target"
+msgstr ""
+
+#: includes/class-ditty-item-type-default.php:57
+#: legacy/inc/admin/meta-boxes.php:297
+msgid "Set a target for your link."
+msgstr ""
+
+#: includes/class-ditty-item-type-default.php:67
+#: legacy/inc/admin/meta-boxes.php:307
+msgid "No Follow"
+msgstr ""
+
+#: includes/class-ditty-item-type-default.php:68
+#: legacy/inc/admin/meta-boxes.php:310
+msgid "Add \"nofollow\" to link"
+msgstr ""
+
+#: includes/class-ditty-item-type-default.php:69
+#: legacy/inc/admin/meta-boxes.php:308
+msgid ""
+"Enabling this setting will add an attribute called 'nofollow' to your link. "
+"This tells search engines to not follow this link."
+msgstr ""
+
+#: includes/class-ditty-item-type-default.php:84
+#: includes/class-ditty-item-type-wp-editor.php:48
+msgid "This is a sample item. Please edit me!"
+msgstr ""
+
+#: includes/class-ditty-item-type-default.php:119
+#: includes/class-ditty-item.php:35
+msgid "No text set..."
+msgstr ""
+
+#: includes/class-ditty-item-type-posts.php:68
+msgid "Limit"
+msgstr ""
+
+#: includes/class-ditty-item-type-posts.php:69
+msgid "Set the number of latest posts to display."
+msgstr ""
+
+#: includes/class-ditty-item-type-posts.php:141
+#, php-format
+msgid "Displaying the latest %d posts"
+msgstr ""
+
+#: includes/class-ditty-item-type-wp-editor.php:62
+msgid "No content set..."
+msgstr ""
+
+#: includes/class-ditty-item-type.php:145 includes/helpers.php:65
+#: legacy/inc/helpers.php:12 legacy/inc/helpers.php:55
+msgid "Default"
+msgstr ""
+
+#: includes/class-ditty-item-type.php:146
+msgid "Default variation."
+msgstr ""
+
+#: includes/class-ditty-item.php:365
+#, php-format
+msgid "<strong>%s</strong> item type does not exist!"
+msgstr ""
+
+#: includes/class-ditty-items.php:89
+msgid "The item elements container"
+msgstr ""
+
+#: includes/class-ditty-items.php:103
+msgid "Change Type"
+msgstr ""
+
+#: includes/class-ditty-items.php:125 includes/fields/ditty-field.php:220
+msgid "Re-arrange"
+msgstr ""
+
+#: includes/class-ditty-items.php:136
+msgid "Edit Item"
+msgstr ""
+
+#: includes/class-ditty-items.php:147 includes/post-types.php:51
+msgid "Edit Layout"
+msgstr ""
+
+#: includes/class-ditty-items.php:186
+msgid "Items"
+msgstr ""
+
+#: includes/class-ditty-items.php:208
+msgid "Add Item"
+msgstr ""
+
+#: includes/class-ditty-items.php:246
+msgid "Item Types"
+msgstr ""
+
+#: includes/class-ditty-items.php:248
+msgid "Go Back"
+msgstr ""
+
+#: includes/class-ditty-layout.php:88
+msgid "Ditty Layout does not exist."
+msgstr ""
+
+#: includes/class-ditty-layouts.php:155
+msgid "Choose a Layout"
+msgstr ""
+
+#: includes/class-ditty-layouts.php:159
+msgid "Layout Variations"
+msgstr ""
+
+#: includes/class-ditty-layouts.php:293
+msgid "Layout Info"
+msgstr ""
+
+#: includes/class-ditty-layouts.php:294
+msgid "Layout HTML"
+msgstr ""
+
+#: includes/class-ditty-layouts.php:295
+msgid "Layout CSS"
+msgstr ""
+
+#: includes/class-ditty-layouts.php:504 includes/class-ditty-layouts.php:599
+#: includes/class-ditty-layouts.php:751
+msgid "Edit HTML"
+msgstr ""
+
+#: includes/class-ditty-layouts.php:515 includes/class-ditty-layouts.php:600
+#: includes/class-ditty-layouts.php:746
+msgid "Edit CSS"
+msgstr ""
+
+#: includes/class-ditty-layouts.php:570
+#, php-format
+msgid "Layout: <span>%s</span>"
+msgstr ""
+
+#: includes/class-ditty-layouts.php:596
+#, php-format
+msgid "Variation: %s"
+msgstr ""
+
+#: includes/class-ditty-layouts.php:597
+#, php-format
+msgid "Template: <span>%s</span>%s"
+msgstr ""
+
+#: includes/class-ditty-layouts.php:603
+msgid "Change Template"
+msgstr ""
+
+#: includes/class-ditty-layouts.php:642
+#, php-format
+msgid "Variation: <span>%s</span>"
+msgstr ""
+
+#: includes/class-ditty-layouts.php:775
+msgid "Tags"
+msgstr ""
+
+#: includes/class-ditty-layouts.php:778
+msgid ""
+"Hold the shift key when clicking the tag to paste all default attributes"
+msgstr ""
+
+#: includes/class-ditty-singles.php:95 includes/class-ditty-singles.php:194
+#: includes/class-ditty-singles.php:612
+#, php-format
+msgid "Ditty %d"
+msgstr ""
+
+#: includes/class-ditty-singles.php:113 legacy/inc/admin/edit-columns.php:15
+#: legacy/inc/admin/meta-boxes.php:19
+msgid "Shortcode"
+msgstr ""
+
+#: includes/class-ditty-singles.php:119
+msgid "Status"
+msgstr ""
+
+#: includes/class-ditty-singles.php:121
+msgid "Active"
+msgstr ""
+
+#: includes/class-ditty-singles.php:130
+msgid "Ajax Loading"
+msgstr ""
+
+#: includes/class-ditty-singles.php:155
+msgid "Preview Settings"
+msgstr ""
+
+#: includes/class-ditty-singles.php:156
+msgid "Configure the editor preview style."
+msgstr ""
+
+#: includes/class-ditty-singles.php:161
+msgid "Preview Background Color"
+msgstr ""
+
+#: includes/class-ditty-singles.php:162
+msgid "Set a custom background color for the preview area while editing."
+msgstr ""
+
+#: includes/class-ditty-singles.php:168
+msgid "Preview Padding"
+msgstr ""
+
+#: includes/class-ditty.php:189 includes/class-ditty.php:201
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: includes/fields/ditty-field-button.php:24
+msgid "Button"
+msgstr ""
+
+#: includes/fields/ditty-field-image.php:25 legacy/inc/static.php:34
+msgid "Upload or select an image"
+msgstr ""
+
+#: includes/fields/ditty-field-image.php:26
+msgid "Insert Image"
+msgstr ""
+
+#: includes/fields/ditty-field.php:37
+msgid "Add More"
+msgstr ""
+
+#: includes/fields/ditty-field.php:222
+msgid "Add"
+msgstr ""
+
+#: includes/fields/helpers.php:11
+msgid "No field type specified."
+msgstr ""
+
+#: includes/fields/helpers.php:16
+#, php-format
+msgid "%s class does not exists."
+msgstr ""
+
+#: includes/helpers.php:67
+msgid "Manually add HTML to the item."
+msgstr ""
+
+#: includes/helpers.php:73
+msgid "WP Editor"
+msgstr ""
+
+#: includes/helpers.php:75
+msgid "Manually add wp editor content to the item."
+msgstr ""
+
+#: includes/helpers.php:106
+msgid "Basic news ticker display."
+msgstr ""
+
+#: includes/helpers.php:111 legacy/inc/helpers.php:141
+msgid "List"
+msgstr ""
+
+#: includes/helpers.php:113
+msgid "Display items in a static list."
+msgstr ""
+
+#: includes/helpers.php:159
+msgid "Instagram"
+msgstr ""
+
+#: includes/helpers.php:171
+msgid "RSS"
+msgstr ""
+
+#: includes/helpers.php:177
+msgid "Twitter"
+msgstr ""
+
+#: includes/helpers.php:645
+msgid "This appears to be an invalid license key."
+msgstr ""
+
+#: includes/helpers.php:649
+msgid "Save Settings"
+msgstr ""
+
+#: includes/helpers.php:650
+msgid "Saving..."
+msgstr ""
+
+#: includes/helpers.php:651
+msgid "Settings have changed, make sure to save them!"
+msgstr ""
+
+#: includes/helpers.php:652
+msgid "Settings Updated!"
+msgstr ""
+
+#: includes/helpers.php:653
+msgid "Error Updating!"
+msgstr ""
+
+#: includes/helpers.php:677
+msgid "Add title"
+msgstr ""
+
+#: includes/helpers.php:678
+msgid ""
+"Are you sure you want to delete this Item? This action cannot be undone."
+msgstr ""
+
+#: includes/helpers.php:679
+msgid "Are you sure you want to delete this Display?"
+msgstr ""
+
+#: includes/helpers.php:680
+msgid "Are you sure you want to delete this Layout?"
+msgstr ""
+
+#: includes/helpers.php:681
+msgid "There is an error in your css.<br/>Click to close this message."
+msgstr ""
+
+#: includes/helpers.php:956 legacy/inc/admin/meta-boxes.php:666
+msgid "Fade"
+msgstr ""
+
+#: includes/helpers.php:957
+msgid "Slide Left"
+msgstr ""
+
+#: includes/helpers.php:958
+msgid "Slide Right"
+msgstr ""
+
+#: includes/helpers.php:959
+msgid "Slide Down"
+msgstr ""
+
+#: includes/helpers.php:960
+msgid "Slide Up"
+msgstr ""
+
+#: includes/layout-tags.php:12
+msgid "Render the item's author avatar"
+msgstr ""
+
+#: includes/layout-tags.php:30
+msgid "Render the item's author banner"
+msgstr ""
+
+#: includes/layout-tags.php:48
+msgid "Render the item's author biography"
+msgstr ""
+
+#: includes/layout-tags.php:63
+msgid "Render the item's author name"
+msgstr ""
+
+#: includes/layout-tags.php:78
+msgid "Render the item's author screen name"
+msgstr ""
+
+#: includes/layout-tags.php:93
+msgid "Render the item caption."
+msgstr ""
+
+#: includes/layout-tags.php:109
+msgid "Render the item categories"
+msgstr ""
+
+#: includes/layout-tags.php:121
+msgid "Render the item content."
+msgstr ""
+
+#: includes/layout-tags.php:131
+msgid "Render a custom field for the item"
+msgstr ""
+
+#: includes/layout-tags.php:142
+msgid "Render the item excerpt."
+msgstr ""
+
+#: includes/layout-tags.php:160
+msgid "Render the item icon."
+msgstr ""
+
+#: includes/layout-tags.php:175
+msgid "Render the item image."
+msgstr ""
+
+#: includes/layout-tags.php:193
+msgid "Render the item image url."
+msgstr ""
+
+#: includes/layout-tags.php:197
+msgid "Render the item permalink."
+msgstr ""
+
+#: includes/layout-tags.php:201
+msgid "Render the item source."
+msgstr ""
+
+#: includes/layout-tags.php:216
+msgid "Render the item terms"
+msgstr ""
+
+#: includes/layout-tags.php:229
+msgid "Render the item date/time."
+msgstr ""
+
+#: includes/layout-tags.php:234
+#, php-format
+msgid "%s ago"
+msgstr ""
+
+#: includes/layout-tags.php:247
+msgid "Render the item title."
+msgstr ""
+
+#: includes/layout-templates.php:12
+msgid "Default Layout"
+msgstr ""
+
+#: includes/layout-templates.php:13
+msgid "Default layout for custom content."
+msgstr ""
+
+#: includes/layout-templates.php:19
+msgid "Default Image Layout"
+msgstr ""
+
+#: includes/layout-templates.php:20
+msgid "Default layout for Images."
+msgstr ""
+
+#: includes/layout-templates.php:26
+msgid "Default Post Layout"
+msgstr ""
+
+#: includes/layout-templates.php:27
+msgid "Default layout for Posts."
+msgstr ""
+
+#: includes/post-types.php:16 includes/post-types.php:49
+#: includes/post-types.php:84 legacy/inc/post-types.php:16
+msgid "Add New"
+msgstr ""
+
+#: includes/post-types.php:17
+msgid "Add New Ditty"
+msgstr ""
+
+#: includes/post-types.php:18
+msgid "Edit Ditty"
+msgstr ""
+
+#: includes/post-types.php:19
+msgid "New Ditty"
+msgstr ""
+
+#: includes/post-types.php:20
+msgid "View Ditty"
+msgstr ""
+
+#: includes/post-types.php:21
+msgid "Search Ditty"
+msgstr ""
+
+#: includes/post-types.php:22
+msgid "No Ditty Found"
+msgstr ""
+
+#: includes/post-types.php:23
+msgid "No Ditty Found In Trash"
+msgstr ""
+
+#: includes/post-types.php:47 includes/post-types.php:58
+msgid "Layouts"
+msgstr ""
+
+#: includes/post-types.php:48
+msgid "Layout"
+msgstr ""
+
+#: includes/post-types.php:50
+msgid "Add New Layout"
+msgstr ""
+
+#: includes/post-types.php:52
+msgid "New Layout"
+msgstr ""
+
+#: includes/post-types.php:53
+msgid "View Layout"
+msgstr ""
+
+#: includes/post-types.php:54
+msgid "Search Layouts"
+msgstr ""
+
+#: includes/post-types.php:55
+msgid "No Layouts Found"
+msgstr ""
+
+#: includes/post-types.php:56
+msgid "No Layouts Found In Trash"
+msgstr ""
+
+#: includes/post-types.php:82 includes/post-types.php:93
+msgid "Displays"
+msgstr ""
+
+#: includes/post-types.php:85
+msgid "Add New Display"
+msgstr ""
+
+#: includes/post-types.php:87
+msgid "New Display"
+msgstr ""
+
+#: includes/post-types.php:88
+msgid "View Display"
+msgstr ""
+
+#: includes/post-types.php:89
+msgid "Search Displays"
+msgstr ""
+
+#: includes/post-types.php:90
+msgid "No Displays Found"
+msgstr ""
+
+#: includes/post-types.php:91
+msgid "No Displays Found In Trash"
+msgstr ""
+
+#: includes/post-types.php:123
+msgid "Ditty Updated!"
+msgstr ""
+
+#: includes/post-types.php:124
+msgid "Layout Updated!"
+msgstr ""
+
+#: includes/post-types.php:125
+msgid "Display Updated!"
+msgstr ""
+
+#: legacy/eddsl/eddsl.php:89 legacy/eddsl/eddsl.php:90
+#: legacy/eddsl/eddsl.php:100 legacy/eddsl/eddsl.php:101
+msgid "Metaphor Licenses"
+msgstr ""
+
+#: legacy/eddsl/eddsl.php:123
+msgid "Metaphor Creations Licenses"
+msgstr ""
+
+#: legacy/eddsl/eddsl.php:214 legacy/inc/helpers.php:391
+msgid "Your license is activated!"
+msgstr ""
+
+#: legacy/eddsl/eddsl.php:216
+#, php-format
+msgid "Your license key expires on %s"
+msgstr ""
+
+#: legacy/eddsl/eddsl.php:224 legacy/eddsl/eddsl.php:247
+msgid "Sorry, it looks like all of your licenses have already been activated."
+msgstr ""
+
+#: legacy/eddsl/eddsl.php:225 legacy/eddsl/eddsl.php:248
+#, php-format
+msgid "View your license activations <a href=\"%s\" target=\"_blank\">here</a>"
+msgstr ""
+
+#: legacy/eddsl/eddsl.php:230
+#, php-format
+msgid ""
+"Sorry, this license is not valid. View your licenses <a href=\"%s\" target="
+"\"_blank\">here</a>"
+msgstr ""
+
+#: legacy/eddsl/eddsl.php:238
+#, php-format
+msgid ""
+"Sorry, your license has expired. Update your license <a href=\"%s\" target="
+"\"_blank\">here</a>"
+msgstr ""
+
+#: legacy/eddsl/eddsl.php:242
+msgid "Sorry, your license has been disabled."
+msgstr ""
+
+#: legacy/eddsl/eddsl.php:388
+#, php-format
+msgid ""
+"Don't forget to <a href=\"%1s\">activate your license</a> for your Ditty "
+"Extensions!"
+msgstr ""
+
+#: legacy/eddsl/eddsl.php:460
+msgid "This license is not active."
+msgstr ""
+
+#: legacy/eddsl/eddsl.php:465 legacy/eddsl/eddsl.php:559
+msgid "Error: Plugin slug does not exist."
+msgstr ""
+
+#: legacy/eddsl/eddsl.php:495 legacy/eddsl/eddsl.php:588
+#, php-format
+msgid "Error: %s."
+msgstr ""
+
+#: legacy/eddsl/eddsl.php:555
+msgid "Please add a valid license."
+msgstr ""
+
+#: legacy/inc/admin/edit-columns.php:13
+msgid "Type"
+msgstr ""
+
+#: legacy/inc/admin/edit-columns.php:14
+msgid "Mode"
+msgstr ""
+
+#: legacy/inc/admin/edit-columns.php:16 legacy/inc/admin/meta-boxes.php:27
+msgid "Direct Function"
+msgstr ""
+
+#: legacy/inc/admin/edit-columns.php:147
+msgid "Show all Modes"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:36 legacy/inc/admin/fields/fields.php:66
+#: legacy/inc/admin/fields/fields.php:113
+#: legacy/inc/admin/fields/fields.php:157
+#: legacy/inc/admin/fields/fields.php:187
+#: legacy/inc/admin/fields/fields.php:224
+#: legacy/inc/admin/fields/fields.php:259
+#: legacy/inc/admin/fields/fields.php:298
+#: legacy/inc/admin/fields/fields.php:327
+#: legacy/inc/admin/fields/fields.php:360
+#: legacy/inc/admin/fields/fields.php:392
+#: legacy/inc/admin/fields/fields.php:431
+#: legacy/inc/admin/fields/fields.php:470
+#: legacy/inc/admin/fields/fields.php:503
+#: legacy/inc/admin/fields/fields.php:563
+#: legacy/inc/admin/fields/fields.php:636
+#: legacy/inc/admin/fields/fields.php:682
+#: legacy/inc/admin/fields/fields.php:761
+msgid "Missing required data"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:137
+msgid "ID"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:138
+msgid "Author"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:140
+msgid "Name"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:141
+msgid "Date"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:142
+msgid "Modified"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:143
+msgid "Parent"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:144
+msgid "Random"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:145
+msgid "Comment Count"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:146
+msgid "Menu Order"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:149
+msgid "Ascending"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:150
+msgid "Descending"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:417
+#: legacy/inc/admin/fields/fields.php:457
+msgid "Use default"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:419
+#: legacy/inc/admin/fields/helpers.php:339
+msgid "None"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:494
+#: legacy/inc/admin/fields/fields.php:496
+msgid "Add Image"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:543
+msgid "Override default opacity"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:545
+msgid "Opacity"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:592
+msgid "Element"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:593
+msgid "Animation"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:594
+msgid "Delay"
+msgstr ""
+
+#: legacy/inc/admin/fields/fields.php:603
+msgid "Header"
+msgstr ""
+
+#: legacy/inc/admin/fields/helpers.php:337
+msgid "Use Default Value"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:20
+msgid ""
+"Copy and paste this shortcode into a page or post to display the ticker "
+"within the post content."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:28
+msgid ""
+"Copy and paste this code directly into one of your theme files to display "
+"the ticker any where you want on your site."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:71
+msgid "<span>Ticker </span>Type"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:73
+msgid "<span>Ticker </span>Mode"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:75
+msgid "<span>Global </span>Settings"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:104 legacy/inc/admin/meta-boxes.php:139
+msgid "More Extensions"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:269
+msgid "Ticks"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:270
+msgid "Add an unlimited number of ticks to your ticker"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:271
+msgid ""
+"Use the '+' and 'x' buttons on the right to add and delete ticks. Drag and "
+"drop the arrows on the left to re-order your ticks."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:279
+msgid "Ticker text"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:280
+msgid "Add the content of your tick. HTML and inline styles are supported."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:282
+msgid "Add your content here. HTML and inline styles are supported."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:289
+msgid ""
+"Wrap a link around your tick content. You can also add a link directly into "
+"your content."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:291
+msgid "Add a URL (optional)"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:317
+msgid "Line breaks"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:318
+msgid "Force line breaks on carriage returns (not used for wysiwyg editors)"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:319
+msgid ""
+"Enabling this setting will create new lines for all carrige returns "
+"contained in your tick text"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:323
+msgid "Force line breaks"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:377
+msgid "Tick selection"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:378
+msgid ""
+"Select the ticks you would like to display by choosing the tick type and the "
+"offset position of the selected feed"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:386
+msgid "Ticker type"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:387
+msgid "Select the ticker type to use."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:394
+msgid "All ticks"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:395
+msgid "All ticks from the specified type will be show when this is enabled."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:397
+msgid "Display all ticks"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:402
+msgid "Offset"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:403
+msgid ""
+"Choose the specific tick you would like to use from the specified type. '0' "
+"will display the first tick, '1' will display the second tick, and so on."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:474
+msgid "Scroll direction"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:475
+msgid "Set the scroll direction of the ticker"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:476
+msgid ""
+"Set the direction you want the ticker to scroll. By default, the ticker "
+"starts off-screen, but you can enable the 'Show first tick on init' setting "
+"to force the content to start on-screen."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:492
+msgid "Show first tick on init"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:499
+msgid "Delay scroll start (in seconds)"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:507 legacy/inc/admin/meta-boxes.php:686
+msgid "Tick dimensions"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:508 legacy/inc/admin/meta-boxes.php:687
+msgid "Override the auto dimensions with specific values"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:509
+msgid ""
+"Set a specific width and height for the ticks. When using a vertically "
+"scrolling ticker the height will define the overall height of the ticker."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:513
+msgid "Width"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:514 legacy/inc/admin/meta-boxes.php:523
+#: legacy/inc/admin/meta-boxes.php:537 legacy/inc/admin/meta-boxes.php:546
+#: legacy/inc/admin/meta-boxes.php:579 legacy/inc/admin/meta-boxes.php:693
+#: legacy/inc/admin/meta-boxes.php:705 legacy/inc/admin/meta-boxes.php:714
+#: legacy/inc/admin/meta-boxes.php:897 legacy/inc/admin/meta-boxes.php:906
+#: legacy/inc/admin/meta-boxes.php:919 legacy/inc/admin/meta-boxes.php:1128
+#: legacy/inc/admin/meta-boxes.php:1138
+msgid "pixels"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:522 legacy/inc/admin/meta-boxes.php:692
+msgid "Height"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:530
+msgid "Scroller padding"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:531
+msgid "Set the vertical spacing of the scrolling data"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:532 legacy/inc/admin/meta-boxes.php:700
+#: legacy/inc/admin/meta-boxes.php:892
+msgid "Add custom vertical padding and margins to each of your ticks."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:536 legacy/inc/admin/meta-boxes.php:704
+#: legacy/inc/admin/meta-boxes.php:896
+msgid "Vertical padding"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:545 legacy/inc/admin/meta-boxes.php:713
+#: legacy/inc/admin/meta-boxes.php:905
+msgid "Vertical margin"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:553
+msgid "Scroll speed"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:554
+msgid "Set the speed of the scrolling data"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:555
+msgid ""
+"Set the speed of the ticker. You may need to try different speeds to get "
+"optimum results when using different fonts. Enable the checkbox to pause the "
+"ticker when a user's have their mouse over the ticker."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:566 legacy/inc/admin/meta-boxes.php:743
+msgid "Pause on mouse over"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:573 legacy/inc/admin/meta-boxes.php:913
+msgid "Tick spacing"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:574
+msgid "Set the spacing between scrolling data"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:575
+msgid ""
+"Set the amount of space that should be rendered between the ticks within "
+"your ticker."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:659
+msgid "Rotation type"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:660
+msgid "Set the type of rotation for the ticker"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:661
+msgid ""
+"Select the rotation type. Enable 'Dynamic Slide Direction' to reverse the "
+"slide direction when previous items are selected."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:667
+msgid "Slide left"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:668
+msgid "Slide right"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:669
+msgid "Slide up"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:670
+msgid "Slide down"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:678
+msgid "Dynamic slide direction"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:688
+msgid "Set a specific height for the ticks."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:698
+msgid "Rotator padding"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:699
+msgid "Set the vertical spacing of the rotating data"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:721
+msgid "Auto rotate"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:722
+msgid "Set the delay between rotations"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:723
+msgid ""
+"Enable auto rotation of your ticks with and set the amount of time each tick "
+"should display. Optionally, force the rotator to pause when the user hovers "
+"over the ticker."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:727 legacy/inc/admin/meta-boxes.php:780
+#: legacy/inc/admin/meta-boxes.php:801 legacy/inc/admin/meta-boxes.php:930
+msgid "Enable"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:735
+msgid "Seconds delay"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:750
+msgid "Rotate speed"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:751
+msgid "Set the speed & easing of the rotation"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:752
+msgid ""
+"Set the speed of the rotation based on tenths of a second. Also, choose the "
+"type of easing you want to use when the ticks rotate."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:756
+msgid "Tenths of a second"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:774
+msgid "Directional navigation"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:775
+msgid "Set the directional navigation options"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:776
+msgid ""
+"Enable the directional navigation. Optionally, set the navigation to auto-"
+"hide when the user is not hovering over the ticker."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:788
+msgid "Autohide navigation"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:795
+msgid "Control navigation"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:796
+msgid "Set the control navigation options"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:797
+msgid "Enable the control navigation and choose the type of display."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:810
+msgid "Buttons"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:811
+msgid "Numbers"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:819
+msgid "Disable Touchswipe"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:820 legacy/inc/admin/meta-boxes.php:821
+msgid "Disable touchswipe navigation on touch devices"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:825
+msgid "Disable"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:851 legacy/inc/admin/meta-boxes.php:1380
+msgid "« Previous"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:852 legacy/inc/admin/meta-boxes.php:1381
+msgid "Next »"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:890
+msgid "List padding"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:891
+msgid "Set the vertical spacing of the list container"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:914
+msgid "Set the spacing between ticks"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:915
+msgid "Set the amount of space that should be added between the ticks."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:924
+msgid "List paging"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:925
+msgid "Break the list up into pages"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:926
+msgid ""
+"Break your list up into pages with navigation. Set the number of ticks to "
+"show per page and customize the previous and next links."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:938
+msgid "Ticks per page"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:946
+msgid "Enable previous & next links"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:954
+msgid "Previous text"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:962
+msgid "Next text"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1052
+msgid "Ticker title"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1053
+msgid "Set the display of the title"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1054
+msgid "Enable the display and set the position of the ticker title."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1058
+msgid "Display title"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1066
+msgid "Inline title"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1073
+msgid "Ticker options"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1074
+msgid "General ticker options"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1083
+msgid "Hide ticker if no ticks exist"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1091
+msgid "Randomly shuffle the ticks"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1099
+msgid "Reverse the order of the ticks"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1107
+msgid "Remove margin and padding from all tick contents"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1115
+msgid "Add a play/pause button to scrolling and auto-rotating tickers"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1122
+msgid "Ticker width"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1123
+msgid "Set a static width for the ticker"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1124
+msgid ""
+"Leave blank or set to '0' if you want the ticker width to be responsive."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1133
+msgid "Offset ticks"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1134
+msgid "Set the amount of pixels ticks should start and end off the screen"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1143
+msgid "Grid Display"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1144
+msgid "Enable a grid display of your tickers and adjust the grid settings"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1145
+msgid ""
+"You should only use this option if you need to display multiple ticks at the "
+"same time. You should not use this functionality if you are using a normal "
+"scrolling ticker."
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1149
+msgid "Display ticks in a grid"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1157
+msgid "Render empty rows"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1165
+msgid "Force equal column width"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1173
+msgid "Columns"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1181
+msgid "Rows"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1189
+msgid "Cell padding"
+msgstr ""
+
+#: legacy/inc/admin/meta-boxes.php:1197
+msgid "Remove padding on table edges"
+msgstr ""
+
+#: legacy/inc/composer.php:19
+msgid "Select the ticker you want to display"
+msgstr ""
+
+#: legacy/inc/composer.php:25
+msgid "Custom Class"
+msgstr ""
+
+#: legacy/inc/composer.php:27
+msgid "Add a custom class name to the ticker"
+msgstr ""
+
+#: legacy/inc/filters.php:224
+msgid "<i class=\"mtphr-dnt-icon-gear\"></i> Edit ticker"
+msgstr ""
+
+#: legacy/inc/help.php:59
+msgid "Scroll Mode"
+msgstr ""
+
+#: legacy/inc/help.php:66
+msgid "Rotate Mode"
+msgstr ""
+
+#: legacy/inc/help.php:73
+msgid "List Mode"
+msgstr ""
+
+#: legacy/inc/help.php:110
+msgid "For more information:"
+msgstr ""
+
+#: legacy/inc/help.php:111
+msgid ""
+"Visit the <a href=\"http://www.metaphorcreations.com\" target=\"_blank"
+"\">documentation</a> on the Ditty News Ticker website"
+msgstr ""
+
+#: legacy/inc/help.php:112
+msgid "View DNT extensions"
+msgstr ""
+
+#: legacy/inc/help.php:126
+msgid "Add general information about Ditty News Ticker."
+msgstr ""
+
+#: legacy/inc/help.php:135
+msgid "Add scroll mode info."
+msgstr ""
+
+#: legacy/inc/help.php:144
+msgid "Add rotate mode info."
+msgstr ""
+
+#: legacy/inc/help.php:153
+msgid "Add list mode info."
+msgstr ""
+
+#: legacy/inc/helpers.php:17
+msgid "Mixed"
+msgstr ""
+
+#: legacy/inc/helpers.php:57
+msgid "Manually add HTML to the tick."
+msgstr ""
+
+#: legacy/inc/helpers.php:62
+msgid "Twitter Feed"
+msgstr ""
+
+#: legacy/inc/helpers.php:64
+msgid "Display a Twitter feed using a set of parameters."
+msgstr ""
+
+#: legacy/inc/helpers.php:70
+msgid "Single Tweet"
+msgstr ""
+
+#: legacy/inc/helpers.php:72
+msgid "Display a single Tweet by entering a URL or ID."
+msgstr ""
+
+#: legacy/inc/helpers.php:131
+msgid "Scroll"
+msgstr ""
+
+#: legacy/inc/helpers.php:136
+msgid "Rotate"
+msgstr ""
+
+#: legacy/inc/helpers.php:359
+msgid "No tickers found"
+msgstr ""
+
+#: legacy/inc/helpers.php:392
+msgid "Sorry, this license is not valid."
+msgstr ""
+
+#: legacy/inc/helpers.php:393
+msgid "Your license has been deactivated."
+msgstr ""
+
+#: legacy/inc/helpers.php:394
+msgid "Sorry, something went wrong with the deactivation."
+msgstr ""
+
+#: legacy/inc/helpers.php:395
+msgid "Deactivate License"
+msgstr ""
+
+#: legacy/inc/helpers.php:414
+#, php-format
+msgid "% string does not exist"
+msgstr ""
+
+#: legacy/inc/post-types.php:14 legacy/inc/post-types.php:25
+msgid "News Tickers"
+msgstr ""
+
+#: legacy/inc/post-types.php:15
+msgid "News Ticker"
+msgstr ""
+
+#: legacy/inc/post-types.php:17
+msgid "Add New News Ticker"
+msgstr ""
+
+#: legacy/inc/post-types.php:18
+msgid "Edit News Ticker"
+msgstr ""
+
+#: legacy/inc/post-types.php:19
+msgid "New News Ticker"
+msgstr ""
+
+#: legacy/inc/post-types.php:20
+msgid "View News Ticker"
+msgstr ""
+
+#: legacy/inc/post-types.php:21
+msgid "Search News Tickers"
+msgstr ""
+
+#: legacy/inc/post-types.php:22
+msgid "No News Tickers Found"
+msgstr ""
+
+#: legacy/inc/post-types.php:23
+msgid "No News Tickers Found In Trash"
+msgstr ""
+
+#: legacy/inc/post-types.php:25 legacy/inc/settings.php:11
+#: legacy/inc/settings.php:12
+msgid "(Legacy)"
+msgstr ""
+
+#: legacy/inc/post-types.php:61
+msgid "Ditty News Ticker Updated!"
+msgstr ""
+
+#: legacy/inc/settings.php:28
+msgid "The global settings to your news tickers."
+msgstr ""
+
+#: legacy/inc/settings.php:44
+msgid "Ditty News Ticker Settings"
+msgstr ""
+
+#: legacy/inc/settings.php:116
+msgid "Ditty News Ticker settings"
+msgstr ""
+
+#: legacy/inc/settings.php:120
+msgid "Visual Editor"
+msgstr ""
+
+#: legacy/inc/settings.php:120
+msgid "Use the visual editor to create tick contents"
+msgstr ""
+
+#: legacy/inc/settings.php:124
+msgid "Quick Edit Links"
+msgstr ""
+
+#: legacy/inc/settings.php:124
+msgid ""
+"Add quick edit links on the front-end of the site for editors and admins"
+msgstr ""
+
+#: legacy/inc/settings.php:128
+msgid "Private Ticker Posts"
+msgstr ""
+
+#: legacy/inc/settings.php:128
+msgid "Make all ticker posts private"
+msgstr ""
+
+#: legacy/inc/settings.php:132
+msgid "Custom CSS"
+msgstr ""
+
+#: legacy/inc/settings.php:132
+msgid ""
+"Add custom css to style your ticker without modifying any external files"
+msgstr ""
+
+#: legacy/inc/settings.php:158
+msgid "Use the visual editor for ticks"
+msgstr ""
+
+#: legacy/inc/settings.php:172
+msgid "Add quick edit links"
+msgstr ""
+
+#: legacy/inc/settings.php:186
+msgid "Private ticker posts"
+msgstr ""
+
+#: legacy/inc/static.php:35
+msgid "Use Image"
+msgstr ""
+
+#: legacy/inc/templates/directional_nav.php:16
+msgid "Previous"
+msgstr ""
+
+#: legacy/inc/templates/directional_nav.php:17
+msgid "Next"
+msgstr ""
+
+#: legacy/inc/widget.php:17
+msgid "Displays a Ditty News Ticker."
+msgstr ""
+
+#: legacy/inc/widget.php:127
+msgid "Title:"
+msgstr ""
+
+#: legacy/inc/widget.php:133
+msgid "Select a Ticker:"
+msgstr ""
+
+#: legacy/inc/widget.php:151
+msgid "Display Ticker Title?"
+msgstr ""
+
+#: legacy/inc/widget.php:157
+msgid "Hide widget if no ticks exist?"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Ditty (formerly Ditty News Ticker)"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://www.metaphorcreations.com/ditty"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Formally Ditty News Ticker. Ditty is a multi-functional data display plugin."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Metaphor Creations"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.metaphorcreations.com"
+msgstr ""

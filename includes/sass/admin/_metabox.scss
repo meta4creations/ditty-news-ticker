@@ -1,0 +1,14 @@
+#ditty-layout-html,
+#ditty-layout-css {
+	.inside,
+	.ditty-field {
+		padding: 0;
+		margin: 0;
+		&__input {
+			margin: 0;
+		}
+	}
+	.CodeMirror {
+		resize: vertical;
+	}
+}

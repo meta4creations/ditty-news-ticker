@@ -1,0 +1,79 @@
+.ditty {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  &[data-title="left"],
+  &[data-title="right"],
+  &[data-title="top"],
+  &[data-title="bottom"] {
+    .ditty__title {
+      display: block;
+    }
+  }
+  &[data-title="left"],
+  &[data-title="right"] {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    .ditty__title {
+      flex: 0 0 auto;
+      &__contents {
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+      }
+    }
+  }
+  &[data-title="top"],
+  &[data-title="bottom"] {
+    .ditty__title {
+      width: 100%;
+    }
+  }
+  &[data-title="bottom"] {
+    .ditty__title {
+      order: 1;
+    }
+    .ditty__contents {
+      order: 0;
+    }
+  }
+  &[data-title_position="center"] {
+    .ditty__title__contents {
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  &[data-title_position="end"] {
+    .ditty__title__contents {
+      align-items: flex-end;
+      justify-content: flex-end;
+    }
+  }
+  &__title {
+    display: none;
+    &__contents {
+      display: flex;
+      flex-direction: row;
+    }
+    &__element {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
+  &__contents {
+    flex: 1;
+  }
+  &__items {
+    position: relative;
+    overflow: hidden;
+  }
+  .ditty-item {
+    overflow: hidden;
+  }
+}

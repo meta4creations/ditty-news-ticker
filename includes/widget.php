@@ -3,75 +3,68 @@
 /**
  * Create a class for the widget
  *
- * @since 1.5.8
+ * @since 3.0.28
  */
-class mtphr_dnt_widget extends WP_Widget {
+class ditty_widget extends WP_Widget {
 		
 	/** Constructor */
 	function __construct() {
-		parent::__construct(
-			'mtphr-dnt-widget',
-			__('Ditty News Ticker', 'ditty-news-ticker'),
-			array(
-				'classname' => 'mtphr-dnt-widget',
-				'description' => __('Displays a Ditty News Ticker.', 'ditty-news-ticker')
-			)
+		$widget_ops = array(
+			'description'                 => __( 'Add a navigation menu to your sidebar.' ),
+			'customize_selective_refresh' => true,
+			'show_instance_in_rest'       => true,
 		);
+		parent::__construct( 'ditty-widget', __( 'Ditty', 'ditty-news-ticker' ), $widget_ops );
 	}
 		
 	/** @see WP_Widget::widget */
 	function widget( $args, $instance ) {
-		
 		extract( $args );
 	
 		// User-selected settings	
-		$title = $instance['title'];
+		$title = isset( $instance['title'] ) ? $instance['title'] : '';
 		$title = apply_filters( 'widget_title', $title );
 		
-		$ticker = $instance['ticker'];
-		$ticker_title = isset( $instance['ticker_title'] );
+		$ditty = isset( $instance['ditty'] ) ? $instance['ditty'] : '';
+		$display = isset( $instance['display'] ) ? $instance['display'] : '';
 		
-		// Before widget (defined by themes)
-		echo $before_widget;
-		
-		// Title of widget (before and after defined by themes)
-		if ( $title ) {
-			echo $before_title . $title . $after_title;
+		if ( '' == $ditty ) {
+			return;
 		}
 		
-		// Set custom attributes
-		$atts = array();
-		
-		// Set the ticker title visibility
-		$atts['title'] = 0;
-		if( $ticker_title ) {
-			$atts['title'] = 1;
-		}
-	
-		// Add a unique widget ID
-		$atts['unique_id'] = 'widget';
-		
-		// Add in_widget attribute for customization
-		$atts['in_widget'] = 1;
+		ob_start();
 		
 		// Display the ticker
-		if( $ticker != '' ) {
-			ditty_news_ticker( $ticker, '', $atts );
+		if( '' != $ditty ) {
+			
+			// Before widget (defined by themes)
+			echo $before_widget;
+			
+			// Title of widget (before and after defined by themes)
+			if ( $title && '' != $title ) {
+				echo $before_title . $title . $after_title;
+			}
+			
+			$atts = array(
+				'id' => $ditty,
+				'display' => ( '' != $display ) ? $display : false,
+			);
+			echo ditty_render( $atts );
+
+			// After widget (defined by themes)
+			echo $after_widget;
 		}
-		
-		// After widget (defined by themes)
-		echo $after_widget;
 	}
 	
 	/** @see WP_Widget::update */
 	function update( $new_instance, $old_instance ) {
 		
 		$instance = $old_instance;
-	
+
 		// Strip tags (if needed) and update the widget settings
-		$instance['title'] = sanitize_text_field( $new_instance['title'] );
-		$instance['ticker'] = $new_instance['ticker'];
-		$instance['ticker_title'] = $new_instance['ticker_title'];
+		$instance['title'] 		= isset( $new_instance['title'] ) 	? sanitize_text_field( $new_instance['title'] ) : '';
+		$instance['ditty'] 		= isset( $new_instance['ditty'] ) 	? intval( $new_instance['ditty'] ) 							: '';
+		$instance['display'] 	= isset( $new_instance['display'] ) ? intval( $new_instance['display'] ) 						: '';
 	
 		return $instance;
 	}
@@ -82,8 +75,8 @@ class mtphr_dnt_widget extends WP_Widget {
 		// Set up some default widget settings
 		$defaults = array(
 			'title' => '',
-			'ticker' => '',
-			'ticker_title' => ''
+			'ditty' => '',
+			'display' => '',
 		);
 		
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
@@ -94,27 +87,32 @@ class mtphr_dnt_widget extends WP_Widget {
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" style="width:97%;" />
 		</p>
 	    
-	  <!-- Ticker: Select -->
+	  <!-- Ditty: Select -->
 		<p>
-			<label for="<?php echo $this->get_field_id( 'ticker' ); ?>"><?php _e( 'Select a Ticker:', 'ditty-news-ticker' ); ?></label><br/>
-			<select id="<?php echo $this->get_field_id( 'ticker' ); ?>" name="<?php echo $this->get_field_name( 'ticker' ); ?>">
+			<label for="<?php echo $this->get_field_id( 'ditty' ); ?>"><?php esc_html_e( 'Select a Ditty', 'ditty-news-ticker' ); ?></label><br/>
+			<select id="<?php echo $this->get_field_id( 'ditty' ); ?>" name="<?php echo $this->get_field_name( 'ditty' ); ?>">
 			<?php
-			$tickers = get_posts( 'numberposts=-1&post_type=ditty_news_ticker&orderby=name&order=ASC' );
-			foreach( $tickers as $ticker ) {
-				if( $instance['ticker'] == $ticker->ID ) {
-					echo '<option value="'.$ticker->ID.'" selected="selected">'.$ticker->post_title.'</option>';
-				} else {
-					echo '<option value="'.$ticker->ID.'">'.$ticker->post_title.'</option>';
-				}
+			$options = Ditty()->singles->select_field_options();
+			echo '<option value="">' . __( 'Select a Ditty', 'ditty-news-ticker' ) . '</option>';
+			foreach( $options as $id => $label ) {
+				echo '<option value="' . $id . '" ' . selected( $instance['ditty'], $id ) . '>' . $label . '</option>';
 			}
 			?>
 			</select>
 		</p>
-	
-		<!-- Display Ticker Title: Checkbox -->
+		
+		<!-- Display: Select -->
 		<p>
-			<input class="checkbox" type="checkbox" <?php checked( $instance['ticker_title'], 'on' ); ?> id="<?php echo $this->get_field_id( 'ticker_title' ); ?>" name="<?php echo $this->get_field_name( 'ticker_title' ); ?>" />
-			<label for="<?php echo $this->get_field_id( 'ticker_title' ); ?>"><?php _e( 'Display Ticker Title?', 'ditty-news-ticker' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'display' ); ?>"><?php esc_html_e( 'Optional: Select a custom display to use with the Ditty.', 'ditty-news-ticker' ); ?></label><br/>
+			<select id="<?php echo $this->get_field_id( 'display' ); ?>" name="<?php echo $this->get_field_name( 'display' ); ?>">
+			<?php
+			$options = Ditty()->displays->select_field_options();
+			echo '<option value="">' . __( 'Use Default Display', 'ditty-news-ticker' ) . '</option>';
+			foreach( $options as $id => $label ) {
+				echo '<option value="' . $id . '" ' . selected( $instance['display'], $id ) . '>' . $label . '</option>';
+			}
+			?>
+			</select>
 		</p>
 	  	
 	<?php
@@ -126,8 +124,16 @@ class mtphr_dnt_widget extends WP_Widget {
 /* !Register the widget - 1.5.7 */
 /* --------------------------------------------------------- */
 
-function mtphr_dnt_widget_init() {
-	register_widget( 'mtphr_dnt_widget' );
+function ditty_widget_init() {
+	register_widget( 'ditty_widget' );
 }
-add_action( 'widgets_init', 'mtphr_dnt_widget_init' );
+add_action( 'widgets_init', 'ditty_widget_init' );
+
+
+function ditty_hide_widget( $widget_types ) {
+	$widget_types[] = 'ditty-widget';
+	return $widget_types;
+}
+//add_filter( 'widget_types_to_hide_from_legacy_widget_block', 'ditty_hide_widget' );
+
 

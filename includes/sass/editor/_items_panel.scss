@@ -1,0 +1,21 @@
+.ditty-editor__panel--items {
+	.ditty-data-list {
+		max-height: calc( 100vh - 470px );
+		min-height: 300px;
+		overflow-y: scroll;
+		-webkit-overflow-scrolling: touch;
+		&__item {
+			&.ditty-editor-item--disabled {
+				cursor: default;
+				background: #F8EDED;
+				border: 1px solid red;
+				box-shadow: 0 0 1px red;
+			}
+			a.ditty-data-list__item__icon {
+				display: block;
+				border-right: 1px solid rgba(0,0,0,.05);
+				margin-right: 10px;
+			}
+		}
+	}
+}

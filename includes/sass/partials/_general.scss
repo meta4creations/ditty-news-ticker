@@ -1,0 +1,76 @@
+.ditty-update-wrapper {
+	position: relative;
+	overflow: hidden;
+}
+.ditty-updating-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba( 255, 255, 255, .7 );
+	z-index: 200;
+	display: none;
+	// display: none;
+	// position: absolute;
+	// top: 0;
+	// left: 0;
+	// z-index: 99;
+	// width: 100%;
+	// height: 100%;
+	// &__inner {
+	// 	position: relative;
+	// 	display: flex;
+	// 	flex-direction: row;
+	// 	align-items: center;
+	// 	justify-content: center;
+	// 	width: 100%;
+	// 	height: 100%;
+	// 	&:before {
+	// 		position: absolute;
+	// 		top: 0;
+	// 		left: 0;
+	// 		width: 100%;
+	// 		height: 100%;
+	// 		content: '';
+	// 		background: #FFF;
+	// 		opacity: .5;
+	// 	}
+	// }
+	i {
+		display: none;
+		color: $green;
+		font-size: 20px;
+		line-break: 20px;
+	}
+	&.active {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+	}
+}
+.ditty-notification {
+	font-weight: 600;
+	padding: 10px 30px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+	display: none;
+	&--updated {
+		color: $success_dark;
+		background: $success;
+	}
+	&--warning {
+		color: $warning_dark;
+		background: $warning;
+	}
+	&--error {
+		color: $error_dark;
+		background: $error;
+	}	
+}
+@media (max-width: 600px) {	
+	.ditty-notification {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}

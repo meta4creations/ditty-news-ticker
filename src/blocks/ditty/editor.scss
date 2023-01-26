@@ -1,0 +1,36 @@
+$ditty_primary: #39b44a;
+.wp-block-metaphorcreations-ditty {
+  border: 2px solid $ditty_primary;
+	.ditty-logo {
+		width: 100px;
+		margin-bottom: 15px;
+	}
+	&__contents {
+		background: rgba( 255, 255, 255, .8 );
+  	padding: 20px;
+	}
+	&__info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  &__vals {
+    font-size: 14px;
+    color: #FFF;
+    background: $ditty_primary;
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin-right: 5px;
+  }
+	&__controls {
+    label {
+      width: 60px;
+      font-weight: bold;
+    }
+  }
+  select {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}

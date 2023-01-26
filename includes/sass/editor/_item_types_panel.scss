@@ -1,0 +1,15 @@
+.ditty-editor__panel--item_types {
+	.ditty-data-list__items {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		justify-content: flex-start;
+	}
+	.ditty-data-list__item {
+		cursor: pointer;
+		order: 1;
+		&.active {
+			order: 0;
+		}
+	}
+}

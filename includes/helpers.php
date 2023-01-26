@@ -1,307 +1,1804 @@
 <?php
 
-/* --------------------------------------------------------- */
-/* !Return an array of the current DNT types - 2.0.0 */
-/* --------------------------------------------------------- */
-
-if( !function_exists('mtphr_dnt_types_array') ) {
-function mtphr_dnt_types_array() {
-
-	/* Create the types array. */
-	$dnt_types_array = array();
-	$dnt_types_array['default'] = array(
-		'button' => __('Default', 'ditty-news-ticker'),
-		'metabox_id' => 'mtphr-dnt-defualt-metabox',
-		'icon' => 'dashicons dashicons-edit'
+/**
+ * Return the settings defaults
+ *
+ * @since    3.0.13
+*/
+function ditty_settings_defaults() {	
+	$defaults = array(
+		'live_refresh'					=> 10,
+		'default_display'				=> false,
+		'ditty_display_ui'			=> 'enabled',
+		'ditty_layout_ui'				=> 'enabled',
+		'ditty_layouts_sass'		=> false,
+		'variation_defaults'		=> array(),
+		'global_ditty'					=> array(),
+		'ditty_news_ticker' 		=> '',
+		'ditty_wizard' 					=> 'disabled',
+		'disable_fontawesome' 	=> '',
+		'notification_email' 		=> '',
+		'edit_links'						=> 'enabled',
 	);
-	$dnt_types_array['mixed'] = array(
-		'button' => __('Mixed', 'ditty-news-ticker'),
-		'metabox_id' => 'mtphr-dnt-mixed-metabox',
-		'icon' => 'dashicons dashicons-randomize'
-	);
+	return apply_filters( 'ditty_settings_defaults', $defaults );
+}
 	
-	return apply_filters('mtphr_dnt_types', $dnt_types_array);
-}
-}
-
-
-if( !function_exists('mtphr_dnt_types_labels') ) {
-function mtphr_dnt_types_labels() {
-	
-	$types = mtphr_dnt_types_array();
-	$labels = array();
-	
-	if( is_array($types) && count($types) > 0 ) {
-		foreach( $types as $i=>$type ) {
-			$labels[$i] = $type['button'];
-		}
+/**
+ * Return or set plugin settings
+ *
+ * @since    3.0
+*/
+function ditty_settings( $key=false, $value='' ) {
+	global $ditty_settings;
+	if ( empty( $ditty_settings ) ) {
+		$ditty_settings = get_option( 'ditty_settings', array() );
 	}
-	
-	return $labels;
-}
-}
-
-
-
-/* --------------------------------------------------------- */
-/* !Return an array of the current DNT modes - 1.0.0 */
-/* --------------------------------------------------------- */
-
-if( !function_exists('mtphr_dnt_modes_array') ) {
-function mtphr_dnt_modes_array() {
-
-	/* Create the modes array. */
-	$dnt_modes_array = array();
-	$dnt_modes_array['scroll'] = array(
-		'button' => __('Scroll', 'ditty-news-ticker'),
-		'metabox_id' => 'mtphr-dnt-scroll-metabox',
-		'icon' => 'dashicons dashicons-leftright'
-	);
-	$dnt_modes_array['rotate'] = array(
-		'button' => __('Rotate', 'ditty-news-ticker'),
-		'metabox_id' => 'mtphr-dnt-rotate-metabox',
-		'icon' => 'dashicons dashicons-update'
-	);
-	$dnt_modes_array['list'] = array(
-		'button' => __('List', 'ditty-news-ticker'),
-		'metabox_id' => 'mtphr-dnt-list-metabox',
-		'icon' => 'dashicons dashicons-menu'
-	);
-
-	return apply_filters('mtphr_dnt_modes', $dnt_modes_array);
-}
-}
-
-
-
-/* --------------------------------------------------------- */
-/* !Return an array of the current DNT settings - 1.0.6 */
-/* --------------------------------------------------------- */
-
-function mtphr_dnt_settings_tabs() {
-
-	$dnt_settings_array = array();
-	$dnt_settings_array['general'] = 'mtphr_dnt_general_settings';
-
-	return apply_filters('mtphr_dnt_settings', $dnt_settings_array);
-}
-
-
-
-/* --------------------------------------------------------- */
-/* !Return the ticker class - 2.0.4 */
-/* --------------------------------------------------------- */
-
-if( !function_exists('mtphr_dnt_ticker_class') ) {
-function mtphr_dnt_ticker_class( $id='', $class='', $meta_data ) {
-
-	return 'class="'.join( ' ', get_mtphr_dnt_ticker_class($id,$class,$meta_data) ).'"';
-}
-}
-
-if( !function_exists('get_mtphr_dnt_ticker_class') ) {
-function get_mtphr_dnt_ticker_class( $id='', $class='', $meta_data ) {
-
-	// Extract the metadata array into variables
-	extract( $meta_data );
-
-	$classes = array();
-
-	$classes[] = 'mtphr-dnt';
-	$classes[] = 'mtphr-dnt-'.$id;
-	$classes[] = 'mtphr-dnt-'.$_mtphr_dnt_type;
-	$classes[] = 'mtphr-dnt-'.$_mtphr_dnt_mode;
-
-	if( $_mtphr_dnt_mode == 'scroll' ) {
-		$classes[] = 'mtphr-dnt-'.$_mtphr_dnt_mode.'-'.$_mtphr_dnt_scroll_direction;
-	}
-	if( $_mtphr_dnt_mode == 'rotate' ) {
-		$classes[] = 'mtphr-dnt-'.$_mtphr_dnt_mode.'-'.$_mtphr_dnt_rotate_type;
-	}
-	if( isset($_mtphr_dnt_trim_ticks) && $_mtphr_dnt_trim_ticks ) {
-		$classes[] = 'mtphr-dnt-trim-ticks';
-	}
-
-	// Set the styles class
-	if( isset($_mtphr_dnt_styled) ) {
-		if( $_mtphr_dnt_styled ) {
-			$classes[] = 'mtphr-dnt-styled';
-		}
-	}
-
-	if ( !empty( $class ) ) {
-		if ( !is_array( $class ) ) {
-			$class = preg_split( '#\s+#', $class );
-		}
-		$classes = array_merge( $classes, $class );
-	} else {
-		// Ensure that we always coerce class to being an array.
-		$class = array();
-	}
-
-	$classes = array_map( 'esc_attr', $classes );
-
-	return apply_filters( 'mtphr_dnt_ticker_class', $classes, $class, $meta_data );
-}
-}
-
-
-
-/* --------------------------------------------------------- */
-/* !Return the tick class - 1.0.0 */
-/* --------------------------------------------------------- */
-
-if( !function_exists('mtphr_dnt_tick_class') ) {
-function mtphr_dnt_tick_class( $class='' ) {
-
-	// Separates classes with a single space, collates classes for ditty ticker element
-	return 'class="'.join( ' ', get_mtphr_dnt_tick_class($class) ).'"';
-}
-}
-
-if( !function_exists('get_mtphr_dnt_tick_class') ) {
-function get_mtphr_dnt_tick_class( $class='' ) {
-
-	$classes = array();
-
-	$classes[] = 'mtphr-dnt-tick';
-
-	if ( !empty( $class ) ) {
-		if ( !is_array( $class ) ) {
-			$class = preg_split( '#\s+#', $class );
-		}
-		$classes = array_merge( $classes, $class );
-	} else {
-		// Ensure that we always coerce class to being an array.
-		$class = array();
-	}
-
-	$classes = array_map( 'esc_attr', $classes );
-
-	return apply_filters( 'mtphr_dnt_tick_class', $classes, $class );
-}
-}
-
-
-
-/* --------------------------------------------------------- */
-/* !Create the tick open structure - 2.0.0 */
-/* --------------------------------------------------------- */
-
-if( !function_exists('mtphr_dnt_tick_open') ) {
-function mtphr_dnt_tick_open( $tick_obj, $i, $id, $meta_data, $total=false ) {
-	
-	extract( $meta_data );
-	
-	// Create and save element styles
-	$width='';$height='';$spacing='';
-
-	if( $_mtphr_dnt_mode == 'scroll' ) {
-		$width = ( intval($_mtphr_dnt_scroll_width) != 0 ) ? 'white-space:normal;width:'.intval($_mtphr_dnt_scroll_width).'px;' : '';
-		$height = ( intval($_mtphr_dnt_scroll_height) != 0 ) ? 'height:'.intval($_mtphr_dnt_scroll_height).'px;' : '';
-	} elseif( $_mtphr_dnt_mode == 'rotate' ) {
-		$height = ( intval($_mtphr_dnt_rotate_height) != 0 ) ? 'height:'.intval($_mtphr_dnt_rotate_height).'px;' : '';
-	}
-
-	// Filter the variables
-	$width = apply_filters( 'mtphr_dnt_tick_width', $width );
-	$height = apply_filters( 'mtphr_dnt_tick_height', $height );
-	
-	$type = ( is_array($tick_obj) && isset($tick_obj['type']) ) ? $tick_obj['type'] : $_mtphr_dnt_type;
-	$tick_class = ( is_array($tick_obj) && isset($tick_obj['tick_class']) ) ? $tick_obj['tick_class'] : '';
-	$data_attributes = '';
-	if( is_array($tick_obj) && isset($tick_obj['data']) && is_array($tick_obj['data']) ) {
-		if( is_array($tick_obj['data']) && count($tick_obj['data']) > 0 ) {
-			foreach( $tick_obj['data'] as $i=>$data ) {
-				$data_attributes .= ' data-'.$i.'="'.$data.'"';
+	if ( $key ) {
+		if ( is_array( $key ) ) {
+			foreach ( $key as $k => $v ) {
+				$ditty_settings[$k] = $v;
+			}
+			update_option( 'ditty_settings', $ditty_settings );
+		} else {
+			if ( $value ) {
+				$ditty_settings[$key] = $value;
+				update_option( 'ditty_settings', $ditty_settings );
 			}
 		}
 	}
-
-	// Set the list spacing depending on the tick position
-	$spacing = ( $_mtphr_dnt_mode == 'list' && ($i != intval($total-1)) ) ? 'margin-bottom:'.intval($_mtphr_dnt_list_tick_spacing).'px;' : '';
-	$spacing = apply_filters( 'mtphr_dnt_list_tick_spacing', $spacing, $i, $total );
-	$tick_style = ( $width != '' || $height != '' || $spacing != '' ) ? ' style="'.$width.$height.$spacing.'"' : '';
-
-	do_action( 'mtphr_dnt_tick_before', $id, $meta_data, $total, $i );
-	echo '<div'.$tick_style.' '.mtphr_dnt_tick_class('mtphr-dnt-'.$type.'-tick mtphr-dnt-clearfix '.$tick_class).$data_attributes.'>';
-	do_action( 'mtphr_dnt_tick_top', $id, $meta_data );
-	
-}
+	$ditty_settings = wp_parse_args( $ditty_settings, ditty_settings_defaults() );
+	if ( $key && ! is_array( $key ) ) {
+		if ( isset( $ditty_settings[$key] ) ) {
+			return $ditty_settings[$key];
+		}
+	} else {
+		return $ditty_settings;
+	}
 }
 
-
-
-/* --------------------------------------------------------- */
-/* !Create the tick close structure - 2.0.0 */
-/* --------------------------------------------------------- */
-
-if( !function_exists('mtphr_dnt_tick_close') ) {
-function mtphr_dnt_tick_close( $tick_obj, $i, $id, $meta_data, $total=false ) {
-	
-	do_action( 'mtphr_dnt_tick_bottom', $id, $meta_data );
-	echo '</div>';
-	do_action( 'mtphr_dnt_tick_after', $id, $meta_data, $total, $i );
-}
-}
-
-
-/* --------------------------------------------------------- */
-/* !Return an array of tickers - 2.0.6 */
-/* --------------------------------------------------------- */
-
-if( !function_exists('mtphr_dnt_get_tickers') ) {
-function mtphr_dnt_get_tickers( $reverse = false ) {
-	
-	$args = array(
-		'posts_per_page' => -1,
-		'offset' => 0,
-		'category' => '',
-		'orderby' => 'title',
-		'order' => 'ASC',
-		'include' => '',
-		'exclude' => '',
-		'meta_key' => '',
-		'meta_value' => '',
-		'post_type' => 'ditty_news_ticker',
-		'post_mime_type' => '',
-		'post_parent' => '',
-		'post_status' => 'publish',
-		'suppress_filters' => true
+/**
+ * Return the single settings defaults
+ *
+ * @since    3.0.13
+*/
+function ditty_single_settings_defaults() {	
+	$defaults = array(
+		'ajax_loading'		=> 'no',
+		'live_updates'		=> 'no',
+		'previewBg'				=> false,
+		'previewPadding'	=> array(),
 	);
-	$tickers = get_posts( $args );
+	return apply_filters( 'ditty_single_settings_defaults', $defaults );
+}
+
+/**
+ * Return a single Ditty setting
+ *
+ * @since    3.0.13
+*/
+function ditty_single_settings( $ditty_id, $key = false ) {
+	global $ditty_single_settings;
+	if ( ! isset( $ditty_single_settings[$ditty_id] ) ) {
+		$ditty_single_settings[$ditty_id] = get_post_meta( $ditty_id, '_ditty_settings', true );
+	}
+	if ( ! is_array( $ditty_single_settings[$ditty_id] )  ) {
+		$ditty_single_settings[$ditty_id] = array();
+	}
+	$ditty_single_settings[$ditty_id] = wp_parse_args( $ditty_single_settings[$ditty_id], ditty_single_settings_defaults() );
+	if ( $key ) {
+		if ( isset( $ditty_single_settings[$ditty_id][$key] ) ) {
+			return $ditty_single_settings[$ditty_id][$key];
+		}
+	} else {
+		return $ditty_single_settings[$ditty_id];
+	}
+}
+
+/**
+ * Return an array of item types
+ * 
+ * @since   3.1
+*/
+function ditty_item_types() {
+	$item_types = array();
+	$item_types['default'] = array(
+		'type' 						=> 'default',
+		'label' 					=> __( 'Default', 'ditty-news-ticker' ),
+		'icon' 						=> 'fas fa-pencil-alt',
+		'description' 		=> __( 'Manually add HTML to the item.', 'ditty-news-ticker' ),
+		'class_name'			=> 'Ditty_Item_Type_Default',
+		'ditty_version' 	=> '3.1'
+	);
+	$item_types['wp_editor'] = array(
+		'type' 				=> 'wp_editor',
+		'label' 			=> __( 'WP Editor', 'ditty-news-ticker' ),
+		'icon' 				=> 'fas fa-edit',
+		'description' => __( 'Manually add wp editor content to the item.', 'ditty-news-ticker' ),
+		'class_name'	=> 'Ditty_Item_Type_WP_Editor',
+		'ditty_version' 	=> '3.1'
+	);
+	$item_types['posts_feed'] = array(
+		'type' 				=> 'posts_feed',
+		'label' 			=> __( 'WP Posts Feed (Lite)', 'ditty-news-ticker' ),
+		'icon' 				=> 'fab fa-wordpress',
+		'description' => __( 'Add a WP Posts feed.', 'ditty-news-ticker' ),
+		'class_name'	=> 'Ditty_Item_Type_Posts_Lite',
+	);
+	$item_types = apply_filters( 'ditty_item_types', $item_types );
+	ksort( $item_types );
+	return $item_types;
+}
+
+/**
+ * Return a type class object
+ *
+ * @since    3.0
+ * @var      object	$type_object    
+*/
+function ditty_item_type_object( $type ) {
+	$item_types = ditty_item_types();
+	if ( isset( $item_types[$type] ) && class_exists( $item_types[$type]['class_name'] ) ) {
+		$type_object = new $item_types[$type]['class_name'];
+		return $type_object;
+	}
+}
+
+/**
+ * Return an array of ditty displays
+ * 
+ * @since   3.1
+ */
+function ditty_display_types() {
+	$display_types = array();	
+	$display_types['ticker'] = array(
+		'label' 			=> __( 'Ticker', 'ditty-news-ticker' ),
+		'icon' 				=> 'fas fa-ellipsis-h',
+		'description' => __( 'Basic news ticker display.', 'ditty-news-ticker' ),
+		'class_name'	=> 'Ditty_Display_Type_Ticker',
+		//'class_path'	=> DITTY_DIR . 'includes/class-ditty-display-type-ticker.php',
+	);
+	$display_types['list'] = array(
+		'label' 			=> __( 'List', 'ditty-news-ticker' ),
+		'icon' 				=> 'fas fa-list',
+		'description' => __( 'Display items in a static list.', 'ditty-news-ticker' ),
+		'class_name'	=> 'Ditty_Display_Type_List',
+		//'class_path'	=> DITTY_DIR . 'includes/class-ditty-display-type-list.php',
+	);
+
+	$display_types = apply_filters( 'ditty_display_types', $display_types );
+	if ( is_array( $display_types ) && count( $display_types ) > 0 ) {
+		foreach ( $display_types as $slug => &$display_type ) {
+			if ( ! isset( $display_type['type'] ) ) {
+				$display_type['type'] = $slug;
+			}
+		}
+	}
+	return apply_filters( 'ditty_display_types', $display_types );
+}
+
+/**
+ * Return a display class object
+ *
+ * @since    3.0
+ * @var      object	$display_object    
+*/
+function ditty_display_type_object( $type ) {
+	$display_types = ditty_display_types();
+	if ( isset( $display_types[$type] ) && class_exists( $display_types[$type]['class_name'] ) ) {
+		$display_object = new $display_types[$type]['class_name'];
+		return $display_object;
+	}
+}
+
+/**
+ * Add in legacy licenses
+ *
+ * @since    3.0
+*/
+function ditty_extension_legacy_licenses( $licenses ) {
+	$legacy_licenses = apply_filters( 'mtphr_dnt_license_data', array() );
+	if ( is_array( $legacy_licenses ) && count( $legacy_licenses ) > 0 ) {
+		foreach ( $legacy_licenses as $slug => $legacy_license ) {
+			if ( $updated_slug = ditty_updated_extension_slug( $slug ) ) {
+				if ( ! isset( $licenses[$updated_slug] ) ) {
+					if ( ! isset( $legacy_license['item_id'] ) ) {
+						$legacy_license['item_id'] = ditty_updated_extension_id( $slug );
+					}
+					$licenses[$updated_slug] = $legacy_license;
+				}
+			}
+		}
+	}
+	return $licenses;
+}
+
+/**
+ * Return an array of Ditty extension licenses
+ *
+ * @since    3.0
+*/
+function ditty_extension_licenses() {
+	$licenses = apply_filters( 'ditty_extension_licenses', array() );
+	$licenses = ditty_extension_legacy_licenses( $licenses );
+	return $licenses;
+}
+
+/**
+ * Add in legacy licenses
+ *
+ * @since    3.0
+*/
+function ditty_legacy_extensions( $extensions ) {
+	$legacy_extensions = apply_filters( 'mtphr_dnt_license_data', array() );
+	if ( is_array( $legacy_extensions ) && count( $legacy_extensions ) > 0 ) {
+		foreach ( $legacy_extensions as $slug => $legacy_extension ) {
+			if ( $updated_slug = ditty_updated_extension_slug( $slug ) ) {
+				if ( isset( $extensions[$updated_slug] ) ) {
+					unset( $extensions[$updated_slug]['preview'] );
+				}
+			}
+		}
+	}
+	return $extensions;
+}
+
+/**
+ * Return an array of Ditty Extensions
+ *
+ * @since    3.0
+*/
+function ditty_extensions() {
+	$extensions = array(
+		'facebook' => array(
+			'icon' 		=> 'fab fa-facebook',
+			'name' 		=> __( 'Facebook', 'ditty-news-ticker' ),
+			'preview' => true,
+			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-facebook-ticker/',
+		),
+		'facebook' => array(
+			'icon' 		=> 'fab fa-facebook',
+			'name' 		=> __( 'Facebook', 'ditty-news-ticker' ),
+			'preview' => true,
+			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-facebook-ticker/',
+		),
+		'grid' => array(
+			'icon' 		=> 'fas fa-th',
+			'name' 		=> __( 'Grid Display', 'ditty-news-ticker' ),
+			'preview' => true,
+			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-grid-display/',
+		),
+		'images' => array(
+			'icon' 		=> 'fas fa-image',
+			'name' 		=> __( 'Images', 'ditty-news-ticker' ),
+			'preview' => true,
+			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-image-ticker/',
+		),
+		'instagram' => array(
+			'icon' 		=> 'fab fa-instagram',
+			'name' 		=> __( 'Instagram', 'ditty-news-ticker' ),
+			'preview' => true,
+			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-instagram-ticker/',
+		),
+		'posts' => array(
+			'icon' 		=> 'fab fa-wordpress',
+			'name' 		=> __( 'Posts', 'ditty-news-ticker' ),
+			'preview' => true,
+			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-posts-ticker/',
+		),
+		'rss' => array(
+			'icon' 		=> 'fas fa-rss',
+			'name' 		=> __( 'RSS', 'ditty-news-ticker' ),
+			'preview' => true,
+			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-rss-ticker/',
+		),
+		'timing' => array(
+			'icon' 		=> 'fas fa-clock',
+			'name' 		=> __( 'Timing', 'ditty-news-ticker' ),
+			'preview' => true,
+			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-timed-ticker/',
+		),
+		'twitter' => array(
+			'icon' 		=> 'fab fa-twitter',
+			'name' 		=> __( 'Twitter', 'ditty-news-ticker' ),
+			'preview' => true,
+			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-twitter-ticker/',
+		),
+	);
+	$extensions = apply_filters( 'ditty_extensions', $extensions );
+	$extensions = ditty_legacy_extensions( $extensions );
+	ksort( $extensions );
 	
-	$tickers_array = $reverse ? array( __('Select a Ticker', 'ditty-news-ticker') => '' ) : array( '' => __('Select a Ticker', 'ditty-news-ticker') );
-	if( is_array($tickers) && count($tickers) > 0 ) {
-		foreach( $tickers as $i=>$ticker ) {
-			if( $reverse ) {
-				$tickers_array[$ticker->post_title] = $ticker->ID;
+	// Set the live extensions to be first
+	$live_extensions = array();
+	$preview_extensions = array();
+	if ( is_array( $extensions ) && count( $extensions ) > 0 ) {
+		foreach ( $extensions as $slug => $data ) {
+			if ( isset( $data['preview'] ) ) {
+				$preview_extensions[$slug] = $data;
 			} else {
-				$tickers_array[$ticker->ID] = $ticker->post_title;
+				$live_extensions[$slug] = $data;
 			}
 		}
+	}
+	return $live_extensions + $preview_extensions;
+}
+
+/**
+ * Return an updated legacy slug
+ * @since    3.0
+*/
+function ditty_updated_extension_slug( $slug ) {	
+	$updated_slug = '';
+	switch ( $slug ) {
+		case 'ditty-facebook-ticker':
+			$updated_slug = 'facebook';
+			break;
+		case 'ditty-image-ticker':
+			$updated_slug = 'images';
+			break;
+		case 'ditty-instagram-ticker':
+			$updated_slug = 'instagram';
+			break;
+		case 'ditty-mega-ticker':
+			$updated_slug = 'mega';
+			break;
+		case 'ditty-posts-ticker':
+			$updated_slug = 'posts';
+			break;
+		case 'ditty-rss-ticker':
+			$updated_slug = 'rss';
+			break;
+		case 'ditty-timed-ticker':
+			$updated_slug = 'timing';
+			break;
+		case 'ditty-twitter-ticker':
+			$updated_slug = 'twitter';
+			break;
+		default:
+			break;
+	}
+	if ( '' != $updated_slug ) {
+		return $updated_slug;
+	}
+}
+
+/**
+ * Return an updated legacy id
+ * @since    3.0
+*/
+function ditty_updated_extension_id( $slug ) {	
+	$updated_id = false;
+	switch ( $slug ) {
+		case 'ditty-facebook-ticker':
+			$updated_id = 1534;
+			break;
+		case 'ditty-image-ticker':
+			$updated_id = 1548;
+			break;
+		case 'ditty-instagram-ticker':
+			$updated_id = 2134;
+			break;
+		case 'ditty-mega-ticker':
+			$updated_id = 1547;
+			break;
+		case 'ditty-posts-ticker':
+			$updated_id = 1551;
+			break;
+		case 'ditty-rss-ticker':
+			$updated_id = 1549;
+			break;
+		case 'ditty-timed-ticker':
+			$updated_id = 12470;
+			break;
+		case 'ditty-twitter-ticker':
+			$updated_id = 1550;
+			break;
+		default:
+			break;
+	}
+	return $updated_id;
+}
+
+/**
+ * Set the global draft values
+ * @since    3.0
+*/
+function ditty_set_draft_values( $values ) {	
+	global $ditty_draft_values;
+	$ditty_draft_values = $values;
+}
+
+/**
+ * Get the global draft values
+ * @since    3.0
+*/
+function ditty_get_draft_values() {	
+	global $ditty_draft_values;
+	if ( ! empty( $ditty_draft_values ) ) {
+		return $ditty_draft_values;
+	}	
+}
+
+/**
+ * Get the item draft values
+ * @since    3.0
+*/
+function ditty_draft_item_get_data( $item_id, $key = false ) {	
+	$draft_values = ditty_get_draft_values();
+	if ( ! $draft_values ) {
+		return false;
+	}
+	if ( ! isset( $draft_values['items'] ) ) {
+		return false;
+	}
+	if ( ! isset( $draft_values['items'][$item_id] ) ) {
+		return false;
+	}
+	if ( ! isset( $draft_values['items'][$item_id]['data'] ) ) {
+		return false;
+	}
+	if ( $key ) {
+		if ( isset( $draft_values['items'][$item_id]['data'][$key] ) ) {
+			return $draft_values['items'][$item_id]['data'][$key];
+		}
 	} else {
-		$tickers_array = array( __('No tickers found', 'ditty-news-ticker') );
+		return $draft_values['items'][$item_id]['data'];
 	}
-
-	return $tickers_array;
-}
 }
 
+/**
+ * Get item draft meta
+ * @since    3.0
+*/
+function ditty_draft_item_get_meta( $item_id, $key = false ) {	
+	$draft_values = ditty_get_draft_values();
+	if ( ! $draft_values ) {
+		return false;
+	}
+	if ( ! isset( $draft_values['items'] ) ) {
+		return false;
+	}
+	if ( ! isset( $draft_values['items'][$item_id] ) ) {
+		return false;
+	}
+	if ( ! isset( $draft_values['items'][$item_id]['meta'] ) ) {
+		return false;
+	}
+	if ( $key ) {
+		if ( isset( $draft_values['items'][$item_id]['meta'][$key] ) ) {
+			return $draft_values['items'][$item_id]['meta'][$key];
+		}
+	} else {
+		return $draft_values['items'][$item_id]['meta'];
+	}
+}
 
-/* --------------------------------------------------------- */
-/* !Convert links in strings - 2.0.11 */
-/* --------------------------------------------------------- */
+/**
+ * Update item draft meta
+ * @since    3.0.16
+*/
+function ditty_draft_item_update_meta( $item_id, $key = false, $value = false ) {	
+	if ( ! $value ) {
+		return false;
+	}
+	$draft_values = ditty_get_draft_values();
+	if ( ! $draft_values ) {
+		$draft_values = array();
+	}
+	if ( ! isset( $draft_values['items'] ) ) {
+		$draft_values['items'] = array();
+	}
+	if ( ! isset( $draft_values['items'][$item_id] ) ) {
+		$draft_values['items'][$item_id] = array();
+	}
+	if ( ! isset( $draft_values['items'][$item_id]['meta'] ) ) {
+		$draft_values['items'][$item_id]['meta'] = array();
+	}
+	if ( $key ) {
+		$draft_values['items'][$item_id]['meta'][$key] = $value;
+	} else {
+		$draft_values['items'][$item_id]['meta'] = $value;
+	}
+	ditty_set_draft_values( $draft_values );
+}
 
-if( !function_exists('mtphr_dnt_convert_links') ) {
-function mtphr_dnt_convert_links( $string, $blank=true ) {
+/**
+ * Get the layout draft values
+ * @since    3.0
+*/
+function ditty_draft_layout_get( $layout_id = false, $key = false ) {	
+	$draft_values = ditty_get_draft_values();
+	if ( ! $draft_values ) {
+		return false;
+	}
+	if ( ! isset( $draft_values['layouts'] ) ) {
+		return false;
+	}
+	if ( ! $layout_id ) {
+		return $draft_values['layouts'];
+	}
+	if ( ! isset( $draft_values['layouts'][$layout_id] ) ) {
+		return false;
+	}
+	if ( $key ) {
+		if ( isset( $draft_values['layouts'][$layout_id][$key] ) ) {
+			return $draft_values['layouts'][$layout_id][$key];
+		}
+	} else {
+		return $draft_values['layouts'][$layout_id];
+	}
+}
+
+/**
+ * Update a layout draft
+ * @since    3.0.16
+*/
+function ditty_draft_layout_update( $layout_id, $key = false, $value = false ) {
+	if ( ! $value ) {
+		return false;
+	}
+	$draft_values = ditty_get_draft_values();
+	if ( ! $draft_values ) {
+		$draft_values = array();
+	}
+	if ( ! isset( $draft_values['layouts'] ) ) {
+		$draft_values['layouts'] = array();
+	}
+	if ( ! isset( $draft_values['layouts'][$layout_id] ) ) {
+		$draft_values['layouts'][$layout_id] = array();
+	}
+	if ( $key ) {
+		$draft_values['layouts'][$layout_id][$key] = $value;
+	} else {
+		$draft_values['layouts'][$layout_id] = $value;
+	}
+	ditty_set_draft_values( $draft_values );
+}
+
+/**
+ * Get the display draft values
+ * @since    3.0
+*/
+function ditty_draft_display_get( $display_id, $key = false ) {	
+	$draft_values = ditty_get_draft_values();
+	if ( ! $draft_values ) {
+		return false;
+	}
+	if ( ! isset( $draft_values['displays'] ) ) {
+		return false;
+	}
+	if ( ! isset( $draft_values['displays'][$display_id] ) ) {
+		return false;
+	}
+	if ( $key ) {
+		if ( isset( $draft_values['displays'][$display_id][$key] ) ) {
+			return $draft_values['displays'][$display_id][$key];
+		}
+	} else {
+		return $draft_values['displays'][$display_id];
+	}
+}
+
+/**
+ * Update a display draft
+ * @since    3.0.16
+*/
+function ditty_draft_display_update( $display_id, $key = false, $value = false ) {	
+	if ( ! $value ) {
+		return false;
+	}
+	$draft_values = ditty_get_draft_values();
+	if ( ! $draft_values ) {
+		$draft_values = array();
+	}
+	if ( ! isset( $draft_values['displays'] ) ) {
+		$draft_values['displays'] = array();
+	}
+	if ( ! isset( $draft_values['displays'][$display_id] ) ) {
+		$draft_values['displays'][$display_id] = array();
+	}
+	if ( $key ) {
+		$draft_values['displays'][$display_id][$key] = $value;
+	} else {
+		$draft_values['displays'][$display_id] = $value;
+	}
+	ditty_set_draft_values( $draft_values );
+}
+
+/**
+ * Return all possible item type variations
+ *
+ * @since    3.0
+ * @var      html
+*/
+function ditty_set_variation_default( $item_type, $variation, $layout_id ) {
+	if ( ! $item_type_object = ditty_item_type_object( $item_type ) ) {
+		return false;
+	}
+	$variation_defaults = ditty_settings( 'variation_defaults' );
+	if ( ! isset( $variation_defaults[$item_type] ) ) {
+		$variation_defaults[$item_type] = array();
+	}
+	if ( is_string( $layout_id ) ) {
+		$args = array(
+			'template' 	=> $layout_id,
+			'fields'		=> 'ids',
+		);
+		if ( $posts = ditty_layout_posts( $args ) ) {
+			$post_layout_id = reset( $posts );
+			$variation_defaults[$item_type][$variation] = $post_layout_id;
+			ditty_settings( 'variation_defaults', $variation_defaults );
+			return $post_layout_id;
+		} elseif( $post_layout_id = Ditty()->layouts->install_default( $layout_id ) ) {
+			$variation_defaults[$item_type][$variation] = $post_layout_id;
+			ditty_settings( 'variation_defaults', $variation_defaults );
+			return $post_layout_id;
+		}
+	} elseif( get_post( $layout_id ) ) {
+		$variation_defaults[$item_type][$variation] = $layout_id;
+		ditty_settings( 'variation_defaults', $variation_defaults );
+		return $layout_id;
+	}
+}
+
+/**
+ * Return all possible item type variations
+ *
+ * @since    3.0
+ * @var      html
+*/
+function ditty_layout_variation_types( $item_type = false ) {
+	if ( $item_type ) {
+		if ( $item_type_object = ditty_item_type_object( $item_type ) ) {
+			return $item_type_object->get_layout_variation_types();
+		}
+	} else {
+		$item_types = ditty_item_types();
+		$layout_variation_types = array();
+		if ( is_array( $item_types ) && count( $item_types ) > 0 ) {
+			foreach ( $item_types as $item_type => $data ) {
+				if ( $item_type_object = ditty_item_type_object( $item_type ) ) {
+					$layout_variation_types[$item_type] = $item_type_object->get_layout_variation_types();
+				}
+			}
+		}
+		return $layout_variation_types;
+	}
+}
+
+/**
+ * Check if a layout type exists
+ *
+ * @since    3.0
+ * @access   public
+ * @var      bool
+*/
+function ditty_layout_posts( $atts = array() ) {
+	$defaults = array(
+		'template' 	=> false,
+		'version'		=> false,
+		'fields'		=> 'all',
+		'return'		=> 'posts',
+	);
+	$args = shortcode_atts( $defaults, $atts );
+
+	$query_args = array(
+		'posts_per_page' 	=> -1,
+		'post_type' 			=> 'ditty_layout',
+		'post_status'			=> 'publish',
+		'orderby'					=> 'title',
+		'order'						=> 'ASC',
+		'fields' 					=> esc_html( $args['fields'] ),
+	);
+	$meta_query = array();
+	if ( $args['template'] ) {
+		$meta_query['template'] = array(
+			'key' 	=> '_ditty_layout_template',
+			'value'	=> esc_html( $args['template'] ),
+		);
+	}
+	if ( $args['version'] ) {
+		$meta_query['version'] = array(
+			'key' 	=> '_ditty_layout_version',
+			'value'	=> esc_html( $args['version'] ),
+		);
+	}
+	$query_args['meta_query'] = $meta_query;
+	$layouts = get_posts( $query_args );
 	
-	$string = make_clickable( $string );
-	if( $blank ) {
-		$string = preg_replace( '/<a /','<a target="_blank" ', $string );
+	if ( 'versions' == $args['return'] ) {
+		$layout_versions = array();
+		if ( is_array( $layouts ) && count( $layouts ) > 0 ) {
+			foreach ( $layouts as $i => $layout_id ) {
+				$version = get_post_meta( $layout_id, '_ditty_layout_version', true );
+				$layout_versions[] = $version;
+			}
+		}
+		if ( ! empty( $layout_versions ) ) {
+			return $layout_versions;
+		}
+	} else {
+		return $layouts;
+	}
+}
+
+/**
+ * Check if a display type exists
+ *
+ * @since    3.0.17
+ * @access   public
+ * @var      bool
+*/
+function ditty_display_posts( $atts = array() ) {
+	$defaults = array(
+		'display_type'	=> false,
+		'template' 			=> false,
+		'version'				=> false,
+		'fields'				=> 'all',
+		'return'				=> 'posts',
+	);
+	$args = shortcode_atts( $defaults, $atts );
+		
+	$query_args = array(
+		'posts_per_page' 	=> -1,
+		'post_type' 			=> 'ditty_display',
+		'post_status'			=> 'publish',
+		'fields' 					=> esc_html( $args['fields'] ),
+	);
+	$meta_query = array();
+	if ( $args['display_type'] ) {
+		$meta_query['type'] = array(
+			'key' 	=> '_ditty_display_type',
+			'value'	=> esc_html( $args['display_type'] ),
+		);
+	}
+	if ( $args['template'] ) {
+		$meta_query['template'] = array(
+			'key' 	=> '_ditty_display_template',
+			'value'	=> esc_html( $args['template'] ),
+		);
+	}
+	if ( $args['version'] ) {
+		$meta_query['version'] = array(
+			'key' 	=> '_ditty_display_version',
+			'value'	=> esc_html( $args['version'] ),
+		);
+	}
+	$query_args['meta_query'] = $meta_query;
+	$displays = get_posts( $query_args );
+	
+	if ( 'versions' == $args['return'] ) {
+		$display_versions = array();
+		if ( is_array( $displays ) && count( $displays ) > 0 ) {
+			foreach ( $displays as $i => $display_id ) {
+				$version = get_post_meta( $display_id, '_ditty_display_version', true );
+				$display_versions[] = $version;
+			}
+		}
+		if ( ! empty( $display_versions ) ) {
+			return $display_versions;
+		}
+	} else {
+		return $displays;
+	}
+}
+
+/**
+ * Return the default displays
+ *
+ * @since    3.0
+ * @var      array	$default_displays    
+*/
+function ditty_default_displays() {
+	$default_displays = array();	
+	$display_types = ditty_display_types();
+	if ( is_array( $display_types ) && count( $display_types ) > 0 ) {
+		foreach ( $display_types as $display_type => $data ) {
+			$type_object = ditty_display_type_object( $display_type );
+			$templates = $type_object->templates();
+			
+			$default_displays[$display_type] = array(
+				'label' => $data['label'],
+				'templates' => $templates,
+			);
+		}
+	}
+	
+	return $default_displays;
+}
+
+/**
+ * Return the default display for Dittys
+ *
+ * @since    3.0
+ * @var      bool
+*/
+function ditty_default_display( $post_id ) {
+	$display_types = ditty_display_types();
+	
+	// Check if saved default display exists
+	$default_display = ditty_settings( 'default_display' );
+	if ( $default_display && 'publish' == get_post_status( $default_display ) ) {
+		$display_type == get_post_meta( $default_display, '_ditty_display_type', true );
+		if ( array_key_exists( $display_type, $display_types ) ) {
+			return $default_display;
+		}
+	}
+	
+	$display_id = Ditty()->displays->install_default( 'ticker', 'default' );
+	return $display_id;
+}
+
+/**
+ * Check if a display exists by selector
+ * @since    3.0
+*/
+function ditty_display_exists( $display_id ) {	
+	if ( 'publish' == get_post_status( $display_id ) ) {
+		return true;
+	}
+}
+
+/**
+ * Setup general text strings
+ *
+ * @since    3.0
+ * @access   public
+ * @var      string $strings,     
+*/
+function ditty_admin_strings( $slug = false ) {	
+	global $ditty_admin_strings;
+	if ( empty( $ditty_admin_strings ) ) {			
+		$strings = array(
+			'extension_valid'								=> __( 'License is active.', 'ditty-news-ticker' ),
+			'extension_generic_error' 			=> __( 'An error occurred, please try again.', 'ditty-news-ticker' ),
+			'extension_remote_error' 				=> __( 'An error occurred, please try again.', 'ditty-news-ticker' ),
+			'extension_expired' 						=> __( 'Your license key expired on %s.', 'ditty-news-ticker' ),
+			'extension_disabled' 						=> __( 'Your license key has been disabled.', 'ditty-news-ticker' ),
+			'extension_revoked' 						=> __( 'Your license key has been disabled.', 'ditty-news-ticker' ),
+			'extension_missing' 						=> __( 'Invalid license.', 'ditty-news-ticker' ),
+			'extension_invalid' 						=> __( 'Your license is not active for this URL.', 'ditty-news-ticker' ),
+			'extension_site_inactive' 			=> __( 'Your license is not active for this URL.', 'ditty-news-ticker' ),
+			'extension_item_name_mismatch' 	=> __( 'This appears to be an invalid license key.', 'ditty-news-ticker' ),
+			'extension_no_activations_left' => __( 'Your license key has reached its activation limit.', 'ditty-news-ticker' ),
+			'extension_deactivated'					=> __( 'License is deactivated.', 'ditty-news-ticker' ),
+			'extension_failed'							=> __( 'Update failed.', 'ditty-news-ticker' ),
+			'settings_save'									=> __( 'Save Settings', 'ditty-news-ticker' ),
+			'settings_saving'								=> __( 'Saving...', 'ditty-news-ticker' ),
+			'settings_changed'							=> __( 'Settings have changed, make sure to save them!', 'ditty-news-ticker' ),
+			'settings_updated'							=> __( 'Settings Updated!', 'ditty-news-ticker' ),
+			'settings_error'								=> __( 'Error Updating!', 'ditty-news-ticker' ),
+		);		
+		$ditty_admin_strings = apply_filters( 'ditty_admin_strings', $strings );
+	}	
+	if ( $slug ) {
+		if ( isset( $ditty_admin_strings[$slug] ) ) {
+			return $ditty_admin_strings[$slug];
+		}
+	} else {
+		return $ditty_admin_strings;
+	}
+}
+
+/**
+ * Setup general text strings
+ *
+ * @since    3.0
+ * @access   public
+ * @var      string $strings,     
+*/
+function ditty_strings( $slug = false ) {	
+	global $ditty_strings;
+	if ( empty( $ditty_strings ) ) {			
+		$strings = array(
+			'add_title'								=> __( 'Add title', 'ditty-news-ticker' ),
+			'confirm_delete_item'			=> __( 'Are you sure you want to delete this Item? This action cannot be undone.', 'ditty-news-ticker' ),
+			'confirm_delete_display'	=> __( 'Are you sure you want to delete this Display?', 'ditty-news-ticker' ),
+			'confirm_delete_layout'		=> __( 'Are you sure you want to delete this Layout?', 'ditty-news-ticker' ),
+			'layout_css_error'				=> __( 'There is an error in your css.<br/>Click to close this message.', 'ditty-news-ticker' ),
+		);		
+		$ditty_strings = apply_filters( 'ditty_strings', $strings );
+	}	
+	if ( $slug ) {
+		if ( isset( $ditty_strings[$slug] ) ) {
+			return $ditty_strings[$slug];
+		}
+	} else {
+		return $ditty_strings;
+	}
+}
+
+/**
+ * Return an array of item types with just the type and labels
+ *
+ * @since    3.0
+ * @access   public
+ * @var      array $ditty_types_simple    
+*/
+function ditty_types_simple() {
+	
+	$item_types = ditty_item_types();
+	$item_types_simple = array();
+	
+	if ( is_array( $item_types ) && count( $item_types ) > 0 ) {
+		foreach ( $item_types as $i => $type ) {
+			$item_types_simple[ $ditty_type['type'] ] = $type['label'];
+		}
+	}
+	
+	return $item_types_simple;
+}
+
+
+/**
+ * Check if a type exists
+ *
+ * @since    3.0
+ * @access   public
+ * @var      bool
+*/
+function ditty_type_exists( $slug ) {
+	$item_types = ditty_item_types();
+	return array_key_exists( $slug, $item_types );
+}
+
+/**
+ * Parse custom layouts into an array
+ *
+ * @since    3.0.10
+ * @access   public
+ * @var      bool
+*/
+function ditty_parse_custom_layouts( $layout_settings ) {
+	$layouts = array();
+	if ( ctype_digit( $layout_settings ) ) {
+		$variation_array = array(
+			'default' => $layout_settings,
+		);
+		$layouts['all'] = maybe_serialize( $variation_array );
+	} else {
+		parse_str( html_entity_decode( $layout_settings ), $custom_layout_settings );
+		if ( is_array( $custom_layout_settings ) && count( $custom_layout_settings ) > 0 ) {
+			foreach ( $custom_layout_settings as $item_type => $variations ) {
+				$variation = explode( '|', $variations );
+				if ( is_array( $variation ) && count( $variation ) > 0 ) {
+					$variation_array = array();
+					foreach ( $variation as $variation_data ) {
+						$varation_values = explode( ':', $variation_data );
+						if ( count( $varation_values ) > 1 ) {
+							$variation_array[$varation_values[0]] = $varation_values[1];
+						}
+					}
+					$layouts[$item_type] = maybe_serialize( $variation_array );
+				}
+			}
+		}
+	}
+	return $layouts;
+}
+
+/**
+ * Return display items for a specific Ditty
+ *
+ * @since    3.0.12
+ * @access   public
+ * @var      array   	$display_items    Array of item objects
+ */
+function ditty_display_items( $ditty_id, $load_type = 'cache', $custom_layouts = false ) {
+	$transient_name = "ditty_display_items_{$ditty_id}";
+	
+	// Check for custom layouts
+	$custom_layout_array = array();
+	if ( $custom_layouts ) {
+		$transient_name .= "_{$custom_layouts}";
+		$custom_layout_array = ditty_parse_custom_layouts( $custom_layouts );
+	}
+	
+	// Get the display items
+	$display_items = get_transient( $transient_name );
+	if ( ! $display_items || 'force' == $load_type ) {
+		$display_items = array();
+		$items_meta = ditty_items_meta( $ditty_id );
+		$initialized = get_post_meta( $ditty_id, '_ditty_init', true );
+		if ( empty( $items_meta) && ! $initialized ) {
+			$items_meta = array( ditty_get_new_item_meta( $ditty_id ) );
+		}
+		if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
+			foreach ( $items_meta as $i => $meta ) {
+				if ( is_object( $meta ) ) {
+					$meta = ( array ) $meta;
+				}
+				
+				// Add custom layouts
+				if ( ! empty( $custom_layout_array ) ) {
+					if ( isset( $custom_layout_array['all'] ) ) {
+						$meta['layout_value'] = $custom_layout_array['all'];
+					} elseif ( isset( $custom_layout_array[$meta['item_type']] ) ) {
+						$meta['layout_value'] = $custom_layout_array[$meta['item_type']];
+					}
+				}
+
+				$prepared_items = ditty_prepare_display_items( $meta );
+				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
+					foreach ( $prepared_items as $i => $prepared_meta ) {
+						$display_item = new Ditty_Display_Item( $prepared_meta );
+						if ( $data = $display_item->compile_data() ) {
+							$display_items[] = $data;
+						}
+					}
+				}	
+			}
+		}
+		$display_items = apply_filters( 'ditty_display_items', $display_items, $ditty_id );
+		set_transient( $transient_name, $display_items, ( MINUTE_IN_SECONDS * intval( ditty_settings( 'live_refresh' ) ) ) );
+	}
+	return $display_items;
+}
+
+/**
+ * Return item data for a Ditty
+ *
+ * @since    3.0
+ * @access   public
+ * @var      array    $items_meta    Array of items connected to a Ditty
+ */
+function ditty_items_meta( $ditty_id = false ) {	
+	$ditty_id = $ditty_id ? $ditty_id : get_the_id();
+	global $items_meta;
+	
+	if ( empty( $items_meta ) ) {
+		$items_meta = array();
+	}	
+	if ( ! isset( $items_meta[$ditty_id] ) ) {
+		$normalized_meta = array();
+		$all_meta = Ditty()->db_items->get_items( $ditty_id );
+		if ( is_array( $all_meta ) && count( $all_meta ) > 0 ) {
+			foreach ( $all_meta as $i => $meta ) {
+				$value = maybe_unserialize( $meta->item_value );
+				$meta->item_value = $value;
+				unset( $meta->layout_id ); // TODO: Maybe remove?
+				$normalized_meta[] = apply_filters( 'ditty_item_meta', $meta, $meta->item_id, $ditty_id );
+			} 
+		}
+		$items_meta[$ditty_id] = apply_filters( 'ditty_items_meta', $normalized_meta, $ditty_id );
+	}
+	return $items_meta[$ditty_id];
+}
+
+/**
+ * Return item data by id
+ *
+ * @since    3.0
+ * @access   public
+ * @var      array    $meta    Array of items connected to a Ditty
+ */
+function ditty_item_meta( $item_id ) {	
+	$meta = Ditty()->db_items->get( $item_id );
+	$ditty_id = ( isset( $meta->ditty_id ) ) ? $meta->ditty_id : 0;
+	$value = maybe_unserialize( $meta->item_value );
+	$meta->item_value = $value;
+	return apply_filters( 'ditty_item_meta', $meta, $item_id, $ditty_id );
+}
+
+/**
+ * Return the default layout
+ *
+ * @since    3.0.13
+ * @access   public
+ * @var      int    $layout_id
+ */
+function ditty_get_default_layout() {	
+	$variation_defaults = ditty_settings( 'variation_defaults' );
+	$layout_id = ( isset( $variation_defaults['default'] ) && isset( $variation_defaults['default']['default'] ) ) ? $variation_defaults['default']['default'] : 0;
+	if ( ! $layout_id || 0 == $layout_id ) {
+		$atts = array(
+			'template' 	=> 'default',
+			'fields'		=> 'ids',
+		);
+		if ( $layouts = ditty_layout_posts( $atts ) ) {
+			return reset( $layouts );
+		}
+	}
+	return $layout_id;
+}
+
+/**
+ * Return an array of new item meta
+ *
+ * @since    3.0.13
+ * @access   public
+ * @var      array    $item_meta    Array of item data
+ */
+function ditty_get_new_item_meta( $ditty_id ) {	
+	$item_type_object = ditty_item_type_object( 'default' );
+	$item_value = $item_type_object->default_settings();
+	$meta = array(
+		'item_id' 			=> uniqid( 'new-' ),
+		'item_type' 		=> 'default',
+		'item_value' 		=> $item_value,
+		'item_author'		=> get_current_user_id(),
+		'ditty_id' 			=> $ditty_id,
+		'layout_value' 	=> array( 'default' => ditty_get_default_layout() ),
+	);
+	return apply_filters( 'ditty_editor_new_item_meta', $meta, $ditty_id );
+}
+
+/**
+ * Check if you're on a display post
+ *
+ * @since    3.0
+ * @var      bool    
+*/
+function ditty_is_display_post() {
+	if ( ! function_exists( 'get_current_screen' ) ) {
+		return false;
+	}
+	
+	$screen = get_current_screen();
+	if( is_object( $screen ) && 'ditty_display' == $screen->post_type && 'post' == $screen->base ) {
+		return true;
+	}
+}
+
+/**
+ * Check if you're on a layout post
+ *
+ * @since    3.0
+ * @var      bool    
+*/
+function ditty_is_layout_post() {
+	if ( ! function_exists( 'get_current_screen' ) ) {
+		return false;
+	}
+	
+	$screen = get_current_screen();
+	if( is_object( $screen ) && 'ditty_layout' == $screen->post_type && 'post' == $screen->base ) {
+		return true;
+	}
+}
+
+
+/**
+ * Check if you're on a Ditty post
+ *
+ * @since    3.0
+ * @var      bool    
+*/
+function is_ditty_post() {
+	if ( ! function_exists( 'get_current_screen' ) ) {
+		return false;
+	}
+	$screen = get_current_screen();
+	if( is_object( $screen ) && 'ditty' == $screen->post_type && 'post' == $screen->base ) {
+		return true;
+	}
+}
+
+/**
+ * Check if a Ditty post exists
+ *
+ * @since    3.0
+ * @var      bool
+*/
+function ditty_exists( $id ) {
+	return is_string( get_post_status( $id ) );
+}
+
+/**
+ * Replace template tags
+ *
+ * @since    3.0
+ * @var      string
+*/
+// function ditty_replace_html_tags( $tags, $value, $string ) {	
+// 	$content = preg_replace_callback( "/{([A-z0-9\-\_]+)}/s", function ( $matches ) use( $tags, $value ) {
+// 			
+// 			// Get tag
+// 			$tag = $matches[1];
+// 			
+// 			// Return tag if tag not set
+// 			if ( ! array_key_exists( $tag, $tags ) ) {
+// 				return $matches[0];
+// 			}
+// 			
+// 			return call_user_func( $tags[$tag]['func'], $value );
+// 			
+//   	}, $string
+// 	);
+// 	
+// 	// Remove multiple white-spaces, tabs and new-lines
+// 	$pattern = '/\s+/S';
+// 	$content = preg_replace( $pattern, ' ', $content );
+// 	
+// 	// Strip out whitespace
+// 	//$content = preg_replace( "/[\r\n]+/", "", $content );
+// 
+// 	return $content;
+// }
+
+/**
+ * Return an array of easing options
+ *
+ * @since    3.0
+ * @var      $eases array
+*/
+function ditty_ease_array() {
+	$eases = array(
+		'linear','swing','jswing','easeInQuad','easeInCubic','easeInQuart','easeInQuint','easeInSine','easeInExpo','easeInCirc','easeInElastic','easeInBack','easeInBounce','easeOutQuad','easeOutCubic','easeOutQuart','easeOutQuint','easeOutSine','easeOutExpo','easeOutCirc','easeOutElastic','easeOutBack','easeOutBounce','easeInOutQuad','easeInOutCubic','easeInOutQuart','easeInOutQuint','easeInOutSine','easeInOutExpo','easeInOutCirc','easeInOutElastic','easeInOutBack','easeInOutBounce'
+	);
+	return array_combine( $eases, $eases );
+}
+
+/**
+ * Return an array of slider transitions
+ *
+ * @since    3.0
+ * @var      $eases array
+*/
+function ditty_slider_transitions() {
+	$transitions = array(
+		'fade' 				=> __( 'Fade', 'ditty-news-ticker' ),
+		'slideLeft' 	=> __( 'Slide Left', 'ditty-news-ticker' ),
+		'slideRight' 	=> __( 'Slide Right', 'ditty-news-ticker' ),
+		'slideDown' 	=> __( 'Slide Down', 'ditty-news-ticker' ),
+		'slideUp' 		=> __( 'Slide Up', 'ditty-news-ticker' ),
+	);
+	return $transitions;
+}
+
+/**
+ * Return an array of border style options
+ *
+ * @since    3.0
+ * @var      $eases array
+*/
+function ditty_border_styles_array() {
+	$styles = array(
+		'none', 'dotted','dashed','solid','double','groove','ridge','inset','outset','hidden'
+	);
+	return array_combine( $styles, array_map( 'ucfirst', $styles ) );
+}
+
+/**
+ * Prepare display items
+ *
+ * @since    3.0.21
+ * @var      $eases array
+*/
+function ditty_prepare_display_items( $meta ) {
+	if ( is_object( $meta ) ) {
+		$meta = ( array ) $meta;
+	}
+	$prepared_items = array();
+	if ( ! $item_type_object 	= ditty_item_type_object( $meta['item_type'] ) ) {
+		return $prepared_items;
+	}
+	$defaults 					= $item_type_object->default_settings();
+	$args 							= wp_parse_args( $meta['item_value'], $defaults );
+	$meta['item_value'] = $args;
+	
+	return $item_type_object->prepare_items( $meta );
+}
+
+/**
+ * Sanitize array values
+ *
+ * @since    3.0
+ * @var      $eases array
+*/
+// function ditty_sanitize_array( $values ) {
+// 	if ( ! is_array( $values ) ) {
+// 		return $values;
+// 	}	
+// 	$sanitized_values = array();
+// 	if ( is_array( $values ) && count( $values ) > 0 ) {
+// 		foreach ( $values as $key => $value ) {
+// 			$sanitized_values[$key] = sanitize_text_field( $value );
+// 		}
+// 	}	
+// 	return $sanitized_values;
+// }
+
+/**
+ * Render the Ditty container
+ *
+ * @since    3.0.32
+ */
+function ditty_render( $atts ) {
+	// if ( is_ditty_dev() ) {
+		
+	// 	if ( ! $args = Ditty()->singles->parse_render_atts( $atts ) ) {
+	// 		return false;
+	// 	}
+	// 	$html = '';
+	// 	$html .= Ditty()->displays->add_styles( $args['display_settings'], $args['display'], $args['display_type'] );
+	// 	$html .= Ditty()->layouts->add_styles( $args['items'] );
+	// 	$html .= '<div ' . ditty_attr_to_html( $args['html_atts'] ) . '>';
+		
+	// 		$html .= '<div class="ditty__title">';
+	// 			$html .= '<div class="ditty__title__contents">';
+	// 				$html .= "<{$args['title_settings']['titleElement']} class='ditty__title__element'>";
+	// 					$html .= get_the_title($args['ditty']);
+	// 				$html .= "</{$args['title_settings']['titleElement']}>";
+	// 			$html .= '</div>';
+	// 		$html .= '</div>';
+		
+	// 		$html .= '<div class="ditty__contents">';
+	// 			$html .= '<div class="ditty__items">';
+	// 				if ( is_array( $args['items'] ) && count( $args['items'] ) > 0 ) {
+	// 					foreach ( $args['items'] as $i => $item ) {
+	// 						if ( empty( $item['is_disabled'] ) ) {
+	// 							$html .= $item['html'];
+	// 						}
+	// 					}
+	// 				}
+	// 			$html .= '</div>';
+	// 		$html .= '</div>';
+		
+	// 	$html .= '</div>';
+		
+	// 	return $html;
+		
+	// } else {
+		
+		global $ditty_singles;
+		if ( empty( $ditty_singles ) ) {
+			$ditty_singles = array();
+		}
+	
+		$defaults = array(
+			'id' 								=> '',
+			'display' 					=> '',
+			'display_settings' 	=> '',
+			'layout_settings' 	=> '',
+			'uniqid' 						=> '',
+			'class' 						=> '',
+			'el_id'							=> '',
+			'show_editor' 			=> 0,
+		);
+		$args = shortcode_atts( $defaults, $atts );
+		
+		// Check for WPML language posts
+		$args['id'] = function_exists('icl_object_id') ? icl_object_id( $args['id'], 'ditty', true ) : $args['id'];
+	
+		// Make sure the ditty exists & is published
+		if ( ! ditty_exists( intval( $args['id'] ) ) ) {
+			return false;
+		}
+		if ( ! is_admin() && 'publish' !== get_post_status( intval( $args['id'] ) ) ) {
+			return false;
+		}
+	
+		if ( '' == $args['uniqid'] ) {
+			$args['uniqid'] = uniqid( 'ditty-' );
+		}
+	
+		$class = 'ditty ditty--pre';
+		if ( '' != $args['class'] ) {
+			$class .= ' ' . esc_attr( $args['class'] );
+		}
+		
+		$ditty_settings = get_post_meta( $args['id'], '_ditty_settings', true );
+		$ajax_load 			= ( isset( $ditty_settings['ajax_loading'] ) && 'yes' == $ditty_settings['ajax_loading'] ) ? '1' : 0;
+		$live_updates 	= ( isset( $ditty_settings['live_updates'] ) && 'yes' == $ditty_settings['live_updates'] ) ? '1' : 0;
+		
+		ditty_add_scripts( $args['id'], $args['display']);
+		
+		$ditty_atts = array(
+			'id'										=> ( '' != $args['el_id'] ) ? sanitize_title( $args['el_id'] ) : false,
+			'class' 								=> $class,
+			'data-id' 							=> $args['id'],
+			'data-uniqid' 					=> $args['uniqid'],
+			'data-display' 					=> ( '' != $args['display'] ) ? $args['display'] : false,
+			'data-display_settings' => ( '' != $args['display_settings'] ) ? $args['display_settings'] : false,
+			'data-layout_settings' 	=> ( '' != $args['layout_settings'] ) ? $args['layout_settings'] : false,
+			'data-show_editor' 			=> ( 0 != intval( $args['show_editor'] ) ) ? '1' : false,
+			'data-ajax_load' 				=> $ajax_load,
+			'data-live_updates' 		=> $live_updates,
+		);
+	
+		if ( 0 == $ajax_load ) {
+			$ditty_singles[] = $ditty_atts;
+		}
+		$html = '<div ' . ditty_attr_to_html( $ditty_atts ) . '>';
+			$html .= ditty_edit_links( $args['id'] );
+		$html .= '</div>';
+		return $html;
+	//}
+}
+
+/**
+ * Parse ditty script types and add to global
+ *
+ * @since    3.0.12
+ */
+function ditty_add_scripts( $ditty_id, $display = '' ) {
+		
+	global $ditty_item_scripts;
+	if ( empty( $ditty_item_scripts ) ) {
+		$ditty_item_scripts = array();
+	}
+	global $ditty_display_scripts;
+	if ( empty( $ditty_display_scripts ) ) {
+		$ditty_display_scripts = array();
+	}
+	
+	// Store the item types
+	$items = Ditty()->db_items->get_items( $ditty_id );
+	if ( is_array( $items ) && count( $items ) > 0 ) {
+		foreach ( $items as $i => $item ) {
+			if ( $item_type_object = ditty_item_type_object( $item->item_type ) ) {
+				if ( $script_id = $item_type_object->get_script_id() ) {
+					$ditty_item_scripts[$script_id] = $script_id;
+				}
+			}
+		}
 	}
 
-	return $string;
-}
+	if ( ! ( $display && ( 'publish' == get_post_status( $display ) ) ) ) {
+		$display = get_post_meta( $ditty_id, '_ditty_display', true );
+	}
+	$display_obj = new Ditty_Display( $display );
+	$display_type = $display_obj->get_display_type();
+	$ditty_display_scripts[$display_type] = $display_type;
 }
 
+/**
+ * Return formatted content
+ *
+ * @since    3.0
+ */
+function ditty_formatted_content( $content, $args=array() ) {
+	$defaults = array(
+		'wp_kses_post' 	=> true,
+		'stripslashes' 	=> true,
+		'wptexturize' 	=> true,
+		'convert_chars' => true,
+		'wpautop'				=> true,
+		'do_shortcode'	=> true,
+	);
+	$atts = wp_parse_args( $args, $defaults );
+	
+	if ( $atts['wp_kses_post'] ) {
+		$content = wp_kses_post( $content );
+	}
+	if ( $atts['stripslashes'] ) {
+		$content = stripslashes( $content );
+	}
+	if ( $atts['wptexturize'] ) {
+		$content = wptexturize( $content );
+	}
+	if ( $atts['convert_chars'] ) {
+		$content = convert_chars( $content );
+	}
+	if ( $atts['wpautop'] ) {
+		$content = wpautop( $content );
+	}
+	if ( $atts['do_shortcode'] ) {
+		$content = do_shortcode( $content );
+	}
+	return $content;
+}
+
+/**
+ * Check if a Ditty license is active
+ *
+ * @since    3.0
+ * @access   public
+ * @var      bool
+*/
+function ditty_get_license_status( $extension ) {
+	return Ditty()->extensions->get_license_status( $extension );
+}
+
+/**
+ * Convert an array to element attributes
+ *
+ * @since    3.0
+ * @access   public
+ * @var      bool
+*/
+function ditty_attr_to_html( $attr = array() ) {
+	$html_array = array();
+	if ( is_array( $attr ) && count( $attr ) > 0 ) {
+		foreach ( $attr as $name => $value ) {
+			if ( false === $value ) {
+				continue;
+			}
+			$html_array[] = $name . '="' . esc_attr( $value ) . '"';
+		}
+	}
+	if ( ! empty( $html_array ) ) {
+		return implode( ' ', $html_array );
+	}
+}
+
+/**
+ * Get global Ditty
+ *
+ * @since    3.0
+ * @var      array	$parsed_atts
+*/
+function ditty_get_globals() {
+	$prepared_ditty = array();
+	$global_ditty = ditty_settings( 'global_ditty' );
+	if ( is_array( $global_ditty ) && count( $global_ditty ) > 0 ) {
+		foreach ( $global_ditty as $i => &$ditty ) {
+			$ditty_settings = get_post_meta( $ditty['ditty'], '_ditty_settings', true );
+			$ditty['selector'] = html_entity_decode( $ditty['selector'] );
+			$ditty['live_updates'] = ( isset( $ditty_settings['live_updates'] ) && 'yes' == $ditty_settings['live_updates'] ) ? '1' : 0;
+			$ditty['edit_links'] = html_entity_decode( ditty_edit_links( $ditty['ditty'] ) );
+			$prepared_ditty[] = $ditty;
+		}
+	}
+	return $prepared_ditty;
+}
+
+/**
+ * Convert an array to element attributes
+ *
+ * @since    3.0
+ * @var      string
+*/
+function ditty_help_icon( $str = '' ) {
+	if ( '' === $str ) {
+		return false;
+	}
+	return '<i class="ditty-help-icon protip fas fa-question-circle" data-pt-title="' . $str . '"></i>';
+}
+
+/**
+ * Encrypt values
+ *
+ * @since    3.0
+ * @var      string $output
+*/
+function ditty_encrypt( $string = '', $key_1 = 'pbQttfc*y2bdNV', $key_2 = '3tq!D6AK@XpVz4' ) {
+	$key = hash( 'sha256', $key_1 );
+	$iv = substr( hash( 'sha256', $key_2 ), 0, 16 );
+	$output = base64_encode( openssl_encrypt( $string, "AES-256-CBC", $key, 0, $iv ) );
+	return $output;
+}
+
+/**
+ * Decrypt values
+ *
+ * @since    3.0
+ * @var      string $output
+*/
+function ditty_decrypt( $string = '', $key_1 = 'pbQttfc*y2bdNV', $key_2 = '3tq!D6AK@XpVz4' ) {
+	$key = hash( 'sha256', $key_1 );
+	$iv = substr( hash( 'sha256', $key_2 ), 0, 16 );
+	$output = openssl_decrypt( base64_decode( $string ), "AES-256-CBC", $key, 0, $iv );
+	return $output;
+}
+
+/**
+ * Add a uniq_id to a post if it doesn't exist
+ *
+ * @since    3.0.17
+ * @var      boolean
+*/
+function ditty_maybe_add_uniq_id( $post_id ) {
+	$uniq_id = get_post_meta( $post_id, '_ditty_uniq_id', true );
+	if ( ! $uniq_id ) {
+		$uniq_id = $post_id . current_time( 'timestamp', true );
+		update_post_meta( $post_id, '_ditty_uniq_id', $uniq_id );
+	}
+	return $uniq_id;
+}
+
+/**
+ * Check if Ditty News Ticker is enabled
+ *
+ * @since    3.0
+ * @var      boolean
+*/
+function ditty_news_ticker_enabled() {
+	if ( '' != ditty_settings( 'ditty_news_ticker' ) ) {
+		return true;
+	}
+}
+
+/**
+ * Check if Ditty Wizard is enabled
+ *
+ * @since    3.0.13
+ * @var      boolean
+*/
+function ditty_wizard_enabled() {
+	if ( 'enabled' == ditty_settings( 'ditty_wizard' ) ) {
+		return true;
+	}
+}
+
+/**
+ * Write to the Ditty log
+ *
+ * @since    3.0.13
+*/
+function ditty_log( $log = false ) {
+	if ( $log ) {
+		Ditty()->write_log( $log );
+	}
+}
+
+/**
+ * Retrieve meta field for a item.
+ *
+ * @since   3.0
+ */
+function ditty_item_get_meta( $item_id, $meta_key = '', $single = true ) {
+	if ( $draft_meta = ditty_draft_item_get_meta( $item_id, $meta_key ) ) {
+		return $draft_meta;
+	} else {
+		return Ditty()->db_item_meta->get_meta( $item_id, $meta_key, $single );
+	}
+}
+
+/**
+ * Add meta data field to a item.
+ *
+ * @since   3.0.16
+ */
+function ditty_item_add_meta( $item_id, $meta_key = '', $meta_value = false, $unique = false ) {
+	if ( ! $meta_value ) {
+		return false;
+	}
+	return Ditty()->db_item_meta->add_meta( $item_id, $meta_key, $meta_value, $unique );
+}
+
+/**
+ * Update item meta field based on item ID.
+ *
+ * @since   3.0.16
+ */
+function ditty_item_update_meta( $item_id, $meta_key = '', $meta_value = false, $prev_value = '' ) {
+	if ( ! $meta_value ) {
+		return false;
+	}
+	return Ditty()->db_item_meta->update_meta( $item_id, $meta_key, $meta_value, $prev_value );
+}
+
+/**
+ * Remove metadata matching criteria from an item.
+ *
+ * @since   3.0
+ */
+function ditty_item_delete_meta( $item_id, $meta_key = '', $meta_value = '' ) {
+	return Ditty()->db_item_meta->delete_meta( $item_id, $meta_key, $meta_value );
+}
+
+/**
+ * Get all metadatafrom an item.
+ *
+ * @since   3.0.17
+ */
+function ditty_item_get_all_meta( $item_id ) {
+	$meta = Ditty()->db_item_meta->custom_meta( $item_id );
+	return $meta;
+}
+
+/**
+ * Remove all metadatafrom an item.
+ *
+ * @since   3.0.17
+ */
+function ditty_item_delete_all_meta( $item_id ) {
+	$meta = ditty_item_get_all_meta( $item_id );
+	if ( is_array( $meta ) && count( $meta ) > 0 ) {
+		foreach ( $meta as $data ) {
+			if ( isset( $data->meta_key ) ) {
+				Ditty()->db_item_meta->delete_meta( $item_id, $data->meta_key );
+			}			
+		}
+	}
+}
+
+/**
+ * Get all item meta for a specified item.
+ *
+ * @since   3.0
+ */
+function ditty_item_custom_meta( $item_id ) {
+	return Ditty()->db_item_meta->custom_meta( $item_id );
+}
+
+/**
+ * Return the Ditty logo svg
+ *
+ * @since   3.0
+ */
+function ditty_svg_logo() {
+	return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 258.8 99.21" fill="currentColor"><path d="M0,49.5C0,32.3,8.6,20.4,24.6,20.4a19.93,19.93,0,0,1,6.6,1V3.1H45V62.3l1,10.3H34.2l-.9-5.2h-.5a15.21,15.21,0,0,1-13,6.8C3.8,74.2,0,61.5,0,49.5Zm31.2,7.4V31.7a13.7,13.7,0,0,0-6-1.3c-8.7,0-11.3,8.7-11.3,17.8,0,8.5,1.9,15.8,8.9,15.8C27.9,64,31.2,60.2,31.2,56.9Z"/><path d="M55.7,7.4A7.33,7.33,0,0,1,63.4,0c4.6,0,7.8,3.3,7.8,7.4s-3.2,7.4-7.8,7.4S55.7,11.7,55.7,7.4ZM70.5,21.9V72.6H56.4V21.9Z"/><path d="M95.8,3.1V21.9H112V3.1h14.1V21.9h13V32.8h-13V55.9c0,5.9,2.6,7.6,6.4,7.6a11.9,11.9,0,0,0,6.1-1.9l3.2,9c-3,2-8.2,3.5-13.3,3.5-15.2,0-16.5-8.7-16.5-17.8V32.8H95.8V55.9c0,5.9,2,7.6,5.7,7.6a11.64,11.64,0,0,0,5.7-1.6l2.1,9.4c-2.6,1.7-7.4,2.8-11.1,2.8-15.1,0-16.4-8.7-16.4-17.8V3.1Z"/><path d="M149.6,85.81c0-7.21,4.4-12.81,10.3-17.11-8.4-1.3-13-5.9-13-16V21.9h14V51.6c0,5.4.5,9.1,7,9.1,4,0,7.7-3.2,7.7-8.3V21.9h14V64.2a108.13,108.13,0,0,1-.9,13.9c-1.5,13.5-8.9,21.11-22.4,21.11C155.2,99.21,149.6,94,149.6,85.81Zm26.3-9.11V67.2c-7.4,3.5-14,8.5-14,16.11,0,3.9,2.2,5.79,6,5.79C173.8,89.1,175.9,84.4,175.9,76.7Z"/><path d="M198.7,66.8a7,7,0,0,1,7.4-7.2c5,0,7.7,2.8,7.7,7.1s-2.6,7.5-7.4,7.5C201.3,74.2,198.7,71.1,198.7,66.8Z"/><path d="M221.2,66.8a7,7,0,0,1,7.4-7.2c5,0,7.7,2.8,7.7,7.1s-2.6,7.5-7.4,7.5C223.8,74.2,221.2,71.1,221.2,66.8Z"/><path d="M243.7,66.8a7,7,0,0,1,7.4-7.2c5,0,7.7,2.8,7.7,7.1s-2.6,7.5-7.4,7.5C246.3,74.2,243.7,71.1,243.7,66.8Z"/></svg>';
+}
+
+/**
+ * Return the Ditty d svg
+ *
+ * @since   3.0
+ */
+function ditty_svg_d() {
+	return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 69.31 71.1" fill="currentColor"><path d="M0 46.4c0-17.2 8.6-29.1 24.6-29.1a19.93 19.93 0 0 1 6.6 1V0H45v59.2l1 10.3H34.2l-.9-5.2h-.5a15.21 15.21 0 0 1-13 6.8C3.8 71.1 0 58.4 0 46.4Zm31.2 7.4V28.6a13.7 13.7 0 0 0-6-1.3c-8.7 0-11.3 8.7-11.3 17.8 0 8.5 1.9 15.8 8.9 15.8 5.1 0 8.4-3.8 8.4-7.1ZM61.91 65.6a7 7 0 0 1-7.2-7.4c0-5 2.8-7.7 7.1-7.7s7.5 2.6 7.5 7.4c0 5.1-3.1 7.7-7.4 7.7ZM61.91 43.1a7 7 0 0 1-7.2-7.4c0-5 2.8-7.7 7.1-7.7s7.5 2.6 7.5 7.4c0 5.1-3.1 7.7-7.4 7.7ZM61.91 20.6a7 7 0 0 1-7.2-7.4c0-5 2.8-7.7 7.1-7.7s7.5 2.6 7.5 7.4c0 5.1-3.1 7.7-7.4 7.7Z"/></svg>';
+}
+
+/**
+ * Check if we are in development mode
+ *
+ * @since   3.1
+ */
+function is_ditty_dev() {
+	if ( isset( $_GET['dittyDev'] ) ) {
+		return true;
+	}
+	if ( defined( 'DITTY_DEVELOPMENT' ) ) {
+		return DITTY_DEVELOPMENT;
+	}
+}
+
+/**
+ * Check if we are previewing a ditty
+ *
+ * @since   3.1
+ */
+function is_ditty_preview() {
+	if ( isset( $_GET['ditty_edit'] ) && isset( $_GET['ditty_edit_id'] ) ) {
+		return $_GET['ditty_edit_id'];
+	}
+}
+
+/**
+ * Check if we are on a ditty edit page
+ *
+ * @since   3.0
+ */
+function ditty_editing() {
+	$page = isset( $_GET['page'] ) ? $_GET['page'] : false;
+	$id = isset( $_GET['id'] ) ? $_GET['id'] : false;
+	if ( 'ditty' == $page ) {
+		if ( $id ) {
+			return $id;
+		}
+	}
+}
+
+/**
+ * Check if we are on a ditty edit page
+ *
+ * @since   3.0.32
+ */
+function ditty_edit_links( $ditty_id ) {
+	if ( ! is_admin() && current_user_can( 'edit_dittys' ) && 'enabled' === ditty_settings( 'edit_links' ) ) {
+		return '<a class="ditty__edit-link" href="'.get_edit_post_link( $ditty_id ).'">' . __('Edit Ditty', 'ditty-news-ticker') . '</a>';
+	}
+}
+
+/**
+ * Return the current Ditty version
+ *
+ * @since   3.1
+ */
+function ditty_version() {
+	if ( is_ditty_dev() ) {
+		return WP_DEBUG ? time() : '3.1';
+	}
+	return DITTY_VERSION;
+}
+
+/**
+ * Register Ditty styles
+ *
+ * @since   3.1
+ */
+function ditty_register_style( $type, $args ) {
+	Ditty()->scripts->register_style( $type, $args );
+}
+
+/**
+ * Register Ditty scripts
+ *
+ * @since   3.1
+ */
+function ditty_register_script( $type, $args ) {
+	Ditty()->scripts->register_script( $type, $args );
+}

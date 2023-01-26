@@ -1,0 +1,78 @@
+#ditty-extensions,
+#ditty-extensions-app {
+	.ditty-extension {
+		&--instagram {
+			.ditty-extension__header,
+			.ditty-extension__icon,
+			.ditty-extension__icon__small {
+				background: linear-gradient( 45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d );
+			}
+			.ditty-button:hover,
+			.ditty-button--primary,
+			.ditty-extension__tab.active {
+				background-color: #e1306c;
+			}
+		}
+		&--images {
+			.ditty-extension__header,
+			.ditty-extension__header,
+			.ditty-extension__icon,
+			.ditty-extension__icon__small,
+			.ditty-button:hover,
+			.ditty-button--primary,
+			.ditty-extension__tab.active {
+				background-color: #39B449;
+			}
+		}
+		&--facebook {
+			.ditty-extension__header,
+			.ditty-extension__icon,
+			.ditty-extension__icon__small,
+			.ditty-button:hover,
+			.ditty-button--primary,
+			.ditty-extension__tab.active {
+				background-color: #3b5998;
+			}
+		}
+		&--rss {
+			.ditty-extension__header,
+			.ditty-extension__icon,
+			.ditty-extension__icon__small,
+			.ditty-button:hover,
+			.ditty-button--primary,
+			.ditty-extension__tab.active {
+				background-color: #ee802f;
+			}
+		}
+		&--timing {
+			.ditty-extension__header,
+			.ditty-extension__icon,
+			.ditty-extension__icon__small,
+			.ditty-button:hover,
+			.ditty-button--primary,
+			.ditty-extension__tab.active {
+				background-color: $green;
+			}
+		}
+		&--twitter {
+			.ditty-extension__header,
+			.ditty-extension__icon,
+			.ditty-extension__icon__small,
+			.ditty-button:hover,
+			.ditty-button--primary,
+			.ditty-extension__tab.active {
+				background-color: #1DA1F2;
+			}
+		}
+		&--posts {
+			.ditty-extension__header,
+			.ditty-extension__icon,
+			.ditty-extension__icon__small,
+			.ditty-button:hover,
+			.ditty-button--primary,
+			.ditty-extension__tab.active {
+				background-color: #21759b;
+			}
+		}
+	}
+}

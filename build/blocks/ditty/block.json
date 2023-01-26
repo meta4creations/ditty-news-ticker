@@ -1,0 +1,37 @@
+{
+  "apiVersion": 2,
+  "name": "metaphorcreations/ditty",
+  "version": "0.1.0",
+  "title": "Ditty",
+  "description": "Display your Ditty within the content of the post.",
+  "category": "widgets",
+  "icon": "smiley",
+  "keywords": [
+    "ticker",
+    "list",
+    "slider",
+    "display",
+    "content"
+  ],
+  "supports": {
+    "html": false
+  },
+  "textdomain": "ditty",
+  "attributes": {
+    "ditty": {
+      "type": "integer"
+    },
+    "display": {
+      "type": "integer"
+    },
+    "customID": {
+      "type": "string"
+    },
+    "customClasses": {
+      "type": "string"
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}

@@ -1,0 +1,47 @@
+.editLayout__variations {
+  padding: 10px;
+}
+.editLayout__variation {
+  padding: 10px;
+  border: 1px solid $border_color_light;
+  border-radius: 3px;
+  margin-bottom: 3px;
+}
+.ditty-popup--layoutEdit {
+  .ditty-popup__header {
+    padding: 0;
+  }
+  .ditty-tabs {
+    border-top: 1px solid $border_color_light;
+    padding: 10px;
+  }
+}
+.layoutEdit__header {
+  padding: 10px;
+}
+.layoutEdit__tagCloud {
+  padding: 15px;
+  border-bottom: 1px solid $border_color_light;
+  h3 {
+    font-size: 14px;
+    line-height: 14px;
+    margin: 0 0 10px;
+  }
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  span {
+    font-size: 12px;
+    line-height: 12px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+    padding: 3px 5px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+    &:hover {
+      background: rgba(0, 0, 0, 0.15);
+    }
+  }
+}
