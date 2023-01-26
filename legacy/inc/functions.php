@@ -14,7 +14,7 @@
  * @since 3.0.33
  */
 function ditty_news_ticker( $id='', $class='', $atts=false ) {
-	echo get_mtphr_dnt_ticker( intval( $id ), sanitize_html_class( $class ), $atts );	
+	echo get_mtphr_dnt_ticker( intval( $id ), esc_attr( $class ), $atts );	
 }
 
 /**
