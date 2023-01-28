@@ -498,7 +498,7 @@
       this.updateItems(updatedItems);
     },
 
-    updateItemsNew: function (newItems, itemId, type = "replace", forceSwapAll) {
+    loadItems: function (newItems, type = "replace") {
       if (undefined === newItems) {
         return false;
       }

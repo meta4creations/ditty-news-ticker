@@ -444,15 +444,16 @@ class Ditty_Scripts {
 			if ( empty( $ditty_scripts_enqueued ) ) {
 				wp_add_inline_script( 'ditty', 'const dittyEditor={};', 'before' );
 				wp_add_inline_script( 'dittyEditor', 'const dittyEditorVars = ' . json_encode( array(
-					'ajaxurl'				=> admin_url( 'admin-ajax.php' ),
-					'security'			=> wp_create_nonce( 'ditty' ),
-					'mode'					=> WP_DEBUG ? 'development' : 'production',
-					'userId'				=> get_current_user_id(),
-					'siteUrl'				=> site_url(),
-					'displays'			=> Ditty()->editor->display_data(),
-					'layouts'				=> Ditty()->editor->layout_data(),
-					'itemTypes'			=> Ditty()->editor->item_type_data(),
-					'displayTypes'	=> Ditty()->editor->display_type_data(),
+					'ajaxurl'						=> admin_url( 'admin-ajax.php' ),
+					'security'					=> wp_create_nonce( 'ditty' ),
+					'mode'							=> WP_DEBUG ? 'development' : 'production',
+					'userId'						=> get_current_user_id(),
+					'siteUrl'						=> site_url(),
+					'displays'					=> Ditty()->editor->display_data(),
+					'layouts'						=> Ditty()->editor->layout_data(),
+					'itemTypes'					=> Ditty()->editor->item_type_data(),
+					'displayTypes'			=> Ditty()->editor->display_type_data(),
+					'variationDefaults' => ditty_settings( 'variation_defaults' ),
 				) ), 'before' );
 			}
 		}	

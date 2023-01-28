@@ -53,11 +53,7 @@ export const updateDittyItems = async (
     await getRenderedItems(itemsArray, layouts, (data) => {
       if (data.display_items) {
         const type = dittyEl.dataset.type;
-        dittyEl["_ditty_" + type].updateItems(
-          data.display_items,
-          false,
-          "update"
-        );
+        dittyEl["_ditty_" + type].loadItems(data.display_items, "update");
         returnDisplayItems && returnDisplayItems(data.display_items, "update");
       }
     });

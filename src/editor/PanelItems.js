@@ -34,6 +34,12 @@ const PanelItems = () => {
    */
   const handleAddItem = (itemType) => {
     const dittyEl = document.getElementById("ditty-editor__ditty");
+    const variationDefaults = dittyEditorVars.variationDefaults
+      ? dittyEditorVars.variationDefaults
+      : {};
+    const layoutValue = variationDefaults[itemType]
+      ? variationDefaults[itemType]
+      : { default: { html: "{content}", css: "" } };
     const itemId = `new-${Date.now()}`;
     const newItem = {
       ditty_id: id,
@@ -42,9 +48,7 @@ const PanelItems = () => {
       item_index: null,
       item_type: itemType,
       item_value: {},
-      layout_value: {
-        default: "13464",
-      },
+      layout_value: layoutValue,
     };
     actions.addItem(newItem);
     setCurrentItem(newItem);
