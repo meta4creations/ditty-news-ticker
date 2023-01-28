@@ -1,5 +1,5 @@
 import { __ } from "@wordpress/i18n";
-import { useState, useCallback } from "@wordpress/element";
+import { useState, useEffect } from "@wordpress/element";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,15 +7,20 @@ import {
   faBrush,
   faCode,
 } from "@fortawesome/pro-light-svg-icons";
-import CodeMirror from "@uiw/react-codemirror";
+
+// import CodeMirror from "@uiw/react-codemirror";
 import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
-import { EditorView } from "@codemirror/view";
-import { getItemTypeObject, getItemLabel } from "../utils/itemTypes";
-import { getLayoutObject } from "../utils/layouts";
-import { Button, ButtonGroup, IconBlock, Popup, Tabs } from "../components";
-import PopupTemplateSelector from "./PopupTemplateSelector";
-import { cssTransition } from "react-toastify";
+// import { EditorView } from "@codemirror/view";
+// import { EditorState } from "@codemirror/state";
+// import {
+//   basicSetup,
+//   minimalSetup,
+// } from "@uiw/codemirror-extensions-basic-setup";
+
+import { LayoutEditor } from "./LayoutEditor";
+
+import { IconBlock, Popup, Tabs } from "../components";
 
 const PopupEditLayout = ({
   layout,
@@ -29,38 +34,6 @@ const PopupEditLayout = ({
 }) => {
   const [editLayout, setEditLayout] = useState(layout);
   const [currentTabId, setCurrentTabId] = useState("html");
-
-  /**
-   * Render a popup component
-   * @returns Popup component
-   */
-  const renderPopup = () => {
-    // switch (popupStatus) {
-    //   case "layoutTemplateSelect":
-    //     return (
-    //       <PopupTemplateSelector
-    //         level="2"
-    //         currentTemplate={getVariationLayoutObject(selectedVariation)}
-    //         templates={layouts}
-    //         headerIcon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
-    //         templateIcon={() => <FontAwesomeIcon icon={faPaintbrushPencil} />}
-    //         submitLabel={__("Use Layout", "ditty-news-ticker")}
-    //         onChange={(selectedTemplate) => {
-    //           setVariationLayout(selectedVariation, selectedTemplate);
-    //         }}
-    //         onClose={() => {
-    //           setPopupStatus(false);
-    //         }}
-    //         onUpdate={(updatedTemplate) => {
-    //           setPopupStatus(false);
-    //           setVariationLayout(selectedVariation, updatedTemplate);
-    //         }}
-    //       />
-    //     );
-    //   default:
-    //     return;
-    // }
-  };
 
   const updateLayout = (type, value) => {
     const updatedLayout = { ...editLayout };
@@ -142,22 +115,28 @@ const PopupEditLayout = ({
     if ("css" === currentTabId) {
       return (
         <>
-          <CodeMirror
+          <div id="dittyEditor__layout__html">CSS</div>
+          {/* <CodeMirror
             value={editLayout.css}
             extensions={[css(), EditorView.lineWrapping]}
             onChange={(value) => updateLayout("css", value)}
-          />
+          /> */}
         </>
       );
     } else {
       return (
         <>
-          <CodeMirror
+          <LayoutEditor
+            value={editLayout.html}
+            extensions={[html()]}
+            onChange={(value) => updateLayout("html", value)}
+          />
+          {/* <CodeMirror
             value={editLayout.html}
             minHeight="100%"
             extensions={[html(), EditorView.lineWrapping]}
             onChange={(value) => updateLayout("html", value)}
-          />
+          /> */}
         </>
       );
     }
@@ -180,7 +159,6 @@ const PopupEditLayout = ({
       >
         {renderPopupContents()}
       </Popup>
-      {renderPopup()}
     </>
   );
 };

@@ -364,7 +364,7 @@ class Ditty_Scripts {
 		wp_enqueue_style(
 			'ditty-editor',
 			DITTY_URL . 'build/dittyEditor.css',
-			['wp-components'],
+			['wp-components', 'wp-codemirror'],
 			ditty_version(),
 			'all'
 		);
@@ -437,7 +437,7 @@ class Ditty_Scripts {
 
 			wp_enqueue_script( 'dittyEditor',
 				DITTY_URL . 'build/dittyEditor.js',
-				array_merge(['wp-element', 'wp-components', 'wp-hooks', 'lodash', 'ditty'], $display_slugs),
+				array_merge(['wp-element', 'wp-components', 'wp-hooks', 'lodash', 'wp-codemirror', 'ditty'], $display_slugs),
 				ditty_version(),
 				true
 			);
