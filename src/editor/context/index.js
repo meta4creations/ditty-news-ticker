@@ -70,7 +70,7 @@ export class EditorProvider extends Component {
 
   /**
    * Add to the display items
-   * @param {object} newItem
+   * @param {object} newDisplayItems
    */
   handleAddDisplayItems = (newDisplayItems) => {
     const mergedDisplayItems = [...this.state.displayItems, ...newDisplayItems];
@@ -84,6 +84,18 @@ export class EditorProvider extends Component {
   };
 
   /**
+   * Delete display items
+   * @param {object} item
+   */
+  handleDeleteDisplayItems = (deletedItem) => {
+    const updatedDisplayItems = this.state.displayItems.filter(
+      (displayItem) => displayItem.id !== deletedItem.item_id
+    );
+    console.log("updatedDisplayItems", updatedDisplayItems);
+    this.setState({ displayItems: updatedDisplayItems });
+  };
+
+  /**
    * Delete an item
    * @param {object} newItem
    */
@@ -91,6 +103,7 @@ export class EditorProvider extends Component {
     const updatedItems = this.state.items.filter(
       (item) => item.item_id !== deletedItem.item_id
     );
+    this.handleDeleteDisplayItems(deletedItem);
     this.handleSortItems(updatedItems);
   };
 

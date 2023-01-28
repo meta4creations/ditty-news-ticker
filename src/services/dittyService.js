@@ -87,3 +87,8 @@ export const addDittyItem = async (
     }
   }
 };
+
+export const deleteDittyItem = (dittyEl, item) => {
+  const type = dittyEl.dataset.type;
+  dittyEl["_ditty_" + type].deleteItem(item.item_id);
+};

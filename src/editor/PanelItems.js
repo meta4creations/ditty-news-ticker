@@ -7,6 +7,7 @@ import {
   updateDisplayOptions,
   updateDittyItems,
   addDittyItem,
+  deleteDittyItem,
 } from "../services/dittyService";
 import { Panel, ListItem, SortableList } from "../components";
 import { EditorContext } from "./context";
@@ -59,8 +60,10 @@ const PanelItems = () => {
    * Delete an item
    * @param {object} deltedItem
    */
-  const handleDeleteItem = (deltedItem) => {
-    actions.deleteItem(deltedItem);
+  const handleDeleteItem = (deletedItem) => {
+    const dittyEl = document.getElementById("ditty-editor__ditty");
+    actions.deleteItem(deletedItem);
+    deleteDittyItem(dittyEl, deletedItem);
     setCurrentItem(null);
   };
 
