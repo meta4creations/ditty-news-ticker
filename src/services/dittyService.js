@@ -41,21 +41,18 @@ export const updateDisplayOptions = (dittyEl, option, value) => {
   dittyEl["_ditty_" + type].options(option, value);
 };
 
-export const updateDittyItems = async (
-  dittyEl,
-  items,
-  layouts,
-  returnDisplayItems
-) => {
+/**
+ * Get display items based on items and stored layouts
+ * @param {array} items
+ * @param {array} layouts
+ * @param {function} returnDisplayItems
+ */
+export const getDisplayItems = async (items, layouts, returnDisplayItems) => {
   const itemsArray = Array.isArray(items) ? items : [items];
-  //console.log("itemsArray", itemsArray);
   try {
     await getRenderedItems(itemsArray, layouts, (data) => {
-      if (data.display_items) {
-        const type = dittyEl.dataset.type;
-        dittyEl["_ditty_" + type].loadItems(data.display_items, "update");
-        returnDisplayItems && returnDisplayItems(data.display_items, "update");
-      }
+      //returnDisplayItems && returnDisplayItems(data.display_items, "update");
+      returnDisplayItems && returnDisplayItems(data.display_items);
     });
   } catch (ex) {
     console.log("catch", ex);
@@ -64,31 +61,29 @@ export const updateDittyItems = async (
   }
 };
 
-export const addDittyItem = async (
-  dittyEl,
-  item,
-  layouts,
-  index = 0,
-  onComplete
-) => {
-  try {
-    await getRenderedItems([item], layouts, (data) => {
-      if (data.display_items) {
-        const type = dittyEl.dataset.type;
-        data.display_items.map((displayItem) =>
-          dittyEl["_ditty_" + type].addItem(displayItem)
-        );
-        onComplete && onComplete(data.display_items);
-      }
-    });
-  } catch (ex) {
-    console.log("catch", ex);
-    if (ex.response && ex.response.status === 404) {
-    }
-  }
+export const addDisplayItems = (dittyEl, displayItems) => {
+  const type = dittyEl.dataset.type;
+  displayItems.map((displayItem) =>
+    dittyEl["_ditty_" + type].addItem(displayItem)
+  );
 };
 
-export const deleteDittyItem = (dittyEl, item) => {
+/**
+ * Delete an item from the Ditty display
+ * @param {element} dittyEl
+ * @param {object} item
+ */
+export const deleteDisplayItems = (dittyEl, item) => {
   const type = dittyEl.dataset.type;
   dittyEl["_ditty_" + type].deleteItem(item.item_id);
+};
+
+/**
+ * Update the Ditty display items
+ * @param {element} dittyEl
+ * @param {object} items
+ */
+export const updateDisplayItems = (dittyEl, displayItems) => {
+  const type = dittyEl.dataset.type;
+  dittyEl["_ditty_" + type].loadItems(displayItems, "update");
 };

@@ -3,6 +3,7 @@ import { Component } from "@wordpress/element";
 import _ from "lodash";
 import { saveDitty } from "../../services/httpService";
 import { getDisplayObject } from "../../utils/displayTypes";
+import { faPeach } from "@fortawesome/pro-light-svg-icons";
 
 export const EditorContext = React.createContext();
 EditorContext.displayName = "EditorContext";
@@ -37,6 +38,38 @@ export class EditorProvider extends Component {
   };
 
   /**
+   * Merge new display items into an existing array of display items
+   * @param {array} existingDisplayItems
+   * @param {array} newDisplayItems
+   * @param {array} items
+   * @returns
+   */
+  replaceDisplayItems = (
+    newDisplayItems,
+    existingDisplayItems = this.state.displayItems,
+    items = this.state.items
+  ) => {
+    const allDisplayItems = items.reduce((itemsArray, item) => {
+      const filteredNewItems = newDisplayItems.filter((displayItem) => {
+        return displayItem.id === item.item_id;
+      });
+      if (filteredNewItems.length) {
+        return [...itemsArray, ...filteredNewItems];
+      } else {
+        const filteredExistingItems = existingDisplayItems.filter(
+          (displayItem) => {
+            return displayItem.id === item.item_id;
+          }
+        );
+        if (filteredExistingItems.length) {
+          return [...itemsArray, ...filteredExistingItems];
+        }
+      }
+    }, []);
+    return allDisplayItems;
+  };
+
+  /**
    * Update all items
    * @param {object} updatedItems
    */
@@ -66,33 +99,6 @@ export class EditorProvider extends Component {
     const updatedItems = this.state.items;
     updatedItems.unshift(newItem);
     this.handleSortItems(updatedItems);
-  };
-
-  /**
-   * Add to the display items
-   * @param {object} newDisplayItems
-   */
-  handleAddDisplayItems = (newDisplayItems) => {
-    const mergedDisplayItems = [...this.state.displayItems, ...newDisplayItems];
-    const updatedDisplayItems = this.state.items.reduce((itemsArray, item) => {
-      const displayItems = mergedDisplayItems.filter((displayItem) => {
-        return displayItem.id === item.item_id;
-      });
-      return [...itemsArray, ...displayItems];
-    }, []);
-    this.setState({ displayItems: updatedDisplayItems });
-  };
-
-  /**
-   * Delete display items
-   * @param {object} item
-   */
-  handleDeleteDisplayItems = (deletedItem) => {
-    const updatedDisplayItems = this.state.displayItems.filter(
-      (displayItem) => displayItem.id !== deletedItem.item_id
-    );
-    console.log("updatedDisplayItems", updatedDisplayItems);
-    this.setState({ displayItems: updatedDisplayItems });
   };
 
   /**
@@ -132,11 +138,41 @@ export class EditorProvider extends Component {
   };
 
   /**
+   * Add to the display items
+   * @param {object} newDisplayItems
+   */
+  handleAddDisplayItems = (newDisplayItems) => {
+    const mergedDisplayItems = [...this.state.displayItems, ...newDisplayItems];
+    const updatedDisplayItems = this.state.items.reduce((itemsArray, item) => {
+      const displayItems = mergedDisplayItems.filter((displayItem) => {
+        return displayItem.id === item.item_id;
+      });
+      return [...itemsArray, ...displayItems];
+    }, []);
+    this.setState({ displayItems: updatedDisplayItems });
+    return updatedDisplayItems;
+  };
+
+  /**
+   * Delete display items
+   * @param {object} item
+   */
+  handleDeleteDisplayItems = (deletedItem) => {
+    const updatedDisplayItems = this.state.displayItems.filter(
+      (displayItem) => displayItem.id !== deletedItem.item_id
+    );
+    this.setState({ displayItems: updatedDisplayItems });
+    return updatedDisplayItems;
+  };
+
+  /**
    * Update a single item
    * @param {object} updatedDisplayItems
    */
   handleUpdateDisplayItems = (updatedDisplayItems) => {
-    this.setState({ displayItems: updatedDisplayItems });
+    const allDisplayItems = this.replaceDisplayItems(updatedDisplayItems);
+    this.setState({ displayItems: allDisplayItems });
+    return allDisplayItems;
   };
 
   /**
@@ -366,15 +402,16 @@ export class EditorProvider extends Component {
           settings: this.state.settings,
           helpers: {
             dittyUpdates: this.getDittyUpdates,
+            replaceDisplayItems: this.replaceDisplayItems,
           },
           actions: {
             setCurrentPanel: this.handleSetCurrentPanel,
             setCurrentDisplay: this.handleSetCurrentDisplay,
             sortItems: this.handleSortItems,
             addItem: this.handleAddItem,
-            addDisplayItems: this.handleAddDisplayItems,
             deleteItem: this.handleDeleteItem,
             updateItem: this.handleUpdateItem,
+            addDisplayItems: this.handleAddDisplayItems,
             updateDisplayItems: this.handleUpdateDisplayItems,
             updateDisplay: this.handleUpdateDisplay,
             updateLayout: this.handleUpdateLayout,

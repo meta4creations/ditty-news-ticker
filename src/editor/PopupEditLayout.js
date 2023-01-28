@@ -30,8 +30,6 @@ const PopupEditLayout = ({
   const [editLayout, setEditLayout] = useState(layout);
   const [currentTabId, setCurrentTabId] = useState("html");
 
-  console.log("itemTypeObject", itemTypeObject.tags);
-
   /**
    * Render a popup component
    * @returns Popup component
