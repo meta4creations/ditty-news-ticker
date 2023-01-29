@@ -8,15 +8,8 @@ import {
   faCode,
 } from "@fortawesome/pro-light-svg-icons";
 
-// import CodeMirror from "@uiw/react-codemirror";
 import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
-// import { EditorView } from "@codemirror/view";
-// import { EditorState } from "@codemirror/state";
-// import {
-//   basicSetup,
-//   minimalSetup,
-// } from "@uiw/codemirror-extensions-basic-setup";
 
 import { LayoutEditor } from "./LayoutEditor";
 
@@ -34,11 +27,31 @@ const PopupEditLayout = ({
 }) => {
   const [editLayout, setEditLayout] = useState(layout);
   const [currentTabId, setCurrentTabId] = useState("html");
+  const [currentTag, setCurrentTag] = useState(false);
 
   const updateLayout = (type, value) => {
     const updatedLayout = { ...editLayout };
     updatedLayout[type] = value;
     setEditLayout(updatedLayout);
+  };
+
+  /**
+   * Render a popup component
+   * @returns Popup component
+   */
+  const renderPopup = () => {
+    if (currentTag) {
+      return (
+        <Popup
+          level="3"
+          onClose={() => {
+            setCurrentTag(false);
+          }}
+        >
+          {currentTag.tag}
+        </Popup>
+      );
+    }
   };
 
   const renderPopupHeader = () => {
@@ -101,7 +114,9 @@ const PopupEditLayout = ({
                 return (
                   <span
                     key={tag.tag}
-                    onClick={() => insertTag(tag)}
+                    data-tag={tag.tag}
+                    className="layoutEdit__tagCloud__tag"
+                    onClick={() => setCurrentTag(tag)}
                   >{`{${tag.tag}}`}</span>
                 );
               })}
@@ -129,6 +144,7 @@ const PopupEditLayout = ({
           <LayoutEditor
             value={editLayout.html}
             extensions={[html()]}
+            tags={itemTypeObject.tags}
             onChange={(value) => updateLayout("html", value)}
           />
           {/* <CodeMirror
@@ -159,6 +175,7 @@ const PopupEditLayout = ({
       >
         {renderPopupContents()}
       </Popup>
+      {renderPopup()}
     </>
   );
 };

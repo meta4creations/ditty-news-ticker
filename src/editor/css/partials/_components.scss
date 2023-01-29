@@ -185,6 +185,7 @@
     background: #fff;
     border-radius: 3px;
     margin-top: 10px;
+    overflow: hidden;
   }
   &__header {
     padding: 10px;
@@ -210,6 +211,14 @@
       width: calc(100% - 40px);
       height: calc(100% - 40px);
       margin-top: 20px;
+    }
+  }
+  &--level-3 {
+    z-index: 9999;
+    .ditty-popup__contents {
+      width: calc(100% - 60px);
+      height: calc(100% - 60px);
+      margin-top: 30px;
     }
   }
 }

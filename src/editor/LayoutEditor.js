@@ -11,11 +11,12 @@ export const LayoutEditor = ({ value, extensions, onChange, tags }) => {
   const editor = useRef();
 
   const onUpdate = EditorView.updateListener.of((v) => {
-    console.log(v.state.selection.ranges[0]);
     onChange(v.state.doc.toString());
   });
 
   useEffect(() => {
+    console.log("tags", tags);
+
     const startState = EditorState.create({
       doc: value,
       extensions: [
@@ -30,12 +31,24 @@ export const LayoutEditor = ({ value, extensions, onChange, tags }) => {
 
     const view = new EditorView({ state: startState, parent: editor.current });
 
-    view.dispatch({
-      changes: {
-        from: 1,
-        to: 3,
-        insert: "blammmmm",
-      },
+    const elements = document.getElementsByClassName(
+      "layoutEdit__tagCloud__tag"
+    );
+    Array.from(elements).forEach(function (element) {
+      element.addEventListener("click", (e) => {
+        const tagId = e.target.dataset.tag;
+        const selectionRange = view.state.selection.ranges[0];
+        console.log("tagId", tagId);
+        console.log("ranges", view.state.selection.ranges[0]);
+
+        view.dispatch({
+          changes: {
+            from: selectionRange.from,
+            to: selectionRange.to,
+            insert: `{${tagId}}`,
+          },
+        });
+      });
     });
 
     return () => {
