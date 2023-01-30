@@ -41,9 +41,21 @@ const PopupEditLayout = ({
    */
   const renderPopup = () => {
     if (currentTag) {
+      console.log("currentTag", currentTag);
       return (
         <Popup
           level="3"
+          header={
+            <IconBlock
+              icon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
+              className="layoutEdit__header"
+            >
+              <div className="itemEdit__header__type">
+                <h2>{currentTag.tag}</h2>
+              </div>
+              <p>{currentTag.description}</p>
+            </IconBlock>
+          }
           onClose={() => {
             setCurrentTag(false);
           }}
@@ -87,10 +99,6 @@ const PopupEditLayout = ({
     );
   };
 
-  const insertTag = (tag) => {
-    console.log("tag", tag);
-  };
-
   const renderPopupFooterBefore = () => {
     if ("css" === currentTabId) {
       return (
@@ -99,7 +107,15 @@ const PopupEditLayout = ({
           <div className="layoutEdit__tagCloud__tags">
             {itemTypeObject.tags &&
               itemTypeObject.tags.map((tag) => {
-                return <span key={tag.tag}>{tag.tag}</span>;
+                return (
+                  <span
+                    key={tag.tag}
+                    data-tag={tag.tag}
+                    className="layoutEdit__tagCloud__tag"
+                  >
+                    {`.ditty-item__${tag.tag}`}
+                  </span>
+                );
               })}
           </div>
         </div>
@@ -130,29 +146,31 @@ const PopupEditLayout = ({
     if ("css" === currentTabId) {
       return (
         <>
-          <div id="dittyEditor__layout__html">CSS</div>
-          {/* <CodeMirror
+          <LayoutEditor
+            key="css"
             value={editLayout.css}
-            extensions={[css(), EditorView.lineWrapping]}
+            extensions={[css()]}
+            tags={itemTypeObject.tags}
             onChange={(value) => updateLayout("css", value)}
-          /> */}
+            insertTagContent={(tagId) => {
+              return {
+                content: `.ditty-item__${tagId} {  }`,
+                cursorOffset: -2,
+              };
+            }}
+          />
         </>
       );
     } else {
       return (
         <>
           <LayoutEditor
+            key="html"
             value={editLayout.html}
             extensions={[html()]}
             tags={itemTypeObject.tags}
             onChange={(value) => updateLayout("html", value)}
           />
-          {/* <CodeMirror
-            value={editLayout.html}
-            minHeight="100%"
-            extensions={[html(), EditorView.lineWrapping]}
-            onChange={(value) => updateLayout("html", value)}
-          /> */}
         </>
       );
     }

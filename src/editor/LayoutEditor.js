@@ -7,7 +7,13 @@ import { EditorView, keymap } from "@codemirror/view";
 import { defaultKeymap, indentWithTab } from "@codemirror/commands";
 import { oneDark } from "@codemirror/theme-one-dark";
 
-export const LayoutEditor = ({ value, extensions, onChange, tags }) => {
+export const LayoutEditor = ({
+  value,
+  extensions,
+  onChange,
+  tags,
+  insertTagContent,
+}) => {
   const editor = useRef();
 
   const onUpdate = EditorView.updateListener.of((v) => {
@@ -38,16 +44,23 @@ export const LayoutEditor = ({ value, extensions, onChange, tags }) => {
       element.addEventListener("click", (e) => {
         const tagId = e.target.dataset.tag;
         const selectionRange = view.state.selection.ranges[0];
-        console.log("tagId", tagId);
-        console.log("ranges", view.state.selection.ranges[0]);
-
-        view.dispatch({
-          changes: {
-            from: selectionRange.from,
-            to: selectionRange.to,
-            insert: `{${tagId}}`,
-          },
-        });
+        const insert = insertTagContent && insertTagContent(tagId);
+        if (insert) {
+          const cursorPosition =
+            selectionRange.to + insert.content.length + insert.cursorOffset;
+          view.focus();
+          view.dispatch({
+            changes: {
+              from: selectionRange.from,
+              to: selectionRange.to,
+              insert: insert.content,
+            },
+            selection: {
+              anchor: cursorPosition,
+              head: cursorPosition,
+            },
+          });
+        }
       });
     });
 
