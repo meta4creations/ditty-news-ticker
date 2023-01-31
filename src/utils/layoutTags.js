@@ -2,6 +2,19 @@ import { __ } from "@wordpress/i18n";
 
 const dateFormat = "";
 
+export const layoutTagWrapperOptions = [
+  "div",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "p",
+  "span",
+  "none",
+];
+
 export const layoutTags = {};
 layoutTags.author_avatar = {
   tag: "author_avatar",
@@ -117,7 +130,18 @@ layoutTags.content = {
   tag: "content",
   description: __("Render the item content.", "ditty-news-ticker"),
   atts: {
-    wrapper: "div",
+    wrapper: {
+      type: "select",
+      id: "wrapper",
+      //name: __("Wrapper", "ditty-news-ticker"),
+      options: layoutTagWrapperOptions,
+      help: __(
+        "Set the containing element of the rendered content",
+        "ditty-news-ticker"
+      ),
+      std: "div",
+    },
+    //wrapper: "div",
     before: "",
     after: "",
     class: "",

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/pro-solid-svg-icons";
 
 const FieldHeader = ({
+  id,
   name,
   desc,
   help,
@@ -29,7 +30,7 @@ const FieldHeader = ({
       {beforeContents}
       <div className="ditty-field__heading__contents">
         <label className="ditty-field__label">
-          {name}{" "}
+          {name ? name : id}{" "}
           {help && (
             <FontAwesomeIcon
               className="ditty-field__help-icon"

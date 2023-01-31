@@ -7,13 +7,12 @@ import {
   faBrush,
   faCode,
 } from "@fortawesome/pro-light-svg-icons";
-
 import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
 
 import { LayoutEditor } from "./LayoutEditor";
-
 import { IconBlock, Popup, Tabs } from "../components";
+import PopupEditLayoutTag from "./PopupEditLayoutTag";
 
 const PopupEditLayout = ({
   layout,
@@ -41,27 +40,16 @@ const PopupEditLayout = ({
    */
   const renderPopup = () => {
     if (currentTag) {
-      console.log("currentTag", currentTag);
       return (
-        <Popup
+        <PopupEditLayoutTag
+          layoutTag={currentTag}
           level="3"
-          header={
-            <IconBlock
-              icon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
-              className="layoutEdit__header"
-            >
-              <div className="itemEdit__header__type">
-                <h2>{currentTag.tag}</h2>
-              </div>
-              <p>{currentTag.description}</p>
-            </IconBlock>
-          }
           onClose={() => {
             setCurrentTag(false);
           }}
         >
           {currentTag.tag}
-        </Popup>
+        </PopupEditLayoutTag>
       );
     }
   };
@@ -71,7 +59,7 @@ const PopupEditLayout = ({
       <>
         <IconBlock
           icon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
-          className="layoutEdit__header"
+          className="editLayout__header"
         >
           <div className="itemEdit__header__type">
             <h2>{__("Custom Layout", "ditty-news-ticker")}</h2>
@@ -102,16 +90,16 @@ const PopupEditLayout = ({
   const renderPopupFooterBefore = () => {
     if ("css" === currentTabId) {
       return (
-        <div className="layoutEdit__tagCloud">
+        <div className="editLayout__tagCloud">
           <h3>{__("Tags:", "ditty-news-ticker")}</h3>
-          <div className="layoutEdit__tagCloud__tags">
+          <div className="editLayout__tagCloud__tags">
             {itemTypeObject.tags &&
               itemTypeObject.tags.map((tag) => {
                 return (
                   <span
                     key={tag.tag}
                     data-tag={tag.tag}
-                    className="layoutEdit__tagCloud__tag"
+                    className="editLayout__tagCloud__tag"
                   >
                     {`.ditty-item__${tag.tag}`}
                   </span>
@@ -122,16 +110,16 @@ const PopupEditLayout = ({
       );
     } else {
       return (
-        <div className="layoutEdit__tagCloud">
+        <div className="editLayout__tagCloud">
           <h3>{__("Tags:", "ditty-news-ticker")}</h3>
-          <div className="layoutEdit__tagCloud__tags">
+          <div className="editLayout__tagCloud__tags">
             {itemTypeObject.tags &&
               itemTypeObject.tags.map((tag) => {
                 return (
                   <span
                     key={tag.tag}
                     data-tag={tag.tag}
-                    className="layoutEdit__tagCloud__tag"
+                    className="editLayout__tagCloud__tag"
                     onClick={() => setCurrentTag(tag)}
                   >{`{${tag.tag}}`}</span>
                 );
@@ -179,7 +167,7 @@ const PopupEditLayout = ({
   return (
     <>
       <Popup
-        id="layoutEdit"
+        id="editLayout"
         submitLabel={submitLabel}
         header={renderPopupHeader()}
         footerBefore={renderPopupFooterBefore()}

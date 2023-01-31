@@ -132,7 +132,7 @@ const PopupEditLayoutVariations = ({
             }}
           />
         );
-      case "layoutEdit":
+      case "editLayout":
         const layoutObject = getVariationLayoutObject(selectedVariation);
         const customLayout = { html: layoutObject.html, css: layoutObject.css };
         return (
@@ -171,7 +171,7 @@ const PopupEditLayoutVariations = ({
         <Button
           onClick={() => {
             setSelectedVariation(variation);
-            setPopupStatus("layoutEdit");
+            setPopupStatus("editLayout");
           }}
         >
           {__("Customize", "ditty-news-ticker")}
@@ -186,7 +186,7 @@ const PopupEditLayoutVariations = ({
         <Button
           onClick={() => {
             setSelectedVariation(variation);
-            setPopupStatus("layoutEdit");
+            setPopupStatus("editLayout");
           }}
         >
           {__("Customize", "ditty-news-ticker")}
@@ -251,13 +251,13 @@ const PopupEditLayoutVariations = ({
   return (
     <>
       <Popup
-        id="itemEdit"
+        id="editLayoutVariations"
         submitLabel={submitLabel}
         header={
           <>
             <IconBlock
               icon={itemTypeObject && itemTypeObject.icon}
-              className="itemEdit__header"
+              className="editLayout__header"
             >
               <div className="itemEdit__header__type">
                 <h2>{itemTypeObject && itemTypeObject.label}</h2>

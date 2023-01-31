@@ -2,7 +2,7 @@ import { __ } from "@wordpress/i18n";
 
 /**
  * Return easing options
- * @returns array
+ * @returns object
  */
 const getEaseOptions = () => {
   const eases = [
@@ -48,6 +48,10 @@ const getEaseOptions = () => {
 };
 export const easeOptions = getEaseOptions();
 
+/**
+ * Return the slider transition options
+ * @returns object
+ */
 function getSliderTransitions() {
   return {
     fade: __("Fade", "ditty-news-ticker"),

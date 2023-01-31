@@ -7,7 +7,7 @@
   border-radius: 3px;
   margin-bottom: 3px;
 }
-.ditty-popup--layoutEdit {
+.ditty-popup--editLayout {
   .ditty-popup__header {
     padding: 0;
   }
@@ -16,10 +16,10 @@
     padding: 10px;
   }
 }
-.layoutEdit__header {
+.editLayout__header {
   padding: 10px;
 }
-.layoutEdit__tagCloud {
+.editLayout__tagCloud {
   padding: 15px;
   border-bottom: 1px solid $border_color_light;
   h3 {

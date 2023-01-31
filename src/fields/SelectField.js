@@ -4,17 +4,27 @@ import BaseField from "./BaseField";
 const SelectField = (props) => {
   const { placeholder, options, value, onChange } = props;
   const convertFieldOptions = (options) => {
-    if (typeof options !== "object") {
-      return options;
-    }
-    const optionsArray = [];
-    for (const key in options) {
-      optionsArray.push({
-        label: options[key],
-        value: key,
+    if (Array.isArray(options)) {
+      return options.map((option) => {
+        if (typeof option === "string") {
+          return {
+            label: option,
+            value: option,
+          };
+        } else {
+          return option;
+        }
       });
+    } else if (typeof options === "object") {
+      let optionsArray = [];
+      for (const key in options) {
+        optionsArray.push({
+          label: options[key],
+          value: key,
+        });
+      }
+      return optionsArray;
     }
-    return optionsArray;
   };
 
   const renderOptions = () => {

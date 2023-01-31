@@ -21,15 +21,13 @@ export const LayoutEditor = ({
   });
 
   useEffect(() => {
-    console.log("tags", tags);
-
     const startState = EditorState.create({
       doc: value,
       extensions: [
         basicSetup(),
         keymap.of([defaultKeymap, indentWithTab]),
         EditorView.lineWrapping,
-        oneDark,
+        //oneDark,
         onUpdate,
         [...extensions],
       ],
@@ -38,7 +36,7 @@ export const LayoutEditor = ({
     const view = new EditorView({ state: startState, parent: editor.current });
 
     const elements = document.getElementsByClassName(
-      "layoutEdit__tagCloud__tag"
+      "editLayout__tagCloud__tag"
     );
     Array.from(elements).forEach(function (element) {
       element.addEventListener("click", (e) => {
