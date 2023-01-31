@@ -140,9 +140,6 @@ const PopupEditLayoutVariations = ({
             level="2"
             layout={customLayout}
             itemTypeObject={itemTypeObject}
-            onChange={(selectedTemplate) => {
-              //setVariationLayout(selectedVariation, selectedTemplate);
-            }}
             onClose={() => {
               setPopupStatus(false);
             }}

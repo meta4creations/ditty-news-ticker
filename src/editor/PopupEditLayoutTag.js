@@ -2,20 +2,14 @@ import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPaintbrushPencil,
-  faBrush,
-  faCode,
-} from "@fortawesome/pro-light-svg-icons";
+import { faPaintbrushPencil, faCopy } from "@fortawesome/pro-light-svg-icons";
 import { FieldList } from "../fields";
-import { IconBlock, Popup } from "../components";
+import { Button, ButtonGroup, Link, IconBlock, Popup } from "../components";
 
 const PopupEditLayoutTag = ({
   layoutTag,
   submitLabel = __("Update Layout", "ditty-news-ticker"),
-  onChange,
   onClose,
-  onUpdate,
   level,
 }) => {
   const [attributeValues, setAttributeValues] = useState({});
@@ -41,7 +35,7 @@ const PopupEditLayoutTag = ({
         }
       }
     }
-    return renderedTag;
+    return `{${renderedTag}}`;
   };
 
   const getTagFields = () => {
@@ -75,19 +69,57 @@ const PopupEditLayoutTag = ({
           <p>{layoutTag.description}</p>
         </IconBlock>
         <div style={{ padding: "0 10px 10px" }}>
-          <pre
-            style={{
-              padding: "10px",
-              margin: "0",
-              background: "#eee",
-              borderRadius: "3px",
-              whiteSpace: "pre-line",
-            }}
-          >
-            {`{${renderTag()}}`}
-          </pre>
+          <div style={{ position: "relative" }}>
+            <pre
+              style={{
+                padding: "10px",
+                margin: "0",
+                background: "#eee",
+                borderRadius: "3px",
+                whiteSpace: "pre-line",
+              }}
+            >
+              {renderTag()}
+            </pre>
+            <FontAwesomeIcon
+              icon={faCopy}
+              style={{
+                position: "absolute",
+                top: "0",
+                right: "0",
+                padding: "5px",
+                width: "25px",
+                height: "25px",
+                background: "rgba(255,255,255,.5)",
+                cursor: "pointer",
+              }}
+              onClick={() => navigator.clipboard.writeText(renderTag())}
+            />
+          </div>
         </div>
       </>
+    );
+  };
+
+  const renderPopupFooter = () => {
+    return (
+      <ButtonGroup justify="flex-end" gap="20px">
+        <Link onClick={onClose}>{__("Cancel", "ditty-news-ticker")}</Link>
+        <Button
+          type="primary"
+          id="editLayout__insertTag"
+          onClick={() => {
+            window.dispatchEvent(
+              new CustomEvent("dittyEditorInsertLayoutTag", {
+                detail: { renderedTag: renderTag() },
+              })
+            );
+            onClose();
+          }}
+        >
+          {__("Insert Tag", "ditty-news-ticker")}
+        </Button>
+      </ButtonGroup>
     );
   };
 
@@ -117,12 +149,7 @@ const PopupEditLayoutTag = ({
         id="editLayoutTag"
         submitLabel={submitLabel}
         header={renderPopupHeader()}
-        onClose={() => {
-          onClose("onClose");
-        }}
-        onSubmit={() => {
-          //onUpdate(editLayout);
-        }}
+        footer={renderPopupFooter()}
         level={level}
       >
         {renderPopupContents()}

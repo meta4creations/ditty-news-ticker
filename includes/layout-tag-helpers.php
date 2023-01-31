@@ -51,7 +51,7 @@ function ditty_layout_render_tag_link( $link, $html, $class, $data, $atts, $pref
 /**
  * Return a rendered wrapper
  *
- * @since    3.0.12
+ * @since    3.0.35
  * @var      html
 */
 function ditty_layout_render_tag_wrapper( $html, $class = '', $atts = array(), $custom_wrapper = false ) {
@@ -65,7 +65,7 @@ function ditty_layout_render_tag_wrapper( $html, $class = '', $atts = array(), $
 	$before = ( '' != $args['before'] ) ? "<span class='{$class}__before'>" . sanitize_text_field( $args['before'] ) . '</span>' : '';
 	$after = ( '' != $args['after'] ) ? "<span class='{$class}__after'>" . sanitize_text_field( $args['after'] ) . '</span>' : '';
 	
-	if ( isset( $args['wrapper'] ) && 'false' != strval( $args['wrapper'] ) && '' != strval( $args['wrapper'] ) ) {
+	if ( isset( $args['wrapper'] ) && 'none' != strval( $args['wrapper'] ) && 'false' != strval( $args['wrapper'] ) && '' != strval( $args['wrapper'] ) ) {
 		if ( isset( $args['class'] ) && '' != $args['class'] ) {
 			$class .= ' ' . trim( $args['class'] );
 		}

@@ -7,13 +7,7 @@ import { EditorView, keymap } from "@codemirror/view";
 import { defaultKeymap, indentWithTab } from "@codemirror/commands";
 import { oneDark } from "@codemirror/theme-one-dark";
 
-export const LayoutEditor = ({
-  value,
-  extensions,
-  onChange,
-  tags,
-  insertTagContent,
-}) => {
+export const LayoutEditor = ({ value, extensions, onChange }) => {
   const editor = useRef();
 
   const onUpdate = EditorView.updateListener.of((v) => {
@@ -35,30 +29,26 @@ export const LayoutEditor = ({
 
     const view = new EditorView({ state: startState, parent: editor.current });
 
-    const elements = document.getElementsByClassName(
-      "editLayout__tagCloud__tag"
-    );
-    Array.from(elements).forEach(function (element) {
-      element.addEventListener("click", (e) => {
-        const tagId = e.target.dataset.tag;
-        const selectionRange = view.state.selection.ranges[0];
-        const insert = insertTagContent && insertTagContent(tagId);
-        if (insert) {
-          const cursorPosition =
-            selectionRange.to + insert.content.length + insert.cursorOffset;
-          view.focus();
-          view.dispatch({
-            changes: {
-              from: selectionRange.from,
-              to: selectionRange.to,
-              insert: insert.content,
-            },
-            selection: {
-              anchor: cursorPosition,
-              head: cursorPosition,
-            },
-          });
-        }
+    window.addEventListener("dittyEditorInsertLayoutTag", function (e) {
+      if (!e.detail || !e.detail.renderedTag) {
+        return false;
+      }
+      const selectionRange = view.state.selection.ranges[0];
+      const offset = e.detail.cursorOffset ? e.detail.cursorOffset : 0;
+      const cursorPosition =
+        selectionRange.to + e.detail.renderedTag.length + offset;
+
+      view.focus();
+      view.dispatch({
+        changes: {
+          from: selectionRange.from,
+          to: selectionRange.to,
+          insert: e.detail.renderedTag,
+        },
+        selection: {
+          anchor: cursorPosition,
+          head: cursorPosition,
+        },
       });
     });
 
