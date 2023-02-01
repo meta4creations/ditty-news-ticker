@@ -95,7 +95,6 @@ const PopupEditLayoutTag = ({
                 cursor: "pointer",
               }}
               onClick={() => {
-                console.log("copied");
                 navigator.clipboard.writeText(renderTag());
                 toast("Tag shortcode copied to clipboard!", {
                   position: "top-right",

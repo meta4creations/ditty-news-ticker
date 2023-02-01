@@ -21,7 +21,6 @@ export const LayoutEditor = ({ value, extensions, onChange }) => {
         basicSetup(),
         keymap.of([defaultKeymap, indentWithTab]),
         EditorView.lineWrapping,
-        //oneDark,
         onUpdate,
         [...extensions],
       ],
