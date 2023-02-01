@@ -22,7 +22,7 @@
     align-items: stretch;
     height: 100vh;
     overflow: hidden;
-    .wp-admin & {
+    .admin-bar & {
       height: calc(100vh - 32px);
     }
   }
@@ -68,12 +68,21 @@
     }
   }
 }
+#ditty-editor__wrapper .Toastify__toast {
+  color: #fff;
+  background-color: $green;
+}
+.admin-bar #ditty-editor__wrapper {
+  .Toastify__toast-container--top-right {
+    top: calc(1em + 32px);
+  }
+}
 
 @media screen and (max-width: 782px) {
   #ditty-editor {
     flex-direction: column;
     &__wrapper {
-      .wp-admin & {
+      .admin-bar & {
         height: calc(100vh - 46px);
       }
     }
@@ -89,11 +98,16 @@
       }
     }
   }
+  .admin-bar #ditty-editor__wrapper {
+    .Toastify__toast-container--top-right {
+      top: calc(1em + 46px);
+    }
+  }
 }
 @media screen and (min-width: 782px) {
   #ditty-editor {
     &__wrapper {
-      .wp-admin & {
+      .admin-bar & {
         height: calc(100vh - 46px);
       }
     }
