@@ -1,6 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
+import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaintbrushPencil, faCopy } from "@fortawesome/pro-light-svg-icons";
 import { FieldList } from "../fields";
@@ -93,7 +94,20 @@ const PopupEditLayoutTag = ({
                 background: "rgba(255,255,255,.5)",
                 cursor: "pointer",
               }}
-              onClick={() => navigator.clipboard.writeText(renderTag())}
+              onClick={() => {
+                console.log("copied");
+                navigator.clipboard.writeText(renderTag());
+                toast("Tag shortcode copied to clipboard!", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+              }}
             />
           </div>
         </div>

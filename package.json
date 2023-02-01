@@ -43,7 +43,7 @@
     "react-color": "2.19.3",
     "react-element-to-jsx-string": "15.0.0",
     "react-sortable-hoc": "2.0.0",
-    "react-toastify": "9.0.8",
+    "react-toastify": "9.1.1",
     "strip-comments": "2.0.1"
   },
   "devDependencies": {
