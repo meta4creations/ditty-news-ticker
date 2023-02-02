@@ -30,6 +30,7 @@ const migrateItemTypes = (itemTypes) => {
           icon: <i className={phpType.icon}></i>,
           label: phpType.label,
           description: phpType.description,
+          variationTypes: phpType.variationTypes,
           phpSettings: phpType.settings,
         });
       }

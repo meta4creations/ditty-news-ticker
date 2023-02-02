@@ -155,6 +155,7 @@ class Ditty_Editor {
 				$item_type_object = ditty_item_type_object( $type['type'] );
 				$default_settings = $item_type_object->default_settings();
 				$type['settings'] = $this->format_js_fields( $item_type_object->fields( $default_settings ) );
+				$type['variationTypes'] = $item_type_object->get_layout_variation_types();
 				$item_type_data[] = $type;
 			}
 		}
