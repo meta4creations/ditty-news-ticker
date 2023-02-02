@@ -41,8 +41,10 @@ const PopupTemplateSelector = ({
   const popupHeader = () => {
     return (
       <>
-        <IconBlock icon={headerIcon}>
-          <h2>{__("Choose a template", "ditty-news-ticker")}</h2>
+        <IconBlock icon={headerIcon} className="ditty-icon-block--heading">
+          <div className="ditty-icon-block--heading__title">
+            <h2>{__("Choose a template", "ditty-news-ticker")}</h2>
+          </div>
           <p>
             {__(
               "Select one of your previously saved templates.",

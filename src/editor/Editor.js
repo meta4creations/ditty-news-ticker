@@ -56,7 +56,7 @@ const Editor = () => {
         id: "display",
         label: __("Display", "ditty-news-ticker"),
         icon: <FontAwesomeIcon icon={faTabletScreen} />,
-        content: <PanelDisplays key={currentDisplay.type} />,
+        content: <PanelDisplays />,
       },
       {
         id: "settings",

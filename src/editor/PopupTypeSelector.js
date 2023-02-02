@@ -22,8 +22,13 @@ const PopupTypeSelector = ({
       submitLabel={submitLabel}
       header={
         <>
-          <IconBlock icon={itemTypeObject && itemTypeObject.icon}>
-            <h2>{itemTypeObject && itemTypeObject.label}</h2>
+          <IconBlock
+            icon={itemTypeObject && itemTypeObject.icon}
+            className="ditty-icon-block--heading"
+          >
+            <div className="ditty-icon-block--heading__title">
+              <h2>{itemTypeObject && itemTypeObject.label}</h2>
+            </div>
             <p>{itemTypeObject && itemTypeObject.description}</p>
           </IconBlock>
         </>

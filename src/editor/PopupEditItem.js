@@ -18,7 +18,7 @@ import {
 import { FieldList } from "../fields";
 import PopupTypeSelector from "./PopupTypeSelector";
 
-const PopupItemEdit = ({
+const PopupEditItem = ({
   item,
   submitLabel = __("Update Item", "ditty-news-ticker"),
   onChange,
@@ -97,9 +97,9 @@ const PopupItemEdit = ({
           <>
             <IconBlock
               icon={itemTypeObject && itemTypeObject.icon}
-              className="itemEdit__header"
+              className="ditty-icon-block--heading"
             >
-              <div className="itemEdit__header__type">
+              <div className="ditty-icon-block--heading__title">
                 <h2>{itemTypeObject && itemTypeObject.label}</h2>
                 <Link onClick={() => setPopupStatus("itemTypeSelect")}>
                   {__("Change Type", "ditty-news-ticker")}
@@ -169,4 +169,4 @@ const PopupItemEdit = ({
     </>
   );
 };
-export default PopupItemEdit;
+export default PopupEditItem;

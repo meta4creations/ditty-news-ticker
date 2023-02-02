@@ -62,9 +62,9 @@ const PopupEditLayoutTag = ({
       <>
         <IconBlock
           icon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
-          className="editLayout__header"
+          className="ditty-icon-block--heading"
         >
-          <div className="itemEdit__header__type">
+          <div className="ditty-icon-block--heading__title">
             <h2>{`{${layoutTag.tag}}`}</h2>
           </div>
           <p>{layoutTag.description}</p>

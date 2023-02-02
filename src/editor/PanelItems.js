@@ -19,7 +19,7 @@ import {
   getItemLabel,
 } from "../utils/itemTypes";
 import { updatedDisplayItems } from "../utils/helpers";
-import PopupItemEdit from "./PopupItemEdit";
+import PopupEditItem from "./PopupEditItem";
 import PopupTypeSelector from "./PopupTypeSelector";
 import PopupEditLayoutVariations from "./PopupEditLayoutVariations";
 
@@ -150,7 +150,7 @@ const PanelItems = () => {
         );
       case "editItem":
         return (
-          <PopupItemEdit
+          <PopupEditItem
             item={currentItem}
             onClose={() => setPopupStatus(false)}
             onChange={(updatedItem) => {}}

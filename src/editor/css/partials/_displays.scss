@@ -1,3 +1,10 @@
+.ditty-editor__panel--displays {
+  .ditty-icon-block--heading {
+    //border: 1px solid $border_color_light;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.04);
+  }
+}
 .ditty-popup--displayTypeSelect {
   .displayTypeSelector {
     padding: 10px;

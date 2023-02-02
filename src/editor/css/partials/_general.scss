@@ -68,9 +68,16 @@
     }
   }
 }
-#ditty-editor__wrapper .Toastify__toast {
-  color: #fff;
-  background-color: $green;
+#ditty-editor__wrapper {
+  .Toastify__toast {
+    background-color: #fff;
+    .ditty-logo {
+      fill: $green;
+    }
+  }
+  .Toastify__progress-bar {
+    background: $green;
+  }
 }
 .admin-bar #ditty-editor__wrapper {
   .Toastify__toast-container--top-right {

@@ -46,3 +46,15 @@
     border-bottom: 1px solid #ccc;
   }
 }
+
+.ditty-icon-block--heading {
+  padding: 10px;
+  &__title {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 2px;
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+}

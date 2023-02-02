@@ -30,6 +30,9 @@ const PanelDisplays = () => {
   const [currentTabId, setCurrentTabId] = useState(initialTab);
   const [status, setStatus] = useState(!currentDisplay.id && "editDisplay");
   const [popupStatus, setPopupStatus] = useState(false);
+  const [currentTemplate, setCurrentTemplate] = useState(
+    currentDisplay.id ? currentDisplay : false
+  );
 
   const displayTypes = getDisplayTypes();
 
@@ -58,10 +61,15 @@ const PanelDisplays = () => {
     const dittyEl = document.getElementById("ditty-editor__ditty");
     switch (popupStatus) {
       case "displayTemplateSave":
+        const templateToSave = currentTemplate
+          ? { ...currentTemplate, ...currentDisplay }
+          : { ...currentDisplay };
+        delete templateToSave.version;
+        console.log("templateToSave", templateToSave);
         return (
           <PopupTemplateSave
             templateType="display"
-            currentTemplate={currentDisplay}
+            currentTemplate={templateToSave}
             templates={displays}
             filterKey="type"
             filters={getDisplayTypes()}
@@ -170,6 +178,7 @@ const PanelDisplays = () => {
               settings: _.cloneDeep(currentDisplay.settings),
             };
             actions.setCurrentDisplay(customDisplay);
+            setCurrentTemplate(currentDisplay);
             setStatus("editDisplay");
           }}
         >
@@ -197,31 +206,34 @@ const PanelDisplays = () => {
   };
 
   const panelHeader = () => {
+    const title = currentDisplay.id
+      ? `${currentDisplay.title} (${displayTypeObject.label})`
+      : displayTypeObject.label;
+    const description = currentDisplay.id
+      ? currentDisplay.description
+      : displayTypeObject.description;
+
     return (
       <>
-        <IconBlock icon={displayTypeObject.icon} className="editType">
-          <h3>{displayTypeObject.label}</h3>
-          {"editDisplay" === status && (
-            <Link onClick={() => setPopupStatus("displayTypeSelect")}>
-              {__("Change Type", "ditty-news-ticker")}
-            </Link>
-          )}
-        </IconBlock>
-        <IconBlock style={{ marginBottom: "10px" }}>
-          {currentDisplay.id ? (
-            <>
-              <h2>{currentDisplay.title} </h2>
-              <p>
-                {__("Post ID", "ditty-news-ticker")} :{" "}
-                <a href={currentDisplay.edit_url}>{currentDisplay.id}</a>
-              </p>
-              <p>{currentDisplay.description}</p>
-            </>
-          ) : (
-            <>
-              <p>{displayTypeObject.description}</p>
-            </>
-          )}
+        <IconBlock
+          icon={displayTypeObject.icon}
+          className="ditty-icon-block--heading"
+          style={{ marginBottom: "10px" }}
+        >
+          <div className="ditty-icon-block--heading__title">
+            <h2>{title}</h2>
+            {"editDisplay" === status && (
+              <Link onClick={() => setPopupStatus("displayTypeSelect")}>
+                {__("Change Type", "ditty-news-ticker")}
+              </Link>
+            )}
+            {currentDisplay.id && (
+              <Link onClick={() => setPopupStatus("displayTemplateSelect")}>
+                {__("Change Template", "ditty-news-ticker")}
+              </Link>
+            )}
+          </div>
+          <p>{description}</p>
         </IconBlock>
         <ButtonGroup className="ditty-displayEdit__links">
           {currentDisplay.id ? templateButtons() : customButtons()}

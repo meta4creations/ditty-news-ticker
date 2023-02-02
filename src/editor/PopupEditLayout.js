@@ -57,9 +57,9 @@ const PopupEditLayout = ({
       <>
         <IconBlock
           icon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
-          className="editLayout__header"
+          className="ditty-icon-block--heading"
         >
-          <div className="itemEdit__header__type">
+          <div className="ditty-icon-block--heading__title">
             <h2>{__("Custom Layout", "ditty-news-ticker")}</h2>
           </div>
           <p>{__("Something here...", "ditty-news-ticker")}</p>

@@ -22,9 +22,16 @@ const PopupEditLayoutVariations = ({
 }) => {
   const [editItem, setEditItem] = useState(item);
   const [selectedVariation, setSelectedVariation] = useState();
+  const [variationTemplates, setVariationTemplates] = useState({});
   const [popupStatus, setPopupStatus] = useState(false);
 
   const itemTypeObject = getItemTypeObject(editItem);
+
+  const updateVariationTemplates = (variation, template) => {
+    const updatedTemplates = { ...variationTemplates };
+    updatedTemplates[variation] = template;
+    setVariationTemplates(updatedTemplates);
+  };
 
   const getLayoutVariations = () => {
     const layoutVariations = editItem.layout_value;
@@ -76,11 +83,15 @@ const PopupEditLayoutVariations = ({
     switch (popupStatus) {
       case "layoutTemplateSave":
         const currentLayout = getVariationLayoutObject(selectedVariation);
+        const variationTemplate = variationTemplates[selectedVariation]
+          ? variationTemplates[selectedVariation]
+          : {};
+        const templateToSave = { ...variationTemplate, currentLayout };
         return (
           <PopupTemplateSave
             level="2"
             templateType="layout"
-            currentTemplate={currentLayout}
+            currentTemplate={templateToSave}
             templates={layouts}
             headerIcon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
             templateIcon={() => <FontAwesomeIcon icon={faPaintbrushPencil} />}
@@ -129,11 +140,12 @@ const PopupEditLayoutVariations = ({
             onUpdate={(updatedTemplate) => {
               setPopupStatus(false);
               setVariationLayout(selectedVariation, updatedTemplate);
+              updateVariationTemplates(selectedVariation, updatedTemplate);
             }}
           />
         );
       case "editLayout":
-        const layoutObject = getVariationLayoutObject(selectedVariation);
+        const layoutObject = variationTemplates[selectedVariation];
         const customLayout = { html: layoutObject.html, css: layoutObject.css };
         return (
           <PopupEditLayout
@@ -168,7 +180,13 @@ const PopupEditLayoutVariations = ({
         <Button
           onClick={() => {
             setSelectedVariation(variation);
+            updateVariationTemplates(
+              variation,
+              getVariationLayoutObject(variation)
+            );
+
             setPopupStatus("editLayout");
+            console.log("variation", variation);
           }}
         >
           {__("Customize", "ditty-news-ticker")}
@@ -254,9 +272,9 @@ const PopupEditLayoutVariations = ({
           <>
             <IconBlock
               icon={itemTypeObject && itemTypeObject.icon}
-              className="editLayout__header"
+              className="ditty-icon-block--heading"
             >
-              <div className="itemEdit__header__type">
+              <div className="ditty-icon-block--heading__title">
                 <h2>{itemTypeObject && itemTypeObject.label}</h2>
               </div>
               <p>{getItemLabel(editItem)}</p>

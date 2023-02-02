@@ -17,6 +17,14 @@
       "oAP" : "\/.gitignore",
       "oF" : 1
     },
+    "\/.npmrc" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/.npmrc",
+      "oF" : 0
+    },
     "\/build" : {
       "ft" : 65536,
       "oA" : 1,
@@ -3604,6 +3612,12 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/legacy\/legacy.php",
+      "oF" : 0
+    },
+    "\/node_modules" : {
+      "ft" : 65536,
+      "oA" : 2,
+      "oAP" : "\/node_modules",
       "oF" : 0
     },
     "\/package-lock.json" : {
