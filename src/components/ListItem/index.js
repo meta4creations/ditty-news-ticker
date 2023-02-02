@@ -1,4 +1,5 @@
 import { __ } from "@wordpress/i18n";
+import classnames from "classnames";
 
 const Item = ({
   data,
@@ -10,9 +11,13 @@ const Item = ({
 }) => {
   const renderElement = (element) => {
     if (element.content) {
+      const classes = classnames(
+        `ditty-editor-item__${element.id}`,
+        element.className
+      );
       return (
         <span
-          className={`ditty-editor-item__${element.id}`}
+          className={classes}
           key={element.id}
           onClick={(e) => {
             onElementClick && onElementClick(e, element.id, data);

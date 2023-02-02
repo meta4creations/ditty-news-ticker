@@ -498,11 +498,16 @@
       this.updateItems(updatedItems);
     },
 
+    /**
+     * Load new items
+     *
+     * @since    3.1
+     * @return   null
+     */
     loadItems: function (newItems, type = "replace") {
       if (undefined === newItems) {
         return false;
       }
-
       const { updatedItems, updatedIndexes } = dittyGetUpdatedItemData(
         this.settings.items,
         newItems,

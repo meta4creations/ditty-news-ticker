@@ -52,8 +52,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  &__layout,
-  &__settings {
+  &__action {
     flex: 0 0 auto;
     display: flex;
     flex-direction: row;

@@ -87,3 +87,13 @@ export const updateDisplayItems = (dittyEl, displayItems) => {
   const type = dittyEl.dataset.type;
   dittyEl["_ditty_" + type].loadItems(displayItems, "update");
 };
+
+/**
+ * Update the Ditty display items
+ * @param {element} dittyEl
+ * @param {object} items
+ */
+export const replaceDisplayItems = (dittyEl, displayItems) => {
+  const type = dittyEl.dataset.type;
+  dittyEl["_ditty_" + type].loadItems(displayItems);
+};

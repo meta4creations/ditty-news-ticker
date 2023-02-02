@@ -180,7 +180,6 @@ class Ditty_Editor {
 				$default_settings = $display_type_object->default_settings();
 				$type['settings'] = $this->format_js_fields( $display_type_object->fields( $default_settings ) );
 				$display_type_data[] = $type;
-				//echo '<pre>';print_r($type);echo '</pre>';
 			}
 		}
 		return array_values( $display_type_data );

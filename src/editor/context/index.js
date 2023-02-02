@@ -91,13 +91,25 @@ export class EditorProvider extends Component {
    * Add an item
    * @param {object} newItem
    */
-  handleAddItem = (newItem) => {
+  handleAddItem = (newItem, insertIndex = 0) => {
     newItem.item_updates = {
       new_item: true,
     };
+    let itemInserted = false;
+    const updatedItems = this.state.items.reduce((itemsArray, item) => {
+      if (insertIndex === Number(item.item_index)) {
+        itemsArray.push(newItem);
+        itemInserted = true;
+      }
+      itemsArray.push(item);
+      return itemsArray;
+    }, []);
+    if (!itemInserted) {
+      updatedItems.push(newItem);
+    }
 
-    const updatedItems = this.state.items;
-    updatedItems.unshift(newItem);
+    //const updatedItems = this.state.items;
+    //updatedItems.unshift(newItem);
     this.handleSortItems(updatedItems);
   };
 

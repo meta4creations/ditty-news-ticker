@@ -2,13 +2,18 @@ import { __ } from "@wordpress/i18n";
 import _ from "lodash";
 import { useContext, useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear, faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
+import {
+  faGear,
+  faPaintbrushPencil,
+  faClone,
+} from "@fortawesome/pro-light-svg-icons";
 import {
   getDisplayItems,
   updateDisplayOptions,
   addDisplayItems,
   deleteDisplayItems,
   updateDisplayItems,
+  replaceDisplayItems,
 } from "../services/dittyService";
 import { Panel, ListItem, SortableList } from "../components";
 import { EditorContext } from "./context";
@@ -212,11 +217,18 @@ const PanelItems = () => {
       },
       {
         id: "settings",
+        className: "ditty-editor-item__action",
         content: <FontAwesomeIcon icon={faGear} />,
       },
       {
         id: "layout",
+        className: "ditty-editor-item__action",
         content: <FontAwesomeIcon icon={faPaintbrushPencil} />,
+      },
+      {
+        id: "clone",
+        className: "ditty-editor-item__action",
+        content: <FontAwesomeIcon icon={faClone} />,
       },
     ],
     EditorContext
@@ -229,6 +241,18 @@ const PanelItems = () => {
     } else if ("layout" === elementId) {
       setCurrentItem(item);
       setPopupStatus("editLayout");
+    } else if ("clone" === elementId) {
+      const clonedItem = _.cloneDeep(item);
+      clonedItem.item_id = `new-${Date.now()}`;
+      actions.addItem(clonedItem, Number(item.item_index) + 1);
+      setCurrentItem(clonedItem);
+
+      // Get new display items
+      const dittyEl = document.getElementById("ditty-editor__ditty");
+      getDisplayItems(clonedItem, layouts, (newDisplayItems) => {
+        const updatedDisplayItems = actions.addDisplayItems(newDisplayItems);
+        replaceDisplayItems(dittyEl, updatedDisplayItems);
+      });
     }
   };
 

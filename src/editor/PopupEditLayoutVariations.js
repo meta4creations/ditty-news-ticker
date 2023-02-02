@@ -186,7 +186,6 @@ const PopupEditLayoutVariations = ({
             );
 
             setPopupStatus("editLayout");
-            console.log("variation", variation);
           }}
         >
           {__("Customize", "ditty-news-ticker")}

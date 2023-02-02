@@ -1304,68 +1304,15 @@
     },
 
     /**
-     * Update the current items
+     * Load new items
      *
-     * @since    3.0
+     * @since    3.1
      * @return   null
      */
-    updateItemsNew: function (newItems, itemId, type, forceSwapAll) {
+    loadItems: function (newItems, type = "replace") {
       if (undefined === newItems) {
         return false;
       }
-
-      // var forceSwaps = [];
-
-      // // Update a single item id
-      // if (itemId) {
-      //   var tempCurrentItems = this.settings.items.slice(),
-      //     tempNewItems = [],
-      //     tempSwapped = false;
-
-      //   $.each(tempCurrentItems, function (index, item) {
-      //     if (String(item.id) === String(itemId)) {
-      //       // Add after the id
-      //       if ("after" === type) {
-      //         tempNewItems.push(item);
-      //         $.each(newItems, function (index, newItem) {
-      //           tempNewItems.push(newItem);
-      //         });
-      //         tempSwapped = true;
-
-      //         // Add before the id
-      //       } else if ("before" === type) {
-      //         $.each(newItems, function (index, newItem) {
-      //           tempNewItems.push(newItem);
-      //         });
-      //         tempNewItems.push(item);
-      //         tempSwapped = true;
-
-      //         // Else swap the ID
-      //       } else {
-      //         if (!tempSwapped) {
-      //           $.each(newItems, function (index, newItem) {
-      //             tempNewItems.push(newItem);
-      //             forceSwaps.push(String(newItem.uniq_id));
-      //           });
-      //           tempSwapped = true;
-      //         }
-      //       }
-      //     } else {
-      //       tempNewItems.push(item);
-      //     }
-      //   });
-      //   if (!tempSwapped) {
-      //     $.each(this.settings.items, function (index, item) {
-      //       tempNewItems.push(item);
-      //     });
-      //     tempSwapped = true;
-      //   }
-
-      //   if (0 !== this.total) {
-      //     newItems = tempNewItems;
-      //   }
-      // }
-
       const { updatedItems } = dittyGetUpdatedItemData(
         this.settings.items,
         newItems,
@@ -1385,83 +1332,82 @@
       }
       this.trigger("update");
     },
-    
+
     /**
      * Update the current items
      *
      * @since    3.0
      * @return   null
-    */
-    updateItems: function ( newItems, itemId, type, forceSwapAll ) {
-      if ( undefined === newItems ) {
+     */
+    updateItems: function (newItems, itemId, type, forceSwapAll) {
+      if (undefined === newItems) {
         return false;
       }
-    
+
       var forceSwaps = [];
-          
-      // Update a single item id		
-      if ( itemId ) {
+
+      // Update a single item id
+      if (itemId) {
         var tempCurrentItems = this.settings.items.slice(),
-            tempNewItems = [],
-            tempSwapped = false;
-    
-        $.each( tempCurrentItems, function( index, item ) {
-          if ( String( item.id ) === String( itemId ) ) {
-            
+          tempNewItems = [],
+          tempSwapped = false;
+
+        $.each(tempCurrentItems, function (index, item) {
+          if (String(item.id) === String(itemId)) {
             // Add after the id
-            if ( 'after' === type ) {
-              tempNewItems.push( item );
-              $.each( newItems, function( index, newItem ) {
-                tempNewItems.push( newItem );
-              } );
+            if ("after" === type) {
+              tempNewItems.push(item);
+              $.each(newItems, function (index, newItem) {
+                tempNewItems.push(newItem);
+              });
               tempSwapped = true;
-              
-            // Add before the id
-            } else if ( 'before' === type ) {
-              $.each( newItems, function( index, newItem ) {
-                tempNewItems.push( newItem );
-              } );
-              tempNewItems.push( item );
+
+              // Add before the id
+            } else if ("before" === type) {
+              $.each(newItems, function (index, newItem) {
+                tempNewItems.push(newItem);
+              });
+              tempNewItems.push(item);
               tempSwapped = true;
-            
-            // Else swap the ID
+
+              // Else swap the ID
             } else {
-              if ( ! tempSwapped ) {
-                $.each( newItems, function( index, newItem ) {
-                  tempNewItems.push( newItem );
-                  forceSwaps.push( String( newItem.uniq_id ) );
-                } );
+              if (!tempSwapped) {
+                $.each(newItems, function (index, newItem) {
+                  tempNewItems.push(newItem);
+                  forceSwaps.push(String(newItem.uniq_id));
+                });
                 tempSwapped = true;
               }
             }
           } else {
-            tempNewItems.push( item );
-          } 
-        } );
-        if ( ! tempSwapped ) {
-          $.each( this.settings.items, function( index, item ) {
-            tempNewItems.push( item );
-          } );
+            tempNewItems.push(item);
+          }
+        });
+        if (!tempSwapped) {
+          $.each(this.settings.items, function (index, item) {
+            tempNewItems.push(item);
+          });
           tempSwapped = true;
         }
-        
-        if ( 0 !== this.total ) {
+
+        if (0 !== this.total) {
           newItems = tempNewItems;
-        }	
+        }
       }
-      
+
       this.settings.items = newItems;
       this.total = newItems.length;
-      if ( 0 === this.total ) {
+      if (0 === this.total) {
         this.hide();
       } else {
         this.show();
       }
-      
-      if ( this.nextItem >= this.total ) {
+
+      if (this.nextItem >= this.total) {
         this.nextItem = 0;
-      } 
-      this.trigger( 'update' );
+      }
+      this.trigger("update");
     },
 
     /**

@@ -70,7 +70,10 @@ export const getDisplayObject = (display, displays) => {
       const displayObject = _.cloneDeep(displays[index]);
       return displayObject;
     }
-    return {};
+    return {
+      type: "ticker",
+      settings: {},
+    };
   }
 };
 
