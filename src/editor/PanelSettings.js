@@ -15,35 +15,6 @@ const PanelSettings = ({ editor }) => {
       std: title,
       placeholder: __("Add title", "ditty-news-ticker"),
     },
-    // {
-    //   type: "group",
-    //   id: "singleFieldTest",
-    //   name: __("Single Field Group", "ditty-news-ticker"),
-    //   //defaultState: "collapsed",
-    //   collapsible: true,
-    //   cloneLabel: "${testTitle}: ${testSubject}",
-    //   clone: true,
-    //   cloneButton: __("Add More Groups", "ditty-news-ticker"),
-    //   fields: [
-    //     {
-    //       type: "text",
-    //       id: "testTitle",
-    //       name: __("Title", "ditty-news-ticker"),
-    //       placeholder: __("Add title", "ditty-news-ticker"),
-    //     },
-    //     {
-    //       type: "select",
-    //       id: "testSubject",
-    //       name: __("Subject", "ditty-news-ticker"),
-    //       placeholder: __("Your subject", "ditty-news-ticker"),
-    //       options: {
-    //         1: "for fun",
-    //         2: "for the dough",
-    //         3: "to get luck",
-    //       },
-    //     },
-    //   ],
-    // },
     {
       type: "text",
       id: "shortcode",
@@ -89,6 +60,7 @@ const PanelSettings = ({ editor }) => {
       name: __("Editor Width", "ditty-news-ticker"),
       help: __("Set the width of the editor (in pixels).", "ditty-news-ticker"),
       std: 350,
+      min: 300,
     },
     {
       type: "color",

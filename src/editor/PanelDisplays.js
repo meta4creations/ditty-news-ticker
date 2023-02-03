@@ -65,7 +65,6 @@ const PanelDisplays = () => {
           ? { ...currentTemplate, ...currentDisplay }
           : { ...currentDisplay };
         delete templateToSave.version;
-        console.log("templateToSave", templateToSave);
         return (
           <PopupTemplateSave
             templateType="display"

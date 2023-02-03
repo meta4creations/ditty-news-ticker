@@ -13,11 +13,12 @@ import PanelSettings from "./PanelSettings";
 import { EditorContext } from "./context";
 
 const Editor = () => {
-  const { currentDisplay, settings, actions } = useContext(EditorContext);
+  const { settings, actions } = useContext(EditorContext);
   const [currentTabId, setCurrentTabId] = useState("items");
-  const [editorWidth, setEditorWidth] = useState(
-    settings.editorWidth ? settings.editorWidth : 350
-  );
+  let editorWidth = settings.editorWidth ? Number(settings.editorWidth) : 350;
+  if (editorWidth < 300) {
+    editorWidth = 300;
+  }
 
   const handler = (mouseDownEvent) => {
     const startSize = editorWidth;
@@ -25,10 +26,9 @@ const Editor = () => {
 
     function onMouseMove(mouseMoveEvent) {
       let newSize = startSize + startPosition - mouseMoveEvent.pageX;
-      if (newSize < 350) {
-        newSize = 350;
+      if (newSize < 300) {
+        newSize = 300;
       }
-      setEditorWidth(newSize);
 
       settings.editorWidth = newSize;
       actions.updateSettings(settings);
