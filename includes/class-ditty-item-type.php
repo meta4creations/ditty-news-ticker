@@ -17,6 +17,7 @@ class Ditty_Item_Type {
 	public $icon;
 	public $description;
 	public $script_id;
+	public $js_fields = false;
 
 	/**
 	 * Get things started
