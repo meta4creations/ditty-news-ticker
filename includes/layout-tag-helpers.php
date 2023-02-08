@@ -40,8 +40,8 @@ function ditty_layout_render_tag_link( $link, $html, $class, $data, $atts, $pref
 	);
 	$args = shortcode_atts( $defaults, $atts );
 	
-	$link_before = ( '' != $args['link_before'] ) ? "<span class='{$class}__before'>" . sanitize_text_field( $args['link_before'] ) . '</span>' : '';
-	$link_after = ( '' != $args['link_after'] ) ? "<span class='{$class}__after'>" . sanitize_text_field( $args['link_after'] ) . '</span>' : '';
+	$link_before = ( '' != $args['link_before'] ) ? "<span class='{$class}__before'>" . wp_filter_nohtml_kses( $args['link_before'] ) . '</span>' : '';
+	$link_after = ( '' != $args['link_after'] ) ? "<span class='{$class}__after'>" . wp_filter_nohtml_kses( $args['link_after'] ) . '</span>' : '';
 	
 	$html = sprintf( '<a href="%4$s" class="%5$s" target="%6$s" rel="%7$s" title="%8$s">%2$s%1$s%3$s</a>', $html, $link_before, $link_after, $link_args['url'], $class, $link_args['target'], $link_args['rel'], $link_args['title'] );
 	
@@ -62,8 +62,8 @@ function ditty_layout_render_tag_wrapper( $html, $class = '', $atts = array(), $
 		'class'		=> '',
 	);
 	$args = shortcode_atts( $defaults, $atts );
-	$before = ( '' != $args['before'] ) ? "<span class='{$class}__before'>" . sanitize_text_field( $args['before'] ) . '</span>' : '';
-	$after = ( '' != $args['after'] ) ? "<span class='{$class}__after'>" . sanitize_text_field( $args['after'] ) . '</span>' : '';
+	$before = ( '' != $args['before'] ) ? "<span class='{$class}__before'>" . wp_filter_nohtml_kses( $args['before'] ) . '</span>' : '';
+	$after = ( '' != $args['after'] ) ? "<span class='{$class}__after'>" . wp_filter_nohtml_kses( $args['after'] ) . '</span>' : '';
 	
 	if ( isset( $args['wrapper'] ) && 'none' != strval( $args['wrapper'] ) && 'false' != strval( $args['wrapper'] ) && '' != strval( $args['wrapper'] ) ) {
 		if ( isset( $args['class'] ) && '' != $args['class'] ) {

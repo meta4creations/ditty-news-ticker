@@ -146,9 +146,9 @@ class Ditty_Editor {
 		$item_type_data = array();
 		if (is_array($item_types) && count($item_types) > 0) {
 			foreach ($item_types as $i => $type) {
-				if ($type['type'] == 'default' || $type['type'] == 'wp_editor') {
-					continue;
-				}
+				// if ($type['type'] == 'default' || $type['type'] == 'wp_editor') {
+				// 	continue;
+				// }
 				$item_type_object = ditty_item_type_object($type['type']);
 				$default_settings = $item_type_object->default_settings();
 				$type['settings'] = $this->format_js_fields($item_type_object->fields($default_settings));

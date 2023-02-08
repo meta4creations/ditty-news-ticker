@@ -35,7 +35,7 @@ export const LayoutEditor = ({ value, extensions, onChange }) => {
       const selectionRange = view.state.selection.ranges[0];
       const offset = e.detail.cursorOffset ? e.detail.cursorOffset : 0;
       const cursorPosition =
-        selectionRange.to + e.detail.renderedTag.length + offset;
+        selectionRange.from + e.detail.renderedTag.length + offset;
 
       view.focus();
       view.dispatch({
@@ -46,7 +46,6 @@ export const LayoutEditor = ({ value, extensions, onChange }) => {
         },
         selection: {
           anchor: cursorPosition,
-          head: cursorPosition,
         },
       });
     });

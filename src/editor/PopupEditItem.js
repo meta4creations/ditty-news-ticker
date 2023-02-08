@@ -33,6 +33,8 @@ const PopupEditItem = ({
   const itemTypeObject = getItemTypeObject(editItem);
   const itemTypes = getItemTypes();
 
+  console.log("itemTypeObject", itemTypeObject);
+
   const fieldGroups = getItemTypeSettings(editItem);
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
   const [currentTabId, setCurrentTabId] = useState(initialTab);

@@ -24,6 +24,7 @@ const PopupEditLayoutVariations = ({
   const [selectedVariation, setSelectedVariation] = useState();
   const [variationTemplates, setVariationTemplates] = useState({});
   const [popupStatus, setPopupStatus] = useState(false);
+  console.log("editItem", editItem);
 
   const itemTypeObject = getItemTypeObject(editItem);
 
@@ -145,7 +146,10 @@ const PopupEditLayoutVariations = ({
           />
         );
       case "editLayout":
+        console.log("variationTemplates", variationTemplates);
+        console.log("selectedVariation", selectedVariation);
         const layoutObject = variationTemplates[selectedVariation];
+        console.log("layoutObject", layoutObject);
         const customLayout = { html: layoutObject.html, css: layoutObject.css };
         return (
           <PopupEditLayout
@@ -200,6 +204,10 @@ const PopupEditLayoutVariations = ({
         <Button
           onClick={() => {
             setSelectedVariation(variation);
+            updateVariationTemplates(
+              variation,
+              getVariationLayoutObject(variation)
+            );
             setPopupStatus("editLayout");
           }}
         >

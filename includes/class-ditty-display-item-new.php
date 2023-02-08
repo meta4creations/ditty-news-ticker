@@ -160,7 +160,7 @@ class Ditty_Display_Item_New {
 	 */
 	public function get_css() {
 		if ( ! empty( $this->layout ) ) {
-			return stripslashes( $this->layout['css'] );
+			return isset( $this->layout['css'] ) ? stripslashes( $this->layout['css'] ) : '';
 		}
 	}
 	
