@@ -82,10 +82,10 @@ const PanelItems = () => {
    * Update the display items
    * @param {object} deltedItem
    */
-  const handleUpdateDisplayItems = (updatedItems, type = "replace") => {
-    const data = updatedDisplayItems(displayItems, updatedItems, type);
-    setTempDisplayItems(data.updatedItems);
-  };
+  // const handleUpdateDisplayItems = (updatedItems, type = "replace") => {
+  //   const data = updatedDisplayItems(displayItems, updatedItems, type);
+  //   setTempDisplayItems(data.updatedItems);
+  // };
 
   /**
    * Render a popup component

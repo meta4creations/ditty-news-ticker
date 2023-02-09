@@ -4,6 +4,7 @@ import _ from "lodash";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaintbrushPencil, faCopy } from "@fortawesome/pro-light-svg-icons";
+import { getAttributeFields } from "../utils/layouts";
 import { FieldList } from "../fields";
 import { Button, ButtonGroup, Link, IconBlock, Popup } from "../components";
 
@@ -39,23 +40,23 @@ const PopupEditLayoutTag = ({
     return `{${renderedTag}}`;
   };
 
-  const getTagFields = () => {
-    const atts = layoutTag.atts;
-    const fields = [];
-    for (const key in atts) {
-      if (typeof atts[key] === "object") {
-        fields.push(atts[key]);
-      } else {
-        fields.push({
-          type: "text",
-          id: key,
-          name: key,
-          std: atts[key],
-        });
-      }
-    }
-    return fields;
-  };
+  // const getTagFields = () => {
+  //   const atts = layoutTag.atts;
+  //   const fields = [];
+  //   for (const key in atts) {
+  //     if (typeof atts[key] === "object") {
+  //       fields.push(atts[key]);
+  //     } else {
+  //       fields.push({
+  //         type: "text",
+  //         id: key,
+  //         name: key,
+  //         std: atts[key],
+  //       });
+  //     }
+  //   }
+  //   return fields;
+  // };
 
   const renderPopupHeader = () => {
     return (
@@ -137,7 +138,7 @@ const PopupEditLayoutTag = ({
   };
 
   const renderPopupContents = () => {
-    const fields = getTagFields();
+    const fields = getAttributeFields(layoutTag.atts);
     return (
       <FieldList
         name={__("Tag attribute options", "ditty-news-ticker")}

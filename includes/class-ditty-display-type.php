@@ -80,7 +80,7 @@ class Ditty_Display_Type {
 	/**
 	 * Return the type
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.1
 	 * @return string $type
 	 */
 	public function has_js_fields() {

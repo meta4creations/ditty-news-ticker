@@ -96,6 +96,16 @@ class Ditty_Item_Type {
 	public function get_description() {
 		return $this->description;
 	}
+
+	/**
+	 * Return the type
+	 * @access  public
+	 * @since   3.1
+	 * @return string $type
+	 */
+	public function has_js_fields() {
+		return $this->js_fields;
+	}
 	
 	/**
 	 * Return the script id

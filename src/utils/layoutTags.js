@@ -128,7 +128,7 @@ layoutTags.categories = {
 };
 layoutTags.content = {
   tag: "content",
-  description: __("Render the item content.", "ditty-news-ticker"),
+  description: __("renders the item content.", "ditty-news-ticker"),
   atts: {
     wrapper: {
       type: "select",

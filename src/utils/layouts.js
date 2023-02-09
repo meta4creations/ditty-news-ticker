@@ -28,6 +28,43 @@ export const getLayoutObject = (layout, layouts) => {
 };
 
 /**
+ * Return a Layout object
+ * @param {object} layout
+ * @returns element
+ */
+export const getTagFields = (tags) => {
+  const tagGroups = tags.map((tag) => {
+    const attributeFields = getAttributeFields(tag.atts);
+    return {
+      type: "group",
+      name: `{${tag.tag}}`,
+      //help: tag.description,
+      multipleFields: true,
+      collapsible: true,
+      fields: attributeFields,
+    };
+  });
+  return tagGroups;
+};
+
+export const getAttributeFields = (atts) => {
+  const fields = [];
+  for (const key in atts) {
+    if (typeof atts[key] === "object") {
+      fields.push(atts[key]);
+    } else {
+      fields.push({
+        type: "text",
+        id: key,
+        name: key,
+        std: atts[key],
+      });
+    }
+  }
+  return fields;
+};
+
+/**
  * Render the layout tag wrapper
  * @param {component} element
  * @param {string} className
