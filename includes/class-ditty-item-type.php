@@ -98,6 +98,15 @@ class Ditty_Item_Type {
 	}
 
 	/**
+	 * Setup the fields
+	 *
+	 * @access  public
+	 * @since   3.0
+	 */
+	public function fields( $values = array() ) {	
+	}
+
+	/**
 	 * Return the type
 	 * @access  public
 	 * @since   3.1
@@ -160,6 +169,16 @@ class Ditty_Item_Type {
 		}
 		$values = wp_parse_args( $item_values, $defaults );
 		return $values;
+	}
+
+	/**
+	 * Return the layout tags
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function get_layout_tags() {
+		return ditty_layout_tags( $this->get_type() );
 	}
 	
 	/**

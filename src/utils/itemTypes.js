@@ -25,18 +25,20 @@ const migrateItemTypes = (itemTypes) => {
     dittyEditorVars.itemTypes.reduce((filtered, phpType) => {
       const existingType = itemTypes.filter((type) => type.id === phpType.type);
       if (!existingType.length) {
-        filtered.push({
-          id: phpType.type,
-          icon: <i className={phpType.icon}></i>,
-          label: phpType.label,
-          description: phpType.description,
-          variationTypes: phpType.variationTypes,
-          phpSettings: phpType.settings,
-        });
+        filtered.push(phpType);
+        // filtered.push({
+        //   id: phpType.id,
+        //   icon: <i className={phpType.icon}></i>,
+        //   label: phpType.label,
+        //   description: phpType.description,
+        //   variationTypes: phpType.variationTypes,
+        //   phpSettings: phpType.settings,
+        // });
       }
       return filtered;
     }, []);
   if (phpItemTypes && phpItemTypes.length) {
+    //console.log("phpItemTypes", phpItemTypes);
     const updatedItemTypes = itemTypes.concat(phpItemTypes);
     return updatedItemTypes;
   } else {

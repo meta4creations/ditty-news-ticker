@@ -97,25 +97,25 @@ const PopupEditLayout = ({
             )}
           </p>
           <div className="editLayout__tagCloud__tags">
-            {itemTypeObject.tags &&
-              itemTypeObject.tags.map((tag) => {
+            {itemTypeObject.layoutTags &&
+              itemTypeObject.layoutTags.map((layoutTag) => {
                 return (
                   <span
-                    key={tag.tag}
-                    data-tag={tag.tag}
+                    key={layoutTag.tag}
+                    data-tag={layoutTag.tag}
                     className="editLayout__tagCloud__tag"
                     onClick={() => {
                       window.dispatchEvent(
                         new CustomEvent("dittyEditorInsertLayoutTag", {
                           detail: {
-                            renderedTag: `.ditty-item__${tag.tag} {  }`,
+                            renderedTag: `.ditty-item__${layoutTag.tag} {  }`,
                             cursorOffset: -2,
                           },
                         })
                       );
                     }}
                   >
-                    {`.ditty-item__${tag.tag}`}
+                    {`.ditty-item__${layoutTag.tag}`}
                   </span>
                 );
               })}
@@ -133,15 +133,15 @@ const PopupEditLayout = ({
             )}
           </p>
           <div className="editLayout__tagCloud__tags">
-            {itemTypeObject.tags &&
-              itemTypeObject.tags.map((tag) => {
+            {itemTypeObject.layoutTags &&
+              itemTypeObject.layoutTags.map((layoutTag) => {
                 return (
                   <span
-                    key={tag.tag}
-                    data-tag={tag.tag}
+                    key={layoutTag.tag}
+                    data-tag={layoutTag.tag}
                     className="editLayout__tagCloud__tag"
-                    onClick={() => setCurrentTag(tag)}
-                  >{`{${tag.tag}}`}</span>
+                    onClick={() => setCurrentTag(layoutTag)}
+                  >{`{${layoutTag.tag}}`}</span>
                 );
               })}
           </div>
@@ -158,7 +158,7 @@ const PopupEditLayout = ({
             key="css"
             value={editLayout.css}
             extensions={[css()]}
-            tags={itemTypeObject.tags}
+            tags={itemTypeObject.layoutTags}
             onChange={(value) => updateLayout("css", value)}
           />
         </>
@@ -170,7 +170,7 @@ const PopupEditLayout = ({
             key="html"
             value={editLayout.html}
             extensions={[html()]}
-            tags={itemTypeObject.tags}
+            tags={itemTypeObject.layoutTags}
             onChange={(value) => updateLayout("html", value)}
           />
         </>

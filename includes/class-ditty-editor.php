@@ -146,17 +146,34 @@ class Ditty_Editor {
 		$item_type_data = array();
 		if (is_array($item_types) && count($item_types) > 0) {
 			foreach ($item_types as $i => $type) {
-				// if ($type['type'] == 'default' || $type['type'] == 'wp_editor') {
-				// 	continue;
-				// }
 				$item_type_object = ditty_item_type_object($type['type']);
-				if ($item_type_object->has_js_fields()) {
-					continue;
-				}
 				$default_settings = $item_type_object->default_settings();
-				$type['settings'] = $this->format_js_fields($item_type_object->fields($default_settings));
-				//$type['variationTypes'] = $item_type_object->get_layout_variation_types();
-				$item_type_data[] = $type;
+				$fields = $this->format_js_fields($item_type_object->fields($default_settings));
+
+				$first_field = reset( $fields );
+				if ( isset( $first_field['type'] ) ) {
+					$settings = [[
+						'id' => 'settings',
+						'label' => __("Settings", "ditty-news-ticker"),
+						'name' => __("Settings", "ditty-news-ticker"),
+						'desc' => sprintf( __( 'Configure the settings of the %s item.', "ditty-news-ticker" ), $type['label'] ),
+						'icon' => 'fas fa-sliders',
+						'fields' => $fields,
+					]];
+				} else {
+					$settings = $fields;
+				}
+				$item_type = [
+					'id' => $type['type'],
+					'icon' => $type['icon'],
+					'label' => $type['label'],
+					'description' => $type['description'],
+					'settings' => $settings,
+					'defaultValues' => $default_settings,
+					'layoutTags' => array_values( $item_type_object->get_layout_tags() ),
+					'variationTypes' => $item_type_object->get_layout_variation_types(),
+				];
+				$item_type_data[] = $item_type;
 			}
 		}
 		return array_values($item_type_data);

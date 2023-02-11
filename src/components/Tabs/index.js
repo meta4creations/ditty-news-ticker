@@ -22,7 +22,15 @@ const Tabs = ({ className, tabs, type, currentTabId, tabClick }) => {
   const renderButtonContent = (tab) => {
     return (
       <>
-        {tab.icon && <span className="ditty-tab__icon">{tab.icon}</span>}
+        {tab.icon && (
+          <span className="ditty-tab__icon">
+            {"string" === typeof tab.icon ? (
+              <i className={tab.icon}></i>
+            ) : (
+              tab.icon
+            )}
+          </span>
+        )}
         {tab.label && <span className="ditty-tab__label">{tab.label}</span>}
       </>
     );

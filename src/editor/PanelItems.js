@@ -206,7 +206,8 @@ const PanelItems = () => {
       {
         id: "icon",
         content: (item) => {
-          return getItemTypeIcon(item);
+          const icon = getItemTypeIcon(item);
+          return "string" === typeof icon ? <i className={icon}></i> : icon;
         },
       },
       {

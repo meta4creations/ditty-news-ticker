@@ -36,8 +36,6 @@ const PopupEditItem = ({
   const itemTypeObject = getItemTypeObject(editItem);
   const itemTypes = getItemTypes();
 
-  console.log("itemTypeObject", itemTypeObject);
-
   const fieldGroups = getItemTypeSettings(editItem);
   fieldGroups.push({
     desc: __(
@@ -48,7 +46,7 @@ const PopupEditItem = ({
     id: "layoutAttributes",
     label: __("Tags", "ditty-news-ticker"),
     name: __("Layout Tag Attribute Customizations", "ditty-news-ticker"),
-    fields: getTagFields(itemTypeObject.tags),
+    fields: getTagFields(itemTypeObject.layoutTags),
   });
 
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
@@ -157,7 +155,6 @@ const PopupEditItem = ({
   };
 
   const renderPopupContents = () => {
-    console.log("currentFieldGroup.fields", currentFieldGroup.fields);
     if ("layoutAttributes" === currentFieldGroup.id) {
       return (
         <FieldList

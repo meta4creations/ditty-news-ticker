@@ -25,7 +25,7 @@ const IconBlock = ({
     <div className={classes} style={styles}>
       {icon && (
         <div className="ditty-icon-block__icon" style={iconStyles}>
-          {icon}
+          {"string" === typeof icon ? <i className={icon}></i> : icon}
         </div>
       )}
       <div className="ditty-icon-block__contents">{children}</div>

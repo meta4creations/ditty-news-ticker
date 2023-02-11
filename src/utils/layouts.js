@@ -32,18 +32,20 @@ export const getLayoutObject = (layout, layouts) => {
  * @param {object} layout
  * @returns element
  */
-export const getTagFields = (tags) => {
-  const tagGroups = tags.map((tag) => {
-    const attributeFields = getAttributeFields(tag.atts);
-    return {
-      type: "group",
-      name: `{${tag.tag}}`,
-      //help: tag.description,
-      multipleFields: true,
-      collapsible: true,
-      fields: attributeFields,
-    };
-  });
+export const getTagFields = (layoutTags) => {
+  const tagGroups =
+    layoutTags &&
+    layoutTags.map((layoutTag) => {
+      const attributeFields = getAttributeFields(layoutTag.atts);
+      return {
+        type: "group",
+        name: `{${layoutTag.tag}}`,
+        //help: layoutTag.description,
+        multipleFields: true,
+        collapsible: true,
+        fields: attributeFields,
+      };
+    });
   return tagGroups;
 };
 
