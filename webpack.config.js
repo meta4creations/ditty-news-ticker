@@ -23,9 +23,9 @@ var dittyConfig = {
     ditty: "./src/ditty.js",
     dittyEditor: "./src/dittyEditor.js",
     dittyScripts: [
-      "./src/partials/itemTypeDefault.js",
-      "./src/partials/itemTypePostsLite.js",
-      "./src/partials/itemTypeWPEditor.js",
+      //"./src/partials/itemTypeDefault.js",
+      //"./src/partials/itemTypePostsLite.js",
+      //"./src/partials/itemTypeWPEditor.js",
       "./src/partials/displayTypeTicker.js",
       "./src/partials/displayTypeList.js",
     ],

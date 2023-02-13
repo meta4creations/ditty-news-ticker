@@ -293,6 +293,11 @@ class Ditty_Singles {
 		if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
 			foreach ( $items_meta as $i => $item_meta ) {
 
+				// Get the editor preview
+				if ( $item_type_object = ditty_item_type_object( $item_meta->item_type ) ) {
+					$item_meta->editor_preview = $item_type_object->editor_preview( $item_meta->item_value );
+				}
+
 				// Unpack the layout variations
 				$layout_value = maybe_unserialize( $item_meta->layout_value );
 				$layout_variations = [];
@@ -304,30 +309,16 @@ class Ditty_Singles {
 				
 				// Possibly render items if they aren't set to render via javascript
 				$item_type_data =  isset( $item_types[$item_meta->item_type] ) ? $item_types[$item_meta->item_type] : array();
-				//if ( ! isset( $item_type_data['ditty_version'] ) || version_compare( $item_type_data['ditty_version'], DITTY_VERSION, '<' ) ) {
-					$rendered_items = [];
-					//$display_items = [];
-					$prepared_items = ditty_prepare_display_items( $item_meta );
-					if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
-						foreach ( $prepared_items as $i => $prepared_meta ) {
-
-							$display_item = new Ditty_Display_Item_New( $prepared_meta );
-							$ditty_data = $display_item->ditty_data();
-							$display_items[] = $ditty_data;
-							//echo '<pre>';print_r($html);echo '</pre>';
-
-							$prepared_meta['layout_value'] = $layout_variations;
-							//$display_items[] = $prepared_meta;
-							// $display_item = new Ditty_Display_Item( $prepared_meta );
-							// if ( $data = $display_item->compile_data( 'javascript' ) ) {
-							// 	$rendered_items[] = $data;
-							// }
-						}
+				$rendered_items = [];
+				$prepared_items = ditty_prepare_display_items( $item_meta );
+				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
+					foreach ( $prepared_items as $i => $prepared_meta ) {
+						$display_item = new Ditty_Display_Item_New( $prepared_meta );
+						$ditty_data = $display_item->ditty_data();
+						$display_items[] = $ditty_data;
+						$prepared_meta['layout_value'] = $layout_variations;
 					}
-					//$item_meta->rendered_items = $rendered_items;
-					//$item_meta->display_items = $display_items;
-				//}
-
+				}
 				$item_meta->layout_value = $layout_variations;
 				$unserialized_items[] = $item_meta;
 			}

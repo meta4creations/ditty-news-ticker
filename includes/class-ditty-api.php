@@ -420,9 +420,14 @@ class Ditty_API {
 
 		$display_items = array();
 		$display_items_grouped = array();
+		$preview_items = array();
 		if ( is_array( $items ) && count( $items ) > 0 ) {
 			foreach ( $items as $item ) {
 				$item = ( array ) $item;
+				if ( $item_type_object = ditty_item_type_object($item['item_type']) ) {
+					$preview_items[$item['item_id']] = $item_type_object->editor_preview( $item['item_value'] );
+				}
+
 				$grouped_displays = [];			
 				$prepared_items = ditty_prepare_display_items( $item );
 				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
@@ -444,6 +449,7 @@ class Ditty_API {
 			'errors'	=> $errors,
 			'display_items'	=> $display_items,
 			'display_items_grouped'	=> $display_items_grouped,
+			'preview_items'	=> $preview_items,
 		);
 
 		return rest_ensure_response( $data );

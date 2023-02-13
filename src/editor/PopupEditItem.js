@@ -29,7 +29,7 @@ const PopupEditItem = ({
   onUpdate,
   onDelete,
 }) => {
-  const [editItem, setEditItem] = useState(item);
+  const [editItem, setEditItem] = useState(_.cloneDeep(item));
   const [updateKeys, setUpdateKeys] = useState([]);
   const [childPopupStatus, setChildPopupStatus] = useState(false);
 
@@ -69,7 +69,7 @@ const PopupEditItem = ({
       updateKeys.push(key);
       setUpdateKeys(updateKeys);
     }
-    onChange(updatedItem);
+    onChange && onChange(updatedItem);
   };
 
   /**

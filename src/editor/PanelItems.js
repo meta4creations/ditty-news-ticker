@@ -23,7 +23,6 @@ import {
   getItemTypeIcon,
   getItemLabel,
 } from "../utils/itemTypes";
-import { updatedDisplayItems } from "../utils/helpers";
 import PopupEditItem from "./PopupEditItem";
 import PopupTypeSelector from "./PopupTypeSelector";
 import PopupEditLayoutVariations from "./PopupEditLayoutVariations";
@@ -61,9 +60,9 @@ const PanelItems = () => {
     setCurrentItem(newItem);
 
     // Get new display items
-    getDisplayItems(newItem, layouts, (newDisplayItems) => {
-      actions.addDisplayItems(newDisplayItems);
-      addDisplayItems(dittyEl, newDisplayItems);
+    getDisplayItems(newItem, layouts, (data) => {
+      actions.addDisplayItems(data.display_items);
+      addDisplayItems(dittyEl, data.display_items);
     });
   };
 
@@ -77,15 +76,6 @@ const PanelItems = () => {
     deleteDisplayItems(dittyEl, deletedItem);
     setCurrentItem(null);
   };
-
-  /**
-   * Update the display items
-   * @param {object} deltedItem
-   */
-  // const handleUpdateDisplayItems = (updatedItems, type = "replace") => {
-  //   const data = updatedDisplayItems(displayItems, updatedItems, type);
-  //   setTempDisplayItems(data.updatedItems);
-  // };
 
   /**
    * Render a popup component
@@ -104,16 +94,16 @@ const PanelItems = () => {
               if (
                 !_.isEqual(editedItem.layout_value, currentItem.layout_value)
               ) {
-                getDisplayItems(currentItem, layouts, (updatedDisplayItems) => {
-                  updateDisplayItems(dittyEl, updatedDisplayItems);
+                getDisplayItems(currentItem, layouts, (data) => {
+                  updateDisplayItems(dittyEl, data.display_items);
                   setTempDisplayItems(null);
                 });
               }
             }}
             onChange={(updatedItem) => {
-              getDisplayItems(updatedItem, layouts, (updatedDisplayItems) => {
-                updateDisplayItems(dittyEl, updatedDisplayItems);
-                setTempDisplayItems(updatedDisplayItems);
+              getDisplayItems(updatedItem, layouts, (data) => {
+                updateDisplayItems(dittyEl, data.display_items);
+                setTempDisplayItems(data.display_items);
               });
             }}
             onUpdate={(updatedItem) => {
@@ -131,25 +121,22 @@ const PanelItems = () => {
                   }
                 }
               });
-              getDisplayItems(
-                modifiedItems,
-                updatedLayouts,
-                (updatedDisplayItems) => {
-                  // Update existing display items
-                  const allDisplayItems =
-                    actions.updateDisplayItems(updatedDisplayItems);
+              getDisplayItems(modifiedItems, updatedLayouts, (data) => {
+                // Update existing display items
+                const allDisplayItems = actions.updateDisplayItems(
+                  data.display_items
+                );
 
-                  // Merge temp items
-                  if (tempDisplayItems.length) {
-                    updateDisplayItems(
-                      dittyEl,
-                      helpers.replaceDisplayItems(tempDisplayItems)
-                    );
-                  } else {
-                    updateDisplayItems(dittyEl, allDisplayItems);
-                  }
+                // Merge temp items
+                if (tempDisplayItems.length) {
+                  updateDisplayItems(
+                    dittyEl,
+                    helpers.replaceDisplayItems(tempDisplayItems)
+                  );
+                } else {
+                  updateDisplayItems(dittyEl, allDisplayItems);
                 }
-              );
+              });
             }}
           />
         );
@@ -158,19 +145,23 @@ const PanelItems = () => {
           <PopupEditItem
             item={currentItem}
             onClose={() => setPopupStatus(false)}
-            onChange={(updatedItem) => {}}
             onDelete={() => {
               setPopupStatus(false);
               handleDeleteItem(currentItem);
             }}
             onUpdate={(updatedItem, updateKeys) => {
               setPopupStatus(false);
-              actions.updateItem(updatedItem, updateKeys);
 
               // Get new display items
-              getDisplayItems(updatedItem, layouts, (updatedDisplayItems) => {
-                const allDisplayItems =
-                  actions.updateDisplayItems(updatedDisplayItems);
+              getDisplayItems(updatedItem, layouts, (data) => {
+                if (data.preview_items[updatedItem.item_id]) {
+                  updatedItem.editor_preview =
+                    data.preview_items[updatedItem.item_id];
+                }
+                actions.updateItem(updatedItem, updateKeys);
+                const allDisplayItems = actions.updateDisplayItems(
+                  data.display_items
+                );
                 updateDisplayItems(dittyEl, allDisplayItems);
               });
             }}
@@ -250,8 +241,8 @@ const PanelItems = () => {
 
       // Get new display items
       const dittyEl = document.getElementById("ditty-editor__ditty");
-      getDisplayItems(clonedItem, layouts, (newDisplayItems) => {
-        const updatedDisplayItems = actions.addDisplayItems(newDisplayItems);
+      getDisplayItems(clonedItem, layouts, (data) => {
+        const updatedDisplayItems = actions.addDisplayItems(data.display_items);
         replaceDisplayItems(dittyEl, updatedDisplayItems);
       });
     }

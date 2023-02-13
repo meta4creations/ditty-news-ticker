@@ -47,12 +47,12 @@ export const updateDisplayOptions = (dittyEl, option, value) => {
  * @param {array} layouts
  * @param {function} returnDisplayItems
  */
-export const getDisplayItems = async (items, layouts, returnDisplayItems) => {
+export const getDisplayItems = async (items, layouts, returnData) => {
   const itemsArray = Array.isArray(items) ? items : [items];
   try {
     await getRenderedItems(itemsArray, layouts, (data) => {
       //returnDisplayItems && returnDisplayItems(data.display_items, "update");
-      returnDisplayItems && returnDisplayItems(data.display_items);
+      returnData && returnData(data);
     });
   } catch (ex) {
     console.log("catch", ex);
