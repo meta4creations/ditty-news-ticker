@@ -43,6 +43,7 @@ export const getTagFields = (layoutTags) => {
         //help: layoutTag.description,
         multipleFields: true,
         collapsible: true,
+        defaultState: "collapsed",
         fields: attributeFields,
       };
     });
