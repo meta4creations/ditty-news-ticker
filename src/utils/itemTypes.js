@@ -125,3 +125,13 @@ export const getItemLabel = (item) => {
   //   ? itemTypeObject.itemLabel(item)
   //   : item.item_type;
 };
+
+export const getLayoutVariationObject = (itemType, variation) => {
+  const itemTypeObject =
+    typeof itemType === "object" ? itemType : getItemTypeObject(itemType);
+  const variationTypes = itemTypeObject.variationTypes
+    ? itemTypeObject.variationTypes
+    : {};
+
+  return variationTypes[variation] ? variationTypes[variation] : variation;
+};

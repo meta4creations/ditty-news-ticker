@@ -24,6 +24,10 @@
     color: #fff;
     background: $green;
   }
+  &.is-small {
+    font-size: 13px;
+    padding: 5px 10px;
+  }
   &:disabled {
     cursor: default;
     opacity: 0.4;

@@ -3,7 +3,11 @@ import { useState } from "@wordpress/element";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
-import { getItemTypeObject, getItemLabel } from "../utils/itemTypes";
+import {
+  getItemTypeObject,
+  getItemLabel,
+  getLayoutVariationObject,
+} from "../utils/itemTypes";
 import { getLayoutObject, getDefaultLayout } from "../utils/layouts";
 import { Button, ButtonGroup, IconBlock, Popup } from "../components";
 import PopupTemplateSave from "./PopupTemplateSave";
@@ -170,6 +174,7 @@ const PopupEditLayoutVariations = ({
     return (
       <>
         <Button
+          size="small"
           onClick={() => {
             setSelectedVariation(variation);
             setPopupStatus("layoutTemplateSelect");
@@ -178,6 +183,7 @@ const PopupEditLayoutVariations = ({
           {__("Change Template", "ditty-news-ticker")}
         </Button>
         <Button
+          size="small"
           onClick={() => {
             setSelectedVariation(variation);
             updateVariationTemplates(
@@ -198,6 +204,7 @@ const PopupEditLayoutVariations = ({
     return (
       <>
         <Button
+          size="small"
           onClick={() => {
             setSelectedVariation(variation);
             updateVariationTemplates(
@@ -210,6 +217,7 @@ const PopupEditLayoutVariations = ({
           {__("Customize", "ditty-news-ticker")}
         </Button>
         <Button
+          size="small"
           onClick={() => {
             setSelectedVariation(variation);
             setPopupStatus("layoutTemplateSelect");
@@ -218,6 +226,7 @@ const PopupEditLayoutVariations = ({
           {__("Use Template", "ditty-news-ticker")}
         </Button>
         <Button
+          size="small"
           onClick={() => {
             setSelectedVariation(variation);
             setPopupStatus("layoutTemplateSave");
@@ -235,17 +244,32 @@ const PopupEditLayoutVariations = ({
     for (const variation in layoutVariations) {
       const layout = layoutVariations[variation];
       const layoutObject = getLayoutObject(layout, layouts);
+      const variationObject = getLayoutVariationObject(
+        itemTypeObject,
+        variation
+      );
       layoutBlocks.push(
         <div key={variation} className="editLayout__variation">
           <IconBlock style={{ marginBottom: "10px" }}>
             {layoutObject.id ? (
               <>
-                <h3>{`${variation}: ${layoutObject.title}`} </h3>
-                <p>
+                <IconBlock
+                  icon={variationObject.icon}
+                  className="ditty-layout-variaion--heading"
+                >
+                  <div className="ditty-icon-block--heading__title">
+                    <h3>{variationObject.label && variationObject.label}</h3>
+                  </div>
+                  <p>
+                    {variationObject.description && variationObject.description}
+                  </p>
+                </IconBlock>
+                <h2>{layoutObject.title}</h2>
+                <p>{layoutObject.description}</p>
+                {/* <p>
                   {__("Post ID", "ditty-news-ticker")} :{" "}
                   <a href={layoutObject.edit_url}>{layoutObject.id}</a>
-                </p>
-                <p>{layoutObject.description}</p>
+                </p> */}
               </>
             ) : (
               <>
@@ -255,7 +279,7 @@ const PopupEditLayoutVariations = ({
               </>
             )}
           </IconBlock>
-          <ButtonGroup className="ditty-displayEdit__links">
+          <ButtonGroup className="ditty-displayEdit__links" gap="3px">
             {layoutObject.id
               ? templateButtons(variation, layoutObject)
               : customButtons(variation, layoutObject)}
@@ -278,7 +302,7 @@ const PopupEditLayoutVariations = ({
               className="ditty-icon-block--heading"
             >
               <div className="ditty-icon-block--heading__title">
-                <h2>{itemTypeObject && itemTypeObject.label}</h2>
+                <h2>{__("Layout Variations", "ditty-news-ticker")}</h2>
               </div>
               <p>{getItemLabel(editItem)}</p>
             </IconBlock>

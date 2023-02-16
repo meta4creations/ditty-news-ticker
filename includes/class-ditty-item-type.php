@@ -193,6 +193,7 @@ class Ditty_Item_Type {
 				'template'		=> 'default',
 				'label'				=> __( 'Default', 'ditty-news-ticker' ),
 				'description' => __( 'Default variation.', 'ditty-news-ticker' ),
+				'icon'				=> 'fa-solid fa-asterisk'
 			),
 		);
 		return apply_filters( 'ditty_item_type_variation_types', $layout_variations, $this );

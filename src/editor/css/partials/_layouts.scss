@@ -45,3 +45,21 @@
     }
   }
 }
+.ditty-layout-variaion--heading {
+  align-items: center;
+  background: #eee;
+  margin: -10px -10px 10px;
+  padding: 10px;
+  .ditty-icon-block__icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+  .ditty-icon-block--heading__title {
+    margin: 0;
+  }
+  h3 {
+    font-size: 15px;
+    margin: 0;
+  }
+}
