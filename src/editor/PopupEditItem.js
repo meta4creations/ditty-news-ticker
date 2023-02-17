@@ -163,7 +163,6 @@ const PopupEditItem = ({
           fields={currentFieldGroup.fields}
           values={editItem.attribute_value ? editItem.attribute_value : {}}
           onUpdate={(id, value) => {
-            console.log(id, value);
             const updatedItem = { ...editItem };
             if (
               !updatedItem.attribute_value ||

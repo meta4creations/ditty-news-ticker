@@ -331,6 +331,7 @@ export class EditorProvider extends Component {
    * @returns object
    */
   handleAfterSaveDitty = (data, onComplete) => {
+    console.log("data", data);
     if (data.updates && data.updates.items) {
       const updatedItems = this.state.items.map((item) => {
         let temp_id;

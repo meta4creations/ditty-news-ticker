@@ -128,6 +128,21 @@ class Ditty_Display_Item_New {
 	public function get_layout_id() {
 		return $this->layout_id;
 	}
+	
+	/**
+	 * Check if a tag is disabled
+	 * @access public
+	 * @since  3.1
+	 * @return string $html
+	 */
+	public function get_item_tag_disabled( $tag ) {
+		if ( isset( $this->attribute_value[$tag] ) ) {
+			if ( isset( $this->attribute_value[$tag]['disabled'] ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * Return an attribute value
@@ -136,12 +151,8 @@ class Ditty_Display_Item_New {
 	 * @return string $html
 	 */
 	public function get_item_attribute_value( $tag, $attribute ) {
-		if ( isset( $this->attribute_value[$tag] ) ) {
-			if ( isset( $this->attribute_value[$tag]['disabled'] ) ) {
-				return 'disabled';
-			} else if( isset( $this->attribute_value[$tag][$attribute] ) ) {
-				return $this->attribute_value[$tag][$attribute];
-			}
+		if ( isset( $this->attribute_value[$tag] ) && isset( $this->attribute_value[$tag][$attribute] ) ) {
+			return $this->attribute_value[$tag][$attribute];
 		}
 		return false;
 	}
@@ -264,6 +275,9 @@ class Ditty_Display_Item_New {
 	 * @return html
 	 */
 	public function get_layout_att_values( $tag, $atts ) {
+		if ( $this->get_item_tag_disabled( $tag ) ) {
+			return 'disabled';
+		}
 		$final_att_values = [];
 		if ( is_array( $atts ) && count( $atts ) > 0 ) {
 			foreach ( $atts as $key => $value ) {
@@ -303,6 +317,9 @@ class Ditty_Display_Item_New {
 					$data['item_meta'] = $this->get_item_meta();
 					$defaults = isset( $tag['atts'] ) ? $tag['atts'] : array();
 					$defaults = $this->get_layout_att_values( $tag['tag'], $defaults );
+					if ( 'disabled' == $defaults ) {
+						return false;
+					}
 					$atts = $this->parse_atts( $defaults, $s );
 					$atts = apply_filters( 'ditty_layout_tag_atts', $atts, $tag['tag'], $this->get_item_type(), $data );
 					$content = $s->getContent();

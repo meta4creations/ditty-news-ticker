@@ -6,7 +6,7 @@ import classnames from "classnames";
 import { Button, ButtonGroup } from "../components";
 import FieldHeader from "./FieldHeader";
 
-const LayoutAttributeField = (props) => {
+const LayoutTagField = (props) => {
   const {
     id,
     fields,
@@ -14,7 +14,6 @@ const LayoutAttributeField = (props) => {
     className,
     collapsible,
     defaultState = "expanded",
-    multipleFields = false,
     onChange,
     renderInput,
   } = props;
@@ -34,9 +33,15 @@ const LayoutAttributeField = (props) => {
 
   const fieldClasses = classnames(
     "ditty-field",
-    "ditty-field--layoutAttributeField",
+    "ditty-field--layoutTagField",
     `ditty-field-id--${id}`,
-    className
+    className,
+    {
+      "is-disabled": value.disabled,
+      "is-customized":
+        (!value.disabled && Object.keys(value).length) ||
+        (value.disabled && Object.keys(value).length > 1),
+    }
   );
 
   const styles = {
@@ -46,6 +51,16 @@ const LayoutAttributeField = (props) => {
   const handleUpdateValue = (inputField, updatedValue) => {
     const groupValue = typeof value === "object" ? value : {};
     groupValue[inputField.id] = updatedValue;
+    onChange(groupValue);
+  };
+
+  const handleStatus = (status) => {
+    const groupValue = typeof value === "object" ? value : {};
+    if ("disabled" === status) {
+      groupValue.disabled = true;
+    } else {
+      delete groupValue.disabled;
+    }
     onChange(groupValue);
   };
 
@@ -67,21 +82,21 @@ const LayoutAttributeField = (props) => {
       <FieldHeader
         {...props}
         afterContents={
-          <ButtonGroup className="layoutAttributeActions">
+          <ButtonGroup className="layoutTagActions" gap="3px">
             <span
-              className="layoutAttributeAction layoutAttributeAction__enable"
-              onClick={() => console.log("enable")}
+              className="layoutTagAction layoutTagAction__enable"
+              onClick={() => handleStatus("enabled")}
             >
               <FontAwesomeIcon icon={faCheck} />
             </span>
             <span
-              className="layoutAttributeAction layoutAttributeAction__disable"
-              onClick={() => console.log("disable")}
+              className="layoutTagAction layoutTagAction__disable"
+              onClick={() => handleStatus("disabled")}
             >
               <FontAwesomeIcon icon={faXmark} />
             </span>
             <span
-              className="layoutAttributeAction layoutAttributeAction__customize"
+              className="layoutTagAction layoutTagAction__customize"
               onClick={toggleContent}
             >
               <FontAwesomeIcon icon={faGear} />
@@ -117,4 +132,4 @@ const LayoutAttributeField = (props) => {
   );
 };
 
-export default LayoutAttributeField;
+export default LayoutTagField;

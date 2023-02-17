@@ -5,7 +5,7 @@ import Clone from "./Clone";
 import CheckboxField from "./CheckboxField";
 import CheckboxesField from "./CheckboxesField";
 import GroupField from "./GroupField";
-import LayoutAttributeField from "./LayoutAttributeField";
+import LayoutTagField from "./LayoutTagField";
 import NumberField from "./NumberField";
 import RadioField from "./RadioField";
 import SelectField from "./SelectField";
@@ -81,7 +81,7 @@ const Field = ({ field, fieldValue, updateValue }) => {
           return <BaseField {...inputField} />;
         case "layout_attribute":
           return (
-            <LayoutAttributeField
+            <LayoutTagField
               value={inputValue}
               renderInput={renderInput}
               onChange={(updatedValue) => {

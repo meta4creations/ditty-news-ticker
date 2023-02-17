@@ -4,7 +4,7 @@ export { default as ColorField } from "./ColorField";
 export { default as Field } from "./Field";
 export { default as FieldList } from "./FieldList";
 export { default as GroupField } from "./GroupField";
-export { default as LayoutAttributeField } from "./LayoutAttributeField";
+export { default as LayoutTagField } from "./LayoutTagField";
 export { default as NumberField } from "./NumberField";
 export { default as RadioField } from "./RadioField";
 export { default as SelectField } from "./SelectField";

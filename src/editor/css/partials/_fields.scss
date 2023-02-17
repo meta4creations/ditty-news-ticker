@@ -388,12 +388,12 @@ $radius: 9px;
 }
 
 // Layout Attribute
-.ditty-field--layoutAttributeField {
+.ditty-field--layoutTagField {
   .ditty-field-list & {
     padding: 0;
     border-bottom: none;
   }
-  .ditty-field__heading {
+  > .ditty-field__heading {
     display: flex;
     align-items: center;
     padding: 15px;
@@ -411,7 +411,7 @@ $radius: 9px;
       }
     }
   }
-  .layoutAttributeActions {
+  .layoutTagActions {
     flex: 0 0 auto;
     margin-left: auto;
     span {
@@ -424,10 +424,26 @@ $radius: 9px;
       height: 25px;
       cursor: pointer;
       border-radius: 3px;
+      background: rgba(0, 0, 0, 0.05);
       transition: background-color 0.25s ease;
-      &:hover {
-        background: #ccc;
-      }
+    }
+  }
+  &:not(.is-disabled) {
+    .layoutTagAction__enable {
+      color: #fff;
+      background: $green;
+    }
+  }
+  &.is-disabled {
+    .layoutTagAction__disable {
+      color: #fff;
+      background: $red;
+    }
+  }
+  &.is-customized {
+    .layoutTagAction__customize {
+      color: #fff;
+      background: $blue;
     }
   }
 }
