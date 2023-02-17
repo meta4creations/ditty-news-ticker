@@ -25,13 +25,14 @@ import {
 } from "../utils/itemTypes";
 import PopupEditItem from "./PopupEditItem";
 import PopupTypeSelector from "./PopupTypeSelector";
-import PopupEditLayoutVariations from "./PopupEditLayoutVariations";
+import PopupLayouts from "./PopupLayouts";
 
 const PanelItems = () => {
   const { id, items, displayItems, layouts, actions, helpers } =
     useContext(EditorContext);
   const [currentItem, setCurrentItem] = useState(null);
   const [tempDisplayItems, setTempDisplayItems] = useState(null);
+  const [tempPreviewItem, setTempPreviewItem] = useState(null);
   const [popupStatus, setPopupStatus] = useState(false);
   const itemTypes = getItemTypes();
 
@@ -86,13 +87,17 @@ const PanelItems = () => {
     switch (popupStatus) {
       case "editLayout":
         return (
-          <PopupEditLayoutVariations
+          <PopupLayouts
             item={currentItem}
             layouts={layouts}
             onClose={(editedItem) => {
               setPopupStatus(false);
               if (
-                !_.isEqual(editedItem.layout_value, currentItem.layout_value)
+                !_.isEqual(editedItem.layout_value, currentItem.layout_value) ||
+                !_.isEqual(
+                  editedItem.attribute_value,
+                  currentItem.attribute_value
+                )
               ) {
                 getDisplayItems(currentItem, layouts, (data) => {
                   updateDisplayItems(dittyEl, data.display_items);
@@ -106,9 +111,9 @@ const PanelItems = () => {
                 setTempDisplayItems(data.display_items);
               });
             }}
-            onUpdate={(updatedItem) => {
+            onUpdate={(updatedItem, updateKeys) => {
               setPopupStatus(false);
-              actions.updateItem(updatedItem, "layout_value");
+              actions.updateItem(updatedItem, updateKeys);
               tempDisplayItems && actions.updateDisplayItems(tempDisplayItems);
               setTempDisplayItems(null);
             }}
@@ -144,26 +149,51 @@ const PanelItems = () => {
         return (
           <PopupEditItem
             item={currentItem}
-            onClose={() => setPopupStatus(false)}
+            onClose={(editedItem) => {
+              setPopupStatus(false);
+              if (!_.isEqual(editedItem.item_value, currentItem.item_value)) {
+                getDisplayItems(currentItem, layouts, (data) => {
+                  updateDisplayItems(dittyEl, data.display_items);
+                  setTempDisplayItems(null);
+                  setTempPreviewItem(null);
+                });
+              }
+            }}
             onDelete={() => {
               setPopupStatus(false);
               handleDeleteItem(currentItem);
             }}
+            onChange={(updatedItem) => {
+              getDisplayItems(updatedItem, layouts, (data) => {
+                updateDisplayItems(dittyEl, data.display_items);
+                setTempDisplayItems(data.display_items);
+                if (data.preview_items[updatedItem.item_id]) {
+                  setTempPreviewItem(data.preview_items[updatedItem.item_id]);
+                }
+              });
+            }}
             onUpdate={(updatedItem, updateKeys) => {
               setPopupStatus(false);
+              updatedItem.editor_preview = tempPreviewItem
+                ? tempPreviewItem
+                : updatedItem.editor_preview;
+              actions.updateItem(updatedItem, updateKeys);
+              tempDisplayItems && actions.updateDisplayItems(tempDisplayItems);
+              setTempDisplayItems(null);
+              setTempPreviewItem(null);
 
-              // Get new display items
-              getDisplayItems(updatedItem, layouts, (data) => {
-                if (data.preview_items[updatedItem.item_id]) {
-                  updatedItem.editor_preview =
-                    data.preview_items[updatedItem.item_id];
-                }
-                actions.updateItem(updatedItem, updateKeys);
-                const allDisplayItems = actions.updateDisplayItems(
-                  data.display_items
-                );
-                updateDisplayItems(dittyEl, allDisplayItems);
-              });
+              // // Get new display items
+              // getDisplayItems(updatedItem, layouts, (data) => {
+              //   if (data.preview_items[updatedItem.item_id]) {
+              //     updatedItem.editor_preview =
+              //       data.preview_items[updatedItem.item_id];
+              //   }
+              //   actions.updateItem(updatedItem, updateKeys);
+              //   const allDisplayItems = actions.updateDisplayItems(
+              //     data.display_items
+              //   );
+              //   updateDisplayItems(dittyEl, allDisplayItems);
+              // });
             }}
           />
         );

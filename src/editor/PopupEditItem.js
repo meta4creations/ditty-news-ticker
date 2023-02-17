@@ -1,15 +1,12 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
 import {
   getItemTypeObject,
   getItemLabel,
   getItemTypes,
   getItemTypeSettings,
 } from "../utils/itemTypes";
-import { getTagFields } from "../utils/layouts";
 import {
   Button,
   ButtonGroup,
@@ -37,17 +34,6 @@ const PopupEditItem = ({
   const itemTypes = getItemTypes();
 
   const fieldGroups = getItemTypeSettings(editItem);
-  fieldGroups.push({
-    desc: __(
-      "Customize the layout tag attributes for this item.",
-      "ditty-news-ticker"
-    ),
-    icon: <FontAwesomeIcon icon={faPaintbrushPencil} />,
-    id: "layoutAttributes",
-    label: __("Tags", "ditty-news-ticker"),
-    name: __("Layout Tag Attribute Customizations", "ditty-news-ticker"),
-    fields: getTagFields(itemTypeObject.layoutTags),
-  });
 
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
   const [currentTabId, setCurrentTabId] = useState(initialTab);
@@ -155,49 +141,26 @@ const PopupEditItem = ({
   };
 
   const renderPopupContents = () => {
-    if ("layoutAttributes" === currentFieldGroup.id) {
-      return (
-        <FieldList
-          name={currentFieldGroup.name}
-          desc={currentFieldGroup.desc}
-          fields={currentFieldGroup.fields}
-          values={editItem.attribute_value ? editItem.attribute_value : {}}
-          onUpdate={(id, value) => {
-            const updatedItem = { ...editItem };
-            if (
-              !updatedItem.attribute_value ||
-              typeof updatedItem.attribute_value !== "object" ||
-              Array.isArray(updatedItem.attribute_value)
-            ) {
-              updatedItem.attribute_value = {};
-            }
-            updatedItem.attribute_value[id] = value;
-            addItemUpdate(updatedItem, "attribute_value");
-          }}
-        />
-      );
-    } else {
-      return (
-        <FieldList
-          name={currentFieldGroup.name}
-          desc={currentFieldGroup.desc}
-          fields={currentFieldGroup.fields}
-          values={editItem.item_value}
-          onUpdate={(id, value) => {
-            const updatedItem = { ...editItem };
-            if (
-              !updatedItem.item_value ||
-              typeof updatedItem.item_value !== "object" ||
-              Array.isArray(updatedItem.item_value)
-            ) {
-              updatedItem.item_value = {};
-            }
-            updatedItem.item_value[id] = value;
-            addItemUpdate(updatedItem, "item_value");
-          }}
-        />
-      );
-    }
+    return (
+      <FieldList
+        name={currentFieldGroup.name}
+        desc={currentFieldGroup.desc}
+        fields={currentFieldGroup.fields}
+        values={editItem.item_value}
+        onUpdate={(id, value) => {
+          const updatedItem = { ...editItem };
+          if (
+            !updatedItem.item_value ||
+            typeof updatedItem.item_value !== "object" ||
+            Array.isArray(updatedItem.item_value)
+          ) {
+            updatedItem.item_value = {};
+          }
+          updatedItem.item_value[id] = value;
+          addItemUpdate(updatedItem, "item_value");
+        }}
+      />
+    );
   };
 
   return (
@@ -208,7 +171,7 @@ const PopupEditItem = ({
         header={renderPopupHeader()}
         footer={renderPopupFooter()}
         onClose={() => {
-          onClose("onClose");
+          onClose(editItem);
         }}
         onSubmit={() => {
           onUpdate(editItem, updateKeys);

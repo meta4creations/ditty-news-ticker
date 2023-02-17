@@ -192,7 +192,7 @@ class Ditty_Item_Type {
 			'default' => array(
 				'template'		=> 'default',
 				'label'				=> __( 'Default', 'ditty-news-ticker' ),
-				'description' => __( 'Default variation.', 'ditty-news-ticker' ),
+				'description' => __( 'The default variation used for this item.', 'ditty-news-ticker' ),
 				'icon'				=> 'fa-solid fa-asterisk'
 			),
 		);

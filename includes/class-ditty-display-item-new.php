@@ -333,8 +333,9 @@ class Ditty_Display_Item_New {
 		}
 		$syntax = new Syntax( '{', '}', '/', '=', '"' ); // created explicitly
 		$processor = new Processor( new RegularParser( $syntax ), $handlers );
+		$processed_html = stripslashes( $processor->process( $html ) );
 
-		return stripslashes( $processor->process( $html ) );
+		return $processed_html;
 	}
 
 	/**
