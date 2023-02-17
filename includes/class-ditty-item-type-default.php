@@ -164,6 +164,25 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 		);
 		return $sanitized_fields;
 	}
+
+	/**
+	 * Return the layout tags
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function get_layout_tags() {
+		$layout_tags = ditty_layout_tags();
+		$allowed_tags = array(
+			'content',
+			'time',
+			'author_avatar',
+			'author_bio',
+			'author_name',
+		);
+		$tags = array_intersect_key( $layout_tags, array_flip( $allowed_tags ) );
+		return $tags;
+	}
 	
 	/**
 	 * Display the editor preview

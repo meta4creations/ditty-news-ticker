@@ -40,24 +40,6 @@ const PopupEditLayoutTag = ({
     return `{${renderedTag}}`;
   };
 
-  // const getTagFields = () => {
-  //   const atts = layoutTag.atts;
-  //   const fields = [];
-  //   for (const key in atts) {
-  //     if (typeof atts[key] === "object") {
-  //       fields.push(atts[key]);
-  //     } else {
-  //       fields.push({
-  //         type: "text",
-  //         id: key,
-  //         name: key,
-  //         std: atts[key],
-  //       });
-  //     }
-  //   }
-  //   return fields;
-  // };
-
   const renderPopupHeader = () => {
     return (
       <>

@@ -63,6 +63,39 @@ class Ditty_Layouts {
 		
 		add_action( 'wp_ajax_ditty_install_layout', array( $this, 'install_layout' ) );
 	}
+
+	/**
+	 * Return layout tag attribute default settings
+	 *
+	 * @access  private
+	 * @since   3.1
+	 */
+	public function tag_attribute_default_settings ( $tag, $default = false ) {
+		switch( $tag ) {
+			case 'wrapper':
+				return [
+					'type' => "select",
+      		'id' =>  "wrapper",
+      		'options' => [
+						"div",
+  					"h1",
+						"h2",
+						"h3",
+						"h4",
+						"h5",
+						"h6",
+						"p",
+						"span",
+						"none",
+					],
+					'help' =>  __(
+						"Set the containing element of the rendered content",
+						"ditty-news-ticker"
+					),
+      		'std' => $default ? $default : 'div',
+				];
+		}
+	}
 	
 	/**
 	 * Install default layouts

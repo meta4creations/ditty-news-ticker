@@ -23,6 +23,7 @@ class Ditty_Display_Item_New {
 	private $item_meta;
 	private $item_type;
 	private $item_value;
+	private $attribute_value;
 	private $layout;
 	private $variation_id;
 	private $layout_id;
@@ -43,6 +44,7 @@ class Ditty_Display_Item_New {
 		$this->uniq_id = isset( $prepared_meta['item_uniq_id'] ) ? $prepared_meta['item_uniq_id'] : $prepared_meta['item_id'];
 		$this->parent_id = isset( $prepared_meta['parent_id'] ) ? $prepared_meta['parent_id'] : 0;
 		$this->item_value = $prepared_meta['item_value'];	
+		$this->attribute_value = isset( $prepared_meta['attribute_value'] ) ? maybe_unserialize( $prepared_meta['attribute_value'] ) : array();	
 		$this->item_type = $prepared_meta['item_type'];
 		$this->has_error = isset( $prepared_meta['has_error'] ) ? $prepared_meta['has_error'] : false;
 		$this->custom_classes = isset( $prepared_meta['custom_classes'] ) ? $prepared_meta['custom_classes'] : false;
@@ -125,6 +127,23 @@ class Ditty_Display_Item_New {
 	 */
 	public function get_layout_id() {
 		return $this->layout_id;
+	}
+
+	/**
+	 * Return an attribute value
+	 * @access public
+	 * @since  3.0
+	 * @return string $html
+	 */
+	public function get_item_attribute_value( $tag, $attribute ) {
+		if ( isset( $this->attribute_value[$tag] ) ) {
+			if ( isset( $this->attribute_value[$tag]['disabled'] ) ) {
+				return 'disabled';
+			} else if( isset( $this->attribute_value[$tag][$attribute] ) ) {
+				return $this->attribute_value[$tag][$attribute];
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -237,6 +256,29 @@ class Ditty_Display_Item_New {
 		}
 		return $this->css_compiled;
 	}
+
+	/**
+	 * Return the layout css
+	 * @access public
+	 * @since  3.0.18
+	 * @return html
+	 */
+	public function get_layout_att_values( $tag, $atts ) {
+		$final_att_values = [];
+		if ( is_array( $atts ) && count( $atts ) > 0 ) {
+			foreach ( $atts as $key => $value ) {
+				if ( is_array( $value ) ) {
+					$final_att_values[$key] = isset( $value['std'] ) ? $value['std'] : '';
+				} else {
+					$final_att_values[$key] = $value;
+				}
+				if ( $custom_value = $this->get_item_attribute_value( $tag, $key ) ) {
+					$final_att_values[$key] = $custom_value;
+				}		
+			}
+		}
+		return $final_att_values;
+	}
 	
 	/**
 	 * Return the layout html
@@ -260,6 +302,7 @@ class Ditty_Display_Item_New {
 				$handlers->add( $tag['tag'], function( ShortcodeInterface $s ) use ( $tag, $data ) {
 					$data['item_meta'] = $this->get_item_meta();
 					$defaults = isset( $tag['atts'] ) ? $tag['atts'] : array();
+					$defaults = $this->get_layout_att_values( $tag['tag'], $defaults );
 					$atts = $this->parse_atts( $defaults, $s );
 					$atts = apply_filters( 'ditty_layout_tag_atts', $atts, $tag['tag'], $this->get_item_type(), $data );
 					$content = $s->getContent();

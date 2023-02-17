@@ -38,13 +38,15 @@ export const getTagFields = (layoutTags) => {
     layoutTags.map((layoutTag) => {
       const attributeFields = getAttributeFields(layoutTag.atts);
       return {
-        type: "group",
+        type: "layout_attribute",
+        id: layoutTag.tag,
         name: `{${layoutTag.tag}}`,
-        //help: layoutTag.description,
-        multipleFields: true,
+        help: layoutTag.description,
+        multipleFields: false,
         collapsible: true,
         defaultState: "collapsed",
         fields: attributeFields,
+        std: {},
       };
     });
   return tagGroups;

@@ -386,3 +386,48 @@ $radius: 9px;
     border-bottom-left-radius: 0 !important;
   }
 }
+
+// Layout Attribute
+.ditty-field--layoutAttributeField {
+  .ditty-field-list & {
+    padding: 0;
+    border-bottom: none;
+  }
+  .ditty-field__heading {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: #fbfbfb;
+    border-bottom: 1px solid $input_border_color;
+    > .ditty-field__heading__contents {
+      > .ditty-field__label {
+        margin-bottom: 0;
+      }
+      > .ditty-field__help {
+        margin-bottom: 0;
+      }
+      > .ditty-field__description {
+        margin-bottom: 0;
+      }
+    }
+  }
+  .layoutAttributeActions {
+    flex: 0 0 auto;
+    margin-left: auto;
+    span {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+      border-radius: 3px;
+      transition: background-color 0.25s ease;
+      &:hover {
+        background: #ccc;
+      }
+    }
+  }
+}

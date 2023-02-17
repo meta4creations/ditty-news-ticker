@@ -11,7 +11,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'author_avatar',
 			'description' => __( "Render the item's author avatar", 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper'			=> 'div',
+				'wrapper'			=> Ditty()->layouts->tag_attribute_default_settings( 'wrapper' ),
 				'before'			=> '',
 				'after'				=> '',
 				'width'				=> '',
@@ -29,7 +29,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'author_banner',
 			'description' => __( "Render the item's author banner", 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper'			=> 'div',
+				'wrapper'			=> Ditty()->layouts->tag_attribute_default_settings( 'wrapper' ),
 				'before'			=> '',
 				'after'				=> '',
 				'width'				=> '',
@@ -47,7 +47,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'author_bio',
 			'description' => __( "Render the item's author biography", 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper' 		=> 'div',
+				'wrapper' 		=> Ditty()->layouts->tag_attribute_default_settings( 'wrapper' ),
 				'before'			=> '',
 				'after'				=> '',
 				'link'				=> '',
@@ -62,7 +62,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'author_name',
 			'description' => __( "Render the item's author name", 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper' 		=> 'div',
+				'wrapper' 		=> Ditty()->layouts->tag_attribute_default_settings( 'wrapper' ),
 				'before'			=> '',
 				'after'				=> '',
 				'link'				=> '',
@@ -77,7 +77,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'author_screen_name',
 			'description' => __( "Render the item's author screen name", 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper' 		=> 'div',
+				'wrapper' 		=> Ditty()->layouts->tag_attribute_default_settings( 'wrapper' ),
 				'before'			=> '',
 				'after'				=> '',
 				'link'				=> '',
@@ -92,7 +92,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'caption',
 			'description' => __( 'Render the item caption.', 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper' 		=> 'div',
+				'wrapper' 		=> Ditty()->layouts->tag_attribute_default_settings( 'wrapper' ),
 				'wpautop'			=> '',
 				'before'			=> '',
 				'after'				=> '',
@@ -108,7 +108,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'categories',
 			'description' => __( 'Render the item categories', 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper' 		=> 'div',
+				'wrapper' 		=> Ditty()->layouts->tag_attribute_default_settings( 'wrapper' ),
 				'before'			=> '',
 				'after'				=> '',
 				'link_target' => '',
@@ -120,10 +120,10 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'content',
 			'description' => __( 'Render the item content.', 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper' 					=> 'div',
-				'before'						=> '',
-				'after'							=> '',
-				'class'							=> '',
+				'wrapper'	=> Ditty()->layouts->tag_attribute_default_settings( 'wrapper' ),
+				'before'	=> '',
+				'after'		=> '',
+				'class'		=> '',
 			),
 		),
 		'custom_field' => array(
@@ -131,7 +131,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'description' => __( 'Render a custom field for the item', 'ditty-news-ticker' ),
 			'atts'				=> array(
 				'id'			=> '',
-				'wrapper' => 'div',
+				'wrapper' => Ditty()->layouts->tag_attribute_default_settings( 'wrapper' ),
 				'before'	=> '',
 				'after'		=> '',
 				'class'		=> '',
@@ -141,7 +141,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'excerpt',
 			'description' => __( 'Render the item excerpt.', 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper' 					=> 'div',
+				'wrapper' 					=> Ditty()->layouts->tag_attribute_default_settings( 'wrapper' ),
 				'wpautop' 					=> false,
 				'before'						=> '',
 				'after'							=> '',
@@ -159,7 +159,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'icon',
 			'description' => __( 'Render the item icon.', 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper' 		=> 'div',
+				'wrapper' 		=> Ditty()->layouts->tag_attribute_default_settings( 'wrapper' ),
 				'before'			=> '',
 				'after'				=> '',
 				'link'				=> '',
@@ -174,7 +174,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'image',
 			'description' => __( 'Render the item image.', 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper'			=> 'div',
+				'wrapper'			=> Ditty()->layouts->tag_attribute_default_settings( 'wrapper' ),
 				'before'			=> '',
 				'after'				=> '',
 				'width'				=> '',
@@ -200,7 +200,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'source',
 			'description' => __( 'Render the item source.', 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper' 		=> 'div',
+				'wrapper' 		=> Ditty()->layouts->tag_attribute_default_settings( 'wrapper' ),
 				'before'			=> '',
 				'after'				=> '',
 				'link'				=> '',
@@ -215,7 +215,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'terms',
 			'description' => __( 'Render the item terms', 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper' 		=> 'div',
+				'wrapper' 		=> Ditty()->layouts->tag_attribute_default_settings( 'wrapper' ),
 				'before'			=> '',
 				'after'				=> '',
 				'term'				=> '',
@@ -228,7 +228,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'time',
 			'description' => __( 'Render the item date/time.', 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper' 		=> 'div',
+				'wrapper' 		=> Ditty()->layouts->tag_attribute_default_settings( 'wrapper' ),
 				'ago'					=> '',
 				'format' 			=> get_option( 'date_format' ),
 				'ago_string' 	=> __( '%s ago', 'ditty-news-ticker' ),
@@ -246,7 +246,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'title',
 			'description' => __( 'Render the item title.', 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper' 		=> 'h3',
+				'wrapper' 		=> Ditty()->layouts->tag_attribute_default_settings( 'wrapper', 'h3' ),
 				'before'			=> '',
 				'after'				=> '',
 				'link'				=> '',

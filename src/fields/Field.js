@@ -5,6 +5,7 @@ import Clone from "./Clone";
 import CheckboxField from "./CheckboxField";
 import CheckboxesField from "./CheckboxesField";
 import GroupField from "./GroupField";
+import LayoutAttributeField from "./LayoutAttributeField";
 import NumberField from "./NumberField";
 import RadioField from "./RadioField";
 import SelectField from "./SelectField";
@@ -78,6 +79,17 @@ const Field = ({ field, fieldValue, updateValue }) => {
           );
         case "heading":
           return <BaseField {...inputField} />;
+        case "layout_attribute":
+          return (
+            <LayoutAttributeField
+              value={inputValue}
+              renderInput={renderInput}
+              onChange={(updatedValue) => {
+                onUpdate(inputField, updatedValue);
+              }}
+              {...inputField}
+            />
+          );
         case "number":
           return (
             <NumberField

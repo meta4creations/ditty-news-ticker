@@ -132,6 +132,8 @@ class Ditty_API {
 				//Set the modified date of the item
 				if ( isset( $item['item_value'] ) ) {
 					$item['date_modified'] = date( 'Y-m-d H:i:s' );
+				} elseif ( isset( $item['attribute_value'] ) ) {
+					$item['date_modified'] = date( 'Y-m-d H:i:s' );
 				}
 
 				if ( is_array( $item ) && count( $item ) > 0 ) {

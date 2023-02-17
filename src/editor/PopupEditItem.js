@@ -161,19 +161,19 @@ const PopupEditItem = ({
           name={currentFieldGroup.name}
           desc={currentFieldGroup.desc}
           fields={currentFieldGroup.fields}
-          values={{}}
+          values={editItem.attribute_value ? editItem.attribute_value : {}}
           onUpdate={(id, value) => {
             console.log(id, value);
-            // const updatedItem = { ...editItem };
-            // if (
-            //   !updatedItem.item_value ||
-            //   typeof updatedItem.item_value !== "object" ||
-            //   Array.isArray(updatedItem.item_value)
-            // ) {
-            //   updatedItem.item_value = {};
-            // }
-            // updatedItem.item_value[id] = value;
-            // addItemUpdate(updatedItem, "item_value");
+            const updatedItem = { ...editItem };
+            if (
+              !updatedItem.attribute_value ||
+              typeof updatedItem.attribute_value !== "object" ||
+              Array.isArray(updatedItem.attribute_value)
+            ) {
+              updatedItem.attribute_value = {};
+            }
+            updatedItem.attribute_value[id] = value;
+            addItemUpdate(updatedItem, "attribute_value");
           }}
         />
       );

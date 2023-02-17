@@ -26,7 +26,7 @@ class Ditty_DB_Items extends Ditty_DB {
 
 		$this->table_name  = $wpdb->prefix . 'ditty_items';
 		$this->primary_key = 'item_id';
-		$this->version     = '1.1';
+		$this->version     = '1.2';
 
 		add_action( 'plugins_loaded', array( $this, 'register_table' ), 11 );
 	}
@@ -38,15 +38,16 @@ class Ditty_DB_Items extends Ditty_DB {
 	*/
 	public function get_columns() {
 		return array(
-			'item_id'     	=> '%d',
-			'item_type'  		=> '%s',
-			'item_value'  	=> '%s',
-			'ditty_id' 			=> '%d',
-			'layout_value'	=> '%s',
-			'item_index'  	=> '%d',
-			'item_author'  	=> '%d',
-			'date_created'  => '%s',
-			'date_modified' => '%s',
+			'item_id'     		=> '%d',
+			'item_type'  			=> '%s',
+			'item_value'  		=> '%s',
+			'ditty_id' 				=> '%d',
+			'layout_value'		=> '%s',
+			'attribute_value'	=> '%s',
+			'item_index'  		=> '%d',
+			'item_author'  		=> '%d',
+			'date_created'  	=> '%s',
+			'date_modified' 	=> '%s',
 		);
 	}
 	
@@ -57,15 +58,16 @@ class Ditty_DB_Items extends Ditty_DB {
 	*/
 	public function get_column_defaults() {
 		return array(
-			'item_id'     	=> 0,
-			'item_type'  		=> '',
-			'item_value'  	=> '',
-			'ditty_id' 			=> 0,
-			'layout_value'	=> '',
-			'item_index'  	=> 0,
-			'item_author'  	=> 0,
-			'date_created'  => date( 'Y-m-d H:i:s' ),
-			'date_modified' => date( 'Y-m-d H:i:s' ),
+			'item_id'     		=> 0,
+			'item_type'  			=> '',
+			'item_value'  		=> '',
+			'ditty_id' 				=> 0,
+			'layout_value'		=> '',
+			'attribute_value'	=> '',
+			'item_index'  		=> 0,
+			'item_author'  		=> 0,
+			'date_created'  	=> date( 'Y-m-d H:i:s' ),
+			'date_modified' 	=> date( 'Y-m-d H:i:s' ),
 		);
 	}
 	
@@ -163,6 +165,7 @@ class Ditty_DB_Items extends Ditty_DB {
 			item_value longtext,
 			ditty_id bigint(20) NOT NULL,
 			layout_value longtext,
+			attribute_value longtext,
 			item_index bigint(20),
 			item_author bigint(20),
 			date_created datetime NOT NULL,

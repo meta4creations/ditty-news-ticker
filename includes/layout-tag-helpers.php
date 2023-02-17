@@ -62,6 +62,7 @@ function ditty_layout_render_tag_wrapper( $html, $class = '', $atts = array(), $
 		'class'		=> '',
 	);
 	$args = shortcode_atts( $defaults, $atts );
+
 	$before = ( '' != $args['before'] ) ? "<span class='{$class}__before'>" . wp_filter_nohtml_kses( $args['before'] ) . '</span>' : '';
 	$after = ( '' != $args['after'] ) ? "<span class='{$class}__after'>" . wp_filter_nohtml_kses( $args['after'] ) . '</span>' : '';
 	

@@ -39,28 +39,32 @@ add_action( 'admin_init', 'ditty_updates' );
  * @return void
  */
 function ditty_v3_1_upgrades() {
+
+	// Update the database
+	$db_items = new Ditty_DB_Items();
+	@$db_items->create_table();
 	
 	// Update the Ditty preview padding
-	$args = array(
-		'post_type' => 'ditty',
-	);
-	$dittys = get_posts( $args );
-	if ( is_array( $dittys ) && count( $dittys ) > 0 ) {
-		foreach ( $dittys as $i => $ditty ) {
-			$settings = get_post_meta( $ditty->ID, '_ditty_settings', true );
-			if ( ! is_array( $settings ) ) {
-				$settings = array();
-			}
-			$padding = isset( $settings['previewPadding'] ) ? $settings['previewPadding'] : [];
-			$settings['previewPadding'] = [
-				'top' => isset( $padding['paddingTop'] ) ? $padding['paddingTop'] : 0,
-				'left' => isset( $padding['paddingLeft'] ) ? $padding['paddingLeft'] : 0,
-				'right' => isset( $padding['paddingRight'] ) ? $padding['paddingRight'] : 0,
-				'bottom' => isset( $padding['paddingBottom'] ) ? $padding['paddingBottom'] : 0,
-			];
-			update_post_meta( $ditty->ID, '_ditty_settings', $settings );
-		}
-	}
+	// $args = array(
+	// 	'post_type' => 'ditty',
+	// );
+	// $dittys = get_posts( $args );
+	// if ( is_array( $dittys ) && count( $dittys ) > 0 ) {
+	// 	foreach ( $dittys as $i => $ditty ) {
+	// 		$settings = get_post_meta( $ditty->ID, '_ditty_settings', true );
+	// 		if ( ! is_array( $settings ) ) {
+	// 			$settings = array();
+	// 		}
+	// 		$padding = isset( $settings['previewPadding'] ) ? $settings['previewPadding'] : [];
+	// 		$settings['previewPadding'] = [
+	// 			'top' => isset( $padding['paddingTop'] ) ? $padding['paddingTop'] : 0,
+	// 			'left' => isset( $padding['paddingLeft'] ) ? $padding['paddingLeft'] : 0,
+	// 			'right' => isset( $padding['paddingRight'] ) ? $padding['paddingRight'] : 0,
+	// 			'bottom' => isset( $padding['paddingBottom'] ) ? $padding['paddingBottom'] : 0,
+	// 		];
+	// 		update_post_meta( $ditty->ID, '_ditty_settings', $settings );
+	// 	}
+	// }
 }
 
 /**

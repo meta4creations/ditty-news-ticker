@@ -255,7 +255,7 @@ const PopupEditLayoutVariations = ({
               <>
                 <IconBlock
                   icon={variationObject.icon}
-                  className="ditty-layout-variaion--heading"
+                  className="ditty-layout-variation--heading"
                 >
                   <div className="ditty-icon-block--heading__title">
                     <h3>{variationObject.label && variationObject.label}</h3>
