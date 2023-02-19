@@ -5,6 +5,7 @@
   "author": "Metaphor Creations, LLC",
   "license": "GPL-2.0-or-later",
   "scripts": {
+    "sass": "node-sass --output-style compressed \"./includes/sass/ditty-admin.scss\" -o \"./includes/css\"",
     "build": "wp-scripts build",
     "format": "wp-scripts format",
     "lint:css": "wp-scripts lint-style",
@@ -47,6 +48,7 @@
     "strip-comments": "2.0.1"
   },
   "devDependencies": {
-    "@wordpress/scripts": "24.0.0"
+    "@wordpress/scripts": "24.0.0",
+    "node-sass": "7.0.3"
   }
 }

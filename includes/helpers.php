@@ -1750,15 +1750,15 @@ function is_ditty_preview() {
 /**
  * Check if we are on a ditty edit page
  *
- * @since   3.0
+ * @since   3.1
  */
 function ditty_editing() {
 	$page = isset( $_GET['page'] ) ? $_GET['page'] : false;
 	$id = isset( $_GET['id'] ) ? $_GET['id'] : false;
-	if ( 'ditty' == $page ) {
-		if ( $id ) {
-			return $id;
-		}
+	if ( 'ditty' == $page && $id ) {
+		return $id;
+	} elseif( 'ditty-new' == $page ) {
+		return true;
 	}
 }
 

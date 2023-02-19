@@ -27,13 +27,16 @@ class Ditty_Singles {
 	public function __construct() {
 	
 		// WP metabox hooks
-		if ( is_ditty_dev() ) {
-			add_filter( 'get_edit_post_link', array( $this, 'modify_edit_post_link' ), 10, 3 );
-			add_action( 'admin_menu', array( $this, 'add_ditty_page' ) );
-			add_action( 'admin_init', array( $this, 'edit_page_redirects' ) );
-		} else {
-			add_action( 'edit_form_top', array( $this, 'edit_preview' ) );
-		}
+		// if ( is_ditty_dev() ) {
+		// 	add_filter( 'get_edit_post_link', array( $this, 'modify_edit_post_link' ), 10, 3 );
+		// 	add_action( 'admin_menu', array( $this, 'add_ditty_page' ) );
+		// 	add_action( 'admin_init', array( $this, 'edit_page_redirects' ) );
+		// } else {
+		// 	add_action( 'edit_form_top', array( $this, 'edit_preview' ) );
+		// }
+		add_filter( 'get_edit_post_link', array( $this, 'modify_edit_post_link' ), 10, 3 );
+		add_action( 'admin_menu', array( $this, 'add_ditty_page' ), 10, 5 );
+		add_action( 'admin_init', array( $this, 'edit_page_redirects' ) );
 
 		// General hooks
 		add_filter( 'post_row_actions', array( $this, 'modify_list_row_actions' ), 10, 2 );
@@ -264,36 +267,105 @@ class Ditty_Singles {
 	}
 	
 	/**
+	 * Modify the edit post link
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function modify_edit_post_link( $link, $post_id, $text ) {
+		if ( 'ditty' == get_post_type( $post_id ) ) {
+			return add_query_arg( ['page' => 'ditty', 'id' => $post_id], admin_url( 'admin.php' ) );
+		}
+		return $link;
+	}
+	
+	/**
 	 * Redirect Ditty edit pages to custom screens
 	 * @access  public
+	 *
 	 * @since   3.1
 	 */
 	public function edit_page_redirects() {
 		global $pagenow;
-		echo '<pre>';print_r($pagenow);echo '</pre>';
-		if ( $pagenow === 'post-new.php' ) {
-				wp_redirect( admin_url( 'admin.php?page=ditty' ) );
+		if ( $pagenow === 'post.php' ) {
+			$post_id = isset( $_GET['post'] ) ? $_GET['post'] : 0;
+			if ( 'ditty' == get_post_type( $post_id ) ) {
+				wp_safe_redirect( add_query_arg( ['page' => 'ditty', 'id' => $post_id], admin_url( 'admin.php' ) ) );
 				exit;
+			}
+		}
+		if ( $pagenow === 'post-new.php' ) {
+			wp_safe_redirect( add_query_arg( ['page' => 'ditty-new' ], admin_url( 'admin.php' ) ) );
+			exit;
 		}
 	}
-
+	
+	/**
+	 * Add custom Ditty pages
+	 * @access  public
+	 *
+	 * @since   3.1
+	 */
 	public function add_ditty_page() {
+		
+		//The icon in Base64 format
+		$icon_base64 = 'PHN2ZyBkYXRhLW5hbWU9IkxheWVyIDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDY5LjMxIDcxLjEiIGZpbGw9ImN1cnJlbnRDb2xvciI+PHBhdGggZD0iTTAgNDYuNGMwLTE3LjIgOC42LTI5LjEgMjQuNi0yOS4xYTE5LjkzIDE5LjkzIDAgMCAxIDYuNiAxVjBINDV2NTkuMmwxIDEwLjNIMzQuMmwtLjktNS4yaC0uNWExNS4yMSAxNS4yMSAwIDAgMS0xMyA2LjhDMy44IDcxLjEgMCA1OC40IDAgNDYuNFptMzEuMiA3LjRWMjguNmExMy43IDEzLjcgMCAwIDAtNi0xLjNjLTguNyAwLTExLjMgOC43LTExLjMgMTcuOCAwIDguNSAxLjkgMTUuOCA4LjkgMTUuOCA1LjEgMCA4LjQtMy44IDguNC03LjFaTTYxLjkxIDY1LjZhNyA3IDAgMCAxLTcuMi03LjRjMC01IDIuOC03LjcgNy4xLTcuN3M3LjUgMi42IDcuNSA3LjRjMCA1LjEtMy4xIDcuNy03LjQgNy43Wk02MS45MSA0My4xYTcgNyAwIDAgMS03LjItNy40YzAtNSAyLjgtNy43IDcuMS03LjdzNy41IDIuNiA3LjUgNy40YzAgNS4xLTMuMSA3LjctNy40IDcuN1pNNjEuOTEgMjAuNmE3IDcgMCAwIDEtNy4yLTcuNGMwLTUgMi44LTcuNyA3LjEtNy43czcuNSAyLjYgNy41IDcuNGMwIDUuMS0zLjEgNy43LTcuNCA3LjdaIi8+PC9zdmc+';
+		
+		//The icon in the data URI scheme
+		$icon_data_uri = 'data:image/svg+xml;base64,' . $icon_base64;
+		
 		add_menu_page(
 			esc_html__( 'Ditty', 'ditty-news-ticker' ),
 			esc_html__( 'Ditty', 'ditty-news-ticker' ),
 			'edit_dittys',
 			'ditty',
-			array( $this, 'page_display' )
+			array( $this, 'page_display' ),
+			$icon_data_uri,
+			20
+		);
+		
+		add_submenu_page(
+			null,
+			esc_html__( 'Ditty', 'ditty-news-ticker' ),
+			esc_html__( 'Ditty', 'ditty-news-ticker' ),
+			'edit_dittys',
+			'ditty-new',
+			array( $this, 'page_display_new' )
 		);
 	}
-
+	
+	/**
+	 * Render the custom new Ditty page
+	 * @access  public
+	 *
+	 * @since   3.1
+	 */
+	public function page_display_new() {
+		$ditty_id = ditty_editing();
+		if ( ! $ditty_id ) {
+			return false;
+		}		
+		$title = __( 'New Ditty', 'ditty-news-ticker' );
+		$atts = array(
+			'data-title' => $title,
+		);
+		?>
+		<div id="ditty-editor__wrapper" <?php echo ditty_attr_to_html( $atts ); ?>></div>
+		<?php
+	}
+	
+	/**
+	 * Render the custom Ditty page
+	 * @access  public
+	 *
+	 * @since   3.1
+	 */
 	public function page_display() {
 		$ditty_id = ditty_editing();
 		if ( ! $ditty_id ) {
 			return false;
 		}
-		$item_types = ditty_item_types();
-
+	
 		$ditty = get_post( $ditty_id );
 		$initialized = get_post_meta( $ditty_id, '_ditty_init', true );
 		
@@ -307,12 +379,12 @@ class Ditty_Singles {
 		$display_items = array();
 		if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
 			foreach ( $items_meta as $i => $item_meta ) {
-
+	
 				// Get the editor preview
 				if ( $item_type_object = ditty_item_type_object( $item_meta->item_type ) ) {
 					$item_meta->editor_preview = $item_type_object->editor_preview( $item_meta->item_value );
 				}
-
+	
 				// Unpack the layout variations
 				$layout_value = maybe_unserialize( $item_meta->layout_value );
 				$layout_variations = [];
@@ -325,7 +397,7 @@ class Ditty_Singles {
 				// De-serialize the attribut values
 				$attribute_value = maybe_unserialize( $item_meta->attribute_value );
 				
-
+	
 				$prepared_items = ditty_prepare_display_items( $item_meta );
 				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
 					foreach ( $prepared_items as $i => $prepared_meta ) {
@@ -341,19 +413,19 @@ class Ditty_Singles {
 				$unserialized_items[] = $item_meta;
 			}
 		}
-
+	
 		$display = get_post_meta( $ditty->ID, '_ditty_display', true );
 		if ( (! $display && ! is_array( $display ) ) || ! ditty_display_exists( $display ) ) {
 			$display = ditty_default_display( $ditty->ID );
 		}
-
+	
 		// $display_items = ditty_display_items( $ditty->ID, 'force' );
 		// if ( ! is_array( $display_items ) ) {
 		// 	$display_items = array();
 		// }
-
+	
 		//echo '<pre>';print_r($display_items);echo '</pre>';
-
+	
 		$atts = array(
 			'data-id' 						=> $ditty_id,
 			'data-title' 					=> $title,
@@ -369,19 +441,6 @@ class Ditty_Singles {
 		?>
 		<div id="ditty-editor__wrapper" <?php echo ditty_attr_to_html( $atts ); ?>></div>
 		<?php
-	}
-
-	/**
-	 * Modify the edit post link
-	 *
-	 * @access public
-	 * @since  3.1
-	 */
-	public function modify_edit_post_link( $link, $post_id, $text ) {
-		if ( 'ditty' == get_post_type( $post_id ) ) {
-			return add_query_arg( ['page' => 'ditty', 'id' => $post_id, 'dittyDev' => 1 ], admin_url( 'admin.php' ) );
-		}
-		return $link;
 	}
 	
 	/**

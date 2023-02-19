@@ -20,6 +20,7 @@ class Ditty_Scripts {
 	private $cache_url;
 	private $cache_time;
 	private $cache;
+	private $version;
 
 	/**
 	 * Get things started
@@ -27,6 +28,8 @@ class Ditty_Scripts {
 	 * @since   3.0.9
 	 */
 	public function __construct() {	
+		$this->version	= WP_DEBUG ? time() : DITTY_VERSION;
+		
 		add_action( 'init', array( $this, 'delete_cache' ) );
     add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
     add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );	
@@ -359,15 +362,27 @@ class Ditty_Scripts {
 		} else {
 			$this->load_external_styles( 'display', [], 'enqueue' );
 		}
-
+		
+		if ( is_admin() ) {
+			wp_enqueue_style(
+				'ditty-admin',
+				DITTY_URL . 'includes/css/ditty-admin.css',
+				[],
+				$this->version,
+				'all'
+			);
+		}
+		
 		// Enqueue editor styles
-		wp_enqueue_style(
-			'ditty-editor',
-			DITTY_URL . 'build/dittyEditor.css',
-			['wp-components', 'wp-codemirror'],
-			ditty_version(),
-			'all'
-		);
+		if ( is_admin() && ditty_editing() ) {
+			wp_enqueue_style(
+				'ditty-editor',
+				DITTY_URL . 'build/dittyEditor.css',
+				['wp-components', 'wp-codemirror'],
+				$this->version,
+				'all'
+			);
+		}
 		
 		$disable_fontawesome = ditty_settings( 'disable_fontawesome' );
 		if ( ! is_admin() && ! $disable_fontawesome ) {
@@ -390,14 +405,14 @@ class Ditty_Scripts {
 
 		$min = WP_DEBUG ? '' : '.min';
 		wp_register_script( 'hammer', DITTY_URL . 'includes/libs/hammer.min.js', array( 'jquery' ), '2.0.8.1', true );
-		wp_register_script( 'ditty-slider', DITTY_URL . 'includes/js/class-ditty-slider' . $min . '.js', array( 'jquery', 'hammer' ), ditty_version(), true );
-		wp_register_script( 'ditty-helpers', DITTY_URL . 'includes/js/partials/helpers.js', [], ditty_version(), true );
+		wp_register_script( 'ditty-slider', DITTY_URL . 'includes/js/class-ditty-slider' . $min . '.js', array( 'jquery', 'hammer' ), $this->version, true );
+		wp_register_script( 'ditty-helpers', DITTY_URL . 'includes/js/partials/helpers.js', [], $this->version, true );
 
 		// Register Ditty and display scripts
 		wp_register_script( 'ditty',
 			DITTY_URL . 'build/ditty.js',
 			['wp-hooks', 'jquery-effects-core', 'jquery'],
-			ditty_version(),
+			$this->version,
 			true
 		);
 		if ( empty( $ditty_scripts_enqueued ) ) {
@@ -438,7 +453,7 @@ class Ditty_Scripts {
 			wp_enqueue_script( 'dittyEditor',
 				DITTY_URL . 'build/dittyEditor.js',
 				array_merge(['wp-element', 'wp-components', 'wp-hooks', 'lodash', 'wp-codemirror', 'ditty'], $display_slugs),
-				ditty_version(),
+				$this->version,
 				true
 			);
 			if ( empty( $ditty_scripts_enqueued ) ) {

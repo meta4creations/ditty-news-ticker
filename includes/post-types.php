@@ -6,9 +6,7 @@
  */
 
 function ditty_setup_post_types() {
-	
-	$is_settings_page = ( is_admin() && isset( $_GET['post_type'] ) && 'ditty' == $_GET['post_type'] && isset( $_GET['page'] ) && 'ditty_settings' == $_GET['page'] ) ? true : false;
-		
+
 	//The icon in Base64 format
 	$icon_base64 = 'PHN2ZyBkYXRhLW5hbWU9IkxheWVyIDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDY5LjMxIDcxLjEiIGZpbGw9ImN1cnJlbnRDb2xvciI+PHBhdGggZD0iTTAgNDYuNGMwLTE3LjIgOC42LTI5LjEgMjQuNi0yOS4xYTE5LjkzIDE5LjkzIDAgMCAxIDYuNiAxVjBINDV2NTkuMmwxIDEwLjNIMzQuMmwtLjktNS4yaC0uNWExNS4yMSAxNS4yMSAwIDAgMS0xMyA2LjhDMy44IDcxLjEgMCA1OC40IDAgNDYuNFptMzEuMiA3LjRWMjguNmExMy43IDEzLjcgMCAwIDAtNi0xLjNjLTguNyAwLTExLjMgOC43LTExLjMgMTcuOCAwIDguNSAxLjkgMTUuOCA4LjkgMTUuOCA1LjEgMCA4LjQtMy44IDguNC03LjFaTTYxLjkxIDY1LjZhNyA3IDAgMCAxLTcuMi03LjRjMC01IDIuOC03LjcgNy4xLTcuN3M3LjUgMi42IDcuNSA3LjRjMCA1LjEtMy4xIDcuNy03LjQgNy43Wk02MS45MSA0My4xYTcgNyAwIDAgMS03LjItNy40YzAtNSAyLjgtNy43IDcuMS03LjdzNy41IDIuNiA3LjUgNy40YzAgNS4xLTMuMSA3LjctNy40IDcuN1pNNjEuOTEgMjAuNmE3IDcgMCAwIDEtNy4yLTcuNGMwLTUgMi44LTcuNyA3LjEtNy43czcuNSAyLjYgNy41IDcuNGMwIDUuMS0zLjEgNy43LTcuNCA3LjdaIi8+PC9zdmc+';
 	
@@ -71,7 +69,7 @@ function ditty_setup_post_types() {
 		'show_ui' 						=> true,
 		'capability_type' 		=> 'ditty_layout',
 		'map_meta_cap' 				=> true,
-		'show_in_menu' 				=> 'edit.php?post_type=ditty', 
+		'show_in_menu' 				=> 'admin.php?page=ditty', 
 		'query_var' 					=> true,
 		'rewrite' 						=> false,
 		'supports' 						=> array( 'title' ),
@@ -103,7 +101,7 @@ function ditty_setup_post_types() {
 		'show_ui' 						=> true,
 		'capability_type' 		=> 'ditty_display',
 		'map_meta_cap' 				=> true,
-		'show_in_menu' 				=> 'edit.php?post_type=ditty', 
+		'show_in_menu' 				=> 'admin.php?page=ditty', 
 		'query_var' 					=> true,
 		'rewrite' 						=> false,
 		'supports' 						=> array( 'title' ),
