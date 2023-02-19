@@ -314,14 +314,23 @@ class Ditty_Singles {
 		//The icon in the data URI scheme
 		$icon_data_uri = 'data:image/svg+xml;base64,' . $icon_base64;
 		
-		add_menu_page(
+		// add_menu_page(
+		// 	esc_html__( 'Ditty', 'ditty-news-ticker' ),
+		// 	esc_html__( 'Ditty', 'ditty-news-ticker' ),
+		// 	'edit_dittys',
+		// 	'ditty',
+		// 	array( $this, 'page_display' ),
+		// 	$icon_data_uri,
+		// 	20
+		// );
+
+		add_submenu_page(
+			null,
 			esc_html__( 'Ditty', 'ditty-news-ticker' ),
 			esc_html__( 'Ditty', 'ditty-news-ticker' ),
 			'edit_dittys',
 			'ditty',
 			array( $this, 'page_display' ),
-			$icon_data_uri,
-			20
 		);
 		
 		add_submenu_page(

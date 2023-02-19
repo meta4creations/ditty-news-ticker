@@ -1,14 +1,14 @@
 .wp-admin.post-php.post-type-ditty,
 .wp-admin.post-new-php.post-type-ditty {
 	#poststuff {
-    min-width: inherit;
+		min-width: inherit;
 	}
 	#post-body-content {
 		min-width: inherit;
 	}
 	#post-body.columns-2 #postbox-container-1 {
 		margin-right: -400px;
-    width: 380px;
+		width: 380px;
 	}
 	#poststuff #post-body.columns-2 {
 		margin-right: 400px;
@@ -17,10 +17,10 @@
 		}
 	}
 	#titlediv {
-		display: none;			
+		display: none;
 	}
 }
-@media only screen and ( max-width: 850px ) {
+@media only screen and (max-width: 850px) {
 	.wp-admin.post-type-ditty {
 		#poststuff #post-body.columns-2 #side-sortables {
 			width: auto;
@@ -34,6 +34,14 @@ table.wp-list-table .type-ditty .row-actions,
 table.wp-list-table .type-ditty_layout .row-actions,
 table.wp-list-table .type-ditty_display .row-actions {
 	color: #999;
+}
+
+// #adminmenu .menu-icon-ditty.wp-not-current-submenu .wp-submenu,
+// .folded #adminmenu .wp-has-current-submenu .wp-submenu {
+body:not(.folded) #adminmenu .menu-icon-ditty.wp-not-current-submenu .wp-submenu {
+	min-width: auto !important;
+	width: auto;
+	border-left: none !important;
 }
 
 .ditty_layout_ui--disabled {
@@ -99,7 +107,7 @@ table.wp-list-table .type-ditty_display .row-actions {
 			flex-direction: row;
 			align-items: center;
 			justify-content: flex-start;
-			color: #FFF;
+			color: #fff;
 			background: $green;
 			border-radius: 3px;
 			padding: 5px 10px;
@@ -116,7 +124,7 @@ table.wp-list-table .type-ditty_display .row-actions {
 		flex-direction: row;
 		align-items: stretch;
 		justify-content: flex-start;
-		flex-wrap: wrap
+		flex-wrap: wrap;
 	}
 	&__start {
 		flex: 0 0 auto;
@@ -125,7 +133,7 @@ table.wp-list-table .type-ditty_display .row-actions {
 	}
 	&__bar {
 		flex: 1;
-		background: #F7F7F7;
+		background: #f7f7f7;
 		border: 1px solid #c3c4c7;
 		border-top-right-radius: 3px;
 		border-bottom-right-radius: 3px;
@@ -134,5 +142,5 @@ table.wp-list-table .type-ditty_display .row-actions {
 .fusion-module-icon.ditty {
 	width: 15px;
 	height: 15px;
-	background: url( '../img/d.svg' );
+	background: url("../img/d.svg");
 }

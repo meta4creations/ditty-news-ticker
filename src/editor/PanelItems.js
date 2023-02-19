@@ -30,10 +30,15 @@ import PopupLayouts from "./PopupLayouts";
 const PanelItems = () => {
   const { id, items, displayItems, layouts, actions, helpers } =
     useContext(EditorContext);
+
+  console.log("items", items);
+
   const [currentItem, setCurrentItem] = useState(null);
   const [tempDisplayItems, setTempDisplayItems] = useState(null);
   const [tempPreviewItem, setTempPreviewItem] = useState(null);
-  const [popupStatus, setPopupStatus] = useState(false);
+  const [popupStatus, setPopupStatus] = useState(
+    items.length ? false : "addItem"
+  );
   const itemTypes = getItemTypes();
 
   /**
