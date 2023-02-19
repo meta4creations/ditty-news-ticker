@@ -30,6 +30,7 @@ class Ditty_Singles {
 		if ( is_ditty_dev() ) {
 			add_filter( 'get_edit_post_link', array( $this, 'modify_edit_post_link' ), 10, 3 );
 			add_action( 'admin_menu', array( $this, 'add_ditty_page' ) );
+			add_action( 'admin_init', array( $this, 'edit_page_redirects' ) );
 		} else {
 			add_action( 'edit_form_top', array( $this, 'edit_preview' ) );
 		}
@@ -259,6 +260,20 @@ class Ditty_Singles {
 			</div><!-- /.wrap -->
 			<div id="dittyEditor"></div>
 			<?php
+		}
+	}
+	
+	/**
+	 * Redirect Ditty edit pages to custom screens
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function edit_page_redirects() {
+		global $pagenow;
+		echo '<pre>';print_r($pagenow);echo '</pre>';
+		if ( $pagenow === 'post-new.php' ) {
+				wp_redirect( admin_url( 'admin.php?page=ditty' ) );
+				exit;
 		}
 	}
 
