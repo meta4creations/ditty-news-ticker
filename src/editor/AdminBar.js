@@ -4,9 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLoader } from "@fortawesome/pro-light-svg-icons";
 import { EditorContext } from "./context";
 import { Button } from "../components";
+import { TextField } from "../fields";
 
 const AdminBar = () => {
-  const { title, helpers, actions } = useContext(EditorContext);
+  const { id, title, helpers, actions } = useContext(EditorContext);
+  const [editTitle, setEditTitle] = useState(false);
   const [showSpinner, setShowSpinner] = useState(false);
   const updates = helpers.dittyUpdates();
 
@@ -16,7 +18,24 @@ const AdminBar = () => {
 
   return (
     <div id="ditty-editor__adminbar">
-      <h2>{title}</h2>
+      <div id="ditty-editor__adminbar__title">
+        {editTitle ? (
+          <TextField
+            value={title}
+            onChange={(updatedValue) => actions.updateTitle(updatedValue)}
+            onBlur={() => {
+              setEditTitle(false);
+              if ("" === title) {
+                actions.updateTitle(__(`Ditty ${id}`, "ditty-news-ticker"));
+              }
+            }}
+            setFocus={true}
+          />
+        ) : (
+          <h2 onClick={() => setEditTitle(true)}>{title}</h2>
+        )}
+      </div>
+
       <Button
         className={
           Object.keys(updates).length !== 0 ? "ditty-has-updates" : null

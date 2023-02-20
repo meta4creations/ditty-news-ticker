@@ -282,18 +282,6 @@ function ditty_settings_advanced() {
 			'id' 			=> 'heading',
 			'name' 		=> esc_html__( 'Advanced Settings', 'ditty-news-ticker' ),
 		),
-		'ditty_wizard' => array(
-			'type' 		=> 'radio',
-			'id' 			=> 'ditty_wizard',
-			'name' 		=> esc_html__( 'Ditty Wizard (Beta)', 'ditty-news-ticker' ),
-			'desc' 		=> esc_html__( "The Ditty Wizard helps you set up your new Dittys with a step by step guide.", 'ditty-news-ticker' ),
-			'options'	=> array(
-				'enabled' 	=> esc_html__( 'Enabled', 'ditty-news-ticker' ),
-				'disabled' 	=> esc_html__( 'Disabled', 'ditty-news-ticker' ),
-			),
-			'inline'	=> true,
-			'std' 		=> ditty_settings( 'ditty_wizard' ),
-		),
 		'disable_fontawesome' => array(
 			'type' 				=> 'checkbox',
 			'id' 					=> 'disable_fontawesome',
@@ -474,7 +462,6 @@ function ditty_settings_save( $data, $json_data ) {
 		'variation_defaults'	=> $sanitized_variation_defaults,
 		'global_ditty'				=> $sanitized_global_ditty,
 		'ditty_news_ticker' 	=> isset( $data['ditty_news_ticker'] ) 		? sanitize_key( $data['ditty_news_ticker'] ) : false,
-		'ditty_wizard' 				=> isset( $data['ditty_wizard'] ) 				? sanitize_key( $data['ditty_wizard'] ) : false,
 		'disable_fontawesome' => isset( $data['disable_fontawesome'] )	? sanitize_key( $data['disable_fontawesome'] ) : false,
 		'notification_email' 	=> ( isset( $data['notification_email'] ) && is_email( $data['notification_email'] ) ) ? $data['notification_email'] : false,
 	);

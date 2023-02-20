@@ -19,7 +19,11 @@ const PopupTypeSelector = ({
   return (
     <Popup
       id="typeSelect"
-      submitLabel={submitLabel}
+      submitLabel={
+        typeof submitLabel === "function"
+          ? submitLabel(itemTypeObject)
+          : submitLabel
+      }
       header={
         <>
           <IconBlock

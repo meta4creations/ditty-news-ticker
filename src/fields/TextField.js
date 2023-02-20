@@ -1,13 +1,28 @@
 import { __ } from "@wordpress/i18n";
-import { useState, useRef, useCallback } from "@wordpress/element";
+import { useState, useRef, useEffect, useCallback } from "@wordpress/element";
 import BaseField from "./BaseField";
 
 const TextField = (props) => {
-  const { value, type, onChange, delayChange = false } = props;
+  const {
+    value,
+    type,
+    onChange,
+    onBlur,
+    onFocus,
+    setFocus,
+    delayChange = false,
+  } = props;
   const inputType = type ? type : "text";
   const [delayValue, setDelayValue] = useState(value);
 
+  const inputRef = useRef(null);
   const timerRef = useRef(null);
+
+  useEffect(() => {
+    if (setFocus) {
+      inputRef.current.focus();
+    }
+  }, [setFocus]);
 
   const handleInputChangeDelay = useCallback(
     (e) => {
@@ -31,6 +46,9 @@ const TextField = (props) => {
         onChange={(e) => {
           delayChange ? handleInputChangeDelay(e) : onChange(e.target.value);
         }}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        ref={inputRef}
       />
     </BaseField>
   );

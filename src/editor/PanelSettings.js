@@ -30,7 +30,7 @@ const PanelSettings = ({ editor }) => {
         draft: __("Disabled", "ditty-news-ticker"),
       },
       inline: true,
-      std: "draft",
+      std: "publish",
     },
     {
       type: "radio",
@@ -58,7 +58,21 @@ const PanelSettings = ({ editor }) => {
       type: "number",
       id: "editorWidth",
       name: __("Editor Width", "ditty-news-ticker"),
-      help: __("Set the width of the editor (in pixels).", "ditty-news-ticker"),
+      help: __(
+        "Set the width of the editor (in pixels) for desktop.",
+        "ditty-news-ticker"
+      ),
+      std: 350,
+      min: 300,
+    },
+    {
+      type: "number",
+      id: "editorHeight",
+      name: __("Editor Height", "ditty-news-ticker"),
+      help: __(
+        "Set the height of the editor (in pixels) for mobile.",
+        "ditty-news-ticker"
+      ),
       std: 350,
       min: 300,
     },

@@ -15,7 +15,6 @@ function ditty_settings_defaults() {
 		'variation_defaults'		=> array(),
 		'global_ditty'					=> array(),
 		'ditty_news_ticker' 		=> '',
-		'ditty_wizard' 					=> 'disabled',
 		'disable_fontawesome' 	=> '',
 		'notification_email' 		=> '',
 		'edit_links'						=> 'enabled',
@@ -59,14 +58,13 @@ function ditty_settings( $key=false, $value='' ) {
 /**
  * Return the single settings defaults
  *
- * @since    3.0.13
+ * @since    3.1
 */
 function ditty_single_settings_defaults() {	
 	$defaults = array(
+		'status'					=> 'publish',
 		'ajax_loading'		=> 'no',
 		'live_updates'		=> 'no',
-		'previewBg'				=> false,
-		'previewPadding'	=> array(),
 	);
 	return apply_filters( 'ditty_single_settings_defaults', $defaults );
 }
@@ -1596,18 +1594,6 @@ function ditty_maybe_add_uniq_id( $post_id ) {
 */
 function ditty_news_ticker_enabled() {
 	if ( '' != ditty_settings( 'ditty_news_ticker' ) ) {
-		return true;
-	}
-}
-
-/**
- * Check if Ditty Wizard is enabled
- *
- * @since    3.0.13
- * @var      boolean
-*/
-function ditty_wizard_enabled() {
-	if ( 'enabled' == ditty_settings( 'ditty_wizard' ) ) {
 		return true;
 	}
 }

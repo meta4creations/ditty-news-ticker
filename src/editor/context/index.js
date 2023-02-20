@@ -23,10 +23,18 @@ export class EditorProvider extends Component {
   initialDisplay = this.data.displayobject
     ? JSON.parse(this.data.displayobject)
     : getDisplayObject(this.data.display, [...this.initialDisplays]);
-  initialSettings = this.data.settings ? JSON.parse(this.data.settings) : {};
-  id = this.data.id;
+  initialSettings = this.data.settings
+    ? JSON.parse(this.data.settings)
+    : {
+        status: "publish",
+        ajax_loading: "no",
+        live_updates: "no",
+        editorWidth: 350,
+      };
+  initialId = this.data.id;
 
   state = {
+    id: this.initialId,
     title: this.initialTitle,
     items: [...this.initialItems],
     displayItems: [...this.initialDisplayItems],
@@ -323,6 +331,13 @@ export class EditorProvider extends Component {
       updates.settings = this.state.settings;
     }
 
+    // Check if this is a new Ditty and make sure all new data is sent
+    if ("ditty-new" === this.state.id) {
+      updates.title = this.state.title;
+      updates.display = this.state.currentDisplay;
+      updates.settings = this.state.settings;
+    }
+
     return updates;
   };
 
@@ -331,6 +346,23 @@ export class EditorProvider extends Component {
    * @returns object
    */
   handleAfterSaveDitty = (data, onComplete) => {
+    const updatedState = {};
+
+    // If saving a new Ditty
+    if ("ditty-new" === this.state.id && data.id) {
+      updatedState.id = data.id;
+
+      // Get the current URL
+      const url = new URL(window.location.href);
+
+      // Update the query parameters
+      url.searchParams.set("page", "ditty");
+      url.searchParams.set("id", data.id);
+
+      // Replace the current state with the updated URL
+      history.replaceState(null, "", url);
+    }
+
     if (data.updates && data.updates.items) {
       const updatedItems = this.state.items.map((item) => {
         let temp_id;
@@ -348,66 +380,77 @@ export class EditorProvider extends Component {
         }
         return item;
       });
-      this.setState({ items: updatedItems });
+      updatedState.items = updatedItems;
     }
 
     if (data.updates) {
       const toastUpdates = [];
-      for (const property in data.updates) {
-        let description = __("Ditty has been updated!", "ditty-news-ticker");
-        switch (property) {
-          case "display":
-            toastUpdates.push(
-              __(`Ditty Display has been updated!`, "ditty-news-ticker")
-            );
-            break;
-          case "items":
-            let itemsArranged = false;
-            let itemsUpdated = 0;
-            data.updates[property].map((item) => {
-              if (item.item_index) {
-                itemsArranged = true;
+      if (data.updates.new) {
+        toastUpdates.push(__(`Ditty has been published!`, "ditty-news-ticker"));
+      } else {
+        for (const property in data.updates) {
+          switch (property) {
+            case "display":
+              toastUpdates.push(
+                __(`Ditty Display has been updated!`, "ditty-news-ticker")
+              );
+              break;
+            case "items":
+              let itemsArranged = false;
+              let itemsUpdated = 0;
+              data.updates[property].map((item) => {
+                if (item.item_index) {
+                  itemsArranged = true;
+                }
+                if (item.date_modified) {
+                  itemsUpdated++;
+                }
+              });
+              if (1 === itemsUpdated) {
+                toastUpdates.push(
+                  __(
+                    `${itemsUpdated} Ditty Item has been updated!`,
+                    "ditty-news-ticker"
+                  )
+                );
+              } else if (itemsUpdated > 1) {
+                toastUpdates.push(
+                  __(
+                    `${itemsUpdated} Ditty Items have been updated!`,
+                    "ditty-news-ticker"
+                  )
+                );
               }
-              if (item.date_modified) {
-                itemsUpdated++;
+              if (itemsArranged) {
+                toastUpdates.push(
+                  __(`Ditty Items order has been updated!`, "ditty-news-ticker")
+                );
               }
-            });
-            if (1 === itemsUpdated) {
+              break;
+            case "settings":
+              updatedState.settings = data.updates.settings;
               toastUpdates.push(
-                __(
-                  `${itemsUpdated} Ditty Item has been updated!`,
-                  "ditty-news-ticker"
-                )
+                __(`Ditty Settings have been updated!`, "ditty-news-ticker")
               );
-            } else if (itemsUpdated > 1) {
+              break;
+            case "title":
               toastUpdates.push(
-                __(
-                  `${itemsUpdated} Ditty Items have been updated!`,
-                  "ditty-news-ticker"
-                )
+                __(`Ditty Title has been updated!`, "ditty-news-ticker")
               );
-            }
-            if (itemsArranged) {
-              toastUpdates.push(
-                __(`Ditty Items order has been updated!`, "ditty-news-ticker")
-              );
-            }
-            break;
-          case "settings":
-            toastUpdates.push(
-              __(`Ditty Settings have been updated!`, "ditty-news-ticker")
-            );
-            break;
-          case "title":
-            toastUpdates.push(
-              __(`Ditty Title has been updated!`, "ditty-news-ticker")
-            );
-            break;
-          default:
-            break;
+              break;
+            default:
+              break;
+          }
         }
       }
 
+      // Update the state
+      if (Object.keys(updatedState).length) {
+        console.log("updatedState", updatedState);
+        this.setState(updatedState);
+      }
+
+      // Show Toast updates
       toastUpdates.map((update, index) => {
         toast(update, {
           autoClose: 3000,
@@ -436,7 +479,7 @@ export class EditorProvider extends Component {
   handleSaveDitty = async (onComplete) => {
     // Get the updates
     const updates = this.getDittyUpdates();
-    updates.id = this.id;
+    updates.id = this.state.id;
 
     try {
       await saveDitty(updates, (data) => {
@@ -478,7 +521,7 @@ export class EditorProvider extends Component {
     return (
       <EditorContext.Provider
         value={{
-          id: this.id,
+          id: this.state.id,
           title: this.state.title,
           items: this.state.items,
           displayItems: this.state.displayItems,

@@ -16,21 +16,34 @@ const Editor = () => {
   const { settings, actions } = useContext(EditorContext);
   const [currentTabId, setCurrentTabId] = useState("items");
   let editorWidth = settings.editorWidth ? Number(settings.editorWidth) : 350;
+  let editorHeight = settings.editorHeight
+    ? Number(settings.editorHeight)
+    : 350;
   if (editorWidth < 300) {
     editorWidth = 300;
   }
 
   const handler = (mouseDownEvent) => {
-    const startSize = editorWidth;
-    const startPosition = mouseDownEvent.pageX;
+    const isVertical = window.innerWidth < 782;
+
+    const startSize = isVertical ? editorHeight : editorWidth;
+    const startPosition = isVertical
+      ? mouseDownEvent.pageY
+      : mouseDownEvent.pageX;
 
     function onMouseMove(mouseMoveEvent) {
-      let newSize = startSize + startPosition - mouseMoveEvent.pageX;
+      let newSize = isVertical
+        ? startSize + startPosition - mouseMoveEvent.pageY
+        : startSize + startPosition - mouseMoveEvent.pageX;
       if (newSize < 300) {
         newSize = 300;
       }
 
-      settings.editorWidth = newSize;
+      if (isVertical) {
+        settings.editorHeight = newSize;
+      } else {
+        settings.editorWidth = newSize;
+      }
       actions.updateSettings(settings);
     }
     function onMouseUp() {
@@ -88,7 +101,10 @@ const Editor = () => {
   };
 
   return (
-    <div id="ditty-editor__editor" style={{ width: `${editorWidth}px` }}>
+    <div
+      id="ditty-editor__editor"
+      style={{ width: `${editorWidth}px`, height: `${editorHeight}px` }}
+    >
       <div id="ditty-editor__editor__sizer" onMouseDown={handler}></div>
       <Tabs
         tabs={tabs}

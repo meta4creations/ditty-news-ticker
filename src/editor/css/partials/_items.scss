@@ -1,3 +1,10 @@
+.ditty-editor__panel--items {
+  > .ditty-editor__panel__header {
+    .ditty-button {
+      width: 100%;
+    }
+  }
+}
 .ditty-popup--typeSelect {
   .typeSelector {
     padding: 10px;

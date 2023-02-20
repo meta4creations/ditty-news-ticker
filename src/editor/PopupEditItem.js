@@ -21,7 +21,6 @@ import PopupTypeSelector from "./PopupTypeSelector";
 const PopupEditItem = ({
   item,
   editType = "editItem",
-  submitLabel,
   onChange,
   onClose,
   onUpdate,
@@ -142,7 +141,6 @@ const PopupEditItem = ({
   };
 
   const renderPopupFooter = () => {
-    console.log("editType", editType);
     return (
       <ButtonGroup justify="flex-end" gap="20px">
         {"editItem" === editType && (
@@ -162,11 +160,7 @@ const PopupEditItem = ({
             onUpdate(editItem, updateKeys);
           }}
         >
-          <span>
-            {"editItem" === editType
-              ? __("Update Item", "ditty-news-ticker")
-              : __("Add Item", "ditty-news-ticker")}
-          </span>
+          <span>{__("Update Item Settings", "ditty-news-ticker")}</span>
         </Button>
       </ButtonGroup>
     );

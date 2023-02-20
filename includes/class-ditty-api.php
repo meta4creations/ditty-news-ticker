@@ -107,11 +107,18 @@ class Ditty_API {
 	public function save_ditty( $request ) {
 		$params = $request->get_params();
 		if ( ! isset( $params['apiData'] ) ) {
-			return new WP_Error( 'no_id', __( 'No Ditty id or data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+			return new WP_Error( 'no_api_data', __( 'No data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
 		}
 		$apiData = $params['apiData'];
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
-		$id = isset( $apiData['id'] ) ? $apiData['id'] : array();
+		if ( 0 == $userId ) {
+			return new WP_Error( 'no_userId', __( 'No user id', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+		$id = isset( $apiData['id'] ) ? $apiData['id'] : 0;
+		if ( 0 == $id ) {
+			return new WP_Error( 'no_id', __( 'No Ditty id', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+		$is_new_ditty = ( 'ditty-new' === $id );
 		$items = isset( $apiData['items'] ) ? $apiData['items'] : array();
 		$deletedItems = isset( $apiData['deletedItems'] ) ? $apiData['deletedItems'] : array();
 		$display = isset( $apiData['display'] ) ? $apiData['display'] : false;
@@ -120,7 +127,25 @@ class Ditty_API {
 
 		$updates = array();
 		$errors = array();
-		$test = array();
+		
+		if ( $is_new_ditty ) {
+			$id = wp_insert_post( [
+				'post_type' => 'ditty',
+				'post_status' => 'publish',
+				'post_title' => $title,
+			] );
+			$updates['new'] = $id;
+		} elseif ( $title ) {	
+			$ditty_post_data = array(
+				'ID' => $id,
+				'post_title' => $title,
+			);
+			if ( wp_update_post( $ditty_post_data ) ) {
+				$updates['title'] = $title;
+			} else {
+				$errors['title'] = $title;
+			}
+		}
 
 		// Update items
 		if ( is_array( $items ) && count( $items ) > 0 ) {
@@ -153,8 +178,9 @@ class Ditty_API {
 									}
 								}
 							}
-							$test[$key] = $layout_value;
 							$item[$key] = maybe_serialize( $layout_value );
+						} elseif( 'ditty_id' == $key && $is_new_ditty ) {
+							$item[$key] = $id;
 						} else {
 							$item[$key] = maybe_serialize( $value );
 						}
@@ -216,34 +242,21 @@ class Ditty_API {
 			}
 		}
 
-		// Update settings
+		// Sanitize & update settings
 		if ( $settings ) {	
-			if ( update_post_meta( $id, '_ditty_settings', $settings ) ) {
-				$updates['settings'] = $settings;
+			$sanitized_settings = Ditty()->singles->sanitize_settings( $settings );
+			if ( update_post_meta( $id, '_ditty_settings', $sanitized_settings ) ) {
+				$updates['settings'] = $sanitized_settings;
 			} else {
-				$errors['settings'] = $settings;
-			}
-		}
-
-		// Update title
-		if ( $title ) {	
-			$ditty_post_data = array(
-				'ID' => $id,
-				'post_title' => $title,
-			);
-			if ( wp_update_post( $ditty_post_data ) ) {
-				$updates['title'] = $title;
-			} else {
-				$errors['title'] = $title;
+				$errors['settings'] = $sanitized_settings;
 			}
 		}
 
 		$data = array(
-			'id'	=> $id,
+			'id'			=> $id,
 			'user_id' => $userId,
 			'updates' => $updates,
 			'errors'	=> $errors,
-			'test'		=> $test,
 			'apiData'	=> $apiData,
 		);
 

@@ -217,7 +217,9 @@ const PanelItems = () => {
             currentType="default"
             types={itemTypes}
             getTypeObject={getItemTypeObject}
-            submitLabel={__("Use Selected Type", "ditty-news-ticker")}
+            submitLabel={(selectedItemTypeObject) =>
+              __(`Add ${selectedItemTypeObject.label}`, "ditty-news-ticker")
+            }
             onClose={() => {
               setPopupStatus(false);
             }}
