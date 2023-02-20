@@ -153,8 +153,15 @@ const PanelDisplays = () => {
               if (currentDisplay.type === updatedType) {
                 return false;
               }
-              const updatedDisplay = { ...currentDisplay };
+              const updatedDisplay = _.cloneDeep(currentDisplay);
+              const updatedDisplayTypeObject =
+                getDisplayTypeObject(updatedType);
+
               updatedDisplay.type = updatedType;
+              updatedDisplay.settings = {
+                ...updatedDisplayTypeObject.defaultValues,
+                ...updatedDisplay.settings,
+              };
               actions.setCurrentDisplay(updatedDisplay);
             }}
           />

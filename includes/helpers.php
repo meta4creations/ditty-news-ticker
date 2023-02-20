@@ -1758,7 +1758,7 @@ function ditty_editing() {
 	if ( 'ditty' == $page && $id ) {
 		return $id;
 	} elseif( 'ditty-new' == $page ) {
-		return true;
+		return 'ditty-new';
 	}
 }
 

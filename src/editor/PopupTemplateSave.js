@@ -33,7 +33,6 @@ const PopupTemplateSave = ({
   const [currentTabId, setCurrentTabId] = useState(
     currentTemplate.id ? "existing" : "new"
   );
-  const [showSpinner, setShowSpinner] = useState(false);
 
   const elements = [
     {
@@ -144,7 +143,6 @@ const PopupTemplateSave = ({
       templateName,
       templateDescription
     );
-    setShowSpinner(true);
     try {
       if ("display" === templateType) {
         await saveDisplay(data, handleApiData);
@@ -166,7 +164,6 @@ const PopupTemplateSave = ({
     } catch (ex) {
       if (ex.response && ex.response.status === 404) {
       }
-      setShowSpinner(false);
     }
   };
 
@@ -183,7 +180,6 @@ const PopupTemplateSave = ({
         ("new" === currentTabId && "" === templateName)
       }
       header={popupHeader()}
-      showSpinner={showSpinner}
       onClose={() => {
         onClose();
       }}

@@ -15,6 +15,7 @@ export const getDittyData = (dittyId) => {
 };
 
 export function saveDitty(data, onComplete) {
+  console.log("data", data);
   const apiURL = `${apiEndpoint}/save`;
   const apiData = {
     security: dittyEditorVars.security,

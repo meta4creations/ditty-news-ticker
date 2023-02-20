@@ -424,16 +424,6 @@ class Ditty_Singles {
 		}
 	
 		$display = get_post_meta( $ditty->ID, '_ditty_display', true );
-		if ( (! $display && ! is_array( $display ) ) || ! ditty_display_exists( $display ) ) {
-			$display = ditty_default_display( $ditty->ID );
-		}
-	
-		// $display_items = ditty_display_items( $ditty->ID, 'force' );
-		// if ( ! is_array( $display_items ) ) {
-		// 	$display_items = array();
-		// }
-	
-		//echo '<pre>';print_r($display_items);echo '</pre>';
 	
 		$atts = array(
 			'data-id' 						=> $ditty_id,

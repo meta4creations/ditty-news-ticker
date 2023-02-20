@@ -17,6 +17,23 @@ if (dittyEditor) {
       title: true,
       styles: ["container", "content", "item"],
     },
+    defaultValues: {
+      direction: "left",
+      minHeight: "300px",
+      spacing: "25",
+      speed: "10",
+      heightEase: "easeInOutQuint",
+      heightSpeed: "1.5",
+      scrollInit: "empty",
+      scrollDelay: "3",
+      cloneItems: "yes",
+      wrapItems: "yes",
+      hoverPause: "1",
+      titleDisplay: "none",
+      titleElement: "h3",
+      titleElementPosition: "start",
+      itemElementsWrap: "nowrap",
+    },
   });
 
   /**
@@ -141,6 +158,26 @@ if (dittyEditor) {
           suffix: __("second(s)", "ditty-news-ticker"),
         },
         {
+          type: "unit",
+          id: "itemMaxWidth",
+          name: __("Item Max Width", "ditty-news-ticker"),
+          help: __("Set a maximum width for items", "ditty-news-ticker"),
+        },
+        {
+          type: "radio",
+          id: "itemElementsWrap",
+          name: __("Wrap Item Elements", "ditty-news-ticker"),
+          help: __(
+            "Allow item elements to wrap, or force them to not wrap.",
+            "ditty-news-ticker"
+          ),
+          inline: true,
+          options: {
+            wrap: __("Wrap", "ditty-news-ticker"),
+            nowrap: __("No Wrap", "ditty-news-ticker"),
+          },
+        },
+        {
           type: "radio",
           id: "cloneItems",
           name: __("Clone Items?", "ditty-news-ticker"),
@@ -191,40 +228,6 @@ if (dittyEditor) {
       ];
 
       return fields;
-    }
-  );
-
-  /**
-   * Additional item style fields
-   */
-  dittyEditor.addFilter(
-    "displaySettingsStylesItemFields",
-    (fields, displayType) => {
-      if ("ticker" !== displayType) {
-        return fields;
-      }
-      return fields.concat([
-        {
-          type: "unit",
-          id: "itemMaxWidth",
-          name: __("Item Max Width", "ditty-news-ticker"),
-          help: __("Set a maximum width for items", "ditty-news-ticker"),
-        },
-        {
-          type: "radio",
-          id: "itemElementsWrap",
-          name: __("Item Wrap Elements", "ditty-news-ticker"),
-          help: __(
-            "Allow item elements to wrap, or force them to not wrap.",
-            "ditty-news-ticker"
-          ),
-          inline: true,
-          options: {
-            wrap: __("Wrap", "ditty-news-ticker"),
-            nowrap: __("No Wrap", "ditty-news-ticker"),
-          },
-        },
-      ]);
     }
   );
 }

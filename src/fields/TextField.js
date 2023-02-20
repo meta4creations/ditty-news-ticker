@@ -3,16 +3,16 @@ import { useState, useRef, useCallback } from "@wordpress/element";
 import BaseField from "./BaseField";
 
 const TextField = (props) => {
-  const { value, type, onChange } = props;
+  const { value, type, onChange, delayChange = false } = props;
   const inputType = type ? type : "text";
-  const [inputValue, setInputValue] = useState(value);
+  const [delayValue, setDelayValue] = useState(value);
 
   const timerRef = useRef(null);
 
-  const handleInputChange = useCallback(
-    (event) => {
-      const updatedValue = event.target.value;
-      setInputValue(updatedValue);
+  const handleInputChangeDelay = useCallback(
+    (e) => {
+      const updatedValue = e.target.value;
+      setDelayValue(updatedValue);
 
       // Clear the existing timer
       clearTimeout(timerRef.current);
@@ -20,12 +20,18 @@ const TextField = (props) => {
       // Start a new timer to update the parent element
       timerRef.current = setTimeout(() => onChange(updatedValue), 500);
     },
-    [onChange, inputValue]
+    [onChange, delayValue]
   );
 
   return (
     <BaseField {...props} type={inputType}>
-      <input type={inputType} value={inputValue} onChange={handleInputChange} />
+      <input
+        type={inputType}
+        value={delayChange ? delayValue : value}
+        onChange={(e) => {
+          delayChange ? handleInputChangeDelay(e) : onChange(e.target.value);
+        }}
+      />
     </BaseField>
   );
 };

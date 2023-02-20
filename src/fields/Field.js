@@ -15,7 +15,7 @@ import TextField from "./TextField";
 import TextareaField from "./TextareaField";
 import UnitField from "./UnitField";
 
-const Field = ({ field, fieldValue, updateValue }) => {
+const Field = ({ field, fieldValue, updateValue, delayChange = false }) => {
   const handleUpdateValue = (field, value) => {
     if ("group" === field.type && Array.isArray(value) && !field.clone) {
       value.map((v) => updateValue(v.id, v.value));
@@ -143,6 +143,7 @@ const Field = ({ field, fieldValue, updateValue }) => {
           return (
             <TextareaField
               value={inputValue}
+              delayChange={delayChange}
               onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />
@@ -167,6 +168,7 @@ const Field = ({ field, fieldValue, updateValue }) => {
           return (
             <TextField
               value={inputValue}
+              delayChange={delayChange}
               onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />

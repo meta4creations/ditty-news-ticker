@@ -31,13 +31,11 @@ const PanelItems = () => {
   const { id, items, displayItems, layouts, actions, helpers } =
     useContext(EditorContext);
 
-  console.log("items", items);
-
   const [currentItem, setCurrentItem] = useState(null);
   const [tempDisplayItems, setTempDisplayItems] = useState(null);
   const [tempPreviewItem, setTempPreviewItem] = useState(null);
   const [popupStatus, setPopupStatus] = useState(
-    items.length ? false : "addItem"
+    items.length ? false : "newItem"
   );
   const itemTypes = getItemTypes();
 
@@ -46,6 +44,7 @@ const PanelItems = () => {
    */
   const handleAddItem = (itemType) => {
     const dittyEl = document.getElementById("ditty-editor__ditty");
+    const itemTypeObject = getItemTypeObject(itemType);
     const variationDefaults = dittyEditorVars.variationDefaults
       ? dittyEditorVars.variationDefaults
       : {};
@@ -59,16 +58,24 @@ const PanelItems = () => {
       item_id: itemId,
       item_index: null,
       item_type: itemType,
-      item_value: {},
+      item_value: itemTypeObject.defaultValues
+        ? itemTypeObject.defaultValues
+        : {},
       layout_value: layoutValue,
     };
-    actions.addItem(newItem);
-    setCurrentItem(newItem);
 
     // Get new display items
     getDisplayItems(newItem, layouts, (data) => {
+      if (data.preview_items[newItem.item_id]) {
+        newItem.editor_preview = data.preview_items[newItem.item_id];
+      }
+      actions.addItem(newItem);
+      setCurrentItem(newItem);
+
       actions.addDisplayItems(data.display_items);
       addDisplayItems(dittyEl, data.display_items);
+
+      setPopupStatus("addItem");
     });
   };
 
@@ -150,10 +157,12 @@ const PanelItems = () => {
             }}
           />
         );
+      case "addItem":
       case "editItem":
         return (
           <PopupEditItem
             item={currentItem}
+            editType={popupStatus}
             onClose={(editedItem) => {
               setPopupStatus(false);
               if (!_.isEqual(editedItem.item_value, currentItem.item_value)) {
@@ -202,19 +211,18 @@ const PanelItems = () => {
             }}
           />
         );
-      case "addItem":
+      case "newItem":
         return (
           <PopupTypeSelector
             currentType="default"
             types={itemTypes}
             getTypeObject={getItemTypeObject}
-            submitLabel={__("Add Item", "ditty-news-ticker")}
+            submitLabel={__("Use Selected Type", "ditty-news-ticker")}
             onClose={() => {
               setPopupStatus(false);
             }}
             onUpdate={(itemType) => {
               handleAddItem(itemType);
-              setPopupStatus("editItem");
             }}
           />
         );
@@ -309,7 +317,7 @@ const PanelItems = () => {
     return (
       <button
         className="ditty-button"
-        onClick={() => setPopupStatus("addItem")}
+        onClick={() => setPopupStatus("newItem")}
       >
         {__("Add Item", "ditty-news-ticker")}
       </button>

@@ -1,4 +1,5 @@
 import { __ } from "@wordpress/i18n";
+import { useState } from "@wordpress/element";
 import classnames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLoader } from "@fortawesome/pro-light-svg-icons";
@@ -16,10 +17,11 @@ const Popup = ({
   children,
   onClose,
   onSubmit,
-  showSpinner,
   className,
   level,
 }) => {
+  const [showSpinner, setShowSpinner] = useState(false);
+
   const classes = classnames("ditty-popup", className, `ditty-popup--${id}`, {
     "ditty-popup--level-2": level === "2",
     "ditty-popup--level-3": level === "3",
@@ -45,7 +47,10 @@ const Popup = ({
                 </Link>
                 <Button
                   type="primary"
-                  onClick={onSubmit}
+                  onClick={() => {
+                    setShowSpinner(true);
+                    onSubmit();
+                  }}
                   disabled={submitDisabled}
                 >
                   {showSpinner && (

@@ -15,6 +15,37 @@ if (dittyEditor) {
       navigation: ["arrows", "bullets"],
       styles: ["container", "content", "page", "item"],
     },
+    defaultValues: {
+      spacing: "14",
+      paging: "1",
+      perPage: "10",
+      transition: "fade",
+      transitionEase: "easeInOutQuint",
+      transitionSpeed: "1",
+      heightEase: "easeInOutQuint",
+      heightSpeed: "1",
+      arrows: "none",
+      arrowsPosition: "center",
+      arrowsPadding: {
+        paddingTop: "",
+        paddingBottom: "20px",
+        paddingLeft: "",
+        paddingRight: "",
+      },
+      bullets: "style1",
+      bulletsPosition: "bottomCenter",
+      bulletsSpacing: "2",
+      bulletsPadding: {
+        paddingTop: "20px",
+        paddingBottom: "",
+        paddingLeft: "",
+        paddingRight: "",
+      },
+      borderStyle: "none",
+      contentsBorderStyle: "none",
+      pageBorderStyle: "none",
+      itemBorderStyle: "none",
+    },
   });
 
   /**

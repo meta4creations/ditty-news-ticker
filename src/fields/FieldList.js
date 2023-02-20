@@ -10,6 +10,7 @@ const FieldList = ({
   values,
   className,
   onUpdate,
+  delayChange = false,
 }) => {
   const classes = classnames("ditty-field-list", className);
 
@@ -95,6 +96,7 @@ const FieldList = ({
               field={field}
               fieldValue={fieldValue(field)}
               updateValue={onUpdate}
+              delayChange={delayChange}
             />
           ) : null;
         })}

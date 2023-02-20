@@ -20,7 +20,8 @@ import PopupTypeSelector from "./PopupTypeSelector";
 
 const PopupEditItem = ({
   item,
-  submitLabel = __("Update Item", "ditty-news-ticker"),
+  editType = "editItem",
+  submitLabel,
   onChange,
   onClose,
   onUpdate,
@@ -116,30 +117,6 @@ const PopupEditItem = ({
     );
   };
 
-  const renderPopupFooter = () => {
-    return (
-      <ButtonGroup justify="flex-end" gap="20px">
-        <Link
-          style={{ marginRight: "auto", color: "#cc1818" }}
-          onClick={onDelete}
-        >
-          {__("Delete", "ditty-news-ticker")}
-        </Link>
-        <Link onClick={onClose}>{__("Cancel", "ditty-news-ticker")}</Link>
-        <Button
-          type="primary"
-          onClick={() => {
-            onUpdate(editItem, updateKeys);
-          }}
-        >
-          <span>
-            {submitLabel ? submitLabel : __("Submit", "ditty-news-ticker")}
-          </span>
-        </Button>
-      </ButtonGroup>
-    );
-  };
-
   const renderPopupContents = () => {
     return (
       <FieldList
@@ -147,6 +124,7 @@ const PopupEditItem = ({
         desc={currentFieldGroup.desc}
         fields={currentFieldGroup.fields}
         values={editItem.item_value}
+        delayChange={true}
         onUpdate={(id, value) => {
           const updatedItem = { ...editItem };
           if (
@@ -163,19 +141,48 @@ const PopupEditItem = ({
     );
   };
 
+  const renderPopupFooter = () => {
+    console.log("editType", editType);
+    return (
+      <ButtonGroup justify="flex-end" gap="20px">
+        {"editItem" === editType && (
+          <>
+            <Link
+              style={{ marginRight: "auto", color: "#cc1818" }}
+              onClick={onDelete}
+            >
+              {__("Delete", "ditty-news-ticker")}
+            </Link>
+            <Link onClick={onClose}>{__("Cancel", "ditty-news-ticker")}</Link>
+          </>
+        )}
+        <Button
+          type="primary"
+          onClick={() => {
+            onUpdate(editItem, updateKeys);
+          }}
+        >
+          <span>
+            {"editItem" === editType
+              ? __("Update Item", "ditty-news-ticker")
+              : __("Add Item", "ditty-news-ticker")}
+          </span>
+        </Button>
+      </ButtonGroup>
+    );
+  };
+
   return (
     <>
       <Popup
         id="itemEdit"
-        submitLabel={submitLabel}
+        submitLabel={
+          "editItem" === editType
+            ? __("Update Item", "ditty-news-ticker")
+            : __("Add Item", "ditty-news-ticker")
+        }
         header={renderPopupHeader()}
         footer={renderPopupFooter()}
-        onClose={() => {
-          onClose(editItem);
-        }}
-        onSubmit={() => {
-          onUpdate(editItem, updateKeys);
-        }}
       >
         {renderPopupContents()}
       </Popup>
