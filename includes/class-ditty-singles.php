@@ -20,7 +20,7 @@ class Ditty_Singles {
 	public function __construct() {
 	
 		add_filter( 'get_edit_post_link', array( $this, 'modify_edit_post_link' ), 10, 3 );
-		add_action( 'admin_menu', array( $this, 'add_ditty_page' ), 10, 5 );
+		add_action( 'admin_menu', array( $this, 'add_ditty_pages' ), 10, 5 );
 		add_action( 'admin_init', array( $this, 'edit_page_redirects' ) );
 
 		// General hooks
@@ -77,7 +77,7 @@ class Ditty_Singles {
 	 *
 	 * @since   3.1
 	 */
-	public function add_ditty_page() {
+	public function add_ditty_pages() {
 		add_submenu_page(
 			null,
 			esc_html__( 'Ditty', 'ditty-news-ticker' ),

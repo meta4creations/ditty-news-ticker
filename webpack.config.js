@@ -22,6 +22,7 @@ var dittyConfig = {
   entry: {
     ditty: "./src/ditty.js",
     dittyEditor: "./src/dittyEditor.js",
+    dittySettings: "./src/dittySettings.js",
     dittyScripts: [
       //"./src/partials/itemTypeDefault.js",
       //"./src/partials/itemTypePostsLite.js",
