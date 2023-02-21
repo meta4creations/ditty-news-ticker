@@ -182,6 +182,7 @@ const PanelItems = () => {
                 updateDisplayItems(dittyEl, data.display_items);
                 setTempDisplayItems(data.display_items);
                 if (data.preview_items[updatedItem.item_id]) {
+                  console.log("setTempPreviewItem", data.preview_items);
                   setTempPreviewItem(data.preview_items[updatedItem.item_id]);
                 }
               });
@@ -196,18 +197,18 @@ const PanelItems = () => {
               setTempDisplayItems(null);
               setTempPreviewItem(null);
 
-              // // Get new display items
-              // getDisplayItems(updatedItem, layouts, (data) => {
-              //   if (data.preview_items[updatedItem.item_id]) {
-              //     updatedItem.editor_preview =
-              //       data.preview_items[updatedItem.item_id];
-              //   }
-              //   actions.updateItem(updatedItem, updateKeys);
-              //   const allDisplayItems = actions.updateDisplayItems(
-              //     data.display_items
-              //   );
-              //   updateDisplayItems(dittyEl, allDisplayItems);
-              // });
+              // Get new display items
+              getDisplayItems(updatedItem, layouts, (data) => {
+                if (data.preview_items[updatedItem.item_id]) {
+                  updatedItem.editor_preview =
+                    data.preview_items[updatedItem.item_id];
+                }
+                actions.updateItem(updatedItem, updateKeys);
+                const allDisplayItems = actions.updateDisplayItems(
+                  data.display_items
+                );
+                updateDisplayItems(dittyEl, allDisplayItems);
+              });
             }}
           />
         );
