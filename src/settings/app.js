@@ -16,12 +16,14 @@ export default () => {
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
   const [currentTabId, setCurrentTabId] = useState(initialTab);
 
-  const initSettings =
+  const [initSettings, setInitSettings] = useState(
     dittySettingsVars && dittySettingsVars.settings
       ? dittySettingsVars.settings
-      : {};
-  const [settings, setSettings] = useState(initSettings);
+      : {}
+  );
+  const [settings, setSettings] = useState(_.cloneDeep(initSettings));
   const [showSpinner, setShowSpinner] = useState(false);
+
   const hasUpdates = !_.isEqual(settings, initSettings);
 
   const onSaveComplete = (data) => {
@@ -40,7 +42,8 @@ export default () => {
           </svg>
         ),
       });
-      setSettings(data.updates.settings);
+      setInitSettings(_.cloneDeep(data.updates.settings));
+      setSettings(_.cloneDeep(data.updates.settings));
     } else if (data.updates.errors) {
       console.log("errors", data.updates.errors);
     }

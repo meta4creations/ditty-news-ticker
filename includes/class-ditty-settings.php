@@ -52,7 +52,7 @@ class Ditty_Settings {
 		$fields = [
 			[
 				'id' => 'general',
-				'label' => __("General", "ditty-news-ticker"),
+				'label' => __("General Settings", "ditty-news-ticker"),
 				'name' => __("General Settings", "ditty-news-ticker"),
 				'desc' => __( 'Add a description here...', "ditty-news-ticker" ),
 				'icon' => 'fas fa-cog',
@@ -144,6 +144,30 @@ class Ditty_Settings {
 							],
 						),
 					],
+				]
+			],
+			[
+				'id' => 'advanced',
+				'label' => esc_html__( 'Advanced Settings', 'ditty-news-ticker' ),
+				'name' =>esc_html__( 'Advanced Settings', 'ditty-news-ticker' ),
+				'icon' => 'fas fa-dungeon',
+				'fields' => [
+					[
+						'type' 				=> 'checkbox',
+						'id' 					=> 'disable_fontawesome',
+						'name' 				=> esc_html__( 'Font Awesome', 'ditty-news-ticker' ),
+						'label' 			=> esc_html__( 'Disable Font Awesome from loading on the front-end', 'ditty-news-ticker' ),
+						'desc' 				=> esc_html__( 'This will disable the rendering of certain icons used in default Layouts and Layout tags.', 'ditty-news-ticker' ),
+						'std' 				=> ditty_settings_defaults( 'disable_fontawesome' ),
+					],
+					[
+						'type' 				=> 'checkbox',
+						'id' 					=> 'ditty_news_ticker',
+						'name' 				=> esc_html__( 'Ditty News Ticker', 'ditty-news-ticker' ),
+						'label' 			=> esc_html__( 'Enable Ditty News Ticker (Legacy code)', 'ditty-news-ticker' ),
+						'desc' 				=> esc_html__( 'This will enable loading of all legacy scripts and post types. Only enable this option if you have active Ditty News Ticker posts displaying on your site. You must refresh your browser after saving before changes take place.', 'ditty-news-ticker' ),
+						'std' 				=> ditty_settings_defaults( 'ditty_news_ticker' ),
+					],	
 				]
 			],
 		];	
