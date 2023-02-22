@@ -22,114 +22,100 @@ class Ditty_Settings {
 			[
 				'id' => 'general',
 				'label' => __("General", "ditty-news-ticker"),
-				'name' => __("General", "ditty-news-ticker"),
+				'name' => __("General Settings", "ditty-news-ticker"),
 				'desc' => __( 'Add a description here...', "ditty-news-ticker" ),
 				'icon' => 'fas fa-cog',
 				'fields' => [
-					'content' => array(
-						'type'	=> 'textarea',
-						'id'		=> 'content',
-						'name'	=> __( 'Content', 'ditty-news-ticker' ),
-						'help'	=> __( 'Add the content of your item. HTML and inline styles are supported.', 'ditty-news-ticker' ),
-						'std'		=> isset( $values['content'] ) ? $values['content'] : false,
+					'live_refresh' => array(
+						'type' 		=> 'number',
+						'id' 			=> 'live_refresh',
+						'name' 		=> esc_html__( 'Live Refresh Rate', 'ditty-news-ticker' ),
+						'after' 	=> esc_html__( 'Minute(s)', 'ditty-news-ticker' ),
+						'desc'		=> esc_html__( 'Set the live update refresh interval for your Ditty.', 'ditty-news-ticker' ),
+						'std' 		=> ditty_settings_defaults( 'live_refresh' ),
 					),
-					'link_url' => array(
-						'type'			=> 'text',
-						'id'				=> 'link_url',
-						'name'			=> __( 'Link', 'ditty-news-ticker' ),
-						'help'			=> __( 'Add a custom link to your content. You can also add a link directly into your content.', 'ditty-news-ticker' ),
-						'atts'			=> array(
-							'type'	=> 'url',
+					'edit_links' => array(
+						'type' 				=> 'radio',
+						'id' 					=> 'edit_links',
+						'name' 				=> esc_html__( 'Edit Links', 'ditty-news-ticker' ),
+						'desc' 				=> esc_html__( 'Display links to edit Ditty', 'ditty-news-ticker' ),
+						'inline'			=> true,
+						'options'			=> array(
+							'disabled'	=> esc_html__( 'Disabled', 'ditty-news-ticker' ),
+							'enabled'		=> esc_html__( 'Enabled', 'ditty-news-ticker' ),
 						),
-						'std'		=> isset( $values['link_url'] ) ? $values['link_url'] : false,
-					),
-					'link_title' => array(
-						'type'			=> 'text',
-						'id'				=> 'link_title',
-						'name'			=> __( 'Title', 'ditty-news-ticker' ),
-						'help'			=> __( 'Add a title to the custom lnk.', 'ditty-news-ticker' ),
-						'std'			=> isset( $values['link_title'] ) ? $values['link_title'] : false,
-					),
-					'link_target' => array(
-						'type'			=> 'select',
-						'id'				=> 'link_target',
-						'name'			=> __( 'Target', 'ditty-news-ticker' ),
-						'help'			=> __( 'Set a target for your link.', 'ditty-news-ticker' ),
-						'options'		=> array(
-							'_self'		=> '_self',
-							'_blank'	=> '_blank'
-						),
-						'std'		=> isset( $values['link_target'] ) ? $values['link_target'] : false,
-					),
-					'link_nofollow' => array(
-						'type'			=> 'checkbox',
-						'id'				=> 'link_nofollow',
-						'name'			=> __( 'No Follow', 'ditty-news-ticker' ),
-						'label'			=> __( 'Add "nofollow" to link', 'ditty-news-ticker' ),
-						'help'			=> __( 'Enabling this setting will add an attribute called \'nofollow\' to your link. This tells search engines to not follow this link.', 'ditty-news-ticker' ),
-						'std'		=> isset( $values['link_nofollow'] ) ? $values['link_nofollow'] : false,
+						'std' 				=> ditty_settings_defaults( 'edit_links' ),
 					),
 				]
-			]
+			],
+			[
+				'id' => 'global_ditty',
+				'label' => esc_html__( 'Global Ditty', 'ditty-news-ticker' ),
+				'name' => esc_html__( 'Global Ditty Settings', 'ditty-news-ticker' ),
+				'desc' => esc_html__( 'Add Ditty dynamically anywhere on your site. You just need to specify an html selector and the position for the Ditty in relation to the selector. Then choose a Ditty and optionally set other customization options.', 'ditty-news-ticker' ),
+				'icon' => 'fas fa-globe-americas',
+				'fields' => [
+					'global_ditty' => array(
+						'type' 						=> 'group',
+						'id' 							=> 'global_ditty',
+						'clone'						=> true,
+						'clone_button'		=> esc_html__( 'Add More Global Tickers', 'ditty-news-ticker' ),
+						'multiple_fields'	=> false,
+						'fields' 					=> array(
+							'selector' 		=> array(
+								'type'				=> 'text',
+								'id' 					=> 'selector',
+								'name' 				=> esc_html__( 'HTML Selector', 'ditty-news-ticker' ),
+								'help'				=> esc_html__( 'Add a jQuery HTML element selector to add a Ditty to.', 'ditty-news-ticker' ),
+								'placeholder'	=> esc_html__( 'Example: #site-header', 'ditty-news-ticker' ),
+							),
+							array(
+								'type'				=> 'select',
+								'id' 					=> 'position',
+								'name' 				=> esc_html__( 'Position', 'ditty-news-ticker' ),
+								'help'				=> esc_html__( 'Select the position of the Ditty in relation to the HTML selector.', 'ditty-news-ticker' ),
+								'placeholder'	=> esc_html__( 'Select Position', 'ditty-news-ticker' ),
+								'options' 		=> array(
+									'prepend'	=> esc_html__( 'Start of Element', 'ditty-news-ticker' ),
+									'append'	=> esc_html__( 'End of Element', 'ditty-news-ticker' ),
+									'before'	=> esc_html__( 'Before Element', 'ditty-news-ticker' ),
+									'after'		=> esc_html__( 'After Element', 'ditty-news-ticker' ),
+								),
+							),
+							array(
+								'type'			=> 'select',
+								'id' 				=> 'ditty',
+								'name' 			=> esc_html__( 'Ditty', 'ditty-news-ticker' ),
+								'help'				=> esc_html__( 'Select a Ditty you want to display globally.', 'ditty-news-ticker' ),
+								'placeholder'	=> esc_html__( 'Select a Ditty', 'ditty-news-ticker' ),
+								'options' 		=> Ditty()->singles->select_field_options(),
+							),
+							array(
+								'type'				=> 'select',
+								'id' 					=> 'display',
+								'name' 				=> esc_html__( 'Display', 'ditty-news-ticker' ),
+								'help'				=> esc_html__( 'Optional: Select a custom display to use with the Ditty.', 'ditty-news-ticker' ),
+								'placeholder'	=> esc_html__( 'Use Default Display', 'ditty-news-ticker' ), 
+								'options' 		=> Ditty()->displays->select_field_options(),
+							),
+							array(
+								'type'	=> 'text',
+								'id' 		=> 'custom_id',
+								'name' 	=> esc_html__( 'Custom ID', 'ditty-news-ticker' ),
+								'help'	=> esc_html__( 'Optional: Add a custom ID to the Ditty', 'ditty-news-ticker' ),
+							),
+							array(
+								'type'	=> 'text',
+								'id' 		=> 'custom_classes',
+								'name' 	=> esc_html__( 'Custom Classes', 'ditty-news-ticker' ),
+								'help'	=> esc_html__( 'Optional: Add custom classes to the Ditty', 'ditty-news-ticker' ),
+							),
+						),
+					),
+				]
+			],
 		];	
 		return $fields;
-	}
-
-	/**
-	 * Get the Ditty settings
-	 *
-	 * @access  public
-	 * @since   3.1
-	 */
-	public function settings( $key=false, $value='' ) {
-		global $ditty_settings;
-		if ( empty( $ditty_settings ) ) {
-			$ditty_settings = get_option( 'ditty_settings', array() );
-		}
-		if ( $key ) {
-			if ( is_array( $key ) ) {
-				foreach ( $key as $k => $v ) {
-					$ditty_settings[$k] = $v;
-				}
-				update_option( 'ditty_settings', $ditty_settings );
-			} else {
-				if ( $value ) {
-					$ditty_settings[$key] = $value;
-					update_option( 'ditty_settings', $ditty_settings );
-				}
-			}
-		}
-		$ditty_settings = wp_parse_args( $ditty_settings, $this->default_settings() );
-		if ( $key && ! is_array( $key ) ) {
-			if ( isset( $ditty_settings[$key] ) ) {
-				return $ditty_settings[$key];
-			}
-		} else {
-			return $ditty_settings;
-		}
-	}
-
-	/**
-	 * Get the default settings
-	 *
-	 * @access  public
-	 * @since   3.1
-	 */
-	public function default_settings() {		
-		$defaults = array(
-			'live_refresh'					=> 10,
-			'default_display'				=> false,
-			'ditty_display_ui'			=> 'enabled',
-			'ditty_layout_ui'				=> 'enabled',
-			'ditty_layouts_sass'		=> false,
-			'variation_defaults'		=> array(),
-			'global_ditty'					=> array(),
-			'ditty_news_ticker' 		=> '',
-			'disable_fontawesome' 	=> '',
-			'notification_email' 		=> '',
-			'edit_links'						=> 'enabled',
-		);
-		return apply_filters( 'ditty_settings_defaults', $defaults );
 	}
 
 	/**
@@ -194,7 +180,7 @@ class Ditty_Settings {
 		);
 
 		if ( $save_settings ) {
-			$this->settings( $sanitized_fields );
+			ditty_settings( $sanitized_fields );
 		}
 		
 		return $sanitized_fields;

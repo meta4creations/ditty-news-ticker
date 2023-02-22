@@ -487,6 +487,15 @@ class Ditty_Scripts {
 				$this->version,
 				true
 			);
+			wp_add_inline_script( 'ditty-settings', 'const dittySettingsVars = ' . json_encode( array(
+				'ajaxurl'						=> admin_url( 'admin-ajax.php' ),
+				'security'					=> wp_create_nonce( 'ditty' ),
+				'userId'						=> get_current_user_id(),
+				'siteUrl'						=> site_url(),
+				'fields'						=> Ditty()->settings->fields(),
+				'settings'					=> ditty_settings(),
+				'defaultSettings'		=> ditty_settings_defaults(),
+			) ), 'before' );
 		}
 
 		$ditty_scripts_enqueued = 'enqueued';
