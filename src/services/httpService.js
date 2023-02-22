@@ -1,9 +1,8 @@
 import axios from "axios";
-import { toast } from "react-toastify";
-
-const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
 
 export const getDittyData = (dittyId) => {
+  const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
+
   const apiURL = `${apiEndpoint}/${dittyId}`;
   const apiData = {
     security: dittyEditorVars.security,
@@ -15,7 +14,8 @@ export const getDittyData = (dittyId) => {
 };
 
 export function saveDitty(data, onComplete) {
-  console.log("data", data);
+  const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
+
   const apiURL = `${apiEndpoint}/save`;
   const apiData = {
     security: dittyEditorVars.security,
@@ -29,6 +29,8 @@ export function saveDitty(data, onComplete) {
 }
 
 export function saveDisplay(data, onComplete) {
+  const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
+
   const apiURL = `${apiEndpoint}/saveDisplay`;
   const apiData = {
     security: dittyEditorVars.security,
@@ -41,8 +43,9 @@ export function saveDisplay(data, onComplete) {
 }
 
 export function saveLayout(data, onComplete) {
-  const apiURL = `${apiEndpoint}/saveLayout`;
+  const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
 
+  const apiURL = `${apiEndpoint}/saveLayout`;
   const apiData = {
     security: dittyEditorVars.security,
     userId: dittyEditorVars.userId,
@@ -53,7 +56,23 @@ export function saveLayout(data, onComplete) {
   });
 }
 
+export function saveSettings(updatedSettings, onComplete) {
+  const apiEndpoint = `${dittySettingsVars.siteUrl}/wp-json/dittyeditor/v1`;
+
+  const apiURL = `${apiEndpoint}/saveSettings`;
+  const apiData = {
+    security: dittySettingsVars.security,
+    userId: dittySettingsVars.userId,
+    settings: updatedSettings,
+  };
+  return axios.post(apiURL, { apiData }).then((res) => {
+    onComplete(res.data);
+  });
+}
+
 export function getRenderedItems(items, layouts, onComplete) {
+  const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
+
   const apiURL = `${apiEndpoint}/displayItems`;
   const apiData = {
     security: dittyEditorVars.security,

@@ -40,6 +40,7 @@ const Tabs = ({ className, tabs, type, currentTabId, tabClick }) => {
     "ditty-tabs--primary": type === "primary",
     "ditty-tabs--secondary": type === "secondary",
     "ditty-tabs--cloud": type === "cloud",
+    "ditty-tabs--list": type === "list",
   });
 
   /**

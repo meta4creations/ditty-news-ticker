@@ -1,0 +1,44 @@
+#ditty-settings {
+  &__navigation {
+    background: #32373b;
+    .ditty-tabs--list {
+      background: transparent;
+      .ditty-tab {
+        color: #fff;
+        background: transparent;
+        &--active {
+          background: $green;
+        }
+        &:not(.ditty-tab--active):hover {
+          color: $green;
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 782px) {
+  #ditty-settings {
+    flex-direction: row;
+    &__navigation {
+      width: 44px;
+      flex: 0 0 44px;
+      .ditty-tabs--list {
+        .ditty-tab {
+          padding: 10px 4px 10px 14px;
+          width: auto;
+          &__label {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (min-width: 782px) {
+  #ditty-settings {
+    &__navigation {
+      width: 250px;
+    }
+  }
+}

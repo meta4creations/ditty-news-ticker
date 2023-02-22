@@ -1,3 +1,4 @@
+import classnames from "classnames";
 import { __ } from "@wordpress/i18n";
 import { useState, useContext } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,7 +13,7 @@ import PanelDisplays from "./PanelDisplays";
 import PanelSettings from "./PanelSettings";
 import { EditorContext } from "./context";
 
-const Editor = () => {
+const Editor = ({ className }) => {
   const { settings, actions } = useContext(EditorContext);
   const [currentTabId, setCurrentTabId] = useState("items");
   let editorWidth = settings.editorWidth ? Number(settings.editorWidth) : 350;
@@ -100,12 +101,19 @@ const Editor = () => {
     );
   };
 
+  const classes = classnames(className);
+
   return (
     <div
       id="ditty-editor__editor"
+      className={classes}
       style={{ width: `${editorWidth}px`, height: `${editorHeight}px` }}
     >
-      <div id="ditty-editor__editor__sizer" onMouseDown={handler}></div>
+      <div
+        id="ditty-editor__sizer"
+        className="ditty-adminPage__app__sizer"
+        onMouseDown={handler}
+      ></div>
       <Tabs
         tabs={tabs}
         currentTabId={currentTabId}

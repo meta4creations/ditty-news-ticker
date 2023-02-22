@@ -43,6 +43,11 @@ class Ditty_API {
       'callback' 	=> array( $this, 'save_layout' ),
 			'permission_callback' => array( $this, 'save_layout_permissions_check' ),
     ) );
+		register_rest_route( 'dittyeditor/v' . $this->version, 'saveSettings', array(
+      'methods' 	=> 'POST',
+      'callback' 	=> array( $this, 'save_settings' ),
+			'permission_callback' => array( $this, 'save_settings_permissions_check' ),
+    ) );
 		register_rest_route( 'dittyeditor/v' . $this->version, 'displayItems', array(
       'methods' 	=> 'POST',
       'callback' 	=> array( $this, 'get_display_items' ),
@@ -93,6 +98,22 @@ class Ditty_API {
 		$apiData = isset( $params['apiData'] ) ? $params['apiData'] : array();
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
 		if ( ! user_can( $userId, 'edit_ditty_layouts' ) ) {
+			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allow to edit Layouts.', 'ditty-news-ticker' ), array( 'status' => 401 ) );
+		}
+		return true;
+	}
+
+	/**
+	 * Check the Layout permissions of the user
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function save_settings_permissions_check( $request ) {
+		$params = $request->get_params();
+		$apiData = isset( $params['apiData'] ) ? $params['apiData'] : array();
+		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
+		if ( ! user_can( $userId, 'manage_ditty_settings' ) ) {
 			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allow to edit Layouts.', 'ditty-news-ticker' ), array( 'status' => 401 ) );
 		}
 		return true;
@@ -409,6 +430,44 @@ class Ditty_API {
 			'updates' => $updates,
 			'errors'	=> $errors,
 			'apiData'	=> $apiData,
+		);
+
+		return rest_ensure_response( $data );
+	}
+
+	/**
+	 * Save updated settings
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function save_settings( $request ) {
+		$params = $request->get_params();
+		if ( ! isset( $params['apiData'] ) ) {
+			return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+		$apiData = $params['apiData'];
+
+		if ( ! isset( $apiData['settings'] ) ) {
+			return new WP_Error( 'no_settings', __( 'No settings', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
+		$settings = isset( $apiData['settings'] ) ? $apiData['settings'] : false;
+
+		$updates = array();
+		$errors = array();
+
+		if ( $saved_settings = Ditty()->settings->save( $settings ) ) {
+			$updates['settings'] = $saved_settings;
+		} else {
+			$errors['settings'] = $settings;
+		}
+
+		$data = array(
+			'updates' => $updates,
+			'errors'	=> $errors,
+			'apiData'	=> $apiData,
+			'settings' => $settings,
 		);
 
 		return rest_ensure_response( $data );

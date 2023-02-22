@@ -14,3 +14,83 @@
     float: none;
   }
 }
+.ditty-adminPage {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  * {
+    box-sizing: border-box;
+  }
+  .admin-bar & {
+    height: calc(100vh - 32px);
+  }
+  &__app {
+    flex: 1;
+    display: flex;
+    flex-wrap: nowrap;
+    height: calc(100% - 100px);
+    &__sidebar {
+      position: relative;
+      width: 350px;
+      height: 100%;
+      background: #fff;
+      border-right: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    &__content {
+      flex: 1;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+    }
+    &__sizer {
+      position: absolute;
+      top: 0;
+      left: -5px;
+      z-index: 9;
+      width: 5px;
+      height: 100%;
+      background: transparentize($border_color_dark, 0.8);
+      cursor: ew-resize;
+      transition: background-color 0.25s ease;
+      &:hover {
+        background-color: $border_color_dark;
+      }
+    }
+  }
+  .Toastify__toast {
+    background-color: #fff;
+    .ditty-logo {
+      fill: $green;
+    }
+  }
+  .Toastify__progress-bar {
+    background: $green;
+  }
+}
+.admin-bar .ditty-adminPage {
+  .Toastify__toast-container--top-right {
+    top: calc(1em + 32px);
+  }
+}
+@media screen and (max-width: 782px) {
+  .ditty-adminPage {
+    .admin-bar & {
+      height: calc(100vh - 46px);
+    }
+  }
+  .admin-bar .ditty-adminPage {
+    .Toastify__toast-container--top-right {
+      top: calc(1em + 46px);
+    }
+  }
+}
+@media screen and (min-width: 782px) {
+  .ditty-adminPage {
+    .admin-bar & {
+      height: calc(100vh - 46px);
+    }
+  }
+}

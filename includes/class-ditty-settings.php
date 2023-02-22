@@ -10,6 +10,37 @@
  * @since       3.1
 */
 class Ditty_Settings {
+
+	public function __construct() {
+		add_action( 'admin_menu', array( $this, 'settings_pages' ), 5 );
+	}
+
+	/**
+	 * Register settings pages
+	 *
+	 * @since    3.1
+	*/
+	public function settings_pages() {
+		add_submenu_page(
+			'edit.php?post_type=ditty',		// The ID of the top-level menu page to which this submenu item belongs
+			__( 'Settings', 'ditty-news-ticker' ),		// The value used to populate the browser's title bar when the menu page is active
+			__( 'Settings', 'ditty-news-ticker' ),		// The label of this submenu item displayed in the menu
+			'manage_ditty_settings',			// What roles are able to access this submenu item
+			'ditty_settings',							// The ID used to represent this submenu item
+			array( $this, 'settings_page_display' )			// The callback function used to render the options for this submenu item
+		);
+	}
+
+	/**
+	 * Render the settings page
+	 *
+	 * @since    3.0.14
+	*/
+	function settings_page_display() {
+		?>
+		<div id="ditty-settings__wrapper" class="ditty-adminPage"></div>
+		<?php
+	}
 	
 	/**
 	 * Setup the fields
@@ -26,15 +57,16 @@ class Ditty_Settings {
 				'desc' => __( 'Add a description here...', "ditty-news-ticker" ),
 				'icon' => 'fas fa-cog',
 				'fields' => [
-					'live_refresh' => array(
+					[
 						'type' 		=> 'number',
 						'id' 			=> 'live_refresh',
 						'name' 		=> esc_html__( 'Live Refresh Rate', 'ditty-news-ticker' ),
+						'min'			=> 1,
 						'after' 	=> esc_html__( 'Minute(s)', 'ditty-news-ticker' ),
 						'desc'		=> esc_html__( 'Set the live update refresh interval for your Ditty.', 'ditty-news-ticker' ),
 						'std' 		=> ditty_settings_defaults( 'live_refresh' ),
-					),
-					'edit_links' => array(
+					],
+					[
 						'type' 				=> 'radio',
 						'id' 					=> 'edit_links',
 						'name' 				=> esc_html__( 'Edit Links', 'ditty-news-ticker' ),
@@ -45,7 +77,7 @@ class Ditty_Settings {
 							'enabled'		=> esc_html__( 'Enabled', 'ditty-news-ticker' ),
 						),
 						'std' 				=> ditty_settings_defaults( 'edit_links' ),
-					),
+					],
 				]
 			],
 			[
@@ -55,21 +87,21 @@ class Ditty_Settings {
 				'desc' => esc_html__( 'Add Ditty dynamically anywhere on your site. You just need to specify an html selector and the position for the Ditty in relation to the selector. Then choose a Ditty and optionally set other customization options.', 'ditty-news-ticker' ),
 				'icon' => 'fas fa-globe-americas',
 				'fields' => [
-					'global_ditty' => array(
+					[
 						'type' 						=> 'group',
 						'id' 							=> 'global_ditty',
 						'clone'						=> true,
 						'clone_button'		=> esc_html__( 'Add More Global Tickers', 'ditty-news-ticker' ),
 						'multiple_fields'	=> false,
 						'fields' 					=> array(
-							'selector' 		=> array(
+							[
 								'type'				=> 'text',
 								'id' 					=> 'selector',
 								'name' 				=> esc_html__( 'HTML Selector', 'ditty-news-ticker' ),
 								'help'				=> esc_html__( 'Add a jQuery HTML element selector to add a Ditty to.', 'ditty-news-ticker' ),
 								'placeholder'	=> esc_html__( 'Example: #site-header', 'ditty-news-ticker' ),
-							),
-							array(
+							],
+							[
 								'type'				=> 'select',
 								'id' 					=> 'position',
 								'name' 				=> esc_html__( 'Position', 'ditty-news-ticker' ),
@@ -81,37 +113,37 @@ class Ditty_Settings {
 									'before'	=> esc_html__( 'Before Element', 'ditty-news-ticker' ),
 									'after'		=> esc_html__( 'After Element', 'ditty-news-ticker' ),
 								),
-							),
-							array(
+							],
+							[
 								'type'			=> 'select',
 								'id' 				=> 'ditty',
 								'name' 			=> esc_html__( 'Ditty', 'ditty-news-ticker' ),
 								'help'				=> esc_html__( 'Select a Ditty you want to display globally.', 'ditty-news-ticker' ),
 								'placeholder'	=> esc_html__( 'Select a Ditty', 'ditty-news-ticker' ),
 								'options' 		=> Ditty()->singles->select_field_options(),
-							),
-							array(
+							],
+							[
 								'type'				=> 'select',
 								'id' 					=> 'display',
 								'name' 				=> esc_html__( 'Display', 'ditty-news-ticker' ),
 								'help'				=> esc_html__( 'Optional: Select a custom display to use with the Ditty.', 'ditty-news-ticker' ),
 								'placeholder'	=> esc_html__( 'Use Default Display', 'ditty-news-ticker' ), 
 								'options' 		=> Ditty()->displays->select_field_options(),
-							),
-							array(
+							],
+							[
 								'type'	=> 'text',
 								'id' 		=> 'custom_id',
 								'name' 	=> esc_html__( 'Custom ID', 'ditty-news-ticker' ),
 								'help'	=> esc_html__( 'Optional: Add a custom ID to the Ditty', 'ditty-news-ticker' ),
-							),
-							array(
+							],
+							[
 								'type'	=> 'text',
 								'id' 		=> 'custom_classes',
 								'name' 	=> esc_html__( 'Custom Classes', 'ditty-news-ticker' ),
 								'help'	=> esc_html__( 'Optional: Add custom classes to the Ditty', 'ditty-news-ticker' ),
-							),
+							],
 						),
-					),
+					],
 				]
 			],
 		];	
@@ -124,7 +156,7 @@ class Ditty_Settings {
 	 * @access  public
 	 * @since   3.1
 	 */
-	public function sanitize_settings( $values, $save_settings = false ) {
+	public function sanitize( $values ) {
 		$sanitized_global_ditty = array();
 		if ( isset( $values['global_ditty'] ) && is_array( $values['global_ditty'] ) && count( $values['global_ditty'] ) > 0 ) {
 			foreach ( $values['global_ditty'] as $index => $global_ditty ) {
@@ -179,10 +211,17 @@ class Ditty_Settings {
 			'notification_email' 	=> ( isset( $values['notification_email'] ) && is_email( $values['notification_email'] ) ) ? $values['notification_email'] : false,
 		);
 
-		if ( $save_settings ) {
-			ditty_settings( $sanitized_fields );
-		}
-		
 		return $sanitized_fields;
+	}
+
+	/**
+	 * Save the settings after sanitizing
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function save( $values ) {
+		$sanitized_fields = $this->sanitize( $values );
+		return ditty_settings( $sanitized_fields );
 	}
 }

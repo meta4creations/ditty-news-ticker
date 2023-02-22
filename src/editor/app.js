@@ -1,8 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import { useState, useContext } from "@wordpress/element";
-import AdminBar from "../components/AdminBar";
+import { AdminBar, FooterBar } from "../components";
 import { EditorContext } from "./context";
-import FooterBar from "./FooterBar";
 import Preview from "./Preview";
 import Editor from "./Editor";
 
@@ -41,9 +40,9 @@ export default () => {
         onUpdateTitle={handleUpdateTitle}
         onSubmit={handleSaveDitty}
       />
-      <div id="ditty-editor">
-        <Preview />
-        <Editor />
+      <div id="ditty-editor" className="ditty-adminPage__app">
+        <Preview className="ditty-adminPage__app__content" />
+        <Editor className="ditty-adminPage__app__sidebar" />
       </div>
       <FooterBar />
       <ToastContainer />
