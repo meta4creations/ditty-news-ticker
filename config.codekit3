@@ -17,14 +17,6 @@
       "oAP" : "\/.gitignore",
       "oF" : 1
     },
-    "\/.nova\/Publishing\/Metaphor Creations.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/.nova\/Publishing\/Metaphor Creations-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
     "\/.npmrc" : {
       "cB" : 0,
       "ft" : 8192,
@@ -349,6 +341,14 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/class-ditty-scripts.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-settings.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/class-ditty-settings.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-singles.php" : {

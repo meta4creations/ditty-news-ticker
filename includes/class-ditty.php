@@ -51,100 +51,20 @@ class Ditty {
 	 */
 	protected $version;
 	
-	/**
-	 * Ditty singles object.
-	 *
-	 * @since    3.0
-	 * @access   public
-	 * @var      object    Ditty_Singles
-	 */
-	public $singles;
-	
-	/**
-	 * Ditty items object.
-	 *
-	 * @since    3.0
-	 * @access   public
-	 * @var      object    Ditty_Items
-	 */
-	public $items;
-	
-	/**
-	 * Ditty layouts object.
-	 *
-	 * @since    3.0
-	 * @access   public
-	 * @var      object    Ditty_Displays
-	 */
-	public $layouts;
-	
-	/**
-	 * Ditty displays object.
-	 *
-	 * @since    3.0
-	 * @access   public
-	 * @var      object    Ditty_Displays
-	 */
-	public $displays;
-
-	/**
-	 * Ditty editor object.
-	 *
-	 * @since    3.0
-	 * @access   public
-	 * @var      object    Ditty_Editor
-	 */
-	public $editor;
-	
-	/**
-	 * Ditty database items object.
-	 *
-	 * @since    3.0
-	 * @access   public
-	 * @var      object    Ditty_DB_Items
-	 */
-	public $db_items;
-	
-	/**
-	 * Ditty database item meta object.
-	 *
-	 * @since    3.0
-	 * @access   public
-	 * @var      object    Ditty_DB_Item_Meta
-	 */
-	public $db_item_meta;
-	
-	/**
-	 * Ditty extensions object.
-	 *
-	 * @since    3.0
-	 * @access   public
-	 * @var      object    Ditty_Extensions
-	 */
-	public $extensions;
-	
-	/**
-	 * Ditty WPML object.
-	 *
-	 * @since    3.0
-	 * @access   public
-	 * @var      object    Ditty_WPML
-	 */
-	public $wpml;
-	
-	/**
-	 * Ditty error object.
-	 *
-	 * @since    3.0
-	 * @access   public
-	 * @var      object    Ditty_Errors
-	 */
-	public $errors;
 	public $api;
+	public $db_items;
+	public $db_item_meta;
+	public $displays;
+	public $editor;
+	public $errors;
+	public $extensions;
+	public $layouts;
+	public $items;
+	public $settings;
 	public $scripts;
+	public $singles;
+	public $wpml;
 
-	
-	
 	/**
 	 * Main Ditty Instance.
 	 *
@@ -181,6 +101,7 @@ class Ditty {
 			self::$instance->extensions		= new Ditty_Extensions();
 			self::$instance->layouts			= new Ditty_Layouts();
 			self::$instance->scripts			= new Ditty_Scripts();
+			self::$instance->settings			= new Ditty_Settings();
 			self::$instance->singles			= new Ditty_Singles();
 			self::$instance->items				= new Ditty_Items();
 			self::$instance->wpml					= new Ditty_WPML();	
@@ -329,6 +250,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-default.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-wp-editor.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-posts-lite.php';
+		require_once DITTY_DIR . 'includes/class-ditty-settings.php';
 		require_once DITTY_DIR . 'includes/class-ditty-singles.php';
 		require_once DITTY_DIR . 'includes/class-ditty-wpml.php';
 

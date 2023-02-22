@@ -1,57 +1,13 @@
 <?php
-
-/**
- * Return the settings defaults
- *
- * @since    3.0.13
-*/
-function ditty_settings_defaults() {	
-	$defaults = array(
-		'live_refresh'					=> 10,
-		'default_display'				=> false,
-		'ditty_display_ui'			=> 'enabled',
-		'ditty_layout_ui'				=> 'enabled',
-		'ditty_layouts_sass'		=> false,
-		'variation_defaults'		=> array(),
-		'global_ditty'					=> array(),
-		'ditty_news_ticker' 		=> '',
-		'disable_fontawesome' 	=> '',
-		'notification_email' 		=> '',
-		'edit_links'						=> 'enabled',
-	);
-	return apply_filters( 'ditty_settings_defaults', $defaults );
-}
 	
 /**
  * Return or set plugin settings
  *
- * @since    3.0
+ * @since    3.1
 */
 function ditty_settings( $key=false, $value='' ) {
-	global $ditty_settings;
-	if ( empty( $ditty_settings ) ) {
-		$ditty_settings = get_option( 'ditty_settings', array() );
-	}
-	if ( $key ) {
-		if ( is_array( $key ) ) {
-			foreach ( $key as $k => $v ) {
-				$ditty_settings[$k] = $v;
-			}
-			update_option( 'ditty_settings', $ditty_settings );
-		} else {
-			if ( $value ) {
-				$ditty_settings[$key] = $value;
-				update_option( 'ditty_settings', $ditty_settings );
-			}
-		}
-	}
-	$ditty_settings = wp_parse_args( $ditty_settings, ditty_settings_defaults() );
-	if ( $key && ! is_array( $key ) ) {
-		if ( isset( $ditty_settings[$key] ) ) {
-			return $ditty_settings[$key];
-		}
-	} else {
-		return $ditty_settings;
+	if ( $settings = Ditty()->settings->settings( $key, $value ) ) {
+		return $settings;
 	}
 }
 

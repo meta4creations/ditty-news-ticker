@@ -1,0 +1,16 @@
+.ditty-page {
+  background: #fff;
+  overflow: hidden;
+  #wpcontent {
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+  }
+  #wpbody {
+    flex: 1;
+  }
+  #wpbody-content {
+    padding: 0;
+    float: none;
+  }
+}

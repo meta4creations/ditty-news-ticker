@@ -33,7 +33,7 @@ add_action( 'admin_menu', 'ditty_settings_pages', 5 );
 */
 function ditty_settings_display() {
 	?>
-	<div id="ditty-settings__wrapper"></div>
+	<div id="ditty-settings__wrapper" class="ditty-adminPage"></div>
 	<?php
 }
 

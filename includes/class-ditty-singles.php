@@ -24,6 +24,7 @@ class Ditty_Singles {
 		add_action( 'admin_init', array( $this, 'edit_page_redirects' ) );
 
 		// General hooks
+		add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
 		add_filter( 'post_row_actions', array( $this, 'modify_list_row_actions' ), 10, 2 );
 		add_action( 'mtphr_post_duplicator_created', array( $this, 'after_duplicate_post' ), 10, 3 );	
 
@@ -115,7 +116,7 @@ class Ditty_Singles {
 			'data-settings' => json_encode( ditty_single_settings_defaults() ),
 		);
 		?>
-		<div id="ditty-editor__wrapper" <?php echo ditty_attr_to_html( $atts ); ?>></div>
+		<div id="ditty-editor__wrapper" class="ditty-adminPage" <?php echo ditty_attr_to_html( $atts ); ?>></div>
 		<?php
 	}
 	
@@ -192,7 +193,7 @@ class Ditty_Singles {
 			$atts['data-display'] = $display;
 		}
 		?>
-		<div id="ditty-editor__wrapper" <?php echo ditty_attr_to_html( $atts ); ?>></div>
+		<div id="ditty-editor__wrapper" class="ditty-adminPage" <?php echo ditty_attr_to_html( $atts ); ?>></div>
 		<?php
 	}
 
@@ -217,6 +218,21 @@ class Ditty_Singles {
 				} 
 			}
 		}
+	}
+
+	/**
+	 * Add to the admin body class
+	 *
+	 * @access public
+	 * @since  3.0.13
+	 */
+	public function add_admin_body_class( $classes ) {
+		$page = isset( $_GET['page'] ) ? $_GET['page'] : false;
+		$pages = ['ditty', 'ditty-new', 'ditty_settings' ];
+		if ( in_array( $page, $pages ) ) {
+			$classes .= ' ditty-page';
+		}
+		return $classes;
 	}
 	
 	/**

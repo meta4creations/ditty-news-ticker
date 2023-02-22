@@ -1,3 +1,4 @@
+export { default as AdminBar } from "./AdminBar";
 export { default as Button } from "./Button";
 export { default as ButtonGroup } from "./ButtonGroup";
 export { default as Filter } from "./Filter";
