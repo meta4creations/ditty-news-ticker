@@ -261,7 +261,7 @@ const PanelDisplays = () => {
       return (
         <FieldList
           name={fieldGroup.name}
-          desc={fieldGroup.desc}
+          description={fieldGroup.desc}
           fields={fieldGroup.fields}
           values={currentDisplay.settings}
           onUpdate={handleOnUpdate}

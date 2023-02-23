@@ -4,7 +4,7 @@ import Field from "./Field";
 
 const FieldList = ({
   name,
-  desc,
+  description,
   fields,
   children,
   values,
@@ -84,7 +84,12 @@ const FieldList = ({
     <div className={classes}>
       {(name || desc) && (
         <div className="ditty-field-list__heading">
-          {name && <h3>{name}</h3>} {desc && <p>{desc}</p>}
+          {name && <h3 className="ditty-field-list__heading__title">{name}</h3>}{" "}
+          {description && (
+            <p className="ditty-field-list__heading__description">
+              {description}
+            </p>
+          )}
         </div>
       )}
       {children && children}

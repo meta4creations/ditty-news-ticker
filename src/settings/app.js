@@ -69,6 +69,7 @@ export default () => {
     <>
       <AdminBar
         title={__("Ditty Settings", "ditty-news-ticker")}
+        buttonLabel={__("Save Settings", "ditty-news-ticker")}
         hasUpdates={hasUpdates}
         showSpinner={showSpinner}
         onSubmit={handleSaveSettings}
@@ -92,7 +93,7 @@ export default () => {
         >
           <FieldList
             name={currentFieldGroup.name}
-            desc={currentFieldGroup.desc}
+            description={currentFieldGroup.description}
             fields={currentFieldGroup.fields}
             values={settings}
             onUpdate={(id, value) => {

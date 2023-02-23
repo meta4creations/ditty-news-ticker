@@ -368,7 +368,7 @@ const PopupLayouts = ({
       return (
         <FieldList
           name={__("Layout Tag Customizations", "ditty-news-ticker")}
-          desc={__(
+          description={__(
             "Customize the layout tags that are using in Layouts for this item. Keep in mind that some layouts may not use all of these tags.",
             "ditty-news-ticker"
           )}

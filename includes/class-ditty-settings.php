@@ -54,7 +54,7 @@ class Ditty_Settings {
 				'id' => 'general',
 				'label' => __("General Settings", "ditty-news-ticker"),
 				'name' => __("General Settings", "ditty-news-ticker"),
-				'desc' => __( 'Add a description here...', "ditty-news-ticker" ),
+				'description' => __( 'Add a description here...', "ditty-news-ticker" ),
 				'icon' => 'fas fa-cog',
 				'fields' => [
 					[
@@ -84,7 +84,7 @@ class Ditty_Settings {
 				'id' => 'global_ditty',
 				'label' => esc_html__( 'Global Ditty', 'ditty-news-ticker' ),
 				'name' => esc_html__( 'Global Ditty Settings', 'ditty-news-ticker' ),
-				'desc' => esc_html__( 'Add Ditty dynamically anywhere on your site. You just need to specify an html selector and the position for the Ditty in relation to the selector. Then choose a Ditty and optionally set other customization options.', 'ditty-news-ticker' ),
+				'description' => esc_html__( 'Add Ditty dynamically anywhere on your site. You just need to specify an html selector and the position for the Ditty in relation to the selector. Then choose a Ditty and optionally set other customization options.', 'ditty-news-ticker' ),
 				'icon' => 'fas fa-globe-americas',
 				'fields' => [
 					[

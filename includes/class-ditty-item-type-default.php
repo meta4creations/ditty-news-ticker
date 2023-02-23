@@ -32,7 +32,7 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 					'id' => 'settings',
 					'label' => __("Settings", "ditty-news-ticker"),
 					'name' => __("Settings", "ditty-news-ticker"),
-					'desc' => __( 'Configure the settings of the default item.', "ditty-news-ticker" ),
+					'description' => __( 'Configure the settings of the default item.', "ditty-news-ticker" ),
 					'icon' => 'fas fa-sliders',
 					'fields' => [
 						'content' => array(

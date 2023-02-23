@@ -35,6 +35,7 @@ export default () => {
     <>
       <AdminBar
         title={title}
+        buttonLabel={__("Save Ditty", "ditty-news-ticker")}
         hasUpdates={hasUpdates}
         showSpinner={showSpinner}
         onUpdateTitle={handleUpdateTitle}

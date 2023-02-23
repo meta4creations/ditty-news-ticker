@@ -1,15 +1,16 @@
 .ditty-field-list {
   &__heading {
-    background: #fbfbfb;
-    border-bottom: 1px solid $border_color_light;
-    padding: 10px;
-    h3 {
-      font-size: 14px;
+    padding: 15px;
+    background: $lighter_gray;
+    border-radius: 3px;
+    padding: 15px;
+    &__title {
+      font-size: 16px;
       font-weight: 600;
-      margin: 0 0 5px;
-    }
-    p {
       margin: 0;
+    }
+    &__description {
+      margin: 5px 0 0 0;
     }
   }
   .ditty-field {
@@ -68,6 +69,7 @@
   select,
   textarea {
     width: 100%;
+    max-width: unset;
     min-height: 0;
     font-size: 14px;
     line-height: 24px;
@@ -95,35 +97,41 @@
   }
   &__field {
     display: flex;
-    background: #fff;
-    border: 1px dashed $border_color_light;
-    border-radius: 3px;
     overflow: hidden;
     &__buttons {
       flex-direction: column;
       justify-content: flex-start;
-      gap: 0;
+      gap: 5px;
       &--start {
-        border-right: 1px solid rgba(0, 0, 0, 0.05);
+        padding-right: 5px;
         .ditty-button {
           height: 100%;
         }
       }
       &--end {
-        border-left: 1px solid rgba(0, 0, 0, 0.05);
+        padding-left: 5px;
       }
       .ditty-button {
-        padding: 5px;
+        font-size: 16px;
         background: transparent;
-        border-radius: 0;
-        &:not(:disabled):hover {
-          background: rgba(0, 0, 0, 0.05);
+        border-radius: 3px;
+        padding: 10px;
+        &:hover {
+          background: $light_green;
+          color: $green;
         }
       }
     }
     > .ditty-field {
       flex: 1;
       border-bottom: none;
+      background: $lighter_gray;
+      padding: 10px !important;
+      border-radius: 4px;
+      > .ditty-field__input__container {
+        background: #fff;
+        border-radius: 3px;
+      }
     }
   }
   &__footer {

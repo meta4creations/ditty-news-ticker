@@ -120,7 +120,7 @@ const PopupEditItem = ({
     return (
       <FieldList
         name={currentFieldGroup.name}
-        desc={currentFieldGroup.desc}
+        description={currentFieldGroup.description}
         fields={currentFieldGroup.fields}
         values={editItem.item_value}
         delayChange={true}

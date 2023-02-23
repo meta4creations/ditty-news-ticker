@@ -124,7 +124,7 @@ const PopupEditLayoutTag = ({
     return (
       <FieldList
         name={__("Tag attribute options", "ditty-news-ticker")}
-        desc={__(
+        description={__(
           "Set the default attribute options for the tag",
           "ditty-news-ticker"
         )}

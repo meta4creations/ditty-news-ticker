@@ -1,19 +1,30 @@
 #ditty-settings {
+  background: $light_gray;
   &__navigation {
-    background: #32373b;
+    background: #fff;
+    border: none;
     .ditty-tabs--list {
+      padding: 15px;
       background: transparent;
       .ditty-tab {
-        color: #fff;
         background: transparent;
         &--active {
-          background: $green;
+          background: $light_green;
         }
         &:not(.ditty-tab--active):hover {
           color: $green;
-          background-color: rgba(0, 0, 0, 0.5);
+          //background-color: rgba(0, 0, 0, 0.5);
         }
       }
+    }
+  }
+  &__content {
+    padding: 15px;
+    .ditty-field-list {
+      padding: 15px;
+      background: #fff;
+      min-height: 100%;
+      border-radius: 5px;
     }
   }
 }
