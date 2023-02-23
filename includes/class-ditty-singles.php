@@ -158,7 +158,7 @@ class Ditty_Singles {
 					}
 				}
 				
-				// De-serialize the attribut values
+				// De-serialize the attribute values
 				$attribute_value = maybe_unserialize( $item_meta->attribute_value );
 				
 	
@@ -472,14 +472,25 @@ class Ditty_Singles {
 		$display_settings = isset( $atts['data-display_settings'] )	? $atts['data-display_settings']	: false;
 		$layout_settings 	= isset( $atts['data-layout_settings'] ) 	? $atts['data-layout_settings'] 	: false;
 		$show_editor 			= isset( $atts['data-show_editor'] ) 			? $atts['data-show_editor'] 			: false;
+
+		// If the Ditty is not published, exit
+		if ( 'publish' != get_post_status( $ditty_id ) ) {
+			return false;
+		}
 	
 		// Get the display attributes
 		if ( ! $display_id ) {
 			$display_id = get_post_meta( $ditty_id, '_ditty_display', true );
 		}
-		if ( ! $display_id || '' == $display_id || ! ditty_display_exists( $display_id ) ) {
-			$display_id = ditty_default_display( $ditty_id );
+
+		// If the Display is not published, exit
+		if ( 'publish' != get_post_status( $display_id ) ) {
+			return false;
 		}
+
+		// if ( ! $display_id || '' == $display_id || ! ditty_display_exists( $display_id ) ) {
+		// 	$display_id = ditty_default_display( $ditty_id );
+		// }
 		$display = new Ditty_Display( $display_id );
 		$display_type = $display->get_display_type();
 	

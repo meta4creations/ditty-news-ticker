@@ -1,6 +1,6 @@
 const { render } = wp.element; //we are using wp.element here!
 import App from "./settings/app";
-import "./css/settings.scss";
+import "./assets/css/settings.scss";
 
 if (document.getElementById("ditty-settings__wrapper")) {
   render(<App />, document.getElementById("ditty-settings__wrapper"));

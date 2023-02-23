@@ -38,18 +38,10 @@ add_filter( 'manage_posts_columns', 'ditty_manage_posts_columns', 10, 2 );
 /**
  * Display the custom edit screen columns
  *
- * @since    3.0.17
+ * @since    3.1
 */
-function ditty_manage_posts_custom_column( $column, $post_id ){
+function ditty_manage_posts_custom_column( $column, $post_id ) {
 	global $post;
-	
-	// if ( 'ditty' === $post->post_type ) {
-	// 	$display_meta = get_post_meta( $post_id, '_ditty_display', true );
-	// 	$display_obj = new Ditty_Display( $display_meta );
-	// 	$display_name = $display->get_label();
-	// 	$display_type = $display->get_label();
-	// }
-
 	switch ( $column ) {	
 		case 'ditty_display_type':
 			if ( 'ditty_display' === $post->post_type ) {
@@ -59,18 +51,25 @@ function ditty_manage_posts_custom_column( $column, $post_id ){
 				if ( is_array( $display_id ) ) {
 					$display_type = $display_id['type'];
 				} else {
-					$display = new Ditty_Display( $display_id );
-					$display_type = $display->get_display_type();
+					if ( 'publish' != get_post_status( $display_id ) ) {
+						$display_type = false;
+					} else {
+						$display_type = get_post_meta( $display_id, '_ditty_display_type', true );
+					}
 				}
 			}
-			$label = $display_type;
-			$display_types = ditty_display_types();
-			foreach( $display_types as $slug => $display ) {
-				if( $display_type === $slug ) {
-					$label = $display['label'];
+			if ( ! $display_type ) {
+				echo '---';
+			} else {
+				$label = $display_type;
+				$display_types = ditty_display_types();
+				foreach( $display_types as $slug => $display ) {
+					if( $display_type === $slug ) {
+						$label = $display['label'];
+					}
 				}
+				echo "<a href='edit.php?post_type={$post->post_type}&ditty_display_type={$display_type}'>".$label."</a>";
 			}
-			echo "<a href='edit.php?post_type={$post->post_type}&ditty_display_type={$display_type}'>".$label."</a>";
 			break;
 		case 'ditty_layout_template':
 			$meta = get_post_meta( $post_id, '_ditty_layout_template', true );
@@ -91,9 +90,11 @@ function ditty_manage_posts_custom_column( $column, $post_id ){
 				if ( is_array( $display_id ) ) {
 					echo esc_html__( 'Custom', 'ditty-news-ticker' );
 				} else {
-					$display = new Ditty_Display( $display_id );
-					$label = $display->get_label();
-					echo "<a href='edit.php?post_type={$post->post_type}&ditty_display={$display_id}'>".$label."</a> - <a href='" . get_edit_post_link( $display->get_display_id() ) . "'>" . __( 'Edit', 'ditty-news-ticker' ) . "</a>";
+					if ( 'publish' != get_post_status( $display_id ) ) {
+						echo '---';
+					} else {
+						echo "<a href='edit.php?post_type={$post->post_type}&ditty_display={$display_id}'>" .get_the_title( $display_id ) . "</a> - <a href='" . get_edit_post_link( $display_id ) . "'>" . __( 'Edit', 'ditty-news-ticker' ) . "</a>";
+					}
 				}
 			}
 			break;

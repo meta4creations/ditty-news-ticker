@@ -4,6 +4,7 @@ import { useState } from "@wordpress/element";
 import { AdminBar, FooterBar, Tabs } from "../components";
 import { FieldList } from "../fields";
 import { saveSettings } from "../services/httpService";
+import { ReactComponent as Logo } from "./ditty.svg";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -68,7 +69,14 @@ export default () => {
   return (
     <>
       <AdminBar
-        title={__("Ditty Settings", "ditty-news-ticker")}
+        title={
+          <>
+            <Logo
+              style={{ height: "20px", fill: "#19bf7c", marginRight: "5px" }}
+            />
+            <span>{__("settings", "ditty-news-ticker")}</span>
+          </>
+        }
         buttonLabel={__("Save Settings", "ditty-news-ticker")}
         hasUpdates={hasUpdates}
         showSpinner={showSpinner}

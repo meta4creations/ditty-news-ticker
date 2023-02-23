@@ -35,36 +35,12 @@ class Ditty_Display {
 			$this->settings 		= $display_id['settings'];
 			$this->version			= '';
 		
-		// If this is a new display
-		} elseif ( false !== strpos( $display_id, 'new-' ) ) {
-			$this->parse_draft_data( $display_id );
-		
 		// Else, this is an existing display
 		} elseif ( get_post( $display_id ) ) { 
 			$this->construct_from_id( $display_id );
-			$this->parse_draft_data( $display_id );
 		}
 		$this->construct_display_object_data();
 		return $this;
-	}
-	
-	/**
-	 * Parse the draft data
-	 * @access public
-	 * @since  3.0
-	 * @return int $id
-	 */
-	public function parse_draft_data( $display_id ) {
-		$this->display_id = $display_id;
-		$draft_values = ditty_draft_display_get( $display_id );
-		if ( ! $draft_values ) {
-			return false;
-		}
-		$this->label 				= isset( $draft_values['label'] ) 				? $draft_values['label'] 				: $this->label;
-		$this->description 	= isset( $draft_values['description'] ) 	? $draft_values['description'] 	: $this->description;
-		$this->display_type = isset( $draft_values['display_type'] )	? $draft_values['display_type']	: $this->display_type;
-		$this->settings 		= isset( $draft_values['settings'] ) 			? $draft_values['settings'] 		: $this->settings;
-		$this->version			= isset( $draft_values['version'] )				? $draft_values['version'] 			: $this->version;
 	}
 	
 	/**

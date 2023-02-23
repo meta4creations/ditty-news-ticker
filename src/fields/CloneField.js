@@ -6,7 +6,7 @@ import {
   faClone,
   faAngleUp,
   faAngleDown,
-} from "@fortawesome/pro-light-svg-icons";
+} from "@fortawesome/pro-regular-svg-icons";
 import classnames from "classnames";
 import { Button, ButtonGroup } from "../components";
 

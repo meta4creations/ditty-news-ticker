@@ -104,6 +104,16 @@ const Clone = (props) => {
             onDelete={() => {
               const updatedValues = [...cloneValues];
               updatedValues.splice(cloneIndex, 1);
+
+              // If all fields are removed, add a blank one back in
+              if (!updatedValues.length) {
+                const newCloneValue =
+                  typeof value === "object" ? { ...value } : value;
+                updatedValues.push({
+                  _id: Date.now() + updatedValues.length,
+                  _value: newCloneValue,
+                });
+              }
               handleUpdateCloneValue(updatedValues);
             }}
             onClone={(value = "") => {
