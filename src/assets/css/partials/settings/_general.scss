@@ -31,12 +31,17 @@
   #ditty-settings {
     flex-direction: row;
     &__navigation {
-      width: 44px;
-      flex: 0 0 44px;
+      width: 74px;
+      flex: 0 0 74px;
       .ditty-tabs--list {
         .ditty-tab {
-          padding: 10px 4px 10px 14px;
-          width: auto;
+          justify-content: center;
+          width: 44px;
+          height: 44px;
+          padding: 10px 0;
+          &__icon {
+            width: auto;
+          }
           &__label {
             display: none;
           }

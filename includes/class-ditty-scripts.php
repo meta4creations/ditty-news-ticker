@@ -371,13 +371,13 @@ class Ditty_Scripts {
 				$this->version,
 				'all'
 			);
-			wp_enqueue_style(
-				'ditty-settings',
-				DITTY_URL . 'build/dittySettings.css',
-				[],
-				$this->version,
-				'all'
-			);
+			// wp_enqueue_style(
+			// 	'ditty-settings',
+			// 	DITTY_URL . 'build/dittySettings.css',
+			// 	[],
+			// 	$this->version,
+			// 	'all'
+			// );
 		}
 		
 		// Enqueue editor styles
@@ -504,21 +504,74 @@ class Ditty_Scripts {
 		}
 		
 		if ( is_admin() ) {
-			wp_enqueue_script( 'ditty-settings',
-				DITTY_URL . 'build/dittySettings.js',
-				['wp-element', 'wp-components', 'wp-hooks', 'lodash'],
-				$this->version,
-				true
-			);
-			wp_add_inline_script( 'ditty-settings', 'const dittySettingsVars = ' . json_encode( array(
-				'ajaxurl'						=> admin_url( 'admin-ajax.php' ),
-				'security'					=> wp_create_nonce( 'ditty' ),
-				'userId'						=> get_current_user_id(),
-				'siteUrl'						=> site_url(),
-				'fields'						=> Ditty()->settings->fields(),
-				'settings'					=> ditty_settings(),
-				'defaultSettings'		=> ditty_settings_defaults(),
-			) ), 'before' );
+			wp_register_script( 'hammer', DITTY_URL . 'includes/libs/hammer.min.js', array( 'jquery' ), '2.0.8.1', true );
+			wp_register_script( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.js', array( 'jquery' ), '1.4.21', true );
+			wp_register_script( 'ion-rangeslider', DITTY_URL . 'includes/libs/ion.rangeSlider/js/ion.rangeSlider.min.js', array( 'jquery' ), '2.3.1', true );
+			wp_register_script( 'jquery-minicolors', DITTY_URL . 'includes/libs/jquery-minicolors/jquery.minicolors.min.js', array( 'jquery' ), '2.3.5', true );
+			wp_register_script( 'ditty-fields', DITTY_URL . 'includes/fields/js/ditty-fields.min.js', array(
+				'jquery',
+				'protip',
+				'jquery-effects-core',
+				'wp-codemirror',
+				'ion-rangeslider',
+				'jquery-minicolors',
+			), $this->version, true );
+			wp_register_script( 'ditty-editor-hooks', DITTY_URL . 'includes/js/ditty-editor-hooks.min.js', array( 'jquery' ), $this->version, true );
+			wp_register_script( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.js', array( 'jquery' ), '1.4.21', true );
+			wp_register_script( 'ditty-fields', DITTY_URL . 'includes/fields/js/ditty-fields.min.js', array(
+				'jquery',
+				'protip',
+				'jquery-effects-core',
+				'wp-codemirror',
+				'ion-rangeslider',
+				'jquery-minicolors',
+			), $this->version, true );
+
+			if ( ( 'ditty_page_ditty_settings' == $hook || 'ditty_page_ditty_export' == $hook || 'ditty_page_ditty_extensions' == $hook || 'ditty_layout' == get_post_type() || 'ditty_display' == get_post_type() ) && current_user_can( 'manage_ditty_settings' ) ) {
+				wp_enqueue_script( 'ditty-admin', DITTY_URL . 'includes/js/ditty-admin.min.js', array(
+					'jquery',
+					'jquery-ui-core',
+					'jquery-ui-sortable',
+					'jquery-effects-core',
+					'jquery-form',
+					'protip',
+					'wp-i18n',
+					'ditty-fields'
+				), $this->version, true );
+				if ( empty( $ditty_scripts_enqueued ) ) {
+					wp_add_inline_script( 'ditty-admin', 'const dittyAdminVars = ' . json_encode( array(
+						'ajaxurl'				=> admin_url( 'admin-ajax.php' ),
+						'security'			=> wp_create_nonce( 'ditty' ),
+						'mode'					=> WP_DEBUG ? 'development' : 'production',
+						'adminStrings' 	=> is_admin() ? ditty_admin_strings() : false,
+						'updateIcon'		=> 'fas fa-sync-alt fa-spin',
+					) ), 'before' );
+				}
+			}
+
+			if ( current_user_can( 'edit_ditty_layouts' ) ) {
+				wp_enqueue_editor();
+				wp_enqueue_code_editor(
+					array(
+						'type' => 'text/html'
+					)
+				);
+			}
+			// wp_enqueue_script( 'ditty-settings',
+			// 	DITTY_URL . 'build/dittySettings.js',
+			// 	['wp-element', 'wp-components', 'wp-hooks', 'lodash'],
+			// 	$this->version,
+			// 	true
+			// );
+			// wp_add_inline_script( 'ditty-settings', 'const dittySettingsVars = ' . json_encode( array(
+			// 	'ajaxurl'						=> admin_url( 'admin-ajax.php' ),
+			// 	'security'					=> wp_create_nonce( 'ditty' ),
+			// 	'userId'						=> get_current_user_id(),
+			// 	'siteUrl'						=> site_url(),
+			// 	'fields'						=> Ditty()->settings->fields(),
+			// 	'settings'					=> ditty_settings(),
+			// 	'defaultSettings'		=> ditty_settings_defaults(),
+			// ) ), 'before' );
 		}
 
 		// Ensure global scripts are being added

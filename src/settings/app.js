@@ -64,7 +64,56 @@ export default () => {
     }
     return fieldGroups[index];
   };
-  const currentFieldGroup = getCurrentFieldGroup();
+
+  const renderContent = () => {
+    const currentFieldGroup = getCurrentFieldGroup();
+
+    switch (currentFieldGroup.id) {
+      case "layoutDefaults":
+        return (
+          <FieldList
+            name={currentFieldGroup.name}
+            description={currentFieldGroup.description}
+          />
+        );
+      case "layoutTemplates":
+        return (
+          <FieldList
+            name={currentFieldGroup.name}
+            description={currentFieldGroup.description}
+          />
+        );
+      case "displayTemplates":
+        return (
+          <FieldList
+            name={currentFieldGroup.name}
+            description={currentFieldGroup.description}
+          />
+        );
+      case "extensions":
+        console.log("currentFieldGroup", currentFieldGroup);
+        return (
+          <FieldList
+            name={currentFieldGroup.name}
+            description={currentFieldGroup.description}
+          />
+        );
+      default:
+        return (
+          <FieldList
+            name={currentFieldGroup.name}
+            description={currentFieldGroup.description}
+            fields={currentFieldGroup.fields}
+            values={settings}
+            onUpdate={(id, value) => {
+              const updatedSettings = { ...settings };
+              updatedSettings[id] = value;
+              setSettings(updatedSettings);
+            }}
+          />
+        );
+    }
+  };
 
   return (
     <>
@@ -72,7 +121,7 @@ export default () => {
         title={
           <>
             <Logo
-              style={{ height: "20px", fill: "#19bf7c", marginRight: "5px" }}
+              style={{ height: "30px", fill: "#19bf7c", marginRight: "5px" }}
             />
             <span>{__("settings", "ditty-news-ticker")}</span>
           </>
@@ -99,17 +148,7 @@ export default () => {
           id="ditty-settings__content"
           className="ditty-adminPage__app__content"
         >
-          <FieldList
-            name={currentFieldGroup.name}
-            description={currentFieldGroup.description}
-            fields={currentFieldGroup.fields}
-            values={settings}
-            onUpdate={(id, value) => {
-              const updatedSettings = { ...settings };
-              updatedSettings[id] = value;
-              setSettings(updatedSettings);
-            }}
-          />
+          {renderContent()}
         </div>
       </div>
       <FooterBar />

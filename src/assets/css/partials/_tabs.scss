@@ -127,6 +127,7 @@
 .ditty-tabs--list {
   flex-direction: column;
   align-items: stretch;
+  height: auto;
   .ditty-tab {
     height: 54px;
     justify-content: flex-start;

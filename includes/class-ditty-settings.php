@@ -78,6 +78,22 @@ class Ditty_Settings {
 						),
 						'std' 				=> ditty_settings_defaults( 'edit_links' ),
 					],
+					[
+						'type' 				=> 'checkbox',
+						'id' 					=> 'disable_fontawesome',
+						'name' 				=> esc_html__( 'Font Awesome', 'ditty-news-ticker' ),
+						'label' 			=> esc_html__( 'Disable Font Awesome from loading on the front-end', 'ditty-news-ticker' ),
+						'desc' 				=> esc_html__( 'This will disable the rendering of certain icons used in default Layouts and Layout tags.', 'ditty-news-ticker' ),
+						'std' 				=> ditty_settings_defaults( 'disable_fontawesome' ),
+					],
+					[
+						'type' 				=> 'checkbox',
+						'id' 					=> 'ditty_news_ticker',
+						'name' 				=> esc_html__( 'Ditty News Ticker', 'ditty-news-ticker' ),
+						'label' 			=> esc_html__( 'Enable Ditty News Ticker (Legacy code)', 'ditty-news-ticker' ),
+						'desc' 				=> esc_html__( 'This will enable loading of all legacy scripts and post types. Only enable this option if you have active Ditty News Ticker posts displaying on your site. You must refresh your browser after saving before changes take place.', 'ditty-news-ticker' ),
+						'std' 				=> ditty_settings_defaults( 'ditty_news_ticker' ),
+					],	
 				]
 			],
 			[
@@ -147,31 +163,52 @@ class Ditty_Settings {
 				]
 			],
 			[
-				'id' => 'advanced',
-				'label' => esc_html__( 'Advanced Settings', 'ditty-news-ticker' ),
-				'name' =>esc_html__( 'Advanced Settings', 'ditty-news-ticker' ),
-				'icon' => 'fas fa-dungeon',
-				'fields' => [
-					[
-						'type' 				=> 'checkbox',
-						'id' 					=> 'disable_fontawesome',
-						'name' 				=> esc_html__( 'Font Awesome', 'ditty-news-ticker' ),
-						'label' 			=> esc_html__( 'Disable Font Awesome from loading on the front-end', 'ditty-news-ticker' ),
-						'desc' 				=> esc_html__( 'This will disable the rendering of certain icons used in default Layouts and Layout tags.', 'ditty-news-ticker' ),
-						'std' 				=> ditty_settings_defaults( 'disable_fontawesome' ),
-					],
-					[
-						'type' 				=> 'checkbox',
-						'id' 					=> 'ditty_news_ticker',
-						'name' 				=> esc_html__( 'Ditty News Ticker', 'ditty-news-ticker' ),
-						'label' 			=> esc_html__( 'Enable Ditty News Ticker (Legacy code)', 'ditty-news-ticker' ),
-						'desc' 				=> esc_html__( 'This will enable loading of all legacy scripts and post types. Only enable this option if you have active Ditty News Ticker posts displaying on your site. You must refresh your browser after saving before changes take place.', 'ditty-news-ticker' ),
-						'std' 				=> ditty_settings_defaults( 'ditty_news_ticker' ),
-					],	
-				]
+				'id' => 'extensions',
+				'label' => esc_html__( 'Extensions', 'ditty-news-ticker' ),
+				'name' =>esc_html__( 'Extensions', 'ditty-news-ticker' ),
+				'icon' => 'fas fa-plus',
+				'pages' => $this->get_extensions()
 			],
+			// [
+			// 	'id' => 'layoutDefaults',
+			// 	'label' => esc_html__( 'Layout Defaults', 'ditty-news-ticker' ),
+			// 	'name' =>esc_html__( 'Layout Variation Defaults', 'ditty-news-ticker' ),
+			// 	'icon' => 'fas fa-pencil-ruler',
+			// ],
+			// [
+			// 	'id' => 'layoutTemplates',
+			// 	'label' => esc_html__( 'Layout Templates', 'ditty-news-ticker' ),
+			// 	'name' =>esc_html__( 'Layout Templates', 'ditty-news-ticker' ),
+			// 	'icon' => 'fas fa-pencil-ruler',
+			// ],
+			// [
+			// 	'id' => 'displayTemplates',
+			// 	'label' => esc_html__( 'Display Templates', 'ditty-news-ticker' ),
+			// 	'name' =>esc_html__( 'Display Templates', 'ditty-news-ticker' ),
+			// 	'icon' => 'fas fa-tablet-alt',
+			// ],
 		];	
 		return $fields;
+	}
+
+	/**
+	 * Return formatted extensions
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function get_extensions() {
+		$extensions = ditty_extensions();
+		$formatted_extensions = [];
+		if ( is_array( $extensions ) && count( $extensions ) > 0 ) {
+			foreach ( $extensions as $slug => $extension ) {
+				if ( ! isset( $extension['id'] ) ) {
+					$extension['id'] = $slug;
+					$formatted_extensions[] = $extension;
+				}
+			}
+		}
+		return $formatted_extensions;
 	}
 
 	/**
