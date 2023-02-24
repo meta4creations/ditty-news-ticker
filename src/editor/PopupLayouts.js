@@ -353,8 +353,10 @@ const PopupLayouts = ({
       return (
         <>
           <div className="ditty-field-list__heading">
-            <h3>{__("Layout Variations", "ditty-news-ticker")}</h3>
-            <p>
+            <h3 className="ditty-field-list__heading__title">
+              {__("Layout Variations", "ditty-news-ticker")}
+            </h3>
+            <p className="ditty-field-list__heading__description">
               {__(
                 "Configure the layouts to use for the item.",
                 "ditty-news-ticker"

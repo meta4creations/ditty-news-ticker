@@ -298,7 +298,7 @@ class Ditty_Layouts {
 						"span",
 						"none",
 					],
-					'help' =>  __(
+					'description' =>  __(
 						"Set the containing element of the rendered content",
 						"ditty-news-ticker"
 					),

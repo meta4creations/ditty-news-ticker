@@ -1,14 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import classnames from "classnames";
 
-const Item = ({
-  data,
-  elements,
-  isActive,
-  classes,
-  onItemClick,
-  onElementClick,
-}) => {
+const Item = ({ data, elements, isActive, classes, onItemClick }) => {
   const renderElement = (element) => {
     if (element.content) {
       const classes = classnames(
@@ -19,8 +12,8 @@ const Item = ({
         <span
           className={classes}
           key={element.id}
-          onClick={(e) => {
-            onElementClick && onElementClick(e, element.id, data);
+          onClick={() => {
+            element.onClick && element.onClick(data);
           }}
         >
           {"function" === typeof element.content

@@ -6,7 +6,7 @@ import { faCircleQuestion } from "@fortawesome/pro-solid-svg-icons";
 const FieldHeader = ({
   id,
   name,
-  desc,
+  description,
   help,
   icon,
   beforeContents,
@@ -40,7 +40,9 @@ const FieldHeader = ({
           )}
         </label>
         {help && displayHelp && <div className="ditty-field__help">{help}</div>}
-        {desc && <div className="ditty-field__description">{desc}</div>}
+        {description && (
+          <div className="ditty-field__description">{description}</div>
+        )}
       </div>
       {afterContents}
     </div>

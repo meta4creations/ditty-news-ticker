@@ -41,7 +41,7 @@ export const getTagFields = (layoutTags) => {
         type: "layout_attribute",
         id: layoutTag.tag,
         name: `{${layoutTag.tag}}`,
-        help: layoutTag.description,
+        description: layoutTag.description,
         multipleFields: false,
         collapsible: true,
         defaultState: "collapsed",
@@ -56,7 +56,7 @@ export const getAttributeFields = (atts) => {
   const fields = [];
   for (const key in atts) {
     if (typeof atts[key] === "object") {
-      fields.push(atts[key]);
+      fields.push({ name: key, ...atts[key] });
     } else {
       fields.push({
         type: "text",

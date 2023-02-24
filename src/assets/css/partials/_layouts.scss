@@ -63,3 +63,72 @@
     margin: 0;
   }
 }
+
+// Layout Attribute
+.ditty-field--layoutTagField {
+  .ditty-field-list & {
+    padding: 0;
+    border-bottom: none;
+  }
+  > .ditty-field__heading {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: #fbfbfb;
+    border-bottom: 1px solid $input_border_color;
+    gap: 10px;
+    + .ditty-field__input__container {
+      margin-top: 0;
+    }
+  }
+  .layoutTagEnabled {
+    width: 25px;
+    height: 25px;
+    color: $light_gray;
+    cursor: pointer;
+  }
+  .layoutAttributeCustomized {
+    width: 25px;
+    height: 25px;
+    color: $light_gray;
+    cursor: pointer;
+  }
+  .layoutTagActions {
+    flex: 0 0 auto;
+    margin-left: auto;
+    span {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+      border-radius: 3px;
+      background: rgba(0, 0, 0, 0.05);
+      transition: background-color 0.25s ease;
+    }
+  }
+  &:not(.is-disabled) {
+    .layoutTagEnabled {
+      color: $green;
+    }
+    .layoutTagAction__enable {
+      color: #fff;
+      background: $green;
+    }
+  }
+  &.is-disabled {
+    .layoutTagAction__disable {
+      color: #fff;
+      background: $red;
+    }
+  }
+  &.is-customized {
+    .layoutTagAction__customize {
+      color: #fff;
+      background: $blue;
+    }
+  }
+}

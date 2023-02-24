@@ -308,7 +308,7 @@ export class EditorProvider extends Component {
           trimmed[update] = item[update];
           return trimmed;
         },
-        { item_id: item.item_id }
+        { item_id: item.item_id, item_type: item.item_type }
       );
       return trimmedItem;
     });
@@ -364,6 +364,7 @@ export class EditorProvider extends Component {
     }
 
     if (data.updates && data.updates.items) {
+      // Swap out new ids with actual ids
       const updatedItems = this.state.items.map((item) => {
         let temp_id;
         let updated_id;
@@ -380,6 +381,19 @@ export class EditorProvider extends Component {
         }
         return item;
       });
+
+      // Update sanitized data
+      data.updates.items.map((item) => {
+        const index = updatedItems.findIndex((i) => {
+          if (i.item_id === item.item_id) {
+            return true;
+          }
+        });
+        if (index >= 0) {
+          updatedItems[index] = { ...updatedItems[index], ...item };
+        }
+      });
+
       updatedState.items = updatedItems;
     }
 
@@ -446,7 +460,6 @@ export class EditorProvider extends Component {
 
       // Update the state
       if (Object.keys(updatedState).length) {
-        console.log("updatedState", updatedState);
         this.setState(updatedState);
       }
 

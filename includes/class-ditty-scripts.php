@@ -347,7 +347,7 @@ class Ditty_Scripts {
 	 *
 	 * @since    3.1
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles( $hook ) {
 		
 		// Enqueue display styles
 		if ( $this->cache_enabled ) {
@@ -362,8 +362,8 @@ class Ditty_Scripts {
 		} else {
 			$this->load_external_styles( 'display', [], 'enqueue' );
 		}
-		
-		if ( is_admin() ) {
+
+		if ( is_admin() && 'admin_page_ditty' != $hook ) {
 			wp_enqueue_style(
 				'ditty-admin',
 				DITTY_URL . 'includes/css/ditty-admin.css',

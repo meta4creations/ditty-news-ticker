@@ -6,6 +6,7 @@ import {
   faGear,
   faPaintbrushPencil,
   faClone,
+  faTrashCan,
 } from "@fortawesome/pro-light-svg-icons";
 import {
   getDisplayItems,
@@ -257,42 +258,51 @@ const PanelItems = () => {
         id: "settings",
         className: "ditty-editor-item__action",
         content: <FontAwesomeIcon icon={faGear} />,
+        onClick: (item) => {
+          setCurrentItem(item);
+          setPopupStatus("editItem");
+        },
       },
       {
         id: "layout",
         className: "ditty-editor-item__action",
         content: <FontAwesomeIcon icon={faPaintbrushPencil} />,
+        onClick: (item) => {
+          setCurrentItem(item);
+          setPopupStatus("editLayout");
+        },
       },
       {
         id: "clone",
         className: "ditty-editor-item__action",
         content: <FontAwesomeIcon icon={faClone} />,
+        onClick: (item) => {
+          const clonedItem = _.cloneDeep(item);
+          clonedItem.item_id = `new-${Date.now()}`;
+          actions.addItem(clonedItem, Number(item.item_index) + 1);
+          setCurrentItem(clonedItem);
+
+          // Get new display items
+          const dittyEl = document.getElementById("ditty-editor__ditty");
+          getDisplayItems(clonedItem, layouts, (data) => {
+            const updatedDisplayItems = actions.addDisplayItems(
+              data.display_items
+            );
+            replaceDisplayItems(dittyEl, updatedDisplayItems);
+          });
+        },
+      },
+      {
+        id: "delete",
+        className: "ditty-editor-item__action",
+        content: <FontAwesomeIcon icon={faTrashCan} />,
+        onClick: (item) => {
+          handleDeleteItem(item);
+        },
       },
     ],
     EditorContext
   );
-
-  const handleElementClick = (e, elementId, item) => {
-    if ("settings" === elementId) {
-      setCurrentItem(item);
-      setPopupStatus("editItem");
-    } else if ("layout" === elementId) {
-      setCurrentItem(item);
-      setPopupStatus("editLayout");
-    } else if ("clone" === elementId) {
-      const clonedItem = _.cloneDeep(item);
-      clonedItem.item_id = `new-${Date.now()}`;
-      actions.addItem(clonedItem, Number(item.item_index) + 1);
-      setCurrentItem(clonedItem);
-
-      // Get new display items
-      const dittyEl = document.getElementById("ditty-editor__ditty");
-      getDisplayItems(clonedItem, layouts, (data) => {
-        const updatedDisplayItems = actions.addDisplayItems(data.display_items);
-        replaceDisplayItems(dittyEl, updatedDisplayItems);
-      });
-    }
-  };
 
   /**
    * Pull data from sorted list items to update items
@@ -336,13 +346,7 @@ const PanelItems = () => {
       return {
         id: item.item_id,
         data: item,
-        content: (
-          <ListItem
-            data={item}
-            elements={elements}
-            onElementClick={handleElementClick}
-          />
-        ),
+        content: <ListItem data={item} elements={elements} />,
       };
     });
   };

@@ -1,7 +1,13 @@
 import { __ } from "@wordpress/i18n";
 import { Fragment, useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faGear, faXmark } from "@fortawesome/pro-solid-svg-icons";
+import {
+  faCheck,
+  faCircleCheck,
+  faGear,
+  faPenCircle,
+  faXmark,
+} from "@fortawesome/pro-solid-svg-icons";
 import classnames from "classnames";
 import { Button, ButtonGroup } from "../components";
 import FieldHeader from "./FieldHeader";
@@ -50,78 +56,111 @@ const LayoutTagField = (props) => {
 
   const handleUpdateValue = (inputField, updatedValue) => {
     const groupValue = typeof value === "object" ? value : {};
-    groupValue[inputField.id] = updatedValue;
+    groupValue[inputField.id].value = {
+      customValue: true,
+      value: updatedValue,
+    };
     onChange(groupValue);
   };
 
-  const handleStatus = (status) => {
+  const toggleStatus = () => {
     const groupValue = typeof value === "object" ? value : {};
-    if ("disabled" === status) {
-      groupValue.disabled = true;
-    } else {
+    if (groupValue.disabled) {
       delete groupValue.disabled;
+    } else {
+      groupValue.disabled = true;
     }
     onChange(groupValue);
   };
 
-  const groupFields = () => {
-    if (Array.isArray(fields)) {
-      return fields;
+  const toggleAttribute = (attribute) => {
+    const groupValue = typeof value === "object" ? value : {};
+    const attributeValue = groupValue[attribute]
+      ? { ...groupValue[attribute] }
+      : {};
+    if (attributeValue.customValue) {
+      delete attributeValue.customValue;
+    } else {
+      attributeValue.customValue = true;
     }
+    console.log("groupValue", groupValue);
+
+    onChange(groupValue);
+  };
+
+  const getAttributeFields = () => {
     if ("object" === typeof fields) {
       const fieldsArray = [];
       for (const key in fields) {
         fieldsArray.push(fields[key]);
       }
-      return fieldsArray;
+      return fieldsArray.length ? fieldsArray : false;
     }
   };
+
+  const attributeFields = getAttributeFields();
 
   return (
     <div className={fieldClasses} key={id}>
       <FieldHeader
         {...props}
+        beforeContents={
+          <FontAwesomeIcon
+            className="layoutTagEnabled"
+            icon={faCircleCheck}
+            onClick={() => toggleStatus()}
+          />
+        }
         afterContents={
-          <ButtonGroup className="layoutTagActions" gap="3px">
-            <span
-              className="layoutTagAction layoutTagAction__enable"
-              onClick={() => handleStatus("enabled")}
-            >
-              <FontAwesomeIcon icon={faCheck} />
-            </span>
-            <span
-              className="layoutTagAction layoutTagAction__disable"
-              onClick={() => handleStatus("disabled")}
-            >
-              <FontAwesomeIcon icon={faXmark} />
-            </span>
-            <span
-              className="layoutTagAction layoutTagAction__customize"
-              onClick={toggleContent}
-            >
-              <FontAwesomeIcon icon={faGear} />
-            </span>
-          </ButtonGroup>
+          attributeFields &&
+          !value.disabled && (
+            <ButtonGroup className="layoutTagActions" gap="3px">
+              <span
+                className="layoutTagAction layoutTagAction__customize"
+                onClick={toggleContent}
+              >
+                <FontAwesomeIcon icon={faGear} />
+              </span>
+            </ButtonGroup>
+          )
         }
         style={styles}
       />
-      {displayContent && fields && (
+      {displayContent && attributeFields && (
         <div className="ditty-field__input__container">
           <div className="ditty-field__input ditty-field__input--group">
-            {groupFields().map((groupField, index) => {
-              const groupFieldValue = value[groupField.id]
-                ? value[groupField.id]
-                : groupField.std
-                ? groupField.std
+            {attributeFields.map((attributeField, index) => {
+              const attributeFieldValue = value[attributeField.id]
+                ? value[attributeField.id].value
+                  ? value[attributeField.id].value
+                  : attributeField.std
+                : attributeField.std
+                ? attributeField.std
                 : "";
+
+              console.log("attributeFieldValue", attributeFieldValue);
+
+              attributeField.prefix = (
+                <FontAwesomeIcon
+                  className="layoutAttributeCustomized"
+                  icon={faPenCircle}
+                  onClick={() => toggleAttribute(attributeField.id)}
+                />
+              );
 
               return (
                 <Fragment
                   key={
-                    groupField.id ? `${id}${groupField.id}` : `${id}${index}`
+                    attributeField.id
+                      ? `${id}${attributeField.id}`
+                      : `${id}${index}`
                   }
                 >
-                  {renderInput(groupField, groupFieldValue, handleUpdateValue)}
+                  {renderInput(
+                    attributeField,
+                    attributeFieldValue,
+                    handleUpdateValue
+                  )}
                 </Fragment>
               );
             })}

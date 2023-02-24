@@ -152,7 +152,13 @@ class Ditty_Display_Item {
 	 */
 	public function get_item_attribute_value( $tag, $attribute ) {
 		if ( isset( $this->attribute_value[$tag] ) && isset( $this->attribute_value[$tag][$attribute] ) ) {
-			return $this->attribute_value[$tag][$attribute];
+			if ( isset( $this->attribute_value[$tag][$attribute]['defaultValue'] ) ) {
+				return false;
+			}
+			if ( isset( $this->attribute_value[$tag][$attribute]['value'] ) ) {
+				return $this->attribute_value[$tag][$attribute]['value'];
+			}
+			
 		}
 		return false;
 	}

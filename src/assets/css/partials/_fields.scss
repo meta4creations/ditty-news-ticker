@@ -21,6 +21,9 @@
 .ditty-field {
   &__heading {
     display: flex;
+    + .ditty-field__input__container {
+      margin-top: 10px;
+    }
   }
   &__icon {
     font-size: 18px;
@@ -31,28 +34,23 @@
     display: block;
     font-size: 14px;
     font-weight: 600;
-    margin-bottom: 10px;
     cursor: default;
   }
   &__help-icon {
     color: #93999f;
   }
-  &__help {
+  &__help,
+  &__description {
     width: 100%;
     font-size: 13px;
     line-height: 16px;
-    margin: 7px 0 10px;
+    margin-top: 5px;
+    //margin: 7px 0 10px;
   }
   &--help {
     .ditty-field__help-icon {
       color: $green;
     }
-  }
-  &__description {
-    width: 100%;
-    font-size: 13px;
-    line-height: 16px;
-    margin: 2px 0 10px;
   }
   &__input {
     flex: 1;
@@ -196,6 +194,11 @@
     }
   }
 }
+// .ditty-field__input--group {
+//   > .ditty-field {
+//     width: 100%;
+//   }
+// }
 
 // Heading
 .ditty-field--heading {
@@ -394,66 +397,5 @@ $radius: 9px;
     background: transparent;
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
-  }
-}
-
-// Layout Attribute
-.ditty-field--layoutTagField {
-  .ditty-field-list & {
-    padding: 0;
-    border-bottom: none;
-  }
-  > .ditty-field__heading {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    background: #fbfbfb;
-    border-bottom: 1px solid $input_border_color;
-    > .ditty-field__heading__contents {
-      > .ditty-field__label {
-        margin-bottom: 0;
-      }
-      > .ditty-field__help {
-        margin-bottom: 0;
-      }
-      > .ditty-field__description {
-        margin-bottom: 0;
-      }
-    }
-  }
-  .layoutTagActions {
-    flex: 0 0 auto;
-    margin-left: auto;
-    span {
-      flex: 0 0 auto;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      width: 25px;
-      height: 25px;
-      cursor: pointer;
-      border-radius: 3px;
-      background: rgba(0, 0, 0, 0.05);
-      transition: background-color 0.25s ease;
-    }
-  }
-  &:not(.is-disabled) {
-    .layoutTagAction__enable {
-      color: #fff;
-      background: $green;
-    }
-  }
-  &.is-disabled {
-    .layoutTagAction__disable {
-      color: #fff;
-      background: $red;
-    }
-  }
-  &.is-customized {
-    .layoutTagAction__customize {
-      color: #fff;
-      background: $blue;
-    }
   }
 }

@@ -594,9 +594,25 @@ class Ditty_Singles {
 		// Sanitize the layout values
 		$sanitized_layout_value = false;
 		if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
-			foreach ( $layout_value as $variation => $layout ) {
-				$sanitized_layout_value[esc_attr( $variation )] = esc_attr( $layout );
+			foreach ( $layout_value as $variation => $value ) {
+				if ( is_array( $value ) ) {
+					$sanitized_layout_value[esc_attr( $variation )] = json_encode( [
+						'html' => wp_kses_post( $value['html'] ),
+						'css' => wp_kses_post( $value['css'] ),
+					] );
+				} else {
+					$sanitized_layout_value[esc_attr( $variation )] = esc_attr( $value );
+				}
 			}
+		}
+
+		// Sanitize attribute value
+		$sanitized_attribute_value = false;
+		if ( $item_type && $attribute_value ) {
+			$sanitized_attribute_value = $attribute_value;
+			// if ( $item_type_object = ditty_item_type_object( $item_type ) ) {
+			// 	$sanitized_item_value = $item_type_object->sanitize_settings( $item_value );
+			// }
 		}
 		
 		$sanitized_item = array();
@@ -613,17 +629,17 @@ class Ditty_Singles {
 			$sanitized_item['item_type'] = esc_attr( $item_data['item_type'] );
 		}
 		if ( isset( $item_data['item_value'] ) ) {
-			$sanitized_item['item_value'] = maybe_serialize( $sanitized_item_value );
+			$sanitized_item['item_value'] = $sanitized_item_value;
 		}
 		if ( isset( $item_data['layout_id'] ) ) {
 			$sanitized_item['layout_id'] = esc_attr( $item_data['layout_id'] );
 		}
 		if ( isset( $item_data['layout_value'] ) ) {
-			$sanitized_item['layout_value'] = maybe_serialize( $sanitized_layout_value );
+			$sanitized_item['layout_value'] = $sanitized_layout_value;
 		}
-		// if ( isset( $item_data['attribute_value'] ) ) {
-		// 	$sanitized_item['attribute_value'] = maybe_serialize( $sanitized_attribute_value );
-		// }
+		if ( isset( $item_data['attribute_value'] ) ) {
+			$sanitized_item['attribute_value'] = $sanitized_attribute_value;
+		}
 		if ( isset( $item_data['item_author'] ) ) {
 			$sanitized_item['item_author'] = intval( $item_data['item_author'] );
 		}

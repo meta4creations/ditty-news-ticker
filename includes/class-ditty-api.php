@@ -175,6 +175,11 @@ class Ditty_API {
 					$item = ( array ) $item;
 				}
 
+				// Set the Ditty ID of new Ditty
+				if ( $is_new_ditty ) {
+					$item['ditty_id'] = $id;
+				}
+
 				//Set the modified date of the item
 				if ( isset( $item['item_value'] ) ) {
 					$item['date_modified'] = date( 'Y-m-d H:i:s' );
@@ -182,50 +187,41 @@ class Ditty_API {
 					$item['date_modified'] = date( 'Y-m-d H:i:s' );
 				}
 
-				if ( is_array( $item ) && count( $item ) > 0 ) {
-					foreach ( $item as $key => $value ) {
-						if ( 'layout_value' == $key ) {
-							$layout_value = array();
-							if ( is_array( $value ) && count( $value ) > 0 ) {
-								foreach ( $value as $variation => $v ) {
-									if ( is_array( $v ) ) {
-										$layout_value[$variation] = json_encode($v);
-										// //$layout_value[$variation] = isset( $v['html'] ) ? wp_kses_post( $v['html'] ) : '';
-										// $layout_value[$variation] = array(
-										// 	'css' => isset( $v['css'] ) ? wp_kses_post( $v['css'] ) : '',
-										// );
-									} else {
-										$layout_value[$variation] = $v;
-									}
-								}
-							}
-							$item[$key] = maybe_serialize( $layout_value );
-						} elseif( 'ditty_id' == $key && $is_new_ditty ) {
-							$item[$key] = $id;
-						} else {
-							$item[$key] = maybe_serialize( $value );
-						}
+				// Sanitize & serialize data
+				$sanitized_item = $serialized_item = Ditty()->singles->sanitize_item_data( $item );
+				if ( isset( $sanitized_item['item_value'] ) ) {
+					$serialized_item['item_value'] = maybe_serialize( $sanitized_item['item_value'] );
+					
+					// Return new item previews
+					if ( $item_type_object = ditty_item_type_object( $sanitized_item['item_type'] ) ) {
+						$sanitized_item['editor_preview'] = $item_type_object->editor_preview( $sanitized_item['item_value'] );
 					}
+				}
+				if ( isset( $sanitized_item['layout_value'] ) ) {
+					$serialized_item['layout_value'] = maybe_serialize( $sanitized_item['layout_value'] );
+				}
+				if ( isset( $sanitized_item['attribute_value'] ) ) {
+					$serialized_item['attribute_value'] = maybe_serialize( $sanitized_item['attribute_value'] );
 				}
 
 				if ( false !== strpos( $item['item_id'], 'new-' ) ) {
-					if ( $new_item_id = Ditty()->db_items->insert( apply_filters( 'ditty_item_db_data', $item, $id ), 'item' ) ) {
+					if ( $new_item_id = Ditty()->db_items->insert( apply_filters( 'ditty_item_db_data', $serialized_item, $id ), 'item' ) ) {
 						if ( ! isset( $updates['items'] ) ) {
 							$updates['items'] = [];
 						}
 						$item['new_id'] = strval( $new_item_id );
-						$updates['items'][] = $item;
+						$updates['items'][] = $sanitized_item;
 					} else {
 						if ( ! isset( $errors['items'] ) ) {
 							$errors['items'] = [];
 						}
 						$errors['items'][] = $item;
 					}
-				} elseif ( Ditty()->db_items->update( $item['item_id'], apply_filters( 'ditty_item_db_data', $item, $id ), 'item_id' ) ) {
+				} elseif ( Ditty()->db_items->update( $sanitized_item['item_id'], apply_filters( 'ditty_item_db_data', $serialized_item, $id ), 'item_id' ) ) {
 					if ( ! isset( $updates['items'] ) ) {
 						$updates['items'] = [];
 					}
-					$updates['items'][] = $item;
+					$updates['items'][] = $sanitized_item;
 				} else {
 					if ( ! isset( $errors['items'] ) ) {
 						$errors['items'] = [];

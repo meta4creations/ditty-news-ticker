@@ -82,7 +82,7 @@ const FieldList = ({
 
   return (
     <div className={classes}>
-      {(name || desc) && (
+      {(name || description) && (
         <div className="ditty-field-list__heading">
           {name && <h3 className="ditty-field-list__heading__title">{name}</h3>}{" "}
           {description && (
