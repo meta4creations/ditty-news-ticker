@@ -506,7 +506,7 @@ class Ditty_API {
 				$prepared_items = ditty_prepare_display_items( $item );
 				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
 					foreach ( $prepared_items as $prepared_item ) {
-						$display_item = new Ditty_Display_Item_New( $prepared_item, $layouts );
+						$display_item = new Ditty_Display_Item( $prepared_item, $layouts );
 						$ditty_data = $display_item->ditty_data();
 						$display_items[] = $ditty_data;
 						$grouped_displays[] = $ditty_data;

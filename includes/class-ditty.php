@@ -226,7 +226,6 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-roles.php';
 
 		// The class responsible for defining all actions that occur in the public-facing side of the site.
-		require_once DITTY_DIR . 'includes/class-ditty-display.php';
 		require_once DITTY_DIR . 'includes/class-ditty-displays.php';
 		require_once DITTY_DIR . 'includes/class-ditty-display-type.php';
 		require_once DITTY_DIR . 'includes/class-ditty-display-type-ticker.php';
@@ -234,11 +233,8 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-editor.php';
 		require_once DITTY_DIR . 'includes/class-ditty-errors.php';
 		require_once DITTY_DIR . 'includes/class-ditty-extensions.php';
-		
-		//
-		require_once DITTY_DIR . 'includes/class-ditty-display-item-new.php';
-		//
 
+		require_once DITTY_DIR . 'includes/class-ditty-display-item.php';
 		require_once DITTY_DIR . 'includes/class-ditty-layouts.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-default.php';

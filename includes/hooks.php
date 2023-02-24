@@ -1,5 +1,5 @@
 <?php
-	
+
 /**
  * Delete items from deleted Dittys
  *

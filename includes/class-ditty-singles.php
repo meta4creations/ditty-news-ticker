@@ -166,7 +166,7 @@ class Ditty_Singles {
 				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
 					foreach ( $prepared_items as $i => $prepared_meta ) {
 						$prepared_meta['attribute_value'] = $attribute_value;
-						$display_item = new Ditty_Display_Item_New( $prepared_meta );
+						$display_item = new Ditty_Display_Item( $prepared_meta );
 						$ditty_data = $display_item->ditty_data();
 						$display_items[] = $ditty_data;
 						$prepared_meta['layout_value'] = $layout_variations;
@@ -408,16 +408,16 @@ class Ditty_Singles {
 	 * Return data for a Ditty to load via ajax
 	 *
 	 * @access public
-	 * @since  3.0.12
+	 * @since  3.1
 	 */
 	public function init_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
-		$id_ajax 								= isset( $_POST['id'] ) 							? intval( $_POST['id'] ) 									: false;
-		$uniqid_ajax 						= isset( $_POST['uniqid'] ) 					? esc_attr( $_POST['uniqid'] ) 						: false;
-		$display_ajax 					= isset( $_POST['display'] ) 					? esc_attr( $_POST['display'] ) 					: false;
-		$display_settings_ajax 	= isset( $_POST['display_settings'] ) ? esc_attr( $_POST['display_settings'] ) 	: false;
-		$layout_settings_ajax 	= isset( $_POST['layout_settings'] ) 	? esc_attr( $_POST['layout_settings'] ) 	: false;
-		$editor_ajax 						= isset( $_POST['editor'] )						? intval( $_POST['editor'] ) 							: false;
+		$id_ajax 												= isset( $_POST['id'] ) 							? intval( $_POST['id'] ) 									: false;
+		$uniqid_ajax 										= isset( $_POST['uniqid'] ) 					? esc_attr( $_POST['uniqid'] ) 						: false;
+		$display_ajax 									= isset( $_POST['display'] ) 					? esc_attr( $_POST['display'] ) 					: false;
+		$custom_display_settings_ajax 	= isset( $_POST['display_settings'] ) ? esc_attr( $_POST['display_settings'] ) 	: false;
+		$custom_layout_settings_ajax 		= isset( $_POST['layout_settings'] ) 	? esc_attr( $_POST['layout_settings'] ) 	: false;
+		$editor_ajax 										= isset( $_POST['editor'] )						? intval( $_POST['editor'] ) 							: false;
 
 		// Get the display attributes
 		if ( ! $display_ajax ) {
@@ -427,24 +427,24 @@ class Ditty_Singles {
 			$display_ajax = ditty_default_display( $id_ajax );
 		}
 		
-		$display = new Ditty_Display( $display_ajax );
+		$display_settings = get_post_meta( $display_ajax, '_ditty_display_settings', true );
 
 		// Setup the ditty values
 		$status = get_post_status( $id_ajax );
-		$args 									= $display->get_values();
+		$args 									= $display_settings;
 		$args['id'] 						= $id_ajax;
 		$args['uniqid'] 				= $uniqid_ajax;
 		$args['title'] 					= get_the_title( $id_ajax );
 		$args['status'] 				= $status;
-		$args['display'] 				= $display->get_display_id();
+		$args['display'] 				= $display_ajax;
 		$args['showEditor'] 		= $editor_ajax;
 
-		$items = ditty_display_items( $id_ajax, 'force', $layout_settings_ajax );
+		$items = ditty_display_items( $id_ajax, 'force', $custom_layout_settings_ajax );
 		if ( ! is_array( $items ) ) {
 			$items = array();
 		}
 		$args['items'] = $items;
-		$args = $this->parse_custom_display_settings( $args, $display_settings_ajax );
+		$args = $this->parse_custom_display_settings( $args, $custom_display_settings_ajax );
 
 		do_action( 'ditty_init', $id_ajax );
 		
@@ -459,19 +459,18 @@ class Ditty_Singles {
 	 * Return data for a Ditty to load via ajax
 	 *
 	 * @access public
-	 * @since  3.0.12
+	 * @since  3.1
 	 */
 	public function init( $atts ) {
 		if ( ! $atts['data-id'] ) {
 			return false;
 		}
 
-		$ditty_id 				= $atts['data-id'];
-		$uniqid 					= isset( $atts['data-uniqid'] ) 					? $atts['data-uniqid'] 						: false;
-		$display_id 			= isset( $atts['data-display'] ) 					? $atts['data-display'] 					: false;
-		$display_settings = isset( $atts['data-display_settings'] )	? $atts['data-display_settings']	: false;
-		$layout_settings 	= isset( $atts['data-layout_settings'] ) 	? $atts['data-layout_settings'] 	: false;
-		$show_editor 			= isset( $atts['data-show_editor'] ) 			? $atts['data-show_editor'] 			: false;
+		$ditty_id 								= $atts['data-id'];
+		$uniqid 									= isset( $atts['data-uniqid'] ) 					? $atts['data-uniqid'] 						: false;
+		$display_id 							= isset( $atts['data-display'] ) 					? $atts['data-display'] 					: false;
+		$custom_display_settings 	= isset( $atts['data-display_settings'] )	? $atts['data-display_settings']	: false;
+		$custom_layout_settings 	= isset( $atts['data-layout_settings'] ) 	? $atts['data-layout_settings'] 	: false;
 
 		// If the Ditty is not published, exit
 		if ( 'publish' != get_post_status( $ditty_id ) ) {
@@ -491,26 +490,25 @@ class Ditty_Singles {
 		// if ( ! $display_id || '' == $display_id || ! ditty_display_exists( $display_id ) ) {
 		// 	$display_id = ditty_default_display( $ditty_id );
 		// }
-		$display = new Ditty_Display( $display_id );
-		$display_type = $display->get_display_type();
+		$display_settings = get_post_meta( $display_id, '_ditty_display_settings', true );
+		$display_type = get_post_meta( $display_id, '_ditty_display_type', true );
 	
 		// Setup the ditty values
 		$status = get_post_status( $ditty_id );
-		$args = $display->get_values();
-		
+		$args = $display_settings;	
 		$args['id'] 				= $ditty_id;
 		$args['uniqid'] 		= $uniqid;
 		$args['title'] 			= get_the_title( $ditty_id );
 		$args['status'] 		= $status;
-		$args['display'] 		= $display->get_display_id();
-		$args['showEditor'] = $show_editor;
+		$args['display'] 		= $display_id;
 
-		$items = ditty_display_items( $ditty_id, 'force', $layout_settings );
+		$items = ditty_display_items( $ditty_id, 'force', $custom_layout_settings );
 		if ( ! is_array( $items ) ) {
 			$items = array();
 		}
 		$args['items'] = $items;
-		$args = $this->parse_custom_display_settings( $args, $display_settings );
+
+		$args = $this->parse_custom_display_settings( $args, $custom_display_settings );
 	
 		do_action( 'ditty_init', $ditty_id );
 		

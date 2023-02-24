@@ -16,7 +16,7 @@ use Thunder\Shortcode\Syntax\CommonSyntax;
 use Thunder\Shortcode\Syntax\Syntax;
 use Thunder\Shortcode\Syntax\SyntaxBuilder;
 
-class Ditty_Display_Item_New {
+class Ditty_Display_Item {
 	private $id;
 	private $uniq_id;
 	private $parent_id;

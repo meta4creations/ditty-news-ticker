@@ -819,7 +819,7 @@ function ditty_display_items( $ditty_id, $load_type = 'cache', $custom_layouts =
 				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
 					foreach ( $prepared_items as $i => $prepared_meta ) {
 						$prepared_meta['attribute_value'] = $attribute_value;
-						$display_item = new Ditty_Display_Item_New( $prepared_meta );
+						$display_item = new Ditty_Display_Item( $prepared_meta );
 						$ditty_data = $display_item->ditty_data();
 						$display_items[] = $ditty_data;
 						//$prepared_meta['layout_value'] = $layout_variations;

@@ -175,12 +175,12 @@
       "oAP" : "\/includes\/class-ditty-deactivator.php",
       "oF" : 0
     },
-    "\/includes\/class-ditty-display-item-new.php" : {
+    "\/includes\/class-ditty-display-item.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 0,
-      "oAP" : "\/includes\/class-ditty-display-item-new.php",
+      "oAP" : "\/includes\/class-ditty-display-item.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-display-type-list.php" : {
@@ -205,14 +205,6 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/includes\/class-ditty-display-type.php",
-      "oF" : 0
-    },
-    "\/includes\/class-ditty-display.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/includes\/class-ditty-display.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-displays.php" : {
