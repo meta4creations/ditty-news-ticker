@@ -183,14 +183,6 @@
       "oAP" : "\/includes\/class-ditty-display-item-new.php",
       "oF" : 0
     },
-    "\/includes\/class-ditty-display-item.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/includes\/class-ditty-display-item.php",
-      "oF" : 0
-    },
     "\/includes\/class-ditty-display-type-list.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -293,30 +285,6 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/class-ditty-item-type.php",
-      "oF" : 0
-    },
-    "\/includes\/class-ditty-item.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/includes\/class-ditty-item.php",
-      "oF" : 0
-    },
-    "\/includes\/class-ditty-items.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/class-ditty-items.php",
-      "oF" : 0
-    },
-    "\/includes\/class-ditty-layout.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/class-ditty-layout.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-layouts.php" : {

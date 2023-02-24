@@ -59,7 +59,6 @@ class Ditty {
 	public $errors;
 	public $extensions;
 	public $layouts;
-	public $items;
 	public $settings;
 	public $scripts;
 	public $singles;
@@ -103,7 +102,6 @@ class Ditty {
 			self::$instance->scripts			= new Ditty_Scripts();
 			self::$instance->settings			= new Ditty_Settings();
 			self::$instance->singles			= new Ditty_Singles();
-			self::$instance->items				= new Ditty_Items();
 			self::$instance->wpml					= new Ditty_WPML();	
 		}
 
@@ -229,7 +227,6 @@ class Ditty {
 
 		// The class responsible for defining all actions that occur in the public-facing side of the site.
 		require_once DITTY_DIR . 'includes/class-ditty-display.php';
-		require_once DITTY_DIR . 'includes/class-ditty-display-item.php';
 		require_once DITTY_DIR . 'includes/class-ditty-displays.php';
 		require_once DITTY_DIR . 'includes/class-ditty-display-type.php';
 		require_once DITTY_DIR . 'includes/class-ditty-display-type-ticker.php';
@@ -237,15 +234,12 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-editor.php';
 		require_once DITTY_DIR . 'includes/class-ditty-errors.php';
 		require_once DITTY_DIR . 'includes/class-ditty-extensions.php';
-		require_once DITTY_DIR . 'includes/class-ditty-layout.php';
 		
 		//
 		require_once DITTY_DIR . 'includes/class-ditty-display-item-new.php';
 		//
 
 		require_once DITTY_DIR . 'includes/class-ditty-layouts.php';
-		require_once DITTY_DIR . 'includes/class-ditty-item.php';
-		require_once DITTY_DIR . 'includes/class-ditty-items.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-default.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-wp-editor.php';
