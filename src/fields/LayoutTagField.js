@@ -2,14 +2,12 @@ import { __ } from "@wordpress/i18n";
 import { Fragment, useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCheck,
   faCircleCheck,
   faGear,
   faPenCircle,
-  faXmark,
 } from "@fortawesome/pro-solid-svg-icons";
 import classnames from "classnames";
-import { Button, ButtonGroup } from "../components";
+import { ButtonGroup } from "../components";
 import FieldHeader from "./FieldHeader";
 
 const LayoutTagField = (props) => {
@@ -54,17 +52,8 @@ const LayoutTagField = (props) => {
     cursor: collapsible ? "pointer" : "default",
   };
 
-  const handleUpdateValue = (inputField, updatedValue) => {
-    const groupValue = typeof value === "object" ? value : {};
-    groupValue[inputField.id].value = {
-      customValue: true,
-      value: updatedValue,
-    };
-    onChange(groupValue);
-  };
-
   const toggleStatus = () => {
-    const groupValue = typeof value === "object" ? value : {};
+    const groupValue = typeof value === "object" ? { ...value } : {};
     if (groupValue.disabled) {
       delete groupValue.disabled;
     } else {
@@ -73,8 +62,28 @@ const LayoutTagField = (props) => {
     onChange(groupValue);
   };
 
+  const handleUpdateValue = (inputField, updatedValue) => {
+    const groupValue = typeof value === "object" ? { ...value } : {};
+    const attributeValue = {
+      customValue: true,
+      value: updatedValue,
+    };
+    groupValue[inputField.id] = attributeValue;
+    onChange(groupValue);
+  };
+
+  const attributeHasCustomValue = (attribute) => {
+    const groupValue = typeof value === "object" ? { ...value } : {};
+    const attributeValue = groupValue[attribute]
+      ? { ...groupValue[attribute] }
+      : {};
+    return "undefined" === attributeValue.customValue
+      ? false
+      : attributeValue.customValue;
+  };
+
   const toggleAttribute = (attribute) => {
-    const groupValue = typeof value === "object" ? value : {};
+    const groupValue = typeof value === "object" ? { ...value } : {};
     const attributeValue = groupValue[attribute]
       ? { ...groupValue[attribute] }
       : {};
@@ -83,8 +92,7 @@ const LayoutTagField = (props) => {
     } else {
       attributeValue.customValue = true;
     }
-    console.log("groupValue", groupValue);
-
+    groupValue[attribute] = attributeValue;
     onChange(groupValue);
   };
 
@@ -104,14 +112,14 @@ const LayoutTagField = (props) => {
     <div className={fieldClasses} key={id}>
       <FieldHeader
         {...props}
-        beforeContents={
+        headerStart={
           <FontAwesomeIcon
             className="layoutTagEnabled"
             icon={faCircleCheck}
             onClick={() => toggleStatus()}
           />
         }
-        afterContents={
+        headerEnd={
           attributeFields &&
           !value.disabled && (
             <ButtonGroup className="layoutTagActions" gap="3px">
@@ -138,15 +146,23 @@ const LayoutTagField = (props) => {
                 ? attributeField.std
                 : "";
 
-              console.log("attributeFieldValue", attributeFieldValue);
-
-              attributeField.prefix = (
+              attributeField.className = attributeField.className
+                ? `${attributeField.className} ditty-layout-attribute-field`
+                : "ditty-layout-attribute-field";
+              attributeField.fieldBefore = (
                 <FontAwesomeIcon
                   className="layoutAttributeCustomized"
                   icon={faPenCircle}
                   onClick={() => toggleAttribute(attributeField.id)}
                 />
               );
+
+              if (attributeHasCustomValue(attributeField.id)) {
+                attributeField.className +=
+                  " ditty-layout-attribute-field--custom";
+              } else {
+                attributeField.type = "heading";
+              }
 
               return (
                 <Fragment

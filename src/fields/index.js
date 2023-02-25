@@ -1,9 +1,11 @@
 export { default as BaseField } from "./BaseField";
 export { default as CheckboxField } from "./CheckboxField";
 export { default as ColorField } from "./ColorField";
+export { default as ComponentField } from "./ComponentField";
 export { default as Field } from "./Field";
 export { default as FieldList } from "./FieldList";
 export { default as GroupField } from "./GroupField";
+export { default as HtmlField } from "./HtmlField";
 export { default as LayoutTagField } from "./LayoutTagField";
 export { default as NumberField } from "./NumberField";
 export { default as RadioField } from "./RadioField";

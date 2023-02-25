@@ -7,6 +7,8 @@ const BaseField = (props) => {
     type,
     id,
     inline,
+    fieldBefore,
+    fieldAfter,
     prefix,
     suffix,
     className,
@@ -31,14 +33,22 @@ const BaseField = (props) => {
 
   return (
     <div className={fieldClasses} key={id} style={style}>
-      {!hideHeader && <FieldHeader {...props} />}
-      {children && (
-        <div className="ditty-field__input__container">
-          {prefix && <div className="ditty-field__input__prefix">{prefix}</div>}
-          <div className={inputClasses}>{children}</div>
-          {suffix && <div className="ditty-field__input__suffix">{suffix}</div>}
-        </div>
-      )}
+      {fieldBefore && <div className="ditty-field__before">{fieldBefore}</div>}
+      <div className="ditty-field__contents">
+        {!hideHeader && <FieldHeader {...props} />}
+        {children && (
+          <div className="ditty-field__input__container">
+            {prefix && (
+              <div className="ditty-field__input__prefix">{prefix}</div>
+            )}
+            <div className={inputClasses}>{children}</div>
+            {suffix && (
+              <div className="ditty-field__input__suffix">{suffix}</div>
+            )}
+          </div>
+        )}
+      </div>
+      {fieldAfter && <div className="ditty-field__after">{fieldAfter}</div>}
     </div>
   );
 };

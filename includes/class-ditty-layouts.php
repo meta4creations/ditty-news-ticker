@@ -298,8 +298,8 @@ class Ditty_Layouts {
 						"span",
 						"none",
 					],
-					'description' =>  __(
-						"Set the containing element of the rendered content",
+					'help' =>  __(
+						"Set the containing element of the rendered tag.",
 						"ditty-news-ticker"
 					),
       		'std' => $default ? $default : 'div',

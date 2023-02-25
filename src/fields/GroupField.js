@@ -80,7 +80,7 @@ const GroupField = (props) => {
     <div className={fieldClasses} key={id}>
       <FieldHeader
         {...props}
-        afterContents={
+        headerEnd={
           collapsible ? (
             <FontAwesomeIcon
               className="ditty-field__toggle"

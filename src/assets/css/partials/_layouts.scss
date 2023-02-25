@@ -81,6 +81,9 @@
       margin-top: 0;
     }
   }
+  > .ditty-field__input__container {
+    padding-left: 15px;
+  }
   .layoutTagEnabled {
     width: 25px;
     height: 25px;
@@ -129,6 +132,24 @@
     .layoutTagAction__customize {
       color: #fff;
       background: $blue;
+    }
+  }
+}
+.ditty-layout-attribute-field {
+  position: relative;
+  > .ditty-field__contents {
+    padding-left: 36px;
+  }
+  > .ditty-field__before {
+    position: absolute;
+    top: 12px;
+    left: 15px;
+  }
+  &--custom {
+    .ditty-field__before {
+      svg {
+        color: $green;
+      }
     }
   }
 }

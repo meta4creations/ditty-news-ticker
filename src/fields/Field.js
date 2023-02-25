@@ -1,10 +1,12 @@
 import { __ } from "@wordpress/i18n";
 import BaseField from "./BaseField";
-import ColorField from "./ColorField";
 import Clone from "./Clone";
 import CheckboxField from "./CheckboxField";
 import CheckboxesField from "./CheckboxesField";
+import ColorField from "./ColorField";
+import ComponentField from "./ComponentField";
 import GroupField from "./GroupField";
+import HtmlField from "./HtmlField";
 import LayoutTagField from "./LayoutTagField";
 import NumberField from "./NumberField";
 import RadioField from "./RadioField";
@@ -66,6 +68,8 @@ const Field = ({ field, fieldValue, updateValue, delayChange = false }) => {
               {...inputField}
             />
           );
+        case "component":
+          return <ComponentField value={inputValue} {...inputField} />;
         case "group":
           return (
             <GroupField
@@ -79,6 +83,8 @@ const Field = ({ field, fieldValue, updateValue, delayChange = false }) => {
           );
         case "heading":
           return <BaseField {...inputField} />;
+        case "html":
+          return <HtmlField value={inputValue} {...inputField} />;
         case "layout_attribute":
           return (
             <LayoutTagField

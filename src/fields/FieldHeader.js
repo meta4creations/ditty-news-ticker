@@ -9,8 +9,8 @@ const FieldHeader = ({
   description,
   help,
   icon,
-  beforeContents,
-  afterContents,
+  headerStart,
+  headerEnd,
   style,
   onClick,
 }) => {
@@ -26,14 +26,14 @@ const FieldHeader = ({
 
   return name || help || icon ? (
     <div className="ditty-field__heading" onClick={onClick} style={style}>
+      {headerStart}
       {icon && <div className="ditty-field__icon">{icon}</div>}
-      {beforeContents}
       <div className="ditty-field__heading__contents">
         <label className="ditty-field__label">
           {name ? name : id}{" "}
           {help && (
             <FontAwesomeIcon
-              className="ditty-field__help-icon"
+              className={`ditty-field__help-icon ${displayHelp && `active`}`}
               icon={faCircleQuestion}
               onClick={toggleHelp}
             />
@@ -44,7 +44,7 @@ const FieldHeader = ({
           <div className="ditty-field__description">{description}</div>
         )}
       </div>
-      {afterContents}
+      {headerEnd}
     </div>
   ) : (
     ""

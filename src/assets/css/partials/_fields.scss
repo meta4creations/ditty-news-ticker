@@ -38,6 +38,9 @@
   }
   &__help-icon {
     color: #93999f;
+    &.active {
+      color: $green;
+    }
   }
   &__help,
   &__description {
@@ -45,12 +48,6 @@
     font-size: 13px;
     line-height: 16px;
     margin-top: 5px;
-    //margin: 7px 0 10px;
-  }
-  &--help {
-    .ditty-field__help-icon {
-      color: $green;
-    }
   }
   &__input {
     flex: 1;
@@ -191,29 +188,6 @@
     }
     > .ditty-field__toggle {
       margin-left: auto;
-    }
-  }
-}
-// .ditty-field__input--group {
-//   > .ditty-field {
-//     width: 100%;
-//   }
-// }
-
-// Heading
-.ditty-field--heading {
-  background: #fbfbfb;
-  > .ditty-field__heading {
-    > .ditty-field__heading__contents {
-      > .ditty-field__label {
-        margin-bottom: 0;
-      }
-      > .ditty-field__help {
-        margin-bottom: 0;
-      }
-      > .ditty-field__description {
-        margin-bottom: 0;
-      }
     }
   }
 }
