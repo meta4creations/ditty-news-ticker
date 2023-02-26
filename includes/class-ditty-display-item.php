@@ -152,7 +152,6 @@ class Ditty_Display_Item {
 	 */
 	public function get_item_attribute_value( $tag, $attribute ) {
 		if ( isset( $this->attribute_value[$tag] ) && isset( $this->attribute_value[$tag][$attribute] ) ) {
-			//echo '<pre>';print_r($this->attribute_value[$tag][$attribute]);echo '</pre>';
 			if ( isset( $this->attribute_value[$tag][$attribute]['customValue'] ) ) {
 				if ( isset( $this->attribute_value[$tag][$attribute]['value'] ) ) {
 					return $this->attribute_value[$tag][$attribute]['value'];
@@ -321,11 +320,11 @@ class Ditty_Display_Item {
 				$handlers->add( $tag['tag'], function( ShortcodeInterface $s ) use ( $tag, $data ) {
 					$data['item_meta'] = $this->get_item_meta();
 					$defaults = isset( $tag['atts'] ) ? $tag['atts'] : array();
-					$defaults = $this->get_layout_att_values( $tag['tag'], $defaults );
-					if ( 'disabled' == $defaults ) {
+					$atts = $this->parse_atts( $defaults, $s );
+					$atts = $this->get_layout_att_values( $tag['tag'], $atts );
+					if ( 'disabled' == $atts ) {
 						return false;
 					}
-					$atts = $this->parse_atts( $defaults, $s );
 					$atts = apply_filters( 'ditty_layout_tag_atts', $atts, $tag['tag'], $this->get_item_type(), $data );
 					$content = $s->getContent();
 					if ( isset( $tag['func'] ) && function_exists( $tag['func'] ) ) {

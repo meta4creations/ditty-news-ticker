@@ -282,13 +282,43 @@ class Ditty_Layouts {
 	 */
 	public function tag_attribute_default_settings ( $tag, $default = false ) {
 		switch( $tag ) {
+			case 'after':
+				return [
+					'type' => "text",
+					'id' =>  "after",
+					'help' =>  __(
+						"Add text after the rendered tag.",
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			case 'before':
+				return [
+					'type' => "text",
+      		'id' =>  "before",
+					'help' =>  __(
+						"Add text before the rendered tag.",
+						"ditty-news-ticker"
+					),
+      		'std' => $default ? $default : '',
+				];
+			case 'height':
+				return [
+					'type' => "unit",
+					'id' =>  "height",
+					'help' =>  __(
+						"Set the height of the element.",
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
 			case 'wrapper':
 				return [
 					'type' => "select",
-      		'id' =>  "wrapper",
-      		'options' => [
+					'id' =>  "wrapper",
+					'options' => [
 						"div",
-  					"h1",
+						"h1",
 						"h2",
 						"h3",
 						"h4",
@@ -302,8 +332,20 @@ class Ditty_Layouts {
 						"Set the containing element of the rendered tag.",
 						"ditty-news-ticker"
 					),
-      		'std' => $default ? $default : 'div',
+					'std' => $default ? $default : 'div',
 				];
+			case 'width':
+				return [
+					'type' => "unit",
+					'id' =>  "width",
+					'help' =>  __(
+						"Set the width of the element.",
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			default:
+				return $default;
 		}
 	}
 	

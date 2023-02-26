@@ -83,17 +83,21 @@
   }
   > .ditty-field__input__container {
     padding-left: 15px;
+    background: $light_gray;
+    > .ditty-field__input--group {
+      background: #fff;
+    }
   }
   .layoutTagEnabled {
     width: 25px;
     height: 25px;
-    color: $light_gray;
+    color: $gray;
     cursor: pointer;
   }
   .layoutAttributeCustomized {
     width: 25px;
     height: 25px;
-    color: $light_gray;
+    color: $gray;
     cursor: pointer;
   }
   .layoutTagActions {
@@ -110,7 +114,7 @@
       cursor: pointer;
       border-radius: 3px;
       background: rgba(0, 0, 0, 0.05);
-      transition: background-color 0.25s ease;
+      transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
     }
   }
   &:not(.is-disabled) {
@@ -126,6 +130,11 @@
     .layoutTagAction__disable {
       color: #fff;
       background: $red;
+    }
+  }
+  &.is-open {
+    .layoutTagAction__customize {
+      transform: rotate(135deg);
     }
   }
   &.is-customized {
@@ -144,9 +153,12 @@
     position: absolute;
     top: 12px;
     left: 15px;
+    svg {
+      color: $gray;
+    }
   }
   &--custom {
-    .ditty-field__before {
+    > .ditty-field__before {
       svg {
         color: $green;
       }

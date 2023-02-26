@@ -37,7 +37,7 @@
     cursor: default;
   }
   &__help-icon {
-    color: #93999f;
+    color: $gray;
     &.active {
       color: $green;
     }

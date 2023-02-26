@@ -11,45 +11,11 @@ import { ButtonGroup } from "../components";
 import FieldHeader from "./FieldHeader";
 
 const LayoutTagField = (props) => {
-  const {
-    id,
-    fields,
-    value,
-    className,
-    collapsible,
-    defaultState = "expanded",
-    onChange,
-    renderInput,
-  } = props;
-  const [displayContent, setDisplayContent] = useState(
-    collapsible && "collapsed" === defaultState ? false : true
-  );
+  const { id, fields, value, className, onChange, renderInput } = props;
+  const [displayContent, setDisplayContent] = useState(false);
 
-  const toggleContent = (e) => {
-    if (
-      collapsible &&
-      !e.target.classList.contains("ditty-field__help-icon") &&
-      !e.target.parentElement.classList.contains("ditty-field__help-icon")
-    ) {
-      setDisplayContent(!displayContent);
-    }
-  };
-
-  const fieldClasses = classnames(
-    "ditty-field",
-    "ditty-field--layoutTagField",
-    `ditty-field-id--${id}`,
-    className,
-    {
-      "is-disabled": value.disabled,
-      "is-customized":
-        (!value.disabled && Object.keys(value).length) ||
-        (value.disabled && Object.keys(value).length > 1),
-    }
-  );
-
-  const styles = {
-    cursor: collapsible ? "pointer" : "default",
+  const toggleContent = () => {
+    setDisplayContent(!displayContent);
   };
 
   const toggleStatus = () => {
@@ -62,37 +28,51 @@ const LayoutTagField = (props) => {
     onChange(groupValue);
   };
 
-  const handleUpdateValue = (inputField, updatedValue) => {
+  const handleUpdateValue = (attribute, updatedValue) => {
     const groupValue = typeof value === "object" ? { ...value } : {};
     const attributeValue = {
       customValue: true,
       value: updatedValue,
     };
-    groupValue[inputField.id] = attributeValue;
+    groupValue[attribute.id] = attributeValue;
     onChange(groupValue);
   };
 
   const attributeHasCustomValue = (attribute) => {
     const groupValue = typeof value === "object" ? { ...value } : {};
-    const attributeValue = groupValue[attribute]
-      ? { ...groupValue[attribute] }
+    const attributeValue = groupValue[attribute.id]
+      ? { ...groupValue[attribute.id] }
       : {};
     return "undefined" === attributeValue.customValue
       ? false
       : attributeValue.customValue;
   };
 
+  const getAttributeValue = (attribute) => {
+    return value[attribute.id]
+      ? value[attribute.id].value
+        ? value[attribute.id].value
+        : attribute.std
+      : attribute.std
+      ? attribute.std
+      : "";
+  };
+
   const toggleAttribute = (attribute) => {
     const groupValue = typeof value === "object" ? { ...value } : {};
-    const attributeValue = groupValue[attribute]
-      ? { ...groupValue[attribute] }
+    const attributeValue = groupValue[attribute.id]
+      ? { ...groupValue[attribute.id] }
       : {};
+    const attributeDefault = attribute.std ? attribute.std : false;
     if (attributeValue.customValue) {
       delete attributeValue.customValue;
     } else {
       attributeValue.customValue = true;
+      attributeValue.value = attributeValue.value
+        ? attributeValue.value
+        : attributeDefault;
     }
-    groupValue[attribute] = attributeValue;
+    groupValue[attribute.id] = attributeValue;
     onChange(groupValue);
   };
 
@@ -107,6 +87,35 @@ const LayoutTagField = (props) => {
   };
 
   const attributeFields = getAttributeFields();
+
+  const tagHasCustomValues = () => {
+    let hasCustomization = false;
+    for (const attribute in value) {
+      if (
+        typeof value[attribute] === "object" &&
+        value[attribute].customValue
+      ) {
+        hasCustomization = true;
+        break;
+      }
+    }
+    if (value.disabled) {
+      hasCustomization = false;
+    }
+    return hasCustomization;
+  };
+
+  const fieldClasses = classnames(
+    "ditty-field",
+    "ditty-field--layoutTagField",
+    `ditty-field-id--${id}`,
+    className,
+    {
+      "is-disabled": value.disabled,
+      "is-customized": tagHasCustomValues(),
+      "is-open": displayContent,
+    }
+  );
 
   return (
     <div className={fieldClasses} key={id}>
@@ -132,19 +141,12 @@ const LayoutTagField = (props) => {
             </ButtonGroup>
           )
         }
-        style={styles}
       />
-      {displayContent && attributeFields && (
+      {displayContent && attributeFields && !value.disabled && (
         <div className="ditty-field__input__container">
           <div className="ditty-field__input ditty-field__input--group">
             {attributeFields.map((attributeField, index) => {
-              const attributeFieldValue = value[attributeField.id]
-                ? value[attributeField.id].value
-                  ? value[attributeField.id].value
-                  : attributeField.std
-                : attributeField.std
-                ? attributeField.std
-                : "";
+              const attributeFieldValue = getAttributeValue(attributeField);
 
               attributeField.className = attributeField.className
                 ? `${attributeField.className} ditty-layout-attribute-field`
@@ -153,11 +155,11 @@ const LayoutTagField = (props) => {
                 <FontAwesomeIcon
                   className="layoutAttributeCustomized"
                   icon={faPenCircle}
-                  onClick={() => toggleAttribute(attributeField.id)}
+                  onClick={() => toggleAttribute(attributeField)}
                 />
               );
 
-              if (attributeHasCustomValue(attributeField.id)) {
+              if (attributeHasCustomValue(attributeField)) {
                 attributeField.className +=
                   " ditty-layout-attribute-field--custom";
               } else {
