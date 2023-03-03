@@ -136,9 +136,9 @@ class Ditty_API {
 			return new WP_Error( 'no_userId', __( 'No user id', 'ditty-news-ticker' ), array( 'status' => 404 ) );
 		}
 		$id = isset( $apiData['id'] ) ? $apiData['id'] : 0;
-		if ( 0 == $id ) {
-			return new WP_Error( 'no_id', __( 'No Ditty id', 'ditty-news-ticker' ), array( 'status' => 404 ) );
-		}
+		// if ( 0 == $id ) {
+		// 	return new WP_Error( 'no_id', __( 'No Ditty id', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		// }
 		$is_new_ditty = ( 'ditty-new' === $id );
 		$items = isset( $apiData['items'] ) ? $apiData['items'] : array();
 		$deletedItems = isset( $apiData['deletedItems'] ) ? $apiData['deletedItems'] : array();

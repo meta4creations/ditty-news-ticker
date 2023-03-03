@@ -76,7 +76,7 @@ const Editor = ({ className }) => {
         id: "settings",
         label: __("Settings", "ditty-news-ticker"),
         icon: <FontAwesomeIcon icon={faGear} />,
-        content: <PanelSettings editor={EditorContext} />,
+        content: <PanelSettings />,
       },
     ],
     EditorContext

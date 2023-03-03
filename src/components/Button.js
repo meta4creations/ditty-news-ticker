@@ -7,6 +7,7 @@ const Button = ({
   icon,
   type,
   size,
+  style,
   isPressed,
   isBusy,
   onClick,
@@ -24,6 +25,7 @@ const Button = ({
   return (
     <button
       className={classes}
+      style={style && style}
       onClick={onClick}
       disabled={disabled ? "disabled" : false}
     >

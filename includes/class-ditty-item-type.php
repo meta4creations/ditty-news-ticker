@@ -180,6 +180,37 @@ class Ditty_Item_Type {
 	public function get_layout_tags() {
 		return ditty_layout_tags( $this->get_type() );
 	}
+
+	/**
+	 * Return layout variations
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function default_layout() {
+		$default_layout = array(
+			'html' => '{content}',
+			'css' => '',
+		);
+		return $default_layout;
+	}
+
+	/**
+	 * Return layout variations
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function get_layout_variations() {
+		$layout_variations = array(
+			'default' => array(
+				'label'				=> __( 'Default', 'ditty-news-ticker' ),
+				'description' => __( 'The default variation used for this item.', 'ditty-news-ticker' ),
+				'icon'				=> 'fa-solid fa-asterisk'
+			),
+		);
+		return $layout_variations;
+	}
 	
 	/**
 	 * Get values to populate the metabox

@@ -196,7 +196,7 @@ const PopupLayouts = ({
 
   const templateButtons = (variation, layoutObject) => {
     return (
-      <>
+      <ButtonGroup gap="3px">
         <Button
           size="small"
           onClick={() => {
@@ -220,7 +220,7 @@ const PopupLayouts = ({
         >
           {__("Customize", "ditty-news-ticker")}
         </Button>
-      </>
+      </ButtonGroup>
     );
   };
 
@@ -228,7 +228,8 @@ const PopupLayouts = ({
     return (
       <>
         <Button
-          size="small"
+          className=""
+          style={{ marginBottom: "10px", width: "100%" }}
           onClick={() => {
             setSelectedVariation(variation);
             updateVariationTemplates(
@@ -240,24 +241,26 @@ const PopupLayouts = ({
         >
           {__("Customize", "ditty-news-ticker")}
         </Button>
-        <Button
-          size="small"
-          onClick={() => {
-            setSelectedVariation(variation);
-            setPopupStatus("layoutTemplateSelect");
-          }}
-        >
-          {__("Use Template", "ditty-news-ticker")}
-        </Button>
-        <Button
-          size="small"
-          onClick={() => {
-            setSelectedVariation(variation);
-            setPopupStatus("layoutTemplateSave");
-          }}
-        >
-          {__("Save as Template", "ditty-news-ticker")}
-        </Button>
+        <ButtonGroup gap="3px">
+          <Button
+            size="small"
+            onClick={() => {
+              setSelectedVariation(variation);
+              setPopupStatus("layoutTemplateSelect");
+            }}
+          >
+            {__("Use Template", "ditty-news-ticker")}
+          </Button>
+          <Button
+            size="small"
+            onClick={() => {
+              setSelectedVariation(variation);
+              setPopupStatus("layoutTemplateSave");
+            }}
+          >
+            {__("Save as Template", "ditty-news-ticker")}
+          </Button>
+        </ButtonGroup>
       </>
     );
   };
@@ -275,39 +278,27 @@ const PopupLayouts = ({
       layoutBlocks.push(
         <div key={variation} className="editLayout__variation">
           <IconBlock style={{ marginBottom: "10px" }}>
-            {layoutObject.id ? (
+            <IconBlock
+              icon={variationObject.icon}
+              className="ditty-layout-variation--heading"
+            >
+              <div className="ditty-icon-block--heading__title">
+                <h3>{variationObject.label && variationObject.label}</h3>
+              </div>
+              <p>
+                {variationObject.description && variationObject.description}
+              </p>
+            </IconBlock>
+            {layoutObject.id && (
               <>
-                <IconBlock
-                  icon={variationObject.icon}
-                  className="ditty-layout-variation--heading"
-                >
-                  <div className="ditty-icon-block--heading__title">
-                    <h3>{variationObject.label && variationObject.label}</h3>
-                  </div>
-                  <p>
-                    {variationObject.description && variationObject.description}
-                  </p>
-                </IconBlock>
                 <h2>{layoutObject.title}</h2>
                 <p>{layoutObject.description}</p>
-                {/* <p>
-                  {__("Post ID", "ditty-news-ticker")} :{" "}
-                  <a href={layoutObject.edit_url}>{layoutObject.id}</a>
-                </p> */}
-              </>
-            ) : (
-              <>
-                <h3>
-                  {`${variation}: ${__("Custom Layout", "ditty-news-ticker")}`}{" "}
-                </h3>
               </>
             )}
           </IconBlock>
-          <ButtonGroup className="ditty-displayEdit__links" gap="3px">
-            {layoutObject.id
-              ? templateButtons(variation, layoutObject)
-              : customButtons(variation, layoutObject)}
-          </ButtonGroup>
+          {layoutObject.id
+            ? templateButtons(variation, layoutObject)
+            : customButtons(variation, layoutObject)}
         </div>
       );
     }

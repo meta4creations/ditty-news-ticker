@@ -36,6 +36,8 @@ const PanelDisplays = () => {
 
   const displayTypes = getDisplayTypes();
 
+  console.log("currentDisplay", currentDisplay);
+
   /**
    * Update the Display on field update
    * @param {object} field

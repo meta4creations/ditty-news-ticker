@@ -129,9 +129,9 @@ export const getItemLabel = (item) => {
 export const getLayoutVariationObject = (itemType, variation) => {
   const itemTypeObject =
     typeof itemType === "object" ? itemType : getItemTypeObject(itemType);
-  const variationTypes = itemTypeObject.variationTypes
-    ? itemTypeObject.variationTypes
+  const layoutVariations = itemTypeObject.layoutVariations
+    ? itemTypeObject.layoutVariations
     : {};
 
-  return variationTypes[variation] ? variationTypes[variation] : variation;
+  return layoutVariations[variation] ? layoutVariations[variation] : variation;
 };

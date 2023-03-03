@@ -109,11 +109,17 @@ class Ditty_Singles {
 		if ( ! $ditty_id ) {
 			return false;
 		}		
+		$ticker_object = ditty_display_type_object( 'ticker' );
+
 		$title = __( 'New Ditty', 'ditty-news-ticker' );
 		$atts = array(
 			'data-id' 	 => $ditty_id,
 			'data-title' => $title,
 			'data-settings' => json_encode( ditty_single_settings_defaults() ),
+			'data-displayobject' => json_encode( [
+				'type' => 'ticker',
+				'settings' => $ticker_object->default_settings()
+			] )
 		);
 		?>
 		<div id="ditty-editor__wrapper" class="ditty-adminPage" <?php echo ditty_attr_to_html( $atts ); ?>></div>

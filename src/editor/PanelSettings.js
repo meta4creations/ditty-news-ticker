@@ -3,9 +3,10 @@ import { useContext } from "@wordpress/element";
 import _ from "lodash";
 import { Panel } from "../components";
 import { FieldList } from "../fields";
+import { EditorContext } from "./context";
 
-const PanelSettings = ({ editor }) => {
-  const { id, title, settings, actions } = useContext(editor);
+const PanelSettings = () => {
+  const { id, title, settings, actions } = useContext(EditorContext);
 
   const settingsFields = dittyEditor.applyFilters("dittySettingsFields", [
     {

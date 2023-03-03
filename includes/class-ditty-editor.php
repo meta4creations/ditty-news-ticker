@@ -125,11 +125,13 @@ class Ditty_Editor {
 					'settings' => $settings,
 					'defaultValues' => $default_settings,
 					'layoutTags' => array_values( $item_type_object->get_layout_tags() ),
-					'variationTypes' => $item_type_object->get_layout_variation_types(),
+					'layoutVariations' => $item_type_object->get_layout_variations(),
+					'defaultLayout' => $item_type_object->default_layout(),
 				];
 				$item_type_data[] = $item_type;
 			}
 		}
+		//echo '<pre style="height:100%;overflow:scroll;">';print_r($item_type_data);echo '</pre>';
 		return array_values($item_type_data);
 	}
 

@@ -280,7 +280,7 @@ class Ditty_Layouts {
 	 * @access  private
 	 * @since   3.1
 	 */
-	public function tag_attribute_default_settings ( $tag, $default = false ) {
+	public function tag_attribute_default_settings ( $tag, $default = false, $options = false ) {
 		switch( $tag ) {
 			case 'after':
 				return [
@@ -302,12 +302,118 @@ class Ditty_Layouts {
 					),
       		'std' => $default ? $default : '',
 				];
+			case 'class':
+				return [
+					'type' => "text",
+					'id' =>  "class",
+					'help' =>  __(
+						"Add a custom class name to the element.",
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			case 'fit':
+				return [
+					'type' => "select",
+					'id' =>  "fit",
+					'options' => $options ? $options : [
+						"none",
+						"fill",
+						"contain",
+						"cover",
+						"scale-down",
+					],
+					'help' =>  __(
+						"Set the object fit property of the image.",
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
 			case 'height':
 				return [
 					'type' => "unit",
 					'id' =>  "height",
 					'help' =>  __(
-						"Set the height of the element.",
+						"Set the height of the image.",
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			case 'link':
+				return [
+					'type' => "select",
+					'id' =>  "link",
+					'help' =>  __(
+						"Add a link to the element.",
+						"ditty-news-ticker"
+					),
+					'options' => $options ? $options : [
+						"none",
+					],
+					'std' => $default ? $default : '',
+				];
+			case 'link_after':
+				return [
+					'type' => "text",
+					'id' =>  "link_after",
+					'help' =>  __(
+						"Add text after the link.",
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			case 'link_before':
+				return [
+					'type' => "text",
+					'id' =>  "link_before",
+					'help' =>  __(
+						"Add text before the link.",
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			case 'link_rel':
+				return [
+					'type' => "text",
+					'id' =>  "link_rel",
+					'help' =>  __(
+						"Add a rel attribute to the link.",
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			case 'link_target':
+				return [
+					'type' => "select",
+					'id' =>  "link_target",
+					'options' => $options ? $options : [
+						'_blank',
+						'_self',
+						'_parent',
+						'_top',
+					],
+					'help' =>  __(
+						"Set the target attribute for the link.",
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			case 'width':
+				return [
+					'type' => "unit",
+					'id' =>  "width",
+					'help' =>  __(
+						"Set the width of the image.",
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			case 'wpautop':
+				return [
+					'type' => "checkbox",
+					'id' =>  "wpautop",
+					'help' =>  __(
+						"Automatically add paragraph tags to the text.",
 						"ditty-news-ticker"
 					),
 					'std' => $default ? $default : '',
@@ -316,7 +422,7 @@ class Ditty_Layouts {
 				return [
 					'type' => "select",
 					'id' =>  "wrapper",
-					'options' => [
+					'options' => $options ? $options : [
 						"div",
 						"h1",
 						"h2",
@@ -333,16 +439,6 @@ class Ditty_Layouts {
 						"ditty-news-ticker"
 					),
 					'std' => $default ? $default : 'div',
-				];
-			case 'width':
-				return [
-					'type' => "unit",
-					'id' =>  "width",
-					'help' =>  __(
-						"Set the width of the element.",
-						"ditty-news-ticker"
-					),
-					'std' => $default ? $default : '',
 				];
 			default:
 				return $default;

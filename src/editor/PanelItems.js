@@ -46,12 +46,17 @@ const PanelItems = () => {
   const handleAddItem = (itemType) => {
     const dittyEl = document.getElementById("ditty-editor__ditty");
     const itemTypeObject = getItemTypeObject(itemType);
+
+    const layoutValue = {
+      default: itemTypeObject.defaultLayout,
+    };
     const variationDefaults = dittyEditorVars.variationDefaults
       ? dittyEditorVars.variationDefaults
       : {};
-    const layoutValue = variationDefaults[itemType]
-      ? variationDefaults[itemType]
-      : { default: { html: "{content}", css: "" } };
+    if (variationDefaults[itemType] && variationDefaults[itemType].default) {
+      layoutValue.default = variationDefaults[itemType].default;
+    }
+
     const itemId = `new-${Date.now()}`;
     const newItem = {
       ditty_id: id,
@@ -183,7 +188,6 @@ const PanelItems = () => {
                 updateDisplayItems(dittyEl, data.display_items);
                 setTempDisplayItems(data.display_items);
                 if (data.preview_items[updatedItem.item_id]) {
-                  console.log("setTempPreviewItem", data.preview_items);
                   setTempPreviewItem(data.preview_items[updatedItem.item_id]);
                 }
               });
