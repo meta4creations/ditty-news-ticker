@@ -363,7 +363,7 @@ class Ditty_Scripts {
 			$this->load_external_styles( 'display', [], 'enqueue' );
 		}
 
-		if ( is_admin() && 'admin_page_ditty' != $hook ) {
+		if ( is_admin() && 'admin_page_ditty' != $hook && 'admin_page_ditty-new' != $hook ) {
 			wp_enqueue_style(
 				'ditty-admin',
 				DITTY_URL . 'includes/css/ditty-admin.css',
