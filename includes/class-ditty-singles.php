@@ -20,7 +20,7 @@ class Ditty_Singles {
 	public function __construct() {
 	
 		add_filter( 'get_edit_post_link', array( $this, 'modify_edit_post_link' ), 10, 3 );
-		add_action( 'admin_menu', array( $this, 'add_ditty_pages' ), 10, 5 );
+		add_action( 'admin_menu', array( $this, 'add_admin_pages' ), 10, 5 );
 		add_action( 'admin_init', array( $this, 'edit_page_redirects' ) );
 
 		// General hooks
@@ -67,8 +67,11 @@ class Ditty_Singles {
 			}
 		}
 		if ( $pagenow === 'post-new.php' ) {
-			wp_safe_redirect( add_query_arg( ['page' => 'ditty-new' ], admin_url( 'admin.php' ) ) );
-			exit;
+			$post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : false;
+			if ( 'ditty' == $post_type ) {
+				wp_safe_redirect( add_query_arg( ['page' => 'ditty-new' ], admin_url( 'admin.php' ) ) );
+				exit;
+			}
 		}
 	}
 	
@@ -78,7 +81,7 @@ class Ditty_Singles {
 	 *
 	 * @since   3.1
 	 */
-	public function add_ditty_pages() {
+	public function add_admin_pages() {
 		add_submenu_page(
 			null,
 			esc_html__( 'Ditty', 'ditty-news-ticker' ),

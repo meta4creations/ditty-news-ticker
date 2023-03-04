@@ -160,7 +160,7 @@ function ditty_display_types() {
 		'label' 			=> __( 'Ticker', 'ditty-news-ticker' ),
 		'icon' 				=> 'fas fa-ellipsis-h',
 		'description' => __( 'Basic news ticker display.', 'ditty-news-ticker' ),
-		'class_name'	=> 'Ditty_Display_Type_Ticker',
+		//'class_name'	=> 'Ditty_Display_Type_Ticker',
 		//'class_path'	=> DITTY_DIR . 'includes/class-ditty-display-type-ticker.php',
 	);
 	$display_types['list'] = array(
@@ -645,9 +645,7 @@ function ditty_display_exists( $display_id ) {
 */
 function ditty_display_type_exists( $type ) {	
 	$display_types = ditty_display_types();
-	if ( isset( $display_types[$type] ) && class_exists( $display_types[$type]['class_name'] ) ) {
-		return true;
-	}
+	return isset( $display_types[$type] );
 }
 
 /**
@@ -1537,6 +1535,21 @@ function ditty_editing() {
 		return $id;
 	} elseif( 'ditty-new' == $page ) {
 		return 'ditty-new';
+	}
+}
+
+/**
+ * Check if we are on a ditty edit page
+ *
+ * @since   3.1
+ */
+function ditty_display_editing() {
+	$page = isset( $_GET['page'] ) ? $_GET['page'] : false;
+	$id = isset( $_GET['id'] ) ? $_GET['id'] : false;
+	if ( 'ditty_display' == $page && $id ) {
+		return $id;
+	} elseif( 'ditty_display-new' == $page ) {
+		return 'ditty_display-new';
 	}
 }
 

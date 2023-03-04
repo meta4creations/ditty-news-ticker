@@ -363,7 +363,7 @@ class Ditty_Scripts {
 			$this->load_external_styles( 'display', [], 'enqueue' );
 		}
 
-		if ( is_admin() && 'admin_page_ditty' != $hook && 'admin_page_ditty-new' != $hook ) {
+		if ( is_admin() && ! ditty_editing() && ! ditty_display_editing() ) {
 			wp_enqueue_style(
 				'ditty-admin',
 				DITTY_URL . 'includes/css/ditty-admin.css',
@@ -381,7 +381,7 @@ class Ditty_Scripts {
 		}
 		
 		// Enqueue editor styles
-		if ( is_admin() && ditty_editing() ) {
+		if ( is_admin() && ( ditty_editing() || ditty_display_editing() ) ) {
 			wp_enqueue_style(
 				'ditty-editor',
 				DITTY_URL . 'build/dittyEditor.css',
@@ -464,8 +464,6 @@ class Ditty_Scripts {
 		}
 
 		if ( ditty_editing() ) {
-			wp_dequeue_script( 'autosave' );
-
 			if ( $this->cache_enabled ) {
 				$cache = $this->get_cache();
 				wp_enqueue_script(
@@ -489,7 +487,6 @@ class Ditty_Scripts {
 			if ( empty( $ditty_scripts_enqueued ) ) {
 				wp_add_inline_script( 'ditty', 'const dittyEditor={};', 'before' );
 				wp_add_inline_script( 'ditty-editor', 'const dittyEditorVars = ' . json_encode( array(
-					'ajaxurl'						=> admin_url( 'admin-ajax.php' ),
 					'security'					=> wp_create_nonce( 'ditty' ),
 					'mode'							=> WP_DEBUG ? 'development' : 'production',
 					'userId'						=> get_current_user_id(),
@@ -499,6 +496,49 @@ class Ditty_Scripts {
 					'itemTypes'					=> Ditty()->editor->item_type_data(),
 					'displayTypes'			=> Ditty()->editor->display_type_data(),
 					'variationDefaults' => ditty_settings( 'variation_defaults' ),
+				) ), 'before' );
+			}
+		}
+
+		if ( $display_id = ditty_display_editing() ) {
+			if ( $this->cache_enabled ) {
+				$cache = $this->get_cache();
+				wp_enqueue_script(
+					'ditty-editor-cache',
+					$cache['editor_js_url'],
+					$cache['editor_js_required'],
+					null,
+					true
+				);
+			} else {
+				//$this->load_external_scripts( 'editor', ['ditty', 'wp-element', 'wp-components'], 'enqueue' );
+				$this->load_external_scripts( 'editor', ['ditty-editor', 'wp-element', 'wp-components'], 'enqueue' );
+			}
+
+			wp_enqueue_script( 'ditty-display-editor',
+				DITTY_URL . 'build/dittyDisplayEditor.js',
+				array_merge(['wp-element', 'wp-components', 'wp-hooks', 'lodash', 'wp-codemirror', 'ditty'], $display_slugs),
+				$this->version,
+				true
+			);
+			if ( empty( $ditty_scripts_enqueued ) ) {
+				if ( 'ditty_display-new' == $display_id ) {
+					$title = __( 'New Display', 'ditty-news-ticker' );
+				} else {
+					$display = get_post( $display_id );	
+					$title = $display->post_title;
+				}
+
+				wp_add_inline_script( 'ditty-display-editor', 'const dittyEditor={};', 'before' );
+				wp_add_inline_script( 'ditty-display-editor', 'const dittyEditorVars = ' . json_encode( array(
+					'security'					=> wp_create_nonce( 'ditty' ),
+					'mode'							=> WP_DEBUG ? 'development' : 'production',
+					'userId'						=> get_current_user_id(),
+					'siteUrl'						=> site_url(),
+					'id'	=> $display_id,
+					'title' => $title,
+					'type' => 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_display_type', true ),
+					'settings' => 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_display_settings', true ),
 				) ), 'before' );
 			}
 		}

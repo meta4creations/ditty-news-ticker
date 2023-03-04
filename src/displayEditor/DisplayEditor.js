@@ -1,0 +1,127 @@
+import classnames from "classnames";
+import { __ } from "@wordpress/i18n";
+import { useState, useContext } from "@wordpress/element";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBarsStaggered,
+  faTabletScreen,
+  faGear,
+} from "@fortawesome/pro-regular-svg-icons";
+import { Tabs } from "../components";
+import PanelItems from "./PanelItems";
+import PanelDisplays from "./PanelDisplays";
+import PanelSettings from "./PanelSettings";
+import { DisplayEditorContext } from "./context";
+
+const DisplayEditor = ({ className }) => {
+  const { settings, actions } = useContext(DisplayEditorContext);
+  const [currentTabId, setCurrentTabId] = useState("items");
+  let editorWidth = settings.editorWidth ? Number(settings.editorWidth) : 350;
+  let editorHeight = settings.editorHeight
+    ? Number(settings.editorHeight)
+    : 350;
+  if (editorWidth < 300) {
+    editorWidth = 300;
+  }
+
+  const handler = (mouseDownEvent) => {
+    const isVertical = window.innerWidth < 782;
+
+    const startSize = isVertical ? editorHeight : editorWidth;
+    const startPosition = isVertical
+      ? mouseDownEvent.pageY
+      : mouseDownEvent.pageX;
+
+    function onMouseMove(mouseMoveEvent) {
+      let newSize = isVertical
+        ? startSize + startPosition - mouseMoveEvent.pageY
+        : startSize + startPosition - mouseMoveEvent.pageX;
+      if (newSize < 300) {
+        newSize = 300;
+      }
+
+      if (isVertical) {
+        settings.editorHeight = newSize;
+      } else {
+        settings.editorWidth = newSize;
+      }
+      actions.updateSettings(settings);
+    }
+    function onMouseUp() {
+      document.body.removeEventListener("mousemove", onMouseMove);
+      // uncomment the following line if not using `{ once: true }`
+      // document.body.removeEventListener("mouseup", onMouseUp);
+    }
+
+    document.body.addEventListener("mousemove", onMouseMove);
+    document.body.addEventListener("mouseup", onMouseUp, { once: true });
+  };
+
+  const tabs = dittyDisplayEditor.applyFilters(
+    "dittyDisplayEditorTabs",
+    [
+      {
+        id: "items",
+        label: __("Items", "ditty-news-ticker"),
+        icon: <FontAwesomeIcon icon={faBarsStaggered} />,
+        content: <PanelItems />,
+      },
+      {
+        id: "display",
+        label: __("Display", "ditty-news-ticker"),
+        icon: <FontAwesomeIcon icon={faTabletScreen} />,
+        content: <PanelDisplays />,
+      },
+      {
+        id: "settings",
+        label: __("Settings", "ditty-news-ticker"),
+        icon: <FontAwesomeIcon icon={faGear} />,
+        content: <PanelSettings />,
+      },
+    ],
+    DisplayEditorContext
+  );
+
+  const handleTabClick = (tab) => {
+    setCurrentTabId(tab.id);
+  };
+
+  const renderCurrentPanel = () => {
+    const index = tabs.findIndex((object) => {
+      return object.id === currentTabId;
+    });
+    const content =
+      -1 === index ? "" : tabs[index].content ? tabs[index].content : "";
+
+    return dittyDisplayEditor.applyFilters(
+      "dittyDisplayEditorPanel",
+      content,
+      currentTabId,
+      DisplayEditorContext
+    );
+  };
+
+  const classes = classnames(className);
+
+  return (
+    <div
+      id="ditty-editor__editor"
+      className={classes}
+      style={{ width: `${editorWidth}px`, height: `${editorHeight}px` }}
+    >
+      <div
+        id="ditty-editor__sizer"
+        className="ditty-adminPage__app__sizer"
+        onMouseDown={handler}
+      ></div>
+      <Tabs
+        tabs={tabs}
+        currentTabId={currentTabId}
+        tabClick={handleTabClick}
+        type="primary"
+      />
+      <div className="ditty-editor__panels">{renderCurrentPanel()}</div>
+    </div>
+  );
+};
+export default DisplayEditor;

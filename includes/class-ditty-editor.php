@@ -141,22 +141,22 @@ class Ditty_Editor {
 	 * @access public
 	 * @since  3.1
 	 */
-	public function display_type_data() {
-		$display_types = ditty_display_types();
-		$display_type_data = array();
-		if (is_array($display_types) && count($display_types) > 0) {
-			foreach ($display_types as $i => $type) {
-				$display_type_object = ditty_display_type_object($type['type']);
-				if ($display_type_object->has_js_fields()) {
-					continue;
-				}
-				$type['settings'] = $this->format_js_fields($display_type_object->fields());
-				$type['defaultValues'] = $display_type_object->default_settings();
-				$display_type_data[] = $type;
-			}
-		}
-		return array_values($display_type_data);
-	}
+	// public function display_type_data() {
+	// 	$display_types = ditty_display_types();
+	// 	$display_type_data = array();
+	// 	if (is_array($display_types) && count($display_types) > 0) {
+	// 		foreach ($display_types as $i => $type) {
+	// 			$display_type_object = ditty_display_type_object($type['type']);
+	// 			if ($display_type_object->has_js_fields()) {
+	// 				continue;
+	// 			}
+	// 			$type['settings'] = $this->format_js_fields($display_type_object->fields());
+	// 			$type['defaultValues'] = $display_type_object->default_settings();
+	// 			$display_type_data[] = $type;
+	// 		}
+	// 	}
+	// 	return array_values($display_type_data);
+	// }
 
 	// Convert fields for js
 	private function convert_js_field_keys(&$field) {

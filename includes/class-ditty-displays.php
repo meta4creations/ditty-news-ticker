@@ -19,13 +19,17 @@ class Ditty_Displays {
 	 * @since   3.0
 	 */
 	public function __construct() {
+
+		add_filter( 'get_edit_post_link', array( $this, 'modify_edit_post_link' ), 10, 3 );
+		add_action( 'admin_menu', array( $this, 'add_admin_pages' ), 10, 5 );
+		add_action( 'admin_init', array( $this, 'edit_page_redirects' ) );
 		
 		// WP metabox hooks
 		add_action( 'add_meta_boxes', array( $this, 'metaboxes' ) );
 		add_action( 'save_post', array( $this, 'metabox_save' ) );
-		add_action( 'wp_ajax_ditty_admin_display_update', array( $this, 'admin_update_ajax' ) );
 		
 		// General hooks
+		add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
 		add_filter( 'post_row_actions', array( $this, 'modify_list_row_actions' ), 10, 2 );
 		add_action( 'ditty_editor_update', array( $this, 'update_drafts' ), 10, 2 );
 		
@@ -196,6 +200,19 @@ class Ditty_Displays {
 		
 		return $html;
 	}
+
+	/**
+	 * Add to the admin body class
+	 *
+	 * @access public
+	 * @since  3.0.13
+	 */
+	public function add_admin_body_class( $classes ) {
+		if ( ditty_display_editing() ) {
+			$classes .= ' ditty-page';
+		}
+		return $classes;
+	}
 	
 	/**
 	 * Add the post ID to the list row actions
@@ -205,13 +222,103 @@ class Ditty_Displays {
 	 */
 	public function modify_list_row_actions( $actions, $post ) {
 		if ( $post->post_type == 'ditty_display' ) {
-			//$id_string = sprintf( __( 'ID: %d', 'ditty-news-ticker' ), $post->ID );
 			$id_array = array(
 				'id' => sprintf( __( 'ID: %d', 'ditty-news-ticker' ), $post->ID ),
 			);
 			$actions = array_merge( $id_array, $actions );
 		}
 		return $actions;
+	}
+
+	/**
+	 * Modify the edit post link
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function modify_edit_post_link( $link, $post_id, $text ) {
+		if ( 'ditty' == get_post_type( $post_id ) ) {
+			return add_query_arg( ['page' => 'ditty', 'id' => $post_id], admin_url( 'admin.php' ) );
+		}
+		return $link;
+	}
+	
+	/**
+	 * Redirect Ditty edit pages to custom screens
+	 * @access  public
+	 *
+	 * @since   3.1
+	 */
+	public function edit_page_redirects() {
+		global $pagenow;
+		if ( $pagenow === 'post.php' ) {
+			$post_id = isset( $_GET['post'] ) ? $_GET['post'] : 0;
+			if ( 'ditty_display' == get_post_type( $post_id ) ) {
+				wp_safe_redirect( add_query_arg( ['page' => 'ditty_display', 'id' => $post_id], admin_url( 'admin.php' ) ) );
+				exit;
+			}
+		}
+		if ( $pagenow === 'post-new.php' ) {
+			$post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : false;
+			if ( 'ditty_display' == $post_type ) {
+				wp_safe_redirect( add_query_arg( ['page' => 'ditty_display-new' ], admin_url( 'admin.php' ) ) );
+				exit;
+			}
+		}
+	}
+
+	/**
+	 * Add custom Ditty pages
+	 * @access  public
+	 *
+	 * @since   3.1
+	 */
+	public function add_admin_pages() {
+		add_submenu_page(
+			null,
+			esc_html__( 'Ditty', 'ditty-news-ticker' ),
+			esc_html__( 'Ditty', 'ditty-news-ticker' ),
+			'edit_ditty_displays',
+			'ditty_display',
+			array( $this, 'page_display' ),
+		);
+		
+		add_submenu_page(
+			null,
+			esc_html__( 'Ditty', 'ditty-news-ticker' ),
+			esc_html__( 'Ditty', 'ditty-news-ticker' ),
+			'edit_ditty_displays',
+			'ditty_display-new',
+			array( $this, 'page_display' )
+		);
+	}
+
+	/**
+	 * Render the custom new Display page
+	 * @access  public
+	 *
+	 * @since   3.1
+	 */
+	public function page_display() {
+		$display_id = ditty_display_editing();
+		if ( ! $display_id ) {
+			return false;
+		}		
+
+		if ( 'ditty_display-new' == $display_id ) {
+			$title = __( 'New Display', 'ditty-news-ticker' );
+		} else {
+			$display = get_post( $display_id );	
+			$title = $display->post_title;
+		}
+		
+		$atts = array(
+			'data-id' 	 => $display_id,
+			'data-title' => $title,
+		);
+		?>
+		<div id="ditty-display-editor__wrapper" class="ditty-adminPage"></div>
+		<?php
 	}
 	
 	/**
@@ -273,35 +380,6 @@ class Ditty_Displays {
 	}
 	
 	/**
-	 * Update the display via ajax
-	 *
-	 * @since    3.0
-	 */
-	public function admin_update_ajax() {
-		check_ajax_referer( 'ditty', 'security' );
-		$display_id_ajax		= isset( $_POST['display_id'] )		? $_POST['display_id']		: false;
-		if ( ! current_user_can( 'edit_ditty_displays' ) || ! $display_id_ajax ) {
-			wp_die();
-		}
-		$settings = $_POST;
-		unset( $settings['action'] );
-		unset( $settings['display_id'] );
-		unset( $settings['security'] );
-
-		$json_data = array();
-		$display_type = get_post_meta( $display_id_ajax, '_ditty_display_type', true );
-		if ( $display_type_object = ditty_display_type_object( $display_type ) ) {
-			$fields = $display_type_object->fields();
-			$sanitized_display_settings = ditty_sanitize_fields( $fields, $settings, "ditty_display_type_{$display_type}" );
-			update_post_meta( $display_id_ajax, '_ditty_display_settings', $sanitized_display_settings );
-			$json_data['sanitize_settings'] = $sanitized_display_settings;
-		} else {
-			$json_data['error'] = __( 'Display type does not exist', 'ditty-news-ticker' );
-		}
-		wp_send_json( $json_data );
-	}
-	
-	/**
 	 * Add the Display info metabox
 	 * 
 	 * @since  3.0.26
@@ -359,25 +437,9 @@ class Ditty_Displays {
 	 * @return void
 	 */
 	public function metabox_display_settings() {
-		global $post;
-		$display_type = get_post_meta( $post->ID, '_ditty_display_type', true );
-		if ( $display_type ) {
-			if ( $display_type_object = ditty_display_type_object( $display_type ) ) {
-				$display_settings = get_post_meta( $post->ID, '_ditty_display_settings', true );
-				if ( ! is_array( $display_settings ) ) {
-					$display_settings = array();
-				}
-				$display_settings = shortcode_atts( $display_type_object->default_settings(), $display_settings );
-				$setting_fields = $display_type_object->fields( $display_settings );
-				echo "<div class='ditty-display-admin-settings ditty-display-admin-settings--{$display_type}'>";
-					ditty_fields( $setting_fields );
-				echo '</div>';
-			} else {
-				echo sprintf( __( '% display type does not exist.', 'ditty-news-ticier' ), $display_type );
-			}
-		} else {
-			echo '<p style="padding:8px 12px;margin:0;">' . esc_html__( 'Select a Display Type in the Display Info metabox and save the post to view settings.', 'ditty-news-ticker' ) . '</p>';
-		}
+		?>
+		<div id="ditty-display__wrapper" class="ditty-adminPage">blah</div>
+		<?php
 	}
 	
 	/**
