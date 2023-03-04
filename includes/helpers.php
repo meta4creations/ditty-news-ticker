@@ -167,7 +167,7 @@ function ditty_display_types() {
 		'label' 			=> __( 'List', 'ditty-news-ticker' ),
 		'icon' 				=> 'fas fa-list',
 		'description' => __( 'Display items in a static list.', 'ditty-news-ticker' ),
-		'class_name'	=> 'Ditty_Display_Type_List',
+		//'class_name'	=> 'Ditty_Display_Type_List',
 		//'class_path'	=> DITTY_DIR . 'includes/class-ditty-display-type-list.php',
 	);
 
@@ -635,6 +635,17 @@ function ditty_default_display( $post_id ) {
 */
 function ditty_display_exists( $display_id ) {	
 	if ( 'publish' == get_post_status( $display_id ) ) {
+		return true;
+	}
+}
+
+/**
+ * Check if a display type exists
+ * @since    3.1
+*/
+function ditty_display_type_exists( $type ) {	
+	$display_types = ditty_display_types();
+	if ( isset( $display_types[$type] ) && class_exists( $display_types[$type]['class_name'] ) ) {
 		return true;
 	}
 }
@@ -1186,9 +1197,9 @@ function ditty_render( $atts ) {
 /**
  * Parse ditty script types and add to global
  *
- * @since    3.0.12
+ * @since    3.1
  */
-function ditty_add_scripts( $ditty_id, $display = '' ) {
+function ditty_add_scripts( $ditty_id, $display = false ) {
 	global $ditty_item_scripts;
 	if ( empty( $ditty_item_scripts ) ) {
 		$ditty_item_scripts = array();
@@ -1210,13 +1221,19 @@ function ditty_add_scripts( $ditty_id, $display = '' ) {
 		}
 	}
 
-	if ( ! ( $display && ( 'publish' == get_post_status( $display ) ) ) ) {
+	if ( ! $display ) {
 		$display = get_post_meta( $ditty_id, '_ditty_display', true );
 	}
-	if ( 'publish' != get_post_status( $display ) ) {
-		return false;
+
+	$display_type = false;
+
+	if ( is_array( $display ) ) {
+		$display_type = isset( $display['type'] ) ? $display['type'] : $display_type;
+	} else {
+		if ( 'publish' == get_post_status( $display ) ) {
+			$display_type = get_post_meta( $display, '_ditty_display_type', true );
+		}
 	}
-	$display_type = get_post_meta( $display, '_ditty_display_type', true );
 	$ditty_display_scripts[$display_type] = $display_type;
 }
 

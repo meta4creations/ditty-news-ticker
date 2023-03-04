@@ -432,6 +432,7 @@ const displaySettingsNavigation = (
                 "Configure the arrow navigation settings.",
                 "ditty-news-ticker"
               ),
+              multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
               fields: dittyEditor.applyFilters(
@@ -522,6 +523,7 @@ const displaySettingsNavigation = (
                 "Configure the bullet navigation settings.",
                 "ditty-news-ticker"
               ),
+              multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
               fields: dittyEditor.applyFilters(
