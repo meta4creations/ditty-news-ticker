@@ -289,13 +289,10 @@ class Ditty_API {
 	public function save_display( $request ) {
 		$params = $request->get_params();
 		if ( ! isset( $params['apiData'] ) ) {
-			return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+			return new WP_Error( 'no_api_data', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
 		}
 		$apiData = $params['apiData'];
 
-		if ( ! isset( $apiData['display'] ) ) {
-			return new WP_Error( 'no_id', __( 'No Display data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
-		}
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
 		$display_title = isset( $apiData['title'] ) ? $apiData['title'] : false;
 		$display_description = isset( $apiData['description'] ) ? $apiData['description'] : false;
@@ -307,13 +304,14 @@ class Ditty_API {
 		$updates = array();
 		$errors = array();
 
-		if ( $display_id ) {
+		if ( $display_id && 'ditty_display-new' != $display_id ) {
 			if ( $display_title ) {
 				$postarr = array(
 					'ID'					=> $display_id,
 					'post_title'	=> $display_title,
 				);
 				wp_update_post( $postarr );
+				$updates['title'] = $display_title;
 			}
 		} else {
 			$postarr = array(
@@ -322,6 +320,7 @@ class Ditty_API {
 				'post_title'	=> $display_title,
 			);
 			$display_id = wp_insert_post( $postarr );
+			$updates['new'] = $display_id;
 			$updates['id'] = $display_id;
 			$updates['title'] = $display_title;
 			$updates['edit_url'] = admin_url( "post.php?post={$layout_id}&action=edit" );

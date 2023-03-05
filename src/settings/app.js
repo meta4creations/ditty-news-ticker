@@ -1,7 +1,8 @@
 import _ from "lodash";
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
-import { AdminBar, FooterBar, Tabs } from "../components";
+import { AdminBar, FooterBar } from "../common";
+import { Tabs } from "../components";
 import { FieldList } from "../fields";
 import { saveSettings } from "../services/httpService";
 import { ReactComponent as Logo } from "./ditty.svg";

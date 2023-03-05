@@ -21,6 +21,7 @@ var dittyConfig = {
   ...defaultConfig,
   entry: {
     ditty: "./src/ditty.js",
+    dittyEditorInit: "./src/dittyEditorInit.js",
     dittyEditor: "./src/dittyEditor.js",
     dittyDisplayEditor: "./src/dittyDisplayEditor.js",
     dittySettings: "./src/dittySettings.js",

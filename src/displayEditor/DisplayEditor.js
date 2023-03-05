@@ -1,6 +1,6 @@
 import classnames from "classnames";
 import { __ } from "@wordpress/i18n";
-import { useState, useContext } from "@wordpress/element";
+import { useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBarsStaggered,
@@ -8,14 +8,20 @@ import {
   faGear,
 } from "@fortawesome/pro-regular-svg-icons";
 import { Tabs } from "../components";
-import PanelItems from "./PanelItems";
 import PanelDisplays from "./PanelDisplays";
-import PanelSettings from "./PanelSettings";
-import { DisplayEditorContext } from "./context";
+//import PanelSettings from "./PanelSettings";
 
-const DisplayEditor = ({ className }) => {
-  const { settings, actions } = useContext(DisplayEditorContext);
-  const [currentTabId, setCurrentTabId] = useState("items");
+const DisplayEditor = ({
+  className,
+  display,
+  title,
+  description,
+  updateDisplaySettings,
+  updateDisplayType,
+}) => {
+  const [currentTabId, setCurrentTabId] = useState("display");
+  const settings = {};
+
   let editorWidth = settings.editorWidth ? Number(settings.editorWidth) : 350;
   let editorHeight = settings.editorHeight
     ? Number(settings.editorHeight)
@@ -57,30 +63,28 @@ const DisplayEditor = ({ className }) => {
     document.body.addEventListener("mouseup", onMouseUp, { once: true });
   };
 
-  const tabs = dittyDisplayEditor.applyFilters(
-    "dittyDisplayEditorTabs",
-    [
-      {
-        id: "items",
-        label: __("Items", "ditty-news-ticker"),
-        icon: <FontAwesomeIcon icon={faBarsStaggered} />,
-        content: <PanelItems />,
-      },
-      {
-        id: "display",
-        label: __("Display", "ditty-news-ticker"),
-        icon: <FontAwesomeIcon icon={faTabletScreen} />,
-        content: <PanelDisplays />,
-      },
-      {
-        id: "settings",
-        label: __("Settings", "ditty-news-ticker"),
-        icon: <FontAwesomeIcon icon={faGear} />,
-        content: <PanelSettings />,
-      },
-    ],
-    DisplayEditorContext
-  );
+  const tabs = dittyEditor.applyFilters("dittyDisplayEditorTabs", [
+    {
+      id: "display",
+      label: __("Display", "ditty-news-ticker"),
+      icon: <FontAwesomeIcon icon={faTabletScreen} />,
+      content: (
+        <PanelDisplays
+          display={display}
+          title={title}
+          description={description}
+          updateDisplaySettings={updateDisplaySettings}
+          updateDisplayType={updateDisplayType}
+        />
+      ),
+    },
+    // {
+    //   id: "settings",
+    //   label: __("Settings", "ditty-news-ticker"),
+    //   icon: <FontAwesomeIcon icon={faGear} />,
+    //   content: <PanelSettings />,
+    // },
+  ]);
 
   const handleTabClick = (tab) => {
     setCurrentTabId(tab.id);
@@ -90,15 +94,7 @@ const DisplayEditor = ({ className }) => {
     const index = tabs.findIndex((object) => {
       return object.id === currentTabId;
     });
-    const content =
-      -1 === index ? "" : tabs[index].content ? tabs[index].content : "";
-
-    return dittyDisplayEditor.applyFilters(
-      "dittyDisplayEditorPanel",
-      content,
-      currentTabId,
-      DisplayEditorContext
-    );
+    return -1 === index ? "" : tabs[index].content ? tabs[index].content : "";
   };
 
   const classes = classnames(className);
