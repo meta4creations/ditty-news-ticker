@@ -4,8 +4,8 @@ import { useEffect } from "@wordpress/element";
 import { initializeDitty } from "../services/dittyService";
 import { getDisplayObject } from "../utils/displayTypes";
 
-const Ditty = ({ id, title, displayItems, displays, currentDisplay }) => {
-  const displayObject = getDisplayObject(currentDisplay, displays);
+const Ditty = ({ id, title, display, displayItems, displays }) => {
+  const displayObject = getDisplayObject(display, displays);
 
   useEffect(() => {
     const dittyEl = document.getElementById("ditty-editor__ditty");
@@ -17,6 +17,7 @@ const Ditty = ({ id, title, displayItems, displays, currentDisplay }) => {
     args["title"] = title;
     args["status"] = "";
     args["items"] = displayItems;
+
     initializeDitty(dittyEl, displayObject.type, args);
   }, []);
 

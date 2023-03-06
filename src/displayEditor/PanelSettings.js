@@ -1,13 +1,14 @@
 import { __ } from "@wordpress/i18n";
-import { useContext } from "@wordpress/element";
 import _ from "lodash";
 import { Panel } from "../components";
 import { FieldList } from "../fields";
-import { EditorContext } from "./context";
 
-const PanelSettings = () => {
-  const { id, title, settings, actions } = useContext(EditorContext);
-
+const PanelSettings = ({
+  title,
+  settings,
+  onUpdateSettings,
+  onUpdateTitle,
+}) => {
   const settingsFields = dittyEditor.applyFilters("dittySettingsFields", [
     {
       type: "text",
@@ -15,12 +16,6 @@ const PanelSettings = () => {
       name: __("Title", "ditty-news-ticker"),
       std: title,
       placeholder: __("Add title", "ditty-news-ticker"),
-    },
-    {
-      type: "text",
-      id: "shortcode",
-      name: __("Shortcode", "ditty-news-ticker"),
-      std: `[ditty id=${id}]`,
     },
     {
       type: "radio",
@@ -32,28 +27,6 @@ const PanelSettings = () => {
       },
       inline: true,
       std: "publish",
-    },
-    {
-      type: "radio",
-      id: "ajax_loading",
-      name: __("Ajax Loading", "ditty-news-ticker"),
-      options: {
-        no: __("No", "ditty-news-ticker"),
-        yes: __("Yes", "ditty-news-ticker"),
-      },
-      inline: true,
-      std: "no",
-    },
-    {
-      type: "radio",
-      id: "live_updates",
-      name: __("Live Updates", "ditty-news-ticker"),
-      options: {
-        no: __("No", "ditty-news-ticker"),
-        yes: __("Yes", "ditty-news-ticker"),
-      },
-      inline: true,
-      std: "no",
     },
     {
       type: "number",
@@ -95,11 +68,11 @@ const PanelSettings = () => {
 
   const handleOnUpdate = (id, value) => {
     if ("title" === id) {
-      actions.updateTitle(value);
+      onUpdateTitle(value);
     } else {
       const updatedSettings = _.cloneDeep(settings);
       updatedSettings[id] = value;
-      actions.updateSettings(updatedSettings);
+      onUpdateSettings(updatedSettings);
     }
   };
 

@@ -300,6 +300,7 @@ class Ditty_API {
 		$display_id = isset( $display['id'] ) ? $display['id'] : false;
 		$display_type = isset( $display['type'] ) ? $display['type'] : false;
 		$display_settings = isset( $display['settings'] ) ? $display['settings'] : false;
+		$editor_settings = isset( $apiData['editorSettings'] ) ? $apiData['editorSettings'] : false;
 
 		$updates = array();
 		$errors = array();
@@ -343,6 +344,12 @@ class Ditty_API {
 		if ( $display_settings ) {
 			update_post_meta( $display_id, '_ditty_display_settings', $display_settings );
 			$updates['settings'] = $display_settings;
+		}
+
+		// Update the editor settings
+		if ( $editor_settings ) {
+			update_post_meta( $display_id, '_ditty_editor_settings', $editor_settings );
+			$updates['editorSettings'] = $editor_settings;
 		}
 
 		$data = array(

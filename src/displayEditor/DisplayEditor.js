@@ -9,22 +9,26 @@ import {
 } from "@fortawesome/pro-regular-svg-icons";
 import { Tabs } from "../components";
 import PanelDisplays from "./PanelDisplays";
-//import PanelSettings from "./PanelSettings";
+import PanelSettings from "./PanelSettings";
 
 const DisplayEditor = ({
-  className,
   display,
   title,
   description,
-  updateDisplaySettings,
-  updateDisplayType,
+  editorSettings,
+  onUpdateDisplaySettings,
+  onUpdateDisplayType,
+  onUpdateTitle,
+  onUpdateEditorSettings,
+  className,
 }) => {
   const [currentTabId, setCurrentTabId] = useState("display");
-  const settings = {};
 
-  let editorWidth = settings.editorWidth ? Number(settings.editorWidth) : 350;
-  let editorHeight = settings.editorHeight
-    ? Number(settings.editorHeight)
+  let editorWidth = editorSettings.editorWidth
+    ? Number(editorSettings.editorWidth)
+    : 350;
+  let editorHeight = editorSettings.editorHeight
+    ? Number(editorSettings.editorHeight)
     : 350;
   if (editorWidth < 300) {
     editorWidth = 300;
@@ -47,11 +51,11 @@ const DisplayEditor = ({
       }
 
       if (isVertical) {
-        settings.editorHeight = newSize;
+        editorSettings.editorHeight = newSize;
       } else {
-        settings.editorWidth = newSize;
+        editorSettings.editorWidth = newSize;
       }
-      actions.updateSettings(settings);
+      onUpdateDisplaySettings(editorSettings);
     }
     function onMouseUp() {
       document.body.removeEventListener("mousemove", onMouseMove);
@@ -73,17 +77,24 @@ const DisplayEditor = ({
           display={display}
           title={title}
           description={description}
-          updateDisplaySettings={updateDisplaySettings}
-          updateDisplayType={updateDisplayType}
+          onUpdateDisplaySettings={onUpdateDisplaySettings}
+          onUpdateDisplayType={onUpdateDisplayType}
         />
       ),
     },
-    // {
-    //   id: "settings",
-    //   label: __("Settings", "ditty-news-ticker"),
-    //   icon: <FontAwesomeIcon icon={faGear} />,
-    //   content: <PanelSettings />,
-    // },
+    {
+      id: "settings",
+      label: __("Settings", "ditty-news-ticker"),
+      icon: <FontAwesomeIcon icon={faGear} />,
+      content: (
+        <PanelSettings
+          title={title}
+          settings={editorSettings}
+          onUpdateSettings={onUpdateEditorSettings}
+          onUpdateTitle={onUpdateTitle}
+        />
+      ),
+    },
   ]);
 
   const handleTabClick = (tab) => {

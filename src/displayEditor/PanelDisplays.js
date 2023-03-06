@@ -1,17 +1,14 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTabletScreen } from "@fortawesome/pro-light-svg-icons";
 import {
   updateDisplayOptions,
   updateDittyDisplayType,
 } from "../services/dittyService";
-import { Button, ButtonGroup, IconBlock, Link, Panel } from "../components";
+import { IconBlock, Link, Panel } from "../components";
 import { FieldList } from "../fields";
 import {
   getDisplayTypes,
-  getDisplayTypeIcon,
   getDisplayTypeObject,
   getDisplayTypeSettings,
 } from "../utils/displayTypes";
@@ -21,8 +18,8 @@ const PanelDisplays = ({
   display,
   title,
   description,
-  updateDisplaySettings,
-  updateDisplayType,
+  onUpdateDisplaySettings,
+  onUpdateDisplayType,
 }) => {
   const displayTypeObject = getDisplayTypeObject(display);
   const fieldGroups = getDisplayTypeSettings(display);
@@ -32,19 +29,17 @@ const PanelDisplays = ({
 
   const displayTypes = getDisplayTypes();
 
-  console.log("displayTypeObject", displayTypeObject);
-
   /**
    * Update the Display on field update
    * @param {object} field
    * @param {string} value
    */
   const handleOnUpdate = (id, value) => {
-    updateDisplaySettings(id, value);
+    onUpdateDisplaySettings(id, value);
 
     // Update the Ditty options
-    //const dittyEl = document.getElementById("ditty-editor__ditty");
-    //updateDisplayOptions(dittyEl, id, value);
+    const dittyEl = document.getElementById("ditty-editor__ditty");
+    updateDisplayOptions(dittyEl, id, value);
   };
 
   /**
@@ -61,12 +56,12 @@ const PanelDisplays = ({
             types={displayTypes}
             getTypeObject={getDisplayTypeObject}
             onChange={(selectedType) => {
-              //updateDittyDisplayType(dittyEl, selectedType);
+              updateDittyDisplayType(dittyEl, selectedType);
             }}
             onClose={(selectedType) => {
               setPopupStatus(false);
               if (display.type !== selectedType) {
-                //updateDittyDisplayType(dittyEl, display.type);
+                updateDittyDisplayType(dittyEl, display.type);
               }
             }}
             onUpdate={(updatedType) => {
@@ -81,8 +76,7 @@ const PanelDisplays = ({
                 ...updatedDisplayTypeObject.defaultValues,
                 ...updatedDisplay.settings,
               };
-              updateDisplayType(updatedType);
-              updateDisplaySettings(updatedSettings);
+              onUpdateDisplayType(updatedType, updatedSettings);
             }}
           />
         );
