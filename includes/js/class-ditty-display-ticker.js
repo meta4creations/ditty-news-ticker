@@ -1065,6 +1065,7 @@
           this._styleDisplay();
           this._setDirection(value);
           break;
+        case "title":
         case "titleDisplay":
         case "titleElement":
         case "titleElementPosition":

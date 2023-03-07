@@ -1577,6 +1577,15 @@ function ditty_version() {
 }
 
 /**
+ * Return the default Ditty display type
+ *
+ * @since   3.1
+ */
+function ditty_default_display_type() {
+	return apply_filters( 'ditty_default_type', 'ticker' );
+}
+
+/**
  * Register Ditty styles
  *
  * @since   3.1

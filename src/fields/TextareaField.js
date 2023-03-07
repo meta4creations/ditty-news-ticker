@@ -1,17 +1,33 @@
 import { __ } from "@wordpress/i18n";
-import { useState, useRef, useCallback } from "@wordpress/element";
+import { useState, useRef, useEffect, useCallback } from "@wordpress/element";
 import BaseField from "./BaseField";
 
 const TextareaField = (props) => {
-  const { value, cols, rows, onChange } = props;
-  const [inputValue, setInputValue] = useState(value);
+  const {
+    value,
+    cols,
+    rows,
+    onChange,
+    onBlur,
+    onFocus,
+    setFocus,
+    delayChange = false,
+  } = props;
+  const [delayValue, setDelayValue] = useState(value);
 
+  const inputRef = useRef(null);
   const timerRef = useRef(null);
 
-  const handleInputChange = useCallback(
-    (event) => {
-      const updatedValue = event.target.value;
-      setInputValue(updatedValue);
+  useEffect(() => {
+    if (setFocus) {
+      inputRef.current.focus();
+    }
+  }, [setFocus]);
+
+  const handleInputChangeDelay = useCallback(
+    (e) => {
+      const updatedValue = e.target.value;
+      setDelayValue(updatedValue);
 
       // Clear the existing timer
       clearTimeout(timerRef.current);
@@ -19,7 +35,7 @@ const TextareaField = (props) => {
       // Start a new timer to update the parent element
       timerRef.current = setTimeout(() => onChange(updatedValue), 500);
     },
-    [onChange, inputValue]
+    [onChange, delayValue]
   );
 
   return (
@@ -27,8 +43,13 @@ const TextareaField = (props) => {
       <textarea
         cols={cols}
         rows={rows}
-        defaultValue={inputValue}
-        onChange={handleInputChange}
+        defaultValue={delayChange ? delayValue : value}
+        onChange={(e) => {
+          delayChange ? handleInputChangeDelay(e) : onChange(e.target.value);
+        }}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        ref={inputRef}
       />
     </BaseField>
   );

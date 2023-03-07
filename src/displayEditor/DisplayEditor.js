@@ -19,6 +19,7 @@ const DisplayEditor = ({
   onUpdateDisplaySettings,
   onUpdateDisplayType,
   onUpdateTitle,
+  onUpdateDescription,
   onUpdateEditorSettings,
   className,
 }) => {
@@ -89,9 +90,11 @@ const DisplayEditor = ({
       content: (
         <PanelSettings
           title={title}
+          description={description}
           settings={editorSettings}
-          onUpdateSettings={onUpdateEditorSettings}
           onUpdateTitle={onUpdateTitle}
+          onUpdateDescription={onUpdateDescription}
+          onUpdateSettings={onUpdateEditorSettings}
         />
       ),
     },

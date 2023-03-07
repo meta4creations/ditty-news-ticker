@@ -148,10 +148,12 @@ export const getDisplayTypeSettings = (display) => {
     );
   } else {
     for (const key in displayTypeObject.settings) {
+      console.log("key", key);
       if (
         typeof displayTypeObject.settings[key] === "object" &&
         !Array.isArray(displayTypeObject.settings[key])
       ) {
+        console.log(displayTypeObject.settings[key]);
         fieldGroups.push(displayTypeObject.settings[key]);
       } else {
         switch (key) {

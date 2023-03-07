@@ -91,15 +91,14 @@ const PanelDisplays = ({
         <IconBlock
           icon={displayTypeObject.icon}
           className="ditty-icon-block--heading"
-          style={{ marginBottom: "10px" }}
         >
           <div className="ditty-icon-block--heading__title">
-            <h2>{title}</h2>
+            <h2>{displayTypeObject.label}</h2>
             <Link onClick={() => setPopupStatus("displayTypeSelect")}>
               {__("Change Type", "ditty-news-ticker")}
             </Link>
           </div>
-          <p>{description}</p>
+          <p>{displayTypeObject.description}</p>
         </IconBlock>
       </>
     );

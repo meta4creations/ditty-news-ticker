@@ -2,7 +2,7 @@ import { __ } from "@wordpress/i18n";
 import { easeOptions, sliderTransitions } from "../utils/helpers";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList } from "@fortawesome/pro-light-svg-icons";
+import { faList, faSliders } from "@fortawesome/pro-light-svg-icons";
 
 if (dittyEditor) {
   dittyEditor.registerDisplayType({
@@ -12,6 +12,74 @@ if (dittyEditor) {
     description: __("Display items in a static list.", "ditty-news-ticker"),
     settings: {
       general: true,
+      initialSettings: {
+        id: "initialSettings",
+        label: __("Init", "ditty-news-ticker"),
+        name: __("Initial Settings", "ditty-news-ticker"),
+        desc: __(
+          `Configure the initial settings of the list.`,
+          "ditty-news-ticker"
+        ),
+        icon: <FontAwesomeIcon icon={faSliders} />,
+        fields: [
+          {
+            type: "select",
+            id: "initTransition",
+            name: __("Initial Page Transition", "ditty-news-ticker"),
+            help: __(
+              "Set the transition for initial display.",
+              "ditty-news-ticker"
+            ),
+            options: sliderTransitions,
+          },
+          {
+            type: "select",
+            id: "initTransitionEase",
+            name: __("Initial Page Transition Ease", "ditty-news-ticker"),
+            help: __(
+              "Set the easing for initial display.",
+              "ditty-news-ticker"
+            ),
+            options: easeOptions,
+          },
+          {
+            type: "slider",
+            id: "initTransitionSpeed",
+            name: __("Initial Page Transition Speed", "ditty-news-ticker"),
+            help: __(
+              "Set the transition speed for initial display.",
+              "ditty-news-ticker"
+            ),
+            suffix: __("second(s)", "ditty-news-ticker"),
+            min: 0,
+            max: 10,
+            step: 0.25,
+          },
+          {
+            type: "select",
+            id: "initHeightEase",
+            name: __("Initial Height Ease", "ditty-news-ticker"),
+            help: __(
+              "Set the height easing for initial display.",
+              "ditty-news-ticker"
+            ),
+            options: easeOptions,
+          },
+          {
+            type: "slider",
+            id: "initHeightSpeed",
+            name: __("Initial Height Speed", "ditty-news-ticker"),
+            help: __(
+              "Set the height speed for initial display.",
+              "ditty-news-ticker"
+            ),
+            suffix: __("second(s)", "ditty-news-ticker"),
+            min: 0,
+            max: 10,
+            step: 0.25,
+          },
+        ],
+      },
       navigation: ["arrows", "bullets"],
       styles: ["container", "content", "page", "item"],
     },

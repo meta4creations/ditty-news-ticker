@@ -1,10 +1,16 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
+import { loremIpsum } from "lorem-ipsum";
 import { AdminBar, FooterBar, Preview } from "../common";
 import DisplayEditor from "./DisplayEditor";
 import { ReactComponent as Logo } from "../assets/img/d.svg";
 
 import { saveDisplay } from "../services/httpService";
+import {
+  replaceDisplayItems,
+  updateDisplayOptions,
+} from "../services/dittyService";
+import { getDisplayTypeObject } from "../utils/displayTypes";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -13,13 +19,25 @@ export default () => {
   const [title, setTitle] = useState(dittyEditorVars.title);
   const [description, setDescription] = useState(dittyEditorVars.description);
   const [type, setType] = useState(dittyEditorVars.type);
-  const [settings, setSettings] = useState(dittyEditorVars.settings);
+
+  const initSettings =
+    "ditty_display-new" == id
+      ? getDisplayTypeObject(dittyEditorVars.type).defaultValues
+      : dittyEditorVars.settings;
+  const [settings, setSettings] = useState(initSettings);
   const [editorSettings, setEditorSettings] = useState(
     dittyEditorVars.editorSettings ? dittyEditorVars.editorSettings : {}
   );
   const [showSpinner, setShowSpinner] = useState(false);
   const [updates, setUpdates] = useState(
-    "ditty_display-new" == id ? { title: title, display: display } : {}
+    "ditty_display-new" == id
+      ? {
+          title: title,
+          id: dittyEditorVars.id,
+          type: dittyEditorVars.type,
+          settings: initSettings,
+        }
+      : {}
   );
   const hasUpdates = Object.keys(updates).length !== 0;
 
@@ -32,7 +50,7 @@ export default () => {
       const url = new URL(window.location.href);
 
       // Update the query parameters
-      url.searchParams.set("page", "ditty-display");
+      url.searchParams.set("page", "ditty_display");
       url.searchParams.set("id", data.updates.new);
 
       // Replace the current state with the updated URL
@@ -131,7 +149,6 @@ export default () => {
     }
     setShowSpinner(true);
 
-    console.log("updates", updates);
     const display = {
       id: id,
       type: updates.type ? updates.type : false,
@@ -155,6 +172,18 @@ export default () => {
     newUpdates.title = newTitle;
 
     setTitle(newTitle);
+    setUpdates(newUpdates);
+
+    // Update the Ditty options
+    const dittyEl = document.getElementById("ditty-editor__ditty");
+    updateDisplayOptions(dittyEl, "title", newTitle);
+  };
+
+  const handleUpdateDescription = (updatedDescription) => {
+    const newUpdates = { ...updates };
+    newUpdates.description = updatedDescription;
+
+    setDescription(updatedDescription);
     setUpdates(newUpdates);
   };
 
@@ -184,6 +213,13 @@ export default () => {
 
     setEditorSettings(updatedEditorSettings);
     setUpdates(newUpdates);
+
+    // Update the preview items
+    if (updatedEditorSettings.previewItems !== editorSettings.previewItems) {
+      const dittyEl = document.getElementById("ditty-editor__ditty");
+      const displayItems = getDisplayItems(updatedEditorSettings.previewItems);
+      replaceDisplayItems(dittyEl, displayItems);
+    }
   };
 
   const getPreviewStyles = () => {
@@ -196,40 +232,33 @@ export default () => {
     return styles;
   };
 
-  const displayItems = [
-    {
-      css: '.ditty-layout--13107 .ditty-item__elements { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif; font-size: 15px; line-height: 1.3125; text-align: left; } .ditty-layout--13107 .ditty-item__link { text-decoration: underline; } .ditty-layout--13107 h1, .ditty-layout--13107 h2, .ditty-layout--13107 h3, .ditty-layout--13107 h4, .ditty-layout--13107 h5, .ditty-layout--13107 h6 { line-height: 1.3125; font-weight: bold; margin: 0 0 5px; padding: 0; } .ditty-layout--13107 h1 { font-size: 19px; } .ditty-layout--13107 h2 { font-size: 17px; } .ditty-layout--13107 h3, .ditty-layout--13107 h4, .ditty-layout--13107 h5, .ditty-layout--13107 h6 { font-size: 15px; } .ditty-layout--13107 p { font-size: 15px; line-height: 1.3125; margin: 0 0 5px; } .ditty-layout--13107 ul { list-style: disc; padding: 0 0 0 20px; margin: 0 0 5px; } .ditty-layout--13107 ol { padding: 0 0 0 20px; margin: 0 0 5px; } .ditty-layout--13107 li { margin: 0 0 5px 0; }',
-      html: '<div class="ditty-item ditty-item--31 ditty-item-type--default ditty-layout--13107" data-item_id="31" data-item_uniq_id="31" data-parent_id="0" data-item_type="default" data-layout_id="13107"><div class="ditty-item__elements"><div class="ditty-item__content">This is a sample item. Please edit me!</div>\n\t</div></div>',
-      id: "31",
-      is_disabled: [],
-      layout_id: "13107",
-      parent_id: "0",
-      uniq_id: "31",
-    },
-    {
-      css: '.ditty-layout--13107 .ditty-item__elements { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif; font-size: 15px; line-height: 1.3125; text-align: left; } .ditty-layout--13107 .ditty-item__link { text-decoration: underline; } .ditty-layout--13107 h1, .ditty-layout--13107 h2, .ditty-layout--13107 h3, .ditty-layout--13107 h4, .ditty-layout--13107 h5, .ditty-layout--13107 h6 { line-height: 1.3125; font-weight: bold; margin: 0 0 5px; padding: 0; } .ditty-layout--13107 h1 { font-size: 19px; } .ditty-layout--13107 h2 { font-size: 17px; } .ditty-layout--13107 h3, .ditty-layout--13107 h4, .ditty-layout--13107 h5, .ditty-layout--13107 h6 { font-size: 15px; } .ditty-layout--13107 p { font-size: 15px; line-height: 1.3125; margin: 0 0 5px; } .ditty-layout--13107 ul { list-style: disc; padding: 0 0 0 20px; margin: 0 0 5px; } .ditty-layout--13107 ol { padding: 0 0 0 20px; margin: 0 0 5px; } .ditty-layout--13107 li { margin: 0 0 5px 0; }',
-      html: '<div class="ditty-item ditty-item--31 ditty-item-type--default ditty-layout--13107" data-item_id="31" data-item_uniq_id="31" data-parent_id="0" data-item_type="default" data-layout_id="13107"><div class="ditty-item__elements"><div class="ditty-item__content">This is a sample item. Please edit me!</div>\n\t</div></div>',
-      id: "32",
-      is_disabled: [],
-      layout_id: "13107",
-      parent_id: "0",
-      uniq_id: "32",
-    },
-  ];
+  const getDisplayItems = (numberOfItems = 10) => {
+    const updatedPreviewItems = [];
+    for (let i = 0; i < numberOfItems; i++) {
+      updatedPreviewItems.push({
+        css: "",
+        html: `<div class="ditty-item ditty-item--${i} ditty-item-type--default ditty-layout--${id}" data-item_id="${i}" data-item_uniq_id="${i}" data-parent_id="0" data-item_type="default" data-layout_id="${id}"><div class="ditty-item__elements"><div class="ditty-item__content">${loremIpsum()}</div></div></div>`,
+        id: i,
+        is_disabled: [],
+        layout_id: id,
+        parent_id: "0",
+        uniq_id: i,
+      });
+    }
+    return updatedPreviewItems;
+  };
 
   return (
     <>
       <AdminBar
-        logo={
-          <Logo
-            style={{ height: "30px", fill: "#19bf7c", marginRight: "5px" }}
-          />
-        }
+        logo={<Logo style={{ height: "30px", fill: "#19bf7c" }} />}
         title={title}
+        description={description}
         buttonLabel={__("Save Display", "ditty-news-ticker")}
         hasUpdates={hasUpdates}
         showSpinner={showSpinner}
         onUpdateTitle={handleUpdateTitle}
+        onUpdateDescription={handleUpdateDescription}
         onSubmit={handleSaveDisplay}
       />
       <div id="ditty-display-editor" className="ditty-adminPage__app">
@@ -238,7 +267,7 @@ export default () => {
           id={id}
           title={title}
           display={{ id: id, type: type, settings: settings }}
-          displayItems={displayItems}
+          displayItems={getDisplayItems(editorSettings.previewItems)}
           styles={getPreviewStyles()}
         />
         <DisplayEditor
@@ -250,6 +279,7 @@ export default () => {
           onUpdateDisplaySettings={handleUpdateDisplaySettings}
           onUpdateDisplayType={handleUpdateDisplayType}
           onUpdateTitle={handleUpdateTitle}
+          onUpdateDescription={handleUpdateDescription}
           onUpdateEditorSettings={handleUpdateEditorSettings}
         />
       </div>

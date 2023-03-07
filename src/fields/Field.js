@@ -20,7 +20,8 @@ import UnitField from "./UnitField";
 const Field = ({ field, fieldValue, updateValue, delayChange = false }) => {
   const handleUpdateValue = (field, value) => {
     if ("group" === field.type && Array.isArray(value) && !field.clone) {
-      value.map((v) => updateValue(v.id, v.value));
+      updateValue(field.id, value);
+      //value.map((v) => updateValue(v.id, v.value));
     } else {
       updateValue(field.id, value);
     }
@@ -75,8 +76,9 @@ const Field = ({ field, fieldValue, updateValue, delayChange = false }) => {
             <GroupField
               value={inputValue}
               renderInput={renderInput}
-              onChange={(updatedValue) => {
-                onUpdate(inputField, updatedValue);
+              onChange={(updatedValue, maybeField = false) => {
+                const updatedField = maybeField ? maybeField : inputField;
+                onUpdate(updatedField, updatedValue);
               }}
               {...inputField}
             />

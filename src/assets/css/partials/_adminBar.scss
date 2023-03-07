@@ -13,12 +13,29 @@
     box-sizing: border-box;
   }
   h2 {
-    display: flex;
-    align-items: center;
     margin: 0;
   }
-  &__title {
+  &__contents {
     flex: 1;
+    overflow: hidden;
+  }
+  &__title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &__description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 13px;
+    color: #808080;
+    margin-top: 3px;
+  }
+  .ditty-field textarea {
+    display: block;
+    font-size: 13px;
+    line-height: 16px;
   }
   button.ditty-has-updates {
     color: #fff;

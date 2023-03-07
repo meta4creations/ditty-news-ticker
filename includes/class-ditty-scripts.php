@@ -546,7 +546,7 @@ class Ditty_Scripts {
 					'id'							=> $display_id,
 					'title' 					=> $title,
 					'description' 		=> get_post_meta( $display_id, '_ditty_display_description', true ),
-					'type' 						=> 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_display_type', true ),
+					'type' 						=> 'ditty_display-new' == $display_id ? ditty_default_display_type() : get_post_meta( $display_id, '_ditty_display_type', true ),
 					'settings' 				=> 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_display_settings', true ),
 					'editorSettings'	=> 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_editor_settings', true ),
 				) ), 'before' );
