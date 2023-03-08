@@ -898,8 +898,6 @@
 
       this.$bullets.find("a").css({
         backgroundColor: this.settings.bulletsColor,
-        marginLeft: this.settings.bulletsSpacing + "px",
-        marginRight: this.settings.bulletsSpacing + "px",
       });
       this.$bullets
         .find("a.ditty-slider__bullet--active")
@@ -907,6 +905,14 @@
 
       // Add the custom padding & add to the list
       this.$bullets.css(this.settings.bulletsPadding);
+      let spacing = this.settings.bulletsSpacing;
+      const numberValue = String(this.settings.bulletsSpacing).match(/\d+/);
+      if (String(this.settings.bulletsSpacing) === String(numberValue)) {
+        spacing += "px";
+      }
+      console.log("spacing", spacing);
+      this.$bullets[0].style.gap = spacing;
+
       switch (this.settings.bulletsPosition) {
         case "topLeft":
           this.$bullets.css({

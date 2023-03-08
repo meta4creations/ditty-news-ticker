@@ -148,12 +148,10 @@ export const getDisplayTypeSettings = (display) => {
     );
   } else {
     for (const key in displayTypeObject.settings) {
-      console.log("key", key);
       if (
         typeof displayTypeObject.settings[key] === "object" &&
         !Array.isArray(displayTypeObject.settings[key])
       ) {
-        console.log(displayTypeObject.settings[key]);
         fieldGroups.push(displayTypeObject.settings[key]);
       } else {
         switch (key) {
@@ -250,6 +248,7 @@ const borderSettings = (prefix, namePrefix) => {
         borderLeftWidth: __("Left", "ditty-news-ticker"),
         borderRightWidth: __("Right", "ditty-news-ticker"),
       },
+      min: 0,
     },
     {
       id: `${prefixed}Radius`,
@@ -262,6 +261,7 @@ const borderSettings = (prefix, namePrefix) => {
         borderBottomLeftRadius: __("Bottom Left", "ditty-news-ticker"),
         borderBottomRightRadius: __("Bottom Right", "ditty-news-ticker"),
       },
+      min: 0,
     },
   ];
 };
@@ -351,12 +351,14 @@ const displaySettingsTitle = (displayType) => {
           type: "unit",
           name: __("Font Size", "ditty-news-ticker"),
           help: __("Set a custom font size.", "ditty-news-ticker"),
+          min: 0,
         },
         {
           id: "titleLineHeight",
           type: "unit",
           name: __("Line Height", "ditty-news-ticker"),
           help: __("Set a custom line height.", "ditty-news-ticker"),
+          min: 0,
         },
         {
           id: "titleColor",
@@ -402,6 +404,7 @@ const displaySettingsTitle = (displayType) => {
             paddingLeft: __("Left", "ditty-news-ticker"),
             paddingRight: __("Right", "ditty-news-ticker"),
           },
+          min: 0,
         },
         ...borderSettings("title"),
       ],
@@ -496,6 +499,7 @@ const displaySettingsNavigation = (
                       "Add padding to the arrows container",
                       "ditty-news-ticker"
                     ),
+                    min: 0,
                   },
                   {
                     type: "checkbox",
@@ -584,18 +588,15 @@ const displaySettingsNavigation = (
                     std: "bottomCenter",
                   },
                   {
-                    type: "slider",
+                    type: "unit",
                     id: "bulletsSpacing",
                     name: __("Bullets Spacing", "ditty-news-ticker"),
                     help: __(
                       "Set the amount of space between bullets (in pixels).",
                       "ditty-news-ticker"
                     ),
-                    suffix: "px",
                     min: 0,
-                    max: 50,
-                    step: 1,
-                    std: "5",
+                    std: "5px",
                   },
                   {
                     type: "spacing",
@@ -605,6 +606,7 @@ const displaySettingsNavigation = (
                       "Add padding to the bullets container",
                       "ditty-news-ticker"
                     ),
+                    min: 0,
                   },
                 ],
                 displayType
@@ -660,6 +662,7 @@ const displaySettingsStyle = (
                       "Set a maximum width for the container",
                       "ditty-news-ticker"
                     ),
+                    min: 0,
                   },
                   {
                     type: "color",
@@ -670,6 +673,7 @@ const displaySettingsStyle = (
                     type: "spacing",
                     id: "padding",
                     name: __("Container Padding", "ditty-news-ticker"),
+                    min: 0,
                   },
                   {
                     type: "spacing",
@@ -709,6 +713,7 @@ const displaySettingsStyle = (
                     type: "spacing",
                     id: "contentsPadding",
                     name: __("Content Padding", "ditty-news-ticker"),
+                    min: 0,
                   },
                   ...borderSettings(
                     "contents",
@@ -740,6 +745,7 @@ const displaySettingsStyle = (
                     type: "spacing",
                     id: "pagePadding",
                     name: __("Page Padding", "ditty-news-ticker"),
+                    min: 0,
                   },
                   ...borderSettings("page", __("Page", "ditty-news-ticker")),
                 ],
@@ -773,6 +779,7 @@ const displaySettingsStyle = (
                     type: "spacing",
                     id: "itemPadding",
                     name: __("Item Padding", "ditty-news-ticker"),
+                    min: 0,
                   },
                   ...borderSettings("item", __("Item", "ditty-news-ticker")),
                 ],

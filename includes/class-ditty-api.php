@@ -296,6 +296,7 @@ class Ditty_API {
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
 		$display_title = isset( $apiData['title'] ) ? $apiData['title'] : false;
 		$display_description = isset( $apiData['description'] ) ? $apiData['description'] : false;
+		$display_status = isset( $apiData['status'] ) ? $apiData['status'] : false;
 		$display = isset( $apiData['display'] ) ? $apiData['display'] : array();
 		$display_id = isset( $display['id'] ) ? $display['id'] : false;
 		$display_type = isset( $display['type'] ) ? $display['type'] : false;
@@ -306,24 +307,31 @@ class Ditty_API {
 		$errors = array();
 
 		if ( $display_id && 'ditty_display-new' != $display_id ) {
-			if ( $display_title ) {
+			if ( $display_title || $display_status ) {
 				$postarr = array(
 					'ID'					=> $display_id,
-					'post_title'	=> $display_title,
 				);
+				if ( $display_title ) {
+					$postarr['post_title'] = $display_title;
+					$updates['title'] = $display_title;
+				}
+				if ( $display_status ) {
+					$postarr['post_status'] = $display_status;
+					$updates['status'] = $display_status;
+				}
 				wp_update_post( $postarr );
-				$updates['title'] = $display_title;
 			}
 		} else {
 			$postarr = array(
 				'post_type'		=> 'ditty_display',
-				'post_status'	=> 'publish',
 				'post_title'	=> $display_title,
+				'post_status'	=> $display_status ? $display_status : 'draft',
 			);
 			$display_id = wp_insert_post( $postarr );
 			$updates['new'] = $display_id;
 			$updates['id'] = $display_id;
 			$updates['title'] = $display_title;
+			$updates['status'] = $display_status ? $display_status : false;
 			$updates['edit_url'] = admin_url( "post.php?post={$layout_id}&action=edit" );
 		}
 

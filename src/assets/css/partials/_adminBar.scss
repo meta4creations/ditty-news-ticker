@@ -20,9 +20,13 @@
     overflow: hidden;
   }
   &__title {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display: flex;
+    gap: 10px;
+    &__element {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
   &__description {
     white-space: nowrap;
@@ -32,12 +36,29 @@
     color: #808080;
     margin-top: 3px;
   }
-  .ditty-field textarea {
-    display: block;
-    font-size: 13px;
-    line-height: 16px;
+  .ditty-field {
+    width: 100%;
+    textarea {
+      display: block;
+      font-size: 13px;
+      line-height: 16px;
+    }
   }
   button.ditty-has-updates {
+    color: #fff;
+    background: $green;
+  }
+}
+.ditty-adminbar__status {
+  display: block;
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: normal;
+  background: #ccc;
+  padding: 2px 5px;
+  border-radius: 3px;
+  cursor: pointer;
+  &--publish {
     color: #fff;
     background: $green;
   }

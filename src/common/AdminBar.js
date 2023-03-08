@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,11 +10,13 @@ const AdminBar = ({
   logo,
   title,
   description,
+  status,
   buttonLabel = __("Save", "ditty-news-ticker"),
   hasUpdates,
   showSpinner,
   onUpdateTitle,
   onUpdateDescription,
+  onUpdateStatus,
   onSubmit,
 }) => {
   const [editTitle, setEditTitle] = useState(false);
@@ -40,9 +43,28 @@ const AdminBar = ({
                 setFocus={true}
               />
             ) : (
-              <h2 onClick={() => onUpdateTitle && setEditTitle(true)}>
-                {title}
-              </h2>
+              <>
+                <h2
+                  id="ditty-adminbar__title__element"
+                  onClick={() => onUpdateTitle && setEditTitle(true)}
+                >
+                  {title}
+                </h2>
+                {status && (
+                  <span
+                    className={`ditty-adminbar__status ditty-adminbar__status--${status}`}
+                    onClick={() => {
+                      const updatedStatus =
+                        status == "publish" ? "draft" : "publish";
+                      onUpdateStatus(updatedStatus);
+                    }}
+                  >
+                    {status == "publish"
+                      ? __("Active", "ditty-news-ticker")
+                      : __("Disabled", "ditty-news-ticker")}
+                  </span>
+                )}
+              </>
             )}
           </div>
         )}

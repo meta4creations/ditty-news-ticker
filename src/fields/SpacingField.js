@@ -4,7 +4,7 @@ import BaseField from "./BaseField";
 import UnitField from "./UnitField";
 
 const SpacingField = (props) => {
-  const { type, options, value = {}, onChange } = props;
+  const { type, options, min, max, step, value = {}, onChange } = props;
   const [current, setCurrent] = useState(false);
 
   const defaults = {
@@ -52,6 +52,9 @@ const SpacingField = (props) => {
         >
           <UnitField
             value={unitValue}
+            max={undefined !== max ? String(max) : false}
+            min={undefined !== min ? String(min) : false}
+            step={undefined !== step ? String(step) : false}
             placeholder={objValue}
             onChange={(updatedValue) => updateValue(objKey, updatedValue)}
           />

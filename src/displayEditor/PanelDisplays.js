@@ -16,8 +16,6 @@ import { PopupTypeSelector } from "../common";
 
 const PanelDisplays = ({
   display,
-  title,
-  description,
   onUpdateDisplaySettings,
   onUpdateDisplayType,
 }) => {

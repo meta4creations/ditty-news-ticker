@@ -1,8 +1,9 @@
 import { __ } from "@wordpress/i18n";
+import { useState } from "@wordpress/element";
 import BaseField from "./BaseField";
 
 const UnitField = (props) => {
-  const { placeholder, value, onChange } = props;
+  const { placeholder, value, min, max, step, onChange } = props;
   const unitOptions = [
     {
       value: "px",
@@ -63,46 +64,34 @@ const UnitField = (props) => {
     }
   };
 
-  const updateInputValue = (val) => {
-    if (!value) {
-      onChange(`${val}${unitOptions[0].value}`);
-    } else {
-      let unit;
-      const numbers = String(value).match(/\d+/);
-      if (numbers) {
-        unit = String(value).substr(numbers[0].length, value.length);
-      } else {
-        unit = value;
-      }
-      onChange(`${val}${unit}`);
-    }
-  };
-
-  const updateUnitValue = (val) => {
-    const numbers = value ? String(value).match(/\d+/) : false;
-    if (numbers) {
-      onChange(`${numbers[0]}${val}`);
-    } else {
-      onChange(val);
-    }
-  };
-
+  const [number, setNumber] = useState(numberValue());
+  const [unit, setUnit] = useState(unitValue());
   return (
     <BaseField type="unit" {...props}>
       <input
         autoComplete="off"
         inputMode="numeric"
-        max="Infinity"
-        min="-Infinity"
-        step="1"
+        max={undefined !== max ? String(max) : "Infinity"}
+        min={undefined !== min ? String(min) : "-Infinity"}
+        step={undefined !== step ? String(step) : "1"}
         type="number"
-        value={numberValue()}
+        value={number}
         placeholder={placeholder}
-        onChange={(e) => updateInputValue(e.target.value)}
+        onChange={(e) => {
+          setNumber(e.target.value);
+          if ("" === e.target.value) {
+            onChange("");
+          } else {
+            onChange(`${e.target.value}${unit}`);
+          }
+        }}
       />
       <select
-        defaultValue={unitValue()}
-        onChange={(e) => updateUnitValue(e.target.value)}
+        defaultValue={unit}
+        onChange={(e) => {
+          setUnit(e.target.value);
+          onChange(`${number}${e.target.value}`);
+        }}
       >
         {renderOptions()}
       </select>

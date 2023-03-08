@@ -18,6 +18,7 @@ export default () => {
   const [id, setId] = useState(dittyEditorVars.id);
   const [title, setTitle] = useState(dittyEditorVars.title);
   const [description, setDescription] = useState(dittyEditorVars.description);
+  const [status, setStatus] = useState(dittyEditorVars.status);
   const [type, setType] = useState(dittyEditorVars.type);
 
   const initSettings =
@@ -65,52 +66,45 @@ export default () => {
           __(`Display has been published!`, "ditty-news-ticker")
         );
       } else {
-        for (const property in data.updates) {
-          switch (property) {
-            case "description":
-              toastUpdates.push(
-                __(`Display description has been updated!`, "ditty-news-ticker")
-              );
-              break;
-            case "editorSettings":
-              toastUpdates.push(
-                __(`Editor settings updated!`, "ditty-news-ticker")
-              );
-              break;
-            case "settings":
-              toastUpdates.push(
-                __(`Display settings have been updated!`, "ditty-news-ticker")
-              );
-              break;
-            case "title":
-              toastUpdates.push(
-                __(`Display title has been updated!`, "ditty-news-ticker")
-              );
-              break;
-            case "type":
-              toastUpdates.push(
-                __(`Display type has been updated!`, "ditty-news-ticker")
-              );
-              break;
-            default:
-              break;
-          }
-        }
+        toastUpdates.push(__(`Display has been updated!`, "ditty-news-ticker"));
+        // for (const property in data.updates) {
+        //   switch (property) {
+        //     case "description":
+        //       toastUpdates.push(
+        //         __(`Display description has been updated!`, "ditty-news-ticker")
+        //       );
+        //       break;
+        //     case "editorSettings":
+        //       toastUpdates.push(
+        //         __(`Editor settings updated!`, "ditty-news-ticker")
+        //       );
+        //       break;
+        //     case "settings":
+        //       toastUpdates.push(
+        //         __(`Display settings have been updated!`, "ditty-news-ticker")
+        //       );
+        //       break;
+        //     case "title":
+        //       toastUpdates.push(
+        //         __(`Display title has been updated!`, "ditty-news-ticker")
+        //       );
+        //       break;
+        //     case "type":
+        //       toastUpdates.push(
+        //         __(`Display type has been updated!`, "ditty-news-ticker")
+        //       );
+        //       break;
+        //     default:
+        //       break;
+        //   }
+        // }
       }
 
       // Show Toast updates
       toastUpdates.map((update, index) => {
         toast(update, {
           autoClose: 3000,
-          icon: (
-            <svg
-              className="ditty-logo"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 69.8 71.1"
-            >
-              <path d="M0 46.4c0-17.2 8.6-29.1 24.6-29.1a19.93 19.93 0 0 1 6.6 1V0H45v59.2l1 10.3H34.2l-.9-5.2h-.5a15.21 15.21 0 0 1-13 6.8C3.8 71.1 0 58.4 0 46.4Zm31.2 7.4V28.6a13.7 13.7 0 0 0-6-1.3c-8.7 0-11.3 8.7-11.3 17.8 0 8.5 1.9 15.8 8.9 15.8 5.1 0 8.4-3.8 8.4-7.1ZM54.7 63.7a7 7 0 0 1 7.4-7.2c5 0 7.7 2.8 7.7 7.1s-2.6 7.5-7.4 7.5c-5.1 0-7.7-3.1-7.7-7.4Z" />
-            </svg>
-          ),
+          icon: <Logo style={{ height: "30px", fill: "#19bf7c" }} />,
           delay: index * 100,
         });
       });
@@ -154,9 +148,18 @@ export default () => {
       type: updates.type ? updates.type : false,
       settings: updates.settings ? updates.settings : false,
     };
+
+    let updatedTitle = false;
+    if (updates.title) {
+      updatedTitle =
+        "" === updates.title && "ditty_display-new" == id
+          ? __(`Display ${id}`, "ditty-news-ticker")
+          : updates.title;
+    }
     const data = {
-      title: updates.title ? updates.title : false,
+      title: updatedTitle,
       description: updates.description ? updates.description : false,
+      status: updates.status ? updates.status : false,
       editorSettings: updates.editorSettings ? updates.editorSettings : false,
       display: display,
     };
@@ -164,14 +167,10 @@ export default () => {
   };
 
   const handleUpdateTitle = (updatedTitle) => {
-    const newTitle =
-      "" === updatedTitle
-        ? __(`Display ${id}`, "ditty-news-ticker")
-        : updatedTitle;
     const newUpdates = { ...updates };
-    newUpdates.title = newTitle;
+    newUpdates.title = updatedTitle;
 
-    setTitle(newTitle);
+    setTitle(updatedTitle);
     setUpdates(newUpdates);
 
     // Update the Ditty options
@@ -184,6 +183,13 @@ export default () => {
     newUpdates.description = updatedDescription;
 
     setDescription(updatedDescription);
+    setUpdates(newUpdates);
+  };
+
+  const handleUpdateStatus = (updatedStatus) => {
+    const newUpdates = { ...updates };
+    newUpdates.status = updatedStatus;
+    setStatus(updatedStatus);
     setUpdates(newUpdates);
   };
 
@@ -232,7 +238,7 @@ export default () => {
     return styles;
   };
 
-  const getDisplayItems = (numberOfItems = 10) => {
+  const getDisplayItems = (numberOfItems = 20) => {
     const updatedPreviewItems = [];
     for (let i = 0; i < numberOfItems; i++) {
       updatedPreviewItems.push({
@@ -254,11 +260,13 @@ export default () => {
         logo={<Logo style={{ height: "30px", fill: "#19bf7c" }} />}
         title={title}
         description={description}
+        status={status}
         buttonLabel={__("Save Display", "ditty-news-ticker")}
         hasUpdates={hasUpdates}
         showSpinner={showSpinner}
         onUpdateTitle={handleUpdateTitle}
         onUpdateDescription={handleUpdateDescription}
+        onUpdateStatus={handleUpdateStatus}
         onSubmit={handleSaveDisplay}
       />
       <div id="ditty-display-editor" className="ditty-adminPage__app">
@@ -275,11 +283,13 @@ export default () => {
           display={{ id: id, type: type, settings: settings }}
           title={title}
           description={description}
+          status={status}
           editorSettings={editorSettings}
           onUpdateDisplaySettings={handleUpdateDisplaySettings}
           onUpdateDisplayType={handleUpdateDisplayType}
           onUpdateTitle={handleUpdateTitle}
           onUpdateDescription={handleUpdateDescription}
+          onUpdateStatus={handleUpdateStatus}
           onUpdateEditorSettings={handleUpdateEditorSettings}
         />
       </div>

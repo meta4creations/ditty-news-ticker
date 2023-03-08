@@ -1582,7 +1582,7 @@ function ditty_version() {
  * @since   3.1
  */
 function ditty_default_display_type() {
-	return apply_filters( 'ditty_default_type', 'ticker' );
+	return apply_filters( 'ditty_default_type', 'list' );
 }
 
 /**
