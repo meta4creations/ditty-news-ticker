@@ -1,5 +1,6 @@
 @media screen and (max-width: 782px) {
-  #ditty-editor {
+  #ditty-editor,
+  #ditty-display-editor {
     flex-direction: column;
     &__editor {
       width: 100% !important;
@@ -16,7 +17,8 @@
   }
 }
 @media screen and (min-width: 782px) {
-  #ditty-editor {
+  #ditty-editor,
+  #ditty-display-editor {
     &__editor {
       max-width: calc(100% - 100px);
       height: 100% !important;

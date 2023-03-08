@@ -470,8 +470,11 @@ class Ditty_Scripts {
 			$this->version,
 			true
 		);
+		if ( empty( $ditty_scripts_enqueued ) ) {
+			wp_add_inline_script( 'ditty-editor-init', 'const dittyEditor={};', 'before' );
+		}
 
-		if ( ditty_editing() ) {
+		if ( $ditty_id = ditty_editing() ) {
 			if ( $this->cache_enabled ) {
 				$cache = $this->get_cache();
 				wp_enqueue_script(
@@ -493,16 +496,38 @@ class Ditty_Scripts {
 				true
 			);
 			if ( empty( $ditty_scripts_enqueued ) ) {
-				wp_add_inline_script( 'ditty', 'const dittyEditor={};', 'before' );
+				if ( 'ditty-new' == $ditty_id ) {
+					$title = __( 'New Ditty', 'ditty-news-ticker' );
+					$default_type = ditty_default_display_type();
+					$display_type_object = ditty_display_type_object( $default_type );
+					$display = [
+						'type' => $default_type,
+						'settings' => $display_type_object ? $display_type_object->default_settings() : false,
+					];
+				} else {
+					$ditty = get_post( $ditty_id );	
+					$title = $ditty->post_title;
+					$display = get_post_meta(  $ditty_id, '_ditty_display', true );
+				}
+				$item_data = Ditty()->editor->item_data(  $ditty_id );
+				
 				wp_add_inline_script( 'ditty-editor', 'const dittyEditorVars = ' . json_encode( array(
 					'security'					=> wp_create_nonce( 'ditty' ),
 					'mode'							=> WP_DEBUG ? 'development' : 'production',
 					'userId'						=> get_current_user_id(),
 					'siteUrl'						=> site_url(),
+					'id'								=> $ditty_id,
+					'title' 						=> $title,
+					'status'						=> ( 'ditty-new' == $ditty_id ) ? 'draft' : get_post_status( $ditty_id ),
+					'settings' 					=> ( 'ditty-new' == $ditty_id ) ? ditty_single_settings_defaults() : get_post_meta( $ditty_id, '_ditty_settings', true ),
+					'items'							=> $item_data && isset( $item_data['items'] ) ? $item_data['items'] : false,
+					'displayItems'			=> $item_data && isset( $item_data['display_items'] ) ? $item_data['display_items'] : false,
+					'displayObject' 		=> is_array( $display ) ? $display : false,
+					'display' 					=> ! is_array( $display ) ? $display : false,
 					'displays'					=> Ditty()->editor->display_data(),
 					'layouts'						=> Ditty()->editor->layout_data(),
 					'itemTypes'					=> Ditty()->editor->item_type_data(),
-					//'displayTypes'			=> Ditty()->editor->display_type_data(),
+					'displayTypes'			=> Ditty()->editor->display_type_data(),
 					'variationDefaults' => ditty_settings( 'variation_defaults' ),
 				) ), 'before' );
 			}
@@ -536,8 +561,6 @@ class Ditty_Scripts {
 					$display = get_post( $display_id );	
 					$title = $display->post_title;
 				}
-
-				wp_add_inline_script( 'ditty-editor-init', 'const dittyEditor={};', 'before' );
 				wp_add_inline_script( 'ditty-display-editor', 'const dittyEditorVars = ' . json_encode( array(
 					'security'				=> wp_create_nonce( 'ditty' ),
 					'mode'						=> WP_DEBUG ? 'development' : 'production',
@@ -550,6 +573,7 @@ class Ditty_Scripts {
 					'type' 						=> 'ditty_display-new' == $display_id ? ditty_default_display_type() : get_post_meta( $display_id, '_ditty_display_type', true ),
 					'settings' 				=> 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_display_settings', true ),
 					'editorSettings'	=> 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_editor_settings', true ),
+					'displayTypes'		=> Ditty()->editor->display_type_data(),
 				) ), 'before' );
 			}
 		}

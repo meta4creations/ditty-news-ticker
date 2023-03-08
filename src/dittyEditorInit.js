@@ -18,9 +18,8 @@ dittyEditor.registerItemType = (itemType) => {
     return itemTypes;
   });
 };
+
+dittyEditor.displayTypes = [];
 dittyEditor.registerDisplayType = (displayType) => {
-  dittyEditor.addFilter("dittyDisplayTypes", (displayTypes) => {
-    displayTypes.push(displayType);
-    return displayTypes;
-  });
+  dittyEditor.displayTypes.push(displayType);
 };

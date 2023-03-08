@@ -97,36 +97,8 @@ class Ditty_Singles {
 			esc_html__( 'Ditty', 'ditty-news-ticker' ),
 			'edit_dittys',
 			'ditty-new',
-			array( $this, 'page_display_new' )
+			array( $this, 'page_display' )
 		);
-	}
-	
-	/**
-	 * Render the custom new Ditty page
-	 * @access  public
-	 *
-	 * @since   3.1
-	 */
-	public function page_display_new() {
-		$ditty_id = ditty_editing();
-		if ( ! $ditty_id ) {
-			return false;
-		}		
-		$ticker_object = ditty_display_type_object( 'ticker' );
-
-		$title = __( 'New Ditty', 'ditty-news-ticker' );
-		$atts = array(
-			'data-id' 	 => $ditty_id,
-			'data-title' => $title,
-			'data-settings' => json_encode( ditty_single_settings_defaults() ),
-			'data-displayobject' => json_encode( [
-				'type' => 'ticker',
-				'settings' => $ticker_object->default_settings()
-			] )
-		);
-		?>
-		<div id="ditty-editor__wrapper" class="ditty-adminPage" <?php echo ditty_attr_to_html( $atts ); ?>></div>
-		<?php
 	}
 	
 	/**
@@ -136,73 +108,11 @@ class Ditty_Singles {
 	 * @since   3.1
 	 */
 	public function page_display() {
-		$ditty_id = ditty_editing();
-		if ( ! $ditty_id ) {
+		if ( ! ditty_editing() ) {
 			return false;
 		}
-	
-		$ditty = get_post( $ditty_id );	
-		$settings = get_post_meta( $ditty_id, '_ditty_settings', true );
-		
-		$title = $ditty->post_title;
-		$items_meta = ditty_items_meta( $ditty_id );
-		
-		// Do not pass serialized data
-		$unserialized_items = array();
-		$display_items = array();
-		if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
-			foreach ( $items_meta as $i => $item_meta ) {
-	
-				// Get the editor preview
-				if ( $item_type_object = ditty_item_type_object( $item_meta->item_type ) ) {
-					$item_meta->editor_preview = $item_type_object->editor_preview( $item_meta->item_value );
-				}
-	
-				// Unpack the layout variations
-				$layout_value = maybe_unserialize( $item_meta->layout_value );
-				$layout_variations = [];
-				if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
-					foreach ( $layout_value as $variation => $value ) {
-						$layout_variations[$variation] = json_decode($value, true);
-					}
-				}
-				
-				// De-serialize the attribute values
-				$attribute_value = maybe_unserialize( $item_meta->attribute_value );
-				
-	
-				$prepared_items = ditty_prepare_display_items( $item_meta );
-				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
-					foreach ( $prepared_items as $i => $prepared_meta ) {
-						$prepared_meta['attribute_value'] = $attribute_value;
-						$display_item = new Ditty_Display_Item( $prepared_meta );
-						$ditty_data = $display_item->ditty_data();
-						$display_items[] = $ditty_data;
-						$prepared_meta['layout_value'] = $layout_variations;
-					}
-				}
-				$item_meta->layout_value = $layout_variations;
-				$item_meta->attribute_value = $attribute_value;
-				$unserialized_items[] = $item_meta;
-			}
-		}
-	
-		$display = get_post_meta( $ditty->ID, '_ditty_display', true );
-	
-		$atts = array(
-			'data-id' 						=> $ditty_id,
-			'data-title' 					=> $title,
-			'data-settings' 			=> json_encode( $settings ),
-			'data-items' 					=> json_encode( $unserialized_items ),
-			'data-displayitems' 	=> json_encode( $display_items ),
-		);
-		if ( is_array( $display ) ) {
-			$atts['data-displayobject'] = json_encode( $display );
-		} else {
-			$atts['data-display'] = $display;
-		}
 		?>
-		<div id="ditty-editor__wrapper" class="ditty-adminPage" <?php echo ditty_attr_to_html( $atts ); ?>></div>
+		<div id="ditty-editor__wrapper" class="ditty-adminPage"></div>
 		<?php
 	}
 

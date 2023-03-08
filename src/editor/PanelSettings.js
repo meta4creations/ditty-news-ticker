@@ -6,7 +6,7 @@ import { FieldList } from "../fields";
 import { EditorContext } from "./context";
 
 const PanelSettings = () => {
-  const { id, title, settings, actions } = useContext(EditorContext);
+  const { id, title, status, settings, actions } = useContext(EditorContext);
 
   const settingsFields = dittyEditor.applyFilters("dittySettingsFields", [
     {
@@ -31,7 +31,7 @@ const PanelSettings = () => {
         draft: __("Disabled", "ditty-news-ticker"),
       },
       inline: true,
-      std: "publish",
+      std: status,
     },
     {
       type: "radio",
@@ -96,6 +96,8 @@ const PanelSettings = () => {
   const handleOnUpdate = (id, value) => {
     if ("title" === id) {
       actions.updateTitle(value);
+    } else if ("status" === id) {
+      actions.updateStatus(value);
     } else {
       const updatedSettings = _.cloneDeep(settings);
       updatedSettings[id] = value;
@@ -107,7 +109,7 @@ const PanelSettings = () => {
     <Panel id="settings">
       <FieldList
         fields={settingsFields}
-        values={settings}
+        values={{ ...settings, title: title, status: status }}
         onUpdate={handleOnUpdate}
       />
     </Panel>

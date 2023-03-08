@@ -5,9 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLoader } from "@fortawesome/pro-light-svg-icons";
 import { Button } from "../components";
 import { TextField, TextareaField } from "../fields";
+import { ReactComponent as Logo } from "../assets/img/d.svg";
 
 const AdminBar = ({
-  logo,
+  logo = <Logo style={{ height: "30px", fill: "#19bf7c" }} />,
   title,
   description,
   status,

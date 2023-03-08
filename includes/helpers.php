@@ -185,12 +185,12 @@ function ditty_display_types() {
 /**
  * Return a display class object
  *
- * @since    3.0
+ * @since    3.1
  * @var      object	$display_object    
 */
 function ditty_display_type_object( $type ) {
 	$display_types = ditty_display_types();
-	if ( isset( $display_types[$type] ) && class_exists( $display_types[$type]['class_name'] ) ) {
+	if ( isset( $display_types[$type] ) && isset( $display_types[$type]['class_name'] ) && class_exists( $display_types[$type]['class_name'] ) ) {
 		$display_object = new $display_types[$type]['class_name'];
 		return $display_object;
 	}

@@ -910,7 +910,6 @@
       if (String(this.settings.bulletsSpacing) === String(numberValue)) {
         spacing += "px";
       }
-      console.log("spacing", spacing);
       this.$bullets[0].style.gap = spacing;
 
       switch (this.settings.bulletsPosition) {

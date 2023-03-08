@@ -300,22 +300,9 @@ class Ditty_Displays {
 	 * @since   3.1
 	 */
 	public function page_display() {
-		$display_id = ditty_display_editing();
-		if ( ! $display_id ) {
+		if ( ! ditty_display_editing() ) {
 			return false;
 		}		
-
-		if ( 'ditty_display-new' == $display_id ) {
-			$title = __( 'New Display', 'ditty-news-ticker' );
-		} else {
-			$display = get_post( $display_id );	
-			$title = $display->post_title;
-		}
-		
-		$atts = array(
-			'data-id' 	 => $display_id,
-			'data-title' => $title,
-		);
 		?>
 		<div id="ditty-display-editor__wrapper" class="ditty-adminPage"></div>
 		<?php

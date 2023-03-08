@@ -16,6 +16,7 @@ import {
   updateDisplayItems,
   replaceDisplayItems,
 } from "../services/dittyService";
+import { PopupTypeSelector } from "../common";
 import { Panel, ListItem, SortableList } from "../components";
 import { EditorContext } from "./context";
 import {
@@ -25,7 +26,6 @@ import {
   getItemLabel,
 } from "../utils/itemTypes";
 import PopupEditItem from "./PopupEditItem";
-import PopupTypeSelector from "./PopupTypeSelector";
 import PopupLayouts from "./PopupLayouts";
 
 const PanelItems = () => {

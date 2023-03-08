@@ -8,6 +8,7 @@ import {
   updateDittyDisplayTemplate,
   updateDittyDisplayType,
 } from "../services/dittyService";
+import { PopupTypeSelector } from "../common";
 import { Button, ButtonGroup, IconBlock, Link, Panel } from "../components";
 import { FieldList } from "../fields";
 import {
@@ -18,7 +19,6 @@ import {
 } from "../utils/displayTypes";
 import { EditorContext } from "./context";
 import PopupTemplateSave from "./PopupTemplateSave";
-import PopupTypeSelector from "./PopupTypeSelector";
 import PopupTemplateSelector from "./PopupTemplateSelector";
 
 const PanelDisplays = () => {

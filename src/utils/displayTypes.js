@@ -14,7 +14,7 @@ import {
  * @returns array
  */
 export const getDisplayTypes = () => {
-  const displayTypes = dittyEditor.applyFilters("dittyDisplayTypes", []);
+  const displayTypes = dittyEditor ? dittyEditor.displayTypes : [];
   const migratedDisplayTypes = migrateDisplayTypes(displayTypes);
   const sortedDisplayTypes = _.orderBy(
     migratedDisplayTypes,

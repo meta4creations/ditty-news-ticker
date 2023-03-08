@@ -4,38 +4,40 @@ import _ from "lodash";
 import { toast } from "react-toastify";
 import { saveDitty } from "../../services/httpService";
 import { getDisplayObject } from "../../utils/displayTypes";
+import { ReactComponent as Logo } from "../../assets/img/d.svg";
 
 export const EditorContext = React.createContext();
 EditorContext.displayName = "EditorContext";
 
 export class EditorProvider extends Component {
-  data = { ...this.props.data };
   editorVars = { ...dittyEditorVars };
-  initialTitle = this.data.title ? this.data.title : "";
-  initialItems = this.data.items ? JSON.parse(this.data.items) : [];
-  initialDisplayItems = this.data.displayitems
-    ? JSON.parse(this.data.displayitems)
+  initialTitle = this.editorVars.title ? this.editorVars.title : "";
+  initialStatus = this.editorVars.status ? this.editorVars.status : "draft";
+  initialItems = this.editorVars.items ? this.editorVars.items : [];
+  initialDisplayItems = this.editorVars.displayItems
+    ? this.editorVars.displayItems
     : [];
   initialDisplays = this.editorVars.displays
     ? [...this.editorVars.displays]
     : [];
   initialLayouts = this.editorVars.layouts ? [...this.editorVars.layouts] : [];
-  initialDisplay = this.data.displayobject
-    ? JSON.parse(this.data.displayobject)
-    : getDisplayObject(this.data.display, [...this.initialDisplays]);
-  initialSettings = this.data.settings
-    ? JSON.parse(this.data.settings)
+  initialDisplay = this.editorVars.displayObject
+    ? this.editorVars.displayObject
+    : getDisplayObject(this.editorVars.display, [...this.initialDisplays]);
+  initialSettings = this.editorVars.settings
+    ? this.editorVars.settings
     : {
         status: "publish",
         ajax_loading: "no",
         live_updates: "no",
         editorWidth: 350,
       };
-  initialId = this.data.id;
+  initialId = this.editorVars.id;
 
   state = {
     id: this.initialId,
     title: this.initialTitle,
+    status: this.initialStatus,
     items: [...this.initialItems],
     displayItems: [...this.initialDisplayItems],
     displays: [...this.initialDisplays],
@@ -245,6 +247,14 @@ export class EditorProvider extends Component {
   };
 
   /**
+   * Update the title
+   * @param {object} updatedTitle
+   */
+  handleUpdateStatus = (updatedStatus) => {
+    this.setState({ status: updatedStatus });
+  };
+
+  /**
    * Update the settings
    * @param {object} updatedSettings
    */
@@ -324,6 +334,11 @@ export class EditorProvider extends Component {
     // Check if the title has changes
     if (!_.isEqual(this.state.title, this.initialTitle)) {
       updates.title = this.state.title;
+    }
+
+    // Check if the status has changes
+    if (!_.isEqual(this.state.status, this.initialStatus)) {
+      updates.status = this.state.status;
     }
 
     // Check if settings have changed
@@ -406,50 +421,58 @@ export class EditorProvider extends Component {
           switch (property) {
             case "display":
               toastUpdates.push(
-                __(`Ditty Display has been updated!`, "ditty-news-ticker")
+                __(`Ditty display has been updated!`, "ditty-news-ticker")
               );
               break;
             case "items":
-              let itemsArranged = false;
-              let itemsUpdated = 0;
-              data.updates[property].map((item) => {
-                if (item.item_index) {
-                  itemsArranged = true;
-                }
-                if (item.date_modified) {
-                  itemsUpdated++;
-                }
-              });
-              if (1 === itemsUpdated) {
-                toastUpdates.push(
-                  __(
-                    `${itemsUpdated} Ditty Item has been updated!`,
-                    "ditty-news-ticker"
-                  )
-                );
-              } else if (itemsUpdated > 1) {
-                toastUpdates.push(
-                  __(
-                    `${itemsUpdated} Ditty Items have been updated!`,
-                    "ditty-news-ticker"
-                  )
-                );
-              }
-              if (itemsArranged) {
-                toastUpdates.push(
-                  __(`Ditty Items order has been updated!`, "ditty-news-ticker")
-                );
-              }
+              toastUpdates.push(
+                __(`Ditty items have been updated!`, "ditty-news-ticker")
+              );
+              // let itemsArranged = false;
+              // let itemsUpdated = 0;
+              // data.updates[property].map((item) => {
+              //   // if (item.item_index) {
+              //   //   itemsArranged = true;
+              //   // }
+              //   if (item.item_index || item.date_modified) {
+              //     itemsUpdated++;
+              //   }
+              // });
+              // if (1 === itemsUpdated) {
+              //   toastUpdates.push(
+              //     __(
+              //       `${itemsUpdated} Ditty item has been updated!`,
+              //       "ditty-news-ticker"
+              //     )
+              //   );
+              // } else if (itemsUpdated > 1) {
+              //   toastUpdates.push(
+              //     __(
+              //       `${itemsUpdated} Ditty items have been updated!`,
+              //       "ditty-news-ticker"
+              //     )
+              //   );
+              // }
+              // if (itemsArranged) {
+              //   toastUpdates.push(
+              //     __(`Ditty items order has been updated!`, "ditty-news-ticker")
+              //   );
+              // }
               break;
             case "settings":
               updatedState.settings = data.updates.settings;
               toastUpdates.push(
-                __(`Ditty Settings have been updated!`, "ditty-news-ticker")
+                __(`Ditty settings have been updated!`, "ditty-news-ticker")
               );
               break;
             case "title":
               toastUpdates.push(
-                __(`Ditty Title has been updated!`, "ditty-news-ticker")
+                __(`Ditty title has been updated!`, "ditty-news-ticker")
+              );
+              break;
+            case "status":
+              toastUpdates.push(
+                __(`Ditty status has been updated!`, "ditty-news-ticker")
               );
               break;
             default:
@@ -467,15 +490,7 @@ export class EditorProvider extends Component {
       toastUpdates.map((update, index) => {
         toast(update, {
           autoClose: 3000,
-          icon: (
-            <svg
-              className="ditty-logo"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 69.8 71.1"
-            >
-              <path d="M0 46.4c0-17.2 8.6-29.1 24.6-29.1a19.93 19.93 0 0 1 6.6 1V0H45v59.2l1 10.3H34.2l-.9-5.2h-.5a15.21 15.21 0 0 1-13 6.8C3.8 71.1 0 58.4 0 46.4Zm31.2 7.4V28.6a13.7 13.7 0 0 0-6-1.3c-8.7 0-11.3 8.7-11.3 17.8 0 8.5 1.9 15.8 8.9 15.8 5.1 0 8.4-3.8 8.4-7.1ZM54.7 63.7a7 7 0 0 1 7.4-7.2c5 0 7.7 2.8 7.7 7.1s-2.6 7.5-7.4 7.5c-5.1 0-7.7-3.1-7.7-7.4Z" />
-            </svg>
-          ),
+          icon: <Logo style={{ height: "30px", fill: "#19bf7c" }} />,
           delay: index * 100,
         });
       });
@@ -513,6 +528,10 @@ export class EditorProvider extends Component {
         this.initialTitle = updates.title;
       }
 
+      if (updates.status) {
+        this.initialStatus = updates.status;
+      }
+
       // Reset the item updates
       const resetItemUpdates = this.state.items.map((item) => {
         if (item.item_updates) {
@@ -536,6 +555,7 @@ export class EditorProvider extends Component {
         value={{
           id: this.state.id,
           title: this.state.title,
+          status: this.state.status,
           items: this.state.items,
           displayItems: this.state.displayItems,
           displays: this.state.displays,
@@ -559,6 +579,7 @@ export class EditorProvider extends Component {
             updateDisplay: this.handleUpdateDisplay,
             updateLayout: this.handleUpdateLayout,
             updateTitle: this.handleUpdateTitle,
+            updateStatus: this.handleUpdateStatus,
             updateSettings: this.handleUpdateSettings,
             saveDitty: this.handleSaveDitty,
           },

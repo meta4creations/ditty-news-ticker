@@ -1,12 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
-import {
-  getItemTypeObject,
-  getItemLabel,
-  getItemTypes,
-  getItemTypeSettings,
-} from "../utils/itemTypes";
+import { PopupTypeSelector } from "../common";
 import {
   Button,
   ButtonGroup,
@@ -16,7 +11,12 @@ import {
   Tabs,
 } from "../components";
 import { FieldList } from "../fields";
-import PopupTypeSelector from "./PopupTypeSelector";
+import {
+  getItemTypeObject,
+  getItemLabel,
+  getItemTypes,
+  getItemTypeSettings,
+} from "../utils/itemTypes";
 
 const PopupEditItem = ({
   item,

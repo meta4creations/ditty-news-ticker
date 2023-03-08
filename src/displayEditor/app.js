@@ -257,7 +257,6 @@ export default () => {
   return (
     <>
       <AdminBar
-        logo={<Logo style={{ height: "30px", fill: "#19bf7c" }} />}
         title={title}
         description={description}
         status={status}

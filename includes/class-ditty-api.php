@@ -145,6 +145,7 @@ class Ditty_API {
 		$display = isset( $apiData['display'] ) ? $apiData['display'] : false;
 		$settings = isset( $apiData['settings'] ) ? $apiData['settings'] : false;
 		$title = isset( $apiData['title'] ) ? $apiData['title'] : false;
+		$status = isset( $apiData['status'] ) ? $apiData['status'] : false;
 
 		$updates = array();
 		$errors = array();
@@ -152,19 +153,34 @@ class Ditty_API {
 		if ( $is_new_ditty ) {
 			$id = wp_insert_post( [
 				'post_type' => 'ditty',
-				'post_status' => 'publish',
+				'post_status' => $status ? $status : 'draft',
 				'post_title' => $title,
 			] );
 			$updates['new'] = $id;
-		} elseif ( $title ) {	
-			$ditty_post_data = array(
+		} elseif ( $title || $status ) {	
+			$postarr = array(
 				'ID' => $id,
-				'post_title' => $title,
 			);
-			if ( wp_update_post( $ditty_post_data ) ) {
-				$updates['title'] = $title;
+			if ( $title ) {
+				$postarr['post_title'] = $title;
+			}
+			if ( $status ) {
+				$postarr['post_status'] = $status;
+			}
+			if ( wp_update_post( $postarr ) ) {
+				if ( $title ) {
+					$updates['title'] = $title;
+				}
+				if ( $status ) {
+					$updates['status'] = $status;
+				}
 			} else {
-				$errors['title'] = $title;
+				if ( $title ) {
+					$errors['title'] = $title;
+				}
+				if ( $status ) {
+					$errors['status'] = $status;
+				}
 			}
 		}
 
@@ -313,13 +329,25 @@ class Ditty_API {
 				);
 				if ( $display_title ) {
 					$postarr['post_title'] = $display_title;
-					$updates['title'] = $display_title;
 				}
 				if ( $display_status ) {
 					$postarr['post_status'] = $display_status;
-					$updates['status'] = $display_status;
 				}
-				wp_update_post( $postarr );
+				if ( wp_update_post( $postarr ) ) {
+					if ( $display_title ) {
+						$updates['title'] = $display_title;
+					}
+					if ( $display_status ) {
+						$updates['status'] = $display_status;
+					}
+				} else {
+					if ( $display_title ) {
+						$errors['title'] = $display_title;
+					}
+					if ( $display_status ) {
+						$errors['status'] = $display_status;
+					}
+				}
 			}
 		} else {
 			$postarr = array(
@@ -329,10 +357,6 @@ class Ditty_API {
 			);
 			$display_id = wp_insert_post( $postarr );
 			$updates['new'] = $display_id;
-			$updates['id'] = $display_id;
-			$updates['title'] = $display_title;
-			$updates['status'] = $display_status ? $display_status : false;
-			$updates['edit_url'] = admin_url( "post.php?post={$layout_id}&action=edit" );
 		}
 
 		// Update a display description

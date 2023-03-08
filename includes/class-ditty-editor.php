@@ -21,6 +21,65 @@ class Ditty_Editor {
 	}
 
 	/**
+	 * Get all item data for the editor
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function item_data( $ditty_id ) {
+		if ( 'ditty-new' == $ditty_id ) {
+			return false;
+		}
+
+		$items_meta = ditty_items_meta( $ditty_id );
+		
+		// Do not pass serialized data
+		$unserialized_items = array();
+		$display_items = array();
+		if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
+			foreach ( $items_meta as $i => $item_meta ) {
+	
+				// Get the editor preview
+				if ( $item_type_object = ditty_item_type_object( $item_meta->item_type ) ) {
+					$item_meta->editor_preview = $item_type_object->editor_preview( $item_meta->item_value );
+				}
+	
+				// Unpack the layout variations
+				$layout_value = maybe_unserialize( $item_meta->layout_value );
+				$layout_variations = [];
+				if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
+					foreach ( $layout_value as $variation => $value ) {
+						$layout_variations[$variation] = json_decode($value, true);
+					}
+				}
+				
+				// De-serialize the attribute values
+				$attribute_value = maybe_unserialize( $item_meta->attribute_value );
+				
+	
+				$prepared_items = ditty_prepare_display_items( $item_meta );
+				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
+					foreach ( $prepared_items as $i => $prepared_meta ) {
+						$prepared_meta['attribute_value'] = $attribute_value;
+						$display_item = new Ditty_Display_Item( $prepared_meta );
+						$ditty_data = $display_item->ditty_data();
+						$display_items[] = $ditty_data;
+						$prepared_meta['layout_value'] = $layout_variations;
+					}
+				}
+				$item_meta->layout_value = $layout_variations;
+				$item_meta->attribute_value = $attribute_value;
+				$unserialized_items[] = $item_meta;
+			}
+		}
+
+		return [
+			'items' => $unserialized_items,
+			'display_items' => $display_items,
+		];
+	}
+
+	/**
 	 * Get all display data for the editor
 	 *
 	 * @access public
@@ -141,22 +200,22 @@ class Ditty_Editor {
 	 * @access public
 	 * @since  3.1
 	 */
-	// public function display_type_data() {
-	// 	$display_types = ditty_display_types();
-	// 	$display_type_data = array();
-	// 	if (is_array($display_types) && count($display_types) > 0) {
-	// 		foreach ($display_types as $i => $type) {
-	// 			$display_type_object = ditty_display_type_object($type['type']);
-	// 			if ($display_type_object->has_js_fields()) {
-	// 				continue;
-	// 			}
-	// 			$type['settings'] = $this->format_js_fields($display_type_object->fields());
-	// 			$type['defaultValues'] = $display_type_object->default_settings();
-	// 			$display_type_data[] = $type;
-	// 		}
-	// 	}
-	// 	return array_values($display_type_data);
-	// }
+	public function display_type_data() {
+		$display_types = ditty_display_types();
+		$display_type_data = array();
+		if (is_array($display_types) && count($display_types) > 0) {
+			foreach ($display_types as $i => $type) {
+				$display_type_object = ditty_display_type_object($type['type']);
+				if (!$display_type_object || $display_type_object->has_js_fields()) {
+					continue;
+				}
+				$type['settings'] = $this->format_js_fields($display_type_object->fields());
+				$type['defaultValues'] = $display_type_object->default_settings();
+				$display_type_data[] = $type;
+			}
+		}
+		return array_values($display_type_data);
+	}
 
 	// Convert fields for js
 	private function convert_js_field_keys(&$field) {
