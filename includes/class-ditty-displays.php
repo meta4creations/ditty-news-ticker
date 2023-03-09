@@ -10,8 +10,6 @@
  * @since       3.0
 */
 class Ditty_Displays {
-	
-	private $new_displays;
 
 	/**
 	 * Get things started
@@ -24,14 +22,9 @@ class Ditty_Displays {
 		add_action( 'admin_menu', array( $this, 'add_admin_pages' ), 10, 5 );
 		add_action( 'admin_init', array( $this, 'edit_page_redirects' ) );
 		
-		// WP metabox hooks
-		add_action( 'add_meta_boxes', array( $this, 'metaboxes' ) );
-		add_action( 'save_post', array( $this, 'metabox_save' ) );
-		
 		// General hooks
 		add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
 		add_filter( 'post_row_actions', array( $this, 'modify_list_row_actions' ), 10, 2 );
-		add_action( 'ditty_editor_update', array( $this, 'update_drafts' ), 10, 2 );
 		
 		add_action( 'wp_ajax_ditty_install_display', array( $this, 'install_display' ) );
 	}
@@ -309,127 +302,6 @@ class Ditty_Displays {
 	}
 	
 	/**
-	 * Add metaboxes
-	 * 
-	 * @since  3.0
-	 * @return void
-	 */
-	public function metaboxes() {
-		add_meta_box( 'ditty-display-info', __( 'Display Info', 'ditty-news-ticker' ), array( $this, 'metabox_display_info' ), 'ditty_display', 'side', 'high' );
-		add_meta_box( 'ditty-display-settings', __( 'Display Settings', 'ditty-news-ticker' ), array( $this, 'metabox_display_settings' ), 'ditty_display', 'normal' );
-	}
-	
-	/**
-	 * Save custom meta
-	 * 
-	 * @since  3.0.26
-	 * @return void
-	 */
-	public function metabox_save( $post_id ) {
-		global $post;
-		
-		// verify nonce
-		if ( ! isset( $_POST['ditty_display_nonce'] ) || ! wp_verify_nonce( $_POST['ditty_display_nonce'], basename( __FILE__ ) ) ) {
-			return $post_id;
-		}
-	
-		// check autosave
-		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || isset( $_REQUEST['bulk_edit'] ) ) return $post_id;
-		
-		// don't save if only a revision
-		if ( isset( $post->post_type ) && $post->post_type == 'revision' ) return $post_id;
-	
-		// check permissions
-		if ( isset( $_POST['post_type'] ) && 'ditty_display' == $_POST['post_type'] ) {
-			if ( ! current_user_can( 'edit_ditty_display', $post_id ) ) {
-				return $post_id;
-			}
-		} elseif ( ! current_user_can( 'edit_ditty_display', $post_id ) ) {
-			return $post_id;
-		}
-		
-		if ( isset( $_POST['_ditty_display_type'] ) ) {
-			$display_type = sanitize_text_field( $_POST['_ditty_display_type'] );
-			update_post_meta( $post_id, '_ditty_display_type', $display_type );
-		}
-
-		if ( isset( $_POST['_ditty_display_description'] ) ) {
-			$display_description = sanitize_text_field( $_POST['_ditty_display_description'] );
-			update_post_meta( $post_id, '_ditty_display_description', $display_description );
-		}
-		
-		// Possibly add a uniq_id
-		ditty_maybe_add_uniq_id( $post_id );
-		
-		// Remove the version number of edited displays
-		delete_post_meta( $post_id, '_ditty_display_template' );
-		delete_post_meta( $post_id, '_ditty_display_version' );
-	}
-	
-	/**
-	 * Add the Display info metabox
-	 * 
-	 * @since  3.0.26
-	 * @return void
-	 */
-	public function metabox_display_info() {
-		global $post;
-		$display_types = ditty_display_types();
-		$display_types_array = array(
-			'' => esc_html__( 'Select a Display Type', 'ditty-news-ticker' ),
-		);
-		if ( is_array( $display_types ) && count( $display_types ) > 0 ) {
-			foreach ( $display_types as $i => $display_type ) {
-				$display_types_array[$i] = $display_type['label'];
-			}
-		}
-		
-		$display_type = get_post_meta( $post->ID, '_ditty_display_type', true );
-		$display_description = get_post_meta( $post->ID, '_ditty_display_description', true );
-		$display_name = ( $display_type && isset( $display_types[$display_type] ) ) ? $display_types[$display_type]['label'] : false;
-
-		$fields = array();
-		if ( $display_name ) {
-			$fields['type'] = array(
-				'type' 	=> 'text',
-				'id'		=> '_ditty_display_type',
-				'name' 	=> __( 'Display Type', 'ditty-news-ticker' ),
-				'std' 	=> $display_name,
-				'atts'	=> array(
-					'disabled' => 'disabled',
-				),
-			);
-		} else {
-			$fields['type'] = array(
-				'type' 	=> 'select',
-				'id'		=> '_ditty_display_type',
-				'name' 	=> __( 'Display Type', 'ditty-news-ticker' ),
-				'options'	=> $display_types_array,
-			);
-		}
-		$fields['description'] = array(
-			'type' 	=> 'textarea',
-			'id'		=> '_ditty_display_description',
-			'name' 	=> __( 'Description', 'ditty-news-ticker' ),
-			'std' 	=> $display_description,
-		);
-		ditty_fields( $fields );
-		echo '<input type="hidden" name="ditty_display_nonce" value="' . wp_create_nonce( basename( __FILE__ ) ) . '" />';
-	}
-	
-	/**
-	 * Add the Layout html metabox
-	 * 
-	 * @since  3.0
-	 * @return void
-	 */
-	public function metabox_display_settings() {
-		?>
-		<div id="ditty-display__wrapper" class="ditty-adminPage">blah</div>
-		<?php
-	}
-	
-	/**
 	 * Return an array of displays by type
 	 *
 	 * @access  public
@@ -492,5 +364,95 @@ class Ditty_Displays {
 		}
 	
 		return $options;
+	}
+
+	/**
+	 * Save a display
+	 *
+	 * @access  public
+	 * @since   3.1
+	 * @param   array
+	 */
+	public function save( $data ) {	
+		$userId = isset( $data['userId'] ) ? intval( $data['userId'] ) : 0;
+		$title = isset( $data['title'] ) ? sanitize_text_field( $data['title'] ) : false;
+		$description = isset( $data['description'] ) ? sanitize_textarea_field( $data['description'] ) : false;
+		$status = isset( $data['status'] ) ? esc_attr( $data['status'] ) : false;
+		$editor_settings = isset( $data['editorSettings'] ) ? $data['editorSettings'] : false;
+
+		$display = isset( $data['display'] ) ? $data['display'] : array();
+		$display_id = isset( $display['id'] ) ? sanitize_text_field( $display['id'] ) : false;
+		$display_type = isset( $display['type'] ) ? esc_attr( $display['type'] ) : false;
+		$display_settings = isset( $display['settings'] ) ? ditty_sanitize_settings( $display['settings'], "display_${$display_type}" ) : false;
+
+		$updates = array();
+		$errors = array();
+
+		if ( $display_id && 'ditty_display-new' != $display_id ) {
+			if ( $title || $status ) {
+				$postarr = array(
+					'ID' => $display_id,
+				);
+				if ( $title ) {
+					$postarr['post_title'] = $title;
+				}
+				if ( $status ) {
+					$postarr['post_status'] = $status;
+				}
+				if ( wp_update_post( $postarr ) ) {
+					if ( $title ) {
+						$updates['title'] = $title;
+					}
+					if ( $status ) {
+						$updates['status'] = $status;
+					}
+				} else {
+					if ( $title ) {
+						$errors['title'] = $title;
+					}
+					if ( $status ) {
+						$errors['status'] = $status;
+					}
+				}
+			}
+		} else {
+			$postarr = array(
+				'post_type'		=> 'ditty_display',
+				'post_title'	=> $title,
+				'post_status'	=> $status ? $status : 'draft',
+			);
+			$display_id = wp_insert_post( $postarr );
+			$updates['new'] = $display_id;
+		}
+
+		// Update a display description
+		if ( $description ) {
+			$sanitized_description = wp_kses_post( $description );
+			update_post_meta( $display_id, '_ditty_display_description', $sanitized_description );
+			$updates['description'] = $sanitized_description;
+		}
+		
+		// Update a display type
+		if ( $display_type ) {
+			update_post_meta( $display_id, '_ditty_display_type', $display_type );
+			$updates['type'] = $display_type;
+		}
+
+		// Update a display settings
+		if ( $display_settings ) {
+			update_post_meta( $display_id, '_ditty_display_settings', $display_settings );
+			$updates['settings'] = $display_settings;
+		}
+
+		// Update the editor settings
+		if ( $editor_settings ) {
+			update_post_meta( $display_id, '_ditty_editor_settings', $editor_settings );
+			$updates['editorSettings'] = $editor_settings;
+		}
+
+		return array(
+			'updates' => $updates,
+			'errors'	=> $errors,
+		);
 	}
 }

@@ -1602,3 +1602,31 @@ function ditty_register_style( $type, $args ) {
 function ditty_register_script( $type, $args ) {
 	Ditty()->scripts->register_script( $type, $args );
 }
+
+/**
+ * Sanitize settings
+ * *
+ * @since   3.1
+ */
+function ditty_sanitize_setting( $value ) {
+	if ( is_array( $value ) ) {
+		return ditty_sanitize_settings( $value );
+	} else {
+		return esc_attr( $value );
+	}
+}
+
+/**
+ * Sanitize settings
+ * *
+ * @since   3.1
+ */
+function ditty_sanitize_settings( $values, $filter = false ) {
+	$sanitized_values = [];
+	if ( is_array( $values ) && count( $values ) > 0 ) {
+		foreach ( $values as $key => $value ) {
+			$sanitized_values[$key] = ditty_sanitize_setting( $value );
+		}
+	}
+	return $filter ? apply_filters( 'ditty_sanitize_settings', $sanitized_values, $values, $filter ) : $sanitized_values;
+}

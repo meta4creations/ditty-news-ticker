@@ -428,36 +428,6 @@ export class EditorProvider extends Component {
               toastUpdates.push(
                 __(`Ditty items have been updated!`, "ditty-news-ticker")
               );
-              // let itemsArranged = false;
-              // let itemsUpdated = 0;
-              // data.updates[property].map((item) => {
-              //   // if (item.item_index) {
-              //   //   itemsArranged = true;
-              //   // }
-              //   if (item.item_index || item.date_modified) {
-              //     itemsUpdated++;
-              //   }
-              // });
-              // if (1 === itemsUpdated) {
-              //   toastUpdates.push(
-              //     __(
-              //       `${itemsUpdated} Ditty item has been updated!`,
-              //       "ditty-news-ticker"
-              //     )
-              //   );
-              // } else if (itemsUpdated > 1) {
-              //   toastUpdates.push(
-              //     __(
-              //       `${itemsUpdated} Ditty items have been updated!`,
-              //       "ditty-news-ticker"
-              //     )
-              //   );
-              // }
-              // if (itemsArranged) {
-              //   toastUpdates.push(
-              //     __(`Ditty items order has been updated!`, "ditty-news-ticker")
-              //   );
-              // }
               break;
             case "settings":
               updatedState.settings = data.updates.settings;

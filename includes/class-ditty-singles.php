@@ -576,4 +576,174 @@ class Ditty_Singles {
 		}
 		return $sanitized_item;
 	}
+
+	/**
+	 * Save a Ditty
+	 *
+	 * @access  public
+	 * @since   3.1
+	 * @param   array
+	 */
+	public function save( $data ) {	
+		$userId = isset( $data['userId'] ) ? $data['userId'] : 0;
+		$id = isset( $data['id'] ) ? $data['id'] : 0;
+		$is_new_ditty = ( 'ditty-new' === $id );
+		$items = isset( $data['items'] ) ? $data['items'] : array();
+		$deletedItems = isset( $data['deletedItems'] ) ? $data['deletedItems'] : array();
+		$display = isset( $data['display'] ) ? $data['display'] : false;
+		$settings = isset( $data['settings'] ) ? $data['settings'] : false;
+		$title = isset( $data['title'] ) ? $data['title'] : false;
+		$status = isset( $data['status'] ) ? $data['status'] : false;
+
+		$updates = array();
+		$errors = array();
+		
+		if ( $is_new_ditty ) {
+			$id = wp_insert_post( [
+				'post_type' => 'ditty',
+				'post_status' => $status ? $status : 'draft',
+				'post_title' => $title,
+			] );
+			$updates['new'] = $id;
+		} elseif ( $title || $status ) {	
+			$postarr = array(
+				'ID' => $id,
+			);
+			if ( $title ) {
+				$postarr['post_title'] = $title;
+			}
+			if ( $status ) {
+				$postarr['post_status'] = $status;
+			}
+			if ( wp_update_post( $postarr ) ) {
+				if ( $title ) {
+					$updates['title'] = $title;
+				}
+				if ( $status ) {
+					$updates['status'] = $status;
+				}
+			} else {
+				if ( $title ) {
+					$errors['title'] = $title;
+				}
+				if ( $status ) {
+					$errors['status'] = $status;
+				}
+			}
+		}
+
+		// Update items
+		if ( is_array( $items ) && count( $items ) > 0 ) {
+			foreach ( $items as $i => $item ) {
+				if ( is_object( $item ) ) {
+					$item = ( array ) $item;
+				}
+
+				// Set the Ditty ID of new Ditty
+				if ( $is_new_ditty ) {
+					$item['ditty_id'] = $id;
+				}
+
+				//Set the modified date of the item
+				if ( isset( $item['item_value'] ) ) {
+					$item['date_modified'] = date( 'Y-m-d H:i:s' );
+				} elseif ( isset( $item['attribute_value'] ) ) {
+					$item['date_modified'] = date( 'Y-m-d H:i:s' );
+				}
+
+				// Sanitize & serialize data
+				$sanitized_item = $serialized_item = $this->sanitize_item_data( $item );
+				if ( isset( $sanitized_item['item_value'] ) ) {
+					$serialized_item['item_value'] = maybe_serialize( $sanitized_item['item_value'] );
+					
+					// Return new item previews
+					if ( $item_type_object = ditty_item_type_object( $sanitized_item['item_type'] ) ) {
+						$sanitized_item['editor_preview'] = $item_type_object->editor_preview( $sanitized_item['item_value'] );
+					}
+				}
+				if ( isset( $sanitized_item['layout_value'] ) ) {
+					$serialized_item['layout_value'] = maybe_serialize( $sanitized_item['layout_value'] );
+				}
+				if ( isset( $sanitized_item['attribute_value'] ) ) {
+					$serialized_item['attribute_value'] = maybe_serialize( $sanitized_item['attribute_value'] );
+				}
+
+				if ( false !== strpos( $item['item_id'], 'new-' ) ) {
+					if ( $new_item_id = Ditty()->db_items->insert( apply_filters( 'ditty_item_db_data', $serialized_item, $id ), 'item' ) ) {
+						if ( ! isset( $updates['items'] ) ) {
+							$updates['items'] = [];
+						}
+						$item['new_id'] = strval( $new_item_id );
+						$updates['items'][] = $sanitized_item;
+					} else {
+						if ( ! isset( $errors['items'] ) ) {
+							$errors['items'] = [];
+						}
+						$errors['items'][] = $item;
+					}
+				} elseif ( Ditty()->db_items->update( $sanitized_item['item_id'], apply_filters( 'ditty_item_db_data', $serialized_item, $id ), 'item_id' ) ) {
+					if ( ! isset( $updates['items'] ) ) {
+						$updates['items'] = [];
+					}
+					$updates['items'][] = $sanitized_item;
+				} else {
+					if ( ! isset( $errors['items'] ) ) {
+						$errors['items'] = [];
+					}
+					$errors['items'][] = $item;
+				}
+			}
+		}
+
+		// Delete items
+		if ( is_array( $deletedItems ) && count( $deletedItems ) > 0 ) {
+			foreach ( $deletedItems as $i => $deletedItem ) {
+				ditty_item_delete_all_meta( $deletedItem['item_id'] );
+				if ( Ditty()->db_items->delete( $deletedItem['item_id'] ) ) {
+					if ( ! isset( $updates['deletedItems'] ) ) {
+						$updates['deletedItems'] = [];
+					}
+					$updates['deletedItems'][] = $deletedItem;
+				} else {
+					if ( ! isset( $errors['deletedItems'] ) ) {
+						$errors['deletedItems'] = [];
+					}
+					$errors['deletedItems'][] = $deletedItem;
+				}
+			}
+		}
+
+		// Update display
+		if ( $display ) {
+			if ( isset( $display['id'] ) ) {
+				$display = intval( $display['id'] );
+			} else {
+				$display_type = isset( $display['type'] ) ? esc_attr( $display['type'] ) : '';
+				$display = [
+					'type' => $display_type,
+					'settings' => isset( $display['settings'] ) ? ditty_sanitize_settings( $display['settings'], "display_${$display_type}" ) : [],
+				];
+			}
+			if ( update_post_meta( $id, '_ditty_display', $display ) ) {
+				$updates['display'] = $display;
+			} else {
+				$errors['display'] = $display;
+			}
+		}
+
+		// Sanitize & update settings
+		if ( $settings ) {	
+			$sanitized_settings = $this->sanitize_settings( $settings );
+			if ( update_post_meta( $id, '_ditty_settings', $sanitized_settings ) ) {
+				$updates['settings'] = $sanitized_settings;
+			} else {
+				$errors['settings'] = $sanitized_settings;
+			}
+		}
+
+		return array(
+			'updates' => $updates,
+			'errors'	=> $errors,
+		);
+	}
 }

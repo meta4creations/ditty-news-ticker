@@ -21,9 +21,11 @@ export default () => {
   const [status, setStatus] = useState(dittyEditorVars.status);
   const [type, setType] = useState(dittyEditorVars.type);
 
+  const displayTypeObject = getDisplayTypeObject(dittyEditorVars.type);
+
   const initSettings =
     "ditty_display-new" == id
-      ? getDisplayTypeObject(dittyEditorVars.type).defaultValues
+      ? displayTypeObject.defaultValues
       : dittyEditorVars.settings;
   const [settings, setSettings] = useState(initSettings);
   const [editorSettings, setEditorSettings] = useState(
@@ -67,37 +69,6 @@ export default () => {
         );
       } else {
         toastUpdates.push(__(`Display has been updated!`, "ditty-news-ticker"));
-        // for (const property in data.updates) {
-        //   switch (property) {
-        //     case "description":
-        //       toastUpdates.push(
-        //         __(`Display description has been updated!`, "ditty-news-ticker")
-        //       );
-        //       break;
-        //     case "editorSettings":
-        //       toastUpdates.push(
-        //         __(`Editor settings updated!`, "ditty-news-ticker")
-        //       );
-        //       break;
-        //     case "settings":
-        //       toastUpdates.push(
-        //         __(`Display settings have been updated!`, "ditty-news-ticker")
-        //       );
-        //       break;
-        //     case "title":
-        //       toastUpdates.push(
-        //         __(`Display title has been updated!`, "ditty-news-ticker")
-        //       );
-        //       break;
-        //     case "type":
-        //       toastUpdates.push(
-        //         __(`Display type has been updated!`, "ditty-news-ticker")
-        //       );
-        //       break;
-        //     default:
-        //       break;
-        //   }
-        // }
       }
 
       // Show Toast updates
@@ -135,6 +106,7 @@ export default () => {
         }
       }
     }
+    setUpdates({});
   };
 
   const handleSaveDisplay = () => {
@@ -145,7 +117,7 @@ export default () => {
 
     const display = {
       id: id,
-      type: updates.type ? updates.type : false,
+      type: updates.type ? updates.type : type,
       settings: updates.settings ? updates.settings : false,
     };
 

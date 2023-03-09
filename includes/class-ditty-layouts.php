@@ -13,9 +13,6 @@ use ScssPhp\ScssPhp\Compiler;
 use Padaliyajay\PHPAutoprefixer\Autoprefixer;
 
 class Ditty_Layouts {
-	
-	private $new_layouts;
-	private $updated_layouts;
 
 	/**
 	 * Get things started

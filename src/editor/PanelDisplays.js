@@ -43,8 +43,6 @@ const PanelDisplays = () => {
    */
   const handleOnUpdate = (id, value) => {
     // Update the editor display
-    console.log(id, value);
-
     const updatedDisplay = { ...currentDisplay };
     updatedDisplay.settings[id] = value;
     updatedDisplay.updated = Date.now();
