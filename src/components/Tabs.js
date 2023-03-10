@@ -1,7 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import classnames from "classnames";
 
-const Tabs = ({ className, tabs, type, currentTabId, tabClick }) => {
+const Tabs = ({ className, tabs, type, currentTabId, tabClick, style }) => {
   /**
    * Render a tabs class name
    * @param {object} tab
@@ -47,7 +47,7 @@ const Tabs = ({ className, tabs, type, currentTabId, tabClick }) => {
    * Return the tabs
    */
   return (
-    <div className={classes}>
+    <div className={classes} style={style}>
       {tabs.map((tab) => {
         return (
           <button

@@ -156,7 +156,6 @@ class Ditty_API {
 
 		$saveData = Ditty()->displays->save( $apiData );
 		$saveData['apiData'] = $apiData;
-
 		return rest_ensure_response( $saveData );
 	}
 
@@ -173,67 +172,9 @@ class Ditty_API {
 		}
 		$apiData = $params['apiData'];
 
-		if ( ! isset( $apiData['layout'] ) ) {
-			return new WP_Error( 'no_id', __( 'No Layout data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
-		}
-		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
-		$layout_title = isset( $apiData['title'] ) ? $apiData['title'] : false;
-		$layout_description = isset( $apiData['description'] ) ? $apiData['description'] : false;
-		$layout = isset( $apiData['layout'] ) ? $apiData['layout'] : array();
-		$layout_id = isset( $layout['id'] ) ? $layout['id'] : false;
-		$layout_html = isset( $layout['html'] ) ? $layout['html'] : false;
-		$layout_css = isset( $layout['css'] ) ? $layout['css'] : false;
-
-		$updates = array();
-		$errors = array();
-
-		if ( $layout_id ) {
-			if ( $layout_title ) {
-				$postarr = array(
-					'ID'					=> $layout_id,
-					'post_title'	=> $layout_title,
-				);
-				wp_update_post( $postarr );
-			}
-		} else {
-			$postarr = array(
-				'post_type'		=> 'ditty_layout',
-				'post_status'	=> 'publish',
-				'post_title'	=> $layout_title,
-			);
-			$layout_id = wp_insert_post( $postarr );
-			$updates['id'] = $layout_id;
-			$updates['title'] = $layout_title;
-			$updates['edit_url'] = admin_url( "post.php?post={$layout_id}&action=edit" );
-		}
-
-		// Update the layout description
-		if ( $layout_description ) {
-			$sanitized_description = wp_kses_post( $layout_description );
-			update_post_meta( $layout_id, '_ditty_layout_description', $sanitized_description );
-			$updates['description'] = $sanitized_description;
-		}
-		
-		// Update the layout type
-		if ( $layout_html ) {
-			$html = stripslashes( $layout_html );
-			update_post_meta( $layout_id, '_ditty_layout_html', wp_kses_post( $html ) );
-			$updates['html'] = $html;
-		}
-
-		// Update the layout settings
-		if ( $layout_css ) {
-			update_post_meta( $layout_id, '_ditty_layout_css', wp_kses_post( $layout_css ) );
-			$updates['css'] = $layout_css;
-		}
-
-		$data = array(
-			'updates' => $updates,
-			'errors'	=> $errors,
-			'apiData'	=> $apiData,
-		);
-
-		return rest_ensure_response( $data );
+		$saveData = Ditty()->layouts->save( $apiData );
+		$saveData['apiData'] = $apiData;
+		return rest_ensure_response( $saveData );
 	}
 
 	/**

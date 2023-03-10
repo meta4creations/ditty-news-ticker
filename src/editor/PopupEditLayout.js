@@ -10,7 +10,7 @@ import {
 import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
 
-import { LayoutEditor } from "./LayoutEditor";
+import { LayoutTags, LayoutEditor } from "../common";
 import { IconBlock, Popup, Tabs } from "../components";
 import PopupEditLayoutTag from "./PopupEditLayoutTag";
 
@@ -86,68 +86,9 @@ const PopupEditLayout = ({
   };
 
   const renderPopupFooterBefore = () => {
-    if ("css" === currentTabId) {
-      return (
-        <div className="editLayout__tagCloud">
-          <h3>{__("CSS Selectors", "ditty-news-ticker")}</h3>
-          <p>
-            {__(
-              "These are the css selectors associated with the available dynamic HTML tags. Click on a button to generate and insert a selector.",
-              "ditty-news-ticker"
-            )}
-          </p>
-          <div className="editLayout__tagCloud__tags">
-            {itemTypeObject.layoutTags &&
-              itemTypeObject.layoutTags.map((layoutTag) => {
-                return (
-                  <span
-                    key={layoutTag.tag}
-                    data-tag={layoutTag.tag}
-                    className="editLayout__tagCloud__tag"
-                    onClick={() => {
-                      window.dispatchEvent(
-                        new CustomEvent("dittyEditorInsertLayoutTag", {
-                          detail: {
-                            renderedTag: `.ditty-item__${layoutTag.tag} {  }`,
-                            cursorOffset: -2,
-                          },
-                        })
-                      );
-                    }}
-                  >
-                    {`.ditty-item__${layoutTag.tag}`}
-                  </span>
-                );
-              })}
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="editLayout__tagCloud">
-          <h3>{__("Dynamic Tags", "ditty-news-ticker")}</h3>
-          <p>
-            {__(
-              "These tags are available for the current item type. Click on a button to generate and insert a tag.",
-              "ditty-news-ticker"
-            )}
-          </p>
-          <div className="editLayout__tagCloud__tags">
-            {itemTypeObject.layoutTags &&
-              itemTypeObject.layoutTags.map((layoutTag) => {
-                return (
-                  <span
-                    key={layoutTag.tag}
-                    data-tag={layoutTag.tag}
-                    className="editLayout__tagCloud__tag"
-                    onClick={() => setCurrentTag(layoutTag)}
-                  >{`{${layoutTag.tag}}`}</span>
-                );
-              })}
-          </div>
-        </div>
-      );
-    }
+    return (
+      <LayoutTags type={currentTabId} layoutTags={itemTypeObject.layoutTags} />
+    );
   };
 
   const renderPopupContents = () => {

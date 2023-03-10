@@ -1539,7 +1539,7 @@ function ditty_editing() {
 }
 
 /**
- * Check if we are on a ditty edit page
+ * Check if we are on a display edit page
  *
  * @since   3.1
  */
@@ -1550,6 +1550,21 @@ function ditty_display_editing() {
 		return $id;
 	} elseif( 'ditty_display-new' == $page ) {
 		return 'ditty_display-new';
+	}
+}
+
+/**
+ * Check if we are on a layout edit page
+ *
+ * @since   3.1
+ */
+function ditty_layout_editing() {
+	$page = isset( $_GET['page'] ) ? $_GET['page'] : false;
+	$id = isset( $_GET['id'] ) ? $_GET['id'] : false;
+	if ( 'ditty_layout' == $page && $id ) {
+		return $id;
+	} elseif( 'ditty_layout-new' == $page ) {
+		return 'ditty_layout-new';
 	}
 }
 

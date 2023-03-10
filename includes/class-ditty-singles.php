@@ -108,9 +108,6 @@ class Ditty_Singles {
 	 * @since   3.1
 	 */
 	public function page_display() {
-		if ( ! ditty_editing() ) {
-			return false;
-		}
 		?>
 		<div id="ditty-editor__wrapper" class="ditty-adminPage"></div>
 		<?php

@@ -165,3 +165,21 @@
     }
   }
 }
+.ditty-editor__panel--editLayout {
+  .ditty-editor__panel__header {
+    padding: 0;
+    .ditty-tabs {
+      border-top: 1px solid #ccc;
+      border-bottom: none;
+    }
+  }
+  .editLayout__tagCloud {
+    padding: 0;
+    border: none;
+  }
+}
+.ditty-editor__panel--editLayoutItem {
+  .ditty-editor__panel__header {
+    padding: 0;
+  }
+}

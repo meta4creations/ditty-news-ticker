@@ -230,8 +230,8 @@ class Ditty_Displays {
 	 * @since  3.1
 	 */
 	public function modify_edit_post_link( $link, $post_id, $text ) {
-		if ( 'ditty' == get_post_type( $post_id ) ) {
-			return add_query_arg( ['page' => 'ditty', 'id' => $post_id], admin_url( 'admin.php' ) );
+		if ( 'ditty_display' == get_post_type( $post_id ) ) {
+			return add_query_arg( ['page' => 'ditty_display', 'id' => $post_id], admin_url( 'admin.php' ) );
 		}
 		return $link;
 	}
@@ -269,8 +269,8 @@ class Ditty_Displays {
 	public function add_admin_pages() {
 		add_submenu_page(
 			null,
-			esc_html__( 'Ditty', 'ditty-news-ticker' ),
-			esc_html__( 'Ditty', 'ditty-news-ticker' ),
+			esc_html__( 'Display', 'ditty-news-ticker' ),
+			esc_html__( 'Display', 'ditty-news-ticker' ),
 			'edit_ditty_displays',
 			'ditty_display',
 			array( $this, 'page_display' ),
@@ -278,8 +278,8 @@ class Ditty_Displays {
 		
 		add_submenu_page(
 			null,
-			esc_html__( 'Ditty', 'ditty-news-ticker' ),
-			esc_html__( 'Ditty', 'ditty-news-ticker' ),
+			esc_html__( 'New Display', 'ditty-news-ticker' ),
+			esc_html__( 'New Display', 'ditty-news-ticker' ),
 			'edit_ditty_displays',
 			'ditty_display-new',
 			array( $this, 'page_display' )
@@ -292,10 +292,7 @@ class Ditty_Displays {
 	 *
 	 * @since   3.1
 	 */
-	public function page_display() {
-		if ( ! ditty_display_editing() ) {
-			return false;
-		}		
+	public function page_display() {	
 		?>
 		<div id="ditty-display-editor__wrapper" class="ditty-adminPage"></div>
 		<?php

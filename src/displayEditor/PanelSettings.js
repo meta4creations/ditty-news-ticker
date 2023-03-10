@@ -126,7 +126,7 @@ const PanelSettings = ({
   };
 
   return (
-    <Panel id="settings">
+    <Panel id="displayPostSettings">
       <FieldList
         fields={settingsFields}
         values={{

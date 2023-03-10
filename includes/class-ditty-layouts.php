@@ -24,11 +24,27 @@ class Ditty_Layouts {
 		// WP metabox hooks
 		add_action( 'add_meta_boxes', array( $this, 'metaboxes' ) );
 		add_action( 'save_post', array( $this, 'metabox_save' ) );
-		
-		// General hooks
+
+		add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
+		add_action( 'admin_init', array( $this, 'edit_page_redirects' ) );
+		add_action( 'admin_menu', array( $this, 'add_admin_pages' ), 10, 5 );
+		add_filter( 'get_edit_post_link', array( $this, 'modify_edit_post_link' ), 10, 3 );
 		add_filter( 'post_row_actions', array( $this, 'modify_list_row_actions' ), 10, 2 );
-		
+
 		add_action( 'wp_ajax_ditty_install_layout', array( $this, 'install_layout' ) );
+	}
+
+	/**
+	 * Add to the admin body class
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function add_admin_body_class( $classes ) {
+		if ( ditty_layout_editing() ) {
+			$classes .= ' ditty-page';
+		}
+		return $classes;
 	}
 	
 	/**
@@ -46,6 +62,81 @@ class Ditty_Layouts {
 			$actions = array_merge( $id_array, $actions );
 		}
 		return $actions;
+	}
+
+	/**
+	 * Modify the edit post link
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function modify_edit_post_link( $link, $post_id, $text ) {
+		if ( 'ditty_layout' == get_post_type( $post_id ) ) {
+			return add_query_arg( ['page' => 'ditty_layout', 'id' => $post_id], admin_url( 'admin.php' ) );
+		}
+		return $link;
+	}
+	
+	/**
+	 * Redirect Ditty edit pages to custom screens
+	 * @access  public
+	 *
+	 * @since   3.1
+	 */
+	public function edit_page_redirects() {
+		global $pagenow;
+		if ( $pagenow === 'post.php' ) {
+			$post_id = isset( $_GET['post'] ) ? $_GET['post'] : 0;
+			if ( 'ditty_layout' == get_post_type( $post_id ) ) {
+				wp_safe_redirect( add_query_arg( ['page' => 'ditty_layout', 'id' => $post_id], admin_url( 'admin.php' ) ) );
+				exit;
+			}
+		}
+		if ( $pagenow === 'post-new.php' ) {
+			$post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : false;
+			if ( 'ditty_layout' == $post_type ) {
+				wp_safe_redirect( add_query_arg( ['page' => 'ditty_layout-new' ], admin_url( 'admin.php' ) ) );
+				exit;
+			}
+		}
+	}
+
+	/**
+	 * Add custom Ditty pages
+	 * @access  public
+	 *
+	 * @since   3.1
+	 */
+	public function add_admin_pages() {
+		add_submenu_page(
+			null,
+			esc_html__( 'Layout', 'ditty-news-ticker' ),
+			esc_html__( 'Layout', 'ditty-news-ticker' ),
+			'edit_ditty_layouts',
+			'ditty_layout',
+			array( $this, 'page_display' ),
+		);
+		
+		add_submenu_page(
+			null,
+			esc_html__( 'New Layout', 'ditty-news-ticker' ),
+			esc_html__( 'New Layout', 'ditty-news-ticker' ),
+			'edit_ditty_layouts',
+			'ditty_layout-new',
+			array( $this, 'page_display' )
+		);
+	}
+
+	/**
+	 * Render the custom new Display page
+	 * @access  public
+	 *
+	 * @since   3.1
+	 */
+	public function page_display() {	
+		?>
+		<div id="ditty-layout-editor__wrapper" class="ditty-adminPage"></div>
+		<?php
 	}
 	
 	/**
@@ -89,11 +180,11 @@ class Ditty_Layouts {
 			return $post_id;
 		}
 		
-		$layout_description = sanitize_text_field( $_POST['_ditty_layout_description'] );
+		$description = sanitize_text_field( $_POST['_ditty_layout_description'] );
 		$layout_html = wp_kses_post( $_POST['_ditty_layout_html'] );	
 		$layout_css = wp_kses_post( $_POST['_ditty_layout_css'] );	
 
-		update_post_meta( $post_id, '_ditty_layout_description', $layout_description );
+		update_post_meta( $post_id, '_ditty_layout_description', $description );
 		update_post_meta( $post_id, '_ditty_layout_html', $layout_html );
 		update_post_meta( $post_id, '_ditty_layout_css', $layout_css );
 		
@@ -113,14 +204,14 @@ class Ditty_Layouts {
 	 */
 	public function metabox_layout_info() {
 		global $post;
-		$layout_description = get_post_meta( $post->ID, '_ditty_layout_description', true );
+		$description = get_post_meta( $post->ID, '_ditty_layout_description', true );
 
 		$fields = array();
 		$fields['description'] = array(
 			'type' => 'textarea',
 			'id'	=> '_ditty_layout_description',
 			'name' => __( 'Description', 'ditty-news-ticker' ),
-			'std' => $layout_description,
+			'std' => $description,
 		);
 		ditty_fields( $fields );
 		echo '<input type="hidden" name="ditty_layout_nonce" value="' . wp_create_nonce( basename( __FILE__ ) ) . '" />';
@@ -645,5 +736,104 @@ class Ditty_Layouts {
 		}
 		
 		return $html;
+	}
+
+	/**
+	 * Save a layout
+	 *
+	 * @access  public
+	 * @since   3.1
+	 * @param   array
+	 */
+	public function save( $data ) {	
+		$userId = isset( $data['userId'] ) ? $data['userId'] : 0;
+		$title = isset( $data['title'] ) ? $data['title'] : false;
+		$description = isset( $data['description'] ) ? $data['description'] : false;
+		$status = isset( $data['status'] ) ? esc_attr( $data['status'] ) : false;
+		$editor_item = isset( $data['editorItem'] ) ? $data['editorItem'] : false;
+		$editor_settings = isset( $data['editorSettings'] ) ? $data['editorSettings'] : false;
+
+		$layout = isset( $data['layout'] ) ? $data['layout'] : array();
+		$layout_id = isset( $layout['id'] ) ? $layout['id'] : false;
+		$layout_html = isset( $layout['html'] ) ? $layout['html'] : false;
+		$layout_css = isset( $layout['css'] ) ? $layout['css'] : false;
+
+		$updates = array();
+		$errors = array();
+
+		if ( $layout_id && 'ditty_layout-new' != $layout_id ) {
+			if ( $title || $status) {
+				$postarr = array(
+					'ID' => $layout_id,
+				);
+				if ( $title ) {
+					$postarr['post_title'] = $title;
+				}
+				if ( $status ) {
+					$postarr['post_status'] = $status;
+				}
+				if ( wp_update_post( $postarr ) ) {
+					if ( $title ) {
+						$updates['title'] = $title;
+					}
+					if ( $status ) {
+						$updates['status'] = $status;
+					}
+				} else {
+					if ( $title ) {
+						$errors['title'] = $title;
+					}
+					if ( $status ) {
+						$errors['status'] = $status;
+					}
+				}
+			}
+		} else {
+			$postarr = array(
+				'post_type'		=> 'ditty_layout',
+				'post_title'	=> $title,
+				'post_status'	=> $status ? $status : 'draft',
+			);
+			$layout_id = wp_insert_post( $postarr );
+			$updates['new'] = $layout_id;
+		}
+
+		// Update the layout description
+		if ( $description ) {
+			$sanitized_description = wp_kses_post( $description );
+			update_post_meta( $layout_id, '_ditty_layout_description', $sanitized_description );
+			$updates['description'] = $sanitized_description;
+		}
+		
+		// Update the layout type
+		if ( $layout_html ) {
+			$html = stripslashes( $layout_html );
+			update_post_meta( $layout_id, '_ditty_layout_html', wp_kses_post( $html ) );
+			$updates['html'] = $html;
+		}
+
+		// Update the layout settings
+		if ( $layout_css ) {
+			update_post_meta( $layout_id, '_ditty_layout_css', wp_kses_post( $layout_css ) );
+			$updates['css'] = $layout_css;
+		}
+
+		// Update the editor item
+		if ( $editor_item ) {
+			$sanitized_editor_item = Ditty()->singles->sanitize_item_data( $editor_item );
+			update_post_meta( $layout_id, '_ditty_editor_item', $sanitized_editor_item );
+			$updates['editorSettings'] = $sanitized_editor_item;
+		}
+
+		// Update the editor settings
+		if ( $editor_settings ) {
+			update_post_meta( $layout_id, '_ditty_editor_settings', $editor_settings );
+			$updates['editorSettings'] = $editor_settings;
+		}
+
+		return array(
+			'updates' => $updates,
+			'errors'	=> $errors,
+		);
 	}
 }

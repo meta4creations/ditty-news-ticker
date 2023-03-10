@@ -8,7 +8,7 @@ import {
   faGear,
 } from "@fortawesome/pro-regular-svg-icons";
 import { Tabs } from "../components";
-import PanelDisplays from "./PanelDisplays";
+import PanelDisplay from "./PanelDisplay";
 import PanelSettings from "./PanelSettings";
 
 const DisplayEditor = ({
@@ -76,7 +76,7 @@ const DisplayEditor = ({
       label: __("Display", "ditty-news-ticker"),
       icon: <FontAwesomeIcon icon={faTabletScreen} />,
       content: (
-        <PanelDisplays
+        <PanelDisplay
           display={display}
           title={title}
           description={description}
