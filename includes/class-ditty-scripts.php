@@ -414,6 +414,7 @@ class Ditty_Scripts {
 		wp_register_script( 'hammer', DITTY_URL . 'includes/libs/hammer.min.js', array( 'jquery' ), '2.0.8.1', true );
 		wp_register_script( 'ditty-slider', DITTY_URL . 'includes/js/class-ditty-slider' . $min . '.js', array( 'jquery', 'hammer' ), $this->version, true );
 		wp_register_script( 'ditty-helpers', DITTY_URL . 'includes/js/partials/helpers.js', [], $this->version, true );
+		wp_register_script( 'sass', DITTY_URL . 'includes/js/libs/sass/sass.js', [], '0.11.1', true );
 
 		// Register Ditty and display scripts
 		wp_register_script( 'ditty', DITTY_URL . 'includes/js/ditty.min.js', array( 'jquery', 'jquery-effects-core', ), $this->version, true );
@@ -590,12 +591,12 @@ class Ditty_Scripts {
 				);
 			} else {
 				//$this->load_external_scripts( 'editor', ['ditty', 'wp-element', 'wp-components'], 'enqueue' );
-				$this->load_external_scripts( 'editor', ['ditty-editor-init', 'wp-element', 'wp-components'], 'enqueue' );
+				$this->load_external_scripts( 'editor', ['ditty-editor-init', 'wp-element', 'wp-components', 'sass'], 'enqueue' );
 			}
 
 			wp_enqueue_script( 'ditty-layout-editor',
 				DITTY_URL . 'build/dittyLayoutEditor.js',
-				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-hooks', 'lodash', 'wp-codemirror', 'ditty'], $display_slugs),
+				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-hooks', 'lodash', 'wp-codemirror', 'ditty', 'sass'], $display_slugs),
 				$this->version,
 				true
 			);

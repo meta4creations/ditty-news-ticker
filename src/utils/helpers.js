@@ -165,6 +165,5 @@ export const updateLayoutCss = (layoutCss, layoutId) => {
     document.getElementsByTagName("head")[0].appendChild(styles);
   }
   layoutCss = layoutCss.replace("&gt;", ">");
-  console.log("layoutCss", layoutCss);
   styles.innerHTML = layoutCss;
 };

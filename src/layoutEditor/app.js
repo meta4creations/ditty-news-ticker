@@ -5,6 +5,7 @@ import LayoutEditor from "./LayoutEditor";
 import { ReactComponent as Logo } from "../assets/img/d.svg";
 
 import { saveLayout } from "../services/httpService";
+import { compileLayoutStyle } from "../utils/layouts";
 import { getDisplayItems } from "../services/dittyService";
 import { updateLayoutCss } from "../utils/helpers";
 import { ToastContainer, toast } from "react-toastify";
@@ -199,6 +200,9 @@ export default () => {
     const newUpdates = { ...updates };
     newUpdates.css = updatedCss;
 
+    const test = compileLayoutStyle(updatedCss, id);
+    console.log(test);
+
     setCss(updatedCss);
     setUpdates(newUpdates);
     updatePreview({ updatedCss: updatedCss });
@@ -232,22 +236,6 @@ export default () => {
     return styles;
   };
 
-  // const getDisplayItems = (numberOfItems = 20) => {
-  //   const updatedPreviewItems = [];
-  //   for (let i = 0; i < numberOfItems; i++) {
-  //     updatedPreviewItems.push({
-  //       css: "",
-  //       html: `<div class="ditty-item ditty-item--${i} ditty-item-type--default ditty-layout--${id}" data-item_id="${i}" data-item_uniq_id="${i}" data-parent_id="0" data-item_type="default" data-layout_id="${id}"><div class="ditty-item__elements"><div class="ditty-item__content">${loremIpsum()}</div></div></div>`,
-  //       id: i,
-  //       is_disabled: [],
-  //       layout_id: id,
-  //       parent_id: "0",
-  //       uniq_id: i,
-  //     });
-  //   }
-  //   return updatedPreviewItems;
-  // };
-
   return (
     <>
       <AdminBar
@@ -266,7 +254,7 @@ export default () => {
         <div
           className="ditty-adminPage__app__content"
           dangerouslySetInnerHTML={{ __html: displayItem.html }}
-          styles={getPreviewStyles()}
+          style={getPreviewStyles()}
         />
         <LayoutEditor
           className="ditty-adminPage__app__sidebar"

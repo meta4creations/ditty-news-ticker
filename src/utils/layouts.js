@@ -1,6 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
-import reactElementToJSXString from "react-element-to-jsx-string";
+//import reactElementToJSXString from "react-element-to-jsx-string";
 import { replace } from "./shortcode";
 
 export const getDefaultLayout = (itemType) => {
@@ -67,6 +67,28 @@ export const getAttributeFields = (atts) => {
     }
   }
   return fields;
+};
+
+/**
+ * Compile css sass to css and auto-prefix
+ * @param {string} css
+ * @param {string} layoutId
+ * @returns
+ */
+export const compileLayoutStyle = (css, layoutId = "") => {
+  var sass = new Sass();
+  const sassString = `.ditty-layout--${layoutId} {${css}}`;
+  sass.compile(sassString, function (result) {
+    console.log(result);
+  });
+
+  // const cssString = compileSass(sassString);
+
+  // console.log("cssString", cssString);
+  // // const autoprefixedCssString = sass.compileString(sassString);
+  // // console.log("autoprefixedCssString", autoprefixedCssString);
+
+  // return cssString;
 };
 
 /**

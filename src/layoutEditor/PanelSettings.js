@@ -61,17 +61,6 @@ const PanelSettings = ({
         fields: [
           {
             type: "number",
-            id: "previewItems",
-            name: __("Preview Items", "ditty-news-ticker"),
-            help: __(
-              "Set the number of items to display.",
-              "ditty-news-ticker"
-            ),
-            std: 20,
-            min: 1,
-          },
-          {
-            type: "number",
             id: "editorWidth",
             name: __("Editor Width", "ditty-news-ticker"),
             help: __(
