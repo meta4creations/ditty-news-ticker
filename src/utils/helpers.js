@@ -150,3 +150,21 @@ export const updatedDisplayItems = (prevItems, newItems, type = "replace") => {
     updatedIndexes: updatedIndexes,
   };
 };
+
+/**
+ * Update item layout css
+ *
+ * @since    3.1
+ * @return   null
+ */
+export const updateLayoutCss = (layoutCss, layoutId) => {
+  let styles = document.getElementById(`style#ditty-layout--${layoutId}`);
+  if (!styles) {
+    styles = document.createElement("style");
+    styles.setAttribute("id", `ditty-layout--${layoutId}`);
+    document.getElementsByTagName("head")[0].appendChild(styles);
+  }
+  layoutCss = layoutCss.replace("&gt;", ">");
+  console.log("layoutCss", layoutCss);
+  styles.innerHTML = layoutCss;
+};

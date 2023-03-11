@@ -1,13 +1,12 @@
 import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
-import { loremIpsum } from "lorem-ipsum";
-import { AdminBar, FooterBar, Preview } from "../common";
+import { useState, useEffect } from "@wordpress/element";
+import { AdminBar, FooterBar } from "../common";
 import LayoutEditor from "./LayoutEditor";
 import { ReactComponent as Logo } from "../assets/img/d.svg";
 
 import { saveLayout } from "../services/httpService";
 import { getDisplayItems } from "../services/dittyService";
-import { replaceDisplayItems } from "../services/dittyService";
+import { updateLayoutCss } from "../utils/helpers";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -21,7 +20,7 @@ export default () => {
   const [editorItem, setEditorItem] = useState(
     dittyEditorVars.editorItem
       ? dittyEditorVars.editorItem
-      : { item_type: "default", item_value: {} }
+      : { item_id: id, item_type: "default", item_value: {} }
   );
   const [editorSettings, setEditorSettings] = useState(
     dittyEditorVars.editorSettings ? dittyEditorVars.editorSettings : {}
@@ -42,6 +41,31 @@ export default () => {
     html: "",
     css: "",
   });
+
+  useEffect(() => {
+    updatePreview();
+  }, []);
+
+  const updatePreview = (args = {}) => {
+    const updatedEditorItem = args.updatedEditorItem
+      ? args.updatedEditorItem
+      : editorItem;
+    const updatedHtml = args.updatedHtml ? args.updatedHtml : html;
+    const updatedCss = args.updatedCss ? args.updatedCss : css;
+
+    // Get new display items
+    const editorDisplayItem = {
+      ...updatedEditorItem,
+      item_id: id,
+      layout_value: { default: { id: id, html: updatedHtml, css: updatedCss } },
+    };
+    getDisplayItems(editorDisplayItem, false, (data) => {
+      if (data.display_items && data.display_items.length) {
+        updateLayoutCss(data.display_items[0].css, id);
+        setDisplayItem(data.display_items[0]);
+      }
+    });
+  };
 
   const onDisplaySaveComplete = (data) => {
     setShowSpinner(false);
@@ -168,6 +192,7 @@ export default () => {
 
     setHtml(updatedHtml);
     setUpdates(newUpdates);
+    updatePreview({ updatedHtml: updatedHtml });
   };
 
   const handleUpdateLayoutCss = (updatedCss) => {
@@ -176,25 +201,17 @@ export default () => {
 
     setCss(updatedCss);
     setUpdates(newUpdates);
+    updatePreview({ updatedCss: updatedCss });
   };
 
   const handleUpdateEditorItem = (updatedEditorItem) => {
     const newUpdates = { ...updates };
+    updatedEditorItem.item_id = id;
     newUpdates.editorItem = updatedEditorItem;
 
     setEditorItem(updatedEditorItem);
     setUpdates(newUpdates);
-
-    // Get new display items
-    const editorDisplayItem = {
-      ...updatedEditorItem,
-      layout_value: { default: { html: html, css: css } },
-    };
-    getDisplayItems(editorDisplayItem, false, (data) => {
-      if (data.display_items && data.display_items.length) {
-        setDisplayItem(data.display_items[0]);
-      }
-    });
+    updatePreview({ updatedEditorItem: updatedEditorItem });
   };
 
   const handleUpdateEditorSettings = (updatedEditorSettings) => {
@@ -203,13 +220,6 @@ export default () => {
 
     setEditorSettings(updatedEditorSettings);
     setUpdates(newUpdates);
-
-    // Update the preview items
-    if (updatedEditorSettings.previewItems !== editorSettings.previewItems) {
-      const dittyEl = document.getElementById("ditty-editor__ditty");
-      const displayItems = getDisplayItems(updatedEditorSettings.previewItems);
-      replaceDisplayItems(dittyEl, displayItems);
-    }
   };
 
   const getPreviewStyles = () => {
@@ -256,6 +266,7 @@ export default () => {
         <div
           className="ditty-adminPage__app__content"
           dangerouslySetInnerHTML={{ __html: displayItem.html }}
+          styles={getPreviewStyles()}
         />
         <LayoutEditor
           className="ditty-adminPage__app__sidebar"

@@ -9,13 +9,11 @@ import {
 } from "@fortawesome/pro-light-svg-icons";
 import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
-import { LayoutEditor, LayoutTags } from "../common";
+import { CodeEditor, LayoutTags } from "../common";
 import { IconBlock, Panel, Tabs } from "../components";
 import { getItemTypeObject } from "../utils/itemTypes";
 
 const PanelLayout = ({
-  title,
-  description,
   layoutHtml,
   layoutCss,
   onUpdateLayoutHtml,
@@ -62,22 +60,24 @@ const PanelLayout = ({
   const panelContent = () => {
     if ("css" === currentTabId) {
       return (
-        <LayoutEditor
+        <CodeEditor
           key="css"
           value={layoutCss}
           extensions={[css()]}
           tags={itemTypeObject.layoutTags}
           onChange={onUpdateLayoutCss}
+          delayChange={true}
         />
       );
     } else {
       return (
-        <LayoutEditor
+        <CodeEditor
           key="html"
           value={layoutHtml}
           extensions={[html()]}
           tags={itemTypeObject.layoutTags}
           onChange={onUpdateLayoutHtml}
+          delayChange={true}
         />
       );
     }

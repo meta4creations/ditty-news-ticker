@@ -10,7 +10,7 @@ import {
 import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
 
-import { LayoutTags, LayoutEditor } from "../common";
+import { LayoutTags, CodeEditor } from "../common";
 import { IconBlock, Popup, Tabs } from "../components";
 import PopupEditLayoutTag from "./PopupEditLayoutTag";
 
@@ -95,7 +95,7 @@ const PopupEditLayout = ({
     if ("css" === currentTabId) {
       return (
         <>
-          <LayoutEditor
+          <CodeEditor
             key="css"
             value={editLayout.css}
             extensions={[css()]}
@@ -107,7 +107,7 @@ const PopupEditLayout = ({
     } else {
       return (
         <>
-          <LayoutEditor
+          <CodeEditor
             key="html"
             value={editLayout.html}
             extensions={[html()]}

@@ -62,7 +62,7 @@ const LayoutEditor = ({
       } else {
         editorSettings.editorWidth = newSize;
       }
-      onUpdateLayoutHtml(editorSettings);
+      onUpdateEditorSettings(editorSettings);
     }
     function onMouseUp() {
       document.body.removeEventListener("mousemove", onMouseMove);
@@ -81,8 +81,6 @@ const LayoutEditor = ({
       icon: <FontAwesomeIcon icon={faPaintbrushPencil} />,
       content: (
         <PanelLayout
-          title={title}
-          description={description}
           layoutHtml={layoutHtml}
           layoutCss={layoutCss}
           onUpdateLayoutHtml={onUpdateLayoutHtml}

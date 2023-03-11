@@ -1,6 +1,6 @@
 // https://www.adamcollier.co.uk/blog/adding-codemirror-6-to-a-react-project
 
-import { useRef, useEffect } from "@wordpress/element";
+import { useState, useRef, useEffect, useCallback } from "@wordpress/element";
 import _ from "lodash";
 import { basicSetup } from "@uiw/codemirror-extensions-basic-setup";
 import { EditorState } from "@codemirror/state";
@@ -8,14 +8,32 @@ import { EditorView, keymap } from "@codemirror/view";
 import { defaultKeymap, indentWithTab } from "@codemirror/commands";
 import { oneDark } from "@codemirror/theme-one-dark";
 
-const LayoutEditor = ({ value, extensions, onChange }) => {
+const CodeEditor = ({ value, extensions, onChange, delayChange = false }) => {
+  const [delayValue, setDelayValue] = useState(value);
+
   const editor = useRef();
+  const timerRef = useRef(null);
+
+  const handleInputChangeDelay = useCallback(
+    (updatedValue) => {
+      setDelayValue(updatedValue);
+
+      // Clear the existing timer
+      clearTimeout(timerRef.current);
+
+      // Start a new timer to update the parent element
+      timerRef.current = setTimeout(() => onChange(updatedValue), 500);
+    },
+    [onChange, delayValue]
+  );
 
   const onUpdate = EditorView.updateListener.of((v) => {
     const updatedValue = v.state.doc.toString();
-    if (_.isEqual(value, updatedValue)) return false;
-    if (!value && "" === updatedValue) return false;
-    onChange(updatedValue);
+    //if (updatedValue.length === value.length) return;
+    if (_.isEqual(value, updatedValue)) return;
+    if (!value && "" === updatedValue) return;
+
+    delayChange ? handleInputChangeDelay(updatedValue) : onChange(updatedValue);
   });
 
   useEffect(() => {
@@ -61,4 +79,4 @@ const LayoutEditor = ({ value, extensions, onChange }) => {
 
   return <div ref={editor}></div>;
 };
-export default LayoutEditor;
+export default CodeEditor;
