@@ -158,7 +158,7 @@ export const updatedDisplayItems = (prevItems, newItems, type = "replace") => {
  * @return   null
  */
 export const updateLayoutCss = (layoutCss, layoutId) => {
-  let styles = document.getElementById(`style#ditty-layout--${layoutId}`);
+  let styles = document.getElementById(`ditty-layout--${layoutId}`);
   if (!styles) {
     styles = document.createElement("style");
     styles.setAttribute("id", `ditty-layout--${layoutId}`);

@@ -1,5 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
+//import sass from "sass";
+//const sass = require("sass");
 //import reactElementToJSXString from "react-element-to-jsx-string";
 import { replace } from "./shortcode";
 
@@ -75,20 +77,13 @@ export const getAttributeFields = (atts) => {
  * @param {string} layoutId
  * @returns
  */
-export const compileLayoutStyle = (css, layoutId = "") => {
-  var sass = new Sass();
+export const compileLayoutStyle = (css, layoutId = "", onComplete) => {
+  const sass = new Sass(dittyEditorVars.sassWorkerUrl);
   const sassString = `.ditty-layout--${layoutId} {${css}}`;
+  console.log("sassString", sassString);
   sass.compile(sassString, function (result) {
-    console.log(result);
+    onComplete && result.text && onComplete(result.text);
   });
-
-  // const cssString = compileSass(sassString);
-
-  // console.log("cssString", cssString);
-  // // const autoprefixedCssString = sass.compileString(sassString);
-  // // console.log("autoprefixedCssString", autoprefixedCssString);
-
-  // return cssString;
 };
 
 /**

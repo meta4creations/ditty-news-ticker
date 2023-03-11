@@ -152,6 +152,12 @@
     top: calc(1em + 32px);
   }
 }
+.ditty-code-editor {
+  height: 100%;
+  > .cm-editor {
+    height: 100%;
+  }
+}
 @media screen and (max-width: 782px) {
   .ditty-adminPage {
     .admin-bar & {

@@ -47,6 +47,10 @@ export default () => {
     updatePreview();
   }, []);
 
+  const updateCss = (css) => {
+    updateLayoutCss(css, id);
+  };
+
   const updatePreview = (args = {}) => {
     const updatedEditorItem = args.updatedEditorItem
       ? args.updatedEditorItem
@@ -68,7 +72,7 @@ export default () => {
     });
   };
 
-  const onDisplaySaveComplete = (data) => {
+  const onLayoutSaveComplete = (data) => {
     setShowSpinner(false);
     // If saving a new Layout
     if (data.updates && data.updates.new) {
@@ -157,7 +161,7 @@ export default () => {
       editorSettings: updates.editorSettings ? updates.editorSettings : false,
       layout: layout,
     };
-    saveLayout(data, onDisplaySaveComplete);
+    saveLayout(data, onLayoutSaveComplete);
   };
 
   const handleUpdateTitle = (updatedTitle) => {
@@ -200,12 +204,9 @@ export default () => {
     const newUpdates = { ...updates };
     newUpdates.css = updatedCss;
 
-    const test = compileLayoutStyle(updatedCss, id);
-    console.log(test);
-
     setCss(updatedCss);
     setUpdates(newUpdates);
-    updatePreview({ updatedCss: updatedCss });
+    compileLayoutStyle(updatedCss, `${id}_default`, updateCss);
   };
 
   const handleUpdateEditorItem = (updatedEditorItem) => {

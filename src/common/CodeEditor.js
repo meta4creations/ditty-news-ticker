@@ -77,6 +77,6 @@ const CodeEditor = ({ value, extensions, onChange, delayChange = false }) => {
     };
   }, []);
 
-  return <div ref={editor}></div>;
+  return <div className="ditty-code-editor" ref={editor}></div>;
 };
 export default CodeEditor;
