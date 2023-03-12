@@ -38,7 +38,6 @@ const migrateItemTypes = (itemTypes) => {
       return filtered;
     }, []);
   if (phpItemTypes && phpItemTypes.length) {
-    //console.log("phpItemTypes", phpItemTypes);
     const updatedItemTypes = itemTypes.concat(phpItemTypes);
     return updatedItemTypes;
   } else {

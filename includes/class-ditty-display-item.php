@@ -169,7 +169,8 @@ class Ditty_Display_Item {
 	 */
 	public function get_layout_tags() {
 		if ( ! $this->layout_tags ) {
-			$this->layout_tags = ditty_layout_tags( $this->get_item_type(), $this->get_item_value() );
+			//$this->layout_tags = ditty_layout_tags( $this->get_item_type(), $this->get_item_value() );
+			$this->layout_tags = ditty_layout_tags();
 		}
 		return $this->layout_tags;
 	}

@@ -112,7 +112,7 @@ export default () => {
             setDescription(data.updates.description);
             break;
           case "editorItem":
-            setEditorSettings(data.updates.editorItem);
+            setEditorItem(data.updates.editorItem);
             break;
           case "editorSettings":
             setEditorSettings(data.updates.editorSettings);
@@ -146,15 +146,8 @@ export default () => {
       css: updates.css ? updates.css : false,
     };
 
-    let updatedTitle = false;
-    if (updates.title) {
-      updatedTitle =
-        "" === updates.title && "ditty_display-new" == id
-          ? __(`Display ${id}`, "ditty-news-ticker")
-          : updates.title;
-    }
     const data = {
-      title: updatedTitle,
+      title: updates.title,
       description: updates.description ? updates.description : false,
       status: updates.status ? updates.status : false,
       editorItem: updates.editorItem ? updates.editorItem : false,

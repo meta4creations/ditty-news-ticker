@@ -22,7 +22,7 @@ function ditty_updates() {
 		ditty_v3_0_14_upgrades();
 	}
 	if ( version_compare( $current_version, '3.1', '<' ) ) {
-		//ditty_v3_1_upgrades();
+		ditty_v3_1_upgrades();
 	}
 
 	if ( DITTY_VERSION != $current_version ) {
@@ -40,31 +40,146 @@ add_action( 'admin_init', 'ditty_updates' );
  */
 function ditty_v3_1_upgrades() {
 
-	// Update the database
-	$db_items = new Ditty_DB_Items();
-	@$db_items->create_table();
-	
-	// Update the Ditty preview padding
-	// $args = array(
-	// 	'post_type' => 'ditty',
-	// );
-	// $dittys = get_posts( $args );
-	// if ( is_array( $dittys ) && count( $dittys ) > 0 ) {
-	// 	foreach ( $dittys as $i => $ditty ) {
-	// 		$settings = get_post_meta( $ditty->ID, '_ditty_settings', true );
-	// 		if ( ! is_array( $settings ) ) {
-	// 			$settings = array();
-	// 		}
-	// 		$padding = isset( $settings['previewPadding'] ) ? $settings['previewPadding'] : [];
-	// 		$settings['previewPadding'] = [
-	// 			'top' => isset( $padding['paddingTop'] ) ? $padding['paddingTop'] : 0,
-	// 			'left' => isset( $padding['paddingLeft'] ) ? $padding['paddingLeft'] : 0,
-	// 			'right' => isset( $padding['paddingRight'] ) ? $padding['paddingRight'] : 0,
-	// 			'bottom' => isset( $padding['paddingBottom'] ) ? $padding['paddingBottom'] : 0,
-	// 		];
-	// 		update_post_meta( $ditty->ID, '_ditty_settings', $settings );
-	// 	}
-	// }
+	// Update the database - KEEP
+	// $db_items = new Ditty_DB_Items();
+	// @$db_items->create_table();
+	if ( ditty_editing() ) {
+		return false;
+	}
+	// Update the Ditty preview padding - CHECK BEFORE KEEPING
+	$args = array(
+		'post_type' => 'ditty',
+		'post_status' => 'any',
+	);
+	$dittys = get_posts( $args );
+	if ( is_array( $dittys ) && count( $dittys ) > 0 ) {
+		foreach ( $dittys as $ditty ) {
+			if ( $ditty->ID != 13144 ) {
+				continue;
+			}
+			$items_meta = ditty_items_meta( $ditty->ID );
+			if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
+				foreach ( $items_meta as $item ) {
+					if ( 'posts_feed' === $item->item_type ) {
+						$item_value = $item->item_value;
+						$attribute_value = $item->attribute_value ? $item->attribute_value : [];
+						if ( is_array( $item_value ) && count( $item_value ) > 0 ) {
+							foreach ( $item_value as $key => $value ) {
+								if ( '' == $value || 'default' == $value ) {
+									continue;
+								}
+								switch( $key ) {
+									case 'title_element':
+										if ( ! isset( $attribute_value['title'] ) ) {
+											$attribute_value['title'] = [];
+										}
+										$attribute_value['title']['wrapper'] = [
+											'customValue' => 1,
+											'value' => $value
+										];
+										break;
+									case 'title_link':
+										if ( ! isset( $attribute_value['title'] ) ) {
+											$attribute_value['title'] = [];
+										}
+										$attribute_value['title']['link'] = [
+											'customValue' => 1,
+											'value' => ( 'off' == $value ) ? 'none' : 'true',
+										];
+										break;
+									case 'content_display':
+										if ( 'excerpt' == $value ) {
+											if ( ! isset( $attribute_value['content'] ) ) {
+												$attribute_value['content'] = [];
+											}
+											$attribute_value['content']['content_display'] = [
+												'customValue' => 1,
+												'value' => $value,
+											];
+										}
+										break;
+									case 'excerpt_element':
+										if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+											if ( ! isset( $attribute_value['content'] ) ) {
+												$attribute_value['content'] = [];
+											}
+											$attribute_value['content']['wrapper'] = [
+												'customValue' => 1,
+												'value' => $value,
+											];
+										}
+										break;
+									case 'excerpt_length':
+										if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+											if ( ! isset( $attribute_value['content'] ) ) {
+												$attribute_value['content'] = [];
+											}
+											$attribute_value['content']['excerpt_length'] = [
+												'customValue' => 1,
+												'value' => $value,
+											];
+										}
+										break;
+									case 'more':
+										if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+											if ( ! isset( $attribute_value['content'] ) ) {
+												$attribute_value['content'] = [];
+											}
+											$attribute_value['content']['more'] = [
+												'customValue' => 1,
+												'value' => $value,
+											];
+										}
+										break;
+									case 'more_before':
+										if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+											if ( ! isset( $attribute_value['content'] ) ) {
+												$attribute_value['content'] = [];
+											}
+											$attribute_value['content']['more_before'] = [
+												'customValue' => 1,
+												'value' => $value,
+											];
+										}
+										break;
+									case 'more_after':
+										if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+											if ( ! isset( $attribute_value['content'] ) ) {
+												$attribute_value['content'] = [];
+											}
+											$attribute_value['content']['more_after'] = [
+												'customValue' => 1,
+												'value' => $value,
+											];
+										}
+										break;
+									case 'more_link':
+										if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+											if ( ! isset( $attribute_value['content'] ) ) {
+												$attribute_value['content'] = [];
+											}
+											$attribute_value['content']['more_link'] = [
+												'customValue' => 1,
+												'value' => ( 'false' == $value ) ? 'none' : 'true',
+											];
+										}
+										break;
+								}
+							}
+						}
+						//$attribute_value = $item->attribute_value;
+						echo '<pre>';print_r($item_value);echo '</pre>';
+						$sanitized__attribute_value = Ditty()->singles->sanitize_item_attribute_value( $attribute_value, $item->item_type );
+						$updated_item = [
+							'attribute_value' => maybe_serialize( $sanitized__attribute_value ),
+						];
+						Ditty()->db_items->update( $item->item_id, $updated_item, 'item_id' );
+						echo '<pre>';print_r($sanitized__attribute_value);echo '</pre>';
+					}			
+				}
+			}			
+		}
+	}
 }
 
 /**

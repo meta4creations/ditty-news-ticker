@@ -81,6 +81,7 @@ const LayoutEditor = ({
       icon: <FontAwesomeIcon icon={faPaintbrushPencil} />,
       content: (
         <PanelLayout
+          editorItem={editorItem}
           layoutHtml={layoutHtml}
           layoutCss={layoutCss}
           onUpdateLayoutHtml={onUpdateLayoutHtml}

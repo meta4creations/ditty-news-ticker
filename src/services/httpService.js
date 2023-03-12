@@ -1,17 +1,15 @@
 import axios from "axios";
 
-export const getDittyData = (dittyId) => {
-  const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
+// export const getDittyData = (dittyId) => {
+//   const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
 
-  const apiURL = `${apiEndpoint}/${dittyId}`;
-  const apiData = {
-    security: dittyEditorVars.security,
-  };
-  axios.post(apiURL, { apiData }).then((res) => {
-    //console.log("res", res);
-    //console.log("data", res.data);
-  });
-};
+//   const apiURL = `${apiEndpoint}/${dittyId}`;
+//   const apiData = {
+//     security: dittyEditorVars.security,
+//   };
+//   axios.post(apiURL, { apiData }).then((res) => {
+//   });
+// };
 
 export function saveDitty(data, onComplete) {
   const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;

@@ -400,6 +400,31 @@ class Ditty_Layouts {
 					),
 					'std' => $default ? $default : '',
 				];
+			case 'content_display':
+				return [
+					'type' => "select",
+					'id' =>  "content_display",
+					'options' => $options ? $options : [
+						"full",
+						"excerpt",
+					],
+					'help' =>  __(
+						"Choose how to display the content.",
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			case 'excerpt_length':
+				return [
+					'type' => "number",
+					'id' =>  "excerpt_length",
+					'min' => 0,
+					'help' =>  __(
+						"Set the length of the excerpt.",
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
 			case 'fit':
 				return [
 					'type' => "select",
@@ -482,6 +507,95 @@ class Ditty_Layouts {
 					],
 					'help' =>  __(
 						"Set the target attribute for the link.",
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			case 'more':
+				return [
+					'type' => "text",
+					'id' =>  "more",
+					'help' =>  __(
+						'Set the "more" text after the content/excerpt.',
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			case 'more_after':
+				return [
+					'type' => "text",
+					'id' =>  "more_after",
+					'help' =>  __(
+						'Add text after the "more" element.',
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			case 'more_before':
+				return [
+					'type' => "text",
+					'id' =>  "more_before",
+					'help' =>  __(
+						'Add text before the "more" element.',
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			case 'more_link':
+				return [
+					'type' => "select",
+					'id' =>  "more_link",
+					'help' =>  __(
+						'Add a link to the "more" element.',
+						"ditty-news-ticker"
+					),
+					'options' => $options ? $options : [
+						"none",
+					],
+					'std' => $default ? $default : '',
+				];
+			case 'more_link_after':
+				return [
+					'type' => "text",
+					'id' =>  "more_link_after",
+					'help' =>  __(
+						'Add text after the "more" link.',
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			case 'more_link_before':
+				return [
+					'type' => "text",
+					'id' =>  "more_link_before",
+					'help' =>  __(
+						'Add text before the "more" link.',
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			case 'more_link_rel':
+				return [
+					'type' => "text",
+					'id' =>  "more_link_rel",
+					'help' =>  __(
+						'Add a rel attribute to the "more" link.',
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
+			case 'more_link_target':
+				return [
+					'type' => "select",
+					'id' =>  "link_target",
+					'options' => $options ? $options : [
+						'_blank',
+						'_self',
+						'_parent',
+						'_top',
+					],
+					'help' =>  __(
+						'Set the target attribute for the "more" link.',
 						"ditty-news-ticker"
 					),
 					'std' => $default ? $default : '',
@@ -822,7 +936,7 @@ class Ditty_Layouts {
 		if ( $editor_item ) {
 			$sanitized_editor_item = Ditty()->singles->sanitize_item_data( $editor_item );
 			update_post_meta( $layout_id, '_ditty_editor_item', $sanitized_editor_item );
-			$updates['editorSettings'] = $sanitized_editor_item;
+			$updates['editorItem'] = $sanitized_editor_item;
 		}
 
 		// Update the editor settings

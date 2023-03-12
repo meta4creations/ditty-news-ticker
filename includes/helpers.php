@@ -895,8 +895,9 @@ function ditty_items_meta( $ditty_id = false ) {
 		$all_meta = Ditty()->db_items->get_items( $ditty_id );
 		if ( is_array( $all_meta ) && count( $all_meta ) > 0 ) {
 			foreach ( $all_meta as $i => $meta ) {
-				$value = maybe_unserialize( $meta->item_value );
-				$meta->item_value = $value;
+				$meta->item_value = $meta->item_value ? maybe_unserialize( $meta->item_value ) : false;
+				$meta->layout_value = $meta->layout_value ? maybe_unserialize( $meta->layout_value ) : false;
+				$meta->attribute_value = $meta->attribute_value ? maybe_unserialize( $meta->attribute_value ) : false;
 				unset( $meta->layout_id ); // TODO: Maybe remove?
 				$normalized_meta[] = apply_filters( 'ditty_item_meta', $meta, $meta->item_id, $ditty_id );
 			} 

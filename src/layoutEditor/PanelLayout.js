@@ -14,13 +14,14 @@ import { IconBlock, Panel, Tabs } from "../components";
 import { getItemTypeObject } from "../utils/itemTypes";
 
 const PanelLayout = ({
+  editorItem,
   layoutHtml,
   layoutCss,
   onUpdateLayoutHtml,
   onUpdateLayoutCss,
 }) => {
   const [currentTabId, setCurrentTabId] = useState("html");
-  const itemTypeObject = getItemTypeObject("default");
+  const itemTypeObject = getItemTypeObject(editorItem.item_type);
 
   const panelHeader = () => {
     return (

@@ -498,6 +498,20 @@ class Ditty_Singles {
 		}
 		return $sanitized_settings;
 	}
+
+	/**
+	 * Sanitize an items attribute value
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function sanitize_item_attribute_value( $attribute_value, $item_type ) {
+		$sanitized_attribute_value = false;
+		if ( $item_type && $attribute_value ) {
+			$sanitized_attribute_value = $attribute_value;
+		}
+		return $sanitized_attribute_value;
+	}
 	
 	/**
 	 * Sanitize item values before saving to the database
@@ -535,14 +549,8 @@ class Ditty_Singles {
 		}
 
 		// Sanitize attribute value
-		$sanitized_attribute_value = false;
-		if ( $item_type && $attribute_value ) {
-			$sanitized_attribute_value = $attribute_value;
-			// if ( $item_type_object = ditty_item_type_object( $item_type ) ) {
-			// 	$sanitized_item_value = $item_type_object->sanitize_settings( $item_value );
-			// }
-		}
-		
+		$sanitized_attribute_value = $this->sanitize_item_attribute_value( $attribute_value, $item_type );
+
 		$sanitized_item = array();
 		if ( isset( $item_data['ditty_id'] ) ) {
 			$sanitized_item['ditty_id'] = intval( $item_data['ditty_id'] );

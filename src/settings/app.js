@@ -5,7 +5,7 @@ import { AdminBar, FooterBar } from "../common";
 import { Tabs } from "../components";
 import { FieldList } from "../fields";
 import { saveSettings } from "../services/httpService";
-import { ReactComponent as Logo } from "./ditty.svg";
+import { ReactComponent as Logo } from "../assets/img/d.svg";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -34,15 +34,7 @@ export default () => {
     if (data.updates.settings) {
       toast(__("Settings have been updated!", "ditty-news-ticker"), {
         autoClose: 3000,
-        icon: (
-          <svg
-            className="ditty-logo"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 69.8 71.1"
-          >
-            <path d="M0 46.4c0-17.2 8.6-29.1 24.6-29.1a19.93 19.93 0 0 1 6.6 1V0H45v59.2l1 10.3H34.2l-.9-5.2h-.5a15.21 15.21 0 0 1-13 6.8C3.8 71.1 0 58.4 0 46.4Zm31.2 7.4V28.6a13.7 13.7 0 0 0-6-1.3c-8.7 0-11.3 8.7-11.3 17.8 0 8.5 1.9 15.8 8.9 15.8 5.1 0 8.4-3.8 8.4-7.1ZM54.7 63.7a7 7 0 0 1 7.4-7.2c5 0 7.7 2.8 7.7 7.1s-2.6 7.5-7.4 7.5c-5.1 0-7.7-3.1-7.7-7.4Z" />
-          </svg>
-        ),
+        icon: <Logo style={{ height: "30px", fill: "#19bf7c" }} />,
       });
       setInitSettings(_.cloneDeep(data.updates.settings));
       setSettings(_.cloneDeep(data.updates.settings));

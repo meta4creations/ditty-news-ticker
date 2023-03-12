@@ -45,14 +45,6 @@ const GroupField = (props) => {
   const handleUpdateValue = (inputField, updatedValue) => {
     let groupValue;
     if (multipleFields) {
-      //console.log("inputField", inputField);
-      //console.log("updatedValue", updatedValue);
-      // groupValue = value.map((v) => {
-      //   return {
-      //     id: v.id,
-      //     value: v.id === inputField.id ? updatedValue : v.value,
-      //   };
-      // });
       onChange(updatedValue, inputField);
     } else {
       groupValue = typeof value === "object" ? value : {};

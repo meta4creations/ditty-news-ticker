@@ -76,7 +76,6 @@ const AdminBar = ({
               onUpdateDescription && onUpdateDescription(updatedValue)
             }
             onBlur={() => {
-              console.log("on blur");
               setEditDescription(false);
             }}
             setFocus={true}

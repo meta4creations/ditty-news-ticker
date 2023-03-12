@@ -7,16 +7,25 @@
 */	
 function ditty_layout_tags( $item_type = false, $item_value = false ) {	
 
+	$link_options = apply_filters( 'ditty_layout_tag_link_options', ['true' => 'true', 'none' => 'none'], $item_type );
+
 	$after_settings = Ditty()->layouts->tag_attribute_default_settings( 'after' );
 	$before_settings = Ditty()->layouts->tag_attribute_default_settings( 'before' );
 	$class_settings = Ditty()->layouts->tag_attribute_default_settings( 'class' );
+	$excerpt_length_settings = Ditty()->layouts->tag_attribute_default_settings( 'excerpt_length', 200 );
 	$fit_settings = Ditty()->layouts->tag_attribute_default_settings( 'fit' );
 	$height_settings = Ditty()->layouts->tag_attribute_default_settings( 'height' );
-	$link_settings = Ditty()->layouts->tag_attribute_default_settings( 'link' );
+	$link_settings = Ditty()->layouts->tag_attribute_default_settings( 'link', array_key_first( $link_options ), $link_options );
 	$link_after_settings = Ditty()->layouts->tag_attribute_default_settings( 'link_after' );
 	$link_before_settings = Ditty()->layouts->tag_attribute_default_settings( 'link_before' );
 	$link_rel_settings = Ditty()->layouts->tag_attribute_default_settings( 'link_rel' );
 	$link_target_settings = Ditty()->layouts->tag_attribute_default_settings( 'link_target' );
+	$more_settings = Ditty()->layouts->tag_attribute_default_settings( 'more', '...' );
+	$more_before_settings =  Ditty()->layouts->tag_attribute_default_settings( 'more_before' );
+	$more_after_settings =  Ditty()->layouts->tag_attribute_default_settings( 'more_after' );
+	$more_link_settings =  Ditty()->layouts->tag_attribute_default_settings( 'more_link', array_key_first( $link_options ), $link_options );
+	$more_link_target_settings = Ditty()->layouts->tag_attribute_default_settings( 'more_link_target' );
+	$more_link_rel_settings = Ditty()->layouts->tag_attribute_default_settings( 'more_link_rel' );
 	$width_settings = Ditty()->layouts->tag_attribute_default_settings( 'width' );
 	$wpautop_settings = Ditty()->layouts->tag_attribute_default_settings( 'wpautop' );
 	$wrapper_settings = Ditty()->layouts->tag_attribute_default_settings( 'wrapper' );
@@ -135,10 +144,18 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'content',
 			'description' => __( 'Render the item content.', 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper'	=> $wrapper_settings,
-				'before'	=> $before_settings,
-				'after'		=> $after_settings,
-				'class'		=> $class_settings,
+				'wrapper'						=> $wrapper_settings,
+				'before'						=> $before_settings,
+				'after'							=> $after_settings,
+				'class'							=> $class_settings,
+				'content_display'		=> Ditty()->layouts->tag_attribute_default_settings( 'content_display', 'full' ),
+				'excerpt_length'		=> $excerpt_length_settings,
+				'more'							=> $more_settings,
+				'more_before'				=> $more_before_settings,
+				'more_after'				=> $more_after_settings,
+				'more_link'					=> $more_link_settings,
+				'more_link_target' 	=> $more_link_target_settings,
+				'more_link_rel'			=> $more_link_rel_settings,
 			),
 		),
 		'custom_field' => array(
@@ -160,13 +177,13 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 				'wpautop' 					=> $wpautop_settings,
 				'before'						=> $before_settings,
 				'after'							=> $after_settings,
-				'excerpt_length'		=> Ditty()->layouts->tag_attribute_default_settings( 'excerpt_length', 200 ),
-				'more'							=> Ditty()->layouts->tag_attribute_default_settings( 'more', '...' ),
-				'more_link'					=> Ditty()->layouts->tag_attribute_default_settings( 'more_link', 'post' ),
-				'more_link_target' 	=> Ditty()->layouts->tag_attribute_default_settings( 'more_link_target', 'post' ),
-				'more_link_rel'			=> Ditty()->layouts->tag_attribute_default_settings( 'more_link_rel', 'post' ),
-				'more_before'				=> Ditty()->layouts->tag_attribute_default_settings( 'more_before', 'post' ),
-				'more_after'				=> Ditty()->layouts->tag_attribute_default_settings( 'more_after', 'post' ),
+				'excerpt_length'		=> $excerpt_length_settings,
+				'more'							=> $more_settings,
+				'more_before'				=> $more_before_settings,
+				'more_after'				=> $more_after_settings,
+				'more_link'					=> $more_link_settings,
+				'more_link_target' 	=> $more_link_target_settings,
+				'more_link_rel'			=> $more_link_rel_settings,
 				'class'							=> $class_settings,
 			),
 		),

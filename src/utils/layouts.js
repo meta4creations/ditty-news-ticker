@@ -80,7 +80,6 @@ export const getAttributeFields = (atts) => {
 export const compileLayoutStyle = (css, layoutId = "", onComplete) => {
   const sass = new Sass(dittyEditorVars.sassWorkerUrl);
   const sassString = `.ditty-layout--${layoutId} {${css}}`;
-  console.log("sassString", sassString);
   sass.compile(sassString, function (result) {
     onComplete && result.text && onComplete(result.text);
   });
