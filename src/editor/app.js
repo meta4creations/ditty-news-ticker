@@ -24,14 +24,6 @@ export default () => {
   const updates = helpers.dittyUpdates();
   const hasUpdates = Object.keys(updates).length !== 0;
 
-  const handleUpdateTitle = (updatedTitle) => {
-    if ("" === updatedTitle) {
-      actions.updateTitle(__(`Ditty ${id}`, "ditty-news-ticker"));
-    } else {
-      actions.updateTitle(updatedTitle);
-    }
-  };
-
   const onDittySaveComplete = () => {
     setShowSpinner(false);
   };
@@ -68,7 +60,7 @@ export default () => {
           title={title}
           display={getDisplayObject(currentDisplay, displays)}
           displayItems={displayItems}
-          style={getPreviewStyles()}
+          styles={getPreviewStyles()}
         />
         <Editor className="ditty-adminPage__app__sidebar" />
       </div>

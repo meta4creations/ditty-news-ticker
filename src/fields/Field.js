@@ -16,6 +16,7 @@ import SpacingField from "./SpacingField";
 import TextField from "./TextField";
 import TextareaField from "./TextareaField";
 import UnitField from "./UnitField";
+import WysiwygField from "./WysiwygField";
 
 const Field = ({ field, fieldValue, updateValue, delayChange = false }) => {
   const handleUpdateValue = (field, value) => {
@@ -166,8 +167,9 @@ const Field = ({ field, fieldValue, updateValue, delayChange = false }) => {
           );
         case "wysiwyg":
           return (
-            <TextareaField
+            <WysiwygField
               value={inputValue}
+              delayChange={delayChange}
               onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />

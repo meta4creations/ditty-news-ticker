@@ -493,7 +493,7 @@ class Ditty_Scripts {
 
 			wp_enqueue_script( 'ditty-editor',
 				DITTY_URL . 'build/dittyEditor.js',
-				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-hooks', 'lodash', 'wp-codemirror', 'ditty'], $display_slugs),
+				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-block-editor', 'wp-hooks', 'lodash', 'wp-codemirror', 'ditty'], $display_slugs),
 				$this->version,
 				true
 			);

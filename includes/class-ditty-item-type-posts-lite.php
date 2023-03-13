@@ -81,20 +81,18 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 				'help'	=> __( 'Set the number of Posts to display.', 'ditty-news-ticker' ),
 				'std'		=> isset( $values['limit'] ) ? $values['limit'] : false,
 			),
-			'titleSettings' 	=> method_exists( $this, 'title_settings' ) ? $this->title_settings( $values ) : false,
-			'contentSettings' => method_exists( $this, 'content_settings' ) ? $this->content_settings( $values ) : false,
-			'linkSettings' 		=> method_exists( $this, 'link_settings' ) ? $this->link_settings( $values ) : false,
 		);
 		return apply_filters( 'ditty_item_type_fields', $fields, $this, $values );
 	}
-	
+
 	/**
-	 * Set the allowed layout tags
+	 * Return the layout tags
 	 *
 	 * @access  public
-	 * @since   3.0.21
+	 * @since   3.1
 	 */
-	public function layout_tags() {					
+	public function get_layout_tags() {
+		$layout_tags = ditty_layout_tags();
 		$allowed_tags = array(
 			'author_avatar',
 			'author_bio',
@@ -109,32 +107,35 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 			'time',
 			'title',
 		);
-		return $allowed_tags;
+		$tags = array_intersect_key( $layout_tags, array_flip( $allowed_tags ) );
+		return $tags;
 	}
 	
 	/**
 	 * Set the default field values
 	 *
 	 * @access  public
-	 * @since   3.0.18
+	 * @since   3.1
 	 */
 	public function default_settings() {		
 		$defaults = array(
 			'limit' 				=> 10,
-			'content_display' 		=> 'full',
-			'excerpt_length'			=> 200,
-			'excerpt_element'			=> 'default',
-			'more'								=> esc_html__( 'Read More', 'ditty-news-ticker' ),
-			'more_link'						=> 'post',
-			'more_before'					=> '...&nbsp;',
-			'more_after'					=> '',
-			'title_element'				=> 'default',
-			'title_link'					=> 'default',
-			'link_target' 				=> '_self',
-			'link_nofollow'				=> '',
-			//'layout_tag_title'		=> array(),
 		);
 		return apply_filters( 'ditty_type_default_settings', $defaults, $this->slug );
+	}
+
+	/**
+	 * Update values sent from the editor
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function sanitize_settings( $values ) {
+		$default_settings = $this->default_settings();
+		$sanitize_values = [
+			'limit' => isset( $values['limit'] ) ? intval( $values['limit'] ) : $default_settings['limit'],
+		];
+		return $sanitize_values;
 	}
 	
 	/**

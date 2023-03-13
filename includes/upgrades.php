@@ -22,7 +22,7 @@ function ditty_updates() {
 		ditty_v3_0_14_upgrades();
 	}
 	if ( version_compare( $current_version, '3.1', '<' ) ) {
-		ditty_v3_1_upgrades();
+		//ditty_v3_1_upgrades();
 	}
 
 	if ( DITTY_VERSION != $current_version ) {
@@ -38,15 +38,23 @@ add_action( 'admin_init', 'ditty_updates' );
  * @since  3.1
  * @return void
  */
+function ditty_v3_1_tag_upgrades( $attribute_value, $tag, $attribute, $value ) {
+	if ( ! isset( $attribute_value[$tag] ) ) {
+		$attribute_value[$tag] = [];
+	}
+	$attribute_value[$tag][$attribute] = [
+		'customValue' => 1,
+		'value' => $value
+	];
+	return $attribute_value;
+}
 function ditty_v3_1_upgrades() {
 
 	// Update the database - KEEP
-	// $db_items = new Ditty_DB_Items();
-	// @$db_items->create_table();
-	if ( ditty_editing() ) {
-		return false;
-	}
-	// Update the Ditty preview padding - CHECK BEFORE KEEPING
+	$db_items = new Ditty_DB_Items();
+	@$db_items->create_table();
+
+	// Update custom tag attributes - KEEP
 	$args = array(
 		'post_type' => 'ditty',
 		'post_status' => 'any',
@@ -60,122 +68,104 @@ function ditty_v3_1_upgrades() {
 			$items_meta = ditty_items_meta( $ditty->ID );
 			if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
 				foreach ( $items_meta as $item ) {
-					if ( 'posts_feed' === $item->item_type ) {
-						$item_value = $item->item_value;
-						$attribute_value = $item->attribute_value ? $item->attribute_value : [];
-						if ( is_array( $item_value ) && count( $item_value ) > 0 ) {
-							foreach ( $item_value as $key => $value ) {
-								if ( '' == $value || 'default' == $value ) {
-									continue;
-								}
-								switch( $key ) {
-									case 'title_element':
-										if ( ! isset( $attribute_value['title'] ) ) {
-											$attribute_value['title'] = [];
-										}
-										$attribute_value['title']['wrapper'] = [
-											'customValue' => 1,
-											'value' => $value
-										];
-										break;
-									case 'title_link':
-										if ( ! isset( $attribute_value['title'] ) ) {
-											$attribute_value['title'] = [];
-										}
-										$attribute_value['title']['link'] = [
-											'customValue' => 1,
-											'value' => ( 'off' == $value ) ? 'none' : 'true',
-										];
-										break;
-									case 'content_display':
-										if ( 'excerpt' == $value ) {
-											if ( ! isset( $attribute_value['content'] ) ) {
-												$attribute_value['content'] = [];
-											}
-											$attribute_value['content']['content_display'] = [
-												'customValue' => 1,
-												'value' => $value,
-											];
-										}
-										break;
-									case 'excerpt_element':
-										if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
-											if ( ! isset( $attribute_value['content'] ) ) {
-												$attribute_value['content'] = [];
-											}
-											$attribute_value['content']['wrapper'] = [
-												'customValue' => 1,
-												'value' => $value,
-											];
-										}
-										break;
-									case 'excerpt_length':
-										if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
-											if ( ! isset( $attribute_value['content'] ) ) {
-												$attribute_value['content'] = [];
-											}
-											$attribute_value['content']['excerpt_length'] = [
-												'customValue' => 1,
-												'value' => $value,
-											];
-										}
-										break;
-									case 'more':
-										if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
-											if ( ! isset( $attribute_value['content'] ) ) {
-												$attribute_value['content'] = [];
-											}
-											$attribute_value['content']['more'] = [
-												'customValue' => 1,
-												'value' => $value,
-											];
-										}
-										break;
-									case 'more_before':
-										if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
-											if ( ! isset( $attribute_value['content'] ) ) {
-												$attribute_value['content'] = [];
-											}
-											$attribute_value['content']['more_before'] = [
-												'customValue' => 1,
-												'value' => $value,
-											];
-										}
-										break;
-									case 'more_after':
-										if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
-											if ( ! isset( $attribute_value['content'] ) ) {
-												$attribute_value['content'] = [];
-											}
-											$attribute_value['content']['more_after'] = [
-												'customValue' => 1,
-												'value' => $value,
-											];
-										}
-										break;
-									case 'more_link':
-										if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
-											if ( ! isset( $attribute_value['content'] ) ) {
-												$attribute_value['content'] = [];
-											}
-											$attribute_value['content']['more_link'] = [
-												'customValue' => 1,
-												'value' => ( 'false' == $value ) ? 'none' : 'true',
-											];
-										}
-										break;
-								}
+					$item_value = $item->item_value;
+					$attribute_value = $item->attribute_value ? $item->attribute_value : [];
+					if ( is_array( $item_value ) && count( $item_value ) > 0 ) {
+						foreach ( $item_value as $key => $value ) {
+							if ( '' == $value || 'default' == $value ) {
+								continue;
+							}
+							switch( $key ) {
+								case 'title_element':
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'title', 'wrapper', $value );
+									break;
+								case 'title_link':
+									$modified_value = ( 'off' == $value ) ? 'none' : 'true';
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'title', 'link', $modified_value );
+									break;
+								case 'content_display':
+									if ( 'excerpt' == $value ) {
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'content_display', $value );
+									}
+									break;
+								case 'excerpt_element':
+									if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'wrapper', $value );
+									}
+									break;
+								case 'excerpt_length':
+									if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'excerpt_length', $value );
+									}
+									break;
+								case 'more':
+									if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'more', $value );
+									}
+									break;
+								case 'more_before':
+									if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'more_before', $value );
+									}
+									break;
+								case 'more_after':
+									if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'more_after', $value );
+									}
+									break;
+								case 'more_link':
+									if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+										$modified_value = ( 'false' == $value ) ? 'none' : 'true';
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'more_link', $modified_value );
+									}
+									break;
+								case 'link_target':
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_avatar', 'link_target', $value );
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_banner', 'link_target', $value );
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_bio', 'link_target', $value );
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_name', 'link_target', $value );
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_screen_name', 'link_target', $value );
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'caption', 'link_target', $value );
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'categories', 'link_target', $value );
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'more_link_target', $value );
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'excerpt', 'more_link_target', $value );
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'icon', 'link_target', $value );
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'image', 'link_target', $value );
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'source', 'link_target', $value );
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'terms', 'link_target', $value );
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'time', 'link_target', $value );
+									$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'title', 'link_target', $value );
+									break;
+								case 'link_nofollow':
+									if ( $value == '1' ) {
+										$modified_value = 'nofollow';
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_avatar', 'link_rel', $modified_value );
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_banner', 'link_rel', $modified_value );
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_bio', 'link_rel', $modified_value );
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_name', 'link_rel', $modified_value );
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_screen_name', 'link_rel', $modified_value );
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'caption', 'link_rel', $modified_value );
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'categories', 'link_rel', $modified_value );
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'more_link_rel', $modified_value );
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'excerpt', 'more_link_rel', $modified_value );
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'icon', 'link_rel', $modified_value );
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'image', 'link_rel', $modified_value );
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'source', 'link_rel', $modified_value );
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'terms', 'link_rel', $modified_value );
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'time', 'link_rel', $modified_value );
+										$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'title', 'link_rel', $modified_value );
+									}
+									break;
 							}
 						}
-						//$attribute_value = $item->attribute_value;
-						echo '<pre>';print_r($item_value);echo '</pre>';
+					}
+					if ( ! empty( $attribute_value ) ) {
 						$sanitized__attribute_value = Ditty()->singles->sanitize_item_attribute_value( $attribute_value, $item->item_type );
 						$updated_item = [
 							'attribute_value' => maybe_serialize( $sanitized__attribute_value ),
 						];
-						Ditty()->db_items->update( $item->item_id, $updated_item, 'item_id' );
-						echo '<pre>';print_r($sanitized__attribute_value);echo '</pre>';
-					}			
+						Ditty()->db_items->update( $item->item_id, $updated_item, 'item_id' );	
+					}
 				}
 			}			
 		}

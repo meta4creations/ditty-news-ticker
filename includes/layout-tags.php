@@ -252,6 +252,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 				'after'				=> $after_settings,
 				'term'				=> Ditty()->layouts->tag_attribute_default_settings( 'term' ),
 				'link_target' => $link_target_settings,
+				'link_rel'		=> $link_rel_settings,
 				'separator'		=> Ditty()->layouts->tag_attribute_default_settings( 'separator', ', ' ),
 				'class'				=> $class_settings,
 			),

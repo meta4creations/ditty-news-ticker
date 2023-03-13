@@ -118,26 +118,6 @@ function ditty_default_layout_tags( $tags, $item_type ) {
 add_filter( 'ditty_layout_tags', 'ditty_default_layout_tags', 10, 2 );
 
 /**
- * Filter the available item tags for layout editing
- * 
- * @since   3.0.13
- */
-function ditty_default_layout_tags_list( $tags, $item_type ) {
-	if ( 'default' == $item_type ||  'wp_editor' == $item_type ) {
-		$allowed_tags = array(
-			'content',
-			'time',
-			'author_avatar',
-			'author_bio',
-			'author_name',
-		);
-		$tags = array_intersect_key( $tags, array_flip( $allowed_tags ) );
-	}
-	return $tags;
-}
-add_filter( 'ditty_layout_tags_list', 'ditty_default_layout_tags_list', 10, 2 );
-
-/**
  * Add custom classes to style menu items
  *
  * @since    3.0

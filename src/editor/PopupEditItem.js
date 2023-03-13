@@ -1,6 +1,8 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
 import { PopupTypeSelector } from "../common";
 import {
   Button,
@@ -17,6 +19,7 @@ import {
   getItemTypes,
   getItemTypeSettings,
 } from "../utils/itemTypes";
+import { getTagFields } from "../utils/layouts";
 
 const PopupEditItem = ({
   item,
@@ -34,6 +37,17 @@ const PopupEditItem = ({
   const itemTypes = getItemTypes();
 
   const fieldGroups = getItemTypeSettings(editItem);
+  fieldGroups.push({
+    id: "layoutCustomizations",
+    label: __("Customizations", "ditty-news-ticker"),
+    name: __("Layout Tag Customizations", "ditty-news-ticker"),
+    description: __(
+      "Customize the layout tags that are using in Layouts for this item. Keep in mind that some layouts may not use all of these tags.",
+      "ditty-news-ticker"
+    ),
+    icon: <FontAwesomeIcon icon={faPaintbrushPencil} />,
+    fields: getTagFields(itemTypeObject.layoutTags),
+  });
 
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
   const [currentTabId, setCurrentTabId] = useState(initialTab);
@@ -117,24 +131,28 @@ const PopupEditItem = ({
   };
 
   const renderPopupContents = () => {
+    const itemKey =
+      "layoutCustomizations" === currentTabId
+        ? "attribute_value"
+        : "item_value";
     return (
       <FieldList
         name={currentFieldGroup.name}
         description={currentFieldGroup.description}
         fields={currentFieldGroup.fields}
-        values={editItem.item_value}
+        values={editItem[itemKey] ? editItem[itemKey] : {}}
         delayChange={true}
         onUpdate={(id, value) => {
           const updatedItem = { ...editItem };
           if (
-            !updatedItem.item_value ||
-            typeof updatedItem.item_value !== "object" ||
-            Array.isArray(updatedItem.item_value)
+            !updatedItem[itemKey] ||
+            typeof updatedItem[itemKey] !== "object" ||
+            Array.isArray(updatedItem[itemKey])
           ) {
-            updatedItem.item_value = {};
+            updatedItem[itemKey] = {};
           }
-          updatedItem.item_value[id] = value;
-          addItemUpdate(updatedItem, "item_value");
+          updatedItem[itemKey][id] = value;
+          addItemUpdate(updatedItem, itemKey);
         }}
       />
     );

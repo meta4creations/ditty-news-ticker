@@ -2,23 +2,14 @@ import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPaintbrushPencil,
-  faTableLayout,
-  faGear,
-} from "@fortawesome/pro-light-svg-icons";
+import { faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
 import {
   getItemTypeObject,
   getItemLabel,
   getLayoutVariationObject,
 } from "../utils/itemTypes";
-import {
-  getLayoutObject,
-  getDefaultLayout,
-  getTagFields,
-} from "../utils/layouts";
-import { Button, ButtonGroup, IconBlock, Popup, Tabs } from "../components";
-import { FieldList } from "../fields";
+import { getLayoutObject, getDefaultLayout } from "../utils/layouts";
+import { Button, ButtonGroup, IconBlock, Popup } from "../components";
 import PopupTemplateSave from "./PopupTemplateSave";
 import PopupTemplateSelector from "./PopupTemplateSelector";
 import PopupEditLayout from "./PopupEditLayout";
@@ -40,7 +31,6 @@ const PopupLayouts = ({
   const [popupStatus, setPopupStatus] = useState(false);
 
   const itemTypeObject = getItemTypeObject(editItem);
-  const [currentTabId, setCurrentTabId] = useState("layouts");
 
   const addItemUpdate = (updatedItem, key) => {
     setEditItem(updatedItem);
@@ -194,7 +184,7 @@ const PopupLayouts = ({
     }
   };
 
-  const templateButtons = (variation, layoutObject) => {
+  const templateButtons = (variation) => {
     return (
       <ButtonGroup gap="3px">
         <Button
@@ -297,8 +287,8 @@ const PopupLayouts = ({
             )}
           </IconBlock>
           {layoutObject.id
-            ? templateButtons(variation, layoutObject)
-            : customButtons(variation, layoutObject)}
+            ? templateButtons(variation)
+            : customButtons(variation)}
         </div>
       );
     }
@@ -307,81 +297,16 @@ const PopupLayouts = ({
 
   const renderPopupHeader = () => {
     return (
-      <>
-        <IconBlock
-          icon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
-          className="ditty-icon-block--heading"
-        >
-          <div className="ditty-icon-block--heading__title">
-            <h2>{__("Layout Settings", "ditty-news-ticker")}</h2>
-          </div>
-          <p>{getItemLabel(editItem)}</p>
-        </IconBlock>
-        <Tabs
-          type="cloud"
-          tabs={[
-            {
-              id: "layouts",
-              icon: <FontAwesomeIcon icon={faTableLayout} />,
-              label: __("Layouts", "ditty-news-ticker"),
-            },
-            {
-              id: "customizations",
-              icon: <FontAwesomeIcon icon={faGear} />,
-              label: __("Customizations", "ditty-news-ticker"),
-            },
-          ]}
-          currentTabId={currentTabId}
-          tabClick={(tab) => setCurrentTabId(tab.id)}
-          className="itemEdit__header__tabs"
-        />
-      </>
+      <IconBlock
+        icon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
+        className="ditty-icon-block--heading"
+      >
+        <div className="ditty-icon-block--heading__title">
+          <h2>{__("Layout Settings", "ditty-news-ticker")}</h2>
+        </div>
+        <p>{getItemLabel(editItem)}</p>
+      </IconBlock>
     );
-  };
-
-  const renderPopupContents = () => {
-    if ("layouts" === currentTabId) {
-      return (
-        <>
-          <div className="ditty-field-list__heading">
-            <h3 className="ditty-field-list__heading__title">
-              {__("Layout Variations", "ditty-news-ticker")}
-            </h3>
-            <p className="ditty-field-list__heading__description">
-              {__(
-                "Configure the layouts to use for the item.",
-                "ditty-news-ticker"
-              )}
-            </p>
-          </div>
-          <div className="editLayout__variations">{renderVariationsList()}</div>
-        </>
-      );
-    } else {
-      return (
-        <FieldList
-          name={__("Layout Tag Customizations", "ditty-news-ticker")}
-          description={__(
-            "Customize the layout tags that are using in Layouts for this item. Keep in mind that some layouts may not use all of these tags.",
-            "ditty-news-ticker"
-          )}
-          fields={getTagFields(itemTypeObject.layoutTags)}
-          values={editItem.attribute_value ? editItem.attribute_value : {}}
-          onUpdate={(id, value) => {
-            const updatedItem = { ...editItem };
-            if (
-              !updatedItem.attribute_value ||
-              typeof updatedItem.attribute_value !== "object" ||
-              Array.isArray(updatedItem.attribute_value)
-            ) {
-              updatedItem.attribute_value = {};
-            }
-            updatedItem.attribute_value[id] = value;
-            addItemUpdate(updatedItem, "attribute_value");
-          }}
-        />
-      );
-    }
   };
 
   return (
@@ -398,7 +323,18 @@ const PopupLayouts = ({
         }}
         level={level}
       >
-        {renderPopupContents()}
+        <div className="ditty-field-list__heading">
+          <h3 className="ditty-field-list__heading__title">
+            {__("Layout Variations", "ditty-news-ticker")}
+          </h3>
+          <p className="ditty-field-list__heading__description">
+            {__(
+              "Configure the layouts to use for the item.",
+              "ditty-news-ticker"
+            )}
+          </p>
+        </div>
+        <div className="editLayout__variations">{renderVariationsList()}</div>
       </Popup>
       {renderPopup()}
     </>

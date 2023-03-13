@@ -299,11 +299,10 @@ class Ditty_Item_Type {
 	 * Update values sent from the editor
 	 *
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.1
 	 */
 	public function sanitize_settings( $values ) {
-		$fields = $this->fields();
-		return ditty_sanitize_fields( $fields, $values, "ditty_item_type_{$this->get_type()}" );
+		return ditty_sanitize_settings( $values );
 	}
 	
 	/**

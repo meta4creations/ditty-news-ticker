@@ -25,8 +25,7 @@ const TextField = (props) => {
   }, [setFocus]);
 
   const handleInputChangeDelay = useCallback(
-    (e) => {
-      const updatedValue = e.target.value;
+    (updatedValue) => {
       setDelayValue(updatedValue);
 
       // Clear the existing timer
@@ -44,7 +43,9 @@ const TextField = (props) => {
         type={inputType}
         value={delayChange ? delayValue : value}
         onChange={(e) => {
-          delayChange ? handleInputChangeDelay(e) : onChange(e.target.value);
+          delayChange
+            ? handleInputChangeDelay(e.target.value)
+            : onChange(e.target.value);
         }}
         onBlur={onBlur}
         onFocus={onFocus}

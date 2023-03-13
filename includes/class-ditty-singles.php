@@ -500,15 +500,53 @@ class Ditty_Singles {
 	}
 
 	/**
-	 * Sanitize an items attribute value
+	 * Sanitize an item's layout value
 	 *
 	 * @access public
 	 * @since  3.1
 	 */
-	public function sanitize_item_attribute_value( $attribute_value, $item_type ) {
+	public function sanitize_item_layout_value( $layout_value ) {
+		$sanitized_layout_value = false;
+		if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
+			foreach ( $layout_value as $variation => $value ) {
+				if ( is_array( $value ) ) {
+					$sanitized_layout_value[esc_attr( $variation )] = json_encode( [
+						'html' => wp_kses_post( $value['html'] ),
+						'css' => wp_kses_post( $value['css'] ),
+					] );
+				} else {
+					$sanitized_layout_value[esc_attr( $variation )] = esc_attr( $value );
+				}
+			}
+		}
+		return $sanitized_layout_value;
+	}
+
+	/**
+	 * Sanitize an item's attribute value
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function sanitize_item_attribute_value( $attribute_value ) {
 		$sanitized_attribute_value = false;
-		if ( $item_type && $attribute_value ) {
-			$sanitized_attribute_value = $attribute_value;
+		if ( is_array( $attribute_value ) && count( $attribute_value ) > 0 ) {
+			$sanitized_attribute_value = [];
+			foreach ( $attribute_value as $tag => $attributes ) {
+				$sanitized_attributes = [];
+				if ( is_array( $attributes ) && count( $attributes ) > 0 ) {
+					foreach ( $attributes as $key => $data ) {
+						$sanitized_attributes[esc_attr($key)] = [
+							'customValue' => isset( $data['customValue'] ) ? '1' : false,
+							'value' => isset( $data['value'] ) ? esc_attr( $data['value'] ) : '',
+						];
+					}
+				}
+				if ( isset( $tag['disabled'] ) ) {
+					$sanitized_attributes['disabled'] = true;
+				}
+				$sanitized_attribute_value[esc_attr($tag)] = $sanitized_attributes;
+			}
 		}
 		return $sanitized_attribute_value;
 	}
@@ -534,22 +572,10 @@ class Ditty_Singles {
 		}
 		
 		// Sanitize the layout values
-		$sanitized_layout_value = false;
-		if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
-			foreach ( $layout_value as $variation => $value ) {
-				if ( is_array( $value ) ) {
-					$sanitized_layout_value[esc_attr( $variation )] = json_encode( [
-						'html' => wp_kses_post( $value['html'] ),
-						'css' => wp_kses_post( $value['css'] ),
-					] );
-				} else {
-					$sanitized_layout_value[esc_attr( $variation )] = esc_attr( $value );
-				}
-			}
-		}
+		$sanitized_layout_value = $this->sanitize_item_layout_value( $layout_value );
 
 		// Sanitize attribute value
-		$sanitized_attribute_value = $this->sanitize_item_attribute_value( $attribute_value, $item_type );
+		$sanitized_attribute_value = $this->sanitize_item_attribute_value( $attribute_value );
 
 		$sanitized_item = array();
 		if ( isset( $item_data['ditty_id'] ) ) {
