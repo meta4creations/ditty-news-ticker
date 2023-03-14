@@ -2,11 +2,19 @@
 
 import { useState, useRef, useEffect, useCallback } from "@wordpress/element";
 import _ from "lodash";
-import { basicSetup } from "@uiw/codemirror-extensions-basic-setup";
-import { EditorState } from "@codemirror/state";
-import { EditorView, keymap } from "@codemirror/view";
-import { defaultKeymap, indentWithTab } from "@codemirror/commands";
-import { oneDark } from "@codemirror/theme-one-dark";
+import { basicSetup, EditorView } from "codemirror";
+import {
+  keymap,
+  defaultKeymap,
+  indentWithTab,
+  lineWrapping,
+} from "@codemirror/view";
+//import { basicSetup } from "@codemirror/basic-setup";
+//import { EditorState } from "@codemirror/state";
+//import { EditorView, keymap } from "@codemirror/view";
+//import { defaultKeymap, indentWithTab } from "@codemirror/commands";
+//import { oneDark } from "@codemirror/theme-one-dark";
+//import { EditorState } from "@codemirror/state";
 
 const CodeEditor = ({ value, extensions, onChange, delayChange = false }) => {
   const [delayValue, setDelayValue] = useState(value);
@@ -37,18 +45,33 @@ const CodeEditor = ({ value, extensions, onChange, delayChange = false }) => {
   });
 
   useEffect(() => {
-    const startState = EditorState.create({
+    // const startState = EditorState.create({
+    //   doc: value,
+    //   extensions: [
+    //     basicSetup(),
+    //     keymap.of([defaultKeymap, indentWithTab]),
+    //     EditorView.lineWrapping,
+    //     onUpdate,
+    //     [...extensions],
+    //   ],
+    // });
+
+    //const view = new EditorView({ state: startState, parent: editor.current });
+    const view = new EditorView({
       doc: value,
+      lineWrapping: true,
       extensions: [
-        basicSetup(),
-        keymap.of([defaultKeymap, indentWithTab]),
-        EditorView.lineWrapping,
+        basicSetup,
         onUpdate,
         [...extensions],
+        //lineWrapping,
+        // keymap.of([defaultKeymap, indentWithTab]),
+        // lineWrapping,
+        // onUpdate,
+        // [...extensions],
       ],
+      parent: editor.current,
     });
-
-    const view = new EditorView({ state: startState, parent: editor.current });
 
     window.addEventListener("dittyEditorInsertLayoutTag", function (e) {
       if (!e.detail || !e.detail.renderedTag) {
