@@ -20,9 +20,7 @@ export function saveDitty(data, onComplete) {
     userId: dittyEditorVars.userId,
     ...data,
   };
-  //console.log("apiData", apiData);
   return axios.post(apiURL, { apiData }).then((res) => {
-    //console.log("res.data", res.data);
     onComplete(res.data);
   });
 }

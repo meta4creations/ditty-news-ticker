@@ -49,7 +49,7 @@ class Ditty_Editor {
 				$layout_variations = [];
 				if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
 					foreach ( $layout_value as $variation => $value ) {
-						$layout_variations[$variation] = json_decode($value, true);
+						$layout_variations[$variation] = is_string( $value ) ? json_decode($value, true) : $value;
 					}
 				}
 				

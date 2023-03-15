@@ -33,7 +33,6 @@ const PopupTemplateSave = ({
   const [currentTabId, setCurrentTabId] = useState(
     currentTemplate.id ? "existing" : "new"
   );
-
   const elements = [
     {
       id: "icon",

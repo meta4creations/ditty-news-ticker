@@ -151,7 +151,7 @@ const PanelItems = () => {
                 );
 
                 // Merge temp items
-                if (tempDisplayItems.length) {
+                if (tempDisplayItems && tempDisplayItems.length) {
                   updateDisplayItems(
                     dittyEl,
                     helpers.replaceDisplayItems(tempDisplayItems)

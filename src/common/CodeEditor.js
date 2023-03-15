@@ -8,6 +8,7 @@ import {
   defaultKeymap,
   indentWithTab,
   lineWrapping,
+  highlightActiveLine,
 } from "@codemirror/view";
 //import { basicSetup } from "@codemirror/basic-setup";
 //import { EditorState } from "@codemirror/state";
@@ -59,13 +60,12 @@ const CodeEditor = ({ value, extensions, onChange, delayChange = false }) => {
     //const view = new EditorView({ state: startState, parent: editor.current });
     const view = new EditorView({
       doc: value,
-      lineWrapping: true,
       extensions: [
         basicSetup,
         onUpdate,
         [...extensions],
-        //lineWrapping,
-        // keymap.of([defaultKeymap, indentWithTab]),
+        highlightActiveLine(),
+        //keymap.of([defaultKeymap, indentWithTab]),
         // lineWrapping,
         // onUpdate,
         // [...extensions],

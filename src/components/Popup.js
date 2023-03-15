@@ -33,9 +33,7 @@ const Popup = ({
         <div className="ditty-popup__overlay" onClick={onClose}></div>
         <div className="ditty-popup__contents">
           {header && <div className="ditty-popup__header">{header}</div>}
-          <div className="ditty-popup__body">
-            <div className="ditty-popup__scroll">{children}</div>
-          </div>
+          <div className="ditty-popup__body">{children}</div>
           <div className="ditty-popup__footer">
             {footerBefore && footerBefore}
             {footer ? (

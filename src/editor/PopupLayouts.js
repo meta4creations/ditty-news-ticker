@@ -104,7 +104,7 @@ const PopupLayouts = ({
         const variationTemplate = variationTemplates[selectedVariation]
           ? variationTemplates[selectedVariation]
           : {};
-        const templateToSave = { ...variationTemplate, currentLayout };
+        const templateToSave = { ...variationTemplate, ...currentLayout };
         return (
           <PopupTemplateSave
             level="2"
@@ -126,13 +126,18 @@ const PopupLayouts = ({
                 : {
                     title: name,
                     description: description,
-                    layout: selectedTemplate,
+                    status: "publish",
+                    layout: { ...selectedTemplate },
                   };
             }}
             onClose={() => {
               setPopupStatus(false);
             }}
             onUpdate={(updatedTemplate) => {
+              if (updatedTemplate.new) {
+                updatedTemplate.id = updatedTemplate.new;
+                delete updatedTemplate.new;
+              }
               setPopupStatus(false);
               setVariationLayout(selectedVariation, updatedTemplate);
               onTemplateSave(updatedTemplate);

@@ -20,11 +20,6 @@ class Ditty_Layouts {
 	 * @since   3.0
 	 */
 	public function __construct() {
-		
-		// WP metabox hooks
-		add_action( 'add_meta_boxes', array( $this, 'metaboxes' ) );
-		add_action( 'save_post', array( $this, 'metabox_save' ) );
-
 		add_filter( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
 		add_action( 'admin_init', array( $this, 'edit_page_redirects' ) );
 		add_action( 'admin_menu', array( $this, 'add_admin_pages' ), 10, 5 );
@@ -137,124 +132,6 @@ class Ditty_Layouts {
 		?>
 		<div id="ditty-layout-editor__wrapper" class="ditty-adminPage"></div>
 		<?php
-	}
-	
-	/**
-	 * Add metaboxes
-	 * 
-	 * @since  3.0
-	 * @return void
-	 */
-	public function metaboxes() {
-		add_meta_box( 'ditty-layout-info', __( 'Layout Info', 'ditty-news-ticker' ), array( $this, 'metabox_layout_info' ), 'ditty_layout', 'side', 'high' );
-		add_meta_box( 'ditty-layout-html', __( 'Layout HTML', 'ditty-news-ticker' ), array( $this, 'metabox_layout_html' ), 'ditty_layout', 'normal' );
-		add_meta_box( 'ditty-layout-css', __( 'Layout CSS', 'ditty-news-ticker' ), array( $this, 'metabox_layout_css' ), 'ditty_layout', 'normal' );
-	}
-	
-	/**
-	 * Save custom meta
-	 * 
-	 * @since  3.0
-	 * @return void
-	 */
-	public function metabox_save( $post_id ) {
-		global $post;
-		
-		// verify nonce
-		if ( ! isset( $_POST['ditty_layout_nonce'] ) || ! wp_verify_nonce( $_POST['ditty_layout_nonce'], basename( __FILE__ ) ) ) {
-			return $post_id;
-		}
-	
-		// check autosave
-		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || isset( $_REQUEST['bulk_edit'] ) ) return $post_id;
-		
-		// don't save if only a revision
-		if ( isset( $post->post_type ) && $post->post_type == 'revision' ) return $post_id;
-	
-		// check permissions
-		if ( isset( $_POST['post_type'] ) && 'ditty_layout' == $_POST['post_type'] ) {
-			if ( ! current_user_can( 'edit_ditty_layout', $post_id ) ) {
-				return $post_id;
-			}
-		} elseif ( ! current_user_can( 'edit_ditty_layout', $post_id ) ) {
-			return $post_id;
-		}
-		
-		$description = sanitize_text_field( $_POST['_ditty_layout_description'] );
-		$layout_html = wp_kses_post( $_POST['_ditty_layout_html'] );	
-		$layout_css = wp_kses_post( $_POST['_ditty_layout_css'] );	
-
-		update_post_meta( $post_id, '_ditty_layout_description', $description );
-		update_post_meta( $post_id, '_ditty_layout_html', $layout_html );
-		update_post_meta( $post_id, '_ditty_layout_css', $layout_css );
-		
-		// Possibly add a uniq_id
-		ditty_maybe_add_uniq_id( $post_id );
-		
-		// Remove the version number of edited layouts
-		delete_post_meta( $post_id, '_ditty_layout_template' );
-		delete_post_meta( $post_id, '_ditty_layout_version' );
-	}
-	
-	/**
-	 * Add the Layout info metabox
-	 * 
-	 * @since  3.0
-	 * @return void
-	 */
-	public function metabox_layout_info() {
-		global $post;
-		$description = get_post_meta( $post->ID, '_ditty_layout_description', true );
-
-		$fields = array();
-		$fields['description'] = array(
-			'type' => 'textarea',
-			'id'	=> '_ditty_layout_description',
-			'name' => __( 'Description', 'ditty-news-ticker' ),
-			'std' => $description,
-		);
-		ditty_fields( $fields );
-		echo '<input type="hidden" name="ditty_layout_nonce" value="' . wp_create_nonce( basename( __FILE__ ) ) . '" />';
-	}
-	
-	/**
-	 * Add the Layout html metabox
-	 * 
-	 * @since  3.0
-	 * @return void
-	 */
-	public function metabox_layout_html() {
-		global $post;
-		$layout_html = get_post_meta( $post->ID, '_ditty_layout_html', true );	
-		$field_args = array(
-			'type' 	=> 'code',
-			'id'		=> '_ditty_layout_html',
-			'name' 	=> false,
-			'std' 	=> $layout_html,
-		);
-		echo ditty_field( $field_args );
-	}
-	
-	/**
-	 * Add the Layout css metabox
-	 * 
-	 * @since  3.0
-	 * @return void
-	 */
-	public function metabox_layout_css() {
-		global $post;
-		$layout_css = get_post_meta( $post->ID, '_ditty_layout_css', true );
-		$field_args = array(
-			'type' 	=> 'code',
-			'id'		=> '_ditty_layout_css',
-			'name' 	=> false,
-			'rows'	=> 8,
-			'std' 	=> stripslashes( $layout_css ),
-			'js_options' => array(
-				'mode' => 'sass',
-			),
-		);
-		echo ditty_field( $field_args );
 	}
 
 	/**
