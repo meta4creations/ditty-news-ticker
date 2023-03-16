@@ -558,44 +558,46 @@ class Ditty_Singles {
 	 * @since  3.0.17
 	 */
 	public function sanitize_item_data( $item_data ) {
-		$item_type 				= isset( $item_data['item_type'] ) ? $item_data['item_type'] : false;
-		$item_value 			= isset( $item_data['item_value'] ) ? $item_data['item_value'] : false;
-		$layout_value 		= isset( $item_data['layout_value'] ) ? $item_data['layout_value'] : false;
-		$attribute_value 	= isset( $item_data['attribute_value'] ) ? $item_data['attribute_value'] : false;
-		
-		// Sanitize values by item type
-		$sanitized_item_value = false;
-		if ( $item_type && $item_value ) {
-			if ( $item_type_object = ditty_item_type_object( $item_type ) ) {
-				$sanitized_item_value = $item_type_object->sanitize_settings( $item_value );
-			}
-		}
-
 		$sanitized_item = array();
+		
+		// Sanitize the Ditty ID
 		if ( isset( $item_data['ditty_id'] ) ) {
 			$sanitized_item['ditty_id'] = intval( $item_data['ditty_id'] );
 		}
+
+		// Sanitize the item ID
 		if ( isset( $item_data['item_id'] ) ) {
 			$sanitized_item['item_id'] = esc_attr( $item_data['item_id'] );
 		}
+
+		// Sanitize the item index
 		if ( isset( $item_data['item_index'] ) ) {
 			$sanitized_item['item_index'] = intval( $item_data['item_index'] );
 		}
+
+		// Sanitize the item type
 		if ( isset( $item_data['item_type'] ) ) {
 			$sanitized_item['item_type'] = esc_attr( $item_data['item_type'] );
 		}
-		if ( isset( $item_data['item_value'] ) ) {
-			$sanitized_item['item_value'] = $sanitized_item_value;
+
+		// Sanitize the item value
+		if ( isset( $item_data['item_value'] ) && isset( $item_data['item_type'] ) ) {
+			if ( $item_type_object = ditty_item_type_object( $item_data['item_type'] ) ) {
+				$sanitized_item['item_value'] = $item_type_object->sanitize_settings( $item_data['item_value'] );
+			}
 		}
-		if ( isset( $item_data['layout_id'] ) ) {
-			$sanitized_item['layout_id'] = esc_attr( $item_data['layout_id'] );
-		}
+
+		// Sanitize the layout value
 		if ( isset( $item_data['layout_value'] ) ) {
-			$sanitized_item['layout_value'] = $this->sanitize_item_layout_value( $layout_value );
+			$sanitized_item['layout_value'] = $this->sanitize_item_layout_value( $item_data['layout_value'] );
 		}
+
+		// Sanitize the attribute value
 		if ( isset( $item_data['attribute_value'] ) ) {
-			$sanitized_item['attribute_value'] = $this->sanitize_item_attribute_value( $attribute_value );
+			$sanitized_item['attribute_value'] = $this->sanitize_item_attribute_value( $item_data['attribute_value'] );
 		}
+
+		// Sanitize the item author
 		if ( isset( $item_data['item_author'] ) ) {
 			$sanitized_item['item_author'] = intval( $item_data['item_author'] );
 		}
@@ -617,7 +619,7 @@ class Ditty_Singles {
 		$deletedItems = isset( $data['deletedItems'] ) ? $data['deletedItems'] : array();
 		$display = isset( $data['display'] ) ? $data['display'] : false;
 		$settings = isset( $data['settings'] ) ? $data['settings'] : false;
-		$title = isset( $data['title'] ) ? $data['title'] : false;
+		$title = isset( $data['title'] ) ? sanitize_text_field( $data['title'] ) : false;
 		$status = isset( $data['status'] ) ? $data['status'] : false;
 
 		$updates = array();

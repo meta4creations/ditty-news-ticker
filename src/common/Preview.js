@@ -6,15 +6,17 @@ const Preview = ({ id, title, display, displayItems, className, styles }) => {
   const classes = classnames(className);
 
   return (
-    <div id="ditty-editor__preview" className={classes} style={styles}>
-      {id && (
-        <Ditty
-          id={id}
-          title={title}
-          display={display}
-          displayItems={displayItems}
-        />
-      )}
+    <div id="ditty-editor__preview" className={classes}>
+      <div id="ditty-editor__preview__contents" style={styles}>
+        {id && (
+          <Ditty
+            id={id}
+            title={title}
+            display={display}
+            displayItems={displayItems}
+          />
+        )}
+      </div>
     </div>
   );
 };

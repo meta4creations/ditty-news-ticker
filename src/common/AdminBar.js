@@ -8,7 +8,7 @@ import { TextField, TextareaField } from "../fields";
 import { ReactComponent as Logo } from "../assets/img/d.svg";
 
 const AdminBar = ({
-  logo = <Logo style={{ height: "30px", fill: "#19bf7c" }} />,
+  logo = <Logo style={{ height: "30px" }} />,
   title,
   description,
   status,

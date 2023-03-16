@@ -43,8 +43,6 @@ export default () => {
       : {}
   );
 
-  console.log("settings", settings);
-
   const hasUpdates = Object.keys(updates).length !== 0;
 
   const onDisplaySaveComplete = (data) => {
@@ -77,8 +75,8 @@ export default () => {
       // Show Toast updates
       toastUpdates.map((update, index) => {
         toast(update, {
-          autoClose: 3000,
-          icon: <Logo style={{ height: "30px", fill: "#19bf7c" }} />,
+          autoClose: 2000,
+          icon: <Logo style={{ height: "30px" }} />,
           delay: index * 100,
         });
       });
@@ -112,7 +110,7 @@ export default () => {
     setUpdates({});
   };
 
-  const handleSaveDisplay = () => {
+  const handleSaveDisplay = async () => {
     if (!hasUpdates) {
       return false;
     }
@@ -138,7 +136,22 @@ export default () => {
       editorSettings: updates.editorSettings ? updates.editorSettings : false,
       display: display,
     };
-    saveDisplay(data, onDisplaySaveComplete);
+
+    try {
+      await saveDisplay(data, onDisplaySaveComplete);
+    } catch (ex) {
+      let update = __("Whoops! Something went wrong...", "ditty-news-ticker");
+      if (ex.response && ex.response.status === 403) {
+        update = ex.response.data.message;
+      }
+
+      setShowSpinner(false);
+      toast(update, {
+        autoClose: 2000,
+        icon: <Logo style={{ height: "30px" }} />,
+        className: "ditty-error",
+      });
+    }
   };
 
   const handleUpdateTitle = (updatedTitle) => {
@@ -218,7 +231,7 @@ export default () => {
     for (let i = 0; i < numberOfItems; i++) {
       updatedPreviewItems.push({
         css: "",
-        html: `<div class="ditty-item ditty-item--${i} ditty-item-type--default ditty-layout--${id}" data-item_id="${i}" data-item_uniq_id="${i}" data-parent_id="0" data-item_type="default" data-layout_id="${id}"><div class="ditty-item__elements"><div class="ditty-item__content">${loremIpsum()}</div></div></div>`,
+        html: `<div class="ditty-item ditty-item--${i} ditty-item-type--default ditty-layout--${id}" data-item_id="${i}" data-item_uniq_id="${i}" data-parent_id="0" data-item_type="default" data-layout_id="${id}"><div class="ditty-item__elements"><div class="ditty-item__content" style="font-size:14px;line-height:1.5em;">${loremIpsum()}</div></div></div>`,
         id: i,
         is_disabled: [],
         layout_id: id,

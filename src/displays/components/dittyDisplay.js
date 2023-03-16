@@ -251,7 +251,5 @@ export default class DittyDisplay {
     }
   }
 
-  destroy() {
-    console.log("destroy");
-  }
+  destroy() {}
 }

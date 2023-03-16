@@ -400,9 +400,6 @@ function displayItemStyles(settings, display, type) {
 export function updateDisplayStyles(settings, display, type) {
   const styleEl = document.getElementById(`ditty-display--${display}`);
 
-  console.log("display", display);
-  console.log("type", type);
-
   let styles = "";
   styles += displayTitleStyles(settings, display, type);
   styles += displayContainerStyles(settings, display, type);

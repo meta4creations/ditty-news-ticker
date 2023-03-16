@@ -113,8 +113,8 @@ export default () => {
       // Show Toast updates
       toastUpdates.map((update, index) => {
         toast(update, {
-          autoClose: 3000,
-          icon: <Logo style={{ height: "30px", fill: "#19bf7c" }} />,
+          autoClose: 2000,
+          icon: <Logo style={{ height: "30px" }} />,
           delay: index * 100,
         });
       });
@@ -150,7 +150,7 @@ export default () => {
     setUpdates({});
   };
 
-  const handleSaveLayout = () => {
+  const handleSaveLayout = async () => {
     if (!hasUpdates) {
       return false;
     }
@@ -170,7 +170,22 @@ export default () => {
       editorSettings: updates.editorSettings ? updates.editorSettings : false,
       layout: layout,
     };
-    saveLayout(data, onLayoutSaveComplete);
+
+    try {
+      await saveLayout(data, onLayoutSaveComplete);
+    } catch (ex) {
+      let update = __("Whoops! Something went wrong...", "ditty-news-ticker");
+      if (ex.response && ex.response.status === 403) {
+        update = ex.response.data.message;
+      }
+
+      setShowSpinner(false);
+      toast(update, {
+        autoClose: 2000,
+        icon: <Logo style={{ height: "30px" }} />,
+        className: "ditty-error",
+      });
+    }
   };
 
   const handleUpdateTitle = (updatedTitle) => {

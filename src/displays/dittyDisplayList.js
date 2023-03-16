@@ -19,9 +19,7 @@ export default class DittyDisplayList extends DittyDisplay {
     );
   }
 
-  initialize() {
-    console.log("Initialize List");
-  }
+  initialize() {}
 
   /**
    * Stop the ticker on mouse enter

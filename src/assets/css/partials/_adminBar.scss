@@ -19,6 +19,9 @@
     flex: 1;
     overflow: hidden;
   }
+  &__logo {
+    color: $green;
+  }
   &__title {
     display: flex;
     gap: 10px;

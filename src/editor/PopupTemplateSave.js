@@ -149,7 +149,7 @@ const PopupTemplateSave = ({
         await saveLayout(data, handleApiData);
       }
       toast(`"${templateName}" template has been saved!`, {
-        autoClose: 3000,
+        autoClose: 2000,
         icon: (
           <svg
             className="ditty-logo"

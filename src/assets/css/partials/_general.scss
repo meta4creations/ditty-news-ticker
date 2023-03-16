@@ -139,12 +139,20 @@
   }
   .Toastify__toast {
     background-color: #fff;
-    .ditty-logo {
-      fill: $green;
+    &-icon {
+      color: $green;
     }
-  }
-  .Toastify__progress-bar {
-    background: $green;
+    .Toastify__progress-bar {
+      background: $green;
+    }
+    &.ditty-error {
+      .Toastify__toast-icon {
+        color: $red;
+      }
+      .Toastify__progress-bar {
+        background: $red;
+      }
+    }
   }
 }
 .admin-bar .ditty-adminPage {

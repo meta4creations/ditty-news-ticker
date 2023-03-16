@@ -371,16 +371,16 @@ class Ditty_Displays {
 	 * @param   array
 	 */
 	public function save( $data ) {	
-		$userId = isset( $data['userId'] ) ? intval( $data['userId'] ) : 0;
+		$userId = isset( $data['userId'] ) ? $data['userId'] : 0;
 		$title = isset( $data['title'] ) ? sanitize_text_field( $data['title'] ) : false;
-		$description = isset( $data['description'] ) ? sanitize_textarea_field( $data['description'] ) : false;
+		$description = isset( $data['description'] ) ? $data['description']: false;
 		$status = isset( $data['status'] ) ? esc_attr( $data['status'] ) : false;
 		$editor_settings = isset( $data['editorSettings'] ) ? $data['editorSettings'] : false;
 
 		$display = isset( $data['display'] ) ? $data['display'] : array();
-		$display_id = isset( $display['id'] ) ? sanitize_text_field( $display['id'] ) : false;
-		$display_type = isset( $display['type'] ) ? esc_attr( $display['type'] ) : false;
-		$display_settings = isset( $display['settings'] ) ? ditty_sanitize_settings( $display['settings'], "display_${$display_type}" ) : false;
+		$display_id = isset( $display['id'] ) ? $display['id'] : false;
+		$display_type = isset( $display['type'] ) ? $display['type'] : false;
+		$display_settings = isset( $display['settings'] ) ? $display['settings'] : false;
 
 		$updates = array();
 		$errors = array();
@@ -425,26 +425,41 @@ class Ditty_Displays {
 		// Update a display description
 		if ( $description ) {
 			$sanitized_description = wp_kses_post( $description );
-			update_post_meta( $display_id, '_ditty_display_description', $sanitized_description );
-			$updates['description'] = $sanitized_description;
+			if ( update_post_meta( $display_id, '_ditty_display_description', $sanitized_description ) ) {
+				$updates['description'] = $sanitized_description;
+			} else {
+				$errors['description'] = $sanitized_description;
+			}
 		}
 		
 		// Update a display type
 		if ( $display_type ) {
-			update_post_meta( $display_id, '_ditty_display_type', $display_type );
-			$updates['type'] = $display_type;
+			$sanitized_display_type = esc_attr( $display_type );
+			if ( update_post_meta( $display_id, '_ditty_display_type', $sanitized_display_type ) ) {
+				$updates['type'] = $sanitized_display_type;
+			} else {
+				$errors['type'] = $sanitized_display_type;
+			}
 		}
 
 		// Update a display settings
 		if ( $display_settings ) {
-			update_post_meta( $display_id, '_ditty_display_settings', $display_settings );
-			$updates['settings'] = $display_settings;
+			$sanitized_display_settings = ditty_sanitize_settings( $display_settings, "display_{$display_type}" );
+			if ( update_post_meta( $display_id, '_ditty_display_settings', $sanitized_display_settings ) ) {
+				$updates['settings'] = $sanitized_display_settings;
+			} else {
+				$errors['settings'] = $sanitized_display_settings;
+			}
 		}
 
 		// Update the editor settings
 		if ( $editor_settings ) {
-			update_post_meta( $display_id, '_ditty_editor_settings', $editor_settings );
-			$updates['editorSettings'] = $editor_settings;
+			$sanitized_editor_settings = ditty_sanitize_settings( $editor_settings );
+			if ( update_post_meta( $display_id, '_ditty_editor_settings', $sanitized_editor_settings ) ) {
+				$updates['editorSettings'] = $sanitized_editor_settings;
+			} else {
+				$errors['editorSettings'] = $sanitized_editor_settings;
+			}
 		}
 
 		return array(

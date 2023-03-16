@@ -459,8 +459,8 @@ export class EditorProvider extends Component {
       // Show Toast updates
       toastUpdates.map((update, index) => {
         toast(update, {
-          autoClose: 3000,
-          icon: <Logo style={{ height: "30px", fill: "#19bf7c" }} />,
+          autoClose: 2000,
+          icon: <Logo style={{ height: "30px" }} />,
           delay: index * 100,
         });
       });
@@ -513,9 +513,17 @@ export class EditorProvider extends Component {
       this.initialItems = resetItemUpdates;
       this.setState({ items: resetItemUpdates });
     } catch (ex) {
-      console.log("catch", ex);
-      if (ex.response && ex.response.status === 404) {
+      let update = __("Whoops! Something went wrong...", "ditty-news-ticker");
+      if (ex.response && ex.response.status === 403) {
+        update = ex.response.data.message;
       }
+
+      onComplete();
+      toast(update, {
+        autoClose: 2000,
+        icon: <Logo style={{ height: "30px" }} />,
+        className: "ditty-error",
+      });
     }
   };
 

@@ -33,8 +33,8 @@ export default () => {
 
     if (data.updates.settings) {
       toast(__("Settings have been updated!", "ditty-news-ticker"), {
-        autoClose: 3000,
-        icon: <Logo style={{ height: "30px", fill: "#19bf7c" }} />,
+        autoClose: 2000,
+        icon: <Logo style={{ height: "30px" }} />,
       });
       setInitSettings(_.cloneDeep(data.updates.settings));
       setSettings(_.cloneDeep(data.updates.settings));
@@ -84,7 +84,6 @@ export default () => {
           />
         );
       case "extensions":
-        console.log("currentFieldGroup", currentFieldGroup);
         return (
           <FieldList
             name={currentFieldGroup.name}

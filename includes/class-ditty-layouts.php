@@ -738,7 +738,7 @@ class Ditty_Layouts {
 	 */
 	public function save( $data ) {	
 		$userId = isset( $data['userId'] ) ? $data['userId'] : 0;
-		$title = isset( $data['title'] ) ? $data['title'] : false;
+		$title = isset( $data['title'] ) ? sanitize_text_field( $data['title'] ) : false;
 		$description = isset( $data['description'] ) ? $data['description'] : false;
 		$status = isset( $data['status'] ) ? esc_attr( $data['status'] ) : false;
 		$editor_item = isset( $data['editorItem'] ) ? $data['editorItem'] : false;
@@ -792,34 +792,51 @@ class Ditty_Layouts {
 		// Update the layout description
 		if ( $description ) {
 			$sanitized_description = wp_kses_post( $description );
-			update_post_meta( $layout_id, '_ditty_layout_description', $sanitized_description );
-			$updates['description'] = $sanitized_description;
+			if ( update_post_meta( $layout_id, '_ditty_layout_description', $sanitized_description ) ) {
+				$updates['description'] = $sanitized_description;
+			} else {
+				$errors['description'] = $sanitized_description;
+			}		
 		}
 		
 		// Update the layout type
 		if ( $layout_html ) {
-			$html = stripslashes( $layout_html );
-			update_post_meta( $layout_id, '_ditty_layout_html', wp_kses_post( $html ) );
-			$updates['html'] = $html;
+			$html = wp_kses_post( stripslashes( $layout_html ) );
+			if ( update_post_meta( $layout_id, '_ditty_layout_html', $html ) ) {
+				$updates['html'] = $html;
+			} else {
+				$errors['html'] = $html;
+			}		
 		}
 
 		// Update the layout settings
 		if ( $layout_css ) {
-			update_post_meta( $layout_id, '_ditty_layout_css', wp_kses_post( $layout_css ) );
-			$updates['css'] = $layout_css;
+			$css = wp_kses_post( $layout_css );
+			if ( update_post_meta( $layout_id, '_ditty_layout_css', $css ) ) {
+				$updates['css'] = $css;
+			} else {
+				$errors['css'] = $css;
+			}	
 		}
 
 		// Update the editor item
 		if ( $editor_item ) {
 			$sanitized_editor_item = Ditty()->singles->sanitize_item_data( $editor_item );
-			update_post_meta( $layout_id, '_ditty_editor_item', $sanitized_editor_item );
-			$updates['editorItem'] = $sanitized_editor_item;
+			if ( update_post_meta( $layout_id, '_ditty_editor_item', $sanitized_editor_item ) ) {
+				$updates['editorItem'] = $sanitized_editor_item;
+			} else {
+				$errors['editorItem'] = $sanitized_editor_item;
+			}	
 		}
 
 		// Update the editor settings
 		if ( $editor_settings ) {
-			update_post_meta( $layout_id, '_ditty_editor_settings', $editor_settings );
-			$updates['editorSettings'] = $editor_settings;
+			$sanitized_editor_settings = ditty_sanitize_settings( $editor_settings );
+			if ( update_post_meta( $layout_id, '_ditty_editor_settings', $sanitized_editor_settings ) ) {
+				$updates['editorSettings'] = $sanitized_editor_settings;
+			} else {
+				$errors['editorSettings'] = $sanitized_editor_settings;
+			}	
 		}
 
 		return array(

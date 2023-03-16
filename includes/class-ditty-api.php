@@ -66,7 +66,7 @@ class Ditty_API {
 		$apiData = isset( $params['apiData'] ) ? $params['apiData'] : array();
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
 		if ( ! user_can( $userId, 'edit_dittys' ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allow to edit Ditty.', 'ditty-news-ticker' ), array( 'status' => 401 ) );
+			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allowed to edit Ditty.', 'ditty-news-ticker' ), array( 'status' => 403 ) );
 		}
 		return true;
 	}
@@ -82,7 +82,7 @@ class Ditty_API {
 		$apiData = isset( $params['apiData'] ) ? $params['apiData'] : array();
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
 		if ( ! user_can( $userId, 'edit_ditty_displays' ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allow to edit Displays.', 'ditty-news-ticker' ), array( 'status' => 401 ) );
+			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allowed to edit Displays.', 'ditty-news-ticker' ), array( 'status' => 403 ) );
 		}
 		return true;
 	}
@@ -98,7 +98,7 @@ class Ditty_API {
 		$apiData = isset( $params['apiData'] ) ? $params['apiData'] : array();
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
 		if ( ! user_can( $userId, 'edit_ditty_layouts' ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allow to edit Layouts.', 'ditty-news-ticker' ), array( 'status' => 401 ) );
+			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allowed to edit Layouts.', 'ditty-news-ticker' ), array( 'status' => 403 ) );
 		}
 		return true;
 	}
@@ -114,7 +114,7 @@ class Ditty_API {
 		$apiData = isset( $params['apiData'] ) ? $params['apiData'] : array();
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
 		if ( ! user_can( $userId, 'manage_ditty_settings' ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allow to edit Layouts.', 'ditty-news-ticker' ), array( 'status' => 401 ) );
+			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allow to edit Layouts.', 'ditty-news-ticker' ), array( 'status' => 403 ) );
 		}
 		return true;
 	}
@@ -128,16 +128,12 @@ class Ditty_API {
 	public function save_ditty( $request ) {
 		$params = $request->get_params();
 		if ( ! isset( $params['apiData'] ) ) {
-			return new WP_Error( 'no_api_data', __( 'No data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+			return new WP_Error( 'no_api_data', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
 		}
 		$apiData = $params['apiData'];
-		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
-		if ( 0 == $userId ) {
-			return new WP_Error( 'no_userId', __( 'No user id', 'ditty-news-ticker' ), array( 'status' => 404 ) );
-		}
+
 		$saveData = Ditty()->singles->save( $apiData );
 		$saveData['apiData'] = $apiData;
-
 		return rest_ensure_response( $saveData );
 	}
 
@@ -168,7 +164,7 @@ class Ditty_API {
 	public function save_layout( $request ) {
 		$params = $request->get_params();
 		if ( ! isset( $params['apiData'] ) ) {
-			return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+			return new WP_Error( 'no_api_data', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
 		}
 		$apiData = $params['apiData'];
 
@@ -186,7 +182,7 @@ class Ditty_API {
 	public function save_settings( $request ) {
 		$params = $request->get_params();
 		if ( ! isset( $params['apiData'] ) ) {
-			return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+			return new WP_Error( 'no_api_data', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
 		}
 		$apiData = $params['apiData'];
 
