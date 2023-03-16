@@ -455,7 +455,6 @@ const displaySettingsNavigation = (
                       none: __("Hide", "ditty-news-ticker"),
                       style1: __("Show", "ditty-news-ticker"),
                     },
-                    std: "style1",
                   },
                   {
                     type: "color",
@@ -465,7 +464,6 @@ const displaySettingsNavigation = (
                       "Add a custom icon color to the arrows",
                       "ditty-news-ticker"
                     ),
-                    std: "#777",
                   },
                   {
                     type: "color",
@@ -489,7 +487,6 @@ const displaySettingsNavigation = (
                       center: __("Center", "ditty-news-ticker"),
                       flexEnd: __("Bottom", "ditty-news-ticker"),
                     },
-                    std: "center",
                   },
                   {
                     type: "spacing",
@@ -513,7 +510,6 @@ const displaySettingsNavigation = (
                       "Keep arrows visible at all times",
                       "ditty-news-ticker"
                     ),
-                    std: 1,
                   },
                 ],
                 displayType
@@ -547,7 +543,6 @@ const displaySettingsNavigation = (
                       none: __("Hide", "ditty-news-ticker"),
                       style1: __("Show", "ditty-news-ticker"),
                     },
-                    std: "style1",
                   },
                   {
                     type: "color",
@@ -557,7 +552,6 @@ const displaySettingsNavigation = (
                       "Add a custom color to the bullets",
                       "ditty-news-ticker"
                     ),
-                    std: "#777",
                   },
                   {
                     type: "color",
@@ -567,7 +561,6 @@ const displaySettingsNavigation = (
                       "Add a custom color to the active bullet",
                       "ditty-news-ticker"
                     ),
-                    std: "#000",
                   },
                   {
                     type: "select",
@@ -596,7 +589,6 @@ const displaySettingsNavigation = (
                       "ditty-news-ticker"
                     ),
                     min: 0,
-                    std: "5px",
                   },
                   {
                     type: "spacing",

@@ -17,6 +17,7 @@
     "@wordpress/scripts": "25.5.1"
   },
   "dependencies": {
+    "@codemirror/commands": "6.2.2",
     "@codemirror/lang-css": "6.1.1",
     "@codemirror/lang-html": "6.4.2",
     "@codemirror/view": "6.9.2",

@@ -72,8 +72,8 @@ const PopupEditLayoutTag = ({
                 top: "0",
                 right: "0",
                 padding: "5px",
-                width: "25px",
-                height: "25px",
+                width: "20px",
+                height: "20px",
                 background: "rgba(255,255,255,.5)",
                 cursor: "pointer",
               }}

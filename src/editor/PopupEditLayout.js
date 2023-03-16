@@ -99,7 +99,6 @@ const PopupEditLayout = ({
             key="css"
             value={editLayout.css}
             extensions={[css()]}
-            tags={itemTypeObject.layoutTags}
             onChange={(value) => updateLayout("css", value)}
           />
         </>
@@ -111,7 +110,6 @@ const PopupEditLayout = ({
             key="html"
             value={editLayout.html}
             extensions={[html()]}
-            tags={itemTypeObject.layoutTags}
             onChange={(value) => updateLayout("html", value)}
           />
         </>

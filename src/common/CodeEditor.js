@@ -2,14 +2,14 @@
 
 import { useState, useRef, useEffect, useCallback } from "@wordpress/element";
 import _ from "lodash";
-import { basicSetup, EditorView } from "codemirror";
+import { basicSetup } from "codemirror";
 import {
+  EditorView,
   keymap,
   defaultKeymap,
-  indentWithTab,
-  lineWrapping,
   highlightActiveLine,
 } from "@codemirror/view";
+import { indentWithTab } from "@codemirror/commands";
 //import { basicSetup } from "@codemirror/basic-setup";
 //import { EditorState } from "@codemirror/state";
 //import { EditorView, keymap } from "@codemirror/view";
@@ -64,6 +64,8 @@ const CodeEditor = ({ value, extensions, onChange, delayChange = false }) => {
         basicSetup,
         onUpdate,
         [...extensions],
+        EditorView.lineWrapping,
+        keymap.of([indentWithTab]),
         highlightActiveLine(),
         //keymap.of([defaultKeymap, indentWithTab]),
         // lineWrapping,

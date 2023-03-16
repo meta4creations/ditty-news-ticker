@@ -65,6 +65,12 @@ const PanelItem = ({ editorItem, onUpdateEditorItem }) => {
   const panelHeader = () => {
     return (
       <>
+        <div className="ditty-editor__panel__description">
+          {__(
+            "Choose a sample item type to preview the layout. This is for preview purposes only.",
+            "ditty-news-ticker"
+          )}
+        </div>
         <IconBlock
           icon={itemTypeObject.icon}
           className="ditty-icon-block--heading"

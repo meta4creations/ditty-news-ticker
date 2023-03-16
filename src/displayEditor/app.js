@@ -23,11 +23,11 @@ export default () => {
 
   const displayTypeObject = getDisplayTypeObject(dittyEditorVars.type);
 
-  const initSettings =
+  const [settings, setSettings] = useState(
     "ditty_display-new" == id
       ? displayTypeObject.defaultValues
-      : dittyEditorVars.settings;
-  const [settings, setSettings] = useState(initSettings);
+      : dittyEditorVars.settings
+  );
   const [editorSettings, setEditorSettings] = useState(
     dittyEditorVars.editorSettings ? dittyEditorVars.editorSettings : {}
   );
@@ -38,10 +38,13 @@ export default () => {
           title: title,
           id: dittyEditorVars.id,
           type: dittyEditorVars.type,
-          settings: initSettings,
+          settings: settings,
         }
       : {}
   );
+
+  console.log("settings", settings);
+
   const hasUpdates = Object.keys(updates).length !== 0;
 
   const onDisplaySaveComplete = (data) => {

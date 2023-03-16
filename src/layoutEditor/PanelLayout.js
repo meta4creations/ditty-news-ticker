@@ -65,7 +65,6 @@ const PanelLayout = ({
           key="css"
           value={layoutCss}
           extensions={[css()]}
-          tags={itemTypeObject.layoutTags}
           onChange={onUpdateLayoutCss}
           delayChange={true}
         />
@@ -76,7 +75,6 @@ const PanelLayout = ({
           key="html"
           value={layoutHtml}
           extensions={[html()]}
-          tags={itemTypeObject.layoutTags}
           onChange={onUpdateLayoutHtml}
           delayChange={true}
         />

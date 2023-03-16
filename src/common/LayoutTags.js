@@ -1,11 +1,12 @@
-import classnames from "classnames";
 import { useState } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 import PopupEditLayoutTag from "./PopupEditLayoutTag";
 
 const LayoutTags = ({ type, layoutTags, className, styles }) => {
   const [currentTag, setCurrentTag] = useState(false);
-  const classes = classnames(className);
+
+  const modifiedLayoutTags =
+    "css" === type ? [{ tag: "elements" }, ...layoutTags] : layoutTags;
 
   /**
    * Render a popup component
@@ -37,8 +38,8 @@ const LayoutTags = ({ type, layoutTags, className, styles }) => {
         )}
       </p>
       <div className="editLayout__tagCloud__tags">
-        {layoutTags &&
-          layoutTags.map((layoutTag) => {
+        {modifiedLayoutTags &&
+          modifiedLayoutTags.map((layoutTag) => {
             return (
               <span
                 key={layoutTag.tag}
@@ -72,8 +73,8 @@ const LayoutTags = ({ type, layoutTags, className, styles }) => {
           )}
         </p>
         <div className="editLayout__tagCloud__tags">
-          {layoutTags &&
-            layoutTags.map((layoutTag) => {
+          {modifiedLayoutTags &&
+            modifiedLayoutTags.map((layoutTag) => {
               return (
                 <span
                   key={layoutTag.tag}

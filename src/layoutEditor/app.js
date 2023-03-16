@@ -5,6 +5,7 @@ import LayoutEditor from "./LayoutEditor";
 import { ReactComponent as Logo } from "../assets/img/d.svg";
 
 import { saveLayout } from "../services/httpService";
+import { getItemTypeObject } from "../utils/itemTypes";
 import { compileLayoutStyle } from "../utils/layouts";
 import { getDisplayItems } from "../services/dittyService";
 import { updateLayoutCss } from "../utils/helpers";
@@ -12,16 +13,30 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default () => {
+  const defaultItemTypeObject = getItemTypeObject("default");
+
   const [id, setId] = useState(dittyEditorVars.id);
   const [title, setTitle] = useState(dittyEditorVars.title);
   const [description, setDescription] = useState(dittyEditorVars.description);
   const [status, setStatus] = useState(dittyEditorVars.status);
-  const [html, setHtml] = useState(dittyEditorVars.html);
-  const [css, setCss] = useState(dittyEditorVars.css);
+  const [html, setHtml] = useState(
+    "ditty_layout-new" === dittyEditorVars.id
+      ? defaultItemTypeObject.defaultLayout.html
+      : dittyEditorVars.html
+  );
+  const [css, setCss] = useState(
+    "ditty_layout-new" === dittyEditorVars.id
+      ? defaultItemTypeObject.defaultLayout.css
+      : dittyEditorVars.css
+  );
   const [editorItem, setEditorItem] = useState(
     dittyEditorVars.editorItem
       ? dittyEditorVars.editorItem
-      : { item_id: id, item_type: "default", item_value: {} }
+      : {
+          item_id: id,
+          item_type: "default",
+          item_value: defaultItemTypeObject.defaultValues,
+        }
   );
   const [editorSettings, setEditorSettings] = useState(
     dittyEditorVars.editorSettings ? dittyEditorVars.editorSettings : {}
@@ -32,8 +47,9 @@ export default () => {
       ? {
           title: title,
           id: dittyEditorVars.id,
-          html: "",
-          css: "",
+          html: html,
+          css: css,
+          editorItem: editorItem,
         }
       : {}
   );
