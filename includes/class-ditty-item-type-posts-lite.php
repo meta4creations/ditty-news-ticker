@@ -84,32 +84,6 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 		);
 		return apply_filters( 'ditty_item_type_fields', $fields, $this, $values );
 	}
-
-	/**
-	 * Return the layout tags
-	 *
-	 * @access  public
-	 * @since   3.1
-	 */
-	public function get_layout_tags() {
-		$layout_tags = ditty_layout_tags();
-		$allowed_tags = array(
-			'author_avatar',
-			'author_bio',
-			'author_name',
-			'categories',
-			'content',
-			'excerpt',
-			'icon',
-			'image',
-			'image_url',
-			'permalink',
-			'time',
-			'title',
-		);
-		$tags = array_intersect_key( $layout_tags, array_flip( $allowed_tags ) );
-		return $tags;
-	}
 	
 	/**
 	 * Set the default field values
@@ -167,5 +141,40 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 		$args 		= wp_parse_args( $value, $defaults );
 		$preview 	= sprintf( __( 'Displaying %d Posts' ), $args['limit'] );
 		return $preview;
+	}
+
+	/**
+	 * Return the layout tags
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function get_layout_tags() {
+		$args = [
+			'link_options' => [
+				'true' => 'post',
+				'author' => 'author',
+				'author_link' => 'author_link',
+				'none' => 'none',
+			],
+		];
+
+		$layout_tags = ditty_layout_tags();
+		$allowed_tags = array(
+			'author_avatar',
+			'author_bio',
+			'author_name',
+			'categories',
+			'content',
+			'excerpt',
+			'icon',
+			'image',
+			'image_url',
+			'permalink',
+			'time',
+			'title',
+		);
+		$tags = array_intersect_key( $layout_tags, array_flip( $allowed_tags ) );
+		return $tags;
 	}
 }

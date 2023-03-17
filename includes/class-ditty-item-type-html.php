@@ -1,22 +1,22 @@
 <?php
 
 /**
- * Ditty Item Type Custom HTML Class
+ * Ditty Item Type HTML Class
  *
  * @package     Ditty
- * @subpackage  Classes/Ditty Custom HTML Type
+ * @subpackage  Classes/Ditty HTML Type
  * @copyright   Copyright (c) 2021, Metaphor Creations
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       3.1
 */
-class Ditty_Item_Type_Custom_Html extends Ditty_Item_Type {
+class Ditty_Item_Type_Html extends Ditty_Item_Type {
 	
 	/**
 	 * Slug
 	 *
 	 * @since 3.1
 	 */
-	public $slug = 'custom_html';
+	public $slug = 'html';
 	
 	/**
 	 * Setup the type settings
@@ -77,5 +77,42 @@ class Ditty_Item_Type_Custom_Html extends Ditty_Item_Type {
 		
 		$preview = stripslashes( wp_html_excerpt( $value['content'], 200, '...' ) );
 		return $preview;	
+	}
+
+	/**
+	 * Return the layout tags
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function get_layout_tags() {
+		$layout_tags = ditty_layout_tags();
+		$allowed_tags = array(
+			'content',
+			'time',
+			'author_avatar',
+			'author_bio',
+			'author_name',
+		);
+		$tags = array_intersect_key( $layout_tags, array_flip( $allowed_tags ) );
+
+		$tags['time']['atts'] = array_intersect_key( $tags['time']['atts'], array_flip( array(
+			'wrapper',
+			'ago',
+			'format',
+			'ago_string',
+			'before',
+			'after',
+			'class',
+		) ) );
+
+		$tags['content']['atts'] = array_intersect_key( $tags['content']['atts'], array_flip( array(
+			'wrapper',
+			'before',
+			'after',
+			'class',
+		) ) );
+
+		return $tags;
 	}
 }

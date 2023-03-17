@@ -10,7 +10,7 @@ function ditty_default_layout_tag_author_avatar_data( $avatar_data, $item_type, 
 	$types = array(
 		'default',	
 		'wp_editor',
-		'custom_html',
+		'html',
 	);
 	if ( in_array(  $item_type, $types ) ) {	
 		if ( $item_author = ditty_layout_item_meta( $data, 'item_author' ) ) {
@@ -34,7 +34,7 @@ function ditty_default_layout_tag_author_name( $author_name, $item_type, $data, 
 	$types = array(
 		'default',	
 		'wp_editor',
-		'custom_html',
+		'html',
 	);
 	if ( in_array(  $item_type, $types ) ) {
 		if ( $item_author = ditty_layout_item_meta( $data, 'item_author' ) ) {
@@ -55,7 +55,7 @@ function ditty_default_layout_tag_author_bio( $author_bio, $item_type, $data, $a
 	$types = array(
 		'default',	
 		'wp_editor',
-		'custom_html',
+		'html',
 	);
 	if ( in_array(  $item_type, $types ) ) {
 		if ( $item_author = ditty_layout_item_meta( $data, 'item_author' ) ) {
@@ -82,7 +82,7 @@ function ditty_default_layout_tag_content( $content, $item_type, $data, $atts ) 
 			$title = isset( $data['link_title'] ) ? $data['link_title'] : '';
 			$content = sprintf( '<a href="%2$s" class="ditty-item__link" target="%3$s" rel="%4$s" title="%5$s">%1$s</a>', $content, $url, $target, $rel, $title );
 		}
-	} elseif ( 'wp_editor' == $item_type || 'custom_html' == $item_type ) {
+	} elseif ( 'wp_editor' == $item_type || 'html' == $item_type ) {
 		$content = $data['content'];
 	}	
 	return $content;	
@@ -99,7 +99,7 @@ function ditty_default_layout_tag_timestamp( $timestamp, $item_type, $data, $att
 	$types = array(
 		'default',	
 		'wp_editor',
-		'custom_html',
+		'html',
 	);
 	if ( in_array(  $item_type, $types ) ) {
 		$timestamp = false;

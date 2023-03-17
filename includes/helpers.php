@@ -123,12 +123,12 @@ function ditty_item_types() {
 		'class_name'	=> 'Ditty_Item_Type_WP_Editor',
 		'ditty_version' 	=> '3.1'
 	);
-	$item_types['custom_html'] = array(
-		'type' 				=> 'custom_html',
-		'label' 			=> __( 'Custom HTML', 'ditty-news-ticker' ),
+	$item_types['html'] = array(
+		'type' 				=> 'html',
+		'label' 			=> __( 'HTML', 'ditty-news-ticker' ),
 		'icon' 				=> 'fas fa-code',
 		'description' => __( 'Manually add custom HTML to the item.', 'ditty-news-ticker' ),
-		'class_name'	=> 'Ditty_Item_Type_Custom_Html',
+		'class_name'	=> 'Ditty_Item_Type_Html',
 		'ditty_version' 	=> '3.1'
 	);
 	$item_types['posts_feed'] = array(

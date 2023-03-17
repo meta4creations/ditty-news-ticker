@@ -13,6 +13,7 @@ function ditty_posts_lite_tag_link_options( $options, $item_type ) {
 			'author_link' => 'author_link',
 			'none' => 'none',
 		];
+		echo '<pre>';print_r($options);echo '</pre>';
 	}
 	return $options;
 }

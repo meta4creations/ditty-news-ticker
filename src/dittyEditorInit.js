@@ -12,13 +12,18 @@ dittyEditor.helpers = {
   sliderTransitions,
 };
 dittyEditor.layoutTags = layoutTags;
+
+/**
+ * Store registered item types
+ */
+dittyEditor.itemTypes = [];
 dittyEditor.registerItemType = (itemType) => {
-  dittyEditor.addFilter("dittyItemTypes", (itemTypes) => {
-    itemTypes.push(itemType);
-    return itemTypes;
-  });
+  dittyEditor.itemTypes.push(itemType);
 };
 
+/**
+ * Store registered display types
+ */
 dittyEditor.displayTypes = [];
 dittyEditor.registerDisplayType = (displayType) => {
   dittyEditor.displayTypes.push(displayType);

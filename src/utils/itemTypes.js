@@ -8,7 +8,7 @@ import _ from "lodash";
  * @returns array
  */
 export const getItemTypes = () => {
-  const itemTypes = dittyEditor.applyFilters("dittyItemTypes", []);
+  const itemTypes = dittyEditor ? dittyEditor.itemTypes : [];
   const migratedItemTypes = migrateItemTypes(itemTypes);
   const sortedItemTypes = _.orderBy(migratedItemTypes, ["label"], ["asc"]);
   return sortedItemTypes;

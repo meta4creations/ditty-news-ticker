@@ -160,6 +160,9 @@ class Ditty_Editor {
 		if (is_array($item_types) && count($item_types) > 0) {
 			foreach ($item_types as $i => $type) {
 				$item_type_object = ditty_item_type_object($type['type']);
+				if ( ! $item_type_object ) {
+					continue;
+				}
 				$default_settings = $item_type_object->default_settings();
 				$fields = $this->format_js_fields($item_type_object->fields($default_settings));
 

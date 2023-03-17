@@ -164,6 +164,21 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 		);
 		return $sanitized_fields;
 	}
+	
+	/**
+	 * Display the editor preview
+	 *
+	 * @since    3.0
+	 * @access   public
+	 * @var      string    $preview    The editor list display of a item
+	*/
+	public function editor_preview( $value ) {
+		if ( ! isset( $value['content'] ) || '' == $value['content'] ) {
+			return __( 'No text set...', 'ditty-news-ticker' );
+		}	
+		$preview = stripslashes( wp_html_excerpt( $value['content'], 200, '...' ) );	
+		return $preview;
+	}
 
 	/**
 	 * Return the layout tags
@@ -181,21 +196,24 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 			'author_name',
 		);
 		$tags = array_intersect_key( $layout_tags, array_flip( $allowed_tags ) );
+
+		$tags['time']['atts'] = array_intersect_key( $tags['time']['atts'], array_flip( array(
+			'wrapper',
+			'ago',
+			'format',
+			'ago_string',
+			'before',
+			'after',
+			'class',
+		) ) );
+
+		$tags['content']['atts'] = array_intersect_key( $tags['content']['atts'], array_flip( array(
+			'wrapper',
+			'before',
+			'after',
+			'class',
+		) ) );
+		
 		return $tags;
-	}
-	
-	/**
-	 * Display the editor preview
-	 *
-	 * @since    3.0
-	 * @access   public
-	 * @var      string    $preview    The editor list display of a item
-	*/
-	public function editor_preview( $value ) {
-		if ( ! isset( $value['content'] ) || '' == $value['content'] ) {
-			return __( 'No text set...', 'ditty-news-ticker' );
-		}	
-		$preview = stripslashes( wp_html_excerpt( $value['content'], 200, '...' ) );	
-		return $preview;
 	}
 }

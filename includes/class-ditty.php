@@ -191,12 +191,12 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/blocks.php';
 		require_once DITTY_DIR . 'includes/helpers.php';
 		require_once DITTY_DIR . 'includes/hooks.php';
-		require_once DITTY_DIR . 'includes/layout-tags.php';
 		require_once DITTY_DIR . 'includes/layout-tag-helpers.php';
 		require_once DITTY_DIR . 'includes/layout-tag-hooks.php';
 		require_once DITTY_DIR . 'includes/layout-tag-hooks-default.php';
 		require_once DITTY_DIR . 'includes/layout-tag-hooks-posts.php';
 		require_once DITTY_DIR . 'includes/layout-templates.php';
+		require_once DITTY_DIR . 'includes/layout-tags.php';
 		require_once DITTY_DIR . 'includes/post-types.php';
 		require_once DITTY_DIR . 'includes/upgrades.php';
 		require_once DITTY_DIR . 'includes/widget.php';
@@ -238,7 +238,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-item-type.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-default.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-wp-editor.php';
-		require_once DITTY_DIR . 'includes/class-ditty-item-type-custom-html.php';
+		require_once DITTY_DIR . 'includes/class-ditty-item-type-html.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-posts-lite.php';
 		//require_once DITTY_DIR . 'includes/class-ditty-settings.php';
 		require_once DITTY_DIR . 'includes/class-ditty-singles.php';
