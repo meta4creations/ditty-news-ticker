@@ -27,7 +27,7 @@ class Ditty_Item_Type_WP_Editor extends Ditty_Item_Type {
 	public function fields( $values = array() ) {	
 		$fields = array(
 			'content' => array(
-				'type'	=> 'wysiwyg',
+				'type'	=> 'custom_html',
 				'id'		=> 'content',
 				'name'	=> __( 'Content', 'ditty-news-ticker' ),
 				'help'	=> __( 'Add the content of your item. HTML and inline styles are supported.', 'ditty-news-ticker' ),

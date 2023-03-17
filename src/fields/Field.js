@@ -5,6 +5,7 @@ import CheckboxField from "./CheckboxField";
 import CheckboxesField from "./CheckboxesField";
 import ColorField from "./ColorField";
 import ComponentField from "./ComponentField";
+import CustomHtmlField from "./CustomHtmlField";
 import GroupField from "./GroupField";
 import HtmlField from "./HtmlField";
 import LayoutTagField from "./LayoutTagField";
@@ -16,7 +17,6 @@ import SpacingField from "./SpacingField";
 import TextField from "./TextField";
 import TextareaField from "./TextareaField";
 import UnitField from "./UnitField";
-import WysiwygField from "./WysiwygField";
 
 const Field = ({ field, fieldValue, updateValue, delayChange = false }) => {
   const handleUpdateValue = (field, value) => {
@@ -72,6 +72,15 @@ const Field = ({ field, fieldValue, updateValue, delayChange = false }) => {
           );
         case "component":
           return <ComponentField value={inputValue} {...inputField} />;
+        case "custom_html":
+          return (
+            <CustomHtmlField
+              value={inputValue}
+              delayChange={delayChange}
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
+              {...inputField}
+            />
+          );
         case "group":
           return (
             <GroupField
@@ -161,15 +170,6 @@ const Field = ({ field, fieldValue, updateValue, delayChange = false }) => {
           return (
             <UnitField
               value={inputValue}
-              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
-              {...inputField}
-            />
-          );
-        case "wysiwyg":
-          return (
-            <WysiwygField
-              value={inputValue}
-              delayChange={delayChange}
               onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />
