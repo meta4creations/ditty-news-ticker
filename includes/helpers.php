@@ -119,8 +119,16 @@ function ditty_item_types() {
 		'type' 				=> 'wp_editor',
 		'label' 			=> __( 'WP Editor', 'ditty-news-ticker' ),
 		'icon' 				=> 'fas fa-edit',
-		'description' => __( 'Manually add wp editor content to the item.', 'ditty-news-ticker' ),
+		'description' => __( 'Manually add rich text content to the item.', 'ditty-news-ticker' ),
 		'class_name'	=> 'Ditty_Item_Type_WP_Editor',
+		'ditty_version' 	=> '3.1'
+	);
+	$item_types['custom_html'] = array(
+		'type' 				=> 'custom_html',
+		'label' 			=> __( 'Custom HTML', 'ditty-news-ticker' ),
+		'icon' 				=> 'fas fa-code',
+		'description' => __( 'Manually add custom HTML to the item.', 'ditty-news-ticker' ),
+		'class_name'	=> 'Ditty_Item_Type_Custom_Html',
 		'ditty_version' 	=> '3.1'
 	);
 	$item_types['posts_feed'] = array(

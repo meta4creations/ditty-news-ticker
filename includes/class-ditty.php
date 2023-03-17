@@ -238,6 +238,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-item-type.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-default.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-wp-editor.php';
+		require_once DITTY_DIR . 'includes/class-ditty-item-type-custom-html.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-posts-lite.php';
 		//require_once DITTY_DIR . 'includes/class-ditty-settings.php';
 		require_once DITTY_DIR . 'includes/class-ditty-singles.php';

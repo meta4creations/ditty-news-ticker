@@ -10,12 +10,6 @@ import {
   highlightActiveLine,
 } from "@codemirror/view";
 import { indentWithTab } from "@codemirror/commands";
-//import { basicSetup } from "@codemirror/basic-setup";
-//import { EditorState } from "@codemirror/state";
-//import { EditorView, keymap } from "@codemirror/view";
-//import { defaultKeymap, indentWithTab } from "@codemirror/commands";
-//import { oneDark } from "@codemirror/theme-one-dark";
-//import { EditorState } from "@codemirror/state";
 
 const CodeEditor = ({ value, extensions, onChange, delayChange = false }) => {
   const [delayValue, setDelayValue] = useState(value);
@@ -46,18 +40,6 @@ const CodeEditor = ({ value, extensions, onChange, delayChange = false }) => {
   });
 
   useEffect(() => {
-    // const startState = EditorState.create({
-    //   doc: value,
-    //   extensions: [
-    //     basicSetup(),
-    //     keymap.of([defaultKeymap, indentWithTab]),
-    //     EditorView.lineWrapping,
-    //     onUpdate,
-    //     [...extensions],
-    //   ],
-    // });
-
-    //const view = new EditorView({ state: startState, parent: editor.current });
     const view = new EditorView({
       doc: value,
       extensions: [

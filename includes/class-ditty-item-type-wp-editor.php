@@ -27,10 +27,11 @@ class Ditty_Item_Type_WP_Editor extends Ditty_Item_Type {
 	public function fields( $values = array() ) {	
 		$fields = array(
 			'content' => array(
-				'type'	=> 'custom_html',
+				'type'	=> 'wysiwyg',
 				'id'		=> 'content',
 				'name'	=> __( 'Content', 'ditty-news-ticker' ),
 				'help'	=> __( 'Add the content of your item. HTML and inline styles are supported.', 'ditty-news-ticker' ),
+				'raw'		=> true,
 				'std'		=> isset( $values['content'] ) ? $values['content'] : false,
 			),
 		);
@@ -48,6 +49,18 @@ class Ditty_Item_Type_WP_Editor extends Ditty_Item_Type {
 			'content' => __( 'This is a sample item. Please edit me!', 'ditty-news-ticker' ),
 		);	
 		return apply_filters( 'ditty_type_default_settings', $defaults, $this->slug );
+	}
+
+	/**
+	 * Update values sent from the editor
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function sanitize_settings( $values ) {
+		$sanitized_settings = [];
+		$sanitized_settings['content'] = isset( $values ) ? wp_kses_post( stripslashes( $values['content'] ) ) : '';
+		return $sanitized_settings;
 	}
 
 	/**

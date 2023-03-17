@@ -188,6 +188,7 @@ const PopupEditItem = ({
     <>
       <Popup
         id="itemEdit"
+        className={`ditty-edit-item-type--${editItem.item_type} ditty-edit-item-type--${editItem.item_type}--${currentTabId}`}
         submitLabel={
           "editItem" === editType
             ? __("Update Item", "ditty-news-ticker")
