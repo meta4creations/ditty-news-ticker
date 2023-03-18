@@ -2,12 +2,23 @@
 /**
  * Return all possible layout tags
  *
- * @since    3.0.22
+ * @since    3.1
  * @var      html
 */	
 function ditty_layout_tags( $item_type = false, $item_value = false ) {	
-
-	$link_options = apply_filters( 'ditty_layout_tag_link_options', ['true' => 'true', 'none' => 'none'], $item_type );
+	$args = [
+		'item_type' => $item_type,
+		'item_value' => $item_value,
+	];
+	return ditty_layout_tag_data( $args );
+}
+function ditty_layout_tag_data( $atts = [] ) {	
+	$defaults = [
+		'item_type' => false,
+		'item_value' => false,
+		'link_options' => ['true' => 'true', 'none' => 'none'],
+	];
+	$args = wp_parse_args( $atts, $defaults );
 
 	$after_settings = Ditty()->layouts->tag_attribute_default_settings( 'after' );
 	$before_settings = Ditty()->layouts->tag_attribute_default_settings( 'before' );
@@ -15,7 +26,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 	$excerpt_length_settings = Ditty()->layouts->tag_attribute_default_settings( 'excerpt_length', 200 );
 	$fit_settings = Ditty()->layouts->tag_attribute_default_settings( 'fit' );
 	$height_settings = Ditty()->layouts->tag_attribute_default_settings( 'height' );
-	$link_settings = Ditty()->layouts->tag_attribute_default_settings( 'link', array_key_first( $link_options ), $link_options );
+	$link_settings = Ditty()->layouts->tag_attribute_default_settings( 'link', array_key_first( $args['link_options'] ), $args['link_options'] );
 	$link_after_settings = Ditty()->layouts->tag_attribute_default_settings( 'link_after' );
 	$link_before_settings = Ditty()->layouts->tag_attribute_default_settings( 'link_before' );
 	$link_rel_settings = Ditty()->layouts->tag_attribute_default_settings( 'link_rel' );
@@ -23,7 +34,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 	$more_settings = Ditty()->layouts->tag_attribute_default_settings( 'more', '...' );
 	$more_before_settings =  Ditty()->layouts->tag_attribute_default_settings( 'more_before' );
 	$more_after_settings =  Ditty()->layouts->tag_attribute_default_settings( 'more_after' );
-	$more_link_settings =  Ditty()->layouts->tag_attribute_default_settings( 'more_link', array_key_first( $link_options ), $link_options );
+	$more_link_settings =  Ditty()->layouts->tag_attribute_default_settings( 'more_link', array_key_first( $args['link_options'] ), $args['link_options'] );
 	$more_link_target_settings = Ditty()->layouts->tag_attribute_default_settings( 'more_link_target' );
 	$more_link_rel_settings = Ditty()->layouts->tag_attribute_default_settings( 'more_link_rel' );
 	$width_settings = Ditty()->layouts->tag_attribute_default_settings( 'width' );
@@ -291,7 +302,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			),
 		),
 	);
-	$tags = apply_filters( 'ditty_layout_tags', $tags, $item_type, $item_value );
+	$tags = apply_filters( 'ditty_layout_tags', $tags, $args['item_type'], $args['item_value'] );
 	ksort( $tags );
 	return $tags;
 }

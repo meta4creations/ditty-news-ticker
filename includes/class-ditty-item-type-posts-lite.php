@@ -159,7 +159,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 			],
 		];
 
-		$layout_tags = ditty_layout_tags();
+		$layout_tags = ditty_layout_tag_data( $args );
 		$allowed_tags = array(
 			'author_avatar',
 			'author_bio',

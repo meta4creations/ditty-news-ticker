@@ -1,25 +1,6 @@
 <?php
 
 /**
- * Filter the tag link options
- *
- * @since 3.1
- */
-function ditty_posts_lite_tag_link_options( $options, $item_type ) {
-	if ( 'posts_feed' == $item_type ) {
-		$options = [
-			'true' => 'post',
-			'author' => 'author',
-			'author_link' => 'author_link',
-			'none' => 'none',
-		];
-		echo '<pre>';print_r($options);echo '</pre>';
-	}
-	return $options;
-}
-add_filter( 'ditty_layout_tag_link_options', 'ditty_posts_lite_tag_link_options', 10, 2 );
-
-/**
  * Add to the item tags for layouts
  * 
  * @since   3.0
