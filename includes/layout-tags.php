@@ -20,13 +20,22 @@ function ditty_layout_tag_data( $atts = [] ) {
 	];
 	$args = wp_parse_args( $atts, $defaults );
 
+	// Make sure the link options exis as an array
+	$link_options = $args['link_options'];
+	if ( ! is_array( $link_options ) ) {
+		$link_options = [];
+	}
+	if ( ! isset( $link_options['none'] ) ) {
+		$link_options['none'] = 'none';
+	}
+
 	$after_settings = Ditty()->layouts->tag_attribute_default_settings( 'after' );
 	$before_settings = Ditty()->layouts->tag_attribute_default_settings( 'before' );
 	$class_settings = Ditty()->layouts->tag_attribute_default_settings( 'class' );
 	$excerpt_length_settings = Ditty()->layouts->tag_attribute_default_settings( 'excerpt_length', 200 );
 	$fit_settings = Ditty()->layouts->tag_attribute_default_settings( 'fit' );
 	$height_settings = Ditty()->layouts->tag_attribute_default_settings( 'height' );
-	$link_settings = Ditty()->layouts->tag_attribute_default_settings( 'link', array_key_first( $args['link_options'] ), $args['link_options'] );
+	$link_settings = Ditty()->layouts->tag_attribute_default_settings( 'link', 'none', $link_options );
 	$link_after_settings = Ditty()->layouts->tag_attribute_default_settings( 'link_after' );
 	$link_before_settings = Ditty()->layouts->tag_attribute_default_settings( 'link_before' );
 	$link_rel_settings = Ditty()->layouts->tag_attribute_default_settings( 'link_rel' );
@@ -34,7 +43,7 @@ function ditty_layout_tag_data( $atts = [] ) {
 	$more_settings = Ditty()->layouts->tag_attribute_default_settings( 'more', '...' );
 	$more_before_settings =  Ditty()->layouts->tag_attribute_default_settings( 'more_before' );
 	$more_after_settings =  Ditty()->layouts->tag_attribute_default_settings( 'more_after' );
-	$more_link_settings =  Ditty()->layouts->tag_attribute_default_settings( 'more_link', array_key_first( $args['link_options'] ), $args['link_options'] );
+	$more_link_settings =  Ditty()->layouts->tag_attribute_default_settings( 'more_link', 'true', $link_options );
 	$more_link_target_settings = Ditty()->layouts->tag_attribute_default_settings( 'more_link_target' );
 	$more_link_rel_settings = Ditty()->layouts->tag_attribute_default_settings( 'more_link_rel' );
 	$width_settings = Ditty()->layouts->tag_attribute_default_settings( 'width' );

@@ -92,7 +92,13 @@ const PopupEditItem = ({
               setChildPopupStatus(false);
 
               const updatedItem = { ...editItem };
+              const updatedItemTypeObject = getItemTypeObject(updatedType);
               updatedItem.item_type = updatedType;
+              updatedItem.item_value = {
+                ...updatedItemTypeObject.defaultValues,
+                ...updatedItem.item_value,
+              };
+
               addItemUpdate(updatedItem, "item_type");
             }}
           />

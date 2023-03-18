@@ -56,7 +56,10 @@ export class EditorProvider extends Component {
    */
   replaceDisplayItems = (
     newDisplayItems,
-    existingDisplayItems = this.state.displayItems,
+    existingDisplayItems = this.state.displayItems &&
+    this.state.displayItems.length
+      ? this.state.displayItems
+      : [],
     items = this.state.items
   ) => {
     const allDisplayItems = items.reduce((itemsArray, item) => {

@@ -32,7 +32,6 @@ class Ditty_Item_Type_Html extends Ditty_Item_Type {
 				'name'	=> __( 'Content', 'ditty-news-ticker' ),
 				'help'	=> __( 'Add the custom html for your item.', 'ditty-news-ticker' ),
 				'raw'		=> true,
-				'std'		=> isset( $values['content'] ) ? $values['content'] : false,
 			),
 		);
 		return $fields;

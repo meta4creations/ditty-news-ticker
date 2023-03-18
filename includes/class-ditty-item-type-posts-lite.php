@@ -70,7 +70,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	 * Setup the type settings
 	 *
 	 * @access  public
-	 * @since   3.0.18
+	 * @since   3.1
 	 */
 	public function fields( $values = array() ) {					
 		$fields = array(
@@ -79,7 +79,6 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 				'id'		=> 'limit',
 				'name'	=> __( 'Limit', 'ditty-news-ticker' ),
 				'help'	=> __( 'Set the number of Posts to display.', 'ditty-news-ticker' ),
-				'std'		=> isset( $values['limit'] ) ? $values['limit'] : false,
 			),
 		);
 		return apply_filters( 'ditty_item_type_fields', $fields, $this, $values );
@@ -143,7 +142,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 		return $preview;
 	}
 
-		/**
+	/**
 	 * Return the default layout
 	 *
 	 * @access  public

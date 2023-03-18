@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "@wordpress/element";
+import { useState, useRef, useCallback } from "@wordpress/element";
 import { Editor } from "@tinymce/tinymce-react";
 
 const RichTextEditor = ({ value, onChange, delayChange = false }) => {

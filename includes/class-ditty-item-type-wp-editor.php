@@ -22,7 +22,7 @@ class Ditty_Item_Type_WP_Editor extends Ditty_Item_Type {
 	 * Setup the type settings
 	 *
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.1
 	 */
 	public function fields( $values = array() ) {	
 		$fields = array(
@@ -32,7 +32,6 @@ class Ditty_Item_Type_WP_Editor extends Ditty_Item_Type {
 				'name'	=> __( 'Content', 'ditty-news-ticker' ),
 				'help'	=> __( 'Add the content of your item. HTML and inline styles are supported.', 'ditty-news-ticker' ),
 				'raw'		=> true,
-				'std'		=> isset( $values['content'] ) ? $values['content'] : false,
 			),
 		);
 		return $fields;

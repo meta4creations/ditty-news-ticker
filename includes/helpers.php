@@ -825,7 +825,11 @@ function ditty_display_items( $ditty_id, $load_type = 'cache', $custom_layouts =
 				$layout_variations = [];
 				if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
 					foreach ( $layout_value as $variation => $value ) {
-						$layout_variations[$variation] = json_decode($value, true);
+						if ( is_array( $value ) ) {
+							$layout_variations[$variation] = $value;
+						} else {
+							$layout_variations[$variation] = json_decode($value, true);
+						}	
 					}
 				}
 
@@ -1474,20 +1478,6 @@ function ditty_svg_d() {
 }
 
 /**
- * Check if we are in development mode
- *
- * @since   3.1
- */
-function is_ditty_dev() {
-	if ( isset( $_GET['dittyDev'] ) ) {
-		return true;
-	}
-	if ( defined( 'DITTY_DEVELOPMENT' ) ) {
-		return DITTY_DEVELOPMENT;
-	}
-}
-
-/**
  * Check if we are previewing a ditty
  *
  * @since   3.1
@@ -1560,9 +1550,6 @@ function ditty_edit_links( $ditty_id ) {
  * @since   3.1
  */
 function ditty_version() {
-	if ( is_ditty_dev() ) {
-		return WP_DEBUG ? time() : '3.1';
-	}
 	return DITTY_VERSION;
 }
 
