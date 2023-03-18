@@ -182,7 +182,7 @@ class Ditty_Item_Type {
 	}
 
 	/**
-	 * Return layout variations
+	 * Return the default layout
 	 *
 	 * @access  public
 	 * @since   3.1

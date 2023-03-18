@@ -802,6 +802,7 @@ function ditty_parse_custom_layouts( $layout_settings ) {
  * @var      array   	$display_items    Array of item objects
  */
 function ditty_display_items( $ditty_id, $load_type = 'cache', $custom_layouts = false ) {
+	$load_type = 'force';
 	$transient_name = "ditty_display_items_{$ditty_id}";
 	
 	// Check for custom layouts
@@ -839,45 +840,10 @@ function ditty_display_items( $ditty_id, $load_type = 'cache', $custom_layouts =
 						$display_item = new Ditty_Display_Item( $prepared_meta );
 						$ditty_data = $display_item->ditty_data();
 						$display_items[] = $ditty_data;
-						//$prepared_meta['layout_value'] = $layout_variations;
 					}
 				}
 			}
 		}
-
-
-		// $display_items = array();
-		// $items_meta = ditty_items_meta( $ditty_id );
-		// $initialized = get_post_meta( $ditty_id, '_ditty_init', true );
-		// if ( empty( $items_meta) && ! $initialized ) {
-		// 	$items_meta = array( ditty_get_new_item_meta( $ditty_id ) );
-		// }
-		// if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
-		// 	foreach ( $items_meta as $i => $meta ) {
-		// 		if ( is_object( $meta ) ) {
-		// 			$meta = ( array ) $meta;
-		// 		}
-				
-		// 		// Add custom layouts
-		// 		if ( ! empty( $custom_layout_array ) ) {
-		// 			if ( isset( $custom_layout_array['all'] ) ) {
-		// 				$meta['layout_value'] = $custom_layout_array['all'];
-		// 			} elseif ( isset( $custom_layout_array[$meta['item_type']] ) ) {
-		// 				$meta['layout_value'] = $custom_layout_array[$meta['item_type']];
-		// 			}
-		// 		}
-
-		// 		$prepared_items = ditty_prepare_display_items( $meta );
-		// 		if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
-		// 			foreach ( $prepared_items as $i => $prepared_meta ) {
-		// 				$display_item = new Ditty_Display_Item( $prepared_meta );
-		// 				if ( $data = $display_item->compile_data() ) {
-		// 					$display_items[] = $data;
-		// 				}
-		// 			}
-		// 		}	
-		// 	}
-		// }
 		$display_items = apply_filters( 'ditty_display_items', $display_items, $ditty_id );
 		set_transient( $transient_name, $display_items, ( MINUTE_IN_SECONDS * intval( ditty_settings( 'live_refresh' ) ) ) );
 	}

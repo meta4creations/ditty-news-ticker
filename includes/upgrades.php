@@ -53,8 +53,8 @@ function ditty_v3_1_upgrades() {
 	// TODO - Convert all WP Editor post types to Custom Code type
 
 	// Update the database - KEEP
-	$db_items = new Ditty_DB_Items();
-	@$db_items->create_table();
+	//$db_items = new Ditty_DB_Items();
+	//@$db_items->create_table();
 
 	// Update custom tag attributes - KEEP
 	$args = array(

@@ -143,6 +143,121 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 		return $preview;
 	}
 
+		/**
+	 * Return the default layout
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function default_layout() {
+		$default_layout = array(
+			'html' => '{image link="post"}
+{icon}
+<div class="ditty-item-heading">
+	{author_avatar width="50px" height="50px" fit="cover" link="author"}	
+	<div class="ditty-item-heading__content">
+		{author_name link="author"}
+		{time link="post"}
+	</div>
+</div>
+{title link="post"}
+{content}',
+			'css' => '.ditty-item__elements {
+	position: relative;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+	font-size: 15px;
+	line-height: 1.3125;
+}
+.ditty-item__elements a {
+	text-decoration: none;
+}
+.ditty-item__image {
+	overflow: hidden;
+	margin-bottom: 15px;
+}
+.ditty-item__image img {
+	display: block;
+	width: 100%;
+	height: auto;
+	line-height: 0;
+	transition: transform .75s ease; 
+}
+.ditty-item__image a:hover img {
+	transform: scale(1.05);
+}
+.ditty-item__icon {
+	display: none;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	font-size: 25px;
+	line-height: 25px;
+	color: #FFF;
+	opacity: .8;
+	text-shadow: 0 0 2px rgba( 0, 0, 0, .3 );
+	pointer-events: none;
+}
+.ditty-item__icon a {
+	color: #FFF;
+}
+.ditty-item__image + .ditty-item__icon {
+	display: block;
+}
+.ditty-item-heading {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	margin-bottom: 15px;
+}
+.ditty-item__author_avatar {
+	flex: 0 0 auto;
+	margin-right: 10px;
+}
+.ditty-item__author_avatar img {
+	display: block;
+	line-height: 0;
+	border-radius: 50%;
+}
+.ditty-item__author_name {
+	font-weight: 500;
+}
+.ditty-item__author_name a {
+	color: #050505;
+}
+.ditty-item__time {
+		font-size: 13px;
+		font-weight: 300;
+}
+.ditty-item__time a {
+		color: #6B6D71;
+		text-decoration: none;
+}
+.ditty-item__time a:hover {
+	text-decoration: underline;
+}
+.ditty-item__title {
+	font-size: 18px;
+	margin: 0;
+}
+.ditty-item__content,
+.ditty-item__excerpt {
+	font-size: 15px;
+	line-height: 1.3125;
+	margin: 5px 0 0 0;
+}
+.ditty-item__content p {
+	font-size: 15px;
+	line-height: 1.3125;
+	margin-top: 0;
+}
+.ditty-item__content p:last-child {
+	margin-bottom: 0;
+}',
+		);
+		return $default_layout;
+	}
+
 	/**
 	 * Return the layout tags
 	 *
