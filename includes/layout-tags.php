@@ -1,33 +1,31 @@
 <?php
 /**
+ * Return the layout link options
+ *
+ * @since    3.1
+ * @var      html
+*/	
+function ditty_layout_link_options( $item_type = false ) {
+	$link_options = apply_filters( 'ditty_layout_link_options', [], $item_type );
+	if ( ! is_array( $link_options ) ) {
+		$link_options = ['true' => 'true', 'none' => 'none'];
+	}
+	if ( ! isset( $link_options['none'] ) ) {
+		$link_options['none'] = 'none';
+	}
+	return $link_options;
+}
+
+/**
  * Return all possible layout tags
  *
  * @since    3.1
  * @var      html
 */	
 function ditty_layout_tags( $item_type = false, $item_value = false ) {	
-	$args = [
-		'item_type' => $item_type,
-		'item_value' => $item_value,
-	];
-	return ditty_layout_tag_data( $args );
-}
-function ditty_layout_tag_data( $atts = [] ) {	
-	$defaults = [
-		'item_type' => false,
-		'item_value' => false,
-		'link_options' => ['true' => 'true', 'none' => 'none'],
-	];
-	$args = wp_parse_args( $atts, $defaults );
 
-	// Make sure the link options exis as an array
-	$link_options = $args['link_options'];
-	if ( ! is_array( $link_options ) ) {
-		$link_options = [];
-	}
-	if ( ! isset( $link_options['none'] ) ) {
-		$link_options['none'] = 'none';
-	}
+	// Get the link options
+	$link_options = ditty_layout_link_options();
 
 	$after_settings = Ditty()->layouts->tag_attribute_default_settings( 'after' );
 	$before_settings = Ditty()->layouts->tag_attribute_default_settings( 'before' );
@@ -311,7 +309,7 @@ function ditty_layout_tag_data( $atts = [] ) {
 			),
 		),
 	);
-	$tags = apply_filters( 'ditty_layout_tags', $tags, $args['item_type'], $args['item_value'] );
+	$tags = apply_filters( 'ditty_layout_tags', $tags, $item_type, $item_value );
 	ksort( $tags );
 	return $tags;
 }

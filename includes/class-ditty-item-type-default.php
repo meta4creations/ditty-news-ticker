@@ -7,7 +7,7 @@
  * @subpackage  Classes/Ditty Default Type
  * @copyright   Copyright (c) 2021, Metaphor Creations
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       3.0
+ * @since       3.1
 */
 class Ditty_Item_Type_Default extends Ditty_Item_Type {
 	
@@ -18,6 +18,17 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 	 */
 	public $slug = 'default';
 	public $js_fields = true;
+
+	/**
+	 * Get things started
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function __construct() {	
+		parent::__construct();
+		add_filter( 'ditty_layout_tags', [$this, 'layout_tags'], 10, 2 );
+	}
 
 	/**
 	 * Setup the fields
@@ -126,15 +137,18 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 		$preview = stripslashes( wp_html_excerpt( $value['content'], 200, '...' ) );	
 		return $preview;
 	}
-
+	
 	/**
 	 * Return the layout tags
 	 *
 	 * @access  public
 	 * @since   3.1
 	 */
-	public function get_layout_tags() {
-		$layout_tags = ditty_layout_tags();
+	public function layout_tags( $tags, $item_type ) {
+		if ( $item_type != $this->get_type() ) {
+			return $tags;
+		}
+		
 		$allowed_tags = array(
 			'content',
 			'time',
@@ -142,8 +156,8 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 			'author_bio',
 			'author_name',
 		);
-		$tags = array_intersect_key( $layout_tags, array_flip( $allowed_tags ) );
-
+		$tags = array_intersect_key( $tags, array_flip( $allowed_tags ) );
+		
 		$tags['time']['atts'] = array_intersect_key( $tags['time']['atts'], array_flip( array(
 			'wrapper',
 			'ago',
@@ -160,7 +174,7 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 			'after',
 			'class',
 		) ) );
-		
+
 		return $tags;
 	}
 }

@@ -147,16 +147,6 @@ class Ditty_Item_Type {
 	}
 	
 	/**
-	 * Set the allowed layout tags
-	 *
-	 * @access  public
-	 * @since   3.0.21
-	 */
-	public function layout_tags() {					
-		return array();
-	}
-	
-	/**
 	 * Get values to populate the metabox
 	 *
 	 * @access  public

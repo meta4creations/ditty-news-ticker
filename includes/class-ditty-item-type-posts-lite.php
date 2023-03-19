@@ -17,6 +17,18 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	 * @since 3.0
 	 */
 	public $slug = 'posts_feed';
+
+	/**
+	 * Get things started
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function __construct() {	
+		parent::__construct();
+		add_filter( 'ditty_layout_link_options', [$this, 'layout_link_options'], 10, 2 );
+		add_filter( 'ditty_layout_tags', [$this, 'layout_tags'], 10, 2 );
+	}
 	
 	/**
 	 * Prepare items for Ditty use
@@ -142,6 +154,53 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 		return $preview;
 	}
 
+
+	/**
+	 * Return the layout tags
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function layout_link_options( $link_options, $item_type ) {
+		if ( $item_type != $this->get_type() ) {
+			return $link_options;
+		}
+		return [
+			'true' => 'post',
+			'author' => 'author',
+			'author_link' => 'author_link',
+			'none' => 'none',
+		];
+	}
+	
+	/**
+	 * Return the layout tags
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function layout_tags( $tags, $item_type ) {
+		if ( $item_type != $this->get_type() ) {
+			return $tags;
+		}
+		$allowed_tags = array(
+			'author_avatar',
+			'author_bio',
+			'author_name',
+			'categories',
+			'content',
+			'excerpt',
+			'icon',
+			'image',
+			'image_url',
+			'permalink',
+			'time',
+			'title',
+		);
+		$tags = array_intersect_key( $tags, array_flip( $allowed_tags ) );
+		return $tags;
+	}
+
 	/**
 	 * Return the default layout
 	 *
@@ -255,40 +314,5 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 }',
 		);
 		return $default_layout;
-	}
-
-	/**
-	 * Return the layout tags
-	 *
-	 * @access  public
-	 * @since   3.1
-	 */
-	public function get_layout_tags() {
-		$args = [
-			'link_options' => [
-				'true' => 'post',
-				'author' => 'author',
-				'author_link' => 'author_link',
-				'none' => 'none',
-			],
-		];
-
-		$layout_tags = ditty_layout_tag_data( $args );
-		$allowed_tags = array(
-			'author_avatar',
-			'author_bio',
-			'author_name',
-			'categories',
-			'content',
-			'excerpt',
-			'icon',
-			'image',
-			'image_url',
-			'permalink',
-			'time',
-			'title',
-		);
-		$tags = array_intersect_key( $layout_tags, array_flip( $allowed_tags ) );
-		return $tags;
 	}
 }
