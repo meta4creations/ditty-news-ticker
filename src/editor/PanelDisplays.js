@@ -34,6 +34,10 @@ const PanelDisplays = () => {
     currentDisplay.id ? currentDisplay : false
   );
 
+  if (!currentDisplay.settings) {
+    currentDisplay.settings = displayTypeObject.defaultValues;
+  }
+
   const displayTypes = getDisplayTypes();
 
   /**

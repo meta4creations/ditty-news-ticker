@@ -7,7 +7,7 @@
       "uuidString" : "0B43A184-D1FE-4DF7-BE71-3FAE2291CFE5"
     }
   ],
-  "creatorBuild" : "34448",
+  "creatorBuild" : "34472",
   "files" : {
     "\/.gitignore" : {
       "cB" : 0,
@@ -245,6 +245,14 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/class-ditty-item-type-default.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-item-type-html.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/class-ditty-item-type-html.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-item-type-posts-lite.php" : {
@@ -975,14 +983,6 @@
       "sC" : 3,
       "tS" : 0
     },
-    "\/includes\/layout-tag-fields.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/layout-tag-fields.php",
-      "oF" : 0
-    },
     "\/includes\/layout-tag-helpers.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1484,6 +1484,66 @@
       "oF" : 0,
       "sC" : 3,
       "tS" : 0
+    },
+    "\/includes\/libs\/sass\/file-size.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/includes\/libs\/sass\/file-size-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
+    "\/includes\/libs\/sass\/sass.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/sass\/sass.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/sass\/sass.node.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/sass\/sass.node.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/sass\/sass.sync.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/sass\/sass.sync.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/sass\/sass.worker.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/sass\/sass.worker.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/sass\/versions.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/includes\/libs\/sass\/versions-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
     },
     "\/includes\/post-types.php" : {
       "cB" : 0,
@@ -3259,6 +3319,14 @@
       "oO" : 1,
       "oS" : 1
     },
+    "\/package.txt.old" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/package.txt.old",
+      "oF" : 0
+    },
     "\/readme.txt" : {
       "cB" : 0,
       "ft" : 8192,
@@ -4895,6 +4963,7 @@
       "ENVIRONMENT:::$NODE_ENV"
     ],
     "rollupTreeshakingEnabled" : 1,
+    "rollupTreeshakingModuleSideEffects" : 1,
     "skippedFoldersString" : "\/storage\/framework\/sessions,src,node_modules,_logs,logs,log,.idea,_cache,cache,build,vendor",
     "sourceFolderName" : "source",
     "susyVersion" : 3,

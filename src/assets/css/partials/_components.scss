@@ -181,7 +181,8 @@
     background: rgba(0, 0, 0, 0.2);
   }
   &__contents {
-    position: relative;
+    //position: relative;
+    z-index: 9;
     width: calc(100% - 20px);
     height: calc(100% - 20px);
     display: flex;

@@ -100,7 +100,7 @@ class Ditty {
 			self::$instance->extensions		= new Ditty_Extensions();
 			self::$instance->layouts			= new Ditty_Layouts();
 			self::$instance->scripts			= new Ditty_Scripts();
-			//self::$instance->settings			= new Ditty_Settings();
+			self::$instance->settings			= new Ditty_Settings();
 			self::$instance->singles			= new Ditty_Singles();
 			self::$instance->wpml					= new Ditty_WPML();	
 		}
@@ -240,7 +240,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-wp-editor.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-html.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-posts-lite.php';
-		//require_once DITTY_DIR . 'includes/class-ditty-settings.php';
+		require_once DITTY_DIR . 'includes/class-ditty-settings.php';
 		require_once DITTY_DIR . 'includes/class-ditty-singles.php';
 		require_once DITTY_DIR . 'includes/class-ditty-wpml.php';
 

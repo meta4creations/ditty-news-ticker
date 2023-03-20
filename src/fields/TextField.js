@@ -22,6 +22,11 @@ const TextField = (props) => {
     if (setFocus) {
       inputRef.current.focus();
     }
+    return () => {
+      if (delayChange) {
+        clearTimeout(timerRef.current);
+      }
+    };
   }, [setFocus]);
 
   const handleInputChangeDelay = useCallback(

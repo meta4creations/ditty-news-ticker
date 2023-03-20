@@ -110,14 +110,7 @@ export default () => {
   return (
     <>
       <AdminBar
-        title={
-          <>
-            <Logo
-              style={{ height: "30px", fill: "#19bf7c", marginRight: "5px" }}
-            />
-            <span>{__("settings", "ditty-news-ticker")}</span>
-          </>
-        }
+        title={__("Settings", "ditty-news-ticker")}
         buttonLabel={__("Save Settings", "ditty-news-ticker")}
         hasUpdates={hasUpdates}
         showSpinner={showSpinner}

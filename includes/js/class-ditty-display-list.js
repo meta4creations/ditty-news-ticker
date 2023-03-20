@@ -522,10 +522,14 @@
       var $currentPage = this.$elmt.ditty_slider("options", "currentSlide"),
         currentItems = $currentPage.children(".ditty-item"),
         pageIndex = this.$elmt.ditty_slider("options", "slide"),
-        minIndex = this.settings.paging ? this.settings.perPage * pageIndex : 0,
-        maxIndex = this.settings.paging
-          ? this.settings.perPage * pageIndex + (this.settings.perPage - 1)
-          : currentItems.length,
+        minIndex =
+          this.settings.paging && 1 === this.settings.paging
+            ? this.settings.perPage * pageIndex
+            : 0,
+        maxIndex =
+          this.settings.paging && 1 === this.settings.paging
+            ? this.settings.perPage * pageIndex + (this.settings.perPage - 1)
+            : currentItems.length,
         itemSwaps = [];
 
       // Swap out items
@@ -849,7 +853,7 @@
           break;
         case "perPage":
         case "paging":
-          updateSlider = false;
+          //updateSlider = false;
           this.settings[key] = value;
           this.updateItems(this.settings.items);
           break;

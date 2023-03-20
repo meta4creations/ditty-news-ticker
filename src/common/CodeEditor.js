@@ -80,6 +80,9 @@ const CodeEditor = ({ value, extensions, onChange, delayChange = false }) => {
     });
 
     return () => {
+      if (delayChange) {
+        clearTimeout(timerRef.current);
+      }
       view.destroy();
     };
   }, []);

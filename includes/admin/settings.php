@@ -6,14 +6,14 @@
  * @since    3.0
 */
 function ditty_settings_pages() {
-	add_submenu_page(
-		'edit.php?post_type=ditty',		// The ID of the top-level menu page to which this submenu item belongs
-		__( 'Settings', 'ditty-news-ticker' ),		// The value used to populate the browser's title bar when the menu page is active
-		__( 'Settings', 'ditty-news-ticker' ),		// The label of this submenu item displayed in the menu
-		'manage_ditty_settings',			// What roles are able to access this submenu item
-		'ditty_settings',							// The ID used to represent this submenu item
-		'ditty_settings_display'			// The callback function used to render the options for this submenu item
-	);
+	// add_submenu_page(
+	// 	'edit.php?post_type=ditty',		// The ID of the top-level menu page to which this submenu item belongs
+	// 	__( 'Settings', 'ditty-news-ticker' ),		// The value used to populate the browser's title bar when the menu page is active
+	// 	__( 'Settings', 'ditty-news-ticker' ),		// The label of this submenu item displayed in the menu
+	// 	'manage_ditty_settings',			// What roles are able to access this submenu item
+	// 	'ditty_settings',							// The ID used to represent this submenu item
+	// 	'ditty_settings_display'			// The callback function used to render the options for this submenu item
+	// );
 	add_submenu_page(
 		'edit.php?post_type=ditty',		// The ID of the top-level menu page to which this submenu item belongs
 		__( 'Import/Export', 'ditty-news-ticker' ),		// The value used to populate the browser's title bar when the menu page is active
@@ -60,16 +60,16 @@ function ditty_settings_display() {
 						'label' 		=> esc_html__( 'Layout Defaults', 'ditty-news-ticker' ),
 						'fields' 		=> 'ditty_settings_variation_defaults',
 					),
-					'layout_templates' => array(
-						'icon'			=> 'fas fa-pencil-ruler',
-						'label' 		=> esc_html__( 'Layout Templates', 'ditty-news-ticker' ),
-						'fields' 		=> 'ditty_settings_layout_templates',
-					),
-					'display_templates' => array(
-						'icon'			=> 'fas fa-tablet-alt',
-						'label' 		=> esc_html__( 'Display Templates', 'ditty-news-ticker' ),
-						'fields' 		=> 'ditty_settings_display_templates',
-					),
+					// 'layout_templates' => array(
+					// 	'icon'			=> 'fas fa-pencil-ruler',
+					// 	'label' 		=> esc_html__( 'Layout Templates', 'ditty-news-ticker' ),
+					// 	'fields' 		=> 'ditty_settings_layout_templates',
+					// ),
+					// 'display_templates' => array(
+					// 	'icon'			=> 'fas fa-tablet-alt',
+					// 	'label' 		=> esc_html__( 'Display Templates', 'ditty-news-ticker' ),
+					// 	'fields' 		=> 'ditty_settings_display_templates',
+					// ),
 					'advanced' => array(
 						'icon'			=> 'fas fa-pencil-alt',
 						'label' 		=> esc_html__( 'Advanced', 'ditty-news-ticker' ),

@@ -135,6 +135,8 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 * Major Ditty Layout editor updates
 * Major Ditty Display editor updates
 * Added custom HTML item type
+* Removed Settings > Layout Templates screen
+* Removed Settings > Display Templates screen
 
 = 3.0.34 =
 * Ticker and List display edit javascript bug fixes

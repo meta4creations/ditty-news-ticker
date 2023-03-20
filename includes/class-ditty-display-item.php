@@ -36,7 +36,7 @@ class Ditty_Display_Item {
 	/**
 	 * Get things started
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.1
 	 */
 	public function __construct( $prepared_meta, $layouts = false ) {
 		$this->item_meta = $prepared_meta;
@@ -54,7 +54,7 @@ class Ditty_Display_Item {
 	/**
 	 * Return the item type
 	 * @access public
-	 * @since  3.0
+	 * @since  3.1
 	 * @return string $item_type
 	 */
 	private function configure_layout( $meta, $layouts = false ) {
@@ -102,7 +102,7 @@ class Ditty_Display_Item {
 	/**
 	 * Return the item type
 	 * @access public
-	 * @since  3.0
+	 * @since  3.1
 	 * @return string $item_type
 	 */
 	public function get_item_type() {
@@ -112,7 +112,7 @@ class Ditty_Display_Item {
 	/**
 	 * Return the item meta
 	 * @access public
-	 * @since  3.0.13
+	 * @since  3.1
 	 * @return string $item_type
 	 */
 	public function get_item_meta() {
@@ -122,7 +122,7 @@ class Ditty_Display_Item {
 	/**
 	 * Return the layout html
 	 * @access public
-	 * @since  3.0
+	 * @since  3.1
 	 * @return string $html
 	 */
 	public function get_layout_id() {
@@ -147,7 +147,7 @@ class Ditty_Display_Item {
 	/**
 	 * Return an attribute value
 	 * @access public
-	 * @since  3.0
+	 * @since  3.1
 	 * @return string $html
 	 */
 	public function get_item_attribute_value( $tag, $attribute ) {
@@ -164,13 +164,13 @@ class Ditty_Display_Item {
 	/**
 	 * Return the html tags
 	 * @access public
-	 * @since  3.0.12
+	 * @since  3.1
 	 * @return int $id
 	 */
 	public function get_layout_tags() {
 		if ( ! $this->layout_tags ) {
-			$this->layout_tags = ditty_layout_tags( $this->get_item_type(), $this->get_item_value() );
-			//$this->layout_tags = ditty_layout_tags();
+			//$this->layout_tags = ditty_layout_tags( $this->get_item_type(), $this->get_item_value() );
+			$this->layout_tags = ditty_layout_tags();
 		}
 		return $this->layout_tags;
 	}
@@ -178,7 +178,7 @@ class Ditty_Display_Item {
 	/**
 	 * Return the layout html
 	 * @access public
-	 * @since  3.0
+	 * @since  3.1
 	 * @return string $html
 	 */
 	public function get_html() {
@@ -190,7 +190,7 @@ class Ditty_Display_Item {
 	/**
 	 * Return the layout css
 	 * @access public
-	 * @since  3.0
+	 * @since  3.1
 	 * @return string $html
 	 */
 	public function get_css() {
@@ -202,7 +202,7 @@ class Ditty_Display_Item {
 	/**
 	 * Return the compiled layout css
 	 * @access public
-	 * @since  3.0
+	 * @since  3.1
 	 * @return string $html
 	 */
 	public function get_css_compiled() {
@@ -215,7 +215,7 @@ class Ditty_Display_Item {
 	/**
 	 * Return the passed item value
 	 * @access public
-	 * @since  3.0.12
+	 * @since  3.1
 	 * @return string $html
 	 */
 	public function get_item_value() {
@@ -226,17 +226,27 @@ class Ditty_Display_Item {
 	 * Parse layout atts
 	 *
 	 * @access private
-	 * @since    3.0.16
+	 * @since    3.1
 	 * @var      array	$parsed_atts
 	*/
 	private function parse_atts( $atts = array(), $s = false ) {
 		$parsed_atts = array();
 		if ( $s && is_array( $atts ) && count( $atts ) > 0 ) {
 			foreach ( $atts as $key => $value ) {
+				$parsed_atts[$key] = $atts[$key];
 				if ( $custom_value = $s->getParameter( $key ) ) {
-					$parsed_atts[$key] = $custom_value;
+					$parsed_value = $custom_value;
 				} else {
-					$parsed_atts[$key] = $value;
+					if ( is_array( $value ) ) {
+						$parsed_value = isset( $value['std'] ) ? $value['std'] : '';
+					} else {
+						$parsed_value = $value;
+					}
+				}			
+				if ( is_array( $atts[$key] ) ) {
+					$parsed_atts[$key]['std'] = $parsed_value;
+				} else {
+					$parsed_atts[$key] = $parsed_value;
 				}
 			}
 		}
@@ -247,7 +257,7 @@ class Ditty_Display_Item {
 	 * Render a layout tag
 	 *
 	 * @access private
-	 * @since  3.0
+	 * @since  3.1
 	 * @return html
 	 */
 	private function render_tag( $tag, $item_type, $data, $atts = array(), $custom_wrapper = false ) {
@@ -263,7 +273,7 @@ class Ditty_Display_Item {
 	/**
 	 * Return the layout css
 	 * @access public
-	 * @since  3.0.18
+	 * @since  3.1
 	 * @return html
 	 */
 	public function get_layout_css() {
@@ -276,7 +286,7 @@ class Ditty_Display_Item {
 	/**
 	 * Return the layout css
 	 * @access public
-	 * @since  3.0.18
+	 * @since  3.1
 	 * @return html
 	 */
 	public function get_layout_att_values( $tag, $atts ) {
@@ -302,7 +312,7 @@ class Ditty_Display_Item {
 	/**
 	 * Return the layout html
 	 * @access public
-	 * @since  3.0.18
+	 * @since  3.1
 	 * @return html
 	 */
 	public function get_layout_html() {
@@ -327,6 +337,7 @@ class Ditty_Display_Item {
 						return false;
 					}
 					$atts = apply_filters( 'ditty_layout_tag_atts', $atts, $tag['tag'], $this->get_item_type(), $data );
+					
 					$content = $s->getContent();
 					if ( isset( $tag['func'] ) && function_exists( $tag['func'] ) ) {
 						return call_user_func( $tag['func'], $tag['tag'], $this->get_item_type(), $data, $atts, $content );
@@ -347,7 +358,7 @@ class Ditty_Display_Item {
 	 * Return custom classes
 	 *
 	 * @access private
-	 * @since  3.0
+	 * @since  3.1
 	 * @return string $classes
 	 */
 	private function get_custom_classes() {	
@@ -361,7 +372,7 @@ class Ditty_Display_Item {
 	 * Setup the item classes
 	 *
 	 * @access private
-	 * @since  3.0
+	 * @since  3.1
 	 * @return string $classes
 	 */
 	private function get_classes() {	

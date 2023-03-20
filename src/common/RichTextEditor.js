@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "@wordpress/element";
+import { useState, useEffect, useRef, useCallback } from "@wordpress/element";
 import { Editor } from "@tinymce/tinymce-react";
 
 const RichTextEditor = ({ value, onChange, delayChange = false }) => {
@@ -6,6 +6,14 @@ const RichTextEditor = ({ value, onChange, delayChange = false }) => {
 
   const editorRef = useRef(null);
   const timerRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (delayChange) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
 
   const handleInputChangeDelay = useCallback(
     (updatedValue) => {

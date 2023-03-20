@@ -599,18 +599,18 @@ function ditty_display_posts( $atts = array() ) {
 */
 function ditty_default_displays() {
 	$default_displays = array();	
-	$display_types = ditty_display_types();
-	if ( is_array( $display_types ) && count( $display_types ) > 0 ) {
-		foreach ( $display_types as $display_type => $data ) {
-			$type_object = ditty_display_type_object( $display_type );
-			$templates = $type_object->templates();
+	// $display_types = ditty_display_types();
+	// if ( is_array( $display_types ) && count( $display_types ) > 0 ) {
+	// 	foreach ( $display_types as $display_type => $data ) {
+	// 		$type_object = ditty_display_type_object( $display_type );
+	// 		$templates = $type_object->templates();
 			
-			$default_displays[$display_type] = array(
-				'label' => $data['label'],
-				'templates' => $templates,
-			);
-		}
-	}
+	// 		$default_displays[$display_type] = array(
+	// 			'label' => $data['label'],
+	// 			'templates' => $templates,
+	// 		);
+	// 	}
+	// }
 	
 	return $default_displays;
 }

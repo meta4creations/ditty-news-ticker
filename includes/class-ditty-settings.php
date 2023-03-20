@@ -63,14 +63,14 @@ class Ditty_Settings {
 						'name' 		=> esc_html__( 'Live Refresh Rate', 'ditty-news-ticker' ),
 						'min'			=> 1,
 						'after' 	=> esc_html__( 'Minute(s)', 'ditty-news-ticker' ),
-						'desc'		=> esc_html__( 'Set the live update refresh interval for your Ditty.', 'ditty-news-ticker' ),
+						'description'		=> esc_html__( 'Set the live update refresh interval for your Ditty.', 'ditty-news-ticker' ),
 						'std' 		=> ditty_settings_defaults( 'live_refresh' ),
 					],
 					[
 						'type' 				=> 'radio',
 						'id' 					=> 'edit_links',
 						'name' 				=> esc_html__( 'Edit Links', 'ditty-news-ticker' ),
-						'desc' 				=> esc_html__( 'Display links to edit Ditty', 'ditty-news-ticker' ),
+						'description' 				=> esc_html__( 'Display links to edit Ditty', 'ditty-news-ticker' ),
 						'inline'			=> true,
 						'options'			=> array(
 							'disabled'	=> esc_html__( 'Disabled', 'ditty-news-ticker' ),
@@ -83,7 +83,7 @@ class Ditty_Settings {
 						'id' 					=> 'disable_fontawesome',
 						'name' 				=> esc_html__( 'Font Awesome', 'ditty-news-ticker' ),
 						'label' 			=> esc_html__( 'Disable Font Awesome from loading on the front-end', 'ditty-news-ticker' ),
-						'desc' 				=> esc_html__( 'This will disable the rendering of certain icons used in default Layouts and Layout tags.', 'ditty-news-ticker' ),
+						'description' 				=> esc_html__( 'This will disable the rendering of certain icons used in default Layouts and Layout tags.', 'ditty-news-ticker' ),
 						'std' 				=> ditty_settings_defaults( 'disable_fontawesome' ),
 					],
 					[
@@ -91,7 +91,7 @@ class Ditty_Settings {
 						'id' 					=> 'ditty_news_ticker',
 						'name' 				=> esc_html__( 'Ditty News Ticker', 'ditty-news-ticker' ),
 						'label' 			=> esc_html__( 'Enable Ditty News Ticker (Legacy code)', 'ditty-news-ticker' ),
-						'desc' 				=> esc_html__( 'This will enable loading of all legacy scripts and post types. Only enable this option if you have active Ditty News Ticker posts displaying on your site. You must refresh your browser after saving before changes take place.', 'ditty-news-ticker' ),
+						'description' 				=> esc_html__( 'This will enable loading of all legacy scripts and post types. Only enable this option if you have active Ditty News Ticker posts displaying on your site. You must refresh your browser after saving before changes take place.', 'ditty-news-ticker' ),
 						'std' 				=> ditty_settings_defaults( 'ditty_news_ticker' ),
 					],	
 				]
@@ -162,30 +162,18 @@ class Ditty_Settings {
 					],
 				]
 			],
-			[
-				'id' => 'extensions',
-				'label' => esc_html__( 'Extensions', 'ditty-news-ticker' ),
-				'name' =>esc_html__( 'Extensions', 'ditty-news-ticker' ),
-				'icon' => 'fas fa-plus',
-				'pages' => $this->get_extensions()
-			],
+			// [
+			// 	'id' => 'extensions',
+			// 	'label' => esc_html__( 'Extensions', 'ditty-news-ticker' ),
+			// 	'name' =>esc_html__( 'Extensions', 'ditty-news-ticker' ),
+			// 	'icon' => 'fas fa-plus',
+			// 	'pages' => $this->get_extensions()
+			// ],
 			// [
 			// 	'id' => 'layoutDefaults',
 			// 	'label' => esc_html__( 'Layout Defaults', 'ditty-news-ticker' ),
 			// 	'name' =>esc_html__( 'Layout Variation Defaults', 'ditty-news-ticker' ),
 			// 	'icon' => 'fas fa-pencil-ruler',
-			// ],
-			// [
-			// 	'id' => 'layoutTemplates',
-			// 	'label' => esc_html__( 'Layout Templates', 'ditty-news-ticker' ),
-			// 	'name' =>esc_html__( 'Layout Templates', 'ditty-news-ticker' ),
-			// 	'icon' => 'fas fa-pencil-ruler',
-			// ],
-			// [
-			// 	'id' => 'displayTemplates',
-			// 	'label' => esc_html__( 'Display Templates', 'ditty-news-ticker' ),
-			// 	'name' =>esc_html__( 'Display Templates', 'ditty-news-ticker' ),
-			// 	'icon' => 'fas fa-tablet-alt',
 			// ],
 		];	
 		return $fields;

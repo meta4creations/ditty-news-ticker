@@ -367,15 +367,15 @@ export class EditorProvider extends Component {
     const updatedState = {};
 
     // If saving a new Ditty
-    if ("ditty-new" === this.state.id && data.id) {
-      updatedState.id = data.id;
+    if (data.updates && data.updates.new) {
+      updatedState.id = data.updates.new;
 
       // Get the current URL
       const url = new URL(window.location.href);
 
       // Update the query parameters
       url.searchParams.set("page", "ditty");
-      url.searchParams.set("id", data.id);
+      url.searchParams.set("id", data.updates.new);
 
       // Replace the current state with the updated URL
       history.replaceState(null, "", url);
