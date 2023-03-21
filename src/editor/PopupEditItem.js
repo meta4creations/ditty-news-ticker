@@ -46,7 +46,9 @@ const PopupEditItem = ({
       "ditty-news-ticker"
     ),
     icon: <FontAwesomeIcon icon={faPaintbrushPencil} />,
-    fields: getTagFields(itemTypeObject.layoutTags),
+    fields: getTagFields(
+      editItem.layoutTags ? editItem.layoutTags : itemTypeObject.layoutTags
+    ),
   });
 
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";

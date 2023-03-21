@@ -69,7 +69,7 @@ class Ditty_Editor {
 				}
 				$item_meta->layout_value = $layout_variations;
 				$item_meta->attribute_value = $attribute_value;
-				$unserialized_items[] = $item_meta;
+				$unserialized_items[] = apply_filters( 'ditty_editor_item_meta', $item_meta );
 			}
 		}
 
@@ -222,17 +222,29 @@ class Ditty_Editor {
 
 	// Convert fields for js
 	private function convert_js_field_keys(&$field) {
-		if (isset($field['multiple_fields'])) {
-			$field['multipleFields'] = $field['multiple_fields'];
-			unset($field['multiple_fields']);
+		if (isset($field['clone_button'])) {
+			$field['cloneButton'] = $field['clone_button'];
+			unset($field['clone_button']);
 		}
 		if (isset($field['default_state'])) {
 			$field['defaultState'] = $field['default_state'];
 			unset($field['default_state']);
 		}
-		if (isset($field['clone_button'])) {
-			$field['cloneButton'] = $field['clone_button'];
-			unset($field['clone_button']);
+		if (isset($field['file_types'])) {
+			$field['fileTypes'] = $field['file_types'];
+			unset($field['file_types']);
+		}
+		if (isset($field['media_button'])) {
+			$field['mediaButton'] = $field['media_button'];
+			unset($field['media_button']);
+		}
+		if (isset($field['media_title'])) {
+			$field['mediaTitle'] = $field['media_title'];
+			unset($field['media_title']);
+		}
+		if (isset($field['multiple_fields'])) {
+			$field['multipleFields'] = $field['multiple_fields'];
+			unset($field['multiple_fields']);
 		}
 		if (isset($field['js_options'])) {
 			if (is_array($field['js_options']) && count($field['js_options']) > 0) {

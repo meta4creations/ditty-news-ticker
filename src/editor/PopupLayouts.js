@@ -173,6 +173,7 @@ const PopupLayouts = ({
         return (
           <PopupEditLayout
             level="2"
+            item={editItem}
             layout={customLayout}
             itemTypeObject={itemTypeObject}
             onClose={() => {

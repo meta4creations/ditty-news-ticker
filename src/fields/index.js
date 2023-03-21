@@ -7,6 +7,7 @@ export { default as Field } from "./Field";
 export { default as FieldList } from "./FieldList";
 export { default as GroupField } from "./GroupField";
 export { default as HtmlField } from "./HtmlField";
+export { default as ImageField } from "./ImageField";
 export { default as LayoutTagField } from "./LayoutTagField";
 export { default as NumberField } from "./NumberField";
 export { default as RadioField } from "./RadioField";

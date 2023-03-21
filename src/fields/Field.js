@@ -6,8 +6,10 @@ import CheckboxesField from "./CheckboxesField";
 import ColorField from "./ColorField";
 import ComponentField from "./ComponentField";
 import CustomHtmlField from "./CustomHtmlField";
+import FileField from "./FileField";
 import GroupField from "./GroupField";
 import HtmlField from "./HtmlField";
+import ImageField from "./ImageField";
 import LayoutTagField from "./LayoutTagField";
 import NumberField from "./NumberField";
 import RadioField from "./RadioField";
@@ -82,6 +84,14 @@ const Field = ({ field, fieldValue, updateValue, delayChange = false }) => {
               {...inputField}
             />
           );
+        case "file":
+          return (
+            <FileField
+              value={inputValue}
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
+              {...inputField}
+            />
+          );
         case "group":
           return (
             <GroupField
@@ -98,6 +108,14 @@ const Field = ({ field, fieldValue, updateValue, delayChange = false }) => {
           return <BaseField {...inputField} />;
         case "html":
           return <HtmlField value={inputValue} {...inputField} />;
+        case "image":
+          return (
+            <ImageField
+              value={inputValue}
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
+              {...inputField}
+            />
+          );
         case "layout_attribute":
           return (
             <LayoutTagField

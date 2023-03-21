@@ -15,6 +15,7 @@ import { IconBlock, Popup, Tabs } from "../components";
 import PopupEditLayoutTag from "./PopupEditLayoutTag";
 
 const PopupEditLayout = ({
+  item,
   layout,
   itemTypeObject,
   submitLabel = __("Update Layout", "ditty-news-ticker"),
@@ -62,7 +63,6 @@ const PopupEditLayout = ({
           <div className="ditty-icon-block--heading__title">
             <h2>{__("Custom Layout", "ditty-news-ticker")}</h2>
           </div>
-          <p>{__("Something here...", "ditty-news-ticker")}</p>
         </IconBlock>
         <Tabs
           type="cloud"
@@ -86,9 +86,10 @@ const PopupEditLayout = ({
   };
 
   const renderPopupFooterBefore = () => {
-    return (
-      <LayoutTags type={currentTabId} layoutTags={itemTypeObject.layoutTags} />
-    );
+    const layoutTags = item.layoutTags
+      ? item.layoutTags
+      : itemTypeObject.layoutTags;
+    return <LayoutTags type={currentTabId} layoutTags={layoutTags} />;
   };
 
   const renderPopupContents = () => {

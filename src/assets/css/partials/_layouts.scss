@@ -10,6 +10,9 @@
 .ditty-popup--editLayout {
   .ditty-popup__header {
     padding: 0;
+    .ditty-icon-block--heading {
+      align-items: center;
+    }
   }
   .ditty-tabs {
     border-top: 1px solid $border_color_light;
