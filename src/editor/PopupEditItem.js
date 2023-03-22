@@ -18,6 +18,7 @@ import {
   getItemLabel,
   getItemTypes,
   getItemTypeSettings,
+  getItemTypePreviewIcon,
 } from "../utils/itemTypes";
 import { getTagFields } from "../utils/layouts";
 
@@ -114,7 +115,7 @@ const PopupEditItem = ({
     return (
       <>
         <IconBlock
-          icon={itemTypeObject && itemTypeObject.icon}
+          icon={getItemTypePreviewIcon(item)}
           className="ditty-icon-block--heading"
         >
           <div className="ditty-icon-block--heading__title">

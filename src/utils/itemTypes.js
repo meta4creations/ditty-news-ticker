@@ -20,21 +20,23 @@ export const getItemTypes = () => {
  * @returns element
  */
 const migrateItemTypes = (itemTypes) => {
-  const phpItemTypes =
-    dittyEditorVars.itemTypes &&
-    dittyEditorVars.itemTypes.reduce((filtered, phpType) => {
-      const existingType = itemTypes.filter((type) => type.id === phpType.type);
-      if (!existingType.length) {
-        filtered.push(phpType);
+  const updatedItemTypes = [...itemTypes];
+  if (dittyEditorVars.itemTypes) {
+    dittyEditorVars.itemTypes.map((phpType) => {
+      const existingIndex = updatedItemTypes.findIndex((itemType) => {
+        return itemType.id === phpType.id;
+      });
+      if (-1 === existingIndex) {
+        updatedItemTypes.push(phpType);
+      } else {
+        updatedItemTypes[existingIndex] = {
+          ...phpType,
+          ...itemTypes[existingIndex],
+        };
       }
-      return filtered;
-    }, []);
-  if (phpItemTypes && phpItemTypes.length) {
-    const updatedItemTypes = itemTypes.concat(phpItemTypes);
-    return updatedItemTypes;
-  } else {
-    return itemTypes;
+    });
   }
+  return updatedItemTypes;
 };
 
 /**
@@ -43,6 +45,9 @@ const migrateItemTypes = (itemTypes) => {
  * @returns element
  */
 export const getItemTypeObject = (item) => {
+  if (typeof item === "object" && item.id) {
+    return item;
+  }
   const itemTypes = getItemTypes();
   const itemTypeObject = itemTypes.filter((itemType) => {
     if (typeof item === "object") {
@@ -69,6 +74,21 @@ export const getItemTypeIcon = (item) => {
   ) : (
     <FontAwesomeIcon icon={faPencil} />
   );
+};
+
+/**
+ * Return an item types icon from item
+ * @param {object} item
+ * @returns element
+ */
+export const getItemTypePreviewIcon = (item) => {
+  const itemTypeObject = getItemTypeObject(item);
+  if (itemTypeObject.previewIcon) {
+    return itemTypeObject.previewIcon(item);
+  } else {
+    const icon = getItemTypeIcon(item);
+    return "string" === typeof icon ? <i className={icon}></i> : icon;
+  }
 };
 
 /**

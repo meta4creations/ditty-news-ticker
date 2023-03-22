@@ -9,8 +9,6 @@ const ImageField = (props) => {
   const { value, onChange, mediaTitle, mediaButton, fileTypes, multiple } =
     props;
 
-  console.log("value", value);
-
   let uploader;
   const runUploader = (e) => {
     e.preventDefault();
@@ -56,7 +54,6 @@ const ImageField = (props) => {
           url: attachments[0].url,
           sizes: attachments[0].sizes,
         };
-        console.log("imageData", imageData);
         onChange(imageData);
       }
     });

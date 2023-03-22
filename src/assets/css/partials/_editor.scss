@@ -38,12 +38,18 @@
     background: #ccc;
     border-radius: 3px;
     margin-right: 10px;
+    overflow: hidden;
     i,
     svg {
       display: block;
       font-size: 15px;
       text-align: center;
       line-height: 40px;
+    }
+    img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
     }
   }
   &__label {

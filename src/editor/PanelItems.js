@@ -22,7 +22,7 @@ import { EditorContext } from "./context";
 import {
   getItemTypes,
   getItemTypeObject,
-  getItemTypeIcon,
+  getItemTypePreviewIcon,
   getItemLabel,
 } from "../utils/itemTypes";
 import PopupEditItem from "./PopupEditItem";
@@ -248,8 +248,7 @@ const PanelItems = () => {
       {
         id: "icon",
         content: (item) => {
-          const icon = getItemTypeIcon(item);
-          return "string" === typeof icon ? <i className={icon}></i> : icon;
+          return getItemTypePreviewIcon(item);
         },
       },
       {
