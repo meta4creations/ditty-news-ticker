@@ -6,6 +6,7 @@ const TextField = (props) => {
   const {
     value,
     type,
+    placeholder,
     onChange,
     onBlur,
     onFocus,
@@ -47,6 +48,7 @@ const TextField = (props) => {
       <input
         type={inputType}
         value={delayChange ? delayValue : value}
+        placeholder={placeholder}
         onChange={(e) => {
           delayChange
             ? handleInputChangeDelay(e.target.value)

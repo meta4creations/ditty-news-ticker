@@ -523,12 +523,14 @@
         currentItems = $currentPage.children(".ditty-item"),
         pageIndex = this.$elmt.ditty_slider("options", "slide"),
         minIndex =
-          this.settings.paging && 1 === this.settings.paging
-            ? this.settings.perPage * pageIndex
+          this.settings.paging && 1 === parseInt(this.settings.paging)
+            ? parseInt(this.settings.perPage) * pageIndex
             : 0,
         maxIndex =
-          this.settings.paging && 1 === this.settings.paging
-            ? this.settings.perPage * pageIndex + (this.settings.perPage - 1)
+          this.settings.paging && 1 === parseInt(this.settings.paging)
+            ? parseInt(this.settings.perPage) * pageIndex +
+              parseInt(this.settings.perPage) -
+              1
             : currentItems.length,
         itemSwaps = [];
 

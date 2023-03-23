@@ -83,12 +83,14 @@ export const getItemTypeIcon = (item) => {
  */
 export const getItemTypePreviewIcon = (item) => {
   const itemTypeObject = getItemTypeObject(item);
+  let previewIcon;
   if (itemTypeObject.previewIcon) {
-    return itemTypeObject.previewIcon(item);
+    previewIcon = itemTypeObject.previewIcon(item);
   } else {
     const icon = getItemTypeIcon(item);
-    return "string" === typeof icon ? <i className={icon}></i> : icon;
+    previewIcon = "string" === typeof icon ? <i className={icon}></i> : icon;
   }
+  return <div className="ditty-item-type-preview-icon">{previewIcon}</div>;
 };
 
 /**

@@ -2,7 +2,9 @@ import { __ } from "@wordpress/i18n";
 import BaseField from "./BaseField";
 
 const SelectField = (props) => {
-  const { placeholder, options, value, onChange } = props;
+  const { id, placeholder, options, value, onChange } = props;
+  let helpOptions = {};
+
   const convertFieldOptions = (options) => {
     if (Array.isArray(options)) {
       return options.map((option) => {
@@ -27,14 +29,33 @@ const SelectField = (props) => {
     }
   };
 
-  const renderOptions = () => {
-    const convertedOptions = convertFieldOptions(options);
+  const renderOption = (option) => {
+    if (option.help) {
+      helpOptions[option.value] = option.help;
+    }
+    return (
+      <option key={option.value} value={option.value}>
+        {option.label}
+      </option>
+    );
+  };
+
+  const renderGroup = (group) => {
+    return (
+      <optgroup key={group.label} label={group.label}>
+        {group.options && renderOptions(group.options)}
+      </optgroup>
+    );
+  };
+
+  const renderOptions = (selectOptions) => {
+    const convertedOptions = convertFieldOptions(selectOptions);
     return convertedOptions.map((option) => {
-      return (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      );
+      if (option.group) {
+        return renderGroup(option);
+      } else {
+        return renderOption(option);
+      }
     });
   };
 
@@ -43,10 +64,24 @@ const SelectField = (props) => {
       <select
         placeholder={placeholder}
         defaultValue={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => {
+          window.dispatchEvent(
+            new CustomEvent("dittySelectFieldChange", {
+              detail: {
+                target: e.target,
+                id: id,
+                value: e.target.value,
+                help: helpOptions[e.target.value]
+                  ? helpOptions[e.target.value]
+                  : "",
+              },
+            })
+          );
+          onChange(e.target.value);
+        }}
       >
         {placeholder && <option>{placeholder}</option>}
-        {renderOptions()}
+        {renderOptions(options)}
       </select>
     </BaseField>
   );

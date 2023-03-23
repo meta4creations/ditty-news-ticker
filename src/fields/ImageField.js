@@ -22,6 +22,7 @@ const ImageField = (props) => {
     // Create a new media uploader
     uploader = wp.media({
       title: mediaTitle,
+      description: "this is a description",
       button: {
         text: mediaButton,
       },
@@ -29,6 +30,23 @@ const ImageField = (props) => {
       library: {
         type: fileTypes,
       },
+    });
+
+    uploader.on("open", function () {
+      var selection = uploader.state().get("selection");
+
+      const ids = Array.isArray(value)
+        ? value.map((attachment) => {
+            return typeof attachment === "object" ? attachment.id : attachment;
+          })
+        : typeof value === "object"
+        ? [value.id]
+        : [value];
+
+      ids.forEach(function (id) {
+        let attachment = wp.media.attachment(id);
+        selection.add(attachment ? [attachment] : []);
+      });
     });
 
     uploader.on("select", function () {
