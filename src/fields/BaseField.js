@@ -12,6 +12,7 @@ const BaseField = (props) => {
     prefix,
     suffix,
     className,
+    columnWidth,
     style,
     children,
     hideHeader,
@@ -32,8 +33,13 @@ const BaseField = (props) => {
     }
   );
 
+  const modifiedStyle = style ? style : {};
+  if (columnWidth) {
+    modifiedStyle.flex = `1 1 ${columnWidth}`;
+  }
+
   return (
-    <div className={fieldClasses} key={id} style={style}>
+    <div className={fieldClasses} key={id} style={modifiedStyle}>
       {raw ? (
         children
       ) : (

@@ -58,7 +58,6 @@ const SelectField = (props) => {
       }
     });
   };
-
   return (
     <BaseField {...props}>
       <select

@@ -198,6 +198,8 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 			'title',
 		);
 		$tags = array_intersect_key( $tags, array_flip( $allowed_tags ) );
+
+		$tags['image']['atts']['size'] = 'large';
 		return $tags;
 	}
 

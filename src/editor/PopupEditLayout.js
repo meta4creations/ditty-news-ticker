@@ -10,9 +10,9 @@ import {
 import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
 
-import { LayoutTags, CodeEditor } from "../common";
+import { LayoutTags, CodeEditor, PopupEditLayoutTag } from "../common";
 import { IconBlock, Popup, Tabs } from "../components";
-import PopupEditLayoutTag from "./PopupEditLayoutTag";
+//import PopupEditLayoutTag from "./PopupEditLayoutTag";
 
 const PopupEditLayout = ({
   item,

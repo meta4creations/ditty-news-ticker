@@ -5,15 +5,15 @@
  * 
  * @since   3.0
  */
-function ditty_posts_lite_layout_tags( $tags, $item_type ) {
-	if ( 'posts_feed' == $item_type || 'post' == $item_type ) {
-		if ( isset( $tags['image'] ) ) {
-			$tags['image']['atts']['size'] = 'large';
-		}
-	}
-	return $tags;
-}
-add_filter( 'ditty_layout_tags', 'ditty_posts_lite_layout_tags', 10, 2 );
+// function ditty_posts_lite_layout_tags( $tags, $item_type ) {
+// 	if ( 'posts_feed' == $item_type || 'post' == $item_type ) {
+// 		if ( isset( $tags['image'] ) ) {
+// 			$tags['image']['atts']['size'] = 'large';
+// 		}
+// 	}
+// 	return $tags;
+// }
+// add_filter( 'ditty_layout_tags', 'ditty_posts_lite_layout_tags', 10, 2 );
 
 /**
  * Return a tag value
