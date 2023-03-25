@@ -26,7 +26,6 @@ dittyEditor.registerItemType = (itemType) => {
   } else {
     dittyEditor.itemTypes[index] = itemType;
   }
-  console.log("itemTypes", dittyEditor.itemTypes);
 };
 
 /**

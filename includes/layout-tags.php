@@ -25,7 +25,7 @@ function ditty_layout_link_options( $item_type = false ) {
 function ditty_layout_tags( $item_type = false, $item_value = false ) {	
 
 	// Get the link options
-	$link_options = ditty_layout_link_options();
+	$link_options = ditty_layout_link_options( $item_type );
 
 	$after_settings = Ditty()->layouts->tag_attribute_default_settings( 'after' );
 	$before_settings = Ditty()->layouts->tag_attribute_default_settings( 'before' );
