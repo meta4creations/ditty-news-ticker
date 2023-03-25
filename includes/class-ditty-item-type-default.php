@@ -17,7 +17,7 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 	 * @since 3.0
 	 */
 	public $slug = 'default';
-	public $js_fields = true;
+	public $js_settings = true;
 
 	/**
 	 * Get things started

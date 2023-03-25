@@ -168,7 +168,6 @@ const PanelItems = () => {
         return (
           <PopupEditItem
             item={currentItem}
-            key={currentItem.item_type}
             editType={popupStatus}
             onClose={(editedItem) => {
               setPopupStatus(false);

@@ -17,7 +17,7 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 	 * @since 3.0
 	 */
 	public $type = 'ticker';
-	public $js_fields = true;
+	public $js_settings = true;
 
 	/**
 	 * Get things started

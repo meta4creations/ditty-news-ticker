@@ -1,16 +1,16 @@
 import { __ } from "@wordpress/i18n";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faSliders } from "@fortawesome/pro-light-svg-icons";
+import { faCode, faSliders } from "@fortawesome/pro-light-svg-icons";
 
 if (dittyEditor) {
-  const itemType = __("WP Editor", "ditty-news-ticker");
+  const itemType = __("HTML", "ditty-news-ticker");
 
   dittyEditor.registerItemType({
-    id: "wp_editor",
-    icon: <FontAwesomeIcon icon={faPenToSquare} />,
+    id: "html",
+    icon: <FontAwesomeIcon icon={faCode} />,
     label: itemType,
     description: __(
-      "Manually add wp editor content to the item.",
+      "Manually add custom HTML to the item.",
       "ditty-news-ticker"
     ),
     settings: {
@@ -25,23 +25,20 @@ if (dittyEditor) {
         icon: <FontAwesomeIcon icon={faSliders} />,
         fields: [
           {
-            type: "wysiwyg",
+            type: "custom_html",
             id: "content",
             name: __("Content", "ditty-news-ticker"),
-            help: __(
-              "Add the content of your item. HTML and inline styles are supported.",
-              "ditty-news-ticker"
-            ),
+            help: __("Add the custom html for your item.", "ditty-news-ticker"),
             raw: true,
           },
         ],
       },
     },
     defaultValues: {
-      content: __(
-        "This is a sample item. Please edit me!",
+      content: `<p>${__(
+        "This is custom HTML. Please edit me!",
         "ditty-news-ticker"
-      ),
+      )}</p>`,
     },
     // itemLabel: (item) => {
     //   const content = item.item_value.content

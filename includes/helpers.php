@@ -795,66 +795,6 @@ function ditty_parse_custom_layouts( $layout_settings ) {
 }
 
 /**
- * Return display items for a specific Ditty
- *
- * @since    3.0.12
- * @access   public
- * @var      array   	$display_items    Array of item objects
- */
-function ditty_display_items( $ditty_id, $load_type = 'cache', $custom_layouts = false ) {
-	$load_type = 'force';
-	$transient_name = "ditty_display_items_{$ditty_id}";
-	
-	// Check for custom layouts
-	$custom_layout_array = array();
-	if ( $custom_layouts ) {
-		$transient_name .= "_{$custom_layouts}";
-		$custom_layout_array = ditty_parse_custom_layouts( $custom_layouts );
-	}
-	
-	// Get the display items
-	$display_items = get_transient( $transient_name );
-	if ( ! $display_items || 'force' == $load_type ) {
-		$items_meta = ditty_items_meta( $ditty_id );
-		$display_items = array();
-		if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
-			foreach ( $items_meta as $i => $item_meta ) {
-
-				// Unpack the layout variations
-				$layout_value = maybe_unserialize( $item_meta->layout_value );
-				$layout_variations = [];
-				if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
-					foreach ( $layout_value as $variation => $value ) {
-						if ( is_array( $value ) ) {
-							$layout_variations[$variation] = $value;
-						} else {
-							$layout_variations[$variation] = json_decode($value, true);
-						}	
-					}
-				}
-
-				// De-serialize the attribute values
-				$attribute_value = maybe_unserialize( $item_meta->attribute_value );
-
-				// Get and loop through prepared items
-				$prepared_items = ditty_prepare_display_items( $item_meta );
-				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
-					foreach ( $prepared_items as $i => $prepared_meta ) {
-						$prepared_meta['attribute_value'] = $attribute_value;
-						$display_item = new Ditty_Display_Item( $prepared_meta );
-						$ditty_data = $display_item->ditty_data();
-						$display_items[] = $ditty_data;
-					}
-				}
-			}
-		}
-		$display_items = apply_filters( 'ditty_display_items', $display_items, $ditty_id );
-		set_transient( $transient_name, $display_items, ( MINUTE_IN_SECONDS * intval( ditty_settings( 'live_refresh' ) ) ) );
-	}
-	return $display_items;
-}
-
-/**
  * Return item data for a Ditty
  *
  * @since    3.0
@@ -1144,8 +1084,8 @@ function ditty_render( $atts ) {
 	}
 	
 	$ditty_settings = get_post_meta( $args['id'], '_ditty_settings', true );
-	$ajax_load 			= ( isset( $ditty_settings['ajax_loading'] ) && 'yes' == $ditty_settings['ajax_loading'] ) ? '1' : 0;
-	$live_updates 	= ( isset( $ditty_settings['live_updates'] ) && 'yes' == $ditty_settings['live_updates'] ) ? '1' : 0;
+	$ajax_load 			= ( isset( $ditty_settings['ajax_loading'] ) && 'yes' == $ditty_settings['ajax_loading'] ) ? '1' : false;
+	$live_updates 	= ( isset( $ditty_settings['live_updates'] ) && 'yes' == $ditty_settings['live_updates'] ) ? '1' : false;
 	
 	ditty_add_scripts( $args['id'], $args['display']);
 	

@@ -17,7 +17,7 @@ class Ditty_Display_Type {
 	public $description;
 	public $metabox;
 	public $templates;
-	public $js_fields = false;
+	public $js_settings = false;
 
 	/**
 	 * Get things started

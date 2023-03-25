@@ -18,7 +18,15 @@ dittyEditor.layoutTags = layoutTags;
  */
 dittyEditor.itemTypes = [];
 dittyEditor.registerItemType = (itemType) => {
-  dittyEditor.itemTypes.push(itemType);
+  const index = dittyEditor.itemTypes.findIndex(
+    (type) => type.id === itemType.id
+  );
+  if (index < 0) {
+    dittyEditor.itemTypes.push(itemType);
+  } else {
+    dittyEditor.itemTypes[index] = itemType;
+  }
+  console.log("itemTypes", dittyEditor.itemTypes);
 };
 
 /**

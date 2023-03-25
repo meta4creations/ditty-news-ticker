@@ -17,7 +17,7 @@ class Ditty_Item_Type {
 	public $icon;
 	public $description;
 	public $script_id;
-	public $js_fields = false;
+	public $js_settings = false;
 
 	/**
 	 * Get things started
@@ -112,8 +112,10 @@ class Ditty_Item_Type {
 	 * @since   3.1
 	 * @return string $type
 	 */
-	public function has_js_fields() {
-		return $this->js_fields;
+	public function js_registered( $type = false ) {
+		if ( $type = 'settings' ) {
+			return $this->js_settings;
+		}
 	}
 	
 	/**

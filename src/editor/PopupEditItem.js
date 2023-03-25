@@ -40,7 +40,7 @@ const PopupEditItem = ({
   const fieldGroups = getItemTypeSettings(editItem);
   fieldGroups.push({
     id: "layoutCustomizations",
-    label: __("Customizations", "ditty-news-ticker"),
+    label: __("Customize", "ditty-news-ticker"),
     name: __("Layout Tag Customizations", "ditty-news-ticker"),
     description: __(
       "Customize the layout tags that are using in Layouts for this item. Keep in mind that some layouts may not use all of these tags.",
@@ -93,6 +93,9 @@ const PopupEditItem = ({
             }}
             onUpdate={(updatedType) => {
               setChildPopupStatus(false);
+              if (updatedType === editItem.item_type) {
+                return false;
+              }
 
               const updatedItem = { ...editItem };
               const updatedItemTypeObject = getItemTypeObject(updatedType);
@@ -101,6 +104,14 @@ const PopupEditItem = ({
                 ...updatedItemTypeObject.defaultValues,
                 ...updatedItem.item_value,
               };
+
+              // Set the current tab
+              const fieldGroups = getItemTypeSettings(updatedType);
+              if (fieldGroups.length) {
+                setCurrentTabId(fieldGroups[0].id);
+              } else {
+                setCurrentTabId("layoutCustomizations");
+              }
 
               addItemUpdate(updatedItem, "item_type");
             }}

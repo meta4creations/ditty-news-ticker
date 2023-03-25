@@ -58,6 +58,10 @@ class Ditty_Singles {
 	 * @since   3.1
 	 */
 	public function edit_page_redirects() {
+		if ( isset( $_GET['action'] ) ) {
+			return false;
+		}
+		
 		global $pagenow;
 		if ( $pagenow === 'post.php' ) {
 			$post_id = isset( $_GET['post'] ) ? $_GET['post'] : 0;
@@ -344,7 +348,7 @@ class Ditty_Singles {
 			$display_settings = isset( $display_ajax['settings'] ) ? $display_ajax['settings'] : [];
 			$display_type = isset( $display_ajax['type'] ) ? $display_ajax['type'] : false;
 		} else {
-			if ( 'publish' == get_post_status( $display_id ) ) {
+			if ( 'publish' == get_post_status( $display_ajax ) ) {
 				$display_settings = get_post_meta( $display_ajax, '_ditty_display_settings', true );
 				$display_type = get_post_meta( $display_ajax, '_ditty_display_type', true );
 			}
@@ -364,7 +368,7 @@ class Ditty_Singles {
 		$args['display'] 				= $display_ajax;
 		$args['showEditor'] 		= $editor_ajax;
 
-		$items = ditty_display_items( $id_ajax, 'force', $custom_layout_settings_ajax );
+		$items = $this->get_display_items( $id_ajax, 'cache', $custom_layout_settings_ajax );
 		if ( ! is_array( $items ) ) {
 			$items = array();
 		}
@@ -417,6 +421,9 @@ class Ditty_Singles {
 			}
 		}
 
+		//ChromePhp::log( '$display_type', $display_type );
+		//echo '<pre>';print_r($display_type);echo '</pre>';
+
 		if ( ! $display_type || ! ditty_display_type_exists( $display_type ) ) {
 			// DO SOMETHING HERE
 		}
@@ -430,7 +437,7 @@ class Ditty_Singles {
 		$args['status'] 		= $status;
 		$args['display'] 		= is_array( $display_id ) ? $ditty_id : $display_id;
 
-		$items = ditty_display_items( $ditty_id, 'force', $custom_layout_settings );
+		$items = $this->get_display_items( $ditty_id, 'cache', $custom_layout_settings );
 		if ( ! is_array( $items ) ) {
 			$items = array();
 		}
@@ -461,7 +468,7 @@ class Ditty_Singles {
 		if ( is_array( $live_ids ) && count( $live_ids ) > 0 ) {
 			foreach ( $live_ids as $ditty_id => $data ) {
 				$layout_settings = isset( $data['layout_settings'] ) ? $data['layout_settings'] : false;
-				$updated_items[$ditty_id] = ditty_display_items( $ditty_id, 'cache', $layout_settings );
+				$updated_items[$ditty_id] = $this->get_display_items( $ditty_id, 'cache', $layout_settings );
 			}
 		}
 		$data = array(
@@ -602,6 +609,90 @@ class Ditty_Singles {
 			$sanitized_item['item_author'] = intval( $item_data['item_author'] );
 		}
 		return $sanitized_item;
+	}
+
+	/**
+	 * Return display items for a specific Ditty
+	 *
+	 * @since    3.1
+	 * @access   public
+	 * @var      array   	$display_items    Array of item objects
+	 */
+	function get_display_items( $ditty_id, $load_type = 'cache', $custom_layouts = false ) {
+		//$load_type = 'force';
+		$transient_name = "ditty_display_items_{$ditty_id}";
+		
+		// Check for custom layouts
+		$custom_layout_array = array();
+		if ( $custom_layouts ) {
+			$transient_name .= "_{$custom_layouts}";
+			$custom_layout_array = ditty_parse_custom_layouts( $custom_layouts );
+		}
+		
+		// Get the display items
+		$display_items = get_transient( $transient_name );
+		if ( ! $display_items || 'force' == $load_type ) {
+			//ChromePhp::log( 'NO CACHE' );
+			$items_meta = ditty_items_meta( $ditty_id );
+			$display_items = array();
+			if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
+				foreach ( $items_meta as $i => $item_meta ) {
+
+					// Unpack the layout variations
+					$layout_value = maybe_unserialize( $item_meta->layout_value );
+					$layout_variations = [];
+					if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
+						foreach ( $layout_value as $variation => $value ) {
+							if ( is_array( $value ) ) {
+								$layout_variations[$variation] = $value;
+							} else {
+								$layout_variations[$variation] = json_decode($value, true);
+							}	
+						}
+					}
+
+					// De-serialize the attribute values
+					$attribute_value = maybe_unserialize( $item_meta->attribute_value );
+
+					// Get and loop through prepared items
+					$prepared_items = ditty_prepare_display_items( $item_meta );
+					if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
+						foreach ( $prepared_items as $i => $prepared_meta ) {
+							$prepared_meta['attribute_value'] = $attribute_value;
+							$display_item = new Ditty_Display_Item( $prepared_meta );
+							$ditty_data = $display_item->ditty_data();
+							$display_items[] = $ditty_data;
+						}
+					}
+				}
+			}
+			$display_items = apply_filters( 'ditty_display_items', $display_items, $ditty_id );
+			set_transient( $transient_name, $display_items, ( MINUTE_IN_SECONDS * intval( ditty_settings( 'live_refresh' ) ) ) );
+		}
+		return $display_items;
+	}
+
+	/**
+	 * Delete display item transients
+	 *
+	 * @access  public
+	 * @since   3.1
+	 * @param   array
+	 */
+	public function delete_items_cache( $ditty_id = false ) {
+		if ( $ditty_id ) {
+			$transient_name = "ditty_display_items_{$ditty_id}";
+			delete_transient( $transient_name );
+		} else {
+			global $wpdb;
+			$all_transients = $wpdb->get_results( "SELECT option_name AS name, option_value AS value FROM $wpdb->options WHERE option_name LIKE '_transient_ditty_display_items_%'" );
+			if ( is_array( $all_transients ) && count( $all_transients ) > 0 ) {
+				foreach( $all_transients as $i => $transient ) {	
+					$name = substr( $transient->name, 11 );
+					delete_transient( $name );
+				}
+			}
+		}
 	}
 
 	/**
@@ -767,6 +858,8 @@ class Ditty_Singles {
 				$errors['settings'] = $sanitized_settings;
 			}
 		}
+
+		$this->delete_items_cache( $id);
 
 		return array(
 			'updates' => $updates,

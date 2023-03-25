@@ -24,6 +24,7 @@
   border-radius: 0;
   border: none;
   cursor: pointer;
+  overflow: hidden;
   transition: color 0.25s ease, background-color 0.25s ease;
   &:hover {
     &:not(.ditty-tab--active) {

@@ -163,33 +163,37 @@ class Ditty_Editor {
 				if ( ! $item_type_object ) {
 					continue;
 				}
-				$default_settings = $item_type_object->default_settings();
-				$fields = $this->format_js_fields($item_type_object->fields($default_settings));
-
-				$first_field = reset( $fields );
-				if ( isset( $first_field['type'] ) ) {
-					$settings = [[
-						'id' => 'settings',
-						'label' => __("Settings", "ditty-news-ticker"),
-						'name' => __("Settings", "ditty-news-ticker"),
-						'description' => sprintf( __( 'Configure the settings of the %s item.', "ditty-news-ticker" ), $type['label'] ),
-						'icon' => 'fas fa-sliders',
-						'fields' => $fields,
-					]];
-				} else {
-					$settings = $fields;
-				}
 				$item_type = [
 					'id' => $type['type'],
 					'icon' => $type['icon'],
 					'label' => $type['label'],
 					'description' => $type['description'],
-					'settings' => $settings,
-					'defaultValues' => $default_settings,
 					'layoutTags' => array_values( $item_type_object->get_layout_tags() ),
 					'layoutVariations' => $item_type_object->get_layout_variations(),
 					'defaultLayout' => $item_type_object->default_layout(),
 				];
+
+				if ( ! $item_type_object->js_registered( 'settings' ) ) {
+					$default_settings = $item_type_object->default_settings();
+					$fields = $this->format_js_fields($item_type_object->fields($default_settings));
+
+					$first_field = reset( $fields );
+					if ( isset( $first_field['type'] ) ) {
+						$settings = [[
+							'id' => 'settings',
+							'label' => __("Settings", "ditty-news-ticker"),
+							'name' => __("Settings", "ditty-news-ticker"),
+							'description' => sprintf( __( 'Configure the settings of the %s item.', "ditty-news-ticker" ), $type['label'] ),
+							'icon' => 'fas fa-sliders',
+							'fields' => $fields,
+						]];
+					} else {
+						$settings = $fields;
+					}
+					$item_type['settings'] = $settings;
+					$item_type['defaultValues'] = $default_settings;
+				}
+
 				$item_type_data[] = $item_type;
 			}
 		}

@@ -17,7 +17,7 @@ class Ditty_Display_Type_List extends Ditty_Display_Type {
 	 * @since 3.0
 	 */
 	public $type = 'list';
-	public $js_fields = true;
+	public $js_settings = true;
 
 	/**
 	 * Return an array of default displays
