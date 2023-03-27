@@ -1,17 +1,22 @@
 import { createHooks } from "@wordpress/hooks";
-import { easeOptions, sliderTransitions } from "./utils/helpers";
-import { layoutTags } from "./utils/layoutTags";
+import * as common from "./common";
+import * as components from "./components";
+import * as fields from "./fields";
+import * as helpers from "./utils/helpers";
+
+dittyEditor.common = common;
+dittyEditor.components = components;
+dittyEditor.fields = fields;
+dittyEditor.helpers = helpers;
 
 const editorHooks = createHooks();
 dittyEditor.addFilter = (action, callable, priority) => {
   editorHooks.addFilter(action, "dittyEditor", callable, priority);
 };
 dittyEditor.applyFilters = editorHooks.applyFilters;
-dittyEditor.helpers = {
-  easeOptions,
-  sliderTransitions,
-};
-dittyEditor.layoutTags = layoutTags;
+
+//dittyEditor.DittyItemType = DittyItemType;
+//dittyEditor.layoutTags = layoutTags;
 
 /**
  * Store registered item types

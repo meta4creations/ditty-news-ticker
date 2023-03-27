@@ -169,11 +169,9 @@ class Ditty_Display_Item {
 	 */
 	public function get_layout_tags() {
 		if ( ! $this->layout_tags ) {
-			if ( apply_filters( 'ditty_display_item_custom_layout_tags', false ) ) {
-				$this->layout_tags = ditty_layout_tags( $this->get_item_type(), $this->get_item_value() );
-			} else {
-				$this->layout_tags = ditty_layout_tags();
-			}
+			$type_atts = ditty_layout_tags( $this->get_item_type(), $this->get_item_value() );
+			$default_atts = ditty_layout_tags();
+			$this->layout_tags = wp_parse_args( $type_atts, $default_atts );
 		}
 		return $this->layout_tags;
 	}

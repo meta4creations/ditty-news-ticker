@@ -1,34 +1,23 @@
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
 import { useContext, useState } from "@wordpress/element";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGear,
-  faPaintbrushPencil,
-  faClone,
-  faTrashCan,
-} from "@fortawesome/pro-light-svg-icons";
+import { withFilters, SlotFillProvider, Slot } from "@wordpress/components";
 import {
   getDisplayItems,
   updateDisplayOptions,
   addDisplayItems,
   deleteDisplayItems,
   updateDisplayItems,
-  replaceDisplayItems,
 } from "../services/dittyService";
 import { PopupTypeSelector } from "../common";
-import { Panel, ListItem, SortableList } from "../components";
+import { Panel, SortableList } from "../components";
 import { EditorContext } from "./context";
-import {
-  getItemTypes,
-  getItemTypeObject,
-  getItemTypePreviewIcon,
-  getItemLabel,
-} from "../utils/itemTypes";
+import { getItemTypes, getItemTypeObject } from "../utils/itemTypes";
 import PopupEditItem from "./PopupEditItem";
 import PopupLayouts from "./PopupLayouts";
+import EditItem from "./EditItem";
 
-const PanelItems = () => {
+const PanelItems = (props) => {
   const { id, items, displayItems, layouts, actions, helpers } =
     useContext(EditorContext);
 
@@ -240,74 +229,6 @@ const PanelItems = () => {
   };
 
   /**
-   * Set up the elements
-   */
-  const elements = dittyEditor.applyFilters(
-    "itemListElements",
-    [
-      {
-        id: "icon",
-        content: (item) => {
-          return getItemTypePreviewIcon(item);
-        },
-      },
-      {
-        id: "label",
-        content: (item) => {
-          return getItemLabel(item);
-        },
-      },
-      {
-        id: "settings",
-        className: "ditty-editor-item__action",
-        content: <FontAwesomeIcon icon={faGear} />,
-        onClick: (item) => {
-          setCurrentItem(item);
-          setPopupStatus("editItem");
-        },
-      },
-      {
-        id: "layout",
-        className: "ditty-editor-item__action",
-        content: <FontAwesomeIcon icon={faPaintbrushPencil} />,
-        onClick: (item) => {
-          setCurrentItem(item);
-          setPopupStatus("editLayout");
-        },
-      },
-      {
-        id: "clone",
-        className: "ditty-editor-item__action",
-        content: <FontAwesomeIcon icon={faClone} />,
-        onClick: (item) => {
-          const clonedItem = _.cloneDeep(item);
-          clonedItem.item_id = `new-${Date.now()}`;
-          actions.addItem(clonedItem, Number(item.item_index) + 1);
-          setCurrentItem(clonedItem);
-
-          // Get new display items
-          const dittyEl = document.getElementById("ditty-editor__ditty");
-          getDisplayItems(clonedItem, layouts, (data) => {
-            const updatedDisplayItems = actions.addDisplayItems(
-              data.display_items
-            );
-            replaceDisplayItems(dittyEl, updatedDisplayItems);
-          });
-        },
-      },
-      {
-        id: "delete",
-        className: "ditty-editor-item__action",
-        content: <FontAwesomeIcon icon={faTrashCan} />,
-        onClick: (item) => {
-          handleDeleteItem(item);
-        },
-      },
-    ],
-    EditorContext
-  );
-
-  /**
    * Pull data from sorted list items to update items
    * @param {array} sortedListItems
    */
@@ -349,18 +270,39 @@ const PanelItems = () => {
       return {
         id: item.item_id,
         data: item,
-        content: <ListItem data={item} elements={elements} />,
+        content: (
+          <EditItem
+            item={item}
+            setCurrentItem={setCurrentItem}
+            setPopupStatus={setPopupStatus}
+            handleDeleteItem={handleDeleteItem}
+            layouts={layouts}
+            actions={actions}
+          />
+        ),
       };
     });
   };
 
+  const DittyEditorItemsElements = withFilters("dittyEditor.ItemsElements")(
+    (props) => <></>
+  );
+
   return (
-    <>
+    <SlotFillProvider>
+      <DittyEditorItemsElements
+        item={currentItem}
+        setItem={setCurrentItem}
+        popupStatus={popupStatus}
+        setPopupStatus={setPopupStatus}
+        {...props}
+      />
       <Panel id="items" header={panelHeader()}>
         <SortableList items={prepareItems()} onSortEnd={handleSortEnd} />
       </Panel>
       {renderPopup()}
-    </>
+      <Slot name="dittyPanelItemsPopup" />
+    </SlotFillProvider>
   );
 };
 export default PanelItems;

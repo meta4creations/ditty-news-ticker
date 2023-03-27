@@ -4,6 +4,7 @@ import { AdminBar, FooterBar, Preview } from "../common";
 import { getDisplayObject } from "../utils/displayTypes";
 import { EditorContext } from "./context";
 import Editor from "./Editor";
+import SettingsComponent from "./SettingsComponent";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

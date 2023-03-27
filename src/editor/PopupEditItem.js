@@ -98,6 +98,7 @@ const PopupEditItem = ({
               }
 
               const updatedItem = { ...editItem };
+              delete updatedItem.layoutTags;
               const updatedItemTypeObject = getItemTypeObject(updatedType);
               updatedItem.item_type = updatedType;
               updatedItem.item_value = {
@@ -183,12 +184,12 @@ const PopupEditItem = ({
       <ButtonGroup justify="flex-end" gap="20px">
         {"editItem" === editType && (
           <>
-            <Link
+            {/* <Link
               style={{ marginRight: "auto", color: "#cc1818" }}
               onClick={onDelete}
             >
               {__("Delete", "ditty-news-ticker")}
-            </Link>
+            </Link> */}
             <Link onClick={onClose}>{__("Cancel", "ditty-news-ticker")}</Link>
           </>
         )}
