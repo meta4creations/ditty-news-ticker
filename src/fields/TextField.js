@@ -16,6 +16,8 @@ const TextField = (props) => {
   const inputType = type ? type : "text";
   const [delayValue, setDelayValue] = useState(value);
 
+  console.log("value", value);
+
   const inputRef = useRef(null);
   const timerRef = useRef(null);
 

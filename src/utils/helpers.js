@@ -1,5 +1,18 @@
 import { __ } from "@wordpress/i18n";
 
+export const displayTypeExists = (dittyEl, displayType) => {
+  if ("function" === typeof jQuery(dittyEl)["ditty_" + displayType]) {
+    return true;
+  } else {
+    if (window.console) {
+      console.log(
+        __("Ditty Display type not loaded:", "ditty-news-ticker"),
+        displayType
+      );
+    }
+  }
+};
+
 /**
  * Return easing options
  * @returns object

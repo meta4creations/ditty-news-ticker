@@ -29,6 +29,7 @@ const EditItem = ({
         item={item}
         setItem={setCurrentItem}
         setPopupStatus={setPopupStatus}
+        updateItemMeta={actions.updateItemMeta}
         className="ditty-editor-item__action"
       />
       <div className={`ditty-editor-item`}>

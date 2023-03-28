@@ -163,6 +163,18 @@ export class EditorProvider extends Component {
   };
 
   /**
+   * Update a single item meta
+   * @param {object} updatedItem
+   */
+  handleUpdateItemMeta = (item, key, value) => {
+    const updatedItem = { ...item };
+    const updatedMeta = updatedItem.meta ? { ...updatedItem.meta } : {};
+    updatedMeta[key] = value;
+    updatedItem.meta = updatedMeta;
+    return handleUpdateItem(updatedItem, "meta");
+  };
+
+  /**
    * Add to the display items
    * @param {object} newDisplayItems
    */
@@ -555,6 +567,7 @@ export class EditorProvider extends Component {
             addItem: this.handleAddItem,
             deleteItem: this.handleDeleteItem,
             updateItem: this.handleUpdateItem,
+            updateItemMeta: this.handleUpdateItemMeta,
             addDisplayItems: this.handleAddDisplayItems,
             updateDisplayItems: this.handleUpdateDisplayItems,
             updateDisplay: this.handleUpdateDisplay,
