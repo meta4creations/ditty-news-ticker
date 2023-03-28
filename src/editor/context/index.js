@@ -158,6 +158,7 @@ export class EditorProvider extends Component {
         return item;
       }
     });
+    console.log("updatedItems", updatedItems);
     this.setState({ items: updatedItems });
     return updatedItems;
   };
@@ -169,9 +170,17 @@ export class EditorProvider extends Component {
   handleUpdateItemMeta = (item, key, value) => {
     const updatedItem = { ...item };
     const updatedMeta = updatedItem.meta ? { ...updatedItem.meta } : {};
+    if (!updatedMeta.meta_updates) {
+      updatedMeta.meta_updates = {};
+    }
+    if (Array.isArray(key)) {
+      key.map((k) => (updatedMeta.meta_updates[k] = true));
+    } else {
+      updatedMeta.meta_updates[key] = true;
+    }
     updatedMeta[key] = value;
     updatedItem.meta = updatedMeta;
-    return handleUpdateItem(updatedItem, "meta");
+    return this.handleUpdateItem(updatedItem, "meta");
   };
 
   /**
@@ -326,6 +335,15 @@ export class EditorProvider extends Component {
       if (updates.includes("new_item")) {
         return item;
       }
+
+      // Else, only include updated data
+      // const trimmedMeta = updates.reduce(
+      //   (trimmed, update) => {
+      //     trimmed[update] = item[update];
+      //     return trimmed;
+      //   },
+      //   { item_id: item.item_id, item_type: item.item_type }
+      // );
 
       // Else, only include updated data
       const trimmedItem = updates.reduce(

@@ -1371,7 +1371,13 @@ function ditty_item_delete_meta( $item_id, $meta_key = '', $meta_value = '' ) {
  */
 function ditty_item_get_all_meta( $item_id ) {
 	$meta = Ditty()->db_item_meta->custom_meta( $item_id );
-	return $meta;
+	$mapped_meta = [];
+	if ( is_array( $meta ) && count( $meta ) > 0 ) {
+		foreach ( $meta as $data ) {
+			$mapped_meta[$data->meta_key] = maybe_unserialize( $data->meta_value );
+		}
+	}
+	return $mapped_meta;
 }
 
 /**
@@ -1539,11 +1545,15 @@ function ditty_sanitize_setting( $value ) {
  * @since   3.1
  */
 function ditty_sanitize_settings( $values, $filter = false ) {
-	$sanitized_values = [];
-	if ( is_array( $values ) && count( $values ) > 0 ) {
-		foreach ( $values as $key => $value ) {
-			$sanitized_values[$key] = ditty_sanitize_setting( $value );
+	if ( is_array( $values ) ) {
+		$sanitized_values = [];
+		if ( count( $values ) > 0 ) {
+			foreach ( $values as $key => $value ) {
+				$sanitized_values[$key] = ditty_sanitize_setting( $value );
+			}
 		}
+	} else {
+		$sanitized_values = ditty_sanitize_setting( $value );
 	}
 	return $filter ? apply_filters( 'ditty_sanitize_settings', $sanitized_values, $values, $filter ) : $sanitized_values;
 }

@@ -762,12 +762,17 @@ class Ditty_Singles {
 					$item['ditty_id'] = $id;
 				}
 
+				$item_id = $item['item_id'];
+
 				//Set the modified date of the item
 				if ( isset( $item['item_value'] ) ) {
 					$item['date_modified'] = date( 'Y-m-d H:i:s' );
 				} elseif ( isset( $item['attribute_value'] ) ) {
 					$item['date_modified'] = date( 'Y-m-d H:i:s' );
 				}
+
+				// Pull any item meta updates before saving item
+				$item_meta = isset($item['meta']) ? $item['meta'] : false;
 
 				// Sanitize & serialize data
 				$sanitized_item = $serialized_item = $this->sanitize_item_data( $item );
@@ -788,6 +793,10 @@ class Ditty_Singles {
 
 				if ( false !== strpos( $item['item_id'], 'new-' ) ) {
 					if ( $new_item_id = Ditty()->db_items->insert( apply_filters( 'ditty_item_db_data', $serialized_item, $id ), 'item' ) ) {
+						
+						// Update the item id
+						$item_id = $new_item_id;
+
 						if ( ! isset( $updates['items'] ) ) {
 							$updates['items'] = [];
 						}
@@ -809,6 +818,28 @@ class Ditty_Singles {
 						$errors['items'] = [];
 					}
 					$errors['items'][] = $item;
+				}
+			}
+
+			// Update item meta
+			if ($item_meta && is_array( $item_meta ) && count( $item_meta ) > 0 ) {
+				foreach ( $item_meta as $key => $value ) {
+					if ( 'meta_updates' == $key ) {
+						continue;
+					}
+					$sanitized_item_value = ditty_sanitize_settings( $value );
+					if ( ditty_item_update_meta( $item_id, $key, $sanitized_item_value ) ) {
+						if ( ! isset( $updates['meta'] ) ) {
+							$updates['meta'] = [];
+						}
+						$updates['meta'][$key] = $sanitized_item_value;
+					} else {
+						if ( ! isset( $updates['meta'] ) ) {
+							$errors['meta'] = [];
+						}
+						$errors['meta'][$key] = $sanitized_item_value;
+					}
+					
 				}
 			}
 		}

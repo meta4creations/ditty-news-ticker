@@ -295,6 +295,8 @@ const PanelItems = (props) => {
         setItem={setCurrentItem}
         popupStatus={popupStatus}
         setPopupStatus={setPopupStatus}
+        helpers={helpers}
+        actions={actions}
         {...props}
       />
       <Panel id="items" header={panelHeader()}>

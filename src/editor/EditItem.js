@@ -18,6 +18,7 @@ const EditItem = ({
   handleDeleteItem,
   layouts,
   actions,
+  helpers,
 }) => {
   const DittyEditorItemActions = withFilters("dittyEditor.ItemActions")(
     (props) => <></>
@@ -29,7 +30,8 @@ const EditItem = ({
         item={item}
         setItem={setCurrentItem}
         setPopupStatus={setPopupStatus}
-        updateItemMeta={actions.updateItemMeta}
+        helpers={helpers}
+        actions={actions}
         className="ditty-editor-item__action"
       />
       <div className={`ditty-editor-item`}>

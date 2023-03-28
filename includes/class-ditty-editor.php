@@ -69,6 +69,7 @@ class Ditty_Editor {
 				}
 				$item_meta->layout_value = $layout_variations;
 				$item_meta->attribute_value = $attribute_value;
+				$item_meta->meta = ditty_item_get_all_meta( $item_meta->item_id );
 				$unserialized_items[] = apply_filters( 'ditty_editor_item_meta', $item_meta );
 			}
 		}
