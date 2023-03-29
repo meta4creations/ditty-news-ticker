@@ -18,8 +18,8 @@ import PopupLayouts from "./PopupLayouts";
 import EditItem from "./EditItem";
 
 const PanelItems = (props) => {
-  const { id, items, displayItems, layouts, actions, helpers } =
-    useContext(EditorContext);
+  const editor = useContext(EditorContext);
+  const { id, items, displayItems, layouts, actions, helpers } = editor;
 
   const [currentItem, setCurrentItem] = useState(null);
   const [tempDisplayItems, setTempDisplayItems] = useState(null);
@@ -277,7 +277,7 @@ const PanelItems = (props) => {
             setPopupStatus={setPopupStatus}
             handleDeleteItem={handleDeleteItem}
             layouts={layouts}
-            actions={actions}
+            editor={editor}
           />
         ),
       };
@@ -295,8 +295,7 @@ const PanelItems = (props) => {
         setItem={setCurrentItem}
         popupStatus={popupStatus}
         setPopupStatus={setPopupStatus}
-        helpers={helpers}
-        actions={actions}
+        editor={editor}
         {...props}
       />
       <Panel id="items" header={panelHeader()}>

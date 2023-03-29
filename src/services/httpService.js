@@ -83,3 +83,18 @@ export function getRenderedItems(items, layouts, onComplete) {
     onComplete && onComplete(res.data);
   });
 }
+
+export function checkItem(item, hook = false, onComplete) {
+  const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
+
+  const apiURL = `${apiEndpoint}/checkItem`;
+  const apiData = {
+    security: dittyEditorVars.security,
+    userId: dittyEditorVars.userId,
+    item: item,
+    hook: hook,
+  };
+  return axios.post(apiURL, { apiData }).then((res) => {
+    onComplete && onComplete(res.data);
+  });
+}

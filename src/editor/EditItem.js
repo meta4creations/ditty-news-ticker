@@ -17,12 +17,12 @@ const EditItem = ({
   setPopupStatus,
   handleDeleteItem,
   layouts,
-  actions,
-  helpers,
+  editor,
 }) => {
   const DittyEditorItemActions = withFilters("dittyEditor.ItemActions")(
     (props) => <></>
   );
+  const { actions } = editor;
 
   const isDisabled = item.is_disabled && item.is_disabled.length;
   return (
@@ -31,8 +31,7 @@ const EditItem = ({
         item={item}
         setItem={setCurrentItem}
         setPopupStatus={setPopupStatus}
-        helpers={helpers}
-        actions={actions}
+        editor={editor}
         className="ditty-editor-item__action"
       />
       <div

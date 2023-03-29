@@ -3,11 +3,17 @@ import * as common from "./common";
 import * as components from "./components";
 import * as fields from "./fields";
 import * as helpers from "./utils/helpers";
+import { checkItem } from "./services/httpService";
+import * as dittyService from "./services/dittyService";
 
 dittyEditor.common = common;
 dittyEditor.components = components;
 dittyEditor.fields = fields;
 dittyEditor.helpers = helpers;
+dittyEditor.dittyService = dittyService;
+dittyEditor.httpService = {
+  checkItem,
+};
 
 const editorHooks = createHooks();
 dittyEditor.addFilter = (action, callable, priority) => {

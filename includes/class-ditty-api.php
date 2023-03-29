@@ -53,6 +53,11 @@ class Ditty_API {
       'callback' 	=> array( $this, 'get_display_items' ),
 			'permission_callback' => array( $this, 'save_ditty_permissions_check' ),
     ) );
+		register_rest_route( 'dittyeditor/v' . $this->version, 'checkItem', array(
+      'methods' 	=> 'POST',
+      'callback' 	=> array( $this, 'check_item' ),
+			'permission_callback' => array( $this, 'save_ditty_permissions_check' ),
+    ) );
 	}
 
 	/**
@@ -212,7 +217,7 @@ class Ditty_API {
 	}
 
 	/**
-	 * Save updated Layout values
+	 * Get display items for a Ditty
 	 *
 	 * @access public
 	 * @since  3.1
@@ -264,6 +269,38 @@ class Ditty_API {
 			'preview_items'	=> $preview_items,
 		);
 
+		return rest_ensure_response( $data );
+	}
+
+	/**
+	 * Check item changes with PHP
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function check_item( $request ) {
+		$params = $request->get_params();
+		if ( ! isset( $params['apiData'] ) ) {
+			return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+		$apiData = $params['apiData'];
+
+		if ( ! isset( $apiData['item'] ) ) {
+			return new WP_Error( 'no_id', __( 'No Item data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+
+		$item = $apiData['item'];
+		$hook = isset( $apiData['hook'] ) ? $apiData['hook'] : false;
+
+		if ( $hook ) {
+			$filtered_item = apply_filters( "ditty_item_php_mods_${hook}", $item );
+		} else {
+			$filtered_item = apply_filters( 'ditty_item_php_mods', $item );
+		}
+
+		$data = array(
+			'item'	=> $filtered_item,
+		);
 		return rest_ensure_response( $data );
 	}
 

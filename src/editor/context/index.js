@@ -143,7 +143,8 @@ export class EditorProvider extends Component {
    * @param {object} updatedItem
    */
   handleUpdateItem = (updatedItem, key) => {
-    const updatedItems = this.state.items.map((item) => {
+    let currentIndex;
+    const updatedItems = this.state.items.map((item, index) => {
       if (updatedItem.item_id === item.item_id) {
         if (!updatedItem.item_updates) {
           updatedItem.item_updates = {};
@@ -153,14 +154,17 @@ export class EditorProvider extends Component {
         } else {
           updatedItem.item_updates[key] = true;
         }
+        currentIndex = index;
         return updatedItem;
       } else {
         return item;
       }
     });
-    console.log("updatedItems", updatedItems);
     this.setState({ items: updatedItems });
-    return updatedItems;
+
+    if (currentIndex) {
+      return updatedItems[currentIndex];
+    }
   };
 
   /**
@@ -330,20 +334,15 @@ export class EditorProvider extends Component {
     });
     const trimmedUpdatedItems = updatedItems.map((item) => {
       const updates = Object.keys(item.item_updates);
+      const metaUpdates =
+        item.meta && item.meta.meta_updates
+          ? Object.keys(item.meta.meta_updates)
+          : false;
 
       // If this is a new item, include everything
       if (updates.includes("new_item")) {
         return item;
       }
-
-      // Else, only include updated data
-      // const trimmedMeta = updates.reduce(
-      //   (trimmed, update) => {
-      //     trimmed[update] = item[update];
-      //     return trimmed;
-      //   },
-      //   { item_id: item.item_id, item_type: item.item_type }
-      // );
 
       // Else, only include updated data
       const trimmedItem = updates.reduce(
@@ -353,8 +352,22 @@ export class EditorProvider extends Component {
         },
         { item_id: item.item_id, item_type: item.item_type }
       );
+
+      // Replace trimmed meta
+      const trimmedMeta = metaUpdates
+        ? metaUpdates.reduce((trimmed, update) => {
+            trimmed[update] = item.meta[update];
+            return trimmed;
+          }, {})
+        : false;
+
+      if (trimmedMeta) {
+        trimmedItem.meta = trimmedMeta;
+      }
+
       return trimmedItem;
     });
+
     if (trimmedUpdatedItems.length) {
       updates.items = trimmedUpdatedItems;
     }
@@ -395,6 +408,7 @@ export class EditorProvider extends Component {
    */
   handleAfterSaveDitty = (data, onComplete) => {
     const updatedState = {};
+    console.log("data.updates", data.updates);
 
     // If saving a new Ditty
     if (data.updates && data.updates.new) {
@@ -414,7 +428,6 @@ export class EditorProvider extends Component {
     if (data.updates && data.updates.items) {
       // Swap out new ids with actual ids
       const updatedItems = this.state.items.map((item) => {
-        console.log("updatedItem", item);
         let temp_id;
         let updated_id;
         const index = data.updates.items.findIndex((i) => {
@@ -443,6 +456,7 @@ export class EditorProvider extends Component {
         }
       });
 
+      console.log("updatedItems", updatedItems);
       updatedState.items = updatedItems;
     }
 
@@ -512,6 +526,8 @@ export class EditorProvider extends Component {
     // Get the updates
     const updates = this.getDittyUpdates();
     updates.id = this.state.id;
+
+    console.log("handleSaveDitty", updates);
 
     try {
       await saveDitty(updates, (data) => {
