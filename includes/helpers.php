@@ -1365,11 +1365,11 @@ function ditty_item_delete_meta( $item_id, $meta_key = '', $meta_value = '' ) {
 }
 
 /**
- * Get all metadatafrom an item.
+ * Get all item meta for a specified item.
  *
- * @since   3.0.17
+ * @since   3.1
  */
-function ditty_item_get_all_meta( $item_id ) {
+function ditty_item_custom_meta( $item_id ) {
 	$meta = Ditty()->db_item_meta->custom_meta( $item_id );
 	$mapped_meta = [];
 	if ( is_array( $meta ) && count( $meta ) > 0 ) {
@@ -1378,6 +1378,15 @@ function ditty_item_get_all_meta( $item_id ) {
 		}
 	}
 	return $mapped_meta;
+}
+
+/**
+ * Get all metadatafrom an item.
+ *
+ * @since   3.0.17
+ */
+function ditty_item_get_all_meta( $item_id ) {
+	return Ditty()->db_item_meta->custom_meta( $item_id );
 }
 
 /**
@@ -1394,15 +1403,6 @@ function ditty_item_delete_all_meta( $item_id ) {
 			}			
 		}
 	}
-}
-
-/**
- * Get all item meta for a specified item.
- *
- * @since   3.0
- */
-function ditty_item_custom_meta( $item_id ) {
-	return Ditty()->db_item_meta->custom_meta( $item_id );
 }
 
 /**

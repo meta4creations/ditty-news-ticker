@@ -24,6 +24,7 @@ const EditItem = ({
     (props) => <></>
   );
 
+  const isDisabled = item.is_disabled && item.is_disabled.length;
   return (
     <>
       <DittyEditorItemActions
@@ -34,7 +35,11 @@ const EditItem = ({
         actions={actions}
         className="ditty-editor-item__action"
       />
-      <div className={`ditty-editor-item`}>
+      <div
+        className={`ditty-editor-item ditty-editor-item--${
+          isDisabled ? "disabled" : "enabled"
+        }`}
+      >
         <span key="icon" className="ditty-editor-item__icon">
           {getItemTypePreviewIcon(item)}
         </span>

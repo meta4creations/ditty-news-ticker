@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/pro-solid-svg-icons";
 import classnames from "classnames";
 import FieldHeader from "./FieldHeader";
+import { showField } from "./fieldHelpers";
 
 const GroupField = (props) => {
   const {
@@ -105,7 +106,7 @@ const GroupField = (props) => {
                 ? groupField.std
                 : "";
 
-              return (
+              return showField(groupField, value) ? (
                 <Fragment
                   key={
                     groupField.id ? `${id}${groupField.id}` : `${id}${index}`
@@ -113,7 +114,7 @@ const GroupField = (props) => {
                 >
                   {renderInput(groupField, groupFieldValue, handleUpdateValue)}
                 </Fragment>
-              );
+              ) : null;
             })}
           </div>
         </div>

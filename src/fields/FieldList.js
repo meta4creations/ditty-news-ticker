@@ -1,6 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import classnames from "classnames";
 import Field from "./Field";
+import { showField } from "./fieldHelpers";
 
 const FieldList = ({
   name,
@@ -44,42 +45,6 @@ const FieldList = ({
     return value;
   };
 
-  /**
-   * Check field visibility based on other field values
-   * @param {object} field
-   * @returns
-   */
-  const showField = (field) => {
-    if (!field.show) {
-      return true;
-    }
-
-    const operators = {
-      "=": (a, b) => {
-        return a === b;
-      },
-      "!=": (a, b) => {
-        return a !== b;
-      },
-    };
-
-    if (field.show) {
-      const relation = field.show.relation ? field.show.relation : "AND";
-      const checks = field.show.fields.map((f) => {
-        if (operators[f.compare](values[f.key], f.value)) {
-          return "pass";
-        } else {
-          return "fail";
-        }
-      });
-      if ("OR" === relation) {
-        return checks.includes("pass");
-      } else {
-        return checks.every((v) => v === "pass");
-      }
-    }
-  };
-
   return (
     <div className={classes}>
       {(name || description) && (
@@ -95,7 +60,7 @@ const FieldList = ({
       {children && children}
       {fields &&
         fields.map((field, index) => {
-          return showField(field) ? (
+          return showField(field, values) ? (
             <Field
               key={field.id ? field.id : index}
               field={field}

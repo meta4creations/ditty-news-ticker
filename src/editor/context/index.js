@@ -414,6 +414,7 @@ export class EditorProvider extends Component {
     if (data.updates && data.updates.items) {
       // Swap out new ids with actual ids
       const updatedItems = this.state.items.map((item) => {
+        console.log("updatedItem", item);
         let temp_id;
         let updated_id;
         const index = data.updates.items.findIndex((i) => {

@@ -143,6 +143,15 @@
   }
 }
 
+//Checkboxes
+.ditty-field__input--checkboxes {
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 10px;
+  }
+}
+
 // Color
 .ditty-field__input--color {
   position: relative;
