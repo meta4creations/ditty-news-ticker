@@ -34,9 +34,7 @@ export function saveDisplay(data, onComplete) {
     userId: dittyEditorVars.userId,
     ...data,
   };
-  //console.log("apiData", apiData);
   return axios.post(apiURL, { apiData }).then((res) => {
-    //console.log("res.data", res.data);
     onComplete(res.data);
   });
 }
@@ -84,10 +82,10 @@ export function getRenderedItems(items, layouts, onComplete) {
   });
 }
 
-export function checkItem(item, hook = false, onComplete) {
+export function phpItemMods(item, hook = false, onComplete) {
   const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
 
-  const apiURL = `${apiEndpoint}/checkItem`;
+  const apiURL = `${apiEndpoint}/phpItemMods`;
   const apiData = {
     security: dittyEditorVars.security,
     userId: dittyEditorVars.userId,

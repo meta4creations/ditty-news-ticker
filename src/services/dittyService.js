@@ -106,3 +106,27 @@ export const replaceDisplayItems = (dittyEl, displayItems) => {
   if (!displayTypeExists(dittyEl, displayType)) return false;
   dittyEl["_ditty_" + displayType].loadItems(displayItems);
 };
+
+/**
+ * Disable an item
+ * @param {element} dittyEl
+ * @param {object} item
+ * @param {string} type
+ */
+export const disableItem = (dittyEl, item, type) => {
+  const displayType = dittyEl.dataset.type;
+  if (!displayTypeExists(dittyEl, displayType)) return false;
+  dittyEl["_ditty_" + displayType].addItemDisabled(item.item_id, type);
+};
+
+/**
+ * Enable an item
+ * @param {element} dittyEl
+ * @param {object} item
+ * @param {string} type
+ */
+export const enableItem = (dittyEl, item, type) => {
+  const displayType = dittyEl.dataset.type;
+  if (!displayTypeExists(dittyEl, displayType)) return false;
+  dittyEl["_ditty_" + displayType].removeItemDisabled(item.item_id, type);
+};

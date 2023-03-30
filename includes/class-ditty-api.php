@@ -19,6 +19,7 @@ class Ditty_API {
 	public function __construct() {
 		$this->version = '1';	
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
+
 	}
 	
 	/**
@@ -28,34 +29,34 @@ class Ditty_API {
 	 * @since  3.1
 	 */
 	public function register_routes() {
-		register_rest_route( 'dittyeditor/v' . $this->version, 'save', array(
+		register_rest_route( "dittyeditor/v{$this->version}", 'save', array(
       'methods' 	=> 'POST',
       'callback' 	=> array( $this, 'save_ditty' ),
 			'permission_callback' => array( $this, 'save_ditty_permissions_check' ),
     ) );
-		register_rest_route( 'dittyeditor/v' . $this->version, 'saveDisplay', array(
+		register_rest_route( "dittyeditor/v{$this->version}", 'saveDisplay', array(
       'methods' 	=> 'POST',
       'callback' 	=> array( $this, 'save_display' ),
 			'permission_callback' => array( $this, 'save_display_permissions_check' ),
     ) );
-		register_rest_route( 'dittyeditor/v' . $this->version, 'saveLayout', array(
+		register_rest_route( "dittyeditor/v{$this->version}", 'saveLayout', array(
       'methods' 	=> 'POST',
       'callback' 	=> array( $this, 'save_layout' ),
 			'permission_callback' => array( $this, 'save_layout_permissions_check' ),
     ) );
-		register_rest_route( 'dittyeditor/v' . $this->version, 'saveSettings', array(
+		register_rest_route( "dittyeditor/v{$this->version}", 'saveSettings', array(
       'methods' 	=> 'POST',
       'callback' 	=> array( $this, 'save_settings' ),
 			'permission_callback' => array( $this, 'save_settings_permissions_check' ),
     ) );
-		register_rest_route( 'dittyeditor/v' . $this->version, 'displayItems', array(
+		register_rest_route( "dittyeditor/v{$this->version}", 'displayItems', array(
       'methods' 	=> 'POST',
       'callback' 	=> array( $this, 'get_display_items' ),
 			'permission_callback' => array( $this, 'save_ditty_permissions_check' ),
     ) );
-		register_rest_route( 'dittyeditor/v' . $this->version, 'checkItem', array(
+		register_rest_route( "dittyeditor/v{$this->version}", 'phpItemMods', array(
       'methods' 	=> 'POST',
-      'callback' 	=> array( $this, 'check_item' ),
+      'callback' 	=> array( $this, 'php_item_mods' ),
 			'permission_callback' => array( $this, 'save_ditty_permissions_check' ),
     ) );
 	}
@@ -278,16 +279,16 @@ class Ditty_API {
 	 * @access public
 	 * @since  3.1
 	 */
-	public function check_item( $request ) {
+	public function php_item_mods( $request ) {
 		$params = $request->get_params();
-		if ( ! isset( $params['apiData'] ) ) {
-			return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
-		}
+		// if ( ! isset( $params['apiData'] ) ) {
+		// 	return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		// }
 		$apiData = $params['apiData'];
 
-		if ( ! isset( $apiData['item'] ) ) {
-			return new WP_Error( 'no_id', __( 'No Item data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
-		}
+		// if ( ! isset( $apiData['item'] ) ) {
+		// 	return new WP_Error( 'no_id', __( 'No Item data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		// }
 
 		$item = $apiData['item'];
 		$hook = isset( $apiData['hook'] ) ? $apiData['hook'] : false;

@@ -3,7 +3,7 @@ import * as common from "./common";
 import * as components from "./components";
 import * as fields from "./fields";
 import * as helpers from "./utils/helpers";
-import { checkItem } from "./services/httpService";
+import { phpItemMods } from "./services/httpService";
 import * as dittyService from "./services/dittyService";
 
 dittyEditor.common = common;
@@ -12,7 +12,7 @@ dittyEditor.fields = fields;
 dittyEditor.helpers = helpers;
 dittyEditor.dittyService = dittyService;
 dittyEditor.httpService = {
-  checkItem,
+  phpItemMods,
 };
 
 const editorHooks = createHooks();
@@ -20,9 +20,6 @@ dittyEditor.addFilter = (action, callable, priority) => {
   editorHooks.addFilter(action, "dittyEditor", callable, priority);
 };
 dittyEditor.applyFilters = editorHooks.applyFilters;
-
-//dittyEditor.DittyItemType = DittyItemType;
-//dittyEditor.layoutTags = layoutTags;
 
 /**
  * Store registered item types

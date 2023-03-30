@@ -143,9 +143,13 @@ export class EditorProvider extends Component {
    * @param {object} updatedItem
    */
   handleUpdateItem = (updatedItem, key) => {
-    let currentIndex;
+    let currentIndex = -1;
     const updatedItems = this.state.items.map((item, index) => {
       if (updatedItem.item_id === item.item_id) {
+        currentIndex = index;
+        if (!key) {
+          return updatedItem;
+        }
         if (!updatedItem.item_updates) {
           updatedItem.item_updates = {};
         }
@@ -154,7 +158,6 @@ export class EditorProvider extends Component {
         } else {
           updatedItem.item_updates[key] = true;
         }
-        currentIndex = index;
         return updatedItem;
       } else {
         return item;
@@ -162,7 +165,7 @@ export class EditorProvider extends Component {
     });
     this.setState({ items: updatedItems });
 
-    if (currentIndex) {
+    if (currentIndex >= 0) {
       return updatedItems[currentIndex];
     }
   };
@@ -408,7 +411,6 @@ export class EditorProvider extends Component {
    */
   handleAfterSaveDitty = (data, onComplete) => {
     const updatedState = {};
-    console.log("data.updates", data.updates);
 
     // If saving a new Ditty
     if (data.updates && data.updates.new) {
@@ -455,8 +457,6 @@ export class EditorProvider extends Component {
           updatedItems[index] = { ...updatedItems[index], ...item };
         }
       });
-
-      console.log("updatedItems", updatedItems);
       updatedState.items = updatedItems;
     }
 
@@ -526,8 +526,6 @@ export class EditorProvider extends Component {
     // Get the updates
     const updates = this.getDittyUpdates();
     updates.id = this.state.id;
-
-    console.log("handleSaveDitty", updates);
 
     try {
       await saveDitty(updates, (data) => {
