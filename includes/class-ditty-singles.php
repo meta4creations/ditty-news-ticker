@@ -421,9 +421,6 @@ class Ditty_Singles {
 			}
 		}
 
-		//ChromePhp::log( '$display_type', $display_type );
-		//echo '<pre>';print_r($display_type);echo '</pre>';
-
 		if ( ! $display_type || ! ditty_display_type_exists( $display_type ) ) {
 			// DO SOMETHING HERE
 		}
@@ -638,6 +635,12 @@ class Ditty_Singles {
 			if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
 				foreach ( $items_meta as $i => $item_meta ) {
 
+					// If the item is disabled, don't render
+					$item_disabled = array_unique( apply_filters( 'ditty_item_disabled', array(), $item_meta->item_id, (array) $item_meta ) );
+					if ( $item_disabled && count( $item_disabled ) > 0 ) {
+						continue;
+					}
+
 					// Unpack the layout variations
 					$layout_value = maybe_unserialize( $item_meta->layout_value );
 					$layout_variations = [];
@@ -760,7 +763,7 @@ class Ditty_Singles {
 				if ( is_object( $item ) ) {
 					$item = ( array ) $item;
 				}
-
+				
 				// Set the Ditty ID of new Ditty
 				if ( $is_new_ditty ) {
 					$item['ditty_id'] = $id;
@@ -811,39 +814,39 @@ class Ditty_Singles {
 				} else {
 					$errors['items'][$item_id] = $item;
 				}
-			}
-
-			// Update item meta
-			if ($item_meta && is_array( $item_meta ) && count( $item_meta ) > 0 ) {
-				foreach ( $item_meta as $meta_key => $meta_value ) {
-					if ( 'meta_updates' == $meta_key ) {
-						continue;
+				
+				// Update item meta
+				if ($item_meta && is_array( $item_meta ) && count( $item_meta ) > 0 ) {
+					foreach ( $item_meta as $meta_key => $meta_value ) {
+						if ( 'meta_updates' == $meta_key ) {
+							continue;
+						}
+						$sanitized_meta_value = ditty_sanitize_settings( $meta_value );
+						if ( ditty_item_update_meta( $item_id, $meta_key, $sanitized_meta_value ) ) {
+							if ( ! isset( $updates['items'][$item_id] ) ) {
+								$updates['items'][$item_id] = $sanitized_item;
+							}
+							if ( ! isset( $updates['items'][$item_id]['meta'] ) ) {
+								$updates['items'][$item_id]['meta'] = [];
+							}
+							$updates['items'][$item_id]['meta'][$meta_key] = $sanitized_meta_value;
+						} else {
+							if ( ! isset( $errors['items'][$item_id] ) ) {
+								$errors['items'][$item_id] = $item;
+							}
+							if ( ! isset( $errors['items'][$item_id]['meta'] ) ) {
+								$errors['items'][$item_id]['meta'] = [];
+							}
+							$errors['items'][$item_id]['meta'][$meta_key] = $meta_value;
+						}		
 					}
-					$sanitized_meta_value = ditty_sanitize_settings( $meta_value );
-					if ( ditty_item_update_meta( $item_id, $meta_key, $sanitized_meta_value ) ) {
-						if ( ! isset( $updates['items'][$item_id] ) ) {
-							$updates['items'][$item_id] = $sanitized_item;
-						}
-						if ( ! isset( $updates['items'][$item_id]['meta'] ) ) {
-							$updates['items'][$item_id]['meta'] = [];
-						}
-						$updates['items'][$item_id]['meta'][$meta_key] = $sanitized_meta_value;
-					} else {
-						if ( ! isset( $errors['items'][$item_id] ) ) {
-							$errors['items'][$item_id] = $item;
-						}
-						if ( ! isset( $errors['items'][$item_id]['meta'] ) ) {
-							$errors['items'][$item_id]['meta'] = [];
-						}
-						$errors['items'][$item_id]['meta'][$meta_key] = $meta_value;
-					}		
 				}
 			}
 		}
 
 		// Check for updates to disabled items
-		if ( isset( $updates['items'][$item_id] ) ) {
-			$updates['items'][$item_id]['is_disabled'] = array_unique( apply_filters( 'ditty_item_disabled', array(), $item_id ) );
+		if ( isset( $item_id ) && isset( $updates['items'][$item_id] ) ) {
+			$updates['items'][$item_id]['is_disabled'] = array_unique( apply_filters( 'ditty_item_disabled', array(), $item_id, $updates['items'][$item_id] ) );
 		}
 
 		// Update the item array to remove keys before sending back to js
@@ -885,7 +888,7 @@ class Ditty_Singles {
 				$display_type = isset( $display['type'] ) ? esc_attr( $display['type'] ) : '';
 				$display = [
 					'type' => $display_type,
-					'settings' => isset( $display['settings'] ) ? ditty_sanitize_settings( $display['settings'], "display_${$display_type}" ) : [],
+					'settings' => isset( $display['settings'] ) ? ditty_sanitize_settings( $display['settings'], "display_{$display_type}" ) : [],
 				];
 			}
 			if ( update_post_meta( $id, '_ditty_display', $display ) ) {

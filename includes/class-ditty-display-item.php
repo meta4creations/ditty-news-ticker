@@ -434,7 +434,6 @@ class Ditty_Display_Item {
 			'html' 				=> $this->render_html(),
 			'css'					=> $this->get_layout_css(),
 			'layout_id'		=> $this->get_layout_id(),
-			'is_disabled' => array_unique( apply_filters( 'ditty_item_disabled', array(), $this->id ) ),
 		);
 		return $data;
 	}

@@ -246,17 +246,21 @@ class Ditty_API {
 					$preview_items[$item['item_id']] = $item_type_object->editor_preview( $item['item_value'] );
 				}
 
-				$grouped_displays = [];			
-				$prepared_items = ditty_prepare_display_items( $item );
-				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
-					foreach ( $prepared_items as $prepared_item ) {
-						$display_item = new Ditty_Display_Item( $prepared_item, $layouts );
-						$ditty_data = $display_item->ditty_data();
-						$display_items[] = $ditty_data;
-						$grouped_displays[] = $ditty_data;
+				// Check and possibly skip disabled display items
+				$item_disabled = array_unique( apply_filters( 'ditty_item_disabled', array(), $item['item_id'], $item ) );
+				if ( count( $item_disabled ) == 0 ) {
+					$grouped_displays = [];			
+					$prepared_items = ditty_prepare_display_items( $item );
+					if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
+						foreach ( $prepared_items as $prepared_item ) {
+							$display_item = new Ditty_Display_Item( $prepared_item, $layouts );
+							$ditty_data = $display_item->ditty_data();
+							$display_items[] = $ditty_data;
+							$grouped_displays[] = $ditty_data;
+						}
 					}
+					$display_items_grouped[$item['item_id']] = $grouped_displays;
 				}
-				$display_items_grouped[$item['item_id']] = $grouped_displays;
 			}
 		}
 	
@@ -269,7 +273,7 @@ class Ditty_API {
 			'display_items_grouped'	=> $display_items_grouped,
 			'preview_items'	=> $preview_items,
 		);
-
+		
 		return rest_ensure_response( $data );
 	}
 

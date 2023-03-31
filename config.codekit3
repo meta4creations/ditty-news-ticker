@@ -17,13 +17,21 @@
       "oAP" : "\/.gitignore",
       "oF" : 1
     },
+    "\/.nova\/Publishing\/Metaphor Creations.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/.nova\/Publishing\/Metaphor Creations-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
     "\/.npmrc" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 0,
+      "oA" : 1,
       "oAP" : "\/.npmrc",
-      "oF" : 0
+      "oF" : 1
     },
     "\/build" : {
       "ft" : 65536,
@@ -167,19 +175,11 @@
       "oAP" : "\/includes\/class-ditty-deactivator.php",
       "oF" : 0
     },
-    "\/includes\/class-ditty-display-item-new.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/class-ditty-display-item-new.php",
-      "oF" : 0
-    },
     "\/includes\/class-ditty-display-item.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-display-item.php",
       "oF" : 0
     },
@@ -207,14 +207,6 @@
       "oAP" : "\/includes\/class-ditty-display-type.php",
       "oF" : 0
     },
-    "\/includes\/class-ditty-display.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/includes\/class-ditty-display.php",
-      "oF" : 0
-    },
     "\/includes\/class-ditty-displays.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -227,7 +219,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-editor.php",
       "oF" : 0
     },
@@ -259,8 +251,16 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-item-type-default.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-item-type-html.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/class-ditty-item-type-html.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-item-type-posts-lite.php" : {
@@ -285,30 +285,6 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/class-ditty-item-type.php",
-      "oF" : 0
-    },
-    "\/includes\/class-ditty-item.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/includes\/class-ditty-item.php",
-      "oF" : 0
-    },
-    "\/includes\/class-ditty-items.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/class-ditty-items.php",
-      "oF" : 0
-    },
-    "\/includes\/class-ditty-layout.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/class-ditty-layout.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-layouts.php" : {
@@ -341,6 +317,14 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/class-ditty-scripts.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-settings.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/class-ditty-settings.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-singles.php" : {
@@ -424,18 +408,6 @@
       "ma" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/css\/ditty-displays-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/includes\/css\/ditty-editor.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/css\/ditty-editor-min.css",
       "oF" : 0,
       "pg" : 0
     },
@@ -876,17 +848,6 @@
       "sC" : 3,
       "tS" : 0
     },
-    "\/includes\/js\/admin\/ditty-wizard.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/admin\/ditty-wizard.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
     "\/includes\/js\/admin\/general.js" : {
       "bF" : 0,
       "ft" : 64,
@@ -986,50 +947,6 @@
       "sC" : 3,
       "tS" : 0
     },
-    "\/includes\/js\/ditty-editor-hooks.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/ditty-editor-hooks.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/ditty-editor-hooks.min.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/ditty-editor-hooks.min.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/ditty-editor.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/ditty-editor.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/ditty-editor.min.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/ditty-editor.min.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
     "\/includes\/js\/ditty.js" : {
       "bF" : 0,
       "ft" : 64,
@@ -1048,171 +965,6 @@
       "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/js\/ditty.min.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor_hooks\/ditty-item-edit-editor.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor_hooks\/ditty-item-edit-editor.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor_hooks\/ditty-list-display-editor.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor_hooks\/ditty-list-display-editor.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor_hooks\/ditty-ticker-display-editor.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor_hooks\/ditty-ticker-display-editor.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-display-editor-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-display-editor-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-displays-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-displays-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-editor.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-editor.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-item-editor-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-item-editor-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-item-types-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-item-types-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-items-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-items-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-layout-css-editor-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-layout-css-editor-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-layout-html-editor-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-layout-html-editor-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-layout-variations-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-layout-variations-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-layouts-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-layouts-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-settings-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-settings-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/helpers.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/helpers.min.js",
       "oF" : 0,
       "sC" : 3,
       "tS" : 0
@@ -1238,14 +990,6 @@
       "oF" : 0,
       "sC" : 3,
       "tS" : 0
-    },
-    "\/includes\/layout-tag-fields.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/layout-tag-fields.php",
-      "oF" : 0
     },
     "\/includes\/layout-tag-helpers.php" : {
       "cB" : 0,
@@ -1749,6 +1493,66 @@
       "sC" : 3,
       "tS" : 0
     },
+    "\/includes\/libs\/sass\/file-size.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/includes\/libs\/sass\/file-size-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
+    "\/includes\/libs\/sass\/sass.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/sass\/sass.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/sass\/sass.node.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/sass\/sass.node.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/sass\/sass.sync.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/sass\/sass.sync.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/sass\/sass.worker.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/sass\/sass.worker.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/sass\/versions.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/includes\/libs\/sass\/versions-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
     "\/includes\/post-types.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1922,21 +1726,6 @@
       "pg" : 0,
       "sct" : 1
     },
-    "\/includes\/sass\/admin\/_wizard.scss" : {
-      "aP" : 0,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/sass\/css\/_wizard.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 0
-    },
     "\/includes\/sass\/displays\/_display_list.scss" : {
       "aP" : 0,
       "bl" : 0,
@@ -2012,21 +1801,6 @@
       "pg" : 0,
       "sct" : 0
     },
-    "\/includes\/sass\/ditty-editor.scss" : {
-      "aP" : 0,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/css\/ditty-editor.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 0
-    },
     "\/includes\/sass\/ditty.scss" : {
       "aP" : 0,
       "bl" : 0,
@@ -2041,81 +1815,6 @@
       "oS" : 0,
       "pg" : 0,
       "sct" : 0
-    },
-    "\/includes\/sass\/editor\/_displays_panel.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/sass\/css\/_displays_panel.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/includes\/sass\/editor\/_editor.scss" : {
-      "aP" : 0,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/sass\/css\/_editor.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 0
-    },
-    "\/includes\/sass\/editor\/_item_types_panel.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/sass\/css\/_item_types_panel.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/includes\/sass\/editor\/_items_panel.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/sass\/css\/_items_panel.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/includes\/sass\/editor\/_layouts_panel.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/sass\/css\/_layouts_panel.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
     },
     "\/includes\/sass\/partials\/_colors_2.scss" : {
       "aP" : 1,
@@ -2296,14 +1995,6 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/widget.php",
-      "oF" : 0
-    },
-    "\/includes\/wizard.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/wizard.php",
       "oF" : 0
     },
     "\/languages\/ditty-news-ticker-ar.mo" : {
@@ -3635,6 +3326,14 @@
       "oF" : 0,
       "oO" : 1,
       "oS" : 1
+    },
+    "\/package.txt.old" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/package.txt.old",
+      "oF" : 0
     },
     "\/readme.txt" : {
       "cB" : 0,

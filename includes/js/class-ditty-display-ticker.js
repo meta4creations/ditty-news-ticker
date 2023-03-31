@@ -1310,14 +1310,13 @@
      * @since    3.1
      * @return   null
      */
-    loadItems: function (newItems, type = "replace") {
+    loadItems: function (newItems) {
       if (undefined === newItems) {
         return false;
       }
       const { updatedItems } = dittyGetUpdatedItemData(
         this.settings.items,
-        newItems,
-        type
+        newItems
       );
 
       this.settings.items = updatedItems;

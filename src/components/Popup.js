@@ -49,7 +49,7 @@ const Popup = ({
                     setShowSpinner(true);
                     onSubmit();
                   }}
-                  disabled={submitDisabled}
+                  disabled={submitDisabled || (showSpinner && "disabled")}
                 >
                   {showSpinner && (
                     <FontAwesomeIcon icon={faLoader} className="fa-spin" />

@@ -77,6 +77,7 @@ export class EditorProvider extends Component {
         if (filteredExistingItems.length) {
           return [...itemsArray, ...filteredExistingItems];
         }
+        return itemsArray;
       }
     }, []);
     return allDisplayItems;
@@ -98,6 +99,7 @@ export class EditorProvider extends Component {
       return item;
     });
     this.setState({ items: orderedItems });
+    return orderedItems;
   };
 
   /**
@@ -121,9 +123,7 @@ export class EditorProvider extends Component {
       updatedItems.push(newItem);
     }
 
-    //const updatedItems = this.state.items;
-    //updatedItems.unshift(newItem);
-    this.handleSortItems(updatedItems);
+    return this.handleSortItems(updatedItems);
   };
 
   /**
@@ -135,14 +135,14 @@ export class EditorProvider extends Component {
       (item) => item.item_id !== deletedItem.item_id
     );
     this.handleDeleteDisplayItems(deletedItem);
-    this.handleSortItems(updatedItems);
+    return this.handleSortItems(updatedItems);
   };
 
   /**
    * Update a single item
    * @param {object} updatedItem
    */
-  handleUpdateItem = (updatedItem, key) => {
+  handleUpdateItem = (updatedItem, key, returned = "item") => {
     let currentIndex = -1;
     const updatedItems = this.state.items.map((item, index) => {
       if (updatedItem.item_id === item.item_id) {
@@ -165,9 +165,7 @@ export class EditorProvider extends Component {
     });
     this.setState({ items: updatedItems });
 
-    if (currentIndex >= 0) {
-      return updatedItems[currentIndex];
-    }
+    return updatedItems;
   };
 
   /**
@@ -194,9 +192,9 @@ export class EditorProvider extends Component {
    * Add to the display items
    * @param {object} newDisplayItems
    */
-  handleAddDisplayItems = (newDisplayItems) => {
+  handleAddDisplayItems = (newDisplayItems, items = this.state.items) => {
     const mergedDisplayItems = [...this.state.displayItems, ...newDisplayItems];
-    const updatedDisplayItems = this.state.items.reduce((itemsArray, item) => {
+    const updatedDisplayItems = items.reduce((itemsArray, item) => {
       const displayItems = mergedDisplayItems.filter((displayItem) => {
         return displayItem.id === item.item_id;
       });
@@ -526,7 +524,6 @@ export class EditorProvider extends Component {
     // Get the updates
     const updates = this.getDittyUpdates();
     updates.id = this.state.id;
-
     try {
       await saveDitty(updates, (data) => {
         this.handleAfterSaveDitty(data, onComplete);
@@ -602,6 +599,7 @@ export class EditorProvider extends Component {
             updateItem: this.handleUpdateItem,
             updateItemMeta: this.handleUpdateItemMeta,
             addDisplayItems: this.handleAddDisplayItems,
+            deleteDisplayItems: this.handleDeleteDisplayItems,
             updateDisplayItems: this.handleUpdateDisplayItems,
             updateDisplay: this.handleUpdateDisplay,
             updateLayout: this.handleUpdateLayout,

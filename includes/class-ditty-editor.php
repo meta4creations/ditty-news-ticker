@@ -35,7 +35,6 @@ class Ditty_Editor {
 		
 		// Do not pass serialized data
 		$unserialized_items = array();
-		$display_items = array();
 		if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
 			foreach ( $items_meta as $i => $item_meta ) {
 	
@@ -55,29 +54,27 @@ class Ditty_Editor {
 				
 				// De-serialize the attribute values
 				$attribute_value = maybe_unserialize( $item_meta->attribute_value );
-				
-	
+
 				$prepared_items = ditty_prepare_display_items( $item_meta );
 				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
 					foreach ( $prepared_items as $i => $prepared_meta ) {
 						$prepared_meta['attribute_value'] = $attribute_value;
 						$display_item = new Ditty_Display_Item( $prepared_meta );
 						$ditty_data = $display_item->ditty_data();
-						$display_items[] = $ditty_data;
 						$prepared_meta['layout_value'] = $layout_variations;
 					}
 				}
 				$item_meta->layout_value = $layout_variations;
 				$item_meta->attribute_value = $attribute_value;
 				$item_meta->meta = ditty_item_custom_meta( $item_meta->item_id );
-				$item_meta->is_disabled = array_unique( apply_filters( 'ditty_item_disabled', array(), $item_meta->item_id ) );
+				$item_meta->is_disabled = array_unique( apply_filters( 'ditty_item_disabled', array(), $item_meta->item_id, (array) $item_meta ) );
 				$unserialized_items[] = apply_filters( 'ditty_editor_item_meta', $item_meta );
 			}
 		}
 
 		return [
 			'items' => $unserialized_items,
-			'display_items' => $display_items,
+			'display_items' => Ditty()->singles->get_display_items( $ditty_id, 'force' ),
 		];
 	}
 

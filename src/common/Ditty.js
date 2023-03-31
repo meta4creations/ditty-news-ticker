@@ -17,7 +17,6 @@ const Ditty = ({ id, title, display, displayItems, displays }) => {
     args["title"] = title;
     args["status"] = "";
     args["items"] = displayItems;
-
     initializeDitty(dittyEl, displayObject.type, args);
   }, []);
 

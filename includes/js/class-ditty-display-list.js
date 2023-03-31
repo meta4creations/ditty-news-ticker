@@ -388,17 +388,16 @@
      * @return   null
      */
     addItemDisabled: function (id, slug) {
-      var self = this;
-      $.each(this.settings.items, function (i, item) {
-        if (String(item.id) === String(id)) {
-          if (!Array.isArray(self.settings.items[i].is_disabled)) {
-            self.settings.items[i].is_disabled = [];
-          }
-          self.settings.items[i].is_disabled.push(slug);
-        }
-      });
-      this.updateItems(this.settings.items);
-      this.trigger("disabled_items_update");
+      // var self = this;
+      // $.each(this.settings.items, function (i, item) {
+      //   if (String(item.id) === String(id)) {
+      //     if (!Array.isArray(self.settings.items[i].is_disabled)) {
+      //       self.settings.items[i].is_disabled = [];
+      //     }
+      //     self.settings.items[i].is_disabled.push(slug);
+      //   }
+      // });
+      // this.trigger("disabled_items_update");
     },
 
     /**
@@ -408,24 +407,23 @@
      * @return   null
      */
     removeItemDisabled: function (id, slug) {
-      var self = this;
-      $.each(this.settings.items, function (i, item) {
-        if (String(item.id) === String(id)) {
-          if (
-            Array.isArray(self.settings.items[i].is_disabled) &&
-            self.settings.items[i].is_disabled.length
-          ) {
-            self.settings.items[i].is_disabled = $.grep(
-              self.settings.items[i].is_disabled,
-              function (value) {
-                return value !== slug;
-              }
-            );
-          }
-        }
-      });
-      this.updateItems(this.settings.items);
-      this.trigger("disabled_items_update");
+      // var self = this;
+      // $.each(this.settings.items, function (i, item) {
+      //   if (String(item.id) === String(id)) {
+      //     if (
+      //       Array.isArray(self.settings.items[i].is_disabled) &&
+      //       self.settings.items[i].is_disabled.length
+      //     ) {
+      //       self.settings.items[i].is_disabled = $.grep(
+      //         self.settings.items[i].is_disabled,
+      //         function (value) {
+      //           return value !== slug;
+      //         }
+      //       );
+      //     }
+      //   }
+      // });
+      // this.trigger("disabled_items_update");
     },
 
     /**
@@ -454,6 +452,15 @@
      * @return   null
      */
     addItem: function (item, index, type) {
+      var slides = this.$elmt.ditty_slider("options", "slides");
+      if (!slides.length) {
+        this.settings.items = [item];
+        this._calculatePages();
+        var $page = this.pages[0];
+        this.$elmt.ditty_slider("addSlide", $page, 0);
+        return false;
+      }
+
       var newItems = this.settings.items.slice(),
         indexExists = true;
 
@@ -504,14 +511,23 @@
      * @since    3.1
      * @return   null
      */
-    loadItems: function (newItems, type = "replace") {
-      if (undefined === newItems) {
+    loadItems: function (newItems = [], swapType = "animate") {
+      if (!newItems.length) {
         return false;
       }
+
+      var slides = this.$elmt.ditty_slider("options", "slides");
+      if (!slides.length) {
+        this.settings.items = newItems;
+        this._calculatePages();
+        var $page = this.pages[0];
+        this.$elmt.ditty_slider("addSlide", $page, 0);
+        return false;
+      }
+
       const { updatedItems, updatedIndexes } = dittyGetUpdatedItemData(
         this.settings.items,
-        newItems,
-        type
+        newItems
       );
 
       this.settings.items = updatedItems;
@@ -533,7 +549,6 @@
               1
             : currentItems.length,
         itemSwaps = [];
-
       // Swap out items
       let currentCounter = 0;
       for (var i = minIndex; i <= maxIndex; i++) {
@@ -564,19 +579,21 @@
               newItem: $newItem,
             });
           }
+          currentCounter++;
 
           // If removing items
-        } else if (currentCounter >= this.total) {
+        } else if (currentCounter + minIndex >= this.total) {
           if (currentItems[currentCounter]) {
             itemSwaps.push({
               currentItem: $(currentItems[currentCounter]),
               newItem: $('<div class="ditty-temp-item"></div>'),
             });
           }
+          currentCounter++;
         }
-        currentCounter++;
       }
-      dittyUpdateItems(itemSwaps);
+      dittyUpdateItems(itemSwaps, swapType);
+      this.trigger("update");
     },
 
     /**
@@ -587,6 +604,14 @@
      */
     updateItems: function (newItems, itemId, type, forceSwapAll) {
       if (undefined === newItems) {
+        return false;
+      }
+      var slides = this.$elmt.ditty_slider("options", "slides");
+      if (!slides.length) {
+        this.settings.items = newItems;
+        this._calculatePages();
+        var $page = this.pages[0];
+        this.$elmt.ditty_slider("addSlide", $page, 0);
         return false;
       }
 

@@ -4,10 +4,8 @@ import { useContext, useState } from "@wordpress/element";
 import { withFilters, SlotFillProvider, Slot } from "@wordpress/components";
 import {
   getDisplayItems,
-  updateDisplayOptions,
-  addDisplayItems,
   deleteDisplayItems,
-  updateDisplayItems,
+  replaceDisplayItems,
 } from "../services/dittyService";
 import { PopupTypeSelector } from "../common";
 import { Panel, SortableList } from "../components";
@@ -64,12 +62,16 @@ const PanelItems = (props) => {
       if (data.preview_items[newItem.item_id]) {
         newItem.editor_preview = data.preview_items[newItem.item_id];
       }
-      actions.addItem(newItem);
+      const updatedItems = actions.addItem(newItem);
       setCurrentItem(newItem);
 
-      actions.addDisplayItems(data.display_items);
-      addDisplayItems(dittyEl, data.display_items);
+      const updatedDisplayItems = actions.addDisplayItems(
+        data.display_items,
+        updatedItems
+      );
+      replaceDisplayItems(dittyEl, updatedDisplayItems);
 
+      setTempDisplayItems(data.display_items);
       setPopupStatus("addItem");
     });
   };
@@ -80,8 +82,9 @@ const PanelItems = (props) => {
    */
   const handleDeleteItem = (deletedItem) => {
     const dittyEl = document.getElementById("ditty-editor__ditty");
+    const updatedDisplayItems = actions.deleteDisplayItems(deletedItem);
     actions.deleteItem(deletedItem);
-    deleteDisplayItems(dittyEl, deletedItem);
+    replaceDisplayItems(dittyEl, updatedDisplayItems);
     setCurrentItem(null);
   };
 
@@ -107,21 +110,32 @@ const PanelItems = (props) => {
                 )
               ) {
                 getDisplayItems(currentItem, layouts, (data) => {
-                  updateDisplayItems(dittyEl, data.display_items);
+                  replaceDisplayItems(
+                    dittyEl,
+                    helpers.replaceDisplayItems(data.display_items)
+                  );
                   setTempDisplayItems(null);
                 });
               }
             }}
             onChange={(updatedItem) => {
               getDisplayItems(updatedItem, layouts, (data) => {
-                updateDisplayItems(dittyEl, data.display_items);
+                replaceDisplayItems(
+                  dittyEl,
+                  helpers.replaceDisplayItems(data.display_items)
+                );
                 setTempDisplayItems(data.display_items);
               });
             }}
             onUpdate={(updatedItem, updateKeys) => {
               setPopupStatus(false);
               actions.updateItem(updatedItem, updateKeys);
-              tempDisplayItems && actions.updateDisplayItems(tempDisplayItems);
+              if (tempDisplayItems) {
+                replaceDisplayItems(
+                  dittyEl,
+                  helpers.replaceDisplayItems(tempDisplayItems)
+                );
+              }
               setTempDisplayItems(null);
             }}
             onTemplateSave={(savedTemplate) => {
@@ -141,12 +155,12 @@ const PanelItems = (props) => {
 
                 // Merge temp items
                 if (tempDisplayItems && tempDisplayItems.length) {
-                  updateDisplayItems(
+                  replaceDisplayItems(
                     dittyEl,
                     helpers.replaceDisplayItems(tempDisplayItems)
                   );
                 } else {
-                  updateDisplayItems(dittyEl, allDisplayItems);
+                  replaceDisplayItems(dittyEl, allDisplayItems);
                 }
               });
             }}
@@ -162,7 +176,10 @@ const PanelItems = (props) => {
               setPopupStatus(false);
               if (!_.isEqual(editedItem.item_value, currentItem.item_value)) {
                 getDisplayItems(currentItem, layouts, (data) => {
-                  updateDisplayItems(dittyEl, data.display_items);
+                  replaceDisplayItems(
+                    dittyEl,
+                    helpers.replaceDisplayItems(data.display_items)
+                  );
                   setTempDisplayItems(null);
                   setTempPreviewItem(null);
                 });
@@ -174,7 +191,10 @@ const PanelItems = (props) => {
             }}
             onChange={(updatedItem) => {
               getDisplayItems(updatedItem, layouts, (data) => {
-                updateDisplayItems(dittyEl, data.display_items);
+                replaceDisplayItems(
+                  dittyEl,
+                  helpers.replaceDisplayItems(data.display_items)
+                );
                 setTempDisplayItems(data.display_items);
                 if (data.preview_items[updatedItem.item_id]) {
                   setTempPreviewItem(data.preview_items[updatedItem.item_id]);
@@ -201,7 +221,7 @@ const PanelItems = (props) => {
                 const allDisplayItems = actions.updateDisplayItems(
                   data.display_items
                 );
-                updateDisplayItems(dittyEl, allDisplayItems);
+                replaceDisplayItems(dittyEl, allDisplayItems);
               });
             }}
           />
@@ -247,7 +267,7 @@ const PanelItems = (props) => {
     }, []);
 
     const dittyEl = document.getElementById("ditty-editor__ditty");
-    updateDisplayOptions(dittyEl, "items", orderedDisplayItems);
+    replaceDisplayItems(dittyEl, orderedDisplayItems);
   };
 
   const panelHeader = () => {

@@ -412,7 +412,7 @@
       if (undefined === this.settings.slides[index]) {
         return false;
       }
-
+      
       var prevIndex = this.settings.slide,
         prevSlide = this.settings.slides[prevIndex];
 
@@ -1357,7 +1357,12 @@
 
       // Preload slide assets
       this._preloadSlide(slide);
-
+      
+      if ( 1 === this.total ) {
+        this._showSlide();
+      }
+      
+      //this._showSlide(0);
       this.trigger("update");
     },
 
