@@ -87,40 +87,127 @@ export class EditorProvider extends Component {
    * Update all items
    * @param {object} updatedItems
    */
-  handleSortItems = (updatedItems) => {
-    const orderedItems = updatedItems.map((item, index) => {
-      item.item_index = index.toString();
+  handleSortItems = (items, parentId = null) => {
+    const parentItems = 0 === parentId ? items : [];
+    const childGroups = {};
+    if (parentId > 0) {
+      childGroups[parentId] = items;
+    }
 
-      // Add to the item updates
-      if (!item.item_updates) {
-        item.item_updates = {};
+    if (null === parentId) {
+      items.map((item) => {
+        if (!item.parent_id || 0 === Number(item.parent_id)) {
+          parentItems.push(item);
+        } else {
+          if (!childGroups[item.parent_id]) {
+            childGroups[item.parent_id] = [];
+          }
+          childGroups[item.parent_id].push(item);
+        }
+      });
+    } else if (0 === parentId) {
+      this.state.items.map((item) => {
+        if (item.parent_id && 0 !== Number(item.parent_id)) {
+          if (!childGroups[item.parent_id]) {
+            childGroups[item.parent_id] = [];
+          }
+          childGroups[item.parent_id].push(item);
+        }
+      });
+    } else {
+      this.state.items.map((item) => {
+        if (!item.parent_id || 0 === Number(item.parent_id)) {
+          parentItems.push(item);
+        } else if (item.parent_id && parentId !== Number(item.parent_id)) {
+          if (!childGroups[item.parent_id]) {
+            childGroups[item.parent_id] = [];
+          }
+          childGroups[item.parent_id].push(item);
+        }
+      });
+    }
+
+    // Set the index of the items
+    const updatedItems = parentItems.reduce((itemsList, item, index) => {
+      const updatedItem = { ...item };
+      if (!updatedItem.item_updates) {
+        updatedItem.item_updates = {};
       }
-      item.item_updates.item_index = true;
-      return item;
-    });
-    this.setState({ items: orderedItems });
-    return orderedItems;
+      updatedItem.item_updates.item_index = true;
+      updatedItem.item_index = index.toString();
+      itemsList.push(updatedItem);
+
+      // Set the child items
+      if (childGroups[item.item_id]) {
+        childGroups[item.item_id].map((childItem, childIndex) => {
+          const updatedChildItem = { ...childItem };
+          if (!updatedChildItem.item_updates) {
+            updatedChildItem.item_updates = {};
+          }
+          updatedChildItem.item_updates.item_index = true;
+          updatedChildItem.item_index = childIndex.toString();
+          itemsList.push(updatedChildItem);
+        });
+      }
+      return itemsList;
+    }, []);
+
+    console.log("updatedItems", updatedItems);
+
+    this.setState({ items: updatedItems });
+    return updatedItems;
   };
 
   /**
    * Add an item
    * @param {object} newItem
    */
-  handleAddItem = (newItem, insertIndex = 0) => {
-    newItem.item_updates = {
-      new_item: true,
-    };
-    let itemInserted = false;
-    const updatedItems = this.state.items.reduce((itemsArray, item) => {
-      if (insertIndex === Number(item.item_index)) {
-        itemsArray.push(newItem);
-        itemInserted = true;
+  handleAddItems = (newItems, insertIndex = 0) => {
+    if (!Array.isArray(newItems) || newItems.length < 1) {
+      return false;
+    }
+
+    const parentId = newItems[0].parent_id ? Number(newItems[0].parent_id) : 0;
+    let parentIndexes = [];
+    let childIndexes = [];
+
+    this.state.items.map((item, index) => {
+      if (0 === Number(item.parent_id)) {
+        parentIndexes.push(index);
+      } else if (parentId === Number(item.parent_id)) {
+        childIndexes.push(index);
       }
-      itemsArray.push(item);
-      return itemsArray;
-    }, []);
-    if (!itemInserted) {
-      updatedItems.push(newItem);
+    });
+
+    const updatedNewItems = newItems.map((item) => {
+      const updatedItem = { ...item };
+      updatedItem.item_updates = {
+        new_item: true,
+      };
+      return updatedItem;
+    });
+
+    const updatedItems = [...this.state.items];
+    if (0 === parentId) {
+      if (insertIndex < parentIndexes.length) {
+        updatedItems.splice(parentIndexes[insertIndex], 0, ...updatedNewItems);
+      } else {
+        updatedItems.push(...updatedNewItems);
+      }
+    } else {
+      if (insertIndex < childIndexes.length) {
+        updatedItems.splice(childIndexes[insertIndex], 0, ...updatedNewItems);
+      } else {
+        if (childIndexes[childIndexes.length - 1] < updatedItems.length) {
+          updatedItems.splice(
+            childIndexes[childIndexes.length - 1] + 1,
+            0,
+            ...updatedNewItems
+          );
+        } else {
+          updatedItems.push(...updatedNewItems);
+        }
+      }
     }
 
     return this.handleSortItems(updatedItems);
@@ -440,9 +527,15 @@ export class EditorProvider extends Component {
         if (index >= 0) {
           item.temp_id = temp_id;
           item.item_id = updated_id;
+          if (item.new_parent_id) {
+            item.parent_id = item.new_parent_id;
+            delete item.new_parent_id;
+          }
         }
         return item;
       });
+
+      console.log("updatedItems", updatedItems);
 
       // Update sanitized data
       data.updates.items.map((item) => {
@@ -594,7 +687,7 @@ export class EditorProvider extends Component {
             setCurrentPanel: this.handleSetCurrentPanel,
             setCurrentDisplay: this.handleSetCurrentDisplay,
             sortItems: this.handleSortItems,
-            addItem: this.handleAddItem,
+            addItems: this.handleAddItems,
             deleteItem: this.handleDeleteItem,
             updateItem: this.handleUpdateItem,
             updateItemMeta: this.handleUpdateItemMeta,

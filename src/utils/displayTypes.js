@@ -431,6 +431,7 @@ const displaySettingsNavigation = (
         case "arrows":
           return currentFields.concat([
             {
+              id: "arrowSettings",
               type: "group",
               name: __("Arrow Settings", "ditty-news-ticker"),
               desc: __(
@@ -519,6 +520,7 @@ const displaySettingsNavigation = (
         case "bullets":
           return currentFields.concat([
             {
+              id: "bulletSettings",
               type: "group",
               name: __("Bullet Settings", "ditty-news-ticker"),
               desc: __(
@@ -637,6 +639,7 @@ const displaySettingsStyle = (
         case "container":
           return currentFields.concat([
             {
+              id: "containerStyles",
               type: "group",
               name: __("Container Styles", "ditty-news-ticker"),
               desc: __("Add custom container styles.", "ditty-news-ticker"),
@@ -687,6 +690,7 @@ const displaySettingsStyle = (
         case "content":
           return currentFields.concat([
             {
+              id: "contentStyles",
               type: "group",
               name: __("Content Styles", "ditty-news-ticker"),
               desc: __("Add custom content styles.", "ditty-news-ticker"),
@@ -719,6 +723,7 @@ const displaySettingsStyle = (
         case "page":
           return currentFields.concat([
             {
+              id: "pageStyles",
               type: "group",
               name: __("Page Styles", "ditty-news-ticker"),
               desc: __("Add custom page styles.", "ditty-news-ticker"),
@@ -748,6 +753,7 @@ const displaySettingsStyle = (
         case "item":
           return currentFields.concat([
             {
+              id: "itemStyles",
               type: "group",
               name: __("Item Styles", "ditty-news-ticker"),
               desc: __("Add custom item styles.", "ditty-news-ticker"),

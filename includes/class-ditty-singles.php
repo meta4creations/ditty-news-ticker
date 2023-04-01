@@ -574,6 +574,11 @@ class Ditty_Singles {
 			$sanitized_item['item_id'] = esc_attr( $item_data['item_id'] );
 		}
 
+		// Sanitize the item ID
+		if ( isset( $item_data['parent_id'] ) ) {
+			$sanitized_item['parent_id'] = esc_attr( $item_data['parent_id'] );
+		}
+
 		// Sanitize the item index
 		if ( isset( $item_data['item_index'] ) ) {
 			$sanitized_item['item_index'] = intval( $item_data['item_index'] );
@@ -757,6 +762,8 @@ class Ditty_Singles {
 			}
 		}
 
+		$new_item_swaps = [];
+
 		// Update items
 		if ( is_array( $items ) && count( $items ) > 0 ) {
 			foreach ( $items as $i => $item ) {
@@ -771,7 +778,7 @@ class Ditty_Singles {
 
 				$item_id = $item['item_id'];
 
-				//Set the modified date of the item
+				// Set the modified date of the item
 				if ( isset( $item['item_value'] ) ) {
 					$item['date_modified'] = date( 'Y-m-d H:i:s' );
 				} elseif ( isset( $item['attribute_value'] ) ) {
@@ -798,11 +805,21 @@ class Ditty_Singles {
 					$serialized_item['attribute_value'] = maybe_serialize( $sanitized_item['attribute_value'] );
 				}
 
+				// Possibly update the parent id
+				if ( false !== strpos( $sanitized_item['parent_id'], 'new-' ) ) {
+					if ( isset( $new_item_swaps[$sanitized_item['parent_id']] ) ) {
+						$new_parent_id = $new_item_swaps[$sanitized_item['parent_id']];
+						$sanitized_item['parent_id'] = $new_parent_id;
+						$sanitized_item['new_parent_id'] = strval( $new_parent_id );
+					}
+				}
+
 				$update_item = false;
 				$error_item = false;
 
 				if ( false !== strpos( $item['item_id'], 'new-' ) ) {
 					if ( $new_item_id = Ditty()->db_items->insert( apply_filters( 'ditty_item_db_data', $serialized_item, $id ), 'item' ) ) {
+						$new_item_swaps[$item_id] = $new_item_id;
 						$item_id = $new_item_id;
 						$sanitized_item['new_id'] = strval( $new_item_id );
 						$updates['items'][$item_id] = $sanitized_item;

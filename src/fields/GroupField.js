@@ -73,29 +73,28 @@ const GroupField = (props) => {
     }
   };
 
-  const headerProps = {
-    collapsible: props.collapsible,
-    name: props.cloneLabel ? props.cloneLabel(groupValues) : false,
-  };
+  const headerProps = { ...props };
+  if (props.cloneId) {
+    headerProps.name = props.cloneLabel ? props.cloneLabel(groupValues) : false;
+  }
 
   return (
     <div className={fieldClasses} key={id}>
-      {headerProps.name ||
-        (headerProps.collapsible && (
-          <FieldHeader
-            {...headerProps}
-            headerEnd={
-              collapsible ? (
-                <FontAwesomeIcon
-                  className="ditty-field__toggle"
-                  icon={displayContent ? faChevronUp : faChevronDown}
-                />
-              ) : null
-            }
-            onClick={toggleContent}
-            style={styles}
-          />
-        ))}
+      {(headerProps.name || headerProps.collapsible) && (
+        <FieldHeader
+          {...headerProps}
+          headerEnd={
+            collapsible ? (
+              <FontAwesomeIcon
+                className="ditty-field__toggle"
+                icon={displayContent ? faChevronUp : faChevronDown}
+              />
+            ) : null
+          }
+          onClick={toggleContent}
+          style={styles}
+        />
+      )}
       {displayContent && fields && (
         <div className="ditty-field__input__container">
           <div className="ditty-field__input ditty-field__input--group">

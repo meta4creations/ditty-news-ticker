@@ -1,111 +1,80 @@
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
-import { withFilters, Slot } from "@wordpress/components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGear,
-  faPaintbrushPencil,
-  faClone,
-  faTrashCan,
-} from "@fortawesome/pro-light-svg-icons";
-import { getDisplayItems, replaceDisplayItems } from "../services/dittyService";
-import { getItemTypePreviewIcon, getItemLabel } from "../utils/itemTypes";
+import { Button, SortableList } from "../components";
+import EditItemActions from "./EditItemActions";
 
-const EditItem = ({
-  item,
-  setCurrentItem,
-  setPopupStatus,
-  handleDeleteItem,
-  layouts,
-  editor,
-}) => {
-  const DittyEditorItemActions = withFilters("dittyEditor.ItemActions")(
-    (props) => <></>
-  );
-  const { actions } = editor;
-
+const EditItem = (props) => {
+  const { item, childItems, addChildItem, editor } = props;
   const isDisabled = item.is_disabled && item.is_disabled.length;
+
+  /**
+   * Pull data from sorted list items to update items
+   * @param {array} sortedListItems
+   */
+  const handleSortEnd = (sortedListItems) => {
+    const updatedItems = sortedListItems.map((childItem) => {
+      return childItem.data;
+    });
+    console.log("updatedItems", updatedItems);
+    editor.actions.sortItems(updatedItems, Number(item.item_id));
+
+    // Update the display items order
+    // const orderedDisplayItems = updatedItems.reduce((itemList, childItem) => {
+    //   const itemsGroup = displayItems.filter(
+    //     (displayItem) => displayItem.id === childItem.item_id
+    //   );
+    //   return [...itemList, ...itemsGroup];
+    // }, []);
+
+    //const dittyEl = document.getElementById("ditty-editor__ditty");
+    //replaceDisplayItems(dittyEl, orderedDisplayItems);
+  };
+
+  /**
+   * Prepare the items for the sortable list
+   * @returns {array}
+   */
+  const prepareItems = () => {
+    return childItems.map((childItem) => {
+      const childIsDisabled =
+        childItem.is_disabled && childItem.is_disabled.length;
+      const childProps = { ...props };
+      childProps.item = childItem;
+
+      return {
+        id: childItem.item_id,
+        data: childItem,
+        content: (
+          <div
+            className={`ditty-editor-item ditty-editor-item--child ditty-editor-item--${
+              childIsDisabled ? "disabled" : "enabled"
+            }`}
+          >
+            <EditItemActions {...childProps} />
+          </div>
+        ),
+      };
+    });
+  };
+
   return (
     <>
-      <DittyEditorItemActions
-        item={item}
-        setItem={setCurrentItem}
-        setPopupStatus={setPopupStatus}
-        editor={editor}
-        className="ditty-editor-item__action"
-      />
       <div
-        className={`ditty-editor-item ditty-editor-item--${
+        className={`ditty-editor-item ditty-editor-item--parent ditty-editor-item--${
           isDisabled ? "disabled" : "enabled"
         }`}
       >
-        <span key="icon" className="ditty-editor-item__icon">
-          {getItemTypePreviewIcon(item)}
-        </span>
-        <span key="label" className="ditty-editor-item__label">
-          {getItemLabel(item)}
-        </span>
-        <Slot name={`dittyEditorItemBeforeActions-${item.item_id}`} />
-        <span
-          className="ditty-editor-item__settings ditty-editor-item__action"
-          key="settings"
-          onClick={() => {
-            setCurrentItem(item);
-            setPopupStatus("editItem");
-          }}
-        >
-          <FontAwesomeIcon icon={faGear} />
-        </span>
-        <Slot name={`dittyEditorItemAfterSettingsAction-${item.item_id}`} />
-        <span
-          className="ditty-editor-item__layout ditty-editor-item__action"
-          key="layout"
-          onClick={() => {
-            setCurrentItem(item);
-            setPopupStatus("editLayout");
-          }}
-        >
-          <FontAwesomeIcon icon={faPaintbrushPencil} />
-        </span>
-        <Slot name={`dittyEditorItemAfterLayoutAction-${item.item_id}`} />
-        <span
-          className="ditty-editor-item__clone ditty-editor-item__action"
-          key="clone"
-          onClick={() => {
-            const clonedItem = _.cloneDeep(item);
-            clonedItem.item_id = `new-${Date.now()}`;
-            actions.addItem(clonedItem, Number(item.item_index) + 1);
-            setCurrentItem(clonedItem);
-
-            // Get new display items
-            const dittyEl = document.getElementById("ditty-editor__ditty");
-            getDisplayItems(clonedItem, layouts, (data) => {
-              const updatedDisplayItems = actions.addDisplayItems(
-                data.display_items
-              );
-              replaceDisplayItems(dittyEl, updatedDisplayItems);
-            });
-          }}
-        >
-          <FontAwesomeIcon icon={faClone} />
-        </span>
-        <Slot name={`dittyEditorItemAfterCloneAction-${item.item_id}`} />
-        <span
-          className="ditty-editor-item__delete ditty-editor-item__action"
-          key="delete"
-          onClick={() => {
-            handleDeleteItem(item);
-          }}
-        >
-          <FontAwesomeIcon icon={faTrashCan} />
-        </span>
-        <Slot
-          name={`dittyEditorItemAfterActions-${item.item_id}`}
-          // fillProps={{
-          //   item: item,
-          //   className: "ditty-editor-item__action",
-          // }}
-        />
+        <EditItemActions {...props} />
+        <div className="ditty-editor-item__childlist">
+          <div className="ditty-editor-item__childlist__content">
+            <Button size="small" onClick={addChildItem}>
+              {__("Add Child Item", "ditty-news-ticker")}
+            </Button>
+            {childItems && (
+              <SortableList items={prepareItems()} onSortEnd={handleSortEnd} />
+            )}
+          </div>
+        </div>
       </div>
     </>
   );

@@ -2,11 +2,7 @@ import { __ } from "@wordpress/i18n";
 import _ from "lodash";
 import { useContext, useState } from "@wordpress/element";
 import { withFilters, SlotFillProvider, Slot } from "@wordpress/components";
-import {
-  getDisplayItems,
-  deleteDisplayItems,
-  replaceDisplayItems,
-} from "../services/dittyService";
+import { getDisplayItems, replaceDisplayItems } from "../services/dittyService";
 import { PopupTypeSelector } from "../common";
 import { Panel, SortableList } from "../components";
 import { EditorContext } from "./context";
@@ -45,6 +41,7 @@ const PanelItems = (props) => {
     }
 
     const itemId = `new-${Date.now()}`;
+    const parentId = currentItem ? currentItem.item_id : 0;
     const newItem = {
       ditty_id: id,
       item_author: "1",
@@ -55,6 +52,7 @@ const PanelItems = (props) => {
         ? itemTypeObject.defaultValues
         : {},
       layout_value: layoutValue,
+      parent_id: parentId,
     };
 
     // Get new display items
@@ -62,7 +60,7 @@ const PanelItems = (props) => {
       if (data.preview_items[newItem.item_id]) {
         newItem.editor_preview = data.preview_items[newItem.item_id];
       }
-      const updatedItems = actions.addItem(newItem);
+      const updatedItems = actions.addItems([newItem]);
       setCurrentItem(newItem);
 
       const updatedDisplayItems = actions.addDisplayItems(
@@ -256,7 +254,7 @@ const PanelItems = (props) => {
     const updatedItems = sortedListItems.map((item) => {
       return item.data;
     });
-    actions.sortItems(updatedItems);
+    actions.sortItems(updatedItems, 0);
 
     // Update the display items order
     const orderedDisplayItems = updatedItems.reduce((itemList, item) => {
@@ -274,7 +272,10 @@ const PanelItems = (props) => {
     return (
       <button
         className="ditty-button"
-        onClick={() => setPopupStatus("newItem")}
+        onClick={() => {
+          setCurrentItem(null);
+          setPopupStatus("newItem");
+        }}
       >
         {__("Add Item", "ditty-news-ticker")}
       </button>
@@ -286,22 +287,38 @@ const PanelItems = (props) => {
    * @returns {array}
    */
   const prepareItems = () => {
-    return items.map((item) => {
-      return {
-        id: item.item_id,
-        data: item,
-        content: (
-          <EditItem
-            item={item}
-            setCurrentItem={setCurrentItem}
-            setPopupStatus={setPopupStatus}
-            handleDeleteItem={handleDeleteItem}
-            layouts={layouts}
-            editor={editor}
-          />
-        ),
-      };
-    });
+    return items.reduce((itemsList, item) => {
+      const parentId = item.parent_id ? item.parent_id : 0;
+      if (0 === Number(parentId)) {
+        const childItems = items.filter(
+          (childItem) => childItem.parent_id === item.item_id
+        );
+
+        const parentItem = {
+          id: item.item_id,
+          data: item,
+          content: (
+            <EditItem
+              key={item.item_id}
+              item={item}
+              setCurrentItem={setCurrentItem}
+              setPopupStatus={setPopupStatus}
+              handleDeleteItem={handleDeleteItem}
+              layouts={layouts}
+              editor={editor}
+              childItems={childItems}
+              addChildItem={() => {
+                setCurrentItem(item);
+                setPopupStatus("newItem");
+              }}
+            />
+          ),
+        };
+        itemsList.push(parentItem);
+      }
+
+      return itemsList;
+    }, []);
   };
 
   const DittyEditorItemsElements = withFilters("dittyEditor.ItemsElements")(

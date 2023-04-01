@@ -56,6 +56,14 @@ function ditty_v3_1_upgrades() {
 	//$db_items = new Ditty_DB_Items();
 	//@$db_items->create_table();
 
+	// Delete the deprecated layout_id columns - KEEP
+	// global $wpdb;
+	// $table_name = $wpdb->prefix . 'ditty_items';
+	// $column_name = 'layout_id';
+	// if ($wpdb->get_var("SHOW COLUMNS FROM $table_name LIKE '$column_name'") === $column_name) {
+	// 	$wpdb->query("ALTER TABLE $table_name DROP COLUMN $column_name");
+	// }
+
 	// Update custom tag attributes - KEEP
 	$args = array(
 		'post_type' => 'ditty',
