@@ -614,6 +614,43 @@ class Ditty_Singles {
 	}
 
 	/**
+	 * Order items based on parent ids
+	 *
+	 * @since    3.1
+	 * @access   public
+	 * @var      array   	$display_items    Array of item objects
+	 */
+	function order_items( $items ) {
+		$parent_items = [];
+    $child_groups = [];
+
+		if ( is_array( $items ) && count( $items ) > 0 ) {
+			foreach ( $items as $item ) {
+				if ( 0 == $item->parent_id ) {
+					$parent_items[] = $item;
+				} else {
+					if (! isset( $child_groups[$item->parent_id] ) ) {
+						$child_groups[$item->parent_id] = [];
+					}
+					$child_groups[$item->parent_id][] = $item;
+				}
+			}
+		}
+
+		$updated_items = array_reduce( $parent_items, function( $items_list, $item ) use ( $child_groups ) {
+      $items_list[] = $item;
+			if ( isset( $child_groups[$item->item_id] ) && is_array( $child_groups[$item->item_id] ) && count( $child_groups[$item->item_id] ) > 0 ) {
+				foreach ( $child_groups[$item->item_id] as $child_item ) {
+					$items_list[] = $child_item;
+				}
+			}
+      return $items_list;
+    }, []);
+
+		return $updated_items;
+	}
+
+	/**
 	 * Return display items for a specific Ditty
 	 *
 	 * @since    3.1
@@ -635,7 +672,7 @@ class Ditty_Singles {
 		$display_items = get_transient( $transient_name );
 		if ( ! $display_items || 'force' == $load_type ) {
 			//ChromePhp::log( 'NO CACHE' );
-			$items_meta = ditty_items_meta( $ditty_id );
+			$items_meta = $this->order_items( ditty_items_meta( $ditty_id ) );
 			$display_items = array();
 			if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
 				foreach ( $items_meta as $i => $item_meta ) {
@@ -788,8 +825,21 @@ class Ditty_Singles {
 				// Pull any item meta updates before saving item
 				$item_meta = isset($item['meta']) ? $item['meta'] : false;
 
-				// Sanitize & serialize data
-				$sanitized_item = $serialized_item = $this->sanitize_item_data( $item );
+				// Sanitize the data
+				$sanitized_item  = $this->sanitize_item_data( $item );
+
+				// Possibly update the parent id
+				if ( false !== strpos( $sanitized_item['parent_id'], 'new-' ) ) {
+					if ( isset( $new_item_swaps[$sanitized_item['parent_id']] ) ) {
+						$new_parent_id = $new_item_swaps[$sanitized_item['parent_id']];
+						$sanitized_item['parent_id'] = $new_parent_id;
+						$sanitized_item['new_parent_id'] = strval( $new_parent_id );
+					}
+				}
+
+				// Serialize the data
+				$serialized_item = $sanitized_item;
+
 				if ( isset( $sanitized_item['item_value'] ) ) {
 					$serialized_item['item_value'] = maybe_serialize( $sanitized_item['item_value'] );
 					
@@ -803,15 +853,6 @@ class Ditty_Singles {
 				}
 				if ( isset( $sanitized_item['attribute_value'] ) ) {
 					$serialized_item['attribute_value'] = maybe_serialize( $sanitized_item['attribute_value'] );
-				}
-
-				// Possibly update the parent id
-				if ( false !== strpos( $sanitized_item['parent_id'], 'new-' ) ) {
-					if ( isset( $new_item_swaps[$sanitized_item['parent_id']] ) ) {
-						$new_parent_id = $new_item_swaps[$sanitized_item['parent_id']];
-						$sanitized_item['parent_id'] = $new_parent_id;
-						$sanitized_item['new_parent_id'] = strval( $new_parent_id );
-					}
 				}
 
 				$update_item = false;

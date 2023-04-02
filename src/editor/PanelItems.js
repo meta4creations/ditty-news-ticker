@@ -61,7 +61,12 @@ const PanelItems = (props) => {
         newItem.editor_preview = data.preview_items[newItem.item_id];
       }
       const updatedItems = actions.addItems([newItem]);
-      setCurrentItem(newItem);
+      const updatedItem = updatedItems.filter(
+        (item) => item.item_id === newItem.item_id
+      );
+      if (updatedItem.length) {
+        setCurrentItem(updatedItem[0]);
+      }
 
       const updatedDisplayItems = actions.addDisplayItems(
         data.display_items,
@@ -250,14 +255,14 @@ const PanelItems = (props) => {
    * Pull data from sorted list items to update items
    * @param {array} sortedListItems
    */
-  const handleSortEnd = (sortedListItems) => {
+  const handleSortEnd = (sortedListItems, parentId = "0") => {
     const updatedItems = sortedListItems.map((item) => {
       return item.data;
     });
-    actions.sortItems(updatedItems, 0);
+    const allUpdatedItems = actions.sortItems(updatedItems, String(parentId));
 
     // Update the display items order
-    const orderedDisplayItems = updatedItems.reduce((itemList, item) => {
+    const orderedDisplayItems = allUpdatedItems.reduce((itemList, item) => {
       const itemsGroup = displayItems.filter(
         (displayItem) => displayItem.id === item.item_id
       );
@@ -310,6 +315,9 @@ const PanelItems = (props) => {
               addChildItem={() => {
                 setCurrentItem(item);
                 setPopupStatus("newItem");
+              }}
+              onSortEnd={(sortedListItems) => {
+                handleSortEnd(sortedListItems, String(item.item_id));
               }}
             />
           ),

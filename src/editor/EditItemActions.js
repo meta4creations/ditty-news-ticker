@@ -19,6 +19,8 @@ const EditItemActions = ({
   handleDeleteItem,
   layouts,
   editor,
+  showChildPanel,
+  setShowChildPanel,
 }) => {
   const DittyEditorItemActions = withFilters("dittyEditor.ItemActions")(
     (props) => <></>
@@ -64,15 +66,19 @@ const EditItemActions = ({
           <FontAwesomeIcon icon={faPaintbrushPencil} />
         </span>
         <Slot name={`dittyEditorItemAfterLayoutAction-${item.item_id}`} />
-        <span
-          className="ditty-editor-item__children ditty-editor-item__action"
-          key="children"
-          onClick={() => {
-            console.log("item");
-          }}
-        >
-          <FontAwesomeIcon icon={faBarsStaggered} />
-        </span>
+        {0 === Number(item.parent_id) && (
+          <span
+            className={`ditty-editor-item__children ditty-editor-item__action ${
+              showChildPanel && "ditty-editor-item__children--active"
+            }`}
+            key="children"
+            onClick={() => {
+              setShowChildPanel && setShowChildPanel(!showChildPanel);
+            }}
+          >
+            <FontAwesomeIcon icon={faBarsStaggered} />
+          </span>
+        )}
         <span
           className="ditty-editor-item__clone ditty-editor-item__action"
           key="clone"
@@ -86,7 +92,7 @@ const EditItemActions = ({
                 ? editor.items.reduce(
                     (clonedItemsList, maybeItem, maybeIndex) => {
                       if (
-                        Number(item.item_id) === Number(maybeItem.parent_id)
+                        String(item.item_id) === String(maybeItem.parent_id)
                       ) {
                         const clonedMaybeItem = _.cloneDeep(maybeItem);
                         clonedMaybeItem.item_id = `new-${Date.now()}-${maybeIndex}`;
@@ -99,19 +105,17 @@ const EditItemActions = ({
                   )
                 : [clonedItem];
 
-            console.log("allClonedItems", allClonedItems);
-
             actions.addItems(allClonedItems, Number(item.item_index) + 1);
             setCurrentItem(clonedItem);
 
-            // // Get new display items
-            // const dittyEl = document.getElementById("ditty-editor__ditty");
-            // getDisplayItems(clonedItem, layouts, (data) => {
-            //   const updatedDisplayItems = actions.addDisplayItems(
-            //     data.display_items
-            //   );
-            //   replaceDisplayItems(dittyEl, updatedDisplayItems);
-            // });
+            // Get new display items
+            const dittyEl = document.getElementById("ditty-editor__ditty");
+            getDisplayItems(clonedItem, layouts, (data) => {
+              const updatedDisplayItems = actions.addDisplayItems(
+                data.display_items
+              );
+              replaceDisplayItems(dittyEl, updatedDisplayItems);
+            });
           }}
         >
           <FontAwesomeIcon icon={faClone} />

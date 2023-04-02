@@ -1,34 +1,13 @@
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
+import { useState } from "@wordpress/element";
 import { Button, SortableList } from "../components";
 import EditItemActions from "./EditItemActions";
 
 const EditItem = (props) => {
-  const { item, childItems, addChildItem, editor } = props;
+  const { item, childItems, addChildItem, onSortEnd } = props;
+  const [showChildPanel, setShowChildPanel] = useState(false);
   const isDisabled = item.is_disabled && item.is_disabled.length;
-
-  /**
-   * Pull data from sorted list items to update items
-   * @param {array} sortedListItems
-   */
-  const handleSortEnd = (sortedListItems) => {
-    const updatedItems = sortedListItems.map((childItem) => {
-      return childItem.data;
-    });
-    console.log("updatedItems", updatedItems);
-    editor.actions.sortItems(updatedItems, Number(item.item_id));
-
-    // Update the display items order
-    // const orderedDisplayItems = updatedItems.reduce((itemList, childItem) => {
-    //   const itemsGroup = displayItems.filter(
-    //     (displayItem) => displayItem.id === childItem.item_id
-    //   );
-    //   return [...itemList, ...itemsGroup];
-    // }, []);
-
-    //const dittyEl = document.getElementById("ditty-editor__ditty");
-    //replaceDisplayItems(dittyEl, orderedDisplayItems);
-  };
 
   /**
    * Prepare the items for the sortable list
@@ -60,21 +39,31 @@ const EditItem = (props) => {
   return (
     <>
       <div
-        className={`ditty-editor-item ditty-editor-item--parent ditty-editor-item--${
-          isDisabled ? "disabled" : "enabled"
-        }`}
+        className={`ditty-editor-item ditty-editor-item--parent ${
+          childItems && childItems.length && "ditty-editor-item--has-children"
+        } ditty-editor-item--${isDisabled ? "disabled" : "enabled"}`}
       >
-        <EditItemActions {...props} />
-        <div className="ditty-editor-item__childlist">
-          <div className="ditty-editor-item__childlist__content">
-            <Button size="small" onClick={addChildItem}>
-              {__("Add Child Item", "ditty-news-ticker")}
-            </Button>
-            {childItems && (
-              <SortableList items={prepareItems()} onSortEnd={handleSortEnd} />
-            )}
+        <EditItemActions
+          {...props}
+          showChildPanel={showChildPanel}
+          setShowChildPanel={setShowChildPanel}
+        />
+        {showChildPanel && (
+          <div
+            className={`ditty-editor-item__childlist ${
+              showChildPanel && "open"
+            }`}
+          >
+            <div className="ditty-editor-item__childlist__content">
+              <Button size="small" onClick={addChildItem}>
+                {__("Add Child Item", "ditty-news-ticker")}
+              </Button>
+              {childItems && (
+                <SortableList items={prepareItems()} onSortEnd={onSortEnd} />
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );

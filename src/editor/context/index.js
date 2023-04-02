@@ -88,15 +88,15 @@ export class EditorProvider extends Component {
    * @param {object} updatedItems
    */
   handleSortItems = (items, parentId = null) => {
-    const parentItems = 0 === parentId ? items : [];
+    const parentItems = "0" === parentId ? items : [];
     const childGroups = {};
-    if (parentId > 0) {
+    if (parentId && String(parentId) !== "0") {
       childGroups[parentId] = items;
     }
 
     if (null === parentId) {
       items.map((item) => {
-        if (!item.parent_id || 0 === Number(item.parent_id)) {
+        if (!item.parent_id || "0" === String(item.parent_id)) {
           parentItems.push(item);
         } else {
           if (!childGroups[item.parent_id]) {
@@ -105,9 +105,9 @@ export class EditorProvider extends Component {
           childGroups[item.parent_id].push(item);
         }
       });
-    } else if (0 === parentId) {
+    } else if ("0" === String(parentId)) {
       this.state.items.map((item) => {
-        if (item.parent_id && 0 !== Number(item.parent_id)) {
+        if (item.parent_id && "0" !== String(item.parent_id)) {
           if (!childGroups[item.parent_id]) {
             childGroups[item.parent_id] = [];
           }
@@ -116,9 +116,12 @@ export class EditorProvider extends Component {
       });
     } else {
       this.state.items.map((item) => {
-        if (!item.parent_id || 0 === Number(item.parent_id)) {
+        if (!item.parent_id || "0" === String(item.parent_id)) {
           parentItems.push(item);
-        } else if (item.parent_id && parentId !== Number(item.parent_id)) {
+        } else if (
+          item.parent_id &&
+          String(parentId) !== String(item.parent_id)
+        ) {
           if (!childGroups[item.parent_id]) {
             childGroups[item.parent_id] = [];
           }
@@ -151,8 +154,6 @@ export class EditorProvider extends Component {
       }
       return itemsList;
     }, []);
-
-    console.log("updatedItems", updatedItems);
 
     this.setState({ items: updatedItems });
     return updatedItems;
@@ -209,7 +210,6 @@ export class EditorProvider extends Component {
         }
       }
     }
-
     return this.handleSortItems(updatedItems);
   };
 
@@ -252,7 +252,11 @@ export class EditorProvider extends Component {
     });
     this.setState({ items: updatedItems });
 
-    return updatedItems;
+    if ("item" === returned) {
+      updatedItems[currentIndex];
+    } else {
+      return updatedItems;
+    }
   };
 
   /**
@@ -517,25 +521,30 @@ export class EditorProvider extends Component {
       const updatedItems = this.state.items.map((item) => {
         let temp_id;
         let updated_id;
+        let temp_parent_id;
+        let updated_parent_id;
         const index = data.updates.items.findIndex((i) => {
           if (i.new_id && i.item_id === item.item_id) {
             temp_id = i.item_id;
             updated_id = i.new_id;
+            if (i.new_parent_id) {
+              temp_parent_id = i.parent_id;
+              updated_parent_id = i.new_parent_id;
+            }
             return true;
           }
         });
         if (index >= 0) {
           item.temp_id = temp_id;
           item.item_id = updated_id;
-          if (item.new_parent_id) {
-            item.parent_id = item.new_parent_id;
-            delete item.new_parent_id;
+          if (updated_parent_id) {
+            item.temp_parent_id = temp_parent_id;
+            item.parent_id = updated_parent_id;
+            //delete item.new_parent_id;
           }
         }
         return item;
       });
-
-      console.log("updatedItems", updatedItems);
 
       // Update sanitized data
       data.updates.items.map((item) => {
