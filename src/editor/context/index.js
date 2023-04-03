@@ -48,6 +48,53 @@ export class EditorProvider extends Component {
   };
 
   /**
+   * Update all items
+   * @param {object} updatedItems
+   */
+  ensureItemOrder = (items) => {
+    let parentItems = [];
+    let childGroups = [];
+
+    items.map((item) => {
+      if (!item.parent_id || "0" === String(item.parent_id)) {
+        parentItems.push(item);
+      } else {
+        if (!childGroups[item.parent_id]) {
+          childGroups[item.parent_id] = [];
+        }
+        childGroups[item.parent_id].push(item);
+      }
+    });
+
+    // Set the index of the items
+    const updatedItems = parentItems.reduce((itemsList, item, index) => {
+      const updatedItem = { ...item };
+      if (!updatedItem.item_updates) {
+        updatedItem.item_updates = {};
+      }
+      updatedItem.item_updates.item_index = true;
+      updatedItem.item_index = index.toString();
+      itemsList.push(updatedItem);
+
+      // Set the child items
+      if (childGroups[item.item_id]) {
+        childGroups[item.item_id].map((childItem, childIndex) => {
+          const updatedChildItem = { ...childItem };
+          if (!updatedChildItem.item_updates) {
+            updatedChildItem.item_updates = {};
+          }
+          updatedChildItem.item_updates.item_index = true;
+          updatedChildItem.item_index = childIndex.toString();
+          itemsList.push(updatedChildItem);
+        });
+      }
+      return itemsList;
+    }, []);
+
+    return updatedItems;
+  };
+
+  /**
    * Merge new display items into an existing array of display items
    * @param {array} existingDisplayItems
    * @param {array} newDisplayItems
@@ -60,7 +107,7 @@ export class EditorProvider extends Component {
     this.state.displayItems.length
       ? this.state.displayItems
       : [],
-    items = this.state.items
+    items = this.ensureItemOrder(this.state.items)
   ) => {
     const allDisplayItems = items.reduce((itemsArray, item) => {
       const filteredNewItems = newDisplayItems.filter((displayItem) => {
@@ -229,10 +276,18 @@ export class EditorProvider extends Component {
    * Update a single item
    * @param {object} updatedItem
    */
-  handleUpdateItem = (updatedItem, key, returned = "item") => {
+  handleUpdateItem = (data, key, returned = "item") => {
     let currentIndex = -1;
+    const updates = Array.isArray(data) ? data : [data];
+
     const updatedItems = this.state.items.map((item, index) => {
-      if (updatedItem.item_id === item.item_id) {
+      const itemIndex = updates.findIndex(
+        (update) => update.item_id === item.item_id
+      );
+      if (itemIndex < 0) {
+        return item;
+      } else {
+        const updatedItem = updates[itemIndex];
         currentIndex = index;
         if (!key) {
           return updatedItem;
@@ -246,8 +301,6 @@ export class EditorProvider extends Component {
           updatedItem.item_updates[key] = true;
         }
         return updatedItem;
-      } else {
-        return item;
       }
     });
     this.setState({ items: updatedItems });
@@ -299,9 +352,16 @@ export class EditorProvider extends Component {
    * Delete display items
    * @param {object} item
    */
-  handleDeleteDisplayItems = (deletedItem) => {
+  handleDeleteDisplayItems = (data) => {
+    const updates = Array.isArray(data) ? data : [data];
     const updatedDisplayItems = this.state.displayItems.filter(
-      (displayItem) => displayItem.id !== deletedItem.item_id
+      (displayItem) => {
+        const itemIndex = updates.findIndex(
+          (update) => update.item_id === displayItem.id
+        );
+        return itemIndex === -1;
+        displayItem.id !== deletedItem.item_id;
+      }
     );
     this.setState({ displayItems: updatedDisplayItems });
     return updatedDisplayItems;

@@ -31,7 +31,7 @@ class Ditty_Editor {
 			return false;
 		}
 
-		$items_meta = ditty_items_meta( $ditty_id, 'array' );
+		$items_meta = ditty_items_meta( $ditty_id );
 		
 		// Do not pass serialized data
 		$unserialized_items = array();
@@ -67,7 +67,7 @@ class Ditty_Editor {
 				$item_meta->layout_value = $layout_variations;
 				$item_meta->attribute_value = $attribute_value;
 				$item_meta->meta = ditty_item_custom_meta( $item_meta->item_id );
-				$item_meta->is_disabled = array_unique( apply_filters( 'ditty_item_disabled', array(), $item_meta->item_id, (array) $item_meta ) );
+				$item_meta->is_disabled = array_unique( apply_filters( 'ditty_item_disabled', array(), $item_meta->item_id, (array) $item_meta, $items_meta ) );
 				$unserialized_items[] = apply_filters( 'ditty_editor_item_meta', $item_meta );
 			}
 		}

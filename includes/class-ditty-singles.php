@@ -626,7 +626,7 @@ class Ditty_Singles {
 
 		if ( is_array( $items ) && count( $items ) > 0 ) {
 			foreach ( $items as $item ) {
-				if ( 0 == $item->parent_id ) {
+				if ( ! isset( $item->parent_id ) || 0 == $item->parent_id ) {
 					$parent_items[] = $item;
 				} else {
 					if (! isset( $child_groups[$item->parent_id] ) ) {
@@ -829,7 +829,7 @@ class Ditty_Singles {
 				$sanitized_item  = $this->sanitize_item_data( $item );
 
 				// Possibly update the parent id
-				if ( false !== strpos( $sanitized_item['parent_id'], 'new-' ) ) {
+				if ( isset($sanitized_item['parent_id']) && false !== strpos( $sanitized_item['parent_id'], 'new-' ) ) {
 					if ( isset( $new_item_swaps[$sanitized_item['parent_id']] ) ) {
 						$new_parent_id = $new_item_swaps[$sanitized_item['parent_id']];
 						$sanitized_item['parent_id'] = $new_parent_id;
@@ -903,9 +903,9 @@ class Ditty_Singles {
 		}
 
 		// Check for updates to disabled items
-		if ( isset( $item_id ) && isset( $updates['items'][$item_id] ) ) {
-			$updates['items'][$item_id]['is_disabled'] = array_unique( apply_filters( 'ditty_item_disabled', array(), $item_id, $updates['items'][$item_id] ) );
-		}
+		// if ( isset( $item_id ) && isset( $updates['items'][$item_id] ) ) {
+		// 	$updates['items'][$item_id]['is_disabled'] = array_unique( apply_filters( 'ditty_item_disabled', array(), $item_id, $updates['items'][$item_id] ) );
+		// }
 
 		// Update the item array to remove keys before sending back to js
 		if ( count( $updates['items'] ) > 0 ) {

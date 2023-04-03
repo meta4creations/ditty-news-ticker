@@ -801,7 +801,7 @@ function ditty_parse_custom_layouts( $layout_settings ) {
  * @access   public
  * @var      array    $items_meta    Array of items connected to a Ditty
  */
-function ditty_items_meta( $ditty_id = false, $return_type = 'object' ) {	
+function ditty_items_meta( $ditty_id = false ) {	
 	$ditty_id = $ditty_id ? $ditty_id : get_the_id();
 	global $ditty_items_meta;
 	
@@ -822,13 +822,7 @@ function ditty_items_meta( $ditty_id = false, $return_type = 'object' ) {
 		}
 		$ditty_items_meta[$ditty_id] = apply_filters( 'ditty_items_meta', $normalized_meta, $ditty_id );
 	}
-	if ( $return_type == 'array' ) {
-		$items_meta = $ditty_items_meta[$ditty_id];
-		echo '<pre>';print_r($items_meta);echo '</pre>';
-		return $ditty_items_meta[$ditty_id];
-	} else {
-		return $ditty_items_meta[$ditty_id];
-	}
+	return $ditty_items_meta[$ditty_id];
 }
 
 /**

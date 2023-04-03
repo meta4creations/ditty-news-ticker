@@ -42,9 +42,11 @@ const Item = ({ data, elements, isActive, classes, onItemClick }) => {
         onItemClick && onItemClick(e, data);
       }}
     >
-      {elements.map((element) => {
-        return renderElement(element);
-      })}
+      <div className="ditty-editor-item__actions">
+        {elements.map((element) => {
+          return renderElement(element);
+        })}
+      </div>
     </div>
   );
 };
