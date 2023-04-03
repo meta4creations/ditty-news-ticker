@@ -31,7 +31,7 @@ class Ditty_Editor {
 			return false;
 		}
 
-		$items_meta = ditty_items_meta( $ditty_id );
+		$items_meta = ditty_items_meta( $ditty_id, 'array' );
 		
 		// Do not pass serialized data
 		$unserialized_items = array();

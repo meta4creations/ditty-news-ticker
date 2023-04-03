@@ -678,7 +678,7 @@ class Ditty_Singles {
 				foreach ( $items_meta as $i => $item_meta ) {
 
 					// If the item is disabled, don't render
-					$item_disabled = array_unique( apply_filters( 'ditty_item_disabled', array(), $item_meta->item_id, (array) $item_meta ) );
+					$item_disabled = array_unique( apply_filters( 'ditty_item_disabled', array(), $item_meta->item_id, (array) $item_meta, $items_meta ) );
 					if ( $item_disabled && count( $item_disabled ) > 0 ) {
 						continue;
 					}

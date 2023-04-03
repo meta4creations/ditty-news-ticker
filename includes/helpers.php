@@ -797,18 +797,18 @@ function ditty_parse_custom_layouts( $layout_settings ) {
 /**
  * Return item data for a Ditty
  *
- * @since    3.0
+ * @since    3.1
  * @access   public
  * @var      array    $items_meta    Array of items connected to a Ditty
  */
-function ditty_items_meta( $ditty_id = false ) {	
+function ditty_items_meta( $ditty_id = false, $return_type = 'object' ) {	
 	$ditty_id = $ditty_id ? $ditty_id : get_the_id();
-	global $items_meta;
+	global $ditty_items_meta;
 	
-	if ( empty( $items_meta ) ) {
-		$items_meta = array();
+	if ( empty( $ditty_items_meta ) ) {
+		$ditty_items_meta = array();
 	}	
-	if ( ! isset( $items_meta[$ditty_id] ) ) {
+	if ( ! isset( $ditty_items_meta[$ditty_id] ) ) {
 		$normalized_meta = array();
 		$all_meta = Ditty()->db_items->get_items( $ditty_id );
 		if ( is_array( $all_meta ) && count( $all_meta ) > 0 ) {
@@ -820,9 +820,15 @@ function ditty_items_meta( $ditty_id = false ) {
 				$normalized_meta[] = apply_filters( 'ditty_item_meta', $meta, $meta->item_id, $ditty_id );
 			} 
 		}
-		$items_meta[$ditty_id] = apply_filters( 'ditty_items_meta', $normalized_meta, $ditty_id );
+		$ditty_items_meta[$ditty_id] = apply_filters( 'ditty_items_meta', $normalized_meta, $ditty_id );
 	}
-	return $items_meta[$ditty_id];
+	if ( $return_type == 'array' ) {
+		$items_meta = $ditty_items_meta[$ditty_id];
+		echo '<pre>';print_r($items_meta);echo '</pre>';
+		return $ditty_items_meta[$ditty_id];
+	} else {
+		return $ditty_items_meta[$ditty_id];
+	}
 }
 
 /**

@@ -253,7 +253,7 @@ export class EditorProvider extends Component {
     this.setState({ items: updatedItems });
 
     if ("item" === returned) {
-      updatedItems[currentIndex];
+      return updatedItems[currentIndex];
     } else {
       return updatedItems;
     }
@@ -263,7 +263,7 @@ export class EditorProvider extends Component {
    * Update a single item meta
    * @param {object} updatedItem
    */
-  handleUpdateItemMeta = (item, key, value) => {
+  handleUpdateItemMeta = (item, key, value, returned = "item") => {
     const updatedItem = { ...item };
     const updatedMeta = updatedItem.meta ? { ...updatedItem.meta } : {};
     if (!updatedMeta.meta_updates) {
@@ -276,7 +276,7 @@ export class EditorProvider extends Component {
     }
     updatedMeta[key] = value;
     updatedItem.meta = updatedMeta;
-    return this.handleUpdateItem(updatedItem, "meta");
+    return this.handleUpdateItem(updatedItem, "meta", returned);
   };
 
   /**
