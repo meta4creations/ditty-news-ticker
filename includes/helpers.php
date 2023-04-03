@@ -1553,7 +1553,7 @@ function ditty_sanitize_settings( $values, $filter = false ) {
 			}
 		}
 	} else {
-		$sanitized_values = ditty_sanitize_setting( $value );
+		$sanitized_values = ditty_sanitize_setting( $values );
 	}
 	return $filter ? apply_filters( 'ditty_sanitize_settings', $sanitized_values, $values, $filter ) : $sanitized_values;
 }

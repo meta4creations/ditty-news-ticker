@@ -458,6 +458,19 @@ const displaySettingsNavigation = (
                     },
                   },
                   {
+                    type: "checkbox",
+                    id: "arrowsStatic",
+                    name: __("Arrows Visibility", "ditty-news-ticker"),
+                    label: __(
+                      "Keep arrows visible at all times",
+                      "ditty-news-ticker"
+                    ),
+                    help: __(
+                      "Keep arrows visible at all times",
+                      "ditty-news-ticker"
+                    ),
+                  },
+                  {
                     type: "color",
                     id: "arrowsIconColor",
                     name: __("Arrows Icon Color", "ditty-news-ticker"),
@@ -498,19 +511,6 @@ const displaySettingsNavigation = (
                       "ditty-news-ticker"
                     ),
                     min: 0,
-                  },
-                  {
-                    type: "checkbox",
-                    id: "arrowsStatic",
-                    name: __("Arrows Visibility", "ditty-news-ticker"),
-                    label: __(
-                      "Keep arrows visible at all times",
-                      "ditty-news-ticker"
-                    ),
-                    help: __(
-                      "Keep arrows visible at all times",
-                      "ditty-news-ticker"
-                    ),
                   },
                 ],
                 displayType

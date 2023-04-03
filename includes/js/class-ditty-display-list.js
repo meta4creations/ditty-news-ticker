@@ -549,6 +549,7 @@
               1
             : currentItems.length,
         itemSwaps = [];
+
       // Swap out items
       let currentCounter = 0;
       for (var i = minIndex; i <= maxIndex; i++) {
@@ -880,9 +881,19 @@
           break;
         case "perPage":
         case "paging":
-          //updateSlider = false;
+          updateSlider = false;
           this.settings[key] = value;
-          this.updateItems(this.settings.items);
+          this._calculatePages();
+          this.$elmt.ditty_slider("options", {
+            slides: this.pages,
+            transitionSpeed: 0,
+            heightSpeed: 0,
+          });
+          this.$elmt.ditty_slider("showSlide");
+          this.$elmt.ditty_slider("options", {
+            transitionSpeed: this.settings.transitionSpeed,
+            heightSpeed: this.settings.heightSpeed,
+          });
           break;
         case "spacing":
           this.settings[key] = value;
