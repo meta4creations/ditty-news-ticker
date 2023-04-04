@@ -22,6 +22,7 @@
     speed: 10, // 1 - 10
     cloneItems: "yes",
     wrapItems: "yes",
+    repeatItems: "yes",
     hoverPause: 0, // 0, 1
     height: null,
     minHeight: null,
@@ -99,6 +100,7 @@
     this.firstItem = this.settings.item;
     this.currentHeight = this.settings.height;
     this.visibleItems = [];
+    this.finished = false;
 
     this.scrollIncrement = 0;
     // this.framesPerSecond = 60;
@@ -278,6 +280,7 @@
     },
 
     _timerStop: function () {
+      console.log("_timerStop");
       cancelAnimationFrame(this.interval);
       this.running = false;
       this.trigger("stop");
@@ -340,7 +343,7 @@
       var existingItems = this.$items.children(
         ".ditty-item--" + this.settings.items[index].uniq_id
       );
-      if ("yes" !== this.settings.cloneItems && existingItems.length) {
+      if ("yes" !== this.settings.cloneItems && existingItems.length > 0) {
         return false;
       }
       if (
@@ -349,8 +352,15 @@
         this.firstItem === parseInt(index) &&
         0 !== parseInt(this.visibleItems.length)
       ) {
+        this.finished = true;
         return false;
       }
+      if (this.finished && "yes" !== this.settings.repeatItems) {
+        console.log("completely finished");
+        this._timerStop();
+        return false;
+      }
+      this.finished = false;
 
       // Create and add a new item
       var $item = $(this.settings.items[index].html);

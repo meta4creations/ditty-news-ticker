@@ -3,12 +3,95 @@
 	flex: 1;
 	width: 100%;
 	max-width: 100%;
+	min-width: 100%;
 	box-sizing: border-box;
-	&--pre {
-		//height: 50px;
-		//background: rgba( 0, 0, 0, .05 );
-		//transition: background-color .25s ease;
+	* {
+		box-sizing: border-box;
 	}
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	&[data-title="top"],
+	&[data-title="bottom"] {
+		> .ditty__title {
+			width: 100%;
+		}
+	}
+	&[data-title="bottom"] {
+		> .ditty__title {
+			order: 1;
+		}
+		> .ditty__contents {
+			order: 0;
+		}
+	}
+	&[data-title="left"],
+	&[data-title="right"] {
+		flex-direction: row;
+		flex-wrap: nowrap;
+		align-items: stretch;
+		> .ditty__title {
+			flex: 0 0 auto;
+			&__contents {
+				height: 100%;
+				display: flex;
+				flex-direction: row;
+			}
+		}
+		&[data-title="right"] {
+			> .ditty__title {
+				order: 1;
+			}
+			> .ditty__contents {
+				order: 0;
+			}
+		}
+	}
+	&[data-title_position="start"] {
+		> .ditty__title {
+			&__contents {
+				align-items: flex-start;
+				justify-content: flex-start;
+			}
+		}
+	}
+	&[data-title_position="center"] {
+		> .ditty__title {
+			&__contents {
+				align-items: center;
+				justify-content: center;
+			}
+		}
+	}
+	&[data-title_position="end"] {
+		> .ditty__title {
+			&__contents {
+				align-items: flex-end;
+				justify-content: flex-end;
+			}
+		}
+	}
+	> &__title {
+		&__contents {
+			display: flex;
+			flex-direction: row;
+		}
+	}
+	> &__contents {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: flex-start;
+	}
+	&__items {
+		width: 100%;
+		position: relative;
+		overflow: hidden;
+	}
+}
+
+.ditty {
 	&__edit-link {
 		position: absolute;
 		z-index: 99999;
@@ -19,11 +102,11 @@
 		line-height: 16px !important;
 		text-decoration: none !important;
 		color: #666 !important;
-		background: #FFF;
+		background: #fff;
 		padding: 6px 8px 4px 7px;
 		border-radius: 2px;
-		opacity: .5;
-		transition: opacity .2s linear;
+		opacity: 0.5;
+		transition: opacity 0.2s linear;
 		&:hover {
 			opacity: 1;
 		}

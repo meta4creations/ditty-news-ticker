@@ -10,7 +10,7 @@ dittyEditor.common = common;
 dittyEditor.components = components;
 dittyEditor.fields = fields;
 dittyEditor.helpers = helpers;
-dittyEditor.dittyService = dittyService;
+dittyEditor.displayHelpers = dittyEditor.dittyService = dittyService;
 dittyEditor.httpService = {
   phpItemMods,
 };

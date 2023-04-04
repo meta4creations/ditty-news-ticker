@@ -94,8 +94,72 @@
   flex: 1;
   width: 100%;
   max-width: 100%;
+  min-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.ditty * {
   box-sizing: border-box;
 }
+.ditty[data-title=top] > .ditty__title, .ditty[data-title=bottom] > .ditty__title {
+  width: 100%;
+}
+.ditty[data-title=bottom] > .ditty__title {
+  order: 1;
+}
+.ditty[data-title=bottom] > .ditty__contents {
+  order: 0;
+}
+.ditty[data-title=left], .ditty[data-title=right] {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+.ditty[data-title=left] > .ditty__title, .ditty[data-title=right] > .ditty__title {
+  flex: 0 0 auto;
+}
+.ditty[data-title=left] > .ditty__title__contents, .ditty[data-title=right] > .ditty__title__contents {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.ditty[data-title=left][data-title=right] > .ditty__title, .ditty[data-title=right][data-title=right] > .ditty__title {
+  order: 1;
+}
+.ditty[data-title=left][data-title=right] > .ditty__contents, .ditty[data-title=right][data-title=right] > .ditty__contents {
+  order: 0;
+}
+.ditty[data-title_position=start] > .ditty__title__contents {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.ditty[data-title_position=center] > .ditty__title__contents {
+  align-items: center;
+  justify-content: center;
+}
+.ditty[data-title_position=end] > .ditty__title__contents {
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.ditty__title__contents {
+  display: flex;
+  flex-direction: row;
+}
+.ditty__contents {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.ditty__items {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
 .ditty__edit-link {
   position: absolute;
   z-index: 99999;
@@ -106,7 +170,7 @@
   line-height: 16px !important;
   text-decoration: none !important;
   color: #666 !important;
-  background: #FFF;
+  background: #fff;
   padding: 6px 8px 4px 7px;
   border-radius: 2px;
   opacity: 0.5;
