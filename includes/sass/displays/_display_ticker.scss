@@ -1,6 +1,6 @@
 .ditty-ticker {
 	box-sizing: border-box;
-	//transition: background .25s ease, padding .25s ease, border-radius .25s ease; 
+	//transition: background .25s ease, padding .25s ease, border-radius .25s ease;
 	* {
 		box-sizing: border-box;
 	}
@@ -15,10 +15,10 @@
 	}
 	&[data-title="bottom"] {
 		.ditty-ticker__title {
-			order: 1;	
+			order: 1;
 		}
 		.ditty-ticker__contents {
-			order: 0;	
+			order: 0;
 		}
 	}
 	&[data-title="left"],
@@ -36,10 +36,10 @@
 		}
 		&[data-title="right"] {
 			.ditty-ticker__title {
-				order: 1;	
+				order: 1;
 			}
 			.ditty-ticker__contents {
-				order: 0;	
+				order: 0;
 			}
 		}
 	}
@@ -83,7 +83,7 @@
 		display: none;
 		position: absolute;
 		line-height: 1;
-/*
+		/*
 		&--current {
 			color: green;
 		}

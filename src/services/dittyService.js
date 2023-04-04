@@ -17,10 +17,11 @@ export const updateDittyDisplayTemplate = (dittyEl, display) => {
     args["id"] = display.id;
     args["display"] = display.type;
     args["title"] = display.title;
-    args["status"] = oldDitty.options("status");
-    args["items"] = oldDitty.options("items");
-
-    oldDitty.destroy();
+    if (oldDitty) {
+      args["status"] = oldDitty.options("status");
+      args["items"] = oldDitty.options("items");
+      oldDitty.destroy();
+    }
 
     jQuery(dittyEl)["ditty_" + display.type](args);
     dittyEl.dataset.type = display.type;
@@ -32,8 +33,10 @@ export const updateDittyDisplayType = (dittyEl, displayType) => {
   const prevType = dittyEl.dataset.type;
   if (prevType !== displayType) {
     const oldDitty = dittyEl["_ditty_" + prevType];
-    const args = oldDitty.options();
-    oldDitty.destroy();
+    const args = oldDitty ? oldDitty.options() : {};
+    if (oldDitty) {
+      oldDitty.destroy();
+    }
 
     jQuery(dittyEl)["ditty_" + displayType](args);
     dittyEl.dataset.type = displayType;
@@ -42,6 +45,7 @@ export const updateDittyDisplayType = (dittyEl, displayType) => {
 
 export const updateDisplayOptions = (dittyEl, option, value) => {
   const displayType = dittyEl.dataset.type;
+  console.log("displayType", displayType);
   if (!displayTypeExists(dittyEl, displayType)) return false;
   dittyEl["_ditty_" + displayType].options(option, value);
 };

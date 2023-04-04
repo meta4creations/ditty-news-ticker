@@ -1046,6 +1046,8 @@ function ditty_prepare_display_items( $meta ) {
  * @since    3.0.32
  */
 function ditty_render( $atts ) {
+	//return Ditty()->singles->setup( $atts );
+
 	global $ditty_singles;
 	if ( empty( $ditty_singles ) ) {
 		$ditty_singles = array();
