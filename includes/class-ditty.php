@@ -561,15 +561,6 @@ class Ditty {
 				) ), 'before' );
 			}
 
-			if ( current_user_can( 'edit_dittys' ) || current_user_can( 'edit_ditty_layouts' ) ) {
-				wp_enqueue_editor();
-				wp_enqueue_code_editor(
-					array(
-						'type' => 'text/html'
-					)
-				);
-				wp_enqueue_script( 'ditty-editor' );	
-			}
 			if ( current_user_can( 'manage_ditty_settings' ) ) {
 				wp_enqueue_script( 'ditty-admin' );
 			}
@@ -578,6 +569,15 @@ class Ditty {
 			if ( 'ditty' == get_post_type() ) {
 				wp_enqueue_script( 'ditty' );
 				wp_dequeue_script( 'autosave' );
+				if ( current_user_can( 'edit_dittys' ) || current_user_can( 'edit_ditty_layouts' ) ) {
+					wp_enqueue_editor();
+					wp_enqueue_code_editor(
+						array(
+							'type' => 'text/html'
+						)
+					);
+					wp_enqueue_script( 'ditty-editor' );	
+				}
 			}	
 		}
 		
