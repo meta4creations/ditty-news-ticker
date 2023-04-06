@@ -22,7 +22,6 @@
     speed: 10, // 1 - 10
     cloneItems: "yes",
     wrapItems: "yes",
-    repeatItems: "yes",
     hoverPause: 0, // 0, 1
     height: null,
     minHeight: null,
@@ -257,30 +256,18 @@
       cancelAnimationFrame(this.interval);
 
       function ditty_tickerLoop() {
-        // var lengthLimit = 20;
-        // var timeDiff = currentTime - self.previousTime;
-        // self.averageDeltaTime.unshift( timeDiff );
-        // if ( self.averageDeltaTime.length > lengthLimit ) {
-        // 	self.averageDeltaTime.length = lengthLimit;
-        // }
-        // var sum = self.averageDeltaTime.reduce((partialSum, a) => partialSum + a, 0);
-        // var average = Math.ceil(sum / lengthLimit);
-
-        //self.deltaTime = currentTime - self.previousTime;
-        //console.log('timeDiff', timeDiff);
-        //self.deltaTimeMultiplier = self.deltaTime / self.frameInterval;
         self.scrollIncrement =
           parseFloat(self.settings.speed) * self.scrollPercent;
         self._positionItems();
-        //self.previousTime = currentTime;
-        self.interval = requestAnimationFrame(ditty_tickerLoop);
+        if (self.running) {
+          self.interval = requestAnimationFrame(ditty_tickerLoop);
+        }
       }
 
       self.interval = requestAnimationFrame(ditty_tickerLoop);
     },
 
     _timerStop: function () {
-      console.log("_timerStop");
       cancelAnimationFrame(this.interval);
       this.running = false;
       this.trigger("stop");
@@ -352,15 +339,8 @@
         this.firstItem === parseInt(index) &&
         0 !== parseInt(this.visibleItems.length)
       ) {
-        this.finished = true;
         return false;
       }
-      if (this.finished && "yes" !== this.settings.repeatItems) {
-        console.log("completely finished");
-        this._timerStop();
-        return false;
-      }
-      this.finished = false;
 
       // Create and add a new item
       var $item = $(this.settings.items[index].html);
@@ -534,6 +514,11 @@
 
       // Set the ticker height
       this._setCurrentHeight();
+
+      var visibleItems = this.$items.children();
+      if (0 === visibleItems.length) {
+        this.elmt.dispatchEvent(new CustomEvent("dittyTickerComplete"));
+      }
 
       this.trigger("active_items_update");
     },
@@ -1523,7 +1508,7 @@
       this.$elmt.off("mouseenter", { self: this }, this._mouseenter);
       this.$elmt.off("mouseleave", { self: this }, this._mouseleave);
 
-      cancelAnimationFrame(this.interval);
+      this._timerStop();
 
       this.$elmt.removeClass("ditty ditty-ticker");
       this.$elmt.removeAttr("data-id");
