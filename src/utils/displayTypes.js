@@ -1,3 +1,4 @@
+import { applyFilters } from "@wordpress/hooks";
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -178,8 +179,8 @@ export const getDisplayTypeSettings = (display) => {
             break;
           default:
             fieldGroups.push(
-              dittyEditor.applyFilters(
-                "getDisplayTypeSettingsCustom",
+              applyFilters(
+                "dittyEditor.displayTypeCustomSettings",
                 [],
                 displayTypeObject.id,
                 key
@@ -217,8 +218,8 @@ const displaySettingsGeneral = (displayType) => {
       "ditty-news-ticker"
     ),
     icon: <FontAwesomeIcon icon={faSliders} />,
-    fields: dittyEditor.applyFilters(
-      "displaySettingsGeneralFields",
+    fields: applyFilters(
+      "dittyEditor.displaySettingsGeneralFields",
       [],
       displayType
     ),
@@ -235,8 +236,8 @@ const displaySettingsTitle = (displayType) => {
       "ditty-news-ticker"
     ),
     icon: <FontAwesomeIcon icon={faHeading} />,
-    fields: dittyEditor.applyFilters(
-      "displaySettingsTitleFields",
+    fields: applyFilters(
+      "dittyEditor.displaySettingsTitleFields",
       [...titleSettings()],
       displayType
     ),
@@ -271,8 +272,8 @@ const displaySettingsNavigation = (
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
-              fields: dittyEditor.applyFilters(
-                "displaySettingsArrowFields",
+              fields: applyFilters(
+                "dittyEditor.displaySettingsArrowFields",
                 [
                   {
                     type: "select",
@@ -360,8 +361,8 @@ const displaySettingsNavigation = (
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
-              fields: dittyEditor.applyFilters(
-                "displaySettingsBulletFields",
+              fields: applyFilters(
+                "dittyEditor.displaySettingsBulletFields",
                 [
                   {
                     type: "select",
@@ -439,8 +440,8 @@ const displaySettingsNavigation = (
           ]);
         default:
           return currentFields.concat(
-            dittyEditor.applyFilters(
-              "displaySettingsNavigationCustomFields",
+            applyFilters(
+              "dittyEditor.displaySettingsNavigationCustomFields",
               [],
               group,
               displayType
@@ -476,8 +477,8 @@ const displaySettingsStyle = (
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
-              fields: dittyEditor.applyFilters(
-                "displaySettingsStylesContainerFields",
+              fields: applyFilters(
+                "dittyEditor.displaySettingsStylesContainerFields",
                 [
                   {
                     type: "unit",
@@ -527,8 +528,8 @@ const displaySettingsStyle = (
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
-              fields: dittyEditor.applyFilters(
-                "displaySettingsStylesContentFields",
+              fields: applyFilters(
+                "dittyEditor.displaySettingsStylesContentFields",
                 [
                   {
                     type: "color",
@@ -560,8 +561,8 @@ const displaySettingsStyle = (
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
-              fields: dittyEditor.applyFilters(
-                "displaySettingsStylesPageFields",
+              fields: applyFilters(
+                "dittyEditor.displaySettingsStylesPageFields",
                 [
                   {
                     type: "color",
@@ -590,8 +591,8 @@ const displaySettingsStyle = (
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
-              fields: dittyEditor.applyFilters(
-                "displaySettingsStylesItemFields",
+              fields: applyFilters(
+                "dittyEditor.displaySettingsStylesItemFields",
                 [
                   {
                     type: "color",
@@ -617,8 +618,8 @@ const displaySettingsStyle = (
           ]);
         default:
           return currentFields.concat(
-            dittyEditor.applyFilters(
-              "displaySettingsStylesCustomFields",
+            applyFilters(
+              "dittyEditor.displaySettingsStylesCustomFields",
               [],
               group,
               displayType

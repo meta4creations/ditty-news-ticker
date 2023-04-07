@@ -1,4 +1,5 @@
 import classnames from "classnames";
+import { applyFilters } from "@wordpress/hooks";
 import { __ } from "@wordpress/i18n";
 import { useState, useContext } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,7 +15,8 @@ import PanelSettings from "./PanelSettings";
 import { EditorContext } from "./context";
 
 const Editor = ({ className }) => {
-  const { settings, actions } = useContext(EditorContext);
+  const editor = useContext(EditorContext);
+  const { settings, actions } = editor;
   const [currentTabId, setCurrentTabId] = useState("items");
   let editorWidth = settings.editorWidth ? Number(settings.editorWidth) : 350;
   let editorHeight = settings.editorHeight
@@ -57,8 +59,8 @@ const Editor = ({ className }) => {
     document.body.addEventListener("mouseup", onMouseUp, { once: true });
   };
 
-  const tabs = dittyEditor.applyFilters(
-    "dittyEditorTabs",
+  const tabs = applyFilters(
+    "dittyEditor.tabs",
     [
       {
         id: "items",
@@ -82,6 +84,16 @@ const Editor = ({ className }) => {
     EditorContext
   );
 
+  const renderAfterEditor = () => {
+    const afterEditor = applyFilters("dittyEditor.afterEditor", [], editor);
+    const sortedAfterEditor = afterEditor
+      .sort((a, b) => (a.order || 10) - (b.order || 10))
+      .map((item) => item.content);
+    return sortedAfterEditor.map((after, index) => (
+      <React.Fragment key={index}>{after}</React.Fragment>
+    ));
+  };
+
   const handleTabClick = (tab) => {
     setCurrentTabId(tab.id);
   };
@@ -93,8 +105,8 @@ const Editor = ({ className }) => {
     const content =
       -1 === index ? "" : tabs[index].content ? tabs[index].content : "";
 
-    return dittyEditor.applyFilters(
-      "dittyEditorPanel",
+    return applyFilters(
+      "dittyEditor.panel",
       content,
       currentTabId,
       EditorContext
@@ -121,6 +133,7 @@ const Editor = ({ className }) => {
         type="primary"
       />
       <div className="ditty-editor__panels">{renderCurrentPanel()}</div>
+      {renderAfterEditor()}
     </div>
   );
 };

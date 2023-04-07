@@ -1,3 +1,4 @@
+import { addFilter } from "@wordpress/hooks";
 import { __ } from "@wordpress/i18n";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/pro-light-svg-icons";
@@ -39,8 +40,9 @@ if (dittyEditor) {
   /**
    * Add the ticker fields
    */
-  dittyEditor.addFilter(
-    "displaySettingsGeneralFields",
+  addFilter(
+    "dittyEditor.displaySettingsGeneralFields",
+    "ditty-news-ticker/displaySettingsGeneralFields",
     (fields, displayType) => {
       if ("ticker" !== displayType) {
         return fields;

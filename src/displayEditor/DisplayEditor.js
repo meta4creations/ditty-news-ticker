@@ -1,5 +1,6 @@
 import classnames from "classnames";
 import { __ } from "@wordpress/i18n";
+import { applyFilters } from "@wordpress/hooks";
 import { useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -70,7 +71,7 @@ const DisplayEditor = ({
     document.body.addEventListener("mouseup", onMouseUp, { once: true });
   };
 
-  const tabs = dittyEditor.applyFilters("dittyDisplayEditorTabs", [
+  const tabs = applyFilters("dittyDisplayEditor.tabs", [
     {
       id: "display",
       label: __("Display", "ditty-news-ticker"),

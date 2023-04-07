@@ -81,16 +81,5 @@ if (dittyEditor) {
       link_target: "_self",
       link_nofollow: "",
     },
-    // itemLabel: (item) => {
-    //   const content = item.item_value.content
-    //     ? item.item_value.content
-    //     : __("This is a sample item. Please edit me!", "ditty-news-ticker");
-    //   return content;
-    // },
-    // layoutTags: [
-    //   {
-    //     ...dittyEditor.layoutTags.content,
-    //   },
-    // ],
   });
 }

@@ -15,12 +15,6 @@ dittyEditor.httpService = {
   phpItemMods,
 };
 
-const editorHooks = createHooks();
-dittyEditor.addFilter = (action, callable, priority) => {
-  editorHooks.addFilter(action, "dittyEditor", callable, priority);
-};
-dittyEditor.applyFilters = editorHooks.applyFilters;
-
 /**
  * Store registered item types
  */

@@ -1,5 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
+import { withFilters } from "@wordpress/components";
+import { applyFilters } from "@wordpress/hooks";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
@@ -23,6 +25,7 @@ import {
 import { getTagFields } from "../utils/layouts";
 
 const PopupEditItem = ({
+  editor,
   item,
   editType = "editItem",
   onChange,
@@ -37,7 +40,7 @@ const PopupEditItem = ({
   const itemTypeObject = getItemTypeObject(editItem);
   const itemTypes = getItemTypes();
 
-  const fieldGroups = getItemTypeSettings(editItem);
+  let fieldGroups = getItemTypeSettings(editItem);
   fieldGroups.push({
     id: "layoutCustomizations",
     label: __("Customize", "ditty-news-ticker"),
@@ -51,6 +54,11 @@ const PopupEditItem = ({
       editItem.layoutTags ? editItem.layoutTags : itemTypeObject.layoutTags
     ),
   });
+  fieldGroups = applyFilters(
+    "dittyEditor.itemFieldGroups",
+    fieldGroups,
+    editItem
+  );
 
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
   const [currentTabId, setCurrentTabId] = useState(initialTab);
@@ -156,7 +164,10 @@ const PopupEditItem = ({
       "layoutCustomizations" === currentTabId
         ? "attribute_value"
         : "item_value";
-    return (
+
+    const DittEditorEditItemContents = withFilters(
+      "dittyEditor.editItemContents"
+    )((props) => (
       <FieldList
         name={currentFieldGroup.name}
         description={currentFieldGroup.description}
@@ -175,6 +186,14 @@ const PopupEditItem = ({
           updatedItem[itemKey][id] = value;
           addItemUpdate(updatedItem, itemKey);
         }}
+      />
+    ));
+    return (
+      <DittEditorEditItemContents
+        editor={editor}
+        item={editItem}
+        currentFieldGroup={currentFieldGroup}
+        addItemUpdate={addItemUpdate}
       />
     );
   };

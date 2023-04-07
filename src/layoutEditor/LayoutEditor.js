@@ -1,4 +1,5 @@
 import classnames from "classnames";
+import { applyFilters } from "@wordpress/hooks";
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -74,7 +75,7 @@ const LayoutEditor = ({
     document.body.addEventListener("mouseup", onMouseUp, { once: true });
   };
 
-  const tabs = dittyEditor.applyFilters("dittyLayoutEditorTabs", [
+  const tabs = applyFilters("dittyLayoutEditor.tabs", [
     {
       id: "layout",
       label: __("Layout", "ditty-news-ticker"),

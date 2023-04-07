@@ -1,3 +1,4 @@
+import { applyFilters } from "@wordpress/hooks";
 import { __ } from "@wordpress/i18n";
 import { useContext } from "@wordpress/element";
 import _ from "lodash";
@@ -8,7 +9,7 @@ import { EditorContext } from "./context";
 const PanelSettings = () => {
   const { id, title, status, settings, actions } = useContext(EditorContext);
 
-  const settingsFields = dittyEditor.applyFilters("dittySettingsFields", [
+  const settingsFields = applyFilters("dittyEditor.settingsFields", [
     {
       type: "group",
       name: __("Post Settings", "ditty-news-ticker"),

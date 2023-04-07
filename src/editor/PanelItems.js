@@ -1,7 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
 import { useContext, useState } from "@wordpress/element";
-import { withFilters, SlotFillProvider, Slot } from "@wordpress/components";
+import { applyFilters } from "@wordpress/hooks";
 import { getDisplayItems, replaceDisplayItems } from "../services/dittyService";
 import { PopupTypeSelector } from "../common";
 import { Panel, SortableList } from "../components";
@@ -173,6 +173,7 @@ const PanelItems = (props) => {
       case "editItem":
         return (
           <PopupEditItem
+            editor={editor}
             item={currentItem}
             editType={popupStatus}
             onClose={(editedItem) => {
@@ -329,26 +330,31 @@ const PanelItems = (props) => {
     }, []);
   };
 
-  const DittyEditorItemsElements = withFilters("dittyEditor.ItemsElements")(
-    (props) => <></>
-  );
+  const renderAfterItemsPanel = () => {
+    const afterItemsPanel = applyFilters("dittyEditor.afterItemsPanel", [], {
+      ...props,
+      item: currentItem,
+      popupStatus: popupStatus,
+      setItem: setCurrentItem,
+      setPopupStatus: setPopupStatus,
+      editor: editor,
+    });
+    const sortedAfterItemsPanel = afterItemsPanel
+      .sort((a, b) => (a.order || 10) - (b.order || 10))
+      .map((item) => item.content);
+    return sortedAfterItemsPanel.map((after, index) => (
+      <React.Fragment key={index}>{after}</React.Fragment>
+    ));
+  };
 
   return (
-    <SlotFillProvider>
-      <DittyEditorItemsElements
-        item={currentItem}
-        setItem={setCurrentItem}
-        popupStatus={popupStatus}
-        setPopupStatus={setPopupStatus}
-        editor={editor}
-        {...props}
-      />
+    <>
       <Panel id="items" header={panelHeader()}>
         <SortableList items={prepareItems()} onSortEnd={handleSortEnd} />
       </Panel>
       {renderPopup()}
-      <Slot name="dittyPanelItemsPopup" />
-    </SlotFillProvider>
+      {renderAfterItemsPanel()}
+    </>
   );
 };
 export default PanelItems;
