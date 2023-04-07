@@ -435,6 +435,5 @@ class Ditty_Display_Item {
 			'css'					=> $this->get_layout_css(),
 			'layout_id'		=> $this->get_layout_id(),
 		);
-		return $data;
 	}
 }

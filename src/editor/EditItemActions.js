@@ -166,7 +166,15 @@ const EditItemActions = (props) => {
 
   const sortedItemActions = itemActions
     .sort((a, b) => (a.order || 10) - (b.order || 10))
-    .map((item) => item.content);
+    .map((item) => {
+      return item.tooltip ? (
+        <Tooltip text={item.tooltip} position="top" delay="0" visible="true">
+          {item.content}
+        </Tooltip>
+      ) : (
+        item.content
+      );
+    });
 
   return (
     <>

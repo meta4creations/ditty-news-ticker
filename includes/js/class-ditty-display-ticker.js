@@ -999,6 +999,9 @@
         borderColor: this.settings.itemBorderColor,
         borderStyle: this.settings.itemBorderStyle,
       });
+      $item.children(".ditty-item__elements").children().css({
+        color: this.settings.itemTextColor,
+      });
       $item.children(".ditty-item__elements").css(this.settings.itemPadding);
       $item
         .children(".ditty-item__elements")

@@ -45,7 +45,6 @@ export const updateDittyDisplayType = (dittyEl, displayType) => {
 
 export const updateDisplayOptions = (dittyEl, option, value) => {
   const displayType = dittyEl.dataset.type;
-  console.log("displayType", displayType);
   if (!displayTypeExists(dittyEl, displayType)) return false;
   dittyEl["_ditty_" + displayType].options(option, value);
 };

@@ -158,6 +158,9 @@ if (dittyEditor) {
           max: 10,
           step: 0.25,
           suffix: __("second(s)", "ditty-news-ticker"),
+          show: {
+            fields: [{ key: "scrollInit", value: "filled", compare: "=" }],
+          },
         },
         {
           type: "unit",
