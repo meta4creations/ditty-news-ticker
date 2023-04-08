@@ -31,6 +31,7 @@ class Ditty_Display_Item {
 	private $css_compiled;
 	private $has_error;
 	private $custom_classes;
+	private $custom_meta;
 	
 
 	/**
@@ -48,6 +49,7 @@ class Ditty_Display_Item {
 		$this->item_type = $prepared_meta['item_type'];
 		$this->has_error = isset( $prepared_meta['has_error'] ) ? $prepared_meta['has_error'] : false;
 		$this->custom_classes = isset( $prepared_meta['custom_classes'] ) ? $prepared_meta['custom_classes'] : false;
+		$this->custom_meta = isset( $prepared_meta['custom_meta'] ) ? $prepared_meta['custom_meta'] : false;
 		$this->configure_layout( $prepared_meta, $layouts );
 	}
 
@@ -434,6 +436,8 @@ class Ditty_Display_Item {
 			'html' 				=> $this->render_html(),
 			'css'					=> $this->get_layout_css(),
 			'layout_id'		=> $this->get_layout_id(),
+			'meta' 				=> $this->custom_meta,
 		);
+		return $data;
 	}
 }

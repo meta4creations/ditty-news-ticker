@@ -1025,19 +1025,20 @@ function ditty_border_styles_array() {
  * @since    3.0.21
  * @var      $eases array
 */
-function ditty_prepare_display_items( $meta ) {
-	if ( is_object( $meta ) ) {
-		$meta = ( array ) $meta;
+function ditty_prepare_display_items( $item ) {
+	if ( is_object( $item ) ) {
+		$item = ( array ) $item;
 	}
 	$prepared_items = array();
-	if ( ! $item_type_object 	= ditty_item_type_object( $meta['item_type'] ) ) {
+	if ( ! $item_type_object 	= ditty_item_type_object( $item['item_type'] ) ) {
 		return $prepared_items;
 	}
-	$defaults 					= $item_type_object->default_settings();
-	$args 							= wp_parse_args( $meta['item_value'], $defaults );
-	$meta['item_value'] = $args;
+	$defaults 						= $item_type_object->default_settings();
+	$args 								= wp_parse_args( $item['item_value'], $defaults );
+	$item['item_value'] 	= $args;
+	$item['custom_meta'] 	= apply_filters( 'ditty_display_item_custom_meta', [], $item, $item_type_object );
 	
-	return $item_type_object->prepare_items( $meta );
+	return $item_type_object->prepare_items( $item );
 }
 
 /**

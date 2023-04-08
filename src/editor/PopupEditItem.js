@@ -57,7 +57,8 @@ const PopupEditItem = ({
   fieldGroups = applyFilters(
     "dittyEditor.itemFieldGroups",
     fieldGroups,
-    editItem
+    editItem,
+    editor
   );
 
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";

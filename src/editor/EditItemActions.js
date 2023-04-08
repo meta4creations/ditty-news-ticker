@@ -161,7 +161,8 @@ const EditItemActions = (props) => {
           ),
       },
     ],
-    props
+    props,
+    editor
   );
 
   const sortedItemActions = itemActions
