@@ -100,6 +100,10 @@ const PanelDisplays = () => {
               setPopupStatus(false);
             }}
             onUpdate={(updatedTemplate) => {
+              if (updatedTemplate.new) {
+                updatedTemplate.id = updatedTemplate.new;
+                delete updatedTemplate.new;
+              }
               setStatus(false);
               setPopupStatus(false);
               actions.updateDisplay(updatedTemplate);

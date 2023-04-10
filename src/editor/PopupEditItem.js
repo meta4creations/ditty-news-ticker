@@ -1,6 +1,5 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
-import { withFilters } from "@wordpress/components";
 import { applyFilters } from "@wordpress/hooks";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -166,9 +165,7 @@ const PopupEditItem = ({
         ? "attribute_value"
         : "item_value";
 
-    const DittEditorEditItemContents = withFilters(
-      "dittyEditor.editItemContents"
-    )((props) => (
+    return (
       <FieldList
         name={currentFieldGroup.name}
         description={currentFieldGroup.description}
@@ -187,14 +184,6 @@ const PopupEditItem = ({
           updatedItem[itemKey][id] = value;
           addItemUpdate(updatedItem, itemKey);
         }}
-      />
-    ));
-    return (
-      <DittEditorEditItemContents
-        editor={editor}
-        item={editItem}
-        currentFieldGroup={currentFieldGroup}
-        addItemUpdate={addItemUpdate}
       />
     );
   };

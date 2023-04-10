@@ -58,3 +58,12 @@
     padding: 10px;
   }
 }
+.ditty-list--sortable {
+  > *:nth-child(odd) {
+    > .ditty-editor-item {
+      > .ditty-editor-item__actions {
+        background: #efefef;
+      }
+    }
+  }
+}

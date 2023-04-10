@@ -18,11 +18,17 @@ const PopupTemplateSelector = ({
   const [selectedTemplate, setSelectedTemplate] = useState(currentTemplate);
   const [filteredTemplates, setFilteredTemplates] = useState(templates);
 
+  console.log("filteredTemplates", filteredTemplates);
+
   const elements = [
     {
       id: "icon",
       content: (template) => {
-        return templateIcon && templateIcon(template);
+        return (
+          templateIcon && (
+            <div className="ditty-preview-icon">{templateIcon(template)}</div>
+          )
+        );
       },
     },
     {

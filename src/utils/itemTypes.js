@@ -90,7 +90,7 @@ export const getItemTypePreviewIcon = (item) => {
     const icon = getItemTypeIcon(item);
     previewIcon = "string" === typeof icon ? <i className={icon}></i> : icon;
   }
-  return <div className="ditty-item-type-preview-icon">{previewIcon}</div>;
+  return <div className="ditty-preview-icon">{previewIcon}</div>;
 };
 
 /**

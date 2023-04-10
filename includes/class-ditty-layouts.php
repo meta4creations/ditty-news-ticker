@@ -787,10 +787,11 @@ class Ditty_Layouts {
 			$postarr = array(
 				'post_type'		=> 'ditty_layout',
 				'post_title'	=> $title,
-				'post_status'	=> $status ? $status : 'draft',
+				'post_status'	=> $status ? $status : 'publish',
 			);
 			$layout_id = wp_insert_post( $postarr );
 			$updates['new'] = $layout_id;
+			$updates['title'] = $title;
 		}
 
 		// Update the layout description

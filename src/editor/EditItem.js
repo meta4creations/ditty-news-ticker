@@ -39,7 +39,9 @@ const EditItem = (props) => {
   return (
     <>
       <div
-        className={`ditty-editor-item ditty-editor-item--parent ${
+        className={`ditty-editor-item ditty-editor-item--${
+          item.item_type
+        } ditty-editor-item--parent ${
           childItems && childItems.length && "ditty-editor-item--has-children"
         } ditty-editor-item--${isDisabled ? "disabled" : "enabled"}`}
       >
@@ -58,7 +60,7 @@ const EditItem = (props) => {
               <Button size="small" onClick={addChildItem}>
                 {__("Add Child Item", "ditty-news-ticker")}
               </Button>
-              {childItems && (
+              {childItems && childItems.length > 0 && (
                 <SortableList items={prepareItems()} onSortEnd={onSortEnd} />
               )}
             </div>

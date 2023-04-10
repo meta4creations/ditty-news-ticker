@@ -420,10 +420,11 @@ class Ditty_Displays {
 			$postarr = array(
 				'post_type'		=> 'ditty_display',
 				'post_title'	=> $title,
-				'post_status'	=> $status ? $status : 'draft',
+				'post_status'	=> $status ? $status : 'publish',
 			);
 			$display_id = wp_insert_post( $postarr );
 			$updates['new'] = $display_id;
+			$updates['title'] = $title;
 		}
 
 		// Update a display description
