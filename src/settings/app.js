@@ -11,12 +11,23 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default () => {
+  const params = new URLSearchParams(location.search);
+
   const fieldGroups =
     dittySettingsVars && dittySettingsVars.fields
       ? dittySettingsVars.fields
       : {};
+
+  const tabParam =
+    params.get("tab") &&
+    fieldGroups.reduce((id, group) => {
+      return String(group.id) === params.get("tab") ? group.id : id;
+    }, null);
+
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
-  const [currentTabId, setCurrentTabId] = useState(initialTab);
+  const [currentTabId, setCurrentTabId] = useState(
+    tabParam ? tabParam : initialTab
+  );
 
   const [initSettings, setInitSettings] = useState(
     dittySettingsVars && dittySettingsVars.settings
@@ -26,7 +37,27 @@ export default () => {
   const [settings, setSettings] = useState(_.cloneDeep(initSettings));
   const [showSpinner, setShowSpinner] = useState(false);
 
+  //console.log("initSettings", initSettings);
+
   const hasUpdates = !_.isEqual(settings, initSettings);
+  //const hasUpdates = JSON.stringify(settings) !== JSON.stringify(initSettings);
+
+  const setParams = (name, val) => {
+    if (val) {
+      params.set(name, val);
+    } else {
+      params.delete(name);
+    }
+    if ("" === params.toString()) {
+      history.pushState(null, null, location.pathname);
+    } else {
+      history.pushState(
+        null,
+        null,
+        location.pathname + "?" + params.toString()
+      );
+    }
+  };
 
   const onSaveComplete = (data) => {
     setShowSpinner(false);
@@ -43,9 +74,31 @@ export default () => {
     }
   };
 
-  const handleSaveSettings = () => {
+  const handleSaveSettings = async () => {
     setShowSpinner(true);
-    saveSettings(settings, onSaveComplete);
+
+    const updatedSettings = _.cloneDeep(settings);
+    if (settings.variation_defaults) {
+      updatedSettings.variation_defaults = JSON.stringify(
+        settings.variation_defaults
+      );
+    }
+
+    try {
+      await saveSettings(updatedSettings, onSaveComplete);
+    } catch (ex) {
+      let update = __("Whoops! Something went wrong...", "ditty-news-ticker");
+      if (ex.response && ex.response.status === 403) {
+        update = ex.response.data.message;
+      }
+
+      onComplete();
+      toast(update, {
+        autoClose: 2000,
+        icon: <Logo style={{ height: "30px" }} />,
+        className: "ditty-error",
+      });
+    }
   };
 
   const getCurrentFieldGroup = () => {
@@ -60,51 +113,64 @@ export default () => {
 
   const renderContent = () => {
     const currentFieldGroup = getCurrentFieldGroup();
+    return (
+      <FieldList
+        name={currentFieldGroup.name}
+        description={currentFieldGroup.description}
+        fields={currentFieldGroup.fields}
+        values={settings}
+        onUpdate={(id, value) => {
+          const updatedSettings = _.cloneDeep(settings);
+          updatedSettings[id] = value;
+          setSettings(updatedSettings);
+        }}
+      />
+    );
 
-    switch (currentFieldGroup.id) {
-      case "layoutDefaults":
-        return (
-          <FieldList
-            name={currentFieldGroup.name}
-            description={currentFieldGroup.description}
-          />
-        );
-      case "layoutTemplates":
-        return (
-          <FieldList
-            name={currentFieldGroup.name}
-            description={currentFieldGroup.description}
-          />
-        );
-      case "displayTemplates":
-        return (
-          <FieldList
-            name={currentFieldGroup.name}
-            description={currentFieldGroup.description}
-          />
-        );
-      case "extensions":
-        return (
-          <FieldList
-            name={currentFieldGroup.name}
-            description={currentFieldGroup.description}
-          />
-        );
-      default:
-        return (
-          <FieldList
-            name={currentFieldGroup.name}
-            description={currentFieldGroup.description}
-            fields={currentFieldGroup.fields}
-            values={settings}
-            onUpdate={(id, value) => {
-              const updatedSettings = { ...settings };
-              updatedSettings[id] = value;
-              setSettings(updatedSettings);
-            }}
-          />
-        );
-    }
+    // switch (currentFieldGroup.id) {
+    //   case "layoutDefaults":
+    //     return (
+    //       <FieldList
+    //         name={currentFieldGroup.name}
+    //         description={currentFieldGroup.description}
+    //       />
+    //     );
+    //   case "layoutTemplates":
+    //     return (
+    //       <FieldList
+    //         name={currentFieldGroup.name}
+    //         description={currentFieldGroup.description}
+    //       />
+    //     );
+    //   case "displayTemplates":
+    //     return (
+    //       <FieldList
+    //         name={currentFieldGroup.name}
+    //         description={currentFieldGroup.description}
+    //       />
+    //     );
+    //   case "extensions":
+    //     return (
+    //       <FieldList
+    //         name={currentFieldGroup.name}
+    //         description={currentFieldGroup.description}
+    //       />
+    //     );
+    //   default:
+    //     return (
+    //       <FieldList
+    //         name={currentFieldGroup.name}
+    //         description={currentFieldGroup.description}
+    //         fields={currentFieldGroup.fields}
+    //         values={settings}
+    //         onUpdate={(id, value) => {
+    //           const updatedSettings = { ...settings };
+    //           updatedSettings[id] = value;
+    //           setSettings(updatedSettings);
+    //         }}
+    //       />
+    //     );
+    // }
   };
 
   return (
@@ -125,7 +191,10 @@ export default () => {
             type="list"
             tabs={fieldGroups}
             currentTabId={currentTabId}
-            tabClick={(tab) => setCurrentTabId(tab.id)}
+            tabClick={(tab) => {
+              setParams("tab", tab.id);
+              setCurrentTabId(tab.id);
+            }}
             className="itemEdit__header__tabs"
           />
         </div>

@@ -27,7 +27,11 @@ const FieldHeader = ({
   return name || help || icon ? (
     <div className="ditty-field__heading" onClick={onClick} style={style}>
       {headerStart}
-      {icon && <div className="ditty-field__icon">{icon}</div>}
+      {icon && (
+        <div className="ditty-field__icon">
+          {"string" === typeof icon ? <i className={icon}></i> : icon}
+        </div>
+      )}
       <div className="ditty-field__heading__contents">
         <label className="ditty-field__label">
           {name ? name : id}{" "}

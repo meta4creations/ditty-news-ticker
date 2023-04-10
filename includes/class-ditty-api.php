@@ -201,6 +201,8 @@ class Ditty_API {
 		$updates = array();
 		$errors = array();
 
+		//ChromePhp::log( '$settings', $settings );
+
 		if ( $saved_settings = Ditty()->settings->save( $settings ) ) {
 			$updates['settings'] = $saved_settings;
 		} else {

@@ -36,6 +36,7 @@ const PanelItems = (props) => {
     const variationDefaults = dittyEditorVars.variationDefaults
       ? dittyEditorVars.variationDefaults
       : {};
+    console.log("variationDefaults", variationDefaults);
     if (variationDefaults[itemType] && variationDefaults[itemType].default) {
       layoutValue.default = variationDefaults[itemType].default;
     }

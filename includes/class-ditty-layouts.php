@@ -192,7 +192,7 @@ class Ditty_Layouts {
 	 * @since   3.0
 	 * @param   array    $options.
 	 */
-	private function select_field_options( $placeholder = false ) {
+	public function select_field_options( $placeholder = false ) {
 		$options = array();
 		if ( $placeholder ) {
 			$options[''] = $placeholder;
@@ -200,9 +200,9 @@ class Ditty_Layouts {
 		if ( $layouts = ditty_layout_posts() ) {
 			foreach ( $layouts as $layout_post ) {
 				$title = $layout_post->post_title;
-				if ( $version = get_post_meta( $layout_post->ID, '_ditty_layout_version', true ) ) {
-					$title .= " (v{$version})";
-				}
+				// if ( $version = get_post_meta( $layout_post->ID, '_ditty_layout_version', true ) ) {
+				// 	$title .= " (v{$version})";
+				// }
 				$options[$layout_post->ID] = $title;
 			}
 		}
