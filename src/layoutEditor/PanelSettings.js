@@ -37,17 +37,17 @@ const PanelSettings = ({
           std: description,
           placeholder: __("Add a description", "ditty-news-ticker"),
         },
-        {
-          type: "radio",
-          id: "status",
-          name: __("Status", "ditty-news-ticker"),
-          options: {
-            publish: __("Active", "ditty-news-ticker"),
-            draft: __("Disabled", "ditty-news-ticker"),
-          },
-          inline: true,
-          std: status,
-        },
+        // {
+        //   type: "radio",
+        //   id: "status",
+        //   name: __("Status", "ditty-news-ticker"),
+        //   options: {
+        //     publish: __("Active", "ditty-news-ticker"),
+        //     draft: __("Disabled", "ditty-news-ticker"),
+        //   },
+        //   inline: true,
+        //   std: status,
+        // },
       ],
     },
     {

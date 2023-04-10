@@ -35,6 +35,8 @@ const PanelDisplay = ({
   const handleOnUpdate = (id, value) => {
     onUpdateDisplaySettings(id, value);
 
+    console.log(id, value);
+
     // Update the Ditty options
     const dittyEl = document.getElementById("ditty-editor__ditty");
     updateDisplayOptions(dittyEl, id, value);
@@ -74,6 +76,7 @@ const PanelDisplay = ({
                 ...updatedDisplayTypeObject.defaultValues,
                 ...updatedDisplay.settings,
               };
+              console.log("updatedSettings", updatedSettings);
               onUpdateDisplayType(updatedType, updatedSettings);
             }}
           />

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { saveDitty } from "../../services/httpService";
 import { getDisplayObject } from "../../utils/displayTypes";
 import { ReactComponent as Logo } from "../../assets/img/d.svg";
+import { updateDisplayOptions } from "../../services/dittyService";
 
 export const EditorContext = React.createContext();
 EditorContext.displayName = "EditorContext";
@@ -423,6 +424,10 @@ export class EditorProvider extends Component {
    * @param {object} updatedTitle
    */
   handleUpdateTitle = (updatedTitle) => {
+    // Update the Ditty options
+    const dittyEl = document.getElementById("ditty-editor__ditty");
+    updateDisplayOptions(dittyEl, "title", updatedTitle);
+
     this.setState({ title: updatedTitle });
   };
 

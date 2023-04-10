@@ -90,7 +90,17 @@ export const getItemTypePreviewIcon = (item) => {
     const icon = getItemTypeIcon(item);
     previewIcon = "string" === typeof icon ? <i className={icon}></i> : icon;
   }
-  return <div className="ditty-preview-icon">{previewIcon}</div>;
+  const style = {
+    color: itemTypeObject.iconColor ? itemTypeObject.iconColor : false,
+    backgroundColor: itemTypeObject.iconBGColor
+      ? itemTypeObject.iconBGColor
+      : false,
+  };
+  return (
+    <div className="ditty-preview-icon" style={style}>
+      {previewIcon}
+    </div>
+  );
 };
 
 /**
@@ -132,11 +142,12 @@ export const getItemTypeSettings = (item) => {
  * @returns element
  */
 export const getItemLabel = (item) => {
-  return item.editor_preview ? item.editor_preview : item.item_type;
-  // const itemTypeObject = getItemTypeObject(item);
-  // return itemTypeObject.itemLabel
-  //   ? itemTypeObject.itemLabel(item)
-  //   : item.item_type;
+  const itemTypeObject = getItemTypeObject(item);
+  return itemTypeObject.previewText
+    ? itemTypeObject.previewText(item)
+    : item.editor_preview
+    ? item.editor_preview
+    : item.item_type;
 };
 
 export const getLayoutVariationObject = (itemType, variation) => {

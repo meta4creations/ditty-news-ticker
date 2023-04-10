@@ -81,5 +81,17 @@ if (dittyEditor) {
       link_target: "_self",
       link_nofollow: "",
     },
+    previewText: (item) => {
+      const preview =
+        item.item_value && item.item_value.content
+          ? item.item_value.content.replace(/(<([^>]+)>)/gi, "")
+          : false;
+
+      if (preview) {
+        return preview;
+      } else {
+        return item.editor_preview ? item.editor_preview : item.item_type;
+      }
+    },
   });
 }

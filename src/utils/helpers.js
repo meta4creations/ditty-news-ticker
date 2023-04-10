@@ -305,6 +305,13 @@ export const titleSettings = (prefix) => {
       min: 0,
     },
     {
+      id: `${prefixed}MaxWidth`,
+      type: "unit",
+      name: __("Max Width", "ditty-news-ticker"),
+      help: __("Set a max width for the title area.", "ditty-news-ticker"),
+      min: 0,
+    },
+    {
       id: `${prefixed}Color`,
       type: "color",
       name: __("Text Color", "ditty-news-ticker"),

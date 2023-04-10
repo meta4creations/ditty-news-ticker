@@ -135,7 +135,7 @@ const PopupEditItem = ({
     return (
       <>
         <IconBlock
-          icon={getItemTypePreviewIcon(item)}
+          icon={getItemTypePreviewIcon(editItem)}
           className="ditty-icon-block--heading"
         >
           <div className="ditty-icon-block--heading__title">

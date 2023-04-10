@@ -1052,25 +1052,25 @@
      * @return   null
      */
     _styleDisplay: function () {
-      this.$elmt.css({
-        maxWidth: this.settings.maxWidth,
-        backgroundColor: this.settings.bgColor,
-        borderColor: this.settings.borderColor,
-        borderStyle: this.settings.borderStyle,
-      });
-      this.$elmt.css(this.settings.padding);
-      this.$elmt.css(this.settings.margin);
-      this.$elmt.css(this.settings.borderRadius);
-      this.$elmt.css(this.settings.borderWidth);
+      // this.$elmt.css({
+      //   maxWidth: this.settings.maxWidth,
+      //   backgroundColor: this.settings.bgColor,
+      //   borderColor: this.settings.borderColor,
+      //   borderStyle: this.settings.borderStyle,
+      // });
+      // this.$elmt.css(this.settings.padding);
+      // this.$elmt.css(this.settings.margin);
+      // this.$elmt.css(this.settings.borderRadius);
+      // this.$elmt.css(this.settings.borderWidth);
 
-      this.$contents.css({
+      this.$elmt.css({
         backgroundColor: this.settings.contentsBgColor,
         borderColor: this.settings.contentsBorderColor,
         borderStyle: this.settings.contentsBorderStyle,
       });
-      this.$contents.css(this.settings.contentsPadding);
-      this.$contents.css(this.settings.contentsBorderRadius);
-      this.$contents.css(this.settings.contentsBorderWidth);
+      this.$elmt.css(this.settings.contentsPadding);
+      this.$elmt.css(this.settings.contentsBorderRadius);
+      this.$elmt.css(this.settings.contentsBorderWidth);
     },
 
     /**

@@ -74,6 +74,20 @@
     itemBorderWidth: {},
     itemBorderRadius: {},
     itemPadding: {},
+    titleDisplay: "none",
+    titleElement: "h3",
+    titleElementPosition: "topLeft",
+    titleFontSize: "",
+    titleLineHeight: "",
+    titleMaxWidth: "",
+    titleColor: "",
+    titleBgColor: "",
+    titleMargin: {},
+    titlePadding: {},
+    titleBorderColor: {},
+    titleBorderStyle: {},
+    titleBorderWidth: {},
+    titleBorderRadius: {},
     page: 0,
     shuffle: 0,
     showEditor: 0,
@@ -93,6 +107,9 @@
     this.displayType = "list";
     this.elmt = elmt;
     this.$elmt = $(elmt);
+    this.$title = null;
+    this.$titleContents = null;
+    this.$contents = null;
     this.settings = $.extend({}, defaults, $.ditty_list.defaults, options);
     this.total = this.settings.items.length;
     this.totalPages = 1;
@@ -119,6 +136,19 @@
       this.$elmt.attr("data-id", this.settings.id);
       this.$elmt.attr("data-type", this.displayType);
       this.$elmt.attr("data-display", this.settings.display);
+
+      // Create the ticker contents
+      this.$contents = $('<div class="ditty__contents"></div>');
+      this.$elmt.append(this.$contents);
+
+      // Create the ticker title
+      this.$title = $('<div class="ditty__title"></div>');
+      this.$titleContents = $('<div class="ditty__title__contents"></div>');
+      this.$title.append(this.$titleContents);
+
+      // Setup styles
+      this._styleDisplay();
+      this._styleTitle();
 
       // Calculate the number of pages
       this._calculatePages();
@@ -150,10 +180,14 @@
       sliderSettings.slides = this.pages;
 
       // Create a new slider and bind actions
-      this.$elmt.ditty_slider(sliderSettings);
-      this.$elmt.on("ditty_slider_init", { self: this }, this._triggerInit);
-      this.$elmt.on("ditty_slider_update", { self: this }, this._triggerUpdate);
-      this.$elmt.on(
+      this.$contents.ditty_slider(sliderSettings);
+      this.$contents.on("ditty_slider_init", { self: this }, this._triggerInit);
+      this.$contents.on(
+        "ditty_slider_update",
+        { self: this },
+        this._triggerUpdate
+      );
+      this.$contents.on(
         "ditty_slider_after_slide_update",
         { self: this },
         this._triggerShowSlide
@@ -167,19 +201,23 @@
      * @return   null
      */
     _destroySlider: function () {
-      if (this.$elmt.ditty_slider) {
-        this.$elmt.off("ditty_slider_init", { self: this }, this._triggerInit);
-        this.$elmt.off(
+      if (this.$contents.ditty_slider) {
+        this.$contents.off(
+          "ditty_slider_init",
+          { self: this },
+          this._triggerInit
+        );
+        this.$contents.off(
           "ditty_slider_update",
           { self: this },
           this._triggerUpdate
         );
-        this.$elmt.off(
+        this.$contents.off(
           "ditty_slider_after_slide_update",
           { self: this },
           this._triggerShowSlide
         );
-        this.$elmt.ditty_slider("destroy");
+        this.$contents.ditty_slider("destroy");
       }
     },
 
@@ -192,10 +230,78 @@
     _updateSlider: function (index) {
       var newIndex = index
         ? index
-        : this.$elmt.ditty_slider("options", "slide");
-      this.$elmt.ditty_slider("options", "slides", this.settings.pages);
-      this.$elmt.ditty_slider("options", "slide", -1);
-      this.$elmt.ditty_slider("showSlide", newIndex);
+        : this.$contents.ditty_slider("options", "slide");
+      this.$contents.ditty_slider("options", "slides", this.settings.pages);
+      this.$contents.ditty_slider("options", "slide", -1);
+      this.$contents.ditty_slider("showSlide", newIndex);
+    },
+
+    /**
+     * Style the display element
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _styleDisplay: function () {
+      this.$elmt.css({
+        maxWidth: this.settings.maxWidth,
+        backgroundColor: this.settings.bgColor,
+        borderColor: this.settings.borderColor,
+        borderStyle: this.settings.borderStyle,
+      });
+      this.$elmt.css(this.settings.borderRadius);
+      this.$elmt.css(this.settings.borderWidth);
+      this.$elmt.css(this.settings.margin);
+      this.$elmt.css(this.settings.padding);
+    },
+
+    /**
+     * Style the title element
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _styleTitle: function () {
+      this.$elmt.attr("data-title", this.settings.titleDisplay);
+      this.$elmt.attr(
+        "data-title_position",
+        this.settings.titleElementPosition
+      );
+      if ("none" === this.settings.titleDisplay) {
+        this.$title.remove();
+      } else {
+        var $element = $(
+          "<" +
+            this.settings.titleElement +
+            ' class="ditty__title__element">' +
+            this.settings.title +
+            "</" +
+            this.settings.titleElement +
+            ">"
+        );
+
+        $element.css({
+          fontSize: this.settings.titleFontSize,
+          lineHeight: this.settings.titleLineHeight,
+          color: this.settings.titleColor,
+          margin: 0,
+          padding: 0,
+        });
+
+        this.$title.css({
+          backgroundColor: this.settings.titleBgColor,
+          borderColor: this.settings.titleBorderColor,
+          borderStyle: this.settings.titleBorderStyle,
+          maxWidth: this.settings.titleMaxWidth,
+        });
+        this.$title.css(this.settings.titleMargin);
+        this.$title.css(this.settings.titlePadding);
+        this.$title.css(this.settings.titleBorderRadius);
+        this.$title.css(this.settings.titleBorderWidth);
+
+        this.$titleContents.html($element);
+        this.$elmt.prepend(this.$title);
+      }
     },
 
     /**
@@ -441,7 +547,7 @@
       });
       if (0 !== itemIndexes.length) {
         var page = this._getPageByItemIndex(parseInt(itemIndexes[0]));
-        this.$elmt.ditty_slider("showSlide", page);
+        this.$contents.ditty_slider("showSlide", page);
       }
     },
 
@@ -452,12 +558,12 @@
      * @return   null
      */
     addItem: function (item, index, type) {
-      var slides = this.$elmt.ditty_slider("options", "slides");
+      var slides = this.$contents.ditty_slider("options", "slides");
       if (!slides.length) {
         this.settings.items = [item];
         this._calculatePages();
         var $page = this.pages[0];
-        this.$elmt.ditty_slider("addSlide", $page, 0);
+        this.$contents.ditty_slider("addSlide", $page, 0);
         return false;
       }
 
@@ -516,12 +622,12 @@
         return false;
       }
 
-      var slides = this.$elmt.ditty_slider("options", "slides");
+      var slides = this.$contents.ditty_slider("options", "slides");
       if (!slides.length) {
         this.settings.items = newItems;
         this._calculatePages();
         var $page = this.pages[0];
-        this.$elmt.ditty_slider("addSlide", $page, 0);
+        this.$contents.ditty_slider("addSlide", $page, 0);
         return false;
       }
 
@@ -533,11 +639,11 @@
       this.settings.items = updatedItems;
       this.total = updatedItems.length;
       this._calculatePages();
-      this.$elmt.ditty_slider("options", "slides", this.pages);
+      this.$contents.ditty_slider("options", "slides", this.pages);
 
-      var $currentPage = this.$elmt.ditty_slider("options", "currentSlide"),
+      var $currentPage = this.$contents.ditty_slider("options", "currentSlide"),
         currentItems = $currentPage.children(".ditty-item"),
-        pageIndex = this.$elmt.ditty_slider("options", "slide"),
+        pageIndex = this.$contents.ditty_slider("options", "slide"),
         minIndex =
           this.settings.paging && 1 === parseInt(this.settings.paging)
             ? parseInt(this.settings.perPage) * pageIndex
@@ -607,17 +713,17 @@
       if (undefined === newItems) {
         return false;
       }
-      var slides = this.$elmt.ditty_slider("options", "slides");
+      var slides = this.$contents.ditty_slider("options", "slides");
       if (!slides.length) {
         this.settings.items = newItems;
         this._calculatePages();
         var $page = this.pages[0];
-        this.$elmt.ditty_slider("addSlide", $page, 0);
+        this.$contents.ditty_slider("addSlide", $page, 0);
         return false;
       }
 
       var self = this,
-        currentIndex = this.$elmt.ditty_slider("options", "slide"),
+        currentIndex = this.$contents.ditty_slider("options", "slide"),
         forceSwaps = [];
 
       // Update a single item id
@@ -669,11 +775,11 @@
       this.settings.items = newItems;
       this.total = newItems.length;
       this._calculatePages();
-      this.$elmt.ditty_slider("options", "slides", this.pages);
+      this.$contents.ditty_slider("options", "slides", this.pages);
 
-      var $currentPage = this.$elmt.ditty_slider("options", "currentSlide"),
+      var $currentPage = this.$contents.ditty_slider("options", "currentSlide"),
         currentItems = $currentPage.children(".ditty-item"),
-        newIndex = this.$elmt.ditty_slider("options", "slide"),
+        newIndex = this.$contents.ditty_slider("options", "slide"),
         itemSwaps = [];
 
       if (currentIndex !== newIndex) {
@@ -884,13 +990,13 @@
           updateSlider = false;
           this.settings[key] = value;
           this._calculatePages();
-          this.$elmt.ditty_slider("options", {
+          this.$contents.ditty_slider("options", {
             slides: this.pages,
             transitionSpeed: 0,
             heightSpeed: 0,
           });
-          this.$elmt.ditty_slider("showSlide");
-          this.$elmt.ditty_slider("options", {
+          this.$contents.ditty_slider("showSlide");
+          this.$contents.ditty_slider("options", {
             transitionSpeed: this.settings.transitionSpeed,
             heightSpeed: this.settings.heightSpeed,
           });
@@ -905,6 +1011,37 @@
               .children(".ditty-item:last-child")
               .css({ paddingBottom: 0 });
           });
+          break;
+        case "title":
+        case "titleDisplay":
+        case "titleElement":
+        case "titleElementPosition":
+        case "titleFontSize":
+        case "titleLineHeight":
+        case "titleMaxWidth":
+        case "titleColor":
+        case "titleBgColor":
+        case "titleMargin":
+        case "titlePadding":
+        case "titleBorderColor":
+        case "titleBorderStyle":
+        case "titleBorderWidth":
+        case "titleBorderRadius":
+          updateSlider = false;
+          this.settings[key] = value;
+          this._styleTitle();
+          break;
+        case "maxWidth":
+        case "bgColor":
+        case "padding":
+        case "margin":
+        case "borderColor":
+        case "borderStyle":
+        case "borderWidth":
+        case "borderRadius":
+          updateSlider = false;
+          this.settings[key] = value;
+          this._styleDisplay();
           break;
         case "itemTextColor":
         case "itemBgColor":
@@ -926,7 +1063,7 @@
       // Convert page to slide
       if (updateSlider) {
         sliderKey = sliderKey.replace("page", "slide");
-        this.$elmt.ditty_slider("options", sliderKey, sliderValue);
+        this.$contents.ditty_slider("options", sliderKey, sliderValue);
       }
     },
 

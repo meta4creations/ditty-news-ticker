@@ -271,6 +271,7 @@ if (dittyEditor) {
         ],
       },
       navigation: ["arrows", "bullets"],
+      title: true,
       styles: ["container", "content", "page", "item"],
     },
     defaultValues: {
@@ -313,6 +314,10 @@ if (dittyEditor) {
       contentsBorderStyle: "none",
       pageBorderStyle: "none",
       itemBorderStyle: "none",
+      titleDisplay: "none",
+      titleElement: "h3",
+      titleElementPosition: "start",
+      itemElementsWrap: "nowrap",
     },
   });
 }

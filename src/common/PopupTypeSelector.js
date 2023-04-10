@@ -16,6 +16,13 @@ const PopupTypeSelector = ({
   const [selectedType, setSelectedType] = useState(currentType);
   const itemTypeObject = getTypeObject(selectedType);
 
+  const iconStyle = {
+    color: itemTypeObject.iconColor ? itemTypeObject.iconColor : false,
+    backgroundColor: itemTypeObject.iconBGColor
+      ? itemTypeObject.iconBGColor
+      : false,
+  };
+
   return (
     <Popup
       id="typeSelect"
@@ -28,6 +35,7 @@ const PopupTypeSelector = ({
         <>
           <IconBlock
             icon={itemTypeObject && itemTypeObject.icon}
+            iconStyle={iconStyle}
             className="ditty-icon-block--heading"
           >
             <div className="ditty-icon-block--heading__title">

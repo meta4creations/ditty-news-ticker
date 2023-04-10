@@ -49,6 +49,7 @@
     titleElementPosition: "topLeft",
     titleFontSize: "",
     titleLineHeight: "",
+    titleMaxWidth: "",
     titleColor: "",
     titleBgColor: "",
     titleMargin: {},
@@ -975,6 +976,7 @@
           backgroundColor: this.settings.titleBgColor,
           borderColor: this.settings.titleBorderColor,
           borderStyle: this.settings.titleBorderStyle,
+          maxWidth: this.settings.titleMaxWidth,
         });
         this.$title.css(this.settings.titleMargin);
         this.$title.css(this.settings.titlePadding);
@@ -1069,6 +1071,7 @@
         case "titleElementPosition":
         case "titleFontSize":
         case "titleLineHeight":
+        case "titleMaxWidth":
         case "titleColor":
         case "titleBgColor":
         case "titleMargin":

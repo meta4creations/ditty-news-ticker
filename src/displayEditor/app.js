@@ -163,7 +163,7 @@ export default () => {
 
     // Update the Ditty options
     const dittyEl = document.getElementById("ditty-editor__ditty");
-    updateDisplayOptions(dittyEl, "title", newTitle);
+    updateDisplayOptions(dittyEl, "title", updatedTitle);
   };
 
   const handleUpdateDescription = (updatedDescription) => {
@@ -209,9 +209,17 @@ export default () => {
     setUpdates(newUpdates);
 
     // Update the preview items
-    if (updatedEditorSettings.previewItems !== editorSettings.previewItems) {
+    if (
+      updatedEditorSettings.previewItems !== editorSettings.previewItems ||
+      updatedEditorSettings.previewChildItems !==
+        editorSettings.previewChildItems
+    ) {
       const dittyEl = document.getElementById("ditty-editor__ditty");
-      const displayItems = getDisplayItems(updatedEditorSettings.previewItems);
+      const displayItems = getDisplayItems(
+        updatedEditorSettings.previewItems,
+        updatedEditorSettings.previewChildItems
+      );
+      console.log("displayItems", displayItems);
       replaceDisplayItems(dittyEl, displayItems);
     }
   };
@@ -226,19 +234,35 @@ export default () => {
     return styles;
   };
 
-  const getDisplayItems = (numberOfItems = 20) => {
+  const getDisplayItems = (numberOfItems = 20, numberOfChildItems = 0) => {
+    let counter = 1;
     const updatedPreviewItems = [];
     for (let i = 0; i < numberOfItems; i++) {
+      const parentId = counter;
       updatedPreviewItems.push({
         css: "",
-        html: `<div class="ditty-item ditty-item--${i} ditty-item-type--default ditty-layout--${id}" data-item_id="${i}" data-item_uniq_id="${i}" data-parent_id="0" data-item_type="default" data-layout_id="${id}"><div class="ditty-item__elements"><div class="ditty-item__content" style="font-size:14px;line-height:1.5em;">${loremIpsum()}</div></div></div>`,
-        id: i,
+        html: `<div class="ditty-item ditty-item--${counter} ditty-item-type--default ditty-layout--${id}" data-item_id="${counter}" data-item_uniq_id="${counter}" data-parent_id="0" data-item_type="default" data-layout_id="${id}"><div class="ditty-item__elements"><div class="ditty-item__content" style="font-size:14px;line-height:1.5em;">${loremIpsum()}</div></div></div>`,
+        id: counter,
         is_disabled: [],
         layout_id: id,
         parent_id: "0",
-        uniq_id: i,
+        uniq_id: counter,
       });
+      counter++;
+      for (let a = 0; a < numberOfChildItems; a++) {
+        updatedPreviewItems.push({
+          css: "",
+          html: `<div class="ditty-item ditty-item--${counter} ditty-item-type--default ditty-layout--${id}" data-item_id="${counter}" data-item_uniq_id="${counter}" data-parent_id="${parentId}" data-item_type="default" data-layout_id="${id}"><div class="ditty-item__elements"><div class="ditty-item__content" style="font-size:14px;line-height:1.5em;">${loremIpsum()}</div></div></div>`,
+          id: counter,
+          is_disabled: [],
+          layout_id: id,
+          parent_id: parentId,
+          uniq_id: counter,
+        });
+        counter++;
+      }
     }
+    console.log("updatedPreviewItems", updatedPreviewItems);
     return updatedPreviewItems;
   };
 
@@ -247,7 +271,7 @@ export default () => {
       <AdminBar
         title={title}
         description={description}
-        status={status}
+        //status={status}
         buttonLabel={__("Save Display", "ditty-news-ticker")}
         hasUpdates={hasUpdates}
         showSpinner={showSpinner}
@@ -262,7 +286,10 @@ export default () => {
           id={id}
           title={title}
           display={{ id: id, type: type, settings: settings }}
-          displayItems={getDisplayItems(editorSettings.previewItems)}
+          displayItems={getDisplayItems(
+            editorSettings.previewItems,
+            editorSettings.previewChildItems
+          )}
           styles={getPreviewStyles()}
         />
         <DisplayEditor

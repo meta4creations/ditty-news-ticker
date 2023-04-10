@@ -37,17 +37,17 @@ const PanelSettings = ({
           std: description,
           placeholder: __("Add a description", "ditty-news-ticker"),
         },
-        {
-          type: "radio",
-          id: "status",
-          name: __("Status", "ditty-news-ticker"),
-          options: {
-            publish: __("Active", "ditty-news-ticker"),
-            draft: __("Disabled", "ditty-news-ticker"),
-          },
-          inline: true,
-          std: status,
-        },
+        // {
+        //   type: "radio",
+        //   id: "status",
+        //   name: __("Status", "ditty-news-ticker"),
+        //   options: {
+        //     publish: __("Active", "ditty-news-ticker"),
+        //     draft: __("Disabled", "ditty-news-ticker"),
+        //   },
+        //   inline: true,
+        //   std: status,
+        // },
       ],
     },
     {
@@ -65,6 +65,17 @@ const PanelSettings = ({
           help: __("Set the number of items to display.", "ditty-news-ticker"),
           std: 20,
           min: 1,
+        },
+        {
+          type: "number",
+          id: "previewChildItems",
+          name: __("Preview Child Items", "ditty-news-ticker"),
+          help: __(
+            "Set the number of child ites to display with each parent item.",
+            "ditty-news-ticker"
+          ),
+          std: 0,
+          min: 0,
         },
         {
           type: "number",

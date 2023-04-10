@@ -14,12 +14,12 @@ function ditty_manage_posts_columns( $columns, $post_type = false ) {
 			switch( $post_type ) {
 				case 'ditty_display':
 					$new_columns['ditty_display_description'] = __( 'Description', 'ditty-news-ticker' );
-					$new_columns['ditty_display_version'] = __( 'Version', 'ditty-news-ticker' );
+					//$new_columns['ditty_display_version'] = __( 'Version', 'ditty-news-ticker' );
 					$new_columns['ditty_display_type'] = __( 'Display Type', 'ditty-news-ticker' );
 					break;
 				case 'ditty_layout':
 					$new_columns['ditty_layout_description'] = __( 'Description', 'ditty-news-ticker' );
-					$new_columns['ditty_layout_version'] = __( 'Version', 'ditty-news-ticker' );
+					//$new_columns['ditty_layout_version'] = __( 'Version', 'ditty-news-ticker' );
 					//$new_columns['ditty_layout_template'] = __( 'Layout Template', 'ditty-news-ticker' );
 					break;
 				case 'ditty':

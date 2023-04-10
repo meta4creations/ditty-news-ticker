@@ -49,6 +49,12 @@ const Tabs = ({ className, tabs, type, currentTabId, tabClick, style }) => {
   return (
     <div className={classes} style={style}>
       {tabs.map((tab) => {
+        {
+          /* const style = {
+          color: tab.iconColor ? tab.iconColor : false,
+          backgroundColor: tab.iconBGColor ? tab.iconBGColor : false,
+        }; */
+        }
         return (
           <button
             className={renderButtonClass(tab)}

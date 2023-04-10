@@ -266,7 +266,7 @@ export default () => {
       <AdminBar
         title={title}
         description={description}
-        status={status}
+        //status={status}
         buttonLabel={__("Save Layout", "ditty-news-ticker")}
         hasUpdates={hasUpdates}
         showSpinner={showSpinner}

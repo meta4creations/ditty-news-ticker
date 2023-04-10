@@ -8,6 +8,7 @@ import {
   getItemTypeObject,
   getItemTypes,
   getItemTypeSettings,
+  getItemTypePreviewIcon,
 } from "../utils/itemTypes";
 
 const PanelItem = ({ editorItem, onUpdateEditorItem }) => {
@@ -50,9 +51,25 @@ const PanelItem = ({ editorItem, onUpdateEditorItem }) => {
             }}
             onUpdate={(updatedType) => {
               setPopupStatus(false);
+              if (updatedType === editorItem.item_type) {
+                return false;
+              }
 
               const updatedItem = { ...editorItem };
+              delete updatedItem.layoutTags;
+              const updatedItemTypeObject = getItemTypeObject(updatedType);
               updatedItem.item_type = updatedType;
+              updatedItem.item_value = {
+                ...updatedItemTypeObject.defaultValues,
+                ...updatedItem.item_value,
+              };
+
+              // Set the current tab
+              const fieldGroups = getItemTypeSettings(updatedType);
+              if (fieldGroups.length) {
+                setCurrentTabId(fieldGroups[0].id);
+              }
+
               onUpdateEditorItem(updatedItem);
             }}
           />
@@ -72,7 +89,7 @@ const PanelItem = ({ editorItem, onUpdateEditorItem }) => {
           )}
         </div>
         <IconBlock
-          icon={itemTypeObject.icon}
+          icon={getItemTypePreviewIcon(itemTypeObject)}
           className="ditty-icon-block--heading"
         >
           <div className="ditty-icon-block--heading__title">

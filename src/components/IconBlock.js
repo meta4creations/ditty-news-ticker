@@ -7,6 +7,7 @@ const IconBlock = ({
   iconSize,
   className,
   style,
+  iconStyle,
   children,
 }) => {
   const styles = {
@@ -17,6 +18,7 @@ const IconBlock = ({
   const iconStyles = {
     width: iconSize ? iconSize : false,
     height: iconSize ? iconSize : false,
+    ...iconStyle,
   };
 
   const classes = classnames("ditty-icon-block", className);

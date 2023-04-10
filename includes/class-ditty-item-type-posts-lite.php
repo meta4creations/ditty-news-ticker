@@ -150,7 +150,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	public function editor_preview( $value ) {
 		$defaults = $this->default_settings();
 		$args 		= wp_parse_args( $value, $defaults );
-		$preview 	= sprintf( __( 'Displaying %d Posts' ), $args['limit'] );
+		$preview 	= sprintf( __( 'Displaying %d Posts', 'ditty-news-ticker' ), $args['limit'] );
 		return $preview;
 	}
 
