@@ -187,6 +187,9 @@
 .ditty-item__elements * {
   box-sizing: border-box;
 }
+.ditty-item__elements img {
+  height: auto;
+}
 .ditty-item__wrapper {
   position: relative;
   overflow: hidden;

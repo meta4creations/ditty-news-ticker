@@ -36,7 +36,6 @@ const PanelItems = (props) => {
     const variationDefaults = dittyEditorVars.variationDefaults
       ? dittyEditorVars.variationDefaults
       : {};
-    console.log("variationDefaults", variationDefaults);
     if (variationDefaults[itemType] && variationDefaults[itemType].default) {
       layoutValue.default = variationDefaults[itemType].default;
     }
@@ -151,21 +150,13 @@ const PanelItems = (props) => {
                   }
                 }
               });
+
               getDisplayItems(modifiedItems, updatedLayouts, (data) => {
                 // Update existing display items
                 const allDisplayItems = actions.updateDisplayItems(
                   data.display_items
                 );
-
-                // Merge temp items
-                if (tempDisplayItems && tempDisplayItems.length) {
-                  replaceDisplayItems(
-                    dittyEl,
-                    helpers.replaceDisplayItems(tempDisplayItems)
-                  );
-                } else {
-                  replaceDisplayItems(dittyEl, allDisplayItems);
-                }
+                replaceDisplayItems(dittyEl, allDisplayItems);
               });
             }}
           />

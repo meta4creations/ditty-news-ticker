@@ -121,6 +121,9 @@
 		* {
 			box-sizing: border-box;
 		}
+		img {
+			height: auto;
+		}
 	}
 	&__wrapper {
 		position: relative;

@@ -11,7 +11,12 @@ import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
 
 import { LayoutTags, CodeEditor, PopupEditLayoutTag } from "../common";
-import { IconBlock, Popup, Tabs } from "../components";
+import { IconBlock, Popup, Tabs, Link } from "../components";
+import {
+  getItemTypePreviewIcon,
+  getDefaultLayout,
+  getItemLabel,
+} from "../utils/itemTypes";
 //import PopupEditLayoutTag from "./PopupEditLayoutTag";
 
 const PopupEditLayout = ({
@@ -26,11 +31,18 @@ const PopupEditLayout = ({
   const [editLayout, setEditLayout] = useState(layout);
   const [currentTabId, setCurrentTabId] = useState("html");
   const [currentTag, setCurrentTag] = useState(false);
+  const [resetKey, setResetKey] = useState(false);
 
   const updateLayout = (type, value) => {
-    const updatedLayout = { ...editLayout };
-    updatedLayout[type] = value;
+    let updatedLayout;
+    if (typeof type === "object") {
+      updatedLayout = { ...editLayout, ...type };
+    } else {
+      updatedLayout = { ...editLayout };
+      updatedLayout[type] = value;
+    }
     setEditLayout(updatedLayout);
+    setResetKey(Date.now());
   };
 
   /**
@@ -57,12 +69,23 @@ const PopupEditLayout = ({
     return (
       <>
         <IconBlock
-          icon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
+          icon={getItemTypePreviewIcon(item)}
           className="ditty-icon-block--heading"
         >
           <div className="ditty-icon-block--heading__title">
             <h2>{__("Custom Layout", "ditty-news-ticker")}</h2>
+            <Link
+              onClick={() => {
+                const defaultLayout = getDefaultLayout(itemTypeObject);
+                if (defaultLayout) {
+                  updateLayout(defaultLayout);
+                }
+              }}
+            >
+              {__("Reset to Default Layout", "ditty-news-ticker")}
+            </Link>
           </div>
+          <p>{getItemLabel(item)}</p>
         </IconBlock>
         <Tabs
           type="cloud"
@@ -97,7 +120,7 @@ const PopupEditLayout = ({
       return (
         <>
           <CodeEditor
-            key="css"
+            key={`css${resetKey}`}
             value={editLayout.css}
             extensions={[css()]}
             onChange={(value) => updateLayout("css", value)}
@@ -108,7 +131,7 @@ const PopupEditLayout = ({
       return (
         <>
           <CodeEditor
-            key="html"
+            key={`html${resetKey}`}
             value={editLayout.html}
             extensions={[html()]}
             onChange={(value) => updateLayout("html", value)}

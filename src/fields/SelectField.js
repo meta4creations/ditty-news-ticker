@@ -79,7 +79,7 @@ const SelectField = (props) => {
           onChange(e.target.value);
         }}
       >
-        {placeholder && <option>{placeholder}</option>}
+        {placeholder && <option value="">{placeholder}</option>}
         {renderOptions(options)}
       </select>
     </BaseField>

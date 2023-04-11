@@ -18,8 +18,6 @@ const PopupTemplateSelector = ({
   const [selectedTemplate, setSelectedTemplate] = useState(currentTemplate);
   const [filteredTemplates, setFilteredTemplates] = useState(templates);
 
-  console.log("filteredTemplates", filteredTemplates);
-
   const elements = [
     {
       id: "icon",

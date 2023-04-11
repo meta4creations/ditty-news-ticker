@@ -37,8 +37,6 @@ export default () => {
   const [settings, setSettings] = useState(_.cloneDeep(initSettings));
   const [showSpinner, setShowSpinner] = useState(false);
 
-  //console.log("initSettings", initSettings);
-
   const hasUpdates = !_.isEqual(settings, initSettings);
   //const hasUpdates = JSON.stringify(settings) !== JSON.stringify(initSettings);
 
@@ -59,7 +57,7 @@ export default () => {
     }
   };
 
-  const onSaveComplete = (data) => {
+  const onSettingsSaveComplete = (data) => {
     setShowSpinner(false);
 
     if (data.updates.settings) {
@@ -85,14 +83,17 @@ export default () => {
     }
 
     try {
-      await saveSettings(updatedSettings, onSaveComplete);
+      await saveSettings(updatedSettings, onSettingsSaveComplete);
     } catch (ex) {
       let update = __("Whoops! Something went wrong...", "ditty-news-ticker");
-      if (ex.response && ex.response.status === 403) {
+      if (
+        (ex.response && ex.response.status === 403) ||
+        (ex.response && ex.response.status === 404)
+      ) {
         update = ex.response.data.message;
       }
 
-      onComplete();
+      setShowSpinner(false);
       toast(update, {
         autoClose: 2000,
         icon: <Logo style={{ height: "30px" }} />,

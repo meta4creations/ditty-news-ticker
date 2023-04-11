@@ -6,6 +6,7 @@ import { faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
 import {
   getItemTypeObject,
   getItemLabel,
+  getItemTypePreviewIcon,
   getLayoutVariationObject,
 } from "../utils/itemTypes";
 import { getLayoutObject, getDefaultLayout } from "../utils/layouts";
@@ -302,9 +303,10 @@ const PopupLayouts = ({
   };
 
   const renderPopupHeader = () => {
+    //console.log("item", item);
     return (
       <IconBlock
-        icon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
+        icon={getItemTypePreviewIcon(editItem)}
         className="ditty-icon-block--heading"
       >
         <div className="ditty-icon-block--heading__title">

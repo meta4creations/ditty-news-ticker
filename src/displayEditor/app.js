@@ -141,7 +141,10 @@ export default () => {
       await saveDisplay(data, onDisplaySaveComplete);
     } catch (ex) {
       let update = __("Whoops! Something went wrong...", "ditty-news-ticker");
-      if (ex.response && ex.response.status === 403) {
+      if (
+        (ex.response && ex.response.status === 403) ||
+        (ex.response && ex.response.status === 404)
+      ) {
         update = ex.response.data.message;
       }
 
@@ -219,7 +222,6 @@ export default () => {
         updatedEditorSettings.previewItems,
         updatedEditorSettings.previewChildItems
       );
-      console.log("displayItems", displayItems);
       replaceDisplayItems(dittyEl, displayItems);
     }
   };
@@ -262,7 +264,6 @@ export default () => {
         counter++;
       }
     }
-    console.log("updatedPreviewItems", updatedPreviewItems);
     return updatedPreviewItems;
   };
 
