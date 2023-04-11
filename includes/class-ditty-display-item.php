@@ -264,6 +264,7 @@ class Ditty_Display_Item {
 	 * @return html
 	 */
 	private function render_tag( $tag, $item_type, $data, $atts = array(), $custom_wrapper = false ) {
+		ChromePhp::log( '$atts', $atts );
 		if ( ! $output = apply_filters( "ditty_layout_tag_{$tag}", false, $item_type, $data, $atts ) ) {
 			return false;
 		}
@@ -336,7 +337,7 @@ class Ditty_Display_Item {
 					$defaults = isset( $tag['atts'] ) ? $tag['atts'] : array();
 					$atts = $this->parse_atts( $defaults, $s );
 					$atts = $this->get_layout_att_values( $tag['tag'], $atts );
-					if ( 'disabled' == $atts ) {
+					if ( ! is_array( $atts ) && 'disabled' == $atts ) {
 						return false;
 					}
 					$atts = apply_filters( 'ditty_layout_tag_atts', $atts, $tag['tag'], $this->get_item_type(), $data );

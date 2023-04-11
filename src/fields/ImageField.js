@@ -1,4 +1,6 @@
+import axios from "axios";
 import { __ } from "@wordpress/i18n";
+import { useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/pro-light-svg-icons";
 import BaseField from "./BaseField";
@@ -6,6 +8,10 @@ import BaseField from "./BaseField";
 const ImageField = (props) => {
   const { value, onChange, mediaTitle, mediaButton, fileTypes, multiple } =
     props;
+
+  const [imagePreview, setImagePreview] = useState(
+    value && value.sizes ? value.sizes.medium.url : false
+  );
 
   let uploader;
   const runUploader = (e) => {
@@ -78,10 +84,31 @@ const ImageField = (props) => {
     uploader.open();
   };
 
+  const getImage = async (imageId) => {
+    const apiURL = `${dittyEditorVars.siteUrl}/wp-json/wp/v2/media/${imageId}`;
+
+    try {
+      await axios.get(apiURL, {}).then((res) => {
+        if (
+          res.data &&
+          res.data.media_details &&
+          res.data.media_details.sizes
+        ) {
+          setImagePreview(res.data.media_details.sizes.medium.source_url);
+        }
+      });
+    } catch (ex) {
+      //console.log("ex", ex);
+    }
+  };
+  if (!imagePreview && value) {
+    getImage(value);
+  }
+
   return (
     <BaseField {...props}>
       <button onClick={runUploader}>
-        {value && <img src={value.sizes.medium.url} />}
+        {imagePreview && <img src={imagePreview} />}
         <FontAwesomeIcon icon={faPlus} />
       </button>
     </BaseField>

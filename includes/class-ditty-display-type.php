@@ -84,7 +84,7 @@ class Ditty_Display_Type {
 	 * @return string $type
 	 */
 	public function has_js_fields() {
-		return $this->js_fields;
+		return property_exists( $this, 'js_fields' ) ? $this->js_fields : false;
 	}
 
 	/**

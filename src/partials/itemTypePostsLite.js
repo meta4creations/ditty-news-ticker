@@ -2,7 +2,7 @@ import { __ } from "@wordpress/i18n";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSliders } from "@fortawesome/pro-light-svg-icons";
 import { faWordpress } from "@fortawesome/free-brands-svg-icons";
-import { imageElement } from "../utils/layouts";
+import { linkFieldGroup } from "../utils/helpers";
 
 if (dittyEditor) {
   const itemType = __("WP Posts Feed (Lite)", "ditty-news-ticker");
@@ -17,7 +17,7 @@ if (dittyEditor) {
         id: "settings",
         label: __("Settings", "ditty-news-ticker"),
         name: __("Settings", "ditty-news-ticker"),
-        desc: __(
+        description: __(
           `Configure the settings of the Posts Feed.`,
           "ditty-news-ticker"
         ),
@@ -34,9 +34,12 @@ if (dittyEditor) {
           },
         ],
       },
+      linkSettings: linkFieldGroup(),
     },
     defaultValues: {
       limit: 10,
+      link_target: "",
+      link_nofollow: "",
     },
     previewText: (item) => {
       const limit =

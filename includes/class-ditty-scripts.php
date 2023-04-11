@@ -643,7 +643,6 @@ class Ditty_Scripts {
 				'ion-rangeslider',
 				'jquery-minicolors',
 			), $this->version, true );
-			wp_register_script( 'ditty-editor-hooks', DITTY_URL . 'includes/js/ditty-editor-hooks.min.js', array( 'jquery' ), $this->version, true );
 			wp_register_script( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.js', array( 'jquery' ), '1.4.21', true );
 			wp_register_script( 'ditty-fields', DITTY_URL . 'includes/fields/js/ditty-fields.min.js', array(
 				'jquery',

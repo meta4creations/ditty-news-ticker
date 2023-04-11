@@ -183,6 +183,7 @@
 .ditty-item__elements {
   max-width: 100%;
   box-sizing: border-box;
+  overflow: hidden;
 }
 .ditty-item__elements * {
   box-sizing: border-box;

@@ -552,6 +552,7 @@ class Ditty_Singles {
 	 * @since  3.1
 	 */
 	public function sanitize_item_attribute_value( $attribute_value ) {
+		ChromePhp::log( '$attribute_value', $attribute_value );
 		$sanitized_attribute_value = false;
 		if ( is_array( $attribute_value ) && count( $attribute_value ) > 0 ) {
 			$sanitized_attribute_value = [];
@@ -559,10 +560,13 @@ class Ditty_Singles {
 				$sanitized_attributes = [];
 				if ( is_array( $attributes ) && count( $attributes ) > 0 ) {
 					foreach ( $attributes as $key => $data ) {
-						$sanitized_attributes[esc_attr($key)] = [
-							'customValue' => isset( $data['customValue'] ) ? '1' : false,
+						$sanitized_attribute = [
 							'value' => isset( $data['value'] ) ? esc_attr( $data['value'] ) : '',
 						];
+						if ( isset( $data['customValue'] ) && false !== $data['customValue'] ) {
+							$sanitized_attribute['customValue'] = '1';
+						}
+						$sanitized_attributes[esc_attr($key)] = $sanitized_attribute;
 					}
 				}
 				if ( isset( $tag['disabled'] ) ) {
@@ -571,6 +575,7 @@ class Ditty_Singles {
 				$sanitized_attribute_value[esc_attr($tag)] = $sanitized_attributes;
 			}
 		}
+		ChromePhp::log( '$sanitized_attribute_value', $sanitized_attribute_value );
 		return $sanitized_attribute_value;
 	}
 	
@@ -581,6 +586,7 @@ class Ditty_Singles {
 	 * @since  3.0.17
 	 */
 	public function sanitize_item_data( $item_data ) {
+		ChromePhp::log( '$item_data', $item_data );
 		$sanitized_item = array();
 		
 		// Sanitize the Ditty ID

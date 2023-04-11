@@ -37,7 +37,6 @@ const PopupEditLayout = ({
       updatedLayout[type] = value;
     }
     setEditLayout(updatedLayout);
-    setResetKey(Date.now());
   };
 
   /**
@@ -74,6 +73,7 @@ const PopupEditLayout = ({
                 const defaultLayout = getDefaultLayout(itemTypeObject);
                 if (defaultLayout) {
                   updateLayout(defaultLayout);
+                  setResetKey(Date.now());
                 }
               }}
             >

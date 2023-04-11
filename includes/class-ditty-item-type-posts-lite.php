@@ -40,6 +40,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	public function prepare_items( $meta ) {
 		$item_value = maybe_unserialize( $meta['item_value'] );
 		$layout_value = maybe_unserialize( $meta['layout_value'] );
+		
 
 		// Set the query args
 		$query_args = array(
@@ -107,20 +108,6 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 			'limit' 				=> 10,
 		);
 		return apply_filters( 'ditty_type_default_settings', $defaults, $this->slug );
-	}
-
-	/**
-	 * Update values sent from the editor
-	 *
-	 * @access  public
-	 * @since   3.1
-	 */
-	public function sanitize_settings( $values ) {
-		$default_settings = $this->default_settings();
-		$sanitize_values = [
-			'limit' => isset( $values['limit'] ) ? intval( $values['limit'] ) : $default_settings['limit'],
-		];
-		return $sanitize_values;
 	}
 	
 	/**
@@ -200,6 +187,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 		$tags = array_intersect_key( $tags, array_flip( $allowed_tags ) );
 
 		$tags['image']['atts']['size'] = 'large';
+		$tags['image']['atts']['link_target']['std'] = '_self';
 		return $tags;
 	}
 

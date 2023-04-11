@@ -29,9 +29,13 @@ function ditty_layout_render_tag_link( $link, $html, $class, $data, $atts, $pref
 	$link_defaults = array(
 		'url'					=> '',
 		'title'				=> '',
-		'target' 	=> isset( $data["{$prefix}link_target"] ) ? esc_attr( $data["{$prefix}link_target"] ) : '_self',
+		'target' 	=> ( isset( $data["{$prefix}link_target"] ) && '' != $data["{$prefix}link_target"] ) ? esc_attr( $data["{$prefix}link_target"] ) : '_self',
 		'rel'			=> isset( $data["{$prefix}link_rel"] ) ? esc_attr( $data["{$prefix}link_rel"] ) : '',
 	);
+	//ChromePhp::log( $data );
+	//ChromePhp::log( $link_defaults );
+	//echo '<pre>';print_r($prefix);echo '</pre>';
+	//echo '<pre>';print_r($link_defaults);echo '</pre>';
 	$link_args = shortcode_atts( $link_defaults, $link );
 
 	$defaults = array(

@@ -1,4 +1,6 @@
 import { __ } from "@wordpress/i18n";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLink } from "@fortawesome/pro-light-svg-icons";
 
 export const displayTypeExists = (dittyEl, displayType) => {
   if ("function" === typeof jQuery(dittyEl)["ditty_" + displayType]) {
@@ -237,6 +239,48 @@ export const borderSettings = (prefix, namePrefix) => {
         borderBottomRightRadius: __("Bottom Right", "ditty-news-ticker"),
       },
       min: 0,
+    },
+  ];
+};
+
+export const linkFieldGroup = () => {
+  return {
+    id: "linkSettings",
+    label: __("Links", "ditty-news-ticker"),
+    name: __("Link Settings", "ditty-news-ticker"),
+    description: __(
+      "Configure global link settings for this items elements.",
+      "ditty-news-ticker"
+    ),
+    icon: <FontAwesomeIcon icon={faLink} />,
+    fields: linkSettings(),
+  };
+};
+
+export const linkSettings = () => {
+  return [
+    {
+      type: "select",
+      id: "link_target",
+      name: __("Link Target", "ditty-news-ticker"),
+      help: __("Set a target for your links.", "ditty-news-ticker"),
+      placeholder: __("Use layout settings", "ditty-news-ticker"),
+      options: {
+        _self: "_self",
+        _blank: "_blank",
+        _parent: "_parent",
+        _top: "_top",
+      },
+    },
+    {
+      type: "checkbox",
+      id: "link_nofollow",
+      name: __("Link No Follow", "ditty-news-ticker"),
+      label: __('Add "nofollow" to link', "ditty-news-ticker"),
+      help: __(
+        "Enabling this setting will add an attribute called 'nofollow' to your links. This tells search engines to not follow this link.",
+        "ditty-news-ticker"
+      ),
     },
   ];
 };
