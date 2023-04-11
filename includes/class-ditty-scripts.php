@@ -550,7 +550,6 @@ class Ditty_Scripts {
 					true
 				);
 			} else {
-				//$this->load_external_scripts( 'editor', ['ditty', 'wp-element', 'wp-components'], 'enqueue' );
 				$this->load_external_scripts( 'editor', ['ditty-editor-init', 'wp-element', 'wp-components'], 'enqueue' );
 			}
 

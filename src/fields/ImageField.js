@@ -1,8 +1,6 @@
 import { __ } from "@wordpress/i18n";
-import { useState, useRef, useEffect, useCallback } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/pro-light-svg-icons";
-import { Button } from "../components";
 import BaseField from "./BaseField";
 
 const ImageField = (props) => {

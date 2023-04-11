@@ -3327,14 +3327,6 @@
       "oO" : 1,
       "oS" : 1
     },
-    "\/package.txt.old" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/package.txt.old",
-      "oF" : 0
-    },
     "\/readme.txt" : {
       "cB" : 0,
       "ft" : 8192,
@@ -3371,17 +3363,6 @@
       "oA" : 1,
       "oAP" : "\/webpack.config.min.js",
       "oF" : 1,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/webpack.config.min.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/webpack.config.min.min.js",
-      "oF" : 0,
       "sC" : 3,
       "tS" : 0
     },

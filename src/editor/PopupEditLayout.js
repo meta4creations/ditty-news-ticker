@@ -1,12 +1,8 @@
 import { __ } from "@wordpress/i18n";
-import { useState, useEffect } from "@wordpress/element";
+import { useState } from "@wordpress/element";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPaintbrushPencil,
-  faBrush,
-  faCode,
-} from "@fortawesome/pro-light-svg-icons";
+import { faBrush, faCode } from "@fortawesome/pro-light-svg-icons";
 import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
 
@@ -17,7 +13,6 @@ import {
   getDefaultLayout,
   getItemLabel,
 } from "../utils/itemTypes";
-//import PopupEditLayoutTag from "./PopupEditLayoutTag";
 
 const PopupEditLayout = ({
   item,

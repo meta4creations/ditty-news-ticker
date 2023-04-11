@@ -14,7 +14,8 @@
     "packages-update": "wp-scripts packages-update"
   },
   "devDependencies": {
-    "@wordpress/scripts": "25.5.1"
+    "@wordpress/scripts": "25.5.1",
+    "compression-webpack-plugin": "10.0.0"
   },
   "dependencies": {
     "@codemirror/commands": "6.2.2",

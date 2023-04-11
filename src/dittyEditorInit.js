@@ -1,4 +1,3 @@
-import { createHooks } from "@wordpress/hooks";
 import * as common from "./common";
 import * as components from "./components";
 import * as fields from "./fields";
@@ -10,7 +9,7 @@ dittyEditor.common = common;
 dittyEditor.components = components;
 dittyEditor.fields = fields;
 dittyEditor.helpers = helpers;
-dittyEditor.displayHelpers = dittyEditor.dittyService = dittyService;
+dittyEditor.dittyService = dittyService;
 dittyEditor.httpService = {
   phpItemMods,
 };
