@@ -259,12 +259,14 @@ function ditty_posts_lite_layout_tag_image_data( $image_data, $item_type, $data,
 		if ( $thumbnail_id = get_post_thumbnail_id( $data['item'] ) ) {
 			$size = isset( $atts['size'] ) ? sanitize_text_field( $atts['size'] ) : 'large';
 			$image_source = wp_get_attachment_image_src( $thumbnail_id, $size, false );
-			$image_data = array(
-				'src' 		=> $image_source[0],
-				'width' 	=> $image_source[1],
-				'height' 	=> $image_source[2],
-				'alt'			=>	ditty_posts_lite_tag_value( $data, 'post_title' ),
-			);
+			if ( is_array( $image_source ) ) {
+				$image_data = array(
+					'src' 		=> $image_source[0],
+					'width' 	=> $image_source[1],
+					'height' 	=> $image_source[2],
+					'alt'			=>	ditty_posts_lite_tag_value( $data, 'post_title' ),
+				);
+			}
 		}
 	}
 	return $image_data;

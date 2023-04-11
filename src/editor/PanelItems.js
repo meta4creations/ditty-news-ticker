@@ -106,11 +106,7 @@ const PanelItems = (props) => {
             onClose={(editedItem) => {
               setPopupStatus(false);
               if (
-                !_.isEqual(editedItem.layout_value, currentItem.layout_value) ||
-                !_.isEqual(
-                  editedItem.attribute_value,
-                  currentItem.attribute_value
-                )
+                !_.isEqual(editedItem.layout_value, currentItem.layout_value)
               ) {
                 getDisplayItems(currentItem, layouts, (data) => {
                   replaceDisplayItems(
@@ -122,13 +118,18 @@ const PanelItems = (props) => {
               }
             }}
             onChange={(updatedItem) => {
-              getDisplayItems(updatedItem, layouts, (data) => {
-                replaceDisplayItems(
-                  dittyEl,
-                  helpers.replaceDisplayItems(data.display_items)
-                );
-                setTempDisplayItems(data.display_items);
-              });
+              if (
+                !_.isEqual(updatedItem.layout_value, currentItem.layout_value)
+              ) {
+                console.log("updatedItem", updatedItem);
+                getDisplayItems(updatedItem, layouts, (data) => {
+                  replaceDisplayItems(
+                    dittyEl,
+                    helpers.replaceDisplayItems(data.display_items)
+                  );
+                  setTempDisplayItems(data.display_items);
+                });
+              }
             }}
             onUpdate={(updatedItem, updateKeys) => {
               setPopupStatus(false);
