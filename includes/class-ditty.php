@@ -561,8 +561,17 @@ class Ditty {
 				) ), 'before' );
 			}
 
-			if ( current_user_can( 'manage_ditty_settings' ) ) {
-				wp_enqueue_script( 'ditty-admin' );
+			if ( 'ditty_page_ditty_extensions' == $hook || 'ditty_page_ditty_settings' == $hook || 'ditty_page_ditty_export' == $hook ) { 
+				if ( current_user_can( 'manage_ditty_settings' ) ) {
+					wp_enqueue_editor();
+					wp_enqueue_code_editor(
+						array(
+							'type' => 'text/html'
+						)
+					);
+					wp_enqueue_script( 'ditty-admin' );
+					wp_enqueue_script( 'ditty-editor' );	
+				}
 			}
 			
 			// Disable autosave for Ditty posts

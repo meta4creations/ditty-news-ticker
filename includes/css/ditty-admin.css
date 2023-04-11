@@ -1389,7 +1389,7 @@ table.wp-list-table .type-ditty_display .row-actions {
     width: 40%;
   }
   .ditty-field--global_ditty .ditty-field--ditty,
-.ditty-field--global_ditty .ditty-field--display {
+  .ditty-field--global_ditty .ditty-field--display {
     width: 50%;
   }
   .ditty-field--global_ditty .ditty-field--custom_id {
@@ -1411,7 +1411,7 @@ table.wp-list-table .type-ditty_display .row-actions {
     padding-right: 60px;
   }
   .ditty-settings__panel:not(.ditty-settings__panel--global_ditty) > .ditty-field:not(.ditty-field-heading--top) > .ditty-field__heading > .ditty-field__label,
-.ditty-settings__panel:not(.ditty-settings__panel--global_ditty) > .ditty-field:not(.ditty-field-heading--top) > .ditty-field__heading > .ditty-field__description {
+  .ditty-settings__panel:not(.ditty-settings__panel--global_ditty) > .ditty-field:not(.ditty-field-heading--top) > .ditty-field__heading > .ditty-field__description {
     margin-bottom: 0;
   }
   .ditty-settings__panel:not(.ditty-settings__panel--global_ditty) > .ditty-field:not(.ditty-field-heading--top) > .ditty-field__input__container {
