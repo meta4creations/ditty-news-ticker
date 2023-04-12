@@ -43,7 +43,7 @@ function ditty_v3_1_tag_upgrades( $attribute_value, $tag, $attribute, $value ) {
 		$attribute_value[$tag] = [];
 	}
 	$attribute_value[$tag][$attribute] = [
-		'customValue' => 1,
+		'customValue' => '1',
 		'value' => $value
 	];
 	return $attribute_value;

@@ -198,13 +198,13 @@ const PopupEditItem = ({
       <ButtonGroup justify="flex-end" gap="20px">
         {"editItem" === editType && (
           <>
-            {/* <Link
-              style={{ marginRight: "auto", color: "#cc1818" }}
-              onClick={onDelete}
+            <Link
+              onClick={() => {
+                onClose(editItem);
+              }}
             >
-              {__("Delete", "ditty-news-ticker")}
-            </Link> */}
-            <Link onClick={onClose}>{__("Cancel", "ditty-news-ticker")}</Link>
+              {__("Cancel", "ditty-news-ticker")}
+            </Link>
           </>
         )}
         <Button
