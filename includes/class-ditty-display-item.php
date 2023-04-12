@@ -265,7 +265,6 @@ class Ditty_Display_Item {
 	 * @return html
 	 */
 	private function render_tag( $tag, $item_type, $data, $atts = array(), $custom_wrapper = false ) {
-		ChromePhp::log( '$atts', $atts );
 		if ( ! $output = apply_filters( "ditty_layout_tag_{$tag}", false, $item_type, $data, $atts ) ) {
 			return false;
 		}

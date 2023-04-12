@@ -1,7 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSliders } from "@fortawesome/pro-light-svg-icons";
-import { faWordpress } from "@fortawesome/free-brands-svg-icons";
+import { faWordpressSimple } from "@fortawesome/free-brands-svg-icons";
 import { linkFieldGroup } from "../utils/helpers";
 
 if (dittyEditor) {
@@ -9,7 +9,9 @@ if (dittyEditor) {
 
   dittyEditor.registerItemType({
     id: "posts_feed",
-    icon: <FontAwesomeIcon icon={faWordpress} />,
+    icon: <FontAwesomeIcon icon={faWordpressSimple} />,
+    iconColor: "#FFFFFF",
+    iconBGColor: "#0C749C",
     label: itemType,
     description: __("Add a WP Posts feed.", "ditty-news-ticker"),
     settings: {

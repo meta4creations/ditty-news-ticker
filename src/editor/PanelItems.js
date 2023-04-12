@@ -121,7 +121,6 @@ const PanelItems = (props) => {
               if (
                 !_.isEqual(updatedItem.layout_value, currentItem.layout_value)
               ) {
-                console.log("updatedItem", updatedItem);
                 getDisplayItems(updatedItem, layouts, (data) => {
                   replaceDisplayItems(
                     dittyEl,

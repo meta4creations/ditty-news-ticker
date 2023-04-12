@@ -92,9 +92,7 @@ export const getItemTypePreviewIcon = (item) => {
   }
   const style = {
     color: itemTypeObject.iconColor ? itemTypeObject.iconColor : false,
-    backgroundColor: itemTypeObject.iconBGColor
-      ? itemTypeObject.iconBGColor
-      : false,
+    background: itemTypeObject.iconBGColor ? itemTypeObject.iconBGColor : false,
   };
   return (
     <div className="ditty-preview-icon" style={style}>

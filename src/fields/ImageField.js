@@ -76,6 +76,7 @@ const ImageField = (props) => {
           url: attachments[0].url,
           sizes: attachments[0].sizes,
         };
+        setImagePreview(imageData.sizes.medium.url);
         onChange(imageData);
       }
     });

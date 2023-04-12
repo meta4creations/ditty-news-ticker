@@ -24,7 +24,6 @@ function ditty_updates() {
 	if ( version_compare( $current_version, '3.1', '<' ) ) {
 		ditty_v3_1_upgrades();
 	}
-
 	if ( DITTY_VERSION != $current_version ) {
 		do_action( 'ditty_version_update', DITTY_VERSION, $current_version );
 		update_option( 'ditty_plugin_version_upgraded_from', $current_version );
@@ -101,43 +100,43 @@ function ditty_v3_1_item_tag_upgrades( $item ) {
 						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'more_link', $modified_value );
 					}
 					break;
-				case 'link_target':
-					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_avatar', 'link_target', $value );
-					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_banner', 'link_target', $value );
-					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_bio', 'link_target', $value );
-					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_name', 'link_target', $value );
-					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_screen_name', 'link_target', $value );
-					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'caption', 'link_target', $value );
-					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'categories', 'link_target', $value );
-					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'more_link_target', $value );
-					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'excerpt', 'more_link_target', $value );
-					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'icon', 'link_target', $value );
-					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'image', 'link_target', $value );
-					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'source', 'link_target', $value );
-					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'terms', 'link_target', $value );
-					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'time', 'link_target', $value );
-					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'title', 'link_target', $value );
-					break;
-				case 'link_nofollow':
-					if ( $value == '1' ) {
-						$modified_value = 'nofollow';
-						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_avatar', 'link_rel', $modified_value );
-						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_banner', 'link_rel', $modified_value );
-						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_bio', 'link_rel', $modified_value );
-						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_name', 'link_rel', $modified_value );
-						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_screen_name', 'link_rel', $modified_value );
-						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'caption', 'link_rel', $modified_value );
-						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'categories', 'link_rel', $modified_value );
-						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'more_link_rel', $modified_value );
-						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'excerpt', 'more_link_rel', $modified_value );
-						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'icon', 'link_rel', $modified_value );
-						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'image', 'link_rel', $modified_value );
-						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'source', 'link_rel', $modified_value );
-						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'terms', 'link_rel', $modified_value );
-						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'time', 'link_rel', $modified_value );
-						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'title', 'link_rel', $modified_value );
-					}
-					break;
+				// case 'link_target':
+				// 	$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_avatar', 'link_target', $value );
+				// 	$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_banner', 'link_target', $value );
+				// 	$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_bio', 'link_target', $value );
+				// 	$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_name', 'link_target', $value );
+				// 	$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_screen_name', 'link_target', $value );
+				// 	$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'caption', 'link_target', $value );
+				// 	$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'categories', 'link_target', $value );
+				// 	$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'more_link_target', $value );
+				// 	$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'excerpt', 'more_link_target', $value );
+				// 	$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'icon', 'link_target', $value );
+				// 	$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'image', 'link_target', $value );
+				// 	$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'source', 'link_target', $value );
+				// 	$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'terms', 'link_target', $value );
+				// 	$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'time', 'link_target', $value );
+				// 	$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'title', 'link_target', $value );
+				// 	break;
+				// case 'link_nofollow':
+				// 	if ( $value == '1' ) {
+				// 		$modified_value = 'nofollow';
+				// 		$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_avatar', 'link_rel', $modified_value );
+				// 		$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_banner', 'link_rel', $modified_value );
+				// 		$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_bio', 'link_rel', $modified_value );
+				// 		$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_name', 'link_rel', $modified_value );
+				// 		$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'author_screen_name', 'link_rel', $modified_value );
+				// 		$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'caption', 'link_rel', $modified_value );
+				// 		$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'categories', 'link_rel', $modified_value );
+				// 		$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'more_link_rel', $modified_value );
+				// 		$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'excerpt', 'more_link_rel', $modified_value );
+				// 		$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'icon', 'link_rel', $modified_value );
+				// 		$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'image', 'link_rel', $modified_value );
+				// 		$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'source', 'link_rel', $modified_value );
+				// 		$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'terms', 'link_rel', $modified_value );
+				// 		$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'time', 'link_rel', $modified_value );
+				// 		$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'title', 'link_rel', $modified_value );
+				// 	}
+				// 	break;
 			}
 		}
 	}
@@ -147,6 +146,7 @@ function ditty_v3_1_item_tag_upgrades( $item ) {
 			'attribute_value' => maybe_serialize( $sanitized__attribute_value ),
 		];
 		Ditty()->db_items->update( $item->item_id, $updated_item, 'item_id' );	
+		return $updated_item;
 	}
 }
 function ditty_v3_1_upgrades() {
@@ -171,9 +171,6 @@ function ditty_v3_1_upgrades() {
 	// $dittys = get_posts( $args );
 	// if ( is_array( $dittys ) && count( $dittys ) > 0 ) {
 	// 	foreach ( $dittys as $ditty ) {
-	// 		if ( $ditty->ID != 13144 ) {
-	// 			continue;
-	// 		}
 	// 		$items_meta = ditty_items_meta( $ditty->ID );
 	// 		if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
 	// 			foreach ( $items_meta as $item ) {

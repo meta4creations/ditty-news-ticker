@@ -116,6 +116,11 @@
       line-height: 40px;
     }
   }
+  .ditty-editor-item__children {
+    &--active {
+      transform: rotate(135deg) scale(0.75);
+    }
+  }
   &--has-children {
     .ditty-editor-item__children {
       color: $green;
@@ -123,9 +128,6 @@
       border-color: green;
       &:hover {
         background-color: $light_green_hover;
-      }
-      &--active {
-        transform: rotate(135deg) scale(0.75);
       }
     }
   }

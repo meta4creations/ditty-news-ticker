@@ -76,10 +76,15 @@ const PopupEditItem = ({
 
   const addItemUpdate = (updatedItem, key) => {
     setEditItem(updatedItem);
-    if (!updateKeys.includes(key)) {
-      updateKeys.push(key);
-      setUpdateKeys(updateKeys);
-    }
+
+    const keys = Array.isArray(key) ? key : [key];
+    keys.map((k) => {
+      if (!updateKeys.includes(k)) {
+        updateKeys.push(k);
+      }
+    });
+    setUpdateKeys(updateKeys);
+
     onChange && onChange(updatedItem);
   };
 
@@ -122,7 +127,7 @@ const PopupEditItem = ({
                 setCurrentTabId("layoutCustomizations");
               }
 
-              addItemUpdate(updatedItem, "item_type");
+              addItemUpdate(updatedItem, ["item_type", "item_value"]);
             }}
           />
         );

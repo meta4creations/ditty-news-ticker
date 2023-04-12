@@ -192,8 +192,6 @@ function ditty_posts_lite_layout_tag_link_data( $link_data, $item_type, $data, $
 		return false;
 	}
 
-	//ChromePhp::log( '$data', $data );
-
 	$link = strval( $atts["{$prefix}link"] );
 	$link_url = false;
 	$link_title = false;
