@@ -79,7 +79,7 @@ class Ditty_Layouts {
 	 * @since   3.1
 	 */
 	public function edit_page_redirects() {
-		if ( isset( $_GET['action'] ) ) {
+		if ( ! isset( $_GET['action'] ) ) {
 			return false;
 		}
 		
