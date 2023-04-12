@@ -1,4 +1,4 @@
-const { createRoot } = wp.element; //we are using wp.element here!
+import { createRoot } from "@wordpress/element";
 import { EditorProvider } from "./editor/context";
 import App from "./editor/app";
 import "./assets/css/editor.scss";
