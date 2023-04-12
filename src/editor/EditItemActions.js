@@ -1,14 +1,14 @@
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
 import { applyFilters } from "@wordpress/hooks";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGear,
-  faPaintbrushPencil,
-  faClone,
-  faTrashCan,
-  faBarsStaggered,
-} from "@fortawesome/pro-light-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import {
+//   faGear,
+//   faPaintbrushPencil,
+//   faClone,
+//   faTrashCan,
+//   faBarsStaggered,
+// } from "@fortawesome/pro-light-svg-icons";
 import { getDisplayItems, replaceDisplayItems } from "../services/dittyService";
 import { getItemTypePreviewIcon, getItemLabel } from "../utils/itemTypes";
 
@@ -58,7 +58,7 @@ const EditItemActions = (props) => {
               setPopupStatus("editItem");
             }}
           >
-            <FontAwesomeIcon icon={faGear} />
+            <i className="fa-solid fa-gear"></i>
           </span>
         ),
       },
@@ -74,7 +74,7 @@ const EditItemActions = (props) => {
               setPopupStatus("editLayout");
             }}
           >
-            <FontAwesomeIcon icon={faPaintbrushPencil} />
+            <i className="fa-solid fa-pen-ruler"></i>
           </span>
         ),
       },
@@ -121,7 +121,7 @@ const EditItemActions = (props) => {
               });
             }}
           >
-            <FontAwesomeIcon icon={faClone} />
+            <i className="fa-solid fa-clone"></i>
           </span>
         ),
       },
@@ -136,7 +136,7 @@ const EditItemActions = (props) => {
               handleDeleteItem(item);
             }}
           >
-            <FontAwesomeIcon icon={faTrashCan} />
+            <i className="fa-solid fa-trash-can"></i>
           </span>
         ),
       },

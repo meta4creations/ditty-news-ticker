@@ -1,12 +1,12 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPaintbrushPencil,
-  faCode,
-  faBrush,
-} from "@fortawesome/pro-light-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import {
+//   faPaintbrushPencil,
+//   faCode,
+//   faBrush,
+// } from "@fortawesome/pro-light-svg-icons";
 import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
 import { CodeEditor, LayoutTags } from "../common";
@@ -27,7 +27,7 @@ const PanelLayout = ({
     return (
       <>
         <IconBlock
-          icon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
+          icon={<i className="fa-solid fa-pen-ruler"></i>}
           className="ditty-icon-block--heading"
         >
           <div className="ditty-icon-block--heading__title">
@@ -43,12 +43,12 @@ const PanelLayout = ({
             {
               id: "html",
               label: __("HTML", "ditty-news-ticker"),
-              icon: <FontAwesomeIcon icon={faCode} />,
+              icon: <i className="fa-solid fa-code"></i>,
             },
             {
               id: "css",
               label: __("CSS", "ditty-news-ticker"),
-              icon: <FontAwesomeIcon icon={faBrush} />,
+              icon: <i className="fa-solid fa-brush"></i>,
             },
           ]}
           currentTabId={currentTabId}

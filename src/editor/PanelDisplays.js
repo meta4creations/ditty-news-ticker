@@ -1,8 +1,8 @@
 import { __ } from "@wordpress/i18n";
 import { useState, useContext } from "@wordpress/element";
 import _ from "lodash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTabletScreen } from "@fortawesome/pro-light-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faTabletScreen } from "@fortawesome/pro-light-svg-icons";
 import {
   updateDisplayOptions,
   updateDittyDisplayTemplate,
@@ -76,7 +76,7 @@ const PanelDisplays = () => {
             templates={displays}
             filterKey="type"
             filters={getDisplayTypes()}
-            headerIcon={<FontAwesomeIcon icon={faTabletScreen} />}
+            headerIcon={<i className="fa-solid fa-tablet-screen-button"></i>}
             templateIcon={(template) => {
               return getDisplayTypeIcon(template);
             }}
@@ -118,7 +118,7 @@ const PanelDisplays = () => {
             templates={displays}
             filterKey="type"
             filters={getDisplayTypes()}
-            headerIcon={<FontAwesomeIcon icon={faTabletScreen} />}
+            headerIcon={<i className="fa-solid fa-tablet-screen-button"></i>}
             templateIcon={(template) => {
               return getDisplayTypeIcon(template);
             }}

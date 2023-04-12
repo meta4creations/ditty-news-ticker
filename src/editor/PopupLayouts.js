@@ -1,8 +1,8 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
 import {
   getItemTypeObject,
   getItemLabel,
@@ -112,8 +112,8 @@ const PopupLayouts = ({
             templateType="layout"
             currentTemplate={templateToSave}
             templates={layouts}
-            headerIcon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
-            templateIcon={() => <FontAwesomeIcon icon={faPaintbrushPencil} />}
+            headerIcon={<i className="fa-solid fa-pen-ruler"></i>}
+            templateIcon={() => <i className="fa-solid fa-pen-ruler"></i>}
             saveData={(type, selectedTemplate, name, description) => {
               return "existing" === type
                 ? {
@@ -151,8 +151,8 @@ const PopupLayouts = ({
             level="2"
             currentTemplate={getVariationLayoutObject(selectedVariation)}
             templates={layouts}
-            headerIcon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
-            templateIcon={() => <FontAwesomeIcon icon={faPaintbrushPencil} />}
+            headerIcon={<i className="fa-solid fa-pen-ruler"></i>}
+            templateIcon={() => <i className="fa-solid fa-pen-ruler"></i>}
             submitLabel={__("Use Layout", "ditty-news-ticker")}
             onChange={(selectedTemplate) => {
               previewLayout(selectedVariation, selectedTemplate);

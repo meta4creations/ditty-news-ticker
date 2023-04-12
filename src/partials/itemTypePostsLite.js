@@ -1,7 +1,7 @@
 import { __ } from "@wordpress/i18n";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSliders } from "@fortawesome/pro-light-svg-icons";
-import { faWordpressSimple } from "@fortawesome/free-brands-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faSliders } from "@fortawesome/pro-light-svg-icons";
+// import { faWordpressSimple } from "@fortawesome/free-brands-svg-icons";
 import { linkFieldGroup } from "../utils/helpers";
 
 if (dittyEditor) {
@@ -9,7 +9,7 @@ if (dittyEditor) {
 
   dittyEditor.registerItemType({
     id: "posts_feed",
-    icon: <FontAwesomeIcon icon={faWordpressSimple} />,
+    icon: <i className="fa-brands fa-wordpress-simple"></i>,
     iconColor: "#FFFFFF",
     iconBGColor: "#0C749C",
     label: itemType,
@@ -23,7 +23,7 @@ if (dittyEditor) {
           `Configure the settings of the Posts Feed.`,
           "ditty-news-ticker"
         ),
-        icon: <FontAwesomeIcon icon={faSliders} />,
+        icon: <i className="fa-solid fa-sliders"></i>,
         fields: [
           {
             type: "number",

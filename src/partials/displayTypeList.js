@@ -1,14 +1,14 @@
 import { __ } from "@wordpress/i18n";
 import { easeOptions, sliderTransitions } from "../utils/helpers";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList, faSliders } from "@fortawesome/pro-light-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faList, faSliders } from "@fortawesome/pro-light-svg-icons";
 
 if (dittyEditor) {
   const displayType = __("List", "ditty-news-ticker");
   dittyEditor.registerDisplayType({
     id: "list",
-    icon: <FontAwesomeIcon icon={faList} />,
+    icon: <i className="fa-solid fa-list"></i>,
     label: __("List", "ditty-news-ticker"),
     description: __("Display items in a static list.", "ditty-news-ticker"),
     settings: {
@@ -20,7 +20,7 @@ if (dittyEditor) {
           `Set the general settings of the ${displayType}.`,
           "ditty-news-ticker"
         ),
-        icon: <FontAwesomeIcon icon={faSliders} />,
+        icon: <i className="fa-solid fa-sliders"></i>,
         fields: [
           {
             type: "slider",

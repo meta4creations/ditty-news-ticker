@@ -2,12 +2,12 @@ import classnames from "classnames";
 import { applyFilters } from "@wordpress/hooks";
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBarsStaggered,
-  faPaintbrushPencil,
-  faGear,
-} from "@fortawesome/pro-regular-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import {
+//   faBarsStaggered,
+//   faPaintbrushPencil,
+//   faGear,
+// } from "@fortawesome/pro-regular-svg-icons";
 import { Tabs } from "../components";
 import PanelLayout from "./PanelLayout";
 import PanelItem from "./PanelItem";
@@ -79,7 +79,7 @@ const LayoutEditor = ({
     {
       id: "layout",
       label: __("Layout", "ditty-news-ticker"),
-      icon: <FontAwesomeIcon icon={faPaintbrushPencil} />,
+      icon: <i className="fa-solid fa-pen-ruler"></i>,
       content: (
         <PanelLayout
           editorItem={editorItem}
@@ -104,7 +104,7 @@ const LayoutEditor = ({
     {
       id: "settings",
       label: __("Settings", "ditty-news-ticker"),
-      icon: <FontAwesomeIcon icon={faGear} />,
+      icon: <i className="fa-solid fa-gear"></i>,
       content: (
         <PanelSettings
           title={title}

@@ -2,8 +2,8 @@ import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
 import { toast } from "react-toastify";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaintbrushPencil, faCopy } from "@fortawesome/pro-light-svg-icons";
+//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//import { faPaintbrushPencil, faCopy } from "@fortawesome/pro-light-svg-icons";
 import { getAttributeFields } from "../utils/layouts";
 import { FieldList } from "../fields";
 import { Button, ButtonGroup, Link, IconBlock, Popup } from "../components";
@@ -44,7 +44,7 @@ const PopupEditLayoutTag = ({
     return (
       <>
         <IconBlock
-          icon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
+          icon={<i className="fa-solid fa-pen-ruler"></i>}
           className="ditty-icon-block--heading"
         >
           <div className="ditty-icon-block--heading__title">
@@ -65,8 +65,8 @@ const PopupEditLayoutTag = ({
             >
               {renderTag()}
             </pre>
-            <FontAwesomeIcon
-              icon={faCopy}
+            <i
+              className="fa-solid fa-copy"
               style={{
                 position: "absolute",
                 top: "0",
@@ -90,7 +90,7 @@ const PopupEditLayoutTag = ({
                   theme: "colored",
                 });
               }}
-            />
+            ></i>
           </div>
         </div>
       </>

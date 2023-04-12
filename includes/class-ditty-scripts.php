@@ -406,11 +406,11 @@ class Ditty_Scripts {
 		
 		$disable_fontawesome = ditty_settings( 'disable_fontawesome' );
 		if ( ! is_admin() && ! $disable_fontawesome ) {
-			wp_enqueue_style( 'ditty-fontawesome', DITTY_URL . 'includes/libs/fontawesome-6.2.0/css/all.css', false, '6.2.0', false );
+			wp_enqueue_style( 'ditty-fontawesome', DITTY_URL . 'includes/libs/fontawesome-6.4.0/css/all.css', false, '6.4.0', false );
 		}
 		
 		if ( is_admin() ) {
-			wp_enqueue_style( 'ditty-fontawesome', DITTY_URL . 'includes/libs/fontawesome-6.2.0/css/all.css', false, '6.2.0', false );
+			wp_enqueue_style( 'ditty-fontawesome', DITTY_URL . 'includes/libs/fontawesome-6.4.0/css/all.css', false, '6.4.0', false );
 		}
 	}
 	

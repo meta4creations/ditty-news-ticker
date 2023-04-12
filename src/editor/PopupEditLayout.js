@@ -1,8 +1,8 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBrush, faCode } from "@fortawesome/pro-light-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faBrush, faCode } from "@fortawesome/pro-light-svg-icons";
 import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
 
@@ -88,12 +88,12 @@ const PopupEditLayout = ({
             {
               id: "html",
               label: __("HTML", "ditty-news-ticker"),
-              icon: <FontAwesomeIcon icon={faCode} />,
+              icon: <i className="fa-solid fa-code"></i>,
             },
             {
               id: "css",
               label: __("CSS", "ditty-news-ticker"),
-              icon: <FontAwesomeIcon icon={faBrush} />,
+              icon: <i className="fa-solid fa-brush"></i>,
             },
           ]}
           currentTabId={currentTabId}

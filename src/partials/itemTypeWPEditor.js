@@ -1,13 +1,13 @@
 import { __ } from "@wordpress/i18n";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faSliders } from "@fortawesome/pro-light-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faPenToSquare, faSliders } from "@fortawesome/pro-light-svg-icons";
 
 if (dittyEditor) {
   const itemType = __("WP Editor", "ditty-news-ticker");
 
   dittyEditor.registerItemType({
     id: "wp_editor",
-    icon: <FontAwesomeIcon icon={faPenToSquare} />,
+    icon: <i className="fa-solid fa-pen-to-square"></i>,
     label: itemType,
     description: __(
       "Manually add wp editor content to the item.",
@@ -22,7 +22,7 @@ if (dittyEditor) {
           `Configure the settings of the WP Editor.`,
           "ditty-news-ticker"
         ),
-        icon: <FontAwesomeIcon icon={faSliders} />,
+        icon: <i className="fa-solid fa-sliders"></i>,
         fields: [
           {
             type: "wysiwyg",
