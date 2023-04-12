@@ -93,7 +93,7 @@ const LayoutEditor = ({
     {
       id: "item",
       label: __("Item", "ditty-news-ticker"),
-      icon: <FontAwesomeIcon icon={faBarsStaggered} />,
+      icon: <i className="fa-solid fa-bars-staggered"></i>,
       content: (
         <PanelItem
           editorItem={editorItem}

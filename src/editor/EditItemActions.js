@@ -154,7 +154,7 @@ const EditItemActions = (props) => {
                 setShowChildPanel && setShowChildPanel(!showChildPanel);
               }}
             >
-              <FontAwesomeIcon icon={faBarsStaggered} />
+              <i className="fa-solid fa-bars-staggered"></i>
             </span>
           ) : (
             false

@@ -65,7 +65,7 @@ const Editor = ({ className }) => {
       {
         id: "items",
         label: __("Items", "ditty-news-ticker"),
-        icon: <FontAwesomeIcon icon={faBarsStaggered} />,
+        icon: <i className="fa-solid fa-bars-staggered"></i>,
         content: <PanelItems />,
       },
       {
