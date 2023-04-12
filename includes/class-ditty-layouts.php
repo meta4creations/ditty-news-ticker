@@ -29,6 +29,13 @@ class Ditty_Layouts {
 		add_action( 'wp_ajax_ditty_install_layout', array( $this, 'install_layout' ) );
 	}
 
+	public function install_default( $layout_template = false, $layout_version = false ) {
+		// Keep function to not cause fatal errors from other plugins
+	}
+	public function install_layout() {
+		// Keep function to not cause fatal errors from other plugins
+	}
+
 	/**
 	 * Add to the admin body class
 	 *
@@ -79,10 +86,9 @@ class Ditty_Layouts {
 	 * @since   3.1
 	 */
 	public function edit_page_redirects() {
-		if ( ! isset( $_GET['action'] ) ) {
+		if ( ! is_admin() ) {
 			return false;
 		}
-		
 		global $pagenow;
 		if ( $pagenow === 'post.php' ) {
 			$post_id = isset( $_GET['post'] ) ? $_GET['post'] : 0;
@@ -527,86 +533,7 @@ class Ditty_Layouts {
 				return $default;
 		}
 	}
-	
-	/**
-	 * Install default layouts
-	 *
-	 * @access  private
-	 * @since   3.0
-	 */
-	public function install_default( $layout_template = false, $layout_version = false ) {
-		$args = array(
-			'template' 	=> $layout_template,
-			'version'		=> $layout_version,
-			'fields'		=> 'ids',
-		);
-		if ( $layouts = ditty_layout_posts( $args ) ) {
-			return end( $layouts );
-		}
 
-		$templates = ditty_layout_templates();
-		if ( ! isset( $templates[$layout_template] ) ) {
-			return false;
-		}
-		$postarr = array(
-			'post_type'		=> 'ditty_layout',
-			'post_status'	=> 'publish',
-			'post_title'	=> $templates[$layout_template]['label'],
-		);
-		if ( $new_layout_id = wp_insert_post( $postarr ) ) {
-			update_post_meta( $new_layout_id, '_ditty_layout_template', esc_attr( $layout_template ) );
-			if ( isset( $templates[$layout_template]['description'] ) ) {
-				update_post_meta( $new_layout_id, '_ditty_layout_description', wp_kses_post( $templates[$layout_template]['description'] ) );
-			}
-			if ( isset( $templates[$layout_template]['html'] ) ) {
-				update_post_meta( $new_layout_id, '_ditty_layout_html', wp_kses_post( $templates[$layout_template]['html'] ) );
-			}
-			if ( isset( $templates[$layout_template]['css'] ) ) {
-				update_post_meta( $new_layout_id, '_ditty_layout_css', wp_kses_post( $templates[$layout_template]['css'] ) );
-			}
-			if ( isset( $templates[$layout_template]['version'] ) ) {
-				update_post_meta( $new_layout_id, '_ditty_layout_version', wp_kses_post( $templates[$layout_template]['version'] ) );
-			}
-		}
-		return $new_layout_id;
-	}
-	
-	/**
-	 * Install a layout via ajax
-	 *
-	 * @access public
-	 * @since  3.0
-	 */
-	public function install_layout() {
-		check_ajax_referer( 'ditty', 'security' );
-		$layout_template_ajax	= isset( $_POST['layout_template'] )	? $_POST['layout_template']	: false;
-		$layout_version_ajax	= isset( $_POST['layout_version'] )		? $_POST['layout_version']	: false;
-		
-		if ( ! current_user_can( 'publish_ditty_layouts' ) || ! $layout_template_ajax ) {
-			wp_die();
-		}
-		$layout_id = $this->install_default( $layout_template_ajax, $layout_version_ajax );
-		
-		$args = array(
-			'type'				=> 'button',
-			'label'				=> __( 'Installed', 'ditty-ticker' ),
-			'link'				=> '#',
-			'size' 				=> 'small',
-			'input_class'	=> 'ditty-default-layout-view',
-			'field_only'	=> true,
-			'atts'				=> array(
-				'disabled' => 'disabled',
-			),
-		);
-		$button = ditty_field( $args );
-		
-		$data = array(
-			'layout_id' => $layout_id,
-			'button'	=> $button,
-		);	
-		wp_send_json( $data );
-	}
-	
 	/**
 	 * List the layout variation defaults
 	 *

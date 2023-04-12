@@ -58,10 +58,9 @@ class Ditty_Singles {
 	 * @since   3.1
 	 */
 	public function edit_page_redirects() {
-		if ( ! isset( $_GET['action'] ) ) {
+		if ( ! is_admin() ) {
 			return false;
 		}
-		
 		global $pagenow;
 		if ( $pagenow === 'post.php' ) {
 			$post_id = isset( $_GET['post'] ) ? $_GET['post'] : 0;

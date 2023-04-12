@@ -346,17 +346,17 @@ function ditty_v3_upgrades() {
 	@$db_item_meta->create_table();
 	
 	// Install default layouts
-	Ditty()->layouts->install_default( 'default' );
-	Ditty()->layouts->install_default( 'default_image' );
-	Ditty()->layouts->install_default( 'default_post' );
-	Ditty()->displays->install_default( 'ticker', 'default' );
-	Ditty()->displays->install_default( 'list', 'default' );
-	Ditty()->displays->install_default( 'list', 'default_slider' );
+	// Ditty()->layouts->install_default( 'default' );
+	// Ditty()->layouts->install_default( 'default_image' );
+	// Ditty()->layouts->install_default( 'default_post' );
+	// Ditty()->displays->install_default( 'ticker', 'default' );
+	// Ditty()->displays->install_default( 'list', 'default' );
+	// Ditty()->displays->install_default( 'list', 'default_slider' );
 	
 	// Set variation defaults
-	ditty_set_variation_default( 'default', 'default', 'default' );
-	ditty_set_variation_default( 'wp_editor', 'default', 'default' );
-	ditty_set_variation_default( 'posts_feed', 'default', 'default_post' );
+	// ditty_set_variation_default( 'default', 'default', 'default' );
+	// ditty_set_variation_default( 'wp_editor', 'default', 'default' );
+	// ditty_set_variation_default( 'posts_feed', 'default', 'default_post' );
 	
 	// If News Tickers exists, enabled legacy code
 	$args = array(

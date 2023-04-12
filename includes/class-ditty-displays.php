@@ -29,86 +29,11 @@ class Ditty_Displays {
 		add_action( 'wp_ajax_ditty_install_display', array( $this, 'install_display' ) );
 	}
 	
-	/**
-	 * Install default displays
-	 *
-	 * @access  private
-	 * @since   3.0
-	 */
 	public function install_default( $display_type, $display_template = false, $display_version = false ) {	
-		$args = array(
-			'display_type'	=> $display_type,
-			'template' 			=> $display_template,
-			'version'				=> $display_version,
-			'fields'				=> 'ids',
-		);
-		if ( $display_ids = ditty_display_posts( $args ) ) {
-			return reset( $display_ids );
-		}
-
-		$display_object = ditty_display_type_object( $display_type );
-		$templates = $display_object->templates();
-		if ( ! isset( $templates[$display_template] ) ) {
-			return false;
-		}
-		$postarr = array(
-			'post_type'		=> 'ditty_display',
-			'post_status'	=> 'publish',
-			'post_title'	=> $templates[$display_template]['label'],
-		);
-		if ( $new_display_id = wp_insert_post( $postarr ) ) {
-			update_post_meta( $new_display_id, '_ditty_display_type', esc_attr( $display_type ) );
-			update_post_meta( $new_display_id, '_ditty_display_template', esc_attr( $display_template ) );
-			if ( isset( $templates[$display_template]['description'] ) ) {
-				update_post_meta( $new_display_id, '_ditty_display_description', wp_kses_post( $templates[$display_template]['description'] ) );
-			}
-			if ( isset( $templates[$display_template]['version'] ) ) {
-				update_post_meta( $new_display_id, '_ditty_display_version', wp_kses_post( $templates[$display_template]['version'] ) );
-			}
-			if ( isset( $templates[$display_template]['settings'] ) ) {
-				$fields = $display_object->fields();
-				$sanitized_settings = ditty_sanitize_fields( $fields, $templates[$display_template]['settings'], "ditty_display_type_{$display_type}" );
-				update_post_meta( $new_display_id, '_ditty_display_settings', $sanitized_settings );
-			}
-		}
-		return $new_display_id;
+		// Keep function to not cause fatal errors from other plugins
 	}
-	
-	/**
-	 * Install a display via ajax
-	 *
-	 * @access public
-	 * @since  3.0
-	 */
 	public function install_display() {
-		check_ajax_referer( 'ditty', 'security' );
-		$display_type_ajax 		= isset( $_POST['display_type'] ) 			? $_POST['display_type'] 		: false;
-		$display_template_ajax	= isset( $_POST['display_template'] )	? $_POST['display_template']	: false;
-		$display_version_ajax	= isset( $_POST['display_version'] )		? $_POST['display_version']	: false;
-		
-		if ( ! current_user_can( 'publish_ditty_displays' ) || ! $display_type_ajax || ! $display_template_ajax ) {
-			wp_die();
-		}
-		$display_id = $this->install_default( $display_type_ajax, $display_template_ajax, $display_version_ajax );
-		
-		$args = array(
-			'type'				=> 'button',
-			'label'				=> __( 'Installed', 'ditty-ticker' ),
-			'link'				=> '#',
-			'size' 				=> 'small',
-			'input_class'	=> 'ditty-default-display-view',
-			'field_only'	=> true,
-			'atts'				=> array(
-				'disabled' => 'disabled',
-			),
-		);
-		$button = ditty_field( $args );
-		
-		$data = array(
-			'display_id' => $display_id,
-			'button'	=> $button,
-		);	
-		wp_send_json( $data );
+		// Keep function to not cause fatal errors from other plugins
 	}
 	
 	/**
@@ -243,10 +168,9 @@ class Ditty_Displays {
 	 * @since   3.1
 	 */
 	public function edit_page_redirects() {
-		if ( ! isset( $_GET['action'] ) ) {
+		if ( ! is_admin() ) {
 			return false;
 		}
-		
 		global $pagenow;
 		if ( $pagenow === 'post.php' ) {
 			$post_id = isset( $_GET['post'] ) ? $_GET['post'] : 0;
