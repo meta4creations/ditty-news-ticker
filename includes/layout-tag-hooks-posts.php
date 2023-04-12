@@ -222,7 +222,6 @@ function ditty_posts_lite_layout_tag_link_data( $link_data, $item_type, $data, $
 		$link_data = array(
 			'url' 		=> esc_url_raw( $link_url ),
 			'title'		=> $link_title,
-			'rel'			=> ( isset( $data['link_nofollow'] ) && 1 == $data['link_nofollow'] )  ? 'nofollow' : false,
 		);
 		return $link_data;
 	}

@@ -390,7 +390,7 @@ class Ditty_Layouts {
 						"Set the target attribute for the link.",
 						"ditty-news-ticker"
 					),
-					'std' => $default ? $default : '',
+					'std' => $default ? $default : '_self',
 				];
 			case 'more':
 				return [
@@ -468,7 +468,7 @@ class Ditty_Layouts {
 			case 'more_link_target':
 				return [
 					'type' => "select",
-					'id' =>  "link_target",
+					'id' =>  "more_link_target",
 					'options' => $options ? $options : [
 						'_blank',
 						'_self',
@@ -479,7 +479,7 @@ class Ditty_Layouts {
 						'Set the target attribute for the "more" link.',
 						"ditty-news-ticker"
 					),
-					'std' => $default ? $default : '',
+					'std' => $default ? $default : '_self',
 				];
 			case 'width':
 				return [

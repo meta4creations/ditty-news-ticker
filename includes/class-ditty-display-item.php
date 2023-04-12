@@ -236,6 +236,7 @@ class Ditty_Display_Item {
 		$parsed_atts = array();
 		if ( $s && is_array( $atts ) && count( $atts ) > 0 ) {
 			foreach ( $atts as $key => $value ) {
+				
 				$parsed_atts[$key] = $atts[$key];
 				if ( $custom_value = $s->getParameter( $key ) ) {
 					$parsed_value = $custom_value;
@@ -340,8 +341,8 @@ class Ditty_Display_Item {
 					if ( ! is_array( $atts ) && 'disabled' == $atts ) {
 						return false;
 					}
-					$atts = apply_filters( 'ditty_layout_tag_atts', $atts, $tag['tag'], $this->get_item_type(), $data );
 					
+					$atts = apply_filters( 'ditty_layout_tag_atts', $atts, $tag['tag'], $this->get_item_type(), $data );
 					$content = $s->getContent();
 					if ( isset( $tag['func'] ) && function_exists( $tag['func'] ) ) {
 						return call_user_func( $tag['func'], $tag['tag'], $this->get_item_type(), $data, $atts, $content );

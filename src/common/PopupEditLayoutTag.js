@@ -16,6 +16,8 @@ const PopupEditLayoutTag = ({
 }) => {
   const [attributeValues, setAttributeValues] = useState({});
 
+  console.log("layoutTag.atts", layoutTag.atts);
+
   /**
    * Return the layout tag render
    * @returns string
@@ -133,6 +135,7 @@ const PopupEditLayoutTag = ({
         onUpdate={(id, value) => {
           const updatedAttributeValues = { ...attributeValues };
           updatedAttributeValues[id] = value;
+          console.log("updatedAttributeValues", updatedAttributeValues);
           setAttributeValues(updatedAttributeValues);
         }}
       />
