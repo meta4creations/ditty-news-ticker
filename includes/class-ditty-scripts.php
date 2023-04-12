@@ -365,10 +365,19 @@ class Ditty_Scripts {
 
 		wp_register_style( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.css', false, '1.4.21', false );	
 
-		if ( 'ditty_page_ditty_extensions' == $hook || 'ditty_page_ditty_export' == $hook ) {
+		if ( is_admin() ) {
 			wp_enqueue_style(
 				'ditty-admin',
 				DITTY_URL . 'includes/css/ditty-admin.css',
+				[],
+				$this->version,
+				'all'
+			);
+		}
+		if ( 'ditty_page_ditty_extensions' == $hook || 'ditty_page_ditty_export' == $hook ) {
+			wp_enqueue_style(
+				'ditty-admin-old',
+				DITTY_URL . 'includes/css/ditty-admin-old.css',
 				['protip'],
 				$this->version,
 				'all'

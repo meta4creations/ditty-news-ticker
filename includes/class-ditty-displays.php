@@ -168,7 +168,8 @@ class Ditty_Displays {
 	 * @since   3.1
 	 */
 	public function edit_page_redirects() {
-		if ( ! is_admin() ) {
+		$action = isset( $_GET['action'] ) ? $_GET['action'] : false;
+		if ( ! is_admin() || 'trash' == $action ) {
 			return false;
 		}
 		global $pagenow;

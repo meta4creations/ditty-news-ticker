@@ -58,9 +58,20 @@ export default () => {
     html: "",
     css: "",
   });
+  const wrapper = document.getElementById("ditty-layout-editor__wrapper");
 
   useEffect(() => {
     updatePreview();
+
+    const resizeHandler = () => {
+      const windowH = window.innerHeight;
+      const top = wrapper.getBoundingClientRect().top;
+      const h = windowH - top;
+      wrapper.style.height = `${h}px`;
+    };
+    resizeHandler();
+    window.addEventListener("resize", resizeHandler);
+    return () => window.removeEventListener("resize", resizeHandler);
   }, []);
 
   const updateCss = (css) => {

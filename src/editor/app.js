@@ -1,5 +1,5 @@
 import { __ } from "@wordpress/i18n";
-import { useState, useContext } from "@wordpress/element";
+import { useState, useContext, useEffect } from "@wordpress/element";
 import { AdminBar, FooterBar, Preview } from "../common";
 import { getDisplayObject } from "../utils/displayTypes";
 import { EditorContext } from "./context";
@@ -23,6 +23,19 @@ export default () => {
   const [showSpinner, setShowSpinner] = useState(false);
   const updates = helpers.dittyUpdates();
   const hasUpdates = Object.keys(updates).length !== 0;
+  const wrapper = document.getElementById("ditty-editor__wrapper");
+
+  useEffect(() => {
+    const resizeHandler = () => {
+      const windowH = window.innerHeight;
+      const top = wrapper.getBoundingClientRect().top;
+      const h = windowH - top;
+      wrapper.style.height = `${h}px`;
+    };
+    resizeHandler();
+    window.addEventListener("resize", resizeHandler);
+    return () => window.removeEventListener("resize", resizeHandler);
+  }, []);
 
   const onDittySaveComplete = () => {
     setShowSpinner(false);

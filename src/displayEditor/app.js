@@ -1,5 +1,5 @@
 import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
+import { useState, useEffect } from "@wordpress/element";
 import { loremIpsum } from "lorem-ipsum";
 import { AdminBar, FooterBar, Preview } from "../common";
 import DisplayEditor from "./DisplayEditor";
@@ -44,6 +44,19 @@ export default () => {
   );
 
   const hasUpdates = Object.keys(updates).length !== 0;
+  const wrapper = document.getElementById("ditty-display-editor__wrapper");
+
+  useEffect(() => {
+    const resizeHandler = () => {
+      const windowH = window.innerHeight;
+      const top = wrapper.getBoundingClientRect().top;
+      const h = windowH - top;
+      wrapper.style.height = `${h}px`;
+    };
+    resizeHandler();
+    window.addEventListener("resize", resizeHandler);
+    return () => window.removeEventListener("resize", resizeHandler);
+  }, []);
 
   const onDisplaySaveComplete = (data) => {
     setShowSpinner(false);

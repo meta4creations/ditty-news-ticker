@@ -101,9 +101,9 @@
   * {
     box-sizing: border-box;
   }
-  .admin-bar & {
-    height: calc(100vh - 32px);
-  }
+  // .admin-bar & {
+  //   height: calc(100vh - 32px);
+  // }
   &__app {
     flex: 1;
     display: flex;
@@ -167,11 +167,11 @@
   }
 }
 @media screen and (max-width: 782px) {
-  .ditty-adminPage {
-    .admin-bar & {
-      height: calc(100vh - 46px);
-    }
-  }
+  // .ditty-adminPage {
+  //   .admin-bar & {
+  //     height: calc(100vh - 46px);
+  //   }
+  // }
   .admin-bar .ditty-adminPage {
     .Toastify__toast-container--top-right {
       top: calc(1em + 46px);
@@ -179,9 +179,9 @@
   }
 }
 @media screen and (min-width: 782px) {
-  .ditty-adminPage {
-    .admin-bar & {
-      height: calc(100vh - 46px);
-    }
-  }
+  // .ditty-adminPage {
+  //   .admin-bar & {
+  //     height: calc(100vh - 46px);
+  //   }
+  // }
 }

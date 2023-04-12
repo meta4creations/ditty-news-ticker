@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
+import { useState, useEffect } from "@wordpress/element";
 import { AdminBar, FooterBar } from "../common";
 import { Tabs } from "../components";
 import { FieldList } from "../fields";
@@ -38,7 +38,19 @@ export default () => {
   const [showSpinner, setShowSpinner] = useState(false);
 
   const hasUpdates = !_.isEqual(settings, initSettings);
-  //const hasUpdates = JSON.stringify(settings) !== JSON.stringify(initSettings);
+  const wrapper = document.getElementById("ditty-settings__wrapper");
+
+  useEffect(() => {
+    const resizeHandler = () => {
+      const windowH = window.innerHeight;
+      const top = wrapper.getBoundingClientRect().top;
+      const h = windowH - top;
+      wrapper.style.height = `${h}px`;
+    };
+    resizeHandler();
+    window.addEventListener("resize", resizeHandler);
+    return () => window.removeEventListener("resize", resizeHandler);
+  }, []);
 
   const setParams = (name, val) => {
     if (val) {
