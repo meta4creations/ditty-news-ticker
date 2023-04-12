@@ -164,21 +164,21 @@ function ditty_v3_1_upgrades() {
 	}
 
 	// Update custom tag attributes - KEEP
-	// $args = array(
-	// 	'post_type' => 'ditty',
-	// 	'post_status' => 'any',
-	// );
-	// $dittys = get_posts( $args );
-	// if ( is_array( $dittys ) && count( $dittys ) > 0 ) {
-	// 	foreach ( $dittys as $ditty ) {
-	// 		$items_meta = ditty_items_meta( $ditty->ID );
-	// 		if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
-	// 			foreach ( $items_meta as $item ) {
-	// 				ditty_v3_1_item_tag_upgrades( $item );
-	// 			}
-	// 		}			
-	// 	}
-	// }
+	$args = array(
+		'post_type' => 'ditty',
+		'post_status' => 'any',
+	);
+	$dittys = get_posts( $args );
+	if ( is_array( $dittys ) && count( $dittys ) > 0 ) {
+		foreach ( $dittys as $ditty ) {
+			$items_meta = ditty_items_meta( $ditty->ID );
+			if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
+				foreach ( $items_meta as $item ) {
+					ditty_v3_1_item_tag_upgrades( $item );
+				}
+			}			
+		}
+	}
 }
 
 /**
