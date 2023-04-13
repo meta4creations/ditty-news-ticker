@@ -74,7 +74,7 @@ add_filter( 'ditty_layout_tag_author_bio', 'ditty_default_layout_tag_author_bio'
 */
 function ditty_default_layout_tag_content( $content, $item_type, $data, $atts ) {
 	if ( 'default' == $item_type ) {
-		$content = $data['content'];
+		$content = do_shortcode( $data['content'] );
 		$url = ( isset( $data['link_url'] ) && '' != $data['link_url'] ) ? $data['link_url'] : false;
 		if ( $url ) {
 			$target = isset( $data['link_target'] ) ? $data['link_target'] : '_self';
@@ -83,7 +83,7 @@ function ditty_default_layout_tag_content( $content, $item_type, $data, $atts ) 
 			$content = sprintf( '<a href="%2$s" class="ditty-item__link" target="%3$s" rel="%4$s" title="%5$s">%1$s</a>', $content, $url, $target, $rel, $title );
 		}
 	} elseif ( 'wp_editor' == $item_type || 'html' == $item_type ) {
-		$content = $data['content'];
+		$content = do_shortcode( $data['content'] );
 	}	
 	return $content;	
 }
