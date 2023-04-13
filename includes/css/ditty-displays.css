@@ -189,6 +189,7 @@
   box-sizing: border-box;
 }
 .ditty-item__elements img {
+  max-width: 100%;
   height: auto;
 }
 .ditty-item__wrapper {

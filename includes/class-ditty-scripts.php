@@ -445,6 +445,7 @@ class Ditty_Scripts {
 				'editor'					=> array(
 					'ditty_layouts_sass' => ditty_settings( 'ditty_layouts_sass' ),
 				),
+				'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false,
 			) ) ), 'before' ) . ';';
 		}
 		// wp_register_script( 'ditty',
@@ -486,7 +487,9 @@ class Ditty_Scripts {
 			true
 		);
 		if ( empty( $ditty_scripts_enqueued ) ) {
-			wp_add_inline_script( 'ditty-editor-init', 'const dittyEditor=' . json_encode( apply_filters( 'dittyEditor', array() ) ) . ';', 'before' );
+			wp_add_inline_script( 'ditty-editor-init', 'const dittyEditor=' . json_encode( apply_filters( 'dittyEditor', array(
+				'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
+			) ) ) . ';', 'before' );
 		}
 
 		if ( $ditty_id = ditty_editing() ) {
@@ -544,6 +547,7 @@ class Ditty_Scripts {
 					'itemTypes'					=> Ditty()->editor->item_type_data(),
 					'displayTypes'			=> Ditty()->editor->display_type_data(),
 					'variationDefaults' => ditty_settings( 'variation_defaults' ),
+					'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
 				) ) ), 'before' ) . ';';
 			}
 		}
@@ -588,6 +592,7 @@ class Ditty_Scripts {
 					'settings' 				=> 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_display_settings', true ),
 					'editorSettings'	=> 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_editor_settings', true ),
 					'displayTypes'		=> Ditty()->editor->display_type_data(),
+					'dittyDevelopment' => defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
 				) ) ), 'before' ) . ';';
 			}
 		}
@@ -635,6 +640,7 @@ class Ditty_Scripts {
 					'editorItem'			=> 'ditty_layout-new' == $layout_id ? false : get_post_meta( $layout_id, '_ditty_editor_item', true ),
 					'editorSettings'	=> 'ditty_layout-new' == $layout_id ? false : get_post_meta( $layout_id, '_ditty_editor_settings', true ),
 					'itemTypes'				=> Ditty()->editor->item_type_data(),
+					'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
 				) ) ), 'before' ) . ';';
 			}
 		}
@@ -681,6 +687,7 @@ class Ditty_Scripts {
 						'mode'					=> WP_DEBUG ? 'development' : 'production',
 						'adminStrings' 	=> is_admin() ? ditty_admin_strings() : false,
 						'updateIcon'		=> 'fas fa-sync-alt fa-spin',
+						'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false,
 					) ) ), 'before' ) . ';';
 				}
 			}
@@ -700,6 +707,7 @@ class Ditty_Scripts {
 					'fields'						=> Ditty()->settings->fields(),
 					'settings'					=> ditty_settings(),
 					'defaultSettings'		=> ditty_settings_defaults(),
+					'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false,
 				) ) ), 'before' ) . ';';
 			}
 		}

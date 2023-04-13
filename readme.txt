@@ -130,6 +130,11 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.2 =
+* Added shortcode rendering to default, html, wp editor item types
+* Default ticker settings update
+* Added default max-width of layout images
+
 = 3.1.1 =
 * Bug fix from 3.1 update
 
