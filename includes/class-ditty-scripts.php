@@ -28,7 +28,7 @@ class Ditty_Scripts {
 	 * @since   3.0.9
 	 */
 	public function __construct() {	
-		$this->version	= WP_DEBUG ? time() : DITTY_VERSION;
+		$this->version	= WP_DEBUG || ( defined( 'DITTY_DEVELOPMENT' ) && DITTY_DEVELOPMENT ) ? time() : DITTY_VERSION;
 		
 		add_action( 'init', array( $this, 'delete_cache' ) );
     add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );

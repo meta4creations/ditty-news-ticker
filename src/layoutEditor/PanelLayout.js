@@ -47,8 +47,8 @@ const PanelLayout = ({
               onClick={() => {
                 const defaultLayout = getDefaultLayout(itemTypeObject);
                 if (defaultLayout) {
-                  onUpdateLayoutHtml(defaultLayout.css);
                   onUpdateLayoutHtml(defaultLayout.html);
+                  onUpdateLayoutCss(defaultLayout.css);
                   setResetKey(Date.now());
                 }
               }}
