@@ -17,12 +17,10 @@ const LayoutEditor = ({
   title,
   description,
   status,
-  layoutHtml,
-  layoutCss,
+  layout,
   editorItem,
   editorSettings,
-  onUpdateLayoutHtml,
-  onUpdateLayoutCss,
+  onUpdateLayout,
   onUpdateTitle,
   onUpdateDescription,
   onUpdateStatus,
@@ -90,10 +88,8 @@ const LayoutEditor = ({
       content: (
         <PanelLayout
           editorItem={editorItem}
-          layoutHtml={layoutHtml}
-          layoutCss={layoutCss}
-          onUpdateLayoutHtml={onUpdateLayoutHtml}
-          onUpdateLayoutCss={onUpdateLayoutCss}
+          layout={layout}
+          onUpdateLayout={onUpdateLayout}
         />
       ),
     },

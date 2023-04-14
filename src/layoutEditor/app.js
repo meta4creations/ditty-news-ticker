@@ -19,16 +19,29 @@ export default () => {
   const [title, setTitle] = useState(dittyEditorVars.title);
   const [description, setDescription] = useState(dittyEditorVars.description);
   const [status, setStatus] = useState(dittyEditorVars.status);
-  const [html, setHtml] = useState(
+  // const [html, setHtml] = useState(
+  //   "ditty_layout-new" === dittyEditorVars.id
+  //     ? defaultItemTypeObject.defaultLayout.html
+  //     : dittyEditorVars.html
+  // );
+  // const [css, setCss] = useState(
+  //   "ditty_layout-new" === dittyEditorVars.id
+  //     ? defaultItemTypeObject.defaultLayout.css
+  //     : dittyEditorVars.css
+  // );
+
+  const [layout, setLayout] = useState(
     "ditty_layout-new" === dittyEditorVars.id
-      ? defaultItemTypeObject.defaultLayout.html
-      : dittyEditorVars.html
+      ? {
+          html: defaultItemTypeObject.defaultLayout.html,
+          css: defaultItemTypeObject.defaultLayout.css,
+        }
+      : {
+          html: dittyEditorVars.html,
+          css: dittyEditorVars.css,
+        }
   );
-  const [css, setCss] = useState(
-    "ditty_layout-new" === dittyEditorVars.id
-      ? defaultItemTypeObject.defaultLayout.css
-      : dittyEditorVars.css
-  );
+
   const [editorItem, setEditorItem] = useState(
     dittyEditorVars.editorItem
       ? dittyEditorVars.editorItem
@@ -47,8 +60,9 @@ export default () => {
       ? {
           title: title,
           id: dittyEditorVars.id,
-          html: html,
-          css: css,
+          // html: html,
+          // css: css,
+          layout: layout,
           editorItem: editorItem,
         }
       : {}
@@ -74,22 +88,19 @@ export default () => {
     return () => window.removeEventListener("resize", resizeHandler);
   }, []);
 
-  const updateCss = (css) => {
-    updateLayoutCss(css, id);
-  };
-
   const updatePreview = (args = {}) => {
     const updatedEditorItem = args.updatedEditorItem
       ? args.updatedEditorItem
       : editorItem;
-    const updatedHtml = args.updatedHtml ? args.updatedHtml : html;
-    const updatedCss = args.updatedCss ? args.updatedCss : css;
+    const updatedLayout = args.updatedLayout ? args.updatedLayout : layout;
 
     // Get new display items
     const editorDisplayItem = {
       ...updatedEditorItem,
       item_id: id,
-      layout_value: { default: { id: id, html: updatedHtml, css: updatedCss } },
+      layout_value: {
+        default: { id: id, html: updatedLayout.html, css: updatedLayout.css },
+      },
     };
     getDisplayItems(editorDisplayItem, false, (data) => {
       if (data.display_items && data.display_items.length) {
@@ -226,22 +237,14 @@ export default () => {
     setUpdates(newUpdates);
   };
 
-  const handleUpdateLayoutHtml = (updatedHtml) => {
+  const handleUpdateLayout = (updatedLayout) => {
     const newUpdates = { ...updates };
-    newUpdates.html = updatedHtml;
+    newUpdates.layout = updatedLayout;
 
-    setHtml(updatedHtml);
+    setLayout(updatedLayout);
     setUpdates(newUpdates);
-    updatePreview({ updatedHtml: updatedHtml });
-  };
-
-  const handleUpdateLayoutCss = (updatedCss) => {
-    const newUpdates = { ...updates };
-    newUpdates.css = updatedCss;
-
-    setCss(updatedCss);
-    setUpdates(newUpdates);
-    compileLayoutStyle(updatedCss, `${id}_default`, updateCss);
+    updatePreview({ updatedLayout: updatedLayout });
+    updateLayoutCss(updatedLayout.css, id);
   };
 
   const handleUpdateEditorItem = (updatedEditorItem) => {
@@ -297,12 +300,10 @@ export default () => {
           title={title}
           description={description}
           status={status}
-          layoutHtml={html}
-          layoutCss={css}
+          layout={layout}
           editorItem={editorItem}
           editorSettings={editorSettings}
-          onUpdateLayoutHtml={handleUpdateLayoutHtml}
-          onUpdateLayoutCss={handleUpdateLayoutCss}
+          onUpdateLayout={handleUpdateLayout}
           onUpdateTitle={handleUpdateTitle}
           onUpdateDescription={handleUpdateDescription}
           onUpdateStatus={handleUpdateStatus}

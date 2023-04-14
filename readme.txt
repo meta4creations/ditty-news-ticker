@@ -134,6 +134,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 * Added shortcode rendering to default, html, wp editor item types
 * Default ticker settings update
 * Added default max-width of layout images
+* Added "reset to default" layout functionality to the Layout Editor
+* Small bug fixes
+* Resolved editor preview layout issue when re-ordering items
 
 = 3.1.1 =
 * Bug fix from 3.1 update
@@ -841,4 +844,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Major Updates
+Added shortcode rendering and other updates

@@ -92,7 +92,7 @@ class Ditty_Singles {
 			esc_html__( 'Ditty', 'ditty-news-ticker' ),
 			'edit_dittys',
 			'ditty',
-			array( $this, 'page_display' ),
+			array( $this, 'page_display' )
 		);
 		
 		add_submenu_page(

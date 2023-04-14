@@ -17,13 +17,7 @@ const dittyDevelopment = dittyEditorVars.dittyDevelopment
   ? dittyEditorVars.dittyDevelopment
   : false;
 
-const PanelLayout = ({
-  editorItem,
-  layoutHtml,
-  layoutCss,
-  onUpdateLayoutHtml,
-  onUpdateLayoutCss,
-}) => {
+const PanelLayout = ({ editorItem, layout, onUpdateLayout }) => {
   const [currentTabId, setCurrentTabId] = useState("html");
   const itemTypeObject = getItemTypeObject(editorItem.item_type);
   const [resetKey, setResetKey] = useState(false);
@@ -47,8 +41,7 @@ const PanelLayout = ({
               onClick={() => {
                 const defaultLayout = getDefaultLayout(itemTypeObject);
                 if (defaultLayout) {
-                  onUpdateLayoutHtml(defaultLayout.html);
-                  onUpdateLayoutCss(defaultLayout.css);
+                  onUpdateLayout(defaultLayout);
                   setResetKey(Date.now());
                 }
               }}
@@ -94,9 +87,13 @@ const PanelLayout = ({
       return (
         <CodeEditor
           key={`css${resetKey}`}
-          value={layoutCss}
+          value={layout.css}
           extensions={[css()]}
-          onChange={onUpdateLayoutCss}
+          onChange={(updatedCss) => {
+            const updatedLayout = { ...layout };
+            updatedLayout.css = updatedCss;
+            onUpdateLayout(updatedLayout);
+          }}
           delayChange={true}
         />
       );
@@ -104,9 +101,13 @@ const PanelLayout = ({
       return (
         <CodeEditor
           key={`html${resetKey}`}
-          value={layoutHtml}
+          value={layout.html}
           extensions={[html()]}
-          onChange={onUpdateLayoutHtml}
+          onChange={(updatedHtml) => {
+            const updatedLayout = { ...layout };
+            updatedLayout.html = updatedHtml;
+            onUpdateLayout(updatedLayout);
+          }}
           delayChange={true}
         />
       );
