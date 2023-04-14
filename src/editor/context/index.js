@@ -23,7 +23,7 @@ export class EditorProvider extends Component {
     : [];
   initialLayouts = this.editorVars.layouts ? [...this.editorVars.layouts] : [];
   initialDisplay = this.editorVars.displayObject
-    ? this.editorVars.displayObject
+    ? getDisplayObject(this.editorVars.displayObject)
     : getDisplayObject(this.editorVars.display, [...this.initialDisplays]);
   initialSettings = this.editorVars.settings
     ? this.editorVars.settings

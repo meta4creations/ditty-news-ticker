@@ -202,7 +202,7 @@ class Ditty_Displays {
 			esc_html__( 'Display', 'ditty-news-ticker' ),
 			'edit_ditty_displays',
 			'ditty_display',
-			array( $this, 'page_display' ),
+			array( $this, 'page_display' )
 		);
 		
 		add_submenu_page(

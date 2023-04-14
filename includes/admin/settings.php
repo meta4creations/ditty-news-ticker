@@ -6,14 +6,6 @@
  * @since    3.0
 */
 function ditty_settings_pages() {
-	// add_submenu_page(
-	// 	'edit.php?post_type=ditty',		// The ID of the top-level menu page to which this submenu item belongs
-	// 	__( 'Settings', 'ditty-news-ticker' ),		// The value used to populate the browser's title bar when the menu page is active
-	// 	__( 'Settings', 'ditty-news-ticker' ),		// The label of this submenu item displayed in the menu
-	// 	'manage_ditty_settings',			// What roles are able to access this submenu item
-	// 	'ditty_settings',							// The ID used to represent this submenu item
-	// 	'ditty_settings_display'			// The callback function used to render the options for this submenu item
-	// );
 	add_submenu_page(
 		'edit.php?post_type=ditty',		// The ID of the top-level menu page to which this submenu item belongs
 		__( 'Import/Export', 'ditty-news-ticker' ),		// The value used to populate the browser's title bar when the menu page is active

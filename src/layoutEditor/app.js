@@ -19,16 +19,29 @@ export default () => {
   const [title, setTitle] = useState(dittyEditorVars.title);
   const [description, setDescription] = useState(dittyEditorVars.description);
   const [status, setStatus] = useState(dittyEditorVars.status);
-  const [html, setHtml] = useState(
+  // const [html, setHtml] = useState(
+  //   "ditty_layout-new" === dittyEditorVars.id
+  //     ? defaultItemTypeObject.defaultLayout.html
+  //     : dittyEditorVars.html
+  // );
+  // const [css, setCss] = useState(
+  //   "ditty_layout-new" === dittyEditorVars.id
+  //     ? defaultItemTypeObject.defaultLayout.css
+  //     : dittyEditorVars.css
+  // );
+
+  const [layout, setLayout] = useState(
     "ditty_layout-new" === dittyEditorVars.id
-      ? defaultItemTypeObject.defaultLayout.html
-      : dittyEditorVars.html
+      ? {
+          html: defaultItemTypeObject.defaultLayout.html,
+          css: defaultItemTypeObject.defaultLayout.css,
+        }
+      : {
+          html: dittyEditorVars.html,
+          css: dittyEditorVars.css,
+        }
   );
-  const [css, setCss] = useState(
-    "ditty_layout-new" === dittyEditorVars.id
-      ? defaultItemTypeObject.defaultLayout.css
-      : dittyEditorVars.css
-  );
+
   const [editorItem, setEditorItem] = useState(
     dittyEditorVars.editorItem
       ? dittyEditorVars.editorItem
@@ -47,8 +60,7 @@ export default () => {
       ? {
           title: title,
           id: dittyEditorVars.id,
-          html: html,
-          css: css,
+          layout: layout,
           editorItem: editorItem,
         }
       : {}
@@ -74,22 +86,19 @@ export default () => {
     return () => window.removeEventListener("resize", resizeHandler);
   }, []);
 
-  const updateCss = (css) => {
-    updateLayoutCss(css, id);
-  };
-
   const updatePreview = (args = {}) => {
     const updatedEditorItem = args.updatedEditorItem
       ? args.updatedEditorItem
       : editorItem;
-    const updatedHtml = args.updatedHtml ? args.updatedHtml : html;
-    const updatedCss = args.updatedCss ? args.updatedCss : css;
+    const updatedLayout = args.updatedLayout ? args.updatedLayout : layout;
 
     // Get new display items
     const editorDisplayItem = {
       ...updatedEditorItem,
       item_id: id,
-      layout_value: { default: { id: id, html: updatedHtml, css: updatedCss } },
+      layout_value: {
+        default: { id: id, html: updatedLayout.html, css: updatedLayout.css },
+      },
     };
     getDisplayItems(editorDisplayItem, false, (data) => {
       if (data.display_items && data.display_items.length) {
@@ -130,10 +139,11 @@ export default () => {
         });
       });
       // Update state with sanitized data
+      const updatedLayout = { ...layout };
       for (const property in data.updates) {
         switch (property) {
           case "css":
-            setCss(data.updates.css);
+            updatedLayout.css = data.updates.css;
             break;
           case "description":
             setDescription(data.updates.description);
@@ -145,7 +155,7 @@ export default () => {
             setEditorSettings(data.updates.editorSettings);
             break;
           case "html":
-            setHtml(data.updates.html);
+            updatedLayout.html = data.updates.html;
             break;
           case "new":
             setId(data.updates.new);
@@ -157,6 +167,7 @@ export default () => {
             break;
         }
       }
+      setLayout(updatedLayout);
     }
     setUpdates({});
   };
@@ -167,10 +178,10 @@ export default () => {
     }
     setShowSpinner(true);
 
-    const layout = {
+    const compiledLayout = {
       id: id,
-      html: updates.html ? updates.html : false,
-      css: updates.css ? updates.css : false,
+      html: updates.layout && updates.layout.html ? updates.layout.html : false,
+      css: updates.layout && updates.layout.css ? updates.layout.css : false,
     };
 
     const data = {
@@ -179,7 +190,7 @@ export default () => {
       status: updates.status ? updates.status : false,
       editorItem: updates.editorItem ? updates.editorItem : false,
       editorSettings: updates.editorSettings ? updates.editorSettings : false,
-      layout: layout,
+      layout: compiledLayout,
     };
 
     try {
@@ -226,22 +237,15 @@ export default () => {
     setUpdates(newUpdates);
   };
 
-  const handleUpdateLayoutHtml = (updatedHtml) => {
+  const handleUpdateLayout = (updatedLayout) => {
     const newUpdates = { ...updates };
-    newUpdates.html = updatedHtml;
-
-    setHtml(updatedHtml);
+    newUpdates.layout = updatedLayout;
+    setLayout(updatedLayout);
     setUpdates(newUpdates);
-    updatePreview({ updatedHtml: updatedHtml });
-  };
-
-  const handleUpdateLayoutCss = (updatedCss) => {
-    const newUpdates = { ...updates };
-    newUpdates.css = updatedCss;
-
-    setCss(updatedCss);
-    setUpdates(newUpdates);
-    compileLayoutStyle(updatedCss, `${id}_default`, updateCss);
+    updatePreview({ updatedLayout: updatedLayout });
+    compileLayoutStyle(updatedLayout.css, `${id}_default`, (css) => {
+      updateLayoutCss(css, id);
+    });
   };
 
   const handleUpdateEditorItem = (updatedEditorItem) => {
@@ -297,12 +301,10 @@ export default () => {
           title={title}
           description={description}
           status={status}
-          layoutHtml={html}
-          layoutCss={css}
+          layout={layout}
           editorItem={editorItem}
           editorSettings={editorSettings}
-          onUpdateLayoutHtml={handleUpdateLayoutHtml}
-          onUpdateLayoutCss={handleUpdateLayoutCss}
+          onUpdateLayout={handleUpdateLayout}
           onUpdateTitle={handleUpdateTitle}
           onUpdateDescription={handleUpdateDescription}
           onUpdateStatus={handleUpdateStatus}

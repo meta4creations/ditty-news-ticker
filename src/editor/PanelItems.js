@@ -134,10 +134,10 @@ const PanelItems = (props) => {
               setPopupStatus(false);
               actions.updateItem(updatedItem, updateKeys);
               if (tempDisplayItems) {
-                replaceDisplayItems(
-                  dittyEl,
-                  helpers.replaceDisplayItems(tempDisplayItems)
-                );
+                const updatedDisplayItems =
+                  helpers.replaceDisplayItems(tempDisplayItems);
+                replaceDisplayItems(dittyEl, updatedDisplayItems);
+                actions.updateDisplayItems(updatedDisplayItems);
               }
               setTempDisplayItems(null);
             }}

@@ -120,7 +120,7 @@ class Ditty_Layouts {
 			esc_html__( 'Layout', 'ditty-news-ticker' ),
 			'edit_ditty_layouts',
 			'ditty_layout',
-			array( $this, 'page_display' ),
+			array( $this, 'page_display' )
 		);
 		
 		add_submenu_page(

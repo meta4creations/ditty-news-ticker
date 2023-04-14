@@ -63,6 +63,15 @@ const migrateDisplayTypes = (displayTypes) => {
  */
 export const getDisplayObject = (display, displays) => {
   if (typeof display === "object") {
+    if (!display.type) {
+      display.type = "list";
+    }
+    if (!display.settings) {
+      const displayTypeObject = getDisplayTypeObject(display.type);
+      display.settings = displayTypeObject.defaultValues
+        ? displayTypeObject.defaultValues
+        : {};
+    }
     return display;
   } else {
     const index = displays.findIndex((object) => {
@@ -72,9 +81,9 @@ export const getDisplayObject = (display, displays) => {
       const displayObject = _.cloneDeep(displays[index]);
       return displayObject;
     }
-    const displayTypeObject = getDisplayTypeObject("ticker");
+    const displayTypeObject = getDisplayTypeObject("list");
     return {
-      type: "ticker",
+      type: "list",
       settings: displayTypeObject.defaultValues
         ? displayTypeObject.defaultValues
         : {},

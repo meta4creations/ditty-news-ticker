@@ -29,7 +29,7 @@ if (dittyEditor) {
       scrollDelay: "3",
       cloneItems: "yes",
       wrapItems: "yes",
-      hoverPause: "1",
+      hoverPause: "",
       titleDisplay: "none",
       titleElement: "h3",
       titleElementPosition: "start",

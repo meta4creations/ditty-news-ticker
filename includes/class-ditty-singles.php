@@ -92,7 +92,7 @@ class Ditty_Singles {
 			esc_html__( 'Ditty', 'ditty-news-ticker' ),
 			'edit_dittys',
 			'ditty',
-			array( $this, 'page_display' ),
+			array( $this, 'page_display' )
 		);
 		
 		add_submenu_page(
@@ -372,9 +372,14 @@ class Ditty_Singles {
 				$display_type = get_post_meta( $display_ajax, '_ditty_display_type', true );
 			}
 		}
+		
+		// Make sure the display settings is an array
+		if ( ! is_array( $display_settings ) ) {
+			$display_settings = [];
+		}
 
 		if ( ! $display_type || ! ditty_display_type_exists( $display_type ) ) {
-			// DO SOMETHING HERE
+			$display_type = 'default';
 		}
 
 		// Setup the ditty values
@@ -439,9 +444,14 @@ class Ditty_Singles {
 				$display_type = get_post_meta( $display_id, '_ditty_display_type', true );
 			}
 		}
+		
+		// Make sure the display settings is an array
+		if ( ! is_array( $display_settings ) ) {
+			$display_settings = [];
+		}
 
 		if ( ! $display_type || ! ditty_display_type_exists( $display_type ) ) {
-			// DO SOMETHING HERE
+			$display_type = 'default';
 		}
 	
 		// Setup the ditty values
@@ -644,7 +654,7 @@ class Ditty_Singles {
 	 */
 	function order_items( $items ) {
 		$parent_items = [];
-    $child_groups = [];
+		$child_groups = [];
 
 		if ( is_array( $items ) && count( $items ) > 0 ) {
 			foreach ( $items as $item ) {
@@ -660,14 +670,14 @@ class Ditty_Singles {
 		}
 
 		$updated_items = array_reduce( $parent_items, function( $items_list, $item ) use ( $child_groups ) {
-      $items_list[] = $item;
+			$items_list[] = $item;
 			if ( isset( $child_groups[$item->item_id] ) && is_array( $child_groups[$item->item_id] ) && count( $child_groups[$item->item_id] ) > 0 ) {
 				foreach ( $child_groups[$item->item_id] as $child_item ) {
 					$items_list[] = $child_item;
 				}
 			}
-      return $items_list;
-    }, []);
+			return $items_list;
+		}, []);
 
 		return $updated_items;
 	}
@@ -790,7 +800,7 @@ class Ditty_Singles {
 		if ( $is_new_ditty ) {
 			$id = wp_insert_post( [
 				'post_type' => 'ditty',
-				'post_status' => $status ? $status : 'draft',
+				'post_status' => $status ? $status : 'publish',
 				'post_title' => $title,
 			] );
 			$updates['new'] = $id;

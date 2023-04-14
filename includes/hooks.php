@@ -232,10 +232,15 @@ add_action( 'admin_menu', 'ditty_dashboard_custom_menu_classes', 99 );
 
 
 
-add_filter('use_block_editor_for_post_type', 'prefix_disable_gutenberg', 10, 2);
-function prefix_disable_gutenberg($current_status, $post_type)
-{
-		// Use your post type key instead of 'product'
-		if ($post_type === 'ditty_display') return false;
-		return $current_status;
+// add_filter('use_block_editor_for_post_type', 'prefix_disable_gutenberg', 10, 2);
+// function prefix_disable_gutenberg($current_status, $post_type)
+// {
+// 		// Use your post type key instead of 'product'
+// 		if ($post_type === 'ditty_display') return false;
+// 		return $current_status;
+// }
+
+function ditty_shortcode_test_display() {
+	return 'This is content from a shortcode';
 }
+add_shortcode( 'ditty_shortcode_test', 'ditty_shortcode_test_display' );
