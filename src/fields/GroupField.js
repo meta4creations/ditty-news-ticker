@@ -48,11 +48,11 @@ const GroupField = (props) => {
     if (multipleFields) {
       onChange(updatedValue, inputField);
     } else {
-      groupValue = typeof value === "object" ? value : {};
+      groupValue =
+        typeof value === "object" && !Array.isArray(value) ? value : {};
       groupValue[inputField.id] = updatedValue;
       onChange(groupValue);
     }
-    //onChange(groupValue);
   };
 
   const groupValues = multipleFields ? {} : value;

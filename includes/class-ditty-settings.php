@@ -326,7 +326,7 @@ class Ditty_Settings {
 			'ditty_display_ui'		=> isset( $values['ditty_display_ui'] ) 		? sanitize_key( $values['ditty_display_ui'] ) : 'enabled',
 			'ditty_layout_ui'			=> isset( $values['ditty_layout_ui'] ) 			? sanitize_key( $values['ditty_layout_ui'] ) : 'enabled',
 			'ditty_layouts_sass' 	=> isset( $values['ditty_layouts_sass'] ) 	? sanitize_key( $values['ditty_layouts_sass'] ) : false,
-			'variation_defaults'	=> isset( $values['variation_defaults'] )		? ditty_sanitize_settings( json_decode( $values['variation_defaults'], true ) ) : [],
+			'variation_defaults'	=> isset( $values['variation_defaults'] )		? ditty_sanitize_settings( $values['variation_defaults'] ) : [],
 			'global_ditty'				=> $sanitized_global_ditty,
 			'ditty_news_ticker' 	=> isset( $values['ditty_news_ticker'] ) 		? sanitize_key( $values['ditty_news_ticker'] ) : false,
 			'disable_fontawesome' => isset( $values['disable_fontawesome'] )	? sanitize_key( $values['disable_fontawesome'] ) : false,
