@@ -389,7 +389,7 @@ class Ditty_Singles {
 		$args['uniqid'] 				= $uniqid_ajax;
 		$args['title'] 					= get_the_title( $id_ajax );
 		$args['status'] 				= $status;
-		$args['display'] 				= $display_ajax;
+		$args['display'] 				= is_array( $display_ajax ) ? $id_ajax : $display_ajax;
 		$args['showEditor'] 		= $editor_ajax;
 
 		$items = $this->get_display_items( $id_ajax, 'cache', $custom_layout_settings_ajax );

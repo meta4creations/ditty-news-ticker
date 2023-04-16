@@ -25,6 +25,22 @@
       "oO" : 1,
       "oS" : 1
     },
+    "\/.nova\/Publishing\/Staging.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/.nova\/Publishing\/Staging-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
+    "\/.nova\/Publishing\/Testing.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/.nova\/Publishing\/Testing-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
     "\/.npmrc" : {
       "cB" : 0,
       "ft" : 8192,
