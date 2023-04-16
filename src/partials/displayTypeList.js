@@ -137,9 +137,6 @@ if (dittyEditor) {
                 ),
                 options: sliderTransitions,
                 std: "fade",
-                show: {
-                  fields: [{ key: "paging", value: "1", compare: "=" }],
-                },
               },
               {
                 type: "select",

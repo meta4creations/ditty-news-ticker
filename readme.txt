@@ -130,6 +130,10 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.4 =
+* Resolved missing list transition settings
+* Image field bug fixes
+
 = 3.1.3 =
 * Added shortcode rendering to default, html, wp editor item types
 * Default ticker settings update

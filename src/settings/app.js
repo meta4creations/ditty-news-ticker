@@ -37,8 +37,6 @@ export default () => {
   const [settings, setSettings] = useState(_.cloneDeep(initSettings));
   const [showSpinner, setShowSpinner] = useState(false);
 
-  console.log("settings", settings);
-
   const hasUpdates = !_.isEqual(settings, initSettings);
   const wrapper = document.getElementById("ditty-settings__wrapper");
 
@@ -94,7 +92,6 @@ export default () => {
     //     settings.variation_defaults
     //   );
     // }
-    console.log("updatedSettings", updatedSettings);
 
     try {
       await saveSettings(updatedSettings, onSettingsSaveComplete);
@@ -136,7 +133,6 @@ export default () => {
         values={settings}
         onUpdate={(id, value) => {
           const updatedSettings = _.cloneDeep(settings);
-          console.log("updatedSettings", updatedSettings);
           updatedSettings[id] = value;
           setSettings(updatedSettings);
         }}

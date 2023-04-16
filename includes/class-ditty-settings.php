@@ -122,7 +122,7 @@ class Ditty_Settings {
 						'type' 				=> 'radio',
 						'id' 					=> 'edit_links',
 						'name' 				=> esc_html__( 'Edit Links', 'ditty-news-ticker' ),
-						'description' 				=> esc_html__( 'Display links to edit Ditty', 'ditty-news-ticker' ),
+						'description' => esc_html__( 'Display links to edit Ditty.', 'ditty-news-ticker' ),
 						'inline'			=> true,
 						'options'			=> array(
 							'disabled'	=> esc_html__( 'Disabled', 'ditty-news-ticker' ),
@@ -142,8 +142,8 @@ class Ditty_Settings {
 						'type' 				=> 'checkbox',
 						'id' 					=> 'ditty_news_ticker',
 						'name' 				=> esc_html__( 'Ditty News Ticker', 'ditty-news-ticker' ),
-						'label' 			=> esc_html__( 'Enable Ditty News Ticker (Legacy code)', 'ditty-news-ticker' ),
-						'description' 				=> esc_html__( 'This will enable loading of all legacy scripts and post types. Only enable this option if you have active Ditty News Ticker posts displaying on your site. You must refresh your browser after saving before changes take place.', 'ditty-news-ticker' ),
+						'label' 			=> esc_html__( 'Enable Ditty News Ticker (Legacy code).', 'ditty-news-ticker' ),
+						'description' => esc_html__( 'This will enable loading of all legacy scripts and post types. Only enable this option if you have active Ditty News Ticker posts displaying on your site. You must refresh your browser after saving before changes take place.', 'ditty-news-ticker' ),
 						'std' 				=> ditty_settings_defaults( 'ditty_news_ticker' ),
 					],	
 				]

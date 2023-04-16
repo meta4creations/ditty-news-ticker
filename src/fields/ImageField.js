@@ -9,9 +9,11 @@ const ImageField = (props) => {
   const { value, onChange, mediaTitle, mediaButton, fileTypes, multiple } =
     props;
 
-  const [imagePreview, setImagePreview] = useState(
-    value && value.sizes ? value.sizes.medium.url : false
-  );
+  let initialImagePreview = value && value.sizes ? value.sizes.full.url : false;
+  if (value && value.sizes && value.sizes.large) {
+    initialImagePreview = value.sizes.large.url;
+  }
+  const [imagePreview, setImagePreview] = useState(initialImagePreview);
 
   let uploader;
   const runUploader = (e) => {
@@ -56,17 +58,6 @@ const ImageField = (props) => {
     uploader.on("select", function () {
       var attachments = uploader.state().get("selection").toJSON();
       if (attachments.length) {
-        // const imageData = attachments.map((attachment) => {
-        //   return {
-        //     id: attachment.id,
-        //     title: attachment.title,
-        //     caption: attachment.caption,
-        //     description: attachment.description,
-        //     link: attachment.link,
-        //     url: attachment.url,
-        //     sizes: attachment.sizes,
-        //   };
-        // });
         const imageData = {
           id: attachments[0].id,
           title: attachments[0].title,
@@ -76,7 +67,12 @@ const ImageField = (props) => {
           url: attachments[0].url,
           sizes: attachments[0].sizes,
         };
-        setImagePreview(imageData.sizes.medium.url);
+
+        let newImagePreview = imageData.sizes.large
+          ? imageData.sizes.large.url
+          : imageData.sizes.full.url;
+
+        setImagePreview(newImagePreview);
         onChange(imageData);
       }
     });
@@ -95,7 +91,10 @@ const ImageField = (props) => {
           res.data.media_details &&
           res.data.media_details.sizes
         ) {
-          setImagePreview(res.data.media_details.sizes.medium.source_url);
+          let newImagePreview = res.data.media_details.sizes.large
+            ? res.data.media_details.sizes.large.url
+            : res.data.media_details.sizes.full.url;
+          setImagePreview(newImagePreview);
         }
       });
     } catch (ex) {
