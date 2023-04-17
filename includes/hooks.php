@@ -240,7 +240,16 @@ add_action( 'admin_menu', 'ditty_dashboard_custom_menu_classes', 99 );
 // 		return $current_status;
 // }
 
-function ditty_shortcode_test_display() {
-	return 'This is content from a shortcode';
+function ditty_shortcode_test_display( $atts, $content = '' ) {
+	$defaults = [
+		'test' => 'test'
+	];
+	$args = shortcode_atts( $defaults, $atts );
+
+	$html = '';
+	$html .= "<p>This is a shortcode test, using the 'test' attribute: <strong>{$args['test']}</strong>.</p>";
+	$html .= $content;
+
+	return $html;
 }
 add_shortcode( 'ditty_shortcode_test', 'ditty_shortcode_test_display' );

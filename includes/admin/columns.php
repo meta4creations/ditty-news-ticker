@@ -3,7 +3,7 @@
 /**
  * Set custom edit screen columns
  *
- * @since    3.0
+ * @since    3.1.5
  * @var      array    $new_columns
 */
 function ditty_manage_posts_columns( $columns, $post_type = false ) {
@@ -23,8 +23,8 @@ function ditty_manage_posts_columns( $columns, $post_type = false ) {
 					//$new_columns['ditty_layout_template'] = __( 'Layout Template', 'ditty-news-ticker' );
 					break;
 				case 'ditty':
-					$new_columns['ditty_display'] = __( 'Display', 'ditty-news-ticker' );
 					$new_columns['ditty_display_type'] = __( 'Display Type', 'ditty-news-ticker' );
+					$new_columns['ditty_display'] = __( 'Display', 'ditty-news-ticker' );
 					$new_columns['ditty_shortcode'] = __( 'Shortcode', 'ditty-news-ticker' );
 					break;
 			}

@@ -110,11 +110,11 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 	 * Sanitize the settings
 	 *
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.1.5
 	 */
 	public function sanitize_settings( $values ) {
 		$sanitized_fields = array(
-			'content' 			=> isset( $values['content'] ) ? wp_kses_post( $values['content'] ) : false,
+			'content' 			=> isset( $values['content'] ) ? wp_kses_post( stripslashes( $values['content'] ) ) : false,
 			'link_url' 			=> isset( $values['link_url'] ) ? esc_url_raw( $values['link_url'] ) : false,
 			'link_title' 		=> isset( $values['link_title'] ) ? esc_attr( $values['link_title'] ) : false,
 			'link_target' 	=> isset( $values['link_target'] ) ? esc_attr( $values['link_target'] ) : false,
