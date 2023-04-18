@@ -1,8 +1,8 @@
 import axios from "axios";
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
-//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-//import { faPlus } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/pro-light-svg-icons";
 import BaseField from "./BaseField";
 
 const ImageField = (props) => {
@@ -109,7 +109,7 @@ const ImageField = (props) => {
     <BaseField {...props}>
       <button onClick={runUploader}>
         {imagePreview && <img src={imagePreview} />}
-        <i className="fa-solid fa-plus"></i>
+        <FontAwesomeIcon icon={faPlus} />
       </button>
     </BaseField>
   );

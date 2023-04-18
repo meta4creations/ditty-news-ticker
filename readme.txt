@@ -133,6 +133,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 = 3.1.5 =
 * Ditty admin column order change
 * Added stripslashes to Default, HTML, and WP Editor item type outputs
+* Updated to better icons
+* Added unsaved data check when leaving editors
+* Added live layout editing preview to Ditty editor
 
 = 3.1.4 =
 * Resolved missing list transition settings

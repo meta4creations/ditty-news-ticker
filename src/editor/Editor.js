@@ -2,12 +2,12 @@ import classnames from "classnames";
 import { applyFilters } from "@wordpress/hooks";
 import { __ } from "@wordpress/i18n";
 import { useState, useContext } from "@wordpress/element";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import {
-//   faBarsStaggered,
-//   faTabletScreen,
-//   faGear,
-// } from "@fortawesome/pro-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBarsStaggered,
+  faTabletScreen,
+  faGear,
+} from "@fortawesome/pro-regular-svg-icons";
 import { Tabs } from "../components";
 import PanelItems from "./PanelItems";
 import PanelDisplays from "./PanelDisplays";
@@ -65,19 +65,19 @@ const Editor = ({ className }) => {
       {
         id: "items",
         label: __("Items", "ditty-news-ticker"),
-        icon: <i className="fa-solid fa-bars-staggered"></i>,
+        icon: <FontAwesomeIcon icon={faBarsStaggered} />,
         content: <PanelItems />,
       },
       {
         id: "display",
         label: __("Display", "ditty-news-ticker"),
-        icon: <i className="fa-solid fa-tablet-screen-button"></i>,
+        icon: <FontAwesomeIcon icon={faTabletScreen} />,
         content: <PanelDisplays />,
       },
       {
         id: "settings",
         label: __("Settings", "ditty-news-ticker"),
-        icon: <i className="fa-solid fa-gear"></i>,
+        icon: <FontAwesomeIcon icon={faGear} />,
         content: <PanelSettings />,
       },
     ],

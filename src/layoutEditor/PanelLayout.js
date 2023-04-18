@@ -13,10 +13,6 @@ import { CodeEditor, LayoutTags } from "../common";
 import { IconBlock, Link, Panel, Tabs } from "../components";
 import { getItemTypeObject, getDefaultLayout } from "../utils/itemTypes";
 
-const dittyDevelopment = dittyEditorVars.dittyDevelopment
-  ? dittyEditorVars.dittyDevelopment
-  : false;
-
 const PanelLayout = ({ editorItem, layout, onUpdateLayout }) => {
   const [currentTabId, setCurrentTabId] = useState("html");
   const itemTypeObject = getItemTypeObject(editorItem.item_type);
@@ -26,13 +22,7 @@ const PanelLayout = ({ editorItem, layout, onUpdateLayout }) => {
     return (
       <>
         <IconBlock
-          icon={
-            dittyDevelopment ? (
-              <FontAwesomeIcon icon={faPaintbrushPencil} />
-            ) : (
-              <i className="fa-solid fa-pen-ruler"></i>
-            )
-          }
+          icon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
           className="ditty-icon-block--heading"
         >
           <div className="ditty-icon-block--heading__title">
@@ -59,20 +49,12 @@ const PanelLayout = ({ editorItem, layout, onUpdateLayout }) => {
             {
               id: "html",
               label: __("HTML", "ditty-news-ticker"),
-              icon: dittyDevelopment ? (
-                <FontAwesomeIcon icon={faCode} />
-              ) : (
-                <i className="fa-solid fa-code"></i>
-              ),
+              icon: <FontAwesomeIcon icon={faCode} />,
             },
             {
               id: "css",
               label: __("CSS", "ditty-news-ticker"),
-              icon: dittyDevelopment ? (
-                <FontAwesomeIcon icon={faBrush} />
-              ) : (
-                <i className="fa-solid fa-brush"></i>
-              ),
+              icon: <FontAwesomeIcon icon={faBrush} />,
             },
           ]}
           currentTabId={currentTabId}

@@ -1,8 +1,9 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
+import { getDisplayItems, replaceDisplayItems } from "../services/dittyService";
 import {
   getItemTypeObject,
   getItemLabel,
@@ -17,6 +18,7 @@ import PopupEditLayout from "./PopupEditLayout";
 
 const PopupLayouts = ({
   item,
+  editor,
   layouts,
   submitLabel = __("Update Item", "ditty-news-ticker"),
   onChange,
@@ -30,6 +32,7 @@ const PopupLayouts = ({
   const [selectedVariation, setSelectedVariation] = useState();
   const [variationTemplates, setVariationTemplates] = useState({});
   const [popupStatus, setPopupStatus] = useState(false);
+  const [hasLiveEditPreview, setHasLiveEditPreview] = useState(false);
 
   const itemTypeObject = getItemTypeObject(editItem);
 
@@ -112,8 +115,8 @@ const PopupLayouts = ({
             templateType="layout"
             currentTemplate={templateToSave}
             templates={layouts}
-            headerIcon={<i className="fa-solid fa-pen-ruler"></i>}
-            templateIcon={() => <i className="fa-solid fa-pen-ruler"></i>}
+            headerIcon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
+            templateIcon={() => <FontAwesomeIcon icon={faPaintbrushPencil} />}
             saveData={(type, selectedTemplate, name, description) => {
               return "existing" === type
                 ? {
@@ -151,8 +154,8 @@ const PopupLayouts = ({
             level="2"
             currentTemplate={getVariationLayoutObject(selectedVariation)}
             templates={layouts}
-            headerIcon={<i className="fa-solid fa-pen-ruler"></i>}
-            templateIcon={() => <i className="fa-solid fa-pen-ruler"></i>}
+            headerIcon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
+            templateIcon={() => <FontAwesomeIcon icon={faPaintbrushPencil} />}
             submitLabel={__("Use Layout", "ditty-news-ticker")}
             onChange={(selectedTemplate) => {
               previewLayout(selectedVariation, selectedTemplate);
@@ -179,10 +182,38 @@ const PopupLayouts = ({
             itemTypeObject={itemTypeObject}
             onClose={() => {
               setPopupStatus(false);
+
+              // If display has been updated with changes, revert them
+              if (hasLiveEditPreview) {
+                const dittyEl = document.getElementById("ditty-editor__ditty");
+                getDisplayItems(editItem, false, (data) => {
+                  const updatedDisplayItems =
+                    editor.helpers.replaceDisplayItems(data.display_items);
+                  replaceDisplayItems(dittyEl, updatedDisplayItems);
+                });
+                setHasLiveEditPreview(false);
+              }
+            }}
+            onChange={(updatedLayout) => {
+              const updatedItem = { ...editItem };
+              const updatedLayoutValue = { ...updatedItem.layout_value };
+              updatedLayoutValue[selectedVariation] = updatedLayout;
+              updatedItem.layout_value = updatedLayoutValue;
+
+              // Get new display items
+              const dittyEl = document.getElementById("ditty-editor__ditty");
+              getDisplayItems(updatedItem, false, (data) => {
+                const updatedDisplayItems = editor.helpers.replaceDisplayItems(
+                  data.display_items
+                );
+                replaceDisplayItems(dittyEl, updatedDisplayItems);
+              });
+              setHasLiveEditPreview(true);
             }}
             onUpdate={(updatedLayout) => {
               setPopupStatus(false);
               setVariationLayout(selectedVariation, updatedLayout, true);
+              setHasLiveEditPreview(false);
             }}
           />
         );

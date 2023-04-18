@@ -1,14 +1,14 @@
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
 import { applyFilters } from "@wordpress/hooks";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import {
-//   faGear,
-//   faPaintbrushPencil,
-//   faClone,
-//   faTrashCan,
-//   faBarsStaggered,
-// } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faGear,
+  faPaintbrushPencil,
+  faClone,
+  faTrashCan,
+  faBarsStaggered,
+} from "@fortawesome/pro-light-svg-icons";
 import { getDisplayItems, replaceDisplayItems } from "../services/dittyService";
 import { getItemTypePreviewIcon, getItemLabel } from "../utils/itemTypes";
 
@@ -58,7 +58,7 @@ const EditItemActions = (props) => {
               setPopupStatus("editItem");
             }}
           >
-            <i className="fa-solid fa-gear"></i>
+            <FontAwesomeIcon icon={faGear} />
           </span>
         ),
       },
@@ -74,7 +74,7 @@ const EditItemActions = (props) => {
               setPopupStatus("editLayout");
             }}
           >
-            <i className="fa-solid fa-pen-ruler"></i>
+            <FontAwesomeIcon icon={faPaintbrushPencil} />
           </span>
         ),
       },
@@ -121,7 +121,7 @@ const EditItemActions = (props) => {
               });
             }}
           >
-            <i className="fa-solid fa-clone"></i>
+            <FontAwesomeIcon icon={faClone} />
           </span>
         ),
       },
@@ -136,7 +136,7 @@ const EditItemActions = (props) => {
               handleDeleteItem(item);
             }}
           >
-            <i className="fa-solid fa-trash-can"></i>
+            <FontAwesomeIcon icon={faTrashCan} />
           </span>
         ),
       },
@@ -154,7 +154,7 @@ const EditItemActions = (props) => {
                 setShowChildPanel && setShowChildPanel(!showChildPanel);
               }}
             >
-              <i className="fa-solid fa-bars-staggered"></i>
+              <FontAwesomeIcon icon={faBarsStaggered} />
             </span>
           ) : (
             false

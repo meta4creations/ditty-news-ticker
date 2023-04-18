@@ -29,9 +29,6 @@ const LayoutEditor = ({
   className,
 }) => {
   const [currentTabId, setCurrentTabId] = useState("layout");
-  const dittyDevelopment = dittyEditorVars.dittyDevelopment
-    ? dittyEditorVars.dittyDevelopment
-    : false;
 
   let editorWidth = editorSettings.editorWidth
     ? Number(editorSettings.editorWidth)
@@ -80,11 +77,7 @@ const LayoutEditor = ({
     {
       id: "layout",
       label: __("Layout", "ditty-news-ticker"),
-      icon: dittyDevelopment ? (
-        <FontAwesomeIcon icon={faPaintbrushPencil} />
-      ) : (
-        <i className="fa-solid fa-pen-ruler"></i>
-      ),
+      icon: <FontAwesomeIcon icon={faPaintbrushPencil} />,
       content: (
         <PanelLayout
           editorItem={editorItem}
@@ -96,11 +89,7 @@ const LayoutEditor = ({
     {
       id: "item",
       label: __("Item", "ditty-news-ticker"),
-      icon: dittyDevelopment ? (
-        <FontAwesomeIcon icon={faBarsStaggered} />
-      ) : (
-        <i className="fa-solid fa-bars-staggered"></i>
-      ),
+      icon: <FontAwesomeIcon icon={faBarsStaggered} />,
       content: (
         <PanelItem
           editorItem={editorItem}
@@ -111,11 +100,7 @@ const LayoutEditor = ({
     {
       id: "settings",
       label: __("Settings", "ditty-news-ticker"),
-      icon: dittyDevelopment ? (
-        <FontAwesomeIcon icon={faGear} />
-      ) : (
-        <i className="fa-solid fa-gear"></i>
-      ),
+      icon: <FontAwesomeIcon icon={faGear} />,
       content: (
         <PanelSettings
           title={title}

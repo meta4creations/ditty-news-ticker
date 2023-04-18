@@ -1,13 +1,13 @@
 import { __ } from "@wordpress/i18n";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faCode, faSliders } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCode, faSliders } from "@fortawesome/pro-light-svg-icons";
 
 if (dittyEditor) {
   const itemType = __("HTML", "ditty-news-ticker");
 
   dittyEditor.registerItemType({
     id: "html",
-    icon: <i className="fa-solid fa-code"></i>,
+    icon: <FontAwesomeIcon icon={faCode} />,
     label: itemType,
     description: __(
       "Manually add custom HTML to the item.",
@@ -22,7 +22,7 @@ if (dittyEditor) {
           `Configure the settings of the WP Editor.`,
           "ditty-news-ticker"
         ),
-        icon: <i className="fa-solid fa-sliders"></i>,
+        icon: <FontAwesomeIcon icon={faSliders} />,
         fields: [
           {
             type: "custom_html",

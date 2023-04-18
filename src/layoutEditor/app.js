@@ -75,6 +75,17 @@ export default () => {
   useEffect(() => {
     updatePreview();
 
+    const handleBeforeUnload = (event) => {
+      if (hasUpdates) {
+        event.preventDefault();
+        event.returnValue = __(
+          "You have unsaved changes. Are you sure you want to leave this page?",
+          "ditty-news-ticker"
+        );
+      }
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
     const resizeHandler = () => {
       const windowH = window.innerHeight;
       const top = wrapper.getBoundingClientRect().top;
@@ -83,8 +94,13 @@ export default () => {
     };
     resizeHandler();
     window.addEventListener("resize", resizeHandler);
-    return () => window.removeEventListener("resize", resizeHandler);
-  }, []);
+
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener("resize", resizeHandler);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [hasUpdates]);
 
   const updatePreview = (args = {}) => {
     const updatedEditorItem = args.updatedEditorItem

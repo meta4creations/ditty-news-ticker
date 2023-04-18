@@ -102,6 +102,7 @@ const PanelItems = (props) => {
         return (
           <PopupLayouts
             item={currentItem}
+            editor={editor}
             layouts={layouts}
             onClose={(editedItem) => {
               setPopupStatus(false);

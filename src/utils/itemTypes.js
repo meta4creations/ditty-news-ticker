@@ -1,6 +1,6 @@
 import { __ } from "@wordpress/i18n";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faPencil, faSliders } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil, faSliders } from "@fortawesome/pro-light-svg-icons";
 import _ from "lodash";
 
 /**
@@ -72,7 +72,7 @@ export const getItemTypeIcon = (item) => {
   return itemType.length ? (
     itemType[0].icon
   ) : (
-    <i className="fa-solid fa-pencil"></i>
+    <FontAwesomeIcon icon={faPencil} />
   );
 };
 
@@ -118,7 +118,7 @@ export const getItemTypeSettings = (item) => {
         `Configure the settings of the ${itemTypeObject.label}.`,
         "ditty-news-ticker"
       ),
-      icon: <i className="fa-solid fa-sliders"></i>,
+      icon: <FontAwesomeIcon icon={faSliders} />,
       fields: itemTypeObject.phpSettings,
     });
   } else {

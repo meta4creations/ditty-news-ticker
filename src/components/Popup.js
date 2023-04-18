@@ -1,8 +1,8 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import classnames from "classnames";
-//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-//import { faLoader } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLoader } from "@fortawesome/pro-light-svg-icons";
 import Button from "./Button";
 import ButtonGroup from "./ButtonGroup";
 import Link from "./Link";
@@ -51,9 +51,7 @@ const Popup = ({
                   }}
                   disabled={submitDisabled || (showSpinner && "disabled")}
                 >
-                  {showSpinner && (
-                    <i className="fa-solid fa-circle-notch fa-spin"></i>
-                  )}
+                  {showSpinner && <FontAwesomeIcon icon={faLoader} spin />}
                   <span>
                     {submitLabel
                       ? submitLabel

@@ -1,13 +1,13 @@
 import { addFilter } from "@wordpress/hooks";
 import { __ } from "@wordpress/i18n";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faEllipsis } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsis } from "@fortawesome/pro-light-svg-icons";
 const { easeOptions } = dittyEditor.helpers;
 
 if (dittyEditor) {
   dittyEditor.registerDisplayType({
     id: "ticker",
-    icon: <i className="fa-solid fa-ellipsis"></i>,
+    icon: <FontAwesomeIcon icon={faEllipsis} />,
     label: __("Ticker", "ditty-news-ticker"),
     description: __(
       "Display items in a basic news ticker.",

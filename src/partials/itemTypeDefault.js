@@ -1,13 +1,13 @@
 import { __ } from "@wordpress/i18n";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faPencil, faSliders } from "@fortawesome/pro-light-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil, faSliders } from "@fortawesome/pro-light-svg-icons";
 
 if (dittyEditor) {
   const itemType = __("Default", "ditty-news-ticker");
 
   dittyEditor.registerItemType({
     id: "default",
-    icon: <i className="fa-solid fa-pencil"></i>,
+    icon: <FontAwesomeIcon icon={faPencil} />,
     label: itemType,
     description: __("Manually add text to the item.", "ditty-news-ticker"),
     settings: {
@@ -19,7 +19,7 @@ if (dittyEditor) {
           `Configure the settings of the Item.`,
           "ditty-news-ticker"
         ),
-        icon: <i className="fa-solid fa-sliders"></i>,
+        icon: <FontAwesomeIcon icon={faSliders} />,
         fields: [
           {
             type: "textarea",
