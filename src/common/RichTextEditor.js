@@ -39,11 +39,12 @@ const RichTextEditor = ({ value, onChange, delayChange = false }) => {
           height: "100%",
           max_height: "100%",
           menubar: false,
-          plugins: "lists",
+          fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",
+          plugins: ["lists", "textcolor", "link"],
           toolbar:
-            "undo redo | formatselect | bold italic | \
-              alignleft aligncenter alignright | \
-              bullist numlist outdent indent",
+            "undo redo | bold italic | forecolor backcolor | \
+              alignleft aligncenter alignright | link | \
+              bullist numlist outdent indent | formatselect fontsizeselect",
           content_style:
             "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
         }}

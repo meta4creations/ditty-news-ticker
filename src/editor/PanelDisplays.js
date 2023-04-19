@@ -22,14 +22,25 @@ import PopupTemplateSave from "./PopupTemplateSave";
 import PopupTemplateSelector from "./PopupTemplateSelector";
 
 const PanelDisplays = () => {
-  const { actions, currentDisplay, displays } = useContext(EditorContext);
+  const {
+    actions,
+    currentDisplay: display,
+    displays,
+  } = useContext(EditorContext);
+  const defaultDisplayType = dittyEditorVars.defaultDisplayType
+    ? dittyEditorVars.defaultDisplayType
+    : "list";
+
+  const currentDisplay = display ? display : { type: defaultDisplayType };
   const displayTypeObject = getDisplayTypeObject(currentDisplay);
   const fieldGroups = getDisplayTypeSettings(currentDisplay);
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
 
   const [currentTabId, setCurrentTabId] = useState(initialTab);
   const [status, setStatus] = useState(!currentDisplay.id && "editDisplay");
-  const [popupStatus, setPopupStatus] = useState(false);
+  const [popupStatus, setPopupStatus] = useState(
+    display ? false : "displayTypeSelect"
+  );
   const [currentTemplate, setCurrentTemplate] = useState(
     currentDisplay.id ? currentDisplay : false
   );

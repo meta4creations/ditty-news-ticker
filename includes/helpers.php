@@ -1508,7 +1508,16 @@ function ditty_version() {
  * @since   3.1
  */
 function ditty_default_display_type() {
-	return apply_filters( 'ditty_default_type', 'list' );
+	return apply_filters( 'ditty_default_display_type', 'list' );
+}
+
+/**
+ * Return the default Ditty display type
+ *
+ * @since   3.1.6
+ */
+function ditty_default_item_type() {
+	return apply_filters( 'ditty_default_item_type', 'default' );
 }
 
 /**

@@ -87,7 +87,8 @@ export default () => {
           className="ditty-adminPage__app__content"
           id={id}
           title={title}
-          display={getDisplayObject(currentDisplay, displays)}
+          display={currentDisplay}
+          displays={displays}
           displayItems={displayItems}
           styles={getPreviewStyles()}
         />

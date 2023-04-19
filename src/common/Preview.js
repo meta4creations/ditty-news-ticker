@@ -1,9 +1,23 @@
 import classnames from "classnames";
 import { __ } from "@wordpress/i18n";
+import { getDisplayObject } from "../utils/displayTypes";
 import Ditty from "./Ditty";
 
-const Preview = ({ id, title, display, displayItems, className, styles }) => {
+const Preview = ({
+  id,
+  title,
+  display,
+  displays,
+  displayItems,
+  className,
+  styles,
+}) => {
   const classes = classnames(className);
+  const defaultDisplayType = dittyEditorVars.defaultDisplayType
+    ? dittyEditorVars.defaultDisplayType
+    : "list";
+  const currentDisplay = display ? display : defaultDisplayType;
+  const displayObject = getDisplayObject(currentDisplay, displays);
 
   return (
     <div id="ditty-editor__preview" className={classes}>
@@ -12,7 +26,7 @@ const Preview = ({ id, title, display, displayItems, className, styles }) => {
           <Ditty
             id={id}
             title={title}
-            display={display}
+            display={displayObject}
             displayItems={displayItems}
           />
         )}

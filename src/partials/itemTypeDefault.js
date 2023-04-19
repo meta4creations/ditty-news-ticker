@@ -45,13 +45,13 @@ if (dittyEditor) {
           {
             type: "text",
             id: "link_title",
-            name: __("Title", "ditty-news-ticker"),
+            name: __("Link Title", "ditty-news-ticker"),
             help: __("Add a title to the custom link.", "ditty-news-ticker"),
           },
           {
             type: "select",
             id: "link_target",
-            name: __("Target", "ditty-news-ticker"),
+            name: __("Link Target", "ditty-news-ticker"),
             help: __("Set a target for your link.", "ditty-news-ticker"),
             options: {
               _self: "_self",

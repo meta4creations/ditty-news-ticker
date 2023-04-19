@@ -24,7 +24,9 @@ export class EditorProvider extends Component {
   initialLayouts = this.editorVars.layouts ? [...this.editorVars.layouts] : [];
   initialDisplay = this.editorVars.displayObject
     ? getDisplayObject(this.editorVars.displayObject)
-    : getDisplayObject(this.editorVars.display, [...this.initialDisplays]);
+    : this.editorVars.display
+    ? getDisplayObject(this.editorVars.display, [...this.initialDisplays])
+    : false;
   initialSettings = this.editorVars.settings
     ? this.editorVars.settings
     : {
@@ -691,6 +693,20 @@ export class EditorProvider extends Component {
     // Get the updates
     const updates = this.getDittyUpdates();
     updates.id = this.state.id;
+
+    // If no display has been updated, add the default display
+    if (!this.state.currentDisplay) {
+      const defaultDisplayType = this.editorVars.defaultDisplayType
+        ? this.editorVars.defaultDisplayType
+        : "list";
+      const displayObject = getDisplayObject(
+        defaultDisplayType,
+        this.state.displays
+      );
+      updates.display = displayObject;
+      this.setState({ currentDisplay: _.cloneDeep(displayObject) });
+    }
+
     try {
       await saveDitty(updates, (data) => {
         this.handleAfterSaveDitty(data, onComplete);
