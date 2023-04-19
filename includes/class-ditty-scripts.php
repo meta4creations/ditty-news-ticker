@@ -519,10 +519,6 @@ class Ditty_Scripts {
 					$default_type = ditty_default_display_type();
 					$display_type_object = ditty_display_type_object( $default_type );
 					$display = false;
-					// $display = [
-					// 	'type' => $default_type,
-					// 	'settings' => $display_type_object ? $display_type_object->default_settings() : false,
-					// ];
 				} else {
 					$ditty = get_post( $ditty_id );	
 					$title = $ditty->post_title;
@@ -583,19 +579,20 @@ class Ditty_Scripts {
 					$title = $display->post_title;
 				}
 				wp_add_inline_script( 'ditty-display-editor', 'const dittyEditorVars = ' . json_encode( apply_filters( 'dittyEditorVars', array(
-					'security'				=> wp_create_nonce( 'ditty' ),
-					'mode'						=> WP_DEBUG ? 'development' : 'production',
-					'userId'					=> get_current_user_id(),
-					'siteUrl'					=> site_url(),
-					'id'							=> $display_id,
-					'title' 					=> $title,
-					'description' 		=> get_post_meta( $display_id, '_ditty_display_description', true ),
-					'status'					=> ( 'ditty_display-new' == $display_id ) ? 'publish' : get_post_status( $display_id ),
-					'type' 						=> 'ditty_display-new' == $display_id ? ditty_default_display_type() : get_post_meta( $display_id, '_ditty_display_type', true ),
-					'settings' 				=> 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_display_settings', true ),
-					'editorSettings'	=> 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_editor_settings', true ),
-					'displayTypes'		=> Ditty()->editor->display_type_data(),
-					'dittyDevelopment' => defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
+					'security'						=> wp_create_nonce( 'ditty' ),
+					'mode'								=> WP_DEBUG ? 'development' : 'production',
+					'userId'							=> get_current_user_id(),
+					'siteUrl'							=> site_url(),
+					'id'									=> $display_id,
+					'title' 							=> $title,
+					'description' 				=> get_post_meta( $display_id, '_ditty_display_description', true ),
+					'status'							=> ( 'ditty_display-new' == $display_id ) ? 'publish' : get_post_status( $display_id ),
+					'type' 								=> 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_display_type', true ),
+					'settings' 						=> 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_display_settings', true ),
+					'editorSettings'			=> 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_editor_settings', true ),
+					'displayTypes'				=> Ditty()->editor->display_type_data(),
+					'defaultDisplayType' 	=> ditty_default_display_type(),
+					'dittyDevelopment' 		=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
 				) ) ), 'before' ) . ';';
 			}
 		}

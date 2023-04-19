@@ -13,6 +13,7 @@ const AdminBar = ({
   description,
   status,
   buttonLabel = __("Save", "ditty-news-ticker"),
+  buttonDisabled,
   hasUpdates,
   showSpinner,
   onUpdateTitle,
@@ -92,7 +93,8 @@ const AdminBar = ({
       </div>
 
       <Button
-        className={hasUpdates ? "ditty-has-updates" : null}
+        className={!buttonDisabled && hasUpdates ? "ditty-has-updates" : null}
+        disabled={buttonDisabled ? "disabled" : false}
         onClick={() => {
           onSubmit && onSubmit();
         }}

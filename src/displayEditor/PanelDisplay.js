@@ -1,6 +1,8 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTabletScreen } from "@fortawesome/pro-regular-svg-icons";
 import {
   updateDisplayOptions,
   updateDittyDisplayType,
@@ -19,11 +21,20 @@ const PanelDisplay = ({
   onUpdateDisplaySettings,
   onUpdateDisplayType,
 }) => {
-  const displayTypeObject = getDisplayTypeObject(display);
-  const fieldGroups = getDisplayTypeSettings(display);
+  const defaultDisplayType = dittyEditorVars.defaultDisplayType
+    ? dittyEditorVars.defaultDisplayType
+    : "list";
+  const displayTypeObject = getDisplayTypeObject(
+    display.type ? display : defaultDisplayType
+  );
+  const fieldGroups = getDisplayTypeSettings(
+    display.type ? display : defaultDisplayType
+  );
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
   const [currentTabId, setCurrentTabId] = useState(initialTab);
-  const [popupStatus, setPopupStatus] = useState(false);
+  const [popupStatus, setPopupStatus] = useState(
+    display.type ? false : "displayTypeSelect"
+  );
 
   const displayTypes = getDisplayTypes();
 
@@ -45,20 +56,28 @@ const PanelDisplay = ({
    * @returns Popup component
    */
   const renderPopup = () => {
-    const dittyEl = document.getElementById("ditty-editor__ditty");
     switch (popupStatus) {
       case "displayTypeSelect":
         return (
           <PopupTypeSelector
-            currentType={display.type}
+            forceUpdate={display.type ? false : true}
+            defaultTitle={__("Display Type", "ditty-news-ticker")}
+            defaultDescription={__(
+              "Choose the display type you want to use.",
+              "ditty-news-ticker"
+            )}
+            defaultIcon={<FontAwesomeIcon icon={faTabletScreen} />}
+            currentType={display.type ? display.type : false}
             types={displayTypes}
             getTypeObject={getDisplayTypeObject}
             onChange={(selectedType) => {
+              const dittyEl = document.getElementById("ditty-editor__ditty");
               updateDittyDisplayType(dittyEl, selectedType);
             }}
             onClose={(selectedType) => {
+              const dittyEl = document.getElementById("ditty-editor__ditty");
               setPopupStatus(false);
-              if (display.type !== selectedType) {
+              if (display.type && display.type !== selectedType) {
                 updateDittyDisplayType(dittyEl, display.type);
               }
             }}

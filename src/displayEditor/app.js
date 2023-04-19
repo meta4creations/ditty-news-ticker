@@ -15,13 +15,20 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default () => {
+  const defaultDisplayType = dittyEditorVars.defaultDisplayType
+    ? dittyEditorVars.defaultDisplayType
+    : "list";
+
   const [id, setId] = useState(dittyEditorVars.id);
   const [title, setTitle] = useState(dittyEditorVars.title);
   const [description, setDescription] = useState(dittyEditorVars.description);
   const [status, setStatus] = useState(dittyEditorVars.status);
-  const [type, setType] = useState(dittyEditorVars.type);
-
-  const displayTypeObject = getDisplayTypeObject(dittyEditorVars.type);
+  const [type, setType] = useState(
+    dittyEditorVars.type ? dittyEditorVars.type : false
+  );
+  const displayTypeObject = getDisplayTypeObject(
+    dittyEditorVars.type ? dittyEditorVars.type : defaultDisplayType
+  );
 
   const [settings, setSettings] = useState(
     "ditty_display-new" == id
@@ -303,6 +310,7 @@ export default () => {
         description={description}
         //status={status}
         buttonLabel={__("Save Display", "ditty-news-ticker")}
+        buttonDisabled={type ? false : true}
         hasUpdates={hasUpdates}
         showSpinner={showSpinner}
         onUpdateTitle={handleUpdateTitle}
@@ -315,7 +323,11 @@ export default () => {
           className="ditty-adminPage__app__content"
           id={id}
           title={title}
-          display={{ id: id, type: type, settings: settings }}
+          display={
+            type
+              ? { id: id, type: type, settings: settings }
+              : { id: id, type: defaultDisplayType, settings: settings }
+          }
           displayItems={getDisplayItems(
             editorSettings.previewItems,
             editorSettings.previewChildItems

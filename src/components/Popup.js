@@ -18,10 +18,10 @@ const Popup = ({
   onClose,
   onSubmit,
   className,
+  hideCancel,
   level,
 }) => {
   const [showSpinner, setShowSpinner] = useState(false);
-
   const classes = classnames("ditty-popup", className, `ditty-popup--${id}`, {
     "ditty-popup--level-2": level === "2",
     "ditty-popup--level-3": level === "3",
@@ -40,9 +40,11 @@ const Popup = ({
               footer
             ) : (
               <ButtonGroup justify="flex-end" gap="20px">
-                <Link onClick={onClose}>
-                  {__("Cancel", "ditty-news-ticker")}
-                </Link>
+                {!hideCancel && (
+                  <Link onClick={onClose}>
+                    {__("Cancel", "ditty-news-ticker")}
+                  </Link>
+                )}
                 <Button
                   type="primary"
                   onClick={() => {

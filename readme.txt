@@ -130,6 +130,10 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.6 =
+* Set Display type selector as default Display panel view for new Ditty
+* Added text color and font-size options to TinyMCE item type
+
 = 3.1.5 =
 * Ditty admin column order change
 * Added stripslashes to Default, HTML, and WP Editor item type outputs
