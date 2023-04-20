@@ -148,9 +148,6 @@ if (dittyEditor) {
                 ),
                 options: easeOptions,
                 std: "easeInOutQuint",
-                show: {
-                  fields: [{ key: "paging", value: "1", compare: "=" }],
-                },
               },
               {
                 type: "slider",
@@ -165,9 +162,6 @@ if (dittyEditor) {
                 max: 10,
                 step: 0.25,
                 std: 1,
-                show: {
-                  fields: [{ key: "paging", value: "1", compare: "=" }],
-                },
               },
               {
                 type: "select",
