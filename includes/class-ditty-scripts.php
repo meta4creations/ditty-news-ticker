@@ -364,6 +364,14 @@ class Ditty_Scripts {
 		}
 
 		wp_register_style( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.css', false, '1.4.21', false );	
+		
+		wp_register_style(
+			'ditty-editor-init',
+			DITTY_URL . 'build/dittyEditorInit.css',
+			[],
+			$this->version,
+			'all'
+		);
 
 		if ( is_admin() ) {
 			wp_enqueue_style(
@@ -387,7 +395,7 @@ class Ditty_Scripts {
 			wp_enqueue_style(
 				'ditty-settings',
 				DITTY_URL . 'build/dittySettings.css',
-				[],
+				['ditty-editor-init'],
 				$this->version,
 				'all'
 			);
@@ -398,14 +406,13 @@ class Ditty_Scripts {
 			wp_enqueue_style(
 				'ditty-editor',
 				DITTY_URL . 'build/dittyEditor.css',
-				['wp-components', 'wp-codemirror'],
+				['ditty-editor-init', 'wp-components', 'wp-codemirror'],
 				$this->version,
 				'all'
 			);
 		}
 		
-		$disable_fontawesome = ditty_settings( 'disable_fontawesome' );
-		if ( ! is_admin() && ! $disable_fontawesome ) {
+		if ( ! is_admin() && ditty_fontawesome_enabled() ) {
 			wp_enqueue_style( 'ditty-fontawesome', DITTY_URL . 'includes/libs/fontawesome-6.4.0/css/all.css', false, '6.4.0', false );
 		}
 		
@@ -427,7 +434,7 @@ class Ditty_Scripts {
 		wp_register_script( 'hammer', DITTY_URL . 'includes/libs/hammer.min.js', array( 'jquery' ), '2.0.8.1', true );
 		wp_register_script( 'ditty-slider', DITTY_URL . 'includes/js/class-ditty-slider' . $min . '.js', array( 'jquery', 'hammer' ), $this->version, true );
 		wp_register_script( 'ditty-helpers', DITTY_URL . 'includes/js/partials/helpers.js', [], $this->version, true );
-		wp_enqueue_script( 'ditty-sass', DITTY_URL . 'includes/libs/sass/sass.js', [], $this->version );
+		wp_register_script( 'ditty-sass', DITTY_URL . 'includes/libs/sass/sass.js', [], $this->version );
 		//wp_enqueue_script( 'ditty-sass', 'https://cdn.jsdelivr.net/npm/sass.js/dist/sass.min.js', [], $this->version );
 
 		// Register Ditty and display scripts
@@ -503,13 +510,12 @@ class Ditty_Scripts {
 					true
 				);
 			} else {
-				//$this->load_external_scripts( 'editor', ['ditty', 'wp-element', 'wp-components'], 'enqueue' );
 				$this->load_external_scripts( 'editor', ['ditty-editor-init', 'wp-element', 'wp-components'], 'enqueue' );
 			}
 
 			wp_enqueue_script( 'ditty-editor',
 				DITTY_URL . 'build/dittyEditor.js',
-				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-editor', 'wp-block-editor', 'wp-hooks', 'wp-tinymce', 'lodash', 'wp-codemirror', 'ditty'], $display_slugs),
+				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-editor', 'wp-block-editor', 'wp-hooks', 'wp-tinymce', 'lodash', 'wp-codemirror', 'ditty', 'ditty-sass'], $display_slugs),
 				$this->version,
 				true
 			);
@@ -614,7 +620,7 @@ class Ditty_Scripts {
 
 			wp_enqueue_script( 'ditty-layout-editor',
 				DITTY_URL . 'build/dittyLayoutEditor.js',
-				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-hooks', 'lodash', 'wp-codemirror', 'ditty'], $display_slugs),
+				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-hooks', 'lodash', 'wp-codemirror', 'ditty', 'ditty-sass'], $display_slugs),
 				$this->version,
 				true
 			);
@@ -695,7 +701,7 @@ class Ditty_Scripts {
 			if ( 'ditty_page_ditty_settings' == $hook && current_user_can( 'manage_ditty_settings' ) ) {
 				wp_enqueue_script( 'ditty-settings',
 					DITTY_URL . 'build/dittySettings.js',
-					['wp-element', 'wp-components', 'wp-hooks', 'lodash'],
+					['wp-element', 'wp-components', 'wp-hooks', 'lodash', 'ditty-editor-init'],
 					$this->version,
 					true
 				);

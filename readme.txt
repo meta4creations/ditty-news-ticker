@@ -1,17 +1,17 @@
-=== Ditty WordPress Plugin – Responsive Slider, List, and Ticker Display ===
+=== Ditty – Responsive News Tickers, Sliders, and Lists ===
 Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: responsive slider, content slider, post slider, news ticker, post ticker
 Requires at least: 5.6
 Tested up to: 6.2
-Stable tag: 3.1.5
+Stable tag: 3.1.6
 License: GPL2
 
 Formerly Ditty News Ticker, Ditty is a multi-functional content display WordPress plugin.
 
 == Description ==
 
-Formerly Ditty News Ticker, Ditty is a multi-functional content display WordPress plugin. Easily render your latest blog posts or custom content through multiple display options. Included display options are: News Ticker, Slider, and List. Add more content sources and display options through extensions. With extensions you can display RSS feeds, social media, image galleries, custom post types, and more to your site through the included displays or additional display extensions like grid and carousel.
+Ditty, formerly known as Ditty News Ticker, is a multi-functional content display plugin for WordPress while still offering its signature "News Ticker" functionality. Effortlessly showcase your latest blog posts or custom content through multiple display options, including the classic News Ticker, Slider, and List. Enhance your site by adding more content sources and display options through extensions, enabling you to present RSS feeds, social media, image galleries, custom post types, and more through the included displays or additional display extensions like grid and carousel. Discover the enhanced capabilities of Ditty while maintaining its prowess as a reliable "News Ticker" solution.
 
 ### Overview
 
@@ -132,7 +132,11 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 = 3.1.6 =
 * Set Display type selector as default Display panel view for new Ditty
+* Display type selector updates for new Ditty and Displays
 * Added text color and font-size options to TinyMCE item type
+* Internal and external file clean up
+* Modified settings options
+* Ditty notification updates
 
 = 3.1.5 =
 * Ditty admin column order change

@@ -1,16 +1,15 @@
 import { __ } from "@wordpress/i18n";
 import { Component } from "@wordpress/element";
 import _ from "lodash";
-import { toast } from "react-toastify";
 import { saveDitty } from "../../services/httpService";
 import { getDisplayObject } from "../../utils/displayTypes";
-import { ReactComponent as Logo } from "../../assets/img/d.svg";
 import { updateDisplayOptions } from "../../services/dittyService";
 
 export const EditorContext = React.createContext();
 EditorContext.displayName = "EditorContext";
 
 export class EditorProvider extends Component {
+  dittyNotification = dittyEditor.notifications.dittyNotification;
   editorVars = { ...dittyEditorVars };
   initialTitle = this.editorVars.title ? this.editorVars.title : "";
   initialStatus = this.editorVars.status ? this.editorVars.status : "draft";
@@ -628,35 +627,37 @@ export class EditorProvider extends Component {
     }
 
     if (data.updates) {
-      const toastUpdates = [];
+      const notifications = [];
       if (data.updates.new) {
-        toastUpdates.push(__(`Ditty has been published!`, "ditty-news-ticker"));
+        notifications.push(
+          __(`Ditty has been published!`, "ditty-news-ticker")
+        );
       } else {
         for (const property in data.updates) {
           switch (property) {
             case "display":
-              toastUpdates.push(
+              notifications.push(
                 __(`Ditty display has been updated!`, "ditty-news-ticker")
               );
               break;
             case "items":
-              toastUpdates.push(
+              notifications.push(
                 __(`Ditty items have been updated!`, "ditty-news-ticker")
               );
               break;
             case "settings":
               updatedState.settings = data.updates.settings;
-              toastUpdates.push(
+              notifications.push(
                 __(`Ditty settings have been updated!`, "ditty-news-ticker")
               );
               break;
             case "title":
-              toastUpdates.push(
+              notifications.push(
                 __(`Ditty title has been updated!`, "ditty-news-ticker")
               );
               break;
             case "status":
-              toastUpdates.push(
+              notifications.push(
                 __(`Ditty status has been updated!`, "ditty-news-ticker")
               );
               break;
@@ -672,10 +673,8 @@ export class EditorProvider extends Component {
       }
 
       // Show Toast updates
-      toastUpdates.map((update, index) => {
-        toast(update, {
-          autoClose: 2000,
-          icon: <Logo style={{ height: "30px" }} />,
+      notifications.map((update, index) => {
+        this.dittyNotification(update, "success", {
           delay: index * 100,
         });
       });
@@ -741,17 +740,8 @@ export class EditorProvider extends Component {
       this.initialItems = resetItemUpdates;
       this.setState({ items: resetItemUpdates });
     } catch (ex) {
-      let update = __("Whoops! Something went wrong...", "ditty-news-ticker");
-      if (ex.response && ex.response.status === 403) {
-        update = ex.response.data.message;
-      }
-
+      this.dittyNotification(ex, "error");
       onComplete();
-      toast(update, {
-        autoClose: 2000,
-        icon: <Logo style={{ height: "30px" }} />,
-        className: "ditty-error",
-      });
     }
   };
 

@@ -2,33 +2,20 @@ import { __ } from "@wordpress/i18n";
 import { useState, useEffect } from "@wordpress/element";
 import { AdminBar, FooterBar } from "../common";
 import LayoutEditor from "./LayoutEditor";
-import { ReactComponent as Logo } from "../assets/img/d.svg";
-
 import { saveLayout } from "../services/httpService";
 import { getItemTypeObject } from "../utils/itemTypes";
 import { compileLayoutStyle } from "../utils/layouts";
 import { getDisplayItems } from "../services/dittyService";
 import { updateLayoutCss } from "../utils/helpers";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export default () => {
+  const { DittyNotificationContainer, dittyNotification } =
+    dittyEditor.notifications;
   const defaultItemTypeObject = getItemTypeObject("default");
-
   const [id, setId] = useState(dittyEditorVars.id);
   const [title, setTitle] = useState(dittyEditorVars.title);
   const [description, setDescription] = useState(dittyEditorVars.description);
   const [status, setStatus] = useState(dittyEditorVars.status);
-  // const [html, setHtml] = useState(
-  //   "ditty_layout-new" === dittyEditorVars.id
-  //     ? defaultItemTypeObject.defaultLayout.html
-  //     : dittyEditorVars.html
-  // );
-  // const [css, setCss] = useState(
-  //   "ditty_layout-new" === dittyEditorVars.id
-  //     ? defaultItemTypeObject.defaultLayout.css
-  //     : dittyEditorVars.css
-  // );
 
   const [layout, setLayout] = useState(
     "ditty_layout-new" === dittyEditorVars.id
@@ -136,21 +123,19 @@ export default () => {
       // Replace the current state with the updated URL
       history.replaceState(null, "", url);
     }
-    // Creat toast notifications
+    // Creat notifications
     if (data.updates) {
-      const toastUpdates = [];
+      const notifications = [];
       if (data.updates.new) {
-        toastUpdates.push(
+        notifications.push(
           __(`Layout has been published!`, "ditty-news-ticker")
         );
       } else {
-        toastUpdates.push(__(`Layout has been updated!`, "ditty-news-ticker"));
+        notifications.push(__(`Layout has been updated!`, "ditty-news-ticker"));
       }
-      // Show Toast updates
-      toastUpdates.map((update, index) => {
-        toast(update, {
-          autoClose: 2000,
-          icon: <Logo style={{ height: "30px" }} />,
+      // Show notifications
+      notifications.map((update, index) => {
+        dittyNotification(update, "success", {
           delay: index * 100,
         });
       });
@@ -212,17 +197,8 @@ export default () => {
     try {
       await saveLayout(data, onLayoutSaveComplete);
     } catch (ex) {
-      let update = __("Whoops! Something went wrong...", "ditty-news-ticker");
-      if (ex.response && ex.response.status === 403) {
-        update = ex.response.data.message;
-      }
-
+      dittyNotification(ex, "error");
       setShowSpinner(false);
-      toast(update, {
-        autoClose: 2000,
-        icon: <Logo style={{ height: "30px" }} />,
-        className: "ditty-error",
-      });
     }
   };
 
@@ -329,7 +305,7 @@ export default () => {
         />
       </div>
       <FooterBar />
-      <ToastContainer />
+      <DittyNotificationContainer />
     </>
   );
 };

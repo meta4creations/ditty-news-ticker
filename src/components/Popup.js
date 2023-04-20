@@ -20,8 +20,8 @@ const Popup = ({
   className,
   hideCancel,
   level,
+  showSpinner,
 }) => {
-  const [showSpinner, setShowSpinner] = useState(false);
   const classes = classnames("ditty-popup", className, `ditty-popup--${id}`, {
     "ditty-popup--level-2": level === "2",
     "ditty-popup--level-3": level === "3",
@@ -48,7 +48,6 @@ const Popup = ({
                 <Button
                   type="primary"
                   onClick={() => {
-                    setShowSpinner(true);
                     onSubmit();
                   }}
                   disabled={submitDisabled || (showSpinner && "disabled")}

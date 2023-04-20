@@ -334,7 +334,6 @@ const PopupLayouts = ({
   };
 
   const renderPopupHeader = () => {
-    //console.log("item", item);
     return (
       <IconBlock
         icon={getItemTypePreviewIcon(editItem)}

@@ -103,14 +103,6 @@
       "oAP" : "\/includes\/admin\/notices.php",
       "oF" : 0
     },
-    "\/includes\/admin\/settings.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/admin\/settings.php",
-      "oF" : 0
-    },
     "\/includes\/blocks.php" : {
       "cB" : 0,
       "ft" : 8192,

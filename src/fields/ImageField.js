@@ -83,7 +83,6 @@ const ImageField = (props) => {
 
   const getImage = async (imageId) => {
     const apiURL = `${dittyEditorVars.siteUrl}/wp-json/wp/v2/media/${imageId}`;
-
     try {
       await axios.get(apiURL, {}).then((res) => {
         if (
@@ -98,7 +97,8 @@ const ImageField = (props) => {
         }
       });
     } catch (ex) {
-      //console.log("ex", ex);
+      const { dittyNotification } = dittyEditor.notifications;
+      dittyNotification(ex, "error");
     }
   };
   if (!imagePreview && value) {

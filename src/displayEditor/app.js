@@ -3,18 +3,16 @@ import { useState, useEffect } from "@wordpress/element";
 import { loremIpsum } from "lorem-ipsum";
 import { AdminBar, FooterBar, Preview } from "../common";
 import DisplayEditor from "./DisplayEditor";
-import { ReactComponent as Logo } from "../assets/img/d.svg";
-
 import { saveDisplay } from "../services/httpService";
 import {
   replaceDisplayItems,
   updateDisplayOptions,
 } from "../services/dittyService";
 import { getDisplayTypeObject } from "../utils/displayTypes";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export default () => {
+  const { DittyNotificationContainer, dittyNotification } =
+    dittyEditor.notifications;
   const defaultDisplayType = dittyEditorVars.defaultDisplayType
     ? dittyEditorVars.defaultDisplayType
     : "list";
@@ -97,22 +95,22 @@ export default () => {
       history.replaceState(null, "", url);
     }
 
-    // Creat toast notifications
+    // Creat notifications
     if (data.updates) {
-      const toastUpdates = [];
+      const notifications = [];
       if (data.updates.new) {
-        toastUpdates.push(
+        notifications.push(
           __(`Display has been published!`, "ditty-news-ticker")
         );
       } else {
-        toastUpdates.push(__(`Display has been updated!`, "ditty-news-ticker"));
+        notifications.push(
+          __(`Display has been updated!`, "ditty-news-ticker")
+        );
       }
 
-      // Show Toast updates
-      toastUpdates.map((update, index) => {
-        toast(update, {
-          autoClose: 2000,
-          icon: <Logo style={{ height: "30px" }} />,
+      // Show updates
+      notifications.map((update, index) => {
+        dittyNotification(update, "success", {
           delay: index * 100,
         });
       });
@@ -176,20 +174,8 @@ export default () => {
     try {
       await saveDisplay(data, onDisplaySaveComplete);
     } catch (ex) {
-      let update = __("Whoops! Something went wrong...", "ditty-news-ticker");
-      if (
-        (ex.response && ex.response.status === 403) ||
-        (ex.response && ex.response.status === 404)
-      ) {
-        update = ex.response.data.message;
-      }
-
+      dittyNotification(ex, "error");
       setShowSpinner(false);
-      toast(update, {
-        autoClose: 2000,
-        icon: <Logo style={{ height: "30px" }} />,
-        className: "ditty-error",
-      });
     }
   };
 
@@ -350,7 +336,7 @@ export default () => {
         />
       </div>
       <FooterBar />
-      <ToastContainer />
+      <DittyNotificationContainer />
     </>
   );
 };

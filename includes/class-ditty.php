@@ -251,7 +251,6 @@ class Ditty {
 			require_once DITTY_DIR . 'includes/admin/columns.php';
 			require_once DITTY_DIR . 'includes/admin/export.php';
 			require_once DITTY_DIR . 'includes/admin/notices.php';
-			require_once DITTY_DIR . 'includes/admin/settings.php';
 		}
 		
 		// Possibly add Ditty News Ticker

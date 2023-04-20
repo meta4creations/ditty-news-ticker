@@ -125,25 +125,33 @@ class Ditty_Settings {
 						'description' => esc_html__( 'Display links to edit Ditty.', 'ditty-news-ticker' ),
 						'inline'			=> true,
 						'options'			=> array(
-							'disabled'	=> esc_html__( 'Disabled', 'ditty-news-ticker' ),
 							'enabled'		=> esc_html__( 'Enabled', 'ditty-news-ticker' ),
+							'disabled'	=> esc_html__( 'Disabled', 'ditty-news-ticker' ),
 						),
 						'std' 				=> ditty_settings_defaults( 'edit_links' ),
 					],
 					[
-						'type' 				=> 'checkbox',
+						'type' 				=> 'radio',
 						'id' 					=> 'disable_fontawesome',
 						'name' 				=> esc_html__( 'Font Awesome', 'ditty-news-ticker' ),
-						'label' 			=> esc_html__( 'Disable Font Awesome from loading on the front-end', 'ditty-news-ticker' ),
-						'description' 				=> esc_html__( 'This will disable the rendering of certain icons used in default Layouts and Layout tags.', 'ditty-news-ticker' ),
+						'description' => esc_html__( 'This will enable or disable loading of Font Awesome on the front-end of the site. Font Awesome icons may used in various Layout tags.', 'ditty-news-ticker' ),
+						'inline'			=> true,
+						'options'			=> array(
+							'enabled'		=> esc_html__( 'Enabled', 'ditty-news-ticker' ),
+							'disabled'	=> esc_html__( 'Disabled', 'ditty-news-ticker' ),
+						),
 						'std' 				=> ditty_settings_defaults( 'disable_fontawesome' ),
 					],
 					[
-						'type' 				=> 'checkbox',
+						'type' 				=> 'radio',
 						'id' 					=> 'ditty_news_ticker',
 						'name' 				=> esc_html__( 'Ditty News Ticker', 'ditty-news-ticker' ),
-						'label' 			=> esc_html__( 'Enable Ditty News Ticker (Legacy code).', 'ditty-news-ticker' ),
-						'description' => esc_html__( 'This will enable loading of all legacy scripts and post types. Only enable this option if you have active Ditty News Ticker posts displaying on your site. You must refresh your browser after saving before changes take place.', 'ditty-news-ticker' ),
+						'description' => esc_html__( 'This will enable or disable loading of all legacy scripts and post types. Only enable this option if you have active Ditty News Ticker posts displaying on your site. You must refresh your browser after saving before changes take place.', 'ditty-news-ticker' ),
+						'inline'			=> true,
+						'options'			=> array(
+							'enabled'		=> esc_html__( 'Enabled', 'ditty-news-ticker' ),
+							'disabled'	=> esc_html__( 'Disabled', 'ditty-news-ticker' ),
+						),
 						'std' 				=> ditty_settings_defaults( 'ditty_news_ticker' ),
 					],	
 				]
@@ -319,7 +327,7 @@ class Ditty_Settings {
 		// }
 
 		//ChromePhp::log( 'variation_defaults', json_decode( $values['variation_defaults'], true ) );
-
+		ChromePhp::log( 'values', $values );
 		$sanitized_fields = array(
 			'live_refresh'				=> isset( $values['live_refresh'] ) 				? intval( $values['live_refresh'] ) : 10,
 			'edit_links'					=> isset( $values['edit_links'] ) 					? sanitize_key( $values['edit_links'] ) : 'enabled',

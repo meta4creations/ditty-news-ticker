@@ -3,7 +3,7 @@
 /**
  * Return the settings defaults
  *
- * @since    3.1
+ * @since    3.1.6
 */
 function ditty_settings_defaults( $key = false ) {	
 	$defaults = array(
@@ -14,9 +14,8 @@ function ditty_settings_defaults( $key = false ) {
 		'ditty_layouts_sass'		=> false,
 		'variation_defaults'		=> array(),
 		'global_ditty'					=> array(),
-		'ditty_news_ticker' 		=> '',
-		'ditty_wizard' 					=> 'disabled',
-		'disable_fontawesome' 	=> '',
+		'ditty_news_ticker' 		=> 'disabled',
+		'disable_fontawesome' 	=> 'enabled',
 		'notification_email' 		=> '',
 		'edit_links'						=> 'enabled',
 	);
@@ -1305,11 +1304,23 @@ function ditty_maybe_add_uniq_id( $post_id ) {
 /**
  * Check if Ditty News Ticker is enabled
  *
- * @since    3.0
+ * @since    3.1.6
  * @var      boolean
 */
 function ditty_news_ticker_enabled() {
-	if ( '' != ditty_settings( 'ditty_news_ticker' ) ) {
+	if ( 'enabled' == ditty_settings( 'ditty_news_ticker' ) ) {
+		return true;
+	}
+}
+
+/**
+ * Check if Font Awesome is disabled
+ *
+ * @since    3.1.6
+ * @var      boolean
+*/
+function ditty_fontawesome_enabled() {
+	if ( 'enabled' == ditty_settings( 'disable_fontawesome' ) ) {
 		return true;
 	}
 }

@@ -21,6 +21,7 @@ const PopupTypeSelector = ({
   defaultIcon,
 }) => {
   const [selectedType, setSelectedType] = useState(currentType);
+  const [showSpinner, setShowSpinner] = useState(false);
   const itemTypeObject = selectedType ? getTypeObject(selectedType) : false;
 
   const iconStyle = itemTypeObject
@@ -64,10 +65,12 @@ const PopupTypeSelector = ({
         onClose(selectedType);
       }}
       onSubmit={() => {
+        setShowSpinner(true);
         onUpdate(selectedType);
       }}
       level={level}
       className={className}
+      showSpinner={showSpinner}
     >
       <Tabs
         tabs={types}

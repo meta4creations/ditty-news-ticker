@@ -22,11 +22,8 @@ import PopupTemplateSave from "./PopupTemplateSave";
 import PopupTemplateSelector from "./PopupTemplateSelector";
 
 const PanelDisplays = () => {
-  const {
-    actions,
-    currentDisplay: display,
-    displays,
-  } = useContext(EditorContext);
+  const editor = useContext(EditorContext);
+  const { actions, currentDisplay: display, displays } = editor;
   const defaultDisplayType = dittyEditorVars.defaultDisplayType
     ? dittyEditorVars.defaultDisplayType
     : "list";
@@ -82,6 +79,7 @@ const PanelDisplays = () => {
         delete templateToSave.version;
         return (
           <PopupTemplateSave
+            editor={editor}
             templateType="display"
             currentTemplate={templateToSave}
             templates={displays}

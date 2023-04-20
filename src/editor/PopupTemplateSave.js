@@ -1,12 +1,11 @@
 import { __ } from "@wordpress/i18n";
-import { toast } from "react-toastify";
 import { useState } from "@wordpress/element";
 import { saveDisplay, saveLayout } from "../services/httpService";
 import { IconBlock, Filter, List, ListItem, Popup, Tabs } from "../components";
 import { FieldList, TextField, TextareaField } from "../fields";
-import { ReactComponent as Logo } from "../assets/img/d.svg";
 
 const PopupTemplateSave = ({
+  editor,
   templateType,
   currentTemplate,
   templates,
@@ -23,6 +22,7 @@ const PopupTemplateSave = ({
   onClose,
   onUpdate,
 }) => {
+  const { dittyNotification } = dittyEditor.notifications;
   const [templateName, setTemplateName] = useState(
     currentTemplate.title ? currentTemplate.title : ""
   );
@@ -34,6 +34,7 @@ const PopupTemplateSave = ({
   const [currentTabId, setCurrentTabId] = useState(
     currentTemplate.id ? "existing" : "new"
   );
+  const [showSpinner, setShowSpinner] = useState(false);
   const elements = [
     {
       id: "icon",
@@ -141,6 +142,7 @@ const PopupTemplateSave = ({
   };
 
   const handleSaveTemplate = async () => {
+    setShowSpinner(true);
     const data = saveData(
       currentTabId,
       selectedTemplate,
@@ -153,13 +155,11 @@ const PopupTemplateSave = ({
       } else if ("layout" === templateType) {
         await saveLayout(data, handleApiData);
       }
-      toast(`"${templateName}" template has been saved!`, {
-        autoClose: 2000,
-        icon: <Logo style={{ height: "30px" }} />,
-      });
+      dittyNotification(`"${templateName}" template has been saved!`);
+      setShowSpinner(false);
     } catch (ex) {
-      if (ex.response && ex.response.status === 404) {
-      }
+      dittyNotification(ex, "error");
+      setShowSpinner(false);
     }
   };
 
@@ -180,6 +180,7 @@ const PopupTemplateSave = ({
         onClose();
       }}
       onSubmit={handleSaveTemplate}
+      showSpinner={showSpinner}
     >
       {"new" === currentTabId ? (
         <FieldList>

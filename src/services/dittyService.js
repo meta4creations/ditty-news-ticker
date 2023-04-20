@@ -63,9 +63,8 @@ export const getDisplayItems = async (items, layouts, returnData) => {
       returnData && returnData(data);
     });
   } catch (ex) {
-    console.log("catch", ex);
-    if (ex.response && ex.response.status === 404) {
-    }
+    const { dittyNotification } = dittyEditor.notifications;
+    dittyNotification(ex, "error");
   }
 };
 

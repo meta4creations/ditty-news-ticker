@@ -1,13 +1,11 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
-import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaintbrushPencil, faCopy } from "@fortawesome/pro-light-svg-icons";
 import { getAttributeFields } from "../utils/layouts";
 import { FieldList } from "../fields";
 import { Button, ButtonGroup, Link, IconBlock, Popup } from "../components";
-import { ReactComponent as Logo } from "../assets/img/d.svg";
 
 const PopupEditLayoutTag = ({
   layoutTag,
@@ -15,6 +13,7 @@ const PopupEditLayoutTag = ({
   onClose,
   level,
 }) => {
+  const { dittyNotification } = dittyEditor.notifications;
   const [attributeValues, setAttributeValues] = useState({});
 
   /**
@@ -80,12 +79,8 @@ const PopupEditLayoutTag = ({
               }}
               onClick={() => {
                 navigator.clipboard.writeText(renderTag());
-                toast(
-                  __("Tag shortcode copied to clipboard!", "ditty-news-ticker"),
-                  {
-                    autoClose: 2000,
-                    icon: <Logo style={{ height: "30px" }} />,
-                  }
+                dittyNotification(
+                  __("Tag shortcode copied to clipboard!", "ditty-news-ticker")
                 );
               }}
             />

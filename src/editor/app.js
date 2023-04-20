@@ -1,12 +1,8 @@
 import { __ } from "@wordpress/i18n";
 import { useState, useContext, useEffect } from "@wordpress/element";
 import { AdminBar, FooterBar, Preview } from "../common";
-import { getDisplayObject } from "../utils/displayTypes";
 import { EditorContext } from "./context";
 import Editor from "./Editor";
-
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export default () => {
   const {
@@ -20,6 +16,7 @@ export default () => {
     settings,
     actions,
   } = useContext(EditorContext);
+  const { DittyNotificationContainer } = dittyEditor.notifications;
   const [showSpinner, setShowSpinner] = useState(false);
   const updates = helpers.dittyUpdates();
   const hasUpdates = Object.keys(updates).length !== 0;
@@ -95,7 +92,7 @@ export default () => {
         <Editor className="ditty-adminPage__app__sidebar" />
       </div>
       <FooterBar />
-      <ToastContainer />
+      <DittyNotificationContainer />
     </>
   );
 };

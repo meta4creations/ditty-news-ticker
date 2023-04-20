@@ -5,14 +5,11 @@ import { AdminBar, FooterBar } from "../common";
 import { Tabs } from "../components";
 import { FieldList } from "../fields";
 import { saveSettings } from "../services/httpService";
-import { ReactComponent as Logo } from "../assets/img/d.svg";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export default () => {
+  const { DittyNotificationContainer, dittyNotification } =
+    dittyEditor.notifications;
   const params = new URLSearchParams(location.search);
-
   const fieldGroups =
     dittySettingsVars && dittySettingsVars.fields
       ? dittySettingsVars.fields
@@ -41,6 +38,17 @@ export default () => {
   const wrapper = document.getElementById("ditty-settings__wrapper");
 
   useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      if (hasUpdates) {
+        event.preventDefault();
+        event.returnValue = __(
+          "You have unsaved changes. Are you sure you want to leave this page?",
+          "ditty-news-ticker"
+        );
+      }
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
     const resizeHandler = () => {
       const windowH = window.innerHeight;
       const top = wrapper.getBoundingClientRect().top;
@@ -49,8 +57,13 @@ export default () => {
     };
     resizeHandler();
     window.addEventListener("resize", resizeHandler);
-    return () => window.removeEventListener("resize", resizeHandler);
-  }, []);
+
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener("resize", resizeHandler);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [hasUpdates]);
 
   const setParams = (name, val) => {
     if (val) {
@@ -73,10 +86,7 @@ export default () => {
     setShowSpinner(false);
 
     if (data.updates.settings) {
-      toast(__("Settings have been updated!", "ditty-news-ticker"), {
-        autoClose: 2000,
-        icon: <Logo style={{ height: "30px" }} />,
-      });
+      dittyNotification(__("Settings have been updated!", "ditty-news-ticker"));
       setInitSettings(_.cloneDeep(data.updates.settings));
       setSettings(_.cloneDeep(data.updates.settings));
     } else if (data.updates.errors) {
@@ -87,29 +97,11 @@ export default () => {
   const handleSaveSettings = async () => {
     setShowSpinner(true);
     const updatedSettings = _.cloneDeep(settings);
-    // if (settings.variation_defaults) {
-    //   updatedSettings.variation_defaults = JSON.stringify(
-    //     settings.variation_defaults
-    //   );
-    // }
-
     try {
       await saveSettings(updatedSettings, onSettingsSaveComplete);
     } catch (ex) {
-      let update = __("Whoops! Something went wrong...", "ditty-news-ticker");
-      if (
-        (ex.response && ex.response.status === 403) ||
-        (ex.response && ex.response.status === 404)
-      ) {
-        update = ex.response.data.message;
-      }
-
       setShowSpinner(false);
-      toast(update, {
-        autoClose: 2000,
-        icon: <Logo style={{ height: "30px" }} />,
-        className: "ditty-error",
-      });
+      dittyNotification(ex, "error");
     }
   };
 
@@ -138,51 +130,6 @@ export default () => {
         }}
       />
     );
-
-    // switch (currentFieldGroup.id) {
-    //   case "layoutDefaults":
-    //     return (
-    //       <FieldList
-    //         name={currentFieldGroup.name}
-    //         description={currentFieldGroup.description}
-    //       />
-    //     );
-    //   case "layoutTemplates":
-    //     return (
-    //       <FieldList
-    //         name={currentFieldGroup.name}
-    //         description={currentFieldGroup.description}
-    //       />
-    //     );
-    //   case "displayTemplates":
-    //     return (
-    //       <FieldList
-    //         name={currentFieldGroup.name}
-    //         description={currentFieldGroup.description}
-    //       />
-    //     );
-    //   case "extensions":
-    //     return (
-    //       <FieldList
-    //         name={currentFieldGroup.name}
-    //         description={currentFieldGroup.description}
-    //       />
-    //     );
-    //   default:
-    //     return (
-    //       <FieldList
-    //         name={currentFieldGroup.name}
-    //         description={currentFieldGroup.description}
-    //         fields={currentFieldGroup.fields}
-    //         values={settings}
-    //         onUpdate={(id, value) => {
-    //           const updatedSettings = { ...settings };
-    //           updatedSettings[id] = value;
-    //           setSettings(updatedSettings);
-    //         }}
-    //       />
-    //     );
-    // }
   };
 
   return (
@@ -218,7 +165,7 @@ export default () => {
         </div>
       </div>
       <FooterBar />
-      <ToastContainer />
+      <DittyNotificationContainer />
     </>
   );
 };

@@ -224,7 +224,6 @@ const PanelItems = (props) => {
           />
         );
       case "newItem":
-        console.log("items.length", items.length);
         return (
           <PopupTypeSelector
             forceUpdate={items.length ? false : true}
