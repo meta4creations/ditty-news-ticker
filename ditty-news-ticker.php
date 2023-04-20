@@ -3,7 +3,7 @@
 /**
  * Plugin Name:       Ditty
  * Plugin URI:        https://www.metaphorcreations.com/ditty
- * Description:       Formerly Ditty News Ticker, Ditty is a multi-functional content display WordPress plugin.
+ * Description:       Ditty offers a range of content display options, including its signature news ticker and customizable layouts.
  * Version:           3.1.6
  * Author:            Metaphor Creations
  * Author URI:        https://www.metaphorcreations.com

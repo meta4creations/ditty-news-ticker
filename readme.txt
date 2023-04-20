@@ -7,7 +7,7 @@ Tested up to: 6.2
 Stable tag: 3.1.6
 License: GPL2
 
-Formerly Ditty News Ticker, Ditty is a multi-functional content display WordPress plugin.
+Ditty offers a range of content display options, including its signature news ticker and customizable layouts.
 
 == Description ==
 
