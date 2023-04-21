@@ -457,8 +457,6 @@
         this.settings.slides[index].$elmt = $slide;
       }
 
-      this._preloadItem($slide, true);
-
       // Add a the current class
       $slide.addClass("ditty-slider__slide");
       $slide.addClass("ditty-slider__slide--current");
@@ -501,6 +499,8 @@
 
       // Set this as the current slide
       this.$currentSlide = $slide;
+      this._preloadItem($slide, true);
+
       this.settings.slide = index;
       this.slideObj = this.settings.slides[index];
       this.visibleSlides = [this.settings.slides[index]];
