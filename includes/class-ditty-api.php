@@ -201,8 +201,6 @@ class Ditty_API {
 		$updates = array();
 		$errors = array();
 
-		//ChromePhp::log( '$settings', $settings );
-
 		if ( $saved_settings = Ditty()->settings->save( $settings ) ) {
 			$updates['settings'] = $saved_settings;
 		} else {
@@ -223,7 +221,7 @@ class Ditty_API {
 	 * Get display items for a Ditty
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.1.7
 	 */
 	public function get_display_items( $request ) {
 		$params = $request->get_params();
@@ -249,7 +247,7 @@ class Ditty_API {
 				}
 
 				// Check and possibly skip disabled display items
-				$item_disabled = array_unique( apply_filters( 'ditty_item_disabled', array(), $item['item_id'], $item ) );
+				$item_disabled = array_unique( apply_filters( 'ditty_item_disabled', array(), $item['item_id'], $item, $items ) );
 				if ( count( $item_disabled ) == 0 ) {
 					$grouped_displays = [];			
 					$prepared_items = ditty_prepare_display_items( $item );
@@ -287,14 +285,13 @@ class Ditty_API {
 	 */
 	public function php_item_mods( $request ) {
 		$params = $request->get_params();
-		// if ( ! isset( $params['apiData'] ) ) {
-		// 	return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
-		// }
+		if ( ! isset( $params['apiData'] ) ) {
+			return new WP_Error( 'no_data', sprintf(__( '%s: No api data', 'ditty-news-ticker' ), 'php_item_mods'), array( 'status' => 404 ) );
+		}
 		$apiData = $params['apiData'];
-
-		// if ( ! isset( $apiData['item'] ) ) {
-		// 	return new WP_Error( 'no_id', __( 'No Item data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
-		// }
+		if ( ! isset( $apiData['item'] ) ) {
+			return new WP_Error( 'no_item', sprintf(__( '%s: No item data', 'ditty-news-ticker' ), 'php_item_mods'), array( 'status' => 404 ) );
+		}
 
 		$item = $apiData['item'];
 		$hook = isset( $apiData['hook'] ) ? $apiData['hook'] : false;

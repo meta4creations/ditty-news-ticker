@@ -203,9 +203,9 @@
       }
 
       // Preload images
-      for (var i = 0; i < this.total; i++) {
-        this._preloadSlide(this.settings.slides[i].html);
-      }
+      // for (var i = 0; i < this.total; i++) {
+      //   this._preloadSlide(this.settings.slides[i].html);
+      // }
 
       // Trigger the init
       setTimeout(function () {
@@ -266,6 +266,36 @@
             .on("load", function () {})
             .attr("src", src);
         });
+    },
+
+    _preloadItem: function ($item, setHeight = false) {
+      var self = this,
+        img,
+        numImages = $item.find("img").length,
+        imagesLoaded = 0;
+
+      $item.find("img").each(function () {
+        img = new Image();
+        img.src = $(this).attr("src");
+        var isLoaded = img.complete && img.naturalHeight !== 0;
+        if (isLoaded) {
+          imagesLoaded++;
+          if (numImages === imagesLoaded) {
+            if (setHeight) {
+              self._animateHeight();
+            }
+          }
+        } else {
+          img.onload = function () {
+            imagesLoaded++;
+            if (numImages === imagesLoaded) {
+              if (setHeight) {
+                self._animateHeight();
+              }
+            }
+          };
+        }
+      });
     },
 
     /**
@@ -426,6 +456,8 @@
         $slide = $(this.settings.slides[index].html); // Or, create and cache a new element
         this.settings.slides[index].$elmt = $slide;
       }
+
+      this._preloadItem($slide, true);
 
       // Add a the current class
       $slide.addClass("ditty-slider__slide");
@@ -1006,7 +1038,7 @@
         $arrows.append($prev, $next);
 
         this.$arrows = $arrows;
-        this.$contents.append($arrows);
+        this.$elmt.append($arrows);
       }
 
       // Reset styles
@@ -1102,9 +1134,9 @@
         currentIndex = this.settings.slide,
         newIndex = this.settings.slide;
 
-      for (var i = 0; i < newSlides.length; i++) {
-        this._preloadSlide(newSlides[i]);
-      }
+      // for (var i = 0; i < newSlides.length; i++) {
+      //   this._preloadSlide(newSlides[i]);
+      // }
 
       this.settings.slides = newSlides;
       if (currentCount !== newCount) {
@@ -1359,7 +1391,7 @@
       this.total = this.settings.slides.length;
 
       // Preload slide assets
-      this._preloadSlide(slide);
+      //this._preloadSlide(slide);
 
       if (1 === this.total) {
         this._showSlide();
@@ -1404,7 +1436,7 @@
       }
 
       this.total = this.settings.slides.length;
-      this._preloadSlide(newSlide);
+      //this._preloadSlide(newSlide);
       this.trigger("update");
     },
 

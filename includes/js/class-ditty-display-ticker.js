@@ -103,12 +103,6 @@
     this.finished = false;
 
     this.scrollIncrement = 0;
-    // this.framesPerSecond = 60;
-    // this.previousTime = performance.now();
-    // this.frameInterval = 1000 / this.framesPerSecond;
-    // this.deltaTimeMultiplier = 1;
-    // this.deltaTime = 0;
-    // this.averageDeltaTime = [];
 
     if (1 === parseInt(this.settings.shuffle)) {
       this.shuffle();
@@ -175,11 +169,6 @@
 
       // Trigger the init
       setTimeout(function () {
-        // Preload images
-        for (var i = 0; i < self.total; i++) {
-          self._preloadItem(self.settings.items[i]);
-        }
-
         // Initialize the items
         self._initializeItems();
 
@@ -199,14 +188,34 @@
       }
     },
 
-    _preloadItem: function (item) {
-      var img;
-      $(item.html)
-        .find("img")
-        .each(function () {
-          img = new Image();
-          img.src = $(this).attr("src");
-        });
+    _preloadItem: function ($item, setHeight = false) {
+      var self = this,
+        img,
+        numImages = $item.find("img").length,
+        imagesLoaded = 0;
+
+      $item.find("img").each(function () {
+        img = new Image();
+        img.src = $(this).attr("src");
+        var isLoaded = img.complete && img.naturalHeight !== 0;
+        if (isLoaded) {
+          imagesLoaded++;
+          if (numImages === imagesLoaded) {
+            if (setHeight) {
+              self._setCurrentHeight();
+            }
+          }
+        } else {
+          img.onload = function () {
+            imagesLoaded++;
+            if (numImages === imagesLoaded) {
+              if (setHeight) {
+                self._setCurrentHeight();
+              }
+            }
+          };
+        }
+      });
     },
 
     _positionItems: function (distance) {
@@ -371,6 +380,7 @@
       this._itemSpacing($item);
       this._itemSetTransform($item, this._itemResetPosition($item));
       this.$items.append($item);
+      this._preloadItem($item, true);
 
       $item.css({
         display: "block",
@@ -400,13 +410,17 @@
 
       // Set the next item
       this.nextItem = this._getNextItem(index);
+      var $nextItem = $(this.settings.items[this.nextItem].html);
+      this._preloadItem($nextItem);
 
       if ("custom" !== positionType) {
         var position = this._itemResetPosition($item);
         this._itemSetTransform($item, position);
         this.visibleItems.push({
           $item: $item,
+          parentId: this.settings.items[index].parent_id,
           itemId: this.settings.items[index].id,
+          itemUniqId: this.settings.items[index].uniq_id,
           posX: position.posX,
           posY: position.posY,
         });
@@ -504,6 +518,9 @@
       var $item = this.visibleItems[index].$item,
         $nextItem = $item.next();
 
+      const tempHeight = this.$items.outerHeight();
+      const tempItem = this.visibleItems[index];
+
       // Remove the item
       $item.remove();
       this.visibleItems.splice(index, 1);
@@ -511,14 +528,19 @@
       if ($nextItem.length) {
         $nextItem.addClass("ditty-item--last");
         this.$lastItem = $nextItem;
+        this._setCurrentHeight();
       }
-
-      // Set the ticker height
-      this._setCurrentHeight();
 
       var visibleItems = this.$items.children();
       if (0 === visibleItems.length) {
-        this.elmt.dispatchEvent(new CustomEvent("dittyTickerComplete"));
+        this.elmt.dispatchEvent(
+          new CustomEvent("dittyTickerComplete", {
+            detail: {
+              lastItem: tempItem,
+              lastHeight: tempHeight,
+            },
+          })
+        );
       }
 
       this.trigger("active_items_update");
@@ -633,20 +655,9 @@
         posY = 0,
         increment = this.scrollIncrement;
 
-      //var useDeltaMultiplier = 1;
       if (distance) {
         increment = distance;
       }
-      // else if (useDeltaMultiplier) {
-      //   increment = increment * this.deltaTimeMultiplier;
-      // }
-
-      // if ( useDeltaMultiplier ) {
-      // 	console.log('DELTA increment', increment);
-      // } else {
-      // 	console.log('increment', increment);
-      // }
-
       switch (this.settings.direction) {
         case "left":
           posX = parseFloat(this.visibleItems[index].posX) - increment;
@@ -1311,10 +1322,21 @@
      * @since    3.1
      * @return   null
      */
+    resetItems: function () {
+      this._resetItems();
+    },
+
+    /**
+     * Load new items
+     *
+     * @since    3.1
+     * @return   null
+     */
     loadItems: function (newItems) {
       if (undefined === newItems) {
         return false;
       }
+
       const { updatedItems } = dittyGetUpdatedItemData(
         this.settings.items,
         newItems

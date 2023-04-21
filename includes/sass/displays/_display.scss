@@ -51,6 +51,7 @@
 	&[data-title_position="start"] {
 		> .ditty__title {
 			.ditty__title__contents {
+				height: 100%;
 				align-items: flex-start;
 				justify-content: flex-start;
 			}

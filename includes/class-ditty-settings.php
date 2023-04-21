@@ -282,9 +282,6 @@ class Ditty_Settings {
 	 * @since   3.1
 	 */
 	public function sanitize( $values ) {
-
-		
-
 		$sanitized_global_ditty = array();
 		if ( isset( $values['global_ditty'] ) && is_array( $values['global_ditty'] ) && count( $values['global_ditty'] ) > 0 ) {
 			foreach ( $values['global_ditty'] as $index => $global_ditty ) {
@@ -309,25 +306,6 @@ class Ditty_Settings {
 			}
 		}
 		
-		// $variation_types = ditty_layout_variation_types();
-		// $sanitized_variation_defaults = array();
-		// if ( is_array( $variation_types ) && count( $variation_types ) > 0 ) {
-		// 	foreach ( $variation_types as $item_type => $item_type_variations ) {
-		// 		if ( ! isset( $sanitized_variation_defaults[$item_type] ) ) {
-		// 			$sanitized_variation_defaults[$item_type] = array();
-		// 		}
-		// 		if ( is_array( $item_type_variations ) && count( $item_type_variations ) > 0 ) {
-		// 			foreach ( $item_type_variations as $variation_id => $item_type_variation ) {
-		// 				if ( isset( $values["variation_default_{$item_type}_{$variation_id}"] ) ) {
-		// 					$sanitized_variation_defaults[$item_type][$variation_id] = intval( $values["variation_default_{$item_type}_{$variation_id}"] );
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-		// }
-
-		//ChromePhp::log( 'variation_defaults', json_decode( $values['variation_defaults'], true ) );
-		ChromePhp::log( 'values', $values );
 		$sanitized_fields = array(
 			'live_refresh'				=> isset( $values['live_refresh'] ) 				? intval( $values['live_refresh'] ) : 10,
 			'edit_links'					=> isset( $values['edit_links'] ) 					? sanitize_key( $values['edit_links'] ) : 'enabled',

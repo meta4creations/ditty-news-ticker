@@ -1580,3 +1580,21 @@ function ditty_sanitize_settings( $values, $filter = false ) {
 	}
 	return $filter ? apply_filters( 'ditty_sanitize_settings', $sanitized_values, $values, $filter ) : $sanitized_values;
 }
+
+/**
+ * Sanitize settings
+ * *
+ * @since   3.1
+ */
+function ditty_get_image_dimensions( $image_url ) {
+	$response = wp_remote_get($image_url);
+	$image_data = wp_remote_retrieve_body($response);
+	$temp_image = tmpfile();
+	fwrite($temp_image, $image_data);
+	$temp_image_path = stream_get_meta_data($temp_image)['uri'];
+	$image_info = getimagesize($temp_image_path);
+	return [
+		'width' => $image_info[0],
+		'height' => $image_info[1],
+	];
+}

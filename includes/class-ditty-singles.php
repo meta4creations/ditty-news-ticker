@@ -703,7 +703,6 @@ class Ditty_Singles {
 		// Get the display items
 		$display_items = get_transient( $transient_name );
 		if ( ! $display_items || 'force' == $load_type ) {
-			//ChromePhp::log( 'NO CACHE' );
 			$items_meta = $this->order_items( ditty_items_meta( $ditty_id ) );
 			$display_items = array();
 			if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {

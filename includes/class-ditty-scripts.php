@@ -794,15 +794,6 @@ class Ditty_Scripts {
 			</script>
 			<?php
 		}
-		?>
-		<script>
-			// var sass = new Sass('<?php echo DITTY_URL; ?>includes/libs/sass/sass.worker.js');
-			// var scss = '$someVar: 123px; .some-selector { width: $someVar; }';
-			// sass.compile(scss, function(result) {
-			// 	console.log(result);
-			// });
-		</script>
-		<?php
 	}
 
 }
