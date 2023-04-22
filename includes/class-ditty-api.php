@@ -52,25 +52,43 @@ class Ditty_API {
 		register_rest_route( "dittyeditor/v{$this->version}", 'displayItems', array(
       'methods' 	=> 'POST',
       'callback' 	=> array( $this, 'get_display_items' ),
-			'permission_callback' => array( $this, 'save_ditty_permissions_check' ),
+			'permission_callback' => array( $this, 'general_ditty_permissions_check' ),
     ) );
 		register_rest_route( "dittyeditor/v{$this->version}", 'phpItemMods', array(
       'methods' 	=> 'POST',
       'callback' 	=> array( $this, 'php_item_mods' ),
-			'permission_callback' => array( $this, 'save_ditty_permissions_check' ),
+			'permission_callback' => array( $this, 'general_ditty_permissions_check' ),
     ) );
+	}
+
+	/**
+	 * General permissions
+	 *
+	 * @access public
+	 * @since  3.1.9
+	 */
+	public function general_ditty_permissions_check( $request ) {
+		return true;
 	}
 
 	/**
 	 * Check the Ditty permissions of the user
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.1.9
 	 */
 	public function save_ditty_permissions_check( $request ) {
 		$params = $request->get_params();
 		$apiData = isset( $params['apiData'] ) ? $params['apiData'] : array();
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
+		$ditty_id = isset( $apiData['id'] ) ? $apiData['id'] : 0;
+		$ditty_post = get_post( $ditty_id );
+		$ditty_author = $ditty_post->post_author;
+
+		if ( 0 != $ditty_author && $userId != $ditty_author && ! user_can( $userId, 'edit_others_ditty' ) ) {
+			return new WP_Error( 'rest_forbidden', esc_html__( "Sorry, you are not allowed to edit other authors' Ditty.", 'ditty-news-ticker' ), array( 'status' => 403 ) );
+		}
+
 		if ( ! user_can( $userId, 'edit_dittys' ) ) {
 			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allowed to edit Ditty.', 'ditty-news-ticker' ), array( 'status' => 403 ) );
 		}
@@ -81,12 +99,21 @@ class Ditty_API {
 	 * Check the Display permissions of the user
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.1.9
 	 */
 	public function save_display_permissions_check( $request ) {
 		$params = $request->get_params();
-		$apiData = isset( $params['apiData'] ) ? $params['apiData'] : array();
+		$apiData = isset( $params['apiData'] ) ? $params['apiData'] : array();	
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
+		$display = isset( $apiData['display'] ) ? $apiData['display'] : [];
+		$display_id = isset( $display['id'] ) ? $display['id'] : 0;
+		$display_post = get_post( $display_id );
+		$display_author = $display_post->post_author;
+
+		if ( 0 != $display_author && $userId != $display_author && ! user_can( $userId, 'edit_others_ditty_displays' ) ) {
+			return new WP_Error( 'rest_forbidden', esc_html__( "Sorry, you are not allowed to edit other authors' Displays.", 'ditty-news-ticker' ), array( 'status' => 403 ) );
+		}
+
 		if ( ! user_can( $userId, 'edit_ditty_displays' ) ) {
 			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allowed to edit Displays.', 'ditty-news-ticker' ), array( 'status' => 403 ) );
 		}
@@ -97,12 +124,21 @@ class Ditty_API {
 	 * Check the Layout permissions of the user
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.1.9
 	 */
 	public function save_layout_permissions_check( $request ) {
 		$params = $request->get_params();
 		$apiData = isset( $params['apiData'] ) ? $params['apiData'] : array();
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
+		$layout = isset( $apiData['layout'] ) ? $apiData['layout'] : [];
+		$layout_id = isset( $layout['id'] ) ? $layout['id'] : 0;
+		$layout_post = get_post( $layout_id );
+		$layout_author = $layout_post->post_author;
+
+		if ( 0 != $layout_author && $userId != $layout_author && ! user_can( $userId, 'edit_others_ditty_layouts' ) ) {
+			return new WP_Error( 'rest_forbidden', esc_html__( "Sorry, you are not allowed to edit other authors' Layouts.", 'ditty-news-ticker' ), array( 'status' => 403 ) );
+		}
+		
 		if ( ! user_can( $userId, 'edit_ditty_layouts' ) ) {
 			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allowed to edit Layouts.', 'ditty-news-ticker' ), array( 'status' => 403 ) );
 		}

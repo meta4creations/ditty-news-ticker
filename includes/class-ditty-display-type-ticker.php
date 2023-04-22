@@ -226,24 +226,6 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 				),
 			)),
 		);
-		if (WP_DEBUG) {
-			$fields['importExportSettings'] = array(
-				'type' 							=> 'group',
-				'id'								=> 'importExportSettings',
-				'collapsible'				=> true,
-				'default_state'			=> 'collapsed',
-				'multiple_fields'		=> true,
-				'name' 							=> __('Import/Export', 'ditty-news-ticker'),
-				'help' 							=> __('Import or export the display settings.', 'ditty-news-ticker'),
-				'fields' 						=> array(
-					'importExport' => array(
-						'type'	=> 'html',
-						'id'		=> 'importExport',
-						'std'		=> parent::import_export_settings($values),
-					),
-				),
-			);
-		}
 		return apply_filters('ditty_display_type_fields', $fields, $this->get_type());
 	}
 

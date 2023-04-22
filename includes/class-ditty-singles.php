@@ -775,7 +775,7 @@ class Ditty_Singles {
 	 * Save a Ditty
 	 *
 	 * @access  public
-	 * @since   3.1
+	 * @since   3.1.9
 	 * @param   array
 	 */
 	public function save( $data ) {	
@@ -789,6 +789,10 @@ class Ditty_Singles {
 		$title = isset( $data['title'] ) ? sanitize_text_field( $data['title'] ) : false;
 		$status = isset( $data['status'] ) ? $data['status'] : false;
 
+		$ditty_post = get_post( $id );
+		$ditty_author = $ditty_post->post_author;
+		$author = 0 == $ditty_author ? $userId : false;
+
 		$updates = array(
 			'items' => [],
 		);
@@ -801,9 +805,10 @@ class Ditty_Singles {
 				'post_type' => 'ditty',
 				'post_status' => $status ? $status : 'publish',
 				'post_title' => $title,
+				'post_author' => $userId,
 			] );
 			$updates['new'] = $id;
-		} elseif ( $title || $status ) {	
+		} elseif ( $title || $status || $author ) {	
 			$postarr = array(
 				'ID' => $id,
 			);
@@ -813,6 +818,9 @@ class Ditty_Singles {
 			if ( $status ) {
 				$postarr['post_status'] = $status;
 			}
+			if ( $author ) {
+				$postarr['post_author'] = $author;
+			}
 			if ( wp_update_post( $postarr ) ) {
 				if ( $title ) {
 					$updates['title'] = $title;
@@ -820,12 +828,18 @@ class Ditty_Singles {
 				if ( $status ) {
 					$updates['status'] = $status;
 				}
+				if ( $author ) {
+					$updates['author'] = $author;
+				}
 			} else {
 				if ( $title ) {
 					$errors['title'] = $title;
 				}
 				if ( $status ) {
 					$errors['status'] = $status;
+				}
+				if ( $author ) {
+					$errors['author'] = $author;
 				}
 			}
 		}

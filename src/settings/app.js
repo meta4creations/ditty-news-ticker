@@ -90,7 +90,9 @@ export default () => {
       setInitSettings(_.cloneDeep(data.updates.settings));
       setSettings(_.cloneDeep(data.updates.settings));
     } else if (data.updates.errors) {
-      console.log("errors", data.updates.errors);
+      if (window.console) {
+        console.log("errors", data.updates.errors);
+      }
     }
   };
 

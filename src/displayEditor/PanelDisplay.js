@@ -68,6 +68,11 @@ const PanelDisplay = ({
             )}
             defaultIcon={<FontAwesomeIcon icon={faTabletScreen} />}
             currentType={display.type ? display.type : false}
+            submitLabel={
+              display.type
+                ? __("Update Type", "ditty-news-ticker")
+                : __("Use Type", "ditty-news-ticker")
+            }
             types={displayTypes}
             getTypeObject={getDisplayTypeObject}
             onChange={(selectedType) => {

@@ -130,6 +130,10 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.9 =
+* Fixed missing post authors for Ditty, Displays and Layouts
+* Enhanced permissions checks
+
 = 3.1.8 =
 * List display arrow adjustments
 * Image render updates

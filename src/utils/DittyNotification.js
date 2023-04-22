@@ -31,7 +31,7 @@ export const dittyNotification = (
     ) {
       message = notification.response.data.message;
     }
-    notification = message;
+    notification = <div dangerouslySetInnerHTML={{ __html: message }} />;
   }
   toast(notification, settings);
 };

@@ -41,6 +41,7 @@ const PopupTypeSelector = ({
           ? submitLabel(itemTypeObject)
           : submitLabel
       }
+      submitDisabled={!selectedType}
       hideCancel={forceUpdate ? true : false}
       header={
         <>

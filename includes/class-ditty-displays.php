@@ -296,7 +296,7 @@ class Ditty_Displays {
 	 * Save a display
 	 *
 	 * @access  public
-	 * @since   3.1
+	 * @since   3.1.9
 	 * @param   array
 	 */
 	public function save( $data ) {	
@@ -311,11 +311,15 @@ class Ditty_Displays {
 		$display_type = isset( $display['type'] ) ? $display['type'] : false;
 		$display_settings = isset( $display['settings'] ) ? $display['settings'] : false;
 
+		$display_post = get_post( $display_id );
+		$display_author = $display_post->post_author;
+		$author = 0 == $display_author ? $userId : false;
+
 		$updates = array();
 		$errors = array();
 
 		if ( $display_id && 'ditty_display-new' != $display_id ) {
-			if ( $title || $status ) {
+			if ( $title || $status || $author ) {
 				$postarr = array(
 					'ID' => $display_id,
 				);
@@ -325,12 +329,18 @@ class Ditty_Displays {
 				if ( $status ) {
 					$postarr['post_status'] = $status;
 				}
+				if ( $author ) {
+					$postarr['post_author'] = $author;
+				}
 				if ( wp_update_post( $postarr ) ) {
 					if ( $title ) {
 						$updates['title'] = $title;
 					}
 					if ( $status ) {
 						$updates['status'] = $status;
+					}
+					if ( $author ) {
+						$updates['author'] = $author;
 					}
 				} else {
 					if ( $title ) {
@@ -339,6 +349,9 @@ class Ditty_Displays {
 					if ( $status ) {
 						$errors['status'] = $status;
 					}
+					if ( $author ) {
+						$errors['author'] = $author;
+					}
 				}
 			}
 		} else {
@@ -346,6 +359,7 @@ class Ditty_Displays {
 				'post_type'		=> 'ditty_display',
 				'post_title'	=> $title,
 				'post_status'	=> $status ? $status : 'publish',
+				'post_author' => $userId,
 			);
 			$display_id = wp_insert_post( $postarr );
 			$updates['new'] = $display_id;

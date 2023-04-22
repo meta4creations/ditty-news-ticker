@@ -72,7 +72,7 @@ function ditty_setup_post_types() {
 		'show_in_menu' 				=> 'edit.php?post_type=ditty', 
 		'query_var' 					=> true,
 		'rewrite' 						=> false,
-		'supports' 						=> array( 'title' ),
+		'supports' 						=> array( 'title', 'author' ),
 		'show_in_rest' 				=> true,
 	);
 	register_post_type( 'ditty_layout', $args );
@@ -104,7 +104,7 @@ function ditty_setup_post_types() {
 		'show_in_menu' 				=> 'edit.php?post_type=ditty', 
 		'query_var' 					=> true,
 		'rewrite' 						=> false,
-		'supports' 						=> array( 'title' ),
+		'supports' 						=> array( 'title', 'author' ),
 		'show_in_rest' 				=> true,
 	);
 	register_post_type( 'ditty_display', $args );

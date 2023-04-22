@@ -665,7 +665,7 @@ class Ditty_Layouts {
 	 * Save a layout
 	 *
 	 * @access  public
-	 * @since   3.1
+	 * @since   3.1.9
 	 * @param   array
 	 */
 	public function save( $data ) {	
@@ -681,11 +681,15 @@ class Ditty_Layouts {
 		$layout_html = isset( $layout['html'] ) ? $layout['html'] : false;
 		$layout_css = isset( $layout['css'] ) ? $layout['css'] : false;
 
+		$layout_post = get_post( $layout_id );
+		$layout_author = $layout_post->post_author;
+		$author = 0 == $layout_author ? $userId : false;
+
 		$updates = array();
 		$errors = array();
 
 		if ( $layout_id && 'ditty_layout-new' != $layout_id ) {
-			if ( $title || $status) {
+			if ( $title || $status || $author ) {
 				$postarr = array(
 					'ID' => $layout_id,
 				);
@@ -695,12 +699,18 @@ class Ditty_Layouts {
 				if ( $status ) {
 					$postarr['post_status'] = $status;
 				}
+				if ( $author ) {
+					$postarr['post_author'] = $author;
+				}
 				if ( wp_update_post( $postarr ) ) {
 					if ( $title ) {
 						$updates['title'] = $title;
 					}
 					if ( $status ) {
 						$updates['status'] = $status;
+					}
+					if ( $author ) {
+						$updates['author'] = $author;
 					}
 				} else {
 					if ( $title ) {
@@ -709,6 +719,9 @@ class Ditty_Layouts {
 					if ( $status ) {
 						$errors['status'] = $status;
 					}
+					if ( $author ) {
+						$errors['author'] = $author;
+					}
 				}
 			}
 		} else {
@@ -716,6 +729,7 @@ class Ditty_Layouts {
 				'post_type'		=> 'ditty_layout',
 				'post_title'	=> $title,
 				'post_status'	=> $status ? $status : 'publish',
+				'post_author' => $userId,
 			);
 			$layout_id = wp_insert_post( $postarr );
 			$updates['new'] = $layout_id;

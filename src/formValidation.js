@@ -17,7 +17,9 @@ const ContactForm = () => {
     validationSchema,
     onSubmit: (values) => {
       // Process the form data, e.g., submit to the WordPress backend
-      console.log(values);
+      if (window.console) {
+        console.log(values);
+      }
     },
   });
 
