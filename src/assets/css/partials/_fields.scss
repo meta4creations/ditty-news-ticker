@@ -147,8 +147,14 @@
 .ditty-field__input--checkboxes {
   > div {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 5px 10px;
+  }
+  &.ditty-field__input--inline {
+    > div {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
   }
 }
 

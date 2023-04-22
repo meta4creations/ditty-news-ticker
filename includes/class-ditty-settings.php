@@ -49,15 +49,12 @@ class Ditty_Settings {
 	*/
 	public function get_layout_default_fields() {
 		$settings = ditty_settings( 'variation_defaults' );
-		//echo '<pre>';print_r(ditty_settings('variation_defaults'));echo '</pre>';
-
 		$item_types = ditty_item_types();
 		$options = Ditty()->layouts->select_field_options();
 
 		$fields = [];
 		if ( is_array( $item_types ) && count( $item_types ) > 0 ) {
 			foreach ( $item_types as $item_type  ) {
-
 				if ( ! $item_type_object = ditty_item_type_object( $item_type['type'] ) ) {
 					continue;
 				}
@@ -89,7 +86,43 @@ class Ditty_Settings {
 			}
 		}
 
-		//echo '<pre>';print_r($fields);echo '</pre>';
+		return $fields;
+	}
+
+	private function user_roles_and_capabilities() {
+		$wp_roles_instance = wp_roles();
+		$all_roles = $wp_roles_instance->roles;
+		$fields = [];
+
+		$ditty_capabilities = $this->get_capabilities();
+		$active_capabilities = $this->get_active_capabilities();
+
+		foreach ($all_roles as $role_key => $role) {
+			if ( 'administrator' == $role_key ) {
+				continue;
+			}
+			$role_capabilities = $ditty_capabilities;
+			$role_group = [
+				'type'	=> 'group',
+				'id' 		=> $role_key,
+				'name' => sprintf( esc_html__( '%s Permissions', 'ditty-news-ticker' ), $role['name'] ),
+				'description' => sprintf( esc_html__( 'Set Ditty permissions for the %s role.', 'ditty-news-ticker' ), $role['name'] ),
+				//'options' => $role_capabilities,
+				//'std' => $active_capabilities[$role_key],
+				'collapsible' => true,
+				'defaultState' => 'collapsed',
+				'fields' => [
+					[
+						'type' => 'checkboxes',
+						'id' => 'capabilities',
+						'inline' => false,
+						'options' => $role_capabilities,
+						'std' => $active_capabilities[$role_key],
+					]
+				],
+			];
+			$fields[] = $role_group;
+		}
 
 		return $fields;
 	}
@@ -101,6 +134,9 @@ class Ditty_Settings {
 	 * @since   3.0
 	 */
 	public function fields() {	
+		$test = $this->user_roles_and_capabilities();
+		//echo '<pre>';print_r($test);echo '</pre>';
+
 		$fields = [
 			[
 				'id' => 'general',
@@ -237,6 +273,20 @@ class Ditty_Settings {
 					],
 				],
 			],
+			[
+				'id' => 'permissions',
+				'label' => esc_html__( 'Permissions', 'ditty-news-ticker' ),
+				'name' => esc_html__( 'User Role Permissions', 'ditty-news-ticker' ),
+				'description' => esc_html__( 'Set user permissions for the roles on your site.', 'ditty-news-ticker' ),
+				'icon' => 'fas fa-pencil-ruler',
+				'fields' => [
+					[
+						'type'	=> 'group',
+						'id' 		=> 'permissions',
+						'fields' => $this->user_roles_and_capabilities(),
+					],
+				],
+			],
 
 			// [
 			// 	'id' => 'extensions',
@@ -275,6 +325,46 @@ class Ditty_Settings {
 		return $formatted_extensions;
 	}
 
+	private function get_capabilities() {
+		$ditty_capabilities = array();
+		$capability_types = array( 'ditty', 'ditty_layout', 'ditty_display' );
+		foreach ( $capability_types as $capability_type ) {
+			$caps = array(
+				"publish_{$capability_type}s",
+				"edit_{$capability_type}",
+				"edit_{$capability_type}s",
+				"edit_others_{$capability_type}s",
+				"delete_{$capability_type}",
+				"delete_{$capability_type}s",
+				"delete_others_{$capability_type}s",
+			);
+			if ( is_array( $caps ) && count( $caps ) > 0 ) {
+				foreach ( $caps as $cap ) {
+					$ditty_capabilities[$cap] = $cap;
+				}
+			}
+		}
+		$ditty_capabilities['manage_ditty_settings'] = 'manage_ditty_settings';
+		return $ditty_capabilities;
+	}
+
+	private function get_active_capabilities() {
+		$wp_roles_instance = wp_roles();
+		$all_roles = $wp_roles_instance->roles;
+		$ditty_capabilities = $this->get_capabilities();
+		$active_capabilities = [];
+		foreach ($all_roles as $role_key => $role) {
+			$capabilities = [];
+			foreach ( $role['capabilities'] as $capability => $enabled ) {
+				if ( $enabled && in_array( $capability, $ditty_capabilities ) ) {
+					$capabilities[] = $capability;
+				}
+			}
+			$active_capabilities[$role_key] = $capabilities;
+		}
+		return $active_capabilities;
+	}
+
 	/**
 	 * Sanitize and possibly save the settings
 	 *
@@ -305,6 +395,29 @@ class Ditty_Settings {
 				$sanitized_global_ditty[] = $sanitized_data;
 			}
 		}
+
+		// Set capabilities
+		$active_capabilities = $this->get_active_capabilities();
+		if ( isset( $values['permissions'] ) && is_array( $values['permissions'] ) && count( $values['permissions'] ) > 0 ) {
+			foreach ( $values['permissions'] as $role_key => $data ) {
+				if ( 'administrator' == $role_key ) {
+					continue;
+				}
+				$role = get_role( $role_key );
+				$added_capabilities = array_diff( $data['capabilities'], $active_capabilities[$role_key] );
+				$removed_capabilities = array_diff( $active_capabilities[$role_key], $data['capabilities'] );
+				if ( is_array( $added_capabilities ) && count( $added_capabilities ) > 0 ) {
+					foreach ( $added_capabilities as $added_capability ) {
+						$role->add_cap( esc_attr( $added_capability ) );
+					}
+				}
+				if ( is_array( $removed_capabilities ) && count( $removed_capabilities ) > 0 ) {
+					foreach ( $removed_capabilities as $removed_capability ) {
+						$role->remove_cap( esc_attr( $removed_capability ) );
+					}
+				}
+			}
+		}
 		
 		$sanitized_fields = array(
 			'live_refresh'				=> isset( $values['live_refresh'] ) 				? intval( $values['live_refresh'] ) : 10,
@@ -313,6 +426,7 @@ class Ditty_Settings {
 			'ditty_layout_ui'			=> isset( $values['ditty_layout_ui'] ) 			? sanitize_key( $values['ditty_layout_ui'] ) : 'enabled',
 			'ditty_layouts_sass' 	=> isset( $values['ditty_layouts_sass'] ) 	? sanitize_key( $values['ditty_layouts_sass'] ) : false,
 			'variation_defaults'	=> isset( $values['variation_defaults'] )		? ditty_sanitize_settings( $values['variation_defaults'] ) : [],
+			'permissions'					=> $values['permissions'],
 			'global_ditty'				=> $sanitized_global_ditty,
 			'ditty_news_ticker' 	=> isset( $values['ditty_news_ticker'] ) 		? sanitize_key( $values['ditty_news_ticker'] ) : false,
 			'disable_fontawesome' => isset( $values['disable_fontawesome'] )	? sanitize_key( $values['disable_fontawesome'] ) : false,
