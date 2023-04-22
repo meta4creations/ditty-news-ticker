@@ -278,7 +278,7 @@ class Ditty_Settings {
 				'label' => esc_html__( 'Permissions', 'ditty-news-ticker' ),
 				'name' => esc_html__( 'User Role Permissions', 'ditty-news-ticker' ),
 				'description' => esc_html__( 'Set user permissions for the roles on your site.', 'ditty-news-ticker' ),
-				'icon' => 'fas fa-pencil-ruler',
+				'icon' => 'fa-solid fa-lock',
 				'fields' => [
 					[
 						'type'	=> 'group',
