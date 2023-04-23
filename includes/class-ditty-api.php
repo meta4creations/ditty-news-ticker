@@ -85,7 +85,7 @@ class Ditty_API {
 		$ditty_post = get_post( $ditty_id );
 		$ditty_author = $ditty_post->post_author;
 
-		if ( 0 != $ditty_author && $userId != $ditty_author && ! user_can( $userId, 'edit_others_ditty' ) ) {
+		if ( 0 != $ditty_author && $userId != $ditty_author && ! user_can( $userId, 'edit_others_dittys' ) ) {
 			return new WP_Error( 'rest_forbidden', esc_html__( "Sorry, you are not allowed to edit other authors' Ditty.", 'ditty-news-ticker' ), array( 'status' => 403 ) );
 		}
 

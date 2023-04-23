@@ -87,7 +87,7 @@ class Ditty_Layouts {
 	 */
 	public function edit_page_redirects() {
 		$action = isset( $_GET['action'] ) ? $_GET['action'] : false;
-		if ( ! is_admin() || 'trash' == $action ) {
+		if ( ! is_admin() || 'trash' == $action || 'delete' == $action ) {
 			return false;
 		}
 		global $pagenow;

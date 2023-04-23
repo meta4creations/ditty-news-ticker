@@ -1499,7 +1499,7 @@ function ditty_layout_editing() {
  * @since   3.0.32
  */
 function ditty_edit_links( $ditty_id ) {
-	if ( ! is_admin() && current_user_can( 'edit_dittys' ) && 'enabled' === ditty_settings( 'edit_links' ) ) {
+	if ( ! is_admin() && current_user_can( 'edit_ditty', $ditty_id ) && 'enabled' === ditty_settings( 'edit_links' ) ) {
 		return '<a class="ditty__edit-link" href="'.get_edit_post_link( $ditty_id ).'">' . __('Edit Ditty', 'ditty-news-ticker') . '</a>';
 	}
 }

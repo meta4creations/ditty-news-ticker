@@ -12,6 +12,7 @@
 class Ditty_Settings {
 
 	public function __construct() {
+		add_action( 'admin_init', array( $this, 'reset_admin_permissions' ), 5 );
 		add_action( 'admin_menu', array( $this, 'settings_pages' ), 5 );
 	}
 
@@ -40,91 +41,6 @@ class Ditty_Settings {
 		?>
 		<div id="ditty-settings__wrapper" class="ditty-adminPage"></div>
 		<?php
-	}
-
-	/**
-	 * Render the layout default fields
-	 *
-	 * @since    3.1
-	*/
-	public function get_layout_default_fields() {
-		$settings = ditty_settings( 'variation_defaults' );
-		$item_types = ditty_item_types();
-		$options = Ditty()->layouts->select_field_options();
-
-		$fields = [];
-		if ( is_array( $item_types ) && count( $item_types ) > 0 ) {
-			foreach ( $item_types as $item_type  ) {
-				if ( ! $item_type_object = ditty_item_type_object( $item_type['type'] ) ) {
-					continue;
-				}
-				$variation_types = $item_type_object->get_layout_variation_types();
-				$variation_fields = [];
-				if ( is_array( $variation_types ) && count( $variation_types ) > 0 ) {
-					foreach ( $variation_types as $variation_id => $variation_type ) {
-						$variation_fields[] = [
-							'type'	=> 'select',
-							'id' 		=> $variation_id,
-							'name' 	=> count( $variation_types ) > 1 ? $variation_type['label'] : false,
-							'help'	=> count( $variation_types ) > 1 ? $variation_type['description'] : false,
-							'options' => $options,
-							'placeholder' => __( 'Choose a Layout', 'ditty-news-ticker' ),
-							'std'			=> ( isset( $settings[$item_type['type']] ) && isset( $settings[$item_type['type']][$variation_id] ) ) ? $settings[$item_type['type']][$variation_id] : false,
-						];
-					}
-				}
-
-				$fields[] = [
-					'type'	=> 'group',
-					'id' 		=> $item_type['type'],
-					'name' 	=> $item_type['label'],
-					'icon' 	=> $item_type['icon'],
-					'description'	=> sprintf( esc_html__( 'Set layout variations defaults for %s item types.', 'ditty-news-ticker' ), $item_type['label'] ),
-					'collapsible' => true,
-					'fields' => $variation_fields,
-				];
-			}
-		}
-
-		return $fields;
-	}
-
-	private function user_roles_and_capabilities() {
-		$wp_roles_instance = wp_roles();
-		$all_roles = $wp_roles_instance->roles;
-		$fields = [];
-
-		$ditty_capabilities = $this->get_capabilities();
-		$active_capabilities = $this->get_active_capabilities();
-
-		foreach ($all_roles as $role_key => $role) {
-			if ( 'administrator' == $role_key ) {
-				continue;
-			}
-			$role_capabilities = $ditty_capabilities;
-			$role_group = [
-				'type'	=> 'group',
-				'id' 		=> $role_key,
-				'name' => sprintf( esc_html__( '%s Permissions', 'ditty-news-ticker' ), $role['name'] ),
-				'description' => sprintf( esc_html__( 'Set Ditty permissions for the %s role.', 'ditty-news-ticker' ), $role['name'] ),
-				//'options' => $role_capabilities,
-				//'std' => $active_capabilities[$role_key],
-				'collapsible' => true,
-				'defaultState' => 'collapsed',
-				'fields' => [
-					[
-						'type' => 'checkboxes',
-						'id' => 'capabilities',
-						'inline' => false,
-						'options' => $role_capabilities,
-						'std' => $active_capabilities[$role_key],
-					]
-				],
-			];
-			$fields[] = $role_group;
-		}
-
-		return $fields;
 	}
 	
 	/**
@@ -325,12 +241,128 @@ class Ditty_Settings {
 		return $formatted_extensions;
 	}
 
+	/**
+	 * Render the layout default fields
+	 *
+	 * @since    3.1
+	*/
+	public function get_layout_default_fields() {
+		$settings = ditty_settings( 'variation_defaults' );
+		$item_types = ditty_item_types();
+		$options = Ditty()->layouts->select_field_options();
+
+		$fields = [];
+		if ( is_array( $item_types ) && count( $item_types ) > 0 ) {
+			foreach ( $item_types as $item_type  ) {
+				if ( ! $item_type_object = ditty_item_type_object( $item_type['type'] ) ) {
+					continue;
+				}
+				$variation_types = $item_type_object->get_layout_variation_types();
+				$variation_fields = [];
+				if ( is_array( $variation_types ) && count( $variation_types ) > 0 ) {
+					foreach ( $variation_types as $variation_id => $variation_type ) {
+						$variation_fields[] = [
+							'type'	=> 'select',
+							'id' 		=> $variation_id,
+							'name' 	=> count( $variation_types ) > 1 ? $variation_type['label'] : false,
+							'help'	=> count( $variation_types ) > 1 ? $variation_type['description'] : false,
+							'options' => $options,
+							'placeholder' => __( 'Choose a Layout', 'ditty-news-ticker' ),
+							'std'			=> ( isset( $settings[$item_type['type']] ) && isset( $settings[$item_type['type']][$variation_id] ) ) ? $settings[$item_type['type']][$variation_id] : false,
+						];
+					}
+				}
+
+				$fields[] = [
+					'type'	=> 'group',
+					'id' 		=> $item_type['type'],
+					'name' 	=> $item_type['label'],
+					'icon' 	=> $item_type['icon'],
+					'description'	=> sprintf( esc_html__( 'Set layout variations defaults for %s item types.', 'ditty-news-ticker' ), $item_type['label'] ),
+					'collapsible' => true,
+					'fields' => $variation_fields,
+				];
+			}
+		}
+
+		return $fields;
+	}
+
+	/**
+	 * Reset admin permissions
+	 *
+	 * @access  public
+	 * @since   3.1.9
+	 */
+	public function reset_admin_permissions() {
+		if ( isset( $_GET['reset_ditty_admin_permissions'] ) && current_user_can( 'manage_options' ) ) {
+			$ditty_capabilities = $this->get_capabilities();
+			$role = get_role( 'administrator' );
+			if ( is_array( $ditty_capabilities ) && count( $ditty_capabilities ) > 0 ) {
+				foreach ( $ditty_capabilities as $ditty_capability ) {
+					$role->add_cap( esc_attr( $ditty_capability ) );
+				}
+			}
+			$redirect_url = remove_query_arg( 'reset_ditty_admin_permissions', admin_url('edit.php?post_type=ditty&page=ditty_settings&tab=permissions' ) );
+			wp_safe_redirect( $redirect_url );
+			exit;
+		}
+	}
+
+	/**
+	 * Return the urser roles a capabilites fieles
+	 *
+	 * @access  public
+	 * @since   3.1.9
+	 */
+	private function user_roles_and_capabilities() {
+		$wp_roles_instance = wp_roles();
+		$all_roles = $wp_roles_instance->roles;
+		$fields = [];
+
+		$ditty_capabilities = $this->get_capabilities();
+		$active_capabilities = $this->get_active_capabilities();
+
+		foreach ($all_roles as $role_key => $role) {
+			if ( 'administrator' == $role_key ) {
+				continue;
+			}
+			$role_capabilities = $ditty_capabilities;
+			$role_group = [
+				'type'	=> 'group',
+				'id' 		=> $role_key,
+				'name' => sprintf( esc_html__( '%s Permissions', 'ditty-news-ticker' ), $role['name'] ),
+				'description' => sprintf( esc_html__( 'Set Ditty permissions for the %s role.', 'ditty-news-ticker' ), $role['name'] ),
+				'collapsible' => true,
+				'defaultState' => 'collapsed',
+				'fields' => [
+					[
+						'type' => 'checkboxes',
+						'id' => 'capabilities',
+						'inline' => false,
+						'options' => $role_capabilities,
+						'std' => $active_capabilities[$role_key],
+					]
+				],
+			];
+			$fields[] = $role_group;
+		}
+
+		return $fields;
+	}
+
+	/**
+	 * Get Ditty capabilities
+	 *
+	 * @access  public
+	 * @since   3.1.9
+	 */
 	private function get_capabilities() {
 		$ditty_capabilities = array();
 		$capability_types = array( 'ditty', 'ditty_layout', 'ditty_display' );
 		foreach ( $capability_types as $capability_type ) {
 			$caps = array(
-				"publish_{$capability_type}s",
+				//"publish_{$capability_type}s",
 				"edit_{$capability_type}",
 				"edit_{$capability_type}s",
 				"edit_others_{$capability_type}s",
@@ -348,6 +380,12 @@ class Ditty_Settings {
 		return $ditty_capabilities;
 	}
 
+	/**
+	 * Get active capabilities of roles
+	 *
+	 * @access  public
+	 * @since   3.1.9
+	 */
 	private function get_active_capabilities() {
 		$wp_roles_instance = wp_roles();
 		$all_roles = $wp_roles_instance->roles;
