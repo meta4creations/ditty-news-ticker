@@ -677,13 +677,16 @@ class Ditty_Layouts {
 		$editor_settings = isset( $data['editorSettings'] ) ? $data['editorSettings'] : false;
 
 		$layout = isset( $data['layout'] ) ? $data['layout'] : array();
-		$layout_id = isset( $layout['id'] ) ? $layout['id'] : false;
+		$layout_id = isset( $layout['id'] ) ? $layout['id'] : 'ditty_layout-new';
 		$layout_html = isset( $layout['html'] ) ? $layout['html'] : false;
 		$layout_css = isset( $layout['css'] ) ? $layout['css'] : false;
 
-		$layout_post = get_post( $layout_id );
-		$layout_author = $layout_post->post_author;
-		$author = 0 == $layout_author ? $userId : false;
+		$author = false;
+		if ( 'ditty_layout-new' != $layout_id ) {
+			$layout_post = get_post( $layout_id );
+			$layout_author = $layout_post->post_author;
+			$author = 0 == $layout_author ? $userId : false;
+		}
 
 		$updates = array();
 		$errors = array();

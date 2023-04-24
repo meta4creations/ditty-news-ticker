@@ -307,13 +307,16 @@ class Ditty_Displays {
 		$editor_settings = isset( $data['editorSettings'] ) ? $data['editorSettings'] : false;
 
 		$display = isset( $data['display'] ) ? $data['display'] : array();
-		$display_id = isset( $display['id'] ) ? $display['id'] : false;
+		$display_id = isset( $display['id'] ) ? $display['id'] : 'ditty_display-new';
 		$display_type = isset( $display['type'] ) ? $display['type'] : false;
 		$display_settings = isset( $display['settings'] ) ? $display['settings'] : false;
 
-		$display_post = get_post( $display_id );
-		$display_author = $display_post->post_author;
-		$author = 0 == $display_author ? $userId : false;
+		$author = false;
+		if ( 'ditty_display-new' != $display_id ) {
+			$display_post = get_post( $display_id );
+			$display_author = $display_post->post_author;
+			$author = 0 == $display_author ? $userId : false;
+		}
 
 		$updates = array();
 		$errors = array();

@@ -610,6 +610,11 @@ const displaySettingsStyle = (
                   },
                   {
                     type: "color",
+                    id: "itemLinkColor",
+                    name: __("Item Link Color", "ditty-news-ticker"),
+                  },
+                  {
+                    type: "color",
                     id: "itemBgColor",
                     name: __("Item Background Color", "ditty-news-ticker"),
                   },

@@ -82,11 +82,13 @@ class Ditty_API {
 		$apiData = isset( $params['apiData'] ) ? $params['apiData'] : array();
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
 		$ditty_id = isset( $apiData['id'] ) ? $apiData['id'] : 0;
-		$ditty_post = get_post( $ditty_id );
-		$ditty_author = $ditty_post->post_author;
-
-		if ( 0 != $ditty_author && $userId != $ditty_author && ! user_can( $userId, 'edit_others_dittys' ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( "Sorry, you are not allowed to edit other authors' Ditty.", 'ditty-news-ticker' ), array( 'status' => 403 ) );
+		
+		if ( 'ditty-new' != $ditty_id ) {
+			$ditty_post = get_post( $ditty_id );
+			$ditty_author = $ditty_post->post_author;
+			if ( 0 != $ditty_author && $userId != $ditty_author && ! user_can( $userId, 'edit_others_dittys' ) ) {
+				return new WP_Error( 'rest_forbidden', esc_html__( "Sorry, you are not allowed to edit other authors' Ditty.", 'ditty-news-ticker' ), array( 'status' => 403 ) );
+			}
 		}
 
 		if ( ! user_can( $userId, 'edit_dittys' ) ) {
@@ -107,11 +109,13 @@ class Ditty_API {
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
 		$display = isset( $apiData['display'] ) ? $apiData['display'] : [];
 		$display_id = isset( $display['id'] ) ? $display['id'] : 0;
-		$display_post = get_post( $display_id );
-		$display_author = $display_post->post_author;
-
-		if ( 0 != $display_author && $userId != $display_author && ! user_can( $userId, 'edit_others_ditty_displays' ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( "Sorry, you are not allowed to edit other authors' Displays.", 'ditty-news-ticker' ), array( 'status' => 403 ) );
+		
+		if ( 'ditty_display-new' != $display_id ) {
+			$display_post = get_post( $display_id );
+			$display_author = $display_post->post_author;
+			if ( 0 != $display_author && $userId != $display_author && ! user_can( $userId, 'edit_others_ditty_displays' ) ) {
+				return new WP_Error( 'rest_forbidden', esc_html__( "Sorry, you are not allowed to edit other authors' Displays.", 'ditty-news-ticker' ), array( 'status' => 403 ) );
+			}
 		}
 
 		if ( ! user_can( $userId, 'edit_ditty_displays' ) ) {
@@ -132,11 +136,13 @@ class Ditty_API {
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
 		$layout = isset( $apiData['layout'] ) ? $apiData['layout'] : [];
 		$layout_id = isset( $layout['id'] ) ? $layout['id'] : 0;
-		$layout_post = get_post( $layout_id );
-		$layout_author = $layout_post->post_author;
-
-		if ( 0 != $layout_author && $userId != $layout_author && ! user_can( $userId, 'edit_others_ditty_layouts' ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( "Sorry, you are not allowed to edit other authors' Layouts.", 'ditty-news-ticker' ), array( 'status' => 403 ) );
+		
+		if ( 'ditty_layout-new' != $layout_id ) {
+			$layout_post = get_post( $layout_id );
+			$layout_author = $layout_post->post_author;
+			if ( 0 != $layout_author && $userId != $layout_author && ! user_can( $userId, 'edit_others_ditty_layouts' ) ) {
+				return new WP_Error( 'rest_forbidden', esc_html__( "Sorry, you are not allowed to edit other authors' Layouts.", 'ditty-news-ticker' ), array( 'status' => 403 ) );
+			}
 		}
 		
 		if ( ! user_can( $userId, 'edit_ditty_layouts' ) ) {
@@ -275,6 +281,7 @@ class Ditty_API {
 		$display_items = array();
 		$display_items_grouped = array();
 		$preview_items = array();
+
 		if ( is_array( $items ) && count( $items ) > 0 ) {
 			foreach ( $items as $item ) {
 				$item = ( array ) $item;

@@ -789,9 +789,12 @@ class Ditty_Singles {
 		$title = isset( $data['title'] ) ? sanitize_text_field( $data['title'] ) : false;
 		$status = isset( $data['status'] ) ? $data['status'] : false;
 
-		$ditty_post = get_post( $id );
-		$ditty_author = $ditty_post->post_author;
-		$author = 0 == $ditty_author ? $userId : false;
+		$author = false;
+		if ( 'ditty-new' != $id ) {
+			$ditty_post = get_post( $id );
+			$ditty_author = $ditty_post->post_author;
+			$author = 0 == $ditty_author ? $userId : false;
+		}
 
 		$updates = array(
 			'items' => [],
@@ -956,13 +959,13 @@ class Ditty_Singles {
 		if ( count( $updates['items'] ) > 0 ) {
 			$updates['items'] = array_values( $updates['items'] );
 		} else {
-			$updates['items'] = false;
+			unset( $updates['items'] );
 		}
 
 		if ( count( $errors['items'] ) > 0 ) {
 			$errors['items'] = array_values( $errors['items'] );
 		} else {
-			$errors['items'] = false;
+			unset( $errors['items'] );
 		}
 
 		// Delete items

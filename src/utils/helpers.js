@@ -362,6 +362,12 @@ export const titleSettings = (prefix) => {
       help: __("Set a custom font color.", "ditty-news-ticker"),
     },
     {
+      id: `${prefixed}LinkColor`,
+      type: "color",
+      name: __("Link Color", "ditty-news-ticker"),
+      help: __("Set a custom link color.", "ditty-news-ticker"),
+    },
+    {
       id: `${prefixed}BgColor`,
       type: "color",
       name: __("Background Color", "ditty-news-ticker"),

@@ -1036,7 +1036,6 @@ function ditty_prepare_display_items( $item ) {
 	$args 								= wp_parse_args( $item['item_value'], $defaults );
 	$item['item_value'] 	= $args;
 	$item['custom_meta'] 	= apply_filters( 'ditty_display_item_custom_meta', [], $item, $item_type_object );
-	
 	return $item_type_object->prepare_items( $item );
 }
 

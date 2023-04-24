@@ -34,13 +34,13 @@
     bgColor: "",
     padding: {},
     margin: {},
-    borderColor: {},
+    borderColor: "",
     borderStyle: {},
     borderWidth: {},
     borderRadius: {},
     contentsBgColor: "",
     contentsPadding: {},
-    contentsBorderColor: {},
+    contentsBorderColor: "",
     contentsBorderStyle: {},
     contentsBorderWidth: {},
     contentsBorderRadius: {},
@@ -51,16 +51,18 @@
     titleLineHeight: "",
     titleMaxWidth: "",
     titleColor: "",
+    titleLinkColor: "",
     titleBgColor: "",
     titleMargin: {},
     titlePadding: {},
-    titleBorderColor: {},
+    titleBorderColor: "",
     titleBorderStyle: {},
     titleBorderWidth: {},
     titleBorderRadius: {},
     itemTextColor: "",
+    itemLinkColor: "",
     itemBgColor: "",
-    itemBorderColor: {},
+    itemBorderColor: "",
     itemBorderStyle: {},
     itemBorderWidth: {},
     itemBorderRadius: {},
@@ -982,6 +984,12 @@
           margin: 0,
           padding: 0,
         });
+        $element.find("*").css({
+          color: this.settings.titleColor,
+        });
+        $element.find("a").css({
+          color: this.settings.titleLinkColor,
+        });
 
         this.$title.css({
           backgroundColor: this.settings.titleBgColor,
@@ -1012,8 +1020,11 @@
         borderColor: this.settings.itemBorderColor,
         borderStyle: this.settings.itemBorderStyle,
       });
-      $item.children(".ditty-item__elements").children().css({
+      $item.children(".ditty-item__elements").find("*").css({
         color: this.settings.itemTextColor,
+      });
+      $item.children(".ditty-item__elements").find("a").css({
+        color: this.settings.itemLinkColor,
       });
       $item.children(".ditty-item__elements").css(this.settings.itemPadding);
       $item
@@ -1084,6 +1095,7 @@
         case "titleLineHeight":
         case "titleMaxWidth":
         case "titleColor":
+        case "titleLinkColor":
         case "titleBgColor":
         case "titleMargin":
         case "titlePadding":

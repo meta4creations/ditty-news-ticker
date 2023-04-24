@@ -130,6 +130,12 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.10 =
+* Added Title Link Color option to Displays
+* Added Item Link Color option to Display > Item Styles
+* Notification updates
+* Bug fixes
+
 = 3.1.9 =
 * Fixed missing post authors for Ditty, Displays and Layouts
 * Added Permissions settings page
@@ -877,4 +883,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Fixed missing author data, permissions settings page
+Added display link color options, other updates

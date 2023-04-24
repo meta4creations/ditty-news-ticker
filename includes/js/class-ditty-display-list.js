@@ -51,25 +51,26 @@
     bgColor: "",
     padding: {},
     margin: {},
-    borderColor: {},
+    borderColor: "",
     borderStyle: {},
     borderWidth: {},
     borderRadius: {},
     contentsBgColor: "",
     contentsPadding: {},
-    contentsBorderColor: {},
+    contentsBorderColor: "",
     contentsBorderStyle: {},
     contentsBorderWidth: {},
     contentsBorderRadius: {},
     pageBgColor: "",
     pagePadding: {},
-    pageBorderColor: {},
+    pageBorderColor: "",
     pageBorderStyle: {},
     pageBorderWidth: {},
     pageBorderRadius: {},
     itemTextColor: "",
+    itemLinkColor: "",
     itemBgColor: "",
-    itemBorderColor: {},
+    itemBorderColor: "",
     itemBorderStyle: {},
     itemBorderWidth: {},
     itemBorderRadius: {},
@@ -81,10 +82,11 @@
     titleLineHeight: "",
     titleMaxWidth: "",
     titleColor: "",
+    titleLinkColor: "",
     titleBgColor: "",
     titleMargin: {},
     titlePadding: {},
-    titleBorderColor: {},
+    titleBorderColor: "",
     titleBorderStyle: {},
     titleBorderWidth: {},
     titleBorderRadius: {},
@@ -287,6 +289,12 @@
           margin: 0,
           padding: 0,
         });
+        $element.find("*").css({
+          color: this.settings.titleColor,
+        });
+        $element.find("a").css({
+          color: this.settings.titleLinkColor,
+        });
 
         this.$title.css({
           backgroundColor: this.settings.titleBgColor,
@@ -316,6 +324,12 @@
         backgroundColor: this.settings.itemBgColor,
         borderColor: this.settings.itemBorderColor,
         borderStyle: this.settings.itemBorderStyle,
+      });
+      $item.children(".ditty-item__elements").find("*").css({
+        color: this.settings.itemTextColor,
+      });
+      $item.children(".ditty-item__elements").find("a").css({
+        color: this.settings.itemLinkColor,
       });
       $item.children(".ditty-item__elements").css(this.settings.itemPadding);
       $item
@@ -1020,6 +1034,7 @@
         case "titleLineHeight":
         case "titleMaxWidth":
         case "titleColor":
+        case "titleLinkColor":
         case "titleBgColor":
         case "titleMargin":
         case "titlePadding":
@@ -1044,6 +1059,7 @@
           this._styleDisplay();
           break;
         case "itemTextColor":
+        case "itemLinkColor":
         case "itemBgColor":
         case "itemBorderColor":
         case "itemBorderStyle":
