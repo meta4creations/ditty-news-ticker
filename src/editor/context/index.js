@@ -631,58 +631,39 @@ export class EditorProvider extends Component {
     }
 
     if (data.updates) {
-      const notifications = [];
       if (data.updates.new) {
         this.dittyNotification(
           __(`Ditty has been published!`, "ditty-news-ticker"),
           "success"
         );
-        // notifications.push(
-        //   __(`Ditty has been published!`, "ditty-news-ticker")
-        // );
       } else {
-        //notifications.push(__(`Ditty has been updated!`, "ditty-news-ticker"));
         this.dittyNotification(
           __(`Ditty has been updated!`, "ditty-news-ticker"),
           "success"
         );
+      }
 
-        for (const property in data.updates) {
-          switch (property) {
-            case "display":
-              this.initialDisplay = data.updates.display;
-              updatedState.currentDisplay = data.updates.display;
-              // notifications.push(
-              //   __(`Ditty display has been updated!`, "ditty-news-ticker")
-              // );
-              break;
-            case "items":
-              // notifications.push(
-              //   __(`Ditty items have been updated!`, "ditty-news-ticker")
-              // );
-              break;
-            case "settings":
-              this.initialSettings = { ...data.updates.settings };
-              updatedState.settings = data.updates.settings;
-              // notifications.push(
-              //   __(`Ditty settings have been updated!`, "ditty-news-ticker")
-              // );
-              break;
-            case "title":
-              this.initialTitle = data.updates.title;
-              // notifications.push(
-              //   __(`Ditty title has been updated!`, "ditty-news-ticker")
-              // );
-              break;
-            case "status":
-              this.initialStatus = data.updates.status;
-              // notifications.push(
-              //   __(`Ditty status has been updated!`, "ditty-news-ticker")
-              // );
-              break;
-            default:
-              break;
-          }
+      for (const property in data.updates) {
+        switch (property) {
+          case "display":
+            this.initialDisplay =
+              typeof data.updates.display === "object"
+                ? { ...data.updates.display }
+                : data.updates.display;
+            updatedState.currentDisplay = data.updates.display;
+            break;
+          case "settings":
+            this.initialSettings = { ...data.updates.settings };
+            updatedState.settings = data.updates.settings;
+            break;
+          case "title":
+            this.initialTitle = data.updates.title;
+            break;
+          case "status":
+            this.initialStatus = data.updates.status;
+            break;
+          default:
+            break;
         }
       }
 
@@ -690,16 +671,6 @@ export class EditorProvider extends Component {
       if (Object.keys(updatedState).length) {
         this.setState(updatedState);
       }
-
-      // Show Toast updates
-      // this.dittyNotification(update, "success", {
-      //   delay: index * 100,
-      // });
-      // notifications.map((notifications, index) => {
-      //   this.dittyNotification(update, "success", {
-      //     delay: index * 100,
-      //   });
-      // });
     }
 
     if (onComplete) {
@@ -732,23 +703,6 @@ export class EditorProvider extends Component {
       await saveDitty(updates, (data) => {
         this.handleAfterSaveDitty(data, onComplete);
       });
-
-      // if (updates.display) {
-      //   delete updates.display.updated;
-      //   this.initialDisplay = updates.display;
-      //   this.setState({ currentDisplay: updates.display });
-      // }
-
-      // Reset the item updates
-      // const resetItemUpdates = this.state.items.map((item) => {
-      //   if (item.item_updates) {
-      //     delete item.item_updates;
-      //   }
-      //   return item;
-      // });
-
-      //this.initialItems = resetItemUpdates;
-      //this.setState({ items: resetItemUpdates });
     } catch (ex) {
       this.dittyNotification(ex, "error");
       onComplete();
