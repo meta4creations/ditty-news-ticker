@@ -646,11 +646,12 @@ export class EditorProvider extends Component {
       for (const property in data.updates) {
         switch (property) {
           case "display":
-            this.initialDisplay =
+            const displayObject =
               typeof data.updates.display === "object"
-                ? { ...data.updates.display }
-                : data.updates.display;
-            updatedState.currentDisplay = data.updates.display;
+                ? getDisplayObject(data.updates.display)
+                : getDisplayObject(data.updates.display, this.state.displays);
+            this.initialDisplay = displayObject;
+            updatedState.currentDisplay = displayObject;
             break;
           case "settings":
             this.initialSettings = { ...data.updates.settings };

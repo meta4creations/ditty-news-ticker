@@ -5,7 +5,6 @@ import { IconBlock, Filter, List, ListItem, Popup, Tabs } from "../components";
 import { FieldList, TextField, TextareaField } from "../fields";
 
 const PopupTemplateSave = ({
-  editor,
   templateType,
   currentTemplate,
   templates,
@@ -143,9 +142,13 @@ const PopupTemplateSave = ({
 
   const handleSaveTemplate = async () => {
     setShowSpinner(true);
+    const saveTemplate = { ...selectedTemplate };
+    if ("new" === currentTabId) {
+      delete saveTemplate.id;
+    }
     const data = saveData(
       currentTabId,
-      selectedTemplate,
+      saveTemplate,
       templateName,
       templateDescription
     );

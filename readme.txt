@@ -130,6 +130,10 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.11 =
+* Display & Layout new template save bug fixes
+* Export and import updates
+
 = 3.1.10 =
 * Added Title Link Color option to Displays
 * Added Item Link Color option to Display > Item Styles
