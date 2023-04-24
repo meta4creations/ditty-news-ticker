@@ -728,10 +728,8 @@ export class EditorProvider extends Component {
       this.setState({ currentDisplay: _.cloneDeep(displayObject) });
     }
 
-    console.log("updates", updates);
     try {
       await saveDitty(updates, (data) => {
-        console.log("data", data);
         this.handleAfterSaveDitty(data, onComplete);
       });
 
