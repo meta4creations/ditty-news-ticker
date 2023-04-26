@@ -31,8 +31,11 @@ if (dittyEditor) {
       wrapItems: "yes",
       hoverPause: "",
       titleDisplay: "none",
+      titleContentsSize: "stretch",
+      titleContentsPosition: "start",
       titleElement: "h3",
       titleElementPosition: "start",
+      titleElementVerticalPosition: "start",
       itemElementsWrap: "nowrap",
     },
   });

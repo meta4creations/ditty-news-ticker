@@ -266,7 +266,7 @@ if (dittyEditor) {
       styles: ["container", "content", "page", "item"],
     },
     defaultValues: {
-      spacing: "14",
+      spacing: "15",
       paging: "1",
       perPage: "10",
       autoplay: "0",
@@ -306,9 +306,11 @@ if (dittyEditor) {
       pageBorderStyle: "none",
       itemBorderStyle: "none",
       titleDisplay: "none",
+      titleContentsSize: "stretch",
+      titleContentsPosition: "start",
       titleElement: "h3",
       titleElementPosition: "start",
-      itemElementsWrap: "nowrap",
+      titleElementVerticalPosition: "start",
     },
   });
 }

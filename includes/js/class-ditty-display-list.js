@@ -76,11 +76,17 @@
     itemBorderRadius: {},
     itemPadding: {},
     titleDisplay: "none",
+    titleContentsSize: "stretch",
+    titleContentsPosition: "start",
     titleElement: "h3",
-    titleElementPosition: "topLeft",
+    titleElementPosition: "start",
+    titleElementVerticalPosition: "start",
     titleFontSize: "",
     titleLineHeight: "",
+    titleMinWidth: "",
     titleMaxWidth: "",
+    titleMinHeight: "",
+    titleMaxHeight: "",
     titleColor: "",
     titleLinkColor: "",
     titleBgColor: "",
@@ -265,10 +271,20 @@
      */
     _styleTitle: function () {
       this.$elmt.attr("data-title", this.settings.titleDisplay);
+
+      const titleContentsPosition = this.settings.titleContentsPosition
+        ? this.settings.titleContentsPosition
+        : this.settings.titleElementPosition;
+      const titleVerticalPosition = this.settings.titleElementVerticalPosition
+        ? this.settings.titleElementVerticalPosition
+        : this.settings.titleElementPosition;
+
+      this.$elmt.attr("data-title_position", titleContentsPosition);
       this.$elmt.attr(
-        "data-title_position",
+        "data-title_horizontal_position",
         this.settings.titleElementPosition
       );
+      this.$elmt.attr("data-title_vertical_position", titleVerticalPosition);
       if ("none" === this.settings.titleDisplay) {
         this.$title.remove();
       } else {
@@ -296,16 +312,22 @@
           color: this.settings.titleLinkColor,
         });
 
-        this.$title.css({
+        this.$titleContents.css({
           backgroundColor: this.settings.titleBgColor,
           borderColor: this.settings.titleBorderColor,
           borderStyle: this.settings.titleBorderStyle,
+          width: "auto" === this.settings.titleContentsSize ? "auto" : "100%",
+          height: "auto" === this.settings.titleContentsSize ? "auto" : "100%",
+          minWidth: this.settings.titleMinWidth,
           maxWidth: this.settings.titleMaxWidth,
+          minHeight: this.settings.titleMinHeight,
+          maxHeight: this.settings.titleMaxHeight,
         });
+        this.$titleContents.css(this.settings.titleBorderRadius);
+        this.$titleContents.css(this.settings.titleBorderWidth);
+        this.$titleContents.css(this.settings.titlePadding);
+
         this.$title.css(this.settings.titleMargin);
-        this.$title.css(this.settings.titlePadding);
-        this.$title.css(this.settings.titleBorderRadius);
-        this.$title.css(this.settings.titleBorderWidth);
 
         this.$titleContents.html($element);
         this.$elmt.prepend(this.$title);
@@ -1028,11 +1050,17 @@
           break;
         case "title":
         case "titleDisplay":
+        case "titleContentsSize":
+        case "titleContentsPosition":
         case "titleElement":
         case "titleElementPosition":
+        case "titleElementVerticalPosition":
         case "titleFontSize":
         case "titleLineHeight":
+        case "titleMinWidth":
         case "titleMaxWidth":
+        case "titleMinHeight":
+        case "titleMaxHeight":
         case "titleColor":
         case "titleLinkColor":
         case "titleBgColor":
