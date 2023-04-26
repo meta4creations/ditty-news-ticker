@@ -11,11 +11,31 @@
 	* {
 		box-sizing: border-box;
 	}
-
 	&[data-title="top"],
 	&[data-title="bottom"] {
 		> .ditty__title {
 			width: 100%;
+		}
+		&[data-title_vertical_position="start"] {
+			> .ditty__title {
+				.ditty__title__contents {
+					align-items: flex-start;
+				}
+			}
+		}
+		&[data-title_vertical_position="center"] {
+			> .ditty__title {
+				.ditty__title__contents {
+					align-items: center;
+				}
+			}
+		}
+		&[data-title_vertical_position="end"] {
+			> .ditty__title {
+				.ditty__title__contents {
+					align-items: flex-end;
+				}
+			}
 		}
 	}
 	&[data-title="bottom"] {
@@ -47,8 +67,47 @@
 				order: 0;
 			}
 		}
+		&[data-title_vertical_position="start"] {
+			> .ditty__title {
+				.ditty__title__contents {
+					align-items: flex-start;
+				}
+			}
+		}
+		&[data-title_vertical_position="center"] {
+			> .ditty__title {
+				.ditty__title__contents {
+					align-items: center;
+				}
+			}
+		}
+		&[data-title_vertical_position="end"] {
+			> .ditty__title {
+				.ditty__title__contents {
+					align-items: flex-end;
+				}
+			}
+		}
 	}
 	&[data-title_position="start"] {
+		> .ditty__title {
+			align-items: flex-start;
+			justify-content: flex-start;
+		}
+	}
+	&[data-title_position="center"] {
+		> .ditty__title {
+			align-items: center;
+			justify-content: center;
+		}
+	}
+	&[data-title_position="end"] {
+		> .ditty__title {
+			align-items: flex-end;
+			justify-content: flex-end;
+		}
+	}
+	&[data-title_horizontal_position="start"] {
 		> .ditty__title {
 			.ditty__title__contents {
 				height: 100%;
@@ -57,7 +116,7 @@
 			}
 		}
 	}
-	&[data-title_position="center"] {
+	&[data-title_horizontal_position="center"] {
 		> .ditty__title {
 			.ditty__title__contents {
 				align-items: center;
@@ -65,7 +124,7 @@
 			}
 		}
 	}
-	&[data-title_position="end"] {
+	&[data-title_horizontal_position="end"] {
 		> .ditty__title {
 			.ditty__title__contents {
 				align-items: flex-end;
@@ -74,6 +133,8 @@
 		}
 	}
 	> &__title {
+		display: flex;
+		flex-direction: row;
 		.ditty__title__contents {
 			display: flex;
 			flex-direction: row;

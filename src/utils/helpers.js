@@ -290,123 +290,249 @@ export const titleSettings = (prefix) => {
   return [
     {
       id: `${prefixed}Display`,
-      type: "select",
+      type: "group",
       name: __("Display", "ditty-news-ticker"),
-      help: __("Select how to display the title", "ditty-news-ticker"),
-      options: {
-        none: __("None", "ditty-news-ticker"),
-        top: __("Top", "ditty-news-ticker"),
-        bottom: __("Bottom", "ditty-news-ticker"),
-        left: __("Left", "ditty-news-ticker"),
-        right: __("Right", "ditty-news-ticker"),
-      },
+      description: __("Display settings for the title.", "ditty-news-ticker"),
+      multipleFields: true,
+      collapsible: true,
+      initialState: "expanded",
+      fields: [
+        {
+          id: `${prefixed}Display`,
+          type: "select",
+          name: __("Display", "ditty-news-ticker"),
+          help: __("Select how to display the title", "ditty-news-ticker"),
+          options: {
+            none: __("None", "ditty-news-ticker"),
+            top: __("Top", "ditty-news-ticker"),
+            bottom: __("Bottom", "ditty-news-ticker"),
+            left: __("Left", "ditty-news-ticker"),
+            right: __("Right", "ditty-news-ticker"),
+          },
+        },
+        {
+          id: `${prefixed}ContentsSize`,
+          type: "radio",
+          name: __("Contents Size", "ditty-news-ticker"),
+          help: __(
+            "Set the size of the contents within the title area.",
+            "ditty-news-ticker"
+          ),
+          options: {
+            stretch: __("Stretch", "ditty-news-ticker"),
+            auto: __("Auto", "ditty-news-ticker"),
+          },
+          inline: true,
+        },
+        {
+          id: `${prefixed}ContentsPosition`,
+          type: "radio",
+          name: __("Contents Position", "ditty-news-ticker"),
+          help: __(
+            "Set the position of the contents within the title area.",
+            "ditty-news-ticker"
+          ),
+          options: {
+            start: __("Start", "ditty-news-ticker"),
+            center: __("Center", "ditty-news-ticker"),
+            end: __("End", "ditty-news-ticker"),
+          },
+          inline: true,
+          show: {
+            fields: [
+              { key: `${prefixed}ContentsSize`, value: "auto", compare: "=" },
+            ],
+          },
+        },
+        {
+          id: `${prefixed}ElementPosition`,
+          type: "radio",
+          name: __("Element Horizontal Position", "ditty-news-ticker"),
+          help: __(
+            "Set the horizontal position of the element within the title area.",
+            "ditty-news-ticker"
+          ),
+          options: {
+            start: __("Start", "ditty-news-ticker"),
+            center: __("Center", "ditty-news-ticker"),
+            end: __("End", "ditty-news-ticker"),
+          },
+          inline: true,
+        },
+        {
+          id: `${prefixed}ElementVerticalPosition`,
+          type: "radio",
+          name: __("Element Vertical Position", "ditty-news-ticker"),
+          help: __(
+            "Set the vertical position of the element within the title area.",
+            "ditty-news-ticker"
+          ),
+          options: {
+            start: __("Start", "ditty-news-ticker"),
+            center: __("Center", "ditty-news-ticker"),
+            end: __("End", "ditty-news-ticker"),
+          },
+          inline: true,
+        },
+      ],
     },
     {
-      id: `${prefixed}ElementPosition`,
-      type: "radio",
-      name: __("Element Position", "ditty-news-ticker"),
-      help: __(
-        "Set the position of the element within the title area.",
+      id: `${prefixed}FontSettings`,
+      type: "group",
+      name: __("Font Settings", "ditty-news-ticker"),
+      description: __(
+        "Customize font settings for the title.",
         "ditty-news-ticker"
       ),
-      options: {
-        start: __("Start", "ditty-news-ticker"),
-        center: __("Center", "ditty-news-ticker"),
-        end: __("End", "ditty-news-ticker"),
-      },
-      inline: true,
+      multipleFields: true,
+      collapsible: true,
+      defaultState: "collapsed",
+      fields: [
+        {
+          id: `${prefixed}Element`,
+          type: "select",
+          name: __("Element", "ditty-news-ticker"),
+          help: __(
+            "Select the HTML element to use for the title.",
+            "ditty-news-ticker"
+          ),
+          options: {
+            h1: "h1",
+            h2: "h2",
+            h3: "h3",
+            h4: "h4",
+            h5: "h5",
+            h6: "h6",
+            p: "p",
+          },
+        },
+        {
+          id: `${prefixed}FontSize`,
+          type: "unit",
+          name: __("Font Size", "ditty-news-ticker"),
+          help: __("Set a custom font size.", "ditty-news-ticker"),
+          min: 0,
+        },
+        {
+          id: `${prefixed}LineHeight`,
+          type: "unit",
+          name: __("Line Height", "ditty-news-ticker"),
+          help: __("Set a custom line height.", "ditty-news-ticker"),
+          min: 0,
+        },
+        {
+          id: `${prefixed}Color`,
+          type: "color",
+          name: __("Text Color", "ditty-news-ticker"),
+          help: __("Set a custom font color.", "ditty-news-ticker"),
+        },
+        {
+          id: `${prefixed}LinkColor`,
+          type: "color",
+          name: __("Link Color", "ditty-news-ticker"),
+          help: __("Set a custom link color.", "ditty-news-ticker"),
+        },
+      ],
     },
     {
-      id: `${prefixed}Element`,
-      type: "select",
-      name: __("Element", "ditty-news-ticker"),
-      help: __(
-        "Select the HTML element to use for the title.",
+      id: `${prefixed}Dimensions`,
+      type: "group",
+      name: __("Title Dimensions", "ditty-news-ticker"),
+      description: __(
+        "Customize dimensions for the title.",
         "ditty-news-ticker"
       ),
-      options: {
-        h1: "h1",
-        h2: "h2",
-        h3: "h3",
-        h4: "h4",
-        h5: "h5",
-        h6: "h6",
-        p: "p",
-      },
+      multipleFields: true,
+      collapsible: true,
+      defaultState: "collapsed",
+      fields: [
+        {
+          id: `${prefixed}MinWidth`,
+          type: "unit",
+          name: __("Min Width", "ditty-news-ticker"),
+          help: __(
+            "Set a minimum width for the title area.",
+            "ditty-news-ticker"
+          ),
+          min: 0,
+        },
+        {
+          id: `${prefixed}MaxWidth`,
+          type: "unit",
+          name: __("Max Width", "ditty-news-ticker"),
+          help: __("Set a max width for the title area.", "ditty-news-ticker"),
+          min: 0,
+        },
+        {
+          id: `${prefixed}MinHeight`,
+          type: "unit",
+          name: __("Min Height", "ditty-news-ticker"),
+          help: __(
+            "Set a minimum height for the title area.",
+            "ditty-news-ticker"
+          ),
+          min: 0,
+        },
+        {
+          id: `${prefixed}MaxHeight`,
+          type: "unit",
+          name: __("Max Height", "ditty-news-ticker"),
+          help: __("Set a max height for the title area.", "ditty-news-ticker"),
+          min: 0,
+        },
+      ],
     },
     {
-      id: `${prefixed}FontSize`,
-      type: "unit",
-      name: __("Font Size", "ditty-news-ticker"),
-      help: __("Set a custom font size.", "ditty-news-ticker"),
-      min: 0,
+      id: `${prefixed}Styles`,
+      type: "group",
+      name: __("Title Styles", "ditty-news-ticker"),
+      description: __("Customize styles for the title.", "ditty-news-ticker"),
+      multipleFields: true,
+      collapsible: true,
+      defaultState: "collapsed",
+      fields: [
+        {
+          id: `${prefixed}BgColor`,
+          type: "color",
+          name: __("Background Color", "ditty-news-ticker"),
+          help: __(
+            "Add a background title to the title area.",
+            "ditty-news-ticker"
+          ),
+        },
+        {
+          id: `${prefixed}Margin`,
+          type: "spacing",
+          name: __("Margin", "ditty-news-ticker"),
+          help: __(
+            "Add custom margins around the title area.",
+            "ditty-news-ticker"
+          ),
+          options: {
+            marginTop: __("Top", "ditty-news-ticker"),
+            marginBottom: __("Bottom", "ditty-news-ticker"),
+            marginLeft: __("Left", "ditty-news-ticker"),
+            marginRight: __("Right", "ditty-news-ticker"),
+          },
+        },
+        {
+          id: `${prefixed}Padding`,
+          type: "spacing",
+          name: __("Padding", "ditty-news-ticker"),
+          help: __(
+            "Add custom padding around the title area.",
+            "ditty-news-ticker"
+          ),
+          options: {
+            paddingTop: __("Top", "ditty-news-ticker"),
+            paddingBottom: __("Bottom", "ditty-news-ticker"),
+            paddingLeft: __("Left", "ditty-news-ticker"),
+            paddingRight: __("Right", "ditty-news-ticker"),
+          },
+          min: 0,
+        },
+        ...borderSettings(prefixed),
+      ],
     },
-    {
-      id: `${prefixed}LineHeight`,
-      type: "unit",
-      name: __("Line Height", "ditty-news-ticker"),
-      help: __("Set a custom line height.", "ditty-news-ticker"),
-      min: 0,
-    },
-    {
-      id: `${prefixed}MaxWidth`,
-      type: "unit",
-      name: __("Max Width", "ditty-news-ticker"),
-      help: __("Set a max width for the title area.", "ditty-news-ticker"),
-      min: 0,
-    },
-    {
-      id: `${prefixed}Color`,
-      type: "color",
-      name: __("Text Color", "ditty-news-ticker"),
-      help: __("Set a custom font color.", "ditty-news-ticker"),
-    },
-    {
-      id: `${prefixed}LinkColor`,
-      type: "color",
-      name: __("Link Color", "ditty-news-ticker"),
-      help: __("Set a custom link color.", "ditty-news-ticker"),
-    },
-    {
-      id: `${prefixed}BgColor`,
-      type: "color",
-      name: __("Background Color", "ditty-news-ticker"),
-      help: __(
-        "Add a background title to the title area.",
-        "ditty-news-ticker"
-      ),
-    },
-    {
-      id: `${prefixed}Margin`,
-      type: "spacing",
-      name: __("Margin", "ditty-news-ticker"),
-      help: __(
-        "Add custom margins around the title area.",
-        "ditty-news-ticker"
-      ),
-      options: {
-        marginTop: __("Top", "ditty-news-ticker"),
-        marginBottom: __("Bottom", "ditty-news-ticker"),
-        marginLeft: __("Left", "ditty-news-ticker"),
-        marginRight: __("Right", "ditty-news-ticker"),
-      },
-    },
-    {
-      id: `${prefixed}Padding`,
-      type: "spacing",
-      name: __("Padding", "ditty-news-ticker"),
-      help: __(
-        "Add custom padding around the title area.",
-        "ditty-news-ticker"
-      ),
-      options: {
-        paddingTop: __("Top", "ditty-news-ticker"),
-        paddingBottom: __("Bottom", "ditty-news-ticker"),
-        paddingLeft: __("Left", "ditty-news-ticker"),
-        paddingRight: __("Right", "ditty-news-ticker"),
-      },
-      min: 0,
-    },
-    ...borderSettings(prefixed),
   ];
 };
