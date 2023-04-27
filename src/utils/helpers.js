@@ -494,6 +494,7 @@ export const titleSettings = (prefix) => {
         {
           id: `${prefixed}BgColor`,
           type: "color",
+          gradient: true,
           name: __("Background Color", "ditty-news-ticker"),
           help: __(
             "Add a background title to the title area.",

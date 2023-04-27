@@ -262,7 +262,7 @@ export default () => {
     const styles = editorSettings.previewPadding
       ? { ...editorSettings.previewPadding }
       : {};
-    styles.backgroundColor = editorSettings.previewBg
+    styles.background = editorSettings.previewBg
       ? editorSettings.previewBg
       : false;
     return styles;

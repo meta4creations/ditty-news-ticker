@@ -102,6 +102,7 @@ const PanelSettings = ({
         {
           type: "color",
           id: "previewBg",
+          gradient: true,
           name: __("Preview Background Color", "ditty-news-ticker"),
           help: __(
             "Set a custom background color for the preview area while editing.",

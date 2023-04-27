@@ -1,20 +1,7 @@
 import axios from "axios";
 
-// export const getDittyData = (dittyId) => {
-//   const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
-
-//   const apiURL = `${apiEndpoint}/${dittyId}`;
-//   const apiData = {
-//     security: dittyEditorVars.security,
-//   };
-//   axios.post(apiURL, { apiData }).then((res) => {
-//   });
-// };
-
 export function saveDitty(data, onComplete) {
-  const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
-
-  const apiURL = `${apiEndpoint}/save`;
+  const apiURL = `${dittyEditorVars.restUrl}dittyeditor/v1/save`;
   const apiData = {
     security: dittyEditorVars.security,
     userId: dittyEditorVars.userId,
@@ -26,9 +13,7 @@ export function saveDitty(data, onComplete) {
 }
 
 export function saveDisplay(data, onComplete) {
-  const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
-
-  const apiURL = `${apiEndpoint}/saveDisplay`;
+  const apiURL = `${dittyEditorVars.restUrl}dittyeditor/v1/saveDisplay`;
   const apiData = {
     security: dittyEditorVars.security,
     userId: dittyEditorVars.userId,
@@ -40,9 +25,7 @@ export function saveDisplay(data, onComplete) {
 }
 
 export function saveLayout(data, onComplete) {
-  const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
-
-  const apiURL = `${apiEndpoint}/saveLayout`;
+  const apiURL = `${dittyEditorVars.restUrl}dittyeditor/v1/saveLayout`;
   const apiData = {
     security: dittyEditorVars.security,
     userId: dittyEditorVars.userId,
@@ -54,9 +37,7 @@ export function saveLayout(data, onComplete) {
 }
 
 export function saveSettings(updatedSettings, onComplete) {
-  const apiEndpoint = `${dittySettingsVars.siteUrl}/wp-json/dittyeditor/v1`;
-
-  const apiURL = `${apiEndpoint}/saveSettings`;
+  const apiURL = `${dittyEditorVars.restUrl}dittyeditor/v1/saveSettings`;
   const apiData = {
     security: dittySettingsVars.security,
     userId: dittySettingsVars.userId,
@@ -68,9 +49,7 @@ export function saveSettings(updatedSettings, onComplete) {
 }
 
 export function getRenderedItems(items, layouts, onComplete) {
-  const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
-
-  const apiURL = `${apiEndpoint}/displayItems`;
+  const apiURL = `${dittyEditorVars.restUrl}dittyeditor/v1/displayItems`;
   const apiData = {
     security: dittyEditorVars.security,
     userId: dittyEditorVars.userId,
@@ -83,9 +62,7 @@ export function getRenderedItems(items, layouts, onComplete) {
 }
 
 export function phpItemMods(item, hook = false, onComplete) {
-  const apiEndpoint = `${dittyEditorVars.siteUrl}/wp-json/dittyeditor/v1`;
-
-  const apiURL = `${apiEndpoint}/phpItemMods`;
+  const apiURL = `${dittyEditorVars.restUrl}dittyeditor/v1/phpItemMods`;
   const apiData = {
     security: dittyEditorVars.security,
     userId: dittyEditorVars.userId,

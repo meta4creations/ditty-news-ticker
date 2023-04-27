@@ -63,7 +63,7 @@ export default () => {
     const styles = settings.previewPadding
       ? { ...settings.previewPadding }
       : {};
-    styles.backgroundColor = settings.previewBg ? settings.previewBg : false;
+    styles.background = settings.previewBg ? settings.previewBg : false;
     return styles;
   };
 

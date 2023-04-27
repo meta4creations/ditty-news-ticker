@@ -27,7 +27,7 @@ const PopupTypeSelector = ({
   const iconStyle = itemTypeObject
     ? {
         color: itemTypeObject.iconColor ? itemTypeObject.iconColor : false,
-        backgroundColor: itemTypeObject.iconBGColor
+        background: itemTypeObject.iconBGColor
           ? itemTypeObject.iconBGColor
           : false,
       }

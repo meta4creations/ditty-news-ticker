@@ -922,7 +922,7 @@
     _styleDisplay: function () {
       this.$elmt.css({
         maxWidth: this.settings.maxWidth,
-        backgroundColor: this.settings.bgColor,
+        background: this.settings.bgColor,
         borderColor: this.settings.borderColor,
         borderStyle: this.settings.borderStyle,
       });
@@ -932,7 +932,7 @@
       this.$elmt.css(this.settings.padding);
 
       this.$contents.css({
-        backgroundColor: this.settings.contentsBgColor,
+        background: this.settings.contentsBgColor,
         borderColor: this.settings.contentsBorderColor,
         borderStyle: this.settings.contentsBorderStyle,
       });
@@ -1010,7 +1010,7 @@
         });
 
         this.$titleContents.css({
-          backgroundColor: this.settings.titleBgColor,
+          background: this.settings.titleBgColor,
           borderColor: this.settings.titleBorderColor,
           borderStyle: this.settings.titleBorderStyle,
           width: "auto" === this.settings.titleContentsSize ? "auto" : "100%",
@@ -1040,7 +1040,7 @@
     _styleItem: function ($item) {
       $item.children(".ditty-item__elements").css({
         color: this.settings.itemTextColor,
-        backgroundColor: this.settings.itemBgColor,
+        background: this.settings.itemBgColor,
         borderColor: this.settings.itemBorderColor,
         borderStyle: this.settings.itemBorderStyle,
       });

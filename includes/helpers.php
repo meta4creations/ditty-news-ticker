@@ -1238,8 +1238,10 @@ function ditty_get_globals() {
 		foreach ( $global_ditty as $i => &$ditty ) {
 			$ditty_settings = get_post_meta( $ditty['ditty'], '_ditty_settings', true );
 			$ditty['selector'] = html_entity_decode( $ditty['selector'] );
-			$ditty['live_updates'] = ( isset( $ditty_settings['live_updates'] ) && 'yes' == $ditty_settings['live_updates'] ) ? '1' : 0;
-			$ditty['edit_links'] = html_entity_decode( ditty_edit_links( $ditty['ditty'] ) );
+			$ditty['live_updates'] = ( isset( $ditty_settings['live_updates'] ) && 'yes' == $ditty_settings['live_updates'] ) ? '1' : 0;		
+			if ( $edit_link = ditty_edit_links( $ditty['ditty'] ) ) {
+				$ditty['edit_links'] = html_entity_decode( $edit_link );
+			}
 			$prepared_ditty[] = $ditty;
 		}
 	}

@@ -348,6 +348,8 @@ class Ditty_Scripts {
 	 * @since    3.1
 	 */
 	public function enqueue_styles( $hook ) {
+
+		//wp_enqueue_style( 'ditty-init', DITTY_URL . 'build/ditty.css', false, $this->version, false );	
 		
 		// Enqueue display styles
 		if ( $this->cache_enabled ) {
@@ -436,6 +438,21 @@ class Ditty_Scripts {
 		wp_register_script( 'ditty-helpers', DITTY_URL . 'includes/js/partials/helpers.js', [], $this->version, true );
 		wp_register_script( 'ditty-sass', DITTY_URL . 'includes/libs/sass/sass.js', [], $this->version );
 		//wp_enqueue_script( 'ditty-sass', 'https://cdn.jsdelivr.net/npm/sass.js/dist/sass.min.js', [], $this->version );
+
+
+		// Register the ditty init file
+		// wp_enqueue_script( 'ditty-init',
+		// 	DITTY_URL . 'build/ditty.js',
+		// 	['wp-element'],
+		// 	$this->version,
+		// 	true
+		// );
+		// if ( empty( $ditty_scripts_enqueued ) ) {
+		// 	wp_add_inline_script( 'ditty-init', 'const ditty=' . json_encode( apply_filters( 'ditty', array(
+		// 		'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
+		// 	) ) ) . ';', 'before' );
+		// }
+
 
 		// Register Ditty and display scripts
 		wp_register_script( 'ditty', DITTY_URL . 'includes/js/ditty.min.js', array( 'jquery', 'jquery-effects-core', ), $this->version, true );
@@ -536,7 +553,7 @@ class Ditty_Scripts {
 					'security'						=> wp_create_nonce( 'ditty' ),
 					'mode'								=> WP_DEBUG ? 'development' : 'production',
 					'userId'							=> get_current_user_id(),
-					'siteUrl'							=> site_url(),
+					'restUrl'							=> get_rest_url(),
 					'id'									=> $ditty_id,
 					'title' 							=> $title,
 					'status'							=> ( 'ditty-new' == $ditty_id ) ? 'publish' : get_post_status( $ditty_id ),
@@ -588,7 +605,7 @@ class Ditty_Scripts {
 					'security'						=> wp_create_nonce( 'ditty' ),
 					'mode'								=> WP_DEBUG ? 'development' : 'production',
 					'userId'							=> get_current_user_id(),
-					'siteUrl'							=> site_url(),
+					'restUrl'							=> get_rest_url(),
 					'id'									=> $display_id,
 					'title' 							=> $title,
 					'description' 				=> get_post_meta( $display_id, '_ditty_display_description', true ),
@@ -635,7 +652,7 @@ class Ditty_Scripts {
 					'security'				=> wp_create_nonce( 'ditty' ),
 					'mode'						=> WP_DEBUG ? 'development' : 'production',
 					'userId'					=> get_current_user_id(),
-					'siteUrl'					=> site_url(),
+					'restUrl'					=> get_rest_url(),
 					'sassWorkerUrl'		=> DITTY_URL . 'includes/libs/sass/sass.worker.js',
 					'id'							=> $layout_id,
 					'title' 					=> $title,
@@ -709,7 +726,7 @@ class Ditty_Scripts {
 					'ajaxurl'						=> admin_url( 'admin-ajax.php' ),
 					'security'					=> wp_create_nonce( 'ditty' ),
 					'userId'						=> get_current_user_id(),
-					'siteUrl'						=> site_url(),
+					'restUrl'						=> get_rest_url(),
 					'fields'						=> Ditty()->settings->fields(),
 					'settings'					=> ditty_settings(),
 					'defaultSettings'		=> ditty_settings_defaults(),

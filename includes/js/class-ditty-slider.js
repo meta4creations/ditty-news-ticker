@@ -932,11 +932,11 @@
       this.$bullets.removeAttr("style");
 
       this.$bullets.find("a").css({
-        backgroundColor: this.settings.bulletsColor,
+        background: this.settings.bulletsColor,
       });
       this.$bullets
         .find("a.ditty-slider__bullet--active")
-        .css({ backgroundColor: this.settings.bulletsColorActive });
+        .css({ background: this.settings.bulletsColorActive });
 
       // Add the custom padding & add to the list
       this.$bullets.css(this.settings.bulletsPadding);
@@ -1066,9 +1066,7 @@
       }
 
       this.$arrows.find("i").css({ color: this.settings.arrowsIconColor });
-      this.$arrows
-        .find("a")
-        .css({ backgroundColor: this.settings.arrowsBgColor });
+      this.$arrows.find("a").css({ background: this.settings.arrowsBgColor });
 
       if (1 === parseInt(this.settings.arrowsStatic)) {
         this.$arrows.addClass("ditty-slider__arrows--static");
@@ -1084,19 +1082,8 @@
      * @return   null
      */
     _styleDisplay: function () {
-      // this.$elmt.css({
-      //   maxWidth: this.settings.maxWidth,
-      //   backgroundColor: this.settings.bgColor,
-      //   borderColor: this.settings.borderColor,
-      //   borderStyle: this.settings.borderStyle,
-      // });
-      // this.$elmt.css(this.settings.padding);
-      // this.$elmt.css(this.settings.margin);
-      // this.$elmt.css(this.settings.borderRadius);
-      // this.$elmt.css(this.settings.borderWidth);
-
       this.$elmt.css({
-        backgroundColor: this.settings.contentsBgColor,
+        background: this.settings.contentsBgColor,
         borderColor: this.settings.contentsBorderColor,
         borderStyle: this.settings.contentsBorderStyle,
       });
@@ -1113,7 +1100,7 @@
      */
     _styleSlide: function ($slide) {
       $slide.css({
-        backgroundColor: this.settings.slideBgColor,
+        background: this.settings.slideBgColor,
         borderColor: this.settings.slideBorderColor,
         borderStyle: this.settings.slideBorderStyle,
       });

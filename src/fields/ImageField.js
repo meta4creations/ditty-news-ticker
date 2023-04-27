@@ -82,7 +82,7 @@ const ImageField = (props) => {
   };
 
   const getImage = async (imageId) => {
-    const apiURL = `${dittyEditorVars.siteUrl}/wp-json/wp/v2/media/${imageId}`;
+    const apiURL = `${dittyEditorVars.restUrl}wp/v2/media/${imageId}`;
     try {
       await axios.get(apiURL, {}).then((res) => {
         if (

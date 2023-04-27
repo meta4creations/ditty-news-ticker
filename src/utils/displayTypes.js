@@ -322,6 +322,7 @@ const displaySettingsNavigation = (
                   {
                     type: "color",
                     id: "arrowsBgColor",
+                    gradient: true,
                     name: __("Arrows Background Color", "ditty-news-ticker"),
                     help: __(
                       "Add a custom background color to the arrows",
@@ -502,6 +503,7 @@ const displaySettingsStyle = (
                   {
                     type: "color",
                     id: "bgColor",
+                    gradient: true,
                     name: __("Container Background Color", "ditty-news-ticker"),
                   },
                   {
@@ -543,6 +545,7 @@ const displaySettingsStyle = (
                   {
                     type: "color",
                     id: "contentsBgColor",
+                    gradient: true,
                     name: __("Content Background Color", "ditty-news-ticker"),
                   },
                   {
@@ -576,6 +579,7 @@ const displaySettingsStyle = (
                   {
                     type: "color",
                     id: "pageBgColor",
+                    gradient: true,
                     name: __("Page Background Color", "ditty-news-ticker"),
                   },
                   {
@@ -616,6 +620,7 @@ const displaySettingsStyle = (
                   {
                     type: "color",
                     id: "itemBgColor",
+                    gradient: true,
                     name: __("Item Background Color", "ditty-news-ticker"),
                   },
                   {

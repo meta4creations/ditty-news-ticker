@@ -51,7 +51,6 @@ class Ditty_Settings {
 	 */
 	public function fields() {	
 		$test = $this->user_roles_and_capabilities();
-		//echo '<pre>';print_r($test);echo '</pre>';
 
 		$fields = [
 			[

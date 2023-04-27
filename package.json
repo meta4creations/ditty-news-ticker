@@ -37,7 +37,9 @@
     "classnames": "2.3.2",
     "codemirror": "6.0.1",
     "formik": "2.2.9",
+    "keen-slider": "6.8.5",
     "lorem-ipsum": "2.0.8",
+    "react-best-gradient-color-picker": "2.1.13",
     "react-color": "2.19.3",
     "react-toastify": "9.1.1",
     "yup": "1.0.2"
