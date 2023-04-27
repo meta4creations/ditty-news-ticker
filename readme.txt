@@ -130,6 +130,10 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.12 =
+* Rest API updates
+* Color picker updates
+
 = 3.1.11 =
 * Display & Layout new template save bug fixes
 * Export and import updates
