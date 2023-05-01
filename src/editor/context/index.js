@@ -623,6 +623,13 @@ export class EditorProvider extends Component {
           }
         });
         if (index >= 0) {
+          const currentItem = { ...updatedItems[index] };
+          const currentItemMeta = currentItem.meta ? currentItem.meta : {};
+          const newItemMeta = item.meta
+            ? { ...currentItemMeta, ...item.meta }
+            : { ...currentItemMeta };
+          delete newItemMeta.meta_updates;
+          item.meta = newItemMeta;
           updatedItems[index] = { ...updatedItems[index], ...item };
         }
       });
