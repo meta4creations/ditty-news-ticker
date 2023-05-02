@@ -183,6 +183,23 @@ export const updateLayoutCss = (layoutCss, layoutId) => {
   styles.innerHTML = layoutCss;
 };
 
+/**
+ * Update item layout css
+ *
+ * @since    3.1
+ * @return   null
+ */
+export const updateDisplayCss = (displayCss, displayId) => {
+  let styles = document.getElementById(`ditty-display--${displayId}`);
+  if (!styles) {
+    styles = document.createElement("style");
+    styles.setAttribute("id", `ditty-display--${displayId}`);
+    document.getElementsByTagName("head")[0].appendChild(styles);
+  }
+  displayCss = displayCss.replace("&gt;", ">");
+  styles.innerHTML = displayCss;
+};
+
 export const borderSettings = (prefix, namePrefix) => {
   const prefixed = prefix ? `${prefix}Border` : "border";
   const namePrefixed = namePrefix ? `${namePrefix} Border` : "Border";

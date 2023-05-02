@@ -959,12 +959,13 @@
         });
       }
 
+      const cssPrefix = `.ditty[data-id="${this.settings.display}"]`;
       let css = "";
       if ("" !== this.settings.itemTextColor) {
-        css += `.ditty-item__elements,.ditty-item__elements *{color:${this.settings.itemTextColor}}`;
+        css += `${cssPrefix} .ditty-item__elements{color:${this.settings.itemTextColor}}`;
       }
       if ("" !== this.settings.itemLinkColor) {
-        css += `.ditty-item__elements a{color:${this.settings.itemLinkColor}}`;
+        css += `${cssPrefix} .ditty-item__elements a{color:${this.settings.itemLinkColor}}`;
       }
       dittyDisplayCss(css, this.settings.display);
     },
