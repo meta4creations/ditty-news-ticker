@@ -17,7 +17,6 @@
   var defaults = {
     id: 0,
     title: "",
-    titleDisplay: "none",
     display: 0,
     status: "",
     spacing: 30,
@@ -261,6 +260,15 @@
       this.$elmt.css(this.settings.borderWidth);
       this.$elmt.css(this.settings.margin);
       this.$elmt.css(this.settings.padding);
+
+      let css = "";
+      if ("" !== this.settings.itemTextColor) {
+        css += `.ditty-item__elements,.ditty-item__elements *{color:${this.settings.itemTextColor}}`;
+      }
+      if ("" !== this.settings.itemLinkColor) {
+        css += `.ditty-item__elements a{color:${this.settings.itemLinkColor}}`;
+      }
+      dittyDisplayCss(css, this.settings.display);
     },
 
     /**
@@ -342,16 +350,9 @@
      */
     _styleItem: function ($item) {
       $item.children(".ditty-item__elements").css({
-        color: this.settings.itemTextColor,
         background: this.settings.itemBgColor,
         borderColor: this.settings.itemBorderColor,
         borderStyle: this.settings.itemBorderStyle,
-      });
-      $item.children(".ditty-item__elements").find("*").css({
-        color: this.settings.itemTextColor,
-      });
-      $item.children(".ditty-item__elements").find("a").css({
-        color: this.settings.itemLinkColor,
       });
       $item.children(".ditty-item__elements").css(this.settings.itemPadding);
       $item
@@ -1082,12 +1083,12 @@
         case "borderStyle":
         case "borderWidth":
         case "borderRadius":
+        case "itemTextColor":
+        case "itemLinkColor":
           updateSlider = false;
           this.settings[key] = value;
           this._styleDisplay();
           break;
-        case "itemTextColor":
-        case "itemLinkColor":
         case "itemBgColor":
         case "itemBorderColor":
         case "itemBorderStyle":

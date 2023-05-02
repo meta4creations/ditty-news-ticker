@@ -958,6 +958,15 @@
           maxHeight: "",
         });
       }
+
+      let css = "";
+      if ("" !== this.settings.itemTextColor) {
+        css += `.ditty-item__elements,.ditty-item__elements *{color:${this.settings.itemTextColor}}`;
+      }
+      if ("" !== this.settings.itemLinkColor) {
+        css += `.ditty-item__elements a{color:${this.settings.itemLinkColor}}`;
+      }
+      dittyDisplayCss(css, this.settings.display);
     },
 
     /**
@@ -1039,16 +1048,9 @@
      */
     _styleItem: function ($item) {
       $item.children(".ditty-item__elements").css({
-        color: this.settings.itemTextColor,
         background: this.settings.itemBgColor,
         borderColor: this.settings.itemBorderColor,
         borderStyle: this.settings.itemBorderStyle,
-      });
-      $item.children(".ditty-item__elements").find("*").css({
-        color: this.settings.itemTextColor,
-      });
-      $item.children(".ditty-item__elements").find("a").css({
-        color: this.settings.itemLinkColor,
       });
       $item.children(".ditty-item__elements").css(this.settings.itemPadding);
       $item
@@ -1147,6 +1149,8 @@
         case "contentsBgColor":
         case "contentsPadding":
         case "contentsBorderRadius":
+        case "itemTextColor":
+        case "itemLinkColor":
           this.settings[key] = value;
           this._styleDisplay();
           this._setCurrentHeight();
