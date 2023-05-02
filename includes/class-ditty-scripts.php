@@ -570,7 +570,7 @@ class Ditty_Scripts {
 					'defaultDisplayType' 	=> ditty_default_display_type(),
 					'defaultItemType'			=> ditty_default_item_type(),
 					'dittyDevelopment'		=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
-				) ) ), 'before' ) . ';';
+				), $hook ) ), 'before' ) . ';';
 			}
 		}
 
@@ -616,7 +616,7 @@ class Ditty_Scripts {
 					'displayTypes'				=> Ditty()->editor->display_type_data(),
 					'defaultDisplayType' 	=> ditty_default_display_type(),
 					'dittyDevelopment' 		=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
-				) ) ), 'before' ) . ';';
+				), $hook ) ), 'before' ) . ';';
 			}
 		}
 
@@ -664,7 +664,7 @@ class Ditty_Scripts {
 					'editorSettings'	=> 'ditty_layout-new' == $layout_id ? false : get_post_meta( $layout_id, '_ditty_editor_settings', true ),
 					'itemTypes'				=> Ditty()->editor->item_type_data(),
 					'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
-				) ) ), 'before' ) . ';';
+				), $hook ) ), 'before' ) . ';';
 			}
 		}
 		
@@ -731,7 +731,7 @@ class Ditty_Scripts {
 					'settings'					=> ditty_settings(),
 					'defaultSettings'		=> ditty_settings_defaults(),
 					'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false,
-				) ) ), 'before' ) . ';';
+				), $hook ) ), 'before' ) . ';';
 			}
 		}
 

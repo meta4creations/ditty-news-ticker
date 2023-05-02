@@ -40,6 +40,7 @@ class Ditty_Editor {
 	
 				// Get the editor preview
 				if ( $item_type_object = ditty_item_type_object( $item_meta->item_type ) ) {
+					$item_meta = $item_type_object->editor_meta( $item_meta );
 					$item_meta->editor_preview = $item_type_object->editor_preview( $item_meta->item_value );
 				}
 	

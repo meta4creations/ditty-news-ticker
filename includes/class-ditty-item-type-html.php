@@ -58,7 +58,7 @@ class Ditty_Item_Type_Html extends Ditty_Item_Type_Default {
 	 */
 	public function sanitize_settings( $values ) {
 		$sanitized_settings = [];
-		$sanitized_settings['content'] = isset( $values ) ? wp_kses_post( stripslashes( $values['content'] ) ) : '';
+		$sanitized_settings['content'] = isset( $values ) ? wp_encode_emoji( wp_kses_post( stripslashes( $values['content'] ) ) ) : '';
 		return $sanitized_settings;
 	}
 

@@ -298,6 +298,17 @@ class Ditty_Item_Type {
 	}
 	
 	/**
+	 * Modify the item before sending to the editor
+	 *
+	 * @since    3.1.13
+	 * @access   public
+	 * @var      string    $item
+	*/
+	public function editor_meta( $item ) {
+		return $item;
+	}
+	
+	/**
 	 * Display the editor preview
 	 *
 	 * @since    3.0

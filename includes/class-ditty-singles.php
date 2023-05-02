@@ -502,148 +502,6 @@ class Ditty_Singles {
 		);	
 		wp_send_json( $data );
 	}
-	
-	/**
-	 * Sanitize setting values before saving to the database
-	 *
-	 * @access public
-	 * @since  3.1
-	 */
-	public function sanitize_settings( $settings ) {	
-		$sanitized_settings = array();
-		if ( is_array( $settings ) && count( $settings ) > 0 ) {
-			foreach ( $settings as $setting => $value ) {
-				switch( $setting ) {
-					case 'previewPadding':
-						$sanitized_padding = array();
-						if ( is_array( $value ) && count( $value ) > 0 ) {
-							foreach ( $value as $key => $val ) {
-								$sanitized_padding[$key] = sanitize_text_field( $val );
-							}
-						}
-						$sanitized_settings[$setting] = $sanitized_padding;
-						break;
-					default:
-						$sanitized_settings[$setting] = sanitize_text_field( $value );
-						break;
-				}
-			}
-		}
-		return $sanitized_settings;
-	}
-
-	/**
-	 * Sanitize an item's layout value
-	 *
-	 * @access public
-	 * @since  3.1
-	 */
-	public function sanitize_item_layout_value( $layout_value ) {
-		$sanitized_layout_value = false;
-		if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
-			foreach ( $layout_value as $variation => $value ) {
-				if ( is_array( $value ) ) {
-					$sanitized_layout_value[esc_attr( $variation )] = [
-						'html' => wp_kses_post( stripslashes( $value['html'] ) ),
-						'css' => wp_kses_post( stripslashes( $value['css'] ) ),
-					];
-				} else {
-					$sanitized_layout_value[esc_attr( $variation )] = esc_attr( $value );
-				}
-			}
-		}
-		return $sanitized_layout_value;
-	}
-
-	/**
-	 * Sanitize an item's attribute value
-	 *
-	 * @access public
-	 * @since  3.1
-	 */
-	public function sanitize_item_attribute_value( $attribute_value ) {
-		$sanitized_attribute_value = false;
-		if ( is_array( $attribute_value ) && count( $attribute_value ) > 0 ) {
-			$sanitized_attribute_value = [];
-			foreach ( $attribute_value as $tag => $attributes ) {
-				$sanitized_attributes = [];
-				if ( is_array( $attributes ) && count( $attributes ) > 0 ) {
-					foreach ( $attributes as $key => $data ) {
-						$sanitized_attribute = [
-							'value' => isset( $data['value'] ) ? esc_attr( $data['value'] ) : '',
-						];
-						if ( isset( $data['customValue'] ) && false !== $data['customValue'] ) {
-							$sanitized_attribute['customValue'] = '1';
-						}
-						$sanitized_attributes[esc_attr($key)] = $sanitized_attribute;
-					}
-				}
-				if ( isset( $tag['disabled'] ) ) {
-					$sanitized_attributes['disabled'] = true;
-				}
-				$sanitized_attribute_value[esc_attr($tag)] = $sanitized_attributes;
-			}
-		}
-		return $sanitized_attribute_value;
-	}
-	
-	/**
-	 * Sanitize item values before saving to the database
-	 *
-	 * @access public
-	 * @since  3.0.17
-	 */
-	public function sanitize_item_data( $item_data ) {
-		$sanitized_item = array();
-		
-		// Sanitize the Ditty ID
-		if ( isset( $item_data['ditty_id'] ) ) {
-			$sanitized_item['ditty_id'] = intval( $item_data['ditty_id'] );
-		}
-
-		// Sanitize the item ID
-		if ( isset( $item_data['item_id'] ) ) {
-			$sanitized_item['item_id'] = esc_attr( $item_data['item_id'] );
-		}
-
-		// Sanitize the item ID
-		if ( isset( $item_data['parent_id'] ) ) {
-			$sanitized_item['parent_id'] = esc_attr( $item_data['parent_id'] );
-		}
-
-		// Sanitize the item index
-		if ( isset( $item_data['item_index'] ) ) {
-			$sanitized_item['item_index'] = intval( $item_data['item_index'] );
-		}
-
-		// Sanitize the item type
-		if ( isset( $item_data['item_type'] ) ) {
-			$sanitized_item['item_type'] = esc_attr( $item_data['item_type'] );
-		}
-
-		// Sanitize the item value
-		if ( isset( $item_data['item_value'] ) && isset( $item_data['item_type'] ) ) {
-			if ( $item_type_object = ditty_item_type_object( $item_data['item_type'] ) ) {
-				$sanitized_item['item_value'] = $item_type_object->sanitize_settings( $item_data['item_value'] );
-			}
-		}
-
-		// Sanitize the layout value
-		if ( isset( $item_data['layout_value'] ) ) {
-			$sanitized_item['layout_value'] = $this->sanitize_item_layout_value( $item_data['layout_value'] );
-		}
-
-		// Sanitize the attribute value
-		if ( isset( $item_data['attribute_value'] ) ) {
-			$sanitized_item['attribute_value'] = $this->sanitize_item_attribute_value( $item_data['attribute_value'] );
-		}
-
-		// Sanitize the item author
-		if ( isset( $item_data['item_author'] ) ) {
-			$sanitized_item['item_author'] = intval( $item_data['item_author'] );
-		}
-		return $sanitized_item;
-	}
 
 	/**
 	 * Order items based on parent ids
@@ -769,6 +627,148 @@ class Ditty_Singles {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Sanitize setting values before saving to the database
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function sanitize_settings( $settings ) {	
+		$sanitized_settings = array();
+		if ( is_array( $settings ) && count( $settings ) > 0 ) {
+			foreach ( $settings as $setting => $value ) {
+				switch( $setting ) {
+					case 'previewPadding':
+						$sanitized_padding = array();
+						if ( is_array( $value ) && count( $value ) > 0 ) {
+							foreach ( $value as $key => $val ) {
+								$sanitized_padding[$key] = sanitize_text_field( $val );
+							}
+						}
+						$sanitized_settings[$setting] = $sanitized_padding;
+						break;
+					default:
+						$sanitized_settings[$setting] = sanitize_text_field( $value );
+						break;
+				}
+			}
+		}
+		return $sanitized_settings;
+	}
+	
+	/**
+	 * Sanitize an item's layout value
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function sanitize_item_layout_value( $layout_value ) {
+		$sanitized_layout_value = false;
+		if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
+			foreach ( $layout_value as $variation => $value ) {
+				if ( is_array( $value ) ) {
+					$sanitized_layout_value[esc_attr( $variation )] = [
+						'html' => wp_kses_post( stripslashes( $value['html'] ) ),
+						'css' => wp_kses_post( stripslashes( $value['css'] ) ),
+					];
+				} else {
+					$sanitized_layout_value[esc_attr( $variation )] = esc_attr( $value );
+				}
+			}
+		}
+		return $sanitized_layout_value;
+	}
+	
+	/**
+	 * Sanitize an item's attribute value
+	 *
+	 * @access public
+	 * @since  3.1
+	 */
+	public function sanitize_item_attribute_value( $attribute_value ) {
+		$sanitized_attribute_value = false;
+		if ( is_array( $attribute_value ) && count( $attribute_value ) > 0 ) {
+			$sanitized_attribute_value = [];
+			foreach ( $attribute_value as $tag => $attributes ) {
+				$sanitized_attributes = [];
+				if ( is_array( $attributes ) && count( $attributes ) > 0 ) {
+					foreach ( $attributes as $key => $data ) {
+						$sanitized_attribute = [
+							'value' => isset( $data['value'] ) ? esc_attr( $data['value'] ) : '',
+						];
+						if ( isset( $data['customValue'] ) && false !== $data['customValue'] ) {
+							$sanitized_attribute['customValue'] = '1';
+						}
+						$sanitized_attributes[esc_attr($key)] = $sanitized_attribute;
+					}
+				}
+				if ( isset( $tag['disabled'] ) ) {
+					$sanitized_attributes['disabled'] = true;
+				}
+				$sanitized_attribute_value[esc_attr($tag)] = $sanitized_attributes;
+			}
+		}
+		return $sanitized_attribute_value;
+	}
+	
+	/**
+	 * Sanitize item values before saving to the database
+	 *
+	 * @access public
+	 * @since  3.0.17
+	 */
+	public function sanitize_item_data( $item_data ) {
+		$sanitized_item = array();
+		
+		// Sanitize the Ditty ID
+		if ( isset( $item_data['ditty_id'] ) ) {
+			$sanitized_item['ditty_id'] = intval( $item_data['ditty_id'] );
+		}
+	
+		// Sanitize the item ID
+		if ( isset( $item_data['item_id'] ) ) {
+			$sanitized_item['item_id'] = esc_attr( $item_data['item_id'] );
+		}
+	
+		// Sanitize the item ID
+		if ( isset( $item_data['parent_id'] ) ) {
+			$sanitized_item['parent_id'] = esc_attr( $item_data['parent_id'] );
+		}
+	
+		// Sanitize the item index
+		if ( isset( $item_data['item_index'] ) ) {
+			$sanitized_item['item_index'] = intval( $item_data['item_index'] );
+		}
+	
+		// Sanitize the item type
+		if ( isset( $item_data['item_type'] ) ) {
+			$sanitized_item['item_type'] = esc_attr( $item_data['item_type'] );
+		}
+	
+		// Sanitize the item value
+		if ( isset( $item_data['item_value'] ) && isset( $item_data['item_type'] ) ) {
+			if ( $item_type_object = ditty_item_type_object( $item_data['item_type'] ) ) {
+				$sanitized_item['item_value'] = $item_type_object->sanitize_settings( $item_data['item_value'] );
+			}
+		}
+	
+		// Sanitize the layout value
+		if ( isset( $item_data['layout_value'] ) ) {
+			$sanitized_item['layout_value'] = $this->sanitize_item_layout_value( $item_data['layout_value'] );
+		}
+	
+		// Sanitize the attribute value
+		if ( isset( $item_data['attribute_value'] ) ) {
+			$sanitized_item['attribute_value'] = $this->sanitize_item_attribute_value( $item_data['attribute_value'] );
+		}
+	
+		// Sanitize the item author
+		if ( isset( $item_data['item_author'] ) ) {
+			$sanitized_item['item_author'] = intval( $item_data['item_author'] );
+		}
+		return $sanitized_item;
 	}
 
 	/**
@@ -957,7 +957,13 @@ class Ditty_Singles {
 
 		// Update the item array to remove keys before sending back to js
 		if ( count( $updates['items'] ) > 0 ) {
-			$updates['items'] = array_values( $updates['items'] );
+			$updated_items = [];
+			foreach ( $updates['items'] as $i => $updated_item ) {
+				if ( $item_type_object = ditty_item_type_object( $updated_item['item_type'] ) ) {
+					$updated_items[] = $item_type_object->editor_meta( $updated_item );
+				}
+			}
+			$updates['items'] = $updated_items;
 		} else {
 			unset( $updates['items'] );
 		}

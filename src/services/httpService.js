@@ -37,7 +37,7 @@ export function saveLayout(data, onComplete) {
 }
 
 export function saveSettings(updatedSettings, onComplete) {
-  const apiURL = `${dittyEditorVars.restUrl}dittyeditor/v1/saveSettings`;
+  const apiURL = `${dittySettingsVars.restUrl}dittyeditor/v1/saveSettings`;
   const apiData = {
     security: dittySettingsVars.security,
     userId: dittySettingsVars.userId,
