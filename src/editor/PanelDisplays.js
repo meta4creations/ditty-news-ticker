@@ -250,11 +250,6 @@ const PanelDisplays = () => {
                 {__("Change Type", "ditty-news-ticker")}
               </Link>
             )}
-            {currentDisplay.id && (
-              <Link onClick={() => setPopupStatus("displayTemplateSelect")}>
-                {__("Change Template", "ditty-news-ticker")}
-              </Link>
-            )}
           </div>
           <p>{description}</p>
         </IconBlock>

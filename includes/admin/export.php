@@ -658,7 +658,7 @@ function ditty_import_posts() {
 				update_post_meta( $imported_display_id, '_ditty_display_type', esc_html( $display_data['display_type'] ) );
 			}
 			if ( isset( $display_data['settings'] ) ) {
-				$sanitized_settings = ditty_sanitize_settings( $display_data['settings'], "display_{$display_type}" );
+				$sanitized_settings = ditty_sanitize_settings( $display_data['settings'], "display_{$display_data['display_type']}" );
 				update_post_meta( $imported_display_id, '_ditty_display_settings', $sanitized_settings );
 			}
 			if ( isset( $display_data['version'] ) ) {
