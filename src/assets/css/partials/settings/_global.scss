@@ -1,0 +1,17 @@
+@media screen and (min-width: 551px) {
+  .ditty-field-id--global_ditty {
+    .ditty-field__input--group {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .ditty-field {
+      width: 50%;
+      &:nth-child(odd) {
+        padding-right: 5px;
+      }
+      &:nth-child(even) {
+        padding-left: 5px;
+      }
+    }
+  }
+}

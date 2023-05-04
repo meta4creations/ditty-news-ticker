@@ -8,6 +8,7 @@ import {
   updateDittyDisplayTemplate,
   updateDittyDisplayType,
 } from "../services/dittyService";
+import { PopupTypeSelector } from "../common";
 import { Button, ButtonGroup, IconBlock, Link, Panel } from "../components";
 import { FieldList } from "../fields";
 import {
@@ -18,21 +19,32 @@ import {
 } from "../utils/displayTypes";
 import { EditorContext } from "./context";
 import PopupTemplateSave from "./PopupTemplateSave";
-import PopupTypeSelector from "./PopupTypeSelector";
 import PopupTemplateSelector from "./PopupTemplateSelector";
 
 const PanelDisplays = () => {
-  const { actions, currentDisplay, displays } = useContext(EditorContext);
+  const editor = useContext(EditorContext);
+  const { actions, currentDisplay: display, displays } = editor;
+  const defaultDisplayType = dittyEditorVars.defaultDisplayType
+    ? dittyEditorVars.defaultDisplayType
+    : "list";
+
+  const currentDisplay = display ? display : { type: defaultDisplayType };
   const displayTypeObject = getDisplayTypeObject(currentDisplay);
   const fieldGroups = getDisplayTypeSettings(currentDisplay);
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
 
   const [currentTabId, setCurrentTabId] = useState(initialTab);
   const [status, setStatus] = useState(!currentDisplay.id && "editDisplay");
-  const [popupStatus, setPopupStatus] = useState(false);
+  const [popupStatus, setPopupStatus] = useState(
+    display ? false : "displayTypeSelect"
+  );
   const [currentTemplate, setCurrentTemplate] = useState(
     currentDisplay.id ? currentDisplay : false
   );
+
+  if (!currentDisplay.settings) {
+    currentDisplay.settings = displayTypeObject.defaultValues;
+  }
 
   const displayTypes = getDisplayTypes();
 
@@ -67,6 +79,7 @@ const PanelDisplays = () => {
         delete templateToSave.version;
         return (
           <PopupTemplateSave
+            editor={editor}
             templateType="display"
             currentTemplate={templateToSave}
             templates={displays}
@@ -96,6 +109,10 @@ const PanelDisplays = () => {
               setPopupStatus(false);
             }}
             onUpdate={(updatedTemplate) => {
+              if (updatedTemplate.new) {
+                updatedTemplate.id = updatedTemplate.new;
+                delete updatedTemplate.new;
+              }
               setStatus(false);
               setPopupStatus(false);
               actions.updateDisplay(updatedTemplate);
@@ -153,8 +170,15 @@ const PanelDisplays = () => {
               if (currentDisplay.type === updatedType) {
                 return false;
               }
-              const updatedDisplay = { ...currentDisplay };
+              const updatedDisplay = _.cloneDeep(currentDisplay);
+              const updatedDisplayTypeObject =
+                getDisplayTypeObject(updatedType);
+
               updatedDisplay.type = updatedType;
+              updatedDisplay.settings = {
+                ...updatedDisplayTypeObject.defaultValues,
+                ...updatedDisplay.settings,
+              };
               actions.setCurrentDisplay(updatedDisplay);
             }}
           />
@@ -226,11 +250,6 @@ const PanelDisplays = () => {
                 {__("Change Type", "ditty-news-ticker")}
               </Link>
             )}
-            {currentDisplay.id && (
-              <Link onClick={() => setPopupStatus("displayTemplateSelect")}>
-                {__("Change Template", "ditty-news-ticker")}
-              </Link>
-            )}
           </div>
           <p>{description}</p>
         </IconBlock>
@@ -254,7 +273,7 @@ const PanelDisplays = () => {
       return (
         <FieldList
           name={fieldGroup.name}
-          desc={fieldGroup.desc}
+          description={fieldGroup.desc}
           fields={fieldGroup.fields}
           values={currentDisplay.settings}
           onUpdate={handleOnUpdate}

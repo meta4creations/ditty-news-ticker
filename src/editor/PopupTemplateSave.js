@@ -1,5 +1,4 @@
 import { __ } from "@wordpress/i18n";
-import { toast } from "react-toastify";
 import { useState } from "@wordpress/element";
 import { saveDisplay, saveLayout } from "../services/httpService";
 import { IconBlock, Filter, List, ListItem, Popup, Tabs } from "../components";
@@ -22,6 +21,7 @@ const PopupTemplateSave = ({
   onClose,
   onUpdate,
 }) => {
+  const { dittyNotification } = dittyEditor.notifications;
   const [templateName, setTemplateName] = useState(
     currentTemplate.title ? currentTemplate.title : ""
   );
@@ -34,12 +34,15 @@ const PopupTemplateSave = ({
     currentTemplate.id ? "existing" : "new"
   );
   const [showSpinner, setShowSpinner] = useState(false);
-
   const elements = [
     {
       id: "icon",
       content: (template) => {
-        return templateIcon && templateIcon(template);
+        return (
+          templateIcon && (
+            <div className="ditty-preview-icon">{templateIcon(template)}</div>
+          )
+        );
       },
     },
     {
@@ -138,34 +141,27 @@ const PopupTemplateSave = ({
   };
 
   const handleSaveTemplate = async () => {
+    setShowSpinner(true);
+    const saveTemplate = { ...selectedTemplate };
+    if ("new" === currentTabId) {
+      delete saveTemplate.id;
+    }
     const data = saveData(
       currentTabId,
-      selectedTemplate,
+      saveTemplate,
       templateName,
       templateDescription
     );
-    setShowSpinner(true);
     try {
       if ("display" === templateType) {
         await saveDisplay(data, handleApiData);
       } else if ("layout" === templateType) {
         await saveLayout(data, handleApiData);
       }
-      toast(`"${templateName}" template has been saved!`, {
-        autoClose: 3000,
-        icon: (
-          <svg
-            className="ditty-logo"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 69.8 71.1"
-          >
-            <path d="M0 46.4c0-17.2 8.6-29.1 24.6-29.1a19.93 19.93 0 0 1 6.6 1V0H45v59.2l1 10.3H34.2l-.9-5.2h-.5a15.21 15.21 0 0 1-13 6.8C3.8 71.1 0 58.4 0 46.4Zm31.2 7.4V28.6a13.7 13.7 0 0 0-6-1.3c-8.7 0-11.3 8.7-11.3 17.8 0 8.5 1.9 15.8 8.9 15.8 5.1 0 8.4-3.8 8.4-7.1ZM54.7 63.7a7 7 0 0 1 7.4-7.2c5 0 7.7 2.8 7.7 7.1s-2.6 7.5-7.4 7.5c-5.1 0-7.7-3.1-7.7-7.4Z" />
-          </svg>
-        ),
-      });
+      dittyNotification(`"${templateName}" template has been saved!`);
+      setShowSpinner(false);
     } catch (ex) {
-      if (ex.response && ex.response.status === 404) {
-      }
+      dittyNotification(ex, "error");
       setShowSpinner(false);
     }
   };
@@ -183,11 +179,11 @@ const PopupTemplateSave = ({
         ("new" === currentTabId && "" === templateName)
       }
       header={popupHeader()}
-      showSpinner={showSpinner}
       onClose={() => {
         onClose();
       }}
       onSubmit={handleSaveTemplate}
+      showSpinner={showSpinner}
     >
       {"new" === currentTabId ? (
         <FieldList>

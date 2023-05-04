@@ -17,7 +17,6 @@
   var defaults = {
     id: 0,
     title: "",
-    titleDisplay: "none",
     display: 0,
     status: "",
     spacing: 30,
@@ -51,29 +50,51 @@
     bgColor: "",
     padding: {},
     margin: {},
-    borderColor: {},
+    borderColor: "",
     borderStyle: {},
     borderWidth: {},
     borderRadius: {},
     contentsBgColor: "",
     contentsPadding: {},
-    contentsBorderColor: {},
+    contentsBorderColor: "",
     contentsBorderStyle: {},
     contentsBorderWidth: {},
     contentsBorderRadius: {},
     pageBgColor: "",
     pagePadding: {},
-    pageBorderColor: {},
+    pageBorderColor: "",
     pageBorderStyle: {},
     pageBorderWidth: {},
     pageBorderRadius: {},
     itemTextColor: "",
+    itemLinkColor: "",
     itemBgColor: "",
-    itemBorderColor: {},
+    itemBorderColor: "",
     itemBorderStyle: {},
     itemBorderWidth: {},
     itemBorderRadius: {},
     itemPadding: {},
+    titleDisplay: "none",
+    titleContentsSize: "stretch",
+    titleContentsPosition: "start",
+    titleElement: "h3",
+    titleElementPosition: "start",
+    titleElementVerticalPosition: "start",
+    titleFontSize: "",
+    titleLineHeight: "",
+    titleMinWidth: "",
+    titleMaxWidth: "",
+    titleMinHeight: "",
+    titleMaxHeight: "",
+    titleColor: "",
+    titleLinkColor: "",
+    titleBgColor: "",
+    titleMargin: {},
+    titlePadding: {},
+    titleBorderColor: "",
+    titleBorderStyle: {},
+    titleBorderWidth: {},
+    titleBorderRadius: {},
     page: 0,
     shuffle: 0,
     showEditor: 0,
@@ -93,6 +114,9 @@
     this.displayType = "list";
     this.elmt = elmt;
     this.$elmt = $(elmt);
+    this.$title = null;
+    this.$titleContents = null;
+    this.$contents = null;
     this.settings = $.extend({}, defaults, $.ditty_list.defaults, options);
     this.total = this.settings.items.length;
     this.totalPages = 1;
@@ -119,6 +143,19 @@
       this.$elmt.attr("data-id", this.settings.id);
       this.$elmt.attr("data-type", this.displayType);
       this.$elmt.attr("data-display", this.settings.display);
+
+      // Create the ticker contents
+      this.$contents = $('<div class="ditty__contents"></div>');
+      this.$elmt.append(this.$contents);
+
+      // Create the ticker title
+      this.$title = $('<div class="ditty__title"></div>');
+      this.$titleContents = $('<div class="ditty__title__contents"></div>');
+      this.$title.append(this.$titleContents);
+
+      // Setup styles
+      this._styleDisplay();
+      this._styleTitle();
 
       // Calculate the number of pages
       this._calculatePages();
@@ -150,10 +187,14 @@
       sliderSettings.slides = this.pages;
 
       // Create a new slider and bind actions
-      this.$elmt.ditty_slider(sliderSettings);
-      this.$elmt.on("ditty_slider_init", { self: this }, this._triggerInit);
-      this.$elmt.on("ditty_slider_update", { self: this }, this._triggerUpdate);
-      this.$elmt.on(
+      this.$contents.ditty_slider(sliderSettings);
+      this.$contents.on("ditty_slider_init", { self: this }, this._triggerInit);
+      this.$contents.on(
+        "ditty_slider_update",
+        { self: this },
+        this._triggerUpdate
+      );
+      this.$contents.on(
         "ditty_slider_after_slide_update",
         { self: this },
         this._triggerShowSlide
@@ -167,19 +208,23 @@
      * @return   null
      */
     _destroySlider: function () {
-      if (this.$elmt.ditty_slider) {
-        this.$elmt.off("ditty_slider_init", { self: this }, this._triggerInit);
-        this.$elmt.off(
+      if (this.$contents.ditty_slider) {
+        this.$contents.off(
+          "ditty_slider_init",
+          { self: this },
+          this._triggerInit
+        );
+        this.$contents.off(
           "ditty_slider_update",
           { self: this },
           this._triggerUpdate
         );
-        this.$elmt.off(
+        this.$contents.off(
           "ditty_slider_after_slide_update",
           { self: this },
           this._triggerShowSlide
         );
-        this.$elmt.ditty_slider("destroy");
+        this.$contents.ditty_slider("destroy");
       }
     },
 
@@ -192,10 +237,110 @@
     _updateSlider: function (index) {
       var newIndex = index
         ? index
-        : this.$elmt.ditty_slider("options", "slide");
-      this.$elmt.ditty_slider("options", "slides", this.settings.pages);
-      this.$elmt.ditty_slider("options", "slide", -1);
-      this.$elmt.ditty_slider("showSlide", newIndex);
+        : this.$contents.ditty_slider("options", "slide");
+      this.$contents.ditty_slider("options", "slides", this.settings.pages);
+      this.$contents.ditty_slider("options", "slide", -1);
+      this.$contents.ditty_slider("showSlide", newIndex);
+    },
+
+    /**
+     * Style the display element
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _styleDisplay: function () {
+      this.$elmt.css({
+        maxWidth: this.settings.maxWidth,
+        background: this.settings.bgColor,
+        borderColor: this.settings.borderColor,
+        borderStyle: this.settings.borderStyle,
+      });
+      this.$elmt.css(this.settings.borderRadius);
+      this.$elmt.css(this.settings.borderWidth);
+      this.$elmt.css(this.settings.margin);
+      this.$elmt.css(this.settings.padding);
+
+      const cssPrefix = `.ditty[data-display="${this.settings.display}"]`;
+      let css = "";
+      if ("" !== this.settings.itemTextColor) {
+        css += `${cssPrefix} .ditty-item__elements{color:${this.settings.itemTextColor}}`;
+      }
+      if ("" !== this.settings.itemLinkColor) {
+        css += `${cssPrefix} .ditty-item__elements a{color:${this.settings.itemLinkColor}}`;
+      }
+      dittyDisplayCss(css, this.settings.display);
+    },
+
+    /**
+     * Style the title element
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _styleTitle: function () {
+      this.$elmt.attr("data-title", this.settings.titleDisplay);
+
+      const titleContentsPosition = this.settings.titleContentsPosition
+        ? this.settings.titleContentsPosition
+        : this.settings.titleElementPosition;
+      const titleVerticalPosition = this.settings.titleElementVerticalPosition
+        ? this.settings.titleElementVerticalPosition
+        : this.settings.titleElementPosition;
+
+      this.$elmt.attr("data-title_position", titleContentsPosition);
+      this.$elmt.attr(
+        "data-title_horizontal_position",
+        this.settings.titleElementPosition
+      );
+      this.$elmt.attr("data-title_vertical_position", titleVerticalPosition);
+      if ("none" === this.settings.titleDisplay) {
+        this.$title.remove();
+      } else {
+        var $element = $(
+          "<" +
+            this.settings.titleElement +
+            ' class="ditty__title__element">' +
+            this.settings.title +
+            "</" +
+            this.settings.titleElement +
+            ">"
+        );
+
+        $element.css({
+          fontSize: this.settings.titleFontSize,
+          lineHeight: this.settings.titleLineHeight,
+          color: this.settings.titleColor,
+          margin: 0,
+          padding: 0,
+        });
+        $element.find("*").css({
+          color: this.settings.titleColor,
+        });
+        $element.find("a").css({
+          color: this.settings.titleLinkColor,
+        });
+
+        this.$titleContents.css({
+          background: this.settings.titleBgColor,
+          borderColor: this.settings.titleBorderColor,
+          borderStyle: this.settings.titleBorderStyle,
+          width: "auto" === this.settings.titleContentsSize ? "auto" : "100%",
+          height: "auto" === this.settings.titleContentsSize ? "auto" : "100%",
+          minWidth: this.settings.titleMinWidth,
+          maxWidth: this.settings.titleMaxWidth,
+          minHeight: this.settings.titleMinHeight,
+          maxHeight: this.settings.titleMaxHeight,
+        });
+        this.$titleContents.css(this.settings.titleBorderRadius);
+        this.$titleContents.css(this.settings.titleBorderWidth);
+        this.$titleContents.css(this.settings.titlePadding);
+
+        this.$title.css(this.settings.titleMargin);
+
+        this.$titleContents.html($element);
+        this.$elmt.prepend(this.$title);
+      }
     },
 
     /**
@@ -206,8 +351,7 @@
      */
     _styleItem: function ($item) {
       $item.children(".ditty-item__elements").css({
-        color: this.settings.itemTextColor,
-        backgroundColor: this.settings.itemBgColor,
+        background: this.settings.itemBgColor,
         borderColor: this.settings.itemBorderColor,
         borderStyle: this.settings.itemBorderStyle,
       });
@@ -388,17 +532,16 @@
      * @return   null
      */
     addItemDisabled: function (id, slug) {
-      var self = this;
-      $.each(this.settings.items, function (i, item) {
-        if (String(item.id) === String(id)) {
-          if (!Array.isArray(self.settings.items[i].is_disabled)) {
-            self.settings.items[i].is_disabled = [];
-          }
-          self.settings.items[i].is_disabled.push(slug);
-        }
-      });
-      this.updateItems(this.settings.items);
-      this.trigger("disabled_items_update");
+      // var self = this;
+      // $.each(this.settings.items, function (i, item) {
+      //   if (String(item.id) === String(id)) {
+      //     if (!Array.isArray(self.settings.items[i].is_disabled)) {
+      //       self.settings.items[i].is_disabled = [];
+      //     }
+      //     self.settings.items[i].is_disabled.push(slug);
+      //   }
+      // });
+      // this.trigger("disabled_items_update");
     },
 
     /**
@@ -408,24 +551,23 @@
      * @return   null
      */
     removeItemDisabled: function (id, slug) {
-      var self = this;
-      $.each(this.settings.items, function (i, item) {
-        if (String(item.id) === String(id)) {
-          if (
-            Array.isArray(self.settings.items[i].is_disabled) &&
-            self.settings.items[i].is_disabled.length
-          ) {
-            self.settings.items[i].is_disabled = $.grep(
-              self.settings.items[i].is_disabled,
-              function (value) {
-                return value !== slug;
-              }
-            );
-          }
-        }
-      });
-      this.updateItems(this.settings.items);
-      this.trigger("disabled_items_update");
+      // var self = this;
+      // $.each(this.settings.items, function (i, item) {
+      //   if (String(item.id) === String(id)) {
+      //     if (
+      //       Array.isArray(self.settings.items[i].is_disabled) &&
+      //       self.settings.items[i].is_disabled.length
+      //     ) {
+      //       self.settings.items[i].is_disabled = $.grep(
+      //         self.settings.items[i].is_disabled,
+      //         function (value) {
+      //           return value !== slug;
+      //         }
+      //       );
+      //     }
+      //   }
+      // });
+      // this.trigger("disabled_items_update");
     },
 
     /**
@@ -443,7 +585,7 @@
       });
       if (0 !== itemIndexes.length) {
         var page = this._getPageByItemIndex(parseInt(itemIndexes[0]));
-        this.$elmt.ditty_slider("showSlide", page);
+        this.$contents.ditty_slider("showSlide", page);
       }
     },
 
@@ -454,6 +596,15 @@
      * @return   null
      */
     addItem: function (item, index, type) {
+      var slides = this.$contents.ditty_slider("options", "slides");
+      if (!slides.length) {
+        this.settings.items = [item];
+        this._calculatePages();
+        var $page = this.pages[0];
+        this.$contents.ditty_slider("addSlide", $page, 0);
+        return false;
+      }
+
       var newItems = this.settings.items.slice(),
         indexExists = true;
 
@@ -504,28 +655,43 @@
      * @since    3.1
      * @return   null
      */
-    loadItems: function (newItems, type = "replace") {
-      if (undefined === newItems) {
+    loadItems: function (newItems = [], swapType = "animate") {
+      if (!newItems.length) {
         return false;
       }
+
+      var slides = this.$contents.ditty_slider("options", "slides");
+      if (!slides.length) {
+        this.settings.items = newItems;
+        this._calculatePages();
+        var $page = this.pages[0];
+        this.$contents.ditty_slider("addSlide", $page, 0);
+        return false;
+      }
+
       const { updatedItems, updatedIndexes } = dittyGetUpdatedItemData(
         this.settings.items,
-        newItems,
-        type
+        newItems
       );
 
       this.settings.items = updatedItems;
       this.total = updatedItems.length;
       this._calculatePages();
-      this.$elmt.ditty_slider("options", "slides", this.pages);
+      this.$contents.ditty_slider("options", "slides", this.pages);
 
-      var $currentPage = this.$elmt.ditty_slider("options", "currentSlide"),
+      var $currentPage = this.$contents.ditty_slider("options", "currentSlide"),
         currentItems = $currentPage.children(".ditty-item"),
-        pageIndex = this.$elmt.ditty_slider("options", "slide"),
-        minIndex = this.settings.paging ? this.settings.perPage * pageIndex : 0,
-        maxIndex = this.settings.paging
-          ? this.settings.perPage * pageIndex + (this.settings.perPage - 1)
-          : currentItems.length,
+        pageIndex = this.$contents.ditty_slider("options", "slide"),
+        minIndex =
+          this.settings.paging && 1 === parseInt(this.settings.paging)
+            ? parseInt(this.settings.perPage) * pageIndex
+            : 0,
+        maxIndex =
+          this.settings.paging && 1 === parseInt(this.settings.paging)
+            ? parseInt(this.settings.perPage) * pageIndex +
+              parseInt(this.settings.perPage) -
+              1
+            : currentItems.length,
         itemSwaps = [];
 
       // Swap out items
@@ -558,19 +724,21 @@
               newItem: $newItem,
             });
           }
+          currentCounter++;
 
           // If removing items
-        } else if (currentCounter >= this.total) {
+        } else if (currentCounter + minIndex >= this.total) {
           if (currentItems[currentCounter]) {
             itemSwaps.push({
               currentItem: $(currentItems[currentCounter]),
               newItem: $('<div class="ditty-temp-item"></div>'),
             });
           }
+          currentCounter++;
         }
-        currentCounter++;
       }
-      dittyUpdateItems(itemSwaps);
+      dittyUpdateItems(itemSwaps, swapType);
+      this.trigger("update");
     },
 
     /**
@@ -583,9 +751,17 @@
       if (undefined === newItems) {
         return false;
       }
+      var slides = this.$contents.ditty_slider("options", "slides");
+      if (!slides.length) {
+        this.settings.items = newItems;
+        this._calculatePages();
+        var $page = this.pages[0];
+        this.$contents.ditty_slider("addSlide", $page, 0);
+        return false;
+      }
 
       var self = this,
-        currentIndex = this.$elmt.ditty_slider("options", "slide"),
+        currentIndex = this.$contents.ditty_slider("options", "slide"),
         forceSwaps = [];
 
       // Update a single item id
@@ -637,11 +813,11 @@
       this.settings.items = newItems;
       this.total = newItems.length;
       this._calculatePages();
-      this.$elmt.ditty_slider("options", "slides", this.pages);
+      this.$contents.ditty_slider("options", "slides", this.pages);
 
-      var $currentPage = this.$elmt.ditty_slider("options", "currentSlide"),
+      var $currentPage = this.$contents.ditty_slider("options", "currentSlide"),
         currentItems = $currentPage.children(".ditty-item"),
-        newIndex = this.$elmt.ditty_slider("options", "slide"),
+        newIndex = this.$contents.ditty_slider("options", "slide"),
         itemSwaps = [];
 
       if (currentIndex !== newIndex) {
@@ -851,7 +1027,17 @@
         case "paging":
           updateSlider = false;
           this.settings[key] = value;
-          this.updateItems(this.settings.items);
+          this._calculatePages();
+          this.$contents.ditty_slider("options", {
+            slides: this.pages,
+            transitionSpeed: 0,
+            heightSpeed: 0,
+          });
+          this.$contents.ditty_slider("showSlide");
+          this.$contents.ditty_slider("options", {
+            transitionSpeed: this.settings.transitionSpeed,
+            heightSpeed: this.settings.heightSpeed,
+          });
           break;
         case "spacing":
           this.settings[key] = value;
@@ -864,7 +1050,46 @@
               .css({ paddingBottom: 0 });
           });
           break;
+        case "title":
+        case "titleDisplay":
+        case "titleContentsSize":
+        case "titleContentsPosition":
+        case "titleElement":
+        case "titleElementPosition":
+        case "titleElementVerticalPosition":
+        case "titleFontSize":
+        case "titleLineHeight":
+        case "titleMinWidth":
+        case "titleMaxWidth":
+        case "titleMinHeight":
+        case "titleMaxHeight":
+        case "titleColor":
+        case "titleLinkColor":
+        case "titleBgColor":
+        case "titleMargin":
+        case "titlePadding":
+        case "titleBorderColor":
+        case "titleBorderStyle":
+        case "titleBorderWidth":
+        case "titleBorderRadius":
+          updateSlider = false;
+          this.settings[key] = value;
+          this._styleTitle();
+          break;
+        case "maxWidth":
+        case "bgColor":
+        case "padding":
+        case "margin":
+        case "borderColor":
+        case "borderStyle":
+        case "borderWidth":
+        case "borderRadius":
         case "itemTextColor":
+        case "itemLinkColor":
+          updateSlider = false;
+          this.settings[key] = value;
+          this._styleDisplay();
+          break;
         case "itemBgColor":
         case "itemBorderColor":
         case "itemBorderStyle":
@@ -884,7 +1109,7 @@
       // Convert page to slide
       if (updateSlider) {
         sliderKey = sliderKey.replace("page", "slide");
-        this.$elmt.ditty_slider("options", sliderKey, sliderValue);
+        this.$contents.ditty_slider("options", sliderKey, sliderValue);
       }
     },
 

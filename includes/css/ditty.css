@@ -1043,6 +1043,7 @@
   box-sizing: border-box;
 }
 .ditty-slider__contents {
+  width: 100%;
   position: relative;
   order: 1;
 }
@@ -1060,6 +1061,7 @@
   line-height: 1;
 }
 .ditty-slider__bullets {
+  width: 100%;
   order: 2;
   width: 100%;
   display: flex;
@@ -1075,7 +1077,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #CCC;
+  background: #ccc;
   margin: 0 1px;
   transition: background-color 0.25s ease;
 }
@@ -1109,7 +1111,7 @@
   line-height: 0;
   width: 30px;
   height: 30px;
-  color: #32373C;
+  color: #32373c;
   background: rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   text-decoration: none;

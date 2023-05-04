@@ -32,11 +32,11 @@ export default class DittyDisplayTicker extends DittyDisplay {
     this.$ditty.addEventListener("mouseenter", () => this.mouseEnter(this));
     this.$ditty.addEventListener("mouseleave", () => this.mouseLeave(this));
 
-    window.dittyHooks.addFilter(
-      "dittyDisplayStyles",
-      "ditty",
-      this.updateDisplayStyles
-    );
+    // window.dittyHooks.addFilter(
+    //   "dittyDisplayStyles",
+    //   "ditty",
+    //   this.updateDisplayStyles
+    // );
   }
 
   // resetTicker() {

@@ -17,7 +17,7 @@ class Ditty_Display_Type {
 	public $description;
 	public $metabox;
 	public $templates;
-	public $js_fields = false;
+	public $js_settings = false;
 
 	/**
 	 * Get things started
@@ -84,7 +84,7 @@ class Ditty_Display_Type {
 	 * @return string $type
 	 */
 	public function has_js_fields() {
-		return $this->js_fields;
+		return property_exists( $this, 'js_fields' ) ? $this->js_fields : false;
 	}
 
 	/**

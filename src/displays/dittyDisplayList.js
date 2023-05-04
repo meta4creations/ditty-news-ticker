@@ -12,16 +12,14 @@ export default class DittyDisplayList extends DittyDisplay {
     //this.$ditty.addEventListener("mouseenter", () => this.mouseEnter(this));
     //this.$ditty.addEventListener("mouseleave", () => this.mouseLeave(this));
 
-    window.dittyHooks.addFilter(
-      "dittyDisplayStyles",
-      "ditty",
-      this.updateDisplayStyles
-    );
+    // window.dittyHooks.addFilter(
+    //   "dittyDisplayStyles",
+    //   "ditty",
+    //   this.updateDisplayStyles
+    // );
   }
 
-  initialize() {
-    console.log("Initialize List");
-  }
+  initialize() {}
 
   /**
    * Stop the ticker on mouse enter

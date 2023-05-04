@@ -1,12 +1,10 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
+import { applyFilters } from "@wordpress/hooks";
 import _ from "lodash";
-import {
-  getItemTypeObject,
-  getItemLabel,
-  getItemTypes,
-  getItemTypeSettings,
-} from "../utils/itemTypes";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
+import { PopupTypeSelector } from "../common";
 import {
   Button,
   ButtonGroup,
@@ -16,11 +14,19 @@ import {
   Tabs,
 } from "../components";
 import { FieldList } from "../fields";
-import PopupTypeSelector from "./PopupTypeSelector";
+import {
+  getItemTypeObject,
+  getItemLabel,
+  getItemTypes,
+  getItemTypeSettings,
+  getItemTypePreviewIcon,
+} from "../utils/itemTypes";
+import { getTagFields } from "../utils/layouts";
 
 const PopupEditItem = ({
+  editor,
   item,
-  submitLabel = __("Update Item", "ditty-news-ticker"),
+  editType = "editItem",
   onChange,
   onClose,
   onUpdate,
@@ -33,7 +39,26 @@ const PopupEditItem = ({
   const itemTypeObject = getItemTypeObject(editItem);
   const itemTypes = getItemTypes();
 
-  const fieldGroups = getItemTypeSettings(editItem);
+  let fieldGroups = getItemTypeSettings(editItem);
+  fieldGroups.push({
+    id: "layoutCustomizations",
+    label: __("Customize", "ditty-news-ticker"),
+    name: __("Layout Tag Customizations", "ditty-news-ticker"),
+    description: __(
+      "Customize the layout tags that are using in Layouts for this item. Keep in mind that some layouts may not use all of these tags.",
+      "ditty-news-ticker"
+    ),
+    icon: <FontAwesomeIcon icon={faPaintbrushPencil} />,
+    fields: getTagFields(
+      editItem.layoutTags ? editItem.layoutTags : itemTypeObject.layoutTags
+    ),
+  });
+  fieldGroups = applyFilters(
+    "dittyEditor.itemFieldGroups",
+    fieldGroups,
+    editItem,
+    editor
+  );
 
   const initialTab = fieldGroups.length ? fieldGroups[0].id : "";
   const [currentTabId, setCurrentTabId] = useState(initialTab);
@@ -51,10 +76,15 @@ const PopupEditItem = ({
 
   const addItemUpdate = (updatedItem, key) => {
     setEditItem(updatedItem);
-    if (!updateKeys.includes(key)) {
-      updateKeys.push(key);
-      setUpdateKeys(updateKeys);
-    }
+
+    const keys = Array.isArray(key) ? key : [key];
+    keys.map((k) => {
+      if (!updateKeys.includes(k)) {
+        updateKeys.push(k);
+      }
+    });
+    setUpdateKeys(updateKeys);
+
     onChange && onChange(updatedItem);
   };
 
@@ -76,10 +106,28 @@ const PopupEditItem = ({
             }}
             onUpdate={(updatedType) => {
               setChildPopupStatus(false);
+              if (updatedType === editItem.item_type) {
+                return false;
+              }
 
               const updatedItem = { ...editItem };
+              delete updatedItem.layoutTags;
+              const updatedItemTypeObject = getItemTypeObject(updatedType);
               updatedItem.item_type = updatedType;
-              addItemUpdate(updatedItem, "item_type");
+              updatedItem.item_value = {
+                ...updatedItemTypeObject.defaultValues,
+                ...updatedItem.item_value,
+              };
+
+              // Set the current tab
+              const fieldGroups = getItemTypeSettings(updatedType);
+              if (fieldGroups.length) {
+                setCurrentTabId(fieldGroups[0].id);
+              } else {
+                setCurrentTabId("layoutCustomizations");
+              }
+
+              addItemUpdate(updatedItem, ["item_type", "item_value"]);
             }}
           />
         );
@@ -92,7 +140,7 @@ const PopupEditItem = ({
     return (
       <>
         <IconBlock
-          icon={itemTypeObject && itemTypeObject.icon}
+          icon={getItemTypePreviewIcon(editItem)}
           className="ditty-icon-block--heading"
         >
           <div className="ditty-icon-block--heading__title">
@@ -116,50 +164,58 @@ const PopupEditItem = ({
     );
   };
 
+  const renderPopupContents = () => {
+    const itemKey =
+      "layoutCustomizations" === currentTabId
+        ? "attribute_value"
+        : "item_value";
+
+    return (
+      <FieldList
+        name={currentFieldGroup.name}
+        description={currentFieldGroup.description}
+        fields={currentFieldGroup.fields}
+        values={editItem[itemKey] ? editItem[itemKey] : {}}
+        delayChange={true}
+        onUpdate={(id, value) => {
+          const updatedItem = { ...editItem };
+          if (
+            !updatedItem[itemKey] ||
+            typeof updatedItem[itemKey] !== "object" ||
+            Array.isArray(updatedItem[itemKey])
+          ) {
+            updatedItem[itemKey] = {};
+          }
+          updatedItem[itemKey][id] = value;
+          addItemUpdate(updatedItem, itemKey);
+        }}
+      />
+    );
+  };
+
   const renderPopupFooter = () => {
     return (
       <ButtonGroup justify="flex-end" gap="20px">
-        <Link
-          style={{ marginRight: "auto", color: "#cc1818" }}
-          onClick={onDelete}
-        >
-          {__("Delete", "ditty-news-ticker")}
-        </Link>
-        <Link onClick={onClose}>{__("Cancel", "ditty-news-ticker")}</Link>
+        {"editItem" === editType && (
+          <>
+            <Link
+              onClick={() => {
+                onClose(editItem);
+              }}
+            >
+              {__("Cancel", "ditty-news-ticker")}
+            </Link>
+          </>
+        )}
         <Button
           type="primary"
           onClick={() => {
             onUpdate(editItem, updateKeys);
           }}
         >
-          <span>
-            {submitLabel ? submitLabel : __("Submit", "ditty-news-ticker")}
-          </span>
+          <span>{__("Update Item Settings", "ditty-news-ticker")}</span>
         </Button>
       </ButtonGroup>
-    );
-  };
-
-  const renderPopupContents = () => {
-    return (
-      <FieldList
-        name={currentFieldGroup.name}
-        desc={currentFieldGroup.desc}
-        fields={currentFieldGroup.fields}
-        values={editItem.item_value}
-        onUpdate={(id, value) => {
-          const updatedItem = { ...editItem };
-          if (
-            !updatedItem.item_value ||
-            typeof updatedItem.item_value !== "object" ||
-            Array.isArray(updatedItem.item_value)
-          ) {
-            updatedItem.item_value = {};
-          }
-          updatedItem.item_value[id] = value;
-          addItemUpdate(updatedItem, "item_value");
-        }}
-      />
     );
   };
 
@@ -167,15 +223,14 @@ const PopupEditItem = ({
     <>
       <Popup
         id="itemEdit"
-        submitLabel={submitLabel}
+        className={`ditty-edit-item-type--${editItem.item_type} ditty-edit-item-type--${editItem.item_type}--${currentTabId}`}
+        submitLabel={
+          "editItem" === editType
+            ? __("Update Item", "ditty-news-ticker")
+            : __("Add Item", "ditty-news-ticker")
+        }
         header={renderPopupHeader()}
         footer={renderPopupFooter()}
-        onClose={() => {
-          onClose(editItem);
-        }}
-        onSubmit={() => {
-          onUpdate(editItem, updateKeys);
-        }}
       >
         {renderPopupContents()}
       </Popup>

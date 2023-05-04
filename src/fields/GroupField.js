@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/pro-solid-svg-icons";
 import classnames from "classnames";
 import FieldHeader from "./FieldHeader";
+import { showField } from "./fieldHelpers";
 
 const GroupField = (props) => {
   const {
@@ -45,17 +46,13 @@ const GroupField = (props) => {
   const handleUpdateValue = (inputField, updatedValue) => {
     let groupValue;
     if (multipleFields) {
-      groupValue = value.map((v) => {
-        return {
-          id: v.id,
-          value: v.id === inputField.id ? updatedValue : v.value,
-        };
-      });
+      onChange(updatedValue, inputField);
     } else {
-      groupValue = typeof value === "object" ? value : {};
+      groupValue =
+        typeof value === "object" && !Array.isArray(value) ? value : {};
       groupValue[inputField.id] = updatedValue;
+      onChange(groupValue);
     }
-    onChange(groupValue);
   };
 
   const groupValues = multipleFields ? {} : value;
@@ -76,21 +73,28 @@ const GroupField = (props) => {
     }
   };
 
+  const headerProps = { ...props };
+  if (props.cloneId) {
+    headerProps.name = props.cloneLabel ? props.cloneLabel(groupValues) : false;
+  }
+
   return (
     <div className={fieldClasses} key={id}>
-      <FieldHeader
-        {...props}
-        afterContents={
-          collapsible ? (
-            <FontAwesomeIcon
-              className="ditty-field__toggle"
-              icon={displayContent ? faChevronUp : faChevronDown}
-            />
-          ) : null
-        }
-        onClick={toggleContent}
-        style={styles}
-      />
+      {(headerProps.name || headerProps.collapsible) && (
+        <FieldHeader
+          {...headerProps}
+          headerEnd={
+            collapsible ? (
+              <FontAwesomeIcon
+                icon={displayContent ? faChevronUp : faChevronDown}
+                className="ditty-field__toggle"
+              />
+            ) : null
+          }
+          onClick={toggleContent}
+          style={styles}
+        />
+      )}
       {displayContent && fields && (
         <div className="ditty-field__input__container">
           <div className="ditty-field__input ditty-field__input--group">
@@ -101,7 +105,7 @@ const GroupField = (props) => {
                 ? groupField.std
                 : "";
 
-              return (
+              return showField(groupField, value) ? (
                 <Fragment
                   key={
                     groupField.id ? `${id}${groupField.id}` : `${id}${index}`
@@ -109,7 +113,7 @@ const GroupField = (props) => {
                 >
                   {renderInput(groupField, groupFieldValue, handleUpdateValue)}
                 </Fragment>
-              );
+              ) : null;
             })}
           </div>
         </div>

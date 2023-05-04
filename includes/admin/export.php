@@ -1,11 +1,27 @@
 <?php
 
 /**
+ * Register the export page
+ *
+ * @since    3.1.6
+*/
+function ditty_settings_pages() {
+	add_submenu_page(
+		'edit.php?post_type=ditty',		// The ID of the top-level menu page to which this submenu item belongs
+		__( 'Import/Export', 'ditty-news-ticker' ),		// The value used to populate the browser's title bar when the menu page is active
+		__( 'Import/Export', 'ditty-news-ticker' ),		// The label of this submenu item displayed in the menu
+		'manage_ditty_settings',			// What roles are able to access this submenu item
+		'ditty_export',								// The ID used to represent this submenu item
+		'ditty_export_display'				// The callback function used to render the options for this submenu item
+	);
+}
+add_action( 'admin_menu', 'ditty_settings_pages', 5 );
+
+/**
  * Render the import/export page
  *
  * @since    3.0.17
 */
-
 function ditty_heading() {
 	?>
 	<header class="ditty-header">
@@ -416,10 +432,12 @@ function ditty_export_ditty_posts( $post_ids ) {
 			}
 			$uniq_id = ditty_maybe_add_uniq_id( $post_id );
 			$display = get_post_meta( $post_id, '_ditty_display', true );
-			$display_uniq_id = ditty_maybe_add_uniq_id( $display );
+			$display_uniq_id = is_array( $display ) ? $display : ditty_maybe_add_uniq_id( $display );
 			
 			// Store the display for possible export
-			$displays[$display] = $display;
+			if ( ! is_array( $display ) ) {
+				$displays[$display] = $display;
+			}
 			
 			$items = array();
 			$all_meta = Ditty()->db_items->get_items( $post_id );
@@ -452,13 +470,15 @@ function ditty_export_ditty_posts( $post_ids ) {
 					$updated_layout_value = array();
 					if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
 						foreach ( $layout_value as $variation => $layout_id ) {
-							$layouts[$layout_id] = $layout_id;
-							$updated_layout_value[$variation] = ditty_maybe_add_uniq_id( $layout_id );
+							if ( ! is_array( $layout_id ) ) {
+								$layouts[$layout_id] = $layout_id;
+							}
+							$updated_layout_value[$variation] = is_array( $layout_id ) ? $layout_id : ditty_maybe_add_uniq_id( $layout_id );
 						}
 					}
 					$meta['layout_value'] = $updated_layout_value;
 
-					unset( $meta['item_id'] );
+					//unset( $meta['item_id'] );
 					unset( $meta['date_created'] );
 					unset( $meta['date_modified'] );
 					unset( $meta['ditty_id'] );
@@ -630,16 +650,15 @@ function ditty_import_posts() {
 			$imported_data = array(
 				'id' => $imported_display_id,
 			);
-			
+
 			if ( isset( $display_data['description'] ) ) {
 				update_post_meta( $imported_display_id, '_ditty_display_description', wp_kses_post( $display_data['description'] ) );
 			}
 			if ( isset( $display_data['display_type'] ) ) {
 				update_post_meta( $imported_display_id, '_ditty_display_type', esc_html( $display_data['display_type'] ) );
 			}
-			if ( $display_object = ditty_display_type_object( $display_data['display_type'] ) ) {
-				$fields = $display_object->fields();
-				$sanitized_settings = ditty_sanitize_fields( $fields, $display_data['settings'], "ditty_display_type_{$display_data['display_type']}" );
+			if ( isset( $display_data['settings'] ) ) {
+				$sanitized_settings = ditty_sanitize_settings( $display_data['settings'], "display_{$display_data['display_type']}" );
 				update_post_meta( $imported_display_id, '_ditty_display_settings', $sanitized_settings );
 			}
 			if ( isset( $display_data['version'] ) ) {
@@ -674,18 +693,34 @@ function ditty_import_posts() {
 			$sanitized_settings = Ditty()->singles->sanitize_settings( $settings );
 			update_post_meta( $imported_ditty_id, '_ditty_settings', $sanitized_settings );
 			
-			update_post_meta( $imported_ditty_id, '_ditty_init', 'yes' );
-			
-			if ( isset( $displays[$ditty_data['display']] ) ) {
-				$imported_data['display'] = $displays[$ditty_data['display']];
-				update_post_meta( $imported_ditty_id, '_ditty_display', intval( $displays[$ditty_data['display']] ) );
+			//update_post_meta( $imported_ditty_id, '_ditty_init', 'yes' );
+			if ( isset( $ditty_data['display'] ) ) {
+				if ( is_array( $ditty_data['display'] ) ) {
+					update_post_meta( $imported_ditty_id, '_ditty_display', $ditty_data['display'] );
+				} else {
+					if ( isset( $displays[$ditty_data['display']] ) ) {
+						$imported_data['display'] = $displays[$ditty_data['display']];
+						update_post_meta( $imported_ditty_id, '_ditty_display', intval( $displays[$ditty_data['display']] ) );
+					}
+				}
 			}
 			
 			update_post_meta( $imported_ditty_id, '_ditty_uniq_id', $uniq_id );
 			
 			// Add items
+			
 			if ( is_array( $ditty_data['items'] ) && count( $ditty_data['items'] ) > 0 ) {
-				foreach ( $ditty_data['items'] as $i => $item ) {
+				$parent_item_ids = array();
+				$items = $ditty_data['items'];
+				usort( $items, function ( $item1, $item2 ) {
+						return $item1['parent_id'] <=> $item2['parent_id'];
+				});
+				
+				foreach ( $items as $i => $item ) {
+					
+					// Temporarily store the old id and remove
+					$temp_id = $item['item_id'];
+					unset( $item['item_id'] );
 					
 					// Gather the custom meta
 					$custom_meta = false;
@@ -700,20 +735,43 @@ function ditty_import_posts() {
 					// Add the item author
 					$item['item_author'] = get_current_user_id();
 					
+					// Update the parent id
+					if ( intval( $item['parent_id'] ) > 0 && isset( $parent_item_ids[$item['parent_id']] ) ) {
+						$item['parent_id'] = $parent_item_ids[$item['parent_id']];
+					}
+
 					// Set the layouts
 					$updated_layout_value = array();
 					if ( is_array( $item['layout_value'] ) && count( $item['layout_value'] ) > 0 ) {
 						foreach ( $item['layout_value'] as $variation => $layout_id ) {
-							if ( isset( $layouts[$layout_id] ) ) {
-								$updated_layout_value[$variation] = $layouts[$layout_id];
+							if ( is_array( $layout_id ) ) {
+								$updated_layout_value[$variation] = $layout_id;
+							} else {
+								if ( isset( $layouts[$layout_id] ) ) {
+									$updated_layout_value[$variation] = $layouts[$layout_id];
+								}
 							}
 						}
 					}
 					$item['layout_value'] = $updated_layout_value;
 					
 					// Sanitize and save item data
-					$sanitized_item_data = Ditty()->singles->sanitize_item_data( $item );
-					if ( $new_item_id = Ditty()->db_items->insert( apply_filters( 'ditty_item_db_data', $sanitized_item_data, $imported_ditty_id ), 'item' ) ) {
+					$serialized_item = $sanitized_item = Ditty()->singles->sanitize_item_data( $item );
+					if ( isset( $sanitized_item['item_value'] ) ) {
+						$serialized_item['item_value'] = maybe_serialize( $sanitized_item['item_value'] );
+					}
+					if ( isset( $sanitized_item['layout_value'] ) ) {
+						$serialized_item['layout_value'] = maybe_serialize( $sanitized_item['layout_value'] );
+					}
+					if ( isset( $sanitized_item['attribute_value'] ) ) {
+						$serialized_item['attribute_value'] = maybe_serialize( $sanitized_item['attribute_value'] );
+					}
+					if ( $new_item_id = Ditty()->db_items->insert( apply_filters( 'ditty_item_db_data', $serialized_item, $imported_ditty_id ), 'item' ) ) {
+						
+						// Store the new parent ids
+						if ( 0 == intval( $sanitized_item['parent_id'] ) ) {
+							$parent_item_ids[$temp_id] = $new_item_id;
+						}
 						
 						// Add the custom meta
 						if ( is_array( $custom_meta ) && count( $custom_meta ) > 0 ) {
@@ -735,9 +793,9 @@ function ditty_import_posts() {
 add_action( 'admin_init', 'ditty_import_posts' );
 
 /**
- * Import options for the user
+ * Display the imported posts
  *
- * @since    3.0.17
+ * @since    3.1.14
  */
 function ditty_import_options() {
 	$transient_name = 'ditty_import';
@@ -755,9 +813,6 @@ function ditty_import_options() {
 			foreach ( $transient_data['ditty'] as $i => $ditty ) {
 				$html .= '<li class="ditty-import__item">';
 					$html .= '<p class="ditty-import__post-title"><span>' . get_the_title( $ditty['id'] ) . '</span> <a href="' . get_edit_post_link( $ditty['id'] ) . '">' . esc_html__( 'Edit', 'ditty-news-ticker' ) . '</a></p> ';
-					// if ( isset( $ditty['display'] ) ) {
-					// 	$html .= '<p class="ditty-import__display"><strong>' . esc_html__( 'Display', 'ditty-news-ticker' ) . ':</strong> ' . get_the_title( $ditty['display'] ) . ' <a href="' . get_edit_post_link( $ditty['display'] ) . '">' . esc_html__( 'Edit', 'ditty-news-ticker' ) . '</a></p> ';
-					// }
 				$html .= '</li>';
 			}
 			$html .= '</ul>';

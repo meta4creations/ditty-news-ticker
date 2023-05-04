@@ -3,259 +3,366 @@
  * Ditty Display Item Class
  *
  * @package     Ditty
- * @subpackage  Classes/Ditty Item
- * @copyright   Copyright (c) 2021, Metaphor Creations
+ * @subpackage  Classes/Ditty Display Item
+ * @copyright   Copyright (c) 2023, Metaphor Creations
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       3.0
+ * @since       3.1
 */
+use Thunder\Shortcode\HandlerContainer\HandlerContainer;
+use Thunder\Shortcode\Parser\RegularParser;
+use Thunder\Shortcode\Processor\Processor;
+use Thunder\Shortcode\Shortcode\ShortcodeInterface;
+use Thunder\Shortcode\Syntax\CommonSyntax;
+use Thunder\Shortcode\Syntax\Syntax;
+use Thunder\Shortcode\Syntax\SyntaxBuilder;
+
 class Ditty_Display_Item {
-	
-	private $layout_id;
-	private $layout_value;
-	private $layout_object;
-	private $item_id;
-	private $item_uniq_id;
+	private $id;
+	private $uniq_id;
+	private $parent_id;
+	private $item_meta;
 	private $item_type;
-	private $item_type_object;
 	private $item_value;
-	private $item_author;
-	private $ditty_id;
+	private $attribute_value;
+	private $layout;
+	private $variation_id;
+	private $layout_id;
+	private $layout_tags;
+	private $css_compiled;
 	private $has_error;
 	private $custom_classes;
-	private $date_created;
-	private $date_modified;
+	private $custom_meta;
 	
+
 	/**
-	 * Get things started\*
+	 * Get things started
 	 * @access  public
-	 * @since   3.0.13
+	 * @since   3.1
 	 */
-	public function __construct( $meta ) {	
-		$this->layout_value 	= isset( $meta['layout_value'] ) 		? maybe_unserialize( $meta['layout_value'] ) 	: false;
-		$this->item_value 		= isset( $meta['item_value'] ) 			? maybe_unserialize( $meta['item_value'] )		: '';		
-		$this->item_id 				= isset( $meta['item_id'] ) 				? $meta['item_id'] 				: -1;
-		$this->item_uniq_id 	= isset( $meta['item_uniq_id'] ) 		? $meta['item_uniq_id'] 	: $this->item_id;
-		$this->item_type 			= isset( $meta['item_type'] ) 			? $meta['item_type'] 			: false;
-		$this->ditty_id 			= isset( $meta['ditty_id'] ) 				? $meta['ditty_id'] 			: -1;
-		$this->has_error 			= isset( $meta['has_error'] ) 			? $meta['has_error']			: false;
-		$this->custom_classes = isset( $meta['custom_classes'] ) 	? $meta['custom_classes']	: false;
-		$this->item_author		= isset( $meta['item_author'] ) 		? intval( $meta['item_author'] )	: false;
-		$this->date_created		= isset( $meta['date_created'] ) 		? $meta['date_created']	: false;
-		$this->date_modified	= isset( $meta['date_modified'] ) 	? $meta['date_modified']	: false;
-		$this->parse_layout_id();
-	}
-	
-	/**
-	 * Return the database data for the item
-	 *
-	 * @access public
-	 * @since  3.0.13
-	 * @return string $db_data
-	 */
-	public function get_db_data() {
-		$db_data = array(
-			'item_id' 				=> $this->get_id(),
-			'item_type' 			=> $this->get_item_type(),
-			'item_value' 			=> $this->get_value(),
-			'item_author'			=> $this->get_item_author(),
-			'ditty_id' 				=> $this->get_ditty_id(),
-			'layout_value' 		=> $this->get_layout_value(),
-			'date_created'		=> $this->get_date_created(),
-			'date_modified'		=> $this->get_date_modified(),
-		);
-		return $db_data;
+	public function __construct( $prepared_meta, $layouts = false ) {
+		$this->item_meta = $prepared_meta;
+		$this->id = $prepared_meta['item_id'];
+		$this->uniq_id = isset( $prepared_meta['item_uniq_id'] ) ? $prepared_meta['item_uniq_id'] : $prepared_meta['item_id'];
+		$this->parent_id = isset( $prepared_meta['parent_id'] ) ? $prepared_meta['parent_id'] : 0;
+		$this->item_value = $prepared_meta['item_value'];	
+		$this->attribute_value = isset( $prepared_meta['attribute_value'] ) ? maybe_unserialize( $prepared_meta['attribute_value'] ) : array();	
+		$this->item_type = $prepared_meta['item_type'];
+		$this->has_error = isset( $prepared_meta['has_error'] ) ? $prepared_meta['has_error'] : false;
+		$this->custom_classes = isset( $prepared_meta['custom_classes'] ) ? $prepared_meta['custom_classes'] : false;
+		$this->custom_meta = isset( $prepared_meta['custom_meta'] ) ? $prepared_meta['custom_meta'] : false;
+		$this->configure_layout( $prepared_meta, $layouts );
 	}
 
 	/**
-	 * Return the item id
-	 *
+	 * Return the item type
 	 * @access public
-	 * @since  3.0
-	 * @return int $id
+	 * @since  3.1
+	 * @return string $item_type
 	 */
-	public function get_id() {
-		return $this->item_id;
+	private function configure_layout( $meta, $layouts = false ) {
+		if ( isset( $meta['layout'] ) ) {
+			if ( is_array( $meta['layout'] ) ) {
+				$layout = $meta['layout'];
+			} else {
+				$layout = ( '{' == substr( $meta['layout'], 0, 1 ) ) ? json_decode( $meta['layout'], true ) : $meta['layout'];
+			}		
+		} else {
+			$layout_value = maybe_unserialize( $meta['layout_value'] );
+			$layout = 0;
+			if ( isset( $layout_value['default'] ) ) {
+				$layout = is_array( $layout_value['default'] ) ? $layout_value['default'] : ( ( '{' == substr( $layout_value['default'], 0, 1 ) ) ? json_decode( $layout_value['default'], true ) : $layout_value['default'] );
+			}
+		}
+		
+		if ( is_array( $layout ) ) {
+			$variation_id = isset( $meta['layout_variation'] ) ? $meta['layout_variation'] : 'default';
+			$this->layout_id = "{$this->id}_{$variation_id}";
+			$this->layout = $layout;
+		} else {
+			$this->layout_id = $layout;
+			if ( $layouts ) {
+				if ( is_array( $layouts ) && count( $layouts ) > 0 ) {
+					foreach ( $layouts as $layout_obj ) {
+						if ( $layout == $layout_obj['id'] ) {
+							$this->layout = array(
+								'html' => $layout_obj['html'],
+								'css' => $layout_obj['css'],
+							);
+							break;
+						}
+					}
+				}
+			} else {
+				$this->layout = array(
+					'html' => get_post_meta( $layout , '_ditty_layout_html', true ),
+					'css' => get_post_meta( $layout , '_ditty_layout_css', true ),
+				);
+			}
+		}
 	}
-	
-	/**
-	 * Return the item uniq id
-	 *
-	 * @access public
-	 * @since  3.0
-	 * @return int $id
-	 */
-	public function get_uniq_id() {
-		return $this->item_uniq_id;
-	}
-	
-	/**
-	 * Return the item parent id
-	 *
-	 * @access public
-	 * @since  3.0
-	 * @return int $id
-	 */
-	public function get_parent_id() {
-		return 0;
-	}
-	
-	/**
-	 * Return the Ditty id
-	 *
-	 * @access public
-	 * @since  3.0.13
-	 * @return int $ditty_id
-	 */
-	public function get_ditty_id() {
-		return $this->ditty_id;
-	}
-	
-	/**
-	 * Return the item value
-	 *
-	 * @access public
-	 * @since  3.0
-	 * @return string $label
-	 */
-	public function get_value() {
-		return maybe_unserialize( $this->item_value );
-	}
-	
+
 	/**
 	 * Return the item type
-	 *
 	 * @access public
-	 * @since  3.0
-	 * @return string $label
+	 * @since  3.1
+	 * @return string $item_type
 	 */
 	public function get_item_type() {
 		return $this->item_type;
 	}
 	
 	/**
-	 * Return the item author
-	 *
+	 * Return the item meta
 	 * @access public
-	 * @since  3.0.13
-	 * @return int $item_author
+	 * @since  3.1
+	 * @return string $item_type
 	 */
-	public function get_item_author() {
-		return $this->item_author;
+	public function get_item_meta() {
+		return $this->item_meta;
 	}
 
 	/**
-	 * Return the layout id
-	 *
+	 * Return the layout html
 	 * @access public
-	 * @since  3.0
-	 * @return int $layout_id
+	 * @since  3.1
+	 * @return string $html
 	 */
 	public function get_layout_id() {
 		return $this->layout_id;
 	}
 	
 	/**
-	 * Return the layout value
-	 *
+	 * Check if a tag is disabled
 	 * @access public
-	 * @since  3.0
-	 * @return int $layout_id
+	 * @since  3.1
+	 * @return string $html
 	 */
-	public function get_layout_value() {
-		return $this->layout_value;
+	public function get_item_tag_disabled( $tag ) {
+		if ( isset( $this->attribute_value[$tag] ) ) {
+			if ( isset( $this->attribute_value[$tag]['disabled'] ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Return an attribute value
+	 * @access public
+	 * @since  3.1
+	 * @return string $html
+	 */
+	public function get_item_attribute_value( $tag, $attribute ) {
+		if ( isset( $this->attribute_value[$tag] ) && isset( $this->attribute_value[$tag][$attribute] ) ) {
+			if ( isset( $this->attribute_value[$tag][$attribute]['customValue'] ) ) {
+				if ( isset( $this->attribute_value[$tag][$attribute]['value'] ) ) {
+					return $this->attribute_value[$tag][$attribute]['value'];
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Return the html tags
+	 * @access public
+	 * @since  3.1
+	 * @return int $id
+	 */
+	public function get_layout_tags() {
+		if ( ! $this->layout_tags ) {
+			$type_atts = ditty_layout_tags( $this->get_item_type(), $this->get_item_value() );
+			$default_atts = ditty_layout_tags();
+			$this->layout_tags = wp_parse_args( $type_atts, $default_atts );
+		}
+		return $this->layout_tags;
+	}
+
+	/**
+	 * Return the layout html
+	 * @access public
+	 * @since  3.1
+	 * @return string $html
+	 */
+	public function get_html() {
+		if ( ! empty( $this->layout ) ) {
+			return stripslashes( $this->layout['html'] );
+		}
 	}
 	
 	/**
-	 * Return the date created
-	 *
+	 * Return the layout css
 	 * @access public
-	 * @since  3.0.13
-	 * @return date $date_created
+	 * @since  3.1
+	 * @return string $html
 	 */
-	public function get_date_created() {
-		return $this->date_created;
+	public function get_css() {
+		if ( ! empty( $this->layout ) ) {
+			return isset( $this->layout['css'] ) ? stripslashes( $this->layout['css'] ) : '';
+		}
 	}
 	
 	/**
-	 * Return the date modified
-	 *
+	 * Return the compiled layout css
 	 * @access public
-	 * @since  3.0.13
-	 * @return date $date_modified
+	 * @since  3.1
+	 * @return string $html
 	 */
-	public function get_date_modified() {
-		return $this->date_modified;
+	public function get_css_compiled() {
+		if ( empty( $this->css_compiled ) ) {
+			$this->css_compiled = Ditty()->layouts->compile_layout_style( $this->get_css(), $this->layout_id );
+		}
+		return $this->css_compiled;
+	}
+
+	/**
+	 * Return the passed item value
+	 * @access public
+	 * @since  3.1
+	 * @return string $html
+	 */
+	public function get_item_value() {
+		return $this->item_value;
+	}
+	
+	/**
+	 * Parse layout atts
+	 *
+	 * @access private
+	 * @since    3.1
+	 * @var      array	$parsed_atts
+	*/
+	private function parse_atts( $atts = array(), $s = false ) {
+		$parsed_atts = array();
+		if ( $s && is_array( $atts ) && count( $atts ) > 0 ) {
+			foreach ( $atts as $key => $value ) {
+				
+				$parsed_atts[$key] = $atts[$key];
+				if ( $custom_value = $s->getParameter( $key ) ) {
+					$parsed_value = $custom_value;
+				} else {
+					if ( is_array( $value ) ) {
+						$parsed_value = isset( $value['std'] ) ? $value['std'] : '';
+					} else {
+						$parsed_value = $value;
+					}
+				}			
+				if ( is_array( $atts[$key] ) ) {
+					$parsed_atts[$key]['std'] = $parsed_value;
+				} else {
+					$parsed_atts[$key] = $parsed_value;
+				}
+			}
+		}
+		return $parsed_atts;
+	}
+	
+	/**
+	 * Render a layout tag
+	 *
+	 * @access private
+	 * @since  3.1
+	 * @return html
+	 */
+	private function render_tag( $tag, $item_type, $data, $atts = array(), $custom_wrapper = false ) {
+		if ( ! $output = apply_filters( "ditty_layout_tag_{$tag}", false, $item_type, $data, $atts ) ) {
+			return false;
+		}
+		if ( isset( $atts['wpautop'] ) && 'true' == strval( $atts['wpautop'] ) ) {
+			$output = wpautop( $output );
+		}
+		return ditty_layout_render_tag( $output, "ditty-item__{$tag}", $item_type, $data, $atts, $custom_wrapper );
 	}
 
 	/**
 	 * Return the layout css
-	 *
 	 * @access public
-	 * @since  3.0
+	 * @since  3.1
 	 * @return html
 	 */
 	public function get_layout_css() {
-		if ( $layout_object = $this->get_layout_object() ) {
-			$layout_css = $layout_object->get_css_compiled();
-			return $layout_css;
+		if ( empty( $this->css_compiled ) ) {
+			$this->css_compiled = Ditty()->layouts->compile_layout_style( $this->get_css(), $this->get_layout_id() );
 		}
-	}
-	
-	/**
-	 * Return the item type object
-	 *
-	 * @access public
-	 * @since  3.0
-	 * @return int $item_type_object
-	 */
-	private function get_type_object() {
-		if ( ! $this->item_type_object ) {
-			 $this->item_type_object = ditty_item_type_object( $this->item_type );
-		}
-		return $this->item_type_object;
+		return $this->css_compiled;
 	}
 
 	/**
-	 * Return the layout object
-	 *
+	 * Return the layout css
 	 * @access public
-	 * @since  3.0
-	 * @return int $layout_object
+	 * @since  3.1
+	 * @return html
 	 */
-	public function get_layout_object() {
-		if ( ! $this->layout_object ) {
-			$this->layout_object = new Ditty_Layout( $this->get_layout_id(), $this->get_item_type(), $this->item_value, $this->get_db_data() );
+	public function get_layout_att_values( $tag, $atts ) {
+		if ( $this->get_item_tag_disabled( $tag ) ) {
+			return 'disabled';
 		}
-		return $this->layout_object;
+		$final_att_values = [];
+		if ( is_array( $atts ) && count( $atts ) > 0 ) {
+			foreach ( $atts as $key => $value ) {
+				if ( is_array( $value ) ) {
+					$final_att_values[$key] = isset( $value['std'] ) ? $value['std'] : '';
+				} else {
+					$final_att_values[$key] = $value;
+				}
+				if ( $custom_value = $this->get_item_attribute_value( $tag, $key ) ) {
+					$final_att_values[$key] = $custom_value;
+				}		
+			}
+		}
+		return $final_att_values;
 	}
 	
 	/**
-	 * Confirm that the layout exists
-	 *
+	 * Return the layout html
 	 * @access public
-	 * @since  3.0.13
-	 * @return int $id
+	 * @since  3.1
+	 * @return html
 	 */
-	private function parse_layout_id() {
-		$layout_value 		= $this->get_layout_value();
-		$layout_id 				= isset( $layout_value['default'] ) ? $layout_value['default'] : 0;
-		$this->layout_id 	= apply_filters( 'ditty_display_item_layout_id', $layout_id, $this );
-		if ( ! $this->layout_id || ( false === strpos( $layout_id, 'new-' ) && 'publish' != get_post_status( $this->layout_id ) ) ) {
-			$default_layout = ditty_get_default_layout();
-			if ( $default_layout && 'publish' == get_post_status( $this->layout_id )  ) {
-				$this->layout_id = $default_layout;
-			} else {
-				$this->item_value = array( 'ditty_feed_error' => sprintf( __( 'Choose a layout to render your %s item!', 'ditty-news-ticker' ), $this->get_item_type() ) );
-				$this->has_error = true;
+	public function get_layout_html() {
+		$tags		= $this->get_layout_tags();
+		$html		= $this->get_html();	
+		$data 	= $this->get_item_value();	
+
+		// Return an error if there is one
+		if ( isset( $data['ditty_feed_error'] ) ) {
+			return $data['ditty_feed_error'];
+		}
+		
+		$handlers = new HandlerContainer();
+		if ( is_array( $tags ) && count( $tags ) > 0 ) {
+			foreach ( $tags as $i => $tag ) {
+				$handlers->add( $tag['tag'], function( ShortcodeInterface $s ) use ( $tag, $data ) {
+					$data['item_meta'] = $this->get_item_meta();
+					$defaults = isset( $tag['atts'] ) ? $tag['atts'] : array();
+					$atts = $this->parse_atts( $defaults, $s );
+					$atts = $this->get_layout_att_values( $tag['tag'], $atts );
+					if ( ! is_array( $atts ) && 'disabled' == $atts ) {
+						return false;
+					}
+					
+					$atts = apply_filters( 'ditty_layout_tag_atts', $atts, $tag['tag'], $this->get_item_type(), $data );
+					$content = $s->getContent();
+					if ( isset( $tag['func'] ) && function_exists( $tag['func'] ) ) {
+						return call_user_func( $tag['func'], $tag['tag'], $this->get_item_type(), $data, $atts, $content );
+					} else {
+						return $this->render_tag( $tag['tag'], $this->get_item_type(), $data, $atts, $content );
+					}
+				} );
 			}
 		}
+		$syntax = new Syntax( '{', '}', '/', '=', '"' ); // created explicitly
+		$processor = new Processor( new RegularParser( $syntax ), $handlers );
+		$processed_html = stripslashes( $processor->process( $html ) );
+
+		return $processed_html;
 	}
 
 	/**
 	 * Return custom classes
 	 *
 	 * @access private
-	 * @since  3.0
+	 * @since  3.1
 	 * @return string $classes
 	 */
 	private function get_custom_classes() {	
@@ -269,15 +376,15 @@ class Ditty_Display_Item {
 	 * Setup the item classes
 	 *
 	 * @access private
-	 * @since  3.0
+	 * @since  3.1
 	 * @return string $classes
 	 */
 	private function get_classes() {	
 		$classes = array();
 		$classes[] = 'ditty-item';
-		$classes[] = 'ditty-item--' . esc_attr( $this->item_id );
-		if ( $this->item_id != $this->item_uniq_id ) {
-			$classes[] = 'ditty-item--' . esc_attr( $this->item_uniq_id );
+		$classes[] = 'ditty-item--' . esc_attr( $this->id );
+		if ( $this->id != $this->uniq_id ) {
+			$classes[] = 'ditty-item--' . esc_attr( $this->uniq_id );
 		}
 		$classes[] = 'ditty-item-type--' . esc_attr( $this->item_type );
 		if ( $this->layout_id ) {
@@ -291,94 +398,47 @@ class Ditty_Display_Item {
 		if ( $custom_classes = $this->get_custom_classes() ) {
 			$classes = array_merge( $classes, $custom_classes );
 		}		
-		$classes = apply_filters( 'ditty_display_item_classes', $classes, $this->item_id );	
+		$classes = apply_filters( 'ditty_display_item_classes', $classes, $this->id );	
 		return implode( ' ', $classes );
 	}
 
 	/**
-	 * Render the item via layout
+	 * Render item html
 	 *
-	 * @access public
+	 * @access private
 	 * @since  3.1
 	 * @return html
 	 */
-	public function get_elements() {
-		if ( $layout_object = $this->get_layout_object() ) {
-			return do_shortcode( $layout_object->render() );
-		}
-	}
-
-	/**
-	 * Render the item via layout
-	 *
-	 * @access public
-	 * @since  3.0
-	 * @return html
-	 */
-	public function render_html( $render='echo' ) {
-		$html = '';
-		if ( $layout_object = $this->get_layout_object() ) {
-			$atts = array(
-				'class' 						=> $this->get_classes(),
-				'data-item_id' 			=> $this->get_id(),
-				'data-item_uniq_id' => $this->get_uniq_id(),
-				'data-parent_id' 		=> $this->get_parent_id(),
-				'data-item_type' 		=> $this->get_item_type(),
-				'data-layout_id' 		=> $this->get_layout_id(),
-			);
-			
-			$html .= '<div ' . ditty_attr_to_html( $atts ) . '>';	
-				$html .= '<div class="ditty-item__elements">';
-					$html .= $this->get_elements();
-				$html .= '</div>';
+	private function render_html() {
+		$atts = array(
+			'class' 						=> $this->get_classes(),
+			'data-item_id' 			=> $this->id,
+			'data-item_uniq_id' => $this->uniq_id,
+			'data-parent_id' 		=> $this->parent_id,
+			'data-item_type' 		=> $this->item_type,
+			'data-layout_id' 		=> $this->layout_id,
+		);
+		
+		$html = '<div ' . ditty_attr_to_html( $atts ) . '>';	
+			$html .= '<div class="ditty-item__elements">';
+				$html .= $this->get_layout_html();
 			$html .= '</div>';
-		}
-		
+		$html .= '</div>';
+
 		// Filter the html
-		$html = apply_filters( 'ditty_render_item', $html, $this );
-		
-		if ( 'echo' == $render ) {
-			echo $html;
-		} else {
-			return $html;
-		}
-	}
-	
-	/**
-	 * Compile the layout data
-	 *
-	 * @access public
-	 * @since  3.0
-	 * @return html
-	 */
-	public function compile_data( $type = 'php' ) {
-		if ( 'javascript' == $type ) {
-			if ( $elements = $this->get_elements() ) {
-				$data = array(
-					'item_id'	 		=> ( string ) $this->get_id(),
-					'uniq_id'	 		=> ( string ) $this->get_uniq_id(),
-					'parent_id'	 	=> ( string ) $this->get_parent_id(),
-					'elements' 		=> $elements,
-					'css'					=> $this->get_layout_css(),
-					'layout_id'		=> $this->get_layout_id(),
-					'is_disabled' => array_unique( apply_filters( 'ditty_item_disabled', array(), $this->get_id() ) ),
-				);
-				return $data;
-			}
-		} else {
-			if ( $html = $this->render_html( 'return' ) ) {
-				$data = array(
-					'id'	 				=> ( string ) $this->get_id(),
-					'uniq_id'	 		=> ( string ) $this->get_uniq_id(),
-					'parent_id'	 	=> ( string ) $this->get_parent_id(),
-					'html' 				=> $html,
-					'css'					=> $this->get_layout_css(),
-					'layout_id'		=> $this->get_layout_id(),
-					'is_disabled' => array_unique( apply_filters( 'ditty_item_disabled', array(), $this->get_id() ) ),
-				);
-				return $data;
-			}
-		}
+		return apply_filters( 'ditty_render_item', $html, $this );
 	}
 
+	public function ditty_data() {
+		$data = array(
+			'id'	 				=> ( string ) $this->id,
+			'uniq_id'	 		=> ( string ) $this->uniq_id,
+			'parent_id'	 	=> ( string ) $this->parent_id,
+			'html' 				=> $this->render_html(),
+			'css'					=> $this->get_layout_css(),
+			'layout_id'		=> $this->get_layout_id(),
+			'meta' 				=> $this->custom_meta,
+		);
+		return $data;
+	}
 }

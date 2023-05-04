@@ -1,3 +1,4 @@
+import { applyFilters } from "@wordpress/hooks";
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,13 +9,14 @@ import {
   faBrush,
   faHeading,
 } from "@fortawesome/pro-light-svg-icons";
+import { borderSettings, titleSettings } from "./helpers";
 
 /**
  * Return all display types
  * @returns array
  */
 export const getDisplayTypes = () => {
-  const displayTypes = dittyEditor.applyFilters("dittyDisplayTypes", []);
+  const displayTypes = dittyEditor ? dittyEditor.displayTypes : [];
   const migratedDisplayTypes = migrateDisplayTypes(displayTypes);
   const sortedDisplayTypes = _.orderBy(
     migratedDisplayTypes,
@@ -61,6 +63,15 @@ const migrateDisplayTypes = (displayTypes) => {
  */
 export const getDisplayObject = (display, displays) => {
   if (typeof display === "object") {
+    if (!display.type) {
+      display.type = "list";
+    }
+    if (!display.settings) {
+      const displayTypeObject = getDisplayTypeObject(display.type);
+      display.settings = displayTypeObject.defaultValues
+        ? displayTypeObject.defaultValues
+        : {};
+    }
     return display;
   } else {
     const index = displays.findIndex((object) => {
@@ -70,9 +81,12 @@ export const getDisplayObject = (display, displays) => {
       const displayObject = _.cloneDeep(displays[index]);
       return displayObject;
     }
+    const displayTypeObject = getDisplayTypeObject("list");
     return {
-      type: "ticker",
-      settings: {},
+      type: "list",
+      settings: displayTypeObject.defaultValues
+        ? displayTypeObject.defaultValues
+        : {},
     };
   }
 };
@@ -174,8 +188,8 @@ export const getDisplayTypeSettings = (display) => {
             break;
           default:
             fieldGroups.push(
-              dittyEditor.applyFilters(
-                "getDisplayTypeSettingsCustom",
+              applyFilters(
+                "dittyEditor.displayTypeCustomSettings",
                 [],
                 displayTypeObject.id,
                 key
@@ -203,64 +217,6 @@ const phpDisplayTypeSettings = (displayType, settings) => {
   };
 };
 
-const borderSettings = (prefix, namePrefix) => {
-  const prefixed = prefix ? `${prefix}Border` : "border";
-  const namePrefixed = namePrefix ? `${namePrefix} Border` : "Border";
-  return [
-    {
-      id: `${prefixed}Color`,
-      type: "color",
-      name: __(`${namePrefixed} Color`, "ditty-news-ticker"),
-      help: __("Choose a color for the border.", "ditty-news-ticker"),
-    },
-    {
-      id: `${prefixed}Style`,
-      type: "select",
-      name: __(`${namePrefixed} Style`, "ditty-news-ticker"),
-      help: __(
-        "A border style must be set for a border to render.",
-        "ditty-news-ticker"
-      ),
-      options: {
-        none: "none",
-        dotted: "dotted",
-        dashed: "dashed",
-        solid: "solid",
-        double: "double",
-        groove: "groove",
-        ridge: "ridge",
-        inset: "inset",
-        outset: "outset",
-        hidden: "hidden",
-      },
-    },
-    {
-      id: `${prefixed}Width`,
-      type: "spacing",
-      name: __(`${namePrefixed} Width`, "ditty-news-ticker"),
-      help: __("Set custom border widths.", "ditty-news-ticker"),
-      options: {
-        borderTopWidth: __("Top", "ditty-news-ticker"),
-        borderBottomWidth: __("Bottom", "ditty-news-ticker"),
-        borderLeftWidth: __("Left", "ditty-news-ticker"),
-        borderRightWidth: __("Right", "ditty-news-ticker"),
-      },
-    },
-    {
-      id: `${prefixed}Radius`,
-      type: "radius",
-      name: __(`${namePrefixed} Radius`, "ditty-news-ticker"),
-      help: __("Choose a custom border radius.", "ditty-news-ticker"),
-      options: {
-        borderTopLeftRadius: __("Top Left", "ditty-news-ticker"),
-        borderTopRightRadius: __("Top Right", "ditty-news-ticker"),
-        borderBottomLeftRadius: __("Bottom Left", "ditty-news-ticker"),
-        borderBottomRightRadius: __("Bottom Right", "ditty-news-ticker"),
-      },
-    },
-  ];
-};
-
 const displaySettingsGeneral = (displayType) => {
   return {
     id: "general",
@@ -271,8 +227,8 @@ const displaySettingsGeneral = (displayType) => {
       "ditty-news-ticker"
     ),
     icon: <FontAwesomeIcon icon={faSliders} />,
-    fields: dittyEditor.applyFilters(
-      "displaySettingsGeneralFields",
+    fields: applyFilters(
+      "dittyEditor.displaySettingsGeneralFields",
       [],
       displayType
     ),
@@ -289,117 +245,9 @@ const displaySettingsTitle = (displayType) => {
       "ditty-news-ticker"
     ),
     icon: <FontAwesomeIcon icon={faHeading} />,
-    fields: dittyEditor.applyFilters(
-      "displaySettingsTitleFields",
-      [
-        {
-          id: "titleDisplay",
-          type: "select",
-          name: __("Display", "ditty-news-ticker"),
-          help: __(
-            "Show the Ditty title with your ticker.",
-            "ditty-news-ticker"
-          ),
-          options: {
-            none: __("None", "ditty-news-ticker"),
-            top: __("Top", "ditty-news-ticker"),
-            bottom: __("Bottom", "ditty-news-ticker"),
-            left: __("Left", "ditty-news-ticker"),
-            right: __("Right", "ditty-news-ticker"),
-          },
-        },
-        {
-          id: "titleElementPosition",
-          type: "radio",
-          name: __("Element Position", "ditty-news-ticker"),
-          help: __(
-            "Set the position of the element within the title area.",
-            "ditty-news-ticker"
-          ),
-          options: {
-            start: __("Start", "ditty-news-ticker"),
-            center: __("Center", "ditty-news-ticker"),
-            end: __("End", "ditty-news-ticker"),
-          },
-          inline: true,
-        },
-        {
-          id: "titleElement",
-          type: "select",
-          name: __("Element", "ditty-news-ticker"),
-          help: __(
-            "Select the HTML element to use for the title.",
-            "ditty-news-ticker"
-          ),
-          options: {
-            h1: "h1",
-            h2: "h2",
-            h3: "h3",
-            h4: "h4",
-            h5: "h5",
-            h6: "h6",
-            p: "p",
-          },
-        },
-        {
-          id: "titleFontSize",
-          type: "unit",
-          name: __("Font Size", "ditty-news-ticker"),
-          help: __("Set a custom font size.", "ditty-news-ticker"),
-        },
-        {
-          id: "titleLineHeight",
-          type: "unit",
-          name: __("Line Height", "ditty-news-ticker"),
-          help: __("Set a custom line height.", "ditty-news-ticker"),
-        },
-        {
-          id: "titleColor",
-          type: "color",
-          name: __("Text Color", "ditty-news-ticker"),
-          help: __("Set a custom font color.", "ditty-news-ticker"),
-        },
-        {
-          id: "titleBgColor",
-          type: "color",
-          name: __("Background Color", "ditty-news-ticker"),
-          help: __(
-            "Add a background title to the title area.",
-            "ditty-news-ticker"
-          ),
-        },
-        {
-          id: "titleMargin",
-          type: "spacing",
-          name: __("Margin", "ditty-news-ticker"),
-          help: __(
-            "Add custom margins around the title area.",
-            "ditty-news-ticker"
-          ),
-          options: {
-            marginTop: __("Top", "ditty-news-ticker"),
-            marginBottom: __("Bottom", "ditty-news-ticker"),
-            marginLeft: __("Left", "ditty-news-ticker"),
-            marginRight: __("Right", "ditty-news-ticker"),
-          },
-        },
-        {
-          id: "titlePadding",
-          type: "spacing",
-          name: __("Padding", "ditty-news-ticker"),
-          help: __(
-            "Add custom padding around the title area.",
-            "ditty-news-ticker"
-          ),
-          options: {
-            paddingTop: __("Top", "ditty-news-ticker"),
-            paddingBottom: __("Bottom", "ditty-news-ticker"),
-            paddingLeft: __("Left", "ditty-news-ticker"),
-            paddingRight: __("Right", "ditty-news-ticker"),
-          },
-        },
-        ...borderSettings("title"),
-      ],
+    fields: applyFilters(
+      "dittyEditor.displaySettingsTitleFields",
+      [...titleSettings()],
       displayType
     ),
   };
@@ -423,16 +271,18 @@ const displaySettingsNavigation = (
         case "arrows":
           return currentFields.concat([
             {
+              id: "arrowSettings",
               type: "group",
               name: __("Arrow Settings", "ditty-news-ticker"),
               desc: __(
                 "Configure the arrow navigation settings.",
                 "ditty-news-ticker"
               ),
+              multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
-              fields: dittyEditor.applyFilters(
-                "displaySettingsArrowFields",
+              fields: applyFilters(
+                "dittyEditor.displaySettingsArrowFields",
                 [
                   {
                     type: "select",
@@ -446,7 +296,19 @@ const displaySettingsNavigation = (
                       none: __("Hide", "ditty-news-ticker"),
                       style1: __("Show", "ditty-news-ticker"),
                     },
-                    std: "style1",
+                  },
+                  {
+                    type: "checkbox",
+                    id: "arrowsStatic",
+                    name: __("Arrows Visibility", "ditty-news-ticker"),
+                    label: __(
+                      "Keep arrows visible at all times",
+                      "ditty-news-ticker"
+                    ),
+                    help: __(
+                      "Keep arrows visible at all times",
+                      "ditty-news-ticker"
+                    ),
                   },
                   {
                     type: "color",
@@ -456,11 +318,11 @@ const displaySettingsNavigation = (
                       "Add a custom icon color to the arrows",
                       "ditty-news-ticker"
                     ),
-                    std: "#777",
                   },
                   {
                     type: "color",
                     id: "arrowsBgColor",
+                    gradient: true,
                     name: __("Arrows Background Color", "ditty-news-ticker"),
                     help: __(
                       "Add a custom background color to the arrows",
@@ -480,7 +342,6 @@ const displaySettingsNavigation = (
                       center: __("Center", "ditty-news-ticker"),
                       flexEnd: __("Bottom", "ditty-news-ticker"),
                     },
-                    std: "center",
                   },
                   {
                     type: "spacing",
@@ -490,20 +351,7 @@ const displaySettingsNavigation = (
                       "Add padding to the arrows container",
                       "ditty-news-ticker"
                     ),
-                  },
-                  {
-                    type: "checkbox",
-                    id: "arrowsStatic",
-                    name: __("Arrows Visibility", "ditty-news-ticker"),
-                    label: __(
-                      "Keep arrows visible at all times",
-                      "ditty-news-ticker"
-                    ),
-                    help: __(
-                      "Keep arrows visible at all times",
-                      "ditty-news-ticker"
-                    ),
-                    std: 1,
+                    min: 0,
                   },
                 ],
                 displayType
@@ -513,16 +361,18 @@ const displaySettingsNavigation = (
         case "bullets":
           return currentFields.concat([
             {
+              id: "bulletSettings",
               type: "group",
               name: __("Bullet Settings", "ditty-news-ticker"),
               desc: __(
                 "Configure the bullet navigation settings.",
                 "ditty-news-ticker"
               ),
+              multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
-              fields: dittyEditor.applyFilters(
-                "displaySettingsBulletFields",
+              fields: applyFilters(
+                "dittyEditor.displaySettingsBulletFields",
                 [
                   {
                     type: "select",
@@ -536,7 +386,6 @@ const displaySettingsNavigation = (
                       none: __("Hide", "ditty-news-ticker"),
                       style1: __("Show", "ditty-news-ticker"),
                     },
-                    std: "style1",
                   },
                   {
                     type: "color",
@@ -546,7 +395,6 @@ const displaySettingsNavigation = (
                       "Add a custom color to the bullets",
                       "ditty-news-ticker"
                     ),
-                    std: "#777",
                   },
                   {
                     type: "color",
@@ -556,7 +404,6 @@ const displaySettingsNavigation = (
                       "Add a custom color to the active bullet",
                       "ditty-news-ticker"
                     ),
-                    std: "#000",
                   },
                   {
                     type: "select",
@@ -577,18 +424,14 @@ const displaySettingsNavigation = (
                     std: "bottomCenter",
                   },
                   {
-                    type: "slider",
+                    type: "unit",
                     id: "bulletsSpacing",
                     name: __("Bullets Spacing", "ditty-news-ticker"),
                     help: __(
                       "Set the amount of space between bullets (in pixels).",
                       "ditty-news-ticker"
                     ),
-                    suffix: "px",
                     min: 0,
-                    max: 50,
-                    step: 1,
-                    std: "5",
                   },
                   {
                     type: "spacing",
@@ -598,6 +441,7 @@ const displaySettingsNavigation = (
                       "Add padding to the bullets container",
                       "ditty-news-ticker"
                     ),
+                    min: 0,
                   },
                 ],
                 displayType
@@ -606,8 +450,8 @@ const displaySettingsNavigation = (
           ]);
         default:
           return currentFields.concat(
-            dittyEditor.applyFilters(
-              "displaySettingsNavigationCustomFields",
+            applyFilters(
+              "dittyEditor.displaySettingsNavigationCustomFields",
               [],
               group,
               displayType
@@ -636,14 +480,15 @@ const displaySettingsStyle = (
         case "container":
           return currentFields.concat([
             {
+              id: "containerStyles",
               type: "group",
               name: __("Container Styles", "ditty-news-ticker"),
               desc: __("Add custom container styles.", "ditty-news-ticker"),
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
-              fields: dittyEditor.applyFilters(
-                "displaySettingsStylesContainerFields",
+              fields: applyFilters(
+                "dittyEditor.displaySettingsStylesContainerFields",
                 [
                   {
                     type: "unit",
@@ -653,16 +498,19 @@ const displaySettingsStyle = (
                       "Set a maximum width for the container",
                       "ditty-news-ticker"
                     ),
+                    min: 0,
                   },
                   {
                     type: "color",
                     id: "bgColor",
+                    gradient: true,
                     name: __("Container Background Color", "ditty-news-ticker"),
                   },
                   {
                     type: "spacing",
                     id: "padding",
                     name: __("Container Padding", "ditty-news-ticker"),
+                    min: 0,
                   },
                   {
                     type: "spacing",
@@ -684,24 +532,27 @@ const displaySettingsStyle = (
         case "content":
           return currentFields.concat([
             {
+              id: "contentStyles",
               type: "group",
               name: __("Content Styles", "ditty-news-ticker"),
               desc: __("Add custom content styles.", "ditty-news-ticker"),
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
-              fields: dittyEditor.applyFilters(
-                "displaySettingsStylesContentFields",
+              fields: applyFilters(
+                "dittyEditor.displaySettingsStylesContentFields",
                 [
                   {
                     type: "color",
                     id: "contentsBgColor",
+                    gradient: true,
                     name: __("Content Background Color", "ditty-news-ticker"),
                   },
                   {
                     type: "spacing",
                     id: "contentsPadding",
                     name: __("Content Padding", "ditty-news-ticker"),
+                    min: 0,
                   },
                   ...borderSettings(
                     "contents",
@@ -715,24 +566,27 @@ const displaySettingsStyle = (
         case "page":
           return currentFields.concat([
             {
+              id: "pageStyles",
               type: "group",
               name: __("Page Styles", "ditty-news-ticker"),
               desc: __("Add custom page styles.", "ditty-news-ticker"),
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
-              fields: dittyEditor.applyFilters(
-                "displaySettingsStylesPageFields",
+              fields: applyFilters(
+                "dittyEditor.displaySettingsStylesPageFields",
                 [
                   {
                     type: "color",
                     id: "pageBgColor",
+                    gradient: true,
                     name: __("Page Background Color", "ditty-news-ticker"),
                   },
                   {
                     type: "spacing",
                     id: "pagePadding",
                     name: __("Page Padding", "ditty-news-ticker"),
+                    min: 0,
                   },
                   ...borderSettings("page", __("Page", "ditty-news-ticker")),
                 ],
@@ -743,14 +597,15 @@ const displaySettingsStyle = (
         case "item":
           return currentFields.concat([
             {
+              id: "itemStyles",
               type: "group",
               name: __("Item Styles", "ditty-news-ticker"),
               desc: __("Add custom item styles.", "ditty-news-ticker"),
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
-              fields: dittyEditor.applyFilters(
-                "displaySettingsStylesItemFields",
+              fields: applyFilters(
+                "dittyEditor.displaySettingsStylesItemFields",
                 [
                   {
                     type: "color",
@@ -759,13 +614,20 @@ const displaySettingsStyle = (
                   },
                   {
                     type: "color",
+                    id: "itemLinkColor",
+                    name: __("Item Link Color", "ditty-news-ticker"),
+                  },
+                  {
+                    type: "color",
                     id: "itemBgColor",
+                    gradient: true,
                     name: __("Item Background Color", "ditty-news-ticker"),
                   },
                   {
                     type: "spacing",
                     id: "itemPadding",
                     name: __("Item Padding", "ditty-news-ticker"),
+                    min: 0,
                   },
                   ...borderSettings("item", __("Item", "ditty-news-ticker")),
                 ],
@@ -775,8 +637,8 @@ const displaySettingsStyle = (
           ]);
         default:
           return currentFields.concat(
-            dittyEditor.applyFilters(
-              "displaySettingsStylesCustomFields",
+            applyFilters(
+              "dittyEditor.displaySettingsStylesCustomFields",
               [],
               group,
               displayType

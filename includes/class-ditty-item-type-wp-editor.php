@@ -7,14 +7,14 @@
  * @subpackage  Classes/Ditty WP Editor Type
  * @copyright   Copyright (c) 2021, Metaphor Creations
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       3.0
+ * @since       3.1
 */
-class Ditty_Item_Type_WP_Editor extends Ditty_Item_Type {
+class Ditty_Item_Type_WP_Editor extends Ditty_Item_Type_Default {
 	
 	/**
 	 * Slug
 	 *
-	 * @since 3.0
+	 * @since 3.1
 	 */
 	public $slug = 'wp_editor';
 	
@@ -22,7 +22,7 @@ class Ditty_Item_Type_WP_Editor extends Ditty_Item_Type {
 	 * Setup the type settings
 	 *
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.1
 	 */
 	public function fields( $values = array() ) {	
 		$fields = array(
@@ -31,7 +31,7 @@ class Ditty_Item_Type_WP_Editor extends Ditty_Item_Type {
 				'id'		=> 'content',
 				'name'	=> __( 'Content', 'ditty-news-ticker' ),
 				'help'	=> __( 'Add the content of your item. HTML and inline styles are supported.', 'ditty-news-ticker' ),
-				'std'		=> isset( $values['content'] ) ? $values['content'] : false,
+				'raw'		=> true,
 			),
 		);
 		return $fields;
@@ -48,6 +48,18 @@ class Ditty_Item_Type_WP_Editor extends Ditty_Item_Type {
 			'content' => __( 'This is a sample item. Please edit me!', 'ditty-news-ticker' ),
 		);	
 		return apply_filters( 'ditty_type_default_settings', $defaults, $this->slug );
+	}
+
+	/**
+	 * Update values sent from the editor
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function sanitize_settings( $values ) {
+		$sanitized_settings = [];
+		$sanitized_settings['content'] = isset( $values ) ? wp_encode_emoji( wp_kses_post( stripslashes( $values['content'] ) ) ) : '';
+		return $sanitized_settings;
 	}
 
 	/**

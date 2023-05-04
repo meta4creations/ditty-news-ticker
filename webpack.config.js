@@ -21,11 +21,16 @@ var dittyConfig = {
   ...defaultConfig,
   entry: {
     ditty: "./src/ditty.js",
+    dittyEditorInit: "./src/dittyEditorInit.js",
     dittyEditor: "./src/dittyEditor.js",
+    dittyDisplayEditor: "./src/dittyDisplayEditor.js",
+    dittyLayoutEditor: "./src/dittyLayoutEditor.js",
+    dittySettings: "./src/dittySettings.js",
     dittyScripts: [
-      //"./src/partials/itemTypeDefault.js",
-      //"./src/partials/itemTypePostsLite.js",
-      //"./src/partials/itemTypeWPEditor.js",
+      "./src/partials/itemTypeDefault.js",
+      "./src/partials/itemTypePostsLite.js",
+      "./src/partials/itemTypeWPEditor.js",
+      "./src/partials/itemTypeHtml.js",
       "./src/partials/displayTypeTicker.js",
       "./src/partials/displayTypeList.js",
     ],
@@ -36,16 +41,16 @@ var dittyConfig = {
   },
 };
 
-var displayConfig = {
-  ...defaultConfig,
-  entry: {
-    dittyDisplayTicker: "./src/displays/dittyDisplayTicker.js",
-    dittyDisplayList: "./src/displays/dittyDisplayList.js",
-  },
-  output: {
-    filename: "[name].js",
-    path: path.resolve(process.cwd(), "build/displays"),
-  },
-};
+// var displayConfig = {
+//   ...defaultConfig,
+//   entry: {
+//     dittyDisplayTicker: "./src/displays/dittyDisplayTicker.js",
+//     dittyDisplayList: "./src/displays/dittyDisplayList.js",
+//   },
+//   output: {
+//     filename: "[name].js",
+//     path: path.resolve(process.cwd(), "build/displays"),
+//   },
+// };
 
-module.exports = [generalConfig, dittyConfig, displayConfig];
+module.exports = [generalConfig, dittyConfig];

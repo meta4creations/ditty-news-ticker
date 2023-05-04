@@ -39,6 +39,7 @@ class Ditty_DB_Items extends Ditty_DB {
 	public function get_columns() {
 		return array(
 			'item_id'     		=> '%d',
+			'parent_id'     	=> '%d',
 			'item_type'  			=> '%s',
 			'item_value'  		=> '%s',
 			'ditty_id' 				=> '%d',
@@ -59,6 +60,7 @@ class Ditty_DB_Items extends Ditty_DB {
 	public function get_column_defaults() {
 		return array(
 			'item_id'     		=> 0,
+			'parent_id'     	=> 0,
 			'item_type'  			=> '',
 			'item_value'  		=> '',
 			'ditty_id' 				=> 0,
@@ -161,6 +163,7 @@ class Ditty_DB_Items extends Ditty_DB {
 		
 		$sql = "CREATE TABLE {$this->table_name} (
 			item_id bigint(20) NOT NULL AUTO_INCREMENT,
+			parent_id bigint(20) NOT NULL,
 			item_type varchar(255),
 			item_value longtext,
 			ditty_id bigint(20) NOT NULL,

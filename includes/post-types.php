@@ -2,13 +2,11 @@
 
 /**
  * Add custom post types
- * @since   3.0.26
+ * @since   3.1.9
  */
 
 function ditty_setup_post_types() {
-	
-	$is_settings_page = ( is_admin() && isset( $_GET['post_type'] ) && 'ditty' == $_GET['post_type'] && isset( $_GET['page'] ) && 'ditty_settings' == $_GET['page'] ) ? true : false;
-		
+
 	//The icon in Base64 format
 	$icon_base64 = 'PHN2ZyBkYXRhLW5hbWU9IkxheWVyIDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDY5LjMxIDcxLjEiIGZpbGw9ImN1cnJlbnRDb2xvciI+PHBhdGggZD0iTTAgNDYuNGMwLTE3LjIgOC42LTI5LjEgMjQuNi0yOS4xYTE5LjkzIDE5LjkzIDAgMCAxIDYuNiAxVjBINDV2NTkuMmwxIDEwLjNIMzQuMmwtLjktNS4yaC0uNWExNS4yMSAxNS4yMSAwIDAgMS0xMyA2LjhDMy44IDcxLjEgMCA1OC40IDAgNDYuNFptMzEuMiA3LjRWMjguNmExMy43IDEzLjcgMCAwIDAtNi0xLjNjLTguNyAwLTExLjMgOC43LTExLjMgMTcuOCAwIDguNSAxLjkgMTUuOCA4LjkgMTUuOCA1LjEgMCA4LjQtMy44IDguNC03LjFaTTYxLjkxIDY1LjZhNyA3IDAgMCAxLTcuMi03LjRjMC01IDIuOC03LjcgNy4xLTcuN3M3LjUgMi42IDcuNSA3LjRjMCA1LjEtMy4xIDcuNy03LjQgNy43Wk02MS45MSA0My4xYTcgNyAwIDAgMS03LjItNy40YzAtNSAyLjgtNy43IDcuMS03LjdzNy41IDIuNiA3LjUgNy40YzAgNS4xLTMuMSA3LjctNy40IDcuN1pNNjEuOTEgMjAuNmE3IDcgMCAwIDEtNy4yLTcuNGMwLTUgMi44LTcuNyA3LjEtNy43czcuNSAyLjYgNy41IDcuNGMwIDUuMS0zLjEgNy43LTcuNCA3LjdaIi8+PC9zdmc+';
 	
@@ -38,6 +36,20 @@ function ditty_setup_post_types() {
 		'show_ui' 						=> true,
 		'capability_type' 		=> 'ditty',
 		'map_meta_cap' 				=> true,
+		'capabilities' => array(
+			'edit_post' => 'edit_ditty',
+			'delete_post' => 'delete_ditty',
+			'edit_posts' => 'edit_dittys',
+			'edit_others_posts' => 'edit_others_dittys',
+			'publish_posts' => 'publish_dittys',
+			'read_private_posts' => 'read_private_dittys',
+			'delete_posts' => 'delete_dittys',
+			'delete_private_posts' => 'delete_private_dittys',
+			'delete_published_posts' => 'delete_published_dittys',
+			'delete_others_posts' => 'delete_others_dittys',
+			'edit_private_posts' => 'edit_private_dittys',
+			'edit_published_posts' => 'edit_published_dittys',
+		),
 		'show_in_menu' 				=> true, 
 		'query_var' 					=> true,
 		'rewrite' 						=> false,
@@ -71,10 +83,24 @@ function ditty_setup_post_types() {
 		'show_ui' 						=> true,
 		'capability_type' 		=> 'ditty_layout',
 		'map_meta_cap' 				=> true,
+		'capabilities' => array(
+			'edit_post' => 'edit_ditty_layout',
+			'delete_post' => 'delete_ditty_layout',
+			'edit_posts' => 'edit_ditty_layouts',
+			'edit_others_posts' => 'edit_others_ditty_layouts',
+			'publish_posts' => 'publish_ditty_layouts',
+			'read_private_posts' => 'read_private_ditty_layouts',
+			'delete_posts' => 'delete_ditty_layouts',
+			'delete_private_posts' => 'delete_private_ditty_layouts',
+			'delete_published_posts' => 'delete_published_ditty_layouts',
+			'delete_others_posts' => 'delete_others_ditty_layouts',
+			'edit_private_posts' => 'edit_private_ditty_layouts',
+			'edit_published_posts' => 'edit_published_ditty_layouts',
+		),
 		'show_in_menu' 				=> 'edit.php?post_type=ditty', 
 		'query_var' 					=> true,
 		'rewrite' 						=> false,
-		'supports' 						=> array( 'title' ),
+		'supports' 						=> array( 'title', 'author' ),
 		'show_in_rest' 				=> true,
 	);
 	register_post_type( 'ditty_layout', $args );
@@ -103,10 +129,24 @@ function ditty_setup_post_types() {
 		'show_ui' 						=> true,
 		'capability_type' 		=> 'ditty_display',
 		'map_meta_cap' 				=> true,
+		'capabilities' => array(
+			'edit_post' => 'edit_ditty_display',
+			'delete_post' => 'delete_ditty_display',
+			'edit_posts' => 'edit_ditty_displays',
+			'edit_others_posts' => 'edit_others_ditty_displays',
+			'publish_posts' => 'publish_ditty_displays',
+			'read_private_posts' => 'read_private_ditty_displays',
+			'delete_posts' => 'delete_ditty_displays',
+			'delete_private_posts' => 'delete_private_ditty_displays',
+			'delete_published_posts' => 'delete_published_ditty_displays',
+			'delete_others_posts' => 'delete_others_ditty_displays',
+			'edit_private_posts' => 'edit_private_ditty_displays',
+			'edit_published_posts' => 'edit_published_ditty_displays',
+		),
 		'show_in_menu' 				=> 'edit.php?post_type=ditty', 
 		'query_var' 					=> true,
 		'rewrite' 						=> false,
-		'supports' 						=> array( 'title' ),
+		'supports' 						=> array( 'title', 'author' ),
 		'show_in_rest' 				=> true,
 	);
 	register_post_type( 'ditty_display', $args );

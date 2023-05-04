@@ -18,52 +18,63 @@ class Ditty_Editor {
 	 * @since   3.0
 	 */
 	public function __construct() {
-		add_action('wp_ajax_ditty_editor_load_contents', array($this, 'editor_load_contents'));
-		add_action('wp_ajax_noprive_ditty_editor_load_contents', array($this, 'editor_load_contents'));
-		add_action('init', array($this, 'editor_update'));
 	}
 
 	/**
-	 * Load the editor contents
+	 * Get all item data for the editor
 	 *
 	 * @access public
-	 * @since  3.0
+	 * @since  3.1
 	 */
-	public function editor_load_contents() {
-		check_ajax_referer('ditty', 'security');
-		$ditty_id = isset($_POST['ditty_id']) ? intval($_POST['ditty_id']) : false;
-		$data = array(
-			'tabs'				=> apply_filters('ditty_editor_tabs', array(), $ditty_id),
-			'panels' 			=> apply_filters('ditty_editor_panels', array(), $ditty_id),
-			'draft_data' 	=> ditty_get_draft_values(),
-		);
-		wp_send_json($data);
-	}
-
-	/**
-	 * Update a ditty from the editor
-	 *
-	 * @access public
-	 * @since  3.0
-	 * @param   json.
-	 */
-	public function editor_update() {
-
-		if (!isset($_POST['_ditty_editor_nonce'])) {
-			return false;
-		}
-		if (!wp_verify_nonce($_POST['_ditty_editor_nonce'], 'ditty-editor')) {
+	public function item_data( $ditty_id ) {
+		if ( 'ditty-new' == $ditty_id ) {
 			return false;
 		}
 
-		$ditty_id = isset($_POST['ditty_id']) ? $_POST['ditty_id'] : false;
-		do_action('ditty_editor_update', $ditty_id);
+		$items_meta = ditty_items_meta( $ditty_id );
+		
+		// Do not pass serialized data
+		$unserialized_items = array();
+		if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
+			foreach ( $items_meta as $i => $item_meta ) {
+	
+				// Get the editor preview
+				if ( $item_type_object = ditty_item_type_object( $item_meta->item_type ) ) {
+					$item_meta = $item_type_object->editor_meta( $item_meta );
+					$item_meta->editor_preview = $item_type_object->editor_preview( $item_meta->item_value );
+				}
+	
+				// Unpack the layout variations
+				$layout_value = maybe_unserialize( $item_meta->layout_value );
+				$layout_variations = [];
+				if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
+					foreach ( $layout_value as $variation => $value ) {
+						$layout_variations[$variation] = is_string( $value ) ? json_decode($value, true) : $value;
+					}
+				}
+				
+				// De-serialize the attribute values
+				$attribute_value = maybe_unserialize( $item_meta->attribute_value );
 
-		$data = array(
-			'ditty_id' => $ditty_id,
-			'response' => __('Ditty updated', 'ditty-news-ticker'),
-		);
-		wp_send_json($data);
+				$prepared_items = ditty_prepare_display_items( $item_meta );
+				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
+					foreach ( $prepared_items as $i => $prepared_meta ) {
+						$prepared_meta['attribute_value'] = $attribute_value;
+						$prepared_meta['layout_value'] = $layout_variations;
+					}
+				}
+				$item_meta->layout_value = $layout_variations;
+				$item_meta->attribute_value = $attribute_value;
+				$item_meta->meta = ditty_item_custom_meta( $item_meta->item_id );
+				$item_meta->is_disabled = array_unique( apply_filters( 'ditty_item_disabled', array(), $item_meta->item_id, (array) $item_meta, $items_meta ) );
+				$unserialized_items[] = apply_filters( 'ditty_editor_item_meta', $item_meta );
+			}
+		}
+
+		return [
+			'items' => $unserialized_items,
+			'display_items' => Ditty()->singles->get_display_items( $ditty_id, 'force' ),
+		];
 	}
 
 	/**
@@ -147,35 +158,44 @@ class Ditty_Editor {
 		if (is_array($item_types) && count($item_types) > 0) {
 			foreach ($item_types as $i => $type) {
 				$item_type_object = ditty_item_type_object($type['type']);
-				$default_settings = $item_type_object->default_settings();
-				$fields = $this->format_js_fields($item_type_object->fields($default_settings));
-
-				$first_field = reset( $fields );
-				if ( isset( $first_field['type'] ) ) {
-					$settings = [[
-						'id' => 'settings',
-						'label' => __("Settings", "ditty-news-ticker"),
-						'name' => __("Settings", "ditty-news-ticker"),
-						'desc' => sprintf( __( 'Configure the settings of the %s item.', "ditty-news-ticker" ), $type['label'] ),
-						'icon' => 'fas fa-sliders',
-						'fields' => $fields,
-					]];
-				} else {
-					$settings = $fields;
+				if ( ! $item_type_object ) {
+					continue;
 				}
 				$item_type = [
 					'id' => $type['type'],
 					'icon' => $type['icon'],
 					'label' => $type['label'],
 					'description' => $type['description'],
-					'settings' => $settings,
-					'defaultValues' => $default_settings,
 					'layoutTags' => array_values( $item_type_object->get_layout_tags() ),
-					'variationTypes' => $item_type_object->get_layout_variation_types(),
+					'layoutVariations' => $item_type_object->get_layout_variations(),
+					'defaultLayout' => $item_type_object->default_layout(),
 				];
+
+				if ( ! $item_type_object->js_registered( 'settings' ) ) {
+					$default_settings = $item_type_object->default_settings();
+					$fields = $this->format_js_fields($item_type_object->fields($default_settings));
+
+					$first_field = reset( $fields );
+					if ( isset( $first_field['type'] ) ) {
+						$settings = [[
+							'id' => 'settings',
+							'label' => __("Settings", "ditty-news-ticker"),
+							'name' => __("Settings", "ditty-news-ticker"),
+							'description' => sprintf( __( 'Configure the settings of the %s item.', "ditty-news-ticker" ), $type['label'] ),
+							'icon' => 'fas fa-sliders',
+							'fields' => $fields,
+						]];
+					} else {
+						$settings = $fields;
+					}
+					$item_type['settings'] = $settings;
+					$item_type['defaultValues'] = $default_settings;
+				}
+
 				$item_type_data[] = $item_type;
 			}
 		}
+		//echo '<pre style="height:100%;overflow:scroll;">';print_r($item_type_data);echo '</pre>';
 		return array_values($item_type_data);
 	}
 
@@ -191,7 +211,7 @@ class Ditty_Editor {
 		if (is_array($display_types) && count($display_types) > 0) {
 			foreach ($display_types as $i => $type) {
 				$display_type_object = ditty_display_type_object($type['type']);
-				if ($display_type_object->has_js_fields()) {
+				if (!$display_type_object || $display_type_object->has_js_fields()) {
 					continue;
 				}
 				$type['settings'] = $this->format_js_fields($display_type_object->fields());
@@ -204,17 +224,29 @@ class Ditty_Editor {
 
 	// Convert fields for js
 	private function convert_js_field_keys(&$field) {
-		if (isset($field['multiple_fields'])) {
-			$field['multipleFields'] = $field['multiple_fields'];
-			unset($field['multiple_fields']);
+		if (isset($field['clone_button'])) {
+			$field['cloneButton'] = $field['clone_button'];
+			unset($field['clone_button']);
 		}
 		if (isset($field['default_state'])) {
 			$field['defaultState'] = $field['default_state'];
 			unset($field['default_state']);
 		}
-		if (isset($field['clone_button'])) {
-			$field['cloneButton'] = $field['clone_button'];
-			unset($field['clone_button']);
+		if (isset($field['file_types'])) {
+			$field['fileTypes'] = $field['file_types'];
+			unset($field['file_types']);
+		}
+		if (isset($field['media_button'])) {
+			$field['mediaButton'] = $field['media_button'];
+			unset($field['media_button']);
+		}
+		if (isset($field['media_title'])) {
+			$field['mediaTitle'] = $field['media_title'];
+			unset($field['media_title']);
+		}
+		if (isset($field['multiple_fields'])) {
+			$field['multipleFields'] = $field['multiple_fields'];
+			unset($field['multiple_fields']);
 		}
 		if (isset($field['js_options'])) {
 			if (is_array($field['js_options']) && count($field['js_options']) > 0) {

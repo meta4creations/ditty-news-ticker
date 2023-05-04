@@ -1,7 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
-import reactElementToJSXString from "react-element-to-jsx-string";
-import { replace } from "./shortcode";
+//import { replace } from "./shortcode";
 
 export const getDefaultLayout = (itemType) => {
   return { html: "{content}", css: "" };
@@ -41,7 +40,7 @@ export const getTagFields = (layoutTags) => {
         type: "layout_attribute",
         id: layoutTag.tag,
         name: `{${layoutTag.tag}}`,
-        help: layoutTag.description,
+        description: layoutTag.description,
         multipleFields: false,
         collapsible: true,
         defaultState: "collapsed",
@@ -56,7 +55,7 @@ export const getAttributeFields = (atts) => {
   const fields = [];
   for (const key in atts) {
     if (typeof atts[key] === "object") {
-      fields.push(atts[key]);
+      fields.push({ name: key, ...atts[key] });
     } else {
       fields.push({
         type: "text",
@@ -67,6 +66,20 @@ export const getAttributeFields = (atts) => {
     }
   }
   return fields;
+};
+
+/**
+ * Compile css sass to css and auto-prefix
+ * @param {string} css
+ * @param {string} layoutId
+ * @returns
+ */
+export const compileLayoutStyle = (css, layoutId = "", onComplete) => {
+  const sass = new Sass(dittyEditorVars.sassWorkerUrl);
+  const sassString = `.ditty-layout--${layoutId} {${css}}`;
+  sass.compile(sassString, function (result) {
+    onComplete && result.text && onComplete(result.text);
+  });
 };
 
 /**
@@ -143,46 +156,46 @@ function renderLayoutTagLink(
   return html;
 }
 
-export const renderLayout = (item, layoutData, itemType) => {
-  const html = itemType.tags
-    ? itemType.tags.reduce((template, tag) => {
-        const updatedTemplate = replace(tag.tag, template, (data) => {
-          const atts = tag.atts ? { ...tag.atts, ...data.attrs.named } : null;
-          let element = tag.render(item.item_value, atts);
-          const className = `ditty-item__${tag.tag}`;
-          const linkData =
-            atts && atts.link && itemType.tagLinkData
-              ? itemType.tagLinkData(item.item_value, atts)
-              : false;
-          if (linkData) {
-            const prefix = "";
-            element = renderLayoutTagLink(
-              linkData,
-              element,
-              `${className}__link`,
-              item.item_value,
-              atts,
-              prefix
-            );
-          }
+// export const renderLayout = (item, layoutData, itemType) => {
+//   const html = itemType.tags
+//     ? itemType.tags.reduce((template, tag) => {
+//         const updatedTemplate = replace(tag.tag, template, (data) => {
+//           const atts = tag.atts ? { ...tag.atts, ...data.attrs.named } : null;
+//           let element = tag.render(item.item_value, atts);
+//           const className = `ditty-item__${tag.tag}`;
+//           const linkData =
+//             atts && atts.link && itemType.tagLinkData
+//               ? itemType.tagLinkData(item.item_value, atts)
+//               : false;
+//           if (linkData) {
+//             const prefix = "";
+//             element = renderLayoutTagLink(
+//               linkData,
+//               element,
+//               `${className}__link`,
+//               item.item_value,
+//               atts,
+//               prefix
+//             );
+//           }
 
-          return renderLayoutTagWrapper(element, className, atts, data.content);
-        });
-        return updatedTemplate;
-      }, layoutData.html)
-    : layoutData.html;
+//           return renderLayoutTagWrapper(element, className, atts, data.content);
+//         });
+//         return updatedTemplate;
+//       }, layoutData.html)
+//     : layoutData.html;
 
-  return `<div
-      class="ditty-item ditty-item--${item.item_id} ditty-item-type--${item.item_type} ditty-layout--${layoutData.id}"
-      data-item_id="${item.item_id}"
-      data-item_uniq_id="${item.item_uniq_id}"
-      data-parent_id="0"
-      data-item_type="${item.item_type}"
-      data-layout_id="${layoutData.id}"
-    >
-      <div  class="ditty-item__elements">${html}</div>
-    </div>`;
-};
+//   return `<div
+//       class="ditty-item ditty-item--${item.item_id} ditty-item-type--${item.item_type} ditty-layout--${layoutData.id}"
+//       data-item_id="${item.item_id}"
+//       data-item_uniq_id="${item.item_uniq_id}"
+//       data-parent_id="0"
+//       data-item_type="${item.item_type}"
+//       data-layout_id="${layoutData.id}"
+//     >
+//       <div  class="ditty-item__elements">${html}</div>
+//     </div>`;
+// };
 
 export const imageElement = (atts) => {
   if (!atts.src || "" === atts.src) {

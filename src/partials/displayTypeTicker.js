@@ -1,3 +1,4 @@
+import { addFilter } from "@wordpress/hooks";
 import { __ } from "@wordpress/i18n";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from "@fortawesome/pro-light-svg-icons";
@@ -17,13 +18,34 @@ if (dittyEditor) {
       title: true,
       styles: ["container", "content", "item"],
     },
+    defaultValues: {
+      direction: "left",
+      minHeight: "300px",
+      spacing: "25",
+      speed: "10",
+      heightEase: "easeInOutQuint",
+      heightSpeed: "1.5",
+      scrollInit: "empty",
+      scrollDelay: "3",
+      cloneItems: "yes",
+      wrapItems: "yes",
+      hoverPause: "",
+      titleDisplay: "none",
+      titleContentsSize: "stretch",
+      titleContentsPosition: "start",
+      titleElement: "h3",
+      titleElementPosition: "start",
+      titleElementVerticalPosition: "start",
+      itemElementsWrap: "nowrap",
+    },
   });
 
   /**
    * Add the ticker fields
    */
-  dittyEditor.addFilter(
-    "displaySettingsGeneralFields",
+  addFilter(
+    "dittyEditor.displaySettingsGeneralFields",
+    "ditty-news-ticker/displaySettingsGeneralFields",
     (fields, displayType) => {
       if ("ticker" !== displayType) {
         return fields;
@@ -139,6 +161,29 @@ if (dittyEditor) {
           max: 10,
           step: 0.25,
           suffix: __("second(s)", "ditty-news-ticker"),
+          show: {
+            fields: [{ key: "scrollInit", value: "filled", compare: "=" }],
+          },
+        },
+        {
+          type: "unit",
+          id: "itemMaxWidth",
+          name: __("Item Max Width", "ditty-news-ticker"),
+          help: __("Set a maximum width for items", "ditty-news-ticker"),
+        },
+        {
+          type: "radio",
+          id: "itemElementsWrap",
+          name: __("Wrap Item Elements", "ditty-news-ticker"),
+          help: __(
+            "Allow item elements to wrap, or force them to not wrap.",
+            "ditty-news-ticker"
+          ),
+          inline: true,
+          options: {
+            wrap: __("Wrap", "ditty-news-ticker"),
+            nowrap: __("No Wrap", "ditty-news-ticker"),
+          },
         },
         {
           type: "radio",
@@ -191,40 +236,6 @@ if (dittyEditor) {
       ];
 
       return fields;
-    }
-  );
-
-  /**
-   * Additional item style fields
-   */
-  dittyEditor.addFilter(
-    "displaySettingsStylesItemFields",
-    (fields, displayType) => {
-      if ("ticker" !== displayType) {
-        return fields;
-      }
-      return fields.concat([
-        {
-          type: "unit",
-          id: "itemMaxWidth",
-          name: __("Item Max Width", "ditty-news-ticker"),
-          help: __("Set a maximum width for items", "ditty-news-ticker"),
-        },
-        {
-          type: "radio",
-          id: "itemElementsWrap",
-          name: __("Item Wrap Elements", "ditty-news-ticker"),
-          help: __(
-            "Allow item elements to wrap, or force them to not wrap.",
-            "ditty-news-ticker"
-          ),
-          inline: true,
-          options: {
-            wrap: __("Wrap", "ditty-news-ticker"),
-            nowrap: __("No Wrap", "ditty-news-ticker"),
-          },
-        },
-      ]);
     }
   );
 }

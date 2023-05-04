@@ -1,17 +1,17 @@
-=== Ditty WordPress Plugin – Responsive Slider, List, and Ticker Display ===
+=== Ditty – Responsive News Tickers, Sliders, and Lists ===
 Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: responsive slider, content slider, post slider, news ticker, post ticker
 Requires at least: 5.6
 Tested up to: 6.2
-Stable tag: 3.0.36
+Stable tag: 3.1.14
 License: GPL2
 
-Formerly Ditty News Ticker, Ditty is a multi-functional content display WordPress plugin.
+Ditty offers a range of content display options, including its signature news ticker and customizable layouts.
 
 == Description ==
 
-Formerly Ditty News Ticker, Ditty is a multi-functional content display WordPress plugin. Easily render your latest blog posts or custom content through multiple display options. Included display options are: News Ticker, Slider, and List. Add more content sources and display options through extensions. With extensions you can display RSS feeds, social media, image galleries, custom post types, and more to your site through the included displays or additional display extensions like grid and carousel.
+Ditty, formerly known as Ditty News Ticker, is a multi-functional content display plugin for WordPress while still offering its signature "News Ticker" functionality. Effortlessly showcase your latest blog posts or custom content through multiple display options, including the classic News Ticker, Slider, and List. Enhance your site by adding more content sources and display options through extensions, enabling you to present RSS feeds, social media, image galleries, custom post types, and more through the included displays or additional display extensions like grid and carousel. Discover the enhanced capabilities of Ditty while maintaining its prowess as a reliable "News Ticker" solution.
 
 ### Overview
 
@@ -130,11 +130,83 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
-= 3.0.36 =
-* Bug fixes from last update
+= 3.1.14 =
+* Bug fix for display template item text colors
+* Bug fix for display import
+* Added Display quick edit link
+* Added ajax_loading and live_updates args to shortcodes and ditty_render
 
-= 3.0.35 =
-* wp_enqueue_editor() bug fix
+= 3.1.13 =
+* Item meta live update bug fix
+* Settings page bug fix
+* Display item css updates
+
+= 3.1.12 =
+* Rest API updates/fixes
+* Added gradient background color options
+
+= 3.1.11 =
+* Display & Layout new template save bug fixes
+* Export and import updates
+
+= 3.1.10 =
+* Added Title Link Color option to Displays
+* Added Item Link Color option to Display > Item Styles
+* Notification updates
+* Bug fixes
+
+= 3.1.9 =
+* Fixed missing post authors for Ditty, Displays and Layouts
+* Added Permissions settings page
+* Enhanced permissions checks
+
+= 3.1.8 =
+* List display arrow adjustments
+* Image render updates
+* Image preload updates
+* ditty_item_disabled filter updates
+
+= 3.1.7 =
+* Fixed missing transition options for List display
+
+= 3.1.6 =
+* Set Display type selector as default Display panel view for new Ditty
+* Display type selector updates for new Ditty and Displays
+* Added text color and font-size options to TinyMCE item type
+* Internal and external file clean up
+* Modified settings options
+* Ditty notification updates
+
+= 3.1.5 =
+* Ditty admin column order change
+* Added stripslashes to Default, HTML, and WP Editor item type outputs
+* Updated to better icons
+* Added unsaved data check when leaving editors
+* Added live layout editing preview to Ditty editor
+
+= 3.1.4 =
+* Resolved missing list transition settings
+* Image field bug fixes
+
+= 3.1.3 =
+* Added shortcode rendering to default, html, wp editor item types
+* Default ticker settings update
+* Added default max-width of layout images
+* Added "reset to default" layout functionality to the Layout Editor
+* Small bug fixes
+* Resolved editor preview layout issue when re-ordering items
+
+= 3.1.1 =
+* Bug fix from 3.1 update
+
+= 3.1 =
+* Major Ditty editor updates
+* Major Ditty Layout editor updates
+* Major Ditty Display editor updates
+* Major Ditty Settings updates
+* Added custom HTML item type
+* Removed Settings > Layout Templates screen
+* Removed Settings > Display Templates screen
 
 = 3.0.34 =
 * Ticker and List display edit javascript bug fixes
@@ -830,4 +902,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Bug fixes from last update
+Display bug fixes and other updates

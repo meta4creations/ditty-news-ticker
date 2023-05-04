@@ -3,7 +3,7 @@
 /**
  * Run updates
  *
- * @since  3.0.13
+ * @since  3.1.6
  * @return void
  */
 function ditty_updates() {
@@ -22,10 +22,13 @@ function ditty_updates() {
 		ditty_v3_0_14_upgrades();
 	}
 	if ( version_compare( $current_version, '3.1', '<' ) ) {
-		//ditty_v3_1_upgrades();
+		ditty_v3_1_upgrades();
 	}
-
+	if ( version_compare( $current_version, '3.1.6', '<' ) ) {
+		ditty_v3_1_6_upgrades();
+	}
 	if ( DITTY_VERSION != $current_version ) {
+		do_action( 'ditty_version_update', DITTY_VERSION, $current_version );
 		update_option( 'ditty_plugin_version_upgraded_from', $current_version );
 		update_option( 'ditty_plugin_version', DITTY_VERSION );
 	}
@@ -33,38 +36,132 @@ function ditty_updates() {
 add_action( 'admin_init', 'ditty_updates' );
 
 /**
+ * Version 3.1.6 Updates
+ *
+ * @since  3.1.6
+ * @return void
+ */
+function ditty_v3_1_6_upgrades() {
+	$disable_fontawesome = ditty_settings( 'disable_fontawesome' );
+	$ditty_news_ticker = ditty_settings( 'ditty_news_ticker' );
+	$disable_fontawesome_update = ( '1' == $disable_fontawesome ) ? 'disabled' : 'enabled';
+	$ditty_news_ticker_update = ( '1' == $ditty_news_ticker ) ? 'enabled' : 'disabled';
+	ditty_settings( [
+		'disable_fontawesome' => $disable_fontawesome_update,
+		'ditty_news_ticker' => $ditty_news_ticker_update,
+	] );
+}
+
+/**
  * Version 3.1 Updates
  *
  * @since  3.1
  * @return void
  */
+function ditty_v3_1_tag_upgrades( $attribute_value, $tag, $attribute, $value ) {
+	if ( ! isset( $attribute_value[$tag] ) ) {
+		$attribute_value[$tag] = [];
+	}
+	$attribute_value[$tag][$attribute] = [
+		'customValue' => '1',
+		'value' => $value
+	];
+	return $attribute_value;
+}
+function ditty_v3_1_item_tag_upgrades( $item ) {
+	$item_value = $item->item_value;
+	$attribute_value = $item->attribute_value ? $item->attribute_value : [];
+	if ( is_array( $item_value ) && count( $item_value ) > 0 ) {
+		foreach ( $item_value as $key => $value ) {
+			if ( '' == $value || 'default' == $value ) {
+				continue;
+			}
+			switch( $key ) {
+				case 'title_element':
+					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'title', 'wrapper', $value );
+					break;
+				case 'title_link':
+					$modified_value = ( 'off' == $value ) ? 'none' : 'true';
+					$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'title', 'link', $modified_value );
+					break;
+				case 'content_display':
+					if ( 'excerpt' == $value ) {
+						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'content_display', $value );
+					}
+					break;
+				case 'excerpt_element':
+					if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'wrapper', $value );
+					}
+					break;
+				case 'excerpt_length':
+					if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'excerpt_length', $value );
+					}
+					break;
+				case 'more':
+					if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'more', $value );
+					}
+					break;
+				case 'more_before':
+					if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'more_before', $value );
+					}
+					break;
+				case 'more_after':
+					if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'more_after', $value );
+					}
+					break;
+				case 'more_link':
+					if ( isset( $item_value['content_display'] ) && 'excerpt' == $item_value['content_display'] ) {
+						$modified_value = ( 'false' == $value ) ? 'none' : 'true';
+						$attribute_value = ditty_v3_1_tag_upgrades( $attribute_value, 'content', 'more_link', $modified_value );
+					}
+					break;
+			}
+		}
+	}
+	if ( ! empty( $attribute_value ) ) {
+		$sanitized__attribute_value = Ditty()->singles->sanitize_item_attribute_value( $attribute_value, $item->item_type );
+		$updated_item = [
+			'attribute_value' => maybe_serialize( $sanitized__attribute_value ),
+		];
+		Ditty()->db_items->update( $item->item_id, $updated_item, 'item_id' );	
+		return $updated_item;
+	}
+}
 function ditty_v3_1_upgrades() {
 
-	// Update the database
+	// Update the database - KEEP
 	$db_items = new Ditty_DB_Items();
 	@$db_items->create_table();
-	
-	// Update the Ditty preview padding
-	// $args = array(
-	// 	'post_type' => 'ditty',
-	// );
-	// $dittys = get_posts( $args );
-	// if ( is_array( $dittys ) && count( $dittys ) > 0 ) {
-	// 	foreach ( $dittys as $i => $ditty ) {
-	// 		$settings = get_post_meta( $ditty->ID, '_ditty_settings', true );
-	// 		if ( ! is_array( $settings ) ) {
-	// 			$settings = array();
-	// 		}
-	// 		$padding = isset( $settings['previewPadding'] ) ? $settings['previewPadding'] : [];
-	// 		$settings['previewPadding'] = [
-	// 			'top' => isset( $padding['paddingTop'] ) ? $padding['paddingTop'] : 0,
-	// 			'left' => isset( $padding['paddingLeft'] ) ? $padding['paddingLeft'] : 0,
-	// 			'right' => isset( $padding['paddingRight'] ) ? $padding['paddingRight'] : 0,
-	// 			'bottom' => isset( $padding['paddingBottom'] ) ? $padding['paddingBottom'] : 0,
-	// 		];
-	// 		update_post_meta( $ditty->ID, '_ditty_settings', $settings );
-	// 	}
-	// }
+
+	// Delete the deprecated layout_id columns - KEEP
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'ditty_items';
+	$column_name = 'layout_id';
+	if ($wpdb->get_var("SHOW COLUMNS FROM $table_name LIKE '$column_name'") === $column_name) {
+		$wpdb->query("ALTER TABLE $table_name DROP COLUMN $column_name");
+	}
+
+	// Update custom tag attributes - KEEP
+	$args = array(
+		'post_type' => 'ditty',
+		'post_status' => 'any',
+	);
+	$dittys = get_posts( $args );
+	if ( is_array( $dittys ) && count( $dittys ) > 0 ) {
+		foreach ( $dittys as $ditty ) {
+			$items_meta = ditty_items_meta( $ditty->ID );
+			if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
+				foreach ( $items_meta as $item ) {
+					ditty_v3_1_item_tag_upgrades( $item );
+				}
+			}			
+		}
+	}
 }
 
 /**
@@ -231,26 +328,13 @@ function ditty_v3_upgrades() {
 	$db_item_meta = new Ditty_DB_Item_Meta();
 	@$db_item_meta->create_table();
 	
-	// Install default layouts
-	Ditty()->layouts->install_default( 'default' );
-	Ditty()->layouts->install_default( 'default_image' );
-	Ditty()->layouts->install_default( 'default_post' );
-	Ditty()->displays->install_default( 'ticker', 'default' );
-	Ditty()->displays->install_default( 'list', 'default' );
-	Ditty()->displays->install_default( 'list', 'default_slider' );
-	
-	// Set variation defaults
-	ditty_set_variation_default( 'default', 'default', 'default' );
-	ditty_set_variation_default( 'wp_editor', 'default', 'default' );
-	ditty_set_variation_default( 'posts_feed', 'default', 'default_post' );
-	
 	// If News Tickers exists, enabled legacy code
 	$args = array(
 		'post_type' => 'ditty_news_ticker',
 	);
 	$news_tickers = get_posts( $args );
 	if ( is_array( $news_tickers ) && count( $news_tickers ) > 0 ) {
-		ditty_settings( 'ditty_news_ticker', '1' );
+		ditty_settings( 'ditty_news_ticker', 'enabled' );
 	}
 }
 

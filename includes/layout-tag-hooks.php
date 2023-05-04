@@ -195,6 +195,11 @@ function ditty_init_layout_tag_image( $image, $item_type, $data, $atts ) {
 		'style'		=> ( '' != $style ) ? $style : false,
 	);
 	$image_args = shortcode_atts( $image_defaults, $image_data );
+	if ( '' == $image_args['width'] && '' == $image_args['height'] ) {
+		$image_dimensions = ditty_get_image_dimensions( $image_args['src'] );
+		$image_args['width'] = $image_dimensions['width'];
+		$image_args['height'] = $image_dimensions['height'];
+	}
 	$image = '<img ' . ditty_attr_to_html( $image_args ) . ' />';
 	return $image;	
 }

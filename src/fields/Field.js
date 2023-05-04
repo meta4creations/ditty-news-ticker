@@ -1,10 +1,15 @@
 import { __ } from "@wordpress/i18n";
 import BaseField from "./BaseField";
-import ColorField from "./ColorField";
 import Clone from "./Clone";
 import CheckboxField from "./CheckboxField";
 import CheckboxesField from "./CheckboxesField";
+import ColorField from "./ColorField";
+import ComponentField from "./ComponentField";
+import CustomHtmlField from "./CustomHtmlField";
+import FileField from "./FileField";
 import GroupField from "./GroupField";
+import HtmlField from "./HtmlField";
+import ImageField from "./ImageField";
 import LayoutTagField from "./LayoutTagField";
 import NumberField from "./NumberField";
 import RadioField from "./RadioField";
@@ -14,11 +19,13 @@ import SpacingField from "./SpacingField";
 import TextField from "./TextField";
 import TextareaField from "./TextareaField";
 import UnitField from "./UnitField";
+import WysiwygField from "./WysiwygField";
 
-const Field = ({ field, fieldValue, updateValue }) => {
+const Field = ({ field, fieldValue, updateValue, delayChange = false }) => {
   const handleUpdateValue = (field, value) => {
     if ("group" === field.type && Array.isArray(value) && !field.clone) {
-      value.map((v) => updateValue(v.id, v.value));
+      updateValue(field.id, value);
+      //value.map((v) => updateValue(v.id, v.value));
     } else {
       updateValue(field.id, value);
     }
@@ -66,19 +73,49 @@ const Field = ({ field, fieldValue, updateValue }) => {
               {...inputField}
             />
           );
+        case "component":
+          return <ComponentField value={inputValue} {...inputField} />;
+        case "custom_html":
+          return (
+            <CustomHtmlField
+              value={inputValue}
+              delayChange={delayChange}
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
+              {...inputField}
+            />
+          );
+        case "file":
+          return (
+            <FileField
+              value={inputValue}
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
+              {...inputField}
+            />
+          );
         case "group":
           return (
             <GroupField
               value={inputValue}
               renderInput={renderInput}
-              onChange={(updatedValue) => {
-                onUpdate(inputField, updatedValue);
+              onChange={(updatedValue, maybeField = false) => {
+                const updatedField = maybeField ? maybeField : inputField;
+                onUpdate(updatedField, updatedValue);
               }}
               {...inputField}
             />
           );
         case "heading":
           return <BaseField {...inputField} />;
+        case "html":
+          return <HtmlField value={inputValue} {...inputField} />;
+        case "image":
+          return (
+            <ImageField
+              value={inputValue}
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
+              {...inputField}
+            />
+          );
         case "layout_attribute":
           return (
             <LayoutTagField
@@ -143,6 +180,7 @@ const Field = ({ field, fieldValue, updateValue }) => {
           return (
             <TextareaField
               value={inputValue}
+              delayChange={delayChange}
               onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />
@@ -157,8 +195,9 @@ const Field = ({ field, fieldValue, updateValue }) => {
           );
         case "wysiwyg":
           return (
-            <TextareaField
+            <WysiwygField
               value={inputValue}
+              delayChange={delayChange}
               onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />
@@ -167,6 +206,7 @@ const Field = ({ field, fieldValue, updateValue }) => {
           return (
             <TextField
               value={inputValue}
+              delayChange={delayChange}
               onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />

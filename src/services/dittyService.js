@@ -1,44 +1,47 @@
 import { getRenderedItems } from "./httpService";
+import { displayTypeExists } from "../utils/helpers";
 
 export const initializeDitty = (dittyEl, displayType, args) => {
+  if (!displayTypeExists(dittyEl, displayType)) return false;
   jQuery(dittyEl)["ditty_" + displayType](args);
 };
 
 export const updateDittyDisplayTemplate = (dittyEl, display) => {
+  if (!displayTypeExists(dittyEl, display.type)) return false;
   const prevType = dittyEl.dataset.type;
-  if (prevType === display.type) {
-    dittyEl["_ditty_" + display.type].options(display.settings);
-  } else {
-    const oldDitty = dittyEl["_ditty_" + prevType];
-    const args = display.settings;
-    args["id"] = display.id;
-    args["display"] = display.type;
-    args["title"] = display.title;
+  const oldDitty = dittyEl["_ditty_" + prevType];
+  const args = display.settings;
+  args["id"] = display.id;
+  args["display"] = display.type;
+  args["title"] = display.title;
+  if (oldDitty) {
     args["status"] = oldDitty.options("status");
     args["items"] = oldDitty.options("items");
-
     oldDitty.destroy();
-
-    jQuery(dittyEl)["ditty_" + display.type](args);
-    dittyEl.dataset.type = display.type;
   }
+  jQuery(dittyEl)["ditty_" + display.type](args);
+  dittyEl.dataset.type = display.type;
 };
 
-export const updateDittyDisplayType = (dittyEl, type) => {
+export const updateDittyDisplayType = (dittyEl, displayType) => {
+  if (!displayTypeExists(dittyEl, displayType)) return false;
   const prevType = dittyEl.dataset.type;
-  if (prevType !== type) {
+  if (prevType !== displayType) {
     const oldDitty = dittyEl["_ditty_" + prevType];
-    const args = oldDitty.options();
-    oldDitty.destroy();
+    const args = oldDitty ? oldDitty.options() : {};
+    if (oldDitty) {
+      oldDitty.destroy();
+    }
 
-    jQuery(dittyEl)["ditty_" + type](args);
-    dittyEl.dataset.type = type;
+    jQuery(dittyEl)["ditty_" + displayType](args);
+    dittyEl.dataset.type = displayType;
   }
 };
 
 export const updateDisplayOptions = (dittyEl, option, value) => {
-  const type = dittyEl.dataset.type;
-  dittyEl["_ditty_" + type].options(option, value);
+  const displayType = dittyEl.dataset.type;
+  if (!displayTypeExists(dittyEl, displayType)) return false;
+  dittyEl["_ditty_" + displayType].options(option, value);
 };
 
 /**
@@ -55,16 +58,16 @@ export const getDisplayItems = async (items, layouts, returnData) => {
       returnData && returnData(data);
     });
   } catch (ex) {
-    console.log("catch", ex);
-    if (ex.response && ex.response.status === 404) {
-    }
+    const { dittyNotification } = dittyEditor.notifications;
+    dittyNotification(ex, "error");
   }
 };
 
 export const addDisplayItems = (dittyEl, displayItems) => {
-  const type = dittyEl.dataset.type;
+  const displayType = dittyEl.dataset.type;
+  if (!displayTypeExists(dittyEl, displayType)) return false;
   displayItems.map((displayItem) =>
-    dittyEl["_ditty_" + type].addItem(displayItem)
+    dittyEl["_ditty_" + displayType].addItem(displayItem)
   );
 };
 
@@ -74,8 +77,9 @@ export const addDisplayItems = (dittyEl, displayItems) => {
  * @param {object} item
  */
 export const deleteDisplayItems = (dittyEl, item) => {
-  const type = dittyEl.dataset.type;
-  dittyEl["_ditty_" + type].deleteItem(item.item_id);
+  const displayType = dittyEl.dataset.type;
+  if (!displayTypeExists(dittyEl, displayType)) return false;
+  dittyEl["_ditty_" + displayType].deleteItem(item.item_id);
 };
 
 /**
@@ -83,10 +87,11 @@ export const deleteDisplayItems = (dittyEl, item) => {
  * @param {element} dittyEl
  * @param {object} items
  */
-export const updateDisplayItems = (dittyEl, displayItems) => {
-  const type = dittyEl.dataset.type;
-  dittyEl["_ditty_" + type].loadItems(displayItems, "update");
-};
+// export const updateDisplayItems = (dittyEl, displayItems) => {
+//   const displayType = dittyEl.dataset.type;
+//   if (!displayTypeExists(dittyEl, displayType)) return false;
+//   dittyEl["_ditty_" + displayType].loadItems(displayItems, "update");
+// };
 
 /**
  * Update the Ditty display items
@@ -94,6 +99,7 @@ export const updateDisplayItems = (dittyEl, displayItems) => {
  * @param {object} items
  */
 export const replaceDisplayItems = (dittyEl, displayItems) => {
-  const type = dittyEl.dataset.type;
-  dittyEl["_ditty_" + type].loadItems(displayItems);
+  const displayType = dittyEl.dataset.type;
+  if (!displayTypeExists(dittyEl, displayType)) return false;
+  dittyEl["_ditty_" + displayType].loadItems(displayItems, "static");
 };

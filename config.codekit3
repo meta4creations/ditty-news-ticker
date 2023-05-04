@@ -7,7 +7,7 @@
       "uuidString" : "0B43A184-D1FE-4DF7-BE71-3FAE2291CFE5"
     }
   ],
-  "creatorBuild" : "34472",
+  "creatorBuild" : "34484",
   "files" : {
     "\/.gitignore" : {
       "cB" : 0,
@@ -17,10 +17,26 @@
       "oAP" : "\/.gitignore",
       "oF" : 1
     },
+    "\/.nova\/Publishing\/Demo.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/.nova\/Publishing\/Demo-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
     "\/.nova\/Publishing\/Metaphor Creations.json" : {
       "ft" : 524288,
       "oA" : 1,
       "oAP" : "\/.nova\/Publishing\/Metaphor Creations-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
+    "\/.nova\/Publishing\/Testing.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/.nova\/Publishing\/Testing-min.json",
       "oF" : 0,
       "oO" : 1,
       "oS" : 1
@@ -51,9 +67,9 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/ditty-news-ticker.php",
-      "oF" : 1
+      "oF" : 0
     },
     "\/includes\/admin\/columns.php" : {
       "cB" : 0,
@@ -95,14 +111,6 @@
       "oAP" : "\/includes\/admin\/notices.php",
       "oF" : 0
     },
-    "\/includes\/admin\/settings.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/includes\/admin\/settings.php",
-      "oF" : 0
-    },
     "\/includes\/blocks.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -131,7 +139,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-activator.php",
       "oF" : 0
     },
@@ -147,7 +155,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-db-item-meta.php",
       "oF" : 0
     },
@@ -155,7 +163,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-db-items.php",
       "oF" : 0
     },
@@ -163,7 +171,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-db.php",
       "oF" : 0
     },
@@ -171,16 +179,8 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/includes\/class-ditty-deactivator.php",
-      "oF" : 0
-    },
-    "\/includes\/class-ditty-display-item-new.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
       "oA" : 0,
-      "oAP" : "\/includes\/class-ditty-display-item-new.php",
+      "oAP" : "\/includes\/class-ditty-deactivator.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-display-item.php" : {
@@ -211,16 +211,8 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
-      "oAP" : "\/includes\/class-ditty-display-type.php",
-      "oF" : 0
-    },
-    "\/includes\/class-ditty-display.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
       "oA" : 0,
-      "oAP" : "\/includes\/class-ditty-display.php",
+      "oAP" : "\/includes\/class-ditty-display-type.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-displays.php" : {
@@ -243,7 +235,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-errors.php",
       "oF" : 0
     },
@@ -259,7 +251,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-i18n.php",
       "oF" : 0
     },
@@ -269,6 +261,14 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/class-ditty-item-type-default.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-item-type-html.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/class-ditty-item-type-html.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-item-type-posts-lite.php" : {
@@ -283,7 +283,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-item-type-wp-editor.php",
       "oF" : 0
     },
@@ -293,30 +293,6 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/class-ditty-item-type.php",
-      "oF" : 0
-    },
-    "\/includes\/class-ditty-item.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/class-ditty-item.php",
-      "oF" : 0
-    },
-    "\/includes\/class-ditty-items.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/class-ditty-items.php",
-      "oF" : 0
-    },
-    "\/includes\/class-ditty-layout.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/class-ditty-layout.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-layouts.php" : {
@@ -331,7 +307,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-loader.php",
       "oF" : 0
     },
@@ -339,7 +315,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/class-ditty-roles.php",
       "oF" : 0
     },
@@ -349,6 +325,14 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/class-ditty-scripts.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-settings.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/class-ditty-settings.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-singles.php" : {
@@ -376,38 +360,50 @@
       "oF" : 0
     },
     "\/includes\/css\/blocks.editor-min.css" : {
-      "aP" : 0,
+      "aP" : 1,
       "bl" : 0,
       "ci" : 0,
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/css\/blocks.editor-min-min.css",
       "oF" : 0,
       "pg" : 0
     },
     "\/includes\/css\/blocks.editor.css" : {
-      "aP" : 0,
+      "aP" : 1,
       "bl" : 0,
       "ci" : 0,
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/css\/blocks.editor-min.css",
       "oF" : 0,
       "pg" : 0
     },
     "\/includes\/css\/blocks.style.css" : {
-      "aP" : 0,
+      "aP" : 1,
       "bl" : 0,
       "ci" : 0,
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/css\/blocks.style-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/css\/ditty-admin-old.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/css\/ditty-admin-old-min.css",
       "oF" : 0,
       "pg" : 0
     },
@@ -435,18 +431,6 @@
       "oF" : 0,
       "pg" : 0
     },
-    "\/includes\/css\/ditty-editor.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/css\/ditty-editor-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
     "\/includes\/css\/ditty.css" : {
       "aP" : 1,
       "bl" : 0,
@@ -463,7 +447,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-button.php",
       "oF" : 0
     },
@@ -471,7 +455,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-checkbox.php",
       "oF" : 0
     },
@@ -479,7 +463,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-checkboxes.php",
       "oF" : 0
     },
@@ -487,7 +471,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-code.php",
       "oF" : 0
     },
@@ -495,7 +479,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-color.php",
       "oF" : 0
     },
@@ -503,7 +487,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-date.php",
       "oF" : 0
     },
@@ -511,7 +495,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-divider.php",
       "oF" : 0
     },
@@ -527,7 +511,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-group.php",
       "oF" : 0
     },
@@ -543,7 +527,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-html.php",
       "oF" : 0
     },
@@ -567,7 +551,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-number.php",
       "oF" : 0
     },
@@ -575,7 +559,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-radio.php",
       "oF" : 0
     },
@@ -583,7 +567,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-radius.php",
       "oF" : 0
     },
@@ -591,7 +575,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-select.php",
       "oF" : 0
     },
@@ -599,7 +583,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-slider.php",
       "oF" : 0
     },
@@ -607,7 +591,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-spacing.php",
       "oF" : 0
     },
@@ -615,7 +599,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-text.php",
       "oF" : 0
     },
@@ -623,7 +607,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-textarea.php",
       "oF" : 0
     },
@@ -631,7 +615,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/ditty-field-wysiwyg.php",
       "oF" : 0
     },
@@ -647,7 +631,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/fields\/helpers.php",
       "oF" : 0
     },
@@ -677,7 +661,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 1,
       "oAP" : "\/includes\/fields\/js\/fields\/clone.min.js",
       "oF" : 0,
@@ -688,7 +672,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 1,
       "oAP" : "\/includes\/fields\/js\/fields\/code.min.js",
       "oF" : 0,
@@ -699,7 +683,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 1,
       "oAP" : "\/includes\/fields\/js\/fields\/color.min.js",
       "oF" : 0,
@@ -710,7 +694,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 1,
       "oAP" : "\/includes\/fields\/js\/fields\/date.min.js",
       "oF" : 0,
@@ -732,7 +716,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 1,
       "oAP" : "\/includes\/fields\/js\/fields\/group.min.js",
       "oF" : 0,
@@ -765,7 +749,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 1,
       "oAP" : "\/includes\/fields\/js\/fields\/slider.min.js",
       "oF" : 0,
@@ -776,7 +760,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 1,
       "oAP" : "\/includes\/fields\/js\/fields\/wysiwyg.min.js",
       "oF" : 0,
@@ -836,7 +820,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/index.php",
       "oF" : 0
     },
@@ -844,7 +828,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 1,
       "oAP" : "\/includes\/js\/admin\/class-ditty-extension.min.js",
       "oF" : 0,
@@ -855,7 +839,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 1,
       "oAP" : "\/includes\/js\/admin\/class-ditty-settings.min.js",
       "oF" : 0,
@@ -877,20 +861,9 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 1,
       "oAP" : "\/includes\/js\/admin\/ditty-extensions.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/admin\/ditty-wizard.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/admin\/ditty-wizard.min.js",
       "oF" : 0,
       "sC" : 3,
       "tS" : 0
@@ -994,50 +967,6 @@
       "sC" : 3,
       "tS" : 0
     },
-    "\/includes\/js\/ditty-editor-hooks.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/ditty-editor-hooks.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/ditty-editor-hooks.min.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/ditty-editor-hooks.min.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/ditty-editor.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/ditty-editor.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/ditty-editor.min.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/ditty-editor.min.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
     "\/includes\/js\/ditty.js" : {
       "bF" : 0,
       "ft" : 64,
@@ -1060,176 +989,11 @@
       "sC" : 3,
       "tS" : 0
     },
-    "\/includes\/js\/editor_hooks\/ditty-item-edit-editor.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor_hooks\/ditty-item-edit-editor.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor_hooks\/ditty-list-display-editor.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor_hooks\/ditty-list-display-editor.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor_hooks\/ditty-ticker-display-editor.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor_hooks\/ditty-ticker-display-editor.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-display-editor-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-display-editor-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-displays-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-displays-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-editor.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-editor.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-item-editor-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-item-editor-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-item-types-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-item-types-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-items-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-items-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-layout-css-editor-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-layout-css-editor-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-layout-html-editor-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-layout-html-editor-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-layout-variations-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-layout-variations-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-layouts-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-layouts-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/class-ditty-settings-panel.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/class-ditty-settings-panel.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/editor\/helpers.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/editor\/helpers.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
     "\/includes\/js\/partials\/class-ditty-ui-data-list.js" : {
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 1,
       "oAP" : "\/includes\/js\/partials\/class-ditty-ui-data-list.min.js",
       "oF" : 0,
@@ -1247,19 +1011,11 @@
       "sC" : 3,
       "tS" : 0
     },
-    "\/includes\/layout-tag-fields.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/layout-tag-fields.php",
-      "oF" : 0
-    },
     "\/includes\/layout-tag-helpers.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/layout-tag-helpers.php",
       "oF" : 0
     },
@@ -1283,7 +1039,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/layout-tag-hooks.php",
       "oF" : 0
     },
@@ -1291,7 +1047,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/layout-tags.php",
       "oF" : 0
     },
@@ -1299,7 +1055,7 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/layout-templates.php",
       "oF" : 0
     },
@@ -1315,18 +1071,18 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/ChromePhp.php",
-      "oF" : 1
+      "oF" : 0
     },
     "\/includes\/libs\/css\/mtphr-slider.css" : {
-      "aP" : 0,
+      "aP" : 1,
       "bl" : 0,
       "ci" : 0,
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/css\/mtphr-slider-min.css",
       "oF" : 0,
       "pg" : 0
@@ -1338,9 +1094,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/all-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/all.min.css" : {
@@ -1350,9 +1106,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/all.min-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/brands.css" : {
@@ -1362,9 +1118,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/brands-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/brands.min.css" : {
@@ -1374,9 +1130,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/brands.min-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/fontawesome.css" : {
@@ -1386,9 +1142,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/fontawesome-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/fontawesome.min.css" : {
@@ -1398,9 +1154,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/fontawesome.min-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/regular.css" : {
@@ -1410,9 +1166,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/regular-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/regular.min.css" : {
@@ -1422,9 +1178,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/regular.min-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/solid.css" : {
@@ -1434,9 +1190,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/solid-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/solid.min.css" : {
@@ -1446,9 +1202,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/solid.min-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/svg-with-js.css" : {
@@ -1458,9 +1214,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/svg-with-js-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/svg-with-js.min.css" : {
@@ -1470,9 +1226,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/svg-with-js.min-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/v4-font-face.css" : {
@@ -1482,9 +1238,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/v4-font-face-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/v4-font-face.min.css" : {
@@ -1494,9 +1250,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/v4-font-face.min-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/v4-shims.css" : {
@@ -1506,9 +1262,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/v4-shims-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/v4-shims.min.css" : {
@@ -1518,9 +1274,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/v4-shims.min-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/v5-font-face.css" : {
@@ -1530,9 +1286,9 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/v5-font-face-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/css\/v5-font-face.min.css" : {
@@ -1542,114 +1298,402 @@
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/css\/v5-font-face.min-min.css",
-      "oF" : 1,
+      "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/LICENSE.txt" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/LICENSE.txt",
-      "oF" : 1
+      "oF" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-brands-400.ttf" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-brands-400.ttf",
-      "oF" : 1
+      "oF" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-brands-400.woff2" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-brands-400.woff2",
-      "oF" : 1
+      "oF" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-regular-400.ttf" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-regular-400.ttf",
-      "oF" : 1
+      "oF" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-regular-400.woff2" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-regular-400.woff2",
-      "oF" : 1
+      "oF" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-solid-900.ttf" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-solid-900.ttf",
-      "oF" : 1
+      "oF" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-solid-900.woff2" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-solid-900.woff2",
-      "oF" : 1
+      "oF" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-v4compatibility.ttf" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-v4compatibility.ttf",
-      "oF" : 1
+      "oF" : 0
     },
     "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-v4compatibility.woff2" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/fontawesome-6.2.0\/webfonts\/fa-v4compatibility.woff2",
-      "oF" : 1
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/all.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/all-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/all.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/all.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/brands.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/brands-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/brands.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/brands.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/fontawesome.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/fontawesome-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/fontawesome.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/fontawesome.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/regular.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/regular-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/regular.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/regular.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/solid.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/solid-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/solid.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/solid.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/svg-with-js.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/svg-with-js-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/svg-with-js.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/svg-with-js.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/v4-font-face.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/v4-font-face-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/v4-font-face.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/v4-font-face.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/v4-shims.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/v4-shims-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/v4-shims.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/v4-shims.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/v5-font-face.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/v5-font-face-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/css\/v5-font-face.min.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/css\/v5-font-face.min-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/LICENSE.txt" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/LICENSE.txt",
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/webfonts\/fa-brands-400.ttf" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/webfonts\/fa-brands-400.ttf",
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/webfonts\/fa-brands-400.woff2" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/webfonts\/fa-brands-400.woff2",
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/webfonts\/fa-regular-400.ttf" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/webfonts\/fa-regular-400.ttf",
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/webfonts\/fa-regular-400.woff2" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/webfonts\/fa-regular-400.woff2",
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/webfonts\/fa-solid-900.ttf" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/webfonts\/fa-solid-900.ttf",
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/webfonts\/fa-solid-900.woff2" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/webfonts\/fa-solid-900.woff2",
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/webfonts\/fa-v4compatibility.ttf" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/webfonts\/fa-v4compatibility.ttf",
+      "oF" : 0
+    },
+    "\/includes\/libs\/fontawesome-6.4.0\/webfonts\/fa-v4compatibility.woff2" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/fontawesome-6.4.0\/webfonts\/fa-v4compatibility.woff2",
+      "oF" : 0
     },
     "\/includes\/libs\/hammer.min.js" : {
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
-      "oA" : 1,
+      "mi" : 1,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/hammer.min.min.js",
-      "oF" : 1,
+      "oF" : 0,
       "sC" : 3,
       "tS" : 0
     },
     "\/includes\/libs\/ion.rangeSlider\/css\/ion.rangeSlider.css" : {
-      "aP" : 0,
+      "aP" : 1,
       "bl" : 0,
       "ci" : 0,
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/ion.rangeSlider\/css\/ion.rangeSlider-min.css",
       "oF" : 0,
       "pg" : 0
     },
     "\/includes\/libs\/ion.rangeSlider\/css\/ion.rangeSlider.min.css" : {
-      "aP" : 0,
+      "aP" : 1,
       "bl" : 0,
       "ci" : 0,
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/ion.rangeSlider\/css\/ion.rangeSlider.min-min.css",
       "oF" : 0,
       "pg" : 0
@@ -1677,13 +1721,13 @@
       "tS" : 0
     },
     "\/includes\/libs\/jquery-minicolors\/jquery.minicolors.css" : {
-      "aP" : 0,
+      "aP" : 1,
       "bl" : 0,
       "ci" : 0,
       "co" : 0,
       "ft" : 16,
       "ma" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/libs\/jquery-minicolors\/jquery.minicolors-min.css",
       "oF" : 0,
       "pg" : 0
@@ -1703,7 +1747,7 @@
       "bF" : 0,
       "ft" : 64,
       "ma" : 0,
-      "mi" : 0,
+      "mi" : 1,
       "oA" : 0,
       "oAP" : "\/includes\/libs\/jquery-minicolors\/jquery.minicolors.min.min.js",
       "oF" : 0,
@@ -1757,6 +1801,66 @@
       "sC" : 3,
       "tS" : 0
     },
+    "\/includes\/libs\/sass\/file-size.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/includes\/libs\/sass\/file-size-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
+    "\/includes\/libs\/sass\/sass.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/sass\/sass.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/sass\/sass.node.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/sass\/sass.node.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/sass\/sass.sync.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/sass\/sass.sync.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/sass\/sass.worker.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/includes\/libs\/sass\/sass.worker.min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
+    },
+    "\/includes\/libs\/sass\/versions.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/includes\/libs\/sass\/versions-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
     "\/includes\/post-types.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1781,7 +1885,7 @@
       "sct" : 0
     },
     "\/includes\/sass\/admin\/_datepicker.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1793,7 +1897,7 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/admin\/_export.scss" : {
       "aP" : 0,
@@ -1811,7 +1915,7 @@
       "sct" : 0
     },
     "\/includes\/sass\/admin\/_extension.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1823,10 +1927,10 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/admin\/_extensions-app.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1838,10 +1942,10 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/admin\/_extensions.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1853,10 +1957,10 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/admin\/_metabox.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -1868,7 +1972,7 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/admin\/_pages.scss" : {
       "aP" : 0,
@@ -1916,21 +2020,6 @@
       "sct" : 0
     },
     "\/includes\/sass\/admin\/_upgrade_details.scss" : {
-      "aP" : 1,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/sass\/css\/_upgrade_details.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 1
-    },
-    "\/includes\/sass\/admin\/_wizard.scss" : {
       "aP" : 0,
       "bl" : 0,
       "co" : 0,
@@ -1939,7 +2028,7 @@
       "ft" : 4,
       "ma" : 0,
       "oA" : 1,
-      "oAP" : "\/includes\/sass\/css\/_wizard.css",
+      "oAP" : "\/includes\/sass\/css\/_upgrade_details.css",
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
@@ -1990,6 +2079,21 @@
       "pg" : 0,
       "sct" : 0
     },
+    "\/includes\/sass\/ditty-admin-old.scss" : {
+      "aP" : 0,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/css\/ditty-admin-old.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 0
+    },
     "\/includes\/sass\/ditty-admin.scss" : {
       "aP" : 0,
       "bl" : 0,
@@ -2020,21 +2124,6 @@
       "pg" : 0,
       "sct" : 0
     },
-    "\/includes\/sass\/ditty-editor.scss" : {
-      "aP" : 0,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/css\/ditty-editor.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 0
-    },
     "\/includes\/sass\/ditty.scss" : {
       "aP" : 0,
       "bl" : 0,
@@ -2050,83 +2139,8 @@
       "pg" : 0,
       "sct" : 0
     },
-    "\/includes\/sass\/editor\/_displays_panel.scss" : {
-      "aP" : 0,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/sass\/css\/_displays_panel.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 0
-    },
-    "\/includes\/sass\/editor\/_editor.scss" : {
-      "aP" : 0,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/sass\/css\/_editor.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 0
-    },
-    "\/includes\/sass\/editor\/_item_types_panel.scss" : {
-      "aP" : 0,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/sass\/css\/_item_types_panel.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 0
-    },
-    "\/includes\/sass\/editor\/_items_panel.scss" : {
-      "aP" : 0,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/sass\/css\/_items_panel.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 0
-    },
-    "\/includes\/sass\/editor\/_layouts_panel.scss" : {
-      "aP" : 0,
-      "bl" : 0,
-      "co" : 0,
-      "dP" : 10,
-      "ec" : 1,
-      "ft" : 4,
-      "ma" : 0,
-      "oA" : 1,
-      "oAP" : "\/includes\/sass\/css\/_layouts_panel.css",
-      "oF" : 0,
-      "oS" : 0,
-      "pg" : 0,
-      "sct" : 0
-    },
     "\/includes\/sass\/partials\/_colors_2.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -2138,10 +2152,10 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/partials\/_colors.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -2153,10 +2167,10 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/partials\/_displays.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -2168,7 +2182,7 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/partials\/_ditty-ui.scss" : {
       "aP" : 0,
@@ -2201,7 +2215,7 @@
       "sct" : 0
     },
     "\/includes\/sass\/partials\/_general.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -2213,10 +2227,10 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/partials\/_items.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -2228,10 +2242,10 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/partials\/_metabox.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -2243,10 +2257,10 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/partials\/_mixins.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -2258,7 +2272,7 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/sass\/partials\/_slider.scss" : {
       "aP" : 0,
@@ -2276,7 +2290,7 @@
       "sct" : 0
     },
     "\/includes\/sass\/partials\/_type_wp_editor.scss" : {
-      "aP" : 1,
+      "aP" : 0,
       "bl" : 0,
       "co" : 0,
       "dP" : 10,
@@ -2288,13 +2302,13 @@
       "oF" : 0,
       "oS" : 0,
       "pg" : 0,
-      "sct" : 1
+      "sct" : 0
     },
     "\/includes\/upgrades.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 2,
+      "oA" : 0,
       "oAP" : "\/includes\/upgrades.php",
       "oF" : 0
     },
@@ -2304,14 +2318,6 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/widget.php",
-      "oF" : 0
-    },
-    "\/includes\/wizard.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/wizard.php",
       "oF" : 0
     },
     "\/languages\/ditty-news-ticker-ar.mo" : {
@@ -3648,9 +3654,9 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/readme.txt",
-      "oF" : 1
+      "oF" : 0
     },
     "\/src" : {
       "ft" : 65536,
@@ -3680,17 +3686,6 @@
       "oA" : 1,
       "oAP" : "\/webpack.config.min.js",
       "oF" : 1,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/webpack.config.min.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/webpack.config.min.min.js",
-      "oF" : 0,
       "sC" : 3,
       "tS" : 0
     },
@@ -5228,7 +5223,7 @@
       "moduleType" : 2,
       "removeComments" : 0,
       "sourceMapStyle" : 0,
-      "targetECMAVersion" : 0
+      "targetECMAVersion" : 2018
     },
     "languageDefaultsUserDefined" : [
 
@@ -5284,7 +5279,10 @@
     "skippedFoldersString" : "\/storage\/framework\/sessions,src,node_modules,_logs,logs,log,.idea,_cache,cache,build,vendor",
     "sourceFolderName" : "source",
     "susyVersion" : 3,
+    "tsAllowArbitraryExtensions" : 0,
+    "tsAllowImportingTSExtensions" : 0,
     "tsAllowSyntheticDefaultImports" : 0,
+    "tsAllowUMDGlobalAccess" : 0,
     "tsAllowUnreachableCode" : 0,
     "tsAllowUnusedLabels" : 0,
     "tsAlwaysStrict" : 0,
@@ -5293,36 +5291,36 @@
     "tsEmitDecoratorMetadata" : 0,
     "tsESModuleInterop" : 0,
     "tsExactOptionalPropertyTypes" : 0,
+    "tsExperimentalDecorators" : 0,
     "tsForceConsistentCasingInFileNames" : 0,
     "tsImportHelpers" : 0,
     "tsIsolatedModules" : 0,
     "tsJSXFactory" : "React.createElement",
-    "tsKeyofStringsOnly" : 0,
     "tsNoEmitHelpers" : 0,
     "tsNoFallthroughCasesInSwitch" : 0,
     "tsNoImplicitAny" : 0,
     "tsNoImplicitOverride" : 0,
     "tsNoImplicitReturns" : 0,
     "tsNoImplicitThis" : 0,
-    "tsNoImplicitUseStrict" : 0,
     "tsNoLib" : 0,
     "tsNoPropertyAccessFromIndexSignature" : 0,
     "tsNoResolve" : 0,
-    "tsNoStrictGenericChecks" : 0,
     "tsNoUncheckedIndexAccess" : 0,
     "tsNoUnusedLocals" : 0,
     "tsNoUnusedParameters" : 0,
     "tsPreserveConstEnums" : 0,
     "tsPreserveSymlinks" : 0,
     "tsResolveJsonModule" : 0,
+    "tsSkipDefaultLibCheck" : 0,
     "tsSkipLibCheck" : 0,
+    "tsStrictBindCallApply" : 0,
     "tsStrictFunctionTypes" : 0,
     "tsStrictNullChecks" : 0,
     "tsStrictPropertyInitialization" : 0,
     "tsStripInternal" : 0,
-    "tsSuppressExcessPropertyErrors" : 0,
-    "tsSuppressImplicitAnyIndexErrors" : 0,
+    "tsUseDefineForClassFields" : 0,
     "tsUseUnknownInCatchVariables" : 0,
+    "tsVerbatimModuleSyntax" : 0,
     "uglifyDefinesString" : "",
     "uglifyFlags2" : {
       "arguments" : {

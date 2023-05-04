@@ -1,0 +1,456 @@
+.ditty-field-list {
+  //display: flex;
+  //flex-wrap: wrap;
+  > * {
+    width: 100%;
+  }
+  &__heading {
+    background: $lighter_gray;
+    padding: 15px;
+    border-bottom: 5px solid $input_border_color;
+    //margin-bottom: 5px;
+    &__title {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0;
+    }
+    &__description {
+      margin: 5px 0 0 0;
+    }
+  }
+  .ditty-field {
+    padding: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+}
+.ditty-field {
+  &__heading {
+    display: flex;
+    + .ditty-field__input__container {
+      margin-top: 10px;
+    }
+  }
+  &__icon {
+    font-size: 18px;
+    margin-right: 15px;
+    margin-top: 2px;
+  }
+  &__label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: default;
+  }
+  &__help-icon {
+    color: $gray;
+    &.active {
+      color: $green;
+    }
+  }
+  &__help,
+  &__description {
+    width: 100%;
+    font-size: 13px;
+    line-height: 16px;
+    margin-top: 5px;
+  }
+  &__input {
+    flex: 1;
+    &__container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+  .components-base-control__field {
+    margin: 0;
+  }
+  input:not([type="button"]):not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    width: 100%;
+    max-width: unset;
+    min-height: 0;
+    font-size: 14px;
+    line-height: 24px;
+    border: 1px solid $input_border_color;
+    border-radius: 3px;
+    padding: 5px 8px;
+    margin: 0;
+  }
+}
+
+// Clone
+.ditty-clone {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  > .ditty-field__heading {
+    padding: 15px 15px 0;
+    + .ditty-clone__fields {
+      padding-top: 0;
+      margin-top: 10px;
+    }
+  }
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 5px;
+  }
+  &__field {
+    display: flex;
+    overflow: hidden;
+    &__buttons {
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 5px;
+      &--start {
+        padding-right: 5px;
+        .ditty-button {
+          height: 100%;
+        }
+      }
+      &--end {
+        padding-left: 5px;
+      }
+      .ditty-button {
+        font-size: 16px;
+        background: transparent;
+        border-radius: 3px;
+        padding: 10px;
+        &:hover {
+          background: $light_green;
+          color: $green;
+        }
+      }
+    }
+    > .ditty-field {
+      flex: 1;
+      border-bottom: none;
+      background: $lighter_gray;
+      padding: 10px !important;
+      border-radius: 4px;
+      > .ditty-field__input__container {
+        background: #fff;
+        border-radius: 3px;
+      }
+    }
+  }
+  &__footer {
+    padding: 0 15px 15px;
+    .ditty-button {
+      width: 100%;
+    }
+  }
+}
+
+//Checkboxes
+.ditty-field__input--checkboxes {
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px 10px;
+  }
+  &.ditty-field__input--inline {
+    > div {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+// Color
+.ditty-field__input--color {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  &__swatch {
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    border: 1px solid $input_border_color;
+    border-right: none;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    cursor: pointer;
+  }
+  input {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+  &__popover {
+    position: absolute;
+    z-index: 9;
+    top: calc(100% + 5px);
+  }
+}
+
+// File {
+.ditty-field__input--file {
+  display: flex;
+  align-items: stretch;
+  .ditty-field--url {
+    flex: 1;
+    padding: 0;
+    border: none;
+    input {
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+  }
+  .ditty-button {
+    flex: 0 0 auto;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+// Image {
+.ditty-field__input--image {
+  button {
+    all: unset;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100px;
+    border: 1px solid $gray;
+    border-radius: 3px;
+    overflow: hidden;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    svg {
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+
+// Group
+.ditty-field--group {
+  .ditty-field-list & {
+    padding: 0;
+    border-bottom: none;
+  }
+  > .ditty-field__heading {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: #fbfbfb;
+    border-bottom: 1px solid $input_border_color;
+    > .ditty-field__heading__contents {
+      > .ditty-field__label {
+        margin-bottom: 0;
+      }
+      > .ditty-field__help {
+        margin-bottom: 0;
+      }
+      > .ditty-field__description {
+        margin-bottom: 0;
+      }
+    }
+    > .ditty-field__toggle {
+      margin-left: auto;
+    }
+    + .ditty-field__input__container {
+      margin-top: 0;
+    }
+  }
+}
+.ditty-field__input--group {
+  display: flex;
+  flex-wrap: wrap;
+  > * {
+    width: 100%;
+  }
+}
+
+// Panel Heading
+.ditty-field--panel-heading {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  > .ditty-field__heading {
+    > .ditty-field__heading__contents {
+      > .ditty-field__label {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+// Slider
+.ditty-field__input--slider {
+  .components-range-control__track {
+    color: $green;
+    + span span {
+      background-color: $green;
+      &:before {
+        background-color: transparentize($green, 0.5);
+      }
+    }
+  }
+}
+
+// Spacing & Radius
+$spacing_color: #ccc;
+$spacing_highlight_color: $dark_gray;
+$radius: 9px;
+.ditty-field__input--spacing,
+.ditty-field__input--radius {
+  display: flex;
+  gap: 5px;
+  &__box {
+    flex: 0 0 auto;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    span {
+      position: absolute;
+      display: block;
+      background: $spacing_color;
+      &.active {
+        background-color: $dark_gray;
+      }
+    }
+  }
+  &__inputs {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  &__input {
+    width: calc(50% - 5px);
+  }
+  .ditty-field--unit {
+    padding: 0;
+    border: none;
+  }
+}
+
+// Spacing
+.ditty-field__input--spacing {
+  &__box {
+    span {
+      &:nth-child(1) {
+        top: 0;
+        left: 3px;
+        width: calc(100% - 6px);
+        height: 2px;
+      }
+      &:nth-child(2) {
+        bottom: 0;
+        left: 3px;
+        width: calc(100% - 6px);
+        height: 2px;
+      }
+      &:nth-child(3) {
+        top: 3px;
+        left: 0;
+        height: calc(100% - 6px);
+        width: 2px;
+      }
+      &:nth-child(4) {
+        top: 3px;
+        right: 0;
+        height: calc(100% - 6px);
+        width: 2px;
+      }
+    }
+  }
+}
+
+// Radius
+.ditty-field__input--radius {
+  &__box {
+    border-radius: 5px;
+    overflow: hidden;
+    &:before {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      content: "";
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      z-index: 9;
+      transform: rotate(45deg);
+    }
+    &:after {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      content: "";
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 3px;
+      z-index: 9;
+    }
+    span {
+      width: 10px;
+      height: 10px;
+
+      &:nth-child(1) {
+        top: 0;
+        left: 0;
+      }
+      &:nth-child(2) {
+        top: 0;
+        right: 0;
+      }
+      &:nth-child(3) {
+        bottom: 0;
+        left: 0;
+      }
+      &:nth-child(4) {
+        bottom: 0;
+        right: 0;
+      }
+    }
+  }
+}
+
+// Radio
+.ditty-field__input--radio {
+  div[role="radiogroup"] {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  &.ditty-field__input--inline {
+    div[role="radiogroup"] {
+      flex-direction: row;
+      gap: 15px;
+    }
+  }
+}
+
+// Unit
+.ditty-field__input--unit {
+  display: flex;
+  align-items: stretch;
+  input {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-right: none !important;
+  }
+  select {
+    flex: 0 0 auto;
+    width: 40px;
+    font-size: 12px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    background: transparent;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+}

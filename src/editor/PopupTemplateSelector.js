@@ -22,7 +22,11 @@ const PopupTemplateSelector = ({
     {
       id: "icon",
       content: (template) => {
-        return templateIcon && templateIcon(template);
+        return (
+          templateIcon && (
+            <div className="ditty-preview-icon">{templateIcon(template)}</div>
+          )
+        );
       },
     },
     {

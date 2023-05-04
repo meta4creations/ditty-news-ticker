@@ -6,11 +6,11 @@ import { faCircleQuestion } from "@fortawesome/pro-solid-svg-icons";
 const FieldHeader = ({
   id,
   name,
-  desc,
+  description,
   help,
   icon,
-  beforeContents,
-  afterContents,
+  headerStart,
+  headerEnd,
   style,
   onClick,
 }) => {
@@ -26,23 +26,29 @@ const FieldHeader = ({
 
   return name || help || icon ? (
     <div className="ditty-field__heading" onClick={onClick} style={style}>
-      {icon && <div className="ditty-field__icon">{icon}</div>}
-      {beforeContents}
+      {headerStart}
+      {icon && (
+        <div className="ditty-field__icon">
+          {"string" === typeof icon ? <i className={icon}></i> : icon}
+        </div>
+      )}
       <div className="ditty-field__heading__contents">
         <label className="ditty-field__label">
           {name ? name : id}{" "}
           {help && (
             <FontAwesomeIcon
-              className="ditty-field__help-icon"
               icon={faCircleQuestion}
+              className={`ditty-field__help-icon ${displayHelp && `active`}`}
               onClick={toggleHelp}
             />
           )}
         </label>
         {help && displayHelp && <div className="ditty-field__help">{help}</div>}
-        {desc && <div className="ditty-field__description">{desc}</div>}
+        {description && (
+          <div className="ditty-field__description">{description}</div>
+        )}
       </div>
-      {afterContents}
+      {headerEnd}
     </div>
   ) : (
     ""

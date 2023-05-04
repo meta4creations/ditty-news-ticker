@@ -1,5 +1,5 @@
 <?php
-	
+
 /**
  * Delete items from deleted Dittys
  *
@@ -118,26 +118,6 @@ function ditty_default_layout_tags( $tags, $item_type ) {
 add_filter( 'ditty_layout_tags', 'ditty_default_layout_tags', 10, 2 );
 
 /**
- * Filter the available item tags for layout editing
- * 
- * @since   3.0.13
- */
-function ditty_default_layout_tags_list( $tags, $item_type ) {
-	if ( 'default' == $item_type ||  'wp_editor' == $item_type ) {
-		$allowed_tags = array(
-			'content',
-			'time',
-			'author_avatar',
-			'author_bio',
-			'author_name',
-		);
-		$tags = array_intersect_key( $tags, array_flip( $allowed_tags ) );
-	}
-	return $tags;
-}
-add_filter( 'ditty_layout_tags_list', 'ditty_default_layout_tags_list', 10, 2 );
-
-/**
  * Add custom classes to style menu items
  *
  * @since    3.0
@@ -164,65 +144,112 @@ add_filter( 'admin_body_class', 'ditty_dashboard_menu_classes', 99 );
  * @since    3.0.22
 */
 function ditty_dashboard_menu_order( $menu_ord ) {
-		global $submenu;
+	global $submenu;
 
-		if ( ! isset( $submenu['edit.php?post_type=ditty'] ) ) {
-			return $menu_ord;
-		}
-		
-		$current_menu = $submenu['edit.php?post_type=ditty'];
-		$new_menu = array();
-		$extra_items = array();
-		$order = apply_filters( 'ditty_dashboard_menu_order', array(
-			'edit.php?post_type=ditty',
-			'post-new.php?post_type=ditty',
-			'edit.php?post_type=ditty_layout',
-			'edit.php?post_type=ditty_display',
-			'ditty_extensions',
-			'ditty_settings',
-			'ditty_export',
-			'edit.php?post_type=ditty_news_ticker',
-			'mtphr_dnt_settings',
-		), $current_menu );
-		
-		// Find any extra items that aren't in the order list & find the new order
-		if ( is_array( $current_menu ) && count( $current_menu ) > 0 ) {
-			foreach ( $current_menu as $i => $item ) {
-				if ( in_array( $item[2], $order ) ) {
-					$key = array_search( $item[2], $order );
-					$item['order'] = $key;
-					$new_menu[] = $item;
-				} else {
-					$extra_items[] = $item;
-				}
-			}
-		}
-		
-		// Sort the new menu by the order key
-		usort( $new_menu, function( $a, $b ) {
-			return $a['order'] - $b['order'];
-		} );
-
-		// Add extra menu items not in the order list
-		if ( is_array( $extra_items ) && count( $extra_items ) > 0 ) {
-			foreach ( $extra_items as $i => $item ) {
-				$new_menu[] = $item;
-			}
-		}
-		
-		// Set the new menu
-		$submenu['edit.php?post_type=ditty'] = $new_menu;
-
+	if ( ! isset( $submenu['edit.php?post_type=ditty'] ) ) {
 		return $menu_ord;
+	}
+	
+	$current_menu = $submenu['edit.php?post_type=ditty'];
+	$new_menu = array();
+	$extra_items = array();
+	$order = apply_filters( 'ditty_dashboard_menu_order', array(
+		'edit.php?post_type=ditty',
+		'post-new.php?post_type=ditty',
+		'?page=ditty-new',
+		'edit.php?post_type=ditty_layout',
+		'edit.php?post_type=ditty_display',
+		'ditty_extensions',
+		'ditty_settings',
+		'ditty_export',
+		'edit.php?post_type=ditty_news_ticker',
+		'mtphr_dnt_settings',
+	), $current_menu );
+	
+	// Find any extra items that aren't in the order list & find the new order
+	if ( is_array( $current_menu ) && count( $current_menu ) > 0 ) {
+		foreach ( $current_menu as $i => $item ) {
+			if ( in_array( $item[2], $order ) ) {
+				$key = array_search( $item[2], $order );
+				$item['order'] = $key;
+				$new_menu[] = $item;
+			} else {
+				$extra_items[] = $item;
+			}
+		}
+	}
+	
+	// Sort the new menu by the order key
+	usort( $new_menu, function( $a, $b ) {
+		return $a['order'] - $b['order'];
+	} );
+
+	// Add extra menu items not in the order list
+	if ( is_array( $extra_items ) && count( $extra_items ) > 0 ) {
+		foreach ( $extra_items as $i => $item ) {
+			$new_menu[] = $item;
+		}
+	}
+	
+	// Set the new menu
+	$submenu['edit.php?post_type=ditty'] = $new_menu;
+
+	return $menu_ord;
 }
 add_filter( 'custom_menu_order', 'ditty_dashboard_menu_order' );
 
+function ditty_dashboard_custom_menu_classes() {
+	global $menu, $submenu;
+	$ditty_menu = isset( $submenu['edit.php?post_type=ditty'] ) ? $submenu['edit.php?post_type=ditty'] : false;
+	if ( is_array( $ditty_menu ) && count( $ditty_menu ) > 0 ) {
+		foreach ( $ditty_menu as &$menu_item ) {
+			if ( 'post-new.php?post_type=ditty' == $menu_item[2] ) {
+				$menu_item[2] = '?page=ditty-new';
+				break;
+			}
+		}
+	}
+	$submenu['edit.php?post_type=ditty'] = $ditty_menu;
 
 
-add_filter('use_block_editor_for_post_type', 'prefix_disable_gutenberg', 10, 2);
-function prefix_disable_gutenberg($current_status, $post_type)
-{
-		// Use your post type key instead of 'product'
-		if ($post_type === 'ditty_display') return false;
-		return $current_status;
+
+	//echo '<pre style="height:100%;overflow:scroll;">';print_r($submenu);echo '</pre>';
+	$page = isset( $_GET['page'] ) ? $_GET['page'] : false;
+	if ( 'ditty' != $page && 'ditty-new' != $page ) {
+		return false;
+	}
+	if ( is_array( $menu ) && count( $menu ) > 0 ) {
+		foreach ( $menu as &$menu_item ) {
+			if ( 'edit.php?post_type=ditty' == $menu_item[2] ) {
+				$menu_item[4] = ' wp-has-current-submenu menu-top menu-icon-ditty';
+				break;
+			}
+		}
+	}
 }
+add_action( 'admin_menu', 'ditty_dashboard_custom_menu_classes', 99 );
+
+
+
+
+// add_filter('use_block_editor_for_post_type', 'prefix_disable_gutenberg', 10, 2);
+// function prefix_disable_gutenberg($current_status, $post_type)
+// {
+// 		// Use your post type key instead of 'product'
+// 		if ($post_type === 'ditty_display') return false;
+// 		return $current_status;
+// }
+
+function ditty_shortcode_test_display( $atts, $content = '' ) {
+	$defaults = [
+		'test' => 'test'
+	];
+	$args = shortcode_atts( $defaults, $atts );
+
+	$html = '';
+	$html .= "<p>This is a shortcode test, using the 'test' attribute: <strong>{$args['test']}</strong>.</p>";
+	$html .= $content;
+
+	return $html;
+}
+add_shortcode( 'ditty_shortcode_test', 'ditty_shortcode_test_display' );

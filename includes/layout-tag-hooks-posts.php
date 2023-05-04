@@ -1,106 +1,19 @@
 <?php
 
 /**
- * Filter the available item tags for layout editing
- * 
- * @since   3.0.20
- */
-function ditty_posts_lite_layout_tags_list( $tags, $item_type ) {
-	if ( 'posts_feed' == $item_type ) {
-		$item_types = ditty_item_types();
-		if ( 'Ditty_Item_Type_Posts_Lite' == $item_types['posts_feed']['class_name'] ) {
-			$allowed_tags = array(
-				'author_avatar',
-				'author_bio',
-				'author_name',
-				'categories',
-				'content',
-				'excerpt',
-				'icon',
-				'image',
-				'image_url',
-				'permalink',
-				'time',
-				'title',
-			);
-			$tags = array_intersect_key( $tags, array_flip( $allowed_tags ) );
-		}
-	}
-	return $tags;
-}
-add_filter( 'ditty_layout_tags_list', 'ditty_posts_lite_layout_tags_list', 10, 2 );
-
-/**
- * Modify tag attributes based on settings
- * 
- * @since   3.0.18
- */
-function ditty_posts_lite_layout_tags_atts( $atts, $tag, $item_type, $data ) {
-	if ( 'posts_feed' != $item_type && 'post' != $item_type ) {
-		return $atts;
-	}
-	switch( $tag ) {
-		case 'title':
-			if ( isset( $data['title_element'] ) ) {
-				switch ( $data['title_element'] ) {
-					case 'default':
-						break;
-					case 'none':
-						$atts['wrapper'] = false;
-						break;
-					default:
-						$atts['wrapper'] = esc_attr( $data['title_element'] );
-						break;
-				}
-			}
-			if ( isset( $data['title_link'] ) ) {
-				switch ( $data['title_link'] ) {
-					case 'off':
-						$atts['link'] = false;
-						break;
-					case 'on':
-						$atts['link'] = 'post';
-						break;
-					default:
-						break;
-				}
-			}
-			break;
-		case 'content':
-			if ( isset( $data['content_display'] ) && 'excerpt' == $data['content_display'] && isset( $data['excerpt_element'] ) ) {
-				switch ( $data['excerpt_element'] ) {
-					case 'default':
-						break;
-					case 'none':
-						$atts['wrapper'] = false;
-						break;
-					default:
-						$atts['wrapper'] = esc_attr( $data['excerpt_element'] );
-						break;
-				}
-			}
-			break;
-		default:
-			break;
-	}
-	return $atts;
-}
-add_filter( 'ditty_layout_tag_atts', 'ditty_posts_lite_layout_tags_atts', 10, 4 );
-
-/**
  * Add to the item tags for layouts
  * 
  * @since   3.0
  */
-function ditty_posts_lite_layout_tags( $tags, $item_type ) {
-	if ( 'posts_feed' == $item_type || 'post' == $item_type ) {
-		if ( isset( $tags['image'] ) ) {
-			$tags['image']['atts']['size'] = 'large';
-		}
-	}
-	return $tags;
-}
-add_filter( 'ditty_layout_tags', 'ditty_posts_lite_layout_tags', 10, 2 );
+// function ditty_posts_lite_layout_tags( $tags, $item_type ) {
+// 	if ( 'posts_feed' == $item_type || 'post' == $item_type ) {
+// 		if ( isset( $tags['image'] ) ) {
+// 			$tags['image']['atts']['size'] = 'large';
+// 		}
+// 	}
+// 	return $tags;
+// }
+// add_filter( 'ditty_layout_tags', 'ditty_posts_lite_layout_tags', 10, 2 );
 
 /**
  * Return a tag value
@@ -225,12 +138,12 @@ function ditty_posts_lite_layout_tag_content( $content, $item_type, $data, $atts
 	);
 	if ( in_array(  $item_type, $types ) ) {
 		// Possibly show the exerpt
-		if ( isset( $data['content_display'] ) && 'excerpt' == $data['content_display'] ) {
-			$atts['excerpt_length'] = isset( $data['excerpt_length'] ) 	? intval( $data['excerpt_length'] ) 					: 200;
-			$atts['more'] 					= isset( $data['more'] ) 						? sanitize_text_field( $data['more'] ) 				: false;
-			$atts['more_link']			= isset( $data['more_link'] ) 			? esc_attr( $data['more_link'] ) 							: false;
-			$atts['more_before'] 		= isset( $data['more_before'] ) 		? sanitize_text_field( $data['more_before'] ) : false;
-			$atts['more_after'] 		= isset( $data['more_after'] ) 			? sanitize_text_field( $data['more_after'] ) 	: false;
+		if ( isset( $atts['content_display'] ) && 'excerpt' == $atts['content_display'] ) {
+			$atts['excerpt_length'] = isset( $atts['excerpt_length'] ) 	? intval( $atts['excerpt_length'] ) 					: 200;
+			$atts['more'] 					= isset( $atts['more'] ) 						? wp_filter_nohtml_kses( $atts['more'] ) 				: false;
+			$atts['more_link']			= isset( $atts['more_link'] ) 			? esc_attr( $atts['more_link'] ) 							: false;
+			$atts['more_before'] 		= isset( $atts['more_before'] ) 		? wp_filter_nohtml_kses( $atts['more_before'] ) : false;
+			$atts['more_after'] 		= isset( $atts['more_after'] ) 			? wp_filter_nohtml_kses( $atts['more_after'] ) 	: false;
 			$content = ditty_init_layout_tag_excerpt( $content, $item_type, $data, $atts );
 		} else {
 			$content = ditty_posts_lite_tag_value( $data, 'post_content' );
@@ -278,6 +191,7 @@ function ditty_posts_lite_layout_tag_link_data( $link_data, $item_type, $data, $
 	if ( ! isset( $atts["{$prefix}link"] ) ) {
 		return false;
 	}
+
 	$link = strval( $atts["{$prefix}link"] );
 	$link_url = false;
 	$link_title = false;
@@ -306,7 +220,6 @@ function ditty_posts_lite_layout_tag_link_data( $link_data, $item_type, $data, $
 		$link_data = array(
 			'url' 		=> esc_url_raw( $link_url ),
 			'title'		=> $link_title,
-			'rel'			=> ( isset( $data['link_nofollow'] ) && 1 == $data['link_nofollow'] )  ? 'nofollow' : false,
 		);
 		return $link_data;
 	}
@@ -346,12 +259,14 @@ function ditty_posts_lite_layout_tag_image_data( $image_data, $item_type, $data,
 		if ( $thumbnail_id = get_post_thumbnail_id( $data['item'] ) ) {
 			$size = isset( $atts['size'] ) ? sanitize_text_field( $atts['size'] ) : 'large';
 			$image_source = wp_get_attachment_image_src( $thumbnail_id, $size, false );
-			$image_data = array(
-				'src' 		=> $image_source[0],
-				'width' 	=> $image_source[1],
-				'height' 	=> $image_source[2],
-				'alt'			=>	ditty_posts_lite_tag_value( $data, 'post_title' ),
-			);
+			if ( is_array( $image_source ) ) {
+				$image_data = array(
+					'src' 		=> $image_source[0],
+					'width' 	=> $image_source[1],
+					'height' 	=> $image_source[2],
+					'alt'			=>	ditty_posts_lite_tag_value( $data, 'post_title' ),
+				);
+			}
 		}
 	}
 	return $image_data;

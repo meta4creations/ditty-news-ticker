@@ -29,9 +29,16 @@ function ditty_layout_render_tag_link( $link, $html, $class, $data, $atts, $pref
 	$link_defaults = array(
 		'url'					=> '',
 		'title'				=> '',
-		'target' 	=> isset( $data["{$prefix}link_target"] ) ? esc_attr( $data["{$prefix}link_target"] ) : '_self',
-		'rel'			=> isset( $data["{$prefix}link_rel"] ) ? esc_attr( $data["{$prefix}link_rel"] ) : '',
+		'target' 	=> ( isset( $atts["{$prefix}link_target"] ) && '' != $atts["{$prefix}link_target"] ) ? esc_attr( $atts["{$prefix}link_target"] ) : '_self',
+		'rel'			=> isset( $atts["{$prefix}link_rel"] ) ? esc_attr( $atts["{$prefix}link_rel"] ) : '',
 	);
+	if ( isset( $data['link_target'] ) && '' != $data['link_target'] ) {
+		$link_defaults['target'] = $data['link_target'];
+	}
+	if ( isset( $data['link_nofollow'] ) && '1' == $data['link_nofollow'] ) {
+		$link_defaults['rel'] = 'nofollow';
+	}
+	
 	$link_args = shortcode_atts( $link_defaults, $link );
 
 	$defaults = array(

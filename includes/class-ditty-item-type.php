@@ -17,7 +17,7 @@ class Ditty_Item_Type {
 	public $icon;
 	public $description;
 	public $script_id;
-	public $js_fields = false;
+	public $js_settings = false;
 
 	/**
 	 * Get things started
@@ -112,8 +112,10 @@ class Ditty_Item_Type {
 	 * @since   3.1
 	 * @return string $type
 	 */
-	public function has_js_fields() {
-		return $this->js_fields;
+	public function js_registered( $type = false ) {
+		if ( $type = 'settings' ) {
+			return $this->js_settings;
+		}
 	}
 	
 	/**
@@ -147,16 +149,6 @@ class Ditty_Item_Type {
 	}
 	
 	/**
-	 * Set the allowed layout tags
-	 *
-	 * @access  public
-	 * @since   3.0.21
-	 */
-	public function layout_tags() {					
-		return array();
-	}
-	
-	/**
 	 * Get values to populate the metabox
 	 *
 	 * @access  public
@@ -179,6 +171,37 @@ class Ditty_Item_Type {
 	 */
 	public function get_layout_tags() {
 		return ditty_layout_tags( $this->get_type() );
+	}
+
+	/**
+	 * Return the default layout
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function default_layout() {
+		$default_layout = array(
+			'html' => '{content}',
+			'css' => '',
+		);
+		return $default_layout;
+	}
+
+	/**
+	 * Return layout variations
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function get_layout_variations() {
+		$layout_variations = array(
+			'default' => array(
+				'label'				=> __( 'Default', 'ditty-news-ticker' ),
+				'description' => __( 'The default variation used for this item.', 'ditty-news-ticker' ),
+				'icon'				=> 'fa-solid fa-asterisk'
+			),
+		);
+		return $layout_variations;
 	}
 	
 	/**
@@ -268,11 +291,21 @@ class Ditty_Item_Type {
 	 * Update values sent from the editor
 	 *
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.1
 	 */
 	public function sanitize_settings( $values ) {
-		$fields = $this->fields();
-		return ditty_sanitize_fields( $fields, $values, "ditty_item_type_{$this->get_type()}" );
+		return ditty_sanitize_settings( $values );
+	}
+	
+	/**
+	 * Modify the item before sending to the editor
+	 *
+	 * @since    3.1.13
+	 * @access   public
+	 * @var      string    $item
+	*/
+	public function editor_meta( $item ) {
+		return $item;
 	}
 	
 	/**

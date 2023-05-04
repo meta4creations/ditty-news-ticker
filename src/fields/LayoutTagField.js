@@ -1,34 +1,108 @@
 import { __ } from "@wordpress/i18n";
 import { Fragment, useState } from "@wordpress/element";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faGear, faXmark } from "@fortawesome/pro-solid-svg-icons";
+import {
+  faCircleCheck,
+  faGear,
+  faPenCircle,
+} from "@fortawesome/pro-solid-svg-icons";
 import classnames from "classnames";
-import { Button, ButtonGroup } from "../components";
+import { ButtonGroup } from "../components";
 import FieldHeader from "./FieldHeader";
 
 const LayoutTagField = (props) => {
-  const {
-    id,
-    fields,
-    value,
-    className,
-    collapsible,
-    defaultState = "expanded",
-    onChange,
-    renderInput,
-  } = props;
-  const [displayContent, setDisplayContent] = useState(
-    collapsible && "collapsed" === defaultState ? false : true
-  );
+  const { id, fields, value, className, onChange, renderInput } = props;
+  const [displayContent, setDisplayContent] = useState(false);
 
-  const toggleContent = (e) => {
-    if (
-      collapsible &&
-      !e.target.classList.contains("ditty-field__help-icon") &&
-      !e.target.parentElement.classList.contains("ditty-field__help-icon")
-    ) {
-      setDisplayContent(!displayContent);
+  const toggleContent = () => {
+    setDisplayContent(!displayContent);
+  };
+
+  const toggleStatus = () => {
+    const groupValue = typeof value === "object" ? { ...value } : {};
+    if (groupValue.disabled) {
+      delete groupValue.disabled;
+    } else {
+      groupValue.disabled = true;
     }
+    onChange(groupValue);
+  };
+
+  const handleUpdateValue = (attribute, updatedValue) => {
+    const groupValue = typeof value === "object" ? { ...value } : {};
+    const attributeValue = {
+      customValue: true,
+      value: updatedValue,
+    };
+    groupValue[attribute.id] = attributeValue;
+    onChange(groupValue);
+  };
+
+  const attributeHasCustomValue = (attribute) => {
+    const groupValue = typeof value === "object" ? { ...value } : {};
+    const attributeValue = groupValue[attribute.id]
+      ? { ...groupValue[attribute.id] }
+      : {};
+    return "undefined" === attributeValue.customValue
+      ? false
+      : attributeValue.customValue;
+  };
+
+  const getAttributeValue = (attribute) => {
+    return value[attribute.id]
+      ? value[attribute.id].value
+        ? value[attribute.id].value
+        : attribute.std
+      : attribute.std
+      ? attribute.std
+      : "";
+  };
+
+  const toggleAttribute = (attribute) => {
+    const groupValue = typeof value === "object" ? { ...value } : {};
+    const attributeValue = groupValue[attribute.id]
+      ? { ...groupValue[attribute.id] }
+      : {};
+    const attributeDefault = attribute.std ? attribute.std : false;
+    if (attributeValue.customValue) {
+      delete attributeValue.customValue;
+    } else {
+      attributeValue.customValue = true;
+      attributeValue.value = attributeValue.value
+        ? attributeValue.value
+        : attributeDefault;
+    }
+    groupValue[attribute.id] = attributeValue;
+    onChange(groupValue);
+  };
+
+  const getAttributeFields = () => {
+    if ("object" === typeof fields) {
+      const fieldsArray = [];
+      for (const key in fields) {
+        fieldsArray.push(fields[key]);
+      }
+      return fieldsArray.length ? fieldsArray : false;
+    }
+  };
+
+  const attributeFields = getAttributeFields();
+
+  const tagHasCustomValues = () => {
+    let hasCustomization = false;
+    for (const attribute in value) {
+      if (
+        typeof value[attribute] === "object" &&
+        value[attribute].customValue
+      ) {
+        hasCustomization = true;
+        break;
+      }
+    }
+    if (value.disabled) {
+      hasCustomization = false;
+    }
+    return hasCustomization;
   };
 
   const fieldClasses = classnames(
@@ -38,90 +112,73 @@ const LayoutTagField = (props) => {
     className,
     {
       "is-disabled": value.disabled,
-      "is-customized":
-        (!value.disabled && Object.keys(value).length) ||
-        (value.disabled && Object.keys(value).length > 1),
+      "is-customized": tagHasCustomValues(),
+      "is-open": displayContent,
     }
   );
-
-  const styles = {
-    cursor: collapsible ? "pointer" : "default",
-  };
-
-  const handleUpdateValue = (inputField, updatedValue) => {
-    const groupValue = typeof value === "object" ? value : {};
-    groupValue[inputField.id] = updatedValue;
-    onChange(groupValue);
-  };
-
-  const handleStatus = (status) => {
-    const groupValue = typeof value === "object" ? value : {};
-    if ("disabled" === status) {
-      groupValue.disabled = true;
-    } else {
-      delete groupValue.disabled;
-    }
-    onChange(groupValue);
-  };
-
-  const groupFields = () => {
-    if (Array.isArray(fields)) {
-      return fields;
-    }
-    if ("object" === typeof fields) {
-      const fieldsArray = [];
-      for (const key in fields) {
-        fieldsArray.push(fields[key]);
-      }
-      return fieldsArray;
-    }
-  };
 
   return (
     <div className={fieldClasses} key={id}>
       <FieldHeader
         {...props}
-        afterContents={
-          <ButtonGroup className="layoutTagActions" gap="3px">
-            <span
-              className="layoutTagAction layoutTagAction__enable"
-              onClick={() => handleStatus("enabled")}
-            >
-              <FontAwesomeIcon icon={faCheck} />
-            </span>
-            <span
-              className="layoutTagAction layoutTagAction__disable"
-              onClick={() => handleStatus("disabled")}
-            >
-              <FontAwesomeIcon icon={faXmark} />
-            </span>
-            <span
-              className="layoutTagAction layoutTagAction__customize"
-              onClick={toggleContent}
-            >
-              <FontAwesomeIcon icon={faGear} />
-            </span>
-          </ButtonGroup>
+        headerStart={
+          <FontAwesomeIcon
+            icon={faCircleCheck}
+            className="layoutTagEnabled"
+            onClick={() => toggleStatus()}
+          />
         }
-        style={styles}
+        headerEnd={
+          attributeFields &&
+          !value.disabled && (
+            <ButtonGroup className="layoutTagActions" gap="3px">
+              <span
+                className="layoutTagAction layoutTagAction__customize"
+                onClick={toggleContent}
+              >
+                <FontAwesomeIcon icon={faGear} />
+              </span>
+            </ButtonGroup>
+          )
+        }
       />
-      {displayContent && fields && (
+      {displayContent && attributeFields && !value.disabled && (
         <div className="ditty-field__input__container">
           <div className="ditty-field__input ditty-field__input--group">
-            {groupFields().map((groupField, index) => {
-              const groupFieldValue = value[groupField.id]
-                ? value[groupField.id]
-                : groupField.std
-                ? groupField.std
-                : "";
+            {attributeFields.map((attributeField, index) => {
+              const attributeFieldValue = getAttributeValue(attributeField);
+
+              attributeField.className = attributeField.className
+                ? `${attributeField.className} ditty-layout-attribute-field`
+                : "ditty-layout-attribute-field";
+              attributeField.fieldBefore = (
+                <FontAwesomeIcon
+                  icon={faPenCircle}
+                  className="layoutAttributeCustomized"
+                  onClick={() => toggleAttribute(attributeField)}
+                />
+              );
+
+              if (attributeHasCustomValue(attributeField)) {
+                attributeField.className +=
+                  " ditty-layout-attribute-field--custom";
+              } else {
+                attributeField.type = "heading";
+              }
 
               return (
                 <Fragment
                   key={
-                    groupField.id ? `${id}${groupField.id}` : `${id}${index}`
+                    attributeField.id
+                      ? `${id}${attributeField.id}`
+                      : `${id}${index}`
                   }
                 >
-                  {renderInput(groupField, groupFieldValue, handleUpdateValue)}
+                  {renderInput(
+                    attributeField,
+                    attributeFieldValue,
+                    handleUpdateValue
+                  )}
                 </Fragment>
               );
             })}

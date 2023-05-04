@@ -17,6 +17,18 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	 * @since 3.0
 	 */
 	public $slug = 'posts_feed';
+
+	/**
+	 * Get things started
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function __construct() {	
+		parent::__construct();
+		add_filter( 'ditty_layout_link_options', [$this, 'layout_link_options'], 10, 2 );
+		add_filter( 'ditty_layout_tags', [$this, 'layout_tags'], 10, 2 );
+	}
 	
 	/**
 	 * Prepare items for Ditty use
@@ -28,6 +40,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	public function prepare_items( $meta ) {
 		$item_value = maybe_unserialize( $meta['item_value'] );
 		$layout_value = maybe_unserialize( $meta['layout_value'] );
+		
 
 		// Set the query args
 		$query_args = array(
@@ -70,7 +83,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	 * Setup the type settings
 	 *
 	 * @access  public
-	 * @since   3.0.18
+	 * @since   3.1
 	 */
 	public function fields( $values = array() ) {					
 		$fields = array(
@@ -79,60 +92,20 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 				'id'		=> 'limit',
 				'name'	=> __( 'Limit', 'ditty-news-ticker' ),
 				'help'	=> __( 'Set the number of Posts to display.', 'ditty-news-ticker' ),
-				'std'		=> isset( $values['limit'] ) ? $values['limit'] : false,
 			),
-			'titleSettings' 	=> method_exists( $this, 'title_settings' ) ? $this->title_settings( $values ) : false,
-			'contentSettings' => method_exists( $this, 'content_settings' ) ? $this->content_settings( $values ) : false,
-			'linkSettings' 		=> method_exists( $this, 'link_settings' ) ? $this->link_settings( $values ) : false,
 		);
 		return apply_filters( 'ditty_item_type_fields', $fields, $this, $values );
-	}
-	
-	/**
-	 * Set the allowed layout tags
-	 *
-	 * @access  public
-	 * @since   3.0.21
-	 */
-	public function layout_tags() {					
-		$allowed_tags = array(
-			'author_avatar',
-			'author_bio',
-			'author_name',
-			'categories',
-			'content',
-			'excerpt',
-			'icon',
-			'image',
-			'image_url',
-			'permalink',
-			'time',
-			'title',
-		);
-		return $allowed_tags;
 	}
 	
 	/**
 	 * Set the default field values
 	 *
 	 * @access  public
-	 * @since   3.0.18
+	 * @since   3.1
 	 */
 	public function default_settings() {		
 		$defaults = array(
 			'limit' 				=> 10,
-			'content_display' 		=> 'full',
-			'excerpt_length'			=> 200,
-			'excerpt_element'			=> 'default',
-			'more'								=> esc_html__( 'Read More', 'ditty-news-ticker' ),
-			'more_link'						=> 'post',
-			'more_before'					=> '...&nbsp;',
-			'more_after'					=> '',
-			'title_element'				=> 'default',
-			'title_link'					=> 'default',
-			'link_target' 				=> '_self',
-			'link_nofollow'				=> '',
-			//'layout_tag_title'		=> array(),
 		);
 		return apply_filters( 'ditty_type_default_settings', $defaults, $this->slug );
 	}
@@ -164,7 +137,172 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	public function editor_preview( $value ) {
 		$defaults = $this->default_settings();
 		$args 		= wp_parse_args( $value, $defaults );
-		$preview 	= sprintf( __( 'Displaying %d Posts' ), $args['limit'] );
+		$preview 	= sprintf( __( 'Displaying %d Posts', 'ditty-news-ticker' ), $args['limit'] );
 		return $preview;
+	}
+
+
+	/**
+	 * Return the layout tags
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function layout_link_options( $link_options, $item_type ) {
+		if ( $item_type != $this->get_type() ) {
+			return $link_options;
+		}
+		return [
+			'true' => 'post',
+			'author' => 'author',
+			'author_link' => 'author_link',
+			'none' => 'none',
+		];
+	}
+	
+	/**
+	 * Return the layout tags
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function layout_tags( $tags, $item_type ) {
+		if ( $item_type != $this->get_type() ) {
+			return $tags;
+		}
+		$allowed_tags = array(
+			'author_avatar',
+			'author_bio',
+			'author_name',
+			'categories',
+			'content',
+			'excerpt',
+			'icon',
+			'image',
+			'image_url',
+			'permalink',
+			'time',
+			'title',
+		);
+		$tags = array_intersect_key( $tags, array_flip( $allowed_tags ) );
+
+		$tags['image']['atts']['size'] = 'large';
+		$tags['image']['atts']['link_target']['std'] = '_self';
+		return $tags;
+	}
+
+	/**
+	 * Return the default layout
+	 *
+	 * @access  public
+	 * @since   3.1
+	 */
+	public function default_layout() {
+		$default_layout = array(
+			'html' => '{image link="post"}
+{icon}
+<div class="ditty-item-heading">
+	{author_avatar width="50px" height="50px" fit="cover" link="author"}	
+	<div class="ditty-item-heading__content">
+		{author_name link="author"}
+		{time link="post"}
+	</div>
+</div>
+{title link="post"}
+{content}',
+			'css' => '.ditty-item__elements {
+	position: relative;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+	font-size: 15px;
+	line-height: 1.3125;
+}
+.ditty-item__elements a {
+	text-decoration: none;
+}
+.ditty-item__image {
+	overflow: hidden;
+	margin-bottom: 15px;
+}
+.ditty-item__image img {
+	display: block;
+	width: 100%;
+	height: auto;
+	line-height: 0;
+	transition: transform .75s ease; 
+}
+.ditty-item__image a:hover img {
+	transform: scale(1.05);
+}
+.ditty-item__icon {
+	display: none;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	font-size: 25px;
+	line-height: 25px;
+	color: #FFF;
+	opacity: .8;
+	text-shadow: 0 0 2px rgba( 0, 0, 0, .3 );
+	pointer-events: none;
+}
+.ditty-item__icon a {
+	color: #FFF;
+}
+.ditty-item__image + .ditty-item__icon {
+	display: block;
+}
+.ditty-item-heading {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	margin-bottom: 15px;
+}
+.ditty-item__author_avatar {
+	flex: 0 0 auto;
+	margin-right: 10px;
+}
+.ditty-item__author_avatar img {
+	display: block;
+	line-height: 0;
+	border-radius: 50%;
+}
+.ditty-item__author_name {
+	font-weight: 500;
+}
+.ditty-item__author_name a {
+	color: #050505;
+}
+.ditty-item__time {
+		font-size: 13px;
+		font-weight: 300;
+}
+.ditty-item__time a {
+		color: #6B6D71;
+		text-decoration: none;
+}
+.ditty-item__time a:hover {
+	text-decoration: underline;
+}
+.ditty-item__title {
+	font-size: 18px;
+	margin: 0;
+}
+.ditty-item__content,
+.ditty-item__excerpt {
+	font-size: 15px;
+	line-height: 1.3125;
+	margin: 5px 0 0 0;
+}
+.ditty-item__content p {
+	font-size: 15px;
+	line-height: 1.3125;
+	margin-top: 0;
+}
+.ditty-item__content p:last-child {
+	margin-bottom: 0;
+}',
+		);
+		return $default_layout;
 	}
 }

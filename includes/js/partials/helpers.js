@@ -39,22 +39,7 @@ function dittyDisplayCss(displayCss, displayId) {
  * @since    3.0.33
  * @return   null
  */
-function dittyGetUpdatedItemData(prevItems, newItems, type = "replace") {
-  const prevGroupedItems = prevItems.reduce((items, item) => {
-    const index = items.findIndex((i) => {
-      return i.id === item.id;
-    });
-    if (index < 0) {
-      items.push({
-        id: item.id,
-        items: [item],
-      });
-    } else {
-      items[index].items.push(item);
-    }
-    return items;
-  }, []);
-
+function dittyGetUpdatedItemData(prevItems, newItems) {
   const newGroupedItems = newItems.reduce((items, item) => {
     const index = items.findIndex((i) => {
       return i.id === item.id;
@@ -71,27 +56,9 @@ function dittyGetUpdatedItemData(prevItems, newItems, type = "replace") {
     return items;
   }, []);
 
-  let flattenedItems;
-  if ("update" === type) {
-    const updatedGroupedItems = newGroupedItems.reduce((groups, newItems) => {
-      const index = groups.findIndex((group) => {
-        return group.id === newItems.id;
-      });
-      if (index < 0) {
-        groups.push(newItems);
-      } else {
-        groups[index] = newItems;
-      }
-      return groups;
-    }, prevGroupedItems);
-    flattenedItems = updatedGroupedItems.reduce((items, group) => {
-      return [...items, ...group.items];
-    }, []);
-  } else {
-    flattenedItems = newGroupedItems.reduce((items, group) => {
-      return [...items, ...group.items];
-    }, []);
-  }
+  const flattenedItems = newGroupedItems.reduce((items, group) => {
+    return [...items, ...group.items];
+  }, []);
   const updatedIndexes = [];
   const updatedItems = flattenedItems.map((item, index) => {
     if (item.updated) {
@@ -117,72 +84,77 @@ function dittyGetUpdatedItemData(prevItems, newItems, type = "replace") {
  * @since    3.0.10
  * @return   null
  */
-function dittyUpdateItems(itemSwaps) {
+function dittyUpdateItems(itemSwaps, swapType = "animate") {
   var animationSpeed = 500;
 
   jQuery.each(itemSwaps, function (index, data) {
     var $current = data.currentItem,
       $new = data.newItem;
 
-    $current.wrap(
-      '<div class="ditty-update-wrapper" style="position: relative;overflow: hidden;"></div>'
-    );
-    var $updateWrapper = $current.parent(),
-      newStyle = $new.attr("style");
+    var $updateWrapper = $current.parent();
 
-    $updateWrapper.stop().css({
-      height: $current.outerHeight(),
-    });
-    $current.stop().css({
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-    });
-    $new.stop().css({
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      opacity: 0,
-    });
-    $current.after($new);
-
-    $current.stop().animate(
-      {
+    if ("static" === swapType) {
+      $current.after($new);
+      $current.remove();
+    } else {
+      var newStyle = $new.attr("style");
+      $current.wrap(
+        '<div class="ditty-update-wrapper" style="position: relative;overflow: hidden;"></div>'
+      );
+      $updateWrapper.stop().css({
+        height: $current.outerHeight(),
+      });
+      $current.stop().css({
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+      });
+      $new.stop().css({
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
         opacity: 0,
-      },
-      animationSpeed * 0.75,
-      "linear"
-    );
+      });
+      $current.after($new);
 
-    $new.stop().animate(
-      {
-        opacity: 1,
-      },
-      animationSpeed * 0.75,
-      "linear"
-    );
+      $current.stop().animate(
+        {
+          opacity: 0,
+        },
+        animationSpeed * 0.75,
+        "linear"
+      );
 
-    $updateWrapper.stop().animate(
-      {
-        height: $new.outerHeight(),
-      },
-      animationSpeed,
-      "easeOutQuint",
-      function () {
-        $updateWrapper.removeAttr("style");
-        $current.unwrap();
-        $current.remove();
-        if (newStyle) {
-          $new.attr("style", newStyle);
-        } else {
-          $new.removeAttr("style");
+      $new.stop().animate(
+        {
+          opacity: 1,
+        },
+        animationSpeed * 0.75,
+        "linear"
+      );
+
+      $updateWrapper.stop().animate(
+        {
+          height: $new.outerHeight(),
+        },
+        animationSpeed,
+        "easeOutQuint",
+        function () {
+          $updateWrapper.removeAttr("style");
+          $current.unwrap();
+          $current.remove();
+          if (newStyle) {
+            $new.attr("style", newStyle);
+          } else {
+            $new.removeAttr("style");
+          }
+          if ($new.hasClass("ditty-temp-item")) {
+            $new.remove();
+          }
         }
-        if ($new.hasClass("ditty-temp-item")) {
-          $new.remove();
-        }
-      }
-    );
+      );
+    }
   });
 }

@@ -1,33 +1,45 @@
 import { __ } from "@wordpress/i18n";
 import { Component } from "@wordpress/element";
 import _ from "lodash";
-import { toast } from "react-toastify";
 import { saveDitty } from "../../services/httpService";
 import { getDisplayObject } from "../../utils/displayTypes";
+import { updateDisplayOptions } from "../../services/dittyService";
 
 export const EditorContext = React.createContext();
 EditorContext.displayName = "EditorContext";
 
 export class EditorProvider extends Component {
-  data = { ...this.props.data };
+  dittyNotification = dittyEditor.notifications.dittyNotification;
   editorVars = { ...dittyEditorVars };
-  initialTitle = this.data.title ? this.data.title : "";
-  initialItems = this.data.items ? JSON.parse(this.data.items) : [];
-  initialDisplayItems = this.data.displayitems
-    ? JSON.parse(this.data.displayitems)
+  initialTitle = this.editorVars.title ? this.editorVars.title : "";
+  initialStatus = this.editorVars.status ? this.editorVars.status : "draft";
+  initialItems = this.editorVars.items ? this.editorVars.items : [];
+  initialDisplayItems = this.editorVars.displayItems
+    ? this.editorVars.displayItems
     : [];
   initialDisplays = this.editorVars.displays
     ? [...this.editorVars.displays]
     : [];
   initialLayouts = this.editorVars.layouts ? [...this.editorVars.layouts] : [];
-  initialDisplay = this.data.displayobject
-    ? JSON.parse(this.data.displayobject)
-    : getDisplayObject(this.data.display, [...this.initialDisplays]);
-  initialSettings = this.data.settings ? JSON.parse(this.data.settings) : {};
-  id = this.data.id;
+  initialDisplay = this.editorVars.displayObject
+    ? getDisplayObject(this.editorVars.displayObject)
+    : this.editorVars.display
+    ? getDisplayObject(this.editorVars.display, [...this.initialDisplays])
+    : false;
+  initialSettings = this.editorVars.settings
+    ? this.editorVars.settings
+    : {
+        status: "publish",
+        ajax_loading: "no",
+        live_updates: "no",
+        editorWidth: 350,
+      };
+  initialId = this.editorVars.id;
 
   state = {
+    id: this.initialId,
     title: this.initialTitle,
+    status: this.initialStatus,
     items: [...this.initialItems],
     displayItems: [...this.initialDisplayItems],
     displays: [...this.initialDisplays],
@@ -35,6 +47,53 @@ export class EditorProvider extends Component {
     currentDisplay: _.cloneDeep(this.initialDisplay),
     settings: _.cloneDeep(this.initialSettings),
     currentPanel: "items",
+  };
+
+  /**
+   * Update all items
+   * @param {object} updatedItems
+   */
+  ensureItemOrder = (items) => {
+    let parentItems = [];
+    let childGroups = [];
+
+    items.map((item) => {
+      if (!item.parent_id || "0" === String(item.parent_id)) {
+        parentItems.push(item);
+      } else {
+        if (!childGroups[item.parent_id]) {
+          childGroups[item.parent_id] = [];
+        }
+        childGroups[item.parent_id].push(item);
+      }
+    });
+
+    // Set the index of the items
+    const updatedItems = parentItems.reduce((itemsList, item, index) => {
+      const updatedItem = { ...item };
+      if (!updatedItem.item_updates) {
+        updatedItem.item_updates = {};
+      }
+      updatedItem.item_updates.item_index = true;
+      updatedItem.item_index = index.toString();
+      itemsList.push(updatedItem);
+
+      // Set the child items
+      if (childGroups[item.item_id]) {
+        childGroups[item.item_id].map((childItem, childIndex) => {
+          const updatedChildItem = { ...childItem };
+          if (!updatedChildItem.item_updates) {
+            updatedChildItem.item_updates = {};
+          }
+          updatedChildItem.item_updates.item_index = true;
+          updatedChildItem.item_index = childIndex.toString();
+          itemsList.push(updatedChildItem);
+        });
+      }
+      return itemsList;
+    }, []);
+
+    return updatedItems;
   };
 
   /**
@@ -46,8 +105,11 @@ export class EditorProvider extends Component {
    */
   replaceDisplayItems = (
     newDisplayItems,
-    existingDisplayItems = this.state.displayItems,
-    items = this.state.items
+    existingDisplayItems = this.state.displayItems &&
+    this.state.displayItems.length
+      ? this.state.displayItems
+      : [],
+    items = this.ensureItemOrder(this.state.items)
   ) => {
     const allDisplayItems = items.reduce((itemsArray, item) => {
       const filteredNewItems = newDisplayItems.filter((displayItem) => {
@@ -64,6 +126,7 @@ export class EditorProvider extends Component {
         if (filteredExistingItems.length) {
           return [...itemsArray, ...filteredExistingItems];
         }
+        return itemsArray;
       }
     }, []);
     return allDisplayItems;
@@ -73,44 +136,130 @@ export class EditorProvider extends Component {
    * Update all items
    * @param {object} updatedItems
    */
-  handleSortItems = (updatedItems) => {
-    const orderedItems = updatedItems.map((item, index) => {
-      item.item_index = index.toString();
+  handleSortItems = (items, parentId = null) => {
+    const parentItems = "0" === parentId ? items : [];
+    const childGroups = {};
+    if (parentId && String(parentId) !== "0") {
+      childGroups[parentId] = items;
+    }
 
-      // Add to the item updates
-      if (!item.item_updates) {
-        item.item_updates = {};
+    if (null === parentId) {
+      items.map((item) => {
+        if (!item.parent_id || "0" === String(item.parent_id)) {
+          parentItems.push(item);
+        } else {
+          if (!childGroups[item.parent_id]) {
+            childGroups[item.parent_id] = [];
+          }
+          childGroups[item.parent_id].push(item);
+        }
+      });
+    } else if ("0" === String(parentId)) {
+      this.state.items.map((item) => {
+        if (item.parent_id && "0" !== String(item.parent_id)) {
+          if (!childGroups[item.parent_id]) {
+            childGroups[item.parent_id] = [];
+          }
+          childGroups[item.parent_id].push(item);
+        }
+      });
+    } else {
+      this.state.items.map((item) => {
+        if (!item.parent_id || "0" === String(item.parent_id)) {
+          parentItems.push(item);
+        } else if (
+          item.parent_id &&
+          String(parentId) !== String(item.parent_id)
+        ) {
+          if (!childGroups[item.parent_id]) {
+            childGroups[item.parent_id] = [];
+          }
+          childGroups[item.parent_id].push(item);
+        }
+      });
+    }
+
+    // Set the index of the items
+    const updatedItems = parentItems.reduce((itemsList, item, index) => {
+      const updatedItem = { ...item };
+      if (!updatedItem.item_updates) {
+        updatedItem.item_updates = {};
       }
-      item.item_updates.item_index = true;
-      return item;
-    });
-    this.setState({ items: orderedItems });
+      updatedItem.item_updates.item_index = true;
+      updatedItem.item_index = index.toString();
+      itemsList.push(updatedItem);
+
+      // Set the child items
+      if (childGroups[item.item_id]) {
+        childGroups[item.item_id].map((childItem, childIndex) => {
+          const updatedChildItem = { ...childItem };
+          if (!updatedChildItem.item_updates) {
+            updatedChildItem.item_updates = {};
+          }
+          updatedChildItem.item_updates.item_index = true;
+          updatedChildItem.item_index = childIndex.toString();
+          itemsList.push(updatedChildItem);
+        });
+      }
+      return itemsList;
+    }, []);
+
+    this.setState({ items: updatedItems });
+    return updatedItems;
   };
 
   /**
    * Add an item
    * @param {object} newItem
    */
-  handleAddItem = (newItem, insertIndex = 0) => {
-    newItem.item_updates = {
-      new_item: true,
-    };
-    let itemInserted = false;
-    const updatedItems = this.state.items.reduce((itemsArray, item) => {
-      if (insertIndex === Number(item.item_index)) {
-        itemsArray.push(newItem);
-        itemInserted = true;
-      }
-      itemsArray.push(item);
-      return itemsArray;
-    }, []);
-    if (!itemInserted) {
-      updatedItems.push(newItem);
+  handleAddItems = (newItems, insertIndex = 0) => {
+    if (!Array.isArray(newItems) || newItems.length < 1) {
+      return false;
     }
 
-    //const updatedItems = this.state.items;
-    //updatedItems.unshift(newItem);
-    this.handleSortItems(updatedItems);
+    const parentId = newItems[0].parent_id ? Number(newItems[0].parent_id) : 0;
+    let parentIndexes = [];
+    let childIndexes = [];
+
+    this.state.items.map((item, index) => {
+      if (0 === Number(item.parent_id)) {
+        parentIndexes.push(index);
+      } else if (parentId === Number(item.parent_id)) {
+        childIndexes.push(index);
+      }
+    });
+
+    const updatedNewItems = newItems.map((item) => {
+      const updatedItem = { ...item };
+      updatedItem.item_updates = {
+        new_item: true,
+      };
+      return updatedItem;
+    });
+
+    const updatedItems = [...this.state.items];
+    if (0 === parentId) {
+      if (insertIndex < parentIndexes.length) {
+        updatedItems.splice(parentIndexes[insertIndex], 0, ...updatedNewItems);
+      } else {
+        updatedItems.push(...updatedNewItems);
+      }
+    } else {
+      if (insertIndex < childIndexes.length) {
+        updatedItems.splice(childIndexes[insertIndex], 0, ...updatedNewItems);
+      } else {
+        if (childIndexes[childIndexes.length - 1] < updatedItems.length) {
+          updatedItems.splice(
+            childIndexes[childIndexes.length - 1] + 1,
+            0,
+            ...updatedNewItems
+          );
+        } else {
+          updatedItems.push(...updatedNewItems);
+        }
+      }
+    }
+    return this.handleSortItems(updatedItems);
   };
 
   /**
@@ -122,16 +271,29 @@ export class EditorProvider extends Component {
       (item) => item.item_id !== deletedItem.item_id
     );
     this.handleDeleteDisplayItems(deletedItem);
-    this.handleSortItems(updatedItems);
+    return this.handleSortItems(updatedItems);
   };
 
   /**
    * Update a single item
    * @param {object} updatedItem
    */
-  handleUpdateItem = (updatedItem, key) => {
-    const updatedItems = this.state.items.map((item) => {
-      if (updatedItem.item_id === item.item_id) {
+  handleUpdateItem = (data, key, returned = "item") => {
+    let currentIndex = -1;
+    const updates = Array.isArray(data) ? data : [data];
+
+    const updatedItems = this.state.items.map((item, index) => {
+      const itemIndex = updates.findIndex(
+        (update) => update.item_id === item.item_id
+      );
+      if (itemIndex < 0) {
+        return item;
+      } else {
+        const updatedItem = updates[itemIndex];
+        currentIndex = index;
+        if (!key) {
+          return updatedItem;
+        }
         if (!updatedItem.item_updates) {
           updatedItem.item_updates = {};
         }
@@ -141,21 +303,44 @@ export class EditorProvider extends Component {
           updatedItem.item_updates[key] = true;
         }
         return updatedItem;
-      } else {
-        return item;
       }
     });
     this.setState({ items: updatedItems });
-    return updatedItems;
+
+    if ("item" === returned) {
+      return updatedItems[currentIndex];
+    } else {
+      return updatedItems;
+    }
+  };
+
+  /**
+   * Update a single item meta
+   * @param {object} updatedItem
+   */
+  handleUpdateItemMeta = (item, key, value, returned = "item") => {
+    const updatedItem = { ...item };
+    const updatedMeta = updatedItem.meta ? { ...updatedItem.meta } : {};
+    if (!updatedMeta.meta_updates) {
+      updatedMeta.meta_updates = {};
+    }
+    if (Array.isArray(key)) {
+      key.map((k) => (updatedMeta.meta_updates[k] = true));
+    } else {
+      updatedMeta.meta_updates[key] = true;
+    }
+    updatedMeta[key] = value;
+    updatedItem.meta = updatedMeta;
+    return this.handleUpdateItem(updatedItem, "meta", returned);
   };
 
   /**
    * Add to the display items
    * @param {object} newDisplayItems
    */
-  handleAddDisplayItems = (newDisplayItems) => {
+  handleAddDisplayItems = (newDisplayItems, items = this.state.items) => {
     const mergedDisplayItems = [...this.state.displayItems, ...newDisplayItems];
-    const updatedDisplayItems = this.state.items.reduce((itemsArray, item) => {
+    const updatedDisplayItems = items.reduce((itemsArray, item) => {
       const displayItems = mergedDisplayItems.filter((displayItem) => {
         return displayItem.id === item.item_id;
       });
@@ -169,9 +354,16 @@ export class EditorProvider extends Component {
    * Delete display items
    * @param {object} item
    */
-  handleDeleteDisplayItems = (deletedItem) => {
+  handleDeleteDisplayItems = (data) => {
+    const updates = Array.isArray(data) ? data : [data];
     const updatedDisplayItems = this.state.displayItems.filter(
-      (displayItem) => displayItem.id !== deletedItem.item_id
+      (displayItem) => {
+        const itemIndex = updates.findIndex(
+          (update) => update.item_id === displayItem.id
+        );
+        return itemIndex === -1;
+        displayItem.id !== deletedItem.item_id;
+      }
     );
     this.setState({ displayItems: updatedDisplayItems });
     return updatedDisplayItems;
@@ -233,7 +425,19 @@ export class EditorProvider extends Component {
    * @param {object} updatedTitle
    */
   handleUpdateTitle = (updatedTitle) => {
+    // Update the Ditty options
+    const dittyEl = document.getElementById("ditty-editor__ditty");
+    updateDisplayOptions(dittyEl, "title", updatedTitle);
+
     this.setState({ title: updatedTitle });
+  };
+
+  /**
+   * Update the title
+   * @param {object} updatedTitle
+   */
+  handleUpdateStatus = (updatedStatus) => {
+    this.setState({ status: updatedStatus });
   };
 
   /**
@@ -288,6 +492,10 @@ export class EditorProvider extends Component {
     });
     const trimmedUpdatedItems = updatedItems.map((item) => {
       const updates = Object.keys(item.item_updates);
+      const metaUpdates =
+        item.meta && item.meta.meta_updates
+          ? Object.keys(item.meta.meta_updates)
+          : false;
 
       // If this is a new item, include everything
       if (updates.includes("new_item")) {
@@ -300,10 +508,24 @@ export class EditorProvider extends Component {
           trimmed[update] = item[update];
           return trimmed;
         },
-        { item_id: item.item_id }
+        { item_id: item.item_id, item_type: item.item_type }
       );
+
+      // Replace trimmed meta
+      const trimmedMeta = metaUpdates
+        ? metaUpdates.reduce((trimmed, update) => {
+            trimmed[update] = item.meta[update];
+            return trimmed;
+          }, {})
+        : false;
+
+      if (trimmedMeta) {
+        trimmedItem.meta = trimmedMeta;
+      }
+
       return trimmedItem;
     });
+
     if (trimmedUpdatedItems.length) {
       updates.items = trimmedUpdatedItems;
     }
@@ -318,8 +540,20 @@ export class EditorProvider extends Component {
       updates.title = this.state.title;
     }
 
+    // Check if the status has changes
+    if (!_.isEqual(this.state.status, this.initialStatus)) {
+      updates.status = this.state.status;
+    }
+
     // Check if settings have changed
     if (!_.isEqual(this.state.settings, this.initialSettings)) {
+      updates.settings = this.state.settings;
+    }
+
+    // Check if this is a new Ditty and make sure all new data is sent
+    if ("ditty-new" === this.state.id) {
+      updates.title = this.state.title;
+      updates.display = this.state.currentDisplay;
       updates.settings = this.state.settings;
     }
 
@@ -331,98 +565,120 @@ export class EditorProvider extends Component {
    * @returns object
    */
   handleAfterSaveDitty = (data, onComplete) => {
+    const updatedState = {};
+
+    // If saving a new Ditty
+    if (data.updates && data.updates.new) {
+      updatedState.id = data.updates.new;
+
+      // Get the current URL
+      const url = new URL(window.location.href);
+
+      // Update the query parameters
+      url.searchParams.set("page", "ditty");
+      url.searchParams.set("id", data.updates.new);
+
+      // Replace the current state with the updated URL
+      history.replaceState(null, "", url);
+    }
+
     if (data.updates && data.updates.items) {
+      // Swap out new ids with actual ids
       const updatedItems = this.state.items.map((item) => {
         let temp_id;
         let updated_id;
+        let temp_parent_id;
+        let updated_parent_id;
         const index = data.updates.items.findIndex((i) => {
           if (i.new_id && i.item_id === item.item_id) {
             temp_id = i.item_id;
             updated_id = i.new_id;
+            if (i.new_parent_id) {
+              temp_parent_id = i.parent_id;
+              updated_parent_id = i.new_parent_id;
+            }
             return true;
           }
         });
         if (index >= 0) {
           item.temp_id = temp_id;
           item.item_id = updated_id;
+          if (updated_parent_id) {
+            item.temp_parent_id = temp_parent_id;
+            item.parent_id = updated_parent_id;
+            //delete item.new_parent_id;
+          }
+        }
+        if (item.item_updates) {
+          delete item.item_updates;
         }
         return item;
       });
-      this.setState({ items: updatedItems });
+
+      // Update sanitized data
+      data.updates.items.map((item) => {
+        const index = updatedItems.findIndex((i) => {
+          if (i.item_id === item.item_id) {
+            return true;
+          }
+        });
+        if (index >= 0) {
+          const currentItem = { ...updatedItems[index] };
+          const currentItemMeta = currentItem.meta ? currentItem.meta : {};
+          const newItemMeta = item.meta
+            ? { ...currentItemMeta, ...item.meta }
+            : { ...currentItemMeta };
+          delete newItemMeta.meta_updates;
+          item.meta = newItemMeta;
+          updatedItems[index] = { ...updatedItems[index], ...item };
+        }
+      });
+      this.initialItems = [...updatedItems];
+      updatedState.items = updatedItems;
     }
 
     if (data.updates) {
-      const toastUpdates = [];
+      if (data.updates.new) {
+        this.dittyNotification(
+          __(`Ditty has been published!`, "ditty-news-ticker"),
+          "success"
+        );
+      } else {
+        this.dittyNotification(
+          __(`Ditty has been updated!`, "ditty-news-ticker"),
+          "success"
+        );
+      }
+
       for (const property in data.updates) {
-        let description = __("Ditty has been updated!", "ditty-news-ticker");
         switch (property) {
           case "display":
-            toastUpdates.push(
-              __(`Ditty Display has been updated!`, "ditty-news-ticker")
-            );
-            break;
-          case "items":
-            let itemsArranged = false;
-            let itemsUpdated = 0;
-            data.updates[property].map((item) => {
-              if (item.item_index) {
-                itemsArranged = true;
-              }
-              if (item.date_modified) {
-                itemsUpdated++;
-              }
-            });
-            if (1 === itemsUpdated) {
-              toastUpdates.push(
-                __(
-                  `${itemsUpdated} Ditty Item has been updated!`,
-                  "ditty-news-ticker"
-                )
-              );
-            } else if (itemsUpdated > 1) {
-              toastUpdates.push(
-                __(
-                  `${itemsUpdated} Ditty Items have been updated!`,
-                  "ditty-news-ticker"
-                )
-              );
-            }
-            if (itemsArranged) {
-              toastUpdates.push(
-                __(`Ditty Items order has been updated!`, "ditty-news-ticker")
-              );
-            }
+            const displayObject =
+              typeof data.updates.display === "object"
+                ? getDisplayObject(data.updates.display)
+                : getDisplayObject(data.updates.display, this.state.displays);
+            this.initialDisplay = displayObject;
+            updatedState.currentDisplay = displayObject;
             break;
           case "settings":
-            toastUpdates.push(
-              __(`Ditty Settings have been updated!`, "ditty-news-ticker")
-            );
+            this.initialSettings = { ...data.updates.settings };
+            updatedState.settings = data.updates.settings;
             break;
           case "title":
-            toastUpdates.push(
-              __(`Ditty Title has been updated!`, "ditty-news-ticker")
-            );
+            this.initialTitle = data.updates.title;
+            break;
+          case "status":
+            this.initialStatus = data.updates.status;
             break;
           default:
             break;
         }
       }
 
-      toastUpdates.map((update, index) => {
-        toast(update, {
-          autoClose: 3000,
-          icon: (
-            <svg
-              className="ditty-logo"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 69.8 71.1"
-            >
-              <path d="M0 46.4c0-17.2 8.6-29.1 24.6-29.1a19.93 19.93 0 0 1 6.6 1V0H45v59.2l1 10.3H34.2l-.9-5.2h-.5a15.21 15.21 0 0 1-13 6.8C3.8 71.1 0 58.4 0 46.4Zm31.2 7.4V28.6a13.7 13.7 0 0 0-6-1.3c-8.7 0-11.3 8.7-11.3 17.8 0 8.5 1.9 15.8 8.9 15.8 5.1 0 8.4-3.8 8.4-7.1ZM54.7 63.7a7 7 0 0 1 7.4-7.2c5 0 7.7 2.8 7.7 7.1s-2.6 7.5-7.4 7.5c-5.1 0-7.7-3.1-7.7-7.4Z" />
-            </svg>
-          ),
-          delay: index * 100,
-        });
-      });
+      // Update the state
+      if (Object.keys(updatedState).length) {
+        this.setState(updatedState);
+      }
     }
 
     if (onComplete) {
@@ -436,41 +692,28 @@ export class EditorProvider extends Component {
   handleSaveDitty = async (onComplete) => {
     // Get the updates
     const updates = this.getDittyUpdates();
-    updates.id = this.id;
+    updates.id = this.state.id;
+
+    // If no display has been updated, add the default display
+    if (!this.state.currentDisplay) {
+      const defaultDisplayType = this.editorVars.defaultDisplayType
+        ? this.editorVars.defaultDisplayType
+        : "list";
+      const displayObject = getDisplayObject(
+        defaultDisplayType,
+        this.state.displays
+      );
+      updates.display = displayObject;
+      this.setState({ currentDisplay: _.cloneDeep(displayObject) });
+    }
 
     try {
       await saveDitty(updates, (data) => {
         this.handleAfterSaveDitty(data, onComplete);
       });
-
-      if (updates.display) {
-        delete updates.display.updated;
-        this.initialDisplay = updates.display;
-        this.setState({ currentDisplay: updates.display });
-      }
-
-      if (updates.settings) {
-        this.initialSettings = updates.settings;
-      }
-
-      if (updates.title) {
-        this.initialTitle = updates.title;
-      }
-
-      // Reset the item updates
-      const resetItemUpdates = this.state.items.map((item) => {
-        if (item.item_updates) {
-          delete item.item_updates;
-        }
-        return item;
-      });
-
-      this.initialItems = resetItemUpdates;
-      this.setState({ items: resetItemUpdates });
     } catch (ex) {
-      console.log("catch", ex);
-      if (ex.response && ex.response.status === 404) {
-      }
+      this.dittyNotification(ex, "error");
+      onComplete();
     }
   };
 
@@ -478,8 +721,9 @@ export class EditorProvider extends Component {
     return (
       <EditorContext.Provider
         value={{
-          id: this.id,
+          id: this.state.id,
           title: this.state.title,
+          status: this.state.status,
           items: this.state.items,
           displayItems: this.state.displayItems,
           displays: this.state.displays,
@@ -495,14 +739,17 @@ export class EditorProvider extends Component {
             setCurrentPanel: this.handleSetCurrentPanel,
             setCurrentDisplay: this.handleSetCurrentDisplay,
             sortItems: this.handleSortItems,
-            addItem: this.handleAddItem,
+            addItems: this.handleAddItems,
             deleteItem: this.handleDeleteItem,
             updateItem: this.handleUpdateItem,
+            updateItemMeta: this.handleUpdateItemMeta,
             addDisplayItems: this.handleAddDisplayItems,
+            deleteDisplayItems: this.handleDeleteDisplayItems,
             updateDisplayItems: this.handleUpdateDisplayItems,
             updateDisplay: this.handleUpdateDisplay,
             updateLayout: this.handleUpdateLayout,
             updateTitle: this.handleUpdateTitle,
+            updateStatus: this.handleUpdateStatus,
             updateSettings: this.handleUpdateSettings,
             saveDitty: this.handleSaveDitty,
           },

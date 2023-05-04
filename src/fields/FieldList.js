@@ -1,15 +1,17 @@
 import { __ } from "@wordpress/i18n";
 import classnames from "classnames";
 import Field from "./Field";
+import { showField } from "./fieldHelpers";
 
 const FieldList = ({
   name,
-  desc,
+  description,
   fields,
   children,
   values,
   className,
   onUpdate,
+  delayChange = false,
 }) => {
   const classes = classnames("ditty-field-list", className);
 
@@ -43,58 +45,28 @@ const FieldList = ({
     return value;
   };
 
-  /**
-   * Check field visibility based on other field values
-   * @param {object} field
-   * @returns
-   */
-  const showField = (field) => {
-    if (!field.show) {
-      return true;
-    }
-
-    const operators = {
-      "=": (a, b) => {
-        return a === b;
-      },
-      "!=": (a, b) => {
-        return a !== b;
-      },
-    };
-
-    if (field.show) {
-      const relation = field.show.relation ? field.show.relation : "AND";
-      const checks = field.show.fields.map((f) => {
-        if (operators[f.compare](values[f.key], f.value)) {
-          return "pass";
-        } else {
-          return "fail";
-        }
-      });
-      if ("OR" === relation) {
-        return checks.includes("pass");
-      } else {
-        return checks.every((v) => v === "pass");
-      }
-    }
-  };
-
   return (
     <div className={classes}>
-      {(name || desc) && (
+      {(name || description) && (
         <div className="ditty-field-list__heading">
-          {name && <h3>{name}</h3>} {desc && <p>{desc}</p>}
+          {name && <h3 className="ditty-field-list__heading__title">{name}</h3>}{" "}
+          {description && (
+            <p className="ditty-field-list__heading__description">
+              {description}
+            </p>
+          )}
         </div>
       )}
       {children && children}
       {fields &&
         fields.map((field, index) => {
-          return showField(field) ? (
+          return showField(field, values) ? (
             <Field
               key={field.id ? field.id : index}
               field={field}
               fieldValue={fieldValue(field)}
               updateValue={onUpdate}
+              delayChange={delayChange}
             />
           ) : null;
         })}

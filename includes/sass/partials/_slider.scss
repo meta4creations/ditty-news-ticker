@@ -7,6 +7,7 @@
 		box-sizing: border-box;
 	}
 	&__contents {
+		width: 100%;
 		position: relative;
 		order: 1;
 		&:hover {
@@ -26,6 +27,7 @@
 		line-height: 1;
 	}
 	&__bullets {
+		width: 100%;
 		order: 2;
 		//position: absolute;
 		//left: 0;
@@ -43,9 +45,9 @@
 		width: 10px;
 		height: 10px;
 		border-radius: 50%;
-		background: #CCC;
+		background: #ccc;
 		margin: 0 1px;
-		transition: background-color .25s ease; 
+		transition: background-color 0.25s ease;
 		&--active {
 			background: #000;
 		}
@@ -62,7 +64,7 @@
 		align-items: center;
 		justify-content: space-between;
 		opacity: 0;
-		transition: opacity .25s ease; 
+		transition: opacity 0.25s ease;
 		&--static {
 			opacity: 1;
 		}
@@ -78,8 +80,8 @@
 		line-height: 0;
 		width: 30px;
 		height: 30px;
-		color: #32373C;
-		background: rgba( 255, 255, 255, .3 );
+		color: #32373c;
+		background: rgba(255, 255, 255, 0.3);
 		border-radius: 50%;
 		text-decoration: none;
 		i {

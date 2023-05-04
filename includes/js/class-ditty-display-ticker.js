@@ -34,32 +34,41 @@
     bgColor: "",
     padding: {},
     margin: {},
-    borderColor: {},
+    borderColor: "",
     borderStyle: {},
     borderWidth: {},
     borderRadius: {},
     contentsBgColor: "",
     contentsPadding: {},
-    contentsBorderColor: {},
+    contentsBorderColor: "",
     contentsBorderStyle: {},
     contentsBorderWidth: {},
     contentsBorderRadius: {},
     titleDisplay: "none",
+    titleContentsSize: "stretch",
+    titleContentsPosition: "start",
     titleElement: "h3",
-    titleElementPosition: "topLeft",
+    titleElementPosition: "start",
+    titleElementVerticalPosition: "start",
     titleFontSize: "",
     titleLineHeight: "",
+    titleMinWidth: "",
+    titleMaxWidth: "",
+    titleMinHeight: "",
+    titleMaxHeight: "",
     titleColor: "",
+    titleLinkColor: "",
     titleBgColor: "",
     titleMargin: {},
     titlePadding: {},
-    titleBorderColor: {},
+    titleBorderColor: "",
     titleBorderStyle: {},
     titleBorderWidth: {},
     titleBorderRadius: {},
     itemTextColor: "",
+    itemLinkColor: "",
     itemBgColor: "",
-    itemBorderColor: {},
+    itemBorderColor: "",
     itemBorderStyle: {},
     itemBorderWidth: {},
     itemBorderRadius: {},
@@ -99,14 +108,9 @@
     this.firstItem = this.settings.item;
     this.currentHeight = this.settings.height;
     this.visibleItems = [];
+    this.finished = false;
 
     this.scrollIncrement = 0;
-    // this.framesPerSecond = 60;
-    // this.previousTime = performance.now();
-    // this.frameInterval = 1000 / this.framesPerSecond;
-    // this.deltaTimeMultiplier = 1;
-    // this.deltaTime = 0;
-    // this.averageDeltaTime = [];
 
     if (1 === parseInt(this.settings.shuffle)) {
       this.shuffle();
@@ -135,13 +139,15 @@
       this.$elmt.attr("data-display", this.settings.display);
 
       // Create the ticker contents
-      $contents = $('<div class="ditty-ticker__contents"></div>');
+      $contents = $(
+        '<div class="ditty__contents ditty-ticker__contents"></div>'
+      );
       this.$contents = $contents;
 
       // Create the ticker title
-      this.$title = $('<div class="ditty-ticker__title"></div>');
+      this.$title = $('<div class="ditty__title ditty-ticker__title"></div>');
       this.$titleContents = $(
-        '<div class="ditty-ticker__title__contents"></div>'
+        '<div class="ditty__title__contents ditty-ticker__title__contents"></div>'
       );
       this.$title.append(this.$titleContents);
 
@@ -173,11 +179,6 @@
 
       // Trigger the init
       setTimeout(function () {
-        // Preload images
-        for (var i = 0; i < self.total; i++) {
-          self._preloadItem(self.settings.items[i]);
-        }
-
         // Initialize the items
         self._initializeItems();
 
@@ -197,14 +198,34 @@
       }
     },
 
-    _preloadItem: function (item) {
-      var img;
-      $(item.html)
-        .find("img")
-        .each(function () {
-          img = new Image();
-          img.src = $(this).attr("src");
-        });
+    _preloadItem: function ($item, setHeight = false) {
+      var self = this,
+        img,
+        numImages = $item.find("img").length,
+        imagesLoaded = 0;
+
+      $item.find("img").each(function () {
+        img = new Image();
+        img.src = $(this).attr("src");
+        var isLoaded = img.complete && img.naturalHeight !== 0;
+        if (isLoaded) {
+          imagesLoaded++;
+          if (numImages === imagesLoaded) {
+            if (setHeight) {
+              self._setCurrentHeight();
+            }
+          }
+        } else {
+          img.onload = function () {
+            imagesLoaded++;
+            if (numImages === imagesLoaded) {
+              if (setHeight) {
+                self._setCurrentHeight();
+              }
+            }
+          };
+        }
+      });
     },
 
     _positionItems: function (distance) {
@@ -255,23 +276,12 @@
       cancelAnimationFrame(this.interval);
 
       function ditty_tickerLoop() {
-        // var lengthLimit = 20;
-        // var timeDiff = currentTime - self.previousTime;
-        // self.averageDeltaTime.unshift( timeDiff );
-        // if ( self.averageDeltaTime.length > lengthLimit ) {
-        // 	self.averageDeltaTime.length = lengthLimit;
-        // }
-        // var sum = self.averageDeltaTime.reduce((partialSum, a) => partialSum + a, 0);
-        // var average = Math.ceil(sum / lengthLimit);
-
-        //self.deltaTime = currentTime - self.previousTime;
-        //console.log('timeDiff', timeDiff);
-        //self.deltaTimeMultiplier = self.deltaTime / self.frameInterval;
         self.scrollIncrement =
           parseFloat(self.settings.speed) * self.scrollPercent;
         self._positionItems();
-        //self.previousTime = currentTime;
-        self.interval = requestAnimationFrame(ditty_tickerLoop);
+        if (self.running) {
+          self.interval = requestAnimationFrame(ditty_tickerLoop);
+        }
       }
 
       self.interval = requestAnimationFrame(ditty_tickerLoop);
@@ -340,7 +350,7 @@
       var existingItems = this.$items.children(
         ".ditty-item--" + this.settings.items[index].uniq_id
       );
-      if ("yes" !== this.settings.cloneItems && existingItems.length) {
+      if ("yes" !== this.settings.cloneItems && existingItems.length > 0) {
         return false;
       }
       if (
@@ -380,6 +390,7 @@
       this._itemSpacing($item);
       this._itemSetTransform($item, this._itemResetPosition($item));
       this.$items.append($item);
+      this._preloadItem($item, true);
 
       $item.css({
         display: "block",
@@ -409,13 +420,17 @@
 
       // Set the next item
       this.nextItem = this._getNextItem(index);
+      var $nextItem = $(this.settings.items[this.nextItem].html);
+      this._preloadItem($nextItem);
 
       if ("custom" !== positionType) {
         var position = this._itemResetPosition($item);
         this._itemSetTransform($item, position);
         this.visibleItems.push({
           $item: $item,
+          parentId: this.settings.items[index].parent_id,
           itemId: this.settings.items[index].id,
+          itemUniqId: this.settings.items[index].uniq_id,
           posX: position.posX,
           posY: position.posY,
         });
@@ -513,6 +528,9 @@
       var $item = this.visibleItems[index].$item,
         $nextItem = $item.next();
 
+      const tempHeight = this.$items.outerHeight();
+      const tempItem = this.visibleItems[index];
+
       // Remove the item
       $item.remove();
       this.visibleItems.splice(index, 1);
@@ -520,10 +538,20 @@
       if ($nextItem.length) {
         $nextItem.addClass("ditty-item--last");
         this.$lastItem = $nextItem;
+        this._setCurrentHeight();
       }
 
-      // Set the ticker height
-      this._setCurrentHeight();
+      var visibleItems = this.$items.children();
+      if (0 === visibleItems.length) {
+        this.elmt.dispatchEvent(
+          new CustomEvent("dittyTickerComplete", {
+            detail: {
+              lastItem: tempItem,
+              lastHeight: tempHeight,
+            },
+          })
+        );
+      }
 
       this.trigger("active_items_update");
     },
@@ -637,20 +665,9 @@
         posY = 0,
         increment = this.scrollIncrement;
 
-      //var useDeltaMultiplier = 1;
       if (distance) {
         increment = distance;
       }
-      // else if (useDeltaMultiplier) {
-      //   increment = increment * this.deltaTimeMultiplier;
-      // }
-
-      // if ( useDeltaMultiplier ) {
-      // 	console.log('DELTA increment', increment);
-      // } else {
-      // 	console.log('increment', increment);
-      // }
-
       switch (this.settings.direction) {
         case "left":
           posX = parseFloat(this.visibleItems[index].posX) - increment;
@@ -905,7 +922,7 @@
     _styleDisplay: function () {
       this.$elmt.css({
         maxWidth: this.settings.maxWidth,
-        backgroundColor: this.settings.bgColor,
+        background: this.settings.bgColor,
         borderColor: this.settings.borderColor,
         borderStyle: this.settings.borderStyle,
       });
@@ -915,7 +932,7 @@
       this.$elmt.css(this.settings.padding);
 
       this.$contents.css({
-        backgroundColor: this.settings.contentsBgColor,
+        background: this.settings.contentsBgColor,
         borderColor: this.settings.contentsBorderColor,
         borderStyle: this.settings.contentsBorderStyle,
       });
@@ -941,6 +958,16 @@
           maxHeight: "",
         });
       }
+
+      const cssPrefix = `.ditty[data-display="${this.settings.display}"]`;
+      let css = "";
+      if ("" !== this.settings.itemTextColor) {
+        css += `${cssPrefix} .ditty-item__elements{color:${this.settings.itemTextColor}}`;
+      }
+      if ("" !== this.settings.itemLinkColor) {
+        css += `${cssPrefix} .ditty-item__elements a{color:${this.settings.itemLinkColor}}`;
+      }
+      dittyDisplayCss(css, this.settings.display);
     },
 
     /**
@@ -951,17 +978,27 @@
      */
     _styleTitle: function () {
       this.$elmt.attr("data-title", this.settings.titleDisplay);
+
+      const titleContentsPosition = this.settings.titleContentsPosition
+        ? this.settings.titleContentsPosition
+        : this.settings.titleElementPosition;
+      const titleVerticalPosition = this.settings.titleElementVerticalPosition
+        ? this.settings.titleElementVerticalPosition
+        : this.settings.titleElementPosition;
+
+      this.$elmt.attr("data-title_position", titleContentsPosition);
       this.$elmt.attr(
-        "data-title_position",
+        "data-title_horizontal_position",
         this.settings.titleElementPosition
       );
+      this.$elmt.attr("data-title_vertical_position", titleVerticalPosition);
       if ("none" === this.settings.titleDisplay) {
         this.$title.remove();
       } else {
         var $element = $(
           "<" +
             this.settings.titleElement +
-            ' class="ditty-ticker__title__element">' +
+            ' class="ditty__title__element">' +
             this.settings.title +
             "</" +
             this.settings.titleElement +
@@ -975,16 +1012,29 @@
           margin: 0,
           padding: 0,
         });
+        $element.find("*").css({
+          color: this.settings.titleColor,
+        });
+        $element.find("a").css({
+          color: this.settings.titleLinkColor,
+        });
 
-        this.$title.css({
-          backgroundColor: this.settings.titleBgColor,
+        this.$titleContents.css({
+          background: this.settings.titleBgColor,
           borderColor: this.settings.titleBorderColor,
           borderStyle: this.settings.titleBorderStyle,
+          width: "auto" === this.settings.titleContentsSize ? "auto" : "100%",
+          height: "auto" === this.settings.titleContentsSize ? "auto" : "100%",
+          minWidth: this.settings.titleMinWidth,
+          maxWidth: this.settings.titleMaxWidth,
+          minHeight: this.settings.titleMinHeight,
+          maxHeight: this.settings.titleMaxHeight,
         });
+        this.$titleContents.css(this.settings.titleBorderRadius);
+        this.$titleContents.css(this.settings.titleBorderWidth);
+        this.$titleContents.css(this.settings.titlePadding);
+
         this.$title.css(this.settings.titleMargin);
-        this.$title.css(this.settings.titlePadding);
-        this.$title.css(this.settings.titleBorderRadius);
-        this.$title.css(this.settings.titleBorderWidth);
 
         this.$titleContents.html($element);
         this.$elmt.prepend(this.$title);
@@ -999,8 +1049,7 @@
      */
     _styleItem: function ($item) {
       $item.children(".ditty-item__elements").css({
-        color: this.settings.itemTextColor,
-        backgroundColor: this.settings.itemBgColor,
+        background: this.settings.itemBgColor,
         borderColor: this.settings.itemBorderColor,
         borderStyle: this.settings.itemBorderStyle,
       });
@@ -1065,12 +1114,21 @@
           this._styleDisplay();
           this._setDirection(value);
           break;
+        case "title":
         case "titleDisplay":
+        case "titleContentsSize":
+        case "titleContentsPosition":
         case "titleElement":
         case "titleElementPosition":
+        case "titleElementVerticalPosition":
         case "titleFontSize":
         case "titleLineHeight":
+        case "titleMinWidth":
+        case "titleMaxWidth":
+        case "titleMinHeight":
+        case "titleMaxHeight":
         case "titleColor":
+        case "titleLinkColor":
         case "titleBgColor":
         case "titleMargin":
         case "titlePadding":
@@ -1081,6 +1139,7 @@
           this.settings[key] = value;
           this._styleTitle();
           break;
+        case "maxWidth":
         case "minHeight":
         case "maxHeight":
         case "bgColor":
@@ -1092,6 +1151,8 @@
         case "contentsBgColor":
         case "contentsPadding":
         case "contentsBorderRadius":
+        case "itemTextColor":
+        case "itemLinkColor":
           this.settings[key] = value;
           this._styleDisplay();
           this._setCurrentHeight();
@@ -1309,14 +1370,24 @@
      * @since    3.1
      * @return   null
      */
-    loadItems: function (newItems, type = "replace") {
+    resetItems: function () {
+      this._resetItems();
+    },
+
+    /**
+     * Load new items
+     *
+     * @since    3.1
+     * @return   null
+     */
+    loadItems: function (newItems) {
       if (undefined === newItems) {
         return false;
       }
+
       const { updatedItems } = dittyGetUpdatedItemData(
         this.settings.items,
-        newItems,
-        type
+        newItems
       );
 
       this.settings.items = updatedItems;
@@ -1513,7 +1584,7 @@
       this.$elmt.off("mouseenter", { self: this }, this._mouseenter);
       this.$elmt.off("mouseleave", { self: this }, this._mouseleave);
 
-      cancelAnimationFrame(this.interval);
+      this._timerStop();
 
       this.$elmt.removeClass("ditty ditty-ticker");
       this.$elmt.removeAttr("data-id");

@@ -1,0 +1,71 @@
+#ditty-adminbar {
+  flex: 0 0 auto;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 20px;
+  background: #fff;
+  border-bottom: 2px solid $light_gray;
+  box-sizing: border-box;
+  * {
+    box-sizing: border-box;
+  }
+  h2 {
+    margin: 0;
+  }
+  &__contents {
+    flex: 1;
+    overflow: hidden;
+  }
+  &__logo {
+    color: $green;
+  }
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    &__element {
+      font-size: 16px;
+      line-height: 1.5em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  &__description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 13px;
+    color: #808080;
+  }
+  .ditty-field {
+    width: 100%;
+    textarea {
+      display: block;
+      font-size: 13px;
+      line-height: 16px;
+    }
+  }
+  button.ditty-has-updates {
+    color: #fff;
+    background: $green;
+  }
+}
+.ditty-adminbar__status {
+  display: block;
+  font-size: 12px;
+  line-height: 12px;
+  height: 18px;
+  font-weight: normal;
+  background: #ccc;
+  padding: 2px 5px;
+  border-radius: 3px;
+  cursor: pointer;
+  &--publish {
+    color: #fff;
+    background: $green;
+  }
+}

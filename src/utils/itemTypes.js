@@ -8,7 +8,7 @@ import _ from "lodash";
  * @returns array
  */
 export const getItemTypes = () => {
-  const itemTypes = dittyEditor.applyFilters("dittyItemTypes", []);
+  const itemTypes = dittyEditor ? dittyEditor.itemTypes : [];
   const migratedItemTypes = migrateItemTypes(itemTypes);
   const sortedItemTypes = _.orderBy(migratedItemTypes, ["label"], ["asc"]);
   return sortedItemTypes;
@@ -20,30 +20,23 @@ export const getItemTypes = () => {
  * @returns element
  */
 const migrateItemTypes = (itemTypes) => {
-  const phpItemTypes =
-    dittyEditorVars.itemTypes &&
-    dittyEditorVars.itemTypes.reduce((filtered, phpType) => {
-      const existingType = itemTypes.filter((type) => type.id === phpType.type);
-      if (!existingType.length) {
-        filtered.push(phpType);
-        // filtered.push({
-        //   id: phpType.id,
-        //   icon: <i className={phpType.icon}></i>,
-        //   label: phpType.label,
-        //   description: phpType.description,
-        //   variationTypes: phpType.variationTypes,
-        //   phpSettings: phpType.settings,
-        // });
+  const updatedItemTypes = [...itemTypes];
+  if (dittyEditorVars.itemTypes) {
+    dittyEditorVars.itemTypes.map((phpType) => {
+      const existingIndex = updatedItemTypes.findIndex((itemType) => {
+        return itemType.id === phpType.id;
+      });
+      if (-1 === existingIndex) {
+        updatedItemTypes.push(phpType);
+      } else {
+        updatedItemTypes[existingIndex] = {
+          ...phpType,
+          ...itemTypes[existingIndex],
+        };
       }
-      return filtered;
-    }, []);
-  if (phpItemTypes && phpItemTypes.length) {
-    //console.log("phpItemTypes", phpItemTypes);
-    const updatedItemTypes = itemTypes.concat(phpItemTypes);
-    return updatedItemTypes;
-  } else {
-    return itemTypes;
+    });
   }
+  return updatedItemTypes;
 };
 
 /**
@@ -52,6 +45,9 @@ const migrateItemTypes = (itemTypes) => {
  * @returns element
  */
 export const getItemTypeObject = (item) => {
+  if (typeof item === "object" && item.id) {
+    return item;
+  }
   const itemTypes = getItemTypes();
   const itemTypeObject = itemTypes.filter((itemType) => {
     if (typeof item === "object") {
@@ -77,6 +73,31 @@ export const getItemTypeIcon = (item) => {
     itemType[0].icon
   ) : (
     <FontAwesomeIcon icon={faPencil} />
+  );
+};
+
+/**
+ * Return an item types icon from item
+ * @param {object} item
+ * @returns element
+ */
+export const getItemTypePreviewIcon = (item) => {
+  const itemTypeObject = getItemTypeObject(item);
+  let previewIcon;
+  if (itemTypeObject.previewIcon) {
+    previewIcon = itemTypeObject.previewIcon(item);
+  } else {
+    const icon = getItemTypeIcon(item);
+    previewIcon = "string" === typeof icon ? <i className={icon}></i> : icon;
+  }
+  const style = {
+    color: itemTypeObject.iconColor ? itemTypeObject.iconColor : false,
+    background: itemTypeObject.iconBGColor ? itemTypeObject.iconBGColor : false,
+  };
+  return (
+    <div className="ditty-preview-icon" style={style}>
+      {previewIcon}
+    </div>
   );
 };
 
@@ -119,19 +140,40 @@ export const getItemTypeSettings = (item) => {
  * @returns element
  */
 export const getItemLabel = (item) => {
-  return item.editor_preview ? item.editor_preview : item.item_type;
-  // const itemTypeObject = getItemTypeObject(item);
-  // return itemTypeObject.itemLabel
-  //   ? itemTypeObject.itemLabel(item)
-  //   : item.item_type;
+  const itemTypeObject = getItemTypeObject(item);
+  return itemTypeObject.previewText
+    ? itemTypeObject.previewText(item)
+    : item.editor_preview
+    ? item.editor_preview
+    : item.item_type;
 };
 
 export const getLayoutVariationObject = (itemType, variation) => {
   const itemTypeObject =
     typeof itemType === "object" ? itemType : getItemTypeObject(itemType);
-  const variationTypes = itemTypeObject.variationTypes
-    ? itemTypeObject.variationTypes
+  const layoutVariations = itemTypeObject.layoutVariations
+    ? itemTypeObject.layoutVariations
     : {};
 
-  return variationTypes[variation] ? variationTypes[variation] : variation;
+  return layoutVariations[variation] ? layoutVariations[variation] : variation;
+};
+
+/**
+ * Return an Item Type object
+ * @param {object} item
+ * @returns element
+ */
+export const getDefaultLayout = (item, variation = "default") => {
+  const itemTypeObject = getItemTypeObject(item);
+  return itemTypeObject.defaultLayout;
+
+  // const variationDefaults = dittyEditorVars.variationDefaults
+  //   ? dittyEditorVars.variationDefaults
+  //   : {};
+  // if (
+  //   variationDefaults[itemTypeObject.id] &&
+  //   variationDefaults[itemTypeObject.id][variation]
+  // ) {
+  //   console.log("template", variationDefaults[itemTypeObject.id][variation]);
+  // }
 };
