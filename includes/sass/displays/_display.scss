@@ -157,23 +157,29 @@
 }
 
 .ditty {
-	&__edit-link {
+	&__edit-links {
 		position: absolute;
 		z-index: 99999;
 		top: 5px;
 		left: 5px;
-		font-family: Arial, sans-serif !important;
-		font-size: 14px !important;
-		line-height: 16px !important;
-		text-decoration: none !important;
-		color: #666 !important;
-		background: #fff;
-		padding: 6px 8px 4px 7px;
-		border-radius: 2px;
-		opacity: 0.5;
-		transition: opacity 0.2s linear;
-		&:hover {
-			opacity: 1;
+		display: flex;
+		gap: 3px;
+		a {
+			font-family: Arial, sans-serif !important;
+			font-size: 14px !important;
+			font-weight: 600 !important;
+			line-height: 16px !important;
+			text-decoration: none !important;
+			color: #000 !important;
+			background: #fff;
+			padding: 6px 8px 4px 7px;
+			border-radius: 2px;
+			opacity: 0.5;
+			box-shadow: 0 0 2px;
+			transition: opacity 0.2s linear;
+			&:hover {
+				opacity: 1;
+			}
 		}
 	}
 }

@@ -133,6 +133,8 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 = 3.1.14 =
 * Bug fix for display template item text colors
 * Bug fix for display import
+* Added Display quick edit link
+* Added ajax_loading and live_updates args to shortcodes and ditty_render
 
 = 3.1.13 =
 * Item meta live update bug fix
@@ -900,4 +902,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Display bug fixes
+Display bug fixes and other updates

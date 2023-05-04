@@ -1042,7 +1042,7 @@ function ditty_prepare_display_items( $item ) {
 /**
  * Render the Ditty container
  *
- * @since    3.0.32
+ * @since    3.1.14
  */
 function ditty_render( $atts ) {
 	//return Ditty()->singles->setup( $atts );
@@ -1061,6 +1061,8 @@ function ditty_render( $atts ) {
 		'class' 						=> '',
 		'el_id'							=> '',
 		'show_editor' 			=> 0,
+		'ajax_loading'			=> '',
+		'live_updates'			=> '',
 	);
 	$args = shortcode_atts( $defaults, $atts );
 	
@@ -1086,7 +1088,14 @@ function ditty_render( $atts ) {
 	
 	$ditty_settings = get_post_meta( $args['id'], '_ditty_settings', true );
 	$ajax_load 			= ( isset( $ditty_settings['ajax_loading'] ) && 'yes' == $ditty_settings['ajax_loading'] ) ? '1' : false;
+	if ( 'yes' == $args['ajax_loading'] || 'no' == $args['ajax_loading'] ) {
+		$ajax_load = ( 'yes' == $args['ajax_loading'] ) ? '1' : false;
+	}
+
 	$live_updates 	= ( isset( $ditty_settings['live_updates'] ) && 'yes' == $ditty_settings['live_updates'] ) ? '1' : false;
+	if ( 'yes' == $args['live_updates'] || 'no' == $args['live_updates'] ) {
+		$live_updates = ( 'yes' == $args['live_updates'] ) ? '1' : false;
+	}
 	
 	ditty_add_scripts( $args['id'], $args['display']);
 	
@@ -1501,7 +1510,14 @@ function ditty_layout_editing() {
  */
 function ditty_edit_links( $ditty_id ) {
 	if ( ! is_admin() && current_user_can( 'edit_ditty', $ditty_id ) && 'enabled' === ditty_settings( 'edit_links' ) ) {
-		return '<a class="ditty__edit-link" href="'.get_edit_post_link( $ditty_id ).'">' . __('Edit Ditty', 'ditty-news-ticker') . '</a>';
+		$html = '<div class="ditty__edit-links">';
+			$html .= '<a href="'.get_edit_post_link( $ditty_id ).'">' . __('Edit Ditty', 'ditty-news-ticker') . '</a>';
+			$display = get_post_meta( $ditty_id, '_ditty_display', true );
+			if ( ! is_array( $display ) && $edit_link = get_edit_post_link( $display ) ) {
+				$html .= '<a href="' . $edit_link . '">' . __('Edit Display', 'ditty-news-ticker') . '</a>';
+			}
+		$html .= '</div>';
+		return $html;
 	}
 }
 
