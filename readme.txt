@@ -3,6 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: responsive slider, content slider, post slider, news ticker, post ticker
 Requires at least: 5.6
+Requires PHP: 5.6
 Tested up to: 6.2
 Stable tag: 3.1.14
 License: GPL2
@@ -129,6 +130,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 15. Advanced Settings
 
 == Changelog ==
+
+= 3.1.15 =
+* Code change in export.php for PHP 5.6
 
 = 3.1.14 =
 * Bug fix for display template item text colors
