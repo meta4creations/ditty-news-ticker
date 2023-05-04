@@ -9,23 +9,18 @@ export const initializeDitty = (dittyEl, displayType, args) => {
 export const updateDittyDisplayTemplate = (dittyEl, display) => {
   if (!displayTypeExists(dittyEl, display.type)) return false;
   const prevType = dittyEl.dataset.type;
-  if (prevType === display.type) {
-    dittyEl["_ditty_" + display.type].options(display.settings);
-  } else {
-    const oldDitty = dittyEl["_ditty_" + prevType];
-    const args = display.settings;
-    args["id"] = display.id;
-    args["display"] = display.type;
-    args["title"] = display.title;
-    if (oldDitty) {
-      args["status"] = oldDitty.options("status");
-      args["items"] = oldDitty.options("items");
-      oldDitty.destroy();
-    }
-
-    jQuery(dittyEl)["ditty_" + display.type](args);
-    dittyEl.dataset.type = display.type;
+  const oldDitty = dittyEl["_ditty_" + prevType];
+  const args = display.settings;
+  args["id"] = display.id;
+  args["display"] = display.type;
+  args["title"] = display.title;
+  if (oldDitty) {
+    args["status"] = oldDitty.options("status");
+    args["items"] = oldDitty.options("items");
+    oldDitty.destroy();
   }
+  jQuery(dittyEl)["ditty_" + display.type](args);
+  dittyEl.dataset.type = display.type;
 };
 
 export const updateDittyDisplayType = (dittyEl, displayType) => {

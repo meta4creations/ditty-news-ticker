@@ -650,16 +650,15 @@ function ditty_import_posts() {
 			$imported_data = array(
 				'id' => $imported_display_id,
 			);
-			
+
 			if ( isset( $display_data['description'] ) ) {
 				update_post_meta( $imported_display_id, '_ditty_display_description', wp_kses_post( $display_data['description'] ) );
 			}
 			if ( isset( $display_data['display_type'] ) ) {
 				update_post_meta( $imported_display_id, '_ditty_display_type', esc_html( $display_data['display_type'] ) );
 			}
-			if ( $display_object = ditty_display_type_object( $display_data['display_type'] ) ) {
-				$fields = $display_object->fields();
-				$sanitized_settings = ditty_sanitize_fields( $fields, $display_data['settings'], "ditty_display_type_{$display_data['display_type']}" );
+			if ( isset( $display_data['settings'] ) ) {
+				$sanitized_settings = ditty_sanitize_settings( $display_data['settings'], "display_{$display_type}" );
 				update_post_meta( $imported_display_id, '_ditty_display_settings', $sanitized_settings );
 			}
 			if ( isset( $display_data['version'] ) ) {
@@ -794,9 +793,9 @@ function ditty_import_posts() {
 add_action( 'admin_init', 'ditty_import_posts' );
 
 /**
- * Import options for the user
+ * Display the imported posts
  *
- * @since    3.0.17
+ * @since    3.1.14
  */
 function ditty_import_options() {
 	$transient_name = 'ditty_import';

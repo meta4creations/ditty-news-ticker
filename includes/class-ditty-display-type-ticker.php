@@ -235,8 +235,26 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 	 * @since   3.0.25
 	 */
 	public function default_settings() {
-
-		$defaults = json_decode('{"direction":"left","minHeight":"300px","maxHeight":"","spacing":"25","speed":"10","heightEase":"easeInOutQuint","heightSpeed":"1.5","scrollInit":"empty","scrollDelay":"3","cloneItems":"yes","wrapItems":"yes","hoverPause":"1","maxWidth":"","bgColor":"","padding":{"paddingTop":"","paddingBottom":"","paddingLeft":"","paddingRight":""},"margin":{"marginTop":"","marginBottom":"","marginLeft":"","marginRight":""},"borderColor":"","borderStyle":"none","borderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"borderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"titleDisplay":"none","titleElement":"h3","titleElementPosition":"start","titleFontSize":"","titleLineHeight":"","titleColor":"rgba(255, 255, 255, 1)","titleBgColor":"rgba(0, 0, 0, 1)","titleMargin":{"marginTop":"","marginBottom":"","marginLeft":"","marginRight":""},"titlePadding":{"paddingTop":"10px","paddingBottom":"10px","paddingLeft":"15px","paddingRight":"15px"},"titleBorderColor":"","titleBorderStyle":"none","titleBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"titleBorderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"contentsBgColor":"","contentsPadding":{"paddingTop":"","paddingBottom":"","paddingLeft":"","paddingRight":""},"contentsBorderColor":"","contentsBorderStyle":"none","contentsBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"contentsBorderRadius":{"borderTopLeftRadius":"0","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"itemTextColor":"","itemBgColor":"","itemPadding":{"paddingTop":"","paddingBottom":"","paddingLeft":"","paddingRight":""},"itemBorderColor":"","itemBorderStyle":"none","itemBorderWidth":{"borderTopWidth":"","borderBottomWidth":"","borderLeftWidth":"","borderRightWidth":""},"itemBorderRadius":{"borderTopLeftRadius":"","borderTopRightRadius":"","borderBottomLeftRadius":"","borderBottomRightRadius":""},"itemMaxWidth":"","itemElementsWrap":"nowrap"}', true);
+		$defaults = [
+			'direction' => 'left',
+			'minHeight' => '300px',
+			'spacing' => '25',
+			'speed' => '10',
+			'heightEase' => 'easeInOutQuint',
+			'heightSpeed' => '1.5',
+			'scrollInit' => 'empty',
+			'scrollDelay' => '3',
+			'cloneItems' => 'yes',
+			'wrapItems' => 'yes',
+			'hoverPause' => '',
+			'titleDisplay' => 'none',
+			'titleContentsSize' => 'stretch',
+			'titleContentsPosition' => 'start',
+			'titleElement' => 'h3',
+			'titleElementPosition' => 'start',
+			'titleElementVerticalPosition' => 'start',
+			'itemElementsWrap' => 'nowrap',
+		];
 
 		return apply_filters('ditty_display_default_settings', $defaults, $this->type);
 	}

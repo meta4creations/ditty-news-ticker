@@ -959,7 +959,7 @@
         });
       }
 
-      const cssPrefix = `.ditty[data-id="${this.settings.display}"]`;
+      const cssPrefix = `.ditty[data-display="${this.settings.display}"]`;
       let css = "";
       if ("" !== this.settings.itemTextColor) {
         css += `${cssPrefix} .ditty-item__elements{color:${this.settings.itemTextColor}}`;
@@ -1139,6 +1139,7 @@
           this.settings[key] = value;
           this._styleTitle();
           break;
+        case "maxWidth":
         case "minHeight":
         case "maxHeight":
         case "bgColor":

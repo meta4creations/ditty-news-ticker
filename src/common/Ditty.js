@@ -21,14 +21,12 @@ const Ditty = ({ id, title, display, displayItems, displays }) => {
   }, []);
 
   return (
-    <>
-      <div
-        id="ditty-editor__ditty"
-        className="ditty"
-        data-id={id}
-        data-display={displayObject.id ? displayObject.id : id}
-      ></div>
-    </>
+    <div
+      id="ditty-editor__ditty"
+      className="ditty"
+      //data-id={id}
+      //data-display={displayObject.id ? displayObject.id : id}
+    ></div>
   );
 };
 export default Ditty;
