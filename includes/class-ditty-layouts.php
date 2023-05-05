@@ -25,6 +25,7 @@ class Ditty_Layouts {
 		add_action( 'admin_menu', array( $this, 'add_admin_pages' ), 10, 5 );
 		add_filter( 'get_edit_post_link', array( $this, 'modify_edit_post_link' ), 10, 3 );
 		add_filter( 'post_row_actions', array( $this, 'modify_list_row_actions' ), 10, 2 );
+		add_action( 'wp_delete_post', array( $this, 'after_delete' ), 10, 2 );
 
 		add_action( 'wp_ajax_ditty_install_layout', array( $this, 'install_layout' ) );
 	}
@@ -196,7 +197,7 @@ class Ditty_Layouts {
 	 * Return an array of all layouts for select fields
 	 *
 	 * @access  private
-	 * @since   3.0
+	 * @since   3.1.15
 	 * @param   array    $options.
 	 */
 	public function select_field_options( $placeholder = false ) {
@@ -204,12 +205,20 @@ class Ditty_Layouts {
 		if ( $placeholder ) {
 			$options[''] = $placeholder;
 		}
-		if ( $layouts = ditty_layout_posts() ) {
+
+		$query_args = array(
+			'posts_per_page' 	=> -1,
+			'post_type' 			=> 'ditty_layout',
+			'post_status'			=> 'any',
+			'orderby'					=> 'title',
+			'order'						=> 'ASC',
+		);
+		if ( $layouts = get_posts( $query_args ) ) {
 			foreach ( $layouts as $layout_post ) {
 				$title = $layout_post->post_title;
-				// if ( $version = get_post_meta( $layout_post->ID, '_ditty_layout_version', true ) ) {
-				// 	$title .= " (v{$version})";
-				// }
+				if ( 'publish' != $layout_post->post_status ) {
+					$title .= " ({$layout_post->post_status})";
+				}
 				$options[$layout_post->ID] = $title;
 			}
 		}
@@ -659,6 +668,35 @@ class Ditty_Layouts {
 		}
 		
 		return $html;
+	}
+
+	/**
+	 * Possibly modify variation defaults if a layout is deleted
+	 *
+	 * @access  public
+	 * @since   3.1.15
+	 */
+	public function after_delete( $postid, $force_delete ) {
+		if ( ! $force_delete ) {
+			return false;
+		}
+		$variation_defaults = ditty_settings( 'variation_defaults' );
+		$sanitized_variation_defaults = [];
+		if ( is_array( $variation_defaults ) && count( $variation_defaults ) > 0 ) {
+			foreach ( $variation_defaults as $item_type => $defaults ) {
+				$sanitized_defaults = [];
+				if ( is_array( $defaults ) && count( $defaults ) > 0 ) {
+					foreach ( $defaults as $variation => $layout_id ) {
+						if ( ! $layout_id || $postid == $layout_id ) {
+							continue;
+						}
+						$sanitized_defaults[$variation] = $layout_id;
+					}
+				}
+				$sanitized_variation_defaults[$item_type] = $sanitized_defaults;
+			}
+		}
+		ditty_settings( 'variation_defaults', $sanitized_variation_defaults );
 	}
 
 	/**

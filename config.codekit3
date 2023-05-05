@@ -17,18 +17,18 @@
       "oAP" : "\/.gitignore",
       "oF" : 1
     },
-    "\/.nova\/Publishing\/Metaphor Creations.json" : {
+    "\/.nova\/Publishing\/Demo.json" : {
       "ft" : 524288,
       "oA" : 1,
-      "oAP" : "\/.nova\/Publishing\/Metaphor Creations-min.json",
+      "oAP" : "\/.nova\/Publishing\/Demo-min.json",
       "oF" : 0,
       "oO" : 1,
       "oS" : 1
     },
-    "\/.nova\/Publishing\/Staging.json" : {
+    "\/.nova\/Publishing\/Metaphor Creations.json" : {
       "ft" : 524288,
       "oA" : 1,
-      "oAP" : "\/.nova\/Publishing\/Staging-min.json",
+      "oAP" : "\/.nova\/Publishing\/Metaphor Creations-min.json",
       "oF" : 0,
       "oO" : 1,
       "oS" : 1

@@ -13,10 +13,12 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+import { useState } from "@wordpress/element";
 import classnames from "classnames";
 import SortableItem from "./SortableItem";
 
 const SortableList = ({ items, onSortEnd, className }) => {
+  const [isDragging, setIsDragging] = useState();
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } })
     // useSensor(KeyboardSensor, {
@@ -28,7 +30,16 @@ const SortableList = ({ items, onSortEnd, className }) => {
    * Update the index of list items
    * @param {array} event
    */
+  function handleDragStart(event) {
+    setIsDragging(true);
+  }
+
+  /**
+   * Update the index of list items
+   * @param {array} event
+   */
   function handleDragEnd(event) {
+    setIsDragging(false);
     const { active, over } = event;
     if (active.id !== over.id) {
       const oldIndex = items.map((i) => i.id).indexOf(active.id);
@@ -38,13 +49,16 @@ const SortableList = ({ items, onSortEnd, className }) => {
     }
   }
 
-  const classes = classnames("ditty-list ditty-list--sortable", className);
+  const classes = classnames("ditty-list ditty-list--sortable", className, {
+    "is-dragging": isDragging,
+  });
 
   return (
     <div className={classes}>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
+        onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
         modifiers={[restrictToVerticalAxis]}
       >

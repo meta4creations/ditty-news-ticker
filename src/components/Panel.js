@@ -1,4 +1,5 @@
 import { __ } from "@wordpress/i18n";
+import classnames from "classnames";
 import Tabs from "./Tabs";
 
 const Panel = (props) => {
@@ -11,15 +12,16 @@ const Panel = (props) => {
     tabsType,
     tabClick,
     children,
+    className,
   } = props;
 
-  const renderPanelClass = () => {
-    let className = `ditty-editor__panel ditty-editor__panel--${id}`;
-    return className;
-  };
+  const classes = classnames(
+    `ditty-editor__panel ditty-editor__panel--${id}`,
+    className
+  );
 
   return (
-    <div className={renderPanelClass()} key={id}>
+    <div className={classes} key={id}>
       {header && <div className="ditty-editor__panel__header">{header}</div>}
       {tabs && (
         <Tabs

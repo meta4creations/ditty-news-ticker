@@ -566,7 +566,7 @@ class Ditty_Scripts {
 					'layouts'							=> Ditty()->editor->layout_data(),
 					'itemTypes'						=> Ditty()->editor->item_type_data(),
 					'displayTypes'				=> Ditty()->editor->display_type_data(),
-					'variationDefaults' 	=> ditty_settings( 'variation_defaults' ),
+					'variationDefaults' 	=> ditty_get_variation_defaults(),
 					'defaultDisplayType' 	=> ditty_default_display_type(),
 					'defaultItemType'			=> ditty_default_item_type(),
 					'dittyDevelopment'		=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false

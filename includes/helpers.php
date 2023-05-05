@@ -1615,3 +1615,28 @@ function ditty_get_image_dimensions( $image_url ) {
 		'height' => $image_info[1],
 	];
 }
+
+/**
+ * Return variation defaults ensuring they exist
+ * *
+ * @since   3.1.15
+ */
+function ditty_get_variation_defaults() {
+	$variation_defaults = ditty_settings( 'variation_defaults' );
+	$sanitized_variation_defaults = [];
+	if ( is_array( $variation_defaults ) && count( $variation_defaults ) > 0 ) {
+		foreach ( $variation_defaults as $item_type => $defaults ) {
+			$sanitized_defaults = [];
+			if ( is_array( $defaults ) && count( $defaults ) > 0 ) {
+				foreach ( $defaults as $variation => $layout_id ) {
+					if ( ! $layout_id || 'publish' !== get_post_status( $layout_id ) ) {
+						continue;
+					}
+					$sanitized_defaults[$variation] = $layout_id;
+				}
+			}
+			$sanitized_variation_defaults[$item_type] = $sanitized_defaults;
+		}
+	}
+	return $sanitized_variation_defaults;
+}

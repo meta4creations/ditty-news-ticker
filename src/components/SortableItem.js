@@ -12,7 +12,7 @@ export default function SortableItem(props) {
   } = useSortable({ id: props.id });
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Translate.toString(transform),
     transition,
     zIndex: activeIndex === props.index ? 999 : 1,
     position: "relative",
