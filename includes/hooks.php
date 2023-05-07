@@ -120,17 +120,11 @@ add_filter( 'ditty_layout_tags', 'ditty_default_layout_tags', 10, 2 );
 /**
  * Add custom classes to style menu items
  *
- * @since    3.0
+ * @since    3.1.15
  * @access   public
  * @var      array    $allowed
 */
 function ditty_dashboard_menu_classes( $classes ) {
-	if ( 'disabled' == ditty_settings( 'ditty_layout_ui' ) ) {
-		$classes .= ' ditty_layout_ui--disabled';
-	}
-	if ( 'disabled' == ditty_settings( 'ditty_display_ui' ) ) {
-		$classes .= ' ditty_display_ui--disabled';
-	}
 	if ( isset( $_GET['dittyDev'] ) ) {
 		$classes .= ' dittyDev';
 	}

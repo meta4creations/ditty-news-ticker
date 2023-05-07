@@ -44,16 +44,6 @@ body:not(.folded) #adminmenu .menu-icon-ditty.wp-not-current-submenu .wp-submenu
 	border-left: none !important;
 }
 
-.ditty_layout_ui--disabled {
-	#adminmenu .wp-submenu > li > a[href="edit.php?post_type=ditty_layout"] {
-		display: none;
-	}
-}
-.ditty_display_ui--disabled {
-	#adminmenu .wp-submenu > li > a[href="edit.php?post_type=ditty_display"] {
-		display: none;
-	}
-}
 .ditty-error-notice {
 	line-height: 1.4em;
 	font-weight: bold;

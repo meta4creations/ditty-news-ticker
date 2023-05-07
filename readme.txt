@@ -133,6 +133,8 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 = 3.1.15 =
 * Fixed item resize issue in editor when child panel is open
+* File cleanup
+* Minimum PHP version update
 
 = 3.1.14 =
 * Bug fix for display template item text colors

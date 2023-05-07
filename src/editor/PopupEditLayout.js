@@ -29,16 +29,16 @@ const PopupEditLayout = ({
   const [currentTag, setCurrentTag] = useState(false);
   const [resetKey, setResetKey] = useState(false);
 
-  const updateLayout = (type, value) => {
+  const updateLayout = (value, type) => {
     let updatedLayout;
-    if (typeof type === "object") {
+    if (typeof value === "object") {
       updatedLayout = { ...editLayout, ...type };
     } else {
       updatedLayout = { ...editLayout };
       updatedLayout[type] = value;
     }
     setEditLayout(updatedLayout);
-    onChange(updatedLayout);
+    onChange(updatedLayout, type);
   };
 
   /**
@@ -120,7 +120,7 @@ const PopupEditLayout = ({
             key={`css${resetKey}`}
             value={editLayout.css}
             extensions={[css()]}
-            onChange={(value) => updateLayout("css", value)}
+            onChange={(value) => updateLayout(value, "css")}
             delayChange={true}
           />
         </>
@@ -132,7 +132,7 @@ const PopupEditLayout = ({
             key={`html${resetKey}`}
             value={editLayout.html}
             extensions={[html()]}
-            onChange={(value) => updateLayout("html", value)}
+            onChange={(value) => updateLayout(value, "html")}
             delayChange={true}
           />
         </>

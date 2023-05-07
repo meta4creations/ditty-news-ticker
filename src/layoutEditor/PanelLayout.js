@@ -74,7 +74,7 @@ const PanelLayout = ({ editorItem, layout, onUpdateLayout }) => {
           onChange={(updatedCss) => {
             const updatedLayout = { ...layout };
             updatedLayout.css = updatedCss;
-            onUpdateLayout(updatedLayout);
+            onUpdateLayout(updatedLayout, "css");
           }}
           delayChange={true}
         />
@@ -88,7 +88,7 @@ const PanelLayout = ({ editorItem, layout, onUpdateLayout }) => {
           onChange={(updatedHtml) => {
             const updatedLayout = { ...layout };
             updatedLayout.html = updatedHtml;
-            onUpdateLayout(updatedLayout);
+            onUpdateLayout(updatedLayout, "html");
           }}
           delayChange={true}
         />

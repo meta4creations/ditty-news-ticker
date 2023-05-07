@@ -2,12 +2,9 @@
 /* global dittyAdminVars:true */
 /* global console:true */
 
-// @codekit-append 'admin/general.js';
 // @codekit-append 'partials/class-ditty-ui-data-list.js';
-// @codekit-append 'admin/class-ditty-settings.js';
 // @codekit-append 'admin/class-ditty-extension.js';
 // @codekit-append 'admin/ditty-extensions.js';
-// @codekit-append 'admin/ditty-displays.js';
 
 jQuery(function ($) {
   // Setup strict mode

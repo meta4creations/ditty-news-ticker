@@ -465,10 +465,7 @@ class Ditty_Scripts {
 				'adminStrings' 		=> is_admin() ? ditty_admin_strings() : false,
 				'globals'					=> ditty_get_globals(),
 				'updateIcon'			=> 'fas fa-sync-alt fa-spin',
-				'updateInterval'	=> ( MINUTE_IN_SECONDS * ditty_settings( 'live_refresh' ) ),
-				'editor'					=> array(
-					'ditty_layouts_sass' => ditty_settings( 'ditty_layouts_sass' ),
-				),
+				'updateInterval'	=> ( MINUTE_IN_SECONDS * get_ditty_settings( 'live_refresh' ) ),
 				'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false,
 			) ) ), 'before' ) . ';';
 		}
@@ -485,7 +482,7 @@ class Ditty_Scripts {
 		// 		'security'				=> wp_create_nonce( 'ditty' ),
 		// 		'mode'						=> WP_DEBUG ? 'development' : 'production',
 		// 		'globals'					=> ditty_get_globals(),
-		// 		'updateInterval'	=> ( MINUTE_IN_SECONDS * ditty_settings( 'live_refresh' ) ),
+		// 		'updateInterval'	=> ( MINUTE_IN_SECONDS * get_ditty_settings( 'live_refresh' ) ),
 		// 	) ), 'before' );
 		// }
 		
@@ -569,6 +566,7 @@ class Ditty_Scripts {
 					'variationDefaults' 	=> ditty_get_variation_defaults(),
 					'defaultDisplayType' 	=> ditty_default_display_type(),
 					'defaultItemType'			=> ditty_default_item_type(),
+					'sassWorkerUrl'				=> DITTY_URL . 'includes/libs/sass/sass.worker.js',
 					'dittyDevelopment'		=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
 				), $hook ) ), 'before' ) . ';';
 			}
@@ -728,7 +726,7 @@ class Ditty_Scripts {
 					'userId'						=> get_current_user_id(),
 					'restUrl'						=> get_rest_url(),
 					'fields'						=> Ditty()->settings->fields(),
-					'settings'					=> ditty_settings(),
+					'settings'					=> get_ditty_settings(),
 					'defaultSettings'		=> ditty_settings_defaults(),
 					'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false,
 				), $hook ) ), 'before' ) . ';';
@@ -737,7 +735,7 @@ class Ditty_Scripts {
 
 		// Ensure global scripts are being added
 		if ( ! is_admin() ) {
-			$global_ditty = ditty_settings( 'global_ditty' );
+			$global_ditty = get_ditty_settings( 'global_ditty' );
 			if ( is_array( $global_ditty ) && count( $global_ditty ) > 0 ) {
 				foreach ( $global_ditty as $i => $global_ditty ) {
 					if ( 'publish' === get_post_status( $global_ditty['ditty'] ) ) {

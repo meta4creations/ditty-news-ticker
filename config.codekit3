@@ -835,28 +835,6 @@
       "sC" : 3,
       "tS" : 0
     },
-    "\/includes\/js\/admin\/class-ditty-settings.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/admin\/class-ditty-settings.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/admin\/ditty-displays.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/admin\/ditty-displays.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
     "\/includes\/js\/admin\/ditty-extensions.js" : {
       "bF" : 0,
       "ft" : 64,
@@ -864,17 +842,6 @@
       "mi" : 1,
       "oA" : 1,
       "oAP" : "\/includes\/js\/admin\/ditty-extensions.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/admin\/general.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 1,
-      "oAP" : "\/includes\/js\/admin\/general.min.js",
       "oF" : 0,
       "sC" : 3,
       "tS" : 0

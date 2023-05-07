@@ -229,12 +229,14 @@ export default () => {
     setUpdates(newUpdates);
   };
 
-  const handleUpdateLayout = (updatedLayout) => {
+  const handleUpdateLayout = (updatedLayout, type) => {
     const newUpdates = { ...updates };
     newUpdates.layout = updatedLayout;
     setLayout(updatedLayout);
     setUpdates(newUpdates);
-    updatePreview({ updatedLayout: updatedLayout });
+    if ("css" !== type) {
+      updatePreview({ updatedLayout: updatedLayout });
+    }
     compileLayoutStyle(updatedLayout.css, `${id}_default`, (css) => {
       updateLayoutCss(css, id);
     });

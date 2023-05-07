@@ -246,7 +246,7 @@ class Ditty_Settings {
 	 * @since    3.1
 	*/
 	public function get_layout_default_fields() {
-		$settings = ditty_settings( 'variation_defaults' );
+		$settings = get_ditty_settings( 'variation_defaults' );
 		$item_types = ditty_item_types();
 		$options = Ditty()->layouts->select_field_options();
 
@@ -354,7 +354,7 @@ class Ditty_Settings {
 	 * Get Ditty capabilities
 	 *
 	 * @access  public
-	 * @since   3.1.9
+	 * @since   3.1.15
 	 */
 	private function get_capabilities() {
 		$ditty_capabilities = array();
@@ -459,9 +459,6 @@ class Ditty_Settings {
 		$sanitized_fields = array(
 			'live_refresh'				=> isset( $values['live_refresh'] ) 				? intval( $values['live_refresh'] ) : 10,
 			'edit_links'					=> isset( $values['edit_links'] ) 					? sanitize_key( $values['edit_links'] ) : 'enabled',
-			'ditty_display_ui'		=> isset( $values['ditty_display_ui'] ) 		? sanitize_key( $values['ditty_display_ui'] ) : 'enabled',
-			'ditty_layout_ui'			=> isset( $values['ditty_layout_ui'] ) 			? sanitize_key( $values['ditty_layout_ui'] ) : 'enabled',
-			'ditty_layouts_sass' 	=> isset( $values['ditty_layouts_sass'] ) 	? sanitize_key( $values['ditty_layouts_sass'] ) : false,
 			'variation_defaults'	=> isset( $values['variation_defaults'] )		? ditty_sanitize_settings( $values['variation_defaults'] ) : [],
 			'permissions'					=> $values['permissions'],
 			'global_ditty'				=> $sanitized_global_ditty,
@@ -481,6 +478,6 @@ class Ditty_Settings {
 	 */
 	public function save( $values ) {
 		$sanitized_fields = $this->sanitize( $values );
-		return ditty_settings( $sanitized_fields );
+		return update_ditty_settings( $sanitized_fields );
 	}
 }

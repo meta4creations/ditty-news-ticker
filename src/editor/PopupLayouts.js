@@ -10,7 +10,11 @@ import {
   getItemTypePreviewIcon,
   getLayoutVariationObject,
 } from "../utils/itemTypes";
-import { getLayoutObject, getDefaultLayout } from "../utils/layouts";
+import {
+  getLayoutObject,
+  getDefaultLayout,
+  compileLayoutStyle,
+} from "../utils/layouts";
 import { Button, ButtonGroup, IconBlock, Popup } from "../components";
 import PopupTemplateSave from "./PopupTemplateSave";
 import PopupTemplateSelector from "./PopupTemplateSelector";
@@ -194,13 +198,23 @@ const PopupLayouts = ({
                 setHasLiveEditPreview(false);
               }
             }}
-            onChange={(updatedLayout) => {
+            onChange={(updatedLayout, type) => {
               const updatedItem = { ...editItem };
               const updatedLayoutValue = { ...updatedItem.layout_value };
               updatedLayoutValue[selectedVariation] = updatedLayout;
               updatedItem.layout_value = updatedLayoutValue;
 
-              // Get new display items
+              // Update just the css
+              // if (hasLiveEditPreview && "css" === type) {
+              //   const selector = `${item.item_id}_${selectedVariation}`;
+              //   console.log("selector", selector);
+              //   compileLayoutStyle(updatedLayout.css, selector, (css) => {
+              //     console.log("css", css);
+              //     updateLayoutCss(css, selector);
+              //   });
+
+              //   // Get new display items
+              // } else {
               const dittyEl = document.getElementById("ditty-editor__ditty");
               getDisplayItems(updatedItem, false, (data) => {
                 const updatedDisplayItems = editor.helpers.replaceDisplayItems(
@@ -208,6 +222,8 @@ const PopupLayouts = ({
                 );
                 replaceDisplayItems(dittyEl, updatedDisplayItems);
               });
+              //}
+
               setHasLiveEditPreview(true);
             }}
             onUpdate={(updatedLayout) => {

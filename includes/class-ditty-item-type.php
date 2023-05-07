@@ -226,7 +226,7 @@ class Ditty_Item_Type {
 	 * Get values to populate the metabox
 	 *
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.1.15
 	 */
 	public function get_layout_variation_defaults( $type = false ) {
 		global $ditty_layout_confirmed_defaults;
@@ -236,7 +236,7 @@ class Ditty_Item_Type {
 		if ( ! isset( $ditty_layout_confirmed_defaults[$this->get_type()] ) ) {
 			$ditty_layout_confirmed_defaults[$this->get_type()] = array();
 			
-			$all_variation_defaults = ditty_settings( 'variation_defaults' );
+			$all_variation_defaults = get_ditty_settings( 'variation_defaults' );
 			$variation_defaults = isset( $all_variation_defaults[$this->get_type()] ) ? $all_variation_defaults[$this->get_type()] : array();
 			$variation_types = $this->get_layout_variation_types();
 

@@ -548,14 +548,14 @@ class Ditty_Layouts {
 	 * List the layout variation defaults
 	 *
 	 * @access public
-	 * @since  3.0
+	 * @since  3.1.15
 	 * @param  html
 	 */
 	public function variation_defaults() {
 		$html = '';
 		$item_types = ditty_item_types();
 		$variation_types = ditty_layout_variation_types();
-		$settings = ditty_settings( 'variation_defaults' );
+		$settings = get_ditty_settings( 'variation_defaults' );
 		$layout_options = $this->select_field_options( __( 'Choose a Layout', 'ditty-news-ticker' ) );
 
 		if ( is_array( $variation_types ) && count( $variation_types ) > 0 ) {
@@ -680,7 +680,7 @@ class Ditty_Layouts {
 		if ( ! $force_delete ) {
 			return false;
 		}
-		$variation_defaults = ditty_settings( 'variation_defaults' );
+		$variation_defaults = get_ditty_settings( 'variation_defaults' );
 		$sanitized_variation_defaults = [];
 		if ( is_array( $variation_defaults ) && count( $variation_defaults ) > 0 ) {
 			foreach ( $variation_defaults as $item_type => $defaults ) {
@@ -696,7 +696,7 @@ class Ditty_Layouts {
 				$sanitized_variation_defaults[$item_type] = $sanitized_defaults;
 			}
 		}
-		ditty_settings( 'variation_defaults', $sanitized_variation_defaults );
+		update_ditty_settings( 'variation_defaults', $sanitized_variation_defaults );
 	}
 
 	/**

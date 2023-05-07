@@ -3,15 +3,11 @@
 /**
  * Return the settings defaults
  *
- * @since    3.1.6
+ * @since    3.1.15
 */
 function ditty_settings_defaults( $key = false ) {	
 	$defaults = array(
 		'live_refresh'					=> 10,
-		'default_display'				=> false,
-		'ditty_display_ui'			=> 'enabled',
-		'ditty_layout_ui'				=> 'enabled',
-		'ditty_layouts_sass'		=> false,
 		'variation_defaults'		=> array(),
 		'global_ditty'					=> array(),
 		'ditty_news_ticker' 		=> 'disabled',
@@ -28,37 +24,55 @@ function ditty_settings_defaults( $key = false ) {
 			return $defaults;
 		}
 }
-	
+
 /**
- * Return or set plugin settings
+ * Get Ditty settings
  *
- * @since    3.0
+ * @since    3.1.15
 */
-function ditty_settings( $key=false, $value='' ) {
+function get_ditty_settings( $key=false ) {
 	global $ditty_settings;
 	if ( empty( $ditty_settings ) ) {
 		$ditty_settings = get_option( 'ditty_settings', array() );
 	}
-	if ( $key ) {
-		if ( is_array( $key ) ) {
-			foreach ( $key as $k => $v ) {
-				$ditty_settings[$k] = $v;
-			}
-			update_option( 'ditty_settings', $ditty_settings );
-		} else {
-			if ( $value ) {
-				$ditty_settings[$key] = $value;
-				update_option( 'ditty_settings', $ditty_settings );
-			}
-		}
-	}
 	$ditty_settings = wp_parse_args( $ditty_settings, ditty_settings_defaults() );
-	if ( $key && ! is_array( $key ) ) {
+	if ( $key ) {
 		if ( isset( $ditty_settings[$key] ) ) {
 			return $ditty_settings[$key];
 		}
 	} else {
 		return $ditty_settings;
+	}
+}
+
+/**
+ * Set Ditty settings
+ *
+ * @since    3.1.15
+*/
+function update_ditty_settings( $key, $value='' ) {
+	global $ditty_settings;
+	if ( empty( $ditty_settings ) ) {
+		$ditty_settings = get_option( 'ditty_settings', array() );
+		$ditty_settings = wp_parse_args( $ditty_settings, ditty_settings_defaults() );
+	}
+	if ( is_array( $key ) ) {
+		foreach ( $key as $k => $v ) {
+			$ditty_settings[$k] = $v;
+		}
+		update_option( 'ditty_settings', $ditty_settings );
+	} else {
+		if ( $value ) {
+			$ditty_settings[$key] = $value;
+			update_option( 'ditty_settings', $ditty_settings );
+		}
+	}	
+	if ( is_array( $key ) ) {
+		return $ditty_settings;
+	} else {
+		if ( isset( $ditty_settings[$key] ) ) {
+			return $ditty_settings[$key];
+		}
 	}
 }
 
@@ -422,7 +436,7 @@ function ditty_set_variation_default( $item_type, $variation, $layout_id ) {
 	// if ( ! $item_type_object = ditty_item_type_object( $item_type ) ) {
 	// 	return false;
 	// }
-	// $variation_defaults = ditty_settings( 'variation_defaults' );
+	// $variation_defaults = get_ditty_settings( 'variation_defaults' );
 	// if ( ! isset( $variation_defaults[$item_type] ) ) {
 	// 	$variation_defaults[$item_type] = array();
 	// }
@@ -589,52 +603,6 @@ function ditty_display_posts( $atts = array() ) {
 		return $displays;
 	}
 }
-
-/**
- * Return the default displays
- *
- * @since    3.0
- * @var      array	$default_displays    
-*/
-function ditty_default_displays() {
-	$default_displays = array();	
-	// $display_types = ditty_display_types();
-	// if ( is_array( $display_types ) && count( $display_types ) > 0 ) {
-	// 	foreach ( $display_types as $display_type => $data ) {
-	// 		$type_object = ditty_display_type_object( $display_type );
-	// 		$templates = $type_object->templates();
-			
-	// 		$default_displays[$display_type] = array(
-	// 			'label' => $data['label'],
-	// 			'templates' => $templates,
-	// 		);
-	// 	}
-	// }
-	
-	return $default_displays;
-}
-
-/**
- * Return the default display for Dittys
- *
- * @since    3.0
- * @var      bool
-*/
-// function ditty_default_display( $post_id ) {
-// 	$display_types = ditty_display_types();
-	
-// 	// Check if saved default display exists
-// 	$default_display = ditty_settings( 'default_display' );
-// 	if ( $default_display && 'publish' == get_post_status( $default_display ) ) {
-// 		$display_type == get_post_meta( $default_display, '_ditty_display_type', true );
-// 		if ( array_key_exists( $display_type, $display_types ) ) {
-// 			return $default_display;
-// 		}
-// 	}
-	
-// 	$display_id = Ditty()->displays->install_default( 'ticker', 'default' );
-// 	return $display_id;
-// }
 
 /**
  * Check if a display exists by selector
@@ -847,7 +815,7 @@ function ditty_item_meta( $item_id ) {
  * @var      int    $layout_id
  */
 function ditty_get_default_layout() {	
-	$variation_defaults = ditty_settings( 'variation_defaults' );
+	$variation_defaults = get_ditty_settings( 'variation_defaults' );
 	$layout_id = ( isset( $variation_defaults['default'] ) && isset( $variation_defaults['default']['default'] ) ) ? $variation_defaults['default']['default'] : 0;
 	if ( ! $layout_id || 0 == $layout_id ) {
 		$atts = array(
@@ -1242,7 +1210,7 @@ function ditty_attr_to_html( $attr = array() ) {
 */
 function ditty_get_globals() {
 	$prepared_ditty = array();
-	$global_ditty = ditty_settings( 'global_ditty' );
+	$global_ditty = get_ditty_settings( 'global_ditty' );
 	if ( is_array( $global_ditty ) && count( $global_ditty ) > 0 ) {
 		foreach ( $global_ditty as $i => &$ditty ) {
 			$ditty_settings = get_post_meta( $ditty['ditty'], '_ditty_settings', true );
@@ -1318,7 +1286,7 @@ function ditty_maybe_add_uniq_id( $post_id ) {
  * @var      boolean
 */
 function ditty_news_ticker_enabled() {
-	if ( 'enabled' == ditty_settings( 'ditty_news_ticker' ) ) {
+	if ( 'enabled' == get_ditty_settings( 'ditty_news_ticker' ) ) {
 		return true;
 	}
 }
@@ -1330,7 +1298,7 @@ function ditty_news_ticker_enabled() {
  * @var      boolean
 */
 function ditty_fontawesome_enabled() {
-	if ( 'enabled' == ditty_settings( 'disable_fontawesome' ) ) {
+	if ( 'enabled' == get_ditty_settings( 'disable_fontawesome' ) ) {
 		return true;
 	}
 }
@@ -1509,7 +1477,7 @@ function ditty_layout_editing() {
  * @since   3.0.32
  */
 function ditty_edit_links( $ditty_id ) {
-	if ( ! is_admin() && current_user_can( 'edit_ditty', $ditty_id ) && 'enabled' === ditty_settings( 'edit_links' ) ) {
+	if ( ! is_admin() && current_user_can( 'edit_ditty', $ditty_id ) && 'enabled' === get_ditty_settings( 'edit_links' ) ) {
 		$html = '<div class="ditty__edit-links">';
 			$html .= '<a href="'.get_edit_post_link( $ditty_id ).'">' . __('Edit Ditty', 'ditty-news-ticker') . '</a>';
 			$display = get_post_meta( $ditty_id, '_ditty_display', true );
@@ -1622,7 +1590,7 @@ function ditty_get_image_dimensions( $image_url ) {
  * @since   3.1.15
  */
 function ditty_get_variation_defaults() {
-	$variation_defaults = ditty_settings( 'variation_defaults' );
+	$variation_defaults = get_ditty_settings( 'variation_defaults' );
 	$sanitized_variation_defaults = [];
 	if ( is_array( $variation_defaults ) && count( $variation_defaults ) > 0 ) {
 		foreach ( $variation_defaults as $item_type => $defaults ) {

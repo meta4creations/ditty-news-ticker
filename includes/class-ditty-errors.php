@@ -27,19 +27,6 @@ class Ditty_Errors {
 	 * @return void
 	 */
 	public function add_error( $error ) {
-/*
-		$error_log = true;
-	  $email = ditty_settings( 'notification_email' );
-	  if ( $email ) {
-		  if ( is_array( $error ) || is_object( $error ) ) {
-				$error = print_r( $error, true );
-		  }
-		  wp_mail( $email, __( 'Ditty... Error' ), $error );
-	  }
-	  if ( $error_log ) {
-		  error_log( $error );
-	  }
-*/
 	}
 	
 }

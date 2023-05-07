@@ -601,7 +601,7 @@ class Ditty_Singles {
 				}
 			}
 			$display_items = apply_filters( 'ditty_display_items', $display_items, $ditty_id );
-			set_transient( $transient_name, $display_items, ( MINUTE_IN_SECONDS * intval( ditty_settings( 'live_refresh' ) ) ) );
+			set_transient( $transient_name, $display_items, ( MINUTE_IN_SECONDS * intval( get_ditty_settings( 'live_refresh' ) ) ) );
 		}
 		return $display_items;
 	}

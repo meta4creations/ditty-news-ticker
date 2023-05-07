@@ -42,8 +42,8 @@ add_action( 'admin_init', 'ditty_updates' );
  * @return void
  */
 function ditty_v3_1_6_upgrades() {
-	$disable_fontawesome = ditty_settings( 'disable_fontawesome' );
-	$ditty_news_ticker = ditty_settings( 'ditty_news_ticker' );
+	$disable_fontawesome = get_ditty_settings( 'disable_fontawesome' );
+	$ditty_news_ticker = get_ditty_settings( 'ditty_news_ticker' );
 	$disable_fontawesome_update = ( '1' == $disable_fontawesome ) ? 'disabled' : 'enabled';
 	$ditty_news_ticker_update = ( '1' == $ditty_news_ticker ) ? 'enabled' : 'disabled';
 	ditty_settings( [

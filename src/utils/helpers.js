@@ -169,10 +169,13 @@ export const updatedDisplayItems = (prevItems, newItems, type = "replace") => {
 /**
  * Update item layout css
  *
- * @since    3.1
+ * @since    3.1.15
  * @return   null
  */
 export const updateLayoutCss = (layoutCss, layoutId) => {
+  if (!layoutCss) {
+    return false;
+  }
   let styles = document.getElementById(`ditty-layout--${layoutId}`);
   if (!styles) {
     styles = document.createElement("style");
@@ -186,10 +189,13 @@ export const updateLayoutCss = (layoutCss, layoutId) => {
 /**
  * Update item layout css
  *
- * @since    3.1
+ * @since    3.1.15
  * @return   null
  */
 export const updateDisplayCss = (displayCss, displayId) => {
+  if (!displayCss) {
+    return false;
+  }
   let styles = document.getElementById(`ditty-display--${displayId}`);
   if (!styles) {
     styles = document.createElement("style");
