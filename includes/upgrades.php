@@ -334,7 +334,7 @@ function ditty_v3_upgrades() {
 	);
 	$news_tickers = get_posts( $args );
 	if ( is_array( $news_tickers ) && count( $news_tickers ) > 0 ) {
-		ditty_settings( 'ditty_news_ticker', 'enabled' );
+		update_ditty_settings( 'ditty_news_ticker', 'enabled' );
 	}
 }
 

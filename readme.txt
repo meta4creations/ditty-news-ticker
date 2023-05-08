@@ -5,7 +5,7 @@ Tags: responsive slider, content slider, post slider, news ticker, post ticker
 Requires at least: 5.6
 Tested up to: 6.2
 Requires PHP: 7.1
-Stable tag: 3.1.14
+Stable tag: 3.1.15
 License: GPL2
 
 Ditty offers a range of content display options, including its signature news ticker and customizable layouts.
@@ -133,8 +133,10 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 = 3.1.15 =
 * Fixed item resize issue in editor when child panel is open
-* File cleanup
 * Minimum PHP version update
+* Settings functionality updates
+* Removed code that auto-enabled Ditty News Ticker if shortcode is used
+* File cleanup
 
 = 3.1.14 =
 * Bug fix for display template item text colors
@@ -908,4 +910,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Display bug fixes and other updates
+Fixed item resize issue in editor when child panel is open
