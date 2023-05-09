@@ -113,7 +113,7 @@ const EditItemActions = (props) => {
 
               // Get new display items
               const dittyEl = document.getElementById("ditty-editor__ditty");
-              getDisplayItems(clonedItem, layouts, (data) => {
+              getDisplayItems(allClonedItems, layouts, (data) => {
                 const updatedDisplayItems = actions.addDisplayItems(
                   data.display_items
                 );

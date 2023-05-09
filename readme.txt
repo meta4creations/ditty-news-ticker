@@ -131,6 +131,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.16 =
+* Clone item editor update
+
 = 3.1.15 =
 * Fixed item resize issue in editor when child panel is open
 * Minimum PHP version update
