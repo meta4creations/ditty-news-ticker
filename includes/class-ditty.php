@@ -189,6 +189,7 @@ class Ditty {
 		
 		// Add general files
 		require_once DITTY_DIR . 'includes/blocks.php';
+    require_once DITTY_DIR . 'includes/deprecated.php';
 		require_once DITTY_DIR . 'includes/helpers.php';
 		require_once DITTY_DIR . 'includes/hooks.php';
 		require_once DITTY_DIR . 'includes/layout-tag-helpers.php';
