@@ -375,7 +375,7 @@ class Ditty_Scripts {
 			'all'
 		);
 
-		if ( is_admin() ) {
+		if ( is_admin() || isset( $_GET['fb-edit'] ) ) {
 			wp_enqueue_style(
 				'ditty-admin',
 				DITTY_URL . 'includes/css/ditty-admin.css',

@@ -543,12 +543,12 @@ class Ditty_Singles {
 	/**
 	 * Return display items for a specific Ditty
 	 *
-	 * @since    3.1
+	 * @since    3.1.18
 	 * @access   public
 	 * @var      array   	$display_items    Array of item objects
 	 */
 	function get_display_items( $ditty_id, $load_type = 'cache', $custom_layouts = false ) {
-		//$load_type = 'force';
+		$load_type = 'force';
 		$transient_name = "ditty_display_items_{$ditty_id}";
 		
 		// Check for custom layouts
@@ -574,16 +574,26 @@ class Ditty_Singles {
 
 					// Unpack the layout variations
 					$layout_value = maybe_unserialize( $item_meta->layout_value );
-					$layout_variations = [];
-					if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
-						foreach ( $layout_value as $variation => $value ) {
-							if ( is_array( $value ) ) {
-								$layout_variations[$variation] = $value;
-							} else {
-								$layout_variations[$variation] = json_decode($value, true);
-							}	
+					
+					// Add custom layouts
+					if ( ! empty( $custom_layout_array ) ) {
+						if ( isset( $custom_layout_array['all'] ) ) {
+							$layout_value = $custom_layout_array['all'];
+						} elseif ( isset( $custom_layout_array[$item_meta->item_type] ) ) {
+							$layout_value = $custom_layout_array[$item_meta->item_type];
 						}
 					}
+
+					// $layout_variations = [];
+					// if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
+					// 	foreach ( $layout_value as $variation => $value ) {
+					// 		if ( is_array( $value ) ) {
+					// 			$layout_variations[$variation] = $value;
+					// 		} else {
+					// 			$layout_variations[$variation] = json_decode($value, true);
+					// 		}	
+					// 	}
+					// }
 
 					// De-serialize the attribute values
 					$attribute_value = maybe_unserialize( $item_meta->attribute_value );
@@ -593,6 +603,7 @@ class Ditty_Singles {
 					if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
 						foreach ( $prepared_items as $i => $prepared_meta ) {
 							$prepared_meta['attribute_value'] = $attribute_value;
+							$prepared_meta['layout_value'] = $layout_value;
 							$display_item = new Ditty_Display_Item( $prepared_meta );
 							$ditty_data = $display_item->ditty_data();
 							$display_items[] = $ditty_data;

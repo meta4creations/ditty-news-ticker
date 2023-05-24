@@ -703,7 +703,7 @@ function ditty_parse_custom_layouts( $layout_settings ) {
 		$variation_array = array(
 			'default' => $layout_settings,
 		);
-		$layouts['all'] = maybe_serialize( $variation_array );
+		$layouts['all'] = $variation_array;
 	} else {
 		parse_str( html_entity_decode( $layout_settings ), $custom_layout_settings );
 		if ( is_array( $custom_layout_settings ) && count( $custom_layout_settings ) > 0 ) {
@@ -717,7 +717,7 @@ function ditty_parse_custom_layouts( $layout_settings ) {
 							$variation_array[$varation_values[0]] = $varation_values[1];
 						}
 					}
-					$layouts[$item_type] = maybe_serialize( $variation_array );
+					$layouts[$item_type] = $variation_array;
 				}
 			}
 		}
@@ -974,7 +974,7 @@ function ditty_prepare_display_items( $item ) {
 /**
  * Render the Ditty container
  *
- * @since    3.1.14
+ * @since    3.1.18
  */
 function ditty_render( $atts ) {
 	//return Ditty()->singles->setup( $atts );
@@ -988,7 +988,7 @@ function ditty_render( $atts ) {
 		'id' 								=> '',
 		'display' 					=> '',
 		'display_settings' 	=> '',
-		'layout_settings' 	=> '',
+		'layout' 						=> '',
 		'uniqid' 						=> '',
 		'class' 						=> '',
 		'el_id'							=> '',
@@ -1038,7 +1038,7 @@ function ditty_render( $atts ) {
 		'data-uniqid' 					=> $args['uniqid'],
 		'data-display' 					=> ( '' != $args['display'] ) ? $args['display'] : false,
 		'data-display_settings' => ( '' != $args['display_settings'] ) ? $args['display_settings'] : false,
-		'data-layout_settings' 	=> ( '' != $args['layout_settings'] ) ? $args['layout_settings'] : false,
+		'data-layout_settings' 	=> ( '' != $args['layout'] ) ? $args['layout'] : false,
 		'data-show_editor' 			=> ( 0 != intval( $args['show_editor'] ) ) ? '1' : false,
 		'data-ajax_load' 				=> $ajax_load,
 		'data-live_updates' 		=> $live_updates,
