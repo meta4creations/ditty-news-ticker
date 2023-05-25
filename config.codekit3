@@ -443,6 +443,14 @@
       "oF" : 0,
       "pg" : 0
     },
+    "\/includes\/deprecated.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/deprecated.php",
+      "oF" : 0
+    },
     "\/includes\/fields\/ditty-field-button.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -1024,14 +1032,6 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/layout-templates.php",
-      "oF" : 0
-    },
-    "\/includes\/legacy-helpers.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/legacy-helpers.php",
       "oF" : 0
     },
     "\/includes\/libs\/ChromePhp.php" : {

@@ -5,7 +5,10 @@ import LayoutEditor from "./LayoutEditor";
 import { saveLayout } from "../services/httpService";
 import { getItemTypeObject } from "../utils/itemTypes";
 import { compileLayoutStyle } from "../utils/layouts";
-import { getDisplayItems } from "../services/dittyService";
+import {
+  getDisplayItems,
+  updateDisplayOptions,
+} from "../services/dittyService";
 import { updateLayoutCss } from "../utils/helpers";
 
 export default () => {
@@ -208,10 +211,6 @@ export default () => {
 
     setTitle(updatedTitle);
     setUpdates(newUpdates);
-
-    // Update the Ditty options
-    const dittyEl = document.getElementById("ditty-editor__ditty");
-    updateDisplayOptions(dittyEl, "title", newTitle);
   };
 
   const handleUpdateDescription = (updatedDescription) => {

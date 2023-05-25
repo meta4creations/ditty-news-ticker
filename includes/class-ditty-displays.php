@@ -193,19 +193,31 @@ class Ditty_Displays {
 	 * Return an array of displays for select fields
 	 *
 	 * @access  public
-	 * @since   3.0
+	 * @since   3.1.18
 	 * @param   array    $options.
 	 */
-	public function select_field_options() {	
-		$displays = $this->get_displays_data();
+	public function select_field_options( $placeholder = false ) {	
 		$options = array();
+		if ( $placeholder ) {
+			$options[''] = $placeholder;
+		}
 		
-		if ( is_array( $displays ) && count( $displays ) > 0 ) {
+		$query_args = array(
+			'posts_per_page' 	=> -1,
+			'post_type' 			=> 'ditty_display',
+			'post_status'			=> 'any',
+			'orderby'					=> 'title',
+			'order'						=> 'ASC',
+		);
+		if ( $displays = get_posts( $query_args ) ) {
 			foreach ( $displays as $i => $display ) {
-				$options[$display['display_id']] = $display['type_label'] . ': ' . $display['display_label'];
+				$title = $display->post_title;
+				if ( 'publish' != $display->post_status ) {
+					$title .= " ({$display->post_status})";
+				}
+				$options[$display->ID] = $title;
 			}
 		}
-	
 		return $options;
 	}
 

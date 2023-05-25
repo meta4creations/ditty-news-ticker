@@ -2,7 +2,7 @@
 function ditty_fusion_elements() {
 	$ditty_options = array( '' => esc_html__( 'Select a Ditty', 'ditty-news-ticker' ) ) + Ditty()->singles->select_field_options();
 	$display_options = array( '' => esc_html__( 'Use Default Display', 'ditty-news-ticker' ) ) + Ditty()->displays->select_field_options();
-	$layout_options = array( '' => esc_html__( 'Use Default Layouts', 'ditty-news-ticker' ) ) + Ditty()->layouts->select_field_options();
+	$layout_options = array( '' => esc_html__( 'Use Default Layout', 'ditty-news-ticker' ) ) + Ditty()->layouts->select_field_options();
 	
 	$args = array(
 		'name'            => esc_attr__( 'Ditty', 'ditty-news-ticker' ),

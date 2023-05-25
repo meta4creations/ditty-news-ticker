@@ -131,6 +131,11 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.18 =
+* Added custom layout functionality to shortcodes
+* Bug fix for Layout editor title update
+* Bug fix for Ditty editor "Reset to Default Layout" action
+
 = 3.1.17 =
 * Added deprecated function for extensions
 

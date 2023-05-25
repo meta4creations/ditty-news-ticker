@@ -32,7 +32,7 @@ const PopupEditLayout = ({
   const updateLayout = (value, type) => {
     let updatedLayout;
     if (typeof value === "object") {
-      updatedLayout = { ...editLayout, ...type };
+      updatedLayout = { ...value };
     } else {
       updatedLayout = { ...editLayout };
       updatedLayout[type] = value;
