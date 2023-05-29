@@ -20,6 +20,7 @@ class Ditty_Display_Item {
 	private $id;
 	private $uniq_id;
 	private $parent_id;
+  private $timestamp;
 	private $item_meta;
 	private $item_type;
 	private $item_value;
@@ -44,6 +45,7 @@ class Ditty_Display_Item {
 		$this->id = $prepared_meta['item_id'];
 		$this->uniq_id = isset( $prepared_meta['item_uniq_id'] ) ? $prepared_meta['item_uniq_id'] : $prepared_meta['item_id'];
 		$this->parent_id = isset( $prepared_meta['parent_id'] ) ? $prepared_meta['parent_id'] : 0;
+    $this->timestamp = isset( $prepared_meta['item_timestamp'] ) ? $prepared_meta['item_timestamp'] : false;
 		$this->item_value = $prepared_meta['item_value'];	
 		$this->attribute_value = isset( $prepared_meta['attribute_value'] ) ? maybe_unserialize( $prepared_meta['attribute_value'] ) : array();	
 		$this->item_type = $prepared_meta['item_type'];
@@ -99,6 +101,31 @@ class Ditty_Display_Item {
 				);
 			}
 		}
+	}
+
+  /**
+	 * Return the timestamp
+	 * @access public
+	 * @since  3.1.18
+	 * @return string $timestamp
+	 */
+	public function get_timestamp() {
+    if ( $this->timestamp ) {
+      return ( string ) $this->timestamp;
+    }
+	}
+
+  /**
+	 * Return the ISO timestamp
+	 * @access public
+	 * @since  3.1.18
+	 * @return string $timestamp
+	 */
+	public function get_timestamp_iso() {
+    $timestamp = $this->get_timestamp();
+    if ( $timestamp ) {
+      return ( string ) date( "c", $timestamp );
+    }
 	}
 
 	/**
@@ -431,13 +458,15 @@ class Ditty_Display_Item {
 
 	public function ditty_data() {
 		$data = array(
-			'id'	 				=> ( string ) $this->id,
-			'uniq_id'	 		=> ( string ) $this->uniq_id,
-			'parent_id'	 	=> ( string ) $this->parent_id,
-			'html' 				=> $this->render_html(),
-			'css'					=> $this->get_layout_css(),
-			'layout_id'		=> $this->get_layout_id(),
-			'meta' 				=> $this->custom_meta,
+			'id'	 				    => ( string ) $this->id,
+			'uniq_id'	 		    => ( string ) $this->uniq_id,
+			'parent_id'	 	    => ( string ) $this->parent_id,
+      'timestamp'	 	    => $this->get_timestamp(),
+      'timestamp_iso'	 	=> $this->get_timestamp_iso(),
+			'html' 				    => $this->render_html(),
+			'css'					    => $this->get_layout_css(),
+			'layout_id'		    => $this->get_layout_id(),
+			'meta' 				    => $this->custom_meta,
 		);
 		return $data;
 	}

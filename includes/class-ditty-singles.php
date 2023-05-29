@@ -510,7 +510,7 @@ class Ditty_Singles {
 	 * @access   public
 	 * @var      array   	$display_items    Array of item objects
 	 */
-	function order_items( $items ) {
+	function group_child_items( $items ) {
 		$parent_items = [];
 		$child_groups = [];
 
@@ -561,7 +561,7 @@ class Ditty_Singles {
 		// Get the display items
 		$display_items = get_transient( $transient_name );
 		if ( ! $display_items || 'force' == $load_type ) {
-			$items_meta = $this->order_items( ditty_items_meta( $ditty_id ) );
+			$items_meta = $this->group_child_items( ditty_items_meta( $ditty_id ) );
 			$display_items = array();
 			if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
 				foreach ( $items_meta as $i => $item_meta ) {

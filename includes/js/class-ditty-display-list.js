@@ -163,6 +163,13 @@
       // Initialize the slider
       this._initSlider();
 
+      //console.log(this.settings.items);
+
+      this.settings.items = this.settings.items.sort(
+        (a, b) => new Date(b.timestamp_iso) - new Date(a.timestamp_iso)
+      );
+      console.log("items", this.settings.items);
+
       // Show the editor or start live updates
       if (this.settings.showEditor) {
         dittyEditorInit(this);

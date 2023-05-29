@@ -162,6 +162,25 @@ function ditty_init_layout_tag_excerpt( $excerpt, $item_type, $data, $atts ) {
 add_filter( 'ditty_layout_tag_excerpt', 'ditty_init_layout_tag_excerpt', 10, 4 );
 
 /**
+ * Modify the layout content
+ *
+ * @since    3.0.18
+ * @var      html
+*/
+// function ditty_init_layout_tag_content( $content, $item_type, $data, $atts ) {
+//   if ( isset( $atts['content_display'] ) && 'excerpt' == $atts['content_display'] ) {
+//     $atts['excerpt_length'] = isset( $atts['excerpt_length'] ) 	? intval( $atts['excerpt_length'] ) 					  : 200;
+//     $atts['more'] 					= isset( $atts['more'] ) 						? wp_filter_nohtml_kses( $atts['more'] ) 				: false;
+//     $atts['more_link']			= isset( $atts['more_link'] ) 			? esc_attr( $atts['more_link'] ) 							  : false;
+//     $atts['more_before'] 		= isset( $atts['more_before'] ) 		? wp_filter_nohtml_kses( $atts['more_before'] ) : false;
+//     $atts['more_after'] 		= isset( $atts['more_after'] ) 			? wp_filter_nohtml_kses( $atts['more_after'] ) 	: false;
+//     $content = ditty_init_layout_tag_excerpt( $content, $item_type, $data, $atts );
+//   }
+//   return $content;
+// }
+// add_filter( 'ditty_layout_tag_content', 'ditty_init_layout_tag_content', 99, 4 );
+
+/**
  * Modify the layout image
  *
  * @since    3.1.18
