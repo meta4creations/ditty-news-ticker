@@ -225,6 +225,14 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'description' => __( 'Render the item image.', 'ditty-news-ticker' ),
 			'atts'				=> array(
 				'wrapper'			=> $wrapper_settings,
+        'default_src' => [
+					'type'  => 'text',
+					'id'    =>  'default_src',
+					'help'  =>  __(
+						'Add a default image source if one does not exist for the item.',
+						'ditty-news-ticker'
+					),
+				],
 				'before'			=> $before_settings,
 				'after'				=> $after_settings,
 				'width'				=> $width_settings,

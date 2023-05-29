@@ -1533,7 +1533,7 @@ function ditty_sanitize_settings( $values, $filter = false ) {
 /**
  * Sanitize settings
  * *
- * @since   3.1
+ * @since   3.1.18
  */
 function ditty_get_image_dimensions( $image_url ) {
 	$response = wp_remote_get($image_url);
@@ -1541,11 +1541,12 @@ function ditty_get_image_dimensions( $image_url ) {
 	$temp_image = tmpfile();
 	fwrite($temp_image, $image_data);
 	$temp_image_path = stream_get_meta_data($temp_image)['uri'];
-	$image_info = getimagesize($temp_image_path);
-	return [
-		'width' => $image_info[0],
-		'height' => $image_info[1],
-	];
+	if ( $image_info = @getimagesize($temp_image_path) ) {
+    return [
+      'width' => $image_info[0],
+      'height' => $image_info[1],
+    ];
+  }	
 }
 
 /**

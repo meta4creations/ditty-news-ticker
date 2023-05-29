@@ -164,13 +164,22 @@ add_filter( 'ditty_layout_tag_excerpt', 'ditty_init_layout_tag_excerpt', 10, 4 )
 /**
  * Modify the layout image
  *
- * @since    3.0
+ * @since    3.1.18
  * @var      html
 */
 function ditty_init_layout_tag_image( $image, $item_type, $data, $atts ) {
-	if ( ! $image_data = ditty_layout_tag_image_data( $item_type, $data, $atts ) ) {
-		return $image;
+  $image_data = ditty_layout_tag_image_data( $item_type, $data, $atts );
+	if ( ! $image_data || ( is_array( $image_data ) && ! $image_data['src'] ) ) {
+    $default_src = ( isset( $atts['default_src'] ) ) ? $atts['default_src'] : false;
+    if ( $default_src ) {
+      $image_data = is_array( $image_data) ? $image_data : [];
+      $image_data['src'] = $default_src;
+    } else {
+      return $image;
+    }
 	}
+
+  //echo '<pre>';print_r('testingininin');echo '</pre>';
 	$defaults = array(
 		'width' 	=> '',
 		'height' 	=> '',
@@ -196,9 +205,10 @@ function ditty_init_layout_tag_image( $image, $item_type, $data, $atts ) {
 	);
 	$image_args = shortcode_atts( $image_defaults, $image_data );
 	if ( '' == $image_args['width'] && '' == $image_args['height'] ) {
-		$image_dimensions = ditty_get_image_dimensions( $image_args['src'] );
-		$image_args['width'] = $image_dimensions['width'];
-		$image_args['height'] = $image_dimensions['height'];
+		if ( $image_dimensions = ditty_get_image_dimensions( $image_args['src'] ) ) {
+      $image_args['width'] = $image_dimensions['width'];
+      $image_args['height'] = $image_dimensions['height'];
+    }
 	}
 	$image = '<img ' . ditty_attr_to_html( $image_args ) . ' />';
 	return $image;	
