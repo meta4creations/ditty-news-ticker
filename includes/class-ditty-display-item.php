@@ -45,7 +45,7 @@ class Ditty_Display_Item {
 		$this->id = $prepared_meta['item_id'];
 		$this->uniq_id = isset( $prepared_meta['item_uniq_id'] ) ? $prepared_meta['item_uniq_id'] : $prepared_meta['item_id'];
 		$this->parent_id = isset( $prepared_meta['parent_id'] ) ? $prepared_meta['parent_id'] : 0;
-    $this->timestamp = isset( $prepared_meta['item_timestamp'] ) ? $prepared_meta['item_timestamp'] : false;
+    $this->timestamp = isset( $prepared_meta['timestamp'] ) ? $prepared_meta['timestamp'] : false;
 		$this->item_value = $prepared_meta['item_value'];	
 		$this->attribute_value = isset( $prepared_meta['attribute_value'] ) ? maybe_unserialize( $prepared_meta['attribute_value'] ) : array();	
 		$this->item_type = $prepared_meta['item_type'];

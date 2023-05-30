@@ -69,6 +69,9 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 			$ditty_item['layout_variation'] = isset( $layout_value['default'] ) ? 'default' : false;
 			$ditty_item['layout'] = isset( $layout_value['default'] ) ? $layout_value['default'] : false;
 
+      // Add the timestamp
+      $ditty_item['timestamp'] = strtotime( $post->post_date_gmt );
+
 			$prepared_meta[] = $ditty_item;
 		
 		endwhile;
