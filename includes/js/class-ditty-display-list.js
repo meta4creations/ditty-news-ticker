@@ -162,7 +162,7 @@
       this._styleTitle();
 
       // Order the items
-      this.settings.items = dittyOrderItems(this.initItems, this.settings);
+      //this.settings.items = dittyOrderItems(this.initItems, this.settings);
 
       // Calculate the number of pages
       this._calculatePages();
@@ -680,8 +680,6 @@
         this.settings.items,
         newItems
       );
-      console.log("updatedItems", updatedItems);
-      console.log("updatedIndexes", updatedIndexes);
 
       this.settings.items = updatedItems;
       this.total = updatedItems.length;
@@ -746,7 +744,7 @@
           currentCounter++;
         }
       }
-      console.log("itemSwaps", itemSwaps);
+
       dittyUpdateItems(itemSwaps, swapType);
       this.trigger("update");
     },
@@ -1031,17 +1029,18 @@
       switch (key) {
         case "items":
           updateSlider = false;
-          this.updateItems(dittyOrderItems(value, this.settings));
+          this.updateItems(value);
+          //this.updateItems(dittyOrderItems(value, this.settings));
           break;
-        case "orderby":
-        case "order":
-          updateSlider = false;
-          const orderedItems = dittyOrderItems(
-            [...this.initItems],
-            this.settings
-          );
-          this.loadItems(orderedItems, "static");
-          break;
+        // case "orderby":
+        // case "order":
+        //   updateSlider = false;
+        //   const orderedItems = dittyOrderItems(
+        //     [...this.initItems],
+        //     this.settings
+        //   );
+        //   this.loadItems(orderedItems, "static");
+        //   break;
         case "perPage":
         case "paging":
           updateSlider = false;

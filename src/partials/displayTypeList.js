@@ -104,39 +104,52 @@ if (dittyEditor) {
             },
           },
           {
-            type: "group",
-            name: __("Item Order", "ditty-news-ticker"),
-            description: __(
-              "Configure the order of the items in the list.",
+            type: "checkbox",
+            id: "shuffle",
+            name: __("Shuffle Items", "ditty-news-ticker"),
+            label: __(
+              "Randomly shuffle items on each page load",
               "ditty-news-ticker"
             ),
-            multipleFields: true,
-            defaultState: "collapsed",
-            collapsible: true,
-            fields: [
-              {
-                type: "select",
-                id: "orderby",
-                name: __("Order By", "ditty-news-ticker"),
-                help: __("Choose how to order the items", "ditty-news-ticker"),
-                options: {
-                  default: __("Default", "ditty-news-ticker"),
-                  timestamp: __("Timestamp", "ditty-news-ticker"),
-                  random: __("Random", "ditty-news-ticker"),
-                },
-              },
-              {
-                type: "select",
-                id: "order",
-                name: __("Order", "ditty-news-ticker"),
-                help: __("Choose how to order the items", "ditty-news-ticker"),
-                options: {
-                  desc: __("Descending", "ditty-news-ticker"),
-                  asc: __("Ascending", "ditty-news-ticker"),
-                },
-              },
-            ],
+            help: __(
+              "Randomly shuffle items on each page load.",
+              "ditty-news-ticker"
+            ),
           },
+          // {
+          //   type: "group",
+          //   name: __("Item Order", "ditty-news-ticker"),
+          //   description: __(
+          //     "Configure the order of the items in the list.",
+          //     "ditty-news-ticker"
+          //   ),
+          //   multipleFields: true,
+          //   defaultState: "collapsed",
+          //   collapsible: true,
+          //   fields: [
+          //     {
+          //       type: "select",
+          //       id: "orderby",
+          //       name: __("Order By", "ditty-news-ticker"),
+          //       help: __("Choose how to order the items", "ditty-news-ticker"),
+          //       options: {
+          //         default: __("Default", "ditty-news-ticker"),
+          //         timestamp: __("Timestamp", "ditty-news-ticker"),
+          //         random: __("Random", "ditty-news-ticker"),
+          //       },
+          //     },
+          //     {
+          //       type: "select",
+          //       id: "order",
+          //       name: __("Order", "ditty-news-ticker"),
+          //       help: __("Choose how to order the items", "ditty-news-ticker"),
+          //       options: {
+          //         desc: __("Descending", "ditty-news-ticker"),
+          //         asc: __("Ascending", "ditty-news-ticker"),
+          //       },
+          //     },
+          //   ],
+          // },
           {
             type: "group",
             name: __("Transition Animations", "ditty-news-ticker"),
