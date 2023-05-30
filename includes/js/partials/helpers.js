@@ -34,6 +34,60 @@ function dittyDisplayCss(displayCss, displayId) {
 }
 
 /**
+ * Configure the order of items
+ *
+ * @since    3.1.18
+ * @return   null
+ */
+function dittyOrderItemGroup(items, settings) {
+  const orderby = settings.orderby ? settings.orderby : "default";
+  const order = settings.order ? settings.order : "desc";
+
+  let sortedItems = items;
+  switch (orderby) {
+    case "timestamp":
+      sortedItems = items.sort(
+        (a, b) => new Date(b.timestamp_iso) - new Date(a.timestamp_iso)
+      );
+      break;
+    case "random":
+      for (let i = sortedItems.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = sortedItems[i];
+        sortedItems[i] = sortedItems[j];
+        sortedItems[j] = temp;
+      }
+      break;
+    default:
+      break;
+  }
+
+  if ("asc" === order) {
+    sortedItems.reverse();
+  }
+
+  return sortedItems;
+}
+function dittyOrderItems(items, settings) {
+  const parentItems = [];
+  const childGroups = [];
+  items.map((item) => {
+    if (!item.parent_id || "0" === String(item.parent_id)) {
+      parentItems.push(item);
+    } else {
+      if (!childGroups[item.parent_id]) {
+        childGroups[item.parent_id] = [];
+      }
+      childGroups[item.parent_id].push(item);
+    }
+  });
+
+  const sortedParentItems = dittyOrderItemGroup(parentItems, settings);
+
+  return sortedParentItems;
+}
+
+/**
  * Update items
  *
  * @since    3.0.33

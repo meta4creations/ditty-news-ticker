@@ -548,7 +548,7 @@ class Ditty_Singles {
 	 * @var      array   	$display_items    Array of item objects
 	 */
 	function get_display_items( $ditty_id, $load_type = 'cache', $custom_layouts = false ) {
-		$load_type = 'force';
+		//$load_type = 'force';
 		$transient_name = "ditty_display_items_{$ditty_id}";
 		
 		// Check for custom layouts

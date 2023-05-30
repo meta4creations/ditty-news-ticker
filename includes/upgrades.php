@@ -3,7 +3,7 @@
 /**
  * Run updates
  *
- * @since  3.1.6
+ * @since  3.1.18
  * @return void
  */
 function ditty_updates() {
@@ -15,17 +15,20 @@ function ditty_updates() {
 	if ( version_compare( $current_version, '3.0', '<' ) ) {
 		ditty_v3_upgrades();
 	}
-	if ( version_compare( $current_version, '3.0.6', '<' ) ) {
+	if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.0.6', '<' ) ) {
 		ditty_v3_0_6_upgrades();
 	}
-	if ( version_compare( $current_version, '3.0.14', '<' ) ) {
+	if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.0.14', '<' ) ) {
 		ditty_v3_0_14_upgrades();
 	}
-	if ( version_compare( $current_version, '3.1', '<' ) ) {
+	if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.1', '<' ) ) {
 		ditty_v3_1_upgrades();
 	}
-	if ( version_compare( $current_version, '3.1.6', '<' ) ) {
+	if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.1.6', '<' ) ) {
 		ditty_v3_1_6_upgrades();
+	}
+  if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.1.18', '<' ) ) {
+		//ditty_v3_1_18_upgrades();
 	}
 	if ( DITTY_VERSION != $current_version ) {
 		do_action( 'ditty_version_update', DITTY_VERSION, $current_version );
@@ -34,6 +37,51 @@ function ditty_updates() {
 	}
 }
 add_action( 'admin_init', 'ditty_updates' );
+
+/**
+ * Version 3.1.18 Updates
+ *
+ * @since  3.1.18
+ * @return void
+ */
+function ditty_v3_1_18_upgrades() {
+  // Convert the display shuffle to orderby random
+	$args = array(
+		'post_type' => 'ditty',
+		'post_status' => 'any',
+	);
+	$dittys = get_posts( $args );
+	if ( is_array( $dittys ) && count( $dittys ) > 0 ) {
+		foreach ( $dittys as $ditty ) {
+      $display = get_post_meta(  $ditty->ID, '_ditty_display', true );
+      if ( is_array( $display ) ) {
+        $settings = isset( $display['settings'] ) ? $display['settings'] : [];
+        if ( isset( $settings['shuffle'] ) && '1' == $settings['shuffle'] ) {
+          $settings['orderby'] = 'random';
+          unset( $settings['shuffle'] );
+          $display['settings'] = $settings;
+          update_post_meta(  $ditty->ID, '_ditty_display', $display );
+        } 
+      }	
+		}
+	}
+
+  $args = array(
+		'post_type' => 'ditty_display',
+		'post_status' => 'any',
+	);
+	$displays = get_posts( $args );
+	if ( is_array( $displays ) && count( $displays ) > 0 ) {
+		foreach ( $displays as $display ) {
+      $settings = get_post_meta(  $display->ID, '_ditty_display_settings', true );
+      if ( isset( $settings['shuffle'] ) && '1' == $settings['shuffle'] ) {
+        $settings['orderby'] = 'random';
+        unset( $settings['shuffle'] );
+        update_post_meta(  $display->ID, '_ditty_display_settings', $settings );
+      } 
+		}
+	}
+}
 
 /**
  * Version 3.1.6 Updates

@@ -188,7 +188,7 @@ add_filter( 'ditty_layout_tag_excerpt', 'ditty_init_layout_tag_excerpt', 10, 4 )
 */
 function ditty_init_layout_tag_image( $image, $item_type, $data, $atts ) {
   $image_data = ditty_layout_tag_image_data( $item_type, $data, $atts );
-	if ( ! $image_data || ( is_array( $image_data ) && ! $image_data['src'] ) ) {
+	if ( ! $image_data || ( is_array( $image_data ) && ( ! $image_data['src'] ) || ! ditty_get_image_dimensions( $image_data['src'] ) ) ) {
     $default_src = ( isset( $atts['default_src'] ) ) ? $atts['default_src'] : false;
     if ( $default_src ) {
       $image_data = is_array( $image_data) ? $image_data : [];

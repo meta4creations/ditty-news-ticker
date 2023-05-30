@@ -1,6 +1,7 @@
 /* global jQuery:true */
 /* global dittyEditorInit:true */
 /* global dittyLayoutCss:true */
+/* global dittyOrderItems:true */
 /* global dittyUpdateItems:true */
 /* //global console:true */
 
@@ -19,6 +20,8 @@
     title: "",
     display: 0,
     status: "",
+    order: "default",
+    orderby: "desc",
     spacing: 30,
     paging: 0, // 0, 1
     perPage: 0,
@@ -122,6 +125,7 @@
     this.totalPages = 1;
     this.page = this.settings.page;
     this.pages = [];
+    this.initItems = [...this.settings.items];
     this.enabledItems = [];
     this.visibleItems = [];
     this.editItem = null;
@@ -157,18 +161,14 @@
       this._styleDisplay();
       this._styleTitle();
 
+      // Order the items
+      this.settings.items = dittyOrderItems(this.initItems, this.settings);
+
       // Calculate the number of pages
       this._calculatePages();
 
       // Initialize the slider
       this._initSlider();
-
-      //console.log(this.settings.items);
-
-      this.settings.items = this.settings.items.sort(
-        (a, b) => new Date(b.timestamp_iso) - new Date(a.timestamp_iso)
-      );
-      console.log("items", this.settings.items);
 
       // Show the editor or start live updates
       if (this.settings.showEditor) {
@@ -680,6 +680,8 @@
         this.settings.items,
         newItems
       );
+      console.log("updatedItems", updatedItems);
+      console.log("updatedIndexes", updatedIndexes);
 
       this.settings.items = updatedItems;
       this.total = updatedItems.length;
@@ -744,6 +746,7 @@
           currentCounter++;
         }
       }
+      console.log("itemSwaps", itemSwaps);
       dittyUpdateItems(itemSwaps, swapType);
       this.trigger("update");
     },
@@ -1028,7 +1031,16 @@
       switch (key) {
         case "items":
           updateSlider = false;
-          this.updateItems(value);
+          this.updateItems(dittyOrderItems(value, this.settings));
+          break;
+        case "orderby":
+        case "order":
+          updateSlider = false;
+          const orderedItems = dittyOrderItems(
+            [...this.initItems],
+            this.settings
+          );
+          this.loadItems(orderedItems, "static");
           break;
         case "perPage":
         case "paging":

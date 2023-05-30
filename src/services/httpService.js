@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export function saveDitty(data, onComplete) {
+  console.log("data", data);
   const apiURL = `${dittyEditorVars.restUrl}dittyeditor/v1/save`;
   const apiData = {
     security: dittyEditorVars.security,
