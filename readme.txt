@@ -137,6 +137,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 * Bug fix for Ditty editor "Reset to Default Layout" action
 * Ditty export bug fix
 * Image tag render export
+* Added timestamps to display items
 
 = 3.1.17 =
 * Added deprecated function for extensions
@@ -924,4 +925,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Added deprecated function for extensions
+Added custom layout functionality to shortcodes
