@@ -63,6 +63,7 @@ class Ditty {
 	public $scripts;
 	public $singles;
 	public $wpml;
+  public $render;
 
 	/**
 	 * Main Ditty Instance.
@@ -103,6 +104,7 @@ class Ditty {
 			self::$instance->settings			= new Ditty_Settings();
 			self::$instance->singles			= new Ditty_Singles();
 			self::$instance->wpml					= new Ditty_WPML();	
+      self::$instance->render				= new Ditty_Render();	
 		}
 
 		return self::$instance;
@@ -244,6 +246,8 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-settings.php';
 		require_once DITTY_DIR . 'includes/class-ditty-singles.php';
 		require_once DITTY_DIR . 'includes/class-ditty-wpml.php';
+
+    require_once DITTY_DIR . 'includes/class-ditty-render.php';
 
 		if ( is_admin() ) {
 			if ( ! class_exists( 'Ditty_Plugin_Updater' ) ) {

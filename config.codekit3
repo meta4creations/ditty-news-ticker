@@ -17,18 +17,18 @@
       "oAP" : "\/.gitignore",
       "oF" : 1
     },
-    "\/.nova\/Publishing\/Demo.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/.nova\/Publishing\/Demo-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
     "\/.nova\/Publishing\/Metaphor Creations.json" : {
       "ft" : 524288,
       "oA" : 1,
       "oAP" : "\/.nova\/Publishing\/Metaphor Creations-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
+    "\/.nova\/Publishing\/Staging.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/.nova\/Publishing\/Staging-min.json",
       "oF" : 0,
       "oO" : 1,
       "oS" : 1
@@ -309,6 +309,14 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/class-ditty-loader.php",
+      "oF" : 0
+    },
+    "\/includes\/class-ditty-render.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/class-ditty-render.php",
       "oF" : 0
     },
     "\/includes\/class-ditty-roles.php" : {
