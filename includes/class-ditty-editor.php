@@ -276,7 +276,7 @@ class Ditty_Editor {
 			foreach ($fields as $i => &$field) {
 				$field = $this->format_js_field($field);
 			}
-		}
-		return array_values($fields);
+      return array_values($fields);
+		}		
 	}
 }

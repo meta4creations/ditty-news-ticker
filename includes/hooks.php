@@ -247,3 +247,18 @@ function ditty_shortcode_test_display( $atts, $content = '' ) {
 	return $html;
 }
 add_shortcode( 'ditty_shortcode_test', 'ditty_shortcode_test_display' );
+
+
+
+/**
+ * Maybe use php display method
+ *
+ * @since    3.1.19
+ */
+function ditty_maybe_php_display( $php_display, $display_data, $args ) {
+  if ( 'list' == $display_data['type'] ) {
+    return true;
+  }
+  return $php_display;
+}
+add_filter( 'ditty_php_display', 'ditty_maybe_php_display', 10, 3 );
