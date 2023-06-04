@@ -82,28 +82,10 @@ class Ditty_Displays {
 	 * Redirect Ditty edit pages to custom screens
 	 * @access  public
 	 *
-	 * @since   3.1
+	 * @since   3.1.19
 	 */
 	public function edit_page_redirects() {
-		$action = isset( $_GET['action'] ) ? $_GET['action'] : false;
-		if ( ! is_admin() || 'trash' == $action || 'delete' == $action ) {
-			return false;
-		}
-		global $pagenow;
-		if ( $pagenow === 'post.php' ) {
-			$post_id = isset( $_GET['post'] ) ? $_GET['post'] : 0;
-			if ( 'ditty_display' == get_post_type( $post_id ) ) {
-				wp_safe_redirect( add_query_arg( ['page' => 'ditty_display', 'id' => $post_id], admin_url( 'admin.php' ) ) );
-				exit;
-			}
-		}
-		if ( $pagenow === 'post-new.php' ) {
-			$post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : false;
-			if ( 'ditty_display' == $post_type ) {
-				wp_safe_redirect( add_query_arg( ['page' => 'ditty_display-new' ], admin_url( 'admin.php' ) ) );
-				exit;
-			}
-		}
+    ditty_edit_post_type_redirects( 'ditty_display' );
 	}
 
 	/**

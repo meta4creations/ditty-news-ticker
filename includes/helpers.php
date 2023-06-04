@@ -1012,10 +1012,10 @@ function ditty_render( $atts ) {
   $display = ( '' != $args['display'] ) ? $args['display'] : get_post_meta( $args['id'], '_ditty_display', true );
   $display_data = ditty_display_data( $display );
 
-  $php_display = apply_filters( 'ditty_php_display', false, $display_data, $args );
-  if ( $php_display ) {
-    return Ditty()->singles->setup( $atts );
-  }
+  // $php_display = apply_filters( 'ditty_php_display', false, $display_data, $args );
+  // if ( $php_display ) {
+  //   return Ditty()->render->render( $atts );
+  // }
 
 	$class = 'ditty ditty--pre';
 	if ( '' != $args['class'] ) {
@@ -1584,6 +1584,41 @@ function ditty_get_image_dimensions( $image_url ) {
       'height' => $image_info[1],
     ];
   }	
+}
+
+/**
+ * Redirect Ditty post type edit screens
+ * *
+ * @since   3.1.19
+ */
+function ditty_edit_post_type_redirects( $ditty_post_type ) {
+	$action = isset( $_GET['action'] ) ? $_GET['action'] : false;
+  if ( ! is_admin() || 'trash' == $action || 'delete' == $action ) {
+    return false;
+  }
+  global $pagenow;
+  if ( $pagenow === 'post.php' ) {
+    $post_id = isset( $_GET['post'] ) ? $_GET['post'] : 0;
+    if ( $ditty_post_type == get_post_type( $post_id ) ) {
+      wp_safe_redirect( add_query_arg( ['page' => $ditty_post_type, 'id' => $post_id], admin_url( 'admin.php' ) ) );
+      exit;
+    }
+  }
+  if ( $pagenow === 'post-new.php' ) {
+    $post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : false;
+    if ( $ditty_post_type == $post_type ) {
+      wp_safe_redirect( add_query_arg( ['page' => "{$ditty_post_type}-new" ], admin_url( 'admin.php' ) ) );
+      exit;
+    }
+  }
+
+  // Redirect to new Ditty if trying to view non-existent post
+  $page = isset( $_GET['page'] ) ? $_GET['page'] : false;
+  $id = isset( $_GET['id'] ) ? $_GET['id'] : false;
+  if ( $ditty_post_type == $page && ( ! get_post_status( $id ) || $ditty_post_type != get_post_type( $id ) ) ) {
+    wp_safe_redirect( add_query_arg( ['page' => "{$ditty_post_type}-new" ], admin_url( 'admin.php' ) ) );
+    exit;
+  } 	
 }
 
 /**

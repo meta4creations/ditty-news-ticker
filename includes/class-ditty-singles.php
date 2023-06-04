@@ -39,7 +39,7 @@ class Ditty_Singles {
 	 * Modify the edit post link
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.1.19
 	 */
 	public function modify_edit_post_link( $link, $post_id, $text ) {
 		if ( 'ditty' == get_post_type( $post_id ) ) {
@@ -55,25 +55,7 @@ class Ditty_Singles {
 	 * @since   3.1
 	 */
 	public function edit_page_redirects() {
-		$action = isset( $_GET['action'] ) ? $_GET['action'] : false;
-		if ( ! is_admin() || 'trash' == $action || 'delete' == $action ) {
-			return false;
-		}
-		global $pagenow;
-		if ( $pagenow === 'post.php' ) {
-			$post_id = isset( $_GET['post'] ) ? $_GET['post'] : 0;
-			if ( 'ditty' == get_post_type( $post_id ) ) {
-				wp_safe_redirect( add_query_arg( ['page' => 'ditty', 'id' => $post_id], admin_url( 'admin.php' ) ) );
-				exit;
-			}
-		}
-		if ( $pagenow === 'post-new.php' ) {
-			$post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : false;
-			if ( 'ditty' == $post_type ) {
-				wp_safe_redirect( add_query_arg( ['page' => 'ditty-new' ], admin_url( 'admin.php' ) ) );
-				exit;
-			}
-		}
+    ditty_edit_post_type_redirects( 'ditty' );
 	}
 	
 	/**

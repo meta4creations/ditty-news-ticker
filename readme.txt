@@ -131,6 +131,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.19 =
+* Added post edit redirect if trying to edit non-existent post
+
 = 3.1.18 =
 * Added custom layout functionality to shortcodes
 * Bug fix for Layout editor title update

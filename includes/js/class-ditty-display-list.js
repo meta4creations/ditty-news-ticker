@@ -99,7 +99,7 @@
     titleBorderWidth: {},
     titleBorderRadius: {},
     page: 0,
-    shuffle: 0,
+    //shuffle: 0,
     showEditor: 0,
     // init									: function () {},
     items: [
@@ -130,9 +130,12 @@
     this.visibleItems = [];
     this.editItem = null;
 
-    if (1 === parseInt(this.settings.shuffle)) {
-      this.shuffle();
-    }
+    // if (1 === parseInt(this.settings.shuffle)) {
+    //   this.shuffle();
+    // }
+
+    // Order the items
+    this.settings.items = dittyOrderItems(this.initItems, this.settings);
 
     this._init();
   };
@@ -160,9 +163,6 @@
       // Setup styles
       this._styleDisplay();
       this._styleTitle();
-
-      // Order the items
-      //this.settings.items = dittyOrderItems(this.initItems, this.settings);
 
       // Calculate the number of pages
       this._calculatePages();
@@ -480,17 +480,17 @@
      * @since    3.0
      * @return   null
      */
-    shuffle: function () {
-      var temp, rand;
+    // shuffle: function () {
+    //   var temp, rand;
 
-      for (var i = this.total - 1; i > 0; i--) {
-        rand = Math.floor(Math.random() * (i + 1));
-        temp = this.settings.items[i];
+    //   for (var i = this.total - 1; i > 0; i--) {
+    //     rand = Math.floor(Math.random() * (i + 1));
+    //     temp = this.settings.items[i];
 
-        this.settings.items[i] = this.settings.items[rand];
-        this.settings.items[rand] = temp;
-      }
-    },
+    //     this.settings.items[i] = this.settings.items[rand];
+    //     this.settings.items[rand] = temp;
+    //   }
+    // },
 
     /**
      * Check if a item is enabled
@@ -666,6 +666,7 @@
       if (!newItems.length) {
         return false;
       }
+      newItems = dittyOrderItems(newItems, this.settings);
 
       var slides = this.$contents.ditty_slider("options", "slides");
       if (!slides.length) {
@@ -680,6 +681,9 @@
         this.settings.items,
         newItems
       );
+
+      console.log("updatedItems", updatedItems);
+      console.log("updatedIndexes", updatedIndexes);
 
       this.settings.items = updatedItems;
       this.total = updatedItems.length;
@@ -1016,6 +1020,7 @@
      * @return   null
      */
     _setOption: function (key, value) {
+      console.log(`_setOption: ${key}: `, value);
       if (undefined === value) {
         return false;
       }

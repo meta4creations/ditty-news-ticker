@@ -94,31 +94,9 @@ function dittyOrderItems(items, settings) {
  * @return   null
  */
 function dittyGetUpdatedItemData(prevItems, newItems) {
-  const newGroupedItems = newItems.reduce((items, item) => {
-    const index = items.findIndex((i) => {
-      return i.id === item.id;
-    });
-    item.updated = "updated";
-    if (index < 0) {
-      items.push({
-        id: item.id,
-        items: [item],
-      });
-    } else {
-      items[index].items.push(item);
-    }
-    return items;
-  }, []);
-
-  const flattenedItems = newGroupedItems.reduce((items, group) => {
-    return [...items, ...group.items];
-  }, []);
   const updatedIndexes = [];
-  const updatedItems = flattenedItems.map((item, index) => {
-    if (item.updated) {
-      updatedIndexes.push(index);
-      delete item.updated;
-    } else if (typeof prevItems[index] === "undefined") {
+  const updatedItems = newItems.map((item, index) => {
+    if (typeof prevItems[index] === "undefined") {
       updatedIndexes.push(index);
     } else if (String(prevItems[index].uniq_id) !== String(item.uniq_id)) {
       updatedIndexes.push(index);
@@ -131,6 +109,44 @@ function dittyGetUpdatedItemData(prevItems, newItems) {
     updatedIndexes: updatedIndexes,
   };
 }
+// function dittyGetUpdatedItemData(prevItems, newItems) {
+//   const newGroupedItems = newItems.reduce((items, item) => {
+//     const index = items.findIndex((i) => {
+//       return i.id === item.id;
+//     });
+//     item.updated = "updated";
+//     if (index < 0) {
+//       items.push({
+//         id: item.id,
+//         items: [item],
+//       });
+//     } else {
+//       items[index].items.push(item);
+//     }
+//     return items;
+//   }, []);
+
+//   const flattenedItems = newGroupedItems.reduce((items, group) => {
+//     return [...items, ...group.items];
+//   }, []);
+//   const updatedIndexes = [];
+//   const updatedItems = flattenedItems.map((item, index) => {
+//     if (item.updated) {
+//       updatedIndexes.push(index);
+//       delete item.updated;
+//     } else if (typeof prevItems[index] === "undefined") {
+//       updatedIndexes.push(index);
+//     } else if (String(prevItems[index].uniq_id) !== String(item.uniq_id)) {
+//       updatedIndexes.push(index);
+//     }
+//     return item;
+//   });
+
+//   return {
+//     updatedItems: updatedItems,
+//     updatedIndexes: updatedIndexes,
+//   };
+// }
 
 /**
  * Update items

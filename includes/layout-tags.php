@@ -301,6 +301,22 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 				'class'				=> $class_settings,
 			),
 		),
+    'timestamp' => array(
+			'tag' 				=> 'timestamp',
+			'description' => __( 'Render the item timestamp.', 'ditty-news-ticker' ),
+			'atts'				=> array(
+				'wrapper' 		=> $wrapper_settings,
+        'format' 			=> Ditty()->layouts->tag_attribute_default_settings( 'format', get_option( 'date_format' ) ),
+				'before'			=> $before_settings,
+				'after'				=> $after_settings,
+				'link'				=> $link_settings,
+				'link_target' => $link_target_settings,
+				'link_rel'		=> $link_rel_settings,
+				'link_before'	=> $link_before_settings,
+				'link_after'	=> $link_after_settings,
+				'class'				=> $class_settings,
+			),
+		),
 		'title' => array(
 			'tag' 				=> 'title',
 			'description' => __( 'Render the item title.', 'ditty-news-ticker' ),

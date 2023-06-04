@@ -27,8 +27,8 @@ function ditty_updates() {
 	if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.1.6', '<' ) ) {
 		ditty_v3_1_6_upgrades();
 	}
-  if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.1.18', '<' ) ) {
-		//ditty_v3_1_18_upgrades();
+  if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.1.19', '<' ) ) {
+		//ditty_v3_1_19_upgrades();
 	}
 	if ( DITTY_VERSION != $current_version ) {
 		do_action( 'ditty_version_update', DITTY_VERSION, $current_version );
@@ -39,12 +39,12 @@ function ditty_updates() {
 add_action( 'admin_init', 'ditty_updates' );
 
 /**
- * Version 3.1.18 Updates
+ * Version 3.1.19 Updates
  *
- * @since  3.1.18
+ * @since  3.1.19
  * @return void
  */
-function ditty_v3_1_18_upgrades() {
+function ditty_v3_1_19_upgrades() {
   // Convert the display shuffle to orderby random
 	$args = array(
 		'post_type' => 'ditty',
