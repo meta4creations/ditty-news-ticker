@@ -195,8 +195,8 @@ class Ditty_Editor {
 				$item_type_data[] = $item_type;
 			}
 		}
-		//echo '<pre style="height:100%;overflow:scroll;">';print_r($item_type_data);echo '</pre>';
-		return array_values($item_type_data);
+
+    return array_values($item_type_data);
 	}
 
 	/**

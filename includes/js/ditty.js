@@ -57,7 +57,8 @@ jQuery(function ($) {
         if ("development" === dittyVars.mode && window.console) {
           console.log(`LIVE UPDATE: ${dittyId}`);
         }
-        $(this)["ditty_" + displayType]("options", "items", items);
+        $(this)[`ditty_${displayType}`]("loadItems", items, "static");
+        //$(this)["ditty_" + displayType]("options", "items", items);
       });
     }
 

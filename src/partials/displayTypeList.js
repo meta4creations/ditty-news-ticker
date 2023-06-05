@@ -104,19 +104,6 @@ if (dittyEditor) {
             },
           },
           {
-            type: "checkbox",
-            id: "shuffle",
-            name: __("Shuffle Items", "ditty-news-ticker"),
-            label: __(
-              "Randomly shuffle items on each page load",
-              "ditty-news-ticker"
-            ),
-            help: __(
-              "Randomly shuffle items on each page load.",
-              "ditty-news-ticker"
-            ),
-          },
-          {
             type: "group",
             name: __("Item Order", "ditty-news-ticker"),
             description: __(

@@ -53,6 +53,7 @@ const PanelItems = (props) => {
         : {},
       layout_value: layoutValue,
       parent_id: parentId,
+      date_created: new Date().toISOString(),
     };
 
     // Get new display items

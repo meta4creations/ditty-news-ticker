@@ -198,7 +198,6 @@ function ditty_init_layout_tag_image( $image, $item_type, $data, $atts ) {
     }
 	}
 
-  //echo '<pre>';print_r('testingininin');echo '</pre>';
 	$defaults = array(
 		'width' 	=> '',
 		'height' 	=> '',

@@ -83,8 +83,19 @@ function dittyOrderItems(items, settings) {
   });
 
   const sortedParentItems = dittyOrderItemGroup(parentItems, settings);
+  const sortedChildGroups = childGroups.map((group) => {
+    return dittyOrderItemGroup(group, settings);
+  });
 
-  return sortedParentItems;
+  const sortedItems = sortedParentItems.reduce((itemsList, item) => {
+    itemsList.push(item);
+    if (sortedChildGroups[item.id]) {
+      itemsList = [...itemsList, ...sortedChildGroups[item.id]];
+    }
+    return itemsList;
+  }, []);
+
+  return sortedItems;
 }
 
 /**
@@ -99,6 +110,8 @@ function dittyGetUpdatedItemData(prevItems, newItems) {
     if (typeof prevItems[index] === "undefined") {
       updatedIndexes.push(index);
     } else if (String(prevItems[index].uniq_id) !== String(item.uniq_id)) {
+      updatedIndexes.push(index);
+    } else if (String(prevItems[index].html) !== String(item.html)) {
       updatedIndexes.push(index);
     }
     return item;

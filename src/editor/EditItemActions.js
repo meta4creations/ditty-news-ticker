@@ -89,6 +89,8 @@ const EditItemActions = (props) => {
               const clonedItem = _.cloneDeep(item);
               const clonedItemId = `new-${Date.now()}`;
               clonedItem.item_id = clonedItemId;
+              clonedItem.date_created = new Date().toISOString();
+              delete clonedItem.date_modified;
 
               const allClonedItems =
                 0 === Number(item.parent_id)
@@ -98,8 +100,13 @@ const EditItemActions = (props) => {
                           String(item.item_id) === String(maybeItem.parent_id)
                         ) {
                           const clonedMaybeItem = _.cloneDeep(maybeItem);
+
                           clonedMaybeItem.item_id = `new-${Date.now()}-${maybeIndex}`;
                           clonedMaybeItem.parent_id = clonedItemId;
+                          clonedMaybeItem.date_created =
+                            new Date().toISOString();
+                          delete clonedMaybeItem.date_modified;
+
                           clonedItemsList.push(clonedMaybeItem);
                         }
                         return clonedItemsList;

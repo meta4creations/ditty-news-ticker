@@ -663,9 +663,10 @@
      * @return   null
      */
     loadItems: function (newItems = [], swapType = "animate") {
-      if (!newItems.length) {
-        return false;
-      }
+      // if (!newItems.length) {
+      //   return false;
+      // }
+      this.initItems = newItems;
       newItems = dittyOrderItems(newItems, this.settings);
 
       var slides = this.$contents.ditty_slider("options", "slides");
@@ -681,9 +682,6 @@
         this.settings.items,
         newItems
       );
-
-      console.log("updatedItems", updatedItems);
-      console.log("updatedIndexes", updatedIndexes);
 
       this.settings.items = updatedItems;
       this.total = updatedItems.length;
@@ -735,7 +733,6 @@
               newItem: $newItem,
             });
           }
-          currentCounter++;
 
           // If removing items
         } else if (currentCounter + minIndex >= this.total) {
@@ -745,10 +742,9 @@
               newItem: $('<div class="ditty-temp-item"></div>'),
             });
           }
-          currentCounter++;
         }
+        currentCounter++;
       }
-
       dittyUpdateItems(itemSwaps, swapType);
       this.trigger("update");
     },
@@ -1020,7 +1016,6 @@
      * @return   null
      */
     _setOption: function (key, value) {
-      console.log(`_setOption: ${key}: `, value);
       if (undefined === value) {
         return false;
       }
@@ -1037,15 +1032,12 @@
           this.updateItems(value);
           //this.updateItems(dittyOrderItems(value, this.settings));
           break;
-        // case "orderby":
-        // case "order":
-        //   updateSlider = false;
-        //   const orderedItems = dittyOrderItems(
-        //     [...this.initItems],
-        //     this.settings
-        //   );
-        //   this.loadItems(orderedItems, "static");
-        //   break;
+        case "orderby":
+        case "order":
+          updateSlider = false;
+          this.settings[key] = value;
+          this.loadItems(this.initItems, "static");
+          break;
         case "perPage":
         case "paging":
           updateSlider = false;
