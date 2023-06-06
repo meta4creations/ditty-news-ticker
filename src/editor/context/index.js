@@ -98,8 +98,8 @@ export class EditorProvider extends Component {
 
   /**
    * Merge new display items into an existing array of display items
-   * @param {array} existingDisplayItems
    * @param {array} newDisplayItems
+   * @param {array} existingDisplayItems
    * @param {array} items
    * @returns
    */
@@ -117,6 +117,43 @@ export class EditorProvider extends Component {
       });
       if (filteredNewItems.length) {
         return [...itemsArray, ...filteredNewItems];
+      } else {
+        const filteredExistingItems = existingDisplayItems.filter(
+          (displayItem) => {
+            return displayItem.id === item.item_id;
+          }
+        );
+        if (filteredExistingItems.length) {
+          return [...itemsArray, ...filteredExistingItems];
+        }
+        return itemsArray;
+      }
+    }, []);
+    return allDisplayItems;
+  };
+
+  /**
+   * Remove display items from the existing array of display items
+   * @param {array} itemIds
+   * @param {array} existingDisplayItems
+   * @param {array} items
+   * @returns
+   */
+  removeDisplayItems = (
+    itemIds,
+    existingDisplayItems = this.state.displayItems &&
+    this.state.displayItems.length
+      ? this.state.displayItems
+      : [],
+    items = this.ensureItemOrder(this.state.items)
+  ) => {
+    const removeItemIds = Array.isArray(itemIds) ? itemIds : [itemIds];
+    const allDisplayItems = items.reduce((itemsArray, item) => {
+      const removedItems = removeItemIds.filter((removeItemId) => {
+        return removeItemId === item.item_id;
+      });
+      if (removedItems.length) {
+        return itemsArray;
       } else {
         const filteredExistingItems = existingDisplayItems.filter(
           (displayItem) => {
@@ -362,7 +399,6 @@ export class EditorProvider extends Component {
           (update) => update.item_id === displayItem.id
         );
         return itemIndex === -1;
-        displayItem.id !== deletedItem.item_id;
       }
     );
     this.setState({ displayItems: updatedDisplayItems });
@@ -734,6 +770,7 @@ export class EditorProvider extends Component {
           helpers: {
             dittyUpdates: this.getDittyUpdates,
             replaceDisplayItems: this.replaceDisplayItems,
+            removeDisplayItems: this.removeDisplayItems,
           },
           actions: {
             setCurrentPanel: this.handleSetCurrentPanel,
