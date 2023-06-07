@@ -173,11 +173,11 @@ const PanelItems = (props) => {
             onClose={(editedItem) => {
               setPopupStatus(false);
               if (!_.isEqual(editedItem.item_value, currentItem.item_value)) {
+                const displayItems = data.display_items.length
+                  ? helpers.replaceDisplayItems(data.display_items)
+                  : helpers.removeDisplayItems(editedItem.item_id);
                 getDisplayItems(currentItem, layouts, (data) => {
-                  replaceDisplayItems(
-                    dittyEl,
-                    helpers.replaceDisplayItems(data.display_items)
-                  );
+                  replaceDisplayItems(dittyEl, displayItems);
                   setTempDisplayItems(null);
                   setTempPreviewItem(null);
                 });
@@ -189,10 +189,10 @@ const PanelItems = (props) => {
             }}
             onChange={(updatedItem) => {
               getDisplayItems(updatedItem, layouts, (data) => {
-                replaceDisplayItems(
-                  dittyEl,
-                  helpers.replaceDisplayItems(data.display_items)
-                );
+                const displayItems = data.display_items.length
+                  ? helpers.replaceDisplayItems(data.display_items)
+                  : helpers.removeDisplayItems(updatedItem.item_id);
+                replaceDisplayItems(dittyEl, displayItems);
                 setTempDisplayItems(data.display_items);
                 if (data.preview_items[updatedItem.item_id]) {
                   setTempPreviewItem(data.preview_items[updatedItem.item_id]);
@@ -216,9 +216,10 @@ const PanelItems = (props) => {
                     data.preview_items[updatedItem.item_id];
                 }
                 actions.updateItem(updatedItem, updateKeys);
-                const allDisplayItems = actions.updateDisplayItems(
-                  data.display_items
-                );
+
+                const allDisplayItems = data.display_items.length
+                  ? actions.updateDisplayItems(data.display_items)
+                  : actions.deleteDisplayItems(updatedItem);
                 replaceDisplayItems(dittyEl, allDisplayItems);
               });
             }}
