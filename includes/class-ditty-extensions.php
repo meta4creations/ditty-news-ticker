@@ -27,7 +27,7 @@ class Ditty_Extensions {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'add_extension_updaters' ), 0 );
 		add_action( 'admin_menu', array( $this, 'add_extensions_page' ), 3 );
-		add_action( 'network_admin_menu', array( $this, 'add_extensions_page' ) );
+		//add_action( 'network_admin_menu', array( $this, 'add_extensions_page' ) );
 		
 		// Ajax
 		add_action( 'wp_ajax_ditty_extension_license_activate', array( $this, 'license_activate_ajax' ) );
@@ -44,13 +44,13 @@ class Ditty_Extensions {
 	 * @since   3.0
 	 */
 	public function add_extensions_page() {
-		if ( is_multisite() ) {
-			if ( is_network_admin() ) {
-				add_submenu_page( 'settings.php', __( 'Ditty Extensions', 'ditty-news-ticker' ), __( 'Extensions', 'ditty-news-ticker' ), 'manage_ditty_settings', 'ditty_extensions', array( $this, 'extensions_page' ) );	
-			}
-		} else {
+		// if ( is_multisite() ) {
+		// 	if ( is_network_admin() ) {
+		// 		add_submenu_page( 'settings.php', __( 'Ditty Extensions', 'ditty-news-ticker' ), __( 'Extensions', 'ditty-news-ticker' ), 'manage_ditty_settings', 'ditty_extensions', array( $this, 'extensions_page' ) );	
+		// 	}
+		// } else {
 			add_submenu_page( 'edit.php?post_type=ditty', __( 'Ditty Extensions', 'ditty-news-ticker' ), __( 'Extensions', 'ditty-news-ticker' ), 'manage_ditty_settings', 'ditty_extensions', array( $this, 'extensions_page' ) );
-		}
+		//}
 	}
 	
 	/**
