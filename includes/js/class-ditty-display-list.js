@@ -1003,7 +1003,7 @@
         case "display":
           return this.settings.display;
         case "items":
-          return this.settings.items;
+          return this.initItems;
         default:
           return this.settings[key];
       }
@@ -1030,7 +1030,6 @@
         case "items":
           updateSlider = false;
           this.updateItems(value);
-          //this.updateItems(dittyOrderItems(value, this.settings));
           break;
         case "orderby":
         case "order":

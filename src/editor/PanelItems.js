@@ -2,9 +2,14 @@ import { __ } from "@wordpress/i18n";
 import _ from "lodash";
 import { useContext, useState } from "@wordpress/element";
 import { applyFilters } from "@wordpress/hooks";
-import { getDisplayItems, replaceDisplayItems } from "../services/dittyService";
+import {
+  getDisplayItems,
+  replaceDisplayItems,
+  updateDisplayOptions,
+} from "../services/dittyService";
 import { PopupTypeSelector } from "../common";
 import { Panel, SortableList } from "../components";
+import { FieldList } from "../fields";
 import { EditorContext } from "./context";
 import { getItemTypes, getItemTypeObject } from "../utils/itemTypes";
 import PopupEditItem from "./PopupEditItem";
@@ -13,7 +18,8 @@ import EditItem from "./EditItem";
 
 const PanelItems = (props) => {
   const editor = useContext(EditorContext);
-  const { id, items, displayItems, layouts, actions, helpers } = editor;
+  const { id, items, displayItems, layouts, settings, actions, helpers } =
+    editor;
 
   const [currentItem, setCurrentItem] = useState(null);
   const [tempDisplayItems, setTempDisplayItems] = useState(null);
@@ -173,10 +179,10 @@ const PanelItems = (props) => {
             onClose={(editedItem) => {
               setPopupStatus(false);
               if (!_.isEqual(editedItem.item_value, currentItem.item_value)) {
-                const displayItems = data.display_items.length
-                  ? helpers.replaceDisplayItems(data.display_items)
-                  : helpers.removeDisplayItems(editedItem.item_id);
                 getDisplayItems(currentItem, layouts, (data) => {
+                  const displayItems = data.display_items.length
+                    ? helpers.replaceDisplayItems(data.display_items)
+                    : helpers.removeDisplayItems(editedItem.item_id);
                   replaceDisplayItems(dittyEl, displayItems);
                   setTempDisplayItems(null);
                   setTempPreviewItem(null);
@@ -284,6 +290,43 @@ const PanelItems = (props) => {
     );
   };
 
+  const panelFooter = () => {
+    return (
+      <FieldList
+        name={__("Display Item Order", "ditty-news-ticker")}
+        fields={[
+          {
+            type: "select",
+            id: "orderby",
+            options: {
+              list: __("List", "ditty-news-ticker"),
+              timestamp: __("Timestamp", "ditty-news-ticker"),
+              random: __("Random", "ditty-news-ticker"),
+            },
+          },
+          {
+            type: "select",
+            id: "order",
+            options: {
+              desc: __("Descending", "ditty-news-ticker"),
+              asc: __("Ascending", "ditty-news-ticker"),
+            },
+          },
+        ]}
+        values={settings}
+        onUpdate={(id, value) => {
+          const updatedSettings = _.cloneDeep(settings);
+          updatedSettings[id] = value;
+          actions.updateSettings(updatedSettings);
+
+          // Update the Ditty options
+          const dittyEl = document.getElementById("ditty-editor__ditty");
+          updateDisplayOptions(dittyEl, id, value);
+        }}
+      />
+    );
+  };
+
   /**
    * Prepare the items for the sortable list
    * @returns {array}
@@ -345,7 +388,7 @@ const PanelItems = (props) => {
 
   return (
     <>
-      <Panel id="items" header={panelHeader()}>
+      <Panel id="items" header={panelHeader()} footer={panelFooter()}>
         <SortableList items={prepareItems()} onSortEnd={handleSortEnd} />
       </Panel>
       {renderPopup()}

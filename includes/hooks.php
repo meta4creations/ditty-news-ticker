@@ -205,9 +205,6 @@ function ditty_dashboard_custom_menu_classes() {
 	}
 	$submenu['edit.php?post_type=ditty'] = $ditty_menu;
 
-
-
-	//echo '<pre style="height:100%;overflow:scroll;">';print_r($submenu);echo '</pre>';
 	$page = isset( $_GET['page'] ) ? $_GET['page'] : false;
 	if ( 'ditty' != $page && 'ditty-new' != $page ) {
 		return false;

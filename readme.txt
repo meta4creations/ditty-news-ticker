@@ -133,6 +133,8 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 = 3.1.19 =
 * Added post edit redirect if trying to edit non-existent post
+* Resolved missing extensions menu on multisites
+* Added diplay item order settings
 
 = 3.1.18 =
 * Added custom layout functionality to shortcodes

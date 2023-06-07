@@ -242,6 +242,9 @@ class Ditty_Singles {
 		if ( ! is_array( $display_settings ) ) {
 			$display_settings = [];
 		}
+    $ditty_settings = get_post_meta( $id_ajax, '_ditty_settings', true );
+    $display_settings['orderby'] = isset( $ditty_settings['orderby'] ) ? $ditty_settings['orderby'] : 'list';
+    $display_settings['order'] = isset( $ditty_settings['order'] ) ? $ditty_settings['order'] : 'desc';
 
 		if ( ! $display_type || ! ditty_display_type_exists( $display_type ) ) {
 			$display_type = 'default';
@@ -314,6 +317,9 @@ class Ditty_Singles {
 		if ( ! is_array( $display_settings ) ) {
 			$display_settings = [];
 		}
+    $ditty_settings = get_post_meta( $ditty_id, '_ditty_settings', true );
+    $display_settings['orderby'] = isset( $ditty_settings['orderby'] ) ? $ditty_settings['orderby'] : 'list';
+    $display_settings['order'] = isset( $ditty_settings['order'] ) ? $ditty_settings['order'] : 'desc';
 
 		if ( ! $display_type || ! ditty_display_type_exists( $display_type ) ) {
 			$display_type = 'default';

@@ -101,7 +101,7 @@ function dittyOrderItems(items, settings) {
 /**
  * Update items
  *
- * @since    3.0.33
+ * @since    3.1.19
  * @return   null
  */
 function dittyGetUpdatedItemData(prevItems, newItems) {
@@ -112,6 +112,8 @@ function dittyGetUpdatedItemData(prevItems, newItems) {
     } else if (String(prevItems[index].uniq_id) !== String(item.uniq_id)) {
       updatedIndexes.push(index);
     } else if (String(prevItems[index].html) !== String(item.html)) {
+      updatedIndexes.push(index);
+    } else if (String(prevItems[index].css) !== String(item.css)) {
       updatedIndexes.push(index);
     }
     return item;

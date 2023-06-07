@@ -67,6 +67,15 @@ export default () => {
     return styles;
   };
 
+  const previewSettings = currentDisplay.settings;
+  previewSettings.orderby = settings.orderby ? settings.orderby : "list";
+  previewSettings.order = settings.order ? settings.order : "list";
+
+  const previewDisplay = {
+    type: currentDisplay.type,
+    settings: previewSettings,
+  };
+
   return (
     <>
       <AdminBar
@@ -84,7 +93,7 @@ export default () => {
           className="ditty-adminPage__app__content"
           id={id}
           title={title}
-          display={currentDisplay}
+          display={previewDisplay}
           displays={displays}
           displayItems={displayItems}
           styles={getPreviewStyles()}

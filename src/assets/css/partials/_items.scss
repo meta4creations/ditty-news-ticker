@@ -4,6 +4,56 @@
       width: 100%;
     }
   }
+  .ditty-editor__panel__footer {
+    background: #efefef;
+    padding: 0;
+    .ditty-field-list {
+      display: flex;
+      flex-wrap: wrap;
+      &__heading {
+        padding: 10px 10px 0;
+        background: transparent;
+        border: none;
+        &__title {
+          font-size: 13px;
+        }
+        &__description {
+          font-size: 12px;
+          margin: 0;
+        }
+      }
+    }
+    .ditty-field {
+      width: 50%;
+      border: none;
+      padding: 7px 10px 10px;
+      &__contents {
+        display: flex;
+        flex-direction: column;
+      }
+
+      &__label {
+        font-size: 12px;
+        font-weight: 500;
+      }
+      &__help {
+        font-size: 12px;
+        margin-top: 0;
+      }
+      select {
+        font-size: 12px;
+        height: 30px;
+        line-height: 12px;
+        padding: 5px 8px;
+      }
+    }
+    .ditty-field-id--orderby {
+      padding-right: 5px;
+    }
+    .ditty-field-id--order {
+      padding-left: 5px;
+    }
+  }
 }
 .ditty-popup--typeSelect {
   .typeSelector {

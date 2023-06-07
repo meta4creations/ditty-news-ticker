@@ -1,6 +1,8 @@
 /* global jQuery:true */
 /* global dittyEditorInit:true */
 /* global dittyLayoutCss:true */
+/* global dittyOrderItems:true */
+/* global dittyUpdateItems:true */
 
 /**
  * Ditty class
@@ -17,6 +19,8 @@
     title: "",
     display: 0,
     status: "",
+    order: "default",
+    orderby: "desc",
     direction: "left",
     spacing: 20,
     speed: 10, // 1 - 10
@@ -107,14 +111,18 @@
     this.interval = false;
     this.firstItem = this.settings.item;
     this.currentHeight = this.settings.height;
+    this.initItems = [...this.settings.items];
     this.visibleItems = [];
     this.finished = false;
 
     this.scrollIncrement = 0;
 
-    if (1 === parseInt(this.settings.shuffle)) {
-      this.shuffle();
-    }
+    // if (1 === parseInt(this.settings.shuffle)) {
+    //   this.shuffle();
+    // }
+
+    // Order the items
+    this.settings.items = dittyOrderItems(this.initItems, this.settings);
 
     this._init();
   };
@@ -1087,7 +1095,7 @@
         case "display":
           return this.settings.display;
         case "items":
-          return this.settings.items;
+          return this.initItems;
         case "height":
           return this.currentHeight;
         default:
@@ -1108,6 +1116,11 @@
       switch (key) {
         case "items":
           this.updateItems(value);
+          break;
+        case "orderby":
+        case "order":
+          this.settings[key] = value;
+          this.loadItems(this.initItems);
           break;
         case "direction":
           this.settings[key] = value;
@@ -1384,6 +1397,9 @@
       if (undefined === newItems) {
         return false;
       }
+
+      this.initItems = newItems;
+      newItems = dittyOrderItems(newItems, this.settings);
 
       const { updatedItems } = dittyGetUpdatedItemData(
         this.settings.items,

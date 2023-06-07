@@ -205,11 +205,9 @@ const PopupLayouts = ({
               updatedItem.layout_value = updatedLayoutValue;
 
               // Update just the css
-              // if (hasLiveEditPreview && "css" === type) {
+              // if ("css" === type) {
               //   const selector = `${item.item_id}_${selectedVariation}`;
-              //   console.log("selector", selector);
               //   compileLayoutStyle(updatedLayout.css, selector, (css) => {
-              //     console.log("css", css);
               //     updateLayoutCss(css, selector);
               //   });
 
