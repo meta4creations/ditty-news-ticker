@@ -67,9 +67,11 @@ export default () => {
     return styles;
   };
 
-  const previewSettings = currentDisplay.settings;
+  const previewSettings = currentDisplay.settings
+    ? currentDisplay.settings
+    : {};
   previewSettings.orderby = settings.orderby ? settings.orderby : "list";
-  previewSettings.order = settings.order ? settings.order : "list";
+  previewSettings.order = settings.order ? settings.order : "desc";
 
   const previewDisplay = {
     type: currentDisplay.type,

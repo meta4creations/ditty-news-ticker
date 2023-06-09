@@ -86,6 +86,8 @@ function ditty_single_settings_defaults() {
 		'status'					=> 'publish',
 		'ajax_loading'		=> 'no',
 		'live_updates'		=> 'no',
+    'orderby'         => 'list',
+    'order'           => 'desc',
 	);
 	return apply_filters( 'ditty_single_settings_defaults', $defaults );
 }

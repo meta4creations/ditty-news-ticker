@@ -533,6 +533,8 @@ class Ditty_Scripts {
 				$this->version,
 				true
 			);
+      wp_enqueue_media();
+
 			if ( empty( $ditty_scripts_enqueued ) ) {
 				if ( 'ditty-new' == $ditty_id ) {
 					$title = __( 'New Ditty', 'ditty-news-ticker' );
@@ -592,6 +594,8 @@ class Ditty_Scripts {
 				$this->version,
 				true
 			);
+      wp_enqueue_media();
+
 			if ( empty( $ditty_scripts_enqueued ) ) {
 				if ( 'ditty_display-new' == $display_id ) {
 					$title = __( 'New Display', 'ditty-news-ticker' );
@@ -639,6 +643,8 @@ class Ditty_Scripts {
 				$this->version,
 				true
 			);
+      wp_enqueue_media();
+      
 			if ( empty( $ditty_scripts_enqueued ) ) {
 				if ( 'ditty_layout-new' == $layout_id ) {
 					$title = __( 'New Layout', 'ditty-news-ticker' );
