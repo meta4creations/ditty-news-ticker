@@ -1,4 +1,5 @@
 import { __ } from "@wordpress/i18n";
+import { useState } from "@wordpress/element";
 import { Button } from "../components";
 import BaseField from "./BaseField";
 import TextField from "./TextField";
@@ -6,6 +7,11 @@ import TextField from "./TextField";
 const FileField = (props) => {
   const { value, onChange, mediaTitle, mediaButton, fileTypes, multiple } =
     props;
+
+  const getTimestamp = () => {
+    return Math.floor(Date.now() / 1000);
+  };
+  const [textFieldKey, setTextFieldKey] = useState(getTimestamp());
 
   let uploader;
   const runUploader = (e) => {
@@ -33,6 +39,7 @@ const FileField = (props) => {
       var attachments = uploader.state().get("selection").toJSON();
       if (attachments.length) {
         onChange(attachments[0].url);
+        setTextFieldKey(getTimestamp());
       }
     });
 
@@ -43,6 +50,7 @@ const FileField = (props) => {
   return (
     <BaseField {...props}>
       <TextField
+        key={textFieldKey}
         value={value}
         type="url"
         onChange={onChange}
