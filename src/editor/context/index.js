@@ -396,7 +396,9 @@ export class EditorProvider extends Component {
     const updatedDisplayItems = this.state.displayItems.filter(
       (displayItem) => {
         const itemIndex = updates.findIndex(
-          (update) => update.item_id === displayItem.id
+          (update) =>
+            update.item_id === displayItem.id ||
+            update.item_id === displayItem.parent_id
         );
         return itemIndex === -1;
       }
