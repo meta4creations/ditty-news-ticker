@@ -45,6 +45,7 @@ class Ditty_Displays {
 	public function add_admin_body_class( $classes ) {
 		if ( ditty_display_editing() ) {
 			$classes .= ' ditty-page';
+      $classes .= ' ditty-page--display';
 		}
 		return $classes;
 	}
@@ -92,11 +93,11 @@ class Ditty_Displays {
 	 * Add custom Ditty pages
 	 * @access  public
 	 *
-	 * @since   3.1
+	 * @since   3.1.19
 	 */
 	public function add_admin_pages() {
 		add_submenu_page(
-			null,
+			'edit.php?post_type=ditty',
 			esc_html__( 'Display', 'ditty-news-ticker' ),
 			esc_html__( 'Display', 'ditty-news-ticker' ),
 			'edit_ditty_displays',
@@ -105,7 +106,7 @@ class Ditty_Displays {
 		);
 		
 		add_submenu_page(
-			null,
+			'edit.php?post_type=ditty',
 			esc_html__( 'New Display', 'ditty-news-ticker' ),
 			esc_html__( 'New Display', 'ditty-news-ticker' ),
 			'edit_ditty_displays',

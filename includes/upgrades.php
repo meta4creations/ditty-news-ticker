@@ -28,7 +28,7 @@ function ditty_updates() {
 		ditty_v3_1_6_upgrades();
 	}
   if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.1.19', '<' ) ) {
-		//ditty_v3_1_19_upgrades();
+		ditty_v3_1_19_upgrades();
 	}
 	if ( DITTY_VERSION != $current_version ) {
 		do_action( 'ditty_version_update', DITTY_VERSION, $current_version );

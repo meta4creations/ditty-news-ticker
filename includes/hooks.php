@@ -192,31 +192,24 @@ function ditty_dashboard_menu_order( $menu_ord ) {
 }
 add_filter( 'custom_menu_order', 'ditty_dashboard_menu_order' );
 
+/**
+ * Add to the admin menu classes for Ditty
+ * 
+ * @since    3.1.19 
+ */
 function ditty_dashboard_custom_menu_classes() {
 	global $menu, $submenu;
 	$ditty_menu = isset( $submenu['edit.php?post_type=ditty'] ) ? $submenu['edit.php?post_type=ditty'] : false;
 	if ( is_array( $ditty_menu ) && count( $ditty_menu ) > 0 ) {
 		foreach ( $ditty_menu as &$menu_item ) {
-			if ( 'post-new.php?post_type=ditty' == $menu_item[2] ) {
-				$menu_item[2] = '?page=ditty-new';
-				break;
-			}
+      if ( isset( $menu_item[2] ) ) {
+        $classes = isset( $menu_item[4] ) ? $menu_item[4] . ' ' : '';
+        $classes .= 'ditty-menu--' . sanitize_title( $menu_item[2] );
+        $menu_item[4] = $classes;
+      }
 		}
 	}
 	$submenu['edit.php?post_type=ditty'] = $ditty_menu;
-
-	$page = isset( $_GET['page'] ) ? $_GET['page'] : false;
-	if ( 'ditty' != $page && 'ditty-new' != $page ) {
-		return false;
-	}
-	if ( is_array( $menu ) && count( $menu ) > 0 ) {
-		foreach ( $menu as &$menu_item ) {
-			if ( 'edit.php?post_type=ditty' == $menu_item[2] ) {
-				$menu_item[4] = ' wp-has-current-submenu menu-top menu-icon-ditty';
-				break;
-			}
-		}
-	}
 }
 add_action( 'admin_menu', 'ditty_dashboard_custom_menu_classes', 99 );
 

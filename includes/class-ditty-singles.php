@@ -66,7 +66,7 @@ class Ditty_Singles {
 	 */
 	public function add_admin_pages() {
 		add_submenu_page(
-			null,
+			'edit.php?post_type=ditty',
 			esc_html__( 'Ditty', 'ditty-news-ticker' ),
 			esc_html__( 'Ditty', 'ditty-news-ticker' ),
 			'edit_dittys',
@@ -75,9 +75,9 @@ class Ditty_Singles {
 		);
 		
 		add_submenu_page(
-			null,
-			esc_html__( 'Ditty', 'ditty-news-ticker' ),
-			esc_html__( 'Ditty', 'ditty-news-ticker' ),
+			'edit.php?post_type=ditty',
+			esc_html__( 'New Ditty', 'ditty-news-ticker' ),
+			esc_html__( 'New Ditty', 'ditty-news-ticker' ),
 			'edit_dittys',
 			'ditty-new',
 			array( $this, 'page_display' )
@@ -131,6 +131,9 @@ class Ditty_Singles {
 		if ( in_array( $page, $pages ) ) {
 			$classes .= ' ditty-page';
 		}
+    if ( ditty_editing() ) {
+      $classes .= ' ditty-page--ditty';
+    }
 		return $classes;
 	}
 	
