@@ -131,6 +131,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.20 =
+* List display live display item updates
+
 = 3.1.19 =
 * Added post edit redirect if trying to edit non-existent post
 * Added timestamps to item types

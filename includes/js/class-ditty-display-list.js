@@ -700,7 +700,7 @@
             ? parseInt(this.settings.perPage) * pageIndex +
               parseInt(this.settings.perPage) -
               1
-            : currentItems.length,
+            : currentItems.length + updatedItems.length,
         itemSwaps = [];
 
       // Swap out items
@@ -745,6 +745,7 @@
         }
         currentCounter++;
       }
+
       dittyUpdateItems(itemSwaps, swapType);
       this.trigger("update");
     },
