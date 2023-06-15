@@ -303,6 +303,9 @@ class Ditty_Displays {
 
 		// Update a display settings
 		if ( $display_settings ) {
+			if ( isset( $display_settings['items'] ) ) {
+				unset( $display_settings['items'] );
+			}
 			$sanitized_display_settings = ditty_sanitize_settings( $display_settings, "display_{$display_type}" );
 			if ( update_post_meta( $display_id, '_ditty_display_settings', $sanitized_display_settings ) ) {
 				$updates['settings'] = $sanitized_display_settings;

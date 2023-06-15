@@ -133,6 +133,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 = 3.1.20 =
 * List display live display item updates
+* Added custom id input for Avada element
 
 = 3.1.19 =
 * Added post edit redirect if trying to edit non-existent post

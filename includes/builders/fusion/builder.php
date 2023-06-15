@@ -35,6 +35,12 @@ function ditty_fusion_elements() {
 			),
 			array(
 				'type'        => 'textfield',
+				'heading'     => esc_html__( 'Custom ID', 'ditty-news-ticker' ),
+				'description' => esc_html__( 'Optional: Add a custom ID to the Ditty.', 'ditty-news-ticker' ),
+				'param_name'  => 'el_id',
+			),
+			array(
+				'type'        => 'textfield',
 				'heading'     => esc_html__( 'Custom Classes', 'ditty-news-ticker' ),
 				'description' => esc_html__( 'Optional: Add custom classes to the Ditty.', 'ditty-news-ticker' ),
 				'param_name'  => 'class',
