@@ -53,6 +53,10 @@ class Ditty_Display_Item {
 		$this->custom_classes = isset( $prepared_meta['custom_classes'] ) ? $prepared_meta['custom_classes'] : false;
 		$this->custom_meta = isset( $prepared_meta['custom_meta'] ) ? $prepared_meta['custom_meta'] : false;
 		$this->configure_layout( $prepared_meta, $layouts );
+		
+		// if ( current_user_can( 'administrator' ) ) {
+		// 	echo '<pre>';print_r($prepared_meta);echo '</pre>';
+		// }
 	}
 
 	/**
@@ -62,20 +66,21 @@ class Ditty_Display_Item {
 	 * @return string $item_type
 	 */
 	private function configure_layout( $meta, $layouts = false ) {
-		if ( isset( $meta['layout'] ) ) {
-			if ( is_array( $meta['layout'] ) ) {
-				$layout = $meta['layout'];
-			} else {
-				$layout = ( '{' == substr( $meta['layout'], 0, 1 ) ) ? json_decode( $meta['layout'], true ) : $meta['layout'];
-			}		
-		} else {
+		// if ( isset( $meta['layout'] ) ) {
+		// 	if ( is_array( $meta['layout'] ) ) {
+		// 		$layout = $meta['layout'];
+		// 	} else {
+		// 		$layout = ( '{' == substr( $meta['layout'], 0, 1 ) ) ? json_decode( $meta['layout'], true ) : $meta['layout'];
+		// 	}		
+		// } else {
 			$layout_value = maybe_unserialize( $meta['layout_value'] );
+			$layout_variation = isset( $meta['layout_variation'] ) ? $meta['layout_variation'] : 'default';
 			$layout = 0;
-			if ( isset( $layout_value['default'] ) ) {
-				$layout = is_array( $layout_value['default'] ) ? $layout_value['default'] : ( ( '{' == substr( $layout_value['default'], 0, 1 ) ) ? json_decode( $layout_value['default'], true ) : $layout_value['default'] );
+			if ( isset( $layout_value[$layout_variation] ) ) {
+				$layout = is_array( $layout_value[$layout_variation] ) ? $layout_value[$layout_variation] : ( ( '{' == substr( $layout_value[$layout_variation], 0, 1 ) ) ? json_decode( $layout_value[$layout_variation], true ) : $layout_value[$layout_variation] );
 			}
-		}
-		
+		//}
+
 		if ( is_array( $layout ) ) {
 			$variation_id = isset( $meta['layout_variation'] ) ? $meta['layout_variation'] : 'default';
 			$this->layout_id = "{$this->id}_{$variation_id}";

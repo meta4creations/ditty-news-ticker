@@ -47,7 +47,7 @@ class Ditty_Item_Type {
 		
 		$ditty_item	= $meta;
 		$ditty_item['layout_variation'] = isset( $layout_value['default'] ) ? 'default' : false;
-		$ditty_item['layout'] = isset( $layout_value['default'] ) ? $layout_value['default'] : false;
+		//$ditty_item['layout'] = isset( $layout_value['default'] ) ? $layout_value['default'] : false;
     $ditty_item['timestamp'] = isset( $meta['date_created'] ) ? strtotime( $meta['date_created'] ) : false;
 
 		return array( $ditty_item );
