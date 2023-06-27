@@ -457,18 +457,7 @@ class Ditty_Singles {
 							$layout_value = $custom_layout_array[$item_meta->item_type];
 						}
 					}
-
-					// $layout_variations = [];
-					// if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
-					// 	foreach ( $layout_value as $variation => $value ) {
-					// 		if ( is_array( $value ) ) {
-					// 			$layout_variations[$variation] = $value;
-					// 		} else {
-					// 			$layout_variations[$variation] = json_decode($value, true);
-					// 		}	
-					// 	}
-					// }
-
+					
 					// De-serialize the attribute values
 					$attribute_value = maybe_unserialize( $item_meta->attribute_value );
 
