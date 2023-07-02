@@ -118,10 +118,34 @@ function ditty_single_settings( $ditty_id, $key = false ) {
 /**
  * Return an array of item types
  * 
+ * @since   3.1.20
+*/
+function ditty_api_item_types_data() {
+	global $ditty_api_item_types_data;
+	if ( empty( $ditty_api_item_types_data ) ) {
+		$transient_name = "ditty_api_item_types_data";
+		$ditty_api_item_types_data = get_transient( $transient_name );
+		if ( ! $ditty_api_item_types_data ) {
+			$response = wp_remote_get( 'https://www.metaphorcreations.com/wp-json/dittysales/v1/itemTypes' );
+			if ( is_wp_error( $response ) ) {
+				$ditty_api_item_types_data = [];
+			} else {
+				$data = wp_remote_retrieve_body( $response );
+				$ditty_api_item_types_data = json_decode( $data, true );
+			}
+		}
+	}
+	return $ditty_api_item_types_data;
+}
+
+/**
+ * Return an array of item types
+ * 
  * @since   3.1
 */
 function ditty_item_types() {
-	$item_types = array();
+	//$item_types = ditty_api_item_types_data();
+	$item_types = [];
 	$item_types['default'] = array(
 		'type' 						=> 'default',
 		'label' 					=> __( 'Default', 'ditty-news-ticker' ),
@@ -161,12 +185,12 @@ function ditty_item_types() {
 /**
  * Return a type class object
  *
- * @since    3.0
+ * @since    3.1.20
  * @var      object	$type_object    
 */
 function ditty_item_type_object( $type ) {
 	$item_types = ditty_item_types();
-	if ( isset( $item_types[$type] ) && class_exists( $item_types[$type]['class_name'] ) ) {
+	if ( isset( $item_types[$type] ) && isset( $item_types[$type]['class_name'] ) && class_exists( $item_types[$type]['class_name'] ) ) {
 		$type_object = new $item_types[$type]['class_name'];
 		return $type_object;
 	}
