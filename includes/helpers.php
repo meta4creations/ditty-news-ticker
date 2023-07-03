@@ -144,7 +144,6 @@ function ditty_api_item_types_data() {
  * @since   3.1
 */
 function ditty_item_types() {
-	//$item_types = ditty_api_item_types_data();
 	$item_types = [];
 	$item_types['default'] = array(
 		'type' 						=> 'default',
