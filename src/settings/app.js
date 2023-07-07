@@ -36,6 +36,7 @@ export default () => {
 
   const hasUpdates = !_.isEqual(settings, initSettings);
   const wrapper = document.getElementById("ditty-settings__wrapper");
+  const adminMenu = document.getElementById("adminmenuwrap");
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
@@ -54,6 +55,7 @@ export default () => {
       const top = wrapper.getBoundingClientRect().top;
       const h = windowH - top;
       wrapper.style.height = `${h}px`;
+      adminMenu.style.height = `${h}px`;
     };
     resizeHandler();
     window.addEventListener("resize", resizeHandler);

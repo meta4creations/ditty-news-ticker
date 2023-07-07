@@ -3,9 +3,9 @@
 
 // @codekit-append 'partials/helpers.js';
 
-jQuery(function ($) {
+jQuery(function($) {
   // Setup strict mode
-  (function () {
+  (function() {
     "use strict";
 
     var liveIds = {},
@@ -52,7 +52,7 @@ jQuery(function ($) {
      * @return   null
      */
     function liveUpdate(dittyId, items) {
-      $('.ditty[data-id="' + dittyId + '"]').each(function () {
+      $('.ditty[data-id="' + dittyId + '"]').each(function() {
         var displayType = $(this).data("type");
         if ("development" === dittyVars.mode && window.console) {
           console.log(`LIVE UPDATE: ${dittyId}`);
@@ -94,9 +94,9 @@ jQuery(function ($) {
       $.post(
         dittyVars.ajaxurl,
         data,
-        function (response) {
+        function(response) {
           if (response.updated_items) {
-            $.each(response.updated_items, function (dittyId, items) {
+            $.each(response.updated_items, function(dittyId, items) {
               liveUpdate(dittyId, items);
               liveIds[dittyId].timestamp = Math.floor($.now() / 1000);
             });
@@ -131,9 +131,9 @@ jQuery(function ($) {
       }
       cancelAnimationFrame(liveInterval);
 
-      var updateInterval = dittyVars.updateInterval
-          ? parseInt(dittyVars.updateInterval)
-          : 60,
+      var updateInterval = dittyVars.updateInterval ?
+        parseInt(dittyVars.updateInterval) :
+        60,
         startTime = Date.now();
 
       function dittyLiveUpdatesLoop() {
@@ -171,7 +171,7 @@ jQuery(function ($) {
      * @return   null
      */
     function setupGlobalDitty() {
-      $.each(dittyVars.globals, function (index, data) {
+      $.each(dittyVars.globals, function(index, data) {
         var selector = $(data.selector);
         if (!data.ditty || undefined === selector[0]) {
           return;
@@ -179,10 +179,10 @@ jQuery(function ($) {
         var $edit_links = data.edit_links ? data.edit_links : "";
         var $ditty = $(
           '<div class="ditty" data-id="' +
-            data.ditty +
-            '" data-ajax_load="1">' +
-            $edit_links +
-            "</div>"
+          data.ditty +
+          '" data-ajax_load="1">' +
+          $edit_links +
+          "</div>"
         );
         if (data.display && "" !== data.display) {
           $ditty.attr("data-display", data.display);
@@ -223,23 +223,23 @@ jQuery(function ($) {
       // Add the global Dittys
       setupGlobalDitty();
 
-      $(".ditty").each(function () {
+      $(".ditty").each(function() {
         var $ditty = $(this),
-          ajax_load = $ditty.data("ajax_load")
-            ? $ditty.data("ajax_load")
-            : false,
-          live_updates = $ditty.data("live_updates")
-            ? $ditty.data("live_updates")
-            : false,
-          display_settings = $ditty.data("display_settings")
-            ? $ditty.data("display_settings")
-            : false,
-          layout_settings = $ditty.data("layout_settings")
-            ? $ditty.data("layout_settings")
-            : false,
-          editor = $ditty.data("show_editor")
-            ? $ditty.data("show_editor")
-            : false;
+          ajax_load = $ditty.data("ajax_load") ?
+          $ditty.data("ajax_load") :
+          false,
+          live_updates = $ditty.data("live_updates") ?
+          $ditty.data("live_updates") :
+          false,
+          display_settings = $ditty.data("display_settings") ?
+          $ditty.data("display_settings") :
+          false,
+          layout_settings = $ditty.data("layout_settings") ?
+          $ditty.data("layout_settings") :
+          false,
+          editor = $ditty.data("show_editor") ?
+          $ditty.data("show_editor") :
+          false;
 
         // Load the Dittys via ajax
         if (ajax_load) {
@@ -256,7 +256,7 @@ jQuery(function ($) {
           $.post(
             dittyVars.ajaxurl,
             data,
-            function (response) {
+            function(response) {
               // Make sure the display type exists
               if (
                 !response.display_type ||

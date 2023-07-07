@@ -61,6 +61,7 @@ export default () => {
     css: "",
   });
   const wrapper = document.getElementById("ditty-layout-editor__wrapper");
+  const adminMenu = document.getElementById("adminmenuwrap");
 
   useEffect(() => {
     updatePreview();
@@ -81,6 +82,7 @@ export default () => {
       const top = wrapper.getBoundingClientRect().top;
       const h = windowH - top;
       wrapper.style.height = `${h}px`;
+      adminMenu.style.height = `${h}px`;
     };
     resizeHandler();
     window.addEventListener("resize", resizeHandler);

@@ -644,49 +644,54 @@
 			this.$contents.ditty_slider('options', 'slides', this.pages);
 
 			var $currentPage = this.$contents.ditty_slider('options', 'currentSlide'),
-				currentItems = $currentPage.children('.ditty-item'),
+				currentItems = $currentPage ? $currentPage.children('.ditty-item') : [],
 				pageIndex = this.$contents.ditty_slider('options', 'slide'),
 				minIndex = this.settings.paging && 1 === parseInt(this.settings.paging) ? parseInt(this.settings.perPage) * pageIndex : 0,
 				maxIndex = this.settings.paging && 1 === parseInt(this.settings.paging) ? parseInt(this.settings.perPage) * pageIndex + parseInt(this.settings.perPage) - 1 : currentItems.length + updatedItems.length,
 				itemSwaps = [];
 
-			// Swap out items
-			let currentCounter = 0;
-			for (var i = minIndex; i <= maxIndex; i++) {
-				if (updatedIndexes.indexOf(i) !== -1) {
-					const $newItem = $(updatedItems[i].html);
-					if (updatedItems[i].css) {
-						dittyLayoutCss(updatedItems[i].css, updatedItems[i].layout_id, 'update');
-					}
-					this._styleItem($newItem);
+			if ($currentPage) {
 
-					// If an item exists
-					if (currentItems[currentCounter]) {
-						itemSwaps.push({
-							currentItem: $(currentItems[currentCounter]),
-							newItem: $newItem,
-						});
+				// Swap out items
+				let currentCounter = 0;
+				for (var i = minIndex; i <= maxIndex; i++) {
+					if (updatedIndexes.indexOf(i) !== -1) {
+						const $newItem = $(updatedItems[i].html);
+						if (updatedItems[i].css) {
+							dittyLayoutCss(updatedItems[i].css, updatedItems[i].layout_id, 'update');
+						}
+						this._styleItem($newItem);
 
-						// If adding an item
-					} else {
-						var $tempItem = $('<div class="ditty-temp-item"></div>');
-						$currentPage.append($tempItem);
-						itemSwaps.push({
-							currentItem: $tempItem,
-							newItem: $newItem,
-						});
-					}
+						// If an item exists
+						if (currentItems[currentCounter]) {
+							itemSwaps.push({
+								currentItem: $(currentItems[currentCounter]),
+								newItem: $newItem,
+							});
 
-					// If removing items
-				} else if (currentCounter + minIndex >= this.total) {
-					if (currentItems[currentCounter]) {
-						itemSwaps.push({
-							currentItem: $(currentItems[currentCounter]),
-							newItem: $('<div class="ditty-temp-item"></div>'),
-						});
+							// If adding an item
+						} else {
+							var $tempItem = $('<div class="ditty-temp-item"></div>');
+							$currentPage.append($tempItem);
+							itemSwaps.push({
+								currentItem: $tempItem,
+								newItem: $newItem,
+							});
+						}
+
+						// If removing items
+					} else if (currentCounter + minIndex >= this.total) {
+						if (currentItems[currentCounter]) {
+							itemSwaps.push({
+								currentItem: $(currentItems[currentCounter]),
+								newItem: $('<div class="ditty-temp-item"></div>'),
+							});
+						}
 					}
+					currentCounter++;
 				}
-				currentCounter++;
+			} else if (this.total > 0) {
+				this.$contents.ditty_slider('showSlide', 0);
 			}
 
 			if (0 === this.total) {
