@@ -1,6 +1,7 @@
 export { default as Button } from "./Button";
 export { default as ButtonGroup } from "./ButtonGroup";
 export { default as Filter } from "./Filter";
+export { default as Icon } from "./Icon";
 export { default as IconBlock } from "./IconBlock";
 export { default as IconButton } from "./IconButton";
 export { default as Link } from "./Link";

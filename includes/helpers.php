@@ -125,7 +125,7 @@ function ditty_api_item_types_data() {
 	if ( empty( $ditty_api_item_types_data ) ) {
 		$transient_name = "ditty_api_item_types_data";
 		$ditty_api_item_types_data = get_transient( $transient_name );
-		if ( ! $ditty_api_item_types_data ) {
+		//if ( ! $ditty_api_item_types_data ) {
 			$response = wp_remote_get( 'https://www.metaphorcreations.com/wp-json/dittysales/v1/itemTypes' );
 			if ( is_wp_error( $response ) ) {
 				$ditty_api_item_types_data = [];
@@ -133,9 +133,10 @@ function ditty_api_item_types_data() {
 				$data = wp_remote_retrieve_body( $response );
 				$ditty_api_item_types_data = json_decode( $data, true );
 			}
-		}
+      set_transient( $transient_name, $ditty_api_item_types_data, DAY_IN_SECONDS );
+		//}
 	}
-	return $ditty_api_item_types_data;
+	return array_values( $ditty_api_item_types_data );
 }
 
 /**
@@ -175,6 +176,7 @@ function ditty_item_types() {
 		'icon' 				=> 'fab fa-wordpress',
 		'description' => __( 'Add a WP Posts feed.', 'ditty-news-ticker' ),
 		'class_name'	=> 'Ditty_Item_Type_Posts_Lite',
+    'is_lite'     => true,
 	);
 	$item_types = apply_filters( 'ditty_item_types', $item_types );
 	ksort( $item_types );

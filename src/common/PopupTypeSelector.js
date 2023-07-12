@@ -1,10 +1,11 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
-import { IconBlock, Popup, Tabs } from "../components";
+import { Button, Icon, IconBlock, Popup, Tabs } from "../components";
 
 const PopupTypeSelector = ({
   currentType,
   types,
+  apiTypes,
   getTypeObject,
   submitLabel = __("Update Type", "ditty-news-ticker"),
   onChange,
@@ -22,7 +23,19 @@ const PopupTypeSelector = ({
 }) => {
   const [selectedType, setSelectedType] = useState(currentType);
   const [showSpinner, setShowSpinner] = useState(false);
-  const itemTypeObject = selectedType ? getTypeObject(selectedType) : false;
+  const allTypes = apiTypes ? types.concat(apiTypes) : types;
+
+  const getItemTypeObject = () => {
+    let typeObject = selectedType ? getTypeObject(selectedType) : false;
+    if (!typeObject) {
+      const apiObjects = apiTypes.filter((type) => type.id === selectedType);
+      if (apiObjects.length) {
+        typeObject = apiObjects[0];
+      }
+    }
+    return typeObject;
+  };
+  const itemTypeObject = getItemTypeObject();
 
   const iconStyle = itemTypeObject
     ? {
@@ -37,7 +50,12 @@ const PopupTypeSelector = ({
     <Popup
       id="typeSelect"
       submitLabel={
-        typeof submitLabel === "function"
+        itemTypeObject.isPreview
+          ? __(
+              `Buy ${itemTypeObject.extension.label} - ${itemTypeObject.extension.price}`,
+              "ditty-news-ticker"
+            )
+          : typeof submitLabel === "function"
           ? submitLabel(itemTypeObject)
           : submitLabel
       }
@@ -57,6 +75,28 @@ const PopupTypeSelector = ({
               {itemTypeObject ? itemTypeObject.description : defaultDescription}
             </p>
           </IconBlock>
+          {itemTypeObject.isPreview && (
+            <p className="ditty-preview-extension">
+              <span>
+                {__(
+                  `Requires ${itemTypeObject.extension.label}`,
+                  "ditty-news-ticker"
+                )}
+              </span>
+              <Button
+                type="primary"
+                size="small"
+                onClick={() =>
+                  window.open(itemTypeObject.extension.url, "_blank")
+                }
+              >
+                {__(
+                  `Buy - ${itemTypeObject.extension.price}`,
+                  "ditty-news-ticker"
+                )}
+              </Button>
+            </p>
+          )}
         </>
       }
       onClose={() => {
@@ -66,15 +106,19 @@ const PopupTypeSelector = ({
         onClose(selectedType);
       }}
       onSubmit={() => {
-        setShowSpinner(true);
-        onUpdate(selectedType);
+        if (itemTypeObject.isPreview) {
+          window.open(itemTypeObject.extension.url, "_blank");
+        } else {
+          setShowSpinner(true);
+          onUpdate(selectedType);
+        }
       }}
       level={level}
       className={className}
       showSpinner={showSpinner}
     >
       <Tabs
-        tabs={types}
+        tabs={allTypes}
         currentTabId={selectedType}
         type="cloud"
         className="typeSelector"

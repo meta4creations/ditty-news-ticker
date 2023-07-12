@@ -1,14 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
 import { applyFilters } from "@wordpress/hooks";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGear,
-  faPaintbrushPencil,
-  faClone,
-  faTrashCan,
-  faBarsStaggered,
-} from "@fortawesome/pro-light-svg-icons";
+import { Icon } from "../components";
 import { getDisplayItems, replaceDisplayItems } from "../services/dittyService";
 import { getItemTypePreviewIcon, getItemLabel } from "../utils/itemTypes";
 
@@ -58,7 +51,7 @@ const EditItemActions = (props) => {
               setPopupStatus("editItem");
             }}
           >
-            <FontAwesomeIcon icon={faGear} />
+            <Icon id="faGear" />
           </span>
         ),
       },
@@ -74,7 +67,7 @@ const EditItemActions = (props) => {
               setPopupStatus("editLayout");
             }}
           >
-            <FontAwesomeIcon icon={faPaintbrushPencil} />
+            <Icon id="faPaintbrushPencil" />
           </span>
         ),
       },
@@ -128,7 +121,7 @@ const EditItemActions = (props) => {
               });
             }}
           >
-            <FontAwesomeIcon icon={faClone} />
+            <Icon id="faClone" />
           </span>
         ),
       },
@@ -143,7 +136,7 @@ const EditItemActions = (props) => {
               handleDeleteItem(item);
             }}
           >
-            <FontAwesomeIcon icon={faTrashCan} />
+            <Icon id="faTrashCan" />
           </span>
         ),
       },
@@ -161,7 +154,7 @@ const EditItemActions = (props) => {
                 setShowChildPanel && setShowChildPanel(!showChildPanel);
               }}
             >
-              <FontAwesomeIcon icon={faBarsStaggered} />
+              <Icon id="faBarsStaggered" />
             </span>
           ) : (
             false

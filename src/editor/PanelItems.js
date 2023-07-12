@@ -11,7 +11,11 @@ import { PopupTypeSelector } from "../common";
 import { Panel, SortableList } from "../components";
 import { FieldList } from "../fields";
 import { EditorContext } from "./context";
-import { getItemTypes, getItemTypeObject } from "../utils/itemTypes";
+import {
+  getItemTypes,
+  getItemTypeObject,
+  getAPIItemTypes,
+} from "../utils/itemTypes";
 import PopupEditItem from "./PopupEditItem";
 import PopupLayouts from "./PopupLayouts";
 import EditItem from "./EditItem";
@@ -28,6 +32,7 @@ const PanelItems = (props) => {
     items.length ? false : "newItem"
   );
   const itemTypes = getItemTypes();
+  const apiItemTypes = getAPIItemTypes();
 
   /**
    * Add a new item
@@ -237,10 +242,14 @@ const PanelItems = (props) => {
             forceUpdate={items.length ? false : true}
             currentType="default"
             types={itemTypes}
+            apiTypes={apiItemTypes}
             getTypeObject={getItemTypeObject}
-            submitLabel={(selectedItemTypeObject) =>
-              __(`Add ${selectedItemTypeObject.label}`, "ditty-news-ticker")
-            }
+            submitLabel={(selectedItemTypeObject) => {
+              return __(
+                `Add ${selectedItemTypeObject.label}`,
+                "ditty-news-ticker"
+              );
+            }}
             onClose={() => {
               setPopupStatus(false);
             }}

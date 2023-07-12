@@ -40,6 +40,44 @@ const migrateItemTypes = (itemTypes) => {
 };
 
 /**
+ * Return api item types
+ * @returns array
+ */
+export const getAPIItemTypes = () => {
+  const apiItemTypes = dittyEditorVars ? dittyEditorVars.apiItemTypes : [];
+  const itemTypes = getItemTypes();
+
+  let filteredTypes = apiItemTypes
+    .filter(
+      (apiItem) =>
+        !itemTypes.some((item) => item.id === apiItem.id) ||
+        itemTypes.some((item) => item.id === apiItem.id && item.isLite)
+    )
+    .concat(
+      itemTypes.filter(
+        (item) => !apiItemTypes.some((apiItem) => apiItem.id === item.id)
+      )
+    );
+
+  // Append "_preview" to the id of each object
+  filteredTypes = filteredTypes.map((obj) => {
+    let icon = obj.icon;
+    if (icon.includes("<svg") && icon.includes("</svg>")) {
+      icon = <div dangerouslySetInnerHTML={{ __html: icon }} />;
+    }
+    return {
+      ...obj,
+      id: obj.id + "_preview",
+      icon: icon,
+      isPreview: true,
+      className: "ditty-preview",
+    };
+  });
+
+  return filteredTypes;
+};
+
+/**
  * Return an Item Type object
  * @param {object} item
  * @returns element

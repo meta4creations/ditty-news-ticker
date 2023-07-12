@@ -1,0 +1,14 @@
+.ditty-preview-extension {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 0 10px 10px;
+  background: #eafcf5;
+  border: none;
+  border-radius: 3px;
+  span {
+    font-weight: bold;
+  }
+}

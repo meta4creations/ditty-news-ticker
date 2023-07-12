@@ -1,13 +1,11 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTabletScreen } from "@fortawesome/pro-regular-svg-icons";
 import {
   updateDisplayOptions,
   updateDittyDisplayType,
 } from "../services/dittyService";
-import { IconBlock, Link, Panel } from "../components";
+import { Icon, IconBlock, Link, Panel } from "../components";
 import { FieldList } from "../fields";
 import {
   getDisplayTypes,
@@ -66,7 +64,7 @@ const PanelDisplay = ({
               "Choose the display type you want to use.",
               "ditty-news-ticker"
             )}
-            defaultIcon={<FontAwesomeIcon icon={faTabletScreen} />}
+            defaultIcon={<Icon id="faTabletScreen" />}
             currentType={display.type ? display.type : false}
             submitLabel={
               display.type

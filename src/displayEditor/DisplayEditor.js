@@ -2,9 +2,7 @@ import classnames from "classnames";
 import { __ } from "@wordpress/i18n";
 import { applyFilters } from "@wordpress/hooks";
 import { useState } from "@wordpress/element";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTabletScreen, faGear } from "@fortawesome/pro-regular-svg-icons";
-import { Tabs } from "../components";
+import { Icon, Tabs } from "../components";
 import PanelDisplay from "./PanelDisplay";
 import PanelSettings from "./PanelSettings";
 
@@ -71,7 +69,7 @@ const DisplayEditor = ({
     {
       id: "display",
       label: __("Display", "ditty-news-ticker"),
-      icon: <FontAwesomeIcon icon={faTabletScreen} />,
+      icon: <Icon id="faTabletScreen" />,
       content: (
         <PanelDisplay
           display={display}
@@ -85,7 +83,7 @@ const DisplayEditor = ({
     {
       id: "settings",
       label: __("Settings", "ditty-news-ticker"),
-      icon: <FontAwesomeIcon icon={faGear} />,
+      icon: <Icon id="faGear" />,
       content: (
         <PanelSettings
           title={title}

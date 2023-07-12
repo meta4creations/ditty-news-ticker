@@ -1,11 +1,16 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaintbrushPencil, faCopy } from "@fortawesome/pro-light-svg-icons";
 import { getAttributeFields } from "../utils/layouts";
 import { FieldList } from "../fields";
-import { Button, ButtonGroup, Link, IconBlock, Popup } from "../components";
+import {
+  Button,
+  ButtonGroup,
+  Icon,
+  Link,
+  IconBlock,
+  Popup,
+} from "../components";
 
 const PopupEditLayoutTag = ({
   layoutTag,
@@ -44,7 +49,7 @@ const PopupEditLayoutTag = ({
     return (
       <>
         <IconBlock
-          icon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
+          icon={<Icon id="faPaintbrushPencil" />}
           className="ditty-icon-block--heading"
         >
           <div className="ditty-icon-block--heading__title">
@@ -65,8 +70,8 @@ const PopupEditLayoutTag = ({
             >
               {renderTag()}
             </pre>
-            <FontAwesomeIcon
-              icon={faCopy}
+            <Icon
+              id="faCopy"
               style={{
                 position: "absolute",
                 top: "0",

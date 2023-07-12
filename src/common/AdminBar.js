@@ -1,9 +1,7 @@
 import _ from "lodash";
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLoader } from "@fortawesome/pro-light-svg-icons";
-import { Button } from "../components";
+import { Button, Icon } from "../components";
 import { TextField, TextareaField } from "../fields";
 import { ReactComponent as Logo } from "../assets/img/d.svg";
 
@@ -99,7 +97,7 @@ const AdminBar = ({
           onSubmit && onSubmit();
         }}
       >
-        {showSpinner && <FontAwesomeIcon icon={faLoader} spin />}
+        {showSpinner && <Icon id="loader" spin />}
         <span>{buttonLabel}</span>
       </Button>
     </div>

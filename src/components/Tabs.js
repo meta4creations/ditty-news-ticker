@@ -8,9 +8,14 @@ const Tabs = ({ className, tabs, type, currentTabId, tabClick, style }) => {
    * @returns buttonClasses
    */
   const renderButtonClass = (tab) => {
-    const buttonClasses = classnames("ditty-tab", `ditty-tab--${tab.id}`, {
-      "ditty-tab--active": tab.id === currentTabId,
-    });
+    const buttonClasses = classnames(
+      "ditty-tab",
+      `ditty-tab--${tab.id}`,
+      tab.className,
+      {
+        "ditty-tab--active": tab.id === currentTabId,
+      }
+    );
     return buttonClasses;
   };
 

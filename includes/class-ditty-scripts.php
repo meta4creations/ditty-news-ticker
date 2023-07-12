@@ -568,6 +568,7 @@ class Ditty_Scripts {
 					'variationDefaults' 	=> ditty_get_variation_defaults(),
 					'defaultDisplayType' 	=> ditty_default_display_type(),
 					'defaultItemType'			=> ditty_default_item_type(),
+          'apiItemTypes'        => ditty_api_item_types_data(),
 					'sassWorkerUrl'				=> DITTY_URL . 'includes/libs/sass/sass.worker.js',
 					'dittyDevelopment'		=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
 				), $hook ) ), 'before' ) . ';';
@@ -667,6 +668,7 @@ class Ditty_Scripts {
 					'editorItem'			=> 'ditty_layout-new' == $layout_id ? false : get_post_meta( $layout_id, '_ditty_editor_item', true ),
 					'editorSettings'	=> 'ditty_layout-new' == $layout_id ? false : get_post_meta( $layout_id, '_ditty_editor_settings', true ),
 					'itemTypes'				=> Ditty()->editor->item_type_data(),
+          'apiItemTypes'    => ditty_api_item_types_data(),
 					'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
 				), $hook ) ), 'before' ) . ';';
 			}

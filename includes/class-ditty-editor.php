@@ -170,6 +170,9 @@ class Ditty_Editor {
 					'layoutVariations' => $item_type_object->get_layout_variations(),
 					'defaultLayout' => $item_type_object->default_layout(),
 				];
+        if ( isset( $type['is_lite'] ) ) {
+          $item_type['isLite'] = true;
+        }
 
 				if ( ! $item_type_object->js_registered( 'settings' ) ) {
 					$default_settings = $item_type_object->default_settings();

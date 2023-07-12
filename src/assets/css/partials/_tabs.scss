@@ -40,6 +40,9 @@
     flex: 0 0 auto;
     display: block;
     font-size: 18px;
+    svg {
+      fill: currentColor;
+    }
   }
   &__label {
     flex: 1;
@@ -93,13 +96,13 @@
     flex-direction: column;
     align-items: center;
     color: transparentize($dark_gray, 0.2);
-    background: rgba(0, 0, 0, 0.02);
+    background: rgba(0, 0, 0, 0.05);
     border-radius: 3px;
     padding: 5px;
     &:hover {
       &:not(.ditty-tab--active) {
         color: $dark_gray;
-        background: rgba(0, 0, 0, 0.05);
+        background: rgba(0, 0, 0, 0.1);
       }
     }
     &--active {
@@ -122,6 +125,27 @@
       font-weight: 400;
       margin-top: 5px;
       flex: 0 0 auto;
+    }
+    &.ditty-preview {
+      color: transparentize($dark_gray, 0.5);
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      &:hover {
+        &:not(.ditty-tab--active) {
+          color: $dark_gray;
+          background: #fff;
+          border-color: rgba(0, 0, 0, 0.2);
+        }
+      }
+      &.ditty-tab--active {
+        color: $dark_gray;
+        background: #fff;
+        border-color: rgba(0, 0, 0, 0.2);
+        .ditty-tab__icon,
+        .ditty-tab__label {
+          color: $dark_gray;
+        }
+      }
     }
   }
 }
