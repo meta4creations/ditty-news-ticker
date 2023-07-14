@@ -1,15 +1,20 @@
 import { __ } from "@wordpress/i18n";
 import { useState, useContext } from "@wordpress/element";
 import _ from "lodash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTabletScreen } from "@fortawesome/pro-light-svg-icons";
 import {
   updateDisplayOptions,
   updateDittyDisplayTemplate,
   updateDittyDisplayType,
 } from "../services/dittyService";
 import { PopupTypeSelector } from "../common";
-import { Button, ButtonGroup, IconBlock, Link, Panel } from "../components";
+import {
+  Button,
+  ButtonGroup,
+  Icon,
+  IconBlock,
+  Link,
+  Panel,
+} from "../components";
 import { FieldList } from "../fields";
 import {
   getDisplayTypes,
@@ -85,7 +90,7 @@ const PanelDisplays = () => {
             templates={displays}
             filterKey="type"
             filters={getDisplayTypes()}
-            headerIcon={<FontAwesomeIcon icon={faTabletScreen} />}
+            headerIcon={<Icon id="faTabletScreen" />}
             templateIcon={(template) => {
               return getDisplayTypeIcon(template);
             }}
@@ -127,7 +132,7 @@ const PanelDisplays = () => {
             templates={displays}
             filterKey="type"
             filters={getDisplayTypes()}
-            headerIcon={<FontAwesomeIcon icon={faTabletScreen} />}
+            headerIcon={<Icon id="faTabletScreen" />}
             templateIcon={(template) => {
               return getDisplayTypeIcon(template);
             }}

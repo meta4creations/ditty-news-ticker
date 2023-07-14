@@ -49,7 +49,7 @@ const PopupEditLayoutTag = ({
     return (
       <>
         <IconBlock
-          icon={<Icon id="faPaintbrushPencil" />}
+          icon="faPaintbrushPencil"
           className="ditty-icon-block--heading"
         >
           <div className="ditty-icon-block--heading__title">

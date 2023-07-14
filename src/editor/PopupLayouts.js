@@ -1,8 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
 import { getDisplayItems, replaceDisplayItems } from "../services/dittyService";
 import {
   getItemTypeObject,
@@ -15,7 +13,7 @@ import {
   getDefaultLayout,
   compileLayoutStyle,
 } from "../utils/layouts";
-import { Button, ButtonGroup, IconBlock, Popup } from "../components";
+import { Button, ButtonGroup, Icon, IconBlock, Popup } from "../components";
 import PopupTemplateSave from "./PopupTemplateSave";
 import PopupTemplateSelector from "./PopupTemplateSelector";
 import PopupEditLayout from "./PopupEditLayout";
@@ -119,8 +117,8 @@ const PopupLayouts = ({
             templateType="layout"
             currentTemplate={templateToSave}
             templates={layouts}
-            headerIcon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
-            templateIcon={() => <FontAwesomeIcon icon={faPaintbrushPencil} />}
+            headerIcon={<Icon id="faPaintbrushPencil" />}
+            templateIcon={() => <Icon id="faPaintbrushPencil" />}
             saveData={(type, selectedTemplate, name, description) => {
               return "existing" === type
                 ? {
@@ -158,8 +156,8 @@ const PopupLayouts = ({
             level="2"
             currentTemplate={getVariationLayoutObject(selectedVariation)}
             templates={layouts}
-            headerIcon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
-            templateIcon={() => <FontAwesomeIcon icon={faPaintbrushPencil} />}
+            headerIcon={<Icon id="faPaintbrushPencil" />}
+            templateIcon={() => <Icon id="faPaintbrushPencil" />}
             submitLabel={__("Use Layout", "ditty-news-ticker")}
             onChange={(selectedTemplate) => {
               previewLayout(selectedVariation, selectedTemplate);

@@ -1,13 +1,14 @@
 import { __ } from "@wordpress/i18n";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faSliders } from "@fortawesome/pro-light-svg-icons";
 
 if (dittyEditor) {
+  const { Icon } = dittyEditor.components;
   const itemType = __("TinyMCE Editor", "ditty-news-ticker");
 
   dittyEditor.registerItemType({
     id: "wp_editor",
-    icon: <FontAwesomeIcon icon={faPenToSquare} />,
+    icon: <Icon id="faPenToSquare" />,
+    iconColor: "#FFFFFF",
+    iconBGColor: "#1D2327",
     label: itemType,
     description: __("Manually add content to the item.", "ditty-news-ticker"),
     settings: {
@@ -19,7 +20,7 @@ if (dittyEditor) {
           `Configure the settings of the WP Editor.`,
           "ditty-news-ticker"
         ),
-        icon: <FontAwesomeIcon icon={faSliders} />,
+        icon: <Icon id="faSliders" />,
         fields: [
           {
             type: "wysiwyg",

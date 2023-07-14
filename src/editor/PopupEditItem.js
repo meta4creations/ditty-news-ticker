@@ -2,12 +2,11 @@ import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import { applyFilters } from "@wordpress/hooks";
 import _ from "lodash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaintbrushPencil } from "@fortawesome/pro-light-svg-icons";
 import { PopupTypeSelector } from "../common";
 import {
   Button,
   ButtonGroup,
+  Icon,
   IconBlock,
   Link,
   Popup,
@@ -48,7 +47,7 @@ const PopupEditItem = ({
       "Customize the layout tags that are using in Layouts for this item. Keep in mind that some layouts may not use all of these tags.",
       "ditty-news-ticker"
     ),
-    icon: <FontAwesomeIcon icon={faPaintbrushPencil} />,
+    icon: <Icon id="faPaintbrushPencil" />,
     fields: getTagFields(
       editItem.layoutTags ? editItem.layoutTags : itemTypeObject.layoutTags
     ),

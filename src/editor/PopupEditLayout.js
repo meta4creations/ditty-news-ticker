@@ -1,13 +1,11 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBrush, faCode } from "@fortawesome/pro-light-svg-icons";
 import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
 
 import { LayoutTags, CodeEditor, PopupEditLayoutTag } from "../common";
-import { IconBlock, Popup, Tabs, Link } from "../components";
+import { Icon, IconBlock, Popup, Tabs, Link } from "../components";
 import {
   getItemTypePreviewIcon,
   getDefaultLayout,
@@ -90,12 +88,12 @@ const PopupEditLayout = ({
             {
               id: "html",
               label: __("HTML", "ditty-news-ticker"),
-              icon: <FontAwesomeIcon icon={faCode} />,
+              icon: <Icon id="faCode" />,
             },
             {
               id: "css",
               label: __("CSS", "ditty-news-ticker"),
-              icon: <FontAwesomeIcon icon={faBrush} />,
+              icon: <Icon id="faBrush" />,
             },
           ]}
           currentTabId={currentTabId}

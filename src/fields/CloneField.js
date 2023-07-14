@@ -1,14 +1,6 @@
 import { __ } from "@wordpress/i18n";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMinus,
-  faPlus,
-  faClone,
-  faAngleUp,
-  faAngleDown,
-} from "@fortawesome/pro-regular-svg-icons";
 import classnames from "classnames";
-import { Button, ButtonGroup } from "../components";
+import { Button, ButtonGroup, Icon } from "../components";
 
 const CloneField = ({
   className,
@@ -27,12 +19,12 @@ const CloneField = ({
         <ButtonGroup className="ditty-clone__field__buttons ditty-clone__field__buttons--start">
           {onMoveUp && (
             <Button onClick={() => onMoveUp(data)}>
-              <FontAwesomeIcon icon={faAngleUp} />
+              <Icon id="faAngleUp" />
             </Button>
           )}
           {onMoveDown && (
             <Button onClick={() => onMoveDown(data)}>
-              <FontAwesomeIcon icon={faAngleDown} />
+              <Icon id="faAngleDown" />
             </Button>
           )}
         </ButtonGroup>
@@ -40,17 +32,17 @@ const CloneField = ({
       {children}
       <ButtonGroup className="ditty-clone__field__buttons ditty-clone__field__buttons--end">
         <Button onClick={onDelete}>
-          <FontAwesomeIcon icon={faMinus} />
+          <Icon id="faMinus" />
         </Button>
         <Button onClick={() => onClone()}>
-          <FontAwesomeIcon icon={faPlus} />
+          <Icon id="faPlus" />
         </Button>
         <Button
           onClick={() => {
             onClone(data._value);
           }}
         >
-          <FontAwesomeIcon icon={faClone} />
+          <Icon icon="faClone" />
         </Button>
       </ButtonGroup>
     </div>

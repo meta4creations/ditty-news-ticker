@@ -15,6 +15,6 @@ const Icon = ({ id, type = "fal", spin, className, style, onClick }) => {
     onClick,
   };
 
-  return <FontAwesomeIcon {...atts} icon={[type, _.kebabCase(id)]} />;
+  return id && <FontAwesomeIcon {...atts} icon={[type, _.kebabCase(id)]} />;
 };
 export default Icon;

@@ -1,14 +1,7 @@
 import { applyFilters } from "@wordpress/hooks";
 import { __ } from "@wordpress/i18n";
 import _ from "lodash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowsLeftRight,
-  faTabletScreen,
-  faSliders,
-  faBrush,
-  faHeading,
-} from "@fortawesome/pro-light-svg-icons";
+import { Icon } from "../components";
 import { borderSettings, titleSettings } from "./helpers";
 
 /**
@@ -115,11 +108,7 @@ export const getDisplayTypeObject = (display) => {
  */
 export const getDisplayTypeIcon = (display) => {
   const displayType = getDisplayTypeObject(display);
-  return displayType ? (
-    displayType.icon
-  ) : (
-    <FontAwesomeIcon icon={faTabletScreen} />
-  );
+  return displayType ? displayType.icon : <Icon id="faTabletScreen" />;
 };
 
 /**
@@ -212,7 +201,7 @@ const phpDisplayTypeSettings = (displayType, settings) => {
       `Configure the settings of the ${displayType}.`,
       "ditty-news-ticker"
     ),
-    icon: <FontAwesomeIcon icon={faSliders} />,
+    icon: <Icon id="faSliders" />,
     fields: settings,
   };
 };
@@ -226,7 +215,7 @@ const displaySettingsGeneral = (displayType) => {
       `Set the general settings of the ${displayType}.`,
       "ditty-news-ticker"
     ),
-    icon: <FontAwesomeIcon icon={faSliders} />,
+    icon: <Icon id="faSliders" />,
     fields: applyFilters(
       "dittyEditor.displaySettingsGeneralFields",
       [],
@@ -244,7 +233,7 @@ const displaySettingsTitle = (displayType) => {
       `Set the title settings of the ${displayType}.`,
       "ditty-news-ticker"
     ),
-    icon: <FontAwesomeIcon icon={faHeading} />,
+    icon: <Icon id="faHeading" />,
     fields: applyFilters(
       "dittyEditor.displaySettingsTitleFields",
       [...titleSettings()],
@@ -265,7 +254,7 @@ const displaySettingsNavigation = (
       `Set the navigation settings of the ${displayType}.`,
       "ditty-news-ticker"
     ),
-    icon: <FontAwesomeIcon icon={faArrowsLeftRight} />,
+    icon: <Icon id="faArrowsLeftRight" />,
     fields: groups.reduce((currentFields, group) => {
       switch (group) {
         case "arrows":
@@ -474,7 +463,7 @@ const displaySettingsStyle = (
       `Set various element styles of the ${displayType}.`,
       "ditty-news-ticker"
     ),
-    icon: <FontAwesomeIcon icon={faBrush} />,
+    icon: <Icon id="faBrush" />,
     fields: groups.reduce((currentFields, group) => {
       switch (group) {
         case "container":

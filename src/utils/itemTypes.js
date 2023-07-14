@@ -1,7 +1,6 @@
 import { __ } from "@wordpress/i18n";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil, faSliders } from "@fortawesome/pro-light-svg-icons";
 import _ from "lodash";
+import { Icon } from "../components";
 
 /**
  * Return all itemm types
@@ -61,14 +60,18 @@ export const getAPIItemTypes = () => {
 
   // Append "_preview" to the id of each object
   filteredTypes = filteredTypes.map((obj) => {
-    let icon = obj.icon;
+    const icon = obj.icon;
+    const iconType = obj.iconType;
+    let iconObj = icon;
     if (icon.includes("<svg") && icon.includes("</svg>")) {
-      icon = <div dangerouslySetInnerHTML={{ __html: icon }} />;
+      iconObj = <div dangerouslySetInnerHTML={{ __html: icon }} />;
+    } else {
+      iconObj = <Icon id={icon} type={iconType} />;
     }
     return {
       ...obj,
       id: obj.id + "_preview",
-      icon: icon,
+      icon: iconObj,
       isPreview: true,
       className: "ditty-preview",
     };
@@ -107,11 +110,16 @@ export const getItemTypeIcon = (item) => {
   const itemType = itemTypes.filter(
     (itemType) => itemType.id === item.item_type
   );
-  return itemType.length ? (
-    itemType[0].icon
-  ) : (
-    <FontAwesomeIcon icon={faPencil} />
-  );
+  if (itemType.length) {
+    const type = itemType[0].iconType ? itemType[0].iconType : "fal";
+    return "string" === typeof itemType[0].icon ? (
+      <Icon id={itemType[0].icon} type={type} />
+    ) : (
+      itemType[0].icon
+    );
+  } else {
+    return "faPencil";
+  }
 };
 
 /**
@@ -125,8 +133,7 @@ export const getItemTypePreviewIcon = (item) => {
   if (itemTypeObject.previewIcon) {
     previewIcon = itemTypeObject.previewIcon(item);
   } else {
-    const icon = getItemTypeIcon(item);
-    previewIcon = "string" === typeof icon ? <i className={icon}></i> : icon;
+    previewIcon = getItemTypeIcon(item);
   }
   const style = {
     color: itemTypeObject.iconColor ? itemTypeObject.iconColor : false,
@@ -156,7 +163,7 @@ export const getItemTypeSettings = (item) => {
         `Configure the settings of the ${itemTypeObject.label}.`,
         "ditty-news-ticker"
       ),
-      icon: <FontAwesomeIcon icon={faSliders} />,
+      icon: <Icon id="faSliders" />,
       fields: itemTypeObject.phpSettings,
     });
   } else {

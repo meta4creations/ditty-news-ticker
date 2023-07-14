@@ -2,13 +2,7 @@ import classnames from "classnames";
 import { applyFilters } from "@wordpress/hooks";
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBarsStaggered,
-  faPaintbrushPencil,
-  faGear,
-} from "@fortawesome/pro-regular-svg-icons";
-import { Tabs } from "../components";
+import { Icon, Tabs } from "../components";
 import PanelLayout from "./PanelLayout";
 import PanelItem from "./PanelItem";
 import PanelSettings from "./PanelSettings";
@@ -77,7 +71,7 @@ const LayoutEditor = ({
     {
       id: "layout",
       label: __("Layout", "ditty-news-ticker"),
-      icon: <FontAwesomeIcon icon={faPaintbrushPencil} />,
+      icon: <Icon id="faPaintbrushPencil" />,
       content: (
         <PanelLayout
           editorItem={editorItem}
@@ -89,7 +83,7 @@ const LayoutEditor = ({
     {
       id: "item",
       label: __("Item", "ditty-news-ticker"),
-      icon: <FontAwesomeIcon icon={faBarsStaggered} />,
+      icon: <Icon id="faBarsStaggered" />,
       content: (
         <PanelItem
           editorItem={editorItem}
@@ -100,7 +94,7 @@ const LayoutEditor = ({
     {
       id: "settings",
       label: __("Settings", "ditty-news-ticker"),
-      icon: <FontAwesomeIcon icon={faGear} />,
+      icon: <Icon id="faGear" />,
       content: (
         <PanelSettings
           title={title}

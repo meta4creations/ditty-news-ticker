@@ -1,15 +1,13 @@
 import { __ } from "@wordpress/i18n";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSliders } from "@fortawesome/pro-light-svg-icons";
-import { faWordpressSimple } from "@fortawesome/free-brands-svg-icons";
 import { linkFieldGroup } from "../utils/helpers";
 
 if (dittyEditor) {
+  const { Icon } = dittyEditor.components;
   const itemType = __("WP Posts Feed (Lite)", "ditty-news-ticker");
 
   dittyEditor.registerItemType({
     id: "posts_feed",
-    icon: <FontAwesomeIcon icon={faWordpressSimple} />,
+    icon: <Icon id="faWordpressSimple" type="fab" />,
     iconColor: "#FFFFFF",
     iconBGColor: "#0C749C",
     label: itemType,
@@ -23,7 +21,7 @@ if (dittyEditor) {
           `Configure the settings of the Posts Feed.`,
           "ditty-news-ticker"
         ),
-        icon: <FontAwesomeIcon icon={faSliders} />,
+        icon: <Icon id="faSliders" />,
         fields: [
           {
             type: "number",

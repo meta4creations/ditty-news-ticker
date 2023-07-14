@@ -1,7 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleQuestion } from "@fortawesome/pro-solid-svg-icons";
+import { Icon } from "../components";
 
 const FieldHeader = ({
   id,
@@ -36,8 +35,8 @@ const FieldHeader = ({
         <label className="ditty-field__label">
           {name ? name : id}{" "}
           {help && (
-            <FontAwesomeIcon
-              icon={faCircleQuestion}
+            <Icon
+              id="faCircleQuestion"
               className={`ditty-field__help-icon ${displayHelp && `active`}`}
               onClick={toggleHelp}
             />

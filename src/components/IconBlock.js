@@ -1,4 +1,5 @@
 import classnames from "classnames";
+import Icon from "./Icon";
 
 const IconBlock = ({
   align,
@@ -27,7 +28,7 @@ const IconBlock = ({
     <div className={classes} style={styles}>
       {icon && (
         <div className="ditty-icon-block__icon" style={iconStyles}>
-          {"string" === typeof icon ? <i className={icon}></i> : icon}
+          {"string" === typeof icon ? <Icon id={icon} /> : icon}
         </div>
       )}
       <div className="ditty-icon-block__contents">{children}</div>

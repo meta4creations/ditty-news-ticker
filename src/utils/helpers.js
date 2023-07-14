@@ -1,6 +1,5 @@
 import { __ } from "@wordpress/i18n";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink } from "@fortawesome/pro-light-svg-icons";
+import { Icon } from "../components";
 
 export const displayTypeExists = (dittyEl, displayType) => {
   if ("function" === typeof jQuery(dittyEl)["ditty_" + displayType]) {
@@ -275,7 +274,7 @@ export const linkFieldGroup = () => {
       "Configure global link settings for this items elements.",
       "ditty-news-ticker"
     ),
-    icon: <FontAwesomeIcon icon={faLink} />,
+    icon: <Icon id="faLink" />,
     fields: linkSettings(),
   };
 };

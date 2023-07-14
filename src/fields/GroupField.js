@@ -1,8 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import { Fragment, useState } from "@wordpress/element";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown, faChevronUp } from "@fortawesome/pro-solid-svg-icons";
 import classnames from "classnames";
+import { Icon } from "../components";
 import FieldHeader from "./FieldHeader";
 import { showField } from "./fieldHelpers";
 
@@ -85,8 +84,8 @@ const GroupField = (props) => {
           {...headerProps}
           headerEnd={
             collapsible ? (
-              <FontAwesomeIcon
-                icon={displayContent ? faChevronUp : faChevronDown}
+              <Icon
+                id={displayContent ? "faChevronUp" : "faChevronDown"}
                 className="ditty-field__toggle"
               />
             ) : null

@@ -1,16 +1,10 @@
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 import _ from "lodash";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPaintbrushPencil,
-  faCode,
-  faBrush,
-} from "@fortawesome/pro-light-svg-icons";
 import { html } from "@codemirror/lang-html";
 import { css } from "@codemirror/lang-css";
 import { CodeEditor, LayoutTags } from "../common";
-import { IconBlock, Link, Panel, Tabs } from "../components";
+import { Icon, IconBlock, Link, Panel, Tabs } from "../components";
 import { getItemTypeObject, getDefaultLayout } from "../utils/itemTypes";
 
 const PanelLayout = ({ editorItem, layout, onUpdateLayout }) => {
@@ -22,7 +16,7 @@ const PanelLayout = ({ editorItem, layout, onUpdateLayout }) => {
     return (
       <>
         <IconBlock
-          icon={<FontAwesomeIcon icon={faPaintbrushPencil} />}
+          icon="faPaintbrushPencil"
           className="ditty-icon-block--heading"
         >
           <div className="ditty-icon-block--heading__title">
@@ -49,12 +43,12 @@ const PanelLayout = ({ editorItem, layout, onUpdateLayout }) => {
             {
               id: "html",
               label: __("HTML", "ditty-news-ticker"),
-              icon: <FontAwesomeIcon icon={faCode} />,
+              icon: <Icon id="faCode" />,
             },
             {
               id: "css",
               label: __("CSS", "ditty-news-ticker"),
-              icon: <FontAwesomeIcon icon={faBrush} />,
+              icon: <Icon id="faBrush" />,
             },
           ]}
           currentTabId={currentTabId}

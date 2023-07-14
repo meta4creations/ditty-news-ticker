@@ -199,7 +199,7 @@ class Ditty_Item_Type {
 			'default' => array(
 				'label'				=> __( 'Default', 'ditty-news-ticker' ),
 				'description' => __( 'The default variation used for this item.', 'ditty-news-ticker' ),
-				'icon'				=> 'fa-solid fa-asterisk'
+				'icon'				=> 'fa-asterisk'
 			),
 		);
 		return $layout_variations;
@@ -217,7 +217,7 @@ class Ditty_Item_Type {
 				'template'		=> 'default',
 				'label'				=> __( 'Default', 'ditty-news-ticker' ),
 				'description' => __( 'The default variation used for this item.', 'ditty-news-ticker' ),
-				'icon'				=> 'fa-solid fa-asterisk'
+				'icon'				=> 'fa-asterisk'
 			),
 		);
 		return apply_filters( 'ditty_item_type_variation_types', $layout_variations, $this );

@@ -1,13 +1,7 @@
 import { __ } from "@wordpress/i18n";
 import { Fragment, useState } from "@wordpress/element";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleCheck,
-  faGear,
-  faPenCircle,
-} from "@fortawesome/pro-solid-svg-icons";
 import classnames from "classnames";
-import { ButtonGroup } from "../components";
+import { ButtonGroup, Icon } from "../components";
 import FieldHeader from "./FieldHeader";
 
 const LayoutTagField = (props) => {
@@ -122,8 +116,8 @@ const LayoutTagField = (props) => {
       <FieldHeader
         {...props}
         headerStart={
-          <FontAwesomeIcon
-            icon={faCircleCheck}
+          <Icon
+            id="faCircleCheck"
             className="layoutTagEnabled"
             onClick={() => toggleStatus()}
           />
@@ -136,7 +130,7 @@ const LayoutTagField = (props) => {
                 className="layoutTagAction layoutTagAction__customize"
                 onClick={toggleContent}
               >
-                <FontAwesomeIcon icon={faGear} />
+                <Icon id="faGear" />
               </span>
             </ButtonGroup>
           )
@@ -152,8 +146,8 @@ const LayoutTagField = (props) => {
                 ? `${attributeField.className} ditty-layout-attribute-field`
                 : "ditty-layout-attribute-field";
               attributeField.fieldBefore = (
-                <FontAwesomeIcon
-                  icon={faPenCircle}
+                <Icon
+                  id="faPenCircle"
                   className="layoutAttributeCustomized"
                   onClick={() => toggleAttribute(attributeField)}
                 />

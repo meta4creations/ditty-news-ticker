@@ -1,5 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import classnames from "classnames";
+import { Icon } from "../components";
 
 const Tabs = ({ className, tabs, type, currentTabId, tabClick, style }) => {
   /**
@@ -25,15 +26,13 @@ const Tabs = ({ className, tabs, type, currentTabId, tabClick, style }) => {
    * @returns className
    */
   const renderButtonContent = (tab) => {
+    const icon = tab.icon;
+    const type = tab.iconType ? tab.iconType : "fal";
     return (
       <>
-        {tab.icon && (
+        {icon && (
           <span className="ditty-tab__icon">
-            {"string" === typeof tab.icon ? (
-              <i className={tab.icon}></i>
-            ) : (
-              tab.icon
-            )}
+            {"string" === typeof icon ? <Icon id={icon} type={type} /> : icon}
           </span>
         )}
         {tab.label && <span className="ditty-tab__label">{tab.label}</span>}
