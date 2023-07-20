@@ -131,6 +131,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.22 =
+* Added item and display type previews to the editors
+
 = 3.1.21 =
 * List display updates
 * Admin menu updates for Ditty pages

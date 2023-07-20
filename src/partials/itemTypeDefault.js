@@ -7,8 +7,6 @@ if (dittyEditor) {
   dittyEditor.registerItemType({
     id: "default",
     icon: <Icon id="faPencil" />,
-    iconColor: "#FFFFFF",
-    iconBGColor: "#1D2327",
     label: itemType,
     description: __("Manually add text to the item.", "ditty-news-ticker"),
     settings: {

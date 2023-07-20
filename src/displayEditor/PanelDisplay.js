@@ -9,6 +9,7 @@ import { Icon, IconBlock, Link, Panel } from "../components";
 import { FieldList } from "../fields";
 import {
   getDisplayTypes,
+  getAPIDisplayTypes,
   getDisplayTypeObject,
   getDisplayTypeSettings,
 } from "../utils/displayTypes";
@@ -35,6 +36,7 @@ const PanelDisplay = ({
   );
 
   const displayTypes = getDisplayTypes();
+  const apiDisplayTypes = getAPIDisplayTypes();
 
   /**
    * Update the Display on field update
@@ -72,6 +74,7 @@ const PanelDisplay = ({
                 : __("Use Type", "ditty-news-ticker")
             }
             types={displayTypes}
+            apiTypes={apiDisplayTypes}
             getTypeObject={getDisplayTypeObject}
             onChange={(selectedType) => {
               const dittyEl = document.getElementById("ditty-editor__ditty");

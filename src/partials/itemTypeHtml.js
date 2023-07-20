@@ -7,8 +7,6 @@ if (dittyEditor) {
   dittyEditor.registerItemType({
     id: "html",
     icon: <Icon id="faCode" />,
-    iconColor: "#FFFFFF",
-    iconBGColor: "#1D2327",
     label: itemType,
     description: __(
       "Manually add custom HTML to the item.",

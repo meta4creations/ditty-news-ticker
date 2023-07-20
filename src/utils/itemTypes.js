@@ -106,19 +106,16 @@ export const getItemTypeObject = (item) => {
  * @returns element
  */
 export const getItemTypeIcon = (item) => {
-  const itemTypes = getItemTypes();
-  const itemType = itemTypes.filter(
-    (itemType) => itemType.id === item.item_type
-  );
-  if (itemType.length) {
-    const type = itemType[0].iconType ? itemType[0].iconType : "fal";
-    return "string" === typeof itemType[0].icon ? (
-      <Icon id={itemType[0].icon} type={type} />
+  const itemTypeObject = getItemTypeObject(item);
+  if (itemTypeObject) {
+    const type = itemTypeObject.iconType ? itemTypeObject.iconType : "fal";
+    return "string" === typeof itemTypeObject.icon ? (
+      <Icon id={itemTypeObject.icon} type={type} />
     ) : (
-      itemType[0].icon
+      itemTypeObject.icon
     );
   } else {
-    return "faPencil";
+    return <Icon id="fa-pencil" />;
   }
 };
 
@@ -133,7 +130,7 @@ export const getItemTypePreviewIcon = (item) => {
   if (itemTypeObject.previewIcon) {
     previewIcon = itemTypeObject.previewIcon(item);
   } else {
-    previewIcon = getItemTypeIcon(item);
+    previewIcon = getItemTypeIcon(itemTypeObject);
   }
   const style = {
     color: itemTypeObject.iconColor ? itemTypeObject.iconColor : false,

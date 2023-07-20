@@ -569,6 +569,7 @@ class Ditty_Scripts {
 					'defaultDisplayType' 	=> ditty_default_display_type(),
 					'defaultItemType'			=> ditty_default_item_type(),
           'apiItemTypes'        => ditty_api_item_types_data(),
+          'apiDisplayTypes'     => ditty_api_display_types_data(),
 					'sassWorkerUrl'				=> DITTY_URL . 'includes/libs/sass/sass.worker.js',
 					'dittyDevelopment'		=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
 				), $hook ) ), 'before' ) . ';';
@@ -617,6 +618,7 @@ class Ditty_Scripts {
 					'settings' 						=> 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_display_settings', true ),
 					'editorSettings'			=> 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_editor_settings', true ),
 					'displayTypes'				=> Ditty()->editor->display_type_data(),
+          'apiDisplayTypes'     => ditty_api_display_types_data(),
 					'defaultDisplayType' 	=> ditty_default_display_type(),
 					'dittyDevelopment' 		=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
 				), $hook ) ), 'before' ) . ';';

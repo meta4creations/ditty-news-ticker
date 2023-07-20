@@ -7,8 +7,6 @@ if (dittyEditor) {
   dittyEditor.registerItemType({
     id: "wp_editor",
     icon: <Icon id="faPenToSquare" />,
-    iconColor: "#FFFFFF",
-    iconBGColor: "#1D2327",
     label: itemType,
     description: __("Manually add content to the item.", "ditty-news-ticker"),
     settings: {

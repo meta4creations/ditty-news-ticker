@@ -51,6 +51,53 @@ const migrateDisplayTypes = (displayTypes) => {
 };
 
 /**
+ * Return api display types
+ * @returns array
+ */
+export const getAPIDisplayTypes = () => {
+  const apiDisplayTypes = dittyEditorVars
+    ? dittyEditorVars.apiDisplayTypes
+    : [];
+  const displayTypes = getDisplayTypes();
+
+  let filteredTypes = apiDisplayTypes
+    .filter(
+      (apiDisplay) =>
+        !displayTypes.some((display) => display.id === apiDisplay.id) ||
+        displayTypes.some(
+          (display) => display.id === apiDisplay.id && display.isLite
+        )
+    )
+    .concat(
+      displayTypes.filter(
+        (display) =>
+          !apiDisplayTypes.some((apiDisplay) => apiDisplay.id === display.id)
+      )
+    );
+
+  // Append "_preview" to the id of each object
+  filteredTypes = filteredTypes.map((obj) => {
+    const icon = obj.icon;
+    const iconType = obj.iconType;
+    let iconObj = icon;
+    if (icon.includes("<svg") && icon.includes("</svg>")) {
+      iconObj = <div dangerouslySetInnerHTML={{ __html: icon }} />;
+    } else {
+      iconObj = <Icon id={icon} type={iconType} />;
+    }
+    return {
+      ...obj,
+      id: obj.id + "_preview",
+      icon: iconObj,
+      isPreview: true,
+      className: "ditty-preview",
+    };
+  });
+
+  return filteredTypes;
+};
+
+/**
  * Get the current display object
  * @returns object
  */
@@ -86,7 +133,7 @@ export const getDisplayObject = (display, displays) => {
 
 /**
  * Return a display type icon from the display
- * @param {object} item
+ * @param {object} display
  * @returns element
  */
 export const getDisplayTypeObject = (display) => {
@@ -103,7 +150,7 @@ export const getDisplayTypeObject = (display) => {
 
 /**
  * Return a display type icon from the display
- * @param {object} item
+ * @param {object} display
  * @returns element
  */
 export const getDisplayTypeIcon = (display) => {
@@ -113,7 +160,7 @@ export const getDisplayTypeIcon = (display) => {
 
 /**
  * Return a display type label from the display
- * @param {object} item
+ * @param {object} display
  * @returns element
  */
 export const getDisplayTypeLabel = (display) => {
@@ -123,7 +170,7 @@ export const getDisplayTypeLabel = (display) => {
 
 /**
  * Return a display type label from the display
- * @param {object} item
+ * @param {object} display
  * @returns element
  */
 export const getDisplayTypeDescription = (display) => {
@@ -132,7 +179,7 @@ export const getDisplayTypeDescription = (display) => {
 };
 
 /**
- * Return the fields for an item type
+ * Return the fields for an display type
  * @param {string} display
  * @returns object
  */

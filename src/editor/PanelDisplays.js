@@ -18,6 +18,7 @@ import {
 import { FieldList } from "../fields";
 import {
   getDisplayTypes,
+  getAPIDisplayTypes,
   getDisplayTypeIcon,
   getDisplayTypeObject,
   getDisplayTypeSettings,
@@ -52,6 +53,7 @@ const PanelDisplays = () => {
   }
 
   const displayTypes = getDisplayTypes();
+  const apiDisplayTypes = getAPIDisplayTypes();
 
   /**
    * Update the Display on field update
@@ -160,6 +162,7 @@ const PanelDisplays = () => {
           <PopupTypeSelector
             currentType={currentDisplay.type}
             types={displayTypes}
+            apiTypes={apiDisplayTypes}
             getTypeObject={getDisplayTypeObject}
             onChange={(selectedType) => {
               updateDittyDisplayType(dittyEl, selectedType);

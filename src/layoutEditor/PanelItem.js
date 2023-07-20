@@ -7,6 +7,7 @@ import { FieldList } from "../fields";
 import {
   getItemTypeObject,
   getItemTypes,
+  getAPIItemTypes,
   getItemTypeSettings,
   getItemTypePreviewIcon,
 } from "../utils/itemTypes";
@@ -15,6 +16,7 @@ const PanelItem = ({ editorItem, onUpdateEditorItem }) => {
   const [popupStatus, setPopupStatus] = useState(false);
   const itemTypeObject = getItemTypeObject(editorItem.item_type);
   const itemTypes = getItemTypes();
+  const apiItemTypes = getAPIItemTypes();
 
   const fieldGroups = getItemTypeSettings(editorItem);
 
@@ -37,7 +39,6 @@ const PanelItem = ({ editorItem, onUpdateEditorItem }) => {
    * @returns Popup component
    */
   const renderPopup = () => {
-    const dittyEl = document.getElementById("ditty-editor__ditty");
     switch (popupStatus) {
       case "itemTypeSelect":
         return (
@@ -45,6 +46,7 @@ const PanelItem = ({ editorItem, onUpdateEditorItem }) => {
             level="1"
             currentType={editorItem.item_type}
             types={itemTypes}
+            apiTypes={apiItemTypes}
             getTypeObject={getItemTypeObject}
             onClose={() => {
               setPopupStatus(false);
