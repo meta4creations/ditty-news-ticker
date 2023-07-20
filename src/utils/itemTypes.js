@@ -26,7 +26,10 @@ const migrateItemTypes = (itemTypes) => {
         return itemType.id === phpType.id;
       });
       if (-1 === existingIndex) {
-        updatedItemTypes.push(phpType);
+        const icon = phpType.icon;
+        const iconType = phpType.iconType ? phpType.iconType : "fal";
+        const iconObj = <Icon id={icon} type={iconType} />;
+        updatedItemTypes.push({ ...phpType, icon: iconObj });
       } else {
         updatedItemTypes[existingIndex] = {
           ...phpType,
@@ -46,28 +49,17 @@ export const getAPIItemTypes = () => {
   const apiItemTypes = dittyEditorVars ? dittyEditorVars.apiItemTypes : [];
   const itemTypes = getItemTypes();
 
-  let filteredTypes = apiItemTypes
-    .filter(
-      (apiItem) =>
-        !itemTypes.some((item) => item.id === apiItem.id) ||
-        itemTypes.some((item) => item.id === apiItem.id && item.isLite)
-    )
-    .concat(
-      itemTypes.filter(
-        (item) => !apiItemTypes.some((apiItem) => apiItem.id === item.id)
-      )
-    );
+  let filteredTypes = apiItemTypes.filter(
+    (apiItem) =>
+      !itemTypes.some((item) => item.id === apiItem.id) ||
+      itemTypes.some((item) => item.id === apiItem.id && item.isLite)
+  );
 
   // Append "_preview" to the id of each object
   filteredTypes = filteredTypes.map((obj) => {
     const icon = obj.icon;
-    const iconType = obj.iconType;
-    let iconObj = icon;
-    if (icon.includes("<svg") && icon.includes("</svg>")) {
-      iconObj = <div dangerouslySetInnerHTML={{ __html: icon }} />;
-    } else {
-      iconObj = <Icon id={icon} type={iconType} />;
-    }
+    const iconType = obj.iconType ? obj.iconType : "fal";
+    let iconObj = <Icon id={icon} type={iconType} />;
     return {
       ...obj,
       id: obj.id + "_preview",

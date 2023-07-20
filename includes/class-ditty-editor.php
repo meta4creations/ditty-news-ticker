@@ -150,7 +150,7 @@ class Ditty_Editor {
 	 * Get all item type data for the editor
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.1.23
 	 */
 	public function item_type_data() {
 		$item_types = ditty_item_types();
@@ -164,6 +164,7 @@ class Ditty_Editor {
 				$item_type = [
 					'id' => $type['type'],
 					'icon' => $type['icon'],
+          'iconType' => isset( $type['icon_type'] ) ? $type['icon_type'] : false,
 					'label' => $type['label'],
 					'description' => $type['description'],
 					'layoutTags' => array_values( $item_type_object->get_layout_tags() ),
@@ -206,7 +207,7 @@ class Ditty_Editor {
 	 * Get all display type data for the editor
 	 *
 	 * @access public
-	 * @since  3.1
+	 * @since  3.1.23
 	 */
 	public function display_type_data() {
 		$display_types = ditty_display_types();
@@ -219,6 +220,10 @@ class Ditty_Editor {
 				}
 				$type['settings'] = $this->format_js_fields($display_type_object->fields());
 				$type['defaultValues'] = $display_type_object->default_settings();
+        if ( isset( $type['icon_type'] ) ) {
+          $type['iconType'] = $type['icon_type'];
+          unset( $type['icon_type'] );
+        }
 				$display_type_data[] = $type;
 			}
 		}

@@ -32,9 +32,12 @@ const migrateDisplayTypes = (displayTypes) => {
         (type) => type.id === phpType.type
       );
       if (!existingType.length) {
+        const icon = phpType.icon;
+        const iconType = phpType.iconType ? phpType.iconType : "fal";
+        const iconObj = <Icon id={icon} type={iconType} />;
         filtered.push({
           id: phpType.type,
-          icon: <i className={phpType.icon}></i>,
+          icon: iconObj,
           label: phpType.label,
           description: phpType.description,
           phpSettings: phpType.settings,
@@ -60,31 +63,19 @@ export const getAPIDisplayTypes = () => {
     : [];
   const displayTypes = getDisplayTypes();
 
-  let filteredTypes = apiDisplayTypes
-    .filter(
-      (apiDisplay) =>
-        !displayTypes.some((display) => display.id === apiDisplay.id) ||
-        displayTypes.some(
-          (display) => display.id === apiDisplay.id && display.isLite
-        )
-    )
-    .concat(
-      displayTypes.filter(
-        (display) =>
-          !apiDisplayTypes.some((apiDisplay) => apiDisplay.id === display.id)
+  let filteredTypes = apiDisplayTypes.filter(
+    (apiDisplay) =>
+      !displayTypes.some((display) => display.id === apiDisplay.id) ||
+      displayTypes.some(
+        (display) => display.id === apiDisplay.id && display.isLite
       )
-    );
+  );
 
   // Append "_preview" to the id of each object
   filteredTypes = filteredTypes.map((obj) => {
     const icon = obj.icon;
-    const iconType = obj.iconType;
-    let iconObj = icon;
-    if (icon.includes("<svg") && icon.includes("</svg>")) {
-      iconObj = <div dangerouslySetInnerHTML={{ __html: icon }} />;
-    } else {
-      iconObj = <Icon id={icon} type={iconType} />;
-    }
+    const iconType = obj.iconType ? obj.iconType : "fal";
+    let iconObj = <Icon id={icon} type={iconType} />;
     return {
       ...obj,
       id: obj.id + "_preview",
