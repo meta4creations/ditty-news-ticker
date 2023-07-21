@@ -90,6 +90,20 @@ function ditty_default_layout_tag_content( $content, $item_type, $data, $atts ) 
 add_filter( 'ditty_layout_tag_content', 'ditty_default_layout_tag_content', 10, 4 );
 
 /**
+ * Globally modify content tags
+ *
+ * @since    3.1.24
+ * @var      html
+*/
+function ditty_layout_tag_content_globals( $content, $item_type, $data, $atts ) {
+	if ( isset( $atts['strip_images'] ) && 'yes' == $atts['strip_images'] ) {
+		$content = preg_replace( '/<img[^>]+\>/i', '', $content );
+	}
+	return $content;
+}
+add_filter( 'ditty_layout_tag_content', 'ditty_layout_tag_content_globals', 99, 4 );
+
+/**
  * Modify the layout timestamp
  *
  * @since    3.1

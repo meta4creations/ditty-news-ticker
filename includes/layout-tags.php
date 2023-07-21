@@ -174,6 +174,19 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 				'more_link'					=> $more_link_settings,
 				'more_link_target' 	=> $more_link_target_settings,
 				'more_link_rel'			=> $more_link_rel_settings,
+				'strip_images'			=> [
+					'type' => "select",
+					'id' =>  "strip_images",
+					'options' => [
+						'no',
+						'yes',
+					],
+					'help' =>  __(
+						"Remove all images from the content.",
+						"ditty-news-ticker"
+					),
+					'std' => 'no',
+				],
 			),
 		),
 		'custom_field' => array(
