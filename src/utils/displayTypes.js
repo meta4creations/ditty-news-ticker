@@ -235,7 +235,7 @@ const phpDisplayTypeSettings = (displayType, settings) => {
     id: "settings",
     label: __("Settings", "ditty-news-ticker"),
     name: __("Settings", "ditty-news-ticker"),
-    desc: __(
+    description: __(
       `Configure the settings of the ${displayType}.`,
       "ditty-news-ticker"
     ),
@@ -249,7 +249,7 @@ const displaySettingsGeneral = (displayType) => {
     id: "general",
     label: __("General", "ditty-news-ticker"),
     name: __("General Settings", "ditty-news-ticker"),
-    desc: __(
+    description: __(
       `Set the general settings of the ${displayType}.`,
       "ditty-news-ticker"
     ),
@@ -267,7 +267,7 @@ const displaySettingsTitle = (displayType) => {
     id: "title",
     label: __("Title", "ditty-news-ticker"),
     name: __("Title Settings", "ditty-news-ticker"),
-    desc: __(
+    description: __(
       `Set the title settings of the ${displayType}.`,
       "ditty-news-ticker"
     ),
@@ -288,7 +288,7 @@ const displaySettingsNavigation = (
     id: "navigation",
     label: __("Navigation", "ditty-news-ticker"),
     name: __("Navigation Settings", "ditty-news-ticker"),
-    desc: __(
+    description: __(
       `Set the navigation settings of the ${displayType}.`,
       "ditty-news-ticker"
     ),
@@ -301,7 +301,7 @@ const displaySettingsNavigation = (
               id: "arrowSettings",
               type: "group",
               name: __("Arrow Settings", "ditty-news-ticker"),
-              desc: __(
+              description: __(
                 "Configure the arrow navigation settings.",
                 "ditty-news-ticker"
               ),
@@ -391,7 +391,7 @@ const displaySettingsNavigation = (
               id: "bulletSettings",
               type: "group",
               name: __("Bullet Settings", "ditty-news-ticker"),
-              desc: __(
+              description: __(
                 "Configure the bullet navigation settings.",
                 "ditty-news-ticker"
               ),
@@ -497,7 +497,7 @@ const displaySettingsStyle = (
     id: "styles",
     label: __("Styles", "ditty-news-ticker"),
     name: __("Style Settings", "ditty-news-ticker"),
-    desc: __(
+    description: __(
       `Set various element styles of the ${displayType}.`,
       "ditty-news-ticker"
     ),
@@ -510,7 +510,10 @@ const displaySettingsStyle = (
               id: "containerStyles",
               type: "group",
               name: __("Container Styles", "ditty-news-ticker"),
-              desc: __("Add custom container styles.", "ditty-news-ticker"),
+              description: __(
+                "Add custom container styles.",
+                "ditty-news-ticker"
+              ),
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
@@ -562,7 +565,10 @@ const displaySettingsStyle = (
               id: "contentStyles",
               type: "group",
               name: __("Content Styles", "ditty-news-ticker"),
-              desc: __("Add custom content styles.", "ditty-news-ticker"),
+              description: __(
+                "Add custom content styles.",
+                "ditty-news-ticker"
+              ),
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
@@ -596,7 +602,7 @@ const displaySettingsStyle = (
               id: "pageStyles",
               type: "group",
               name: __("Page Styles", "ditty-news-ticker"),
-              desc: __("Add custom page styles.", "ditty-news-ticker"),
+              description: __("Add custom page styles.", "ditty-news-ticker"),
               multipleFields: true,
               defaultState: "collapsed",
               collapsible: true,
@@ -627,13 +633,22 @@ const displaySettingsStyle = (
               id: "itemStyles",
               type: "group",
               name: __("Item Styles", "ditty-news-ticker"),
-              desc: __("Add custom item styles.", "ditty-news-ticker"),
+              description: __("Add custom item styles.", "ditty-news-ticker"),
               multipleFields: true,
-              defaultState: "collapsed",
               collapsible: true,
               fields: applyFilters(
                 "dittyEditor.displaySettingsStylesItemFields",
                 [
+                  {
+                    type: "text",
+                    id: "itemFontFamily",
+                    name: __("Item Font Family", "ditty-news-ticker"),
+                  },
+                  {
+                    type: "unit",
+                    id: "itemFontSize",
+                    name: __("Item Font Size", "ditty-news-ticker"),
+                  },
                   {
                     type: "color",
                     id: "itemTextColor",

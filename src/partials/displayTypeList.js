@@ -247,8 +247,8 @@ if (dittyEditor) {
         ],
       },
       navigation: ["arrows", "bullets"],
+      styles: ["item", "container", "content", "page"],
       title: true,
-      styles: ["container", "content", "page", "item"],
     },
     defaultValues: {
       spacing: "15",

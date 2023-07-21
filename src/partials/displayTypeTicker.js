@@ -15,8 +15,8 @@ if (dittyEditor) {
     ),
     settings: {
       general: true,
+      styles: ["item", "container", "content"],
       title: true,
-      styles: ["container", "content", "item"],
     },
     defaultValues: {
       direction: "left",

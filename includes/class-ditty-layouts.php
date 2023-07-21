@@ -140,23 +140,13 @@ class Ditty_Layouts {
 		$styles = '';
 		
 		if ( is_numeric( $layout_id ) ) {
-			$styles .= '.ditty-layout--' .$layout_id . '{';
+			$styles .= '.ditty .ditty-layout--' .$layout_id . '{';
 				$styles .= html_entity_decode( $css );
 			$styles .= '}';
-			if ( is_ditty_post() ) {
-				$styles .= '#poststuff .ditty-layout--' . $layout_id . '{';
-					$styles .= html_entity_decode( $css );
-				$styles .= '}';
-			}
 		} else {
-			$styles .= '.ditty-layout--' . $layout_id . '{';
+			$styles .= '.ditty .ditty-layout--' . $layout_id . '{';
 				$styles .= html_entity_decode( $css );
 			$styles .= '}';
-			if ( is_ditty_post() ) {
-				$styles .= '#poststuff .ditty-layout--' . $layout_id . '{';
-					$styles .= html_entity_decode( $css );
-				$styles .= '}';
-			}
 		}
 
 		// Compile the sass & remove whitespace
