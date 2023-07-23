@@ -37,6 +37,7 @@ const FieldHeader = ({
           {help && (
             <Icon
               id="faCircleQuestion"
+              type="fas"
               className={`ditty-field__help-icon ${displayHelp && `active`}`}
               onClick={toggleHelp}
             />

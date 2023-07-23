@@ -1,3 +1,13 @@
+function dittyLoadGoogleFont(font) {
+  let link = document.getElementById(`ditty-google-font--${font}`);
+  if (!link) {
+    link = jQuery(
+      `<link id="ditty-google-font--${font}" href="https://fonts.googleapis.com/css?family=${font}" rel="stylesheet">`
+    );
+    jQuery("head").append(link);
+  }
+}
+
 /**
  * Update item layout css
  *

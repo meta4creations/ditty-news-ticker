@@ -67,7 +67,7 @@ const UnitField = (props) => {
   const [number, setNumber] = useState(numberValue());
   const [unit, setUnit] = useState(unitValue());
   return (
-    <BaseField type="unit" {...props}>
+    <BaseField {...props} type="unit">
       <input
         autoComplete="off"
         inputMode="numeric"

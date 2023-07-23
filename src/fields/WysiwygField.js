@@ -5,7 +5,7 @@ const WysiwygField = (props) => {
   const { value, onChange, delayChange = false } = props;
 
   return (
-    <BaseField {...props}>
+    <BaseField {...props} type="wysiwyg">
       <RichTextEditor
         value={value}
         delayChange={delayChange}

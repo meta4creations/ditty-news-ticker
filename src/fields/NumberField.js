@@ -5,7 +5,7 @@ const NumberField = (props) => {
   const { value, onChange, min, max } = props;
 
   return (
-    <BaseField {...props}>
+    <BaseField {...props} type="number">
       <input
         type="number"
         value={Number(value)}

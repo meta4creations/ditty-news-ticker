@@ -48,7 +48,7 @@ const FileField = (props) => {
   };
 
   return (
-    <BaseField {...props}>
+    <BaseField {...props} type="file">
       <TextField
         key={textFieldKey}
         value={value}

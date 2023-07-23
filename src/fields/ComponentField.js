@@ -3,7 +3,11 @@ import BaseField from "./BaseField";
 
 const ComponentField = (props) => {
   const { std } = props;
-  return <BaseField {...props}>{std}</BaseField>;
+  return (
+    <BaseField {...props} type="component">
+      {std}
+    </BaseField>
+  );
 };
 
 export default ComponentField;

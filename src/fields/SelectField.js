@@ -51,7 +51,7 @@ const SelectField = (props) => {
   const renderOptions = (selectOptions) => {
     const convertedOptions = convertFieldOptions(selectOptions);
     return convertedOptions.map((option) => {
-      if (option.group) {
+      if (option.group || option.options) {
         return renderGroup(option);
       } else {
         return renderOption(option);
@@ -59,7 +59,7 @@ const SelectField = (props) => {
     });
   };
   return (
-    <BaseField {...props}>
+    <BaseField {...props} type="select">
       <select
         placeholder={placeholder}
         defaultValue={value}

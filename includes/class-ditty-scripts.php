@@ -455,7 +455,7 @@ class Ditty_Scripts {
 
 
 		// Register Ditty and display scripts
-		wp_register_script( 'ditty', DITTY_URL . 'includes/js/ditty.min.js', array( 'jquery', 'jquery-effects-core', ), $this->version, true );
+		wp_register_script( 'ditty', DITTY_URL . 'build/ditty.js', array( 'jquery', 'jquery-effects-core', ), $this->version, true );
 		if ( empty( $ditty_scripts_enqueued ) ) {
 			wp_add_inline_script( 'ditty', 'const dittyVars = ' . json_encode( apply_filters( 'dittyVars', array(
 				'ajaxurl'					=> admin_url( 'admin-ajax.php' ),

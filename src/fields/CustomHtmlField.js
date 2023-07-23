@@ -6,7 +6,7 @@ const CustomHtmlField = (props) => {
   const { value, onChange, delayChange = false } = props;
 
   return (
-    <BaseField {...props}>
+    <BaseField {...props} type="custom_html">
       <CodeEditor
         value={value}
         delayChange={delayChange}

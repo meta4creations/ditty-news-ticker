@@ -5,7 +5,7 @@ const CheckboxField = (props) => {
   const { label, value, onChange } = props;
 
   return (
-    <BaseField {...props}>
+    <BaseField {...props} type="checkbox">
       <label>
         <input
           type="checkbox"

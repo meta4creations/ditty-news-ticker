@@ -69,8 +69,7 @@
     titleBorderStyle: {},
     titleBorderWidth: {},
     titleBorderRadius: {},
-    itemFontFamily: "",
-    itemFontSize: "",
+    itemTypography: {},
     itemTextColor: "",
     itemLinkColor: "",
     itemBgColor: "",
@@ -971,26 +970,40 @@
 
       const cssPrefix = `.ditty[data-display="${this.settings.display}"]`;
       let css = "";
-      if (
-        "" !== this.settings.itemFontFamily ||
-        "" !== this.settings.itemFontSize ||
-        "" !== this.settings.itemTextColor ||
-        "" !== this.settings.itemLinkColor
-      ) {
-        css += `${cssPrefix} .ditty-item__elements{`;
-        if ("" !== this.settings.itemFontFamily) {
-          css += `font-family:${this.settings.itemFontFamily};`;
-        }
-        if ("" !== this.settings.itemFontSize) {
-          css += `font-size:${this.settings.itemFontSize};`;
-        }
-        if ("" !== this.settings.itemTextColor) {
-          css += `color:${this.settings.itemTextColor};`;
-        }
-        css += `}`;
+
+      const font = this.settings.itemTypography
+        ? this.settings.itemTypography
+        : {};
+      let fontCss = "";
+
+      if (font.family && "" !== font.family) {
+        fontCss += `font-family:${font.family};`;
+      }
+      if (font.weight && "" !== font.weight) {
+        fontCss += `font-weight:${font.weight};`;
+      }
+      if (font.size && "" !== font.size) {
+        fontCss += `font-size:${font.size};`;
+      }
+      if (font.lineHeight && "" !== font.lineHeight) {
+        fontCss += `line-height:${font.lineHeight};`;
+      }
+      if (font.letterSpacing && "" !== font.letterSpacing) {
+        fontCss += `letter-spacing:${font.letterSpacing};`;
+      }
+      if ("" !== this.settings.itemTextColor) {
+        fontCss += `color:${this.settings.itemTextColor};`;
+      }
+
+      if ("" !== fontCss) {
+        css += `${cssPrefix} .ditty-item__elements{${fontCss}}`;
       }
       if ("" !== this.settings.itemLinkColor) {
         css += `${cssPrefix} .ditty-item__elements a{color:${this.settings.itemLinkColor};}`;
+      }
+
+      if (font.type && "google" === font.type) {
+        dittyLoadGoogleFont(font.family);
       }
       dittyDisplayCss(css, this.settings.display);
     },
@@ -1181,8 +1194,7 @@
         case "contentsBgColor":
         case "contentsPadding":
         case "contentsBorderRadius":
-        case "itemFontFamily":
-        case "itemFontSize":
+        case "itemTypography":
         case "itemTextColor":
         case "itemLinkColor":
           this.settings[key] = value;

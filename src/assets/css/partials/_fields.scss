@@ -454,3 +454,56 @@ $radius: 9px;
     border-bottom-left-radius: 0 !important;
   }
 }
+
+// Typography
+.ditty-field--typography {
+  > .ditty-field__contents {
+    width: 100%;
+    container: typography-field / inline-size;
+  }
+}
+.ditty-field__input--typography {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 10px;
+  .ditty-field--typography__field {
+    border: none;
+    padding: 0;
+    .ditty-field__label {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #999;
+      white-space: nowrap;
+    }
+    .ditty-field__heading + .ditty-field__input__container {
+      margin-top: 5px;
+    }
+  }
+  .ditty-field-id--family {
+    width: 70%;
+    flex: 0 0 auto;
+  }
+  .ditty-field-id--weight {
+    width: calc(30% - 10px);
+  }
+  .ditty-field-id--size,
+  .ditty-field-id--lineHeight,
+  .ditty-field-id--letterSpacing {
+    flex: 1;
+  }
+}
+@container typography-field (max-width: 335px) {
+  .ditty-field__input--typography {
+    .ditty-field-id--family {
+      width: 100%;
+    }
+    .ditty-field-id--weight,
+    .ditty-field-id--size,
+    .ditty-field-id--lineHeight,
+    .ditty-field-id--letterSpacing {
+      width: auto;
+      min-width: calc(50% - 10px);
+      flex: 1;
+    }
+  }
+}

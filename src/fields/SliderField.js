@@ -5,7 +5,7 @@ import BaseField from "./BaseField";
 const SliderField = (props) => {
   const { value, min, max, step, onChange, js_options } = props;
   return (
-    <BaseField {...props}>
+    <BaseField {...props} type="slider">
       <RangeControl
         value={Number(value)}
         onChange={(updatedValue) => onChange(String(updatedValue))}

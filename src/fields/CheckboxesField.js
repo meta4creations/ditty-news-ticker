@@ -63,7 +63,7 @@ const CheckboxesField = (props) => {
   };
 
   return (
-    <BaseField {...props}>
+    <BaseField {...props} type="checkboxes">
       <div role="group">{renderOptions()}</div>
     </BaseField>
   );

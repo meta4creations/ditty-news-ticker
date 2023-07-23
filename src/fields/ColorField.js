@@ -26,7 +26,7 @@ const ColorField = (props) => {
   }, [wrapperRef, setDisplayPicker]);
 
   return (
-    <BaseField {...props}>
+    <BaseField {...props} type="color">
       <>
         <div
           className="ditty-field__input--color__swatch"

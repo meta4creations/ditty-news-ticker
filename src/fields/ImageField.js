@@ -105,7 +105,7 @@ const ImageField = (props) => {
   }
 
   return (
-    <BaseField {...props}>
+    <BaseField {...props} type="image">
       <button onClick={runUploader}>
         {imagePreview && <img src={imagePreview} />}
         <Icon id="faPlus" />

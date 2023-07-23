@@ -35,7 +35,7 @@ const RadioField = (props) => {
   };
 
   return (
-    <BaseField {...props}>
+    <BaseField {...props} type="radio">
       <div role="radiogroup">{renderOptions()}</div>
     </BaseField>
   );

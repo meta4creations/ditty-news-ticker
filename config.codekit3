@@ -950,28 +950,6 @@
       "sC" : 3,
       "tS" : 0
     },
-    "\/includes\/js\/ditty.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/ditty.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
-    "\/includes\/js\/ditty.min.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/includes\/js\/ditty.min.min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
     "\/includes\/js\/partials\/class-ditty-ui-data-list.js" : {
       "bF" : 0,
       "ft" : 64,

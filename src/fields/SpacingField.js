@@ -65,7 +65,7 @@ const SpacingField = (props) => {
   };
 
   return (
-    <BaseField {...props}>
+    <BaseField {...props} type="spacing">
       <div className={`ditty-field__input--${type}__box`}>{renderBox()}</div>
       <div className={`ditty-field__input--${type}__inputs`}>
         {renderField()}

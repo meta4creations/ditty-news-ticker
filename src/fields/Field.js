@@ -18,6 +18,7 @@ import SliderField from "./SliderField";
 import SpacingField from "./SpacingField";
 import TextField from "./TextField";
 import TextareaField from "./TextareaField";
+import TypographyField from "./TypographyField";
 import UnitField from "./UnitField";
 import WysiwygField from "./WysiwygField";
 
@@ -181,6 +182,14 @@ const Field = ({ field, fieldValue, updateValue, delayChange = false }) => {
             <TextareaField
               value={inputValue}
               delayChange={delayChange}
+              onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
+              {...inputField}
+            />
+          );
+        case "typography":
+          return (
+            <TypographyField
+              value={inputValue}
               onChange={(updatedValue) => onUpdate(inputField, updatedValue)}
               {...inputField}
             />

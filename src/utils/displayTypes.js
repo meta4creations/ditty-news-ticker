@@ -640,14 +640,13 @@ const displaySettingsStyle = (
                 "dittyEditor.displaySettingsStylesItemFields",
                 [
                   {
-                    type: "text",
-                    id: "itemFontFamily",
-                    name: __("Item Font Family", "ditty-news-ticker"),
-                  },
-                  {
-                    type: "unit",
-                    id: "itemFontSize",
-                    name: __("Item Font Size", "ditty-news-ticker"),
+                    type: "typography",
+                    id: "itemTypography",
+                    name: __("Item Typography", "ditty-news-ticker"),
+                    help: __(
+                      "Add base typography settings for the display items. Use layout customization to target specific elements or override these settings for individual items.",
+                      "ditty-news-ticker"
+                    ),
                   },
                   {
                     type: "color",
