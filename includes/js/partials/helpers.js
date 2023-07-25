@@ -1,8 +1,10 @@
 function dittyLoadGoogleFont(font) {
-  let link = document.getElementById(`ditty-google-font--${font}`);
+  console.log("font", font);
+  const fontId = font.replace(/\s+/g, "-").toLowerCase();
+  let link = document.getElementById(`ditty-google-font--${fontId}`);
   if (!link) {
     link = jQuery(
-      `<link id="ditty-google-font--${font}" href="https://fonts.googleapis.com/css?family=${font}" rel="stylesheet">`
+      `<link id="ditty-google-font--${fontId}" href="https://fonts.googleapis.com/css?family=${font}" rel="stylesheet">`
     );
     jQuery("head").append(link);
   }
@@ -41,6 +43,81 @@ function dittyDisplayCss(displayCss, displayId) {
   }
   displayCss = displayCss.replace("&gt;", ">");
   $styles.html(displayCss);
+}
+
+/**
+ * Update item display css
+ *
+ * @since    3.1.24
+ * @return   null
+ */
+function dittyTypographyCss(settings) {
+  let css = "";
+  if (settings.family && "" !== settings.family) {
+    css += `font-family:${settings.family};`;
+  }
+  if (settings.weight && "" !== settings.weight) {
+    css += `font-weight:${settings.weight};`;
+  }
+  if (settings.size && "" !== settings.size) {
+    css += `font-size:${settings.size};`;
+  }
+  if (settings.lineHeight && "" !== settings.lineHeight) {
+    css += `line-height:${settings.lineHeight};`;
+  }
+  if (settings.letterSpacing && "" !== settings.letterSpacing) {
+    css += `letter-spacing:${settings.letterSpacing};`;
+  }
+  return css;
+}
+
+/**
+ * Update item display css
+ *
+ * @since    3.1.24
+ * @return   null
+ */
+function dittyCreateDisplayCss(settings, displayId) {
+  const cssPrefix = `.ditty[data-display="${settings.display}"]`;
+
+  let css = "";
+
+  // Title CSS
+  const titleFont = settings.titleTypography ? settings.titleTypography : {};
+  let titleFontCss = dittyTypographyCss(titleFont);
+  if ("" !== settings.titleColor) {
+    titleFontCss += `color:${settings.titleColor};`;
+  }
+  if ("" !== titleFontCss) {
+    css += `${cssPrefix} .ditty__title__element{${titleFontCss};}`;
+  }
+  if ("" !== settings.titleColor) {
+    css += `${cssPrefix} .ditty__title__element *{color:${settings.titleColor};}`;
+  }
+  if ("" !== settings.itemLinkColor) {
+    css += `${cssPrefix} .ditty__title__element a{color:${settings.titleLinkColor};}`;
+  }
+  if (titleFont.type && "google" === titleFont.type) {
+    dittyLoadGoogleFont(titleFont.family);
+  }
+
+  // Item CSS
+  const itemFont = settings.itemTypography ? settings.itemTypography : {};
+  let itemFontCss = dittyTypographyCss(itemFont);
+  if ("" !== settings.itemTextColor) {
+    itemFontCss += `color:${settings.itemTextColor};`;
+  }
+  if ("" !== itemFontCss) {
+    css += `${cssPrefix} .ditty-item__elements{${itemFontCss};}`;
+  }
+  if ("" !== settings.itemLinkColor) {
+    css += `${cssPrefix} .ditty-item__elements a{color:${settings.itemLinkColor};}`;
+  }
+
+  if (itemFont.type && "google" === itemFont.type) {
+    dittyLoadGoogleFont(itemFont.family);
+  }
+  dittyDisplayCss(css, displayId);
 }
 
 /**

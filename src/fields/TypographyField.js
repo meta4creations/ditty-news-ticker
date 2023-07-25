@@ -818,6 +818,7 @@ const TypographyField = (props) => {
         <SelectField
           id="weight"
           name={__("Font Weight", "ditty-news-ticker")}
+          placeholder=" "
           options={weights}
           value={value.weight ? value.weight : false}
           onChange={(val) => handleUpdateFont("weight", val)}

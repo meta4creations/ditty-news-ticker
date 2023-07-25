@@ -30,6 +30,9 @@ function ditty_updates() {
   if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.1.19', '<' ) ) {
 		ditty_v3_1_19_upgrades();
 	}
+  if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.1.24', '<' ) ) {
+		ditty_v3_1_24_upgrades();
+	}
 	if ( DITTY_VERSION != $current_version ) {
 		do_action( 'ditty_version_update', DITTY_VERSION, $current_version );
 		update_option( 'ditty_plugin_version_upgraded_from', $current_version );
@@ -37,6 +40,61 @@ function ditty_updates() {
 	}
 }
 add_action( 'admin_init', 'ditty_updates' );
+
+/**
+ * Version 3.1.24 Updates
+ *
+ * @since  3.1.24
+ * @return void
+ */
+function ditty_v3_1_24_upgrades() {
+  // Update the title font-size and line-height to typography settings
+	$args = array(
+		'post_type' => 'ditty',
+		'post_status' => 'any',
+	);
+	$dittys = get_posts( $args );
+	if ( is_array( $dittys ) && count( $dittys ) > 0 ) {
+		foreach ( $dittys as $ditty ) {
+      $display = get_post_meta(  $ditty->ID, '_ditty_display', true );
+      if ( is_array( $display ) ) {
+        $settings = isset( $display['settings'] ) ? $display['settings'] : [];  
+        $font_size = isset( $settings['titleFontSize'] ) ? $settings['titleFontSize'] : false;
+        $line_height = isset( $settings['titleLineHeight'] ) ? $settings['titleLineHeight'] : false;
+        if ( $font_size || $line_height ) {
+          $typography = [
+            'size' => $font_size,
+            'lineHeight' => $line_height,
+          ];
+          $settings['titleTypography'] = $typography;
+          $display['settings'] = $settings;
+          update_post_meta(  $ditty->ID, '_ditty_display', $display );
+        }
+      }	
+		}
+	}
+
+  $args = array(
+		'post_type' => 'ditty_display',
+		'post_status' => 'any',
+	);
+	$displays = get_posts( $args );
+	if ( is_array( $displays ) && count( $displays ) > 0 ) {
+		foreach ( $displays as $display ) {
+      $settings = get_post_meta(  $display->ID, '_ditty_display_settings', true );
+      $font_size = isset( $settings['titleFontSize'] ) ? $settings['titleFontSize'] : false;
+      $line_height = isset( $settings['titleLineHeight'] ) ? $settings['titleLineHeight'] : false;
+      if ( $font_size || $line_height ) {
+        $typography = [
+          'size' => $font_size,
+          'lineHeight' => $line_height,
+        ];
+        $settings['titleTypography'] = $typography;
+        update_post_meta(  $display->ID, '_ditty_display_settings', $settings );
+      }
+		}
+	}
+}
 
 /**
  * Version 3.1.19 Updates

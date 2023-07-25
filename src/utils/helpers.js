@@ -429,17 +429,10 @@ export const titleSettings = (prefix) => {
           },
         },
         {
-          id: `${prefixed}FontSize`,
-          type: "unit",
-          name: __("Font Size", "ditty-news-ticker"),
-          help: __("Set a custom font size.", "ditty-news-ticker"),
-          min: 0,
-        },
-        {
-          id: `${prefixed}LineHeight`,
-          type: "unit",
-          name: __("Line Height", "ditty-news-ticker"),
-          help: __("Set a custom line height.", "ditty-news-ticker"),
+          id: `${prefixed}Typography`,
+          type: "typography",
+          name: __("Typography", "ditty-news-ticker"),
+          help: __("Set the title typography.", "ditty-news-ticker"),
           min: 0,
         },
         {

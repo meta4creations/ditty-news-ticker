@@ -84,8 +84,7 @@
     titleElement: "h3",
     titleElementPosition: "start",
     titleElementVerticalPosition: "start",
-    titleFontSize: "",
-    titleLineHeight: "",
+    titleTypography: {},
     titleMinWidth: "",
     titleMaxWidth: "",
     titleMinHeight: "",
@@ -273,44 +272,7 @@
       this.$elmt.css(this.settings.margin);
       this.$elmt.css(this.settings.padding);
 
-      const cssPrefix = `.ditty[data-display="${this.settings.display}"]`;
-      let css = "";
-
-      const font = this.settings.itemTypography
-        ? this.settings.itemTypography
-        : {};
-      let fontCss = "";
-
-      if (font.family && "" !== font.family) {
-        fontCss += `font-family:${font.family};`;
-      }
-      if (font.weight && "" !== font.weight) {
-        fontCss += `font-weight:${font.weight};`;
-      }
-      if (font.size && "" !== font.size) {
-        fontCss += `font-size:${font.size};`;
-      }
-      if (font.lineHeight && "" !== font.lineHeight) {
-        fontCss += `line-height:${font.lineHeight};`;
-      }
-      if (font.letterSpacing && "" !== font.letterSpacing) {
-        fontCss += `letter-spacing:${font.letterSpacing};`;
-      }
-      if ("" !== this.settings.itemTextColor) {
-        fontCss += `color:${this.settings.itemTextColor};`;
-      }
-
-      if ("" !== fontCss) {
-        css += `${cssPrefix} .ditty-item__elements{${fontCss}}`;
-      }
-      if ("" !== this.settings.itemLinkColor) {
-        css += `${cssPrefix} .ditty-item__elements a{color:${this.settings.itemLinkColor};}`;
-      }
-
-      if (font.type && "google" === font.type) {
-        dittyLoadGoogleFont(font.family);
-      }
-      dittyDisplayCss(css, this.settings.display);
+      dittyCreateDisplayCss(this.settings, this.settings.display);
     },
 
     /**
@@ -347,20 +309,6 @@
             this.settings.titleElement +
             ">"
         );
-
-        $element.css({
-          fontSize: this.settings.titleFontSize,
-          lineHeight: this.settings.titleLineHeight,
-          color: this.settings.titleColor,
-          margin: 0,
-          padding: 0,
-        });
-        $element.find("*").css({
-          color: this.settings.titleColor,
-        });
-        $element.find("a").css({
-          color: this.settings.titleLinkColor,
-        });
 
         this.$titleContents.css({
           background: this.settings.titleBgColor,
@@ -1122,14 +1070,10 @@
         case "titleElement":
         case "titleElementPosition":
         case "titleElementVerticalPosition":
-        case "titleFontSize":
-        case "titleLineHeight":
         case "titleMinWidth":
         case "titleMaxWidth":
         case "titleMinHeight":
         case "titleMaxHeight":
-        case "titleColor":
-        case "titleLinkColor":
         case "titleBgColor":
         case "titleMargin":
         case "titlePadding":
@@ -1149,6 +1093,9 @@
         case "borderStyle":
         case "borderWidth":
         case "borderRadius":
+        case "titleTypography":
+        case "titleColor":
+        case "titleLinkColor":
         case "itemTypography":
         case "itemTextColor":
         case "itemLinkColor":
