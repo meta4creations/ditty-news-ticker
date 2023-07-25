@@ -470,7 +470,7 @@ $radius: 9px;
     border: none;
     padding: 0;
     .ditty-field__label {
-      font-size: 12px;
+      font-size: 11px;
       text-transform: uppercase;
       color: #999;
       white-space: nowrap;
@@ -479,14 +479,14 @@ $radius: 9px;
       margin-top: 5px;
     }
   }
-  .ditty-field-id--family {
+  .ditty-field-id--fontFamily {
     width: 70%;
     flex: 0 0 auto;
   }
-  .ditty-field-id--weight {
+  .ditty-field-id--fontWeight {
     width: calc(30% - 10px);
   }
-  .ditty-field-id--size,
+  .ditty-field-id--fontSize,
   .ditty-field-id--lineHeight,
   .ditty-field-id--letterSpacing {
     flex: 1;
@@ -494,11 +494,11 @@ $radius: 9px;
 }
 @container typography-field (max-width: 335px) {
   .ditty-field__input--typography {
-    .ditty-field-id--family {
+    .ditty-field-id--fontFamily {
       width: 100%;
     }
-    .ditty-field-id--weight,
-    .ditty-field-id--size,
+    .ditty-field-id--fontWeight,
+    .ditty-field-id--fontSize,
     .ditty-field-id--lineHeight,
     .ditty-field-id--letterSpacing {
       width: auto;

@@ -63,7 +63,7 @@ function ditty_v3_1_24_upgrades() {
         $line_height = isset( $settings['titleLineHeight'] ) ? $settings['titleLineHeight'] : false;
         if ( $font_size || $line_height ) {
           $typography = [
-            'size' => $font_size,
+            'fontSize' => $font_size,
             'lineHeight' => $line_height,
           ];
           $settings['titleTypography'] = $typography;
@@ -86,7 +86,7 @@ function ditty_v3_1_24_upgrades() {
       $line_height = isset( $settings['titleLineHeight'] ) ? $settings['titleLineHeight'] : false;
       if ( $font_size || $line_height ) {
         $typography = [
-          'size' => $font_size,
+          'fontSize' => $font_size,
           'lineHeight' => $line_height,
         ];
         $settings['titleTypography'] = $typography;

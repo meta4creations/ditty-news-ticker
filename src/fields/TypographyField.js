@@ -6,7 +6,13 @@ import UnitField from "./UnitField";
 const TypographyField = (props) => {
   const {
     value = {},
-    options = ["family", "weight", "size", "lineHeight", "letterSpacing"],
+    options = [
+      "fontFamily",
+      "fontWeight",
+      "fontSize",
+      "lineHeight",
+      "letterSpacing",
+    ],
     onChange,
   } = props;
 
@@ -17,7 +23,6 @@ const TypographyField = (props) => {
     } else {
       updatedValue[key] = val;
     }
-    delete updatedValue.fontFamily;
     onChange(updatedValue);
   };
 
@@ -769,7 +774,7 @@ const TypographyField = (props) => {
   ];
 
   const getFontOptions = () => {
-    return allFonts.reduce((fontList, fontGroup, index) => {
+    return allFonts.reduce((fontList, fontGroup) => {
       const fonts = fontGroup.fonts.map((font) => {
         return {
           value: font.name,
@@ -796,41 +801,41 @@ const TypographyField = (props) => {
     }
 
     handleUpdateFont({
-      type: type,
-      family: value,
+      fontType: type,
+      fontFamily: value,
     });
   };
 
   return (
     <BaseField {...props} type="typography">
-      {options.includes("family") && (
+      {options.includes("fontFamily") && (
         <SelectField
-          id="family"
+          id="fontFamily"
           name={__("Font Family", "ditty-news-ticker")}
           placeholder={__("Select Font Family", "ditty-news-ticker")}
           options={getFontOptions()}
-          value={value.family ? value.family : false}
+          value={value.fontFamily ? value.fontFamily : false}
           onChange={(val) => updateFontFamily(val)}
           className="ditty-field--typography__field"
         />
       )}
-      {options.includes("weight") && (
+      {options.includes("fontWeight") && (
         <SelectField
-          id="weight"
+          id="fontWeight"
           name={__("Font Weight", "ditty-news-ticker")}
           placeholder=" "
           options={weights}
-          value={value.weight ? value.weight : false}
-          onChange={(val) => handleUpdateFont("weight", val)}
+          value={value.fontWeight ? value.fontWeight : false}
+          onChange={(val) => handleUpdateFont("fontWeight", val)}
           className="ditty-field--typography__field"
         />
       )}
-      {options.includes("size") && (
+      {options.includes("fontSize") && (
         <UnitField
-          id="size"
+          id="fontSize"
           name={__("Font Size", "ditty-news-ticker")}
-          value={value.size ? value.size : false}
-          onChange={(val) => handleUpdateFont("size", val)}
+          value={value.fontSize ? value.fontSize : false}
+          onChange={(val) => handleUpdateFont("fontSize", val)}
           className="ditty-field--typography__field"
         />
       )}
