@@ -45,7 +45,7 @@ const UnitField = (props) => {
     if (!value) {
       return "";
     }
-    const numbers = String(value).match(/\d+/);
+    const numbers = String(value).match(/\d+(\.\d+)?/);
     if (numbers) {
       return numbers[0];
     }
@@ -56,7 +56,7 @@ const UnitField = (props) => {
     if (!value) {
       return unitOptions[0].value;
     }
-    const numbers = String(value).match(/\d+/);
+    const numbers = String(value).match(/\d+(\.\d+)?/);
     if (numbers) {
       return String(value).substr(numbers[0].length, value.length);
     } else {
@@ -66,6 +66,7 @@ const UnitField = (props) => {
 
   const [number, setNumber] = useState(numberValue());
   const [unit, setUnit] = useState(unitValue());
+
   return (
     <BaseField {...props} type="unit">
       <input
