@@ -84,6 +84,7 @@ function dittyRenderDisplayCss(settings, displayId) {
   // Title CSS
   const titleFont = settings.titleTypography ? settings.titleTypography : {};
   let titleFontCss = dittyTypographyCss(titleFont);
+  titleFontCss += `margin:0;padding:0;`;
   if ("" !== settings.titleColor) {
     titleFontCss += `color:${settings.titleColor};`;
   }
