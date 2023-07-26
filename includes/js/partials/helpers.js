@@ -76,7 +76,7 @@ function dittyTypographyCss(settings) {
  * @since    3.1.24
  * @return   null
  */
-function dittyCreateDisplayCss(settings, displayId) {
+function dittyRenderDisplayCss(settings, displayId) {
   const cssPrefix = `.ditty[data-display="${settings.display}"]`;
 
   let css = "";

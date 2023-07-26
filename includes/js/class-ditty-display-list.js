@@ -272,7 +272,7 @@
       this.$elmt.css(this.settings.margin);
       this.$elmt.css(this.settings.padding);
 
-      dittyCreateDisplayCss(this.settings, this.settings.display);
+      dittyRenderDisplayCss(this.settings, this.settings.display);
     },
 
     /**

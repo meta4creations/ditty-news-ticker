@@ -967,7 +967,7 @@
         });
       }
 
-      dittyCreateDisplayCss(this.settings, this.settings.display);
+      dittyRenderDisplayCss(this.settings, this.settings.display);
     },
 
     /**
