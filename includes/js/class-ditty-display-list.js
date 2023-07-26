@@ -164,6 +164,9 @@
       this.$titleContents = $('<div class="ditty__title__contents"></div>');
       this.$title.append(this.$titleContents);
 
+      // Run upgrades
+      this._upgrades();
+
       // Setup styles
       this._styleDisplay();
       this._styleTitle();
@@ -179,6 +182,25 @@
         dittyEditorInit(this);
       } else {
         this.trigger("start_live_updates");
+      }
+    },
+
+    /**
+     * Upgrade data
+     *
+     * @since    3.1.24
+     * @return   null
+     */
+    _upgrades: function () {
+      // Move title font-size and line-height to typography setting
+      if (this.settings.titleFontSize) {
+        this.settings.titleTypography.fontSize = this.settings.titleFontSize;
+        delete this.settings.titleFontSize;
+      }
+      if (this.settings.titleLineHeight) {
+        this.settings.titleTypography.lineHeight =
+          this.settings.titleLineHeight;
+        delete this.settings.titleFontSize;
       }
     },
 

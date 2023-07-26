@@ -170,6 +170,9 @@
       $contents.append($items);
       this.$elmt.append($contents);
 
+      // Run upgrades
+      this._upgrades();
+
       // Setup styles
       this._styleDisplay();
       this._styleTitle();
@@ -192,6 +195,25 @@
 
         self.trigger("init");
       }, 1);
+    },
+
+    /**
+     * Upgrade data
+     *
+     * @since    3.1.24
+     * @return   null
+     */
+    _upgrades: function () {
+      // Move title font-size and line-height to typography setting
+      if (this.settings.titleFontSize) {
+        this.settings.titleTypography.fontSize = this.settings.titleFontSize;
+        delete this.settings.titleFontSize;
+      }
+      if (this.settings.titleLineHeight) {
+        this.settings.titleTypography.lineHeight =
+          this.settings.titleLineHeight;
+        delete this.settings.titleFontSize;
+      }
     },
 
     _initializeItems: function () {
