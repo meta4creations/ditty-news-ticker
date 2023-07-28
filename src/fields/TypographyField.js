@@ -792,9 +792,9 @@ const TypographyField = (props) => {
   const updateFontFamily = (value) => {
     let type;
     for (let i = 0; i < allFonts.length; i++) {
-      type = allFonts[i].id;
       for (let e = 0; e < allFonts[i].fonts.length; e++) {
         if (value === allFonts[i].fonts[e].name) {
+          type = allFonts[i].id;
           break;
         }
       }

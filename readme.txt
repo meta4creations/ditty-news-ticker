@@ -131,6 +131,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.25 =
+* Typography field update
+
 = 3.1.24 =
 * Added general item typography settings to Display settings
 * Added title typography settings to Display settings
