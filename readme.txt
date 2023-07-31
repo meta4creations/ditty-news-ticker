@@ -133,6 +133,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 = 3.1.25 =
 * Typography field update
+* Added htmlspecialchars_decode to ditty_sanitize_settings
 
 = 3.1.24 =
 * Added general item typography settings to Display settings

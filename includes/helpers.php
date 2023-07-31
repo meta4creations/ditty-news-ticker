@@ -1589,13 +1589,13 @@ function ditty_register_script( $type, $args ) {
 /**
  * Sanitize settings
  * *
- * @since   3.1
+ * @since   3.1.25
  */
 function ditty_sanitize_setting( $value ) {
 	if ( is_array( $value ) ) {
 		return ditty_sanitize_settings( $value );
 	} else {
-		return esc_attr( $value );
+		return htmlspecialchars_decode( esc_attr( $value ) );
 	}
 }
 
