@@ -662,6 +662,7 @@ class Ditty_Singles {
 		$settings = isset( $data['settings'] ) ? $data['settings'] : false;
 		$title = isset( $data['title'] ) ? sanitize_text_field( $data['title'] ) : false;
 		$status = isset( $data['status'] ) ? $data['status'] : false;
+    $urlParams = isset( $data['urlParams'] ) ? $data['urlParams'] : false;
 
 		$author = false;
 		if ( 'ditty-new' != $id ) {
@@ -893,6 +894,11 @@ class Ditty_Singles {
 				$errors['settings'] = $sanitized_settings;
 			}
 		}
+
+    // If url params, allow other scripts to access on save
+    if ( $urlParams ) {
+      $urlParams = apply_filters( 'ditty_save_url_params', $id, $urlParams );
+    }
 
 		$this->delete_items_cache( $id);
 

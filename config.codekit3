@@ -2489,6 +2489,14 @@
       "oAP" : "\/includes\/widget.php",
       "oF" : 0
     },
+    "\/includes\/wpml.php" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/includes\/wpml.php",
+      "oF" : 0
+    },
     "\/languages\/ditty-news-ticker-ar.mo" : {
       "cB" : 0,
       "ft" : 8192,

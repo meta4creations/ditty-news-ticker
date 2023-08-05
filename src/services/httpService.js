@@ -1,10 +1,17 @@
 import axios from "axios";
 
 export function saveDitty(data, onComplete) {
+  // Pass url params
+  const urlParams = new URLSearchParams(location.search);
+  const paramsObj = {};
+  for (const [key, value] of urlParams) {
+    paramsObj[key] = value;
+  }
   const apiURL = `${dittyEditorVars.restUrl}dittyeditor/v1/save`;
   const apiData = {
     security: dittyEditorVars.security,
     userId: dittyEditorVars.userId,
+    urlParams: paramsObj,
     ...data,
   };
   return axios.post(apiURL, { apiData }).then((res) => {

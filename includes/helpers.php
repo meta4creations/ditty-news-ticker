@@ -1658,7 +1658,10 @@ function ditty_edit_post_type_redirects( $ditty_post_type ) {
   if ( $pagenow === 'post-new.php' ) {
     $post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : false;
     if ( $ditty_post_type == $post_type ) {
-      wp_safe_redirect( add_query_arg( ['page' => "{$ditty_post_type}-new" ], admin_url( 'admin.php' ) ) );
+			$args = $_GET;
+			$args['page'] = "{$ditty_post_type}-new";
+			unset($args['post_type']);
+      wp_safe_redirect( add_query_arg( $args, admin_url( 'admin.php' ) ) );
       exit;
     }
   }
