@@ -10,10 +10,24 @@ function adfoaisdjfoajsdf() {
 
 
 function ditty_save_wpml_data( $ditty_id, $params ) {
-  
-  return $params;
+  global $sitepress;
+  if ( empty( $sitepress ) ) {
+    return false;
+  }
+  if ( method_exists( $sitepress, 'get_wp_api' ) ) {
+    $wp_api = $sitepress->get_wp_api();
+    if ( method_exists( $wp_api, 'update_post_meta' ) ) {
+      if ( isset( $params['trid'] ) ) {
+        $wp_api->update_post_meta( $ditty_id, '_wpml_trid', $params['trid'] );
+      }
+      if ( isset( $params['lang'] ) ) {
+        $wp_api->update_post_meta( $ditty_id, '_wpml_language_abbreviation', $params['lang'] );
+      }
+      $wp_api->update_post_meta( $ditty_id, '_wpml_element_type', 'post_ditty' );
+    }
+  }
 }
-add_filter( 'ditty_save_url_params', 'ditty_save_wpml_data' );
+add_action( 'ditty_save_url_params', 'ditty_save_wpml_data', 10, 2 );
 
 function ditty_wpml_make_post_duplicates( $post_id ) {
 	ChromePhp::log( 'wpml $post_id', $post_id );
