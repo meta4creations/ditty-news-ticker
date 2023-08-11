@@ -897,7 +897,7 @@ class Ditty_Singles {
 
     // If url params, allow other scripts to access on save
     if ( $urlParams ) {
-      $urlParams = apply_filters( 'ditty_save_url_params', $id, $urlParams );
+      $urlParams = do_action( 'ditty_save_url_params', $id, $urlParams );
     }
 
 		$this->delete_items_cache( $id);
