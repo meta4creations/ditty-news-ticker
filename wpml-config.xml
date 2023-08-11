@@ -1,5 +1,5 @@
 <wpml-config>
-	<custom-fields>
+    <custom-fields>
         <custom-field action="translate">_mtphr_dnt_ticks</custom-field>
         <custom-field action="copy">_mtphr_dnt_admin_tab</custom-field>
         <custom-field action="copy">_mtphr_dnt_mixed_ticks</custom-field>
@@ -14,8 +14,8 @@
         <custom-field action="copy">_mtphr_dnt_scroll_speed</custom-field>
         <custom-field action="copy">_mtphr_dnt_scroll_pause</custom-field>
         <custom-field action="copy">_mtphr_dnt_scroll_tick_spacing</custom-field>
-        <custom-field action="copy">_mtphr_dnt_scroll_init</custom-field> 
-        <custom-field action="copy">_mtphr_dnt_scroll_init_delay</custom-field> 
+        <custom-field action="copy">_mtphr_dnt_scroll_init</custom-field>
+        <custom-field action="copy">_mtphr_dnt_scroll_init_delay</custom-field>
         <custom-field action="copy">_mtphr_dnt_rotate_type</custom-field>
         <custom-field action="copy">_mtphr_dnt_rotate_directional_nav_reverse</custom-field>
         <custom-field action="copy">_mtphr_dnt_rotate_height</custom-field>
@@ -29,12 +29,12 @@
         <custom-field action="copy">_mtphr_dnt_rotate_directional_nav</custom-field>
         <custom-field action="copy">_mtphr_dnt_rotate_directional_nav_hide</custom-field>
         <custom-field action="copy">_mtphr_dnt_rotate_control_nav</custom-field>
-        <custom-field action="copy">_mtphr_dnt_rotate_control_nav_type</custom-field>   
-        <custom-field action="copy">_mtphr_dnt_rotate_disable_touchswipe</custom-field>   
+        <custom-field action="copy">_mtphr_dnt_rotate_control_nav_type</custom-field>
+        <custom-field action="copy">_mtphr_dnt_rotate_disable_touchswipe</custom-field>
         <custom-field action="copy">_mtphr_dnt_list_padding</custom-field>
         <custom-field action="copy">_mtphr_dnt_list_margin</custom-field>
-        <custom-field action="copy">_mtphr_dnt_list_tick_spacing</custom-field>     
-        <custom-field action="copy">_mtphr_dnt_list_tick_paging</custom-field>     
+        <custom-field action="copy">_mtphr_dnt_list_tick_spacing</custom-field>
+        <custom-field action="copy">_mtphr_dnt_list_tick_paging</custom-field>
         <custom-field action="copy">_mtphr_dnt_list_tick_count</custom-field>
         <custom-field action="copy">_mtphr_dnt_list_tick_prev_next</custom-field>
         <custom-field action="copy">_mtphr_dnt_list_tick_prev_text</custom-field>
@@ -55,6 +55,8 @@
         <custom-field action="copy">_mtphr_dnt_grid_rows</custom-field>
         <custom-field action="copy">_mtphr_dnt_grid_padding</custom-field>
         <custom-field action="copy">_mtphr_dnt_grid_remove_padding</custom-field>
+        <custom-field action="copy">_ditty_display</custom-field>
+        <custom-field action="copy">_ditty_settings</custom-field>
     </custom-fields>
     <custom-fields-texts>
         <key name="_mtphr_dnt_ticks">
@@ -66,6 +68,6 @@
     </custom-fields-texts>
     <custom-types>
         <custom-type translate="1">ditty_news_ticker</custom-type>
-        <custom-type translate="1">ditty</custom-type>
-    </custom-types>                
+        <custom-type translate="1" display-as-translated="1">ditty</custom-type>
+    </custom-types>
 </wpml-config>

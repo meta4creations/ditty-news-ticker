@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: responsive slider, content slider, post slider, news ticker, post ticker
 Requires at least: 5.6
 Requires PHP: 7.1
-Tested up to: 6.2.2
+Tested up to: 6.3
 Stable tag: 3.1.24
 License: GPL2
 
