@@ -50,6 +50,8 @@ class Ditty_Item_Type {
 		//$ditty_item['layout'] = isset( $layout_value['default'] ) ? $layout_value['default'] : false;
     $ditty_item['timestamp'] = isset( $meta['date_created'] ) ? strtotime( $meta['date_created'] ) : false;
 
+    $ditty_item = $this->maybe_translate( $ditty_item );
+
 		return array( $ditty_item );
 	}
 	
@@ -507,9 +509,42 @@ class Ditty_Item_Type {
 		return $link_settings;
 	}
 
-  public function maybe_translate( $item ) {
-    $content = $item['item_value']['content'];
-    ditty_log($content);
-    do_action( 'wpml_register_single_string', 'ditty', 'item_content', $content );
+  public function is_translatable() {
+    return false;
+  }
+
+  public function maybe_translate( $prepared_item ) {
+    if ( $keys = $this->is_translatable() ) {
+      $item_id = $prepared_item['item_id'];
+      $item_value = isset( $prepared_item['item_value'] ) ? $prepared_item['item_value'] : false;
+      if ( $item_value && is_array( $keys ) && count( $keys ) > 0 ) {
+        foreach ( $keys as $key ) {
+          if ( isset( $item_value[$key] ) ) {
+            $original_value = $item_value[$key];
+            $value = apply_filters( 'wpml_translate_single_string', $original_value, 'ditty', "item_{$item_id}_{$key}" );
+            ditty_log($value);
+            $item_value[$key] = $value;
+            $prepared_item['item_value'] = $item_value;
+          }
+        }
+      }
+    }
+    return $prepared_item;
+  }
+
+  public function maybe_save_translation( $item ) {
+    if ( $keys = $this->is_translatable() ) {
+      $item_id = $item['item_id'];
+      $item_value = isset( $item['item_value'] ) ? $item['item_value'] : false;
+      if ( $item_value && is_array( $keys ) && count( $keys ) > 0 ) {
+        foreach ( $keys as $key ) {
+          if ( isset( $item_value[$key] ) ) {
+            $value = $item_value[$key];
+            ditty_log($value);
+            do_action( 'wpml_register_single_string', 'ditty', "item_{$item_id}_{$key}", $value );
+          }
+        }
+      }
+    }
   }
 }

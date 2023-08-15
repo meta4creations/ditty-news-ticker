@@ -30,6 +30,12 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 		add_filter( 'ditty_layout_tags', [$this, 'layout_tags'], 10, 2 );
 	}
 
+  public function is_translatable() {
+    return [
+      'content',
+    ];
+  }
+
 	/**
 	 * Setup the fields
 	 *

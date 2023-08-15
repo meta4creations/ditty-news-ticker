@@ -62,8 +62,8 @@ class Ditty {
 	public $settings;
 	public $scripts;
 	public $singles;
-	public $wpml;
   public $render;
+  public $translations;
 
 	/**
 	 * Main Ditty Instance.
@@ -103,8 +103,8 @@ class Ditty {
 			self::$instance->scripts			= new Ditty_Scripts();
 			self::$instance->settings			= new Ditty_Settings();
 			self::$instance->singles			= new Ditty_Singles();
-			self::$instance->wpml					= new Ditty_WPML();	
       self::$instance->render				= new Ditty_Render();	
+      self::$instance->translations	= new Ditty_Translations();	
 		}
 
 		return self::$instance;
@@ -203,7 +203,6 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/post-types.php';
 		require_once DITTY_DIR . 'includes/upgrades.php';
 		require_once DITTY_DIR . 'includes/widget.php';
-		require_once DITTY_DIR . 'includes/wpml.php';
 		
 		// Builders
 		require_once DITTY_DIR . 'includes/builders/fusion/builder.php';
@@ -246,7 +245,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-posts-lite.php';
 		require_once DITTY_DIR . 'includes/class-ditty-settings.php';
 		require_once DITTY_DIR . 'includes/class-ditty-singles.php';
-		require_once DITTY_DIR . 'includes/class-ditty-wpml.php';
+    require_once DITTY_DIR . 'includes/class-ditty-translations.php';
 
     require_once DITTY_DIR . 'includes/class-ditty-render.php';
 

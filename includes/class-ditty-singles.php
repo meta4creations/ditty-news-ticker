@@ -381,10 +381,10 @@ class Ditty_Singles {
 	 * Order items based on parent ids
 	 *
 	 * @since    3.1
-	 * @access   public
+	 * @access   private
 	 * @var      array   	$display_items    Array of item objects
 	 */
-	function group_child_items( $items ) {
+	private function group_child_items( $items ) {
 		$parent_items = [];
 		$child_groups = [];
 
@@ -417,14 +417,19 @@ class Ditty_Singles {
 	/**
 	 * Return display items for a specific Ditty
 	 *
-	 * @since    3.1.18
+	 * @since    3.1.25
 	 * @access   public
 	 * @var      array   	$display_items    Array of item objects
 	 */
-	function get_display_items( $ditty_id, $load_type = 'cache', $custom_layouts = false ) {
-		//$load_type = 'force';
-		$transient_name = "ditty_display_items_{$ditty_id}";
-		
+	public function get_display_items( $ditty_id, $load_type = 'cache', $custom_layouts = false ) {
+		$load_type = 'force';
+
+    if ( $translation_language = Ditty()->translations->get_translation_language() ) {
+      $transient_name = "ditty_display_items_{$ditty_id}_{$translation_language}";
+    } else {
+      $transient_name = "ditty_display_items_{$ditty_id}";
+    }
+
 		// Check for custom layouts
 		$custom_layout_array = array();
 		if ( $custom_layouts ) {
@@ -835,8 +840,15 @@ class Ditty_Singles {
 			$updated_items = [];
 			foreach ( $updates['items'] as $i => $updated_item ) {
 				if ( $item_type_object = ditty_item_type_object( $updated_item['item_type'] ) ) {
+          
+          // Make sure the item has the actual id, not temp
+          if ( isset( $updated_item['new_id'] ) ) {
+            $updated_item['item_id'] = $updated_item['new_id'];
+          }
 					$updated_items[] = $item_type_object->editor_meta( $updated_item );
-          $item_type_object->maybe_translate( $updated_item );
+
+          // Maybe create a translation for the item
+          $item_type_object->maybe_save_translation( $updated_item );
 				}
 			}
 			$updates['items'] = $updated_items;
@@ -867,6 +879,11 @@ class Ditty_Singles {
 				}
 			}
 		}
+
+    // Maybe delete translation items
+    if ( isset( $updates['deletedItems'] ) ) {
+      Ditty()->translations->maybe_delete_translations( $updates['deletedItems'] );
+    }
 
 		// Update display
 		if ( $display ) {

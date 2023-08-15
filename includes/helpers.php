@@ -1046,7 +1046,7 @@ function ditty_render( $atts ) {
 	$args = shortcode_atts( $defaults, $atts );
 
 	// Check for WPML language posts
-	$args['id'] = function_exists('icl_object_id') ? icl_object_id( $args['id'], 'ditty', true ) : $args['id'];
+	//$args['id'] = function_exists('icl_object_id') ? icl_object_id( $args['id'], 'ditty', true ) : $args['id'];
 
 	// Make sure the ditty exists & is published
 	if ( ! ditty_exists( intval( $args['id'] ) ) ) {
