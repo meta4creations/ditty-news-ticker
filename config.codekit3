@@ -7,7 +7,7 @@
       "uuidString" : "0B43A184-D1FE-4DF7-BE71-3FAE2291CFE5"
     }
   ],
-  "creatorBuild" : "34510",
+  "creatorBuild" : "34513",
   "files" : {
     "\/.gitignore" : {
       "cB" : 0,
@@ -3870,9 +3870,9 @@
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
-      "oA" : 1,
+      "oA" : 0,
       "oAP" : "\/wpml-config.xml",
-      "oF" : 1
+      "oF" : 0
     }
   },
   "hooks" : [
@@ -4780,9 +4780,6 @@
       "no-return-assign" : {
         "active" : 0,
         "optionString" : "'except-parens'"
-      },
-      "no-return-await" : {
-        "active" : 0
       },
       "no-script-url" : {
         "active" : 0

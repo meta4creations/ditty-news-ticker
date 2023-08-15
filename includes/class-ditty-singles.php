@@ -836,6 +836,7 @@ class Ditty_Singles {
 			foreach ( $updates['items'] as $i => $updated_item ) {
 				if ( $item_type_object = ditty_item_type_object( $updated_item['item_type'] ) ) {
 					$updated_items[] = $item_type_object->editor_meta( $updated_item );
+          $item_type_object->maybe_translate( $updated_item );
 				}
 			}
 			$updates['items'] = $updated_items;

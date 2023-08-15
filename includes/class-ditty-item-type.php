@@ -506,4 +506,10 @@ class Ditty_Item_Type {
 		);
 		return $link_settings;
 	}
+
+  public function maybe_translate( $item ) {
+    $content = $item['item_value']['content'];
+    ditty_log($content);
+    do_action( 'wpml_register_single_string', 'ditty', 'item_content', $content );
+  }
 }

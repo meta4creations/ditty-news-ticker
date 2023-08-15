@@ -55,8 +55,6 @@
         <custom-field action="copy">_mtphr_dnt_grid_rows</custom-field>
         <custom-field action="copy">_mtphr_dnt_grid_padding</custom-field>
         <custom-field action="copy">_mtphr_dnt_grid_remove_padding</custom-field>
-        <custom-field action="copy">_ditty_display</custom-field>
-        <custom-field action="copy">_ditty_settings</custom-field>
     </custom-fields>
     <custom-fields-texts>
         <key name="_mtphr_dnt_ticks">
@@ -68,6 +66,8 @@
     </custom-fields-texts>
     <custom-types>
         <custom-type translate="1">ditty_news_ticker</custom-type>
-        <custom-type translate="1" display-as-translated="1">ditty</custom-type>
+        <custom-type translate="0">ditty</custom-type>
+        <custom-type translate="0">ditty_layout</custom-type>
+        <custom-type translate="0">ditty_display</custom-type>
     </custom-types>
 </wpml-config>
