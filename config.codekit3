@@ -351,12 +351,12 @@
       "oAP" : "\/includes\/class-ditty-singles.php",
       "oF" : 0
     },
-    "\/includes\/class-ditty-wpml.php" : {
+    "\/includes\/class-ditty-translations.php" : {
       "cB" : 0,
       "ft" : 8192,
       "hM" : 0,
       "oA" : 0,
-      "oAP" : "\/includes\/class-ditty-wpml.php",
+      "oAP" : "\/includes\/class-ditty-translations.php",
       "oF" : 0
     },
     "\/includes\/class-ditty.php" : {
@@ -2487,14 +2487,6 @@
       "hM" : 0,
       "oA" : 0,
       "oAP" : "\/includes\/widget.php",
-      "oF" : 0
-    },
-    "\/includes\/wpml.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/includes\/wpml.php",
       "oF" : 0
     },
     "\/languages\/ditty-news-ticker-ar.mo" : {

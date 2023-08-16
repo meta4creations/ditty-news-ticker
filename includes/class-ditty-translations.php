@@ -47,42 +47,118 @@ class Ditty_Translations {
   }
 
   /**
-	 * Delete display item transients
+	 * Save item translations
 	 *
 	 * @access  public
-	 * @since   3.1
+	 * @since   3.1.25
 	 * @param   array
 	 */
-	public function maybe_delete_translations( $deleted_items = [] ) {
+  public function save_wpml_item_translation( $item, $keys ) {
+    $item_id = $item['item_id'];
+    $item_value = isset( $item['item_value'] ) ? $item['item_value'] : false;
+    if ( $item_value && is_array( $keys ) && count( $keys ) > 0 ) {
+
+      $package = array(
+        'kind' => __( 'Ditty Item', 'ditty-news-ticker' ),
+        'name' => $item_id,
+        'title' => sprintf( __( 'Item ID: %d' ), $item_id ),
+      );
+
+      foreach ( $keys as $key_id => $key_label ) {
+        if ( isset( $item_value[$key_id] ) ) {
+          $string_value = $item_value[$key_id];
+          do_action( 'wpml_register_string', $string_value, "item_{$item_id}_{$key_id}", $package, $key_label, 'LINE' );
+          //do_action( 'wpml_register_single_string', 'ditty', "item_{$item_id}_{$key_id}", $string_value );
+        }
+      }
+    }
+  }
+
+  /**
+	 * Save single item translations
+	 *
+	 * @access  public
+	 * @since   3.1.25
+	 * @param   array
+	 */
+  public function save_item_translation( $item ) {
+    $item_type_object = ditty_item_type_object( $item['item_type'] );
+    if ( ! $item_type_object ) {
+      return false;
+    }
+    $keys = $item_type_object->is_translatable();
+    if ( ! $keys ) {
+      return false;
+    }
+
     $translation_plugin = $this->get_translation_plugin();
     switch( $translation_plugin ) {
       case 'wpml':
-        $this->wpml_delete_translations( $deleted_items );
+        $this->save_wpml_item_translation( $item, $keys );
         break;
       default:
         break;
     }
   }
 
+  /**
+	 * Save item translations
+	 *
+	 * @access  public
+	 * @since   3.1.25
+	 * @param   array
+	 */
+	public function maybe_save_item_translations( $items ) {
+    if ( is_array( $items ) ) {
+      if ( count( $items ) > 0 ) {
+        foreach ( $items as $item ) {
+          $this->save_item_translation( $item );
+        }
+      }
+    } else {
+      $this->save_item_translation( $items );
+    }
+  }
+
+  /**
+	 * Delete translations
+	 *
+	 * @access  public
+	 * @since   3.1.25
+	 * @param   array
+	 */
+	public function maybe_delete_translations( $deleted_items = [] ) {
+    $sanitized_deleted_items = [];
+    if ( is_array( $deleted_items ) && count( $deleted_items ) > 0 ) {
+      foreach ( $deleted_items as $deleted_item ) {
+        $sanitized_deleted_items[] = (array) $deleted_item;
+      }
+    }
+
+    $translation_plugin = $this->get_translation_plugin();
+    switch( $translation_plugin ) {
+      case 'wpml':
+        $this->wpml_delete_translations( $sanitized_deleted_items );
+        break;
+      default:
+        break;
+    }
+  }
+
+  /**
+	 * Delete WPML translations
+	 *
+	 * @access  public
+	 * @since   3.1.25
+	 * @param   array
+	 */
   private function wpml_delete_translations( $deleted_items ) {
     if ( is_array( $deleted_items ) && count( $deleted_items ) > 0 ) {
-      $translation_ids = [];
-      ditty_log($translation_ids);
       foreach ( $deleted_items as $deleted_item ) {
         $item_id = $deleted_item['item_id'];
         if ( $item_type_object = ditty_item_type_object( $deleted_item['item_type'] ) ) {
-          if ( $keys = $item_type_object->is_translatable() ) {
-            foreach ( $keys as $key ) {
-              $translation_ids[] = "item_{$item_id}_{$key}";
-            }
-          }
+          do_action( 'wpml_delete_package', $item_id, __( 'Ditty Item', 'ditty-news-ticker' ) );
         }
-      }
-    
-      if ( defined( 'WPML_ST_PATH' ) && function_exists( 'wpml_unregister_string_multi' ) ) {
-        require_once WPML_ST_PATH . '/inc/admin-texts/wpml-admin-text-configuration.php';
-        ditty_log($translation_ids);
-        wpml_unregister_string_multi( $translation_ids );
       }
     }
   }

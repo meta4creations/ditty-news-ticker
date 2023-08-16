@@ -32,7 +32,8 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 
   public function is_translatable() {
     return [
-      'content',
+      'content' => __( 'Content', 'ditty-news-ticker' ),
+      'link_title' => __( 'Title', 'ditty-news-ticker' ),
     ];
   }
 
@@ -69,13 +70,13 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 					'link_title' => array(
 						'type'			=> 'text',
 						'id'				=> 'link_title',
-						'name'			=> __( 'Title', 'ditty-news-ticker' ),
+						'name'			=> __( 'Link Title', 'ditty-news-ticker' ),
 						'help'			=> __( 'Add a title to the custom lnk.', 'ditty-news-ticker' ),
 					),
 					'link_target' => array(
 						'type'			=> 'select',
 						'id'				=> 'link_target',
-						'name'			=> __( 'Target', 'ditty-news-ticker' ),
+						'name'			=> __( 'Link Target', 'ditty-news-ticker' ),
 						'help'			=> __( 'Set a target for your link.', 'ditty-news-ticker' ),
 						'options'		=> array(
 							'_self'		=> '_self',
@@ -85,7 +86,7 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 					'link_nofollow' => array(
 						'type'			=> 'checkbox',
 						'id'				=> 'link_nofollow',
-						'name'			=> __( 'No Follow', 'ditty-news-ticker' ),
+						'name'			=> __( 'Link No Follow', 'ditty-news-ticker' ),
 						'label'			=> __( 'Add "nofollow" to link', 'ditty-news-ticker' ),
 						'help'			=> __( 'Enabling this setting will add an attribute called \'nofollow\' to your link. This tells search engines to not follow this link.', 'ditty-news-ticker' ),
 					),

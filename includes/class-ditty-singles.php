@@ -840,15 +840,7 @@ class Ditty_Singles {
 			$updated_items = [];
 			foreach ( $updates['items'] as $i => $updated_item ) {
 				if ( $item_type_object = ditty_item_type_object( $updated_item['item_type'] ) ) {
-          
-          // Make sure the item has the actual id, not temp
-          if ( isset( $updated_item['new_id'] ) ) {
-            $updated_item['item_id'] = $updated_item['new_id'];
-          }
 					$updated_items[] = $item_type_object->editor_meta( $updated_item );
-
-          // Maybe create a translation for the item
-          $item_type_object->maybe_save_translation( $updated_item );
 				}
 			}
 			$updates['items'] = $updated_items;
@@ -879,6 +871,20 @@ class Ditty_Singles {
 				}
 			}
 		}
+
+    // Maybe save translation items
+    if ( isset( $updates['items'] ) ) {
+      $updated_items = [];
+      if ( is_array( $updates['items'] ) && count( $updates['items'] ) > 0 ) {
+        foreach ( $updates['items'] as $item ) {
+          if ( isset( $item['new_id'] ) ) {
+            $item['item_id'] = $item['new_id'];
+            $updated_items[] = $item;
+          }
+        }
+      }
+      Ditty()->translations->maybe_save_item_translations( $updated_items );
+    }
 
     // Maybe delete translation items
     if ( isset( $updates['deletedItems'] ) ) {
