@@ -18,7 +18,12 @@ class Ditty_Translations {
 	 * @since   3.1.15
 	 */
 	public function __construct() {	
+    do_action( 'wp_after_insert_post', [$this, 'post_updated'], 10, 4 );
 	}
+
+  public function post_updated( $post_id, $post, $update, $post_before ) {
+    ditty_log($post);
+  }
 	
 	/**
    * Return variation defaults ensuring they exist
