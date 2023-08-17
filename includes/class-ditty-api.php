@@ -86,12 +86,12 @@ class Ditty_API {
 		if ( 'ditty-new' != $ditty_id ) {
 			$ditty_post = get_post( $ditty_id );
 			$ditty_author = $ditty_post->post_author;
-			if ( 0 != $ditty_author && $userId != $ditty_author && ! user_can( $userId, 'edit_others_dittys' ) ) {
+			if ( 0 != $ditty_author && $userId != $ditty_author && ! current_user_can( 'edit_others_dittys' ) ) {
 				return new WP_Error( 'rest_forbidden', esc_html__( "Sorry, you are not allowed to edit other authors' Ditty.", 'ditty-news-ticker' ), array( 'status' => 403 ) );
 			}
 		}
 
-		if ( ! user_can( $userId, 'edit_dittys' ) ) {
+		if ( ! current_user_can( 'edit_dittys' ) ) {
 			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allowed to edit Ditty.', 'ditty-news-ticker' ), array( 'status' => 403 ) );
 		}
 		return true;
@@ -113,12 +113,12 @@ class Ditty_API {
 		if ( 'ditty_display-new' != $display_id ) {
 			$display_post = get_post( $display_id );
 			$display_author = $display_post->post_author;
-			if ( 0 != $display_author && $userId != $display_author && ! user_can( $userId, 'edit_others_ditty_displays' ) ) {
+			if ( 0 != $display_author && $userId != $display_author && ! current_user_can( 'edit_others_ditty_displays' ) ) {
 				return new WP_Error( 'rest_forbidden', esc_html__( "Sorry, you are not allowed to edit other authors' Displays.", 'ditty-news-ticker' ), array( 'status' => 403 ) );
 			}
 		}
 
-		if ( ! user_can( $userId, 'edit_ditty_displays' ) ) {
+		if ( ! current_user_can( 'edit_ditty_displays' ) ) {
 			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allowed to edit Displays.', 'ditty-news-ticker' ), array( 'status' => 403 ) );
 		}
 		return true;
@@ -140,12 +140,12 @@ class Ditty_API {
 		if ( 'ditty_layout-new' != $layout_id ) {
 			$layout_post = get_post( $layout_id );
 			$layout_author = $layout_post->post_author;
-			if ( 0 != $layout_author && $userId != $layout_author && ! user_can( $userId, 'edit_others_ditty_layouts' ) ) {
+			if ( 0 != $layout_author && $userId != $layout_author && ! current_user_can( 'edit_others_ditty_layouts' ) ) {
 				return new WP_Error( 'rest_forbidden', esc_html__( "Sorry, you are not allowed to edit other authors' Layouts.", 'ditty-news-ticker' ), array( 'status' => 403 ) );
 			}
 		}
 		
-		if ( ! user_can( $userId, 'edit_ditty_layouts' ) ) {
+		if ( ! current_user_can( 'edit_ditty_layouts' ) ) {
 			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allowed to edit Layouts.', 'ditty-news-ticker' ), array( 'status' => 403 ) );
 		}
 		return true;
@@ -157,11 +157,8 @@ class Ditty_API {
 	 * @access public
 	 * @since  3.1
 	 */
-	public function save_settings_permissions_check( $request ) {
-		$params = $request->get_params();
-		$apiData = isset( $params['apiData'] ) ? $params['apiData'] : array();
-		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
-		if ( ! user_can( $userId, 'manage_ditty_settings' ) ) {
+	public function save_settings_permissions_check() {
+		if ( ! current_user_can( 'manage_ditty_settings' ) ) {
 			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allow to edit Settings.', 'ditty-news-ticker' ), array( 'status' => 403 ) );
 		}
 		return true;

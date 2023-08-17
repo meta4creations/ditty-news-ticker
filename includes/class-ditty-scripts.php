@@ -549,7 +549,7 @@ class Ditty_Scripts {
 				$item_data = Ditty()->editor->item_data(  $ditty_id );
 				
 				wp_add_inline_script( 'ditty-editor', 'const dittyEditorVars=' . json_encode( apply_filters( 'dittyEditorVars', array(
-					'security'						=> wp_create_nonce( 'ditty' ),
+					'nonce'			          => wp_create_nonce( 'wp_rest' ),
 					'mode'								=> WP_DEBUG ? 'development' : 'production',
 					'userId'							=> get_current_user_id(),
 					'restUrl'							=> get_rest_url(),
@@ -606,7 +606,7 @@ class Ditty_Scripts {
 					$title = $display->post_title;
 				}
 				wp_add_inline_script( 'ditty-display-editor', 'const dittyEditorVars = ' . json_encode( apply_filters( 'dittyEditorVars', array(
-					'security'						=> wp_create_nonce( 'ditty' ),
+					'nonce'			          => wp_create_nonce( 'wp_rest' ),
 					'mode'								=> WP_DEBUG ? 'development' : 'production',
 					'userId'							=> get_current_user_id(),
 					'restUrl'							=> get_rest_url(),
@@ -656,7 +656,7 @@ class Ditty_Scripts {
 					$title = $layout->post_title;
 				}
 				wp_add_inline_script( 'ditty-layout-editor', 'const dittyEditorVars = ' . json_encode( apply_filters( 'dittyEditorVars', array(
-					'security'				=> wp_create_nonce( 'ditty' ),
+					'nonce'			      => wp_create_nonce( 'wp_rest' ),
 					'mode'						=> WP_DEBUG ? 'development' : 'production',
 					'userId'					=> get_current_user_id(),
 					'restUrl'					=> get_rest_url(),
@@ -714,7 +714,7 @@ class Ditty_Scripts {
 				if ( empty( $ditty_scripts_enqueued ) ) {
 					wp_add_inline_script( 'ditty-admin', 'const dittyAdminVars = ' . json_encode( apply_filters( 'dittyAdminVars', array(
 						'ajaxurl'				=> admin_url( 'admin-ajax.php' ),
-						'security'			=> wp_create_nonce( 'ditty' ),
+						'nonce'			    => wp_create_nonce( 'wp_rest' ),
 						'mode'					=> WP_DEBUG ? 'development' : 'production',
 						'adminStrings' 	=> is_admin() ? ditty_admin_strings() : false,
 						'updateIcon'		=> 'fas fa-sync-alt fa-spin',
@@ -732,7 +732,7 @@ class Ditty_Scripts {
 				);
 				wp_add_inline_script( 'ditty-settings', 'const dittySettingsVars = ' . json_encode( apply_filters( 'dittySettingsVars', array(
 					'ajaxurl'						=> admin_url( 'admin-ajax.php' ),
-					'security'					=> wp_create_nonce( 'ditty' ),
+          'nonce'             => wp_create_nonce('wp_rest'),
 					'userId'						=> get_current_user_id(),
 					'restUrl'						=> get_rest_url(),
 					'fields'						=> Ditty()->settings->fields(),
