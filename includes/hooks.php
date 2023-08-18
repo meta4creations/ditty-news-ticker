@@ -17,13 +17,16 @@ function ditty_delete_post_items( $post_id ) {
 	if ( ! current_user_can( 'delete_dittys', $post_id ) ) {
 		return $post_id;
 	}
+
+  // Delete title translation
+  Ditty()->translations->delete_title_translations( $post_id );
 	
 	// Delete a Ditty's items
 	$items_meta = ditty_items_meta( $post_id );
 	if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
 
-    // Delete translations
-    Ditty()->translations->maybe_delete_translations( $items_meta );
+    // Delete item translations
+    Ditty()->translations->delete_item_translations( $items_meta );
 
     // Delete the items
 		foreach ( $items_meta as $i => $item ) {

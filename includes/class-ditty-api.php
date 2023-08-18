@@ -82,6 +82,10 @@ class Ditty_API {
 		$apiData = isset( $params['apiData'] ) ? $params['apiData'] : array();
 		$userId = isset( $apiData['userId'] ) ? $apiData['userId'] : 0;
 		$ditty_id = isset( $apiData['id'] ) ? $apiData['id'] : 0;
+
+    if ( ! current_user_can( 'edit_dittys' ) ) {
+			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allowed to edit Ditty.', 'ditty-news-ticker' ), array( 'status' => 403 ) );
+		}
 		
 		if ( 'ditty-new' != $ditty_id ) {
 			$ditty_post = get_post( $ditty_id );
@@ -91,9 +95,6 @@ class Ditty_API {
 			}
 		}
 
-		if ( ! current_user_can( 'edit_dittys' ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allowed to edit Ditty.', 'ditty-news-ticker' ), array( 'status' => 403 ) );
-		}
 		return true;
 	}
 

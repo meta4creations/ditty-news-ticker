@@ -50,7 +50,8 @@ class Ditty_Item_Type {
 		//$ditty_item['layout'] = isset( $layout_value['default'] ) ? $layout_value['default'] : false;
     $ditty_item['timestamp'] = isset( $meta['date_created'] ) ? strtotime( $meta['date_created'] ) : false;
 
-    $ditty_item = $this->maybe_translate( $ditty_item );
+    // Translate items
+    $ditty_item = Ditty()->translations->translate_item( $ditty_item );
 
 		return array( $ditty_item );
 	}
@@ -511,32 +512,5 @@ class Ditty_Item_Type {
 
   public function is_translatable() {
     return false;
-  }
-
-  public function maybe_translate( $prepared_item ) {
-    if ( $keys = $this->is_translatable() ) {
-      $item_id = $prepared_item['item_id'];
-      $item_value = isset( $prepared_item['item_value'] ) ? $prepared_item['item_value'] : false;
-
-      $package = array(
-        'kind' => __( 'Ditty Item', 'ditty-news-ticker' ),
-        'name' => $item_id,
-        'title' => sprintf( __( 'Item ID: %d' ), $item_id ),
-      );
-
-      if ( $item_value && is_array( $keys ) && count( $keys ) > 0 ) {
-        foreach ( $keys as $key_id => $key_label ) {
-          if ( isset( $item_value[$key_id] ) ) {
-            $original_value = $item_value[$key_id];
-            //$value = apply_filters( 'wpml_translate_single_string', $original_value, 'ditty', "item_{$item_id}_{$key}" );
-            
-            $translated_string = apply_filters( 'wpml_translate_string', $original_value, "item_{$item_id}_{$key_id}", $package );
-            $item_value[$key_id] = $translated_string;
-            $prepared_item['item_value'] = $item_value;
-          }
-        }
-      }
-    }
-    return $prepared_item;
   }
 }

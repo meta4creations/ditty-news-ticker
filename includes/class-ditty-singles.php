@@ -879,16 +879,18 @@ class Ditty_Singles {
         foreach ( $updates['items'] as $item ) {
           if ( isset( $item['new_id'] ) ) {
             $item['item_id'] = $item['new_id'];
-            $updated_items[] = $item;
           }
+          $item['ditty_id'] = $id;
+          $updated_items[] = $item;
         }
       }
+      ditty_log( $updated_items );
       Ditty()->translations->maybe_save_item_translations( $updated_items );
     }
 
     // Maybe delete translation items
     if ( isset( $updates['deletedItems'] ) ) {
-      Ditty()->translations->maybe_delete_translations( $updates['deletedItems'] );
+      Ditty()->translations->delete_item_translations( $updates['deletedItems'] );
     }
 
 		// Update display
