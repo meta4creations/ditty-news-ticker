@@ -887,7 +887,6 @@ class Ditty_Singles {
           $updated_items[] = $item;
         }
       }
-      ditty_log( $updated_items );
       Ditty()->translations->maybe_save_item_translations( $updated_items );
     }
 

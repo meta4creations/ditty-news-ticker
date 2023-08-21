@@ -155,31 +155,6 @@ class Ditty_Translations {
   }
 
   /**
-	 * Delete title translations
-	 *
-	 * @access  public
-	 * @since   3.1.25
-	 * @param   array
-	 */
-	public function delete_title_translations( $ditty_id ) {
-    // $sanitized_deleted_items = [];
-    // if ( is_array( $deleted_items ) && count( $deleted_items ) > 0 ) {
-    //   foreach ( $deleted_items as $deleted_item ) {
-    //     $sanitized_deleted_items[] = (array) $deleted_item;
-    //   }
-    // }
-
-    // $translation_plugin = $this->get_translation_plugin();
-    // switch( $translation_plugin ) {
-    //   case 'wpml':
-    //     $this->wpml_delete_translations( $sanitized_deleted_items );
-    //     break;
-    //   default:
-    //     break;
-    // }
-  }
-
-  /**
 	 * Delete item translations
 	 *
 	 * @access  public
@@ -234,23 +209,15 @@ class Ditty_Translations {
         // Get IDs of of strings
         $sql = "SELECT id FROM {$wpdb->prefix}icl_strings WHERE name IN (" . implode(', ', $placeholders) . ")";
         $ids = $wpdb->get_col( $wpdb->prepare($sql, $names_to_delete) );
-        ChromePhp::log( '$ids', $ids );
         
         // Delete translations of string
         $id_placeholders = array_fill(0, count( $ids ), '%s');
         $sql = "DELETE FROM {$wpdb->prefix}icl_string_translations WHERE string_id IN (" . implode(', ', $id_placeholders) . ")";
         $results = $wpdb->query( $wpdb->prepare( $sql, $ids ) );
-        ChromePhp::log( 'icl_string_translations $results', $results );
         
         // Delete the strings
         $sql = "DELETE FROM {$wpdb->prefix}icl_strings WHERE name IN (" . implode(', ', $placeholders) . ")";
         $results = $wpdb->query( $wpdb->prepare( $sql, $names_to_delete ) );
-        ChromePhp::log( 'icl_strings $results', $results );
-        
-        
-        // $string_ids_query   = "SELECT name FROM {$wpdb->prefix}icl_strings WHERE string_package_id=%d";
-        // $string_ids_prepare = $wpdb->prepare( $string_ids_query, $package_id );
-        // $string_ids         = $wpdb->get_col( $string_ids_prepare );
 
       }
     }

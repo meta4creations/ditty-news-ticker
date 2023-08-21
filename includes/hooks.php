@@ -17,16 +17,14 @@ function ditty_delete_post_items( $post_id ) {
 	if ( ! current_user_can( 'delete_dittys', $post_id ) ) {
 		return $post_id;
 	}
-
-  // Delete title translation
-  Ditty()->translations->delete_title_translations( $post_id );
 	
 	// Delete a Ditty's items
 	$items_meta = ditty_items_meta( $post_id );
+	
+	// All other functionality to hook in and grab item meta before deleting
+	do_action( 'ditty_before_delete_post_items', $post_id, $items_meta );
+	
 	if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
-
-    // Delete item translations
-    Ditty()->translations->delete_item_translations( $items_meta );
 
     // Delete the items
 		foreach ( $items_meta as $i => $item ) {
@@ -35,6 +33,9 @@ function ditty_delete_post_items( $post_id ) {
       
 		}
 	}	
+	
+	// All other functionality to hook in and grab item meta before deleting
+	do_action( 'ditty_after_delete_post_items', $post_id, $items_meta );
 }
 add_action( 'delete_post', 'ditty_delete_post_items' );
 
