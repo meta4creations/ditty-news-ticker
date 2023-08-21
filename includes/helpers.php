@@ -1099,8 +1099,6 @@ function ditty_render( $atts ) {
 		'data-live_updates' 		=> $live_updates,
 	);
 
-  ditty_log($ditty_atts);
-
 	if ( 0 == $ajax_load ) {
 		$ditty_singles[] = $ditty_atts;
 	}

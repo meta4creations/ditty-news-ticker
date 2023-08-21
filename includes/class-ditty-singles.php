@@ -877,6 +877,9 @@ class Ditty_Singles {
       $updated_items = [];
       if ( is_array( $updates['items'] ) && count( $updates['items'] ) > 0 ) {
         foreach ( $updates['items'] as $item ) {
+					if ( ! isset( $item['item_value'] ) ) {
+						continue;
+					}
           if ( isset( $item['new_id'] ) ) {
             $item['item_id'] = $item['new_id'];
           }

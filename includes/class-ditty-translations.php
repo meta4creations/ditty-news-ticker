@@ -20,7 +20,23 @@ class Ditty_Translations {
 	public function __construct() {	
     add_action( 'wp_insert_post', [$this, 'save_title_translation'], 10, 3 );
     add_filter( 'the_title', [$this, 'translate_title'], 10, 2 );
+    //add_action( 'init', [$this, 'testing'] );
 	}
+  
+  // public function testing() {
+  //   global $wpdb, $sitepress;
+  //   if ( $ditty_id = ditty_editing() ) { 
+  //     $package = array(
+  //       'kind' => __( 'Ditty', 'ditty-news-ticker' ),
+  //       'name' => $ditty_id,
+  //       'title' => sprintf( __( 'Ditty ID: %d' ), $ditty_id ),
+  //     );
+  //     
+  //     $p = new WPML_Package( $package );
+  //     $p->flush_cache();
+  //     
+  //   }
+  // }
 	
 	/**
    * Return variation defaults ensuring they exist
@@ -60,8 +76,6 @@ class Ditty_Translations {
       'name' => $post_id,
       'title' => sprintf( __( 'Ditty ID: %d' ), $post_id ),
     );
-    ditty_log($package);
-
     $string_value = $post->post_title;
     do_action( 'wpml_register_string', $string_value, "ditty_title", $package, 'ditty_title', 'LINE' );
   }
@@ -78,12 +92,6 @@ class Ditty_Translations {
     $item_id = $item['item_id'];
     $item_value = isset( $item['item_value'] ) ? $item['item_value'] : false;
     if ( $item_value && is_array( $keys ) && count( $keys ) > 0 ) {
-
-      // $package = array(
-      //   'kind' => __( 'Ditty Item', 'ditty-news-ticker' ),
-      //   'name' => $item_id,
-      //   'title' => sprintf( __( 'Item ID: %d' ), $item_id ),
-      // );
       $package = array(
         'kind' => __( 'Ditty', 'ditty-news-ticker' ),
         'name' => $ditty_id,
@@ -95,8 +103,6 @@ class Ditty_Translations {
           $string_value = $item_value[$key_id];
           $label = sprintf( __( 'Item %d: %s', 'ditty-news-ticker' ), $item_id, $key_label );
           do_action( 'wpml_register_string', $string_value, "item_{$item_id}_{$key_id}", $package, $label, 'LINE' );
-          //do_action( 'wpml_register_string', $string_value, "item_{$item_id}_{$key_id}", $package, $key_label, 'LINE' );
-          //do_action( 'wpml_register_single_string', 'ditty', "item_{$item_id}_{$key_id}", $string_value );
         }
       }
     }
@@ -187,7 +193,6 @@ class Ditty_Translations {
         $sanitized_deleted_items[] = (array) $deleted_item;
       }
     }
-
     $translation_plugin = $this->get_translation_plugin();
     switch( $translation_plugin ) {
       case 'wpml':
@@ -206,12 +211,47 @@ class Ditty_Translations {
 	 * @param   array
 	 */
   private function wpml_delete_translations( $deleted_items ) {
+    global $wpdb;
+    
     if ( is_array( $deleted_items ) && count( $deleted_items ) > 0 ) {
       foreach ( $deleted_items as $deleted_item ) {
-        $item_id = $deleted_item['item_id'];
-        if ( $item_type_object = ditty_item_type_object( $deleted_item['item_type'] ) ) {
-          do_action( 'wpml_delete_package', $item_id, __( 'Ditty Item', 'ditty-news-ticker' ) );
+        $item_type_object = ditty_item_type_object( $deleted_item['item_type'] );
+        if ( ! $item_type_object ) {
+          return false;
         }
+        $keys = $item_type_object->is_translatable();
+        if ( ! $keys ) {
+          return false;
+        }
+        
+        $names_to_delete = [];
+        foreach ( $keys as $key_id => $key_label ) {
+          $names_to_delete[] = "item_{$deleted_item['item_id']}_{$key_id}";
+        }
+        
+        $placeholders = array_fill(0, count($names_to_delete), '%s');
+        
+        // Get IDs of of strings
+        $sql = "SELECT id FROM {$wpdb->prefix}icl_strings WHERE name IN (" . implode(', ', $placeholders) . ")";
+        $ids = $wpdb->get_col( $wpdb->prepare($sql, $names_to_delete) );
+        ChromePhp::log( '$ids', $ids );
+        
+        // Delete translations of string
+        $id_placeholders = array_fill(0, count( $ids ), '%s');
+        $sql = "DELETE FROM {$wpdb->prefix}icl_string_translations WHERE string_id IN (" . implode(', ', $id_placeholders) . ")";
+        $results = $wpdb->query( $wpdb->prepare( $sql, $ids ) );
+        ChromePhp::log( 'icl_string_translations $results', $results );
+        
+        // Delete the strings
+        $sql = "DELETE FROM {$wpdb->prefix}icl_strings WHERE name IN (" . implode(', ', $placeholders) . ")";
+        $results = $wpdb->query( $wpdb->prepare( $sql, $names_to_delete ) );
+        ChromePhp::log( 'icl_strings $results', $results );
+        
+        
+        // $string_ids_query   = "SELECT name FROM {$wpdb->prefix}icl_strings WHERE string_package_id=%d";
+        // $string_ids_prepare = $wpdb->prepare( $string_ids_query, $package_id );
+        // $string_ids         = $wpdb->get_col( $string_ids_prepare );
+
       }
     }
   }
