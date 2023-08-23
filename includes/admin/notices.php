@@ -32,7 +32,7 @@ function ditty_dashboard_notices() {
 					</ul>
 					<p><?php _e( "Don't worry, all of your existing <strong>News Tickers</strong> will still work! Although, we do urge you to start upgrading and updating your tickers to the new <strong>Ditty</strong> post type. <strong>Ditty News Ticker</strong> is now relegated to legacy code and there will be very limited updates from this point on. Most development time will now be assigned to <strong>Ditty</strong> along with existing and new <strong>Ditty</strong> extensions. Legacy <strong>News Tickers</strong> can be enabled on the <strong>Advanced</strong> tab of the <strong>Ditty > Settings</strong> page.", 'ditty-news-ticker' ); ?></p>
 				</div>
-				<a href="<?php echo add_query_arg( 'ditty_close_notice', 'v3_0_6' ); ?>" class="ditty-dashboard-notice__close"><?php _e( 'Close', 'ditty-news-ticker' ); ?><i class="dashicons dashicons-dismiss"></i></a>
+				<a href="<?php echo esc_url( add_query_arg( 'ditty_close_notice', 'v3_0_6' ) ); ?>" class="ditty-dashboard-notice__close"><?php _e( 'Close', 'ditty-news-ticker' ); ?><i class="dashicons dashicons-dismiss"></i></a>
 			</div>
 		<?php
 	}

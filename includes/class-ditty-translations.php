@@ -19,24 +19,9 @@ class Ditty_Translations {
 	 */
 	public function __construct() {	
     add_action( 'wp_insert_post', [$this, 'save_title_translation'], 10, 3 );
+    add_action( 'delete_post', [$this, 'delete_post_translations'] );
     add_filter( 'the_title', [$this, 'translate_title'], 10, 2 );
-    //add_action( 'init', [$this, 'testing'] );
 	}
-  
-  // public function testing() {
-  //   global $wpdb, $sitepress;
-  //   if ( $ditty_id = ditty_editing() ) { 
-  //     $package = array(
-  //       'kind' => __( 'Ditty', 'ditty-news-ticker' ),
-  //       'name' => $ditty_id,
-  //       'title' => sprintf( __( 'Ditty ID: %d' ), $ditty_id ),
-  //     );
-  //     
-  //     $p = new WPML_Package( $package );
-  //     $p->flush_cache();
-  //     
-  //   }
-  // }
 	
 	/**
    * Return variation defaults ensuring they exist
@@ -51,7 +36,7 @@ class Ditty_Translations {
 
   /**
    * Get the current language of a translation
-   * *
+   * 
    * @since   3.1.25
    */
   public function get_translation_language() {
@@ -71,41 +56,8 @@ class Ditty_Translations {
 	 * @since   3.1.25
 	 */
   public function save_title_translation( $post_id, $post, $update ) {
-    $package = array(
-      'kind' => __( 'Ditty', 'ditty-news-ticker' ),
-      'name' => $post_id,
-      'title' => sprintf( __( 'Ditty ID: %d' ), $post_id ),
-    );
-    $string_value = $post->post_title;
-    do_action( 'wpml_register_string', $string_value, "ditty_title", $package, 'ditty_title', 'LINE' );
-  }
-
-  /**
-	 * Save item translations
-	 *
-	 * @access  public
-	 * @since   3.1.25
-	 * @param   array
-	 */
-  public function save_wpml_item_translation( $item, $keys ) {
-    $ditty_id = $item['ditty_id'];
-    $item_id = $item['item_id'];
-    $item_value = isset( $item['item_value'] ) ? $item['item_value'] : false;
-    if ( $item_value && is_array( $keys ) && count( $keys ) > 0 ) {
-      $package = array(
-        'kind' => __( 'Ditty', 'ditty-news-ticker' ),
-        'name' => $ditty_id,
-        'title' => sprintf( __( 'Ditty ID: %d' ), $ditty_id ),
-      );
-
-      foreach ( $keys as $key_id => $key_label ) {
-        if ( isset( $item_value[$key_id] ) ) {
-          $string_value = $item_value[$key_id];
-          $label = sprintf( __( 'Item %d: %s', 'ditty-news-ticker' ), $item_id, $key_label );
-          do_action( 'wpml_register_string', $string_value, "item_{$item_id}_{$key_id}", $package, $label, 'LINE' );
-        }
-      }
-    }
+    $translation_plugin = $this->get_translation_plugin();
+    do_action( 'ditty_save_title_translation', $post_id, $post, $update, $translation_plugin );
   }
 
   /**
@@ -124,15 +76,8 @@ class Ditty_Translations {
     if ( ! $keys ) {
       return false;
     }
-
     $translation_plugin = $this->get_translation_plugin();
-    switch( $translation_plugin ) {
-      case 'wpml':
-        $this->save_wpml_item_translation( $item, $keys );
-        break;
-      default:
-        break;
-    }
+    do_action( 'ditty_save_item_translation', $item, $keys, $translation_plugin );
   }
 
   /**
@@ -142,7 +87,7 @@ class Ditty_Translations {
 	 * @since   3.1.25
 	 * @param   array
 	 */
-	public function maybe_save_item_translations( $items ) {
+	public function save_item_translations( $items ) {
     if ( is_array( $items ) ) {
       if ( count( $items ) > 0 ) {
         foreach ( $items as $item ) {
@@ -155,71 +100,70 @@ class Ditty_Translations {
   }
 
   /**
+	 * Delete a single item translations
+	 *
+	 * @access  public
+	 * @since   3.1.25
+	 * @param   array
+	 */
+  public function delete_item_translation( $item ) {
+    $item_type_object = ditty_item_type_object( $item['item_type'] );
+    if ( ! $item_type_object ) {
+      return false;
+    }
+    $keys = $item_type_object->is_translatable();
+    if ( ! $keys ) {
+      return false;
+    }
+    $translation_plugin = $this->get_translation_plugin();
+    do_action( 'ditty_delete_item_translation', $item, $keys, $translation_plugin );
+  }
+
+  /**
+	 * Delete post translations
+	 *
+	 * @access  public
+	 * @since   3.1.25
+	 * @param   array
+	 */
+	public function delete_post_translations( $post_id ) {
+    global $post;
+    $post_type = $post->post_type;
+    if ( isset( $post->post_type ) && ! ( 'ditty' == $post->post_type ) ) {
+      return $post_id;
+    }
+    
+    // Back ouf if user does not have permission
+    if ( ! current_user_can( 'delete_dittys', $post_id ) ) {
+      return $post_id;
+    }
+
+    do_action( 'ditty_delete_post_translations', $post_id, $post_type );
+  }
+
+  /**
 	 * Delete item translations
 	 *
 	 * @access  public
 	 * @since   3.1.25
 	 * @param   array
 	 */
-	public function delete_item_translations( $deleted_items = [] ) {
+	public function delete_item_translations( $deleted_items ) {
     $sanitized_deleted_items = [];
-    if ( is_array( $deleted_items ) && count( $deleted_items ) > 0 ) {
-      foreach ( $deleted_items as $deleted_item ) {
-        $sanitized_deleted_items[] = (array) $deleted_item;
+    if ( is_array( $deleted_items ) ) {
+      if ( count( $deleted_items ) > 0 ) {
+        foreach ( $deleted_items as $deleted_item ) {
+          $sanitized_deleted_items[] = (array) $deleted_item;
+        }
       }
+    } else {
+      $sanitized_deleted_items[] = (array) $deleted_items;
     }
-    $translation_plugin = $this->get_translation_plugin();
-    switch( $translation_plugin ) {
-      case 'wpml':
-        $this->wpml_delete_translations( $sanitized_deleted_items );
-        break;
-      default:
-        break;
+    if ( 0 == count( $sanitized_deleted_items ) ) {
+      return false;
     }
-  }
-
-  /**
-	 * Delete WPML translations
-	 *
-	 * @access  public
-	 * @since   3.1.25
-	 * @param   array
-	 */
-  private function wpml_delete_translations( $deleted_items ) {
-    global $wpdb;
-    
-    if ( is_array( $deleted_items ) && count( $deleted_items ) > 0 ) {
-      foreach ( $deleted_items as $deleted_item ) {
-        $item_type_object = ditty_item_type_object( $deleted_item['item_type'] );
-        if ( ! $item_type_object ) {
-          return false;
-        }
-        $keys = $item_type_object->is_translatable();
-        if ( ! $keys ) {
-          return false;
-        }
-        
-        $names_to_delete = [];
-        foreach ( $keys as $key_id => $key_label ) {
-          $names_to_delete[] = "item_{$deleted_item['item_id']}_{$key_id}";
-        }
-        
-        $placeholders = array_fill(0, count($names_to_delete), '%s');
-        
-        // Get IDs of of strings
-        $sql = "SELECT id FROM {$wpdb->prefix}icl_strings WHERE name IN (" . implode(', ', $placeholders) . ")";
-        $ids = $wpdb->get_col( $wpdb->prepare($sql, $names_to_delete) );
-        
-        // Delete translations of string
-        $id_placeholders = array_fill(0, count( $ids ), '%s');
-        $sql = "DELETE FROM {$wpdb->prefix}icl_string_translations WHERE string_id IN (" . implode(', ', $id_placeholders) . ")";
-        $results = $wpdb->query( $wpdb->prepare( $sql, $ids ) );
-        
-        // Delete the strings
-        $sql = "DELETE FROM {$wpdb->prefix}icl_strings WHERE name IN (" . implode(', ', $placeholders) . ")";
-        $results = $wpdb->query( $wpdb->prepare( $sql, $names_to_delete ) );
-
-      }
+    foreach ( $sanitized_deleted_items as $item ) {
+      $this->delete_item_translation( $item );
     }
   }
 
@@ -234,12 +178,8 @@ class Ditty_Translations {
     if ( 'ditty' != get_post_type( $post_id ) ) {
       return $post_title;
     }
-    $package = array(
-      'kind' => __( 'Ditty', 'ditty-news-ticker' ),
-      'name' => $post_id,
-      'title' => sprintf( __( 'Ditty ID: %d' ), $post_id ),
-    );
-    return apply_filters( 'wpml_translate_string', $post_title, "ditty_title", $package );
+    $translation_plugin = $this->get_translation_plugin();
+    return apply_filters( 'ditty_translate_title', $post_title, $post_id, $translation_plugin );
   }
 
   /**
@@ -254,29 +194,12 @@ class Ditty_Translations {
     if ( ! $item_type_object ) {
       return $prepared_item;
     }
-
-    if ( $keys = $item_type_object->is_translatable() ) {
-      $item_id = $prepared_item['item_id'];
-      $item_value = isset( $prepared_item['item_value'] ) ? $prepared_item['item_value'] : false;
-
-      $package = array(
-        'kind' => __( 'Ditty', 'ditty-news-ticker' ),
-        'name' => $prepared_item['ditty_id'],
-        'title' => sprintf( __( 'Ditty ID: %d' ), $prepared_item['ditty_id'] ),
-      );
-
-      if ( $item_value && is_array( $keys ) && count( $keys ) > 0 ) {
-        foreach ( $keys as $key_id => $key_label ) {
-          if ( isset( $item_value[$key_id] ) ) {
-            $original_value = $item_value[$key_id];
-            $translated_string = apply_filters( 'wpml_translate_string', $original_value, "item_{$item_id}_{$key_id}", $package );
-            $item_value[$key_id] = $translated_string;
-            $prepared_item['item_value'] = $item_value;
-          }
-        }
-      }
+    $keys = $item_type_object->is_translatable();
+    if ( ! $keys ) {
+      return $prepared_item;
     }
-    return $prepared_item;
+    $translation_plugin = $this->get_translation_plugin();
+    return apply_filters( 'ditty_translate_item', $prepared_item, $keys, $translation_plugin );
   }
 
 }

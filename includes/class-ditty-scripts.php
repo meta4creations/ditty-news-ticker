@@ -524,6 +524,7 @@ class Ditty_Scripts {
           'nonce'			          => wp_create_nonce( 'wp_rest' ),
           'mode'								=> WP_DEBUG ? 'development' : 'production',
           'userId'							=> get_current_user_id(),
+          'adminUrl'						=> admin_url(),
           'restUrl'							=> get_rest_url(),
           'id'									=> $ditty_id,
           'title' 							=> $title,
@@ -715,6 +716,7 @@ class Ditty_Scripts {
 				if ( empty( $ditty_scripts_enqueued ) ) {
 					wp_add_inline_script( 'ditty-admin', 'const dittyAdminVars = ' . json_encode( apply_filters( 'dittyAdminVars', array(
 						'ajaxurl'				=> admin_url( 'admin-ajax.php' ),
+						'security'			=> wp_create_nonce( 'ditty' ),
 						'nonce'			    => wp_create_nonce( 'wp_rest' ),
 						'mode'					=> WP_DEBUG ? 'development' : 'production',
 						'adminStrings' 	=> is_admin() ? ditty_admin_strings() : false,

@@ -1,5 +1,6 @@
 import { __ } from "@wordpress/i18n";
 import BaseField from "./BaseField";
+import ButtonField from "./ButtonField";
 import Clone from "./Clone";
 import CheckboxField from "./CheckboxField";
 import CheckboxesField from "./CheckboxesField";
@@ -11,6 +12,7 @@ import GroupField from "./GroupField";
 import HtmlField from "./HtmlField";
 import ImageField from "./ImageField";
 import LayoutTagField from "./LayoutTagField";
+import NotificationField from "./NotificationField";
 import NumberField from "./NumberField";
 import RadioField from "./RadioField";
 import SelectField from "./SelectField";
@@ -50,6 +52,8 @@ const Field = ({ field, fieldValue, updateValue, delayChange = false }) => {
       );
     } else {
       switch (inputField.type) {
+        case "button":
+          return <ButtonField {...inputField} />;
         case "checkbox":
           return (
             <CheckboxField
@@ -128,6 +132,8 @@ const Field = ({ field, fieldValue, updateValue, delayChange = false }) => {
               {...inputField}
             />
           );
+        case "notification":
+          return <NotificationField value={inputValue} {...inputField} />;
         case "number":
           return (
             <NumberField

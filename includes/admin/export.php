@@ -72,7 +72,7 @@ function ditty_export_display() {
 					if ( is_array( $settings ) && count( $settings ) > 0 ) {
 						foreach ( $settings as $slug => $setting ) {
 							$active = ( $slug == $current_tab ) ? ' active' : '';
-							echo '<a href="' . add_query_arg( 'tab', $slug ) . '" class="ditty-settings__tab ditty-settings__tab--' . esc_attr( $slug ) . $active . '" data-panel="' . esc_attr( $slug ) . '">';
+							echo '<a href="' . esc_url( add_query_arg( 'tab', $slug ) ) . '" class="ditty-settings__tab ditty-settings__tab--' . esc_attr( $slug ) . $active . '" data-panel="' . esc_attr( $slug ) . '">';
 								if ( isset( $setting['icon'] ) ) {
 									echo '<i class="' . esc_attr( $setting['icon'] ) . '"></i>';
 								} elseif( isset( $setting['icon_svg'] ) ) {
@@ -139,7 +139,7 @@ function ditty_settings_import() {
 		$fields['ditty_new_import_button'] = array(
 			'type'				=> 'html',
 			'id' 					=> 'ditty_new_import_button',
-			'std'					=> '<a class="ditty-button" href="' . admin_url( 'edit.php?post_type=ditty&page=ditty_export&tab=import' ) . '">' . esc_html__( 'New Import', 'ditty-news-ticker' ) . '</a>',
+			'std'					=> '<a class="ditty-button" href="' . esc_url( admin_url( 'edit.php?post_type=ditty&page=ditty_export&tab=import' ) ) . '">' . esc_html__( 'New Import', 'ditty-news-ticker' ) . '</a>',
 		);
 	} else {
 		$fields['ditty_import_posts'] = array(
@@ -822,7 +822,7 @@ function ditty_import_options() {
 			$html .= '<ul class="ditty-import__list">';
 			foreach ( $transient_data['ditty'] as $i => $ditty ) {
 				$html .= '<li class="ditty-import__item">';
-					$html .= '<p class="ditty-import__post-title"><span>' . get_the_title( $ditty['id'] ) . '</span> <a href="' . get_edit_post_link( $ditty['id'] ) . '">' . esc_html__( 'Edit', 'ditty-news-ticker' ) . '</a></p> ';
+					$html .= '<p class="ditty-import__post-title"><span>' . get_the_title( $ditty['id'] ) . '</span> <a href="' . esc_url( get_edit_post_link( $ditty['id'] ) ) . '">' . esc_html__( 'Edit', 'ditty-news-ticker' ) . '</a></p> ';
 				$html .= '</li>';
 			}
 			$html .= '</ul>';
@@ -835,7 +835,7 @@ function ditty_import_options() {
 			$html .= '<ul class="ditty-import__list">';
 			foreach ( $transient_data['layouts'] as $i => $layout ) {
 				$html .= '<li class="ditty-import__item">';
-					$html .= '<p class="ditty-import__post-title"><span>' . get_the_title( $layout['id'] ) . '</span> <a href="' . get_edit_post_link( $layout['id'] ) . '">' . esc_html__( 'Edit', 'ditty-news-ticker' ) . '</a></p> ';
+					$html .= '<p class="ditty-import__post-title"><span>' . get_the_title( $layout['id'] ) . '</span> <a href="' . esc_url( get_edit_post_link( $layout['id'] ) ) . '">' . esc_html__( 'Edit', 'ditty-news-ticker' ) . '</a></p> ';
 				$html .= '</li>';
 			}
 			$html .= '</ul>';
@@ -848,7 +848,7 @@ function ditty_import_options() {
 			$html .= '<ul class="ditty-import__list">';
 			foreach ( $transient_data['displays'] as $i => $display ) {
 				$html .= '<li class="ditty-import__item">';
-					$html .= '<p class="ditty-import__post-title"><span>' . get_the_title( $display['id'] ) . '</span> <a href="' . get_edit_post_link( $display['id'] ) . '">' . esc_html__( 'Edit', 'ditty-news-ticker' ) . '</a></p> ';
+					$html .= '<p class="ditty-import__post-title"><span>' . get_the_title( $display['id'] ) . '</span> <a href="' . esc_url( get_edit_post_link( $display['id'] ) ) . '">' . esc_html__( 'Edit', 'ditty-news-ticker' ) . '</a></p> ';
 				$html .= '</li>';
 			}
 			$html .= '</ul>';

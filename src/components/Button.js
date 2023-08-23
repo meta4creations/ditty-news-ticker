@@ -10,6 +10,7 @@ const Button = ({
   style,
   isPressed,
   isBusy,
+  isFullWidth,
   onClick,
 }) => {
   const classes = classnames("ditty-button", className, {
@@ -19,6 +20,7 @@ const Button = ({
     "is-small": size === "small",
     "is-pressed": isPressed,
     "is-busy": isBusy,
+    "is-fullwidth": isFullWidth,
     "has-icon": !!icon,
   });
 

@@ -19,7 +19,9 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   cursor: pointer;
-  transition: color 0.25s ease, background-color 0.25s ease;
+  transition:
+    color 0.25s ease,
+    background-color 0.25s ease;
   &.is-primary {
     color: #fff;
     background: $green;
@@ -27,6 +29,9 @@
   &.is-small {
     font-size: 13px;
     padding: 5px 10px;
+  }
+  &.is-fullwidth {
+    width: 100%;
   }
   &:disabled {
     cursor: default;

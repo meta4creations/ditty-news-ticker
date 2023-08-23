@@ -6,6 +6,7 @@ import { Icon, Tabs } from "../components";
 import PanelItems from "./PanelItems";
 import PanelDisplays from "./PanelDisplays";
 import PanelSettings from "./PanelSettings";
+import PanelTranslation from "./PanelTranslation";
 import { EditorContext } from "./context";
 
 const Editor = ({ className }) => {
@@ -53,30 +54,35 @@ const Editor = ({ className }) => {
     document.body.addEventListener("mouseup", onMouseUp, { once: true });
   };
 
-  const tabs = applyFilters(
-    "dittyEditor.tabs",
-    [
-      {
-        id: "items",
-        label: __("Items", "ditty-news-ticker"),
-        icon: <Icon id="faBarsStaggered" />,
-        content: <PanelItems />,
-      },
-      {
-        id: "display",
-        label: __("Display", "ditty-news-ticker"),
-        icon: <Icon id="faTabletScreen" />,
-        content: <PanelDisplays />,
-      },
-      {
-        id: "settings",
-        label: __("Settings", "ditty-news-ticker"),
-        icon: <Icon id="faGear" />,
-        content: <PanelSettings />,
-      },
-    ],
-    EditorContext
-  );
+  const tabsArray = [
+    {
+      id: "items",
+      label: __("Items", "ditty-news-ticker"),
+      icon: <Icon id="faBarsStaggered" />,
+      content: <PanelItems />,
+    },
+    {
+      id: "display",
+      label: __("Display", "ditty-news-ticker"),
+      icon: <Icon id="faTabletScreen" />,
+      content: <PanelDisplays />,
+    },
+    {
+      id: "settings",
+      label: __("Settings", "ditty-news-ticker"),
+      icon: <Icon id="faGear" />,
+      content: <PanelSettings />,
+    },
+  ];
+  if (dittyEditorVars.translationPlugin) {
+    tabsArray.push({
+      id: "translation",
+      label: __("Translation", "ditty-news-ticker"),
+      icon: <Icon id="faLanguage" />,
+      content: <PanelTranslation />,
+    });
+  }
+  const tabs = applyFilters("dittyEditor.tabs", tabsArray, EditorContext);
 
   const renderAfterEditor = () => {
     const afterEditor = applyFilters("dittyEditor.afterEditor", [], editor);

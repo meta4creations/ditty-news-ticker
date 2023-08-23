@@ -80,6 +80,21 @@
   }
 }
 
+//Checkboxes
+.ditty-field__input--checkboxes {
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px 10px;
+  }
+  &.ditty-field__input--inline {
+    > div {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+}
+
 // Clone
 .ditty-clone {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -143,21 +158,6 @@
   }
 }
 
-//Checkboxes
-.ditty-field__input--checkboxes {
-  > div {
-    display: flex;
-    flex-direction: column;
-    gap: 5px 10px;
-  }
-  &.ditty-field__input--inline {
-    > div {
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-  }
-}
-
 // Color
 .ditty-field__input--color {
   position: relative;
@@ -181,6 +181,56 @@
     position: absolute;
     z-index: 9;
     top: calc(100% + 5px);
+  }
+}
+
+// Notification
+.ditty-field--notification {
+  .ditty-field__input--notification {
+    position: relative;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    &.is-primary {
+      color: #004085;
+      background-color: #cce5ff;
+      border-color: #b8daff;
+    }
+    &.is-secondary {
+      color: #383d41;
+      background-color: #e2e3e5;
+      border-color: #d6d8db;
+    }
+    &.is-success {
+      color: #155724;
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+    }
+    &.is-danger {
+      color: #721c24;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+    }
+    &.is-warning {
+      color: #856404;
+      background-color: #fff3cd;
+      border-color: #ffeeba;
+    }
+    &.is-info {
+      color: #0c5460;
+      background-color: #d1ecf1;
+      border-color: #bee5eb;
+    }
+    &.is-light {
+      color: #818182;
+      background-color: #fefefe;
+      border-color: #fdfdfe;
+    }
+    &.is-dark {
+      color: #1b1e21;
+      background-color: #d6d8d9;
+      border-color: #c6c8ca;
+    }
   }
 }
 

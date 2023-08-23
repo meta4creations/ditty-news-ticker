@@ -887,7 +887,7 @@ class Ditty_Singles {
           $updated_items[] = $item;
         }
       }
-      Ditty()->translations->maybe_save_item_translations( $updated_items );
+      Ditty()->translations->save_item_translations( $updated_items );
     }
 
     // Maybe delete translation items

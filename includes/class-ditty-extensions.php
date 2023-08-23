@@ -312,20 +312,20 @@ class Ditty_Extensions {
 		<div <?php echo ditty_attr_to_html( $attr ); ?>>
 			<div class="ditty-extension__contents">
 			
-				<div class="ditty-extension__header"<?php echo $heading_style; ?>>
+				<div class="ditty-extension__header"<?php echo esc_attr( $heading_style ); ?>>
 					<?php if ( ! $user_banner ) { ?>
-						<div class="ditty-extension__header__icon"><i class="<?php echo $data['icon']; ?>"></i></div>
+						<div class="ditty-extension__header__icon"><i class="<?php echo esc_attr( $data['icon'] ); ?>"></i></div>
 					<?php } ?>
 					<div class="ditty-extension__header__overlay"></div>
 					<div class="ditty-extension__icon">
 						<?php if ( $user_avatar ) { ?>
 							<img src="<?php echo esc_url_raw( $user_avatar ); ?>" />
-							<i class="ditty-extension__icon__small <?php echo $data['icon']; ?>"></i>
+							<i class="ditty-extension__icon__small <?php echo esc_attr( $data['icon'] ); ?>"></i>
 						<?php } else { ?>
-							<i class="<?php echo $data['icon']; ?>"></i>
+							<i class="<?php echo esc_attr( $data['icon'] ); ?>"></i>
 						<?php } ?>
 					</div>
-					<h3 class="ditty-extension__title"><?php echo $data['name']; ?></h3>
+					<h3 class="ditty-extension__title"><?php echo sanitize_text_field( $data['name'] ); ?></h3>
 				</div>
 				<?php
 				if ( isset( $data['preview'] ) ) {
@@ -339,16 +339,16 @@ class Ditty_Extensions {
 					if ( is_array( $settings ) && count( $settings ) > 0 ) {
 						echo '<div class="ditty-extension__tabs">';
 						foreach ( $settings as $i => $setting ) {
-							echo '<a href="#" class="ditty-extension__tab" data-slide_id="' . $setting['id'] . '">' . $setting['label'] . '</a>';
+							echo '<a href="#" class="ditty-extension__tab" data-slide_id="' . esc_attr( $setting['id'] ) . '">' . sanitize_text_field( $setting['label'] ) . '</a>';
 						}
 						echo '</div>';
 					}
 					
 					if ( is_array( $settings ) && count( $settings ) > 0 ) {
-						echo '<div class="ditty-extension__panels" data-init_panel="' . $init_panel . '">';
+						echo '<div class="ditty-extension__panels" data-init_panel="' . esc_attr( $init_panel ) . '">';
 						foreach ( $settings as $i => $setting ) {
 							?>
-							<div class="ditty-extension__panel ditty-extension__panel--<?php echo $setting['id']; ?>" data-slide_id="<?php echo $setting['id']; ?>" data-slide_cache="true">	
+							<div class="ditty-extension__panel ditty-extension__panel--<?php echo esc_attr( $setting['id'] ); ?>" data-slide_id="<?php echo esc_attr( $setting['id'] ); ?>" data-slide_cache="true">	
 								<form class="ditty-extension__form">
 								<?php
 								if( 'license' == $setting['id'] ) {

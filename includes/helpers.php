@@ -1499,10 +1499,10 @@ function ditty_layout_editing() {
 function ditty_edit_links( $ditty_id ) {
 	if ( ! is_admin() && current_user_can( 'edit_ditty', $ditty_id ) && 'enabled' === get_ditty_settings( 'edit_links' ) ) {
 		$html = '<div class="ditty__edit-links">';
-			$html .= '<a href="'.get_edit_post_link( $ditty_id ).'">' . __('Edit Ditty', 'ditty-news-ticker') . '</a>';
+			$html .= '<a href="' . esc_url( get_edit_post_link( $ditty_id ) ) . '">' . __('Edit Ditty', 'ditty-news-ticker') . '</a>';
 			$display = get_post_meta( $ditty_id, '_ditty_display', true );
 			if ( ! is_array( $display ) && $edit_link = get_edit_post_link( $display ) ) {
-				$html .= '<a href="' . $edit_link . '">' . __('Edit Display', 'ditty-news-ticker') . '</a>';
+				$html .= '<a href="' . esc_url( $edit_link ) . '">' . __('Edit Display', 'ditty-news-ticker') . '</a>';
 			}
 		$html .= '</div>';
 		return $html;

@@ -12,6 +12,7 @@ const BaseField = (props) => {
     prefix,
     suffix,
     className,
+    inputClassName,
     columnWidth,
     style,
     children,
@@ -28,6 +29,7 @@ const BaseField = (props) => {
   const inputClasses = classnames(
     "ditty-field__input",
     `ditty-field__input--${type}`,
+    inputClassName,
     {
       "ditty-field__input--inline": inline,
     }

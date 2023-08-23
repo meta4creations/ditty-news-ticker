@@ -1,21 +1,35 @@
 import { addFilter } from "@wordpress/hooks";
+import { __ } from "@wordpress/i18n";
 
 const dittyWPML = (function () {
-  const editorTab = (tabs) => {
-    if ("wpml" !== dittyEditorVars.translationPlugin) {
-      return tabs;
+  const editorFields = (fields, translationEnabled, hasUpdates) => {
+    if (
+      "yes" !== translationEnabled ||
+      "wpml" !== dittyEditorVars.translationPlugin
+    ) {
+      return fields;
     }
-    console.log("yessir!");
-    return tabs;
+    fields.push({
+      type: "button",
+      kind: false === hasUpdates ? "primary" : "secondary",
+      disabled: hasUpdates,
+      label: __("Translate Strings", "ditty-news-ticker"),
+      isFullWidth: true,
+      onClick: () => {
+        const stringsUrl = `${dittyEditorVars.adminUrl}admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=ditty-${dittyEditorVars.id}`;
+        window.open(stringsUrl, "_blank");
+      },
+    });
+    return fields;
   };
 
   return {
-    EditorTab: editorTab,
+    EditorFields: editorFields,
   };
 })();
 
 addFilter(
-  "dittyEditor.tabs",
-  "ditty-news-ticker/dittyEditorWPMLTab",
-  dittyWPML.EditorTab
+  "dittyEditor.translationFields",
+  "ditty-news-ticker/dittyEditorWPMLFields",
+  dittyWPML.EditorFields
 );
