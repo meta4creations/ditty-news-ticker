@@ -508,6 +508,47 @@ class Ditty_Scripts {
 			true
 		);
 		if ( empty( $ditty_scripts_enqueued ) ) {
+      if ( $ditty_id = ditty_editing() ) {
+        if ( 'ditty-new' == $ditty_id ) {
+					$title = __( 'New Ditty', 'ditty-news-ticker' );
+					$default_type = ditty_default_display_type();
+					$display_type_object = ditty_display_type_object( $default_type );
+					$display = false;
+				} else {
+					$ditty = get_post( $ditty_id );	
+					$title = $ditty->post_title;
+					$display = get_post_meta(  $ditty_id, '_ditty_display', true );
+				}
+				$item_data = Ditty()->editor->item_data(  $ditty_id );
+        wp_add_inline_script( 'ditty-editor-init', 'const dittyEditorVars=' . json_encode( apply_filters( 'dittyEditorVars', array(
+          'nonce'			          => wp_create_nonce( 'wp_rest' ),
+          'mode'								=> WP_DEBUG ? 'development' : 'production',
+          'userId'							=> get_current_user_id(),
+          'restUrl'							=> get_rest_url(),
+          'id'									=> $ditty_id,
+          'title' 							=> $title,
+          'status'							=> ( 'ditty-new' == $ditty_id ) ? 'publish' : get_post_status( $ditty_id ),
+          'settings' 						=> ( 'ditty-new' == $ditty_id ) ? ditty_single_settings_defaults() : get_post_meta( $ditty_id, '_ditty_settings', true ),
+          'items'								=> $item_data && isset( $item_data['items'] ) ? $item_data['items'] : false,
+          'displayItems'				=> $item_data && isset( $item_data['display_items'] ) ? $item_data['display_items'] : false,
+          'displayObject' 			=> is_array( $display ) ? $display : false,
+          'display' 						=> ! is_array( $display ) ? $display : false,
+          'displays'						=> Ditty()->editor->display_data(),
+          'layouts'							=> Ditty()->editor->layout_data(),
+          'itemTypes'						=> Ditty()->editor->item_type_data(),
+          'displayTypes'				=> Ditty()->editor->display_type_data(),
+          'variationDefaults' 	=> ditty_get_variation_defaults(),
+          'defaultDisplayType' 	=> ditty_default_display_type(),
+          'defaultItemType'			=> ditty_default_item_type(),
+          'apiItemTypes'        => ditty_api_item_types_data(),
+          'apiDisplayTypes'     => ditty_api_display_types_data(),
+          'translationPlugin'    => Ditty()->translations->get_translation_plugin(),
+          'translationLanguage'  => Ditty()->translations->get_translation_language(),
+          'sassWorkerUrl'				  => DITTY_URL . 'includes/libs/sass/sass.worker.js',
+          'dittyDevelopment'		  => defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
+        ), $hook ) ), 'before' ) . ';';
+      }
+      
 			wp_add_inline_script( 'ditty-editor-init', 'const dittyEditor=' . json_encode( apply_filters( 'dittyEditor', array(
 				'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
 			) ) ) . ';', 'before' );
@@ -534,46 +575,6 @@ class Ditty_Scripts {
 				true
 			);
       wp_enqueue_media();
-
-			if ( empty( $ditty_scripts_enqueued ) ) {
-				if ( 'ditty-new' == $ditty_id ) {
-					$title = __( 'New Ditty', 'ditty-news-ticker' );
-					$default_type = ditty_default_display_type();
-					$display_type_object = ditty_display_type_object( $default_type );
-					$display = false;
-				} else {
-					$ditty = get_post( $ditty_id );	
-					$title = $ditty->post_title;
-					$display = get_post_meta(  $ditty_id, '_ditty_display', true );
-				}
-				$item_data = Ditty()->editor->item_data(  $ditty_id );
-				
-				wp_add_inline_script( 'ditty-editor', 'const dittyEditorVars=' . json_encode( apply_filters( 'dittyEditorVars', array(
-					'nonce'			          => wp_create_nonce( 'wp_rest' ),
-					'mode'								=> WP_DEBUG ? 'development' : 'production',
-					'userId'							=> get_current_user_id(),
-					'restUrl'							=> get_rest_url(),
-					'id'									=> $ditty_id,
-					'title' 							=> $title,
-					'status'							=> ( 'ditty-new' == $ditty_id ) ? 'publish' : get_post_status( $ditty_id ),
-					'settings' 						=> ( 'ditty-new' == $ditty_id ) ? ditty_single_settings_defaults() : get_post_meta( $ditty_id, '_ditty_settings', true ),
-					'items'								=> $item_data && isset( $item_data['items'] ) ? $item_data['items'] : false,
-					'displayItems'				=> $item_data && isset( $item_data['display_items'] ) ? $item_data['display_items'] : false,
-					'displayObject' 			=> is_array( $display ) ? $display : false,
-					'display' 						=> ! is_array( $display ) ? $display : false,
-					'displays'						=> Ditty()->editor->display_data(),
-					'layouts'							=> Ditty()->editor->layout_data(),
-					'itemTypes'						=> Ditty()->editor->item_type_data(),
-					'displayTypes'				=> Ditty()->editor->display_type_data(),
-					'variationDefaults' 	=> ditty_get_variation_defaults(),
-					'defaultDisplayType' 	=> ditty_default_display_type(),
-					'defaultItemType'			=> ditty_default_item_type(),
-          'apiItemTypes'        => ditty_api_item_types_data(),
-          'apiDisplayTypes'     => ditty_api_display_types_data(),
-					'sassWorkerUrl'				=> DITTY_URL . 'includes/libs/sass/sass.worker.js',
-					'dittyDevelopment'		=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
-				), $hook ) ), 'before' ) . ';';
-			}
 		}
 
 		if ( $display_id = ditty_display_editing() ) {
