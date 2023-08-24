@@ -156,9 +156,8 @@ class Ditty_Translations {
 	 * @param   array
 	 */
 	public function delete_post_translations( $post_id ) {
-    global $post;
-    $post_type = $post->post_type;
-    if ( isset( $post->post_type ) && ! ( 'ditty' == $post->post_type ) ) {
+    $post_type = get_post_type( $post_id );
+    if ( 'ditty' != $post->post_type ) {
       return $post_id;
     }
     

@@ -12,6 +12,7 @@ const PanelTranslation = () => {
   const [customVars, setCustomVars] = useState({});
   const updates = helpers.dittyUpdates();
   const hasUpdates = Object.keys(updates).length !== 0;
+  console.log("updates", updates);
 
   const customData = (key, value) => {
     if (!key) {

@@ -109,7 +109,7 @@ export function refreshTranslations(dittyId, onComplete) {
   const apiURL = `${dittyEditorVars.restUrl}dittyeditor/v1/refreshTranslations`;
   const apiData = {
     userId: dittyEditorVars.userId,
-    dittyId: dittyId,
+    id: dittyId,
   };
   const config = {
     headers: {

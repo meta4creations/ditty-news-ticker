@@ -366,10 +366,10 @@ class Ditty_API {
 			return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
 		}
 		$apiData = $params['apiData'];
-		if ( ! isset( $apiData['dittyId'] ) ) {
+		if ( ! isset( $apiData['id'] ) ) {
 			return new WP_Error( 'no_id', __( 'No Ditty Id', 'ditty-news-ticker' ), array( 'status' => 404 ) );
 		}
-    $ditty_id = $apiData['dittyId'];
+    $ditty_id = $apiData['id'];
 
     // Save strings
     $results = Ditty()->translations->save_ditty_translations( $ditty_id );
