@@ -7,12 +7,12 @@ import { FieldList } from "../fields";
 import { EditorContext } from "./context";
 
 const PanelTranslation = () => {
-  const { settings, actions, helpers } = useContext(EditorContext);
+  const dittyData = useContext(EditorContext);
+  const { settings, actions, helpers } = dittyData;
 
   const [customVars, setCustomVars] = useState({});
   const updates = helpers.dittyUpdates();
   const hasUpdates = Object.keys(updates).length !== 0;
-  console.log("updates", updates);
 
   const customData = (key, value) => {
     if (!key) {
@@ -36,30 +36,26 @@ const PanelTranslation = () => {
     });
   }
 
-  const settingsFields = applyFilters(
-    "dittyEditor.translationFieldGroups",
-    [
-      {
-        type: "group",
-        name: __("Translation Settings", "ditty-news-ticker"),
-        description: __(
-          "Configure the translation settings.",
-          "ditty-news-ticker"
-        ),
-        multipleFields: true,
-        defaultState: "expanded",
-        collapsible: false,
-        fields: applyFilters(
-          "dittyEditor.translationFields",
-          fields,
-          hasUpdates,
-          customData
-        ),
-      },
-    ],
-    hasUpdates,
-    customData
-  );
+  const settingsFields = [
+    {
+      type: "group",
+      name: __("Translation Settings", "ditty-news-ticker"),
+      description: __(
+        "Configure the translation settings.",
+        "ditty-news-ticker"
+      ),
+      multipleFields: true,
+      defaultState: "expanded",
+      collapsible: false,
+      fields: applyFilters(
+        "dittyEditor.translationFields",
+        fields,
+        dittyData,
+        hasUpdates,
+        customData
+      ),
+    },
+  ];
 
   const handleOnUpdate = (id, value) => {
     const updatedSettings = _.cloneDeep(settings);

@@ -374,19 +374,11 @@ class Ditty_API {
     // Save strings
     $results = Ditty()->translations->save_ditty_translations( $ditty_id );
 
-    // Delete language transients
-    $languages = Ditty()->translations->get_active_translation_languages();
-    $transient_names = [];
-    if ( is_array( $languages ) && count( $languages ) > 0 ) {
-      foreach ( $languages as $language => $data ) {
-        $transient_name = "ditty_display_items_{$ditty_id}_{$language}";
-        $transient_names[] = $transient_name;
-        delete_transient( $transient_name );
-      }
-    }
+    // Delete transients
+    Ditty()->translations->delete_language_transients( $ditty_id );
 
 		$data = array(
-			'results'	=> $languages,
+			'results'	=> __( 'All strings refreshed!', 'ditty-news-ticker' ),
 		);
 		return rest_ensure_response( $data );
 	}

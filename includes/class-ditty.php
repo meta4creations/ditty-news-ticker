@@ -203,7 +203,9 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/post-types.php';
 		require_once DITTY_DIR . 'includes/upgrades.php';
 		require_once DITTY_DIR . 'includes/widget.php';
-		require_once DITTY_DIR . 'includes/wpml.php';
+
+    // Translator files
+		require_once DITTY_DIR . 'includes/translators/wpml.php';
 		
 		// Builders
 		require_once DITTY_DIR . 'includes/builders/fusion/builder.php';

@@ -170,6 +170,18 @@ class Ditty_Translations {
   }
 
   /**
+	 * Delete transients
+	 *
+	 * @access  public
+	 * @since   3.1.25
+	 * @param   array
+	 */
+	public function delete_language_transients( $ditty_id ) {
+    $translation_plugin = $this->get_translation_plugin();
+    do_action( 'ditty_delete_language_transients', $ditty_id, $translation_plugin );
+  }
+
+  /**
 	 * Delete item translations
 	 *
 	 * @access  public

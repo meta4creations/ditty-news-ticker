@@ -197,17 +197,7 @@ export const getLayoutVariationObject = (itemType, variation) => {
  * @param {object} item
  * @returns element
  */
-export const getDefaultLayout = (item, variation = "default") => {
+export const getDefaultLayout = (item) => {
   const itemTypeObject = getItemTypeObject(item);
   return itemTypeObject.defaultLayout;
-
-  // const variationDefaults = dittyEditorVars.variationDefaults
-  //   ? dittyEditorVars.variationDefaults
-  //   : {};
-  // if (
-  //   variationDefaults[itemTypeObject.id] &&
-  //   variationDefaults[itemTypeObject.id][variation]
-  // ) {
-  //   console.log("template", variationDefaults[itemTypeObject.id][variation]);
-  // }
 };

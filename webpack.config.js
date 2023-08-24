@@ -33,7 +33,7 @@ var dittyConfig = {
       "./src/partials/itemTypeHtml.js",
       "./src/partials/displayTypeTicker.js",
       "./src/partials/displayTypeList.js",
-      "./src/partials/translations/wpml.js",
+      "./src/partials/translators/wpml.js",
     ],
   },
   output: {

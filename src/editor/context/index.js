@@ -568,9 +568,15 @@ export class EditorProvider extends Component {
       updates.items = trimmedUpdatedItems;
     }
 
-    // Check if the display has changes]
+    // Check if the display has changes
     if (!_.isEqual(this.state.currentDisplay, this.initialDisplay)) {
-      updates.display = this.state.currentDisplay;
+      if (this.state.currentDisplay.id && this.initialDisplay.id) {
+        if (this.state.currentDisplay.id !== this.initialDisplay.id) {
+          updates.display = this.state.currentDisplay;
+        }
+      } else {
+        updates.display = this.state.currentDisplay;
+      }
     }
 
     // Check if the title has changes

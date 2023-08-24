@@ -58,26 +58,8 @@ jQuery(function ($) {
           console.log(`LIVE UPDATE: ${dittyId}`);
         }
         $(this)[`ditty_${displayType}`]("loadItems", items, "static");
-        //$(this)["ditty_" + displayType]("options", "items", items);
       });
     }
-
-    /**
-     * Get current API IDs
-     *
-     * @since    3.0
-     * @return   null
-     */
-    // function getApiIds() {
-    //   var apiIds = {};
-    //   $( '.ditty-item' ).each( function() {
-    //     var apiId = $( this ).data( 'api_id' );
-    //     if ( apiId ) {
-    // 	    apiIds[apiId] = apiId;
-    //     }
-    // 	} );
-    // 	return apiIds;
-    // }
 
     /**
      * Check for live updates

@@ -496,6 +496,10 @@ class Ditty_Singles {
 		if ( $ditty_id ) {
 			$transient_name = "ditty_display_items_{$ditty_id}";
 			delete_transient( $transient_name );
+
+      // Delete language transients
+      Ditty()->translations->delete_language_transients( $ditty_id );
+
 		} else {
 			global $wpdb;
 			$all_transients = $wpdb->get_results( "SELECT option_name AS name, option_value AS value FROM $wpdb->options WHERE option_name LIKE '_transient_ditty_display_items_%'" );

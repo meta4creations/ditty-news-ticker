@@ -30,10 +30,22 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 		add_filter( 'ditty_layout_tags', [$this, 'layout_tags'], 10, 2 );
 	}
 
+  /**
+	 * Set the translatable fields
+	 *
+	 * @access  public
+	 * @since   3.1.25
+	 */
   public function is_translatable() {
     return [
-      'content' => __( 'Content', 'ditty-news-ticker' ),
-      'link_title' => __( 'Title', 'ditty-news-ticker' ),
+      'content' => [
+        'label' => __( 'Content', 'ditty-news-ticker' ),
+        'type' => 'AREA',
+      ],
+      'link_title' => [
+        'label' => __( 'Title', 'ditty-news-ticker' ),
+        'type' => 'LINE',
+      ]
     ];
   }
 

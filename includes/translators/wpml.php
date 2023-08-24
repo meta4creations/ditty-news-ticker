@@ -13,18 +13,21 @@ function translation_language( $language, $translation_plugin ) {
   }
 	return apply_filters( 'wpml_current_language', null );
 }
-add_filter( 'ditty_translation_language', 'Ditty\WPML\translation_language', 10, 3 );
+add_filter( 'ditty_translation_language', 'Ditty\WPML\translation_language', 10, 2 );
 
 /**
- * Get the current language
+ * Get all active languages
  * 
  * @since   3.1.25
  */
+function get_active_translation_languages() {
+  return apply_filters( 'wpml_active_languages', null, null );
+}
 function active_translation_languages( $languages, $translation_plugin ) {
   if ( 'wpml' != $translation_plugin ) {
     return $languages;
   }
-	return apply_filters( 'wpml_active_languages', null, null );
+	return get_active_translation_languages();
 }
 add_filter( 'ditty_active_translation_languages', 'Ditty\WPML\active_translation_languages', 10, 2 );
 
@@ -67,11 +70,11 @@ function save_item_translation( $item, $keys, $translation_plugin ) {
       'title' => sprintf( __( 'Ditty ID: %d' ), $ditty_id ),
     );
 
-    foreach ( $keys as $key_id => $key_label ) {
+    foreach ( $keys as $key_id => $key ) {
       if ( isset( $item_value[$key_id] ) ) {
         $string_value = $item_value[$key_id];
-        $label = sprintf( __( 'Item %d: %s', 'ditty-news-ticker' ), $item_id, $key_label );
-        do_action( 'wpml_register_string', $string_value, "item_{$item_id}_{$key_id}", $package, $label, 'LINE' );
+        $label = sprintf( __( 'Item %d: %s', 'ditty-news-ticker' ), $item_id, $key['label'] );
+        do_action( 'wpml_register_string', $string_value, "item_{$item_id}_{$key_id}", $package, $label, $key['type'] );
       }
     }
   }
@@ -90,7 +93,7 @@ function delete_item_translation( $item, $keys, $translation_plugin ) {
   global $wpdb;
 
 	$names_to_delete = [];
-  foreach ( $keys as $key_id => $key_label ) {
+  foreach ( $keys as $key_id => $key ) {
     $names_to_delete[] = "item_{$item['item_id']}_{$key_id}";
   }
   
@@ -122,6 +125,59 @@ function delete_post_translations( $post_id, $post_type ) {
   }
 }
 add_action( 'ditty_delete_post_translations', 'Ditty\WPML\delete_post_translations', 10, 2 );
+
+/**
+ * Delete transients
+ * 
+ * @since   3.1.25
+ */
+function delete_transients( $ditty_id ) {
+  $languages = get_active_translation_languages();
+  if ( is_array( $languages ) && count( $languages ) > 0 ) {
+    foreach ( $languages as $language => $data ) {
+      $transient_name = "ditty_display_items_{$ditty_id}_{$language}";
+      delete_transient( $transient_name );
+    }
+  }
+}
+function delete_language_transients( $ditty_id, $translation_plugin ) {
+  if ( 'wpml' != $translation_plugin ) {
+    return $language;
+  }
+	delete_transients( $ditty_id );
+}
+add_action( 'ditty_delete_language_transients', 'Ditty\WPML\delete_language_transients', 10, 2 );
+
+/**
+ * Clear language transients when translations are updated
+ * 
+ * @since   3.1.25
+ */
+function translation_updated( $st_id ) {
+
+  // Get IDs of of strings
+  global $wpdb;
+  $st_id = intval($st_id); // Make sure $st_id is an integer (or sanitize appropriately)
+  $sql = $wpdb->prepare("SELECT string_id FROM {$wpdb->prefix}icl_string_translations WHERE id = %d", $st_id);
+  $ids = $wpdb->get_col($sql);
+  if ( empty( $ids ) ) {
+    return false;
+  }
+
+  // Get contexts of strings
+  $id = intval($ids[0]); // Make sure $st_id is an integer (or sanitize appropriately)
+  $sql = $wpdb->prepare("SELECT context FROM {$wpdb->prefix}icl_strings WHERE id = %d", $id);
+  $contexts = $wpdb->get_col($sql);
+
+  if ( empty( $contexts ) ) {
+    return false;
+  }
+
+  $ditty_id = substr( $contexts[0], 6);
+
+  delete_transients( $ditty_id );
+}
+add_action( 'wpml_st_add_string_translation', 'Ditty\WPML\translation_updated' );
 
 /**
  * Translate a ditty title
@@ -162,7 +218,7 @@ function translate_item( $item, $keys, $translation_plugin ) {
     );
 
     if ( $item_value && is_array( $keys ) && count( $keys ) > 0 ) {
-      foreach ( $keys as $key_id => $key_label ) {
+      foreach ( $keys as $key_id => $key ) {
         if ( isset( $item_value[$key_id] ) ) {
           $original_value = $item_value[$key_id];
           $translated_string = apply_filters( 'wpml_translate_string', $original_value, "item_{$item_id}_{$key_id}", $package );

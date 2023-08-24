@@ -17,6 +17,21 @@ class Ditty_Item_Type_Html extends Ditty_Item_Type_Default {
 	 * @since 3.1
 	 */
 	public $slug = 'html';
+
+  /**
+	 * Set the translatable fields
+	 *
+	 * @access  public
+	 * @since   3.1.25
+	 */
+  public function is_translatable() {
+    return [
+      'content' => [
+        'label' => __( 'Content', 'ditty-news-ticker' ),
+        'type' => 'AREA',
+      ],
+    ];
+  }
 	
 	/**
 	 * Setup the type settings

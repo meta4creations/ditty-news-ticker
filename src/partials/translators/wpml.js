@@ -4,12 +4,12 @@ import { refreshTranslations } from "../../services/httpService";
 const dittyNotification = dittyEditor.notifications.dittyNotification;
 
 const dittyWPML = (function () {
-  const stringsUrl = `${dittyEditorVars.adminUrl}admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=ditty-${dittyEditorVars.id}`;
-
-  const forceRefresh = async (customData) => {
+  const forceRefresh = async (customData, dittyId) => {
     customData("showSpinner", "true");
     try {
-      await refreshTranslations(dittyEditorVars.id, (data) => {});
+      await refreshTranslations(dittyId, (data) => {
+        dittyNotification(data.results);
+      });
     } catch (ex) {
       dittyNotification(ex, "error");
       onComplete();
@@ -17,10 +17,11 @@ const dittyWPML = (function () {
     customData("showSpinner", "false");
   };
 
-  const editorFields = (fields, hasUpdates, customData) => {
+  const editorFields = (fields, dittyData, hasUpdates, customData) => {
     if ("wpml" !== dittyEditorVars.translationPlugin) {
       return fields;
     }
+    const stringsUrl = `${dittyEditorVars.adminUrl}admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=ditty-${dittyData.id}`;
     fields.push({
       type: "button",
       kind: false === hasUpdates ? "primary" : "secondary",
@@ -44,7 +45,7 @@ const dittyWPML = (function () {
       isFullWidth: true,
       showSpinner: "true" === customData("showSpinner"),
       onClick: () => {
-        forceRefresh(customData);
+        forceRefresh(customData, dittyData.id);
       },
     });
     return fields;
