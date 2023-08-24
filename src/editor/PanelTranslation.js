@@ -1,6 +1,6 @@
 import { applyFilters } from "@wordpress/hooks";
 import { __ } from "@wordpress/i18n";
-import { useContext } from "@wordpress/element";
+import { useContext, useState } from "@wordpress/element";
 import _ from "lodash";
 import { Panel } from "../components";
 import { FieldList } from "../fields";
@@ -9,23 +9,25 @@ import { EditorContext } from "./context";
 const PanelTranslation = () => {
   const { settings, actions, helpers } = useContext(EditorContext);
 
+  const [customVars, setCustomVars] = useState({});
   const updates = helpers.dittyUpdates();
   const hasUpdates = Object.keys(updates).length !== 0;
 
-  const fields = [
-    {
-      type: "radio",
-      id: "translation_enabled",
-      name: __("Enable Translations", "ditty-news-ticker"),
-      options: {
-        no: __("No", "ditty-news-ticker"),
-        yes: __("Yes", "ditty-news-ticker"),
-      },
-      inline: true,
-      std: "no",
-    },
-  ];
-  if ("yes" === settings.translation_enabled && hasUpdates) {
+  const customData = (key, value) => {
+    if (!key) {
+      return false;
+    }
+    if (value) {
+      const updatedCustomVars = { ...customVars };
+      updatedCustomVars[key] = value;
+      setCustomVars(updatedCustomVars);
+    } else {
+      return customVars[key] ? customVars[key] : false;
+    }
+  };
+
+  const fields = [];
+  if (hasUpdates) {
     fields.push({
       type: "notification",
       kind: "warning",
@@ -49,12 +51,13 @@ const PanelTranslation = () => {
         fields: applyFilters(
           "dittyEditor.translationFields",
           fields,
-          settings.translation_enabled,
-          hasUpdates
+          hasUpdates,
+          customData
         ),
       },
     ],
-    hasUpdates
+    hasUpdates,
+    customData
   );
 
   const handleOnUpdate = (id, value) => {

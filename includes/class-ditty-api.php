@@ -59,6 +59,11 @@ class Ditty_API {
       'callback' 	=> array( $this, 'php_item_mods' ),
 			'permission_callback' => array( $this, 'general_ditty_permissions_check' ),
     ) );
+    register_rest_route( "dittyeditor/v{$this->version}", 'refreshTranslations', array(
+      'methods' 	=> 'POST',
+      'callback' 	=> array( $this, 'refresh_translations' ),
+			'permission_callback' => array( $this, 'save_ditty_permissions_check' ),
+    ) );
 	}
 
 	/**
@@ -345,6 +350,43 @@ class Ditty_API {
 
 		$data = array(
 			'item'	=> $filtered_item,
+		);
+		return rest_ensure_response( $data );
+	}
+
+  /**
+	 * Refresh Translations
+	 *
+	 * @access public
+	 * @since  3.1.25
+	 */
+	public function refresh_translations( $request ) {
+		$params = $request->get_params();
+		if ( ! isset( $params['apiData'] ) ) {
+			return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+		$apiData = $params['apiData'];
+		if ( ! isset( $apiData['dittyId'] ) ) {
+			return new WP_Error( 'no_id', __( 'No Ditty Id', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+    $ditty_id = $apiData['dittyId'];
+
+    // Save strings
+    $results = Ditty()->translations->save_ditty_translations( $ditty_id );
+
+    // Delete language transients
+    $languages = Ditty()->translations->get_active_translation_languages();
+    $transient_names = [];
+    if ( is_array( $languages ) && count( $languages ) > 0 ) {
+      foreach ( $languages as $language => $data ) {
+        $transient_name = "ditty_display_items_{$ditty_id}_{$language}";
+        $transient_names[] = $transient_name;
+        delete_transient( $transient_name );
+      }
+    }
+
+		$data = array(
+			'results'	=> $languages,
 		);
 		return rest_ensure_response( $data );
 	}

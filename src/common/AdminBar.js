@@ -22,6 +22,10 @@ const AdminBar = ({
   const [editTitle, setEditTitle] = useState(false);
   const [editDescription, setEditDescription] = useState(false);
 
+  const renderButtons = () => {
+    return "buttons";
+  };
+
   return (
     <div id="ditty-adminbar">
       {logo && <div id="ditty-adminbar__logo">{logo}</div>}

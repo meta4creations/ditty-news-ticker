@@ -3,11 +3,37 @@
 namespace Ditty\WPML;
 
 /**
+ * Get the current language
+ * 
+ * @since   3.1.25
+ */
+function translation_language( $language, $translation_plugin ) {
+  if ( 'wpml' != $translation_plugin ) {
+    return $language;
+  }
+	return apply_filters( 'wpml_current_language', null );
+}
+add_filter( 'ditty_translation_language', 'Ditty\WPML\translation_language', 10, 3 );
+
+/**
+ * Get the current language
+ * 
+ * @since   3.1.25
+ */
+function active_translation_languages( $languages, $translation_plugin ) {
+  if ( 'wpml' != $translation_plugin ) {
+    return $languages;
+  }
+	return apply_filters( 'wpml_active_languages', null, null );
+}
+add_filter( 'ditty_active_translation_languages', 'Ditty\WPML\active_translation_languages', 10, 2 );
+
+/**
  * Save the title translation
  *
  * @since   3.1.25
  */
-function save_title_translation( $post_id, $post, $update, $translation_plugin ) {
+function save_title_translation( $title, $post_id, $translation_plugin ) {
   if ( 'wpml' != $translation_plugin ) {
     return false;
   }
@@ -17,10 +43,9 @@ function save_title_translation( $post_id, $post, $update, $translation_plugin )
     'name' => $post_id,
     'title' => sprintf( __( 'Ditty ID: %d' ), $post_id ),
   );
-  $string_value = $post->post_title;
-  do_action( 'wpml_register_string', $string_value, "ditty_title", $package, 'ditty_title', 'LINE' );
+  do_action( 'wpml_register_string', $title, "ditty_title", $package, 'ditty_title', 'LINE' );
 }
-add_action( 'ditty_save_title_translation', 'Ditty\WPML\save_title_translation', 10, 4 );
+add_action( 'ditty_save_title_translation', 'Ditty\WPML\save_title_translation', 10, 3 );
 
 /**
  * Save the item translation
@@ -105,7 +130,7 @@ add_action( 'ditty_delete_post_translations', 'Ditty\WPML\delete_post_translatio
  */
 function translate_title( $post_title, $post_id, $translation_plugin ) {
   if ( 'wpml' != $translation_plugin ) {
-    return false;
+    return $post_title;
   }
 
 	$package = array(
@@ -124,7 +149,7 @@ add_filter( 'ditty_translate_title', 'Ditty\WPML\translate_title', 10, 3 );
  */
 function translate_item( $item, $keys, $translation_plugin ) {
   if ( 'wpml' != $translation_plugin ) {
-    return false;
+    return $item;
   }
 
 	$item_id = $item['item_id'];

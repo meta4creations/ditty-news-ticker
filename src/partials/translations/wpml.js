@@ -1,12 +1,24 @@
 import { addFilter } from "@wordpress/hooks";
 import { __ } from "@wordpress/i18n";
+import { refreshTranslations } from "../../services/httpService";
+const dittyNotification = dittyEditor.notifications.dittyNotification;
 
 const dittyWPML = (function () {
-  const editorFields = (fields, translationEnabled, hasUpdates) => {
-    if (
-      "yes" !== translationEnabled ||
-      "wpml" !== dittyEditorVars.translationPlugin
-    ) {
+  const stringsUrl = `${dittyEditorVars.adminUrl}admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=ditty-${dittyEditorVars.id}`;
+
+  const forceRefresh = async (customData) => {
+    customData("showSpinner", "true");
+    try {
+      await refreshTranslations(dittyEditorVars.id, (data) => {});
+    } catch (ex) {
+      dittyNotification(ex, "error");
+      onComplete();
+    }
+    customData("showSpinner", "false");
+  };
+
+  const editorFields = (fields, hasUpdates, customData) => {
+    if ("wpml" !== dittyEditorVars.translationPlugin) {
       return fields;
     }
     fields.push({
@@ -16,8 +28,23 @@ const dittyWPML = (function () {
       label: __("Translate Strings", "ditty-news-ticker"),
       isFullWidth: true,
       onClick: () => {
-        const stringsUrl = `${dittyEditorVars.adminUrl}admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=ditty-${dittyEditorVars.id}`;
         window.open(stringsUrl, "_blank");
+      },
+    });
+    fields.push({
+      name: __("Refresh all Strings", "ditty-news-ticker"),
+      description: __(
+        "If string are missing on the translation page, click this button to force load the saved strings.",
+        "ditty-news-ticker"
+      ),
+      type: "button",
+      size: "small",
+      disabled: hasUpdates,
+      label: __("Refresh all Strings", "ditty-news-ticker"),
+      isFullWidth: true,
+      showSpinner: "true" === customData("showSpinner"),
+      onClick: () => {
+        forceRefresh(customData);
       },
     });
     return fields;

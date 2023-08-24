@@ -18,7 +18,7 @@ class Ditty_Translations {
 	 * @since   3.1.15
 	 */
 	public function __construct() {	
-    add_action( 'wp_insert_post', [$this, 'save_title_translation'], 10, 3 );
+    add_action( 'wp_insert_post', [$this, 'save_title_translation'], 10, 2 );
     add_action( 'delete_post', [$this, 'delete_post_translations'] );
     add_filter( 'the_title', [$this, 'translate_title'], 10, 2 );
 	}
@@ -41,12 +41,17 @@ class Ditty_Translations {
    */
   public function get_translation_language() {
     $translation_plugin = $this->get_translation_plugin();
-    switch( $translation_plugin ) {
-      case 'wpml':
-        return apply_filters( 'wpml_current_language', null );
-      default:
-        break;
-    }
+    return apply_filters( 'ditty_translation_language', '', $translation_plugin );
+  }
+
+  /**
+   * Get all active translation languages
+   * 
+   * @since   3.1.25
+   */
+  public function get_active_translation_languages() {
+    $translation_plugin = $this->get_translation_plugin();
+    return apply_filters( 'ditty_active_translation_languages', '', $translation_plugin );
   }
 
   /**
@@ -55,9 +60,9 @@ class Ditty_Translations {
 	 * @access  public
 	 * @since   3.1.25
 	 */
-  public function save_title_translation( $post_id, $post, $update ) {
+  public function save_title_translation( $post_id, $post ) {
     $translation_plugin = $this->get_translation_plugin();
-    do_action( 'ditty_save_title_translation', $post_id, $post, $update, $translation_plugin );
+    do_action( 'ditty_save_title_translation', $post->post_title, $post_id , $translation_plugin );
   }
 
   /**
@@ -97,6 +102,30 @@ class Ditty_Translations {
     } else {
       $this->save_item_translation( $items );
     }
+  }
+
+  /**
+	 * Save item translations
+	 *
+	 * @access  public
+	 * @since   3.1.25
+	 * @param   array
+	 */
+	public function save_ditty_translations( $ditty_id ) {
+
+    // Save the title
+    $post = get_post( $ditty_id );
+    $this->save_title_translation( $ditty_id, $post );
+
+    // Save the item translations
+    $items_meta = ditty_items_meta( $ditty_id );    
+    if ( is_array( $items_meta ) && count( $items_meta ) > 0 ) {
+      foreach ( $items_meta as $i => $item ) {
+        $this->save_item_translation( (array) $item );
+      }
+    }
+
+    return 'success';
   }
 
   /**

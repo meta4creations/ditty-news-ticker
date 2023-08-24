@@ -35,7 +35,7 @@ export function saveDisplay(data, onComplete) {
     },
   };
   return axios.post(apiURL, { apiData }, config).then((res) => {
-    onComplete(res.data);
+    onComplete && onComplete(res.data);
   });
 }
 
@@ -94,6 +94,22 @@ export function phpItemMods(item, hook = false, onComplete) {
     userId: dittyEditorVars.userId,
     item: item,
     hook: hook,
+  };
+  const config = {
+    headers: {
+      "X-WP-Nonce": dittyEditorVars.nonce,
+    },
+  };
+  return axios.post(apiURL, { apiData }, config).then((res) => {
+    onComplete && onComplete(res.data);
+  });
+}
+
+export function refreshTranslations(dittyId, onComplete) {
+  const apiURL = `${dittyEditorVars.restUrl}dittyeditor/v1/refreshTranslations`;
+  const apiData = {
+    userId: dittyEditorVars.userId,
+    dittyId: dittyId,
   };
   const config = {
     headers: {
