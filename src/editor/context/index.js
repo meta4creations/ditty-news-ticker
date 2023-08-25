@@ -728,6 +728,13 @@ export class EditorProvider extends Component {
     if (onComplete) {
       onComplete(data);
     }
+
+    if ("development" === this.editorVars.mode && window.console) {
+      const updates = this.getDittyUpdates();
+      if (Object.keys(updates).length) {
+        console.log("Orphan Updates:", updates);
+      }
+    }
   };
 
   /**
