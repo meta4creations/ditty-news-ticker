@@ -61,6 +61,9 @@ export const getAPIDisplayTypes = () => {
   const apiDisplayTypes = dittyEditorVars
     ? dittyEditorVars.apiDisplayTypes
     : [];
+  if (!apiDisplayTypes) {
+    return [];
+  }
   const displayTypes = getDisplayTypes();
 
   let filteredTypes = apiDisplayTypes.filter(

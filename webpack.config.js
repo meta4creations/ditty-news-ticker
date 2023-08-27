@@ -35,6 +35,14 @@ var dittyConfig = {
       "./src/partials/displayTypeList.js",
       "./src/partials/translators/wpml.js",
     ],
+    dittyAdmin: [
+      "./src/admin/class-ditty-ui-data-list.js",
+      "./src/admin/class-ditty-extension.js",
+      "./src/admin/ditty-extensions.js",
+      "./src/dittyAdmin.js",
+    ],
+    dittyAdminOld: "./src/dittyAdminOld.js",
+    dittyDisplays: "./src/dittyDisplays.js",
   },
   output: {
     filename: "[name].js",

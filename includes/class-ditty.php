@@ -258,6 +258,7 @@ class Ditty {
 			}
 			require_once DITTY_DIR . 'includes/admin/columns.php';
 			require_once DITTY_DIR . 'includes/admin/export.php';
+      require_once DITTY_DIR . 'includes/admin/marketing.php';
 			require_once DITTY_DIR . 'includes/admin/notices.php';
 		}
 		
@@ -363,8 +364,8 @@ class Ditty {
 		}
 		ditty_register_style( 'display', [
 				'ditty-displays',
-				DITTY_URL . 'includes/css/ditty-displays.css',
-				DITTY_DIR . 'includes/css/ditty-displays.css',
+				DITTY_URL . 'build/dittyDisplays.css',
+				DITTY_DIR . 'build/dittyDisplays.css',
 				[],
 				$this->version
 			]

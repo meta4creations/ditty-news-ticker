@@ -47,7 +47,13 @@ const migrateItemTypes = (itemTypes) => {
  */
 export const getAPIItemTypes = () => {
   const apiItemTypes = dittyEditorVars ? dittyEditorVars.apiItemTypes : [];
+  if (!apiItemTypes) {
+    return [];
+  }
+
   const itemTypes = getItemTypes();
+
+  console.log("dittyEditorVars", dittyEditorVars);
 
   let filteredTypes = apiItemTypes.filter(
     (apiItem) =>

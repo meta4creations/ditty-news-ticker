@@ -1,6 +1,6 @@
 <?php
 
-namespace Ditty\WPML;
+namespace Ditty\Translators\WPML;
 
 /**
  * Get the current language
@@ -13,7 +13,7 @@ function translation_language( $language, $translation_plugin ) {
   }
 	return apply_filters( 'wpml_current_language', null );
 }
-add_filter( 'ditty_translation_language', 'Ditty\WPML\translation_language', 10, 2 );
+add_filter( 'ditty_translation_language', 'Ditty\Translators\WPML\translation_language', 10, 2 );
 
 /**
  * Get all active languages
@@ -29,7 +29,7 @@ function active_translation_languages( $languages, $translation_plugin ) {
   }
 	return get_active_translation_languages();
 }
-add_filter( 'ditty_active_translation_languages', 'Ditty\WPML\active_translation_languages', 10, 2 );
+add_filter( 'ditty_active_translation_languages', 'Ditty\Translators\WPML\active_translation_languages', 10, 2 );
 
 /**
  * Save the title translation
@@ -48,7 +48,7 @@ function save_title_translation( $title, $post_id, $translation_plugin ) {
   );
   do_action( 'wpml_register_string', $title, "ditty_title", $package, 'ditty_title', 'LINE' );
 }
-add_action( 'ditty_save_title_translation', 'Ditty\WPML\save_title_translation', 10, 3 );
+add_action( 'ditty_save_title_translation', 'Ditty\Translators\WPML\save_title_translation', 10, 3 );
 
 /**
  * Save the item translation
@@ -79,7 +79,7 @@ function save_item_translation( $item, $keys, $translation_plugin ) {
     }
   }
 }
-add_action( 'ditty_save_item_translation', 'Ditty\WPML\save_item_translation', 10, 3 );
+add_action( 'ditty_save_item_translation', 'Ditty\Translators\WPML\save_item_translation', 10, 3 );
 
 /**
  * Delete an item translation
@@ -112,7 +112,7 @@ function delete_item_translation( $item, $keys, $translation_plugin ) {
   $sql = "DELETE FROM {$wpdb->prefix}icl_strings WHERE name IN (" . implode(', ', $placeholders) . ")";
   $results = $wpdb->query( $wpdb->prepare( $sql, $names_to_delete ) );
 }
-add_action( 'ditty_delete_item_translation', 'Ditty\WPML\delete_item_translation', 10, 3 );
+add_action( 'ditty_delete_item_translation', 'Ditty\Translators\WPML\delete_item_translation', 10, 3 );
 
 /**
  * Delete a ditty package
@@ -124,7 +124,7 @@ function delete_post_translations( $post_id, $post_type ) {
 	  do_action( 'wpml_delete_package', $post_id, __( 'Ditty', 'ditty-news-ticker' ) );
   }
 }
-add_action( 'ditty_delete_post_translations', 'Ditty\WPML\delete_post_translations', 10, 2 );
+add_action( 'ditty_delete_post_translations', 'Ditty\Translators\WPML\delete_post_translations', 10, 2 );
 
 /**
  * Delete transients
@@ -146,7 +146,7 @@ function delete_language_transients( $ditty_id, $translation_plugin ) {
   }
 	delete_transients( $ditty_id );
 }
-add_action( 'ditty_delete_language_transients', 'Ditty\WPML\delete_language_transients', 10, 2 );
+add_action( 'ditty_delete_language_transients', 'Ditty\Translators\WPML\delete_language_transients', 10, 2 );
 
 /**
  * Clear language transients when translations are updated
@@ -177,7 +177,7 @@ function translation_updated( $st_id ) {
 
   delete_transients( $ditty_id );
 }
-add_action( 'wpml_st_add_string_translation', 'Ditty\WPML\translation_updated' );
+add_action( 'wpml_st_add_string_translation', 'Ditty\Translators\WPML\translation_updated' );
 
 /**
  * Translate a ditty title
@@ -196,7 +196,7 @@ function translate_title( $post_title, $post_id, $translation_plugin ) {
   );
   return apply_filters( 'wpml_translate_string', $post_title, "ditty_title", $package );
 }
-add_filter( 'ditty_translate_title', 'Ditty\WPML\translate_title', 10, 3 );
+add_filter( 'ditty_translate_title', 'Ditty\Translators\WPML\translate_title', 10, 3 );
 
 /**
  * Translate a ditty item
@@ -229,4 +229,4 @@ function translate_item( $item, $keys, $translation_plugin ) {
     }
     return $item;
 }
-add_filter( 'ditty_translate_item', 'Ditty\WPML\translate_item', 10, 3 );
+add_filter( 'ditty_translate_item', 'Ditty\Translators\WPML\translate_item', 10, 3 );

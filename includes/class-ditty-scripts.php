@@ -378,7 +378,7 @@ class Ditty_Scripts {
 		if ( is_admin() ) {
 			wp_enqueue_style(
 				'ditty-admin',
-				DITTY_URL . 'includes/css/ditty-admin.css',
+				DITTY_URL . 'build/dittyAdmin.css',
 				[],
 				$this->version,
 				'all'
@@ -387,7 +387,7 @@ class Ditty_Scripts {
 		if ( 'ditty_page_ditty_extensions' == $hook || 'ditty_page_ditty_export' == $hook ) {
 			wp_enqueue_style(
 				'ditty-admin-old',
-				DITTY_URL . 'includes/css/ditty-admin-old.css',
+				DITTY_URL . 'build/dittyAdminOld.css',
 				['protip'],
 				$this->version,
 				'all'
@@ -541,8 +541,8 @@ class Ditty_Scripts {
           'variationDefaults' 	=> ditty_get_variation_defaults(),
           'defaultDisplayType' 	=> ditty_default_display_type(),
           'defaultItemType'			=> ditty_default_item_type(),
-          'apiItemTypes'        => ditty_api_item_types_data(),
-          'apiDisplayTypes'     => ditty_api_display_types_data(),
+          'apiItemTypes'        => ditty_api_item_types(),
+          'apiDisplayTypes'     => ditty_api_display_types(),
           'translationPlugin'    => Ditty()->translations->get_translation_plugin(),
           'translationLanguage'  => Ditty()->translations->get_translation_language(),
           'sassWorkerUrl'				  => DITTY_URL . 'includes/libs/sass/sass.worker.js',
@@ -620,7 +620,7 @@ class Ditty_Scripts {
 					'settings' 						=> 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_display_settings', true ),
 					'editorSettings'			=> 'ditty_display-new' == $display_id ? false : get_post_meta( $display_id, '_ditty_editor_settings', true ),
 					'displayTypes'				=> Ditty()->editor->display_type_data(),
-          'apiDisplayTypes'     => ditty_api_display_types_data(),
+          'apiDisplayTypes'     => ditty_api_display_types(),
 					'defaultDisplayType' 	=> ditty_default_display_type(),
 					'dittyDevelopment' 		=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
 				), $hook ) ), 'before' ) . ';';
@@ -672,7 +672,7 @@ class Ditty_Scripts {
 					'editorItem'			=> 'ditty_layout-new' == $layout_id ? false : get_post_meta( $layout_id, '_ditty_editor_item', true ),
 					'editorSettings'	=> 'ditty_layout-new' == $layout_id ? false : get_post_meta( $layout_id, '_ditty_editor_settings', true ),
 					'itemTypes'				=> Ditty()->editor->item_type_data(),
-          'apiItemTypes'    => ditty_api_item_types_data(),
+          'apiItemTypes'    => ditty_api_item_types(),
 					'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
 				), $hook ) ), 'before' ) . ';';
 			}
@@ -702,7 +702,7 @@ class Ditty_Scripts {
 			), $this->version, true );
 
 			if ( ( 'ditty_page_ditty_export' == $hook || 'ditty_page_ditty_extensions' == $hook ) && current_user_can( 'manage_ditty_settings' ) ) {
-				wp_enqueue_script( 'ditty-admin', DITTY_URL . 'includes/js/ditty-admin.min.js', array(
+				wp_enqueue_script( 'ditty-admin', DITTY_URL . 'build/dittyAdmin.js', array(
 					'jquery',
 					'jquery-ui-core',
 					'jquery-ui-sortable',

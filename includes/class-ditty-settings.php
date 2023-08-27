@@ -58,7 +58,7 @@ class Ditty_Settings {
 				'label' => __("General Settings", "ditty-news-ticker"),
 				'name' => __("General Settings", "ditty-news-ticker"),
 				'description' => __( 'Add a description here...', "ditty-news-ticker" ),
-				'icon' => 'fas fa-cog',
+				'icon' => 'fa-cog',
 				'fields' => [
 					[
 						'type' 		=> 'number',
@@ -112,7 +112,7 @@ class Ditty_Settings {
 				'label' => esc_html__( 'Global Ditty', 'ditty-news-ticker' ),
 				'name' => esc_html__( 'Global Ditty Settings', 'ditty-news-ticker' ),
 				'description' => esc_html__( 'Add Ditty dynamically anywhere on your site. You just need to specify an html selector and the position for the Ditty in relation to the selector. Then choose a Ditty and optionally set other customization options.', 'ditty-news-ticker' ),
-				'icon' => 'fas fa-globe-americas',
+				'icon' => 'fa-globe-americas',
 				'fields' => [
 					[
 						'type' 						=> 'group',
@@ -178,7 +178,7 @@ class Ditty_Settings {
 				'label' => esc_html__( 'Layout Defaults', 'ditty-news-ticker' ),
 				'name' => esc_html__( 'Item Type Layout Defaults', 'ditty-news-ticker' ),
 				'description' => esc_html__( 'Set default layouts for your item types.', 'ditty-news-ticker' ),
-				'icon' => 'fas fa-pencil-ruler',
+				'icon' => 'fa-pencil-ruler',
 				'fields' => [
 					[
 						'type'	=> 'group',
@@ -193,7 +193,7 @@ class Ditty_Settings {
 				'label' => esc_html__( 'Permissions', 'ditty-news-ticker' ),
 				'name' => esc_html__( 'User Role Permissions', 'ditty-news-ticker' ),
 				'description' => esc_html__( 'Set user permissions for the roles on your site.', 'ditty-news-ticker' ),
-				'icon' => 'fa-solid fa-lock',
+				'icon' => 'fa-lock',
 				'fields' => [
 					[
 						'type'	=> 'group',

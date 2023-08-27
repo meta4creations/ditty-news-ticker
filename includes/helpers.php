@@ -118,54 +118,6 @@ function ditty_single_settings( $ditty_id, $key = false ) {
 /**
  * Return an array of item types
  * 
- * @since   3.1.22
-*/
-function ditty_api_item_types_data() {
-	global $ditty_api_item_types_data;
-	if ( empty( $ditty_api_item_types_data ) ) {
-		$transient_name = "ditty_api_item_types_data";
-		$ditty_api_item_types_data = get_transient( $transient_name );
-		if ( ! $ditty_api_item_types_data ) {
-			$response = wp_remote_get( 'https://www.metaphorcreations.com/wp-json/dittysales/v1/itemTypes' );
-			if ( is_wp_error( $response ) ) {
-				$ditty_api_item_types_data = [];
-			} else {
-				$data = wp_remote_retrieve_body( $response );
-				$ditty_api_item_types_data = json_decode( $data, true );
-			}
-      set_transient( $transient_name, $ditty_api_item_types_data, DAY_IN_SECONDS );
-		}
-	}
-	return array_values( $ditty_api_item_types_data );
-}
-
-/**
- * Return an array of display types
- * 
- * @since   3.1.22
-*/
-function ditty_api_display_types_data() {
-	global $ditty_api_display_types_data;
-	if ( empty( $ditty_api_display_types_data ) ) {
-		$transient_name = "ditty_api_display_types_data";
-		$ditty_api_display_types_data = get_transient( $transient_name );
-		if ( ! $ditty_api_display_types_data ) {
-			$response = wp_remote_get( 'https://www.metaphorcreations.com/wp-json/dittysales/v1/displayTypes' );
-			if ( is_wp_error( $response ) ) {
-				$ditty_api_display_types_data = [];
-			} else {
-				$data = wp_remote_retrieve_body( $response );
-				$ditty_api_display_types_data = json_decode( $data, true );
-			}
-      set_transient( $transient_name, $ditty_api_display_types_data, DAY_IN_SECONDS );
-		}
-	}
-	return array_values( $ditty_api_display_types_data );
-}
-
-/**
- * Return an array of item types
- * 
  * @since   3.1
 */
 function ditty_item_types() {
