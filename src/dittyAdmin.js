@@ -50,6 +50,7 @@ jQuery(function ($) {
       var data = {
         action: "ditty_notice_close",
         id: $(this).data("id"),
+        source: $(this).data("source"),
         security: dittyAdminVars.security,
       };
       $.post(
