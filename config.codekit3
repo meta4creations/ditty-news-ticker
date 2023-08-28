@@ -17,18 +17,18 @@
       "oAP" : "\/.gitignore",
       "oF" : 1
     },
-    "\/.nova\/Publishing\/Demo.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/.nova\/Publishing\/Demo-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
     "\/.nova\/Publishing\/Metaphor Creations.json" : {
       "ft" : 524288,
       "oA" : 1,
       "oAP" : "\/.nova\/Publishing\/Metaphor Creations-min.json",
+      "oF" : 0,
+      "oO" : 1,
+      "oS" : 1
+    },
+    "\/.nova\/Publishing\/Staging.json" : {
+      "ft" : 524288,
+      "oA" : 1,
+      "oAP" : "\/.nova\/Publishing\/Staging-min.json",
       "oF" : 0,
       "oO" : 1,
       "oS" : 1
@@ -62,206 +62,6 @@
       "oF" : 0,
       "oO" : 0,
       "oS" : 1
-    },
-    "\/css\/admin.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/admin-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/css\/admin.css.map" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/admin.css.map",
-      "oF" : 0
-    },
-    "\/css\/adminOld.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/adminOld-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/css\/adminOld.css.map" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/adminOld.css.map",
-      "oF" : 0
-    },
-    "\/css\/displays.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/displays-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/css\/displays.css.map" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/displays.css.map",
-      "oF" : 0
-    },
-    "\/css\/dittyDisplay.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/dittyDisplay-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/css\/dittyDisplay.css.map" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/dittyDisplay.css.map",
-      "oF" : 0
-    },
-    "\/css\/dittyDisplayTicker.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/dittyDisplayTicker-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/css\/dittyDisplayTicker.css.map" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/dittyDisplayTicker.css.map",
-      "oF" : 0
-    },
-    "\/css\/editor.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/editor-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/css\/editor.css.map" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/editor.css.map",
-      "oF" : 0
-    },
-    "\/css\/rotator.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/rotator-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/css\/rotator.css.map" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/rotator.css.map",
-      "oF" : 0
-    },
-    "\/css\/settings.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/settings-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/css\/settings.css.map" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/settings.css.map",
-      "oF" : 0
-    },
-    "\/css\/style-admin.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/style-admin-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/css\/style-admin.css.map" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/style-admin.css.map",
-      "oF" : 0
-    },
-    "\/css\/style.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/style-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/css\/style.css.map" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/css\/style.css.map",
-      "oF" : 0
     },
     "\/ditty-news-ticker.php" : {
       "cB" : 0,
