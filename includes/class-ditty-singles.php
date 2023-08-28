@@ -695,6 +695,7 @@ class Ditty_Singles {
 				'post_author' => $userId,
 			] );
 			$updates['new'] = $id;
+      $updates['title'] = $title;
 		} elseif ( $title || $status || $author ) {	
 			$postarr = array(
 				'ID' => $id,
