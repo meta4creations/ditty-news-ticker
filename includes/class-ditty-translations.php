@@ -157,7 +157,7 @@ class Ditty_Translations {
 	 */
 	public function delete_post_translations( $post_id ) {
     $post_type = get_post_type( $post_id );
-    if ( 'ditty' != $post->post_type ) {
+    if ( 'ditty' != $post_type ) {
       return $post_id;
     }
     
