@@ -90,9 +90,38 @@
     margin-left: auto;
   }
   &__close {
+    color: #32373b;
     text-decoration: none;
     span {
       display: none;
+    }
+  }
+  &.notice-info {
+    border-left-color: $info;
+    .ditty-dashboard-notice__cta .ditty-button {
+      color: #fff;
+      background-color: $info;
+    }
+  }
+  &.notice-success {
+    border-left-color: $success;
+    .ditty-dashboard-notice__cta .ditty-button {
+      color: #fff;
+      background-color: $success;
+    }
+  }
+  &.notice-warning {
+    border-left-color: $warning;
+    .ditty-dashboard-notice__cta .ditty-button {
+      color: #fff;
+      background-color: $warning;
+    }
+  }
+  &.notice-error {
+    border-left-color: $error;
+    .ditty-dashboard-notice__cta .ditty-button {
+      color: #fff;
+      background-color: $error;
     }
   }
 }

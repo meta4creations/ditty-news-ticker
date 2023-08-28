@@ -53,8 +53,6 @@ export const getAPIItemTypes = () => {
 
   const itemTypes = getItemTypes();
 
-  console.log("dittyEditorVars", dittyEditorVars);
-
   let filteredTypes = apiItemTypes.filter(
     (apiItem) =>
       !itemTypes.some((item) => item.id === apiItem.id) ||
