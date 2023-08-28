@@ -65,7 +65,7 @@ function display_notice( $notice ) {
   $campaign_name = isset( $notice['campaign_name'] ) ? $notice['campaign_name'] : 'campaign_name';
 
   ?>
-    <div class="notice notice-<?php echo $type; ?> ditty-dashboard-notice" data-notice_id="<?php echo $notice['id']; ?>">
+    <div class="notice notice-<?php echo esc_attr( $type ); ?> ditty-dashboard-notice" data-notice_id="<?php echo esc_attr( $notice['id'] ); ?>">
       <div class="ditty-dashboard-notice__content">
         <p class="ditty-dashboard-notice__heading">
           <span class="ditty-d"><svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 69.31 71.1" fill="currentColor" width="20"><path d="M0 46.4c0-17.2 8.6-29.1 24.6-29.1a19.93 19.93 0 0 1 6.6 1V0H45v59.2l1 10.3H34.2l-.9-5.2h-.5a15.21 15.21 0 0 1-13 6.8C3.8 71.1 0 58.4 0 46.4Zm31.2 7.4V28.6a13.7 13.7 0 0 0-6-1.3c-8.7 0-11.3 8.7-11.3 17.8 0 8.5 1.9 15.8 8.9 15.8 5.1 0 8.4-3.8 8.4-7.1ZM61.91 65.6a7 7 0 0 1-7.2-7.4c0-5 2.8-7.7 7.1-7.7s7.5 2.6 7.5 7.4c0 5.1-3.1 7.7-7.4 7.7ZM61.91 43.1a7 7 0 0 1-7.2-7.4c0-5 2.8-7.7 7.1-7.7s7.5 2.6 7.5 7.4c0 5.1-3.1 7.7-7.4 7.7ZM61.91 20.6a7 7 0 0 1-7.2-7.4c0-5 2.8-7.7 7.1-7.7s7.5 2.6 7.5 7.4c0 5.1-3.1 7.7-7.4 7.7Z"/></svg></span>
@@ -82,7 +82,7 @@ function display_notice( $notice ) {
         <?php
       }
       ?>
-      <a href="<?php echo esc_url( add_query_arg( 'ditty_close_notice', $notice['id'] ) ); ?>" class="ditty-dashboard-notice__close" data-id="<?php echo $notice['id']; ?>" data-source="<?php echo $source; ?>"><span><?php _e( 'Close', 'ditty-news-ticker' ); ?></span><i class="dashicons dashicons-dismiss"></i></a>
+      <a href="<?php echo esc_url( add_query_arg( 'ditty_close_notice', $notice['id'] ) ); ?>" class="ditty-dashboard-notice__close" data-id="<?php echo esc_attr( $notice['id'] ); ?>" data-source="<?php echo esc_attr( $source ); ?>"><span><?php _e( 'Close', 'ditty-news-ticker' ); ?></span><i class="dashicons dashicons-dismiss"></i></a>
     </div>
   <?php
 }
