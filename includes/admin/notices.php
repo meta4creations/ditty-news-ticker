@@ -93,18 +93,21 @@ function display_notice( $notice = [] ) {
  * @since    3.1.27
 */
 function display_notices() {
+  global $ditty_has_notices;
+  $ditty_has_notices = 0;
+
   $notices = get_notices();
   if ( is_array( $notices ) && count( $notices ) > 0 ) {
     foreach ( $notices as $n ) {
       if ( ! is_array( $n ) || ! isset( $n['id'] ) || ! isset( $n['title'] ) || ! isset( $n['content'] ) ) {
         continue;
       }
+      $ditty_has_notices++;
       display_notice( $n );
     }
   }
 }
 add_action( 'admin_notices', 'Ditty\Admin\Notices\display_notices' );
-
 
 /**
  * Close and remove a notice
@@ -135,3 +138,42 @@ function notice_close() {
   ] );
 }
 add_action( 'wp_ajax_ditty_notice_close', 'Ditty\Admin\Notices\notice_close' );
+
+/**
+ * Add javascript to close the notice
+ *
+ * @since    3.1.25
+*/
+function notice_close_js() {
+  global $ditty_has_notices;
+  if ( ! $ditty_has_notices || 0 == $ditty_has_notices ) {
+    return false;
+  }
+  ?>
+  <script>
+    jQuery(function ($) {
+      $(".ditty-dashboard-notice__close").on("click", function (e) {
+        e.preventDefault();
+        var $close = $(this),
+          $notice = $close.parents(".ditty-dashboard-notice");
+
+        var data = {
+          action: "ditty_notice_close",
+          id: $(this).data("id"),
+          source: $(this).data("source"),
+          security: '<?php echo wp_create_nonce( 'ditty' ); ?>',
+        };
+        $.post(
+          '<?php echo admin_url( 'admin-ajax.php' ); ?>',
+          data,
+          function (response) {
+            $notice.slideUp();
+          },
+          "json"
+        );
+      });
+    });
+  </script>
+  <?php
+}
+add_action( 'admin_footer', 'Ditty\Admin\Notices\notice_close_js' ); 

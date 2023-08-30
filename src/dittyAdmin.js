@@ -41,27 +41,5 @@ jQuery(function ($) {
         }
       }
     );
-
-    $(".ditty-dashboard-notice__close").on("click", function (e) {
-      e.preventDefault();
-      var $close = $(this),
-        $notice = $close.parents(".ditty-dashboard-notice");
-
-      var data = {
-        action: "ditty_notice_close",
-        id: $(this).data("id"),
-        source: $(this).data("source"),
-        security: dittyAdminVars.security,
-      };
-      $.post(
-        dittyAdminVars.ajaxurl,
-        data,
-        function (response) {
-          console.log(response);
-          $notice.slideUp();
-        },
-        "json"
-      );
-    });
   })();
 });

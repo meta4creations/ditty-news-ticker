@@ -132,7 +132,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 == Changelog ==
 
 = 3.1.27 =
-* Notice update
+* Notice updates
 
 = 3.1.26 =
 * News ticker css bug fix
