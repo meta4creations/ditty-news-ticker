@@ -49,9 +49,9 @@ function add_notice( $notice ) {
 /**
  * Display a notice
  * 
- * @since    3.1.25
+ * @since    3.1.27
  */
-function display_notice( $notice ) {
+function display_notice( $notice = [] ) {
   $type = isset( $notice['type'] ) ? $notice['type'] : 'info';
   $source = isset( $notice['source'] ) ? $notice['source'] : 'internal';
   $cta_link = isset( $notice['cta_link'] ) ? $notice['cta_link'] : false;
@@ -90,12 +90,15 @@ function display_notice( $notice ) {
 /**
  * Display all dashboard notices
  *
- * @since    3.1.25
+ * @since    3.1.27
 */
 function display_notices() {
   $notices = get_notices();
   if ( is_array( $notices ) && count( $notices ) > 0 ) {
     foreach ( $notices as $n ) {
+      if ( ! is_array( $n ) || ! isset( $n['id'] ) || ! isset( $n['title'] ) || ! isset( $n['content'] ) ) {
+        continue;
+      }
       display_notice( $n );
     }
   }
