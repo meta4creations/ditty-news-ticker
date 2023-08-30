@@ -94,7 +94,6 @@ function display_notice( $notice = [] ) {
 */
 function display_notices() {
   $notices = get_notices();
-  // test
   if ( is_array( $notices ) && count( $notices ) > 0 ) {
     foreach ( $notices as $n ) {
       if ( ! is_array( $n ) || ! isset( $n['id'] ) || ! isset( $n['title'] ) || ! isset( $n['content'] ) ) {
