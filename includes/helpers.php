@@ -35,7 +35,7 @@ function get_ditty_settings( $key=false ) {
 	if ( empty( $ditty_settings ) ) {
 		$ditty_settings = get_option( 'ditty_settings', array() );
 	}
-	$ditty_settings = wp_parse_args( $ditty_settings, ditty_settings_defaults() );
+  $ditty_settings = shortcode_atts( ditty_settings_defaults(), $ditty_settings );
 	if ( $key ) {
 		if ( isset( $ditty_settings[$key] ) ) {
 			return $ditty_settings[$key];
@@ -54,16 +54,17 @@ function update_ditty_settings( $key, $value='' ) {
 	global $ditty_settings;
 	if ( empty( $ditty_settings ) ) {
 		$ditty_settings = get_option( 'ditty_settings', array() );
-		$ditty_settings = wp_parse_args( $ditty_settings, ditty_settings_defaults() );
 	}
 	if ( is_array( $key ) ) {
 		foreach ( $key as $k => $v ) {
 			$ditty_settings[$k] = $v;
 		}
+    $ditty_settings = shortcode_atts( ditty_settings_defaults(), $ditty_settings );
 		update_option( 'ditty_settings', $ditty_settings );
 	} else {
 		if ( $value ) {
 			$ditty_settings[$key] = $value;
+      $ditty_settings = shortcode_atts( ditty_settings_defaults(), $ditty_settings );
 			update_option( 'ditty_settings', $ditty_settings );
 		}
 	}	
