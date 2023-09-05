@@ -2,6 +2,18 @@
 
 namespace Ditty\Admin\Notices;
 
+// function testing() {
+//   add_notice([
+//     'type' => 'info',
+//     'id' => 'test',
+//     'title' => 'hello there!',
+//     'content' => 'this is a test',
+//     'cta_text' => 'do this',
+//     'cta_link' => 'https://www.metaphorcreations.com',
+//   ]);
+// }
+// add_action( 'init', 'Ditty\Admin\Notices\testing' );
+
 /**
  * Get all notices
  * 
@@ -82,7 +94,7 @@ function display_notice( $notice = [] ) {
         <?php
       }
       ?>
-      <a href="<?php echo esc_url( add_query_arg( 'ditty_close_notice', $notice['id'] ) ); ?>" class="ditty-dashboard-notice__close" data-id="<?php echo esc_attr( $notice['id'] ); ?>" data-source="<?php echo esc_attr( $source ); ?>"><span><?php _e( 'Close', 'ditty-news-ticker' ); ?></span><i class="dashicons dashicons-dismiss"></i></a>
+      <a href="<?php echo esc_url( add_query_arg( ['ditty_close_notice_id' => $notice['id'], 'ditty_close_notice_source' => $source] ) ); ?>" class="ditty-dashboard-notice__close" data-id="<?php echo esc_attr( $notice['id'] ); ?>" data-source="<?php echo esc_attr( $source ); ?>"><span><?php _e( 'Close', 'ditty-news-ticker' ); ?></span><i class="dashicons dashicons-dismiss"></i></a>
     </div>
   <?php
 }
@@ -110,34 +122,66 @@ function display_notices() {
 add_action( 'admin_notices', 'Ditty\Admin\Notices\display_notices' );
 
 /**
+ * Remove a notice by ID
+ * 
+ * @since    3.1.27
+*/
+function notice_close( $id, $source ) {
+
+  if ( 'api' == $source ) {
+    $ditty_dismissed_notices = get_option( 'ditty_dismissed_notices', array() );
+    $ditty_dismissed_notices[$id] = $id;
+    update_option( 'ditty_dismissed_notices', $ditty_dismissed_notices );
+  } else {
+    $ditty_notices = get_option( 'ditty_notices', array() );
+    if ( isset( $ditty_notices[$id] ) ) {
+      unset( $ditty_notices[$id] );
+    }
+    update_option( 'ditty_notices', $ditty_notices );
+  }
+
+  return $id;
+}
+
+/**
+ * Remove notice if javascript is disabled
+ *
+ * @since    3.1.27
+*/
+function notice_close_php() {
+  $notice_id = isset( $_GET['ditty_close_notice_id'] ) ? $_GET['ditty_close_notice_id'] : false;
+  $notice_source = isset( $_GET['ditty_close_notice_source'] ) ? $_GET['ditty_close_notice_source'] : false;
+  if ( ! $notice_id ) {
+    return false;
+  }
+  notice_close( $notice_id, $notice_source );
+
+  // Remove query args and reload page
+  wp_safe_redirect( remove_query_arg( ['ditty_close_notice_id', 'ditty_close_notice_source'] ) );
+  exit;
+}
+add_action( 'admin_init', 'Ditty\Admin\Notices\notice_close_php' ); 
+
+/**
  * Close and remove a notice
  *
- * @since    3.1.25
+ * @since    3.1.27
 */
-function notice_close() {
+function notice_close_ajax() {
 	check_ajax_referer( 'ditty', 'security' );
 	$notice_id_ajax = isset( $_POST['id'] ) ? $_POST['id'] : false;
   $notice_source_ajax = isset( $_POST['source'] ) ? $_POST['source'] : false;
 	if ( ! $notice_id_ajax || ! $notice_source_ajax ) {
 		wp_die();
 	}
-  if ( 'api' == $notice_source_ajax ) {
-    $ditty_dismissed_notices = get_option( 'ditty_dismissed_notices', array() );
-    $ditty_dismissed_notices[$notice_id_ajax] = $notice_id_ajax;
-    update_option( 'ditty_dismissed_notices', $ditty_dismissed_notices );
-  } else {
-    $ditty_notices = get_option( 'ditty_notices', array() );
-    if ( isset( $ditty_notices[$notice_id_ajax] ) ) {
-      unset( $ditty_notices[$notice_id_ajax] );
-    }
-    update_option( 'ditty_notices', $ditty_notices );
-  }
+
+  notice_close( $notice_id_ajax, $notice_source_ajax );
 
   wp_send_json( [
     'id' => $notice_id_ajax,
   ] );
 }
-add_action( 'wp_ajax_ditty_notice_close', 'Ditty\Admin\Notices\notice_close' );
+add_action( 'wp_ajax_ditty_notice_close', 'Ditty\Admin\Notices\notice_close_ajax' );
 
 /**
  * Add javascript to close the notice

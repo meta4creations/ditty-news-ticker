@@ -211,10 +211,10 @@ class Ditty_Translations {
 	 * Translate items
 	 *
 	 * @access  public
-	 * @since   3.1.25
+	 * @since   3.1.27
 	 * @param   array
 	 */
-  public function translate_title( $post_title, $post_id ) {
+  public function translate_title( $post_title, $post_id = null ) {
     if ( 'ditty' != get_post_type( $post_id ) ) {
       return $post_title;
     }

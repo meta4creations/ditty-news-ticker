@@ -81,7 +81,6 @@ export default class DittyRotator {
   }
 
   slideTo(index) {
-    console.log("index", index);
     this.slider.update();
     this.slider.moveToIdx(index);
   }

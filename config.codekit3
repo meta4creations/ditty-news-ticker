@@ -25,30 +25,6 @@
       "oO" : 1,
       "oS" : 1
     },
-    "\/.nova\/Publishing\/Staging.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/.nova\/Publishing\/Staging-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
-    "\/.nova\/Publishing\/Testing.json" : {
-      "ft" : 524288,
-      "oA" : 1,
-      "oAP" : "\/.nova\/Publishing\/Testing-min.json",
-      "oF" : 0,
-      "oO" : 1,
-      "oS" : 1
-    },
-    "\/.npmrc" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 1,
-      "oAP" : "\/.npmrc",
-      "oF" : 1
-    },
     "\/build" : {
       "ft" : 65536,
       "oA" : 1,
@@ -3229,12 +3205,6 @@
       "hM" : 0,
       "oA" : 2,
       "oAP" : "\/legacy\/legacy.php",
-      "oF" : 0
-    },
-    "\/node_modules" : {
-      "ft" : 65536,
-      "oA" : 2,
-      "oAP" : "\/node_modules",
       "oF" : 0
     },
     "\/package-lock.json" : {
