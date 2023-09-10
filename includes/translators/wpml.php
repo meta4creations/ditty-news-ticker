@@ -142,7 +142,7 @@ function delete_transients( $ditty_id ) {
 }
 function delete_language_transients( $ditty_id, $translation_plugin ) {
   if ( 'wpml' != $translation_plugin ) {
-    return $language;
+    return false;
   }
 	delete_transients( $ditty_id );
 }
