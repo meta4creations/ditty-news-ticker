@@ -17,7 +17,7 @@ namespace Ditty\Admin\Notices;
 /**
  * Get all notices
  * 
- * @since    3.1.25
+ * @since    3.1.28
  */
 function get_notices() {
   $api_notices = ditty_api_notices();
@@ -27,6 +27,7 @@ function get_notices() {
   if ( is_array( $api_notices ) && count( $api_notices ) > 0 ) {
     foreach ( $api_notices as $api_notice ) {
       if ( ! isset( $ditty_dismissed_notices[$api_notice['id']] ) ) {
+        $api_notice['source'] = 'api';
         $ditty_notices[] = $api_notice;
       }
     }
@@ -168,12 +169,12 @@ add_action( 'admin_init', 'Ditty\Admin\Notices\notice_close_php' );
  * @since    3.1.27
 */
 function notice_close_ajax() {
-	check_ajax_referer( 'ditty', 'security' );
-	$notice_id_ajax = isset( $_POST['id'] ) ? $_POST['id'] : false;
+  check_ajax_referer( 'ditty', 'security' );
+  $notice_id_ajax = isset( $_POST['id'] ) ? $_POST['id'] : false;
   $notice_source_ajax = isset( $_POST['source'] ) ? $_POST['source'] : false;
-	if ( ! $notice_id_ajax || ! $notice_source_ajax ) {
-		wp_die();
-	}
+  if ( ! $notice_id_ajax || ! $notice_source_ajax ) {
+    wp_die();
+  }
 
   notice_close( $notice_id_ajax, $notice_source_ajax );
 
