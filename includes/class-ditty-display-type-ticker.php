@@ -229,6 +229,15 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 		return apply_filters('ditty_display_type_fields', $fields, $this->get_type());
 	}
 
+  /**
+	 * Return the default shortcode attributes
+	 * @access  public
+	 * @since   3.1.29
+	 */
+  public function shortcode_atts() {
+    return $this->default_settings();
+  }
+
 	/**
 	 * Set the metabox defaults
 	 * @access  public

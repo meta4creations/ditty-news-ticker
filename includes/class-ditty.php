@@ -61,6 +61,7 @@ class Ditty {
 	public $layouts;
 	public $settings;
 	public $scripts;
+  public $shortcodes;
 	public $singles;
   public $render;
   public $translations;
@@ -102,6 +103,7 @@ class Ditty {
 			self::$instance->layouts			= new Ditty_Layouts();
 			self::$instance->scripts			= new Ditty_Scripts();
 			self::$instance->settings			= new Ditty_Settings();
+      self::$instance->shortcodes		= new Ditty_Shortcodes();
 			self::$instance->singles			= new Ditty_Singles();
       self::$instance->render				= new Ditty_Render();	
       self::$instance->translations	= new Ditty_Translations();	
@@ -247,6 +249,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-html.php';
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-posts-lite.php';
 		require_once DITTY_DIR . 'includes/class-ditty-settings.php';
+    require_once DITTY_DIR . 'includes/class-ditty-shortcodes.php';
 		require_once DITTY_DIR . 'includes/class-ditty-singles.php';
     require_once DITTY_DIR . 'includes/class-ditty-translations.php';
 

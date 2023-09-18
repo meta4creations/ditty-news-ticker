@@ -126,7 +126,7 @@ function ditty_item_types() {
 	$item_types['default'] = array(
 		'type' 						=> 'default',
 		'label' 					=> __( 'Default', 'ditty-news-ticker' ),
-		'icon' 						=> 'fas fa-pencil-alt',
+		'icon' 						=> 'faPencil',
 		'description' 		=> __( 'Manually add HTML to the item.', 'ditty-news-ticker' ),
 		'class_name'			=> 'Ditty_Item_Type_Default',
 		'ditty_version' 	=> '3.1'
