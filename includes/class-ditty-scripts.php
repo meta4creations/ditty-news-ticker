@@ -501,10 +501,11 @@ class Ditty_Scripts {
 		}
 		
 		// Register the editor init file
+		$asset_file = include( DITTY_DIR . 'build/dittyEditorInit.asset.php' );
 		wp_register_script( 'ditty-editor-init',
 			DITTY_URL . 'build/dittyEditorInit.js',
-			array_merge(['wp-element', 'wp-components', 'wp-hooks', 'lodash', 'wp-codemirror']),
-			$this->version,
+			$asset_file['dependencies'],
+			$asset_file['version'],
 			true
 		);
 		if ( empty( $ditty_scripts_enqueued ) ) {
