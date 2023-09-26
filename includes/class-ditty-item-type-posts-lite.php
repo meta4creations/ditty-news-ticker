@@ -45,6 +45,8 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 		// Set the query args
 		$query_args = array(
 			'posts_per_page' 	=> $item_value['limit'],
+      'post_type' => 'post',
+      'post_status' => 'publish',
 		);
 		$ditty_posts_query = new WP_Query( $query_args );
 			

@@ -131,6 +131,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.29 =
+* Resolved issue of posts feed showing drafts
+
 = 3.1.28 =
 * Bug fix for non-closing notices
 
