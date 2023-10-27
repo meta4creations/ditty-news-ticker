@@ -504,7 +504,7 @@ class Ditty_Scripts {
 		$asset_file = include( DITTY_DIR . 'build/dittyEditorInit.asset.php' );
 		wp_register_script( 'ditty-editor-init',
 			DITTY_URL . 'build/dittyEditorInit.js',
-			$asset_file['dependencies'],
+			array_merge( $asset_file['dependencies'], ['wp-components'] ),
 			$asset_file['version'],
 			true
 		);

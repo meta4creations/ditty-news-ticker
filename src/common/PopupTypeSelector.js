@@ -1,5 +1,5 @@
-import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
+const { __ } = wp.i18n;
+const { useState } = wp.element;
 import { Button, Icon, IconBlock, Popup, Tabs } from "../components";
 
 const PopupTypeSelector = ({

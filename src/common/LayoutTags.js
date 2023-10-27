@@ -1,5 +1,5 @@
-import { useState } from "@wordpress/element";
-import { __ } from "@wordpress/i18n";
+const { useState } = wp.element;
+const { __ } = wp.i18n;
 import PopupEditLayoutTag from "./PopupEditLayoutTag";
 
 const LayoutTags = ({ type, layoutTags, className, styles }) => {

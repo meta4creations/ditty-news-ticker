@@ -1,5 +1,5 @@
-import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
+const { __ } = wp.i18n;
+const { useState } = wp.element;
 import _ from "lodash";
 import { PopupTypeSelector } from "../common";
 import { IconBlock, Panel, Link, Tabs } from "../components";

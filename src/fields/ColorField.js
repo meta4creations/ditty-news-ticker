@@ -1,5 +1,5 @@
-import { __ } from "@wordpress/i18n";
-import { useState, useRef, useEffect } from "@wordpress/element";
+const { __ } = wp.i18n;
+const { useState, useRef, useEffect } = wp.element;
 import ColorPicker from "react-best-gradient-color-picker";
 import BaseField from "./BaseField";
 

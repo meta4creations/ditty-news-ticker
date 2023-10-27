@@ -1,5 +1,5 @@
-import { __ } from "@wordpress/i18n";
-import { Component } from "@wordpress/element";
+const { __ } = wp.i18n;
+const { Component } = wp.element;
 import _ from "lodash";
 import { saveDitty } from "../../services/httpService";
 import { getDisplayObject } from "../../utils/displayTypes";

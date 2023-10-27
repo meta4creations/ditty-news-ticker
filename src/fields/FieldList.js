@@ -1,4 +1,4 @@
-import { __ } from "@wordpress/i18n";
+const { __ } = wp.i18n;
 import classnames from "classnames";
 import Field from "./Field";
 import { showField } from "./fieldHelpers";

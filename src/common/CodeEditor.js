@@ -1,6 +1,6 @@
 // https://www.adamcollier.co.uk/blog/adding-codemirror-6-to-a-react-project
 
-import { useState, useRef, useEffect, useCallback } from "@wordpress/element";
+const { useState, useRef, useEffect, useCallback } = wp.element;
 import _ from "lodash";
 import { basicSetup } from "codemirror";
 import {

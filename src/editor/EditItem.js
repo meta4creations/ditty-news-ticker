@@ -1,6 +1,6 @@
-import { __ } from "@wordpress/i18n";
-import _ from "lodash";
-import { useState } from "@wordpress/element";
+const { __ } = wp.i18n;
+const _ = lodash;
+const { useState } = wp.element;
 import { Button, SortableList } from "../components";
 import EditItemActions from "./EditItemActions";
 

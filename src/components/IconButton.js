@@ -1,4 +1,4 @@
-import { __ } from "@wordpress/i18n";
+const { __ } = wp.i18n;
 
 const IconButton = ({ icon, label, active, onButtonClick }) => {
   const renderButtonClass = () => {

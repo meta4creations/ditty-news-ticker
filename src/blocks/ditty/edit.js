@@ -1,12 +1,7 @@
-import { __ } from "@wordpress/i18n";
+const { __ } = wp.i18n;
 import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
-import { Fragment, useState, useEffect } from "@wordpress/element";
-import {
-  PanelBody,
-  SelectControl,
-  TextControl,
-  Spinner,
-} from "@wordpress/components";
+const { Fragment, useState, useEffect } = wp.element;
+const { PanelBody, SelectControl, TextControl, Spinner } = wp.components;
 import apiFetch from "@wordpress/api-fetch";
 import icons from "./icon";
 import "./editor.scss";

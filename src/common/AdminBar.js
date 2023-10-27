@@ -1,6 +1,6 @@
 import _ from "lodash";
-import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
+const { __ } = wp.i18n;
+const { useState } = wp.element;
 import { Button, Icon } from "../components";
 import { TextField, TextareaField } from "../fields";
 import { ReactComponent as Logo } from "../assets/img/d.svg";

@@ -1,5 +1,5 @@
-import { applyFilters } from "@wordpress/hooks";
-import { __ } from "@wordpress/i18n";
+const { applyFilters } = wp.hooks;
+const { __ } = wp.i18n;
 import _ from "lodash";
 import { Panel } from "../components";
 import { FieldList } from "../fields";

@@ -1,4 +1,4 @@
-import { __ } from "@wordpress/i18n";
+const { __ } = wp.i18n;
 import classnames from "classnames";
 import Button from "./Button";
 import ButtonGroup from "./ButtonGroup";

@@ -1,6 +1,6 @@
-import { __ } from "@wordpress/i18n";
+const { __ } = wp.i18n;
 import _ from "lodash";
-import { applyFilters } from "@wordpress/hooks";
+const { applyFilters } = wp.hooks;
 import { Icon } from "../components";
 import { getDisplayItems, replaceDisplayItems } from "../services/dittyService";
 import { getItemTypePreviewIcon, getItemLabel } from "../utils/itemTypes";

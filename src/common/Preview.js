@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import { __ } from "@wordpress/i18n";
+const { __ } = wp.i18n;
 import { getDisplayObject } from "../utils/displayTypes";
 import Ditty from "./Ditty";
 

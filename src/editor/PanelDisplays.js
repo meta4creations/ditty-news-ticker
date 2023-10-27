@@ -1,5 +1,5 @@
-import { __ } from "@wordpress/i18n";
-import { useState, useContext } from "@wordpress/element";
+const { __ } = wp.i18n;
+const { useState, useContext } = wp.element;
 import _ from "lodash";
 import {
   updateDisplayOptions,

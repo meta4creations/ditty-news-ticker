@@ -1,4 +1,4 @@
-import { __ } from "@wordpress/i18n";
+const { __ } = wp.i18n;
 import { Icon } from "../components";
 
 export const displayTypeExists = (dittyEl, displayType) => {

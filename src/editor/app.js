@@ -1,5 +1,5 @@
-import { __ } from "@wordpress/i18n";
-import { useState, useContext, useEffect } from "@wordpress/element";
+const { __ } = wp.i18n;
+const { useState, useContext, useEffect } = wp.element;
 import { AdminBar, FooterBar, Preview } from "../common";
 import { EditorContext } from "./context";
 import Editor from "./Editor";

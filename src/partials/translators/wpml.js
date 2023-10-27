@@ -1,5 +1,5 @@
-import { addFilter } from "@wordpress/hooks";
-import { __ } from "@wordpress/i18n";
+const { addFilter } = wp.hooks;
+const { __ } = wp.i18n;
 import { refreshTranslations } from "../../services/httpService";
 const dittyNotification = dittyEditor.notifications.dittyNotification;
 

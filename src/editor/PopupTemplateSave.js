@@ -1,5 +1,5 @@
-import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
+const { __ } = wp.i18n;
+const { useState } = wp.element;
 import { saveDisplay, saveLayout } from "../services/httpService";
 import { IconBlock, Filter, List, ListItem, Popup, Tabs } from "../components";
 import { FieldList, TextField, TextareaField } from "../fields";

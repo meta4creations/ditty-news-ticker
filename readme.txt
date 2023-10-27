@@ -131,6 +131,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.30 =
+* Javascript enhancements
+
 = 3.1.29 =
 * Resolved issue of posts feed showing drafts
 

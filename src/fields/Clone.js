@@ -1,5 +1,5 @@
-import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
+const { __ } = wp.i18n;
+const { useState } = wp.element;
 import classnames from "classnames";
 import { Button, ButtonGroup, SortableList } from "../components";
 import FieldHeader from "./FieldHeader";

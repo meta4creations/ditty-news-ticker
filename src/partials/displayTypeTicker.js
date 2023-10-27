@@ -1,5 +1,5 @@
-import { addFilter } from "@wordpress/hooks";
-import { __ } from "@wordpress/i18n";
+const { addFilter } = wp.hooks;
+const { __ } = wp.i18n;
 
 if (dittyEditor) {
   const { easeOptions } = dittyEditor.helpers;

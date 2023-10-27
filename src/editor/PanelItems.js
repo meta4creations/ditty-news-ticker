@@ -1,7 +1,7 @@
-import { __ } from "@wordpress/i18n";
 import _ from "lodash";
-import { useContext, useState } from "@wordpress/element";
-import { applyFilters } from "@wordpress/hooks";
+const { __ } = wp.i18n;
+const { useContext, useState } = wp.element;
+const { applyFilters } = wp.hooks;
 import {
   getDisplayItems,
   replaceDisplayItems,

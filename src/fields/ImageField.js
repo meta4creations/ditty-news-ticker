@@ -1,6 +1,6 @@
 import axios from "axios";
-import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
+const { __ } = wp.i18n;
+const { useState } = wp.element;
 import { Icon } from "../components";
 import BaseField from "./BaseField";
 

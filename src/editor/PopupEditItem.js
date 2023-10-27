@@ -1,6 +1,6 @@
-import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
-import { applyFilters } from "@wordpress/hooks";
+const { __ } = wp.i18n;
+const { useState } = wp.element;
+const { applyFilters } = wp.hooks;
 import _ from "lodash";
 import { PopupTypeSelector } from "../common";
 import {

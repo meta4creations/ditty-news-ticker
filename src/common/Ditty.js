@@ -1,6 +1,6 @@
-import { __ } from "@wordpress/i18n";
+const { __ } = wp.i18n;
 import _ from "lodash";
-import { useEffect } from "@wordpress/element";
+const { useEffect } = wp.element;
 import { initializeDitty } from "../services/dittyService";
 import { getDisplayObject } from "../utils/displayTypes";
 

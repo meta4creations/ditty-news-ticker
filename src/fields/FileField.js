@@ -1,5 +1,5 @@
-import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
+const { __ } = wp.i18n;
+const { useState } = wp.element;
 import { Button } from "../components";
 import BaseField from "./BaseField";
 import TextField from "./TextField";

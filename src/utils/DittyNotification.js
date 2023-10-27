@@ -1,4 +1,4 @@
-import { __ } from "@wordpress/i18n";
+const { __ } = wp.i18n;
 import { ToastContainer, toast } from "react-toastify";
 import { ReactComponent as Logo } from "../assets/img/d.svg";
 import "react-toastify/dist/ReactToastify.css";

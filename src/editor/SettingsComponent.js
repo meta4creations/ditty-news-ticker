@@ -1,4 +1,4 @@
-import { withFilters, SlotFillProvider, Slot } from "@wordpress/components";
+const { withFilters, SlotFillProvider, Slot } = wp.components;
 
 const SettingsComponent = (props) => {
   const AdditionalSettings = withFilters("myExamplePlugin.Settings")(

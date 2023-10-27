@@ -1,7 +1,7 @@
 import classnames from "classnames";
-import { applyFilters } from "@wordpress/hooks";
-import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
+const { applyFilters } = wp.hooks;
+const { __ } = wp.i18n;
+const { useState } = wp.element;
 import { Icon, Tabs } from "../components";
 import PanelLayout from "./PanelLayout";
 import PanelItem from "./PanelItem";

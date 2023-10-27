@@ -1,6 +1,6 @@
-import { applyFilters } from "@wordpress/hooks";
-import { __ } from "@wordpress/i18n";
-import { useContext } from "@wordpress/element";
+const { applyFilters } = wp.hooks;
+const { __ } = wp.i18n;
+const { useContext } = wp.element;
 import _ from "lodash";
 import { Panel } from "../components";
 import { FieldList } from "../fields";

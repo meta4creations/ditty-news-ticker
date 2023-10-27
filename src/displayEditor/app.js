@@ -1,5 +1,5 @@
-import { __ } from "@wordpress/i18n";
-import { useState, useEffect } from "@wordpress/element";
+const { __ } = wp.i18n;
+const { useState, useEffect } = wp.element;
 import { loremIpsum } from "lorem-ipsum";
 import { AdminBar, FooterBar, Preview } from "../common";
 import DisplayEditor from "./DisplayEditor";

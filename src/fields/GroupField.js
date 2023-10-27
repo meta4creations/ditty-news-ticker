@@ -1,5 +1,5 @@
-import { __ } from "@wordpress/i18n";
-import { Fragment, useState } from "@wordpress/element";
+const { __ } = wp.i18n;
+const { Fragment, useState } = wp.element;
 import classnames from "classnames";
 import { Icon } from "../components";
 import FieldHeader from "./FieldHeader";

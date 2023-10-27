@@ -1,5 +1,5 @@
-import { __ } from "@wordpress/i18n";
-import { useState, useRef, useEffect, useCallback } from "@wordpress/element";
+const { __ } = wp.i18n;
+const { useState, useRef, useEffect, useCallback } = wp.element;
 import BaseField from "./BaseField";
 
 const TextareaField = (props) => {

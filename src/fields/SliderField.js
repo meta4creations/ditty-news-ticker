@@ -1,5 +1,5 @@
-import { __ } from "@wordpress/i18n";
-import { RangeControl } from "@wordpress/components";
+const { __ } = wp.i18n;
+const { RangeControl } = wp.components;
 import BaseField from "./BaseField";
 
 const SliderField = (props) => {

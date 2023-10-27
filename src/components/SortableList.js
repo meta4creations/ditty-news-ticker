@@ -13,7 +13,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
-import { useState } from "@wordpress/element";
+const { useState } = wp.element;
 import classnames from "classnames";
 import SortableItem from "./SortableItem";
 

@@ -1,6 +1,6 @@
 import _ from "lodash";
-import { __ } from "@wordpress/i18n";
-import { useState, useEffect } from "@wordpress/element";
+const { __ } = wp.i18n;
+const { useState, useEffect } = wp.element;
 import { AdminBar, FooterBar } from "../common";
 import { Tabs } from "../components";
 import { FieldList } from "../fields";
