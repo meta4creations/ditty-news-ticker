@@ -343,7 +343,7 @@ class Ditty_API {
 		$hook = isset( $apiData['hook'] ) ? $apiData['hook'] : false;
 
 		if ( $hook ) {
-			$filtered_item = apply_filters( "ditty_item_php_mods_${hook}", $item );
+			$filtered_item = apply_filters( "ditty_item_php_mods_{$hook}", $item );
 		} else {
 			$filtered_item = apply_filters( 'ditty_item_php_mods', $item );
 		}
