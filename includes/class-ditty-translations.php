@@ -58,9 +58,12 @@ class Ditty_Translations {
 	 * Save ditty title translation
 	 *
 	 * @access  public
-	 * @since   3.1.25
+	 * @since   3.1.30
 	 */
   public function save_title_translation( $post_id, $post ) {
+    if ( 'ditty' != $post->post_type ) {
+      return false;
+    }
     $translation_plugin = $this->get_translation_plugin();
     do_action( 'ditty_save_title_translation', $post->post_title, $post_id , $translation_plugin );
   }

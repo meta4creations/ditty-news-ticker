@@ -2,9 +2,6 @@
 
 /**
  * Run updates
- *
- * @since  3.1.18
- * @return void
  */
 function ditty_updates() {
 	if ( wp_doing_ajax() ) {
@@ -33,6 +30,9 @@ function ditty_updates() {
   if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.1.24', '<' ) ) {
 		ditty_v3_1_24_upgrades();
 	}
+	if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.1.30', '<' ) ) {
+		ditty_v3_1_30_upgrades();
+	}
 	if ( DITTY_VERSION != $current_version ) {
 		do_action( 'ditty_version_update', DITTY_VERSION, $current_version );
 		update_option( 'ditty_plugin_version_upgraded_from', $current_version );
@@ -42,10 +42,75 @@ function ditty_updates() {
 add_action( 'admin_init', 'ditty_updates' );
 
 /**
+ * Version 3.1.30 Updates
+ * Clean up WPML tables
+ */
+function ditty_v3_1_30_upgrades() {
+	global $wpdb;
+	
+	echo '<pre>';print_r('upgrades!');echo '</pre>';
+	
+	$table_name = $wpdb->prefix . 'icl_strings';
+	$query = $wpdb->prepare('SHOW TABLES LIKE %s', $table_name);
+	if ( ! $wpdb->get_var( $query ) == $table_name ) {
+		return false;
+	}
+
+	// Get IDs of of strings
+	$sql = "SELECT * FROM {$wpdb->prefix}icl_strings WHERE context LIKE %s";
+	$like_pattern = '%ditty-%';
+	$results = $wpdb->get_results( $wpdb->prepare($sql, $like_pattern) );
+	
+	$icl_string_ids = [];	
+	if ( is_array( $results ) && count( $results ) > 0 ) {
+		foreach ( $results as $i => $result ) {
+			$id = substr( $result->context, 6 );
+			$post_type = get_post_type( $id );
+			if ( 'ditty' != $post_type ) {
+				$icl_string_ids[] = $result->id;
+			}
+		}
+	}
+	
+	// Delete the translations & strings
+	if ( ! empty( $icl_string_ids ) ) {
+		
+		// Delete the translations
+		$id_placeholders = array_fill(0, count( $icl_string_ids ), '%s');
+		$sql = "DELETE FROM {$wpdb->prefix}icl_string_translations WHERE string_id IN (" . implode(', ', $id_placeholders) . ")";
+		$results = $wpdb->query( $wpdb->prepare( $sql, $icl_string_ids ) );
+		
+		// Delete the strings
+		$sql = "DELETE FROM {$wpdb->prefix}icl_strings WHERE id IN (" . implode(', ', $id_placeholders) . ")";
+		$results = $wpdb->query( $wpdb->prepare( $sql, $icl_string_ids ) );
+	}
+	
+	// Delete packages
+	// Get IDs of of packages
+	$sql = "SELECT * FROM {$wpdb->prefix}icl_string_packages WHERE kind_slug = %s";
+	$results = $wpdb->get_results( $wpdb->prepare($sql, 'ditty' ) );
+	
+	$icl_package_ids = [];	
+	if ( is_array( $results ) && count( $results ) > 0 ) {
+		foreach ( $results as $i => $result ) {
+			$post_type = get_post_type( $result->name );
+			if ( 'ditty' != $post_type ) {
+				$icl_package_ids[] = $result->ID;
+			}
+		}
+	}
+	
+	if ( ! empty( $icl_package_ids ) ) {
+		
+		// Delete the translations
+		$id_placeholders = array_fill(0, count( $icl_package_ids ), '%s');
+		$sql = "DELETE FROM {$wpdb->prefix}icl_string_packages WHERE ID IN (" . implode(', ', $id_placeholders) . ")";
+		$results = $wpdb->query( $wpdb->prepare( $sql, $icl_package_ids ) );
+	}
+}
+
+/**
  * Version 3.1.24 Updates
- *
- * @since  3.1.24
- * @return void
  */
 function ditty_v3_1_24_upgrades() {
   // Update the title font-size and line-height to typography settings
