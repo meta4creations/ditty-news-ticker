@@ -134,6 +134,8 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 = 3.1.30 =
 * Javascript enhancements
 * Bug fix in API code
+* WPML bug fix
+* Cleaned up WPML database tables
 
 = 3.1.29 =
 * Resolved issue of posts feed showing drafts
@@ -976,4 +978,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Bug fix for non-closing notices
+Bug fixes, database cleanup and javascript updates
