@@ -55,7 +55,7 @@ function mtphr_dnt_scripts( $hook ) {
 		// Register the Ditty News Ticker scripts
 		wp_enqueue_style( 'ditty-news-ticker', DITTY_URL . 'legacy/inc/static/css/style.css', false, $version );
 		
-		wp_enqueue_script( 'ditty-news-ticker', DITTY_URL . 'legacy/inc/static/js/ditty-news-ticker.min.js', array('jquery', 'imagesloaded', 'swiped-events', 'jquery-effects-core'), $version, true );
+		wp_enqueue_script( 'ditty-news-ticker', DITTY_URL . 'legacy/inc/static/js/ditty-news-ticker.js', array('jquery', 'imagesloaded', 'swiped-events', 'jquery-effects-core'), $version, true );
 		wp_localize_script( 'ditty-news-ticker', 'mtphr_dnt_vars', array(
 				'is_rtl' => is_rtl(),
 			)
