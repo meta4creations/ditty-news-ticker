@@ -434,7 +434,7 @@ class Ditty_Scripts {
 
 		$min = WP_DEBUG ? '' : '.min';
 		wp_register_script( 'hammer', DITTY_URL . 'includes/libs/hammer.min.js', array( 'jquery' ), '2.0.8.1', true );
-		wp_register_script( 'ditty-slider', DITTY_URL . 'includes/js/class-ditty-slider' . $min . '.js', array( 'jquery', 'hammer' ), $this->version, true );
+		wp_register_script( 'ditty-slider', DITTY_URL . 'dittySlider.js', array( 'jquery', 'hammer' ), $this->version, true );
 		wp_register_script( 'ditty-helpers', DITTY_URL . 'includes/js/partials/helpers.js', [], $this->version, true );
 		wp_register_script( 'ditty-sass', DITTY_URL . 'includes/libs/sass/sass.js', [], $this->version );
 		//wp_enqueue_script( 'ditty-sass', 'https://cdn.jsdelivr.net/npm/sass.js/dist/sass.min.js', [], $this->version );

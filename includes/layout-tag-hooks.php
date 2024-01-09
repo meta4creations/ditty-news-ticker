@@ -228,6 +228,8 @@ function ditty_init_layout_tag_image( $image, $item_type, $data, $atts ) {
       $image_args['height'] = $image_dimensions['height'];
     }
 	}
+  //$aspect_ratio = ( isset( $image_args['width'] ) && isset( $image_args['width'] ) ) ? " style='aspect-ratio:{$image_args['width']} / {$image_args['height']}'" : ''; 
+	//$image = '<div' . $aspect_ratio . '><img ' . ditty_attr_to_html( $image_args ) . ' /></div>';
 	$image = '<img ' . ditty_attr_to_html( $image_args ) . ' />';
 	return $image;	
 }

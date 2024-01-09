@@ -388,16 +388,16 @@ class Ditty {
 		$min = WP_DEBUG ? '' : '.min';
 		ditty_register_script( 'display', [
 				'ditty-display-ticker',
-				DITTY_URL . 'includes/js/class-ditty-display-ticker' . $min . '.js',
-				DITTY_DIR . 'includes/js/class-ditty-display-ticker' . $min . '.js',
+				DITTY_URL . 'build/dittyDisplayTicker.js',
+				DITTY_DIR . 'build/dittyDisplayTicker.js',
 				[ 'jquery', 'ditty-helpers' ],
 				$this->version
 			]
 		);
 		ditty_register_script( 'display', [
 				'ditty-display-list',
-				DITTY_URL . 'includes/js/class-ditty-display-list' . $min . '.js',
-				DITTY_DIR . 'includes/js/class-ditty-display-list' . $min . '.js',
+				DITTY_URL . 'build/dittyDisplayList.js',
+				DITTY_DIR . 'build/dittyDisplayList.js',
 				array( 'jquery', 'ditty-slider', 'ditty-helpers' ),
 				$this->version
 			]

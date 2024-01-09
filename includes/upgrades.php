@@ -12,27 +12,30 @@ function ditty_updates() {
 	if ( version_compare( $current_version, '3.0', '<' ) ) {
 		ditty_v3_upgrades();
 	}
-	if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.0.6', '<' ) ) {
-		ditty_v3_0_6_upgrades();
-	}
-	if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.0.14', '<' ) ) {
-		ditty_v3_0_14_upgrades();
-	}
-	if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.1', '<' ) ) {
-		ditty_v3_1_upgrades();
-	}
-	if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.1.6', '<' ) ) {
-		ditty_v3_1_6_upgrades();
-	}
-  if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.1.19', '<' ) ) {
-		ditty_v3_1_19_upgrades();
-	}
-  if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.1.24', '<' ) ) {
-		ditty_v3_1_24_upgrades();
-	}
-	if ( version_compare( $current_version, '0', '>' ) && version_compare( $current_version, '3.1.30', '<' ) ) {
-		ditty_v3_1_30_upgrades();
-	}
+
+  if ( version_compare( $current_version, '0', '>' ) ) {
+    if ( version_compare( $current_version, '3.0.6', '<' ) ) {
+      ditty_v3_0_6_upgrades();
+    }
+    if ( version_compare( $current_version, '3.0.14', '<' ) ) {
+      ditty_v3_0_14_upgrades();
+    }
+    if ( version_compare( $current_version, '3.1', '<' ) ) {
+      ditty_v3_1_upgrades();
+    }
+    if ( version_compare( $current_version, '3.1.6', '<' ) ) {
+      ditty_v3_1_6_upgrades();
+    }
+    if ( version_compare( $current_version, '3.1.19', '<' ) ) {
+      ditty_v3_1_19_upgrades();
+    }
+    if ( version_compare( $current_version, '3.1.24', '<' ) ) {
+      ditty_v3_1_24_upgrades();
+    }
+    if ( version_compare( $current_version, '3.1.30', '<' ) ) {
+      ditty_v3_1_30_upgrades();
+    }
+  }
 	if ( DITTY_VERSION != $current_version ) {
 		do_action( 'ditty_version_update', DITTY_VERSION, $current_version );
 		update_option( 'ditty_plugin_version_upgraded_from', $current_version );
@@ -47,8 +50,6 @@ add_action( 'admin_init', 'ditty_updates' );
  */
 function ditty_v3_1_30_upgrades() {
 	global $wpdb;
-	
-	echo '<pre>';print_r('upgrades!');echo '</pre>';
 	
 	$table_name = $wpdb->prefix . 'icl_strings';
 	$query = $wpdb->prepare('SHOW TABLES LIKE %s', $table_name);

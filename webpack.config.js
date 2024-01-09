@@ -42,6 +42,9 @@ var dittyConfig = {
     ],
     dittyAdminOld: "./src/dittyAdminOld.js",
     dittyDisplays: "./src/dittyDisplays.js",
+    dittySlider: "./src/class-ditty-slider",
+    dittyDisplayList: "./src/class-ditty-display-list",
+    dittyDisplayTicker: "./src/class-ditty-display-ticker",
   },
   output: {
     filename: "[name].js",
