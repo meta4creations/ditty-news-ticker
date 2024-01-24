@@ -30,6 +30,15 @@ if (dittyEditor) {
             ),
             raw: true,
           },
+          {
+            type: "text",
+            id: "editor_label",
+            name: __("Label", "ditty-news-ticker"),
+            help: __(
+              "Add a custom label to display in the item list.",
+              "ditty-news-ticker"
+            ),
+          },
         ],
       },
     },
@@ -40,6 +49,9 @@ if (dittyEditor) {
       ),
     },
     previewText: (item) => {
+      if (item.item_value && item.item_value.editor_label) {
+        return item.item_value.editor_label;
+      }
       const preview =
         item.item_value && item.item_value.content
           ? item.item_value.content.replace(/(<([^>]+)>)/gi, "")

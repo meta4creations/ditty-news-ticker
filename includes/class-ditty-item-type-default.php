@@ -61,7 +61,7 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 				'label' => __("Settings", "ditty-news-ticker"),
 				'name' => __("Settings", "ditty-news-ticker"),
 				'description' => __( 'Configure the settings of the default item.', "ditty-news-ticker" ),
-				'icon' => 'fas fa-sliders',
+				'icon' => 'fa-sliders',
 				'fields' => [
 					'content' => array(
 						'type'	=> 'textarea',
@@ -101,6 +101,12 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 						'label'			=> __( 'Add "nofollow" to link', 'ditty-news-ticker' ),
 						'help'			=> __( 'Enabling this setting will add an attribute called \'nofollow\' to your link. This tells search engines to not follow this link.', 'ditty-news-ticker' ),
 					),
+          'editor_label' => array(
+            'type'	=> 'text',
+            'id'		=> 'editor_label',
+            'name'	=> __( 'Label', 'ditty-news-ticker' ),
+            'help'	=> __( 'Add a custom label to display in the item list.', 'ditty-news-ticker' ),
+          ),
 				]
 			]
 		];
@@ -137,6 +143,7 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 			'link_title' 		=> isset( $values['link_title'] ) ? esc_attr( $values['link_title'] ) : false,
 			'link_target' 	=> isset( $values['link_target'] ) ? esc_attr( $values['link_target'] ) : false,
 			'link_nofollow'	=> isset( $values['link_nofollow'] ) ? esc_attr( $values['link_nofollow'] ) : false,
+      'editor_label'  => isset( $values['editor_label'] ) ? sanitize_text_field( $values['editor_label'] ) : false,
 		);
 		return $sanitized_fields;
 	}

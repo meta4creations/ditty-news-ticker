@@ -186,7 +186,7 @@ class Ditty_Editor {
 							'label' => __("Settings", "ditty-news-ticker"),
 							'name' => __("Settings", "ditty-news-ticker"),
 							'description' => sprintf( __( 'Configure the settings of the %s item.', "ditty-news-ticker" ), $type['label'] ),
-							'icon' => 'fas fa-sliders',
+							'icon' => 'fa-sliders',
 							'fields' => $fields,
 						]];
 					} else {

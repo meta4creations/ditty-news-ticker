@@ -48,6 +48,12 @@ class Ditty_Item_Type_Html extends Ditty_Item_Type_Default {
 				'help'	=> __( 'Add the custom html for your item.', 'ditty-news-ticker' ),
 				'raw'		=> true,
 			),
+      'editor_label' => array(
+				'type'	=> 'text',
+				'id'		=> 'editor_label',
+				'name'	=> __( 'Label', 'ditty-news-ticker' ),
+				'help'	=> __( 'Add a custom label to display in the item list.', 'ditty-news-ticker' ),
+			),
 		);
 		return $fields;
 	}
@@ -74,22 +80,7 @@ class Ditty_Item_Type_Html extends Ditty_Item_Type_Default {
 	public function sanitize_settings( $values ) {
 		$sanitized_settings = [];
 		$sanitized_settings['content'] = isset( $values ) ? wp_encode_emoji( wp_kses_post( stripslashes( $values['content'] ) ) ) : '';
-		return $sanitized_settings;
-	}
-
-	/**
-	 * Display the editor preview
-	 *
-	 * @since    3.1
-	 * @access   public
-	 * @var      string    $preview    The editor list display of a item
-	*/
-	public function editor_preview( $value ) {
-		if ( ! isset( $value['content'] ) || '' == $value['content'] ) {
-			return __( 'No content set...', 'ditty-news-ticker' );
-		}
-		
-		$preview = stripslashes( wp_html_excerpt( $value['content'], 200, '...' ) );
-		return $preview;	
+		$sanitized_settings['editor_label'] = isset( $values['editor_label'] ) ? sanitize_text_field( $values['editor_label'] ) : false;
+    return $sanitized_settings;
 	}
 }
