@@ -289,7 +289,24 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 				'wrapper' 		=> $wrapper_settings,
 				'before'			=> $before_settings,
 				'after'				=> $after_settings,
-				'term'				=> Ditty()->layouts->tag_attribute_default_settings( 'term' ),
+				'taxonomy'		=> [
+					'type' => "text",
+					'id' =>  "taxonomy",
+					'help' =>  __(
+						"Add the slug of the taxonomy you would like to show.",
+						"ditty-news-ticker"
+					),
+					'std' => '',
+				],
+				'includes'		=> [
+					'type' => "text",
+					'id' =>  "includes",
+					'help' =>  __(
+						"Only show the terms if they include slugs contained in this field contained here. Separate multiple by commas (,).",
+						"ditty-news-ticker"
+					),
+					'std' => '',
+				],
 				'link_target' => $link_target_settings,
 				'link_rel'		=> $link_rel_settings,
 				'separator'		=> Ditty()->layouts->tag_attribute_default_settings( 'separator', ', ' ),

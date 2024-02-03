@@ -131,6 +131,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.32 [2024-##-##] =
+* Layout tag & helper updates
+
 = 3.1.31 [2024-01-24] =
 * Added an editor label field to item types
 

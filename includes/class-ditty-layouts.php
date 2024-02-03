@@ -470,6 +470,16 @@ class Ditty_Layouts {
 					),
 					'std' => $default ? $default : '_self',
 				];
+			case 'separator':
+				return [
+					'type' => "text",
+					'id' =>  "separator",
+					'help' =>  __(
+						'What would you like to use to separate the data.',
+						"ditty-news-ticker"
+					),
+					'std' => $default ? $default : '',
+				];
 			case 'width':
 				return [
 					'type' => "unit",
