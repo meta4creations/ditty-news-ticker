@@ -4,6 +4,7 @@ import ColorPicker from "react-best-gradient-color-picker";
 import BaseField from "./BaseField";
 
 const ColorField = (props) => {
+  const { stripTags } = wp.sanitize;
   const { value, onChange, gradient = false } = props;
   const [displayPicker, setDisplayPicker] = useState(false);
   const wrapperRef = useRef(null);
@@ -35,8 +36,8 @@ const ColorField = (props) => {
         ></div>
         <input
           type="text"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
+          value={stripTags(value)}
+          onChange={(e) => onChange(stripTags(e.target.value))}
           onClick={() => setDisplayPicker(true)}
         />
         {displayPicker && (

@@ -105,7 +105,7 @@ class Ditty_Editor {
 					'type' => $display_type,
 					'title' => $post->post_title,
 					'description' => get_post_meta($post->ID, '_ditty_display_description', true),
-					'settings' => $display_settings,
+					'settings' => ditty_sanitize_settings( $display_settings ),
 					'version' => get_post_meta($post->ID, '_ditty_display_version', true),
 					'edit_url' => get_edit_post_link($post->ID, 'code'),
 				);

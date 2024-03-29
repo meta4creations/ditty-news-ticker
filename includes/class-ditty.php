@@ -86,7 +86,7 @@ class Ditty {
 			self::$instance = new Ditty;
 
 			self::$instance->plugin_name 	= 'ditty-news-ticker';
-			self::$instance->version 			= WP_DEBUG ? time() : DITTY_VERSION;
+			self::$instance->version 			= ( defined( 'DITTY_DEVELOPMENT' ) && DITTY_DEVELOPMENT ) ? time() : DITTY_VERSION;
 			
 			self::$instance->includes();
 			self::$instance->set_locale();

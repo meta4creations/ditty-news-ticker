@@ -28,7 +28,7 @@ class Ditty_Scripts {
 	 * @since   3.0.9
 	 */
 	public function __construct() {	
-		$this->version	= WP_DEBUG || ( defined( 'DITTY_DEVELOPMENT' ) && DITTY_DEVELOPMENT ) ? time() : DITTY_VERSION;
+		$this->version	= ( defined( 'DITTY_DEVELOPMENT' ) && DITTY_DEVELOPMENT ) ? time() : DITTY_VERSION;
 		
 		add_action( 'init', array( $this, 'delete_cache' ) );
     add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
@@ -533,7 +533,7 @@ class Ditty_Scripts {
           'settings' 						=> ( 'ditty-new' == $ditty_id ) ? ditty_single_settings_defaults() : get_post_meta( $ditty_id, '_ditty_settings', true ),
           'items'								=> $item_data && isset( $item_data['items'] ) ? $item_data['items'] : false,
           'displayItems'				=> $item_data && isset( $item_data['display_items'] ) ? $item_data['display_items'] : false,
-          'displayObject' 			=> is_array( $display ) ? $display : false,
+          'displayObject' 			=> is_array( $display ) ? ditty_sanitize_settings( $display ) : false,
           'display' 						=> ! is_array( $display ) ? $display : false,
           'displays'						=> Ditty()->editor->display_data(),
           'layouts'							=> Ditty()->editor->layout_data(),
@@ -572,7 +572,7 @@ class Ditty_Scripts {
 
 			wp_enqueue_script( 'ditty-editor',
 				DITTY_URL . 'build/dittyEditor.js',
-				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-editor', 'wp-block-editor', 'wp-hooks', 'wp-tinymce', 'lodash', 'wp-codemirror', 'ditty', 'ditty-sass'], $display_slugs),
+				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-editor', 'wp-block-editor', 'wp-hooks', 'wp-tinymce', 'wp-sanitize', 'lodash', 'wp-codemirror', 'ditty', 'ditty-sass'], $display_slugs),
 				$this->version,
 				true
 			);
@@ -595,7 +595,7 @@ class Ditty_Scripts {
 
 			wp_enqueue_script( 'ditty-display-editor',
 				DITTY_URL . 'build/dittyDisplayEditor.js',
-				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-hooks', 'lodash', 'wp-codemirror', 'ditty'], $display_slugs),
+				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-hooks', 'wp-sanitize', 'lodash', 'wp-codemirror', 'ditty'], $display_slugs),
 				$this->version,
 				true
 			);
@@ -645,7 +645,7 @@ class Ditty_Scripts {
 
 			wp_enqueue_script( 'ditty-layout-editor',
 				DITTY_URL . 'build/dittyLayoutEditor.js',
-				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-hooks', 'lodash', 'wp-codemirror', 'ditty', 'ditty-sass'], $display_slugs),
+				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-hooks', 'wp-sanitize', 'lodash', 'wp-codemirror', 'ditty', 'ditty-sass'], $display_slugs),
 				$this->version,
 				true
 			);
@@ -730,7 +730,7 @@ class Ditty_Scripts {
 			if ( 'ditty_page_ditty_settings' == $hook && current_user_can( 'manage_ditty_settings' ) ) {
 				wp_enqueue_script( 'ditty-settings',
 					DITTY_URL . 'build/dittySettings.js',
-					['wp-element', 'wp-components', 'wp-hooks', 'lodash', 'ditty-editor-init'],
+					['wp-element', 'wp-components', 'wp-hooks', 'wp-sanitize', 'lodash', 'ditty-editor-init'],
 					$this->version,
 					true
 				);

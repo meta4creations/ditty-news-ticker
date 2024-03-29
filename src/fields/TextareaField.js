@@ -3,6 +3,7 @@ const { useState, useRef, useEffect, useCallback } = wp.element;
 import BaseField from "./BaseField";
 
 const TextareaField = (props) => {
+  const { stripTags } = wp.sanitize;
   const {
     value,
     cols,
@@ -30,8 +31,7 @@ const TextareaField = (props) => {
   }, [setFocus]);
 
   const handleInputChangeDelay = useCallback(
-    (e) => {
-      const updatedValue = e.target.value;
+    (updatedValue) => {
       setDelayValue(updatedValue);
 
       // Clear the existing timer
@@ -48,9 +48,11 @@ const TextareaField = (props) => {
       <textarea
         cols={cols}
         rows={rows}
-        defaultValue={delayChange ? delayValue : value}
+        defaultValue={delayChange ? stripTags(delayValue) : stripTags(value)}
         onChange={(e) => {
-          delayChange ? handleInputChangeDelay(e) : onChange(e.target.value);
+          delayChange
+            ? handleInputChangeDelay(stripTags(e.target.value))
+            : onChange(stripTags(e.target.value));
         }}
         onBlur={onBlur}
         onFocus={onFocus}

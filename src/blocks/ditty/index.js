@@ -1,12 +1,13 @@
 import { registerBlockType, createBlock } from "@wordpress/blocks";
 import Edit from "./edit";
 import save from "./save";
+import metadata from "./block.json";
 import icons from "./icon";
+import "./index.scss";
 
-registerBlockType("metaphorcreations/ditty", {
-  version: Date.now(),
+registerBlockType(metadata, {
   icon: {
-    src: icons.iconGreen,
+    src: icons.iconBlack,
   },
   transforms: {
     from: [

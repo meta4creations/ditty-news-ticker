@@ -15,7 +15,9 @@
   },
   "devDependencies": {
     "@wordpress/scripts": "25.5.1",
-    "compression-webpack-plugin": "10.0.0"
+    "compression-webpack-plugin": "10.0.0",
+    "webpack-dev-middleware": ">=5.3.4",
+    "@babel/traverse": ">=7.23.2"
   },
   "dependencies": {
     "@codemirror/commands": "6.2.2",
@@ -39,6 +41,8 @@
     "lorem-ipsum": "2.0.8",
     "react-best-gradient-color-picker": "2.1.13",
     "react-color": "2.19.3",
-    "react-toastify": "9.1.1"
+    "react-toastify": "9.1.1",
+    "webpack-dev-middleware": ">=5.3.4",
+    "@babel/traverse": ">=7.23.2"
   }
 }

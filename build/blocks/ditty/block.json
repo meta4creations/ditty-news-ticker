@@ -1,7 +1,8 @@
 {
-  "apiVersion": 2,
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
   "name": "metaphorcreations/ditty",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "title": "Ditty",
   "description": "Display your Ditty within the content of the post.",
   "category": "widgets",
@@ -13,9 +14,6 @@
     "display",
     "content"
   ],
-  "supports": {
-    "html": false
-  },
   "textdomain": "ditty",
   "attributes": {
     "ditty": {
@@ -31,7 +29,10 @@
       "type": "string"
     }
   },
+  "supports": {
+    "html": false
+  },
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",
-  "style": "file:./style-index.css"
+  "render": "file:./render.php"
 }

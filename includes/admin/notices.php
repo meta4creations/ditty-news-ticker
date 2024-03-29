@@ -1,5 +1,4 @@
 <?php
-
 namespace Ditty\Admin\Notices;
 
 // function testing() {

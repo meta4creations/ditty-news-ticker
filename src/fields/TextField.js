@@ -3,6 +3,7 @@ const { useState, useRef, useEffect, useCallback } = wp.element;
 import BaseField from "./BaseField";
 
 const TextField = (props) => {
+  const { stripTags } = wp.sanitize;
   const {
     value,
     type,
@@ -47,12 +48,12 @@ const TextField = (props) => {
     <BaseField {...props} type={inputType}>
       <input
         type={inputType}
-        value={delayChange ? delayValue : value}
+        value={delayChange ? stripTags(delayValue) : stripTags(value)}
         placeholder={placeholder}
         onChange={(e) => {
           delayChange
-            ? handleInputChangeDelay(e.target.value)
-            : onChange(e.target.value);
+            ? handleInputChangeDelay(stripTags(e.target.value))
+            : onChange(stripTags(e.target.value));
         }}
         onBlur={onBlur}
         onFocus={onFocus}

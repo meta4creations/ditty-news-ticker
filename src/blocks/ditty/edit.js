@@ -4,7 +4,6 @@ const { Fragment, useState, useEffect } = wp.element;
 const { PanelBody, SelectControl, TextControl, Spinner } = wp.components;
 import apiFetch from "@wordpress/api-fetch";
 import icons from "./icon";
-import "./editor.scss";
 
 export default function Edit({ isSelected, setAttributes, attributes }) {
   const { ditty, display, customID, customClasses } = attributes;

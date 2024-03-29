@@ -1548,7 +1548,7 @@ function ditty_sanitize_setting( $value ) {
 	if ( is_array( $value ) ) {
 		return ditty_sanitize_settings( $value );
 	} else {
-		return htmlspecialchars_decode( esc_attr( $value ) );
+		return htmlspecialchars_decode( wp_kses_post( $value ) );
 	}
 }
 
