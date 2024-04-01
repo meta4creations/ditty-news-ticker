@@ -552,3 +552,8 @@ export const titleSettings = (prefix) => {
     },
   ];
 };
+
+export const sanitizScriptTags = (str) => {
+  let sanitizedString = str.replace(/<script.*?>.*?<\/script>/gis, "");
+  return sanitizedString;
+};

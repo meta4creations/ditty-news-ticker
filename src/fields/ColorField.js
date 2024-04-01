@@ -2,9 +2,9 @@ const { __ } = wp.i18n;
 const { useState, useRef, useEffect } = wp.element;
 import ColorPicker from "react-best-gradient-color-picker";
 import BaseField from "./BaseField";
+import { sanitizScriptTags } from "../utils/helpers";
 
 const ColorField = (props) => {
-  const { stripTags } = wp.sanitize;
   const { value, onChange, gradient = false } = props;
   const [displayPicker, setDisplayPicker] = useState(false);
   const wrapperRef = useRef(null);
@@ -36,8 +36,8 @@ const ColorField = (props) => {
         ></div>
         <input
           type="text"
-          value={stripTags(value)}
-          onChange={(e) => onChange(stripTags(e.target.value))}
+          value={sanitizScriptTags(value)}
+          onChange={(e) => onChange(sanitizScriptTags(e.target.value))}
           onClick={() => setDisplayPicker(true)}
         />
         {displayPicker && (

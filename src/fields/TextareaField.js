@@ -1,9 +1,9 @@
 const { __ } = wp.i18n;
 const { useState, useRef, useEffect, useCallback } = wp.element;
 import BaseField from "./BaseField";
+import { sanitizScriptTags } from "../utils/helpers";
 
 const TextareaField = (props) => {
-  const { stripTags } = wp.sanitize;
   const {
     value,
     cols,
@@ -48,11 +48,13 @@ const TextareaField = (props) => {
       <textarea
         cols={cols}
         rows={rows}
-        defaultValue={delayChange ? stripTags(delayValue) : stripTags(value)}
+        defaultValue={
+          delayChange ? sanitizScriptTags(delayValue) : sanitizScriptTags(value)
+        }
         onChange={(e) => {
           delayChange
-            ? handleInputChangeDelay(stripTags(e.target.value))
-            : onChange(stripTags(e.target.value));
+            ? handleInputChangeDelay(sanitizScriptTags(e.target.value))
+            : onChange(sanitizScriptTags(e.target.value));
         }}
         onBlur={onBlur}
         onFocus={onFocus}
