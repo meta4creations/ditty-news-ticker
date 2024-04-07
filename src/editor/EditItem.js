@@ -2,6 +2,7 @@ const { __ } = wp.i18n;
 const _ = lodash;
 const { useState } = wp.element;
 import { Button, SortableList } from "../components";
+import { showItem } from "../services/dittyService";
 import EditItemActions from "./EditItemActions";
 
 const EditItem = (props) => {
@@ -44,6 +45,9 @@ const EditItem = (props) => {
         } ditty-editor-item--parent ${
           childItems && childItems.length && "ditty-editor-item--has-children"
         } ditty-editor-item--${isDisabled ? "disabled" : "enabled"}`}
+        onClick={() => {
+          showItem(item);
+        }}
       >
         <EditItemActions
           {...props}

@@ -103,3 +103,9 @@ export const replaceDisplayItems = (dittyEl, displayItems) => {
   if (!displayTypeExists(dittyEl, displayType)) return false;
   dittyEl[`_ditty_${displayType}`].loadItems(displayItems, "static");
 };
+
+export const showItem = (item) => {
+  const dittyEl = document.getElementById("ditty-editor__ditty");
+  const displayType = dittyEl.dataset.type;
+  dittyEl[`_ditty_${displayType}`].showItem(item.item_id);
+};

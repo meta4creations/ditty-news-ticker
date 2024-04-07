@@ -163,22 +163,43 @@
     top: 5px;
     left: 5px;
     display: flex;
-    gap: 3px;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+    padding: 10px 10px;
+    max-width: 35px;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    &:hover {
+      max-width: 200px;
+    }
+    svg {
+      flex: 0 0 auto;
+      display: block;
+      width: 15px;
+      fill: $green;
+    }
     a {
-      font-family: Arial, sans-serif !important;
-      font-size: 14px !important;
-      font-weight: 600 !important;
-      line-height: 16px !important;
-      text-decoration: none !important;
-      color: #000 !important;
-      background: #fff;
-      padding: 6px 8px 4px 7px;
-      border-radius: 2px;
-      opacity: 0.5;
-      box-shadow: 0 0 2px;
-      transition: opacity 0.2s linear;
+      flex: 0 0 auto;
+      white-space: nowrap;
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Ubuntu,
+        "Helvetica Neue",
+        sans-serif;
+      font-size: 12px;
+      font-weight: bold;
+      text-decoration: none;
       &:hover {
-        opacity: 1;
+        text-decoration: underline;
       }
     }
   }

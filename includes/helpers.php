@@ -1452,6 +1452,7 @@ function ditty_layout_editing() {
 function ditty_edit_links( $ditty_id ) {
 	if ( ! is_admin() && current_user_can( 'edit_ditty', $ditty_id ) && 'enabled' === get_ditty_settings( 'edit_links' ) ) {
 		$html = '<div class="ditty__edit-links">';
+      $html .= '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 69.31 71.1" fill="currentColor"><path d="M0 46.4c0-17.2 8.6-29.1 24.6-29.1a19.93 19.93 0 0 1 6.6 1V0H45v59.2l1 10.3H34.2l-.9-5.2h-.5a15.21 15.21 0 0 1-13 6.8C3.8 71.1 0 58.4 0 46.4Zm31.2 7.4V28.6a13.7 13.7 0 0 0-6-1.3c-8.7 0-11.3 8.7-11.3 17.8 0 8.5 1.9 15.8 8.9 15.8 5.1 0 8.4-3.8 8.4-7.1ZM61.91 65.6a7 7 0 0 1-7.2-7.4c0-5 2.8-7.7 7.1-7.7s7.5 2.6 7.5 7.4c0 5.1-3.1 7.7-7.4 7.7ZM61.91 43.1a7 7 0 0 1-7.2-7.4c0-5 2.8-7.7 7.1-7.7s7.5 2.6 7.5 7.4c0 5.1-3.1 7.7-7.4 7.7ZM61.91 20.6a7 7 0 0 1-7.2-7.4c0-5 2.8-7.7 7.1-7.7s7.5 2.6 7.5 7.4c0 5.1-3.1 7.7-7.4 7.7Z"/></svg>';
 			$html .= '<a href="' . esc_url( get_edit_post_link( $ditty_id ) ) . '">' . __('Edit Ditty', 'ditty-news-ticker') . '</a>';
 			$display = get_post_meta( $ditty_id, '_ditty_display', true );
 			if ( ! is_array( $display ) && $edit_link = get_edit_post_link( $display ) ) {
