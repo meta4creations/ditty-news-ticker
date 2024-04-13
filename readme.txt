@@ -22,12 +22,13 @@ Enhance your website with moving, scrolling, or sliding content. The Ditty plugi
 
 *   **Ticker** - Create a unique news ticker using the Ticker Display type. Control the direction, spacing, speed, styling, and many other options.
 *   **List** - Create paged lists of your combined content. Multiple settings give you full control of the look and feel on your lists.
-*   **Slider** - Display your content in a responsive slider. Get full control over your slider's speed, direction, and design.
+*   **Slider** - Display your content in a responsive slider (using a List display limited to 1 item per page). Get full control over your slider's speed, direction, and design.
 
 ### Included Item Types
 
 *   **Default** - Add custom text to your Ditty.
-*   **WP Editor** - Add custom text to your Ditty using the WP Editor.
+*   **TinyMCE Editor** - Add custom text to your Ditty using a TinyMCE Editor.
+*   **HTML** - Add custom HTML to your Ditty using a code editor field.
 *   **WP Posts Feed (Lite)** - Add your latest blog posts to your Ditty. Check out [**Ditty Posts**](https://www.metaphorcreations.com/downloads/ditty-posts/) for custom post types, advanced WordPress queries, custom fields, and more!
 
 ### Add more features with Ditty Extensions!
@@ -39,7 +40,6 @@ Enhance your website with moving, scrolling, or sliding content. The Ditty plugi
 *   [**Ditty Posts**](https://www.metaphorcreations.com/downloads/ditty-posts/) - Easily add any posts to your site using the Ditty Posts extension. Build out a custom WP\_Query or select a specific post.
 *   [**Ditty RSS**](https://www.metaphorcreations.com/downloads/ditty-rss/) - Easily add multiple RSS feeds to your site.
 *   [**Ditty Timing**](https://www.metaphorcreations.com/downloads/ditty-timing/) - Use date ranges, weekly settings, and daily settings to schedule when your Ditty Items are visible or hidden.
-*   [**Ditty Twitter**](https://www.metaphorcreations.com/downloads/ditty-twitter/) - Easily add Twitter feeds and specific Tweets to your site.
 *   [**Ditty XML**](https://www.metaphorcreations.com/downloads/ditty-xml/) - Easily add multiple XML data feeds to your site.
 
 ## Key Features
@@ -131,7 +131,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
-= 3.1.35 [2024-04-XX] =
+= 3.1.35 [2024-04-13] =
 * Ditty import updates
 
 = 3.1.34 [2024-04-07] =
