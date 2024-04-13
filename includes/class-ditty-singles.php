@@ -548,7 +548,7 @@ class Ditty_Singles {
 	 * @since  3.1
 	 */
 	public function sanitize_item_layout_value( $layout_value ) {
-		$sanitized_layout_value = false;
+		$sanitized_layout_value = [];
 		if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
 			foreach ( $layout_value as $variation => $value ) {
 				if ( is_array( $value ) ) {
@@ -561,7 +561,9 @@ class Ditty_Singles {
 				}
 			}
 		}
-		return $sanitized_layout_value;
+    if ( ! empty( $sanitized_layout_value ) ) {
+		  return $sanitized_layout_value;
+    }
 	}
 	
 	/**
