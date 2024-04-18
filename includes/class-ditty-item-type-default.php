@@ -137,14 +137,16 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 	 * @since   3.1.5
 	 */
 	public function sanitize_settings( $values ) {
+    ditty_log( $values );
 		$sanitized_fields = array(
-			'content' 			=> isset( $values['content'] ) ? wp_encode_emoji( wp_kses_post( stripslashes( $values['content'] ) ) ) : false,
+			'content' 			=> isset( $values['content'] ) ? wp_encode_emoji( ditty_sanitize_setting( stripslashes( $values['content'] ) ) ) : false,
 			'link_url' 			=> isset( $values['link_url'] ) ? esc_url_raw( $values['link_url'] ) : false,
 			'link_title' 		=> isset( $values['link_title'] ) ? esc_attr( $values['link_title'] ) : false,
 			'link_target' 	=> isset( $values['link_target'] ) ? esc_attr( $values['link_target'] ) : false,
 			'link_nofollow'	=> isset( $values['link_nofollow'] ) ? esc_attr( $values['link_nofollow'] ) : false,
       'editor_label'  => isset( $values['editor_label'] ) ? sanitize_text_field( $values['editor_label'] ) : false,
 		);
+    ditty_log( $sanitized_fields );
 		return $sanitized_fields;
 	}
 	

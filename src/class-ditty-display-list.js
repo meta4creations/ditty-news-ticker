@@ -430,7 +430,6 @@
       });
       this.enabledItems = items;
       this.total = items.length;
-
       if (
         parseInt(this.settings.paging) &&
         parseInt(this.settings.perPage) > 0

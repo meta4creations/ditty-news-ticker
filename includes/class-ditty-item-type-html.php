@@ -79,7 +79,7 @@ class Ditty_Item_Type_Html extends Ditty_Item_Type_Default {
 	 */
 	public function sanitize_settings( $values ) {
 		$sanitized_settings = [];
-		$sanitized_settings['content'] = isset( $values ) ? wp_encode_emoji( wp_kses_post( stripslashes( $values['content'] ) ) ) : '';
+		$sanitized_settings['content'] = isset( $values ) ? wp_encode_emoji( ditty_sanitize_setting( stripslashes( $values['content'] ) ) ) : '';
 		$sanitized_settings['editor_label'] = isset( $values['editor_label'] ) ? sanitize_text_field( $values['editor_label'] ) : false;
     return $sanitized_settings;
 	}

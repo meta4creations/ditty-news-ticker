@@ -75,10 +75,12 @@ export default () => {
   previewSettings.orderby = settings.orderby ? settings.orderby : "list";
   previewSettings.order = settings.order ? settings.order : "desc";
 
-  const previewDisplay = {
-    type: currentDisplay.type,
-    settings: previewSettings,
-  };
+  const previewDisplay = currentDisplay
+    ? {
+        type: currentDisplay.type,
+        settings: previewSettings,
+      }
+    : false;
 
   return (
     <>
