@@ -1,97 +1,47 @@
 const { __ } = wp.i18n;
 import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
-const { Fragment, useState, useEffect } = wp.element;
-const { PanelBody, SelectControl, TextControl, Spinner } = wp.components;
-import apiFetch from "@wordpress/api-fetch";
+const { PanelBody, TextControl } = wp.components;
+import { useSelect } from "@wordpress/data";
 import icons from "./icon";
+import PostControlDynamic from "../../blockComponents/post-control-dynamic";
 
 export default function Edit({ isSelected, setAttributes, attributes }) {
   const { ditty, display, customID, customClasses } = attributes;
-  const [dittyPosts, setDittyPosts] = useState([]);
-  const [displayPosts, setDisplayPosts] = useState([]);
 
-  const dittyOptions = dittyPosts.map((ditty) => {
-    return {
-      key: ditty.id,
-      value: ditty.id,
-      label: ditty.title.rendered,
-    };
-  });
-  dittyOptions.unshift({
-    key: 0,
-    value: 0,
-    label: __("No Ditty Selected", "ditty-news-ticker"),
-  });
+  const dittyPosts = useSelect((select) =>
+    select("core").getEntityRecord("postType", "ditty", ditty)
+  );
 
-  const displayOptions = displayPosts.map((display) => {
-    return {
-      key: display.id,
-      value: display.id,
-      label: display.title.rendered,
-    };
-  });
-  displayOptions.unshift({
-    key: 0,
-    value: 0,
-    label: __("Use Default Display", "ditty-news-ticker"),
-  });
+  const displayPosts = useSelect((select) =>
+    select("core").getEntityRecord("postType", "ditty_display", display)
+  );
 
-  const currentDitty = dittyOptions.filter((option) => {
-    return option.value === ditty;
-  });
-  const currentDittyLabel = currentDitty[0] ? currentDitty[0].label : "";
-
-  const currentDisplay = displayOptions.filter((option) => {
-    return option.value === display;
-  });
-  const currentDisplayLabel = currentDisplay[0] ? currentDisplay[0].label : "";
   const blockClass = "wp-block-metaphorcreations-ditty";
-
-  useEffect(() => {
-    async function getDittyPosts() {
-      const posts = await apiFetch({ path: "/wp/v2/ditty" });
-      setDittyPosts(posts);
-    }
-    async function getDisplayPosts() {
-      const posts = await apiFetch({ path: "/wp/v2/ditty_display" });
-      setDisplayPosts(posts);
-    }
-    getDittyPosts();
-    getDisplayPosts();
-  }, []);
 
   return (
     <div {...useBlockProps()}>
       <InspectorControls key="dittySelectTicker">
         <PanelBody>
-          {dittyOptions ? (
-            <SelectControl
-              label={__("Ditty", "ditty-news-ticker")}
-              value={ditty}
-              options={dittyOptions}
-              onChange={(ditty) => setAttributes({ ditty: Number(ditty) })}
-            />
-          ) : (
-            <Fragment>
-              <Spinner />
-              {__("Loading Tickers", "ditty-news-ticker")}
-            </Fragment>
-          )}
-          {displayOptions ? (
-            <SelectControl
-              label={__("Display", "ditty-news-ticker")}
-              value={display}
-              options={displayOptions}
-              onChange={(display) =>
-                setAttributes({ display: Number(display) })
-              }
-            />
-          ) : (
-            <Fragment>
-              <Spinner />
-              {__("Loading Displays", "ditty-news-ticker")}
-            </Fragment>
-          )}
+          <PostControlDynamic
+            controlType="select"
+            postType="ditty"
+            label={__("Ditty", "ditty-news-ticker")}
+            placeholder={__("Select a Ditty", "ditty-news-ticker")}
+            value={ditty}
+            onChange={(selected) => {
+              setAttributes({ ditty: Number(selected[0].id) });
+            }}
+          />
+          <PostControlDynamic
+            controlType="select"
+            postType="ditty_display"
+            label={__("Display", "ditty-news-ticker")}
+            placeholder={__("Select a Display", "ditty-news-ticker")}
+            value={display}
+            onChange={(selected) => {
+              setAttributes({ display: Number(selected[0].id) });
+            }}
+          />
           <TextControl
             label={__("Custom ID", "ditty-news-ticker")}
             value={customID}
@@ -111,32 +61,36 @@ export default function Edit({ isSelected, setAttributes, attributes }) {
           <div className={`${blockClass}__info`}>
             <div className={`${blockClass}__vals`}>
               {__("ID:", "ditty-news-ticker")}{" "}
-              <strong>{currentDittyLabel}</strong>
+              <strong>{dittyPosts && dittyPosts.title.rendered}</strong>
             </div>
             <div className={`${blockClass}__vals`}>
               {__("Display:", "ditty-news-ticker")}{" "}
-              <strong>{currentDisplayLabel}</strong>
+              <strong>{displayPosts && displayPosts.title.rendered}</strong>
             </div>
           </div>
         )}
 
         {isSelected && (
           <div className={`${blockClass}__controls`}>
-            <SelectControl
-              label={__("ID:", "ditty-news-ticker")}
-              labelPosition="side"
+            <PostControlDynamic
+              controlType="select"
+              postType="ditty"
+              label={__("Ditty", "ditty-news-ticker")}
+              placeholder={__("Select a Ditty", "ditty-news-ticker")}
               value={ditty}
-              options={dittyOptions}
-              onChange={(ditty) => setAttributes({ ditty: Number(ditty) })}
+              onChange={(selected) => {
+                setAttributes({ ditty: Number(selected[0].id) });
+              }}
             />
-            <SelectControl
-              label={__("Display:", "ditty-news-ticker")}
-              labelPosition="side"
+            <PostControlDynamic
+              controlType="select"
+              postType="ditty_display"
+              label={__("Display", "ditty-news-ticker")}
+              placeholder={__("Select a Display", "ditty-news-ticker")}
               value={display}
-              options={displayOptions}
-              onChange={(display) =>
-                setAttributes({ display: Number(display) })
-              }
+              onChange={(selected) => {
+                setAttributes({ display: Number(selected[0].id) });
+              }}
             />
           </div>
         )}
