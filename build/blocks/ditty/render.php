@@ -2,6 +2,7 @@
 $args = array(
   'id' 			=> isset( $attributes['ditty'] ) 			        ? intval( $attributes['ditty'] ) : false,
   'display' => isset( $attributes['display'] ) 		        ? sanitize_text_field( $attributes['display'] ) : false,
+  'layout'  => isset( $attributes['layout'] ) 		        ? sanitize_text_field( $attributes['layout'] ) : false,
   'el_id'		=> isset( $attributes['customID'] ) 	        ? sanitize_title( $aattributestts['customID'] ) : false,
   'class'		=> isset( $atattributests['customClasses'] ) 	? esc_attr( $attributes['customClasses'] ) : false,
 );

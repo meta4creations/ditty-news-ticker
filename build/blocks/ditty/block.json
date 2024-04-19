@@ -22,6 +22,9 @@
     "display": {
       "type": "integer"
     },
+    "layout": {
+      "type": "integer"
+    },
     "customID": {
       "type": "string"
     },

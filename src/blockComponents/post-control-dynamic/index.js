@@ -7,6 +7,7 @@ const PostControlDynamic = ({
   controlType = "token",
   postType,
   label = __("Select Posts", "madden-theme"),
+  help,
   placeholder,
   value,
   onChange,
@@ -48,8 +49,10 @@ const PostControlDynamic = ({
         title: findPost.title.rendered,
       });
       onChange(newPosts);
-      document.activeElement.blur();
+    } else {
+      onChange(false);
     }
+    document.activeElement.blur();
   };
 
   const tokenValue = () => {
@@ -100,6 +103,7 @@ const PostControlDynamic = ({
       {!!posts && "select" === controlType && (
         <SelectControl
           label={label}
+          help={help}
           options={options}
           value={value}
           onChange={(selected) => {
