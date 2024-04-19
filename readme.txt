@@ -131,7 +131,7 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
-= 3.1.37 [2024-##-##] =
+= 3.1.37 [2024-04-19] =
 * Ditty block update
 
 = 3.1.36 [2024-04-18] =
