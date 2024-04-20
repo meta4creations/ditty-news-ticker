@@ -1,12 +1,36 @@
 const { __ } = wp.i18n;
+import { useEffect, useCallback } from "@wordpress/element";
 import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
-const { PanelBody, TextControl } = wp.components;
+import { BaseControl, Panel, PanelBody, PanelRow } from "@wordpress/components";
 import { useSelect } from "@wordpress/data";
 import icons from "./icon";
+import CodeMirror from "@uiw/react-codemirror";
+import { json, jsonParseLinter } from "@codemirror/lang-json";
+import { linter, lintGutter } from "@codemirror/lint";
+import { javascript } from "@codemirror/lang-javascript";
 import PostControlDynamic from "../../blockComponents/post-control-dynamic";
 
 export default function Edit({ isSelected, setAttributes, attributes }) {
-  const { ditty, display, layout, customID, customClasses } = attributes;
+  const {
+    ditty,
+    display,
+    layout,
+    displaySettings,
+    customID,
+    customClasses,
+    anchor,
+    className,
+  } = attributes;
+
+  // Migrate on mount
+  useEffect(() => {
+    if (customID && !anchor) {
+      setAttributes({ anchor: customID, customID: undefined });
+    }
+    if (customClasses && !className) {
+      setAttributes({ className: customClasses, customClasses: undefined });
+    }
+  }, []);
 
   const dittyPost = useSelect((select) =>
     select("core").getEntityRecord("postType", "ditty", ditty)
@@ -16,14 +40,20 @@ export default function Edit({ isSelected, setAttributes, attributes }) {
     select("core").getEntityRecord("postType", "ditty_display", display)
   );
 
-  const layoutPost = useSelect((select) =>
-    select("core").getEntityRecord("postType", "ditty_layout", layout)
+  const blockClass = "wp-block-metaphorcreations-ditty";
+  const blockProps = useBlockProps();
+
+  const myJsonLinter = jsonParseLinter();
+
+  const updateCustomDisplaySettings = useCallback(
+    (updatedDisplaySettings, viewUpdate) => {
+      setAttributes({ displaySettings: updatedDisplaySettings });
+    },
+    []
   );
 
-  const blockClass = "wp-block-metaphorcreations-ditty";
-
   return (
-    <div {...useBlockProps()}>
+    <div {...blockProps}>
       <InspectorControls key="dittySelectTicker">
         <PanelBody>
           <PostControlDynamic
@@ -43,32 +73,66 @@ export default function Edit({ isSelected, setAttributes, attributes }) {
             placeholder={__("Select a Display", "ditty-news-ticker")}
             value={display}
             onChange={(selected) => {
-              setAttributes({ display: selected && Number(selected[0].id) });
+              setAttributes({
+                display: selected && Number(selected[0].id),
+              });
             }}
-          />
-          <PostControlDynamic
-            controlType="select"
-            postType="ditty_layout"
-            label={__("Layout (Optional)", "ditty-news-ticker")}
-            help={__("All items will use this layout", "ditty-news-ticker")}
-            placeholder={__("Select a Layout", "ditty-news-ticker")}
-            value={layout}
-            onChange={(selected) => {
-              console.log("selected", selected);
-              setAttributes({ layout: selected && Number(selected[0].id) });
-            }}
-          />
-          <TextControl
-            label={__("Custom ID", "ditty-news-ticker")}
-            value={customID}
-            onChange={(customID) => setAttributes({ customID })}
-          />
-          <TextControl
-            label={__("Custom Classes", "ditty-news-ticker")}
-            value={customClasses}
-            onChange={(customClasses) => setAttributes({ customClasses })}
           />
         </PanelBody>
+        <Panel>
+          <PanelBody
+            title={__("Ditty Advanced", "ditty-news-ticker")}
+            initialOpen={false}
+          >
+            <PanelRow>
+              <PostControlDynamic
+                controlType="select"
+                postType="ditty_layout"
+                label={__("Layout (Optional)", "ditty-news-ticker")}
+                help={__("All items will use this layout", "ditty-news-ticker")}
+                placeholder={__("Select a Layout", "ditty-news-ticker")}
+                value={layout}
+                onChange={(selected) => {
+                  setAttributes({ layout: selected && Number(selected[0].id) });
+                }}
+              />
+            </PanelRow>
+            <BaseControl
+              label={__(
+                "Custom Display Settings (Optional)",
+                "ditty-news-ticker"
+              )}
+              help={__(
+                "Override specific display settings using json formatting.",
+                "ditty-news-ticker"
+              )}
+            >
+              <CodeMirror
+                value={displaySettings}
+                height="200px"
+                extensions={[
+                  json(), // Enable JSON syntax highlighting and parsing
+                  linter(myJsonLinter), // Enable linting
+                ]}
+                basicSetup={{
+                  lineNumbers: true,
+                  indentOnInput: true, // Ensure tab indentation works
+                  syntaxHighlighting: true,
+                  lintKeymap: true,
+                }}
+                onChange={updateCustomDisplaySettings}
+              />
+            </BaseControl>
+            {/* <CodeEditor
+              value={displaySettings}
+              onChange={(updatedDisplaySettings) => {
+                setAttributes({ displaySettings: updatedDisplaySettings });
+              }}
+              language="json"
+              help={__("Enter the JSON data here.", "text-domain")}
+            /> */}
+          </PanelBody>
+        </Panel>
       </InspectorControls>
 
       <div className={`${blockClass}__contents`}>
@@ -82,10 +146,6 @@ export default function Edit({ isSelected, setAttributes, attributes }) {
             <div className={`${blockClass}__vals`}>
               {__("Display:", "ditty-news-ticker")}{" "}
               <strong>{displayPost && displayPost.title.rendered}</strong>
-            </div>
-            <div className={`${blockClass}__vals`}>
-              {__("Layout:", "ditty-news-ticker")}{" "}
-              <strong>{layoutPost && layoutPost.title.rendered}</strong>
             </div>
           </div>
         )}
@@ -110,17 +170,6 @@ export default function Edit({ isSelected, setAttributes, attributes }) {
               value={display}
               onChange={(selected) => {
                 setAttributes({ display: selected && Number(selected[0].id) });
-              }}
-            />
-            <PostControlDynamic
-              controlType="select"
-              postType="ditty_layout"
-              label={__("Layout (Optional)", "ditty-news-ticker")}
-              help={__("All items will use this layout", "ditty-news-ticker")}
-              placeholder={__("Select a Layout", "ditty-news-ticker")}
-              value={layout}
-              onChange={(selected) => {
-                setAttributes({ layout: selected && Number(selected[0].id) });
               }}
             />
           </div>

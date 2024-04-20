@@ -431,7 +431,7 @@
       this.enabledItems = items;
       this.total = items.length;
       if (
-        parseInt(this.settings.paging) &&
+        Boolean(this.settings.paging) &&
         parseInt(this.settings.perPage) > 0
       ) {
         this.totalPages = Math.ceil(
@@ -455,7 +455,7 @@
      */
     _getPageByItemIndex: function (index) {
       var pageIndex =
-        Math.ceil((parseInt(index) + 1) / this.settings.perPage) - 1;
+        Math.ceil((parseInt(index) + 1) / parseInt(this.settings.perPage)) - 1;
       return pageIndex;
     },
 
@@ -695,11 +695,11 @@
         currentItems = $currentPage ? $currentPage.children(".ditty-item") : [],
         pageIndex = this.$contents.ditty_slider("options", "slide"),
         minIndex =
-          this.settings.paging && 1 === parseInt(this.settings.paging)
+          Boolean(this.settings.paging)
             ? parseInt(this.settings.perPage) * pageIndex
             : 0,
         maxIndex =
-          this.settings.paging && 1 === parseInt(this.settings.paging)
+          Boolean(this.settings.paging)
             ? parseInt(this.settings.perPage) * pageIndex +
               parseInt(this.settings.perPage) -
               1

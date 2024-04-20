@@ -19,15 +19,27 @@
     "layout": {
 			"type": "integer"
 		},
+    "displaySettings": {
+			"type": "string",
+      "default": "{}"
+		},
 		"customID": {
 			"type": "string"
 		},
 		"customClasses": {
 			"type": "string"
-		}
+		},
+    "anchor": {
+      "type": "string"
+    },
+    "className": {
+      "type": "string"
+    }
 	},
   "supports": {
-		"html": false
+		"html": false,
+    "anchor": true,
+    "customClassName": true
 	},
 	"editorScript": "file:./index.js",
   "editorStyle": "file:./index.css",

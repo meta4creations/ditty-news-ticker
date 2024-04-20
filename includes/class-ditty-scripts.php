@@ -35,6 +35,7 @@ class Ditty_Scripts {
     add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );	
     add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
     add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+    add_action( 'enqueue_block_editor_assets', [$this, 'enqueue_block_editor_assets'] );
     add_action( 'admin_footer', array( $this, 'enqueue_global_scripts' ), 20 );
     add_action( 'wp_footer', array( $this, 'enqueue_global_scripts' ), 20 );
 	}
@@ -761,6 +762,15 @@ class Ditty_Scripts {
 
 		$ditty_scripts_enqueued = 'enqueued';
 	}
+
+  /**
+   * Enqueue block editor assets
+   */
+  public function enqueue_block_editor_assets() {
+    wp_enqueue_script('wp-block-editor');
+    wp_enqueue_script('wp-edit-post');
+    wp_enqueue_script('wp-components');
+  }
 
 	/**
 	 * Enqueue global scripts for any Ditty's displayed

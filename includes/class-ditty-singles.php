@@ -343,8 +343,20 @@ class Ditty_Singles {
 		}
 		$args['items'] = $items;
 
-		$args = $this->parse_custom_display_settings( $args, $custom_display_settings );
-	
+    if ( $custom_display_settings ) {
+      $custom_display_array = json_decode( html_entity_decode( $custom_display_settings ), true );
+      if ( json_last_error() == JSON_ERROR_NONE ) {
+        if ( isset( $custom_display_array['type'] ) && ditty_display_type_exists( $custom_display_array['type'] ) ) {
+          $display_type = $custom_display_array['type'];
+        }
+        if ( isset( $custom_display_array['settings'] ) ) {
+          $args = wp_parse_args( $custom_display_array['settings'], $args );
+        }
+      } else {
+        $args = $this->parse_custom_display_settings( $args, $custom_display_settings );
+      }
+    }
+
 		do_action( 'ditty_init', $ditty_id );
 		
 		?>

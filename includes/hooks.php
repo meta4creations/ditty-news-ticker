@@ -82,6 +82,9 @@ function ditty_check_content_for_blocks() {
 	if ( is_array( $blocks ) && count( $blocks ) > 0 ) {
 		foreach ( $blocks as $i => $block ) {
 			if ( 'metaphorcreations/ditty' === $block['blockName'] ) {
+        if ( ! isset( $block['attrs']['ditty'] ) ) {
+          continue;
+        }
 				$ditty = $block['attrs']['ditty'];
 				$display = isset( $block['attrs']['display'] ) ? $block['attrs']['display'] : '';
 				ditty_add_scripts( $ditty, $display );

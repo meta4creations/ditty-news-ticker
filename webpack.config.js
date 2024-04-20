@@ -1,25 +1,10 @@
-/**
- * External Dependencies
- */
+const defaultConfig = require("@wordpress/scripts/config/webpack.config.js");
 const path = require("path");
 
-/**
- * WordPress Dependencies
- */
-const defaultConfig = require("@wordpress/scripts/config/webpack.config.js");
-
-const { getWebpackEntryPoints } = require("@wordpress/scripts/utils/config");
-
-var generalConfig = {
+module.exports = {
   ...defaultConfig,
   entry: {
-    ...getWebpackEntryPoints(),
-  },
-};
-
-var dittyConfig = {
-  ...defaultConfig,
-  entry: {
+    ...defaultConfig.entry(),
     ditty: "./src/ditty.js",
     dittyEditorInit: "./src/dittyEditorInit.js",
     dittyEditor: "./src/dittyEditor.js",
@@ -48,21 +33,8 @@ var dittyConfig = {
     dittyDisplayTicker: "./src/class-ditty-display-ticker",
   },
   output: {
+    ...defaultConfig.output,
     filename: "[name].js",
     path: path.resolve(process.cwd(), "build"),
   },
 };
-
-// var displayConfig = {
-//   ...defaultConfig,
-//   entry: {
-//     dittyDisplayTicker: "./src/displays/dittyDisplayTicker.js",
-//     dittyDisplayList: "./src/displays/dittyDisplayList.js",
-//   },
-//   output: {
-//     filename: "[name].js",
-//     path: path.resolve(process.cwd(), "build/displays"),
-//   },
-// };
-
-module.exports = [generalConfig, dittyConfig];
