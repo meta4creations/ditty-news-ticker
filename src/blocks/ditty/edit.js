@@ -6,8 +6,7 @@ import { useSelect } from "@wordpress/data";
 import icons from "./icon";
 import CodeMirror from "@uiw/react-codemirror";
 import { json, jsonParseLinter } from "@codemirror/lang-json";
-import { linter, lintGutter } from "@codemirror/lint";
-import { javascript } from "@codemirror/lang-javascript";
+import { linter } from "@codemirror/lint";
 import PostControlDynamic from "../../blockComponents/post-control-dynamic";
 
 export default function Edit({ isSelected, setAttributes, attributes }) {
@@ -56,28 +55,32 @@ export default function Edit({ isSelected, setAttributes, attributes }) {
     <div {...blockProps}>
       <InspectorControls key="dittySelectTicker">
         <PanelBody>
-          <PostControlDynamic
-            controlType="select"
-            postType="ditty"
-            label={__("Ditty", "ditty-news-ticker")}
-            placeholder={__("Select a Ditty", "ditty-news-ticker")}
-            value={ditty}
-            onChange={(selected) => {
-              setAttributes({ ditty: Number(selected[0].id) });
-            }}
-          />
-          <PostControlDynamic
-            controlType="select"
-            postType="ditty_display"
-            label={__("Display (Optional)", "ditty-news-ticker")}
-            placeholder={__("Select a Display", "ditty-news-ticker")}
-            value={display}
-            onChange={(selected) => {
-              setAttributes({
-                display: selected && Number(selected[0].id),
-              });
-            }}
-          />
+          <PanelRow>
+            <PostControlDynamic
+              controlType="select"
+              postType="ditty"
+              label={__("Ditty", "ditty-news-ticker")}
+              placeholder={__("Select a Ditty", "ditty-news-ticker")}
+              value={ditty}
+              onChange={(selected) => {
+                setAttributes({ ditty: Number(selected[0].id) });
+              }}
+            />
+          </PanelRow>
+          <PanelRow>
+            <PostControlDynamic
+              controlType="select"
+              postType="ditty_display"
+              label={__("Display (Optional)", "ditty-news-ticker")}
+              placeholder={__("Select a Display", "ditty-news-ticker")}
+              value={display}
+              onChange={(selected) => {
+                setAttributes({
+                  display: selected && Number(selected[0].id),
+                });
+              }}
+            />
+          </PanelRow>
         </PanelBody>
         <Panel>
           <PanelBody
@@ -97,40 +100,34 @@ export default function Edit({ isSelected, setAttributes, attributes }) {
                 }}
               />
             </PanelRow>
-            <BaseControl
-              label={__(
-                "Custom Display Settings (Optional)",
-                "ditty-news-ticker"
-              )}
-              help={__(
-                "Override specific display settings using json formatting.",
-                "ditty-news-ticker"
-              )}
-            >
-              <CodeMirror
-                value={displaySettings}
-                height="200px"
-                extensions={[
-                  json(), // Enable JSON syntax highlighting and parsing
-                  linter(myJsonLinter), // Enable linting
-                ]}
-                basicSetup={{
-                  lineNumbers: true,
-                  indentOnInput: true, // Ensure tab indentation works
-                  syntaxHighlighting: true,
-                  lintKeymap: true,
-                }}
-                onChange={updateCustomDisplaySettings}
-              />
-            </BaseControl>
-            {/* <CodeEditor
-              value={displaySettings}
-              onChange={(updatedDisplaySettings) => {
-                setAttributes({ displaySettings: updatedDisplaySettings });
-              }}
-              language="json"
-              help={__("Enter the JSON data here.", "text-domain")}
-            /> */}
+            <PanelRow>
+              <BaseControl
+                label={__(
+                  "Custom Display Settings (Optional)",
+                  "ditty-news-ticker"
+                )}
+                help={__(
+                  "Override specific display settings using json formatting.",
+                  "ditty-news-ticker"
+                )}
+              >
+                <CodeMirror
+                  value={displaySettings}
+                  height="200px"
+                  extensions={[
+                    json(), // Enable JSON syntax highlighting and parsing
+                    linter(myJsonLinter), // Enable linting
+                  ]}
+                  basicSetup={{
+                    lineNumbers: true,
+                    indentOnInput: true, // Ensure tab indentation works
+                    syntaxHighlighting: true,
+                    lintKeymap: true,
+                  }}
+                  onChange={updateCustomDisplaySettings}
+                />
+              </BaseControl>
+            </PanelRow>
           </PanelBody>
         </Panel>
       </InspectorControls>
