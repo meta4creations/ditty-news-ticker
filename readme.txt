@@ -134,6 +134,8 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 = 3.1.38 [2024-04-##] =
 * Ditty block updates
 * Moved block custom class and id Advanced panel
+* Added toggle to show/hide layout tags
+* Resolved ticker css live updates
 
 = 3.1.37 [2024-04-19] =
 * Ditty block update

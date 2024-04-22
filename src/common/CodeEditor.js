@@ -40,22 +40,25 @@ const CodeEditor = ({ value, extensions, onChange, delayChange = false }) => {
   });
 
   useEffect(() => {
-    const view = new EditorView({
-      doc: value,
-      extensions: [
-        basicSetup,
-        onUpdate,
-        [...extensions],
-        EditorView.lineWrapping,
-        keymap.of([indentWithTab]),
-        highlightActiveLine(),
-        //keymap.of([defaultKeymap, indentWithTab]),
-        // lineWrapping,
-        // onUpdate,
-        // [...extensions],
-      ],
-      parent: editor.current,
-    });
+    const view = new EditorView(
+      {
+        doc: value,
+        extensions: [
+          basicSetup,
+          onUpdate,
+          [...extensions],
+          EditorView.lineWrapping,
+          keymap.of([indentWithTab]),
+          highlightActiveLine(),
+          //keymap.of([defaultKeymap, indentWithTab]),
+          // lineWrapping,
+          // onUpdate,
+          // [...extensions],
+        ],
+        parent: editor.current,
+      },
+      [value, extensions]
+    );
 
     window.addEventListener("dittyEditorInsertLayoutTag", function (e) {
       if (!e.detail || !e.detail.renderedTag) {

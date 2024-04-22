@@ -118,7 +118,9 @@ const PopupEditLayout = ({
             key={`css${resetKey}`}
             value={editLayout.css}
             extensions={[css()]}
-            onChange={(value) => updateLayout(value, "css")}
+            onChange={(value) => {
+              updateLayout(value, "css");
+            }}
             delayChange={true}
           />
         </>

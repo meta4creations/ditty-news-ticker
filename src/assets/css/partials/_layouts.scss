@@ -35,16 +35,18 @@
     flex-wrap: wrap;
     gap: 5px;
   }
-  span {
-    font-size: 12px;
-    line-height: 12px;
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 2px;
-    padding: 3px 5px;
-    cursor: pointer;
-    transition: background-color 0.25s ease;
-    &:hover {
-      background: rgba(0, 0, 0, 0.15);
+  &__tags {
+    span {
+      font-size: 12px;
+      line-height: 12px;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 2px;
+      padding: 3px 5px;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+      &:hover {
+        background: rgba(0, 0, 0, 0.15);
+      }
     }
   }
 }
@@ -118,7 +120,10 @@
       cursor: pointer;
       border-radius: 3px;
       background: rgba(0, 0, 0, 0.05);
-      transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+      transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
     }
   }
   &:not(.is-disabled) {

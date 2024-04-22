@@ -1,1 +1,1 @@
-<?php return array('dependencies' => array('lodash', 'react', 'react-dom'), 'version' => '6a61ed25d7eb9dff2eab');
+<?php return array('dependencies' => array('lodash', 'react', 'react-dom'), 'version' => '1c30a0512d4fe824d41e');

@@ -694,16 +694,14 @@
       var $currentPage = this.$contents.ditty_slider("options", "currentSlide"),
         currentItems = $currentPage ? $currentPage.children(".ditty-item") : [],
         pageIndex = this.$contents.ditty_slider("options", "slide"),
-        minIndex =
-          Boolean(this.settings.paging)
-            ? parseInt(this.settings.perPage) * pageIndex
-            : 0,
-        maxIndex =
-          Boolean(this.settings.paging)
-            ? parseInt(this.settings.perPage) * pageIndex +
-              parseInt(this.settings.perPage) -
-              1
-            : currentItems.length + updatedItems.length,
+        minIndex = Boolean(this.settings.paging)
+          ? parseInt(this.settings.perPage) * pageIndex
+          : 0,
+        maxIndex = Boolean(this.settings.paging)
+          ? parseInt(this.settings.perPage) * pageIndex +
+            parseInt(this.settings.perPage) -
+            1
+          : currentItems.length + updatedItems.length,
         itemSwaps = [];
 
       if ($currentPage) {
