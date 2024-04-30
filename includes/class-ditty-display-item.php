@@ -41,13 +41,14 @@ class Ditty_Display_Item {
 	 * @since   3.1
 	 */
 	public function __construct( $prepared_meta, $layouts = false ) {
+
 		$this->item_meta = $prepared_meta;
 		$this->id = $prepared_meta['item_id'];
 		$this->uniq_id = isset( $prepared_meta['item_uniq_id'] ) ? $prepared_meta['item_uniq_id'] : $prepared_meta['item_id'];
 		$this->parent_id = isset( $prepared_meta['parent_id'] ) ? $prepared_meta['parent_id'] : 0;
     $this->timestamp = isset( $prepared_meta['timestamp'] ) ? $prepared_meta['timestamp'] : false;
 		$this->item_value = $prepared_meta['item_value'];	
-		$this->attribute_value = isset( $prepared_meta['attribute_value'] ) ? maybe_unserialize( $prepared_meta['attribute_value'] ) : array();	
+		$this->attribute_value = isset( $prepared_meta['attribute_value'] ) ? ditty_sanitize_settings( maybe_unserialize( $prepared_meta['attribute_value'] ) ) : array();	
 		$this->item_type = $prepared_meta['item_type'];
 		$this->has_error = isset( $prepared_meta['has_error'] ) ? $prepared_meta['has_error'] : false;
 		$this->custom_classes = isset( $prepared_meta['custom_classes'] ) ? $prepared_meta['custom_classes'] : false;
@@ -73,7 +74,7 @@ class Ditty_Display_Item {
 		// 		$layout = ( '{' == substr( $meta['layout'], 0, 1 ) ) ? json_decode( $meta['layout'], true ) : $meta['layout'];
 		// 	}		
 		// } else {
-			$layout_value = maybe_unserialize( $meta['layout_value'] );
+			$layout_value = ditty_sanitize_settings( maybe_unserialize( $meta['layout_value'] ) );
 			$layout_variation = isset( $meta['layout_variation'] ) ? $meta['layout_variation'] : 'default';
 			$layout = 0;
 			if ( isset( $layout_value[$layout_variation] ) ) {
