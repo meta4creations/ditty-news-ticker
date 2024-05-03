@@ -464,7 +464,10 @@ class Ditty_Singles {
 					}
 
 					// Unpack the layout variations
-					$layout_value = maybe_unserialize( $item_meta->layout_value );
+          $layout_value = [];
+          if ( isset( $item_meta->layout_value ) && '' != $item_meta->layout_value ) {
+					  $layout_value = is_array( $item_meta->layout_value ) ? $item_meta->layout_value : json_decode( $item_meta->layout_value, true ); // maybee_unserialize
+          }
 					
 					// Add custom layouts
 					if ( ! empty( $custom_layout_array ) ) {
@@ -476,7 +479,8 @@ class Ditty_Singles {
 					}
 					
 					// De-serialize the attribute values
-					$attribute_value = maybe_unserialize( $item_meta->attribute_value );
+          $attribute_value = ( isset( $item_meta->attribute_value ) && '' != $item_meta->attribute_value ) ? $item_meta->attribute_value : [];
+					$attribute_value = is_array( $attribute_value ) ? $attribute_value : json_decode( $attribute_value ); // maybee_unserialize
 
 					// Get and loop through prepared items
 					$prepared_items = ditty_prepare_display_items( $item_meta );
@@ -788,7 +792,7 @@ class Ditty_Singles {
 				$serialized_item = $sanitized_item;
 
 				if ( isset( $sanitized_item['item_value'] ) ) {
-					$serialized_item['item_value'] = maybe_serialize( $sanitized_item['item_value'] );
+					$serialized_item['item_value'] = json_encode( $sanitized_item['item_value'] ); // maybe_serialize
 					
 					// Return new item previews
 					if ( $item_type_object = ditty_item_type_object( $sanitized_item['item_type'] ) ) {
@@ -796,10 +800,10 @@ class Ditty_Singles {
 					}
 				}
 				if ( isset( $sanitized_item['layout_value'] ) ) {
-					$serialized_item['layout_value'] = maybe_serialize( $sanitized_item['layout_value'] );
+					$serialized_item['layout_value'] = json_encode( $sanitized_item['layout_value'] ); // maybe_serialize
 				}
 				if ( isset( $sanitized_item['attribute_value'] ) ) {
-					$serialized_item['attribute_value'] = maybe_serialize( $sanitized_item['attribute_value'] );
+					$serialized_item['attribute_value'] = json_encode( $sanitized_item['attribute_value'] ); // maybe_serialize
 				}
 
 				$update_item = false;

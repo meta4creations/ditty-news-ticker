@@ -95,7 +95,7 @@ class MTPHR_DNT {
 	 	$custom_fields = get_post_custom( $this->post_id );
 		$meta_data = array();
 		foreach( $custom_fields as $key => $value ) {
-			$meta_data[$key] = maybe_unserialize( $value[0] );
+			$meta_data[$key] = json_decode( $value[0], true ); // maybee_unserialize
 		}
 	
 		// Override meta data with supplied attributes

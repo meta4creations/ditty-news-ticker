@@ -48,7 +48,11 @@ class Ditty_Display_Item {
 		$this->parent_id = isset( $prepared_meta['parent_id'] ) ? $prepared_meta['parent_id'] : 0;
     $this->timestamp = isset( $prepared_meta['timestamp'] ) ? $prepared_meta['timestamp'] : false;
 		$this->item_value = $prepared_meta['item_value'];	
-		$this->attribute_value = isset( $prepared_meta['attribute_value'] ) ? ditty_sanitize_settings( maybe_unserialize( $prepared_meta['attribute_value'] ) ) : array();	
+    if ( isset( $prepared_meta['attribute_value'] ) ) {
+      $this->attribute_value = is_array( $prepared_meta['attribute_value'] ) ? $prepared_meta['attribute_value'] : json_decode( $prepared_meta['attribute_value'], true );	// maybee_unserialize
+    } else {
+      $this->attribute_value = [];
+    }
 		$this->item_type = $prepared_meta['item_type'];
 		$this->has_error = isset( $prepared_meta['has_error'] ) ? $prepared_meta['has_error'] : false;
 		$this->custom_classes = isset( $prepared_meta['custom_classes'] ) ? $prepared_meta['custom_classes'] : false;
@@ -67,20 +71,12 @@ class Ditty_Display_Item {
 	 * @return string $item_type
 	 */
 	private function configure_layout( $meta, $layouts = false ) {
-		// if ( isset( $meta['layout'] ) ) {
-		// 	if ( is_array( $meta['layout'] ) ) {
-		// 		$layout = $meta['layout'];
-		// 	} else {
-		// 		$layout = ( '{' == substr( $meta['layout'], 0, 1 ) ) ? json_decode( $meta['layout'], true ) : $meta['layout'];
-		// 	}		
-		// } else {
-			$layout_value = ditty_sanitize_settings( maybe_unserialize( $meta['layout_value'] ) );
-			$layout_variation = isset( $meta['layout_variation'] ) ? $meta['layout_variation'] : 'default';
-			$layout = 0;
-			if ( isset( $layout_value[$layout_variation] ) ) {
-				$layout = is_array( $layout_value[$layout_variation] ) ? $layout_value[$layout_variation] : ( ( '{' == substr( $layout_value[$layout_variation], 0, 1 ) ) ? json_decode( $layout_value[$layout_variation], true ) : $layout_value[$layout_variation] );
-			}
-		//}
+    $layout_value = is_array( $meta['layout_value'] ) ? $meta['layout_value'] : json_decode( $meta['layout_value'], true ); // maybee_unserialize
+    $layout_variation = isset( $meta['layout_variation'] ) ? $meta['layout_variation'] : 'default';
+    $layout = 0;
+    if ( isset( $layout_value[$layout_variation] ) ) {
+      $layout = is_array( $layout_value[$layout_variation] ) ? $layout_value[$layout_variation] : ( ( '{' == substr( $layout_value[$layout_variation], 0, 1 ) ) ? json_decode( $layout_value[$layout_variation], true ) : $layout_value[$layout_variation] );
+    }
 
 		if ( is_array( $layout ) ) {
 			$variation_id = isset( $meta['layout_variation'] ) ? $meta['layout_variation'] : 'default';

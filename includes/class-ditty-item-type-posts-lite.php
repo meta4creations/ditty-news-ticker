@@ -38,8 +38,8 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 	 * @return array
 	 */
 	public function prepare_items( $meta ) {
-		$item_value = maybe_unserialize( $meta['item_value'] );
-		$layout_value = maybe_unserialize( $meta['layout_value'] );
+		$item_value = json_decode( $meta['item_value'], true ); // maybee_unserialize
+		$layout_value = json_decode( $meta['layout_value'], true ); // maybee_unserialize
 		
 
 		// Set the query args
@@ -53,7 +53,7 @@ class Ditty_Item_Type_Posts_Lite extends Ditty_Item_Type {
 		$prepared_meta = array();
 		if ( $ditty_posts_query->have_posts() ) : while ( $ditty_posts_query->have_posts() ) : $ditty_posts_query->the_post();	
 			global $post;
-			$item_value 				= maybe_unserialize( $meta['item_value'] );
+			$item_value 				= json_decode( $meta['item_value'], true ); // maybee_unserialize
 			$item_value['item'] = $post;
 			$item_value['item']->permalink = get_permalink( $post );
 			$item_value['item']->author = [

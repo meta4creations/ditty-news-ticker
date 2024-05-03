@@ -746,9 +746,15 @@ function ditty_items_meta( $ditty_id = false ) {
 		$all_meta = Ditty()->db_items->get_items( $ditty_id );
 		if ( is_array( $all_meta ) && count( $all_meta ) > 0 ) {
 			foreach ( $all_meta as $i => $meta ) {
-				$meta->item_value = $meta->item_value ? maybe_unserialize( $meta->item_value ) : false;
-				$meta->layout_value = $meta->layout_value ? maybe_unserialize( $meta->layout_value ) : false;
-				$meta->attribute_value = $meta->attribute_value ? maybe_unserialize( $meta->attribute_value ) : false;
+        $item_value = isset( $meta->item_value ) ? maybe_unserialize( $meta->item_value ) : [];
+				$meta->item_value = is_array( $item_value ) ? $item_value : json_decode( $item_value, true ); // maybee_unserialize
+				
+        $layout_value = isset( $meta->layout_value ) ? maybe_unserialize( $meta->layout_value ) : false;
+        $meta->layout_value = is_array( $layout_value ) ? $layout_value : json_decode( $layout_value, true ); // maybee_unserialize
+				
+        $attribute_value = isset( $meta->attribute_value ) ? maybe_unserialize( $meta->attribute_value ) : false;
+        $meta->attribute_value = is_array( $attribute_value ) ? $attribute_value : json_decode( $attribute_value, true ); // maybee_unserialize
+
 				unset( $meta->layout_id ); // TODO: Maybe remove?
 				$normalized_meta[] = apply_filters( 'ditty_item_meta', $meta, $meta->item_id, $ditty_id );
 			} 
@@ -768,7 +774,7 @@ function ditty_items_meta( $ditty_id = false ) {
 function ditty_item_meta( $item_id ) {	
 	$meta = Ditty()->db_items->get( $item_id );
 	$ditty_id = ( isset( $meta->ditty_id ) ) ? $meta->ditty_id : 0;
-	$value = maybe_unserialize( $meta->item_value );
+	$value = json_decode( $meta->item_value, true ); // maybee_unserialize
 	$meta->item_value = $value;
 	return apply_filters( 'ditty_item_meta', $meta, $item_id, $ditty_id );
 }
@@ -1342,7 +1348,7 @@ function ditty_item_custom_meta( $item_id ) {
 	$mapped_meta = [];
 	if ( is_array( $meta ) && count( $meta ) > 0 ) {
 		foreach ( $meta as $data ) {
-			$mapped_meta[$data->meta_key] = maybe_unserialize( $data->meta_value );
+			$mapped_meta[$data->meta_key] = json_decode( $data->meta_value, true ); // maybee_unserialize
 		}
 	}
 	return $mapped_meta;

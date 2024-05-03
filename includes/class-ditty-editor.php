@@ -45,7 +45,8 @@ class Ditty_Editor {
 				}
 	
 				// Unpack the layout variations
-				$layout_value = maybe_unserialize( $item_meta->layout_value );
+        $layout_value = isset( $item_meta->layout_value ) ? $item_meta->layout_value : [];
+				$layout_value = is_array( $layout_value ) ? $layout_value : json_decode( $layout_value, true ); // maybee_unserialize
 				$layout_variations = [];
 				if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
 					foreach ( $layout_value as $variation => $value ) {
@@ -54,7 +55,8 @@ class Ditty_Editor {
 				}
 				
 				// De-serialize the attribute values
-				$attribute_value = maybe_unserialize( $item_meta->attribute_value );
+        $attribute_value = isset( $item_meta->attribute_value ) ? $item_meta->attribute_value : [];
+				$attribute_value = is_array( $attribute_value ) ? $attribute_value : json_decode( $attribute_value, true ); // maybee_unserialize
 
 				$prepared_items = ditty_prepare_display_items( $item_meta );
 				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {

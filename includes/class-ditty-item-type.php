@@ -43,11 +43,11 @@ class Ditty_Item_Type {
 	 * @return array
 	 */
 	public function prepare_items( $meta ) {
-		$layout_value = maybe_unserialize( $meta['layout_value'] );
+    $layout_value = ( isset( $meta['layout_value'] ) && '' != $meta['layout_value'] ) ? $meta['layout_value'] : [];
+		$layout_value = is_array( $layout_value ) ? $layout_value : json_decode( $layout_value, true ); // maybee_unserialize
 		
 		$ditty_item	= $meta;
 		$ditty_item['layout_variation'] = isset( $layout_value['default'] ) ? 'default' : false;
-		//$ditty_item['layout'] = isset( $layout_value['default'] ) ? $layout_value['default'] : false;
     $ditty_item['timestamp'] = isset( $meta['date_created'] ) ? strtotime( $meta['date_created'] ) : false;
 
     // Translate items
