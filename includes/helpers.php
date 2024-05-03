@@ -1302,7 +1302,8 @@ function ditty_log( $log = false ) {
  * @since   3.0
  */
 function ditty_item_get_meta( $item_id, $meta_key = '', $single = true ) {
-	return Ditty()->db_item_meta->get_meta( $item_id, $meta_key, $single );
+	$meta = Ditty()->db_item_meta->get_meta( $item_id, $meta_key, $single );
+	return $meta;
 }
 
 /**
@@ -1348,7 +1349,10 @@ function ditty_item_custom_meta( $item_id ) {
 	$mapped_meta = [];
 	if ( is_array( $meta ) && count( $meta ) > 0 ) {
 		foreach ( $meta as $data ) {
-			$mapped_meta[$data->meta_key] = json_decode( $data->meta_value, true ); // maybee_unserialize
+			$meta_value = isset( $data->meta_value ) ? maybe_unserialize( $data->meta_value ) : false;
+			if ( $meta_value ) {
+				$mapped_meta[$data->meta_key] = is_array( $meta_value ) ? $meta_value : json_decode( $meta_value, true ); // maybee_unserialize
+			}
 		}
 	}
 	return $mapped_meta;
@@ -1661,4 +1665,26 @@ function ditty_get_variation_defaults() {
 		}
 	}
 	return $sanitized_variation_defaults;
+}
+
+function ditty_to_array( $value ) {
+	$default = array( array() );
+
+	if ( empty( $value ) ) {
+		return $default;
+	} elseif ( is_array( $value ) ) {
+		if ( ! is_array( $value[0] ) ) {
+			$value = $this->create_list_array( $value );
+		}
+
+		return $value;
+	} elseif ( is_serialized( $value ) ) {
+		$value = @unserialize(
+			trim( $value ),
+			array( 'allowed_classes' => false )
+		);
+		return is_array( $value ) ? $value : $default;
+	}
+
+	return $default;
 }

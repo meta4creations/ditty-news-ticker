@@ -105,7 +105,7 @@ class Ditty_Editor {
 				$display_data[] = array(
 					'id' => $post->ID,
 					'type' => $display_type,
-					'title' => $post->post_title,
+					'title' => html_entity_decode( $post->post_title ),
 					'description' => get_post_meta($post->ID, '_ditty_display_description', true),
 					'settings' => ditty_sanitize_settings( $display_settings ),
 					'version' => get_post_meta($post->ID, '_ditty_display_version', true),
@@ -136,7 +136,7 @@ class Ditty_Editor {
 			foreach ($posts as $i => $post) {
 				$layout_data[] = array(
 					'id' => $post->ID,
-					'title' => $post->post_title,
+					'title' => html_entity_decode( $post->post_title ),
 					'description' => get_post_meta($post->ID, '_ditty_layout_description', true),
 					'html' => get_post_meta($post->ID, '_ditty_layout_html', true),
 					'css' => get_post_meta($post->ID, '_ditty_layout_css', true),

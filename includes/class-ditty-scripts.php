@@ -518,7 +518,7 @@ class Ditty_Scripts {
 					$display = false;
 				} else {
 					$ditty = get_post( $ditty_id );	
-					$title = $ditty->post_title;
+					$title = html_entity_decode( $ditty->post_title );
 					$display = get_post_meta(  $ditty_id, '_ditty_display', true );
 				}
 				$item_data = Ditty()->editor->item_data(  $ditty_id );

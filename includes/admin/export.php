@@ -463,10 +463,12 @@ function ditty_export_ditty_posts( $post_ids ) {
 						$meta['custom_meta'] = $cleaned_meta;
 					}
 					
-					$item_value = json_decode( $meta['item_value'], true ); // maybee_unserialize
+					$item_value = isset( $meta['item_value'] ) ? maybe_unserialize( $meta['item_value'] ) : [];
+					$item_value = is_array( $item_value ) ? $item_value : json_decode( $item_value, true ); // maybee_unserialize
 					$meta['item_value'] = $item_value;
 					
-					$layout_value = json_decode( $meta['layout_value'], true ); // maybee_unserialize
+					$layout_value = isset( $meta['layout_value'] ) ? maybe_unserialize( $meta['layout_value'] ) : [];
+					$layout_value = is_array( $layout_value ) ? $layout_value : json_decode( $layout_value, true ); // maybee_unserialize
 					$updated_layout_value = array();
 					if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
 						foreach ( $layout_value as $variation => $layout_id ) {
