@@ -1014,4 +1014,4 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Upgrade Notice ==
 
-Ditty block, editor and security updates
+Security updates

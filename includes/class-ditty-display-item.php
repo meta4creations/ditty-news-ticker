@@ -54,10 +54,6 @@ class Ditty_Display_Item {
 		$this->custom_classes = isset( $prepared_meta['custom_classes'] ) ? $prepared_meta['custom_classes'] : false;
 		$this->custom_meta = isset( $prepared_meta['custom_meta'] ) ? $prepared_meta['custom_meta'] : false;
 		$this->configure_layout( $prepared_meta, $layouts );
-		
-		// if ( current_user_can( 'administrator' ) ) {
-		// 	echo '<pre>';print_r($prepared_meta);echo '</pre>';
-		// }
 	}
 
 	/**
