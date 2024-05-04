@@ -544,17 +544,17 @@ class Ditty_Plugin_Updater {
 		$request = json_decode( wp_remote_retrieve_body( $request ) );
 
 		if ( $request && isset( $request->sections ) ) {
-			$request->sections = maybe_unserialize( $request->sections );
+			$request->sections = ditty_to_array( $request->sections );
 		} else {
 			$request = false;
 		}
 
 		if ( $request && isset( $request->banners ) ) {
-			$request->banners = maybe_unserialize( $request->banners );
+			$request->banners = ditty_to_array( $request->banners );
 		}
 
 		if ( $request && isset( $request->icons ) ) {
-			$request->icons = maybe_unserialize( $request->icons );
+			$request->icons = ditty_to_array( $request->icons );
 		}
 
 		if ( ! empty( $request->sections ) ) {

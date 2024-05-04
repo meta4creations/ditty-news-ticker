@@ -455,7 +455,7 @@ function ditty_export_ditty_posts( $post_ids ) {
 							if ( is_object( $data ) ) {
 								$data = ( array ) $data;
 							}
-							$data['meta_value'] = maybe_unserialize( $data['meta_value'] );
+							$data['meta_value'] = ditty_to_array( $data['meta_value'] );
 							unset( $data['meta_id'] );
 							unset( $data['item_id'] );
 							$cleaned_meta[] = $data;
@@ -463,10 +463,10 @@ function ditty_export_ditty_posts( $post_ids ) {
 						$meta['custom_meta'] = $cleaned_meta;
 					}
 					
-					$item_value = maybe_unserialize( $meta['item_value'] );
+					$item_value = ditty_to_array( $meta['item_value'] );
 					$meta['item_value'] = $item_value;
 					
-					$layout_value = maybe_unserialize( $meta['layout_value'] );
+					$layout_value = ditty_to_array( $meta['layout_value'] );
 					$updated_layout_value = array();
 					if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
 						foreach ( $layout_value as $variation => $layout_id ) {
@@ -769,13 +769,13 @@ function ditty_import_posts() {
 					// Sanitize and save item data
 					$serialized_item = $sanitized_item = Ditty()->singles->sanitize_item_data( $item );
 					if ( isset( $sanitized_item['item_value'] ) ) {
-						$serialized_item['item_value'] = maybe_serialize( $sanitized_item['item_value'] );
+						$serialized_item['item_value'] = json_encode( $sanitized_item['item_value'] );
 					}
 					if ( isset( $sanitized_item['layout_value'] ) ) {
-						$serialized_item['layout_value'] = maybe_serialize( $sanitized_item['layout_value'] );
+						$serialized_item['layout_value'] = json_encode( $sanitized_item['layout_value'] );
 					}
 					if ( isset( $sanitized_item['attribute_value'] ) ) {
-						$serialized_item['attribute_value'] = maybe_serialize( $sanitized_item['attribute_value'] );
+						$serialized_item['attribute_value'] = json_encode( $sanitized_item['attribute_value'] );
 					}
 					if ( $new_item_id = Ditty()->db_items->insert( apply_filters( 'ditty_item_db_data', $serialized_item, $imported_ditty_id ), 'item' ) ) {
 						

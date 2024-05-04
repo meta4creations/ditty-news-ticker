@@ -43,7 +43,7 @@ class Ditty_Item_Type {
 	 * @return array
 	 */
 	public function prepare_items( $meta ) {
-		$layout_value = maybe_unserialize( $meta['layout_value'] );
+		$layout_value = ditty_to_array( $meta['layout_value'] );
 		
 		$ditty_item	= $meta;
 		$ditty_item['layout_variation'] = isset( $layout_value['default'] ) ? 'default' : false;

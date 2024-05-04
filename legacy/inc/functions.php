@@ -54,7 +54,7 @@ function get_mtphr_dnt_ticker( $id='', $class='', $atts=false ) {
 		$custom_fields = get_post_custom( $id );
 		$meta_data = array();
 		foreach( $custom_fields as $key => $value ) {
-			$meta_data[$key] = maybe_unserialize( $value[0] );
+			$meta_data[$key] = ditty_to_array( $value[0] );
 		}
 	
 		// Override meta data with supplied attributes

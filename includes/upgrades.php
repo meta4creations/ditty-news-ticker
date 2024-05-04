@@ -298,7 +298,7 @@ function ditty_v3_1_item_tag_upgrades( $item ) {
 	if ( ! empty( $attribute_value ) ) {
 		$sanitized__attribute_value = Ditty()->singles->sanitize_item_attribute_value( $attribute_value, $item->item_type );
 		$updated_item = [
-			'attribute_value' => maybe_serialize( $sanitized__attribute_value ),
+			'attribute_value' => json_encode( $sanitized__attribute_value ),
 		];
 		Ditty()->db_items->update( $item->item_id, $updated_item, 'item_id' );	
 		return $updated_item;

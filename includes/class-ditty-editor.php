@@ -45,7 +45,7 @@ class Ditty_Editor {
 				}
 	
 				// Unpack the layout variations
-				$layout_value = maybe_unserialize( $item_meta->layout_value );
+				$layout_value = ditty_to_array( $item_meta->layout_value );
 				$layout_variations = [];
 				if ( is_array( $layout_value ) && count( $layout_value ) > 0 ) {
 					foreach ( $layout_value as $variation => $value ) {
@@ -54,7 +54,7 @@ class Ditty_Editor {
 				}
 				
 				// De-serialize the attribute values
-				$attribute_value = maybe_unserialize( $item_meta->attribute_value );
+				$attribute_value = ditty_to_array( $item_meta->attribute_value );
 
 				$prepared_items = ditty_prepare_display_items( $item_meta );
 				if ( is_array( $prepared_items ) && count( $prepared_items ) > 0 ) {
@@ -103,7 +103,7 @@ class Ditty_Editor {
 				$display_data[] = array(
 					'id' => $post->ID,
 					'type' => $display_type,
-					'title' => $post->post_title,
+					'title' => html_entity_decode( $post->post_title ),
 					'description' => get_post_meta($post->ID, '_ditty_display_description', true),
 					'settings' => ditty_sanitize_settings( $display_settings ),
 					'version' => get_post_meta($post->ID, '_ditty_display_version', true),

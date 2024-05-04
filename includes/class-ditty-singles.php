@@ -464,7 +464,7 @@ class Ditty_Singles {
 					}
 
 					// Unpack the layout variations
-					$layout_value = maybe_unserialize( $item_meta->layout_value );
+					$layout_value = ditty_to_array( $item_meta->layout_value );
 					
 					// Add custom layouts
 					if ( ! empty( $custom_layout_array ) ) {
@@ -476,7 +476,7 @@ class Ditty_Singles {
 					}
 					
 					// De-serialize the attribute values
-					$attribute_value = maybe_unserialize( $item_meta->attribute_value );
+					$attribute_value = ditty_to_array( $item_meta->attribute_value );
 
 					// Get and loop through prepared items
 					$prepared_items = ditty_prepare_display_items( $item_meta );
@@ -788,7 +788,7 @@ class Ditty_Singles {
 				$serialized_item = $sanitized_item;
 
 				if ( isset( $sanitized_item['item_value'] ) ) {
-					$serialized_item['item_value'] = maybe_serialize( $sanitized_item['item_value'] );
+					$serialized_item['item_value'] = json_encode( $sanitized_item['item_value'] );
 					
 					// Return new item previews
 					if ( $item_type_object = ditty_item_type_object( $sanitized_item['item_type'] ) ) {
@@ -796,10 +796,10 @@ class Ditty_Singles {
 					}
 				}
 				if ( isset( $sanitized_item['layout_value'] ) ) {
-					$serialized_item['layout_value'] = maybe_serialize( $sanitized_item['layout_value'] );
+					$serialized_item['layout_value'] = json_encode( $sanitized_item['layout_value'] );
 				}
 				if ( isset( $sanitized_item['attribute_value'] ) ) {
-					$serialized_item['attribute_value'] = maybe_serialize( $sanitized_item['attribute_value'] );
+					$serialized_item['attribute_value'] = json_encode( $sanitized_item['attribute_value'] );
 				}
 
 				$update_item = false;

@@ -746,9 +746,9 @@ function ditty_items_meta( $ditty_id = false ) {
 		$all_meta = Ditty()->db_items->get_items( $ditty_id );
 		if ( is_array( $all_meta ) && count( $all_meta ) > 0 ) {
 			foreach ( $all_meta as $i => $meta ) {
-				$meta->item_value = $meta->item_value ? maybe_unserialize( $meta->item_value ) : false;
-				$meta->layout_value = $meta->layout_value ? maybe_unserialize( $meta->layout_value ) : false;
-				$meta->attribute_value = $meta->attribute_value ? maybe_unserialize( $meta->attribute_value ) : false;
+				$meta->item_value = $meta->item_value ? ditty_to_array( $meta->item_value ) : false;
+				$meta->layout_value = $meta->layout_value ? ditty_to_array( $meta->layout_value ) : false;
+				$meta->attribute_value = $meta->attribute_value ? ditty_to_array( $meta->attribute_value ) : false;
 				unset( $meta->layout_id ); // TODO: Maybe remove?
 				$normalized_meta[] = apply_filters( 'ditty_item_meta', $meta, $meta->item_id, $ditty_id );
 			} 
@@ -768,7 +768,7 @@ function ditty_items_meta( $ditty_id = false ) {
 function ditty_item_meta( $item_id ) {	
 	$meta = Ditty()->db_items->get( $item_id );
 	$ditty_id = ( isset( $meta->ditty_id ) ) ? $meta->ditty_id : 0;
-	$value = maybe_unserialize( $meta->item_value );
+	$value = ditty_to_array( $meta->item_value );
 	$meta->item_value = $value;
 	return apply_filters( 'ditty_item_meta', $meta, $item_id, $ditty_id );
 }
@@ -1342,7 +1342,7 @@ function ditty_item_custom_meta( $item_id ) {
 	$mapped_meta = [];
 	if ( is_array( $meta ) && count( $meta ) > 0 ) {
 		foreach ( $meta as $data ) {
-			$mapped_meta[$data->meta_key] = maybe_unserialize( $data->meta_value );
+			$mapped_meta[$data->meta_key] = ditty_to_array( $data->meta_value );
 		}
 	}
 	return $mapped_meta;
@@ -1655,4 +1655,27 @@ function ditty_get_variation_defaults() {
 		}
 	}
 	return $sanitized_variation_defaults;
+}
+
+/**
+ * Return an array value and possibly unserialize
+ */
+function ditty_to_array( $value ) {
+	if ( empty( $value ) ) {
+		return [];
+	} elseif ( is_array( $value ) ) {
+		return $value;
+	} elseif ( is_serialized( $value ) ) {
+		$value = @unserialize(
+			trim( $value ),
+			array( 'allowed_classes' => false )
+		);
+		return is_array( $value ) ? $value : [];
+	} elseif ( is_string( $value ) ) {
+		$json_array = json_decode( $value, true );
+		if ( json_last_error() === JSON_ERROR_NONE ) {
+			return $json_array;
+		}
+	}
+	return [];
 }
