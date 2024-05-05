@@ -500,3 +500,18 @@ function mtphr_dnt_update_option( $option, $value ) {
 		return update_option( $option, $value );
 	}
 }
+
+/**
+ * Return an array value and possibly unserialize
+ */
+function mtphr_dnt_maybe_unserialize( $value ) {
+	if ( is_serialized( $value ) ) {
+		$value = @unserialize(
+			trim( $value ),
+			array( 'allowed_classes' => false )
+		);
+		return is_array( $value ) ? $value : [];
+	} else {
+		return $value;
+	}
+}
