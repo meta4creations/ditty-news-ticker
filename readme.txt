@@ -131,6 +131,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.42 [2024-##-##] =
+* Bug fix
+
 = 3.1.41 [2024-05-14] =
 * Added pause/play button (optional) to ticker display type
 
