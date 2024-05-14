@@ -233,6 +233,13 @@ if (dittyEditor) {
             "ditty-news-ticker"
           ),
         },
+        {
+          type: "checkbox",
+          id: "playPauseButton",
+          name: __("Play/Pause Button", "ditty-news-ticker"),
+          label: __("Add a play/pause button to the container", "ditty-news-ticker"),
+          help: __("Add a play/pause button to the container.", "ditty-news-ticker"),
+        },
       ];
 
       return fields;

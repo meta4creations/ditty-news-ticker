@@ -27,6 +27,7 @@
     cloneItems: "yes",
     wrapItems: "yes",
     hoverPause: 0, // 0, 1
+    playPauseButton: 0, // 0,1
     height: null,
     minHeight: null,
     maxHeight: null,
@@ -104,10 +105,12 @@
     this.$titleContents = null;
     this.$contents = null;
     this.$items = null;
+    this.$playPauseButton = null;
     this.$currentItem = null;
     this.$lastItem = null;
     this.scrollPercent = 0.13;
     this.running = false;
+    this.paused = false;
     this.interval = false;
     this.firstItem = this.settings.item;
     this.currentHeight = this.settings.height;
@@ -176,6 +179,10 @@
       // Setup styles
       this._styleDisplay();
       this._styleTitle();
+
+      // Initialize the play pause button
+      this.$playPauseButton = $('<button class="ditty-playPause"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z"/></svg></button>');
+      this._renderPlayPauseButton();
 
       // Add listeners
       this.$elmt.on("mouseenter", { self: this }, this._mouseenter);
@@ -299,6 +306,9 @@
 
     _timerStart: function () {
       var self = this;
+      if ( self.paused ) {
+        return false;
+      }
 
       this.running = true;
       this.trigger("start");
@@ -309,7 +319,7 @@
         self.scrollIncrement =
           parseFloat(self.settings.speed) * self.scrollPercent;
         self._positionItems();
-        if (self.running) {
+        if (self.running && !self.paused) {
           self.interval = requestAnimationFrame(ditty_tickerLoop);
         }
       }
@@ -1084,6 +1094,28 @@
       }
     },
 
+    _renderPlayPauseButton: function () {
+      if ( this.settings.playPauseButton ) {
+        this.$elmt.append(this.$playPauseButton);
+        this.$playPauseButton.on( 'click', { self: this }, this._togglePlayPauseButton );
+      } else {
+        this.$playPauseButton.off( 'click', { self: this }, this._togglePlayPauseButton );
+        this.$playPauseButton.remove();
+      }
+    },
+
+    _togglePlayPauseButton: function(e) {
+      var self = e ? e.data.self : this;
+      self.paused = ! self.paused;
+      if ( self.paused ) {
+        self._timerStop();
+        self.$playPauseButton.html($('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>'));
+      } else {
+        self._timerStart();
+        self.$playPauseButton.html($('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z"/></svg>'));
+      }
+    },
+
     /**
      * Return data for the object
      *
@@ -1173,6 +1205,15 @@
           this.settings[key] = value;
           this._styleDisplay();
           this._setCurrentHeight();
+          break;
+        case "playPauseButton":
+          this.settings[key] = value;
+          if ( 1 !== value ) {
+            if ( this.paused ) {
+              this._togglePlayPauseButton();
+            }
+          }
+          this._renderPlayPauseButton();
           break;
         default:
           this.settings[key] = value;
@@ -1603,6 +1644,7 @@
       // Remove listeners
       this.$elmt.off("mouseenter", { self: this }, this._mouseenter);
       this.$elmt.off("mouseleave", { self: this }, this._mouseleave);
+      this.$playPauseButton.off( 'click', { self: this }, this._togglePlayPauseButton );
 
       this._timerStop();
 
