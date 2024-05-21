@@ -44,7 +44,7 @@ const PopupEditItem = ({
     label: __("Customize", "ditty-news-ticker"),
     name: __("Layout Tag Customizations", "ditty-news-ticker"),
     description: __(
-      "Customize the layout tags that are using in Layouts for this item. Keep in mind that some layouts may not use all of these tags.",
+      "Customize the layout tags that are available in Layouts for this item. Keep in mind that some layouts may not use all of these tags.",
       "ditty-news-ticker"
     ),
     icon: <Icon id="faPaintbrushPencil" />,
