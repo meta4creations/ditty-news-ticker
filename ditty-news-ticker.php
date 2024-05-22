@@ -9,7 +9,7 @@
  * Author URI:        https://www.metaphorcreations.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Requires at least: 5.6
+ * Requires at least: 6.2
  * Requires PHP:      7.1
  * Tested up to:      6.5.2
  * Text Domain:       ditty-news-ticker
