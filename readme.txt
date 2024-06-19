@@ -29,18 +29,18 @@ Enhance your website with moving, scrolling, or sliding content. The Ditty plugi
 *   **Default** - Add custom text to your Ditty.
 *   **TinyMCE Editor** - Add custom text to your Ditty using a TinyMCE Editor.
 *   **HTML** - Add custom HTML to your Ditty using a code editor field.
-*   **WP Posts Feed (Lite)** - Add your latest blog posts to your Ditty. Check out [**Ditty Posts**](https://www.metaphorcreations.com/downloads/ditty-posts/) for custom post types, advanced WordPress queries, custom fields, and more!
+*   **WP Posts Feed (Lite)** - Add your latest blog posts to your Ditty. Check out [**Ditty Posts**](https://www.metaphorcreations.com/wordpress-plugins/ditty-posts/?utm_source=wordpress.org&utm_medium=plugin%20repository&utm_campaign=ditty-news-ticker) for custom post types, advanced WordPress queries, custom fields, and more!
 
 ### Add more features with Ditty Extensions!
 
-*   [**Ditty Facebook**](https://www.metaphorcreations.com/downloads/ditty-facebook/) - Easily add Facebook posts or images to your site using the Ditty Facebook extension. Add multiple Facebook feeds and Facebook albums.
-*   [**Ditty Grid**](https://www.metaphorcreations.com/downloads/ditty-grid/) - Display your Ditty items in a customizable and responsive grid.
-*   [**Ditty Images**](https://www.metaphorcreations.com/downloads/ditty-images/) - Add internal and external images to your site through a Ditty.
-*   [**Ditty Instagram**](https://www.metaphorcreations.com/downloads/ditty-instagram/) - Ditty Instagram allows you to easily add your Instagram feed to your site.
-*   [**Ditty Posts**](https://www.metaphorcreations.com/downloads/ditty-posts/) - Easily add any posts to your site using the Ditty Posts extension. Build out a custom WP\_Query or select a specific post.
-*   [**Ditty RSS**](https://www.metaphorcreations.com/downloads/ditty-rss/) - Easily add multiple RSS feeds to your site.
-*   [**Ditty Timing**](https://www.metaphorcreations.com/downloads/ditty-timing/) - Use date ranges, weekly settings, and daily settings to schedule when your Ditty Items are visible or hidden.
-*   [**Ditty XML**](https://www.metaphorcreations.com/downloads/ditty-xml/) - Easily add multiple XML data feeds to your site.
+*   [**Ditty Facebook**](https://www.metaphorcreations.com/wordpress-plugins/ditty-facebook/?utm_source=wordpress.org&utm_medium=plugin%20repository&utm_campaign=ditty-news-ticker) - Easily add Facebook posts or images to your site using the Ditty Facebook extension. Add multiple Facebook feeds and Facebook albums.
+*   [**Ditty Grid**](https://www.metaphorcreations.com/wordpress-plugins/ditty-grid/?utm_source=wordpress.org&utm_medium=plugin%20repository&utm_campaign=ditty-news-ticker) - Display your Ditty items in a customizable and responsive grid.
+*   [**Ditty Images**](https://www.metaphorcreations.com/wordpress-plugins/ditty-images/?utm_source=wordpress.org&utm_medium=plugin%20repository&utm_campaign=ditty-news-ticker) - Add internal and external images to your site through a Ditty.
+*   [**Ditty Instagram**](https://www.metaphorcreations.com/wordpress-plugins/ditty-instagram/?utm_source=wordpress.org&utm_medium=plugin%20repository&utm_campaign=ditty-news-ticker) - Ditty Instagram allows you to easily add your Instagram feed to your site.
+*   [**Ditty Posts**](https://www.metaphorcreations.com/wordpress-plugins/ditty-posts/?utm_source=wordpress.org&utm_medium=plugin%20repository&utm_campaign=ditty-news-ticker) - Easily add any posts to your site using the Ditty Posts extension. Build out a custom WP\_Query or select a specific post.
+*   [**Ditty RSS**](https://www.metaphorcreations.com/wordpress-plugins/ditty-rss/?utm_source=wordpress.org&utm_medium=plugin%20repository&utm_campaign=ditty-news-ticker) - Easily add multiple RSS feeds to your site.
+*   [**Ditty Timing**](https://www.metaphorcreations.com/wordpress-plugins/ditty-timing/?utm_source=wordpress.org&utm_medium=plugin%20repository&utm_campaign=ditty-news-ticker) - Use date ranges, weekly settings, and daily settings to schedule when your Ditty Items are visible or hidden.
+*   [**Ditty XML**](https://www.metaphorcreations.com/wordpress-plugins/ditty-xml/?utm_source=wordpress.org&utm_medium=plugin%20repository&utm_campaign=ditty-news-ticker) - Easily add multiple XML data feeds to your site.
 
 ## Key Features
 
