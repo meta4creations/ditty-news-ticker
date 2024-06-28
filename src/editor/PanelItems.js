@@ -7,6 +7,7 @@ import {
   replaceDisplayItems,
   updateDisplayOptions,
 } from "../services/dittyService";
+import { dynamicLayoutTags } from "../services/httpService";
 import { PopupTypeSelector } from "../common";
 import { Panel, SortableList } from "../components";
 import { FieldList } from "../fields";
@@ -211,28 +212,39 @@ const PanelItems = (props) => {
               });
             }}
             onUpdate={(updatedItem, updateKeys) => {
-              setPopupStatus(false);
-              updatedItem.editor_preview = tempPreviewItem
-                ? tempPreviewItem
-                : updatedItem.editor_preview;
-              actions.updateItem(updatedItem, updateKeys);
-              tempDisplayItems && actions.updateDisplayItems(tempDisplayItems);
-              setTempDisplayItems(null);
-              setTempPreviewItem(null);
+              dynamicLayoutTags(
+                updatedItem.item_type,
+                updatedItem.item_value,
+                (layoutTags) => {
+                  if (layoutTags.length > 0) {
+                    updatedItem.layoutTags = layoutTags;
+                  }
 
-              // Get new display items
-              getDisplayItems(updatedItem, layouts, (data) => {
-                if (data.preview_items[updatedItem.item_id]) {
-                  updatedItem.editor_preview =
-                    data.preview_items[updatedItem.item_id];
+                  setPopupStatus(false);
+                  updatedItem.editor_preview = tempPreviewItem
+                    ? tempPreviewItem
+                    : updatedItem.editor_preview;
+                  actions.updateItem(updatedItem, updateKeys);
+                  tempDisplayItems &&
+                    actions.updateDisplayItems(tempDisplayItems);
+                  setTempDisplayItems(null);
+                  setTempPreviewItem(null);
+
+                  // Get new display items
+                  getDisplayItems(updatedItem, layouts, (data) => {
+                    if (data.preview_items[updatedItem.item_id]) {
+                      updatedItem.editor_preview =
+                        data.preview_items[updatedItem.item_id];
+                    }
+                    actions.updateItem(updatedItem, updateKeys);
+
+                    const allDisplayItems = data.display_items.length
+                      ? actions.updateDisplayItems(data.display_items)
+                      : actions.deleteDisplayItems(updatedItem);
+                    replaceDisplayItems(dittyEl, allDisplayItems);
+                  });
                 }
-                actions.updateItem(updatedItem, updateKeys);
-
-                const allDisplayItems = data.display_items.length
-                  ? actions.updateDisplayItems(data.display_items)
-                  : actions.deleteDisplayItems(updatedItem);
-                replaceDisplayItems(dittyEl, allDisplayItems);
-              });
+              );
             }}
           />
         );

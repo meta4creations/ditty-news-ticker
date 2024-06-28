@@ -120,3 +120,19 @@ export function refreshTranslations(dittyId, onComplete) {
     onComplete && onComplete(res.data);
   });
 }
+
+export function dynamicLayoutTags(itemType, itemValue, onComplete) {
+  const apiURL = `${dittyEditorVars.restUrl}dittyeditor/v1/dynamicLayoutTags`;
+  const apiData = {
+    itemType: itemType,
+    itemValue: itemValue,
+  };
+  const config = {
+    headers: {
+      "X-WP-Nonce": dittyEditorVars.nonce,
+    },
+  };
+  return axios.post(apiURL, { apiData }, config).then((res) => {
+    onComplete && onComplete(res.data);
+  });
+}

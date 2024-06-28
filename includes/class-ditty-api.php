@@ -64,6 +64,16 @@ class Ditty_API {
       'callback' 	=> array( $this, 'refresh_translations' ),
 			'permission_callback' => array( $this, 'save_ditty_permissions_check' ),
     ) );
+    register_rest_route( "dittyeditor/v{$this->version}", 'dynamicLayoutTags', array(
+      'methods' 	=> 'POST',
+      'callback' 	=> array( $this, 'dynamic_layout_tags' ),
+			'permission_callback' => array( $this, 'general_ditty_permissions_check' ),
+    ) );
+    // register_rest_route( "dittyeditor/v{$this->version}", 'defaultLayout', array(
+    //   'methods' 	=> 'POST',
+    //   'callback' 	=> array( $this, 'layout_tags' ),
+		// 	'permission_callback' => array( $this, 'general_ditty_permissions_check' ),
+    // ) );
 	}
 
 	/**
@@ -381,6 +391,30 @@ class Ditty_API {
 			'results'	=> __( 'All strings refreshed!', 'ditty-news-ticker' ),
 		);
 		return rest_ensure_response( $data );
+	}
+
+  /**
+	 * Return layout tags for item type
+	 *
+	 * @access public
+	 * @since  3.1.43
+	 */
+	public function dynamic_layout_tags( $request ) {
+		$params = $request->get_params();
+		if ( ! isset( $params['apiData'] ) ) {
+			return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+		$apiData = $params['apiData'];
+		if ( ! isset( $apiData['itemType'] ) ) {
+			return new WP_Error( 'itemType', __( 'No Item Type', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+    if ( ! isset( $apiData['itemValue'] ) ) {
+			return new WP_Error( 'itemValue', __( 'No Values', 'ditty-news-ticker' ), array( 'status' => 404 ) );
+		}
+
+    $layout_tags = array_values( apply_filters( 'ditty_layout_tags', [], $apiData['itemType'], $apiData['itemValue'] ) );
+
+		return rest_ensure_response( $layout_tags );
 	}
 
 }
