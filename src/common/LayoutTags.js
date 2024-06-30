@@ -100,7 +100,17 @@ const LayoutTags = ({ type, layoutTags, className, styles }) => {
                       key={layoutTag.tag}
                       data-tag={layoutTag.tag}
                       className="editLayout__tagCloud__tag"
-                      onClick={() => setCurrentTag(layoutTag)}
+                      onClick={() => {
+                        layoutTag.atts
+                          ? setCurrentTag(layoutTag)
+                          : window.dispatchEvent(
+                              new CustomEvent("dittyEditorInsertLayoutTag", {
+                                detail: {
+                                  renderedTag: `{${layoutTag.tag}}`,
+                                },
+                              })
+                            );
+                      }}
                     >{`{${layoutTag.tag}}`}</span>
                   );
                 })}
