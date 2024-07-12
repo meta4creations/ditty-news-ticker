@@ -1546,13 +1546,13 @@ function ditty_register_script( $type, $args ) {
 /**
  * Sanitize settings
  * *
- * @since   3.1.25
+ * @since   3.1.45
  */
 function ditty_sanitize_setting( $value ) {
 	if ( is_array( $value ) ) {
 		return ditty_sanitize_settings( $value );
 	} else {
-		return wp_kses_post( htmlspecialchars_decode( $value ) );
+		return wp_kses_post( $value );
 	}
 }
 
