@@ -859,7 +859,8 @@ class Ditty_Singles {
 			$updated_items = [];
 			foreach ( $updates['items'] as $i => $updated_item ) {
 				if ( $item_type_object = ditty_item_type_object( $updated_item['item_type'] ) ) {
-					$updated_items[] = $item_type_object->editor_meta( $updated_item );
+					//$updated_items[] = $item_type_object->editor_meta( $updated_item );
+          $updated_items[] = $updated_item;
 				}
 			}
 			$updates['items'] = $updated_items;
