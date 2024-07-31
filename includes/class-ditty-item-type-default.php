@@ -158,11 +158,11 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 	public function editor_meta( $item ) {
 		if ( is_array( $item ) ) {
 			if ( isset( $item['item_value'] ) && isset( $item['item_value']['content'] ) ) {
-				$item['item_value']['content'] = html_entity_decode( $item['item_value']['content'] );
+				$item['item_value']['content'] = ditty_sanitize_setting( html_entity_decode( $item['item_value']['content'] ) );
 			}
 		} else {
 			if ( isset( $item->item_value ) && isset( $item->item_value['content'] ) ) {
-				$item->item_value['content'] = html_entity_decode( $item->item_value['content'] );
+				$item->item_value['content'] = ditty_sanitize_setting( html_entity_decode( $item->item_value['content'] ) );
 			}
 		}
 		return $item;
