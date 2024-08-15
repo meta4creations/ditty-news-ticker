@@ -1679,3 +1679,42 @@ function ditty_to_array( $value ) {
 	}
 	return [];
 }
+
+/**
+ * Custom kses post to allow svgs
+ */
+function ditty_kses_post( $content ) {
+  
+  // Get the default allowed HTML tags from wp_kses_post
+  $allowed_tags = wp_kses_allowed_html( 'post' );
+
+  // Define the optimized SVG tags and attributes to allow
+  $svg_tags = [
+    'svg' => [
+      'class'           => true,
+      'aria-hidden'     => true,
+      'aria-labelledby' => true,
+      'role'            => true,
+      'xmlns'           => true,
+      'width'           => true,
+      'height'          => true,
+      'viewbox'         => true
+    ],
+    'g' => [
+      'fill' => true
+    ],
+    'title' => [
+      'title' => true
+    ],
+    'path' => [
+      'd' => true, 
+      'fill' => true  
+    ]
+  ];
+
+  // Merge the SVG tags with the default allowed tags
+  $allowed_tags = apply_filters( 'ditty_kses_post_allowed_tags', array_merge( $allowed_tags, $svg_tags ) );
+
+  // Use wp_kses() with the extended allowed tags to filter the content
+  return wp_kses( $content, $allowed_tags );
+}

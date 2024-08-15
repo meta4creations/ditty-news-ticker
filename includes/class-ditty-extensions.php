@@ -308,22 +308,23 @@ class Ditty_Extensions {
 				$attr['data-api_keys'] = $oauth_settings['has_custom_keys'];
 			}
 		}
+    $extension_icon = ( strpos( $data['icon'], '<svg ' ) !== false ) ? $data['icon'] : '<i class="' . esc_attr( $data['icon'] ) . '"></i>';
 		?>
 		<div <?php echo ditty_attr_to_html( $attr ); ?>>
 			<div class="ditty-extension__contents">
 			
 				<div class="ditty-extension__header"<?php echo esc_attr( $heading_style ); ?>>
 					<?php if ( ! $user_banner ) { ?>
-						<div class="ditty-extension__header__icon"><i class="<?php echo esc_attr( $data['icon'] ); ?>"></i></div>
+						<div class="ditty-extension__header__icon">
+              <?php echo ditty_kses_post( $extension_icon ); ?>
+            </div>
 					<?php } ?>
 					<div class="ditty-extension__header__overlay"></div>
 					<div class="ditty-extension__icon">
 						<?php if ( $user_avatar ) { ?>
 							<img src="<?php echo esc_url_raw( $user_avatar ); ?>" />
-							<i class="ditty-extension__icon__small <?php echo esc_attr( $data['icon'] ); ?>"></i>
-						<?php } else { ?>
-							<i class="<?php echo esc_attr( $data['icon'] ); ?>"></i>
 						<?php } ?>
+						<?php echo ditty_kses_post( $extension_icon ); ?>
 					</div>
 					<h3 class="ditty-extension__title"><?php echo sanitize_text_field( $data['name'] ); ?></h3>
 				</div>
