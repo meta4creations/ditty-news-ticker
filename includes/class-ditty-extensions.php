@@ -278,7 +278,8 @@ class Ditty_Extensions {
 				$status		= 'none';
 			}
 		}
-		
+    
+    $icon_style = '';
 		$heading_style = '';
 		$classes = 'ditty-extension ditty-extension--' . $extension;
 		if ( $oauth_settings ) {
@@ -294,7 +295,7 @@ class Ditty_Extensions {
 			}
 			if ( isset( $oauth_settings['user_banner'] ) ) {
 				$user_banner = $oauth_settings['user_banner'];
-				$heading_style = ' style="background-image:url(' . esc_url_raw( $user_banner ) . ');"';
+				$heading_style .= 'background-image:url(' . esc_url_raw( $user_banner ) . ');';
 			}
 		}
 		$attr = array(
@@ -309,22 +310,35 @@ class Ditty_Extensions {
 			}
 		}
     $extension_icon = ( strpos( $data['icon'], '<svg ' ) !== false ) ? $data['icon'] : '<i class="' . esc_attr( $data['icon'] ) . '"></i>';
+    $extension_icon_color = isset( $data['icon_color'] ) ? $data['icon_color'] : false;
+    $extension_icon_bg_color = isset( $data['icon_bg_color'] ) ? $data['icon_bg_color'] : false;
+    
+    if ( $extension_icon_color ) {
+      $icon_style .= 'color:' . esc_attr( $extension_icon_color ) . ';';
+    }
+
+    if ( $extension_icon_bg_color ) {
+      $icon_style .= 'background-color:' . esc_attr( $extension_icon_bg_color ) . ';';
+      $heading_style .= 'background-color:' . esc_attr( $extension_icon_bg_color ) . ';';
+    }
 		?>
 		<div <?php echo ditty_attr_to_html( $attr ); ?>>
 			<div class="ditty-extension__contents">
 			
-				<div class="ditty-extension__header"<?php echo esc_attr( $heading_style ); ?>>
+				<div class="ditty-extension__header" style="<?php echo esc_attr( $heading_style ); ?>">
 					<?php if ( ! $user_banner ) { ?>
 						<div class="ditty-extension__header__icon">
               <?php echo ditty_kses_post( $extension_icon ); ?>
             </div>
 					<?php } ?>
 					<div class="ditty-extension__header__overlay"></div>
-					<div class="ditty-extension__icon">
+					<div class="ditty-extension__icon" style="<?php echo esc_attr( $icon_style ); ?>;">
 						<?php if ( $user_avatar ) { ?>
 							<img src="<?php echo esc_url_raw( $user_avatar ); ?>" />
-						<?php } ?>
-						<?php echo ditty_kses_post( $extension_icon ); ?>
+              <div class="ditty-extension__icon__small"><?php echo ditty_kses_post( $extension_icon ); ?></div>
+						<?php } else { ?>
+						  <?php echo ditty_kses_post( $extension_icon ); ?>
+            <?php } ?>
 					</div>
 					<h3 class="ditty-extension__title"><?php echo sanitize_text_field( $data['name'] ); ?></h3>
 				</div>
