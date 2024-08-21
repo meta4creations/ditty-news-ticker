@@ -29,7 +29,9 @@
     z-index: 1;
     display: block;
     font-size: 15px;
+    height: 15px;
     text-align: center;
+    fill: currentColor;
   }
   img {
     position: absolute;
@@ -58,7 +60,9 @@
     padding: 10px;
     border-radius: 3px;
     overflow: hidden;
-    transition: background-color 0.25s ease, border-color 0.25s ease;
+    transition:
+      background-color 0.25s ease,
+      border-color 0.25s ease;
   }
   &.active {
     > .ditty-editor-item__actions {
