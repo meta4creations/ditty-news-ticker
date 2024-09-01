@@ -130,6 +130,59 @@ function ditty_layout_tag_author_banner_data( $item_type, $data, $atts = array()
 }
 
 /**
+ * Return an image
+ *
+ * @since    3.1.47
+ * @var      html
+*/
+function ditty_layout_tag_image( $image_data ) {
+	if ( ! $image_data || ( is_array( $image_data ) && ( ! $image_data['src'] ) ) ) {
+    $default_src = ( isset( $atts['default_src'] ) ) ? $atts['default_src'] : false;
+    if ( $default_src ) {
+      $image_data = is_array( $image_data) ? $image_data : [];
+      $image_data['src'] = $default_src;
+    } else {
+      return $image;
+    }
+	}
+
+	$defaults = array(
+		'width' 	=> '',
+		'height' 	=> '',
+		'fit' 		=> '',
+	);
+	$args = shortcode_atts( $defaults, $atts );
+	$style = '';
+	if ( '' !=  $args['width'] ) {
+		$style .= 'width:' . $args['width'] . ';';
+	}
+	if ( '' !=  $args['height'] ) {
+		$style .= 'height:' . $args['height'] . ';';
+	}
+	if ( '' !=  $args['fit'] ) {
+		$style .= 'object-fit:' . $args['fit'] . ';';
+	}
+	$image_defaults = array(
+		'src' 		=> '',
+		'width' 	=> '',
+		'height' 	=> '',
+		'alt' 		=> '',
+		'style'		=> ( '' != $style ) ? $style : false,
+	);
+	$image_args = shortcode_atts( $image_defaults, $image_data );
+	if ( '' == $image_args['width'] && '' == $image_args['height'] ) {
+		if ( $image_dimensions = ditty_get_image_dimensions( $image_args['src'] ) ) {
+      $image_args['width'] = $image_dimensions['width'];
+      $image_args['height'] = $image_dimensions['height'];
+    }
+	}
+  //$aspect_ratio = ( isset( $image_args['width'] ) && isset( $image_args['width'] ) ) ? " style='aspect-ratio:{$image_args['width']} / {$image_args['height']}'" : ''; 
+	//$image = '<div' . $aspect_ratio . '><img ' . ditty_attr_to_html( $image_args ) . ' /></div>';
+	$image = '<img ' . ditty_attr_to_html( $image_args ) . ' />';
+	return $image;
+}
+
+/**
  * The data of the image
  *
  * @since    3.0

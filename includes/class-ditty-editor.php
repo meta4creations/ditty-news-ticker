@@ -165,6 +165,8 @@ class Ditty_Editor {
 					'id' => $type['type'],
 					'icon' => $type['icon'],
           'iconType' => isset( $type['icon_type'] ) ? $type['icon_type'] : false,
+          'iconColor' => isset( $type['icon_color'] ) ? $type['icon_color'] : false,
+          'iconBGColor' => isset( $type['icon_bg_color'] ) ? $type['icon_bg_color'] : false,
 					'label' => $type['label'],
 					'description' => $type['description'],
 					'layoutTags' => array_values( $item_type_object->get_layout_tags() ),

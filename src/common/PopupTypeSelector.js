@@ -24,6 +24,7 @@ const PopupTypeSelector = ({
   const [selectedType, setSelectedType] = useState(currentType);
   const [showSpinner, setShowSpinner] = useState(false);
   const allTypes = apiTypes ? types.concat(apiTypes) : types;
+  console.log("allTypes", allTypes);
 
   const getItemTypeObject = () => {
     let typeObject = selectedType ? getTypeObject(selectedType) : false;

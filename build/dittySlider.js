@@ -1,1 +1,1395 @@
-!function(t){"use strict";var s={transition:"fade",transitionEase:"easeInOutQuint",transitionSpeed:1.5,autoplay:0,autoplayPause:0,autoplaySpeed:7,height:0,heightEase:"easeInOutQuint",heightSpeed:1.5,initTransition:"fade",initTransitionEase:"easeInOutQuint",initTransitionSpeed:1.5,initHeightEase:"easeInOutQuint",initHeightSpeed:.5,arrows:"none",arrowsIconColor:"",arrowsBgColor:"",arrowsPosition:"center",arrowsPadding:{},arrowsStatic:0,navPrev:'<i class="fas fa-angle-left"></i>',navNext:'<i class="fas fa-angle-right"></i>',bullets:"none",bulletsColor:"",bulletsColorActive:"",bulletsPosition:"bottomCenter",bulletsSpacing:2,bulletsPadding:{},bullet:"",maxWidth:"",bgColor:"",padding:{},margin:{},borderColor:{},borderStyle:{},borderWidth:{},borderRadius:{},contentsBgColor:"",contentsPadding:{},contentsBorderColor:{},contentsBorderStyle:{},contentsBorderWidth:{},contentsBorderRadius:{},slideBgColor:"",slidePadding:{},slideBorderColor:{},slideBorderStyle:{},slideBorderWidth:{},slideBorderRadius:{},slide:0,slideId:!1,touchSwipe:!0,slidesEl:!1,slides:[]},e=function(e,i){this.elmt=e,this.settings=t.extend({},s,t.ditty_slider.defaults,i),this.slide=this.settings.slide,this.slideObj={},this.total=this.settings.slides.length,this.$elmt=t(e),this.$contents=null,this.$slides=null,this.$bullets=null,this.$arrows=null,this.$currentSlide=null,this.$lastSlide=null,this.transitioning=!1,this.hovering=!1,this.timer=null,this.currentHeight=this.settings.height,this.animateTransition=!1,this.animateHeight=!1,this.slidesDisplayed=0,this.paused=!1,this.transitions=["fade","slideLeft","slideRight","slideDown","slideUp"],this.eases=["linear","swing","jswing","easeInQuad","easeInCubic","easeInQuart","easeInQuint","easeInSine","easeInExpo","easeInCirc","easeInElastic","easeInBack","easeInBounce","easeOutQuad","easeOutCubic","easeOutQuart","easeOutQuint","easeOutSine","easeOutExpo","easeOutCirc","easeOutElastic","easeOutBack","easeOutBounce","easeInOutQuad","easeInOutCubic","easeInOutQuart","easeInOutQuint","easeInOutSine","easeInOutExpo","easeInOutCirc","easeInOutElastic","easeInOutBack","easeInOutBounce"],this._init()};e.prototype={_init:function(){var s,e,i=this;this.$elmt.addClass("ditty-slider"),s=t('<div class="ditty-slider__contents"></div>'),this.$contents=s,e=t('<div class="ditty-slider__slides"></div>'),this.$slides=e,this.$slides.height(this.currentHeight),s.append(e),this.$elmt.append(s),this._styleDisplay(),this._setupBullets(),this._setupArrows(),s.on("mouseenter",{self:this},this._mouseenter),s.on("mouseleave",{self:this},this._mouseleave),this.settings.touchSwipe&&(delete Hammer.defaults.cssProps.userSelect,new Hammer(s[0]).on("swipe",(function(t){switch(t.direction){case 2:i._swipeLeft();break;case 4:i._swipeRight()}}))),this._convertSlideElements(),!0===this.settings.shuffle&&this.shuffle(),setTimeout((function(){i.settings.slideId?i.showSlideById(i.settings.slideId,"force"):i._showSlide(),i.trigger("init")}),1)},_convertSlideElements:function(){if(this.settings.slidesEl){var s=this,e=this.$elmt.find(this.settings.slidesEl);s.settings.slides=[],e.each((function(i){var n=t(e[i]),l=!!n.data("slide_id")&&n.data("slide_id");s.settings.slides.push({id:l,html:n.prop("outerHTML"),$elmt:n}),s.$slides.append(n),n.hide()})),s.total=s.settings.slides.length}},_preloadSlide:function(s){var e;t(s).find("img").each((function(){var s=t(this).attr("src");e=new Image,t(e).on("load",(function(){})).attr("src",s)}))},_preloadItem:function(s,e=!1){var i,n=this,l=s.find("img").length,a=0;s.find("img").each((function(){(i=new Image).src=t(this).attr("src"),i.complete&&0!==i.naturalHeight?(a++,l===a&&e&&n._animateHeight()):i.onload=function(){a++,l===a&&e&&n._animateHeight()}}))},_timerStart:function(){var t=this;if(0===parseInt(this.settings.autoplay)||this.total<2||this.timer||this.hovering||this.paused)return!1;cancelAnimationFrame(this.timer);var s=Date.now();t.timer=requestAnimationFrame((function e(){var i=Date.now();Math.floor((i-s)/1e3)>=t.settings.autoplaySpeed&&(s=i,t._showSlide(t._getNextSlide())),t.timer=requestAnimationFrame(e)}))},_timerStop:function(){this.timer&&(cancelAnimationFrame(this.timer),this.timer=null)},_mouseenter:function(t){var s=t.data.self;s.settings.autoplay&&s.settings.autoplayPause&&(s.hovering=!0,s._timerStop())},_mouseleave:function(t){var s=t.data.self;s.settings.autoplay&&s.settings.autoplayPause&&(s.hovering=!1,s._timerStart())},_swipeLeft:function(){"slideRight"===this.settings.transition?this._showPrevSlide():this._showNextSlide()},_swipeRight:function(){"slideRight"===this.settings.transition?this._showNextSlide():this._showPrevSlide()},_showSlide:function(s,e){var i=null,n=!1;if(null!==this.$currentSlide&&this.$currentSlide.hasClass("ditty-slide-animating"))return!1;if(void 0===s&&((s=this.settings.slide)>=this.settings.slides.length&&(s=this.settings.slides.length-1),n=!0),s>=this.total?s=this.total-1:s<0&&(s=0),!n&&s===this.settings.slide)return!1;if(void 0===this.settings.slides[s])return!1;var l=this.settings.slide,a=this.settings.slides[l];this.settings.slides[s].$elmt?i=this.settings.slides[s].$elmt:(i=t(this.settings.slides[s].html),this.settings.slides[s].$elmt=i),i.addClass("ditty-slider__slide"),i.addClass("ditty-slider__slide--current"),i.addClass("ditty-slider__slide--"+s),t(this.$slides.children(".ditty-slider__slide--"+s).not(i)).remove(),this._styleSlide(i),i.stop(!0).css({position:"absolute",display:"block",opacity:0}),this.$slides.append(i),this.animateTransition=!0,this.animateHeight=!0,this._setStaticHeight();var r=[s,this.settings.slides[s],l,a];this.trigger("before_slide_update",r),null!==this.$currentSlide&&this._animateOut(this.$currentSlide,i,e),this.$currentSlide=i,this._preloadItem(i,!0),this.settings.slide=s,this.slideObj=this.settings.slides[s],this.visibleSlides=[this.settings.slides[s]],i.hasClass("ditty-slide-animating")||this._slideResetPosition(i,e),this._animateIn(i,r),this._animateHeight(),this._activateBullet(),this.slidesDisplayed=this.slidesDisplayed+1},_animateIn:function(t,s){var e=this,i=0===parseInt(this.slidesDisplayed)?this.settings.initTransitionSpeed:this.settings.transitionSpeed,n=0===parseInt(this.slidesDisplayed)?this.settings.initTransitionEase:this.settings.transitionEase,l={left:0,top:0,opacity:1};0===parseFloat(i)?(t.show(),t.stop().css(l),t.css("position","relative"),e.transitioning=!1,e.animateTransition=!1,e._removeStaticHeight(),e._timerStart(),e.trigger("after_slide_update",s)):(this.transitioning=!0,this._timerStop(),t.show(),t.addClass("ditty-slide-animating"),t.stop(!0).animate(l,1e3*parseFloat(i),n,(function(){t.removeClass("ditty-slide-animating"),t.css("position","relative"),e.transitioning=!1,e.animateTransition=!1,e._removeStaticHeight(),e._timerStart(),e.trigger("after_slide_update",s)})))},_animateOut:function(t,s,e){this.$lastSlide=t;var i=0,n=0,l=1,a=this.settings.transition;switch("reverse"===e&&(a=this._reverseTransition(a)),a){case"fade":l=0;break;case"slideRight":i=this.$slides.outerWidth();break;case"slideLeft":i="-"+t.outerWidth();break;case"slideDown":n=s.outerHeight();break;case"slideUp":n="-"+t.outerHeight()}t.removeClass("ditty-slider__slide--current"),t.css("position","absolute"),t.css({zIndex:1});var r={left:i+"px",top:n+"px",opacity:l};0===parseFloat(this.settings.transitionSpeed)?(t.hide(),t.stop().css(r)):(t.addClass("ditty-slide-animating"),t.stop(!0).animate(r,1e3*parseFloat(this.settings.transitionSpeed),this.settings.transitionEase,(function(){t.removeClass("ditty-slide-animating"),t.hide()})))},_slideResetPosition:function(t,s){var e=0,i=0,n=1,l=0===parseInt(this.slidesDisplayed)?this.settings.initTransition:this.settings.transition;switch("reverse"===s&&(l=this._reverseTransition(l)),l){case"fade":n=0;break;case"slideLeft":e=this.$slides.outerWidth();break;case"slideRight":e="-"+t.outerWidth();break;case"slideUp":null!==this.$lastSlide?i=this.$lastSlide.outerHeight():(i=this.$slides.outerHeight(),t.outerHeight()>i&&(i=t.outerHeight()));break;case"slideDown":i="-"+t.outerHeight()}t.stop(!0).css({display:"block",opacity:n,left:e+"px",top:i+"px",zIndex:9})},_setStaticHeight:function(){var t=this.$slides.outerHeight();this.$slides.stop(!0).css("height",t+"px")},_removeStaticHeight:function(){this.animateTransition||this.animateHeight||this.$slides.stop(!0).css("height","auto")},_animateHeight:function(){var t=this,s=this.$currentSlide.outerHeight(),e=0===parseInt(this.slidesDisplayed)?this.settings.initHeightSpeed:this.settings.heightSpeed,i=0===parseInt(this.slidesDisplayed)?this.settings.initHeightEase:this.settings.heightEase;this.currentHeight=s;var n={height:s+"px"};0===parseFloat(e)?(this.$slides.stop().css(n),t.animateHeight=!1,t._removeStaticHeight(),t.trigger("height_updated")):this.$slides.stop(!0).animate(n,1e3*parseFloat(e),i,(function(){t.animateHeight=!1,t._removeStaticHeight(),t.trigger("height_updated")}))},_reverseTransition:function(t){var s=t;switch(t){case"slideLeft":s="slideRight";break;case"slideRight":s="slideLeft";break;case"slideUp":s="slideDown";break;case"slideDown":s="slideUp"}return s},_getNextSlide:function(){var t=this.settings.slide+1;return t>=this.total&&(t=0),t},_showNextSlide:function(){this._showSlide(this._getNextSlide())},_getPrevSlide:function(){var t=this.settings.slide-1;return t<0&&(t=this.total-1),t},_showPrevSlide:function(){this._showSlide(this._getPrevSlide(),"reverse")},_clickBullet:function(s){s.preventDefault();var e,i=s.data.self,n=t(s.target).data("index");n<i.settings.slide&&(e="reverse"),i._showSlide(n,e)},_activateBullet:function(){if("none"===this.settings.bullets||2>parseInt(this.total))return!1;var t=this._getPrevSlide(),s=this._getNextSlide();this.$bullets.find(".ditty-slider__bullet").removeClass("ditty-slider__bullet--active ditty-slider__bullet--next ditty-slider__bullet--prev"),this.$bullets.find('.ditty-slider__bullet[data-index="'+this.settings.slide+'"]').addClass("ditty-slider__bullet--active"),this.$bullets.find('.ditty-slider__bullet[data-index="'+t+'"]').addClass("ditty-slider__bullet--prev"),this.$bullets.find('.ditty-slider__bullet[data-index="'+s+'"]').addClass("ditty-slider__bullet--next"),this._styleBullets()},_setupBullets:function(){if(null===this.$bullets){var s=t('<div class="ditty-slider__bullets"></div>');this.$bullets=s,this.$elmt.append(s)}if("none"===this.settings.bullets||2>parseInt(this.total))this.$bullets.hide();else{this.$bullets.empty();for(var e=0;e<this.total;e++){var i=t('<a href="#" class="ditty-slider__bullet" data-index="'+e+'">'+this.settings.bullet+"</a>");i.on("click",{self:this},this._clickBullet),this.$bullets.append(i)}this.$bullets.show(),this._activateBullet()}},_styleBullets:function(){this.$bullets.removeAttr("style"),this.$bullets.find("a").css({background:this.settings.bulletsColor}),this.$bullets.find("a.ditty-slider__bullet--active").css({background:this.settings.bulletsColorActive}),this.$bullets.css(this.settings.bulletsPadding);let t=this.settings.bulletsSpacing;const s=String(this.settings.bulletsSpacing).match(/\d+/);switch(String(this.settings.bulletsSpacing)===String(s)&&(t+="px"),this.$bullets[0].style.gap=t,this.settings.bulletsPosition){case"topLeft":this.$bullets.css({order:0,justifyContent:"flex-start"});break;case"topCenter":this.$bullets.css({order:0,justifyContent:"center"});break;case"topRight":this.$bullets.css({order:0,justifyContent:"flex-end"});break;case"bottomLeft":this.$bullets.css({order:2,justifyContent:"flex-start"});break;case"bottomCenter":this.$bullets.css({order:2,justifyContent:"center"});break;case"bottomRight":this.$bullets.css({order:2,justifyContent:"flex-end"})}},_clickPrev:function(t){t.preventDefault(),t.data.self._showPrevSlide()},_clickNext:function(t){t.preventDefault(),t.data.self._showNextSlide()},_setupArrows:function(){if(null===this.$arrows){var s=t('<div class="ditty-slider__arrows"></div>'),e=t('<a href="#" class="ditty-slider__prev">'+this.settings.navPrev+"</a>"),i=t('<a href="#" class="ditty-slider__next">'+this.settings.navNext+"</a>");e.on("click",{self:this},this._clickPrev),i.on("click",{self:this},this._clickNext),s.append(e,i),this.$arrows=s,this.$elmt.append(s)}switch(this.$arrows.removeAttr("style"),"none"===this.settings.arrows||2>this.total?this.$arrows.hide():this.$arrows.css("display","flex"),this.$arrows.css(this.settings.arrowsPadding),this.settings.arrowsPosition){case"flexStart":this.$arrows.css({alignItems:"flex-start"});break;case"flexEnd":this.$arrows.css({alignItems:"flex-end"});break;default:this.$arrows.css({alignItems:"center"})}this.$arrows.find("i").css({color:this.settings.arrowsIconColor}),this.$arrows.find("a").css({background:this.settings.arrowsBgColor}),1===parseInt(this.settings.arrowsStatic)?this.$arrows.addClass("ditty-slider__arrows--static"):this.$arrows.removeClass("ditty-slider__arrows--static")},_styleDisplay:function(){this.$elmt.css({background:this.settings.contentsBgColor,borderColor:this.settings.contentsBorderColor,borderStyle:this.settings.contentsBorderStyle}),this.$elmt.css(this.settings.contentsPadding),this.$elmt.css(this.settings.contentsBorderRadius),this.$elmt.css(this.settings.contentsBorderWidth)},_styleSlide:function(t){t.css({background:this.settings.slideBgColor,borderColor:this.settings.slideBorderColor,borderStyle:this.settings.slideBorderStyle}),t.css(this.settings.slidePadding),t.css(this.settings.slideBorderRadius),t.css(this.settings.slideBorderWidth)},updateSlides:function(t){var s=this.settings.slides.length,e=t.length,i=this.settings.slide,n=this.settings.slide;this.settings.slides=t,s!==e&&(this.total=t.length,this._setupBullets(),this._setupArrows()),i>=this.total&&(n=this.total-1),i!==n&&this._showSlide(n)},_getOption:function(t){switch(t){case"elmnt":return this;case"height":return this.$slides.outerHeight();case"currentSlide":return this.$currentSlide;default:return this.settings[t]}},_setOption:function(t,s){if(void 0===s)return!1;switch("slides"!==t&&(this.settings[t]=s),t){case"slides":this.updateSlides(s);break;case"slide":this.slide=s;break;case"autoplay":1===parseInt(s)?this.timer||this._timerStart():this._timerStop();break;case"bgColor":case"padding":case"borderColor":case"borderStyle":case"borderWidth":case"borderRadius":case"contentsBgColor":case"contentsPadding":case"contentsBorderColor":case"contentsBorderStyle":case"contentsBorderWidth":case"contentsBorderRadius":this.animateHeight=!0,this._setStaticHeight(),this._styleDisplay(),this._animateHeight();break;case"slideBgColor":case"slidePadding":case"slideBorderColor":case"slideBorderStyle":case"slideBorderWidth":case"slideBorderRadius":this.animateHeight=!0,this._setStaticHeight(),this._styleSlide(this.$currentSlide),this._animateHeight();break;case"arrows":case"arrowsIconColor":case"arrowsBgColor":case"arrowsPadding":case"arrowsPosition":case"arrowsStatic":this._setupArrows();break;case"bullets":this._setupBullets();break;case"bulletsColor":case"bulletsColorActive":case"bulletsPosition":case"bulletsSpacing":case"bulletsPadding":this._styleBullets();break;default:this.settings[t]=s}this.trigger("update")},shuffle:function(){for(var t,s,e=this.total-1;e>0;e--)s=Math.floor(Math.random()*(e+1)),t=this.settings.slides[e],this.settings.slides[e]=this.settings.slides[s],this.settings.slides[s]=t},start:function(){this._timerStart()},stop:function(){this._timerStop()},pause:function(){this.paused=!0},resume:function(){this.paused=!1,this._timerStart()},current:function(){return this.$currentSlide},showSlide:function(t){this._showSlide(t)},showSlideById:function(s,e){var i=this;t.each(this.settings.slides,(function(t,n){if(n.id===s)return"force"===e?(i.settings.slide=t,i._showSlide()):i._showSlide(t),!1}))},addSlide:function(t,s,e){var i=!0;if((s>=this.total||s<0)&&(i=!1),"replace"===e&&i){var n=this.settings.slides[s];this.trigger("slide_removed",[n]),this.settings.slides.splice(s,1,t)}else null!==s&&""!==s&&i?this.settings.slides.splice(s,0,t):this.settings.slides.splice(parseInt(this.settings.slide)+1,0,t);this.total=this.settings.slides.length,1===this.total&&this._showSlide(),this.trigger("update")},addSlideById:function(s,e){var i={id:s,html:e},n=!1;if(t.each(this.settings.slides,(function(t,e){String(e.id)!==String(s)||(n=t)})),n){var l=this.settings.slides[n];this.trigger("slide_removed",[l]),this.settings.slides[n].$elmt&&this.settings.slides[n].$elmt.remove(),this.settings.slides.splice(n,1,i)}else this.settings.slides.push(i);this.total=this.settings.slides.length,this.trigger("update")},deleteSlideById:function(s){var e=[];t.each(this.settings.slides,(function(t,i){String(i.id)!==String(s)&&e.push(i)})),this.settings.slides=e,this.total=this.settings.slides.length,this.trigger("update")},deleteSlide:function(t){if(t>=this.total||t<0)return!1;var s=this.settings.slides[t];this.trigger("slide_removed",[s]),this.settings.slides[t].$elmt&&this.settings.slides[t].$elmt.remove(),this.settings.slides.splice(t,1),this.total=this.settings.slides.length,this.trigger("update")},setStaticHeight:function(){this.animateHeight=!0,this._setStaticHeight()},animateHeight:function(){this._animateHeight()},trigger:function(t,s){var e=[];e="height_updated"===t?[this.currentHeight]:[this.settings,this.$elmt],s&&(e=s),this.$elmt.trigger("ditty_slider_"+t,e),"function"==typeof this.settings[t]&&this.settings[t].apply(this.$elmt,e)},options:function(s,e){var i=this;if("object"==typeof s)t.each(s,(function(t,s){i._setOption(t,s)}));else{if("string"!=typeof s)return i.settings;if(void 0===e)return i._getOption(s);i._setOption(s,e)}},destroy:function(){clearInterval(this.timer),this.$elmt.removeClass("ditty-slider"),this.$elmt.removeAttr("style"),this.$elmt.empty(),this.trigger("destroy"),this.elmt._ditty_slider=null}},t.fn.ditty_slider=function(t){var s,i=arguments,n=!1;if(void 0===t||"object"==typeof t)return this.each((function(){this._ditty_slider||(this._ditty_slider=new e(this,t))}));if("string"==typeof t){if(this.each((function(){var e=this._ditty_slider;if(!e)throw new Error("No Ditty_Slider applied to this element.");"function"==typeof e[t]&&"_"!==t[0]?s=e[t].apply(e,[].slice.call(i,1)):n=!0})),n)throw new Error('No method "'+t+'" in Ditty_Slider.');return void 0!==s?s:this}},t.ditty_slider={},t.ditty_slider.defaults=s}(jQuery);
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!***********************************!*\
+  !*** ./src/class-ditty-slider.js ***!
+  \***********************************/
+/* global jQuery:true */
+/* global Hammer:true */
+
+/**
+ * Ditty Slider class
+ *
+ * @since		3.0
+ * @return	null
+ */
+
+(function ($) {
+  "use strict";
+
+  var defaults = {
+    transition: "fade",
+    // fade, slideLeft, slideRight, slideDown, slideUp
+    transitionEase: "easeInOutQuint",
+    transitionSpeed: 1.5,
+    // 1 - 10
+    autoplay: 0,
+    // 0, 1
+    autoplayPause: 0,
+    // 0, 1
+    autoplaySpeed: 7,
+    // 1 - 60
+    height: 0,
+    heightEase: "easeInOutQuint",
+    heightSpeed: 1.5,
+    // 1 - 10
+    initTransition: "fade",
+    // fade, slideLeft, slideREight, slideDown, slideUp
+    initTransitionEase: "easeInOutQuint",
+    initTransitionSpeed: 1.5,
+    // 1 - 10
+    initHeightEase: "easeInOutQuint",
+    initHeightSpeed: 0.5,
+    // 1 - 10
+    arrows: "none",
+    arrowsIconColor: "",
+    arrowsBgColor: "",
+    arrowsPosition: "center",
+    arrowsPadding: {},
+    arrowsStatic: 0,
+    navPrev: '<i class="fas fa-angle-left"></i>',
+    navNext: '<i class="fas fa-angle-right"></i>',
+    bullets: "none",
+    bulletsColor: "",
+    bulletsColorActive: "",
+    bulletsPosition: "bottomCenter",
+    bulletsSpacing: 2,
+    bulletsPadding: {},
+    bullet: "",
+    maxWidth: "",
+    bgColor: "",
+    padding: {},
+    margin: {},
+    borderColor: {},
+    borderStyle: {},
+    borderWidth: {},
+    borderRadius: {},
+    contentsBgColor: "",
+    contentsPadding: {},
+    contentsBorderColor: {},
+    contentsBorderStyle: {},
+    contentsBorderWidth: {},
+    contentsBorderRadius: {},
+    slideBgColor: "",
+    slidePadding: {},
+    slideBorderColor: {},
+    slideBorderStyle: {},
+    slideBorderWidth: {},
+    slideBorderRadius: {},
+    slide: 0,
+    slideId: false,
+    touchSwipe: true,
+    //init									: function () {},
+    slidesEl: false,
+    slides: [
+      // {
+      //  id:                null,
+      //  html:              null,
+      // ...
+    ]
+  };
+  var Ditty_Slider = function (elmt, options) {
+    this.elmt = elmt;
+    this.settings = $.extend({}, defaults, $.ditty_slider.defaults, options);
+    this.slide = this.settings.slide;
+    this.slideObj = {};
+    this.total = this.settings.slides.length;
+    this.$elmt = $(elmt);
+    this.$contents = null;
+    this.$slides = null;
+    this.$bullets = null;
+    this.$arrows = null;
+    this.$currentSlide = null;
+    this.$lastSlide = null;
+    this.transitioning = false;
+    this.hovering = false;
+    this.timer = null;
+    this.currentHeight = this.settings.height;
+    this.animateTransition = false;
+    this.animateHeight = false;
+    this.slidesDisplayed = 0, this.paused = false;
+    this.transitions = ["fade", "slideLeft", "slideRight", "slideDown", "slideUp"];
+    this.eases = ["linear", "swing", "jswing", "easeInQuad", "easeInCubic", "easeInQuart", "easeInQuint", "easeInSine", "easeInExpo", "easeInCirc", "easeInElastic", "easeInBack", "easeInBounce", "easeOutQuad", "easeOutCubic", "easeOutQuart", "easeOutQuint", "easeOutSine", "easeOutExpo", "easeOutCirc", "easeOutElastic", "easeOutBack", "easeOutBounce", "easeInOutQuad", "easeInOutCubic", "easeInOutQuart", "easeInOutQuint", "easeInOutSine", "easeInOutExpo", "easeInOutCirc", "easeInOutElastic", "easeInOutBack", "easeInOutBounce"];
+    this._init();
+  };
+  Ditty_Slider.prototype = {
+    _init: function () {
+      var self = this,
+        $contents,
+        $slides;
+
+      // Add classes and data attributes
+      this.$elmt.addClass("ditty-slider");
+
+      // Create the slider contents
+      $contents = $('<div class="' + 'ditty-slider__contents"></div>');
+      this.$contents = $contents;
+
+      // Create the slider slides
+      $slides = $('<div class="' + 'ditty-slider__slides"></div>');
+      this.$slides = $slides;
+
+      // Set the initial height
+      this.$slides.height(this.currentHeight);
+
+      // Add the new elements
+      $contents.append($slides);
+      this.$elmt.append($contents);
+
+      // Setup styles
+      this._styleDisplay();
+
+      // Setup bullets
+      this._setupBullets();
+
+      // Setup arrows
+      this._setupArrows();
+
+      // Bind mouse over/out events
+      $contents.on("mouseenter", {
+        self: this
+      }, this._mouseenter);
+      $contents.on("mouseleave", {
+        self: this
+      }, this._mouseleave);
+
+      // Enable touchswipe
+      if (this.settings.touchSwipe) {
+        delete Hammer.defaults.cssProps.userSelect;
+        var hammertime = new Hammer($contents[0]);
+        hammertime.on("swipe", function (e) {
+          switch (e.direction) {
+            case 2:
+              self._swipeLeft();
+              break;
+            case 4:
+              self._swipeRight();
+              break;
+            default:
+              break;
+          }
+        });
+      }
+
+      // Convert slide elements into slide data
+      this._convertSlideElements();
+      if (this.settings.shuffle === true) {
+        this.shuffle();
+      }
+
+      // Preload images
+      // for (var i = 0; i < this.total; i++) {
+      //   this._preloadSlide(this.settings.slides[i].html);
+      // }
+
+      // Trigger the init
+      setTimeout(function () {
+        // Show the first slide
+        if (self.settings.slideId) {
+          self.showSlideById(self.settings.slideId, "force");
+        } else {
+          self._showSlide();
+        }
+        self.trigger("init");
+      }, 1);
+    },
+    /**
+     * Convert slide elements into slide data
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _convertSlideElements: function () {
+      if (this.settings.slidesEl) {
+        var self = this,
+          slidesElArray = this.$elmt.find(this.settings.slidesEl);
+        self.settings.slides = [];
+        slidesElArray.each(function (i) {
+          var $slide = $(slidesElArray[i]),
+            id = $slide.data("slide_id") ? $slide.data("slide_id") : false;
+          self.settings.slides.push({
+            id: id,
+            html: $slide.prop("outerHTML"),
+            $elmt: $slide
+            //cache	: cache,
+          });
+          self.$slides.append($slide);
+          $slide.hide();
+        });
+        self.total = self.settings.slides.length;
+      }
+    },
+    /**
+     * Preload images of a slide
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _preloadSlide: function (slide) {
+      var img;
+      $(slide).find("img").each(function () {
+        var src = $(this).attr("src");
+        img = new Image();
+        $(img).on("load", function () {}).attr("src", src);
+      });
+    },
+    _preloadItem: function ($item, setHeight = false) {
+      var self = this,
+        img,
+        numImages = $item.find("img").length,
+        imagesLoaded = 0;
+      $item.find("img").each(function () {
+        img = new Image();
+        img.src = $(this).attr("src");
+        var isLoaded = img.complete && img.naturalHeight !== 0;
+        if (isLoaded) {
+          imagesLoaded++;
+          if (numImages === imagesLoaded) {
+            if (setHeight) {
+              self._animateHeight();
+            }
+          }
+        } else {
+          img.onload = function () {
+            imagesLoaded++;
+            if (numImages === imagesLoaded) {
+              if (setHeight) {
+                self._animateHeight();
+              }
+            }
+          };
+        }
+      });
+    },
+    /**
+     * Start the timer
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _timerStart: function () {
+      var self = this;
+      if (0 === parseInt(this.settings.autoplay) || this.total < 2 || this.timer || this.hovering || this.paused) {
+        return false;
+      }
+      cancelAnimationFrame(this.timer);
+      var startTime = Date.now();
+      function ditty_sliderLoop() {
+        var currTime = Date.now(),
+          passedTime = Math.floor((currTime - startTime) / 1000);
+        if (passedTime >= self.settings.autoplaySpeed) {
+          startTime = currTime;
+          self._showSlide(self._getNextSlide());
+        }
+        self.timer = requestAnimationFrame(ditty_sliderLoop);
+      }
+      self.timer = requestAnimationFrame(ditty_sliderLoop);
+    },
+    /**
+     * Stop the timer
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _timerStop: function () {
+      if (this.timer) {
+        cancelAnimationFrame(this.timer);
+        this.timer = null;
+      }
+    },
+    /**
+     * Mouse enter event
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _mouseenter: function (e) {
+      var self = e.data.self;
+      if (self.settings.autoplay && self.settings.autoplayPause) {
+        self.hovering = true;
+        self._timerStop();
+      }
+    },
+    /**
+     * Mouse leave event
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _mouseleave: function (e) {
+      var self = e.data.self;
+      if (self.settings.autoplay && self.settings.autoplayPause) {
+        self.hovering = false;
+        self._timerStart();
+      }
+    },
+    /**
+     * Swipe left event
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _swipeLeft: function () {
+      var self = this;
+      switch (this.settings.transition) {
+        case "slideRight":
+          self._showPrevSlide();
+          break;
+        default:
+          self._showNextSlide();
+          break;
+      }
+    },
+    /**
+     * Swipe right event
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _swipeRight: function () {
+      var self = this;
+      switch (this.settings.transition) {
+        case "slideRight":
+          self._showNextSlide();
+          break;
+        default:
+          self._showPrevSlide();
+          break;
+      }
+    },
+    /**
+     * Show a slide
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _showSlide: function (index, direction) {
+      var $slide = null,
+        force = false;
+      if (null !== this.$currentSlide && this.$currentSlide.hasClass("ditty-slide-animating")) {
+        return false;
+      }
+      if (undefined === index) {
+        index = this.settings.slide;
+        if (index >= this.settings.slides.length) {
+          index = this.settings.slides.length - 1;
+        }
+        force = true;
+      }
+      if (index >= this.total) {
+        index = this.total - 1;
+      } else if (index < 0) {
+        index = 0;
+      }
+      if (!force && index === this.settings.slide) {
+        return false;
+      }
+      if (undefined === this.settings.slides[index]) {
+        return false;
+      }
+      var prevIndex = this.settings.slide,
+        prevSlide = this.settings.slides[prevIndex];
+
+      // Create and add a new slide
+      if (this.settings.slides[index].$elmt) {
+        $slide = this.settings.slides[index].$elmt; // Use an existing element
+      } else {
+        $slide = $(this.settings.slides[index].html); // Or, create and cache a new element
+        this.settings.slides[index].$elmt = $slide;
+      }
+
+      // Add a the current class
+      $slide.addClass("ditty-slider__slide");
+      $slide.addClass("ditty-slider__slide--current");
+      $slide.addClass("ditty-slider__slide--" + index);
+
+      // Remove any old slides at the same index
+      $(this.$slides.children("." + "ditty-slider__slide--" + index).not($slide)).remove();
+
+      // Add the custom styles
+      this._styleSlide($slide);
+
+      // Add the slide to the slider
+      $slide.stop(true).css({
+        position: "absolute",
+        display: "block",
+        opacity: 0
+      });
+      this.$slides.append($slide);
+
+      // Initialize the height change
+      this.animateTransition = true;
+      this.animateHeight = true;
+      this._setStaticHeight();
+
+      // After slide update trigger
+      var actionParams = [index, this.settings.slides[index], prevIndex, prevSlide];
+      this.trigger("before_slide_update", actionParams);
+
+      // Hide the previous slide
+      if (null !== this.$currentSlide) {
+        this._animateOut(this.$currentSlide, $slide, direction);
+      }
+
+      // Set this as the current slide
+      this.$currentSlide = $slide;
+      this._preloadItem($slide, true);
+      this.settings.slide = index;
+      this.slideObj = this.settings.slides[index];
+      this.visibleSlides = [this.settings.slides[index]];
+      if (!$slide.hasClass("ditty-slide-animating")) {
+        this._slideResetPosition($slide, direction);
+      }
+      this._animateIn($slide, actionParams);
+      this._animateHeight();
+      this._activateBullet();
+      this.slidesDisplayed = this.slidesDisplayed + 1;
+    },
+    /**
+     * Animate a slide into view
+     *
+     * @since    3.0.13
+     * @return   null
+     */
+    _animateIn: function ($slide, actionParams) {
+      var self = this,
+        transitionSpeed = 0 === parseInt(this.slidesDisplayed) ? this.settings.initTransitionSpeed : this.settings.transitionSpeed,
+        transitionEase = 0 === parseInt(this.slidesDisplayed) ? this.settings.initTransitionEase : this.settings.transitionEase;
+      var animateCss = {
+        left: 0,
+        top: 0,
+        opacity: 1
+      };
+      if (0 === parseFloat(transitionSpeed)) {
+        $slide.show();
+        $slide.stop().css(animateCss);
+        $slide.css("position", "relative");
+        self.transitioning = false;
+        self.animateTransition = false;
+        self._removeStaticHeight();
+        self._timerStart();
+        self.trigger("after_slide_update", actionParams);
+      } else {
+        this.transitioning = true;
+        this._timerStop();
+        $slide.show();
+        $slide.addClass("ditty-slide-animating");
+        $slide.stop(true).animate(animateCss, parseFloat(transitionSpeed) * 1000, transitionEase, function () {
+          $slide.removeClass("ditty-slide-animating");
+          $slide.css("position", "relative");
+          self.transitioning = false;
+          self.animateTransition = false;
+          self._removeStaticHeight();
+          self._timerStart();
+          self.trigger("after_slide_update", actionParams);
+        });
+      }
+    },
+    /**
+     * Animate a slide out of view
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _animateOut: function ($slide, $nextSlide, direction) {
+      this.$lastSlide = $slide;
+      var posX = 0,
+        posY = 0,
+        opacity = 1,
+        transition = this.settings.transition;
+      if ("reverse" === direction) {
+        transition = this._reverseTransition(transition);
+      }
+      switch (transition) {
+        case "fade":
+          opacity = 0;
+          break;
+        case "slideRight":
+          posX = this.$slides.outerWidth();
+          break;
+        case "slideLeft":
+          posX = "-" + $slide.outerWidth();
+          break;
+        case "slideDown":
+          posY = $nextSlide.outerHeight();
+          break;
+        case "slideUp":
+          posY = "-" + $slide.outerHeight();
+          break;
+      }
+      $slide.removeClass("ditty-slider__slide--current");
+      $slide.css("position", "absolute");
+      $slide.css({
+        zIndex: 1
+      });
+      var animateCss = {
+        left: posX + "px",
+        top: posY + "px",
+        opacity: opacity
+      };
+      if (0 === parseFloat(this.settings.transitionSpeed)) {
+        $slide.hide();
+        $slide.stop().css(animateCss);
+      } else {
+        $slide.addClass("ditty-slide-animating");
+        $slide.stop(true).animate(animateCss, parseFloat(this.settings.transitionSpeed) * 1000, this.settings.transitionEase, function () {
+          $slide.removeClass("ditty-slide-animating");
+          $slide.hide();
+        });
+      }
+    },
+    /**
+     * Figure out and set a slide's reset position
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _slideResetPosition: function ($slide, direction) {
+      var posX = 0,
+        posY = 0,
+        opacity = 1,
+        transition = 0 === parseInt(this.slidesDisplayed) ? this.settings.initTransition : this.settings.transition;
+      if ("reverse" === direction) {
+        transition = this._reverseTransition(transition);
+      }
+      switch (transition) {
+        case "fade":
+          opacity = 0;
+          break;
+        case "slideLeft":
+          posX = this.$slides.outerWidth();
+          break;
+        case "slideRight":
+          posX = "-" + $slide.outerWidth();
+          break;
+        case "slideUp":
+          if (null !== this.$lastSlide) {
+            posY = this.$lastSlide.outerHeight();
+          } else {
+            posY = this.$slides.outerHeight();
+            if ($slide.outerHeight() > posY) {
+              posY = $slide.outerHeight();
+            }
+          }
+          break;
+        case "slideDown":
+          posY = "-" + $slide.outerHeight();
+          break;
+      }
+      $slide.stop(true).css({
+        display: "block",
+        opacity: opacity,
+        left: posX + "px",
+        top: posY + "px",
+        zIndex: 9
+      });
+    },
+    /**
+     * Set a static height before starting an animation
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _setStaticHeight: function () {
+      var height = this.$slides.outerHeight();
+      this.$slides.stop(true).css("height", height + "px");
+    },
+    /**
+     * Remove the static height after all animations are complete
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _removeStaticHeight: function () {
+      if (!(this.animateTransition || this.animateHeight)) {
+        this.$slides.stop(true).css("height", "auto");
+      }
+    },
+    /**
+     * Animate the height of the slider
+     *
+     * @since    3.0.13
+     * @return   null
+     */
+    _animateHeight: function () {
+      var self = this,
+        height = this.$currentSlide.outerHeight(),
+        heightSpeed = 0 === parseInt(this.slidesDisplayed) ? this.settings.initHeightSpeed : this.settings.heightSpeed,
+        heightEase = 0 === parseInt(this.slidesDisplayed) ? this.settings.initHeightEase : this.settings.heightEase;
+      this.currentHeight = height;
+      var animateCss = {
+        height: height + "px"
+      };
+      if (0 === parseFloat(heightSpeed)) {
+        this.$slides.stop().css(animateCss);
+        self.animateHeight = false;
+        self._removeStaticHeight();
+        self.trigger("height_updated");
+      } else {
+        this.$slides.stop(true).animate(animateCss, parseFloat(heightSpeed) * 1000, heightEase, function () {
+          self.animateHeight = false;
+          self._removeStaticHeight();
+          self.trigger("height_updated");
+        });
+      }
+    },
+    /**
+     * Return the opposite of the current transition
+     *
+     * @since    3.0
+     * @return   string		reverseTransition
+     */
+    _reverseTransition: function (transition) {
+      var reverseTransition = transition;
+      switch (transition) {
+        case "slideLeft":
+          reverseTransition = "slideRight";
+          break;
+        case "slideRight":
+          reverseTransition = "slideLeft";
+          break;
+        case "slideUp":
+          reverseTransition = "slideDown";
+          break;
+        case "slideDown":
+          reverseTransition = "slideUp";
+          break;
+      }
+      return reverseTransition;
+    },
+    /**
+     * Get the next slide index
+     *
+     * @since    3.0
+     * @return   int		nextSlide
+     */
+    _getNextSlide: function () {
+      var nextSlide = this.settings.slide + 1;
+      if (nextSlide >= this.total) {
+        nextSlide = 0;
+      }
+      return nextSlide;
+    },
+    /**
+     * Show the next slide
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _showNextSlide: function () {
+      this._showSlide(this._getNextSlide());
+    },
+    /**
+     * Get the previous slide index
+     *
+     * @since    3.0
+     * @return   int		prevSlide
+     */
+    _getPrevSlide: function () {
+      var prevSlide = this.settings.slide - 1;
+      if (prevSlide < 0) {
+        prevSlide = this.total - 1;
+      }
+      return prevSlide;
+    },
+    /**
+     * Show the previous slide
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _showPrevSlide: function () {
+      this._showSlide(this._getPrevSlide(), "reverse");
+    },
+    /**
+     * Bullet click action
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _clickBullet: function (e) {
+      e.preventDefault();
+      var self = e.data.self,
+        index = $(e.target).data("index"),
+        direction;
+      if (index < self.settings.slide) {
+        direction = "reverse";
+      }
+      self._showSlide(index, direction);
+    },
+    /**
+     * Activate the correct bullet for the current slide
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _activateBullet: function () {
+      if ("none" === this.settings.bullets || 2 > parseInt(this.total)) {
+        return false;
+      }
+      var prev = this._getPrevSlide(),
+        next = this._getNextSlide();
+      this.$bullets.find("." + "ditty-slider__bullet").removeClass("ditty-slider__bullet--active " + "ditty-slider__bullet--next " + "ditty-slider__bullet--prev");
+      this.$bullets.find("." + 'ditty-slider__bullet[data-index="' + this.settings.slide + '"]').addClass("ditty-slider__bullet--active");
+      this.$bullets.find("." + 'ditty-slider__bullet[data-index="' + prev + '"]').addClass("ditty-slider__bullet--prev");
+      this.$bullets.find("." + 'ditty-slider__bullet[data-index="' + next + '"]').addClass("ditty-slider__bullet--next");
+      this._styleBullets();
+    },
+    /**
+     * Setup the bullets
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _setupBullets: function () {
+      var self = this;
+      if (null === this.$bullets) {
+        var $bullets = $('<div class="' + 'ditty-slider__bullets"></div>');
+        this.$bullets = $bullets;
+        this.$elmt.append($bullets);
+      }
+      if ("none" === this.settings.bullets || 2 > parseInt(this.total)) {
+        this.$bullets.hide();
+      } else {
+        this.$bullets.empty();
+        for (var i = 0; i < this.total; i++) {
+          var $bullet = $('<a href="#" class="' + 'ditty-slider__bullet" data-index="' + i + '">' + this.settings.bullet + "</a>");
+          $bullet.on("click", {
+            self: this
+          }, self._clickBullet);
+          this.$bullets.append($bullet);
+        }
+        this.$bullets.show();
+        this._activateBullet();
+      }
+    },
+    /**
+     * Setup the bullets
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _styleBullets: function () {
+      // Reset styles
+      this.$bullets.removeAttr("style");
+      this.$bullets.find("a").css({
+        background: this.settings.bulletsColor
+      });
+      this.$bullets.find("a.ditty-slider__bullet--active").css({
+        background: this.settings.bulletsColorActive
+      });
+
+      // Add the custom padding & add to the list
+      this.$bullets.css(this.settings.bulletsPadding);
+      let spacing = this.settings.bulletsSpacing;
+      const numberValue = String(this.settings.bulletsSpacing).match(/\d+/);
+      if (String(this.settings.bulletsSpacing) === String(numberValue)) {
+        spacing += "px";
+      }
+      this.$bullets[0].style.gap = spacing;
+      switch (this.settings.bulletsPosition) {
+        case "topLeft":
+          this.$bullets.css({
+            order: 0,
+            justifyContent: "flex-start"
+          });
+          break;
+        case "topCenter":
+          this.$bullets.css({
+            order: 0,
+            justifyContent: "center"
+          });
+          break;
+        case "topRight":
+          this.$bullets.css({
+            order: 0,
+            justifyContent: "flex-end"
+          });
+          break;
+        case "bottomLeft":
+          this.$bullets.css({
+            order: 2,
+            justifyContent: "flex-start"
+          });
+          break;
+        case "bottomCenter":
+          this.$bullets.css({
+            order: 2,
+            justifyContent: "center"
+          });
+          break;
+        case "bottomRight":
+          this.$bullets.css({
+            order: 2,
+            justifyContent: "flex-end"
+          });
+          break;
+      }
+    },
+    /**
+     * Previous arrow click action
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _clickPrev: function (e) {
+      e.preventDefault();
+      var self = e.data.self;
+      self._showPrevSlide();
+    },
+    /**
+     * Next arrow click action
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _clickNext: function (e) {
+      e.preventDefault();
+      var self = e.data.self;
+      self._showNextSlide();
+    },
+    /**
+     * Setup the arrows for the slider
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _setupArrows: function () {
+      if (null === this.$arrows) {
+        var $arrows = $('<div class="' + 'ditty-slider__arrows"></div>'),
+          $prev = $('<a href="#" class="' + 'ditty-slider__prev">' + this.settings.navPrev + "</a>"),
+          $next = $('<a href="#" class="' + 'ditty-slider__next">' + this.settings.navNext + "</a>");
+        $prev.on("click", {
+          self: this
+        }, this._clickPrev);
+        $next.on("click", {
+          self: this
+        }, this._clickNext);
+        $arrows.append($prev, $next);
+        this.$arrows = $arrows;
+        this.$elmt.append($arrows);
+      }
+
+      // Reset styles
+      this.$arrows.removeAttr("style");
+      if ("none" === this.settings.arrows || 2 > this.total) {
+        this.$arrows.hide();
+      } else {
+        this.$arrows.css("display", "flex");
+      }
+
+      // Add the custom styles & add to the list
+      this.$arrows.css(this.settings.arrowsPadding);
+      switch (this.settings.arrowsPosition) {
+        case "flexStart":
+          this.$arrows.css({
+            alignItems: "flex-start"
+          });
+          break;
+        case "flexEnd":
+          this.$arrows.css({
+            alignItems: "flex-end"
+          });
+          break;
+        default:
+          this.$arrows.css({
+            alignItems: "center"
+          });
+          break;
+      }
+      this.$arrows.find("i").css({
+        color: this.settings.arrowsIconColor
+      });
+      this.$arrows.find("a").css({
+        background: this.settings.arrowsBgColor
+      });
+      if (1 === parseInt(this.settings.arrowsStatic)) {
+        this.$arrows.addClass("ditty-slider__arrows--static");
+      } else {
+        this.$arrows.removeClass("ditty-slider__arrows--static");
+      }
+    },
+    /**
+     * Style slider and content elements
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _styleDisplay: function () {
+      this.$elmt.css({
+        background: this.settings.contentsBgColor,
+        borderColor: this.settings.contentsBorderColor,
+        borderStyle: this.settings.contentsBorderStyle
+      });
+      this.$elmt.css(this.settings.contentsPadding);
+      this.$elmt.css(this.settings.contentsBorderRadius);
+      this.$elmt.css(this.settings.contentsBorderWidth);
+    },
+    /**
+     * Style the slide
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _styleSlide: function ($slide) {
+      $slide.css({
+        background: this.settings.slideBgColor,
+        borderColor: this.settings.slideBorderColor,
+        borderStyle: this.settings.slideBorderStyle
+      });
+      $slide.css(this.settings.slidePadding);
+      $slide.css(this.settings.slideBorderRadius);
+      $slide.css(this.settings.slideBorderWidth);
+    },
+    /**
+     * Maybe adjust slider
+     *
+     * @since    3.0
+     * @return   null
+     */
+    updateSlides: function (newSlides) {
+      var currentCount = this.settings.slides.length,
+        newCount = newSlides.length,
+        currentIndex = this.settings.slide,
+        newIndex = this.settings.slide;
+
+      // for (var i = 0; i < newSlides.length; i++) {
+      //   this._preloadSlide(newSlides[i]);
+      // }
+
+      this.settings.slides = newSlides;
+      if (currentCount !== newCount) {
+        this.total = newSlides.length;
+        this._setupBullets();
+        this._setupArrows();
+      }
+      if (currentIndex >= this.total) {
+        newIndex = this.total - 1;
+      }
+      if (currentIndex !== newIndex) {
+        this._showSlide(newIndex);
+      }
+    },
+    /**
+     * Return option data for the object
+     *
+     * @since    3.0
+     * @return   value
+     */
+    _getOption: function (key) {
+      switch (key) {
+        case "elmnt":
+          return this;
+        case "height":
+          return this.$slides.outerHeight();
+        case "currentSlide":
+          return this.$currentSlide;
+        default:
+          return this.settings[key];
+      }
+    },
+    /**
+     * Set options data for the object
+     *
+     * @since    3.0
+     * @return   null
+     */
+    _setOption: function (key, value) {
+      if (undefined === value) {
+        return false;
+      }
+      if ("slides" !== key) {
+        this.settings[key] = value;
+      }
+      switch (key) {
+        case "slides":
+          this.updateSlides(value);
+          break;
+        case "slide":
+          this.slide = value;
+          break;
+        case "autoplay":
+          if (1 === parseInt(value)) {
+            if (!this.timer) {
+              this._timerStart();
+            }
+          } else {
+            this._timerStop();
+          }
+          break;
+        case "bgColor":
+        case "padding":
+        case "borderColor":
+        case "borderStyle":
+        case "borderWidth":
+        case "borderRadius":
+        case "contentsBgColor":
+        case "contentsPadding":
+        case "contentsBorderColor":
+        case "contentsBorderStyle":
+        case "contentsBorderWidth":
+        case "contentsBorderRadius":
+          this.animateHeight = true;
+          this._setStaticHeight();
+          this._styleDisplay();
+          this._animateHeight();
+          break;
+        case "slideBgColor":
+        case "slidePadding":
+        case "slideBorderColor":
+        case "slideBorderStyle":
+        case "slideBorderWidth":
+        case "slideBorderRadius":
+          this.animateHeight = true;
+          this._setStaticHeight();
+          this._styleSlide(this.$currentSlide);
+          this._animateHeight();
+          break;
+        case "arrows":
+        case "arrowsIconColor":
+        case "arrowsBgColor":
+        case "arrowsPadding":
+        case "arrowsPosition":
+        case "arrowsStatic":
+          this._setupArrows();
+          break;
+        case "bullets":
+          this._setupBullets();
+          break;
+        case "bulletsColor":
+        case "bulletsColorActive":
+        case "bulletsPosition":
+        case "bulletsSpacing":
+        case "bulletsPadding":
+          this._styleBullets();
+          break;
+        default:
+          this.settings[key] = value;
+          break;
+      }
+      this.trigger("update");
+    },
+    /**
+     * Shuffle the slides
+     *
+     * @since    3.0
+     * @return   null
+     */
+    shuffle: function () {
+      var temp, rand;
+      for (var i = this.total - 1; i > 0; i--) {
+        rand = Math.floor(Math.random() * (i + 1));
+        temp = this.settings.slides[i];
+        this.settings.slides[i] = this.settings.slides[rand];
+        this.settings.slides[rand] = temp;
+      }
+    },
+    /**
+     * Hook to start the timer
+     *
+     * @since    3.0
+     * @return   null
+     */
+    start: function () {
+      this._timerStart();
+    },
+    /**
+     * Hook to stop the timer
+     *
+     * @since    3.0
+     * @return   null
+     */
+    stop: function () {
+      this._timerStop();
+    },
+    /**
+     * Hook to pause the slider
+     *
+     * @since    3.0
+     * @return   null
+     */
+    pause: function () {
+      this.paused = true;
+    },
+    /**
+     * Hook to resume the slider
+     *
+     * @since    3.0
+     * @return   null
+     */
+    resume: function () {
+      this.paused = false;
+      this._timerStart();
+    },
+    /**
+     * Hook to return the current slide
+     *
+     * @since    3.0
+     * @return   object		$currentSlide
+     */
+    current: function () {
+      return this.$currentSlide;
+    },
+    /**
+     * Hook to show a specific slide by index
+     *
+     * @since    3.0
+     * @return   null
+     */
+    showSlide: function (index) {
+      this._showSlide(index);
+    },
+    /**
+     * Hook to show a specific slide by id
+     *
+     * @since    3.0
+     * @return   null
+     */
+    showSlideById: function (id, force) {
+      var self = this;
+      $.each(this.settings.slides, function (index, slide) {
+        if (slide.id === id) {
+          if ("force" === force) {
+            self.settings.slide = index;
+            self._showSlide();
+          } else {
+            self._showSlide(index);
+          }
+          return false;
+        }
+      });
+    },
+    /**
+     * Hook to add a slide
+     *
+     * @since    3.0
+     * @return   null
+     */
+    addSlide: function (slide, index, type) {
+      var indexExists = true;
+      if (index >= this.total || index < 0) {
+        indexExists = false;
+      }
+
+      // Replace a slide
+      if ("replace" === type && indexExists) {
+        // Let other scripts know this slide is being removed
+        var toBeRemoved = this.settings.slides[index];
+        this.trigger("slide_removed", [toBeRemoved]);
+        this.settings.slides.splice(index, 1, slide);
+
+        // Add a slide
+      } else {
+        if (null === index || "" === index || !indexExists) {
+          this.settings.slides.splice(parseInt(this.settings.slide) + 1, 0, slide);
+        } else {
+          this.settings.slides.splice(index, 0, slide);
+        }
+      }
+      this.total = this.settings.slides.length;
+
+      // Preload slide assets
+      //this._preloadSlide(slide);
+
+      if (1 === this.total) {
+        this._showSlide();
+      }
+
+      //this._showSlide(0);
+      this.trigger("update");
+    },
+    /**
+     * Hook to add or replace a slide by id
+     *
+     * @since    3.0
+     * @return   null
+     */
+    addSlideById: function (id, html) {
+      var newSlide = {
+          id: id,
+          html: html
+        },
+        slideIndex = false;
+      $.each(this.settings.slides, function (index, slide) {
+        if (String(slide.id) === String(id)) {
+          slideIndex = index;
+          return;
+        }
+      });
+      if (slideIndex) {
+        // Let other scripts know this slide is being removed
+        var toBeRemoved = this.settings.slides[slideIndex];
+        this.trigger("slide_removed", [toBeRemoved]);
+
+        // Remove cached elements
+        if (this.settings.slides[slideIndex].$elmt) {
+          this.settings.slides[slideIndex].$elmt.remove();
+        }
+        this.settings.slides.splice(slideIndex, 1, newSlide);
+      } else {
+        this.settings.slides.push(newSlide);
+      }
+      this.total = this.settings.slides.length;
+      //this._preloadSlide(newSlide);
+      this.trigger("update");
+    },
+    /**
+     * Hook to delete a slide by id
+     *
+     * @since    3.0
+     * @return   null
+     */
+    deleteSlideById: function (id) {
+      var updatedSlides = [];
+      $.each(this.settings.slides, function (index, slide) {
+        if (String(slide.id) !== String(id)) {
+          updatedSlides.push(slide);
+        }
+      });
+      this.settings.slides = updatedSlides;
+      this.total = this.settings.slides.length;
+      this.trigger("update");
+    },
+    /**
+     * Hook to delete a slide by index
+     *
+     * @since    3.0
+     * @return   null
+     */
+    deleteSlide: function (index) {
+      if (index >= this.total || index < 0) {
+        return false;
+      }
+
+      // Let other scripts know this slide is being removed
+      var toBeRemoved = this.settings.slides[index];
+      this.trigger("slide_removed", [toBeRemoved]);
+
+      // Remove cached elements
+      //if ( this.settings.slides[index].cache && this.settings.slides[index].$elmt ) {
+      if (this.settings.slides[index].$elmt) {
+        this.settings.slides[index].$elmt.remove();
+      }
+      this.settings.slides.splice(index, 1);
+      this.total = this.settings.slides.length;
+      this.trigger("update");
+    },
+    /**
+     * Hook to set a static height
+     *
+     * @since    3.0
+     * @return   null
+     */
+    setStaticHeight: function () {
+      this.animateHeight = true;
+      this._setStaticHeight();
+    },
+    /**
+     * Hook to animate the slider height
+     *
+     * @since    3.0
+     * @return   null
+     */
+    animateHeight: function () {
+      this._animateHeight();
+    },
+    /**
+     * Hook to trigger events
+     *
+     * @since    3.0
+     * @return   null
+     */
+    trigger: function (fn, customParams) {
+      var params = [];
+      switch (fn) {
+        case "height_updated":
+          params = [this.currentHeight];
+          break;
+        default:
+          params = [this.settings, this.$elmt];
+          break;
+      }
+      if (customParams) {
+        params = customParams;
+      }
+      this.$elmt.trigger("ditty_slider_" + fn, params);
+      if (typeof this.settings[fn] === "function") {
+        this.settings[fn].apply(this.$elmt, params);
+      }
+    },
+    /**
+     * Hook to get or set slider options
+     *
+     * @since    3.0
+     * @return   null
+     */
+    options: function (key, value) {
+      var self = this;
+      if (typeof key === "object") {
+        $.each(key, function (k, v) {
+          self._setOption(k, v);
+        });
+      } else if (typeof key === "string") {
+        if (value === undefined) {
+          return self._getOption(key);
+        }
+        self._setOption(key, value);
+      } else {
+        return self.settings;
+      }
+    },
+    /**
+     * Hook to destroy this object
+     *
+     * @since    3.0
+     * @return   null
+     */
+    destroy: function () {
+      clearInterval(this.timer);
+      this.$elmt.removeClass("ditty-slider");
+      this.$elmt.removeAttr("style");
+      this.$elmt.empty();
+      this.trigger("destroy");
+      this.elmt._ditty_slider = null;
+    }
+  };
+
+  /**
+   * Setup the class or listen for hooks
+   *
+   * @since    3.0
+   * @return   null
+   */
+  $.fn.ditty_slider = function (options) {
+    var args = arguments,
+      error = false,
+      returns;
+    if (options === undefined || typeof options === "object") {
+      return this.each(function () {
+        if (!this._ditty_slider) {
+          this._ditty_slider = new Ditty_Slider(this, options);
+        }
+      });
+    } else if (typeof options === "string") {
+      this.each(function () {
+        var instance = this._ditty_slider;
+        if (!instance) {
+          throw new Error("No Ditty_Slider applied to this element.");
+        }
+        if (typeof instance[options] === "function" && options[0] !== "_") {
+          returns = instance[options].apply(instance, [].slice.call(args, 1));
+        } else {
+          error = true;
+        }
+      });
+      if (error) {
+        throw new Error('No method "' + options + '" in Ditty_Slider.');
+      }
+      return returns !== undefined ? returns : this;
+    }
+  };
+  $.ditty_slider = {};
+  $.ditty_slider.defaults = defaults;
+})(jQuery);
+/******/ })()
+;
+//# sourceMappingURL=dittySlider.js.map

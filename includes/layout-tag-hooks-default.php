@@ -1,5 +1,12 @@
 <?php
 
+add_filter( 'ditty_layout_tag_author_avatar_data', 'ditty_default_layout_tag_author_avatar_data', 10, 4 );
+add_filter( 'ditty_layout_tag_author_bio', 'ditty_default_layout_tag_author_bio', 10, 4 );
+add_filter( 'ditty_layout_tag_author_name', 'ditty_default_layout_tag_author_name', 10, 4 );
+add_filter( 'ditty_layout_tag_content', 'ditty_default_layout_tag_content', 10, 4 );
+add_filter( 'ditty_layout_tag_content', 'ditty_layout_tag_content_globals', 99, 4 );
+add_filter( 'ditty_layout_tag_timestamp', 'ditty_default_layout_tag_timestamp', 10, 4 );
+
 /**
  * Modify the layout user avatar
  *
@@ -22,28 +29,6 @@ function ditty_default_layout_tag_author_avatar_data( $avatar_data, $item_type, 
 	}
 	return $avatar_data;
 }
-add_filter( 'ditty_layout_tag_author_avatar_data', 'ditty_default_layout_tag_author_avatar_data', 10, 4 );
-
-/**
- * Modify the layout author name
- *
- * @since    3.1
- * @var      html
-*/
-function ditty_default_layout_tag_author_name( $author_name, $item_type, $data, $atts ) {
-	$types = array(
-		'default',	
-		'wp_editor',
-		'html',
-	);
-	if ( in_array(  $item_type, $types ) ) {
-		if ( $item_author = ditty_layout_item_meta( $data, 'item_author' ) ) {
-			$author_name = get_the_author_meta( 'display_name', $item_author );
-		}
-	}
-	return $author_name;
-}
-add_filter( 'ditty_layout_tag_author_name', 'ditty_default_layout_tag_author_name', 10, 4 );
 
 /**
  * Modify the layout author bio
@@ -64,7 +49,26 @@ function ditty_default_layout_tag_author_bio( $author_bio, $item_type, $data, $a
 	}
 	return $author_bio;
 }
-add_filter( 'ditty_layout_tag_author_bio', 'ditty_default_layout_tag_author_bio', 10, 4 );
+
+/**
+ * Modify the layout author name
+ *
+ * @since    3.1
+ * @var      html
+*/
+function ditty_default_layout_tag_author_name( $author_name, $item_type, $data, $atts ) {
+	$types = array(
+		'default',	
+		'wp_editor',
+		'html',
+	);
+	if ( in_array(  $item_type, $types ) ) {
+		if ( $item_author = ditty_layout_item_meta( $data, 'item_author' ) ) {
+			$author_name = get_the_author_meta( 'display_name', $item_author );
+		}
+	}
+	return $author_name;
+}
 
 /**
  * Modify the layout content
@@ -87,7 +91,6 @@ function ditty_default_layout_tag_content( $content, $item_type, $data, $atts ) 
 	}	
 	return $content;	
 }
-add_filter( 'ditty_layout_tag_content', 'ditty_default_layout_tag_content', 10, 4 );
 
 /**
  * Globally modify content tags
@@ -101,7 +104,6 @@ function ditty_layout_tag_content_globals( $content, $item_type, $data, $atts ) 
 	}
 	return $content;
 }
-add_filter( 'ditty_layout_tag_content', 'ditty_layout_tag_content_globals', 99, 4 );
 
 /**
  * Modify the layout timestamp
@@ -128,4 +130,3 @@ function ditty_default_layout_tag_timestamp( $timestamp, $item_type, $data, $att
 	}
 	return $timestamp;	
 }
-add_filter( 'ditty_layout_tag_timestamp', 'ditty_default_layout_tag_timestamp', 10, 4 );

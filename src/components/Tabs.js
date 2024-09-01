@@ -32,7 +32,11 @@ const Tabs = ({ className, tabs, type, currentTabId, tabClick, style }) => {
       <>
         {icon && (
           <span className="ditty-tab__icon">
-            {"string" === typeof icon ? <Icon id={icon} type={type} /> : icon}
+            {"string" === typeof icon && "svg" !== type ? (
+              <Icon id={icon} type={type} />
+            ) : (
+              icon
+            )}
           </span>
         )}
         {tab.label && <span className="ditty-tab__label">{tab.label}</span>}

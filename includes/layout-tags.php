@@ -263,6 +263,32 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'image_url',
 			'description' => __( 'Render the item image url.', 'ditty-news-ticker' ),
 		),
+    'media' => array(
+			'tag' 				=> 'media',
+			'description' => __( 'Render the media.', 'ditty-news-ticker' ),
+			'atts'				=> array(
+				'wrapper'			=> $wrapper_settings,
+        'default_src' => [
+					'type'  => 'text',
+					'id'    =>  'default_src',
+					'help'  =>  __(
+						'Add a default image source if no media exists for the item.',
+						'ditty-news-ticker'
+					),
+				],
+				'before'			=> $before_settings,
+				'after'				=> $after_settings,
+				'width'				=> $width_settings,
+				'height'			=> $height_settings,
+				'fit'					=> $fit_settings,
+				'link'				=> $link_settings,
+				'link_target' => $link_target_settings,
+				'link_rel'		=> $link_rel_settings,
+				'link_before'	=> $link_before_settings,
+				'link_after'	=> $link_after_settings,
+				'class'				=> $class_settings,
+			),
+		),
 		'permalink' => array(
 			'tag' 				=> 'permalink',
 			'description' => __( 'Render the item permalink.', 'ditty-news-ticker' ),

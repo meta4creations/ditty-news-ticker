@@ -27,8 +27,14 @@ const migrateItemTypes = (itemTypes) => {
       });
       if (-1 === existingIndex) {
         const icon = phpType.icon;
-        const iconType = phpType.iconType ? phpType.iconType : "fal";
-        const iconObj = <Icon id={icon} type={iconType} />;
+        let iconType;
+        let iconObj;
+        if (icon.trim().startsWith("<svg")) {
+          iconObj = <div dangerouslySetInnerHTML={{ __html: icon }} />;
+        } else {
+          iconType = phpType.iconType ? phpType.iconType : "fal";
+          iconObj = <Icon id={icon} type={iconType} />;
+        }
         updatedItemTypes.push({ ...phpType, icon: iconObj });
       } else {
         updatedItemTypes[existingIndex] = {

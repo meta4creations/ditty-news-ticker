@@ -22,7 +22,6 @@ dittyEditor.httpService = {
  */
 dittyEditor.itemTypes = [];
 dittyEditor.registerItemType = (itemType) => {
-  console.log("itemType", itemType);
   const index = dittyEditor.itemTypes.findIndex(
     (type) => type.id === itemType.id
   );
