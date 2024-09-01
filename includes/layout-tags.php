@@ -28,6 +28,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 	$link_options = ditty_layout_link_options( $item_type );
 
 	$after_settings = Ditty()->layouts->tag_attribute_default_settings( 'after' );
+  $aspect_ratio_settings = Ditty()->layouts->tag_attribute_default_settings( 'aspect_ratio' );
 	$before_settings = Ditty()->layouts->tag_attribute_default_settings( 'before' );
 	$class_settings = Ditty()->layouts->tag_attribute_default_settings( 'class' );
 	$excerpt_length_settings = Ditty()->layouts->tag_attribute_default_settings( 'excerpt_length', 200 );
@@ -246,17 +247,18 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 						'ditty-news-ticker'
 					),
 				],
-				'before'			=> $before_settings,
-				'after'				=> $after_settings,
-				'width'				=> $width_settings,
-				'height'			=> $height_settings,
-				'fit'					=> $fit_settings,
-				'link'				=> $link_settings,
-				'link_target' => $link_target_settings,
-				'link_rel'		=> $link_rel_settings,
-				'link_before'	=> $link_before_settings,
-				'link_after'	=> $link_after_settings,
-				'class'				=> $class_settings,
+				'before'			  => $before_settings,
+				'after'				  => $after_settings,
+				'width'				  => $width_settings,
+				'height'			  => $height_settings,
+				'aspect_ratio'  => $aspect_ratio_settings,
+        'fit'					  => $fit_settings,
+				'link'				  => $link_settings,
+				'link_target'   => $link_target_settings,
+				'link_rel'		  => $link_rel_settings,
+				'link_before'	  => $link_before_settings,
+				'link_after'	  => $link_after_settings,
+				'class'				  => $class_settings,
 			),
 		),
 		'image_url' => array(

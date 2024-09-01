@@ -193,50 +193,10 @@ function ditty_init_layout_tag_excerpt( $excerpt, $item_type, $data, $atts ) {
 */
 function ditty_init_layout_tag_image( $image, $item_type, $data, $atts ) {
   $image_data = ditty_layout_tag_image_data( $item_type, $data, $atts );
-	if ( ! $image_data || ( is_array( $image_data ) && ( ! $image_data['src'] ) ) ) {
-    $default_src = ( isset( $atts['default_src'] ) ) ? $atts['default_src'] : false;
-    if ( $default_src ) {
-      $image_data = is_array( $image_data) ? $image_data : [];
-      $image_data['src'] = $default_src;
-    } else {
-      return $image;
-    }
-	}
-
-	$defaults = array(
-		'width' 	=> '',
-		'height' 	=> '',
-		'fit' 		=> '',
-	);
-	$args = shortcode_atts( $defaults, $atts );
-	$style = '';
-	if ( '' !=  $args['width'] ) {
-		$style .= 'width:' . $args['width'] . ';';
-	}
-	if ( '' !=  $args['height'] ) {
-		$style .= 'height:' . $args['height'] . ';';
-	}
-	if ( '' !=  $args['fit'] ) {
-		$style .= 'object-fit:' . $args['fit'] . ';';
-	}
-	$image_defaults = array(
-		'src' 		=> '',
-		'width' 	=> '',
-		'height' 	=> '',
-		'alt' 		=> '',
-		'style'		=> ( '' != $style ) ? $style : false,
-	);
-	$image_args = shortcode_atts( $image_defaults, $image_data );
-	if ( '' == $image_args['width'] && '' == $image_args['height'] ) {
-		if ( $image_dimensions = ditty_get_image_dimensions( $image_args['src'] ) ) {
-      $image_args['width'] = $image_dimensions['width'];
-      $image_args['height'] = $image_dimensions['height'];
-    }
-	}
-  //$aspect_ratio = ( isset( $image_args['width'] ) && isset( $image_args['width'] ) ) ? " style='aspect-ratio:{$image_args['width']} / {$image_args['height']}'" : ''; 
-	//$image = '<div' . $aspect_ratio . '><img ' . ditty_attr_to_html( $image_args ) . ' /></div>';
-	$image = '<img ' . ditty_attr_to_html( $image_args ) . ' />';
-	return $image;	
+  if ( $tag_image = ditty_layout_tag_image( $image_data, $data, $atts ) ) {
+    return $tag_image;
+  }
+  return $image;
 }
 
 /**
@@ -263,11 +223,14 @@ function ditty_init_layout_tag_image_url( $image_url, $item_type, $data, $atts )
 */
 function ditty_init_layout_tag_media( $media, $item_type, $data, $atts ) {
   $media_data = ditty_layout_tag_media_data( $item_type, $data, $atts );
-  // if ( 'image' == $media_data['type'] ) {
-  //   $media = 
-  // }
-	
-	return $media;	
+  switch( $media_data['type'] ) {
+    case 'gallery':
+      return ditty_layout_tag_gallery( $media_data, $data, $atts );
+    case 'image':
+      return ditty_layout_tag_image( $media_data, $data, $atts );
+    default:
+      break;
+  }
 }
 
 /**

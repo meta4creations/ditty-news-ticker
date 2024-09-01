@@ -250,6 +250,16 @@ class Ditty_Layouts {
 					),
 					'std' => $default ? $default : '',
 				];
+      case 'aspect_ratio':
+        return [
+          'type' => "text",
+          'id' =>  "aspect_ratio",
+          'help' =>  __(
+            "Set the aspect ratio of an element.",
+            "ditty-news-ticker"
+          ),
+          'std' => $default ? $default : '',
+        ];
 			case 'before':
 				return [
 					'type' => "text",

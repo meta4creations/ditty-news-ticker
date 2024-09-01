@@ -46,6 +46,7 @@
     "lorem-ipsum": "2.0.8",
     "react-best-gradient-color-picker": "2.1.13",
     "react-color": "2.19.3",
-    "react-toastify": "10.0.5"
+    "react-toastify": "10.0.5",
+    "swiper": "11.1.12"
   }
 }

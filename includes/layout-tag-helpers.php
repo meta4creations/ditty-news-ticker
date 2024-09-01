@@ -130,26 +130,59 @@ function ditty_layout_tag_author_banner_data( $item_type, $data, $atts = array()
 }
 
 /**
+ * Return a gallery object
+ *
+ * @since    3.1.47
+ * @var      html
+*/
+function ditty_layout_tag_gallery( $media_data, $data, $atts ) {
+  if ( isset( $media_data['items'] ) && is_array( $media_data['items'] ) && count( $media_data['items'] ) > 0 ) {
+    $html = '';
+    $html .= '<div class="swiper">';
+      $html .= '<div class="swiper-wrapper">';
+        foreach ( $media_data['items'] as $item ) {
+          $html .= '<div class="swiper-slide">';
+          switch ( $item['type'] ) {
+            case 'image':
+              $html .= ditty_layout_tag_image( $item, $data, $atts );
+              break;
+            default:
+              break;
+          }
+          $html .= '</div>';
+        }
+      $html .= '</div>';
+      $html .= '<div class="swiper-pagination"></div>';
+      $html .= '<div class="swiper-button-prev"></div>';
+      $html .= '<div class="swiper-button-next"></div>';
+      $html .= '<div class="swiper-scrollbar"></div>';
+    $html .= '</div>';
+    return $html;
+  }
+}
+
+/**
  * Return an image
  *
  * @since    3.1.47
  * @var      html
 */
-function ditty_layout_tag_image( $image_data ) {
+function ditty_layout_tag_image( $image_data, $data, $atts ) {
 	if ( ! $image_data || ( is_array( $image_data ) && ( ! $image_data['src'] ) ) ) {
     $default_src = ( isset( $atts['default_src'] ) ) ? $atts['default_src'] : false;
     if ( $default_src ) {
       $image_data = is_array( $image_data) ? $image_data : [];
       $image_data['src'] = $default_src;
     } else {
-      return $image;
+      return false;
     }
 	}
 
 	$defaults = array(
-		'width' 	=> '',
-		'height' 	=> '',
-		'fit' 		=> '',
+		'width' 	      => '',
+		'height' 	      => '',
+		'fit' 		      => '',
+    'aspect_ratio'  => '',
 	);
 	$args = shortcode_atts( $defaults, $atts );
 	$style = '';
@@ -161,6 +194,9 @@ function ditty_layout_tag_image( $image_data ) {
 	}
 	if ( '' !=  $args['fit'] ) {
 		$style .= 'object-fit:' . $args['fit'] . ';';
+	}
+  if ( isset( $args['aspect_ratio'] ) && '' !=  $args['aspect_ratio'] ) {
+		$style .= 'aspect-ratio:' . $args['aspect_ratio'] . ';';
 	}
 	$image_defaults = array(
 		'src' 		=> '',
@@ -176,8 +212,6 @@ function ditty_layout_tag_image( $image_data ) {
       $image_args['height'] = $image_dimensions['height'];
     }
 	}
-  //$aspect_ratio = ( isset( $image_args['width'] ) && isset( $image_args['width'] ) ) ? " style='aspect-ratio:{$image_args['width']} / {$image_args['height']}'" : ''; 
-	//$image = '<div' . $aspect_ratio . '><img ' . ditty_attr_to_html( $image_args ) . ' /></div>';
 	$image = '<img ' . ditty_attr_to_html( $image_args ) . ' />';
 	return $image;
 }
@@ -192,5 +226,18 @@ function ditty_layout_tag_image_data( $item_type, $data, $atts = array() ) {
 	$image_data = apply_filters( 'ditty_layout_tag_image_data', array(), $item_type, $data, $atts );
 	if ( ! empty( $image_data ) ) {
 		return $image_data;
+	}
+}
+
+/**
+ * The data of the media
+ *
+ * @since    3.1.47
+ * @var      html
+*/
+function ditty_layout_tag_media_data( $item_type, $data, $atts = array() ) {
+	$media_data = apply_filters( 'ditty_layout_tag_media_data', array(), $item_type, $data, $atts );
+	if ( ! empty( $media_data ) ) {
+		return $media_data;
 	}
 }
