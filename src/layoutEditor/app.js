@@ -285,7 +285,7 @@ export default () => {
         onUpdateStatus={handleUpdateStatus}
         onSubmit={handleSaveLayout}
       />
-      <div id="ditty-layout-editor" className="ditty-adminPage__app">
+      <div id="ditty-layout-editor" className="ditty-adminPage__app ditty">
         <div
           className="ditty-adminPage__app__content"
           dangerouslySetInnerHTML={{ __html: displayItem.html }}
