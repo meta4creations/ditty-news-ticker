@@ -63,7 +63,7 @@ class Ditty {
 	public $scripts;
   public $shortcodes;
 	public $singles;
-  public $render;
+  //public $render;
   public $translations;
 
 	/**
@@ -105,7 +105,7 @@ class Ditty {
 			self::$instance->settings			= new Ditty_Settings();
       self::$instance->shortcodes		= new Ditty_Shortcodes();
 			self::$instance->singles			= new Ditty_Singles();
-      self::$instance->render				= new Ditty_Render();	
+      //self::$instance->render				= new Ditty_Render();	
       self::$instance->translations	= new Ditty_Translations();	
 		}
 

@@ -20,27 +20,7 @@ class Ditty_Render {
 	 * @access  public
 	 * @since   3.1
 	 */
-	public function __construct() {
-		
-    // Shortcodes
-		add_shortcode( 'ditty', [$this, 'do_shortcode'] );
-	}
-
-	/**
-	 * Display the Ditty via shortcode
-	 *
-	 * @since    3.0
-	 * @access   public
-	 * @var      html
-	 */
-	public function do_shortcode( $atts ) {
-		if ( ! is_admin() ) {
-      if ( isset( $_GET['dittyDev'] ) ) {
-        return $this->render( $atts );
-      } else {
-        return ditty_render( $atts );
-      }
-		}
+	public function __construct( $args = [] ) {
 	}
 
 	public function render( $atts) {
