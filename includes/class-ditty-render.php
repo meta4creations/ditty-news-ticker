@@ -15,37 +15,57 @@ use Padaliyajay\PHPAutoprefixer\Autoprefixer;
 
 class Ditty_Render {
 
+  private $items = [];
+
 	/**
 	 * Get things started
 	 * @access  public
 	 * @since   3.1
 	 */
-	public function __construct( $args = [] ) {
+	public function __construct( $items = [] ) {
+    $this->items = $items;
 	}
 
-	public function render( $atts) {
-		$parsed_atts = $this->parse_render_atts( $atts );
-		$ditty = get_post( $parsed_atts['ditty'] );
+	public function render() {
+		// $parsed_atts = $this->parse_render_atts( $atts );
+		// $ditty = get_post( $parsed_atts['ditty'] );
 
-    $css_settings = [
-      'title' => $parsed_atts['title_settings'],
-    ];
+    // $css_settings = [
+    //   'title' => $parsed_atts['title_settings'],
+    // ];
+
+    $styles = [];
+    $items = [];
+    if ( is_array( $this->items ) && count( $this->items ) > 0 ) {
+      foreach ( $this->items as $item ) {
+        $display_item = new Ditty_Display_Item( $item );
+				$display_item_data = $display_item->ditty_data();
+        if ( ! isset( $styles[$display_item_data['layout_id']] ) ) {
+          $styles[$display_item_data['layout_id']] = '<style id="ditty-layoutx--' . esc_attr( $display_item_data['layout_id'] ) . '">' . ditty_kses_post( $display_item_data['css'] ) . '</style>';
+        }
+        $items[] = ditty_kses_post( $display_item_data['html'] );
+      }
+    }
 
     $html = '';
+    $html .= implode( '', $styles );
 
-    $html .= $this->display_css_output( $parsed_atts['display_id'], $css_settings );
-		$html .= '<div ' . ditty_attr_to_html( $parsed_atts['html_atts'] ) . '>';
-			$html .= '<div class="ditty__title">';
-				$html .= '<div class="ditty__title__contents">';
-					$html .= "<{$parsed_atts['title_settings']['titleElement']} class='ditty__title__element'>";
-            $html .= $ditty->post_title;
-          $html .= "</{$parsed_atts['title_settings']['titleElement']}>";
-				$html .= '</div>';
-			$html .= '</div>';
+    //$html .= $this->display_css_output( $parsed_atts['display_id'], $css_settings );
+		//$html .= '<div ' . ditty_attr_to_html( $parsed_atts['html_atts'] ) . '>';
+    $html .= '<div class="ditty">';
+			// $html .= '<div class="ditty__title">';
+			// 	$html .= '<div class="ditty__title__contents">';
+			// 		$html .= "<{$parsed_atts['title_settings']['titleElement']} class='ditty__title__element'>";
+      //       $html .= $ditty->post_title;
+      //     $html .= "</{$parsed_atts['title_settings']['titleElement']}>";
+			// 	$html .= '</div>';
+			// $html .= '</div>';
 			$html .= '<div class="ditty__contents">';
-				$html .= '<div class="ditty__page">';
-					$html .= '<div class="ditty__items"></div>';
-				$html .= '</div>';
+				//$html .= '<div class="ditty__page">';
+					$html .= '<div class="ditty__items">';
+            $html .= implode( '', $items );
+          $html .= '</div>';
+				//$html .= '</div>';
 			$html .= '</div>';
 		$html .= '</div>';
 		return $html;

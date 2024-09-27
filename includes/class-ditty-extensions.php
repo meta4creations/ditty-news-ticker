@@ -298,10 +298,25 @@ class Ditty_Extensions {
 				$heading_style .= 'background-image:url(' . esc_url_raw( $user_banner ) . ');';
 			}
 		}
-		$attr = array(
+		
+    $extension_icon = ( strpos( $data['icon'], '<svg ' ) !== false ) ? $data['icon'] : '<i class="' . esc_attr( $data['icon'] ) . '"></i>';
+    $extension_icon_color = isset( $data['icon_color'] ) ? $data['icon_color'] : false;
+    $extension_icon_bg_color = isset( $data['icon_bg_color'] ) ? $data['icon_bg_color'] : false;
+    $highlight_color = isset( $data['highlight_color'] ) ? $data['highlight_color'] : '#19BF7C'; 
+    if ( $extension_icon_color ) {
+      $icon_style .= 'color:' . esc_attr( $extension_icon_color ) . ';';
+      $heading_style .= 'color:' . esc_attr( $extension_icon_color ) . ';';
+    }
+    if ( $extension_icon_bg_color ) {
+      $icon_style .= 'background:' . esc_attr( $extension_icon_bg_color ) . ';';
+      $heading_style .= 'background:' . esc_attr( $extension_icon_bg_color ) . ';';
+    }
+
+    $attr = array(
 			'class' => $classes,
 			'data-extension' => $extension,
 			'data-license_status' => $status,
+      'data-highlight_color' => $highlight_color,
 		);
 		if ( $oauth_settings ) {
 			$attr['data-api'] = ( isset( $oauth_settings['authorized'] ) && '' != $oauth_settings['authorized'] ) ? 'authorized' : 'unauthorized';
@@ -309,18 +324,6 @@ class Ditty_Extensions {
 				$attr['data-api_keys'] = $oauth_settings['has_custom_keys'];
 			}
 		}
-    $extension_icon = ( strpos( $data['icon'], '<svg ' ) !== false ) ? $data['icon'] : '<i class="' . esc_attr( $data['icon'] ) . '"></i>';
-    $extension_icon_color = isset( $data['icon_color'] ) ? $data['icon_color'] : false;
-    $extension_icon_bg_color = isset( $data['icon_bg_color'] ) ? $data['icon_bg_color'] : false;
-    
-    if ( $extension_icon_color ) {
-      $icon_style .= 'color:' . esc_attr( $extension_icon_color ) . ';';
-    }
-
-    if ( $extension_icon_bg_color ) {
-      $icon_style .= 'background-color:' . esc_attr( $extension_icon_bg_color ) . ';';
-      $heading_style .= 'background-color:' . esc_attr( $extension_icon_bg_color ) . ';';
-    }
 		?>
 		<div <?php echo ditty_attr_to_html( $attr ); ?>>
 			<div class="ditty-extension__contents">
