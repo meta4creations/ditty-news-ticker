@@ -221,4 +221,10 @@
     position: relative;
     overflow: hidden;
   }
+  &__icon {
+    width: 1em;
+    height: auto;
+    display: block;
+    line-height: 0;
+  }
 }

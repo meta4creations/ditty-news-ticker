@@ -391,6 +391,17 @@ class Ditty_Layouts {
 					),
 					'std' => $default ? $default : '_self',
 				];
+      case 'max_characters':
+        return [
+          'type' => "number",
+          'id' =>  "max_characters",
+          'min' => 0,
+          'help' =>  __(
+            "Set the maximum number of characters for the text.",
+            "ditty-news-ticker"
+          ),
+          'std' => $default ? $default : '',
+        ];
 			case 'more':
 				return [
 					'type' => "text",

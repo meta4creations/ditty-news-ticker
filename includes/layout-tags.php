@@ -32,6 +32,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 	$before_settings = Ditty()->layouts->tag_attribute_default_settings( 'before' );
 	$class_settings = Ditty()->layouts->tag_attribute_default_settings( 'class' );
 	$excerpt_length_settings = Ditty()->layouts->tag_attribute_default_settings( 'excerpt_length', 200 );
+  $max_characters_settings = Ditty()->layouts->tag_attribute_default_settings( 'max_characters' );
 	$fit_settings = Ditty()->layouts->tag_attribute_default_settings( 'fit' );
 	$height_settings = Ditty()->layouts->tag_attribute_default_settings( 'height' );
 	$link_settings = Ditty()->layouts->tag_attribute_default_settings( 'link', 'none', $link_options );
@@ -135,16 +136,17 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 			'tag' 				=> 'caption',
 			'description' => __( 'Render the item caption.', 'ditty-news-ticker' ),
 			'atts'				=> array(
-				'wrapper' 		=> $wrapper_settings,
-				'wpautop'			=> $wpautop_settings,
-				'before'			=> $before_settings,
-				'after'				=> $after_settings,
-				'link'				=> $link_settings,
-				'link_target' => $link_target_settings,
-				'link_rel'		=> $link_rel_settings,
-				'link_before'	=> $link_before_settings,
-				'link_after'	=> $link_after_settings,
-				'class'				=> $class_settings,
+				'wrapper' 		    => $wrapper_settings,
+				'wpautop'			    => $wpautop_settings,
+				'before'			    => $before_settings,
+				'after'				    => $after_settings,
+        'max_characters'  => $max_characters_settings,
+				'link'				    => $link_settings,
+				'link_target'     => $link_target_settings,
+				'link_rel'		    => $link_rel_settings,
+				'link_before'	    => $link_before_settings,
+				'link_after'	    => $link_after_settings,
+				'class'				    => $class_settings,
 			),
 		),
 		'categories' => array(
@@ -289,6 +291,71 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 				'link_before'	=> $link_before_settings,
 				'link_after'	=> $link_after_settings,
 				'class'				=> $class_settings,
+        'video_autoplay' => [
+					'type'  => 'select',
+					'id'    =>  'video_autoplay',
+					'help'  =>  __(
+						'Set the autoplay attribute for videos.',
+						'ditty-news-ticker'
+					),
+          'options' =>  [
+            'no',
+            'yes'
+          ],
+          'std' => 'yes'
+				],
+        'video_controls' => [
+					'type'  => 'select',
+					'id'    =>  'video_controls',
+					'help'  =>  __(
+						'Set the conrols attribute for videos.',
+						'ditty-news-ticker'
+					),
+          'options' =>  [
+            'no',
+            'yes'
+          ],
+          'std' => 'no'
+				],
+        'video_loop' => [
+					'type'  => 'select',
+					'id'    =>  'video_loop',
+					'help'  =>  __(
+						'Set the loop attribute for videos.',
+						'ditty-news-ticker'
+					),
+          'options' =>  [
+            'no',
+            'yes'
+          ],
+          'std' => 'yes'
+				],
+        'video_playsinline' => [
+					'type'  => 'select',
+					'id'    =>  'video_playsinline',
+					'help'  =>  __(
+						'Set the playsinline attribute for videos.',
+						'ditty-news-ticker'
+					),
+          'options' =>  [
+            'no',
+            'yes'
+          ],
+          'std' => 'yes'
+				],
+        'video_muted' => [
+					'type'  => 'select',
+					'id'    =>  'video_muted',
+					'help'  =>  __(
+						'Set the muted attribute for videos.',
+						'ditty-news-ticker'
+					),
+          'options' =>  [
+            'no',
+            'yes'
+          ],
+          'std' => 'yes'
+				],
 			),
 		),
 		'permalink' => array(

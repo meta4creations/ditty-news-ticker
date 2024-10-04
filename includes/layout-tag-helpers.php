@@ -136,28 +136,43 @@ function ditty_layout_tag_author_banner_data( $item_type, $data, $atts = array()
  * @var      html
 */
 function ditty_layout_tag_gallery( $media_data, $data, $atts ) {
+  global $ditty_sliders;
+  if ( empty( $ditty_sliders ) ) {
+    $ditty_sliders = [];
+  }
   if ( isset( $media_data['items'] ) && is_array( $media_data['items'] ) && count( $media_data['items'] ) > 0 ) {
-    $html = '';
-    $html .= '<div class="swiper">';
-      $html .= '<div class="swiper-wrapper">';
-        foreach ( $media_data['items'] as $item ) {
-          $html .= '<div class="swiper-slide">';
-          switch ( $item['type'] ) {
-            case 'image':
-              $html .= ditty_layout_tag_image( $item, $data, $atts );
-              break;
-            default:
-              break;
-          }
-          $html .= '</div>';
-        }
-      $html .= '</div>';
-      $html .= '<div class="swiper-pagination"></div>';
-      $html .= '<div class="swiper-button-prev"></div>';
-      $html .= '<div class="swiper-button-next"></div>';
-      $html .= '<div class="swiper-scrollbar"></div>';
-    $html .= '</div>';
-    return $html;
+    $items = [];
+    $atts['fit'] = 'cover';
+    foreach ( $media_data['items'] as $item ) {
+      switch( $item['type'] ) {
+        case 'image':
+          $items[] = '<div class="keen-slider__slide ditty-gallery-item">' . ditty_layout_tag_image( $item, $data, $atts ) . '</div>';
+          break;
+        case 'video':
+          break;
+      }
+    }
+
+    $args = [
+      'id' => uniqid( 'ditty-slider-' ),
+      'selector' => '.ditty-gallery-item',
+      'settings' => [
+        'bulletsColor' => '#FFF',
+        'bulletsColorActive' => '#000',
+        'bulletsOverlay' => true,
+        'bulletsPosition' => 'bottomRight',
+        'bulletsSpacing' => '2px',
+        'bulletsPadding' => [
+          'paddingTop' => '5px',
+          'paddingBottom' => '5px',
+          'paddingLeft' => '5px',
+          'paddingRight' => '5px',
+        ],
+      ]
+    ];
+
+    $ditty_sliders[] = $args;
+    return ditty_slider( $items, $args );
   }
 }
 
@@ -167,7 +182,7 @@ function ditty_layout_tag_gallery( $media_data, $data, $atts ) {
  * @since    3.1.47
  * @var      html
 */
-function ditty_layout_tag_image( $image_data, $data, $atts ) {
+function ditty_layout_tag_image( $image_data, $data = [], $atts = [] ) {
 	if ( ! $image_data || ( is_array( $image_data ) && ( ! $image_data['src'] ) ) ) {
     $default_src = ( isset( $atts['default_src'] ) ) ? $atts['default_src'] : false;
     if ( $default_src ) {
@@ -240,4 +255,65 @@ function ditty_layout_tag_media_data( $item_type, $data, $atts = array() ) {
 	if ( ! empty( $media_data ) ) {
 		return $media_data;
 	}
+}
+
+/**
+ * Return a video
+ *
+ * @since    3.1.47
+ * @var      html
+*/
+function ditty_layout_tag_video( $video_data, $data, $atts ) {
+	if ( ! $video_data || ( is_array( $video_data ) && ( ! $video_data['src'] ) ) ) {
+    $default_src = ( isset( $atts['default_src'] ) ) ? $atts['default_src'] : false;
+    if ( $default_src ) {
+      $video_data = is_array( $video_data) ? $video_data : [];
+      $video_data['src'] = $default_src;
+    } else {
+      return false;
+    }
+	}
+
+	$defaults = array(
+		'width' 	          => '',
+		'height' 	          => '',
+    'aspect_ratio'      => '',
+    'video_autoplay'    => 'yes',
+    'video_controls'    => 'no',
+    'video_loop'        => 'yes',
+    'video_playsinline' => 'yes',
+    'video_muted'       => 'yes',
+	);
+	$args = shortcode_atts( $defaults, $atts );
+	$style = '';
+	if ( '' !=  $args['width'] ) {
+		$style .= 'width:' . $args['width'] . ';';
+	}
+	if ( '' !=  $args['height'] ) {
+		$style .= 'height:' . $args['height'] . ';';
+	}
+  if ( isset( $args['aspect_ratio'] ) && '' !=  $args['aspect_ratio'] ) {
+		$style .= 'aspect-ratio:' . $args['aspect_ratio'] . ';';
+	}
+	$video_defaults = array(
+		'src' 		    => '',
+    'poster' 		  => '',
+    'autoplay'    => ( 'yes' == $args['video_autoplay'] ),
+    'controls'    => ( 'yes' == $args['video_controls'] ),
+    'loop'        => ( 'yes' == $args['video_loop'] ),
+    'playsinline' => ( 'yes' == $args['video_playsinline'] ),
+    'muted'       => ( 'yes' == $args['video_muted'] ),
+		'width' 	    => $args['width'],
+		'height' 	    => $args['height'],
+		'style'		    => ( '' != $style ) ? $style : false,
+	);
+	$video_args = shortcode_atts( $video_defaults, $video_data );
+	// if ( '' == $video_args['width'] && '' == $video_args['height'] ) {
+	// 	if ( $image_dimensions = ditty_get_image_dimensions( $image_args['src'] ) ) {
+  //     $image_args['width'] = $image_dimensions['width'];
+  //     $image_args['height'] = $image_dimensions['height'];
+  //   }
+	// }
+	$video = '<video ' . ditty_attr_to_html( $video_args ) . ' />';
+	return $video;
 }

@@ -223,11 +223,16 @@ function ditty_init_layout_tag_image_url( $image_url, $item_type, $data, $atts )
 */
 function ditty_init_layout_tag_media( $media, $item_type, $data, $atts ) {
   $media_data = ditty_layout_tag_media_data( $item_type, $data, $atts );
+  if ( ! is_array( $media_data ) || empty( $media_data ) ) {
+    return false;
+  }
   switch( $media_data['type'] ) {
     case 'gallery':
       return ditty_layout_tag_gallery( $media_data, $data, $atts );
     case 'image':
       return ditty_layout_tag_image( $media_data, $data, $atts );
+    case 'video':
+      return ditty_layout_tag_video( $media_data, $data, $atts );
     default:
       break;
   }
