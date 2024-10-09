@@ -1,10 +1,33 @@
-function dittyLoadGoogleFont(font) {
+function dittyLoadGoogleFont(font, weight = 400) {
   const fontId = font.replace(/\s+/g, "-").toLowerCase();
+
   let link = document.getElementById(`ditty-google-font--${fontId}`);
-  if (!link) {
+  let weights = [];
+  let updateFont = false;
+
+  if (link) {
+    let dataWeights = link.dataset.weights;
+    if (dataWeights) {
+      weights = dataWeights.split(",");
+    }
+  }
+
+  if (!weights.includes(weight)) {
+    weights.push(weight);
+    updateFont = true;
+  }
+
+  dataWeights = weights.join(";");
+  dataWeightsString = weights.join(";0,");
+
+  if (updateFont) {
+    if (link) {
+      link.remove();
+    }
     link = jQuery(
-      `<link id="ditty-google-font--${fontId}" href="https://fonts.googleapis.com/css?family=${font}" rel="stylesheet">`
+      `<link id="ditty-google-font--${fontId}" data-weights="${dataWeights}" href="https://fonts.googleapis.com/css?family=${font}:wght@0,${dataWeightsString}" rel="stylesheet">`
     );
+
     jQuery("head").append(link);
   }
 }
@@ -98,7 +121,7 @@ function dittyRenderDisplayCss(settings, displayId) {
     css += `${cssPrefix} .ditty__title__element a{color:${settings.titleLinkColor};}`;
   }
   if (titleFont.fontType && "google" === titleFont.fontType) {
-    dittyLoadGoogleFont(titleFont.fontFamily);
+    dittyLoadGoogleFont(titleFont.fontFamily, titleFont.fontWeight);
   }
 
   // Item CSS
@@ -115,7 +138,7 @@ function dittyRenderDisplayCss(settings, displayId) {
   }
 
   if (itemFont.fontType && "google" === itemFont.fontType) {
-    dittyLoadGoogleFont(itemFont.fontFamily);
+    dittyLoadGoogleFont(itemFont.fontFamily, itemFont.fontWeight);
   }
   dittyDisplayCss(css, displayId);
 }
