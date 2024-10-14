@@ -3,7 +3,7 @@ Contributors: metaphorcreations
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FUZKZGAJSBAE6
 Tags: responsive slider, content slider, post slider, news ticker, post ticker
 Requires at least: 6.2
-Requires PHP: 7.1
+Requires PHP: 7.4
 Tested up to: 6.6.2
 Stable tag: 3.1.47
 License: GPL2
