@@ -76,7 +76,11 @@ function dittyDisplayCss(displayCss, displayId) {
 function dittyTypographyCss(settings) {
   let css = "";
   if (settings.fontFamily && "" !== settings.fontFamily) {
-    css += `font-family:${settings.fontFamily};`;
+    css += `font-family:${settings.fontFamily}`;
+    if (settings.fontTypeface && "" !== settings.fontTypeface) {
+      css += `, ${settings.fontTypeface}`;
+    }
+    css += `;`;
   }
   if (settings.fontWeight && "" !== settings.fontWeight) {
     css += `font-weight:${settings.fontWeight};`;
@@ -126,6 +130,7 @@ function dittyRenderDisplayCss(settings, displayId) {
 
   // Item CSS
   const itemFont = settings.itemTypography ? settings.itemTypography : {};
+  console.log("itemFont", itemFont);
   let itemFontCss = dittyTypographyCss(itemFont);
   if ("" !== settings.itemTextColor) {
     itemFontCss += `color:${settings.itemTextColor};`;

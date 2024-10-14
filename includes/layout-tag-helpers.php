@@ -22,7 +22,7 @@ function ditty_layout_item_meta( $data, $key = false ) {
 /**
  * Return a rendered link
  *
- * @since    3.0
+ * @since    3.1.47
  * @var      html
 */
 function ditty_layout_render_tag_link( $link, $html, $class, $data, $atts, $prefix = '' ) {
@@ -50,7 +50,7 @@ function ditty_layout_render_tag_link( $link, $html, $class, $data, $atts, $pref
 	$link_before = ( '' != $args['link_before'] ) ? "<span class='{$class}__before'>" . wp_filter_nohtml_kses( $args['link_before'] ) . '</span>' : '';
 	$link_after = ( '' != $args['link_after'] ) ? "<span class='{$class}__after'>" . wp_filter_nohtml_kses( $args['link_after'] ) . '</span>' : '';
 	
-	$html = sprintf( '<a href="%4$s" class="%5$s" target="%6$s" rel="%7$s" title="%8$s">%2$s%1$s%3$s</a>', $html, $link_before, $link_after, $link_args['url'], $class, $link_args['target'], $link_args['rel'], $link_args['title'] );
+	$html = sprintf( '<a href="%4$s" class="%5$s" target="%6$s" rel="%7$s" title="%8$s">%2$s%1$s%3$s</a>', $html, $link_before, $link_after, esc_url( $link_args['url'] ), esc_attr( $class ), esc_attr( $link_args['target'] ), esc_attr( $link_args['rel'] ), esc_attr( $link_args['title'] ) );
 	
 	return $html;
 }
@@ -172,7 +172,7 @@ function ditty_layout_tag_gallery( $media_data, $data, $atts ) {
     ];
 
     $ditty_sliders[] = $args;
-    return ditty_slider( $items, $args );
+    //return ditty_slider( $items, $args );
   }
 }
 

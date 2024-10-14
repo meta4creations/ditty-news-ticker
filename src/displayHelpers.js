@@ -76,7 +76,11 @@ function dittyDisplayCss(displayCss, displayId) {
 function dittyTypographyCss(settings) {
   let css = "";
   if (settings.fontFamily && "" !== settings.fontFamily) {
-    css += `font-family:${settings.fontFamily};`;
+    css += `font-family:${settings.fontFamily}`;
+    if (settings.fontTypeface && "" !== settings.fontTypeface) {
+      css += `, ${settings.fontTypeface}`;
+    }
+    css += `;`;
   }
   if (settings.fontWeight && "" !== settings.fontWeight) {
     css += `font-weight:${settings.fontWeight};`;
