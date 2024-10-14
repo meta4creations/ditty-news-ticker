@@ -24,6 +24,22 @@ class Ditty_Shortcodes {
 		
     // Shortcodes
     add_shortcode( 'ditty_ticker', [$this, 'do_ticker_shortcode'] );
+
+    // Shortcodes
+		add_shortcode( 'ditty', [$this, 'do_ditty_shortcode'] );
+	}
+
+  /**
+	 * Display the Ditty via shortcode
+	 *
+	 * @since    3.0
+	 * @access   public
+	 * @var      html
+	 */
+	public function do_ditty_shortcode( $atts ) {
+		if ( ! is_admin() ) {
+      return ditty_render( $atts );
+		}
 	}
 
   /**
