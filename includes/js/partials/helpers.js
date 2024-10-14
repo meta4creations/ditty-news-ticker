@@ -130,7 +130,6 @@ function dittyRenderDisplayCss(settings, displayId) {
 
   // Item CSS
   const itemFont = settings.itemTypography ? settings.itemTypography : {};
-  console.log("itemFont", itemFont);
   let itemFontCss = dittyTypographyCss(itemFont);
   if ("" !== settings.itemTextColor) {
     itemFontCss += `color:${settings.itemTextColor};`;
