@@ -38,7 +38,6 @@ function ditty_layout_render_tag_link( $link, $html, $class, $data, $atts, $pref
 	if ( isset( $data['link_nofollow'] ) && '1' == $data['link_nofollow'] ) {
 		$link_defaults['rel'] = 'nofollow';
 	}
-	
 	$link_args = shortcode_atts( $link_defaults, $link );
 
 	$defaults = array(
@@ -154,25 +153,24 @@ function ditty_layout_tag_gallery( $media_data, $data, $atts ) {
     }
 
     $args = [
-      'id' => uniqid( 'ditty-slider-' ),
+      'id' => uniqid( 'ditty-gallery-slider-' ),
       'selector' => '.ditty-gallery-item',
+      'class' => 'ditty-gallery-slider',
       'settings' => [
-        'bulletsColor' => '#FFF',
-        'bulletsColorActive' => '#000',
+        'loop' => true,
+        'bullets' => true,
+        'bulletsColor' => 'rgba(255,255,255,.5)',
+        'bulletsColorActive' => '#FFF',
         'bulletsOverlay' => true,
-        'bulletsPosition' => 'bottomRight',
-        'bulletsSpacing' => '2px',
-        'bulletsPadding' => [
-          'paddingTop' => '5px',
-          'paddingBottom' => '5px',
-          'paddingLeft' => '5px',
-          'paddingRight' => '5px',
-        ],
+        'bulletsSize' => '6px',
+        'bulletsSpacing' => '3px',
       ]
     ];
 
     $ditty_sliders[] = $args;
-    //return ditty_slider( $items, $args );
+    if ( function_exists( 'ditty_slider' ) ) {
+      return ditty_slider( $items, $args );
+    }
   }
 }
 
