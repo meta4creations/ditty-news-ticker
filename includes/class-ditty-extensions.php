@@ -335,10 +335,10 @@ class Ditty_Extensions {
             </div>
 					<?php } ?>
 					<div class="ditty-extension__header__overlay"></div>
-					<div class="ditty-extension__icon" style="<?php echo esc_attr( $icon_style ); ?>;">
+					<div class="ditty-extension__icon" style="<?php echo esc_attr( $icon_style ); ?>">
 						<?php if ( $user_avatar ) { ?>
 							<img src="<?php echo esc_url_raw( $user_avatar ); ?>" />
-              <div class="ditty-extension__icon__small"><?php echo ditty_kses_post( $extension_icon ); ?></div>
+              <div class="ditty-extension__icon__small" style="<?php echo esc_attr( $icon_style ); ?>"><?php echo ditty_kses_post( $extension_icon ); ?></div>
 						<?php } else { ?>
 						  <?php echo ditty_kses_post( $extension_icon ); ?>
             <?php } ?>

@@ -578,11 +578,27 @@ function ditty_export_ditty_displays( $post_ids ) {
  * @since    3.1.15
  */
 function ditty_compare_parent_id( $item1, $item2 ) {
-	if ( $item1['parent_id'] == $item2['parent_id'] ) {
-		return 0;
-	}
-	return ($item1['parent_id'] < $item2['parent_id']) ? -1 : 1;
+  // Check if both items have 'parent_id'
+  $parent1 = isset( $item1['parent_id'] ) ? $item1['parent_id'] : null;
+  $parent2 = isset( $item2['parent_id'] ) ? $item2['parent_id'] : null;
+
+  // If both parent_ids are null, they are considered equal
+  if ( $parent1 === null && $parent2 === null ) {
+      return 0;
+  }
+  
+  // If only one of the parent_ids is null, treat the item with a parent_id as greater
+  if ( $parent1 === null ) {
+      return -1;
+  }
+  if ( $parent2 === null ) {
+      return 1;
+  }
+
+  // Otherwise, compare the parent_ids as usual
+  return ( $parent1 < $parent2 ) ? -1 : ( ( $parent1 > $parent2 ) ? 1 : 0 );
 }
+
 
 /**
  * Create the export file
