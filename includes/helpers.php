@@ -13,7 +13,7 @@ function ditty_settings_defaults( $key = false ) {
 		'ditty_news_ticker' 		=> 'disabled',
 		'disable_fontawesome' 	=> 'enabled',
 		'notification_email' 		=> '',
-		'edit_links'						=> 'enabled',
+		'edit_links'						=> 'disabled',
 	);
 	$defaults = apply_filters( 'ditty_settings_defaults', $defaults );
 		if ( $key ) {

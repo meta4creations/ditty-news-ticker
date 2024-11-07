@@ -4,7 +4,7 @@
  * Plugin Name:       Ditty
  * Plugin URI:        https://www.metaphorcreations.com/ditty
  * Description:       Ditty offers a range of content display options, including its signature news ticker and customizable layouts.
- * Version:           3.1.48
+ * Version:           3.1.49
  * Author:            Metaphor Creations
  * Author URI:        https://www.metaphorcreations.com
  * License:           GPL-2.0+
@@ -23,7 +23,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 // Plugin version.
 if ( ! defined( 'DITTY_VERSION' ) ) {
-	define( 'DITTY_VERSION', '3.1.48' );
+	define( 'DITTY_VERSION', '3.1.49' );
 }
 
 // Plugin Folder Path.
