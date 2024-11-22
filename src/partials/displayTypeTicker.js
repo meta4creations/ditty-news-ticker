@@ -20,6 +20,8 @@ if (dittyEditor) {
     },
     defaultValues: {
       direction: "left",
+      itemMaxWidth: "300px",
+      itemElementsWrap: "wrap",
       minHeight: "300px",
       spacing: "25",
       speed: "10",
@@ -63,6 +65,26 @@ if (dittyEditor) {
             up: __("Up", "ditty-news-ticker"),
           },
           inline: true,
+        },
+        {
+          type: "unit",
+          id: "itemMaxWidth",
+          name: __("Item Max Width", "ditty-news-ticker"),
+          help: __("Set a maximum width for items", "ditty-news-ticker"),
+        },
+        {
+          type: "radio",
+          id: "itemElementsWrap",
+          name: __("Wrap Item Elements", "ditty-news-ticker"),
+          help: __(
+            "Allow item elements to wrap, or force them to not wrap.",
+            "ditty-news-ticker"
+          ),
+          inline: true,
+          options: {
+            wrap: __("Wrap", "ditty-news-ticker"),
+            nowrap: __("No Wrap", "ditty-news-ticker"),
+          },
         },
         {
           type: "unit",
@@ -166,26 +188,6 @@ if (dittyEditor) {
           },
         },
         {
-          type: "unit",
-          id: "itemMaxWidth",
-          name: __("Item Max Width", "ditty-news-ticker"),
-          help: __("Set a maximum width for items", "ditty-news-ticker"),
-        },
-        {
-          type: "radio",
-          id: "itemElementsWrap",
-          name: __("Wrap Item Elements", "ditty-news-ticker"),
-          help: __(
-            "Allow item elements to wrap, or force them to not wrap.",
-            "ditty-news-ticker"
-          ),
-          inline: true,
-          options: {
-            wrap: __("Wrap", "ditty-news-ticker"),
-            nowrap: __("No Wrap", "ditty-news-ticker"),
-          },
-        },
-        {
           type: "radio",
           id: "cloneItems",
           name: __("Clone Items?", "ditty-news-ticker"),
@@ -237,8 +239,14 @@ if (dittyEditor) {
           type: "checkbox",
           id: "playPauseButton",
           name: __("Play/Pause Button", "ditty-news-ticker"),
-          label: __("Add a play/pause button to the container", "ditty-news-ticker"),
-          help: __("Add a play/pause button to the container.", "ditty-news-ticker"),
+          label: __(
+            "Add a play/pause button to the container",
+            "ditty-news-ticker"
+          ),
+          help: __(
+            "Add a play/pause button to the container.",
+            "ditty-news-ticker"
+          ),
         },
       ];
 

@@ -284,6 +284,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 				'after'				=> $after_settings,
 				'width'				=> $width_settings,
 				'height'			=> $height_settings,
+        'aspect_ratio' => $aspect_ratio_settings,
 				'fit'					=> $fit_settings,
 				'link'				=> $link_settings,
 				'link_target' => $link_target_settings,
