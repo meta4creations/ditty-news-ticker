@@ -226,6 +226,13 @@ function ditty_init_layout_tag_media( $media, $item_type, $data, $atts ) {
   if ( ! is_array( $media_data ) || empty( $media_data ) ) {
     return false;
   }
+
+  // If a video is set to thumbnail mode, switch it to image
+  if ( 'video' == $media_data['type'] && isset( $atts['video_mode'] ) && 'thumbnail' == $atts['video_mode'] ) {
+    $media_data['type'] = 'image';
+    $media_data['src'] = isset( $media_data['poster'] ) ? $media_data['poster'] : '';
+  }
+
   switch( $media_data['type'] ) {
     case 'gallery':
       return ditty_layout_tag_gallery( $media_data, $data, $atts );

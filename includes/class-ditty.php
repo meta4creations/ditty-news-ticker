@@ -385,7 +385,6 @@ class Ditty {
 		if ( ! function_exists( 'ditty_register_script' ) ) {
 			return;
 		}
-		$min = WP_DEBUG ? '' : '.min';
 		ditty_register_script( 'display', [
 				'ditty-display-ticker',
 				DITTY_URL . 'build/dittyDisplayTicker.js',

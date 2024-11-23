@@ -227,4 +227,12 @@
     display: block;
     line-height: 0;
   }
+  &__media {
+    img,
+    video {
+      display: block;
+      max-width: 100%;
+      line-height: 0;
+    }
+  }
 }

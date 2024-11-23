@@ -292,6 +292,19 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 				'link_before'	=> $link_before_settings,
 				'link_after'	=> $link_after_settings,
 				'class'				=> $class_settings,
+        'video_mode' => [
+					'type'  => 'select',
+					'id'    =>  'video_mode',
+					'help'  =>  __(
+						'Choose how to display video posts.',
+						'ditty-news-ticker'
+					),
+          'options' =>  [
+            'thumbnail',
+            'video'
+          ],
+          'std' => 'thumbnail'
+				],
         'video_autoplay' => [
 					'type'  => 'select',
 					'id'    =>  'video_autoplay',

@@ -29,6 +29,10 @@ const UnitField = (props) => {
       value: "vh",
       label: "vh",
     },
+    {
+      value: "auto", // Add "auto" option
+      label: "auto",
+    },
   ];
 
   const renderOptions = () => {
@@ -42,8 +46,8 @@ const UnitField = (props) => {
   };
 
   const numberValue = () => {
-    if (!value) {
-      return "";
+    if (!value || value === "auto") {
+      return ""; // Return empty if value is "auto"
     }
     const numbers = String(value).match(/\d+(\.\d+)?/);
     if (numbers) {
@@ -55,6 +59,9 @@ const UnitField = (props) => {
   const unitValue = () => {
     if (!value) {
       return unitOptions[0].value;
+    }
+    if (value === "auto") {
+      return "auto"; // Return "auto" if the value is "auto"
     }
     const numbers = String(value).match(/\d+(\.\d+)?/);
     if (numbers) {
@@ -76,7 +83,7 @@ const UnitField = (props) => {
         min={undefined !== min ? String(min) : "-Infinity"}
         step={undefined !== step ? String(step) : "1"}
         type="number"
-        value={number}
+        value={unit === "auto" ? "" : number} // Clear input if "auto" is selected
         placeholder={placeholder}
         onChange={(e) => {
           setNumber(e.target.value);
@@ -86,12 +93,19 @@ const UnitField = (props) => {
             onChange(`${e.target.value}${unit}`);
           }
         }}
+        disabled={unit === "auto"} // Disable input if "auto" is selected
       />
       <select
         defaultValue={unit}
         onChange={(e) => {
-          setUnit(e.target.value);
-          onChange(`${number}${e.target.value}`);
+          const newUnit = e.target.value;
+          setUnit(newUnit);
+
+          if (newUnit === "auto") {
+            onChange("auto"); // Set the value to "auto" if selected
+          } else {
+            onChange(`${number}${newUnit}`);
+          }
         }}
       >
         {renderOptions()}
