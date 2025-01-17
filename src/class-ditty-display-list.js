@@ -322,13 +322,21 @@
       if ("none" === this.settings.titleDisplay) {
         this.$title.remove();
       } else {
+        // Validate and assign the titleElement
+        const allowedTitleElements = ["p", "h1", "h2", "h3", "h4", "h5", "h6"];
+        const titleElement = allowedTitleElements.includes(
+          this.settings.titleElement
+        )
+          ? this.settings.titleElement
+          : "h1"; // Default to 'h1' if the value is invalid
+
         var $element = $(
           "<" +
-            this.settings.titleElement +
+            titleElement +
             ' class="ditty__title__element">' +
             this.settings.title +
             "</" +
-            this.settings.titleElement +
+            titleElement +
             ">"
         );
 
