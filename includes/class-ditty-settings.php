@@ -81,6 +81,18 @@ class Ditty_Settings {
 						),
 						'std' 				=> ditty_settings_defaults( 'edit_links' ),
 					],
+          [
+						'type' 				=> 'radio',
+						'id' 					=> 'disable_googlefonts',
+						'name' 				=> esc_html__( 'Google Fonts', 'ditty-news-ticker' ),
+						'description' => esc_html__( 'This will enable or disable the ability to select and use Google fonts in the Ditty Display settings.', 'ditty-news-ticker' ),
+						'inline'			=> true,
+						'options'			=> array(
+							'enabled'		=> esc_html__( 'Enabled', 'ditty-news-ticker' ),
+							'disabled'	=> esc_html__( 'Disabled', 'ditty-news-ticker' ),
+						),
+						'std' 				=> ditty_settings_defaults( 'disable_fontawesome' ),
+					],
 					[
 						'type' 				=> 'radio',
 						'id' 					=> 'disable_fontawesome',
@@ -460,10 +472,11 @@ class Ditty_Settings {
 			'live_refresh'				=> isset( $values['live_refresh'] ) 				? intval( $values['live_refresh'] ) : 10,
 			'edit_links'					=> isset( $values['edit_links'] ) 					? sanitize_key( $values['edit_links'] ) : 'enabled',
 			'variation_defaults'	=> isset( $values['variation_defaults'] )		? ditty_sanitize_settings( $values['variation_defaults'] ) : [],
-			'permissions'					=> $values['permissions'],
+			'permissions'					=> isset( $values['permissions'] ) ? $values['permissions'] : [],
 			'global_ditty'				=> $sanitized_global_ditty,
 			'ditty_news_ticker' 	=> isset( $values['ditty_news_ticker'] ) 		? sanitize_key( $values['ditty_news_ticker'] ) : false,
-			'disable_fontawesome' => isset( $values['disable_fontawesome'] )	? sanitize_key( $values['disable_fontawesome'] ) : false,
+			'disable_googlefonts' => isset( $values['disable_googlefonts'] )	? sanitize_key( $values['disable_googlefonts'] ) : false,
+      'disable_fontawesome' => isset( $values['disable_fontawesome'] )	? sanitize_key( $values['disable_fontawesome'] ) : false,
 			'notification_email' 	=> ( isset( $values['notification_email'] ) && is_email( $values['notification_email'] ) ) ? $values['notification_email'] : false,
 		);
 

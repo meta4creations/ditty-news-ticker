@@ -467,6 +467,7 @@ class Ditty_Scripts {
 				'globals'					=> ditty_get_globals(),
 				'updateIcon'			=> 'fas fa-sync-alt fa-spin',
 				'updateInterval'	=> ( MINUTE_IN_SECONDS * get_ditty_settings( 'live_refresh' ) ),
+        'googleFonts'     => ( 'enabled' == get_ditty_settings( 'disable_googlefonts' ) ),
 				'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false,
 			) ) ), 'before' ) . ';';
 		}
@@ -547,8 +548,9 @@ class Ditty_Scripts {
           'apiDisplayTypes'     => ditty_api_display_types(),
           'translationPlugin'    => Ditty()->translations->get_translation_plugin(),
           'translationLanguage'  => Ditty()->translations->get_translation_language(),
-          'sassWorkerUrl'				  => DITTY_URL . 'includes/libs/sass/sass.worker.js',
-          'dittyDevelopment'		  => defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
+          'sassWorkerUrl'				 => DITTY_URL . 'includes/libs/sass/sass.worker.js',
+          'googleFonts'          => ( 'enabled' == get_ditty_settings( 'disable_googlefonts' ) ),
+          'dittyDevelopment'		 => defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
         ), $hook ) ), 'before' ) . ';';
       }
       
@@ -624,6 +626,7 @@ class Ditty_Scripts {
 					'displayTypes'				=> Ditty()->editor->display_type_data(),
           'apiDisplayTypes'     => ditty_api_display_types(),
 					'defaultDisplayType' 	=> ditty_default_display_type(),
+          'googleFonts'         => ( 'enabled' == get_ditty_settings( 'disable_googlefonts' ) ),
 					'dittyDevelopment' 		=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
 				), $hook ) ), 'before' ) . ';';
 			}
@@ -675,6 +678,7 @@ class Ditty_Scripts {
 					'editorSettings'	=> 'ditty_layout-new' == $layout_id ? false : get_post_meta( $layout_id, '_ditty_editor_settings', true ),
 					'itemTypes'				=> Ditty()->editor->item_type_data(),
           'apiItemTypes'    => ditty_api_item_types(),
+          'googleFonts'     => ( 'enabled' == get_ditty_settings( 'disable_googlefonts' ) ),
 					'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
 				), $hook ) ), 'before' ) . ';';
 			}
@@ -790,6 +794,19 @@ class Ditty_Scripts {
 		if ( empty( $ditty_display_scripts ) ) {
 			$ditty_display_scripts = array();
 		}
+
+    // Add fonts scripts
+		// global $ditty_google_fonts;
+		// if ( empty( $ditty_google_fonts ) ) {
+		// 	$ditty_google_fonts = array();
+		// }
+
+    if ( is_array( $ditty_item_scripts ) && count( $ditty_item_scripts ) > 0 ) {
+			foreach ( $ditty_item_scripts as $i => $ditty_item_script ) {
+				wp_print_scripts( "ditty-{$ditty_item_script}" );
+			}
+		}
+
 		if ( is_array( $ditty_item_scripts ) && count( $ditty_item_scripts ) > 0 ) {
 			foreach ( $ditty_item_scripts as $i => $ditty_item_script ) {
 				wp_print_scripts( "ditty-{$ditty_item_script}" );

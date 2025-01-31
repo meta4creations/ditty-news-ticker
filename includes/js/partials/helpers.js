@@ -124,7 +124,11 @@ function dittyRenderDisplayCss(settings, displayId) {
   if ("" !== settings.itemLinkColor) {
     css += `${cssPrefix} .ditty__title__element a{color:${settings.titleLinkColor};}`;
   }
-  if (titleFont.fontType && "google" === titleFont.fontType) {
+  if (
+    titleFont.fontType &&
+    "google" === titleFont.fontType &&
+    dittyVars.googleFonts
+  ) {
     dittyLoadGoogleFont(titleFont.fontFamily, titleFont.fontWeight);
   }
 
@@ -140,8 +144,11 @@ function dittyRenderDisplayCss(settings, displayId) {
   if ("" !== settings.itemLinkColor) {
     css += `${cssPrefix} .ditty-item__elements a{color:${settings.itemLinkColor};}`;
   }
-
-  if (itemFont.fontType && "google" === itemFont.fontType) {
+  if (
+    itemFont.fontType &&
+    "google" === itemFont.fontType &&
+    dittyVars.googleFonts
+  ) {
     dittyLoadGoogleFont(itemFont.fontFamily, itemFont.fontWeight);
   }
   dittyDisplayCss(css, displayId);

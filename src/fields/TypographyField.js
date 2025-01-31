@@ -46,7 +46,10 @@ const TypographyField = (props) => {
         { name: "Comic Sans MS", typeface: "sans-serif" },
       ],
     },
-    {
+  ];
+
+  if (dittyEditorVars.googleFonts) {
+    allFonts.push({
       id: "google",
       label: __("Google Fonts", "ditty-news-ticker"),
       fonts: [
@@ -758,8 +761,8 @@ const TypographyField = (props) => {
         { name: "Yesteryear", typeface: "serif" },
         { name: "Zeyada", typeface: "serif" },
       ],
-    },
-  ];
+    });
+  }
 
   const weights = [
     "100",

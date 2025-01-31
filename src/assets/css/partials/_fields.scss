@@ -558,7 +558,12 @@ $radius: 9px;
   }
 }
 
-.ditty-field-list .ditty-field.ditty-field-id--editor_label {
-  background: #f7f7f7;
-  border-top: 5px solid #dfdfdf;
+.ditty-field-list {
+  .ditty-field.ditty-field-id--editor_label {
+    background: #f7f7f7;
+    border-top: 5px solid #dfdfdf;
+  }
+  .ditty-field.ditty-field-id--timestamp_source {
+    background: #f7f7f7;
+  }
 }

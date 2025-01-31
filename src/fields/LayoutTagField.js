@@ -43,13 +43,11 @@ const LayoutTagField = (props) => {
   };
 
   const getAttributeValue = (attribute) => {
-    return value[attribute.id]
-      ? value[attribute.id].value
-        ? value[attribute.id].value
-        : attribute.std
-      : attribute.std
-      ? attribute.std
-      : "";
+    let attValue = value?.[attribute.id]?.value ?? attribute.std ?? "";
+    if (!attValue) {
+      attValue = "";
+    }
+    return attValue;
   };
 
   const toggleAttribute = (attribute) => {

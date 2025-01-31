@@ -248,6 +248,7 @@ function ditty_layout_tags( $item_type = false, $item_value = false ) {
 						'Add a default image source if one does not exist for the item.',
 						'ditty-news-ticker'
 					),
+          //'std' => '',
 				],
 				'before'			  => $before_settings,
 				'after'				  => $after_settings,

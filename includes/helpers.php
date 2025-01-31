@@ -8,10 +8,12 @@
 function ditty_settings_defaults( $key = false ) {	
 	$defaults = array(
 		'live_refresh'					=> 10,
-		'variation_defaults'		=> array(),
-		'global_ditty'					=> array(),
+		'variation_defaults'		=> [],
+    'permissions'           => [],
+		'global_ditty'					=> [],
 		'ditty_news_ticker' 		=> 'disabled',
 		'disable_fontawesome' 	=> 'enabled',
+    'disable_googlefonts'   => 'enabled',
 		'notification_email' 		=> '',
 		'edit_links'						=> 'disabled',
 	);
@@ -1078,6 +1080,10 @@ function ditty_add_scripts( $ditty_id, $display = false, $display_type = false )
 	if ( empty( $ditty_display_scripts ) ) {
 		$ditty_display_scripts = array();
 	}
+  // global $ditty_google_fonts;
+	// if ( empty( $ditty_google_fonts ) ) {
+	// 	$ditty_google_fonts = array();
+	// }
 	
 	// Store the item types
 	$items = Ditty()->db_items->get_items( $ditty_id );
@@ -1096,16 +1102,28 @@ function ditty_add_scripts( $ditty_id, $display = false, $display_type = false )
     if ( ! $display ) {
       $display = get_post_meta( $ditty_id, '_ditty_display', true );
     }
+    $display_settings = false;
     $display_type = false;
     if ( is_array( $display ) ) {
+      //$display_settings = isset( $display['settings'] ) ? $display['settings'] : [];
       $display_type = isset( $display['type'] ) ? $display['type'] : $display_type;
     } else {
       if ( 'publish' == get_post_status( $display ) ) {
-        $display_type = get_post_meta( $display, '_ditty_display_type', true );
+        //$display_settings = get_post_meta( $display, '_ditty_display_settings', true );
+        $display_type = get_post_meta( $display, '_ditty_display_type', true );  
       }
     }
   }
+  
 	$ditty_display_scripts[$display_type] = $display_type;
+
+  // Add google fonts 
+  // if ( ( $display_settings['itemTypography']['fontType'] ?? '') === 'google' ) {
+  //   $ditty_google_fonts[$display_settings['itemTypography']['fontFamily']] = $display_settings['itemTypography'];
+  // }
+  // if ( ( $display_settings['titleTypography']['fontType'] ?? '') === 'google' ) {
+  //   $ditty_google_fonts[$display_settings['titleTypography']['fontFamily']] = $display_settings['titleTypography'];
+  // }
 }
 
 /**
