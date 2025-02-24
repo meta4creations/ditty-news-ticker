@@ -15,6 +15,10 @@
     display: none;
     position: absolute;
     line-height: 1;
+    &__elements {
+      text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+    }
   }
   .ditty-playPause {
     all: unset;
