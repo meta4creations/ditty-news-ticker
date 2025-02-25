@@ -30,6 +30,32 @@ class Ditty_Item_Type_Default extends Ditty_Item_Type {
 	}
 
   /**
+	 * Prepare items for Ditty use
+	 *
+	 * @access public
+	 * @since  3.1.54
+	 * @return array
+	 */
+	public function prepare_items( $meta ) {
+    $value = isset( $meta['item_value'] ) ? $meta['item_value'] : [];
+    $content = isset( $value['content'] ) ? $value['content'] : false;
+    if ( ! $content ) {
+      return false;
+    }
+
+		$layout_value = ditty_to_array( $meta['layout_value'] );
+		
+		$ditty_item	= $meta;
+		$ditty_item['layout_variation'] = isset( $layout_value['default'] ) ? 'default' : false;
+    $ditty_item['timestamp'] = isset( $meta['date_created'] ) ? strtotime( $meta['date_created'] ) : false;
+
+    // Translate items
+    $ditty_item = Ditty()->translations->translate_item( $ditty_item );
+
+		return array( $ditty_item );
+	}
+
+  /**
 	 * Set the translatable fields
 	 *
 	 * @access  public
