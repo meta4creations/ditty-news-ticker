@@ -866,7 +866,7 @@
                 }
                 break;
             }
-          }, 1);
+          }, 10);
 
           current = self._getNextItem(current);
         } else {
