@@ -432,6 +432,7 @@
 
       this._itemSpacing($item);
       this._itemSetTransform($item, this._itemResetPosition($item));
+
       this.$items.append($item);
       this._preloadItem($item, true);
 
@@ -834,9 +835,39 @@
             tickerW,
             tickerH
           );
-          posX = data.posX;
-          posY = data.posY;
-          filled = data.filled;
+
+          // Find the width again after timout... for some reason
+          setTimeout(function () {
+            var itemW = $item.outerWidth();
+            var itemH = $item.outerHeight();
+            switch (self.settings.direction) {
+              case "left":
+                posX = posX + itemW;
+                if (posX > tickerW) {
+                  filled = true;
+                }
+                break;
+              case "right":
+                posX = posX - itemW;
+                if (posX < 0) {
+                  filled = true;
+                }
+                break;
+              case "up":
+                posY = posY + itemH;
+                if (posY > tickerH) {
+                  filled = true;
+                }
+                break;
+              case "down":
+                posY = posY - itemH;
+                if (posY < 0) {
+                  filled = true;
+                }
+                break;
+            }
+          }, 1);
+
           current = self._getNextItem(current);
         } else {
           filled = true;
