@@ -824,17 +824,20 @@
         posY = tickerH;
       }
 
+      var counter = 0;
+
       fillTimer = setInterval(function () {
         var $item = self._initializeItem(current);
         if ($item) {
           var data = self._filledItemInit(
-            current,
+            counter,
             $item,
             posX,
             posY,
             tickerW,
             tickerH
           );
+          filled = data.filled;
 
           // Find the width again after timout... for some reason
           setTimeout(function () {
@@ -866,6 +869,7 @@
                 }
                 break;
             }
+            counter++;
           }, 10);
 
           current = self._getNextItem(current);
@@ -898,7 +902,7 @@
      * @return   null
      */
     _filledItemInit: function (index, $item, posX, posY, tickerW, tickerH) {
-      var itemId = $item.data("id"),
+      var itemId = $item.data("item_id"),
         itemW = parseFloat($item.outerWidth()),
         itemH = parseFloat($item.outerHeight()),
         translateX = 0,
@@ -956,12 +960,8 @@
         }
       );
 
-      this.visibleItems.push({
-        $item: $item,
-        itemId: itemId,
-        posX: translateX,
-        posY: translateY,
-      });
+      this.visibleItems[index].posX = translateX;
+      this.visibleItems[index].posY = translateY;
 
       // Set the ticker height
       this._setCurrentHeight();
