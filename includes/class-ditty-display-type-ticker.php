@@ -190,15 +190,7 @@ class Ditty_Display_Type_Ticker extends Ditty_Display_Type {
 						'label'	=> __('Pause the ticker on mouse over', 'ditty-news-ticker'),
 						'help'	=> __('Pause the ticker on mouse over.', 'ditty-news-ticker'),
 						'std'		=> isset($values['hoverPause']) ? $values['hoverPause'] : false,
-					),
-					'shuffle' => array(
-						'type'	=> 'checkbox',
-						'id'		=> 'shuffle',
-						'name'	=> __('Shuffle Items', 'ditty-news-ticker'),
-						'label'	=> __('Randomly shuffle items on each page load', 'ditty-news-ticker'),
-						'help'	=> __('Randomly shuffle items on each page load.', 'ditty-news-ticker'),
-						'std'		=> isset($values['shuffle']) ? $values['shuffle'] : false,
-					),
+					)
 				),
 			),
 			'containerStyles' 	=> parent::container_style_settings($values),

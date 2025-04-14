@@ -224,19 +224,6 @@ if (dittyEditor) {
         },
         {
           type: "checkbox",
-          id: "shuffle",
-          name: __("Shuffle Items", "ditty-news-ticker"),
-          label: __(
-            "Randomly shuffle items on each page load",
-            "ditty-news-ticker"
-          ),
-          help: __(
-            "Randomly shuffle items on each page load.",
-            "ditty-news-ticker"
-          ),
-        },
-        {
-          type: "checkbox",
           id: "playPauseButton",
           name: __("Play/Pause Button", "ditty-news-ticker"),
           label: __(

@@ -51,7 +51,7 @@ if (dittyEditor) {
             id: "perPage",
             name: __("Items Per Page", "ditty-news-ticker"),
             help: __(
-              "Set the number of items to show per page",
+              "Set the number of items to show per page.",
               "ditty-news-ticker"
             ),
             std: 10,
@@ -63,7 +63,10 @@ if (dittyEditor) {
             type: "radio",
             id: "autoplay",
             name: __("Auto Play", "ditty-news-ticker"),
-            help: __("Auto play the slider", "ditty-news-ticker"),
+            help: __(
+              "Automatically transition pages on a timer.",
+              "ditty-news-ticker"
+            ),
             inline: true,
             options: {
               0: __("No", "ditty-news-ticker"),
@@ -79,7 +82,7 @@ if (dittyEditor) {
             id: "autoplayPause",
             name: __("Pause Autoplay on Hover", "ditty-news-ticker"),
             label: __("Pause the autoplay on mouse over", "ditty-news-ticker"),
-            help: __("Pause the autoplay on mouse over", "ditty-news-ticker"),
+            help: __("Pause the autoplay on mouse over.", "ditty-news-ticker"),
             show: {
               fields: [{ key: "paging", value: "1", compare: "=" }],
             },
@@ -89,7 +92,7 @@ if (dittyEditor) {
             id: "autoplaySpeed",
             name: __("Auto Play Speed", "ditty-news-ticker"),
             help: __(
-              "Set the amount of delay between slides",
+              "Set the amount of delay between slides.",
               "ditty-news-ticker"
             ),
             suffix: __("seconds", "ditty-news-ticker"),
