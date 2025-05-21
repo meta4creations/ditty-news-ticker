@@ -183,6 +183,18 @@
             $panel,
           ]);
         },
+        error: function (xhr, status, error) {
+          console.error("AJAX error:", {
+            status: status,
+            error: error,
+            responseText: xhr.responseText,
+          });
+
+          // Optional: show a user-friendly message
+          alert("An error occurred while saving. Please try again.");
+
+          self.$elmt.removeClass("updating");
+        },
       });
     },
 
