@@ -80,7 +80,15 @@ const PopupEditLayout = ({
               {__("Reset to Default Layout", "ditty-news-ticker")}
             </Link>
           </div>
-          <p>{getItemLabel(item)}</p>
+          <p
+            style={{
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {getItemLabel(item)}
+          </p>
         </IconBlock>
         <Tabs
           type="cloud"

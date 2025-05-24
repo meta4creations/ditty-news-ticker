@@ -31,7 +31,12 @@ const IconBlock = ({
           {"string" === typeof icon ? <Icon id={icon} /> : icon}
         </div>
       )}
-      <div className="ditty-icon-block__contents">{children}</div>
+      <div
+        className="ditty-icon-block__contents"
+        style={{ overflow: "hidden" }}
+      >
+        {children}
+      </div>
     </div>
   );
 };

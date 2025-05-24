@@ -330,15 +330,17 @@ const PopupLayouts = ({
               </p>
             </IconBlock>
             {layoutObject.id && (
-              <>
+              <div style={{ padding: "0 10px" }}>
                 <h2>{layoutObject.title}</h2>
                 <p>{layoutObject.description}</p>
-              </>
+              </div>
             )}
           </IconBlock>
-          {layoutObject.id
-            ? templateButtons(variation)
-            : customButtons(variation)}
+          <div style={{ padding: "0 10px 10px" }}>
+            {layoutObject.id
+              ? templateButtons(variation)
+              : customButtons(variation)}
+          </div>
         </div>
       );
     }
@@ -354,7 +356,15 @@ const PopupLayouts = ({
         <div className="ditty-icon-block--heading__title">
           <h2>{__("Layout Settings", "ditty-news-ticker")}</h2>
         </div>
-        <p>{getItemLabel(editItem)}</p>
+        <p
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {getItemLabel(editItem)}
+        </p>
       </IconBlock>
     );
   };

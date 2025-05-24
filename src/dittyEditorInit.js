@@ -3,6 +3,7 @@ import * as common from "./common";
 import * as components from "./components";
 import * as fields from "./fields";
 import * as helpers from "./utils/helpers";
+import * as itemTypeHelpers from "./utils/itemTypes";
 import { phpItemMods } from "./services/httpService";
 import * as dittyService from "./services/dittyService";
 import * as notifications from "./utils/DittyNotification";
@@ -11,6 +12,7 @@ dittyEditor.common = common;
 dittyEditor.components = components;
 dittyEditor.fields = fields;
 dittyEditor.helpers = helpers;
+dittyEditor.itemTypeHelpers = itemTypeHelpers;
 dittyEditor.notifications = notifications;
 dittyEditor.dittyService = dittyService;
 dittyEditor.httpService = {

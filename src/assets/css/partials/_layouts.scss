@@ -2,7 +2,6 @@
   padding: 10px;
 }
 .editLayout__variation {
-  padding: 10px;
   border: 1px solid $border_color_light;
   border-radius: 3px;
   margin-bottom: 3px;
@@ -53,7 +52,7 @@
 .ditty-layout-variation--heading {
   align-items: center;
   background: #eee;
-  margin: -10px -10px 10px;
+  margin: 0 0 10px;
   padding: 10px;
   .ditty-icon-block__icon {
     width: 30px;
