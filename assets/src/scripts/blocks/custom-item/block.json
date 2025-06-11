@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "mtphr-ditty/custom-item",
+  "version": "0.0.6a",
+  "title": "Custom Item",
+  "description": "Render a custom Ditty Item.",
+  "category": "widgets",
+  "keywords": ["content"],
+  "textdomain": "ditty",
+  "parent": [ "mtphr-ditty/display" ],
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "customClassName": true
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": ["file:./style-index.css"]
+}

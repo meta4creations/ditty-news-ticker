@@ -1,6 +1,6 @@
-composer.lock
+*.lock
+*node_modules*
 config.codekit3
-/node_modules/
 /logs/
 /reports/
 .DS_Store

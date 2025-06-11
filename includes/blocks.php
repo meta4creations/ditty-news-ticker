@@ -13,5 +13,10 @@ function register_blocks() {
 	if ( ! function_exists( 'register_block_type' ) ) {
 		return;
 	}
-	register_block_type( DITTY_DIR . 'build/blocks/ditty' );
+	register_block_type( DITTY_DIR . 'assets/build/scripts/blocks/ditty' );
+  
+  if ( is_ditty_dev() ) {
+    register_block_type( DITTY_DIR . 'assets/build/scripts/blocks/custom-item' );
+    register_block_type( DITTY_DIR . 'assets/build/scripts/blocks/display' );
+  }
 }

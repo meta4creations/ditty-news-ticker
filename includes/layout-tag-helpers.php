@@ -155,16 +155,7 @@ function ditty_layout_tag_gallery( $media_data, $data, $atts ) {
     $args = [
       'id' => uniqid( 'ditty-gallery-slider-' ),
       'selector' => '.ditty-gallery-item',
-      'class' => 'ditty-gallery-slider',
-      'settings' => [
-        'loop' => true,
-        'bullets' => true,
-        'bulletsColor' => 'rgba(255,255,255,.5)',
-        'bulletsColorActive' => '#FFF',
-        'bulletsOverlay' => true,
-        'bulletsSize' => '6px',
-        'bulletsSpacing' => '3px',
-      ]
+      'class' => 'ditty-gallery-slider'
     ];
 
     $ditty_sliders[] = $args;

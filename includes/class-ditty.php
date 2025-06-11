@@ -235,8 +235,9 @@ class Ditty {
 		// The class responsible for defining all actions that occur in the public-facing side of the site.
 		require_once DITTY_DIR . 'includes/class-ditty-displays.php';
 		require_once DITTY_DIR . 'includes/class-ditty-display-type.php';
-		require_once DITTY_DIR . 'includes/class-ditty-display-type-ticker.php';
 		require_once DITTY_DIR . 'includes/class-ditty-display-type-list.php';
+    require_once DITTY_DIR . 'includes/class-ditty-display-type-slider.php';
+    require_once DITTY_DIR . 'includes/class-ditty-display-type-ticker.php';
 		require_once DITTY_DIR . 'includes/class-ditty-editor.php';
 		require_once DITTY_DIR . 'includes/class-ditty-errors.php';
 		require_once DITTY_DIR . 'includes/class-ditty-extensions.php';
@@ -367,8 +368,8 @@ class Ditty {
 		}
 		ditty_register_style( 'display', [
 				'ditty-displays',
-				DITTY_URL . 'build/dittyDisplays.css',
-				DITTY_DIR . 'build/dittyDisplays.css',
+				DITTY_URL . 'assets/build/dittyDisplays.css',
+				DITTY_DIR . 'assets/build/dittyDisplays.css',
 				[],
 				$this->version
 			]
@@ -385,28 +386,50 @@ class Ditty {
 		if ( ! function_exists( 'ditty_register_script' ) ) {
 			return;
 		}
+
+    // Editor scripts
+    ditty_register_script( 'editor', [
+				'dittyScripts',
+				DITTY_URL . 'assets/build/dittyEditorScripts.js',
+				DITTY_DIR . 'assets/build/dittyEditorScripts.js',
+				[],
+				$this->version,
+			]
+		);
+
+    // Ditty Ticker
 		ditty_register_script( 'display', [
 				'ditty-display-ticker',
-				DITTY_URL . 'build/dittyDisplayTicker.js',
-				DITTY_DIR . 'build/dittyDisplayTicker.js',
+				DITTY_URL . 'assets/build/dittyTicker.js',
+				DITTY_DIR . 'assets/build/dittyTicker.js',
 				[ 'jquery', 'ditty-helpers' ],
 				$this->version
 			]
 		);
+    ditty_register_script( 'editor', [
+				'dittyTickerEditor',
+				DITTY_URL . 'assets/build/dittyTickerEditor.js',
+				DITTY_DIR . 'assets/build/dittyTickerEditor.js',
+				[ 'jquery', 'ditty-helpers' ],
+				$this->version
+			]
+		);
+
+    // Ditty List
 		ditty_register_script( 'display', [
 				'ditty-display-list',
-				DITTY_URL . 'build/dittyDisplayList.js',
-				DITTY_DIR . 'build/dittyDisplayList.js',
+				DITTY_URL . 'assets/build/dittyList.js',
+				DITTY_DIR . 'assets/build/dittyList.js',
 				array( 'jquery', 'ditty-slider', 'ditty-helpers' ),
 				$this->version
 			]
 		);
-		ditty_register_script( 'editor', [
-				'dittyScripts',
-				DITTY_URL . 'build/dittyScripts.js',
-				DITTY_DIR . 'build/dittyScripts.js',
-				[],
-				$this->version,
+    ditty_register_script( 'editor', [
+				'dittyListEditor',
+				DITTY_URL . 'assets/build/dittyListEditor.js',
+				DITTY_DIR . 'assets/build/dittyListEditor.js',
+				array( 'jquery', 'ditty-slider', 'ditty-helpers' ),
+				$this->version
 			]
 		);
 	}

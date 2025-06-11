@@ -1,0 +1,19 @@
+.wp-block-mtphr-ditty-display {
+  &.previewMode {
+    align-items: stretch;
+    > .wp-block-mtphr-ditty-display__preview {
+      width: 100%;
+      overflow: hidden;
+      > .block-editor-inner-blocks {
+        width: 100%;
+        > .block-editor-block-list__layout {
+          display: flex;
+          align-items: flex-start; /* Prevent slides stretching to 155px */
+          height: auto;
+          transition: height 0.5s;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}

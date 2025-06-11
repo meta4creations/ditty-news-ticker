@@ -195,6 +195,12 @@ function ditty_display_types() {
 		'description' => __( 'Display items in a static list.', 'ditty-news-ticker' ),
 		'class_name'	=> 'Ditty_Display_Type_List',
 	);
+  $display_types['slider'] = array(
+		'label' 			=> __( 'Slider', 'ditty-news-ticker' ),
+		'icon' 				=> 'fa-arrows-left-right',
+		'description' => __( 'Display items in a slider.', 'ditty-news-ticker' ),
+		'class_name'	=> 'Ditty_Display_Type_Slider',
+	);
 
 	$display_types = apply_filters( 'ditty_display_types', $display_types );
 	if ( is_array( $display_types ) && count( $display_types ) > 0 ) {
@@ -1709,14 +1715,15 @@ function ditty_kses_post( $content ) {
   // Define the optimized SVG tags and attributes to allow
   $svg_tags = [
     'svg' => [
-      'class'           => true,
-      'aria-hidden'     => true,
-      'aria-labelledby' => true,
-      'role'            => true,
-      'xmlns'           => true,
-      'width'           => true,
-      'height'          => true,
-      'viewbox'         => true
+      'xmlns'       => true,
+      'viewbox'     => true,
+      'width'       => true,
+      'height'      => true,
+      'fill'        => true,
+      'aria-hidden' => true,
+      'role'        => true,
+      'class'       => true,
+      'style'       => true,
     ],
     'g' => [
       'fill' => true
@@ -1725,14 +1732,168 @@ function ditty_kses_post( $content ) {
       'title' => true
     ],
     'path' => [
-      'd' => true, 
-      'fill' => true  
+      'd'     => true,
+      'fill'  => true,
+      'style' => true,
     ]
   ];
 
-  // Merge the SVG tags with the default allowed tags
-  $allowed_tags = apply_filters( 'ditty_kses_post_allowed_tags', array_merge( $allowed_tags, $svg_tags ) );
+  $allowed_tags = array_merge( $allowed_tags, $svg_tags );
+  $allowed_tags = apply_filters( 'ditty_kses_post_allowed_tags', $allowed_tags );
 
   // Use wp_kses() with the extended allowed tags to filter the content
   return wp_kses( $content, $allowed_tags );
+}
+
+/**
+ * Return if in Ditty dev mode
+ */
+function is_ditty_dev() {
+  return defined( 'DITTY_DEVELOPMENT' );
+}
+
+/**
+ * Render a slider
+ */
+function ditty_slider( $items, $atts = [],  ) {
+  $defaults = [
+    'class'             => '',
+    'selector'          => '.ditty-item',
+    'slideCount'        => 0,
+    'initialSlide'      => 0,
+    'autoheight'        => 0,
+    'loop'              => 0,
+    'mode'              => 'snap',
+    'rubberband'        => 0,
+    'vertical'          => 0,
+    'animationDuration' => 1000,
+    'animationEasing'   => 'easeInOutQuint',
+    // Slides
+    'slidesCenter'      => 0,
+    'slidesPerView'     => 1,
+    'slidesSpacing'     => 0,
+    // Arrows
+    'arrows'              => 0,
+    'arrowPrevIcon'       => false,
+    'arrowNextIcon'       => false,
+    'arrowsPadding'       => [],
+    'arrowBorderRadius'   => 0,
+    'arrowIconWidth'      => '30px',
+    'arrowIconColor'      => false,
+    'arrowIconHoverColor' => false,
+    'arrowBgColor'        => false,
+    'arrowBgHoverColor'   => false,
+    // Bullets
+    'bullets'           => 0,
+    // Breakpoints
+    'data-breakpoints'  => [],
+  ];
+
+  $args = wp_parse_args( $atts, $defaults );
+  $slide_count = $args['slideCount'];
+  $prev_icon = ( $args['arrowPrevIcon'] ) ? $args['arrowPrevIcon'] : '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24" fill="currentColor">
+    <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/>
+  </svg>';
+  $next_icon = ( $args['arrowNextIcon'] ) ? $args['arrowNextIcon'] : '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24" fill="currentColor">
+    <path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/>
+  </svg>';
+
+  // Set the classes
+  $class = 'dittySlider';
+  if ( '' != $args['class'] ) {
+    $class .= ' ' . $args['class'];
+  }
+
+  $arrows_padding = $args['arrowsPadding'] ?? [];
+
+  // Set the styles
+  $styles = [
+    '--ditty-slider--arrowsPadding-top' => $arrows_padding['top'] ?? 0,
+    '--ditty-slider--arrowsPadding-right' => $arrows_padding['right'] ?? 0,
+    '--ditty-slider--arrowsPadding-bottom' => $arrows_padding['bottom'] ?? 0,
+    '--ditty-slider--arrowsPadding-left' => $arrows_padding['left'] ?? 0,
+    //'--ditty-slider--arrowWidth' => isset( $attributes['arrowWidth'] ) ? "{$attributes['arrowWidth']}px" : '50px',
+    //'--ditty-slider--arrowHeight' => isset( $attributes['arrowHeight'] ) ? "{$attributes['arrowHeight']}px" : '50px',
+    '--ditty-slider--arrowBorderRadius' => $args['arrowBorderRadius'] ?? false,
+    '--ditty-slider--arrowIconWidth' => isset( $args['arrowIconWidth'] ) ? "{$args['arrowIconWidth']}px" : '30px',
+    '--ditty-slider--arrowIconColor' => $args['arrowIconColor'] ?? false,
+    '--ditty-slider--arrowIconHoverColor' => $args['arrowIconHoverColor'] ?? false,
+    '--ditty-slider--arrowBgColor' => $args['arrowBgColor'] ?? false,
+    '--ditty-slider--arrowBgHoverColor' => $args['arrowBgHoverColor'] ?? false,
+  ];
+  $styles_string = '';
+  if ( is_array( $styles ) && count($styles ) > 0 ) {
+    foreach ( $styles as $key => $value ) {
+      if ( $value ) {
+        $styles_string .= "{$key}:{$value};";
+      } 
+    }
+  }
+
+  $slider_atts = ditty_attr_to_html( [
+    'class'                   => $class,
+    'style'                   => $styles_string,
+    'data-initial'            => $args['initialSlide'] ?? 0,
+    'data-autoheight'         => ! empty( $args['autoheight'] ) ? 'true' : 'false',
+    'data-loop'               => ! empty( $args['loop'] ) ? 'true' : 'false',
+    'data-mode'               => $args['mode'] ?? 'snap',
+    'data-rubberband'         => ! empty( $args['rubberband'] ) ? 'true' : 'false',
+    'data-vertical'           => ! empty( $args['vertical'] ) ? 'true' : 'false',
+    'data-animation-duration' => $args['animationDuration'] ?? 1000,
+    'data-animation-easing'   => $args['animationEasing']   ?? 'easeInOutQuint',
+    // slides.*
+    'data-center'             => ! empty( $args['slidesCenter'] ) ? 'true' : 'false',
+    'data-per-view'           => $args['slidesPerView'] ?? 1,
+    'data-spacing'            => $args['slidesSpacing'] ?? 0,
+    // the breakpoints array as a JSON string
+    'data-breakpoints'        => ! empty( $args['sliderBreakpoints'] )
+      ? wp_json_encode( $args['sliderBreakpoints'] )
+      : '[]',
+  ] );
+
+  $html = '';
+  $html .= '<div ' . $slider_atts . '>';
+
+    // Render the slider and items
+    $html .= '<div class="dittySlider__slider keen-slider">';
+      
+    // If $items is an array, loop through and add them
+    if ( is_array( $items ) ) {
+      $slide_count = count( $items );
+      if ( $slide_count > 0 ) {
+        foreach ( $items as $item ) {
+          $html .= $item;
+        }
+      }
+
+    // Else add the content/slides
+    } else {
+      $html .= $items;
+    } 
+    $html .= '</div>';
+
+    // Render the arrows
+    if ( $args['arrows'] ) {
+      $html .= '<div class="dittySlider__arrows">';
+        $html .= '<button class="dittySlider__arrow dittySlider__arrow--left" aria-label="Previous slide">';
+          $html .= ditty_kses_post( $prev_icon );
+        $html .= '</button>';
+        $html .= '<button class="dittySlider__arrow dittySlider__arrow--right" aria-label="Next slide">';
+          $html .= ditty_kses_post( $next_icon );
+        $html .= '</button>';
+      $html .= '</div>';
+    }
+
+    // Render the bullets
+    if ( $args['bullets'] ) {
+      $html .= '<div class="dittySlider__bullets">';
+        for ( $i = 0; $i < $slide_count; $i++ ) {
+          $html .= '<button class="dittySlider__bullet" data-idx="' . esc_attr( $i ) . '"></button>';
+        }
+      $html .= '</div>';
+    }
+
+  $html .= '</div>';
+
+  return $html;
 }

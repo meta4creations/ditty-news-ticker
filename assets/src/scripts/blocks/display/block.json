@@ -1,0 +1,188 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "mtphr-ditty/display",
+  "version": "0.0.6c",
+  "title": "Ditty Pro",
+  "description": "Render a Ditty Display.",
+  "category": "widgets",
+  "keywords": ["ticker", "list", "slider", "display", "content"],
+  "textdomain": "ditty-pro",
+  "attributes": {
+    "type": {
+      "type": "string",
+      "default": "list"
+    },
+    "previewMode": {
+      "type": "boolean",
+      "default": false
+    },
+    "autoheight": {
+      "type": "boolean",
+      "default": false
+    },
+    "loop": {
+      "type": "boolean",
+      "default": true
+    },
+    "mode": {
+      "type": "string",
+      "default": "snap"
+    },
+    "rubberband": {
+      "type": "boolean",
+      "default": true
+    },
+    "vertical": {
+      "type": "boolean",
+      "default": false
+    },
+    "animationDuration": {
+      "type": "number",
+      "default": 1000
+    },
+    "animationEasing": {
+      "type": "string",
+      "default": "easeInOutQuint"
+    },
+    "slidesCenter": {
+      "type": "boolean",
+      "default": false
+    },
+    "slidesPerView": {
+      "type": "number",
+      "default": 1
+    },
+    "slidesSpacing": {
+      "type": "number",
+      "default": 0
+    },
+    "initialSlide": {
+      "type": "number",
+      "default": 0
+    },
+    "sliderBreakpoints": {
+      "type": "array",
+      "default": []
+    },
+    "arrows": {
+      "type": "boolean",
+      "default": true
+    },
+    "arrowsStatic": {
+      "type": "boolean",
+      "default": true
+    },
+     "arrowsPosition": {
+      "type": "string",
+      "default": "center"
+    },
+    "arrowsPadding": {
+      "type": "object",
+      "default": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      }
+    },
+    "arrowPrevIcon": {
+      "type": "number",
+      "default": 0
+    },
+    "arrowNextIcon": {
+      "type": "number",
+      "default": 0
+    },
+    "arrowWidth": {
+      "type": "number",
+      "default": 50
+    },
+    "arrowHeight": {
+      "type": "number",
+      "default": 50
+    },
+    "arrowBorderRadius": {
+      "type": "string"
+    },
+    "arrowIconWidth": {
+      "type": "number",
+      "default": 30
+    },
+    "arrowIconColor": {
+      "type": "string",
+      "default": ""
+    },
+    "arrowIconHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "arrowBgColor": {
+      "type": "string",
+      "default": ""
+    },
+    "arrowBgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "bullets": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "customClassName": true,
+    "color": {
+      "gradients": false,
+      "text": true,
+      "heading": true,
+      "link": true,
+      "background": true,
+      "__experimentalDefaultControls": {
+        "background": true,
+        "text": true
+      }
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "__experimentalDefaultControls": {
+        "margin": false,
+        "padding": false
+      }
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true,
+      "__experimentalDefaultControls": {
+        "color": false,
+        "radius": false,
+        "style": false,
+        "width": false
+      }
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "__experimentalFontFamily": true,
+      "__experimentalTextDecoration": true,
+      "__experimentalFontStyle": true,
+      "__experimentalFontWeight": true,
+      "__experimentalLetterSpacing": true,
+      "__experimentalTextTransform": true,
+      "__experimentalWritingMode": true,
+      "__experimentalDefaultControls": {
+        "fontSize": true
+      }
+    }
+  },
+  "editorScript": ["file:./index.js", "dittySlider"],
+  "editorStyle": ["file:./index.css", "dittySlider"],
+  "script": ["file:./view.js", "dittySlider"],
+  "style": ["file:./index-view.css", "dittySlider"],
+  "render": "file:./render.php"
+}
