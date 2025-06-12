@@ -690,4 +690,8 @@ class Ditty_Display_Type {
 		);
 		return $settings;
 	}
+
+  public function render() {
+    return 'This is a Ditty!';
+  }
 }

@@ -987,6 +987,11 @@ function ditty_prepare_display_items( $item ) {
  * @since    3.1.18
  */
 function ditty_render( $atts ) {
+  $display = new Ditty_Display( $atts );
+  return $display->render();
+}
+function ditty_renderx( $atts ) {
+
 	global $ditty_singles;
 	if ( empty( $ditty_singles ) ) {
 		$ditty_singles = array();
@@ -1506,38 +1511,6 @@ function ditty_version() {
  */
 function ditty_default_display_type() {
 	return apply_filters( 'ditty_default_display_type', 'list' );
-}
-
-/**
- * Return display data
- *
- * @since   3.1.19
- */
-function ditty_display_data( $display ) {
-  $display_id = 'custom';
-	$display_type = ditty_default_display_type();
-  $display_settings = [];
-  if ( is_array( $display ) ) {
-    $display_type = isset( $display['type'] ) ? $display['type'] : $display_type;
-    $display_settings = isset( $display['settings'] ) ? $display['settings'] : [];
-  } else {
-    if ( 'publish' == get_post_status( $display ) ) {
-      $display_id = $display;
-      $display_type = get_post_meta( $display, '_ditty_display_type', true );
-      $display_settings = get_post_meta( $display, '_ditty_display_settings', true );
-    }
-  }
-  if ( ! ditty_display_type_exists( $display_type ) ) {
-    $display_type = ditty_default_display_type();
-    $display_type_object = ditty_display_type_object( $display_type );
-    $display_settings = $display_type_object->default_settings();
-  }
-
-  return [
-    'id'       => $display_id,
-    'type'     => $display_type,
-    'settings' => $display_settings,
-  ];
 }
 
 /**

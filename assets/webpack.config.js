@@ -28,13 +28,14 @@ module.exports = {
     dittyDisplays: "./src/dittyDisplays.js",
     dittySliderOld: "./src/class-ditty-slider",
     dittySlider: "./src/scripts/dittySlider/dittySlider.js",
-    dittyList: "./src/scripts/displays/list/dittyDisplayList.js",
-    dittyListEditor: "./src/scripts/displays/list/dittyDisplayListEditor.js",
-    dittySliderEditor:
-      "./src/scripts/displays/slider/dittyDisplaySliderEditor.js",
-    dittyTicker: "./src/scripts/displays/ticker/dittyDisplayTicker.js",
-    dittyTickerEditor:
-      "./src/scripts/displays/ticker/dittyDisplayTickerEditor.js",
+    dittyDisplayList: "./src/scripts/displays/list/dittyList.js",
+    dittyDisplayListEditor: "./src/scripts/displays/list/dittyListEditor.js",
+    dittyDisplaySlider: "./src/scripts/displays/slider/dittySlider.js",
+    dittyDisplaySliderEditor:
+      "./src/scripts/displays/slider/dittySliderEditor.js",
+    dittyDisplayTicker: "./src/scripts/displays/ticker/dittyTicker.js",
+    dittyDisplayTickerEditor:
+      "./src/scripts/displays/ticker/dittyTickerEditor.js",
   },
   output: {
     ...defaultConfig.output,
