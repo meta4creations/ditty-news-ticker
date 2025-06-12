@@ -838,6 +838,7 @@ class Ditty_Scripts {
 		if ( empty( $ditty_singles ) ) {
 			$ditty_singles = array();
 		}
+    echo '<pre>';print_r( $ditty_singles );echo '</pre>';
 		if ( is_array( $ditty_singles ) && count( $ditty_singles ) > 0 ) {
 			?>
 			<script id="ditty-singles">

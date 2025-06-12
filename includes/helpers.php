@@ -990,92 +990,6 @@ function ditty_render( $atts ) {
   $display = new Ditty_Display( $atts );
   return $display->render();
 }
-function ditty_renderx( $atts ) {
-
-	global $ditty_singles;
-	if ( empty( $ditty_singles ) ) {
-		$ditty_singles = array();
-	}
-
-	$defaults = array(
-		'id' 								=> '',
-		'display' 					=> '',
-		'display_settings' 	=> '',
-		'layout' 						=> '',
-		'uniqid' 						=> '',
-		'class' 						=> '',
-		'el_id'							=> '',
-		'show_editor' 			=> 0,
-		'ajax_loading'			=> '',
-		'live_updates'			=> '',
-	);
-	$args = shortcode_atts( $defaults, $atts );
-
-	// Check for WPML language posts
-	//$args['id'] = function_exists('icl_object_id') ? icl_object_id( $args['id'], 'ditty', true ) : $args['id'];
-
-	// Make sure the ditty exists & is published
-	if ( ! ditty_exists( intval( $args['id'] ) ) ) {
-		return false;
-	}
-	if ( ! is_admin() && 'publish' !== get_post_status( intval( $args['id'] ) ) ) {
-		return false;
-	}
-
-	if ( '' == $args['uniqid'] ) {
-		$args['uniqid'] = uniqid( 'ditty-' );
-	}
-
-	$class = 'ditty ditty--pre';
-	if ( '' != $args['class'] ) {
-		$class .= ' ' . esc_attr( $args['class'] );
-	}
-	
-	$ditty_settings = get_post_meta( $args['id'], '_ditty_settings', true );
-	$ajax_load 			= ( isset( $ditty_settings['ajax_loading'] ) && 'yes' == $ditty_settings['ajax_loading'] ) ? '1' : false;
-	if ( 'yes' == $args['ajax_loading'] || 'no' == $args['ajax_loading'] ) {
-		$ajax_load = ( 'yes' == $args['ajax_loading'] ) ? '1' : false;
-	}
-
-	$live_updates 	= ( isset( $ditty_settings['live_updates'] ) && 'yes' == $ditty_settings['live_updates'] ) ? '1' : false;
-	if ( 'yes' == $args['live_updates'] || 'no' == $args['live_updates'] ) {
-		$live_updates = ( 'yes' == $args['live_updates'] ) ? '1' : false;
-	}
-  
-  // Possibly load custom display type
-  $force_display_type = false;
-  if ( isset( $args['display_settings'] ) ) {
-    $custom_display_array = json_decode( $args['display_settings'], true );
-    if ( json_last_error() == JSON_ERROR_NONE ) {
-      if ( isset( $custom_display_array['type'] ) && ditty_display_type_exists( $custom_display_array['type'] ) ) {
-        $force_display_type = $custom_display_array['type'];
-      }
-    }
-  }
-	ditty_add_scripts( $args['id'], $args['display'], $force_display_type );
-	
-	$ditty_atts = array(
-		'id'										=> ( '' != $args['el_id'] ) ? sanitize_title( $args['el_id'] ) : false,
-		'class' 								=> $class,
-		'data-id' 							=> $args['id'],
-		'data-uniqid' 					=> $args['uniqid'],
-		'data-display' 					=> ( '' != $args['display'] ) ? $args['display'] : false,
-		'data-display_settings' => ( '' != $args['display_settings'] ) ? htmlspecialchars( $args['display_settings'], ENT_QUOTES, 'UTF-8' ) : false,
-		'data-layout_settings' 	=> ( '' != $args['layout'] ) ? $args['layout'] : false,
-		'data-show_editor' 			=> ( 0 != intval( $args['show_editor'] ) ) ? '1' : false,
-		'data-ajax_load' 				=> $ajax_load,
-		'data-live_updates' 		=> $live_updates,
-	);
-
-	if ( 0 == $ajax_load ) {
-		$ditty_singles[] = $ditty_atts;
-	}
-
-	$html = '<div ' . ditty_attr_to_html( $ditty_atts ) . '>';
-		$html .= ditty_edit_links( $args['id'] );
-	$html .= '</div>';
-	return $html;
-}
 
 /**
  * Parse ditty script types and add to global
@@ -1091,11 +1005,7 @@ function ditty_add_scripts( $ditty_id, $display = false, $display_type = false )
 	if ( empty( $ditty_display_scripts ) ) {
 		$ditty_display_scripts = array();
 	}
-  // global $ditty_google_fonts;
-	// if ( empty( $ditty_google_fonts ) ) {
-	// 	$ditty_google_fonts = array();
-	// }
-	
+
 	// Store the item types
 	$items = Ditty()->db_items->get_items( $ditty_id );
 	if ( is_array( $items ) && count( $items ) > 0 ) {
@@ -1127,14 +1037,6 @@ function ditty_add_scripts( $ditty_id, $display = false, $display_type = false )
   }
   
 	$ditty_display_scripts[$display_type] = $display_type;
-
-  // Add google fonts 
-  // if ( ( $display_settings['itemTypography']['fontType'] ?? '') === 'google' ) {
-  //   $ditty_google_fonts[$display_settings['itemTypography']['fontFamily']] = $display_settings['itemTypography'];
-  // }
-  // if ( ( $display_settings['titleTypography']['fontType'] ?? '') === 'google' ) {
-  //   $ditty_google_fonts[$display_settings['titleTypography']['fontFamily']] = $display_settings['titleTypography'];
-  // }
 }
 
 /**

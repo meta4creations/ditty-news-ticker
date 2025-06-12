@@ -1,4 +1,12 @@
 <?php
+namespace Ditty\Hooks;
+
+add_action( 'delete_post', __NAMESPACE__ . '\delete_post_items' );
+add_filter( 'wp_kses_allowed_html', __NAMESPACE__ . '\kses_allowed_html', 10, 2 );
+add_filter( 'ditty_layout_tags', __NAMESPACE__ . '\default_layout_tags', 10, 2 );
+add_filter( 'admin_body_class', __NAMESPACE__ . '\dashboard_menu_classes', 99 );
+add_filter( 'custom_menu_order', __NAMESPACE__ . '\dashboard_menu_order' );
+add_action( 'admin_menu', __NAMESPACE__ . '\dashboard_custom_menu_classes', 99 );
 
 /**
  * Delete items from deleted Dittys
@@ -7,7 +15,7 @@
  * @access   public
  * @var      null
 */
-function ditty_delete_post_items( $post_id ) {
+function delete_post_items( $post_id ) {
 	global $post;
 	if ( isset( $post->post_type ) && ! ( 'ditty' == $post->post_type ) ) {
 		return $post_id;
@@ -37,63 +45,6 @@ function ditty_delete_post_items( $post_id ) {
 	// All other functionality to hook in and grab item meta before deleting
 	do_action( 'ditty_after_delete_post_items', $post_id, $items_meta );
 }
-add_action( 'delete_post', 'ditty_delete_post_items' );
-
-/**
- * Check post content for Ditty blocks
- *
- * @since    3.0.29
- * @access   public
- * @var      null
-*/
-function ditty_check_content_for_blocks() {
-	
-	// Parse post content for Ditty blocks
-	if ( is_admin() ) {
-		return false;
-	}
-	
-	// Parse widgets for Ditty blocks
-	$widget_blocks = get_option( 'widget_block' );
-	if ( is_array( $widget_blocks ) && count( $widget_blocks ) > 0 ) {
-		foreach ( $widget_blocks as $i => $widget_block ) {
-			if ( ! is_array( $widget_block ) ) {
-				continue;
-			}
-			$blocks = isset( $widget_block['content'] ) ? parse_blocks( $widget_block['content'] ) : false;
-			if ( is_array( $blocks ) && count( $blocks ) > 0 ) {
-				foreach ( $blocks as $i => $block ) {
-					if ( 'metaphorcreations/ditty-block' === $block['blockName'] ) {
-						$ditty = $block['attrs']['ditty'];
-						$display = isset( $block['attrs']['display'] ) ? $block['attrs']['display'] : '';
-						ditty_add_scripts( $ditty, $display );
-					}	
-				}
-			}
-		}
-	}
-
-	// Parse post content for Ditty blocks
-	global $post;
-	if ( ! is_singular() || ! is_object( $post ) ) {
-		return false;
-	}
-	$blocks = parse_blocks( $post->post_content );
-	if ( is_array( $blocks ) && count( $blocks ) > 0 ) {
-		foreach ( $blocks as $i => $block ) {
-			if ( 'metaphorcreations/ditty' === $block['blockName'] ) {
-        if ( ! isset( $block['attrs']['ditty'] ) ) {
-          continue;
-        }
-				$ditty = $block['attrs']['ditty'];
-				$display = isset( $block['attrs']['display'] ) ? $block['attrs']['display'] : '';
-				ditty_add_scripts( $ditty, $display );
-			}	
-		}
-	}
-}
-add_filter( 'wp', 'ditty_check_content_for_blocks' );
-
 
 /**
  * Customize wp_kses allowed html
@@ -102,7 +53,7 @@ add_filter( 'wp', 'ditty_check_content_for_blocks' );
  * @access   public
  * @var      array    $allowed
 */
-function ditty_kses_allowed_html( $allowed, $context ) {
+function kses_allowed_html( $allowed, $context ) {
 	if ( is_array( $context ) ) {
   	return $allowed;
   }
@@ -113,14 +64,13 @@ function ditty_kses_allowed_html( $allowed, $context ) {
 
   return $allowed;
 }
-add_filter( 'wp_kses_allowed_html', 'ditty_kses_allowed_html', 10, 2 );
 
 /**
  * Add to the item tags for default item type layouts
  * 
  * @since   3.0.13
  */
-function ditty_default_layout_tags( $tags, $item_type ) {
+function default_layout_tags( $tags, $item_type ) {
 	if ( 'default' == $item_type || 'wp_editor' == $item_type ) {
 		if ( isset( $tags['time'] ) ) {
 			$tags['time']['atts']['type'] = 'item_created';
@@ -128,7 +78,6 @@ function ditty_default_layout_tags( $tags, $item_type ) {
 	}
 	return $tags;
 }
-add_filter( 'ditty_layout_tags', 'ditty_default_layout_tags', 10, 2 );
 
 /**
  * Add custom classes to style menu items
@@ -137,20 +86,19 @@ add_filter( 'ditty_layout_tags', 'ditty_default_layout_tags', 10, 2 );
  * @access   public
  * @var      array    $allowed
 */
-function ditty_dashboard_menu_classes( $classes ) {
+function dashboard_menu_classes( $classes ) {
 	if ( isset( $_GET['dittyDev'] ) ) {
 		$classes .= ' dittyDev';
 	}
 	return $classes;
 }
-add_filter( 'admin_body_class', 'ditty_dashboard_menu_classes', 99 );
 
 /**
  * Reorder the menu items
  *
  * @since    3.0.22
 */
-function ditty_dashboard_menu_order( $menu_ord ) {
+function dashboard_menu_order( $menu_ord ) {
 	global $submenu;
 
 	if ( ! isset( $submenu['edit.php?post_type=ditty'] ) ) {
@@ -160,7 +108,7 @@ function ditty_dashboard_menu_order( $menu_ord ) {
 	$current_menu = $submenu['edit.php?post_type=ditty'];
 	$new_menu = array();
 	$extra_items = array();
-	$order = apply_filters( 'ditty_dashboard_menu_order', array(
+	$order = apply_filters( 'dashboard_menu_order', array(
 		'edit.php?post_type=ditty',
 		'post-new.php?post_type=ditty',
 		'?page=ditty-new',
@@ -203,14 +151,13 @@ function ditty_dashboard_menu_order( $menu_ord ) {
 
 	return $menu_ord;
 }
-add_filter( 'custom_menu_order', 'ditty_dashboard_menu_order' );
 
 /**
  * Add to the admin menu classes for Ditty
  * 
  * @since    3.1.19 
  */
-function ditty_dashboard_custom_menu_classes() {
+function dashboard_custom_menu_classes() {
 	global $menu, $submenu;
 	$ditty_menu = isset( $submenu['edit.php?post_type=ditty'] ) ? $submenu['edit.php?post_type=ditty'] : false;
 	if ( is_array( $ditty_menu ) && count( $ditty_menu ) > 0 ) {
@@ -224,44 +171,3 @@ function ditty_dashboard_custom_menu_classes() {
 	}
 	$submenu['edit.php?post_type=ditty'] = $ditty_menu;
 }
-add_action( 'admin_menu', 'ditty_dashboard_custom_menu_classes', 99 );
-
-
-
-
-// add_filter('use_block_editor_for_post_type', 'prefix_disable_gutenberg', 10, 2);
-// function prefix_disable_gutenberg($current_status, $post_type)
-// {
-// 		// Use your post type key instead of 'product'
-// 		if ($post_type === 'ditty_display') return false;
-// 		return $current_status;
-// }
-
-function ditty_shortcode_test_display( $atts, $content = '' ) {
-	$defaults = [
-		'test' => 'test'
-	];
-	$args = shortcode_atts( $defaults, $atts );
-
-	$html = '';
-	$html .= "<p>This is a shortcode test, using the 'test' attribute: <strong>{$args['test']}</strong>.</p>";
-	$html .= $content;
-
-	return $html;
-}
-add_shortcode( 'ditty_shortcode_test', 'ditty_shortcode_test_display' );
-
-
-
-/**
- * Maybe use php display method
- *
- * @since    3.1.19
- */
-function ditty_maybe_php_display( $php_display, $display_data, $args ) {
-  if ( 'list' == $display_data['type'] ) {
-    return true;
-  }
-  return $php_display;
-}
-add_filter( 'ditty_php_display', 'ditty_maybe_php_display', 10, 3 );

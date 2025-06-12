@@ -290,75 +290,27 @@ class Ditty_Singles {
 			return false;
 		}
 
-		$ditty_id 								= $atts['data-id'];
-		$uniqid 									= isset( $atts['data-uniqid'] ) 					? $atts['data-uniqid'] 						: false;
-		$display_id 							= isset( $atts['data-display'] ) 					? $atts['data-display'] 					: false;
-		$custom_display_settings 	= isset( $atts['data-display_settings'] )	? $atts['data-display_settings']	: false;
-		$custom_layout_settings 	= isset( $atts['data-layout_settings'] ) 	? $atts['data-layout_settings'] 	: false;
+		$ditty_id 					= $atts['data-id'];
+		$uniqid 						= $atts['data-uniqid'] ?? false;
+    $display_type 			= $atts['data-display_type'] ?? false;
+		$display_settings 	= $atts['data-display_settings'] ?? false;
+		$layout_settings 	  = $atts['data-layout_settings'] ?? false;
 
-		// If the Ditty is not published, exit
-		if ( 'publish' != get_post_status( $ditty_id ) ) {
-			return false;
-		}
-	
-		// Get the display attributes
-		if ( ! $display_id ) {
-			$display_id = get_post_meta( $ditty_id, '_ditty_display', true );
-		}
-		
-		if ( is_array( $display_id ) ) {
-			$display_settings = isset( $display_id['settings'] ) ? $display_id['settings'] : [];
-			$display_type = isset( $display_id['type'] ) ? $display_id['type'] : false;
-		} else {
-			if ( 'publish' == get_post_status( $display_id ) ) {
-				$display_settings = get_post_meta( $display_id, '_ditty_display_settings', true );
-				$display_type = get_post_meta( $display_id, '_ditty_display_type', true );
-			}
-		}
-		
-		// Make sure the display settings is an array
-		if ( ! is_array( $display_settings ) ) {
-			$display_settings = [];
-		}
-    $ditty_settings = get_post_meta( $ditty_id, '_ditty_settings', true );
-    $display_settings['orderby'] = isset( $ditty_settings['orderby'] ) ? $ditty_settings['orderby'] : 'list';
-    $display_settings['order'] = isset( $ditty_settings['order'] ) ? $ditty_settings['order'] : 'desc';
-
-		if ( ! $display_type || ! ditty_display_type_exists( $display_type ) ) {
-			$display_type = 'default';
-		}
-	
 		// Setup the ditty values
-		$status = get_post_status( $ditty_id );
-		$args = $display_settings;	
+		$status             = get_post_status( $ditty_id );
+		$args               = json_decode( html_entity_decode( $display_settings ), true );	
 		$args['id'] 				= $ditty_id;
 		$args['uniqid'] 		= $uniqid;
 		$args['title'] 			= get_the_title( $ditty_id );
 		$args['status'] 		= $status;
-		$args['display'] 		= is_array( $display_id ) ? $ditty_id : $display_id;
 
-		$items = $this->get_display_items( $ditty_id, 'cache', $custom_layout_settings );
+		$items = $this->get_display_items( $ditty_id, 'cache', $layout_settings );
 		if ( ! is_array( $items ) ) {
 			$items = array();
 		}
 		$args['items'] = $items;
 
-    if ( $custom_display_settings ) {
-      $custom_display_array = json_decode( html_entity_decode( $custom_display_settings ), true );
-      if ( json_last_error() == JSON_ERROR_NONE ) {
-        if ( isset( $custom_display_array['type'] ) && ditty_display_type_exists( $custom_display_array['type'] ) ) {
-          $display_type = $custom_display_array['type'];
-        }
-        if ( isset( $custom_display_array['settings'] ) ) {
-          $args = wp_parse_args( $custom_display_array['settings'], $args );
-        }
-      } else {
-        $args = $this->parse_custom_display_settings( $args, $custom_display_settings );
-      }
-    }
-
 		do_action( 'ditty_init', $ditty_id );
-		
 		?>
 		$( 'div[data-uniqid="<?php echo esc_attr( $uniqid ); ?>"]' ).ditty_<?php echo esc_attr( $display_type ); ?>(<?php echo json_encode( $args ); ?>);
 		<?php

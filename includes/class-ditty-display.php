@@ -12,7 +12,7 @@
 class Ditty_Display {
 
   private $id;
-  private $settings;
+  private $ditty_settings = [];
   private $display;
   private $display_type;
   private $display_settings = [];
@@ -59,6 +59,7 @@ class Ditty_Display {
   private function init_settings( $args ) {
 
     $settings = get_post_meta( $this->get_id(), '_ditty_settings', true );
+    $this->ditty_settings = $settings;
     
     // Set ajax loading
     $this->ajax_loading = ( isset( $settings['ajax_loading'] ) && 'yes' == $settings['ajax_loading'] ) ? '1' : false;
@@ -82,11 +83,16 @@ class Ditty_Display {
    * Initialize Display settings
    */
   private function init_display( $args ) {
+
+    $ditty_settings = $this->get_ditty_settings();
     
     $display = false;
     $display_type = false;
     $display_settings = [];
-    $custom_display_settings = [];
+    $custom_display_settings = [
+      'orderby' => $ditty_settings['orderby'] ?? 'list',
+      'order' => $ditty_settings['order'] ?? 'desc',
+    ];
 
     // Get the display post
     if ( isset( $args['display'] ) && '' != $args['display'] && ditty_display_exists( intval( $args['display'] ) ) ) {
@@ -103,7 +109,7 @@ class Ditty_Display {
           $display_type = $display_settings['type'];
         }
         if ( isset( $display_settings['settings'] ) && is_array( $display_settings['settings'] ) ) {
-          $custom_display_settings = $display_settings['settings'];
+          $custom_display_settings = wp_parse_args( $display_settings['settings'], $custom_display_settings );
         }
       }
     }
@@ -176,6 +182,17 @@ class Ditty_Display {
     $ditty_item_scripts[$script_id] = $script_id;
   }
 
+  /**
+   * Add item scripts
+   */
+  private function add_ditty_single( $atts ) {
+    global $ditty_singles;
+    if ( empty( $ditty_singles ) ) {
+      $ditty_singles = array();
+    }
+    $ditty_singles[] = $atts;
+  }
+
   public function get_id() {
     return $this->id;
   }
@@ -185,7 +202,7 @@ class Ditty_Display {
   }
 
   public function get_uniq_id() {
-    return $this->el_id;
+    return $this->uniqid;
   }
 
   public function get_class() {
@@ -196,24 +213,44 @@ class Ditty_Display {
     return $this->display;
   }
 
+  public function get_display_type() {
+    return $this->display_type;
+  }
+
+  public function get_ajax_loading() {
+    return $this->ajax_loading;
+  }
+
+  public function get_live_updates() {
+    return $this->live_updates;
+  }
+
+  public function get_ditty_settings() {
+    $this->ditty_settings;
+  }
+
   public function get_display_settings( $url_encoded = false ) {
     return $url_encoded ? htmlspecialchars( json_encode( $this->display_settings ), ENT_QUOTES, 'UTF-8' ) : $this->display_settings;
   }
 
   public function render() {
     if ( $this->get_id() ) {
+
       $atts = array(
         'id'										=> $this->get_el_id(),
         'class' 								=> $this->get_class(),
         'data-id' 							=> $this->get_id(),
         'data-uniqid' 					=> $this->get_uniq_id(),
-        //'data-display' 					=> $this->get_display(),
+        'data-display_type'     => $this->get_display_type(),
         'data-display_settings' => $this->get_display_settings( true ),
         // 'data-layout_settings' 	=> ( '' != $args['layout'] ) ? $args['layout'] : false,
-        // 'data-show_editor' 			=> ( 0 != intval( $args['show_editor'] ) ) ? '1' : false,
-        // 'data-ajax_load' 				=> $ajax_load,
-        // 'data-live_updates' 		=> $live_updates,
+        'data-ajax_load' 				=> $this->get_ajax_loading(),
+        'data-live_updates' 		=> $this->get_live_updates(),
       );
+
+      if ( 1 != $this->get_ajax_loading() ) {
+        $this->add_ditty_single( $atts );
+      }
 
       $html = '<div ' . ditty_attr_to_html( $atts ) . '>';
         $html .= ditty_edit_links( $this->get_id() );
