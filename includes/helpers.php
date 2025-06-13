@@ -1665,6 +1665,7 @@ function ditty_slider( $items, $atts = [],  ) {
   ];
 
   $args = wp_parse_args( $atts, $defaults );
+
   $slide_count = $args['slideCount'];
   $prev_icon = ( $args['arrowPrevIcon'] ) ? $args['arrowPrevIcon'] : '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24" fill="currentColor">
     <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/>
@@ -1748,7 +1749,7 @@ function ditty_slider( $items, $atts = [],  ) {
     $html .= '</div>';
 
     // Render the arrows
-    if ( $args['arrows'] ) {
+    if ( $args['arrows'] && 'none' != $args['arrows'] ) {
       $html .= '<div class="dittySlider__arrows">';
         $html .= '<button class="dittySlider__arrow dittySlider__arrow--left" aria-label="Previous slide">';
           $html .= ditty_kses_post( $prev_icon );
@@ -1760,7 +1761,7 @@ function ditty_slider( $items, $atts = [],  ) {
     }
 
     // Render the bullets
-    if ( $args['bullets'] ) {
+    if ( $args['bullets'] && 'none' != $args['bullets'] ) {
       $html .= '<div class="dittySlider__bullets">';
         for ( $i = 0; $i < $slide_count; $i++ ) {
           $html .= '<button class="dittySlider__bullet" data-idx="' . esc_attr( $i ) . '"></button>';

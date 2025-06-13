@@ -27,8 +27,12 @@ export default function navigationPHP(slider) {
       bullet.classList.toggle("dittySlider__bullet--active", i === idx)
     );
     if (!slider.options.loop) {
-      prevBtn.disabled = idx === 0;
-      nextBtn.disabled = idx === slider.track.details.slides.length - 1;
+      if (prevBtn) {
+        prevBtn.disabled = idx === 0;
+      }
+      if (nextBtn) {
+        nextBtn.disabled = idx === slider.track.details.slides.length - 1;
+      }
     }
   }
 

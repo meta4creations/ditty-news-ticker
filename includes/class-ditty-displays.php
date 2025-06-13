@@ -223,6 +223,8 @@ class Ditty_Displays {
 		$display_type = isset( $display['type'] ) ? $display['type'] : false;
 		$display_settings = isset( $display['settings'] ) ? $display['settings'] : false;
 
+    ditty_log( $data );
+
 		$author = false;
 		if ( 'ditty_display-new' != $display_id ) {
 			$display_post = get_post( $display_id );
@@ -306,6 +308,7 @@ class Ditty_Displays {
 			if ( isset( $display_settings['items'] ) ) {
 				unset( $display_settings['items'] );
 			}
+      error_log( print_r( $display_settings, true ) );
 			$sanitized_display_settings = ditty_sanitize_settings( $display_settings, "display_{$display_type}" );
 			if ( update_post_meta( $display_id, '_ditty_display_settings', $sanitized_display_settings ) ) {
 				$updates['settings'] = $sanitized_display_settings;

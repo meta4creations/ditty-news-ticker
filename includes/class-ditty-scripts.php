@@ -39,6 +39,7 @@ class Ditty_Scripts {
     add_action( 'enqueue_block_editor_assets', [$this, 'enqueue_block_editor_assets'] );
     add_action( 'admin_footer', array( $this, 'enqueue_global_scripts' ), 20 );
     add_action( 'wp_footer', array( $this, 'enqueue_global_scripts' ), 20 );
+    add_action( 'wp_footer', array( $this, 'enqueue_ditty_scripts' ), 20 );
 	}
 	
 	/**
@@ -839,7 +840,6 @@ class Ditty_Scripts {
 		if ( empty( $ditty_singles ) ) {
 			$ditty_singles = array();
 		}
-    echo '<pre>';print_r( $ditty_singles );echo '</pre>';
 		if ( is_array( $ditty_singles ) && count( $ditty_singles ) > 0 ) {
 			?>
 			<script id="ditty-singles">
@@ -855,8 +855,15 @@ class Ditty_Scripts {
 		}
 	}
 
+  public function enqueue_ditty_scripts( $type ) {
+    if ( is_array( $this->displays ) && count( $this->displays ) > 0 ) {
+      foreach ( $this->displays as $display_type ) {
+        wp_print_scripts( "ditty-display-{$display_type}" );
+      }
+    }
+  }
+
   public function enqueue_display( $type ) {
     $this->displays[$type] = $type;
-    echo '<pre>';print_r($this->displays);echo '</pre>';
   }
 }

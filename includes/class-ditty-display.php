@@ -15,6 +15,7 @@ class Ditty_Display {
   private $ditty_settings = [];
   private $display;
   private $display_type;
+  private $display_type_object;
   private $display_settings = [];
   private $items = [];
   private $layout;
@@ -134,6 +135,7 @@ class Ditty_Display {
     $this->display = $display;
     $this->display_type = $display_type;
     $this->display_settings = wp_parse_args( $custom_display_settings, $display_settings );
+    $this->display_type_object = ditty_display_type_object( $display_type );
 
     // Add the display scripts
     $this->add_display_scripts( $display_type );
@@ -216,6 +218,10 @@ class Ditty_Display {
   private function get_display_type() {
     return $this->display_type;
   }
+
+  private function get_display_type_object() {
+    return $this->display_type_object;
+  }
   
   private function get_items() {
     return $this->items;
@@ -276,9 +282,6 @@ class Ditty_Display {
       }
     }
 
-    Ditty()->scripts->enqueue_display( $this->get_id(), $this->get_display_type() );
-
-    $args = [];
-    return ditty_slider( $items_html, $args );
+    return $this->get_display_type_object()->render( $items_html, $this->get_display_settings() );
   }
 }

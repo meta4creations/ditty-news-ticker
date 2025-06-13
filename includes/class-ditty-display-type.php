@@ -691,7 +691,7 @@ class Ditty_Display_Type {
 		return $settings;
 	}
 
-  public function render() {
+  public function render( $items, $settings ) {
     return 'This is a Ditty!';
   }
 }
