@@ -193,49 +193,56 @@ class Ditty_Display {
     $ditty_singles[] = $atts;
   }
 
-  public function get_id() {
+  private function get_id() {
     return $this->id;
   }
 
-  public function get_el_id() {
+  private function get_el_id() {
     return $this->el_id;
   }
 
-  public function get_uniq_id() {
+  private function get_uniq_id() {
     return $this->uniqid;
   }
 
-  public function get_class() {
+  private function get_class() {
     return $this->class;
   }
 
-  public function get_display() {
+  private function get_display() {
     return $this->display;
   }
 
-  public function get_display_type() {
+  private function get_display_type() {
     return $this->display_type;
   }
+  
+  private function get_items() {
+    return $this->items;
+  }
 
-  public function get_ajax_loading() {
+  private function get_rendered_items() {
+    return Ditty()->singles->get_display_items( $this->get_id() );
+  }
+
+  private function get_ajax_loading() {
     return $this->ajax_loading;
   }
 
-  public function get_live_updates() {
+  private function get_live_updates() {
     return $this->live_updates;
   }
 
-  public function get_ditty_settings() {
-    $this->ditty_settings;
+  private function get_ditty_settings() {
+    return $this->ditty_settings;
   }
 
-  public function get_display_settings( $url_encoded = false ) {
+  private function get_display_settings( $url_encoded = false ) {
     return $url_encoded ? htmlspecialchars( json_encode( $this->display_settings ), ENT_QUOTES, 'UTF-8' ) : $this->display_settings;
   }
 
-  public function render() {
+  public function renderx() {
     if ( $this->get_id() ) {
-
       $atts = array(
         'id'										=> $this->get_el_id(),
         'class' 								=> $this->get_class(),
@@ -257,5 +264,21 @@ class Ditty_Display {
       $html .= '</div>';
       return $html;
     }
+  }
+
+  public function render() {
+    $items = $this->get_rendered_items();
+    $items_html = [];
+
+    if ( is_array( $items ) && ! empty( $items ) ) {
+      foreach ( $items as $item ) {
+        $items_html[] = $item['html'];
+      }
+    }
+
+    Ditty()->scripts->enqueue_display( $this->get_id(), $this->get_display_type() );
+
+    $args = [];
+    return ditty_slider( $items_html, $args );
   }
 }

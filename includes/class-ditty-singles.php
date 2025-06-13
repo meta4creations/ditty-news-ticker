@@ -386,7 +386,7 @@ class Ditty_Singles {
 	 * @var      array   	$display_items    Array of item objects
 	 */
 	public function get_display_items( $ditty_id, $load_type = 'cache', $custom_layouts = false ) {
-		$load_type = 'force';
+		//$load_type = 'force';
 
     if ( $translation_language = Ditty()->translations->get_translation_language() ) {
       $transient_name = "ditty_display_items_{$ditty_id}_{$translation_language}";

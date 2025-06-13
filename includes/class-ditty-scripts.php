@@ -14,6 +14,7 @@ class Ditty_Scripts {
 
   public $styles = [];
 	public $scripts = [];
+  private $displays = [];
 	public $cache_enabled = false;
 	private $cache_transient = 'ditty_scripts_cache';
 	private $cache_dir;
@@ -854,4 +855,8 @@ class Ditty_Scripts {
 		}
 	}
 
+  public function enqueue_display( $type ) {
+    $this->displays[$type] = $type;
+    echo '<pre>';print_r($this->displays);echo '</pre>';
+  }
 }
