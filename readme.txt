@@ -131,6 +131,9 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 == Changelog ==
 
+= 3.1.56 [2025-06-##] =
+* Default item nofollow bug fix
+
 = 3.1.55 [2025-05-24] =
 * Ditty editor script updates
 
