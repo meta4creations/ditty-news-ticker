@@ -292,12 +292,6 @@ function ditty_extensions() {
 			'preview' => true,
 			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-facebook-ticker/',
 		),
-		'grid' => array(
-			'icon' 		=> 'fas fa-th',
-			'name' 		=> __( 'Grid Display', 'ditty-news-ticker' ),
-			'preview' => true,
-			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-grid-display/',
-		),
 		'images' => array(
 			'icon' 		=> 'fas fa-image',
 			'name' 		=> __( 'Images', 'ditty-news-ticker' ),
@@ -321,18 +315,6 @@ function ditty_extensions() {
 			'name' 		=> __( 'RSS', 'ditty-news-ticker' ),
 			'preview' => true,
 			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-rss-ticker/',
-		),
-		'timing' => array(
-			'icon' 		=> 'fas fa-clock',
-			'name' 		=> __( 'Timing', 'ditty-news-ticker' ),
-			'preview' => true,
-			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-timed-ticker/',
-		),
-		'twitter' => array(
-			'icon' 		=> 'fab fa-twitter',
-			'name' 		=> __( 'Twitter', 'ditty-news-ticker' ),
-			'preview' => true,
-			'url' 		=> 'https://www.metaphorcreations.com/downloads/ditty-twitter-ticker/',
 		),
 	);
 	$extensions = apply_filters( 'ditty_extensions', $extensions );
