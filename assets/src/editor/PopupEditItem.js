@@ -136,7 +136,6 @@ const PopupEditItem = ({
   };
 
   const renderPopupHeader = () => {
-    console.log("editItem", editItem);
     return (
       <>
         <IconBlock

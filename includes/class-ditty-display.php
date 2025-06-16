@@ -134,7 +134,7 @@ class Ditty_Display {
 
     $this->display = $display;
     $this->display_type = $display_type;
-    $this->display_settings = wp_parse_args( $custom_display_settings, $display_settings );
+    $this->display_settings = $this->maybe_add_units( wp_parse_args( $custom_display_settings, $display_settings ) );
     $this->display_type_object = ditty_display_type_object( $display_type );
 
     // Add the display scripts
@@ -166,11 +166,7 @@ class Ditty_Display {
    * Add display scripts
    */
   private function add_display_scripts( $display_type ) {
-    global $ditty_display_scripts;
-    if ( empty( $ditty_display_scripts ) ) {
-      $ditty_display_scripts = array();
-    }
-    $ditty_display_scripts[$display_type] = $display_type;
+    Ditty()->scripts->enqueue_display( $display_type );
   }
 
   /**
@@ -215,12 +211,20 @@ class Ditty_Display {
     return $this->display;
   }
 
+  private function get_display_id() {
+    return is_array( $this->display ) ? $this->get_id() : $this->display;
+  }
+
   private function get_display_type() {
     return $this->display_type;
   }
 
   private function get_display_type_object() {
     return $this->display_type_object;
+  }
+
+  private function get_display_render_method() {
+    return $this->display_type_object->get_render_method();;
   }
   
   private function get_items() {
@@ -247,7 +251,92 @@ class Ditty_Display {
     return $url_encoded ? htmlspecialchars( json_encode( $this->display_settings ), ENT_QUOTES, 'UTF-8' ) : $this->display_settings;
   }
 
-  public function renderx() {
+  private function maybe_add_units( $settings ) {
+    $unit_default = 'px';
+
+    // Keys that should have units, with nested structure
+    $keys_with_units = [
+      'spacing',
+      'breakPoints' => [
+        'maxWidth',
+        'spacing',
+      ],
+    ];
+
+    // Top-level keys
+    foreach ( $keys_with_units as $key => $subkeys ) {
+      // Flat key
+      if ( is_int( $key ) ) {
+        $flat_key = $subkeys;
+
+        if ( isset( $settings[ $flat_key ] ) ) {
+          $settings[ $flat_key ] = $this->ensure_unit( $settings[ $flat_key ], $unit_default );
+        }
+      }
+      // Nested keys
+      else {
+        if ( isset( $settings[ $key ] ) && is_array( $settings[ $key ] ) ) {
+          foreach ( $settings[ $key ] as $index => $sub_setting ) {
+            if ( is_array( $sub_setting ) ) {
+              foreach ( $subkeys as $subkey ) {
+                if ( isset( $sub_setting[ $subkey ] ) ) {
+                  $settings[ $key ][ $index ][ $subkey ] = $this->ensure_unit( $sub_setting[ $subkey ], $unit_default );
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return $settings;
+  }
+
+  /**
+   * Ensure the value has a unit, unless it's "0"
+   */
+  private function ensure_unit( $value, $unit ) {
+    if ( $value === '0' || $value === 0 ) {
+      return '0';
+    }
+    if ( is_string( $value ) && preg_match( '/\d$/', $value ) ) {
+      return $value . $unit;
+    }
+    return $value;
+  }
+
+  /**
+   * Generate css vars
+   */
+  private function generate_css_vars( $settings, $prefix = '--ditty-' ) {
+    $css_vars = '';
+
+    foreach ($settings as $key => $value) {
+      $css_key = $prefix . sanitize_title_with_dashes($key);
+      if (is_array($value)) {
+        // Recurse into sub-arrays
+        $css_vars .= $this->generate_css_vars($value, $css_key . '-');
+      } elseif ($value !== '') {
+        // Ensure value is sanitized and properly formatted
+        $css_vars .= $css_key . ': ' . esc_attr($value) . '; ';
+      }
+    }
+
+    return trim($css_vars);
+  }
+
+  public function render() {
+    $render_method = $this->get_display_render_method();
+    if ( 'v2' == $render_method ) {
+      return $this->render_v2();
+    } else {
+      return $this->render_v1();
+    }
+  }
+
+  /**
+   * Use v1 render method
+   */
+  public function render_v1() {
     if ( $this->get_id() ) {
       $atts = array(
         'id'										=> $this->get_el_id(),
@@ -272,7 +361,10 @@ class Ditty_Display {
     }
   }
 
-  public function render() {
+  /**
+   * Use v2 render method
+   */
+  public function render_v2() {
     $items = $this->get_rendered_items();
     $items_html = [];
 
@@ -282,6 +374,30 @@ class Ditty_Display {
       }
     }
 
-    return $this->get_display_type_object()->render( $items_html, $this->get_display_settings() );
+    $atts = [
+      'id' => $this->get_el_id(),
+      'class' => "ditty ditty-{$this->get_display_type()} ditty-grid--{$this->get_id()} ditty-grid--ditty-{$this->get_uniq_id()}",
+      'style' => $this->generate_css_vars( $this->get_display_settings() ),
+      'data-display' => $this->get_display_id()
+    ];
+    
+    $html = '';
+    //$html .= $this->get_display_type_object()->render( $items_html, $this->get_display_settings() );
+
+    if ( is_array( $items_html ) && ! empty( $items_html ) ) {
+      $html .= '<div '. ditty_attr_to_html( $atts ) . '>'; 
+
+        $html .= '<div class="ditty__page ditty-' . $this->get_display_type() . '__page">';
+          $html .= '<div class="ditty__page__items ditty-' . $this->get_display_type() . '__page__items">';
+            foreach ( $items_html as $item ) {
+              $html .= $item;
+            }
+          $html .= '</div>';
+        $html .= '</div>';
+        
+      $html .= '</div>';
+    }
+
+    return $html;
   }
 }

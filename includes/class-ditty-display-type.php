@@ -18,6 +18,7 @@ class Ditty_Display_Type {
 	public $metabox;
 	public $templates;
 	public $js_settings = false;
+  public $render_method = 'v1';
 
 	/**
 	 * Get things started
@@ -691,6 +692,16 @@ class Ditty_Display_Type {
 		return $settings;
 	}
 
+  /**
+   * Return the render method
+   */
+  public function get_render_method() {
+    return $this->render_method ?? 'v1';
+  }
+
+  /**
+   * Render the display
+   */
   public function render( $items, $settings ) {
     return 'This is a Ditty!';
   }

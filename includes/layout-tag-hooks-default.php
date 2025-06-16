@@ -82,7 +82,7 @@ function ditty_default_layout_tag_content( $content, $item_type, $data, $atts ) 
 		$url = ( isset( $data['link_url'] ) && '' != $data['link_url'] ) ? $data['link_url'] : false;
 		if ( $url ) {
 			$target = isset( $data['link_target'] ) ? $data['link_target'] : '_self';
-			$rel = isset( $data['link_nofollow'] ) ? 'nofollow' : '';
+			$rel = ( isset( $data['link_nofollow'] ) && $data['link_nofollow'] ) ? 'nofollow' : '';
 			$title = isset( $data['link_title'] ) ? $data['link_title'] : '';
 			$content = sprintf( '<a href="%2$s" class="ditty-item__link" target="%3$s" rel="%4$s" title="%5$s">%1$s</a>', $content, $url, $target, $rel, $title );
 		}
