@@ -136,9 +136,6 @@ class Ditty_Display {
     $this->display_type = $display_type;
     $this->display_settings = $this->maybe_add_units( wp_parse_args( $custom_display_settings, $display_settings ) );
     $this->display_type_object = ditty_display_type_object( $display_type );
-
-    // Add the display scripts
-    $this->add_display_scripts( $display_type );
   }
 
   /**
@@ -308,24 +305,33 @@ class Ditty_Display {
    * Generate css vars
    */
   private function generate_css_vars( $settings, $prefix = '--ditty-' ) {
+    $css_vars_settings = $this->get_display_type_object()->filter_css_vars_settings( $settings );
     $css_vars = '';
 
     foreach ($settings as $key => $value) {
+      if ( is_int( $key ) ) {
+        continue;
+      }
       $css_key = $prefix . sanitize_title_with_dashes($key);
-      if (is_array($value)) {
+      if ( is_array( $value ) ) {
         // Recurse into sub-arrays
         $css_vars .= $this->generate_css_vars($value, $css_key . '-');
-      } elseif ($value !== '') {
+      } elseif ( $value !== '' ) {
         // Ensure value is sanitized and properly formatted
-        $css_vars .= $css_key . ': ' . esc_attr($value) . '; ';
+        $css_vars .= $css_key . ': ' . esc_attr( $value ) . '; ';
       }
     }
 
-    return trim($css_vars);
+    return trim( $css_vars );
   }
 
   public function render() {
+
+    // Add the display scripts
+    $this->add_display_scripts( $this->get_display_type() );
+
     $render_method = $this->get_display_render_method();
+
     if ( 'v2' == $render_method ) {
       return $this->render_v2();
     } else {
@@ -365,33 +371,39 @@ class Ditty_Display {
    * Use v2 render method
    */
   public function render_v2() {
+    $display_settings = $this->get_display_settings();
     $items = $this->get_rendered_items();
     $items_html = [];
 
+    // Get the item html and add scripts
     if ( is_array( $items ) && ! empty( $items ) ) {
       foreach ( $items as $item ) {
         $items_html[] = $item['html'];
+        Ditty()->scripts->add_layout_styles( $item['layout_id'], $item['css'] );
       }
     }
 
+    // Add custom styles for the display
+    $this->get_display_type_object()->custom_display_styles( $this->get_uniq_id(), $display_settings );
+
     $atts = [
       'id' => $this->get_el_id(),
-      'class' => "ditty ditty-{$this->get_display_type()} ditty-grid--{$this->get_id()} ditty-grid--ditty-{$this->get_uniq_id()}",
-      'style' => $this->generate_css_vars( $this->get_display_settings() ),
+      'class' => "ditty ditty-{$this->get_display_type()} ditty-grid--{$this->get_id()} ditty-grid--{$this->get_uniq_id()}",
+      'style' => $this->generate_css_vars( $display_settings ),
       'data-display' => $this->get_display_id()
     ];
     
     $html = '';
-    //$html .= $this->get_display_type_object()->render( $items_html, $this->get_display_settings() );
-
     if ( is_array( $items_html ) && ! empty( $items_html ) ) {
       $html .= '<div '. ditty_attr_to_html( $atts ) . '>'; 
 
-        $html .= '<div class="ditty__page ditty-' . $this->get_display_type() . '__page">';
-          $html .= '<div class="ditty__page__items ditty-' . $this->get_display_type() . '__page__items">';
-            foreach ( $items_html as $item ) {
-              $html .= $item;
-            }
+        $html .= '<div class="ditty__contents ditty-' . $this->get_display_type() . '__contents">';
+          $html .= '<div class="ditty__page ditty-' . $this->get_display_type() . '__page">';
+            $html .= '<div class="ditty__page__items ditty-' . $this->get_display_type() . '__page__items">';
+              foreach ( $items_html as $item ) {
+                $html .= $item;
+              }
+            $html .= '</div>';
           $html .= '</div>';
         $html .= '</div>';
         

@@ -699,6 +699,16 @@ class Ditty_Display_Type {
     return $this->render_method ?? 'v1';
   }
 
+  public function filter_css_vars_settings( $settings ) {
+    return $settings;
+  }
+
+  /**
+   * Add custom display styles
+   */
+  public function custom_display_styles( $uniqid, $settings ) {
+  }
+
   /**
    * Render the display
    */

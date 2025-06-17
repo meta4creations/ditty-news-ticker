@@ -6,3 +6,4 @@
 /assets/package-lock.json export-ignore
 /assets/webpack.config.js export-ignore
 /assets/blocks-hidden export-ignore
+/_hide export-ignore

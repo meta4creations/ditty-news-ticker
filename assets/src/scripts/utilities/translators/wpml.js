@@ -1,6 +1,6 @@
 const { addFilter } = wp.hooks;
 const { __ } = wp.i18n;
-import { refreshTranslations } from "../../../services/httpService";
+import { refreshTranslations } from "../../services/httpService";
 const dittyNotification = dittyEditor.notifications.dittyNotification;
 
 const dittyWPML = (function () {

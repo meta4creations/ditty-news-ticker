@@ -15,12 +15,8 @@ class Ditty_Scripts {
   public $styles = [];
 	public $scripts = [];
   private $displays = [];
-	public $cache_enabled = false;
-	private $cache_transient = 'ditty_scripts_cache';
-	private $cache_dir;
-	private $cache_url;
-	private $cache_time;
-	private $cache;
+  private $layout_styles = [];
+  private $display_styles = [];
 	private $version;
 
 	/**
@@ -30,8 +26,7 @@ class Ditty_Scripts {
 	 */
 	public function __construct() {	
 		$this->version	= ( defined( 'DITTY_DEVELOPMENT' ) && DITTY_DEVELOPMENT ) ? time() : DITTY_VERSION;
-		
-		add_action( 'init', array( $this, 'delete_cache' ) );
+
     add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_styles' ) );
     add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );	
     add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -40,6 +35,8 @@ class Ditty_Scripts {
     add_action( 'admin_footer', array( $this, 'enqueue_global_scripts' ), 20 );
     add_action( 'wp_footer', array( $this, 'enqueue_global_scripts' ), 20 );
 
+    add_action( 'wp_head', array( $this, 'print_layout_styles' ), 20 );
+    add_action( 'wp_head', array( $this, 'print_display_styles' ), 20 );
     add_action( 'wp_footer', array( $this, 'enqueue_ditty_scripts' ), 20 );
 	}
 	
@@ -90,207 +87,6 @@ class Ditty_Scripts {
 	}
 
 	/**
-	 * Delete cache scripts
-	 *
-	 * @since 3.1
-	 * @return void
-	 */
-	public function delete_cache() {
-		if ( isset( $_GET['ditty_delete_cache'] ) ) {
-			global $wp_filesystem;
-			require_once ( ABSPATH . '/wp-admin/includes/file.php' );
-			WP_Filesystem();
-
-			$upload_dir = wp_upload_dir();
-			$ditty_cache_dir = $upload_dir['basedir'].'/ditty/cache';
-			$wp_filesystem->delete( $ditty_cache_dir , true );
-			delete_transient( $this->cache_transient );
-		}
-	}
-
-	/**
-	 * Get the cache dir.
-	 *
-	 * @since 3.1
-	 * @return void
-	 */
-	private function get_cache_dir() {
-		if ( empty( $this->cache_dir ) ) {
-			$upload_dir = wp_upload_dir();
-			$this->cache_dir = $upload_dir['basedir'].'/ditty/cache';
-		}
-		return $this->cache_dir;
-	}
-
-	/**
-	 * Get the cache url.
-	 *
-	 * @since 3.1
-	 * @return void
-	 */
-	private function get_cache_url() {
-		if ( empty( $this->cache_url ) ) {
-			$upload_dir = wp_upload_dir();
-			$this->cache_url = $upload_dir['baseurl'].'/ditty/cache';
-		}
-		return $this->cache_url;
-	}
-
-	/**
-	 * Get the cache url.
-	 *
-	 * @since 3.1
-	 * @return void
-	 */
-	private function get_cache_time() {
-		if ( empty( $this->cache_time ) ) {
-			$this->cache_time = current_time( 'timestamp' );
-		}
-		return $this->cache_time;
-	}
-
-	/**
-	 * Create the cache directory
-	 *
-	 * @since 3.1
-	 * @return void
-	 */
-	private function create_cache_directory() {
-		$upload_dir = wp_upload_dir();
-		$ditty_upload_dir = $upload_dir['basedir'].'/ditty';
-		$ditty_upload_url = $upload_dir['baseurl'].'/ditty';
-		if( ! file_exists( $ditty_upload_dir ) ) {
-			mkdir( $ditty_upload_dir );
-		}
-// 		if( ! file_exists( $ditty_upload_dir . '/index.php' ) ) {
-// 			file_put_contents( $ditty_upload_dir . '/index.php', "<?php
-// // Silence is golden.");
-// 		}
-
-		$ditty_cache_dir = $ditty_upload_dir . '/cache';
-		$ditty_cache_url = $ditty_upload_url . '/cache';
-		if( ! file_exists( $ditty_cache_dir ) ) {
-			mkdir( $ditty_cache_dir );
-		}
-// 		if( ! file_exists( $ditty_cache_dir . '/index.php' ) ) {
-// 			file_put_contents( $ditty_cache_dir . '/index.php', "<?php
-// // Silence is golden.");
-// 		}
-	}
-
-	/**
-	 * Combine css files for the cache.
-	 *
-	 * @since 3.1
-	 * @return void
-	 */
-	private function combine_styles( $type, $required = [] ) {
-		$styles = $this->get_styles();
-		if ( isset( $styles[$type] ) && is_array( $styles[$type] ) && count( $styles[$type] ) > 0 ) {
-			$cache_time = $this->get_cache_time();
-			$cache_path = $this->get_cache_dir() . "/ditty-{$type}-cache-{$cache_time}.css";
-			$cache_url = $this->get_cache_url() . "/ditty-{$type}-cache-{$cache_time}.css";
-			$cache_required = $required;
-			if ( ! file_exists( $cache_path ) ) {
-				global $wp_filesystem;
-				$combined_styles = '';
-				foreach ( $styles[$type] as $slug => $style ) {
-					if ( $wp_filesystem->exists( $style[2] ) ) {
-						$combined_styles .= $wp_filesystem->get_contents( $style[2] );
-						if ( is_array( $style[3] ) ) {
-							$cache_required = array_merge( $cache_required, $style[3] );
-						}
-					}
-				}
-				$minified_styles = preg_replace( '/\s+/S', ' ', $combined_styles );
-				file_put_contents( $cache_path, trim( $minified_styles ) );
-			}
-			return array(
-				"{$type}_css_path" => $cache_path,
-				"{$type}_css_url" => $cache_url,
-				"{$type}_css_required" => $cache_required,
-			);
-		}
-	}
-
-	/**
-	 * Combine script files for the cache.
-	 *
-	 * @since 3.1
-	 * @return void
-	 */
-	private function combine_scripts( $type, $required = [] ) {
-		$scripts = $this->get_scripts();
-		if ( isset( $scripts[$type] ) && is_array( $scripts[$type] ) && count( $scripts[$type] ) > 0 ) {
-			$cache_time = $this->get_cache_time();
-			$cache_path = $this->get_cache_dir() . "/ditty-{$type}-cache-{$cache_time}.js";
-			$cache_url = $this->get_cache_url() . "/ditty-{$type}-cache-{$cache_time}.js";
-			$cache_required = $required;
-			if ( ! file_exists( $cache_path ) ) {
-				global $wp_filesystem;
-				$combined_scripts = '';
-				foreach ( $scripts[$type] as $slug => $script ) {
-					if ( $wp_filesystem->exists( $script[2] ) ) {
-						$combined_scripts .= $wp_filesystem->get_contents( $script[2] );
-						if ( is_array( $script[3] ) ) {
-							$cache_required = array_merge( $cache_required, $script[3] );
-						}
-					}
-				}
-				$minified_scripts = \JShrink\Minifier::minify( $combined_scripts );
-				file_put_contents( $cache_path, $minified_scripts );
-			}
-			return array(
-				"{$type}_js_path" => $cache_path,
-				"{$type}_js_url" => $cache_url,
-				"{$type}_js_required" => $cache_required,
-			);
-		}
-	}
-
-	/**
-	 * Get Ditty cache.
-	 *
-	 * @since 3.1
-	 * @return void
-	 */
-	private function get_cache() {
-		if ( empty( $this->cache ) ) {
-			$cache = get_transient( $this->cache_transient );
-			if ( ! $cache ) {
-				global $wp_filesystem;
-				require_once ( ABSPATH . '/wp-admin/includes/file.php' );
-				WP_Filesystem();
-				$this->create_cache_directory();
-
-				$cache = array(
-					'time' => $this->get_cache_time(),
-				);
-
-				// Combine and cache css files
-				if ( $display_css_cache = $this->combine_styles( 'display' ) ) {
-					$cache = array_merge( $cache, $display_css_cache );
-				}
-				if ( $editor_css_cache = $this->combine_styles( 'editor' ) ) {
-					$cache = array_merge( $cache, $editor_css_cache );
-				}
-				
-				// Combine and cache js files
-				if ( $display_js_cache = $this->combine_scripts( 'display', ['ditty'] ) ) {
-					$cache = array_merge( $cache, $display_js_cache );
-				}
-				if ( $editor_js_cache = $this->combine_scripts( 'editor', ['ditty', 'wp-element', 'wp-components'] ) ) {
-					$cache = array_merge( $cache, $editor_js_cache );
-				}
-
-				set_transient( $this->cache_transient, $cache );
-			}
-			$this->cache = $cache;
-		}
-		return $this->cache;
-	}
-
-	/**
 	 * Load the scripts.
 	 *
 	 * @since    3.1
@@ -319,6 +115,7 @@ class Ditty_Scripts {
 
     // Enqueue active display styles
     if ( is_array( $this->displays ) && count( $this->displays ) > 0 ) {
+      wp_enqueue_style( 'dittyDisplays' );
       foreach ( $this->displays as $display_type ) {
         wp_enqueue_style( "ditty-display-{$display_type}" );
       }
@@ -363,22 +160,12 @@ class Ditty_Scripts {
 	public function enqueue_styles( $hook ) {
 
 		//wp_enqueue_style( 'ditty-init', DITTY_URL . 'assets/build/ditty.css', false, $this->version, false );	
-    wp_register_style( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.css', false, '1.4.21', false );	
+    wp_register_style( 'protip', DITTY_URL . 'includes/libs/protip/protip.min.css', false, '1.4.21', false );
+    wp_register_style( 'dittyDisplays', DITTY_URL . 'assets/build/dittyDisplays.css', [], $this->version );	
     wp_register_style( 'dittySlider', DITTY_URL . 'assets/build/dittySlider.css', [], $this->version );
 		
 		// Enqueue display styles
-		if ( $this->cache_enabled ) {
-			$cache = $this->get_cache();
-			wp_enqueue_style(
-				'ditty-display-cache',
-				$cache['display_css_url'],
-				$cache['display_css_required'],
-				null,
-				'all'
-			);
-		} else {
-			$this->load_external_styles( 'display', [], 'register' );
-		}
+		$this->load_external_styles( 'display', [], 'register' );
 		
 		wp_register_style(
 			'ditty-editor-init',
@@ -421,7 +208,7 @@ class Ditty_Scripts {
 			wp_enqueue_style(
 				'ditty-editor',
 				DITTY_URL . 'assets/build/dittyEditor.css',
-				['ditty-editor-init', 'wp-components', 'wp-codemirror'],
+				['ditty-editor-init', 'wp-components', 'wp-codemirror', 'dittyDisplays'],
 				$this->version,
 				'all'
 			);
@@ -451,22 +238,6 @@ class Ditty_Scripts {
 		wp_register_script( 'ditty-sass', DITTY_URL . 'includes/libs/sass/sass.js', [], $this->version );
 		wp_register_script( 'ditty-slider', DITTY_URL . 'assets/build/dittySliderOld.js', array( 'jquery', 'hammer' ), $this->version, true );
     wp_register_script( 'dittySlider', DITTY_URL . 'assets/build/dittySlider.js', [], $this->version, true );
-		//wp_enqueue_script( 'ditty-sass', 'https://cdn.jsdelivr.net/npm/sass.js/dist/sass.min.js', [], $this->version );
-
-
-		// Register the ditty init file
-		// wp_enqueue_script( 'ditty-init',
-		// 	DITTY_URL . 'assets/build/ditty.js',
-		// 	['wp-element'],
-		// 	$this->version,
-		// 	true
-		// );
-		// if ( empty( $ditty_scripts_enqueued ) ) {
-		// 	wp_add_inline_script( 'ditty-init', 'const ditty=' . json_encode( apply_filters( 'ditty', array(
-		// 		'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
-		// 	) ) ) . ';', 'before' );
-		// }
-
 
 		// Register Ditty and display scripts
 		wp_register_script( 'ditty', DITTY_URL . 'assets/build/ditty.js', array( 'jquery', 'jquery-effects-core', ), $this->version, true );
@@ -484,36 +255,8 @@ class Ditty_Scripts {
 				'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false,
 			) ) ), 'before' ) . ';';
 		}
-		// wp_register_script( 'ditty',
-		// 	DITTY_URL . 'assets/build/ditty.js',
-		// 	['wp-hooks', 'jquery-effects-core', 'jquery'],
-		// 	$this->version,
-		// 	true
-		// );
-		// if ( empty( $ditty_scripts_enqueued ) ) {
-		// 	wp_add_inline_script( 'ditty', 'const ditty={};', 'before' );
-		// 	wp_add_inline_script( 'ditty', 'const dittyVars = ' . json_encode( array(
-		// 		'ajaxurl'					=> admin_url( 'admin-ajax.php' ),
-		// 		'security'				=> wp_create_nonce( 'ditty' ),
-		// 		'mode'						=> WP_DEBUG ? 'development' : 'production',
-		// 		'globals'					=> ditty_get_globals(),
-		// 		'updateInterval'	=> ( MINUTE_IN_SECONDS * get_ditty_settings( 'live_refresh' ) ),
-		// 	) ), 'before' );
-		// }
 		
-		if ( $this->cache_enabled ) {
-			$cache = $this->get_cache();
-			wp_register_script(
-				'ditty-display-cache',
-				$cache['display_js_url'],
-				$cache['display_js_required'],
-				null,
-				true
-			);
-			$display_slugs = ['ditty-display-cache'];
-		} else {
-			$display_slugs = $this->load_external_scripts( 'display', ['ditty'], 'register' );
-		}
+		$display_slugs = $this->load_external_scripts( 'display', ['ditty'], 'register' );
 		
 		// Register the editor init file
 		$asset_file = include( DITTY_DIR . 'assets/build/dittyEditorInit.asset.php' );
@@ -573,18 +316,8 @@ class Ditty_Scripts {
 		}
 
 		if ( $ditty_id = ditty_editing() ) {
-			if ( $this->cache_enabled ) {
-				$cache = $this->get_cache();
-				wp_enqueue_script(
-					'ditty-editor-cache',
-					$cache['editor_js_url'],
-					$cache['editor_js_required'],
-					null,
-					true
-				);
-			} else {
-				$this->load_external_scripts( 'editor', ['ditty-editor-init', 'wp-element', 'wp-components'], 'enqueue' );
-			}
+
+			$this->load_external_scripts( 'editor', ['ditty-editor-init', 'wp-element', 'wp-components'], 'enqueue' );
 
 			wp_enqueue_script( 'ditty-editor',
 				DITTY_URL . 'assets/build/dittyEditor.js',
@@ -596,18 +329,8 @@ class Ditty_Scripts {
 		}
 
 		if ( $display_id = ditty_display_editing() ) {
-			if ( $this->cache_enabled ) {
-				$cache = $this->get_cache();
-				wp_enqueue_script(
-					'ditty-editor-cache',
-					$cache['editor_js_url'],
-					$cache['editor_js_required'],
-					null,
-					true
-				);
-			} else {
-				$this->load_external_scripts( 'editor', ['ditty-editor-init', 'wp-element', 'wp-components'], 'enqueue' );
-			}
+
+			$this->load_external_scripts( 'editor', ['ditty-editor-init', 'wp-element', 'wp-components'], 'enqueue' );
 
 			wp_enqueue_script( 'ditty-display-editor',
 				DITTY_URL . 'assets/build/dittyDisplayEditor.js',
@@ -646,19 +369,8 @@ class Ditty_Scripts {
 		}
 
 		if ( $layout_id = ditty_layout_editing() ) {
-			if ( $this->cache_enabled ) {
-				$cache = $this->get_cache();
-				wp_enqueue_script(
-					'ditty-editor-cache',
-					$cache['editor_js_url'],
-					$cache['editor_js_required'],
-					null,
-					true
-				);
-			} else {
-				//$this->load_external_scripts( 'editor', ['ditty', 'wp-element', 'wp-components'], 'enqueue' );
-				$this->load_external_scripts( 'editor', ['ditty-editor-init', 'wp-element', 'wp-components'], 'enqueue' );
-			}
+
+			$this->load_external_scripts( 'editor', ['ditty-editor-init', 'wp-element', 'wp-components'], 'enqueue' );
 
 			wp_enqueue_script( 'ditty-layout-editor',
 				DITTY_URL . 'assets/build/dittyLayoutEditor.js',
@@ -825,25 +537,19 @@ class Ditty_Scripts {
 				wp_print_scripts( "ditty-{$ditty_item_script}" );
 			}
 		}
-		if ( $this->cache_enabled ) {
-			$cache = $this->get_cache();
-			wp_print_scripts( 'ditty-display-cache' );
-			wp_print_scripts( 'ditty' );
-		} else {
-			if ( is_array( $ditty_display_scripts ) && count( $ditty_display_scripts ) > 0 ) {	
-				$add_ditty = false;
-				foreach ( $ditty_display_scripts as $i => $display_type ) {
-					if ( empty( $display_type ) ) {
-						continue;
-					}
-					wp_print_scripts( "ditty-display-{$display_type}" );
-					$add_ditty = true;
-				}
-				if ( $add_ditty ) {
-					wp_print_scripts( 'ditty' );
-				}
-			}
-		}
+		if ( is_array( $ditty_display_scripts ) && count( $ditty_display_scripts ) > 0 ) {	
+      $add_ditty = false;
+      foreach ( $ditty_display_scripts as $i => $display_type ) {
+        if ( empty( $display_type ) ) {
+          continue;
+        }
+        wp_print_scripts( "ditty-display-{$display_type}" );
+        $add_ditty = true;
+      }
+      if ( $add_ditty ) {
+        wp_print_scripts( 'ditty' );
+      }
+    }
 
 		// Add ditty scripts
 		global $ditty_singles;
@@ -875,5 +581,45 @@ class Ditty_Scripts {
 
   public function enqueue_display( $type ) {
     $this->displays[$type] = $type;
+  }
+
+  /**
+   * Add layout styles to print later
+   */
+  public function add_layout_styles( $layout_id, $styles ) {
+    $this->layout_styles[$layout_id] = $styles;
+  }
+
+  /**
+   * Print the layout styles
+   */
+  public function print_layout_styles() {
+    if ( is_array( $this->layout_styles ) && ! empty( $this->layout_styles ) ) {
+      foreach ( $this->layout_styles as $id => $styles ) {
+        echo '<style id="ditty-layout--' . esc_attr( $id ) . '">';
+          echo wp_kses_post( $styles );
+        echo '</style>';
+      }
+    }
+  }
+
+  /**
+   * Add display styles to print later
+   */
+  public function add_display_styles( $display_id, $styles ) {
+    $this->display_styles[$display_id] = $styles;
+  }
+
+  /**
+   * Print the layout styles
+   */
+  public function print_display_styles() {
+    if ( is_array( $this->display_styles ) && ! empty( $this->display_styles ) ) {
+      foreach ( $this->display_styles as $id => $styles ) {
+        echo '<style id="ditty-display--' . esc_attr( $id ) . '">';
+          echo wp_kses_post( $styles );
+        echo '</style>';
+      }
+    }
   }
 }
