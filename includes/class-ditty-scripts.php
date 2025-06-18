@@ -116,6 +116,7 @@ class Ditty_Scripts {
     // Enqueue active display styles
     if ( is_array( $this->displays ) && count( $this->displays ) > 0 ) {
       wp_enqueue_style( 'dittyDisplays' );
+      wp_enqueue_style( 'dittySlider' );
       foreach ( $this->displays as $display_type ) {
         wp_enqueue_style( "ditty-display-{$display_type}" );
       }
@@ -149,6 +150,7 @@ class Ditty_Scripts {
 				);
 			}
 		}
+
 		return $slugs;
 	}
 
@@ -243,11 +245,11 @@ class Ditty_Scripts {
 		wp_register_script( 'ditty', DITTY_URL . 'assets/build/ditty.js', array( 'jquery', 'jquery-effects-core', ), $this->version, true );
 		if ( empty( $ditty_scripts_enqueued ) ) {
 			wp_add_inline_script( 'ditty', 'const dittyVars = ' . json_encode( apply_filters( 'dittyVars', array(
-				'ajaxurl'					=> admin_url( 'admin-ajax.php' ),
+        'restUrl'					=> get_rest_url(),
+        'restNonce'			  => wp_create_nonce( 'wp_rest' ),
+        'ajaxurl'					=> admin_url( 'admin-ajax.php' ),
 				'security'				=> wp_create_nonce( 'ditty' ),
 				'mode'						=> WP_DEBUG ? 'development' : 'production',
-				'strings' 				=> ditty_strings(),
-				'adminStrings' 		=> is_admin() ? ditty_admin_strings() : false,
 				'globals'					=> ditty_get_globals(),
 				'updateIcon'			=> 'fas fa-sync-alt fa-spin',
 				'updateInterval'	=> ( MINUTE_IN_SECONDS * get_ditty_settings( 'live_refresh' ) ),
@@ -450,7 +452,6 @@ class Ditty_Scripts {
 						'security'			=> wp_create_nonce( 'ditty' ),
 						'nonce'			    => wp_create_nonce( 'wp_rest' ),
 						'mode'					=> WP_DEBUG ? 'development' : 'production',
-						'adminStrings' 	=> is_admin() ? ditty_admin_strings() : false,
 						'updateIcon'		=> 'fas fa-sync-alt fa-spin',
 						'dittyDevelopment'	=> defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false,
 					) ) ), 'before' ) . ';';
@@ -573,6 +574,8 @@ class Ditty_Scripts {
 
   public function enqueue_ditty_scripts( $type ) {
     if ( is_array( $this->displays ) && count( $this->displays ) > 0 ) {
+      wp_print_scripts( "ditty" );
+      wp_print_scripts( "dittySlider" );
       foreach ( $this->displays as $display_type ) {
         wp_print_scripts( "ditty-display-{$display_type}" );
       }

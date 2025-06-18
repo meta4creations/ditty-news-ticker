@@ -1,283 +1,204 @@
-/* global jQuery:true */
-/* global dittyVars:true */
+(function () {
+  "use strict";
 
-// @codekit-append 'partials/helpers.js';
+  console.log("ditty.js");
 
-jQuery(function ($) {
-  // Setup strict mode
-  (function () {
-    "use strict";
+  const liveIds = {};
+  let liveInterval = null;
 
-    var liveIds = {},
-      liveInterval = null;
-
-    /**
-     * Listen for ditty live update start triggers
-     *
-     * @since    3.0
-     * @return   null
-     */
-    /*
-    $( 'body' ).on( 'ditty_start_live_updates', function( event, dittyId ) {
-	    liveIds[dittyId] = Math.floor( $.now()/1000 );
-	    startLiveUpdates();
-	  } );
-*/
-
-    /**
-     * Listen for ditty live update stop triggers
-     *
-     * @since    3.0
-     * @return   null
-     */
-    /*
-	  $( 'body' ).on( 'ditty_stop_live_updates', function( event, dittyId ) {
-		  var updated_liveIds = {};
-		  $.each( liveIds, function( dittyId, timestamp ) {
-			  if ( parseInt( dittyId ) !== parseInt( dittyId ) ) {
-			  	updated_liveIds[dittyId] = timestamp;
-			  }
-			} );
-			liveIds = updated_liveIds;
-			if ( undefined === liveIds.length ) {
-				stopLiveUpdates();
-			}
-	  } );
-*/
-
-    /**
-     * Live update a Ditty
-     *
-     * @since    3.0
-     * @return   null
-     */
-    function liveUpdate(dittyId, items) {
-      $('.ditty[data-id="' + dittyId + '"]').each(function () {
-        var displayType = $(this).data("type");
-        if ("development" === dittyVars.mode && window.console) {
-          console.log(`LIVE UPDATE: ${dittyId}`);
-        }
-        $(this)[`ditty_${displayType}`]("loadItems", items, "static");
-      });
-    }
-
-    /**
-     * Check for live updates
-     *
-     * @since    3.0.11
-     * @return   null
-     */
-    function checkLiveUpdates() {
-      var data = {
-        action: "ditty_live_updates",
-        live_ids: liveIds,
-        security: dittyVars.security,
-      };
-      $.post(
-        dittyVars.ajaxurl,
-        data,
-        function (response) {
-          if (response.updated_items) {
-            $.each(response.updated_items, function (dittyId, items) {
-              liveUpdate(dittyId, items);
-              liveIds[dittyId].timestamp = Math.floor($.now() / 1000);
-            });
-          }
-        },
-        "json"
-      );
-    }
-
-    /**
-     * Stop listening for live updates
-     *
-     * @since    3.0
-     * @return   null
-     */
-    // function stopLiveUpdates() {
-    //   if ( null !== liveInterval ) {
-    //     cancelAnimationFrame( liveInterval );
-    //     liveInterval = null;
-    //   }
-    // }
-
-    /**
-     * Start listening for live updates
-     *
-     * @since    3.0
-     * @return   null
-     */
-    function startLiveUpdates() {
-      if (null !== liveInterval || 1 > Object.keys(liveIds).length) {
-        return false;
+  function liveUpdate(dittyId, items) {
+    document.querySelectorAll(`.ditty[data-id="${dittyId}"]`).forEach((el) => {
+      const displayType = el.getAttribute("data-type");
+      if (dittyVars.mode === "development" && window.console) {
+        console.log(`LIVE UPDATE: ${dittyId}`);
       }
-      cancelAnimationFrame(liveInterval);
+      if (typeof el[`ditty_${displayType}`] === "function") {
+        el[`ditty_${displayType}`]("loadItems", items, "static");
+      }
+    });
+  }
 
-      var updateInterval = dittyVars.updateInterval
-          ? parseInt(dittyVars.updateInterval)
-          : 60,
-        startTime = Date.now();
-
-      function dittyLiveUpdatesLoop() {
-        var currTime = Date.now(),
-          passedTime = Math.floor((currTime - startTime) / 1000);
-
-        if (passedTime >= updateInterval) {
-          startTime = currTime;
-          checkLiveUpdates();
+  function checkLiveUpdates() {
+    fetch(`${dittyVars.restUrl}ditty/v1/live-updates`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-WP-Nonce": dittyVars.restNonce,
+      },
+      body: JSON.stringify({
+        live_ids: liveIds,
+      }),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.updated_items) {
+          Object.entries(response.updated_items).forEach(([dittyId, items]) => {
+            liveUpdate(dittyId, items);
+            liveIds[dittyId].timestamp = Math.floor(Date.now() / 1000);
+          });
         }
-        liveInterval = requestAnimationFrame(dittyLiveUpdatesLoop);
+      });
+  }
+
+  function startLiveUpdates() {
+    if (liveInterval !== null || Object.keys(liveIds).length < 1) return false;
+    cancelAnimationFrame(liveInterval);
+
+    const updateInterval = dittyVars.updateInterval
+      ? parseInt(dittyVars.updateInterval)
+      : 60;
+    let startTime = Date.now();
+
+    function dittyLiveUpdatesLoop() {
+      const currTime = Date.now();
+      const passedTime = Math.floor((currTime - startTime) / 1000);
+
+      if (passedTime >= updateInterval) {
+        startTime = currTime;
+        checkLiveUpdates();
       }
       liveInterval = requestAnimationFrame(dittyLiveUpdatesLoop);
     }
 
-    /**
-     * Update extension API calls
-     *
-     * @since    3.0
-     * @return   null
-     */
-    // function updateExtensionApis() {
-    // 	var data = {
-    // 		action		: 'ditty_api_background_updates',
-    // 		security	: dittyVars.security
-    // 	};
-    // 	$.post( dittyVars.ajaxurl, data, function() {
-    // 	}, 'json' );
-    // }
+    liveInterval = requestAnimationFrame(dittyLiveUpdatesLoop);
+  }
 
-    /**
-     * Setup the global Dittys
-     *
-     * @since    3.0
-     * @return   null
-     */
-    function setupGlobalDitty() {
-      $.each(dittyVars.globals, function (index, data) {
-        var selector = $(data.selector);
-        if (!data.ditty || undefined === selector[0]) {
-          return;
-        }
-        var $edit_links = data.edit_links ? data.edit_links : "";
-        var $ditty = $(
-          '<div class="ditty" data-id="' +
-            data.ditty +
-            '" data-ajax_load="1">' +
-            $edit_links +
-            "</div>"
-        );
-        if (data.display && "" !== data.display) {
-          $ditty.attr("data-display", data.display);
-        }
-        if (data.live_updates && "1" === String(data.live_updates)) {
-          $ditty.attr("data-live_updates", "1");
-        }
-        if (data.custom_id && "" !== data.custom_id) {
-          $ditty.attr("id", data.custom_id);
-        }
-        if (data.custom_classes && "" !== data.custom_classes) {
-          $ditty.addClass(data.custom_classes);
-        }
-        switch (data.position) {
-          case "prepend":
-            $(selector[0]).prepend($ditty);
-            break;
-          case "before":
-            $(selector[0]).before($ditty);
-            break;
-          case "after":
-            $(selector[0]).after($ditty);
-            break;
-          default:
-            $(selector[0]).append($ditty);
-            break;
-        }
-      });
-    }
+  function setupGlobalDitty() {
+    dittyVars.globals.forEach((data) => {
+      if (!data.ditty || !data.selector) return;
+      const selector = document.querySelector(data.selector);
+      if (!selector) return;
 
-    /**
-     * Load all the dittys
-     *
-     * @since    3.0.11
-     * @return   null
-     */
-    function dittyInit() {
-      // Add the global Dittys
-      setupGlobalDitty();
+      const $ditty = document.createElement("div");
+      $ditty.className = "ditty";
+      $ditty.setAttribute("data-id", data.ditty);
+      $ditty.setAttribute("data-ajax_load", "1");
 
-      $(".ditty").each(function () {
-        var $ditty = $(this),
-          ajax_load = $ditty.data("ajax_load")
-            ? $ditty.data("ajax_load")
-            : false,
-          live_updates = $ditty.data("live_updates")
-            ? $ditty.data("live_updates")
-            : false,
-          display_settings = $ditty.data("display_settings")
-            ? $ditty.data("display_settings")
-            : false,
-          layout_settings = $ditty.data("layout_settings")
-            ? $ditty.data("layout_settings")
-            : false,
-          editor = $ditty.data("show_editor")
-            ? $ditty.data("show_editor")
-            : false;
+      if (data.display) $ditty.setAttribute("data-display", data.display);
+      if (data.live_updates === "1")
+        $ditty.setAttribute("data-live_updates", "1");
+      if (data.custom_id) $ditty.id = data.custom_id;
+      if (data.custom_classes)
+        $ditty.classList.add(...data.custom_classes.split(" "));
+      if (data.edit_links) $ditty.innerHTML = data.edit_links;
 
-        // Load the Dittys via ajax
-        if (ajax_load) {
-          var data = {
-            action: "ditty_init",
-            id: $ditty.data("id") ? $ditty.data("id") : false,
-            uniqid: $ditty.data("uniqid") ? $ditty.data("uniqid") : false,
-            display: $ditty.data("display") ? $ditty.data("display") : "",
-            display_settings: display_settings,
-            layout_settings: layout_settings,
-            editor: editor,
-            security: dittyVars.security,
+      switch (data.position) {
+        case "prepend":
+          selector.prepend($ditty);
+          break;
+        case "before":
+          selector.parentNode.insertBefore($ditty, selector);
+          break;
+        case "after":
+          selector.parentNode.insertBefore($ditty, selector.nextSibling);
+          break;
+        default:
+          selector.appendChild($ditty);
+          break;
+      }
+    });
+  }
+
+  function initItemSliders() {
+    const selector = ".ditty-gallery-slider";
+    document.querySelectorAll(selector).forEach((block) => {
+      const sliderEl = block.querySelector(".dittySlider__slider");
+
+      // final options passed to DittySlider
+      const sliderOptions = {
+        loop: true,
+        autoplay: true,
+        slides: {
+          perView: 1,
+          spacing: 0,
+        },
+        selector: ".ditty-gallery-item",
+      };
+
+      new DittySlider(sliderEl, sliderOptions);
+    });
+  }
+
+  function dittyInit() {
+    setupGlobalDitty();
+    initItemSliders();
+
+    document.querySelectorAll(".ditty").forEach(($ditty) => {
+      const id = $ditty.dataset.id;
+      const ajaxLoad = $ditty.dataset.ajax_load === "1";
+      const liveUpdates = $ditty.dataset.live_updates === "1";
+      const displaySettings = $ditty.dataset.display_settings || false;
+      const layoutSettings = $ditty.dataset.layout_settings || false;
+      const editor = $ditty.dataset.show_editor === "1";
+
+      if (ajaxLoad) {
+        const data = {
+          id,
+          uniqid: $ditty.dataset.uniqid || false,
+          display: $ditty.dataset.display || "",
+          display_settings: displaySettings,
+          layout_settings: layoutSettings,
+          editor,
+        };
+
+        fetch(`${dittyVars.restUrl}ditty/v1/init`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-WP-Nonce": dittyVars.restNonce,
+          },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((response) => {
+            if (
+              !response.display_type ||
+              typeof $ditty[`ditty_${response.display_type}`] !== "function"
+            ) {
+              console.log(
+                "Ditty Display type not loaded:",
+                response.display_type
+              );
+              return;
+            }
+
+            $ditty[`ditty_${response.display_type}`](response.args);
+
+            if (!editor && liveUpdates) {
+              liveIds[id] = {
+                timestamp: Math.floor(Date.now() / 1000),
+                layout_settings: layoutSettings,
+              };
+              startLiveUpdates();
+            }
+          });
+      } else {
+        if (!editor && liveUpdates) {
+          liveIds[id] = {
+            timestamp: Math.floor(Date.now() / 1000),
+            layout_settings: layoutSettings,
           };
-          $.post(
-            dittyVars.ajaxurl,
-            data,
-            function (response) {
-              // Make sure the display type exists
-              if (
-                !response.display_type ||
-                "function" !== typeof $ditty["ditty_" + response.display_type]
-              ) {
-                if (window.console) {
-                  console.log(
-                    "Ditty Display type not loaded:",
-                    response.display_type
-                  );
-                }
-                return false;
-              }
-
-              // Load the ditty
-              $ditty["ditty_" + response.display_type](response.args);
-
-              // Add to the liveIds
-              if (!editor && live_updates) {
-                liveIds[$ditty.data("id")] = {
-                  timestamp: Math.floor($.now() / 1000),
-                  layout_settings: layout_settings,
-                };
-                startLiveUpdates();
-              }
-            },
-            "json"
-          );
-        } else {
-          if (!editor && live_updates) {
-            liveIds[$ditty.data("id")] = {
-              timestamp: Math.floor($.now() / 1000),
-              layout_settings: layout_settings,
-            };
-            startLiveUpdates();
-          }
+          startLiveUpdates();
         }
-      });
-    }
-    dittyInit();
-  })();
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", dittyInit);
+})();
+
+/**
+ * Listen for bullet clicks
+ */
+document.addEventListener("click", function (e) {
+  // Check if the click happened on or inside a .ditty-item__media__link
+  const mediaLink = e.target.closest(".ditty-item__media__link");
+  if (!mediaLink) return;
+
+  // Check if the actual clicked target (or any of its parents) is a bullet
+  const clickedBullet = e.target.closest(".dittySlider__bullet");
+  if (clickedBullet && mediaLink.contains(clickedBullet)) {
+    e.preventDefault(); // Prevent following the link
+    e.stopPropagation(); // Optional: prevent other click handlers
+  }
 });

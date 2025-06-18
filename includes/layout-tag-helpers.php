@@ -154,8 +154,8 @@ function ditty_layout_tag_gallery( $media_data, $data, $atts ) {
 
     $args = [
       'id' => uniqid( 'ditty-gallery-slider-' ),
-      'selector' => '.ditty-gallery-item',
-      'class' => 'ditty-gallery-slider'
+      'class' => 'ditty-gallery-slider',
+      'bullets' => 1,
     ];
 
     $ditty_sliders[] = $args;
@@ -267,6 +267,7 @@ function ditty_layout_tag_video( $video_data, $data, $atts ) {
 		'width' 	          => '',
 		'height' 	          => '',
     'aspect_ratio'      => '',
+    'fit'               => '',
     'video_autoplay'    => 'yes',
     'video_controls'    => 'no',
     'video_loop'        => 'yes',
@@ -283,6 +284,9 @@ function ditty_layout_tag_video( $video_data, $data, $atts ) {
 	}
   if ( isset( $args['aspect_ratio'] ) && '' !=  $args['aspect_ratio'] ) {
 		$style .= 'aspect-ratio:' . $args['aspect_ratio'] . ';';
+	}
+  if ( isset( $args['fit'] ) && '' !=  $args['fit'] ) {
+		$style .= 'object-fit:' . $args['fit'] . ';';
 	}
 	$video_defaults = array(
 		'src' 		    => '',

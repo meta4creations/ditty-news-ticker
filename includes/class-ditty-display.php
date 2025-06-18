@@ -390,7 +390,11 @@ class Ditty_Display {
       'id' => $this->get_el_id(),
       'class' => "ditty ditty-{$this->get_display_type()} ditty-grid--{$this->get_id()} ditty-grid--{$this->get_uniq_id()}",
       'style' => $this->generate_css_vars( $display_settings ),
-      'data-display' => $this->get_display_id()
+      'data-id' => $this->get_id(),
+      'data-display' => $this->get_display_id(),
+      'data-ajax_load' => $this->get_ajax_loading(),
+      'data-live_updates' => $this->get_live_updates(),
+      'data-show_editor' => 0
     ];
     
     $html = '';

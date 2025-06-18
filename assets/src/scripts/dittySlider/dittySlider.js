@@ -44,6 +44,7 @@ class DittySlider {
     this.defaultSettings = {
       loop: true,
       selector: ".ditty-item",
+      autoplayTimeout: 5000,
       defaultAnimation: {
         duration: transitionSpeed,
         easing: easing[transitionEase],

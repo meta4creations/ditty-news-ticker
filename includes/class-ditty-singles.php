@@ -31,8 +31,6 @@ class Ditty_Singles {
 		// Ajax
 		add_action( 'wp_ajax_ditty_init', array( $this, 'init_ajax' ) );
 		add_action( 'wp_ajax_nopriv_ditty_init', array( $this, 'init_ajax' ) );
-		add_action( 'wp_ajax_ditty_live_updates', array( $this, 'live_updates_ajax' ) );
-		add_action( 'wp_ajax_nopriv_ditty_live_updates', array( $this, 'live_updates_ajax' ) );
 	}
 	
 	/**
@@ -314,31 +312,6 @@ class Ditty_Singles {
 		?>
 		$( 'div[data-uniqid="<?php echo esc_attr( $uniqid ); ?>"]' ).ditty_<?php echo esc_attr( $display_type ); ?>(<?php echo json_encode( $args ); ?>);
 		<?php
-	}
-	
-	/**
-	 * Return live updates
-	 *
-	 * @access public
-	 * @since  3.0.11
-	 */
-	public function live_updates_ajax() {
-		check_ajax_referer( 'ditty', 'security' );
-		$live_ids = isset( $_POST['live_ids'] ) ? $_POST['live_ids'] 	: false;
-		if ( ! $live_ids ) {
-			wp_die();
-		}
-		$updated_items = array();
-		if ( is_array( $live_ids ) && count( $live_ids ) > 0 ) {
-			foreach ( $live_ids as $ditty_id => $data ) {
-				$layout_settings = isset( $data['layout_settings'] ) ? $data['layout_settings'] : false;
-				$updated_items[$ditty_id] = $this->get_display_items( $ditty_id, 'cache', $layout_settings );
-			}
-		}
-		$data = array(
-			'updated_items' => $updated_items,
-		);	
-		wp_send_json( $data );
 	}
 
 	/**

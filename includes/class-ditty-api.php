@@ -29,7 +29,19 @@ class Ditty_API {
 	 * @since  3.1
 	 */
 	public function register_routes() {
-		register_rest_route( "dittyeditor/v{$this->version}", 'save', array(
+    /**
+     * Ditty
+     */
+		register_rest_route( "ditty/v{$this->version}", 'live-updates', array(
+      'methods' 	=> 'POST',
+      'callback' 	=> array( $this, 'live_updates' ),
+			'permission_callback' => array( $this, 'general_ditty_permissions_check' ),
+    ) );
+
+    /**
+     * Ditty Editor
+     */
+    register_rest_route( "dittyeditor/v{$this->version}", 'save', array(
       'methods' 	=> 'POST',
       'callback' 	=> array( $this, 'save_ditty' ),
 			'permission_callback' => array( $this, 'save_ditty_permissions_check' ),
@@ -178,6 +190,39 @@ class Ditty_API {
 			return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allow to edit Settings.', 'ditty-news-ticker' ), array( 'status' => 403 ) );
 		}
 		return true;
+	}
+
+  public function live_updates( $request ) {
+    $params = $request->get_params();
+    $live_ids = $params['live_ids'] ?? [];
+    $updated_items = [];
+		if ( is_array( $live_ids ) && count( $live_ids ) > 0 ) {
+			foreach ( $live_ids as $ditty_id => $data ) {
+				$layout_settings = isset( $data['layout_settings'] ) ? $data['layout_settings'] : false;
+				$updated_items[$ditty_id] = Ditty()->singles->get_display_items( $ditty_id, 'cache', $layout_settings );
+			}
+		}
+		$data = array(
+			'updated_items' => $updated_items,
+		);	
+
+    return rest_ensure_response( $data  );
+		// check_ajax_referer( 'ditty', 'security' );
+		// $live_ids = isset( $_POST['live_ids'] ) ? $_POST['live_ids'] 	: false;
+		// if ( ! $live_ids ) {
+		// 	wp_die();
+		// }
+		// $updated_items = array();
+		// if ( is_array( $live_ids ) && count( $live_ids ) > 0 ) {
+		// 	foreach ( $live_ids as $ditty_id => $data ) {
+		// 		$layout_settings = isset( $data['layout_settings'] ) ? $data['layout_settings'] : false;
+		// 		$updated_items[$ditty_id] = $this->get_display_items( $ditty_id, 'cache', $layout_settings );
+		// 	}
+		// }
+		// $data = array(
+		// 	'updated_items' => $updated_items,
+		// );	
+		// wp_send_json( $data );
 	}
 
 	/**

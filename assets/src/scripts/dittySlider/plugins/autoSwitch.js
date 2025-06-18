@@ -3,6 +3,9 @@ export default function autoSwitch(slider) {
   let timeout;
   let mouseOver = false;
 
+  // Access custom timeout from slider options
+  const delay = slider.options.autoplayTimeout || 2000;
+
   const clearNextTimeout = () => {
     clearTimeout(timeout);
   };
@@ -12,7 +15,7 @@ export default function autoSwitch(slider) {
     if (mouseOver) return;
     timeout = setTimeout(() => {
       slider.next();
-    }, 2000);
+    }, delay);
   };
 
   const onMouseOver = () => {
@@ -31,17 +34,12 @@ export default function autoSwitch(slider) {
     nextTimeout();
   };
 
-  const onDragStarted = clearNextTimeout;
-  const onAnimationEnded = nextTimeout;
-  const onUpdated = nextTimeout;
-
   slider.on("created", onCreated);
-  slider.on("dragStarted", onDragStarted);
-  slider.on("animationEnded", onAnimationEnded);
-  slider.on("updated", onUpdated);
+  slider.on("dragStarted", clearNextTimeout);
+  slider.on("animationEnded", nextTimeout);
+  slider.on("updated", nextTimeout);
 
   slider.on("destroyed", () => {
-    // Clean up manual listeners & timer
     clearNextTimeout();
     slider.container.removeEventListener("mouseover", onMouseOver);
     slider.container.removeEventListener("mouseout", onMouseOut);

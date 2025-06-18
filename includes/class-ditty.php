@@ -219,9 +219,6 @@ class Ditty {
 		// Add api files
 		require_once DITTY_DIR . 'includes/class-ditty-api.php';
 
-		// Add 3rd party files
-		//require_once DITTY_DIR . 'includes/libs/scssphp/scss.inc.php';
-
 		// The class responsible for orchestrating the actions and filters of the core plugin.
 		require_once DITTY_DIR . 'includes/class-ditty-loader.php';
 
