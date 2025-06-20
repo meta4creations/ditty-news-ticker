@@ -245,6 +245,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-item-type-posts-lite.php';
 		require_once DITTY_DIR . 'includes/class-ditty-settings.php';
     require_once DITTY_DIR . 'includes/class-ditty-shortcodes.php';
+    require_once DITTY_DIR . 'includes/class-ditty-slider.php';
 		require_once DITTY_DIR . 'includes/class-ditty-singles.php';
     require_once DITTY_DIR . 'includes/class-ditty-translations.php';
 

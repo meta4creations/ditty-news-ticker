@@ -372,8 +372,12 @@ class Ditty_Display {
 
       $args = $this->get_display_settings();
       $args['selector'] = '.ditty__page';
+      $args['loop'] = true;
+      $args['autoheight'] = true;
 
-      return ditty_slider( $slides, $args );
+      $ditty_slider = new Ditty_Slider( $slides, $args );
+      $ditty_slider->set_type( 'keen' );
+      return $ditty_slider->render();
     }
   }
 
