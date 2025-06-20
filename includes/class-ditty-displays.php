@@ -11,6 +11,8 @@
 */
 class Ditty_Displays {
 
+  private $display_types = [];
+
 	/**
 	 * Get things started
 	 * @access  public
@@ -28,13 +30,26 @@ class Ditty_Displays {
 		
 		add_action( 'wp_ajax_ditty_install_display', array( $this, 'install_display' ) );
 	}
-	
-	public function install_default( $display_type, $display_template = false, $display_version = false ) {	
-		// Keep function to not cause fatal errors from other plugins
-	}
-	public function install_display() {
-		// Keep function to not cause fatal errors from other plugins
-	}
+
+  /**
+   * Add a display type
+   */
+  public function add_display_type( $data ) {
+    if ( isset( $data['type'] ) ) {
+      $label = $data['label'] ?? '';
+      if ( ! isset( $data['class_name'] ) ) {
+        $data['class_name'] = 'Ditty_Display_Type_' . ditty_pascal_case( $label );
+      }
+      $this->display_types[$data['type']] = $data;
+    }
+  }
+
+  /**
+   * Return display types
+   */
+  public function get_display_types() {
+    return $this->display_types;
+  }
 
 	/**
 	 * Add to the admin body class
@@ -125,51 +140,6 @@ class Ditty_Displays {
 		?>
 		<div id="ditty-display-editor__wrapper" class="ditty-adminPage"></div>
 		<?php
-	}
-	
-	/**
-	 * Return an array of displays by type
-	 *
-	 * @access  public
-	 * @since   3.0
-	 * @param   array    $displays.
-	 */
-	public function get_displays_data() {	
-		$displays = array();
-		$display_types = ditty_display_types();
-		ksort( $display_types );
-		if ( is_array( $display_types ) && count( $display_types ) > 0 ) {
-			foreach ( $display_types as $type_slug => $display_type ) {
-				if ( ! $display_object = ditty_display_type_object( $type_slug ) ) {
-					continue;
-				}
-				$args = array(
-					'posts_per_page' => -1,
-					'orderby' 		=> 'post_title',
-					'order' 			=> 'ASC',
-					'post_type' 	=> 'ditty_display',
-					'meta_key'		=> '_ditty_display_type',
-					'meta_value' 	=> $type_slug,
-				);
-				$posts = get_posts( $args );
-				if ( is_array( $posts ) && count( $posts ) > 0 ) {
-					foreach ( $posts as $i => $post ) {
-						$version = get_post_meta( $post->ID, '_ditty_display_version', true );
-						$version_string = '';
-						if ( $version ) {
-							$version_string = " <small class='ditty-display-version'>(v{$version})</small>";
-						}
-						$displays[] = array(
-							'type_id' 			=> $type_slug,
-							'type_label' 		=> $display_type['label'],
-							'display_id' 		=> $post->ID,
-							'display_label' => $post->post_title.$version_string,
-						);
-					}
-				}
-			}
-		}	
-		return $displays;
 	}
 
 	/**

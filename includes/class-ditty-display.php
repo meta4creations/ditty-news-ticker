@@ -17,6 +17,7 @@ class Ditty_Display {
   private $display_type;
   private $display_type_object;
   private $display_settings = [];
+  private $display_setting_defaults = [];
   private $items = [];
   private $layout;
   private $uniqid;
@@ -132,10 +133,15 @@ class Ditty_Display {
       }
     }
 
+    $display_type_object = ditty_display_type_object( $display_type );
+    $display_setting_defaults = $display_type_object->default_settings();
+    $display_settings = wp_parse_args( $display_settings, $display_setting_defaults );
+    $display_settings = wp_parse_args( $custom_display_settings, $display_settings );
+
     $this->display = $display;
     $this->display_type = $display_type;
-    $this->display_settings = $this->maybe_add_units( wp_parse_args( $custom_display_settings, $display_settings ) );
-    $this->display_type_object = ditty_display_type_object( $display_type );
+    $this->display_settings = $this->maybe_add_units( $display_settings );
+    $this->display_type_object = $display_type_object;
   }
 
   /**
@@ -245,6 +251,7 @@ class Ditty_Display {
   }
 
   private function get_display_settings( $url_encoded = false ) {
+    
     return $url_encoded ? htmlspecialchars( json_encode( $this->display_settings ), ENT_QUOTES, 'UTF-8' ) : $this->display_settings;
   }
 
@@ -325,6 +332,54 @@ class Ditty_Display {
     return trim( $css_vars );
   }
 
+  /**
+   * Render a slider for the display
+   */
+  public function render_slider( $items ) {
+    $display_settings = $this->get_display_settings();
+    $paging = $display_settings['paging'] ?? 0;
+    $per_page = $display_settings['perPage'] ?? 10;
+    $slides = [];
+
+    if ( ! $paging ) {
+
+      $html = '';
+      $html .= '<div class="ditty__page ditty-' . $this->get_display_type() . '__page">';
+        $html .= '<div class="ditty__page__items ditty-' . $this->get_display_type() . '__page__items">';
+        foreach ( $items as $item ) {
+          $html .= $item;
+        }
+        $html .= '</div>';
+      $html .= '</div>';
+      return $html;
+
+    } else {
+      // Break items into pages
+      $chunks = array_chunk( $items, $per_page );
+
+      foreach ( $chunks as $chunk ) {
+        $html = '';
+        $html .= '<div class="ditty__page ditty-' . $this->get_display_type() . '__page">';
+          $html .= '<div class="ditty__page__items ditty-' . $this->get_display_type() . '__page__items">';
+          foreach ( $chunk as $item ) {
+            $html .= $item;
+          }
+          $html .= '</div>';
+        $html .= '</div>';
+
+        $slides[] = $html;
+      }
+
+      $args = $this->get_display_settings();
+      $args['selector'] = '.ditty__page';
+
+      return ditty_slider( $slides, $args );
+    }
+  }
+
+  /**
+   * Render the display
+   */
   public function render() {
 
     // Add the display scripts
@@ -386,6 +441,9 @@ class Ditty_Display {
     // Add custom styles for the display
     $this->get_display_type_object()->custom_display_styles( $this->get_uniq_id(), $display_settings );
 
+    // Pagination type... Make dynamic
+    $pagination_type = 'slider';
+
     $atts = [
       'id' => $this->get_el_id(),
       'class' => "ditty ditty-{$this->get_display_type()} ditty-grid--{$this->get_id()} ditty-grid--{$this->get_uniq_id()}",
@@ -400,17 +458,15 @@ class Ditty_Display {
     $html = '';
     if ( is_array( $items_html ) && ! empty( $items_html ) ) {
       $html .= '<div '. ditty_attr_to_html( $atts ) . '>'; 
-
         $html .= '<div class="ditty__contents ditty-' . $this->get_display_type() . '__contents">';
-          $html .= '<div class="ditty__page ditty-' . $this->get_display_type() . '__page">';
-            $html .= '<div class="ditty__page__items ditty-' . $this->get_display_type() . '__page__items">';
-              foreach ( $items_html as $item ) {
-                $html .= $item;
-              }
-            $html .= '</div>';
-          $html .= '</div>';
-        $html .= '</div>';
-        
+          
+          switch( $pagination_type ) {
+            case 'slider':
+              $html .= $this->render_slider( $items_html );
+              break;
+          }
+
+        $html .= '</div>';   
       $html .= '</div>';
     }
 

@@ -1,0 +1,64 @@
+{
+  "type": "list",
+  "label": "List",
+  "description": "Display items in a static list.",
+  "icon": "fas fa-list",
+  "version": "1.0.0",
+  "textdomain": "ditty-news-ticker",
+  "defaults": {
+    "spacing": "15",
+    "paging": "1",
+    "perPage": "10",
+    "autoplay": "0",
+    "transition": "fade",
+    "transitionEase": "easeInOutQuint",
+    "transitionSpeed": "1",
+    "heightEase": "easeInOutQuint",
+    "heightSpeed": "1",
+    "initTransition": "fade",
+    "initTransitionEase": "easeInOutQuint",
+    "initTransitionSpeed": "1",
+    "initHeightEase": "easeInOutQuint",
+    "initHeightSpeed": "1",
+    "arrows": "none",
+    "arrowsPosition": "center",
+    "arrowsIconColor": "#777",
+    "arrowsStatic": "1",
+    "arrowsPadding": {
+      "paddingTop": "",
+      "paddingBottom": "",
+      "paddingLeft": "",
+      "paddingRight": ""
+    },
+    "bullets": "style1",
+    "bulletsPosition": "bottomCenter",
+    "bulletsColor": "#777",
+    "bulletsColorActive": "#000",
+    "bulletsSpacing": "5px",
+    "bulletsPadding": {
+      "paddingTop": "",
+      "paddingBottom": "",
+      "paddingLeft": "",
+      "paddingRight": ""
+    },
+    "borderStyle": "none",
+    "contentsBorderStyle": "none",
+    "pageBorderStyle": "none",
+    "itemBorderStyle": "none",
+    "titleDisplay": "none",
+    "titleContentsSize": "stretch",
+    "titleContentsPosition": "start",
+    "titleElement": "h3",
+    "titleElementPosition": "start",
+    "titleElementVerticalPosition": "start"
+  },
+  "editorScript": [
+    "file:./editor.js"
+  ],
+  "displayScript": [
+    "file:./display.js"
+  ],
+  "displayStyle": [
+    "file:./display.css"
+  ]
+}

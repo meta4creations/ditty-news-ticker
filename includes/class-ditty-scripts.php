@@ -167,7 +167,7 @@ class Ditty_Scripts {
     wp_register_style( 'dittySlider', DITTY_URL . 'assets/build/dittySlider.css', [], $this->version );
 		
 		// Enqueue display styles
-		$this->load_external_styles( 'display', [], 'register' );
+		$display_slugs = $this->load_external_styles( 'display', [], 'register' );
 		
 		wp_register_style(
 			'ditty-editor-init',
@@ -210,7 +210,7 @@ class Ditty_Scripts {
 			wp_enqueue_style(
 				'ditty-editor',
 				DITTY_URL . 'assets/build/dittyEditor.css',
-				['ditty-editor-init', 'wp-components', 'wp-codemirror', 'dittyDisplays'],
+				array_merge( ['ditty-editor-init', 'wp-components', 'wp-codemirror', 'dittyDisplays'], $display_slugs ),
 				$this->version,
 				'all'
 			);

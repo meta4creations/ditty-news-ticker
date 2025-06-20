@@ -179,37 +179,10 @@ function ditty_item_type_object( $type ) {
 /**
  * Return an array of ditty displays
  * 
- * @since   3.1
+ * @since   3.2
  */
 function ditty_display_types() {
-	$display_types = array();	
-	$display_types['ticker'] = array(
-		'label' 			=> __( 'Ticker', 'ditty-news-ticker' ),
-		'icon' 				=> 'fas fa-ellipsis-h',
-		'description' => __( 'Basic news ticker display.', 'ditty-news-ticker' ),
-		'class_name'	=> 'Ditty_Display_Type_Ticker',
-	);
-	$display_types['list'] = array(
-		'label' 			=> __( 'List', 'ditty-news-ticker' ),
-		'icon' 				=> 'fas fa-list',
-		'description' => __( 'Display items in a static list.', 'ditty-news-ticker' ),
-		'class_name'	=> 'Ditty_Display_Type_List',
-	);
-  $display_types['slider'] = array(
-		'label' 			=> __( 'Slider', 'ditty-news-ticker' ),
-		'icon' 				=> 'fa-arrows-left-right',
-		'description' => __( 'Display items in a slider.', 'ditty-news-ticker' ),
-		'class_name'	=> 'Ditty_Display_Type_Slider',
-	);
-
-	$display_types = apply_filters( 'ditty_display_types', $display_types );
-	if ( is_array( $display_types ) && count( $display_types ) > 0 ) {
-		foreach ( $display_types as $slug => &$display_type ) {
-			if ( ! isset( $display_type['type'] ) ) {
-				$display_type['type'] = $slug;
-			}
-		}
-	}
+	$display_types = Ditty()->displays->get_display_types();	
 	return apply_filters( 'ditty_display_types', $display_types );
 }
 
@@ -1535,6 +1508,19 @@ function is_ditty_dev() {
 }
 
 /**
+ * Turn a string into pascal case
+ */
+function ditty_pascal_case( $string ) {
+  // Replace dashes and underscores with spaces
+  $string = str_replace( [ '-', '_' ], ' ', $string );
+
+  // Capitalize all words and remove spaces
+  $string = str_replace( ' ', '', ucwords( strtolower( $string ) ) );
+
+  return $string;
+}
+
+/**
  * Render a slider
  */
 function ditty_slider( $items, $atts = [],  ) {
@@ -1616,6 +1602,7 @@ function ditty_slider( $items, $atts = [],  ) {
   $slider_atts = ditty_attr_to_html( [
     'class'                   => $class,
     'style'                   => $styles_string,
+    'data-selector'           => $args['selector'],
     'data-initial'            => $args['initialSlide'] ?? 0,
     'data-autoheight'         => ! empty( $args['autoheight'] ) ? 'true' : 'false',
     'data-loop'               => ! empty( $args['loop'] ) ? 'true' : 'false',
@@ -1679,4 +1666,113 @@ function ditty_slider( $items, $atts = [],  ) {
   $html .= '</div>';
 
   return $html;
+}
+
+/**
+ * Register a display type
+ */
+function ditty_register_display_type( $dir ) {
+  if ( ! is_dir( $dir ) ) {
+    return;
+  }
+
+  $json_file = trailingslashit( $dir ) . 'display.json';
+  if ( ! file_exists( $json_file ) ) {
+    return;
+  }
+
+  $config = json_decode( file_get_contents( $json_file ), true );
+  if ( ! is_array( $config ) || empty( $config['type'] ) ) {
+    return;
+  }
+
+  $type = $config['type'];
+  $slug = sanitize_title( $type );
+  $url  = str_replace( trailingslashit( WP_CONTENT_DIR ), trailingslashit( WP_CONTENT_URL ), trailingslashit( $dir ) );
+
+  // Load PHP class file
+  $php_file = trailingslashit( $dir ) . 'index.php';
+  if ( file_exists( $php_file ) ) {
+    require_once $php_file;
+  }
+
+  // Add the display type
+  Ditty()->displays->add_display_type( [
+    'type' => $type,
+    'label' => $config['label'] ?? '',
+    'icon' => $config['icon'] ?? '',
+    'description' => $config['description'] ?? '',
+    'version' => $config['version'] ?? '',
+  ] );
+
+  // Utility function for resolving and registering styles
+  $register_style = function( $handle_prefix, $styles, $context ) use ( $dir, $url ) {
+    foreach ( (array) $styles as $style ) {
+      $path = str_replace( 'file:./', '', $style );
+      $full_path = trailingslashit( $dir ) . $path;
+      if ( file_exists( $full_path ) ) {
+        $handle = "ditty-{$context}-{$handle_prefix}";
+        ditty_register_style( $context, [
+          $handle,
+          trailingslashit( $url ) . $path,
+          $full_path,
+          [],
+          filemtime( $full_path ),
+        ] );
+      }
+    }
+  };
+
+  // Utility function for resolving and registering scripts
+  $register_script = function( $handle_prefix, $scripts, $context ) use ( $dir, $url ) {
+    foreach ( (array) $scripts as $script ) {
+      $path = str_replace( 'file:./', '', $script );
+      $full_path = trailingslashit( $dir ) . $path;
+      if ( file_exists( $full_path ) ) {
+        $handle = "ditty-{$context}-{$handle_prefix}";
+        ditty_register_script( $context, [
+          $handle,
+          trailingslashit( $url ) . $path,
+          $full_path,
+          [ 'jquery', 'ditty-slider', 'ditty-helpers' ], // default deps
+          filemtime( $full_path ),
+        ] );
+      }
+    }
+  };
+
+  // Register scripts
+  if ( function_exists( 'ditty_register_script' ) ) {
+    if ( isset( $config['script'] ) ) {
+      $register_script( $slug, $config['script'], 'display' );
+      $register_script( $slug, $config['script'], 'editor' );
+    }
+
+    if ( isset( $config['editorScript'] ) ) {
+      $register_script( $slug, $config['editorScript'], 'editor' );
+    }
+
+    if ( isset( $config['displayScript'] ) ) {
+      $register_script( $slug, $config['displayScript'], 'display' );
+    }
+  }
+
+  // Register styles
+  if ( function_exists( 'ditty_register_style' ) ) {
+    if ( isset( $config['style'] ) ) {
+      $register_style( $slug, $config['style'], 'display' );
+      $register_style( $slug, $config['style'], 'editor' );
+    }
+
+    if ( isset( $config['editorStyle'] ) ) {
+      $register_style( $slug, $config['editorStyle'], 'editor' );
+    }
+
+    if ( isset( $config['displayStyle'] ) ) {
+      $register_style( $slug, $config['displayStyle'], 'display' );
+    }
+  }
+
+  // Register config globally if needed
+  $GLOBALS['ditty_registered_displays'][ $slug ] = $config;
 }
