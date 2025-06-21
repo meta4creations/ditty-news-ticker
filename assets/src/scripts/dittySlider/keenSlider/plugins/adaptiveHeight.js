@@ -1,6 +1,8 @@
 export default function adaptiveHeight(slider) {
   const container = slider.container;
-  const slides = Array.from(container.querySelectorAll(".ditty-item"));
+  const slides = Array.from(
+    container.querySelectorAll(slider.options.selector)
+  );
 
   function updateHeight() {
     const details = slider.track?.details;
@@ -11,12 +13,6 @@ export default function adaptiveHeight(slider) {
       container.style.height = `${slide.offsetHeight}px`;
     }
   }
-
-  // On create, measure & un-hide
-  slider.on("created", () => {
-    updateHeight();
-    slides.slice(1).forEach((slide) => (slide.style.display = ""));
-  });
 
   // On every slide change
   slider.on("slideChanged", updateHeight);

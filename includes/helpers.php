@@ -1521,6 +1521,13 @@ function ditty_pascal_case( $string ) {
 }
 
 /**
+ * Convert camelCase to kebab-case
+ */
+function ditty_camel_to_kebab_case( $string ) {
+  return strtolower( preg_replace( '/([a-z])([A-Z])/', '$1-$2', $string ) );
+}
+
+/**
  * Register a display type
  */
 function ditty_register_display_type( $dir ) {

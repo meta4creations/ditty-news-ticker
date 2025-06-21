@@ -22,7 +22,6 @@
     "initHeightSpeed": "1",
     "arrows": "none",
     "arrowsPosition": "center",
-    "arrowsIconColor": "#777",
     "arrowsStatic": "1",
     "arrowsPadding": {
       "paddingTop": "",
@@ -32,8 +31,6 @@
     },
     "bullets": "style1",
     "bulletsPosition": "bottomCenter",
-    "bulletsColor": "#777",
-    "bulletsColorActive": "#000",
     "bulletsSpacing": "5px",
     "bulletsPadding": {
       "paddingTop": "",

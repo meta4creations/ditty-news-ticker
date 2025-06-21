@@ -1,1 +1,1 @@
-<?php return array('dependencies' => array('react-jsx-runtime'), 'version' => '9c9bd4551f81d3ac27b6');
+<?php return array('dependencies' => array('react-jsx-runtime'), 'version' => '53296e9e47476525840a');

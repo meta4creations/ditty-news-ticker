@@ -137,6 +137,7 @@ class Ditty_Display {
     $display_setting_defaults = $display_type_object->default_settings();
     $display_settings = wp_parse_args( $display_settings, $display_setting_defaults );
     $display_settings = wp_parse_args( $custom_display_settings, $display_settings );
+    $display_settings = $this->maybe_update_keys( $display_settings );
 
     $this->display = $display;
     $this->display_type = $display_type;
@@ -251,10 +252,37 @@ class Ditty_Display {
   }
 
   private function get_display_settings( $url_encoded = false ) {
-    
     return $url_encoded ? htmlspecialchars( json_encode( $this->display_settings ), ENT_QUOTES, 'UTF-8' ) : $this->display_settings;
   }
 
+  /**
+   * Ensure units are added to settings that need them
+   */
+  private function maybe_update_keys( $settings ) {
+    $keys_to_update = [
+      'arrowsIconColor'     => 'arrowIconColor',
+      'arrowsBgColor'       => 'arrowBgColor',
+      'bulletsColor'        => 'bulletColor',
+      'bulletsColorActive'  => 'bulletActiveColor',
+    ];
+
+    $updated_settings = [];
+    if ( is_array( $settings ) && ! empty( $settings ) ) {
+      foreach ( $settings as $key => $value  ) {
+        if ( array_key_exists( $key, $keys_to_update ) ) {
+          $updated_settings[$keys_to_update[$key]] = $value;
+        } else {
+          $updated_settings[$key] = $value;
+        }
+      }
+    }
+
+    return $updated_settings;
+  }
+
+  /**
+   * Ensure units are added to settings that need them
+   */
   private function maybe_add_units( $settings ) {
     $unit_default = 'px';
 
@@ -265,6 +293,7 @@ class Ditty_Display {
         'maxWidth',
         'spacing',
       ],
+      'bulletsSpacing',
     ];
 
     // Top-level keys
@@ -374,6 +403,8 @@ class Ditty_Display {
       $args['selector'] = '.ditty__page';
       $args['loop'] = true;
       $args['autoheight'] = true;
+
+      echo '<pre>';print_r($args);echo '</pre>';
 
       $ditty_slider = new Ditty_Slider( $slides, $args );
       $ditty_slider->set_type( 'keen' );

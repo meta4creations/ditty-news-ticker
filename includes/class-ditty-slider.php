@@ -67,17 +67,27 @@ class Ditty_Slider {
       'slidesSpacing'     => 0,
       // Arrows
       'arrows'              => 0,
+      'arrowsPosition'      => false,
+      'arrowsStatic'        => 0,
       'arrowPrevIcon'       => false,
       'arrowNextIcon'       => false,
       'arrowsPadding'       => [],
       'arrowBorderRadius'   => 0,
-      'arrowIconWidth'      => '30px',
+      'arrowWidth'          => false,
+      'arrowHeight'         => false,
+      'arrowIconWidth'      => false,
       'arrowIconColor'      => false,
       'arrowIconHoverColor' => false,
       'arrowBgColor'        => false,
       'arrowBgHoverColor'   => false,
       // Bullets
-      'bullets'           => 0,
+      'bullets'             => 0,
+      'bulletsPosition'      => false,
+      'bulletsSpacing'      => false,
+      'bulletsPadding'      => [],
+      'bulletColor'         => false,
+      'bulletHoverColor'    => false,
+      'bulletActiveColor'   => false,
       // Breakpoints
       'data-breakpoints'  => [],
     ];
@@ -236,23 +246,30 @@ class Ditty_Slider {
     if ( '' != $settings['class'] ) {
       $class .= ' ' . $settings['class'];
     }
+    if ( $settings['arrowsStatic'] ) {
+      $class .= ' arrows-static';
+    }
 
     $arrows_padding = $settings['arrowsPadding'] ?? [];
 
     // Set the styles
     $styles = [
-      '--ditty-slider--arrowsPadding-top' => $arrows_padding['top'] ?? 0,
-      '--ditty-slider--arrowsPadding-right' => $arrows_padding['right'] ?? 0,
-      '--ditty-slider--arrowsPadding-bottom' => $arrows_padding['bottom'] ?? 0,
-      '--ditty-slider--arrowsPadding-left' => $arrows_padding['left'] ?? 0,
-      //'--ditty-slider--arrowWidth' => isset( $attributes['arrowWidth'] ) ? "{$attributes['arrowWidth']}px" : '50px',
-      //'--ditty-slider--arrowHeight' => isset( $attributes['arrowHeight'] ) ? "{$attributes['arrowHeight']}px" : '50px',
+      '--ditty-slider--arrowsPosition' => $settings['arrowsPosition'] ? ditty_camel_to_kebab_case( $settings['arrowsPosition'] ) : false,
+      '--ditty-slider--arrowsPadding-top' => $arrows_padding['paddingTop'] ?? 0,
+      '--ditty-slider--arrowsPadding-right' => $arrows_padding['paddingRight'] ?? 0,
+      '--ditty-slider--arrowsPadding-bottom' => $arrows_padding['paddingBottom'] ?? 0,
+      '--ditty-slider--arrowsPadding-left' => $arrows_padding['paddingLeft'] ?? 0,
       '--ditty-slider--arrowBorderRadius' => $settings['arrowBorderRadius'] ?? false,
-      '--ditty-slider--arrowIconWidth' => isset( $settings['arrowIconWidth'] ) ? "{$settings['arrowIconWidth']}px" : '30px',
+      '--ditty-slider--arrowWidth' => $settings['arrowWidth'] ? "{$settings['arrowWidth']}px" : false,
+      '--ditty-slider--arrowHeight' => $settings['arrowHeight'] ? "{$settings['arrowHeight']}px" : false,
+      '--ditty-slider--arrowIconWidth' => $settings['arrowIconWidth'] ? "{$settings['arrowIconWidth']}px" : false,
       '--ditty-slider--arrowIconColor' => $settings['arrowIconColor'] ?? false,
       '--ditty-slider--arrowIconHoverColor' => $settings['arrowIconHoverColor'] ?? false,
       '--ditty-slider--arrowBgColor' => $settings['arrowBgColor'] ?? false,
       '--ditty-slider--arrowBgHoverColor' => $settings['arrowBgHoverColor'] ?? false,
+      '--ditty-slider--bulletColor' => $settings['bulletColor'] ?? false,
+      '--ditty-slider--bulletHoverColor' => $settings['bulletHoverColor'] ?? false,
+      '--ditty-slider--bulletActiveColor' => $settings['bulletActiveColor'] ?? false,
     ];
     $styles_string = '';
     if ( is_array( $styles ) && count($styles ) > 0 ) {
