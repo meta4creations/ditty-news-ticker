@@ -82,7 +82,7 @@ class Ditty_Slider {
       'arrowBgHoverColor'   => false,
       // Bullets
       'bullets'             => 0,
-      'bulletsPosition'      => false,
+      'bulletsPosition'     => false,
       'bulletsSpacing'      => false,
       'bulletsPadding'      => [],
       'bulletColor'         => false,
