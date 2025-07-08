@@ -187,6 +187,10 @@ class Ditty_API {
 	 * @since  3.1
 	 */
 	public function save_ditty( $request ) {
+    if ( ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
+      return new WP_Error( 'no_nonce', __( 'Invalid nonce', 'ditty-news-ticker' ), array( 'status' => 403 ) );
+    }
+
 		$params = $request->get_params();
 		if ( ! isset( $params['apiData'] ) ) {
 			return new WP_Error( 'no_api_data', __( 'Ditty Error: No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
@@ -205,6 +209,10 @@ class Ditty_API {
 	 * @since  3.1
 	 */
 	public function save_display( $request ) {
+    if ( ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
+      return new WP_Error( 'no_nonce', __( 'Invalid nonce', 'ditty-news-ticker' ), array( 'status' => 403 ) );
+    }
+
 		$params = $request->get_params();
 		if ( ! isset( $params['apiData'] ) ) {
 			return new WP_Error( 'no_api_data', __( 'Display Error: No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
@@ -223,6 +231,10 @@ class Ditty_API {
 	 * @since  3.1
 	 */
 	public function save_layout( $request ) {
+    if ( ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
+      return new WP_Error( 'no_nonce', __( 'Invalid nonce', 'ditty-news-ticker' ), array( 'status' => 403 ) );
+    }
+
 		$params = $request->get_params();
 		if ( ! isset( $params['apiData'] ) ) {
 			return new WP_Error( 'no_api_data', __( 'Layout Error: No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
@@ -241,6 +253,10 @@ class Ditty_API {
 	 * @since  3.1
 	 */
 	public function save_settings( $request ) {
+    if ( ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
+      return new WP_Error( 'no_nonce', __( 'Invalid nonce', 'ditty-news-ticker' ), array( 'status' => 403 ) );
+    }
+
 		$params = $request->get_params();
 		if ( ! isset( $params['apiData'] ) ) {
 			return new WP_Error( 'no_api_data', __( 'Settings Error: No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
@@ -279,6 +295,10 @@ class Ditty_API {
 	 * @since  3.1.7
 	 */
 	public function get_display_items( $request ) {
+    if ( ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
+      return new WP_Error( 'no_nonce', __( 'Invalid nonce', 'ditty-news-ticker' ), array( 'status' => 403 ) );
+    }
+
 		$params = $request->get_params();
 		if ( ! isset( $params['apiData'] ) ) {
 			return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
@@ -340,6 +360,10 @@ class Ditty_API {
 	 * @since  3.1
 	 */
 	public function php_item_mods( $request ) {
+    if ( ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
+      return new WP_Error( 'no_nonce', __( 'Invalid nonce', 'ditty-news-ticker' ), array( 'status' => 403 ) );
+    }
+
 		$params = $request->get_params();
 		if ( ! isset( $params['apiData'] ) ) {
 			return new WP_Error( 'no_data', sprintf(__( '%s: No api data', 'ditty-news-ticker' ), 'php_item_mods'), array( 'status' => 404 ) );
@@ -371,6 +395,10 @@ class Ditty_API {
 	 * @since  3.1.25
 	 */
 	public function refresh_translations( $request ) {
+    if ( ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
+      return new WP_Error( 'no_nonce', __( 'Invalid nonce', 'ditty-news-ticker' ), array( 'status' => 403 ) );
+    }
+
 		$params = $request->get_params();
 		if ( ! isset( $params['apiData'] ) ) {
 			return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
@@ -400,6 +428,10 @@ class Ditty_API {
 	 * @since  3.1.43
 	 */
 	public function dynamic_layout_tags( $request ) {
+    if ( ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
+      return new WP_Error( 'no_nonce', __( 'Invalid nonce', 'ditty-news-ticker' ), array( 'status' => 403 ) );
+    }
+    
 		$params = $request->get_params();
 		if ( ! isset( $params['apiData'] ) ) {
 			return new WP_Error( 'no_id', __( 'No api data', 'ditty-news-ticker' ), array( 'status' => 404 ) );
