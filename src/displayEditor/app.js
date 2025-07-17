@@ -69,7 +69,7 @@ export default () => {
       const top = wrapper.getBoundingClientRect().top;
       const h = windowH - top;
       wrapper.style.height = `${h}px`;
-      adminMenu.style.height = `${h}px`;
+      //adminMenu.style.height = `${h}px`;
     };
     resizeHandler();
     window.addEventListener("resize", resizeHandler);
