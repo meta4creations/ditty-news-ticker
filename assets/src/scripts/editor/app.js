@@ -20,8 +20,6 @@ export default () => {
   const [showSpinner, setShowSpinner] = useState(false);
   const updates = helpers.dittyUpdates();
   const hasUpdates = Object.keys(updates).length !== 0;
-  const wrapper = document.getElementById("ditty-editor__wrapper");
-  const adminMenu = document.getElementById("adminmenuwrap");
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
@@ -35,19 +33,8 @@ export default () => {
     };
     window.addEventListener("beforeunload", handleBeforeUnload);
 
-    const resizeHandler = () => {
-      const windowH = window.innerHeight;
-      const top = wrapper.getBoundingClientRect().top;
-      const h = windowH - top;
-      wrapper.style.height = `${h}px`;
-      adminMenu.style.height = `${h}px`;
-    };
-    resizeHandler();
-    window.addEventListener("resize", resizeHandler);
-
     // Clean up the event listener when the component is unmounted
     return () => {
-      window.removeEventListener("resize", resizeHandler);
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [hasUpdates]);

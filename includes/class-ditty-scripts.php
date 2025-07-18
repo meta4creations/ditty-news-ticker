@@ -173,7 +173,7 @@ class Ditty_Scripts {
 			'ditty-editor-init',
 			DITTY_URL . 'assets/build/dittyEditorInit.css',
 			[],
-			$this->version,
+			filemtime( DITTY_DIR . 'assets/build/dittyEditorInit.css' ),
 			'all'
 		);
 
@@ -182,7 +182,7 @@ class Ditty_Scripts {
 				'ditty-admin',
 				DITTY_URL . 'assets/build/dittyAdmin.css',
 				[],
-				$this->version,
+				filemtime( DITTY_DIR . 'assets/build/dittyAdmin.css' ),
 				'all'
 			);
 		}
@@ -191,7 +191,7 @@ class Ditty_Scripts {
 				'ditty-admin-old',
 				DITTY_URL . 'assets/build/dittyAdminOld.css',
 				['protip'],
-				$this->version,
+				filemtime( DITTY_DIR . 'assets/build/dittyAdminOld.css' ),
 				'all'
 			);
 		}
@@ -200,7 +200,7 @@ class Ditty_Scripts {
 				'ditty-settings',
 				DITTY_URL . 'assets/build/dittySettings.css',
 				['ditty-editor-init'],
-				$this->version,
+				filemtime( DITTY_DIR . 'assets/build/dittySettings.css' ),
 				'all'
 			);
 		}
@@ -211,7 +211,7 @@ class Ditty_Scripts {
 				'ditty-editor',
 				DITTY_URL . 'assets/build/dittyEditor.css',
 				array_merge( ['ditty-editor-init', 'wp-components', 'wp-codemirror', 'dittyDisplays'], $display_slugs ),
-				$this->version,
+				filemtime( DITTY_DIR . 'assets/build/dittyEditor.css' ),
 				'all'
 			);
 		}
