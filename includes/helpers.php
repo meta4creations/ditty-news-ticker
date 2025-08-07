@@ -1576,23 +1576,69 @@ function ditty_sanitize_settings( $values, $filter = false ) {
 }
 
 /**
- * Sanitize settings
+ * Make sure an image url is safe
+ */
+function ditty_is_safe_image_url( $url ) {
+	$parsed = wp_parse_url( $url );
+	if ( empty( $parsed['host'] ) ) {
+		return false;
+	}
+
+	$host = $parsed['host'];
+
+	// Block loopback and private network IPs
+	if ( in_array( $host, [ '127.0.0.1', 'localhost', '::1' ], true ) ) {
+		return false;
+	}
+
+	// Block private IPs
+	if ( filter_var( $host, FILTER_VALIDATE_IP ) ) {
+		if (
+			filter_var( $host, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE ) === false
+		) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+
+/**
+ * Get image dimesions
  * *
  * @since   3.1.18
  */
 function ditty_get_image_dimensions( $image_url ) {
-	$response = wp_remote_get($image_url);
-	$image_data = wp_remote_retrieve_body($response);
+	if ( ! ditty_is_safe_image_url( $image_url ) ) {
+		return false;
+	}
+
+	$response = wp_safe_remote_get( $image_url, [ 'timeout' => 5 ] );
+
+	if ( is_wp_error( $response ) ) {
+		return false;
+	}
+
+	$image_data = wp_remote_retrieve_body( $response );
+	if ( empty( $image_data ) ) {
+		return false;
+	}
+
 	$temp_image = tmpfile();
-	fwrite($temp_image, $image_data);
-	$temp_image_path = stream_get_meta_data($temp_image)['uri'];
-	if ( $image_info = @getimagesize($temp_image_path) ) {
-    return [
-      'width' => $image_info[0],
-      'height' => $image_info[1],
-    ];
-  }	
+	fwrite( $temp_image, $image_data );
+	$temp_image_path = stream_get_meta_data( $temp_image )['uri'];
+
+	if ( $image_info = @getimagesize( $temp_image_path ) ) {
+		return [
+			'width'  => $image_info[0],
+			'height' => $image_info[1],
+		];
+	}
+
+	return false;
 }
+
 
 /**
  * Redirect Ditty post type edit screens

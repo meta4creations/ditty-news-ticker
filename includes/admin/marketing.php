@@ -11,7 +11,7 @@ function ditty_api_marketing() {
 		$transient_name = "ditty_api_marketing";
 		$ditty_api_marketing = get_transient( $transient_name );
 		if ( ! $ditty_api_marketing ) {
-			$response = wp_remote_get( 'https://www.metaphorcreations.com/wp-json/dittysales/v1/marketing' );
+			$response = wp_safe_remote_get( 'https://www.metaphorcreations.com/wp-json/dittysales/v1/marketing' );
 			if ( is_wp_error( $response ) ) {
 				$ditty_api_marketing = [];
 			} else {
