@@ -135,6 +135,10 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 * File re-organization and cleanup
 * Package updates
 
+= 3.1.58 [2025-08-14] =
+* Security updates
+* Editor admin updates
+
 = 3.1.57 [2025-07-17] =
 * Security updates
 * Editor admin updates
