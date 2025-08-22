@@ -226,9 +226,6 @@ function ditty_dashboard_custom_menu_classes() {
 }
 add_action( 'admin_menu', 'ditty_dashboard_custom_menu_classes', 99 );
 
-
-
-
 // add_filter('use_block_editor_for_post_type', 'prefix_disable_gutenberg', 10, 2);
 // function prefix_disable_gutenberg($current_status, $post_type)
 // {
@@ -236,22 +233,6 @@ add_action( 'admin_menu', 'ditty_dashboard_custom_menu_classes', 99 );
 // 		if ($post_type === 'ditty_display') return false;
 // 		return $current_status;
 // }
-
-function ditty_shortcode_test_display( $atts, $content = '' ) {
-	$defaults = [
-		'test' => 'test'
-	];
-	$args = shortcode_atts( $defaults, $atts );
-
-	$html = '';
-	$html .= "<p>This is a shortcode test, using the 'test' attribute: <strong>{$args['test']}</strong>.</p>";
-	$html .= $content;
-
-	return $html;
-}
-add_shortcode( 'ditty_shortcode_test', 'ditty_shortcode_test_display' );
-
-
 
 /**
  * Maybe use php display method
