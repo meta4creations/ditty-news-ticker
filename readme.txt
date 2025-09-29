@@ -111,6 +111,10 @@ The most common cause for an unresponsive Ditty (when using scroll or rotate mod
 
 [**View full help documentation.**](http://www.dittynewsticker.com/documentation/)
 
+= Where do I report security bugs found in this plugin? =
+
+Please report security bugs found in the source code of the Ditty plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/0a349553-0d5d-4119-959f-fb572c7d4133). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+
 == Screenshots ==
 
 1. Ditty post settings
