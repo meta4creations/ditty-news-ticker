@@ -11,7 +11,7 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Requires at least: 6.2
  * Requires PHP:      7.4
- * Tested up to:      6.8.2
+ * Tested up to:      6.8.3
  * Text Domain:       ditty-news-ticker
  * Domain Path:       /languages
  */
