@@ -367,7 +367,7 @@ class Ditty {
 		}
 		ditty_register_style( 'display', [
 				'ditty-displays',
-				DITTY_URL . 'build/dittyDisplays.css',
+				DITTY_URL . 'assets/build/dittyDisplays.css',
 				DITTY_DIR . 'build/dittyDisplays.css',
 				[],
 				$this->version
@@ -387,7 +387,7 @@ class Ditty {
 		}
 		ditty_register_script( 'display', [
 				'ditty-display-ticker',
-				DITTY_URL . 'build/dittyDisplayTicker.js',
+				DITTY_URL . 'assets/build/dittyDisplayTicker.js',
 				DITTY_DIR . 'build/dittyDisplayTicker.js',
 				[ 'jquery', 'ditty-helpers' ],
 				$this->version
@@ -395,7 +395,7 @@ class Ditty {
 		);
 		ditty_register_script( 'display', [
 				'ditty-display-list',
-				DITTY_URL . 'build/dittyDisplayList.js',
+				DITTY_URL . 'assets/build/dittyDisplayList.js',
 				DITTY_DIR . 'build/dittyDisplayList.js',
 				array( 'jquery', 'ditty-slider', 'ditty-helpers' ),
 				$this->version
@@ -403,7 +403,7 @@ class Ditty {
 		);
 		ditty_register_script( 'editor', [
 				'dittyScripts',
-				DITTY_URL . 'build/dittyScripts.js',
+				DITTY_URL . 'assets/build/dittyScripts.js',
 				DITTY_DIR . 'build/dittyScripts.js',
 				[],
 				$this->version,

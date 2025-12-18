@@ -1,0 +1,53 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "metaphorcreations/ditty",
+  "version": "1.0.0",
+  "title": "Ditty",
+  "description": "Display your Ditty within the content of the post.",
+  "category": "widgets",
+  "icon": "smiley",
+  "keywords": [
+    "ticker",
+    "list",
+    "slider",
+    "display",
+    "content"
+  ],
+  "textdomain": "ditty",
+  "attributes": {
+    "ditty": {
+      "type": "integer"
+    },
+    "display": {
+      "type": "integer"
+    },
+    "layout": {
+      "type": "integer"
+    },
+    "displaySettings": {
+      "type": "string",
+      "default": "{}"
+    },
+    "customID": {
+      "type": "string"
+    },
+    "customClasses": {
+      "type": "string"
+    },
+    "anchor": {
+      "type": "string"
+    },
+    "className": {
+      "type": "string"
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "customClassName": true
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "render": "file:./render.php"
+}

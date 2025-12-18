@@ -350,7 +350,7 @@ class Ditty_Scripts {
 	 */
 	public function enqueue_styles( $hook ) {
 
-		//wp_enqueue_style( 'ditty-init', DITTY_URL . 'build/ditty.css', false, $this->version, false );	
+		//wp_enqueue_style( 'ditty-init', DITTY_URL . 'assets/build/ditty.css', false, $this->version, false );	
 		
 		// Enqueue display styles
 		if ( $this->cache_enabled ) {
@@ -370,36 +370,36 @@ class Ditty_Scripts {
 		
 		wp_register_style(
 			'ditty-editor-init',
-			DITTY_URL . 'build/dittyEditorInit.css',
+			DITTY_URL . 'assets/build/dittyEditorInit.css',
 			[],
-			filemtime( DITTY_DIR . 'build/dittyEditorInit.css' ),
+			filemtime( DITTY_DIR . 'assets/build/dittyEditorInit.css' ),
 			'all'
 		);
 
 		if ( is_admin() ) {
 			wp_enqueue_style(
 				'ditty-admin',
-				DITTY_URL . 'build/dittyAdmin.css',
+				DITTY_URL . 'assets/build/dittyAdmin.css',
 				[],
-				filemtime( DITTY_DIR . 'build/dittyAdmin.css' ),
+				filemtime( DITTY_DIR . 'assets/build/dittyAdmin.css' ),
 				'all'
 			);
 		}
 		if ( 'ditty_page_ditty_extensions' == $hook || 'ditty_page_ditty_export' == $hook ) {
 			wp_enqueue_style(
 				'ditty-admin-old',
-				DITTY_URL . 'build/dittyAdminOld.css',
+				DITTY_URL . 'assets/build/dittyAdminOld.css',
 				['protip'],
-				filemtime( DITTY_DIR . 'build/dittyAdminOld.css' ),
+				filemtime( DITTY_DIR . 'assets/build/dittyAdminOld.css' ),
 				'all'
 			);
 		}
 		if ( 'ditty_page_ditty_settings' == $hook ) {
 			wp_enqueue_style(
 				'ditty-settings',
-				DITTY_URL . 'build/dittySettings.css',
+				DITTY_URL . 'assets/build/dittySettings.css',
 				['ditty-editor-init'],
-				filemtime( DITTY_DIR . 'build/dittySettings.css' ),
+				filemtime( DITTY_DIR . 'assets/build/dittySettings.css' ),
 				'all'
 			);
 		}
@@ -408,9 +408,9 @@ class Ditty_Scripts {
 		if ( is_admin() && ( ditty_editing() || ditty_display_editing() || ditty_layout_editing() ) ) {
 			wp_enqueue_style(
 				'ditty-editor',
-				DITTY_URL . 'build/dittyEditor.css',
+				DITTY_URL . 'assets/build/dittyEditor.css',
 				['ditty-editor-init', 'wp-components', 'wp-codemirror'],
-				filemtime( DITTY_DIR . 'build/dittyEditor.css' ),
+				filemtime( DITTY_DIR . 'assets/build/dittyEditor.css' ),
 				'all'
 			);
 		}
@@ -435,7 +435,7 @@ class Ditty_Scripts {
 
 		$min = WP_DEBUG ? '' : '.min';
 		wp_register_script( 'hammer', DITTY_URL . 'includes/libs/hammer.min.js', array( 'jquery' ), '2.0.8.1', true );
-		wp_register_script( 'ditty-slider', DITTY_URL . 'build/dittySlider.js', array( 'jquery', 'hammer' ), $this->version, true );
+		wp_register_script( 'ditty-slider', DITTY_URL . 'assets/build/dittySlider.js', array( 'jquery', 'hammer' ), $this->version, true );
 		wp_register_script( 'ditty-helpers', DITTY_URL . 'includes/js/partials/helpers.js', [], $this->version, true );
 		wp_register_script( 'ditty-sass', DITTY_URL . 'includes/libs/sass/sass.js', [], $this->version );
 		//wp_enqueue_script( 'ditty-sass', 'https://cdn.jsdelivr.net/npm/sass.js/dist/sass.min.js', [], $this->version );
@@ -443,7 +443,7 @@ class Ditty_Scripts {
 
 		// Register the ditty init file
 		// wp_enqueue_script( 'ditty-init',
-		// 	DITTY_URL . 'build/ditty.js',
+		// 	DITTY_URL . 'assets/build/ditty.js',
 		// 	['wp-element'],
 		// 	$this->version,
 		// 	true
@@ -456,7 +456,7 @@ class Ditty_Scripts {
 
 
 		// Register Ditty and display scripts
-		wp_register_script( 'ditty', DITTY_URL . 'build/ditty.js', array( 'jquery', 'jquery-effects-core', ), $this->version, true );
+		wp_register_script( 'ditty', DITTY_URL . 'assets/build/ditty.js', array( 'jquery', 'jquery-effects-core', ), $this->version, true );
 		if ( empty( $ditty_scripts_enqueued ) ) {
 			wp_add_inline_script( 'ditty', 'const dittyVars = ' . json_encode( apply_filters( 'dittyVars', array(
 				'ajaxurl'					=> admin_url( 'admin-ajax.php' ),
@@ -472,7 +472,7 @@ class Ditty_Scripts {
 			) ) ), 'before' ) . ';';
 		}
 		// wp_register_script( 'ditty',
-		// 	DITTY_URL . 'build/ditty.js',
+		// 	DITTY_URL . 'assets/build/ditty.js',
 		// 	['wp-hooks', 'jquery-effects-core', 'jquery'],
 		// 	$this->version,
 		// 	true
@@ -503,9 +503,9 @@ class Ditty_Scripts {
 		}
 		
 		// Register the editor init file
-		$asset_file = include( DITTY_DIR . 'build/dittyEditorInit.asset.php' );
+		$asset_file = include( DITTY_DIR . 'assets/build/dittyEditorInit.asset.php' );
 		wp_register_script( 'ditty-editor-init',
-			DITTY_URL . 'build/dittyEditorInit.js',
+			DITTY_URL . 'assets/build/dittyEditorInit.js',
 			array_merge( $asset_file['dependencies'], ['wp-components'] ),
 			$asset_file['version'],
 			true
@@ -574,7 +574,7 @@ class Ditty_Scripts {
 			}
 
 			wp_enqueue_script( 'ditty-editor',
-				DITTY_URL . 'build/dittyEditor.js',
+				DITTY_URL . 'assets/build/dittyEditor.js',
 				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-editor', 'wp-block-editor', 'wp-hooks', 'wp-tinymce', 'wp-sanitize', 'lodash', 'wp-codemirror', 'ditty', 'ditty-sass'], $display_slugs),
 				$this->version,
 				true
@@ -597,7 +597,7 @@ class Ditty_Scripts {
 			}
 
 			wp_enqueue_script( 'ditty-display-editor',
-				DITTY_URL . 'build/dittyDisplayEditor.js',
+				DITTY_URL . 'assets/build/dittyDisplayEditor.js',
 				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-hooks', 'wp-sanitize', 'lodash', 'wp-codemirror', 'ditty'], $display_slugs),
 				$this->version,
 				true
@@ -648,7 +648,7 @@ class Ditty_Scripts {
 			}
 
 			wp_enqueue_script( 'ditty-layout-editor',
-				DITTY_URL . 'build/dittyLayoutEditor.js',
+				DITTY_URL . 'assets/build/dittyLayoutEditor.js',
 				array_merge(['ditty-editor-init', 'wp-element', 'wp-components', 'wp-hooks', 'wp-sanitize', 'lodash', 'wp-codemirror', 'ditty', 'ditty-sass'], $display_slugs),
 				$this->version,
 				true
@@ -708,7 +708,7 @@ class Ditty_Scripts {
 			), $this->version, true );
 
 			if ( ( 'ditty_page_ditty_export' == $hook || 'ditty_page_ditty_extensions' == $hook ) && current_user_can( 'manage_ditty_settings' ) ) {
-				wp_enqueue_script( 'ditty-admin', DITTY_URL . 'build/dittyAdmin.js', array(
+				wp_enqueue_script( 'ditty-admin', DITTY_URL . 'assets/build/dittyAdmin.js', array(
 					'jquery',
 					'jquery-ui-core',
 					'jquery-ui-sortable',
@@ -734,7 +734,7 @@ class Ditty_Scripts {
 
 			if ( 'ditty_page_ditty_settings' == $hook && current_user_can( 'manage_ditty_settings' ) ) {
 				wp_enqueue_script( 'ditty-settings',
-					DITTY_URL . 'build/dittySettings.js',
+					DITTY_URL . 'assets/build/dittySettings.js',
 					['wp-element', 'wp-components', 'wp-hooks', 'wp-sanitize', 'lodash', 'ditty-editor-init'],
 					$this->version,
 					true

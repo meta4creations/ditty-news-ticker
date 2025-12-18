@@ -1,7 +1,12 @@
-/src/ export-ignore
+/.vscode export-ignore
+/.nova export-ignore
 /.gitattributes export-ignore
 /.gitignore export-ignore
-/composer.json export-ignore
-/package.json export-ignore
-/package-lock.json export-ignore
-/webpack.config.js export-ignore
+/composer.json
+/vendor/
+/assets/src/ export-ignore
+/assets/composer.json export-ignore
+/assets/package.json export-ignore
+/assets/package-lock.json export-ignore
+/assets/webpack.config.js export-ignore
+/includes/mtphr-settings-git/.gitignore export-ignore

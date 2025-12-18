@@ -13,5 +13,5 @@ function register_blocks() {
 	if ( ! function_exists( 'register_block_type' ) ) {
 		return;
 	}
-	register_block_type( DITTY_DIR . 'build/blocks/ditty' );
+	register_block_type( DITTY_DIR . 'assets/build/blocks/ditty' );
 }

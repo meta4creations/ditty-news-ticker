@@ -1,8 +1,13 @@
+*.lock
+*node_modules*
 composer.lock
 config.codekit3
-*node_modules*
+/vendor/
+/node_modules/
 /logs/
 /reports/
 .DS_Store
 .nova
 .npmrc
+.cursor/*
+/includes/mtphr-settings-git/

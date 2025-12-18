@@ -135,6 +135,10 @@ Please report security bugs found in the source code of the Ditty plugin through
 
 == Changelog ==
 
+= 3.1.60 [2025-08-22] =
+* Added automatic visibility detection for ticker displays - tickers now automatically pause when placed in hidden areas (like accordion sections) and resume when the containing element becomes visible, while respecting manual pause state
+* File structure updates
+
 = 3.1.59 [2025-08-22] =
 * Security updates
 
