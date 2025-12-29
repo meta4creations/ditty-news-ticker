@@ -97,7 +97,7 @@ abstract class RuleSet implements Renderable, Commentable
      *
      * @return void
      */
-    public function addRule(Rule $oRule, Rule $oSibling = null)
+    public function addRule(Rule $oRule, ?Rule $oSibling = null)
     {
         $sRule = $oRule->getRule();
         if (!isset($this->aRules[$sRule])) {

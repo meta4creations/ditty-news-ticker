@@ -5,7 +5,7 @@ Tags: responsive slider, content slider, post slider, news ticker, post ticker
 Requires at least: 6.2
 Requires PHP: 7.4
 Tested up to: 6.9
-Stable tag: 3.1.60
+Stable tag: 3.1.61
 License: GPL2
 
 Ditty offers a range of content display options, including its signature news ticker and customizable layouts.
@@ -134,6 +134,10 @@ Please report security bugs found in the source code of the Ditty plugin through
 15. Advanced Settings
 
 == Changelog ==
+
+= 3.1.61 [2025-12-29] =
+* Bug fix for Divi 5 support
+* PHP 8.4 updates
 
 = 3.1.60 [2025-08-22] =
 * Added automatic visibility detection for ticker displays - tickers now automatically pause when placed in hidden areas (like accordion sections) and resume when the containing element becomes visible, while respecting manual pause state
@@ -1093,4 +1097,4 @@ Please report security bugs found in the source code of the Ditty plugin through
 
 == Upgrade Notice ==
 
-Added automatic visibility detection for ticker displays
+PHP Updates and bug fix

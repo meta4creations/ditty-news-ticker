@@ -53,20 +53,29 @@ function ditty_check_content_for_blocks() {
 		return false;
 	}
 	
+	$has_ditty_blocks = false;
+	
 	// Parse widgets for Ditty blocks
 	$widget_blocks = get_option( 'widget_block' );
 	if ( is_array( $widget_blocks ) && count( $widget_blocks ) > 0 ) {
 		foreach ( $widget_blocks as $i => $widget_block ) {
-			if ( ! is_array( $widget_block ) ) {
+			if ( ! is_array( $widget_block ) || ! isset( $widget_block['content'] ) ) {
 				continue;
 			}
-			$blocks = isset( $widget_block['content'] ) ? parse_blocks( $widget_block['content'] ) : false;
+			// Quick check for Ditty block name before parsing
+			if ( false === strpos( $widget_block['content'], 'metaphorcreations/ditty-block' ) ) {
+				continue;
+			}
+			$blocks = parse_blocks( $widget_block['content'] );
 			if ( is_array( $blocks ) && count( $blocks ) > 0 ) {
 				foreach ( $blocks as $i => $block ) {
 					if ( 'metaphorcreations/ditty-block' === $block['blockName'] ) {
-						$ditty = $block['attrs']['ditty'];
-						$display = isset( $block['attrs']['display'] ) ? $block['attrs']['display'] : '';
-						ditty_add_scripts( $ditty, $display );
+						if ( isset( $block['attrs']['ditty'] ) ) {
+							$has_ditty_blocks = true;
+							$ditty = $block['attrs']['ditty'];
+							$display = isset( $block['attrs']['display'] ) ? $block['attrs']['display'] : '';
+							ditty_add_scripts( $ditty, $display );
+						}
 					}	
 				}
 			}
@@ -75,22 +84,27 @@ function ditty_check_content_for_blocks() {
 
 	// Parse post content for Ditty blocks
 	global $post;
-	if ( ! is_singular() || ! is_object( $post ) ) {
-		return false;
-	}
-	$blocks = parse_blocks( $post->post_content );
-	if ( is_array( $blocks ) && count( $blocks ) > 0 ) {
-		foreach ( $blocks as $i => $block ) {
-			if ( 'metaphorcreations/ditty' === $block['blockName'] ) {
-        if ( ! isset( $block['attrs']['ditty'] ) ) {
-          continue;
-        }
-				$ditty = $block['attrs']['ditty'];
-				$display = isset( $block['attrs']['display'] ) ? $block['attrs']['display'] : '';
-				ditty_add_scripts( $ditty, $display );
-			}	
+	if ( is_singular() && is_object( $post ) && ! empty( $post->post_content ) ) {
+		// Quick check for Ditty block name before parsing
+		if ( false !== strpos( $post->post_content, 'metaphorcreations/ditty' ) ) {
+			$blocks = parse_blocks( $post->post_content );
+			if ( is_array( $blocks ) && count( $blocks ) > 0 ) {
+				foreach ( $blocks as $i => $block ) {
+					if ( 'metaphorcreations/ditty' === $block['blockName'] ) {
+						if ( isset( $block['attrs']['ditty'] ) ) {
+							$has_ditty_blocks = true;
+							$ditty = $block['attrs']['ditty'];
+							$display = isset( $block['attrs']['display'] ) ? $block['attrs']['display'] : '';
+							ditty_add_scripts( $ditty, $display );
+						}
+					}	
+				}
+			}
 		}
 	}
+	
+	// If no Ditty blocks found, return early to avoid affecting other plugins/themes
+	return $has_ditty_blocks;
 }
 add_filter( 'wp', 'ditty_check_content_for_blocks' );
 
