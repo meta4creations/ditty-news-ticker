@@ -37,4 +37,19 @@ module.exports = {
     filename: "[name].js",
     path: path.resolve(process.cwd(), "build"),
   },
+  resolve: {
+    ...defaultConfig.resolve,
+    alias: {
+      ...defaultConfig.resolve?.alias,
+      // Force all CodeMirror packages to resolve to the same instance
+      "@codemirror/state": require.resolve("@codemirror/state"),
+      "@codemirror/view": require.resolve("@codemirror/view"),
+      "@codemirror/commands": require.resolve("@codemirror/commands"),
+      "@codemirror/lang-css": require.resolve("@codemirror/lang-css"),
+      "@codemirror/lang-html": require.resolve("@codemirror/lang-html"),
+      "@codemirror/lang-json": require.resolve("@codemirror/lang-json"),
+      "@codemirror/lint": require.resolve("@codemirror/lint"),
+      "codemirror": require.resolve("codemirror"),
+    },
+  },
 };
