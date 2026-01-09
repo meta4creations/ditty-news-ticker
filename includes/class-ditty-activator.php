@@ -57,16 +57,17 @@ class Ditty_Activator {
 	 */
 	public static function run_install() {
 
-		// Add Upgraded From Option
-		// $current_version = get_option( 'ditty_version', '0' );
-		// if ( version_compare( $current_version, '3.0', '<' ) ) {
-		// 	ditty_v3_upgrades();
-		// }
-		// 
-		// if ( DITTY_VERSION != $current_version ) {
-		// 	update_option( 'ditty_version_upgraded_from', $current_version );
-		// 	update_option( 'ditty_version', DITTY_VERSION );
-		// }
+		// Load the DB classes
+		require_once DITTY_DIR . 'includes/class-ditty-db.php';
+		require_once DITTY_DIR . 'includes/class-ditty-db-items.php';
+		require_once DITTY_DIR . 'includes/class-ditty-db-item-meta.php';
+
+		// Create the item databases
+		$db_items = new Ditty_DB_Items();
+		$db_items->create_table();
+
+		$db_item_meta = new Ditty_DB_Item_Meta();
+		$db_item_meta->create_table();
 	}
 
 }
