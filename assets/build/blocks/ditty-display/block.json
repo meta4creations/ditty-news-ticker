@@ -1,0 +1,136 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ditty/display",
+  "version": "1.0.0",
+  "title": "Ditty Display",
+  "description": "A dynamic display with ticker and carousel variations.",
+  "category": "widgets",
+  "icon": "slides",
+  "keywords": [
+    "ticker",
+    "carousel",
+    "slider",
+    "display",
+    "news"
+  ],
+  "textdomain": "ditty-news-ticker",
+  "attributes": {
+    "type": {
+      "type": "string",
+      "default": "ticker"
+    },
+    "showTitle": {
+      "type": "boolean",
+      "default": true
+    },
+    "direction": {
+      "type": "string",
+      "default": "left"
+    },
+    "speed": {
+      "type": "number",
+      "default": 10
+    },
+    "spacing": {
+      "type": "number",
+      "default": 25
+    },
+    "hoverPause": {
+      "type": "boolean",
+      "default": false
+    },
+    "cloneItems": {
+      "type": "boolean",
+      "default": true
+    },
+    "itemBgColor": {
+      "type": "string",
+      "default": ""
+    },
+    "itemPadding": {
+      "type": "string",
+      "default": ""
+    },
+    "itemBorderColor": {
+      "type": "string",
+      "default": ""
+    },
+    "itemBorderStyle": {
+      "type": "string",
+      "default": ""
+    },
+    "itemBorderWidth": {
+      "type": "string",
+      "default": ""
+    },
+    "itemBorderRadius": {
+      "type": "string",
+      "default": ""
+    },
+    "itemMaxWidth": {
+      "type": "string",
+      "default": ""
+    },
+    "itemElementsWrap": {
+      "type": "string",
+      "default": "nowrap"
+    }
+  },
+  "providesContext": {
+    "dittyDisplay/showTitle": "showTitle",
+    "dittyDisplay/type": "type",
+    "dittyDisplay/direction": "direction",
+    "dittyDisplay/speed": "speed",
+    "dittyDisplay/spacing": "spacing",
+    "dittyDisplay/hoverPause": "hoverPause",
+    "dittyDisplay/cloneItems": "cloneItems",
+    "dittyDisplay/itemBgColor": "itemBgColor",
+    "dittyDisplay/itemPadding": "itemPadding",
+    "dittyDisplay/itemBorderColor": "itemBorderColor",
+    "dittyDisplay/itemBorderStyle": "itemBorderStyle",
+    "dittyDisplay/itemBorderWidth": "itemBorderWidth",
+    "dittyDisplay/itemBorderRadius": "itemBorderRadius",
+    "dittyDisplay/itemMaxWidth": "itemMaxWidth",
+    "dittyDisplay/itemElementsWrap": "itemElementsWrap"
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "customClassName": true,
+    "color": {
+      "background": true,
+      "text": true,
+      "gradients": true,
+      "__experimentalDefaultControls": {
+        "background": true,
+        "text": true
+      }
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "__experimentalDefaultControls": {
+        "padding": true
+      }
+    },
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true,
+      "__experimentalDefaultControls": {
+        "color": true,
+        "radius": true,
+        "style": true,
+        "width": true
+      }
+    },
+    "dimensions": {
+      "minHeight": true
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "render": "file:./render.php"
+}

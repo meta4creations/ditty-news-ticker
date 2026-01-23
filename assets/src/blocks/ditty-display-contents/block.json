@@ -1,0 +1,65 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ditty/display-contents",
+	"version": "1.0.0",
+	"title": "Display Contents",
+	"description": "Contains the display items for the Ditty display.",
+	"category": "widgets",
+	"icon": "list-view",
+	"textdomain": "ditty-news-ticker",
+	"parent": ["metaphorcreations/ditty-display"],
+	"usesContext": [
+		"dittyDisplay/type",
+		"dittyDisplay/direction",
+		"dittyDisplay/speed",
+		"dittyDisplay/spacing",
+		"dittyDisplay/hoverPause",
+		"dittyDisplay/cloneItems",
+		"dittyDisplay/itemBgColor",
+		"dittyDisplay/itemPadding",
+		"dittyDisplay/itemBorderColor",
+		"dittyDisplay/itemBorderStyle",
+		"dittyDisplay/itemBorderWidth",
+		"dittyDisplay/itemBorderRadius",
+		"dittyDisplay/itemMaxWidth",
+		"dittyDisplay/itemElementsWrap"
+	],
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"lock": false,
+		"reusable": false,
+		"color": {
+			"background": true,
+			"text": true,
+			"gradients": true,
+			"__experimentalDefaultControls": {
+				"background": true,
+				"text": true
+			}
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true,
+			"__experimentalDefaultControls": {
+				"padding": true
+			}
+		},
+		"__experimentalBorder": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true,
+			"__experimentalDefaultControls": {
+				"color": true,
+				"radius": true,
+				"style": true,
+				"width": true
+			}
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"render": "file:./render.php"
+}

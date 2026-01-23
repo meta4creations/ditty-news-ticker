@@ -1,0 +1,60 @@
+/**
+ * Ditty Display Block - Editor Styles
+ */
+
+// Placeholder styles
+.wp-block-ditty-display__placeholder {
+	.components-placeholder {
+		min-height: 120px;
+	}
+	.wp-block-ditty-display__variations {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 16px;
+		list-style: none;
+		margin: 0;
+		padding: 16px 0 0;
+		li {
+			margin: 0;
+		}
+	}
+	.wp-block-ditty-display__variation-button {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 16px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		background: #fff;
+		cursor: pointer;
+		transition: all 0.15s ease;
+		&:hover {
+			border-color: #2271b1;
+			background: #f0f6fc;
+		}
+		svg {
+			width: 48px;
+			height: 48px;
+			fill: currentColor;
+		}
+	}
+}
+
+// Editor wrapper
+.wp-block-ditty-display {
+	&.ditty-display-editor {
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		background: #f9f9f9;
+		overflow: hidden;
+		padding: 15px;
+	}
+	// Ticker variation styling
+	&.ditty-display-type-ticker {
+		border-left: 4px solid #2271b1;
+	}
+	// Carousel/List variation styling
+	&.ditty-display-type-list {
+		border-left: 4px solid #4caf50;
+	}
+}

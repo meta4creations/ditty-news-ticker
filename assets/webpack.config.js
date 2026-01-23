@@ -31,6 +31,7 @@ module.exports = {
     dittySlider: "./src/class-ditty-slider",
     dittyDisplayList: "./src/class-ditty-display-list",
     dittyDisplayTicker: "./src/class-ditty-display-ticker",
+    dittyV4: "./src/v4/dittyV4.js",
   },
   output: {
     ...defaultConfig.output,

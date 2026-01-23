@@ -1,0 +1,47 @@
+/**
+ * Ditty Display Contents Block - Editor Styles
+ */
+
+.wp-block-ditty-display-contents {
+	&.ditty-display-contents {
+		min-height: 50px;
+
+		// Inner block items
+		.block-editor-block-list__layout {
+			> .wp-block {
+				margin-bottom: 8px;
+				padding: 8px 12px;
+				background: #f5f5f5;
+				border: 1px dashed #ccc;
+				border-radius: 3px;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+
+		// Appender button
+		.block-list-appender {
+			margin-top: 8px;
+		}
+	}
+
+	// Ticker variation styling
+	&.ditty-display-contents--ticker {
+		.block-editor-block-list__layout {
+			> .wp-block {
+				border-left: 3px solid #2271b1;
+			}
+		}
+	}
+
+	// Carousel variation styling
+	&.ditty-display-contents--list {
+		.block-editor-block-list__layout {
+			> .wp-block {
+				border-left: 3px solid #4caf50;
+			}
+		}
+	}
+}

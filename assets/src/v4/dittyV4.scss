@@ -1,0 +1,181 @@
+/**
+ * Ditty V4 - Display Styles
+ *
+ * @package Ditty
+ * @since   4.0
+ */
+
+// Base Ditty container
+.ditty {
+	position: relative;
+	width: 100%;
+	box-sizing: border-box;
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+}
+
+// Contents wrapper
+.ditty__contents {
+	position: relative;
+	width: 100%;
+}
+
+// Title section
+.ditty__title {
+	display: flex;
+	align-items: center;
+	margin: 0;
+}
+
+.ditty__title__contents {
+	display: flex;
+	align-items: center;
+}
+
+.ditty__title__element {
+	margin: 0;
+	padding: 0;
+}
+
+// Item styles
+.ditty__item {
+	display: inline-block;
+	* {
+		margin: 0;
+	}
+}
+
+// =============================================================================
+// TICKER STYLES (Custom JS Implementation)
+// =============================================================================
+
+.ditty.ditty-type-ticker {
+	overflow: hidden;
+
+	// Contents wrapper for ticker
+	.ditty__contents {
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+	}
+
+	// Items container - relative positioning context
+	.ditty__items {
+		position: relative;
+		width: 100%;
+		height: auto;
+		min-height: 1em;
+		overflow: visible;
+	}
+
+	// Individual items - absolutely positioned for scrolling
+	.ditty__item {
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: inline-flex;
+		align-items: center;
+		white-space: nowrap;
+		will-change: transform;
+	}
+
+	// Active items being animated
+	.ditty__item--active {
+		opacity: 1;
+	}
+
+	// Cloned items
+	.ditty__item--clone {
+		// Same styling as original
+	}
+
+	// Initialized state
+	&.ditty--initialized {
+		.ditty__items {
+			// Original items are hidden, only active/clones shown
+			> .ditty__item:not(.ditty__item--active) {
+				position: absolute;
+				visibility: hidden;
+				pointer-events: none;
+			}
+		}
+	}
+}
+
+// =============================================================================
+// LIST/CAROUSEL STYLES (Splide Implementation)
+// =============================================================================
+
+.ditty.ditty-type-list {
+	// Standard carousel behavior
+	.splide__track {
+		overflow: hidden;
+		width: 100%;
+	}
+
+	.splide__slide {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.ditty__item {
+		width: 100%;
+	}
+}
+
+// =============================================================================
+// SPLIDE OVERRIDES
+// =============================================================================
+
+.ditty.splide {
+	// Ensure track takes full width
+	.splide__track {
+		width: 100%;
+	}
+
+	// Arrows styling
+	.splide__arrows {
+		.splide__arrow {
+			opacity: 0.7;
+			transition: opacity 0.2s ease;
+
+			&:hover {
+				opacity: 1;
+			}
+		}
+	}
+
+	// Pagination styling
+	.splide__pagination {
+		bottom: -1.5em;
+
+		.splide__pagination__page {
+			opacity: 0.5;
+
+			&.is-active {
+				opacity: 1;
+			}
+		}
+	}
+}
+
+// =============================================================================
+// TITLE DISPLAY VARIATIONS
+// =============================================================================
+
+.ditty[data-title-display='start'] {
+	.ditty__title {
+		order: -1;
+	}
+}
+
+.ditty[data-title-display='end'] {
+	.ditty__title {
+		order: 1;
+	}
+}

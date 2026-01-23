@@ -255,6 +255,8 @@ class Ditty {
 
     require_once DITTY_DIR . 'includes/class-ditty-render.php';
 
+    require_once DITTY_DIR . 'v4/index.php';
+
 		if ( is_admin() ) {
 			if ( ! class_exists( 'Ditty_Plugin_Updater' ) ) {
 				require_once DITTY_DIR . 'includes/admin/Ditty_Plugin_Updater.php';
