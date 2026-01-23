@@ -81,7 +81,7 @@ function buildListOptions(config) {
  */
 function initDittyElement(element) {
   // Skip if already initialized
-  if (element.classList.contains("ditty--initialized")) {
+  if (element.classList.contains("ditty-display--initialized")) {
     return;
   }
 
@@ -103,7 +103,7 @@ function initDittyElement(element) {
 
     // Store reference and mark as initialized
     element._dittySplide = splide;
-    element.classList.add("ditty--initialized");
+    element.classList.add("ditty-display--initialized");
   }
 }
 
@@ -111,7 +111,7 @@ function initDittyElement(element) {
  * Initialize all Ditty elements on the page
  */
 function initDittySplide() {
-  const dittyElements = document.querySelectorAll(".ditty");
+  const dittyElements = document.querySelectorAll(".ditty-display");
   dittyElements.forEach(initDittyElement);
 }
 

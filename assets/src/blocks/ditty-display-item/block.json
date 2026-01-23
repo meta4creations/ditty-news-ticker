@@ -8,8 +8,12 @@
 	"category": "widgets",
 	"icon": "media-document",
 	"textdomain": "ditty-news-ticker",
-	"parent": ["ditty/display-contents"],
-	"usesContext": ["dittyDisplay/type"],
+	"parent": ["ditty/display"],
+	"usesContext": [
+		"dittyDisplay/type",
+		"dittyDisplay/itemMaxWidth",
+		"dittyDisplay/itemElementsWrap"
+	],
 	"attributes": {},
 	"supports": {
 		"html": false,

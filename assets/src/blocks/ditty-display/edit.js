@@ -25,11 +25,12 @@ import DittyDisplayPlaceholder, {
 } from './placeholder';
 
 /**
- * Template for inner blocks - locked title and contents
+ * Template for inner blocks - display items
  */
 const TEMPLATE = [
-	['ditty/display-title', { lock: { remove: true, move: true } }],
-	['ditty/display-contents', { lock: { remove: true, move: true } }],
+	['ditty/display-item'],
+	['ditty/display-item'],
+	['ditty/display-item'],
 ];
 
 /**
@@ -38,10 +39,8 @@ const TEMPLATE = [
 export default function Edit({ attributes, setAttributes, clientId, name }) {
 	const {
 		type,
-		showTitle,
 		direction,
 		speed,
-		spacing,
 		hoverPause,
 		cloneItems,
 		itemMaxWidth,
@@ -69,9 +68,10 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 	});
 
 	const innerBlocksProps = useInnerBlocksProps(blockProps, {
+		allowedBlocks: ['ditty/display-item'],
 		template: TEMPLATE,
-		templateLock: 'all',
-		renderAppender: false,
+		templateLock: false,
+		renderAppender: InnerBlocks.ButtonBlockAppender,
 	});
 
 	const { selectBlock } = useDispatch(blockEditorStore);
@@ -90,11 +90,6 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 					title={__('Display Settings', 'ditty-news-ticker')}
 					initialOpen={true}
 				>
-					<ToggleControl
-						label={__('Show Title', 'ditty-news-ticker')}
-						checked={showTitle}
-						onChange={value => setAttributes({ showTitle: value })}
-					/>
 					<SelectControl
 						label={__('Direction', 'ditty-news-ticker')}
 						value={direction}
@@ -111,13 +106,6 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 						onChange={value => setAttributes({ speed: value })}
 						min={1}
 						max={100}
-					/>
-					<RangeControl
-						label={__('Spacing (px)', 'ditty-news-ticker')}
-						value={spacing}
-						onChange={value => setAttributes({ spacing: value })}
-						min={0}
-						max={200}
 					/>
 					<ToggleControl
 						label={__('Pause on Hover', 'ditty-news-ticker')}

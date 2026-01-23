@@ -20,24 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Get item settings from parent display block context
 $item_max_width     = isset( $block->context['dittyDisplay/itemMaxWidth'] ) ? $block->context['dittyDisplay/itemMaxWidth'] : '';
 $item_elements_wrap = isset( $block->context['dittyDisplay/itemElementsWrap'] ) ? $block->context['dittyDisplay/itemElementsWrap'] : 'nowrap';
-$spacing            = isset( $block->context['dittyDisplay/spacing'] ) ? intval( $block->context['dittyDisplay/spacing'] ) : 25;
-$direction          = isset( $block->context['dittyDisplay/direction'] ) ? $block->context['dittyDisplay/direction'] : 'left';
 
-
-// Build padding styles for spacing on the outermost div
-// Apply padding based on direction (left padding for left direction, right padding for right direction)
-$wrapper_styles = [];
-if ( $spacing > 0 ) {
-	if ( 'left' === $direction ) {
-		$wrapper_styles[] = 'padding-right:' . esc_attr( $spacing ) . 'px';
-	} else {
-		$wrapper_styles[] = 'padding-left:' . esc_attr( $spacing ) . 'px';
-	}
-}
-
-// Build wrapper attributes
-$wrapper_style_attr = ! empty( $wrapper_styles ) ? ' style="' . implode( ';', $wrapper_styles ) . '"' : '';
-$wrapper_attributes = 'class="wp-block-ditty-display-item ditty__item" style="' . implode( ';', $wrapper_styles ) . '"';
+// Build wrapper attributes (spacing handled by blockGap on parent)
+$wrapper_attributes = 'class="wp-block-ditty-display-item ditty-display__item"';
 
 
 // Build inline styles for the inner elements div (max-width, white-space)
@@ -51,7 +36,7 @@ if ( 'nowrap' === $item_elements_wrap ) {
 	$elements_styles[] = 'white-space:nowrap';
 }
 
-$elements_classes = [ 'ditty-item__elements' ];
+$elements_classes = [ 'ditty-display__item__elements' ];
 $elements_attributes = get_block_wrapper_attributes( [
 	'class' => implode( ' ', $elements_classes ),
   'style' => implode( ';', $elements_styles ),

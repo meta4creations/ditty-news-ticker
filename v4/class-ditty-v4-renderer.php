@@ -373,7 +373,7 @@ class Ditty_V4_Renderer {
 		$item_styles      = self::build_item_styles( $args );
 
 		// Container class (no 'splide' class for ticker)
-		$container_class = 'ditty ditty-type-ticker';
+		$container_class = 'ditty-display ditty-type-ticker';
 
 		// Build container opening tag
 		$html = '<div class="' . esc_attr( $container_class ) . '"';
@@ -387,17 +387,17 @@ class Ditty_V4_Renderer {
 		$html .= self::render_title( $args );
 
 		// Contents wrapper
-		$html .= '<div class="ditty__contents"';
+		$html .= '<div class="ditty-display__contents"';
 		if ( ! empty( $contents_styles ) ) {
 			$html .= ' style="' . $contents_styles . '"';
 		}
 		$html .= '>';
 
 		// Items container (for ticker)
-		$html .= '<div class="ditty__items">';
+		$html .= '<div class="ditty-display__items">';
 
 		foreach ( $items as $item ) {
-			$html .= '<div class="ditty__item"';
+			$html .= '<div class="ditty-display__item"';
 			if ( ! empty( $item_styles ) ) {
 				$html .= ' style="' . $item_styles . '"';
 			}
@@ -406,9 +406,9 @@ class Ditty_V4_Renderer {
 			$html .= '</div>';
 		}
 
-		$html .= '</div>'; // .ditty__items
-		$html .= '</div>'; // .ditty__contents
-		$html .= '</div>'; // .ditty
+		$html .= '</div>'; // .ditty-display__items
+		$html .= '</div>'; // .ditty-display__contents
+		$html .= '</div>'; // .ditty-display
 
 		return $html;
 	}
@@ -428,7 +428,7 @@ class Ditty_V4_Renderer {
 		$item_styles      = self::build_item_styles( $args );
 
 		// Container class (includes 'splide' for Splide.js)
-		$container_class = 'ditty ditty-type-' . esc_attr( $args['type'] ) . ' splide';
+		$container_class = 'ditty-display ditty-type-' . esc_attr( $args['type'] ) . ' splide';
 
 		// Build container opening tag
 		$html = '<div class="' . esc_attr( $container_class ) . '"';
@@ -442,7 +442,7 @@ class Ditty_V4_Renderer {
 		$html .= self::render_title( $args );
 
 		// Contents wrapper
-		$html .= '<div class="ditty__contents"';
+		$html .= '<div class="ditty-display__contents"';
 		if ( ! empty( $contents_styles ) ) {
 			$html .= ' style="' . $contents_styles . '"';
 		}
@@ -454,7 +454,7 @@ class Ditty_V4_Renderer {
 
 		foreach ( $items as $item ) {
 			$html .= '<li class="splide__slide">';
-			$html .= '<div class="ditty__item"';
+			$html .= '<div class="ditty-display__item"';
 			if ( ! empty( $item_styles ) ) {
 				$html .= ' style="' . $item_styles . '"';
 			}
@@ -467,8 +467,8 @@ class Ditty_V4_Renderer {
 		$html .= '</ul>';
 		$html .= '</div>'; // .splide__track
 
-		$html .= '</div>'; // .ditty__contents
-		$html .= '</div>'; // .ditty
+		$html .= '</div>'; // .ditty-display__contents
+		$html .= '</div>'; // .ditty-display
 
 		return $html;
 	}
@@ -488,26 +488,26 @@ class Ditty_V4_Renderer {
 		$title_wrapper_styles = self::build_title_wrapper_styles( $args );
 		$title_styles         = self::build_title_styles( $args );
 
-		$html = '<div class="ditty__title"';
+		$html = '<div class="ditty-display__title"';
 		if ( ! empty( $title_wrapper_styles ) ) {
 			$html .= ' style="' . $title_wrapper_styles . '"';
 		}
 		$html .= '>';
 
-		$html .= '<div class="ditty__title__contents"';
+		$html .= '<div class="ditty-display__title__contents"';
 		if ( ! empty( $title_styles ) ) {
 			$html .= ' style="' . $title_styles . '"';
 		}
 		$html .= '>';
 
 		$html .= sprintf(
-			'<%1$s class="ditty__title__element">%2$s</%1$s>',
+			'<%1$s class="ditty-display__title__element">%2$s</%1$s>',
 			esc_attr( $args['titleElement'] ),
 			wp_kses_post( $args['title'] )
 		);
 
-		$html .= '</div>'; // .ditty__title__contents
-		$html .= '</div>'; // .ditty__title
+		$html .= '</div>'; // .ditty-display__title__contents
+		$html .= '</div>'; // .ditty-display__title
 
 		return $html;
 	}

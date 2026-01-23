@@ -43,27 +43,43 @@ const variations = [
 			'A continuously scrolling ticker display.',
 			'ditty-news-ticker'
 		),
-		attributes: { type: 'ticker' },
+		attributes: {
+			type: 'ticker',
+			style: {
+				spacing: {
+					blockGap: '25px',
+				},
+			},
+		},
 		isDefault: true,
 		scope: ['block', 'inserter', 'transform'],
 		isActive: blockAttributes => blockAttributes.type === 'ticker',
 		icon: tickerIcon,
 		innerBlocks: [
-			['ditty/display-title', { lock: { remove: true, move: true } }],
-			['ditty/display-contents', { lock: { remove: true, move: true } }],
+			['ditty/display-item'],
+			['ditty/display-item'],
+			['ditty/display-item'],
 		],
 	},
 	{
 		name: 'carousel',
 		title: __('Carousel', 'ditty-news-ticker'),
 		description: __('A carousel/slider display.', 'ditty-news-ticker'),
-		attributes: { type: 'list' },
+		attributes: {
+			type: 'list',
+			style: {
+				spacing: {
+					blockGap: '25px',
+				},
+			},
+		},
 		scope: ['block', 'inserter', 'transform'],
 		isActive: blockAttributes => blockAttributes.type === 'list',
 		icon: carouselIcon,
 		innerBlocks: [
-			['ditty/display-title', { lock: { remove: true, move: true } }],
-			['ditty/display-contents', { lock: { remove: true, move: true } }],
+			['ditty/display-item'],
+			['ditty/display-item'],
+			['ditty/display-item'],
 		],
 	},
 ];

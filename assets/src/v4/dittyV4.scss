@@ -6,7 +6,7 @@
  */
 
 // Base Ditty container
-.ditty {
+.ditty-display {
 	position: relative;
 	box-sizing: border-box;
 
@@ -18,30 +18,30 @@
 }
 
 // Contents wrapper
-.ditty__contents {
+.ditty-display__contents {
 	position: relative;
 	width: 100%;
 }
 
 // Title section
-.ditty__title {
+.ditty-display__title {
 	display: flex;
 	align-items: center;
 	margin: 0;
 }
 
-.ditty__title__contents {
+.ditty-display__title__contents {
 	display: flex;
 	align-items: center;
 }
 
-.ditty__title__element {
+.ditty-display__title__element {
 	margin: 0;
 	padding: 0;
 }
 
 // Item styles
-.ditty__item {
+.ditty-display__item {
 	display: inline-block;
 	* {
 		margin: 0;
@@ -52,18 +52,18 @@
 // TICKER STYLES (Custom JS Implementation)
 // =============================================================================
 
-.ditty.ditty-type-ticker {
+.ditty-display.ditty-type-ticker {
 	overflow: hidden;
 
 	// Contents wrapper for ticker
-	.ditty__contents {
+	.ditty-display__contents {
 		position: relative;
 		width: 100%;
 		overflow: hidden;
 	}
 
 	// Items container - relative positioning context
-	.ditty__items {
+	.ditty-display__items {
 		position: relative;
 		width: 100%;
 		height: auto;
@@ -72,7 +72,7 @@
 	}
 
 	// Individual items - absolutely positioned for scrolling
-	.ditty__item {
+	.ditty-display__item {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -83,20 +83,20 @@
 	}
 
 	// Active items being animated
-	.ditty__item--active {
+	.ditty-display__item--active {
 		opacity: 1;
 	}
 
 	// Cloned items
-	.ditty__item--clone {
+	.ditty-display__item--clone {
 		// Same styling as original
 	}
 
 	// Initialized state
-	&.ditty--initialized {
-		.ditty__items {
+	&.ditty-display--initialized {
+		.ditty-display__items {
 			// Original items are hidden, only active/clones shown
-			> .ditty__item:not(.ditty__item--active) {
+			> .ditty-display__item:not(.ditty-display__item--active) {
 				position: absolute;
 				visibility: hidden;
 				pointer-events: none;
@@ -109,7 +109,7 @@
 // LIST/CAROUSEL STYLES (Splide Implementation)
 // =============================================================================
 
-.ditty.ditty-type-list {
+.ditty-display.ditty-type-list {
 	// Standard carousel behavior
 	.splide__track {
 		overflow: hidden;
@@ -122,7 +122,7 @@
 		align-items: center;
 	}
 
-	.ditty__item {
+	.ditty-display__item {
 		width: 100%;
 	}
 }
@@ -131,7 +131,7 @@
 // SPLIDE OVERRIDES
 // =============================================================================
 
-.ditty.splide {
+.ditty-display.splide {
 	// Ensure track takes full width
 	.splide__track {
 		width: 100%;
@@ -167,14 +167,14 @@
 // TITLE DISPLAY VARIATIONS
 // =============================================================================
 
-.ditty[data-title-display='start'] {
-	.ditty__title {
+.ditty-display[data-title-display='start'] {
+	.ditty-display__title {
 		order: -1;
 	}
 }
 
-.ditty[data-title-display='end'] {
-	.ditty__title {
+.ditty-display[data-title-display='end'] {
+	.ditty-display__title {
 		order: 1;
 	}
 }

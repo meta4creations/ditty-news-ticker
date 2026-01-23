@@ -47,14 +47,14 @@ $html = '<div ' . $wrapper_attributes . '>';
 
 if ( 'ticker' === $type ) {
 	// Ticker structure
-	$html .= '<div class="ditty__items">';
+	$html .= '<div class="ditty-display__items">';
 
 	foreach ( $items as $item ) {
-		// display-item block already outputs .ditty__item wrapper
+		// display-item block already outputs .ditty-display__item wrapper
 		$html .= $item;
 	}
 
-	$html .= '</div>'; // .ditty__items
+	$html .= '</div>'; // .ditty-display__items
 } else {
 	// Carousel/Splide structure
 	$html .= '<div class="splide__track">';
@@ -71,6 +71,6 @@ if ( 'ticker' === $type ) {
 	$html .= '</div>'; // .splide__track
 }
 
-$html .= '</div>'; // .ditty__contents
+$html .= '</div>'; // .ditty-display__contents
 
 echo $html;

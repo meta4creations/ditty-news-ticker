@@ -9,10 +9,12 @@
   "icon": "media-document",
   "textdomain": "ditty-news-ticker",
   "parent": [
-    "ditty/display-contents"
+    "ditty/display"
   ],
   "usesContext": [
-    "dittyDisplay/type"
+    "dittyDisplay/type",
+    "dittyDisplay/itemMaxWidth",
+    "dittyDisplay/itemElementsWrap"
   ],
   "attributes": {},
   "supports": {

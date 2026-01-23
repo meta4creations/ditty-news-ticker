@@ -14,10 +14,6 @@
 			"type": "string",
 			"default": "ticker"
 		},
-		"showTitle": {
-			"type": "boolean",
-			"default": true
-		},
 		"direction": {
 			"type": "string",
 			"default": "left"
@@ -25,10 +21,6 @@
 		"speed": {
 			"type": "number",
 			"default": 10
-		},
-		"spacing": {
-			"type": "number",
-			"default": 25
 		},
 		"hoverPause": {
 			"type": "boolean",
@@ -48,11 +40,9 @@
 		}
 	},
 	"providesContext": {
-		"dittyDisplay/showTitle": "showTitle",
 		"dittyDisplay/type": "type",
 		"dittyDisplay/direction": "direction",
 		"dittyDisplay/speed": "speed",
-		"dittyDisplay/spacing": "spacing",
 		"dittyDisplay/hoverPause": "hoverPause",
 		"dittyDisplay/cloneItems": "cloneItems",
 		"dittyDisplay/itemMaxWidth": "itemMaxWidth",
@@ -88,8 +78,10 @@
 		"spacing": {
 			"margin": true,
 			"padding": true,
+			"blockGap": true,
 			"__experimentalDefaultControls": {
-				"padding": true
+				"padding": true,
+				"blockGap": true
 			}
 		},
 		"__experimentalBorder": {
