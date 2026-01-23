@@ -12,15 +12,23 @@ import {
 /**
  * Allowed inner blocks
  */
-const ALLOWED_BLOCKS = ["core/paragraph", "core/heading"];
+const ALLOWED_BLOCKS = ["ditty/display-item"];
 
 /**
  * Template for inner blocks
  */
 const TEMPLATE = [
   [
-    "core/paragraph",
-    { placeholder: __("Add display item...", "ditty-news-ticker") },
+    "ditty/display-item",
+    {},
+    [
+      [
+        "core/paragraph",
+        {
+          content: __("This is a sample item. Please edit me!", "ditty-news-ticker"),
+        },
+      ],
+    ],
   ],
 ];
 

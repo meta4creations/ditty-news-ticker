@@ -44,30 +44,6 @@
       "type": "boolean",
       "default": true
     },
-    "itemBgColor": {
-      "type": "string",
-      "default": ""
-    },
-    "itemPadding": {
-      "type": "string",
-      "default": ""
-    },
-    "itemBorderColor": {
-      "type": "string",
-      "default": ""
-    },
-    "itemBorderStyle": {
-      "type": "string",
-      "default": ""
-    },
-    "itemBorderWidth": {
-      "type": "string",
-      "default": ""
-    },
-    "itemBorderRadius": {
-      "type": "string",
-      "default": ""
-    },
     "itemMaxWidth": {
       "type": "string",
       "default": ""
@@ -85,12 +61,6 @@
     "dittyDisplay/spacing": "spacing",
     "dittyDisplay/hoverPause": "hoverPause",
     "dittyDisplay/cloneItems": "cloneItems",
-    "dittyDisplay/itemBgColor": "itemBgColor",
-    "dittyDisplay/itemPadding": "itemPadding",
-    "dittyDisplay/itemBorderColor": "itemBorderColor",
-    "dittyDisplay/itemBorderStyle": "itemBorderStyle",
-    "dittyDisplay/itemBorderWidth": "itemBorderWidth",
-    "dittyDisplay/itemBorderRadius": "itemBorderRadius",
     "dittyDisplay/itemMaxWidth": "itemMaxWidth",
     "dittyDisplay/itemElementsWrap": "itemElementsWrap"
   },
@@ -98,6 +68,23 @@
     "html": false,
     "anchor": true,
     "customClassName": true,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "__experimentalFontFamily": true,
+      "__experimentalFontWeight": true,
+      "__experimentalFontStyle": true,
+      "__experimentalTextTransform": true,
+      "__experimentalTextDecoration": true,
+      "__experimentalLetterSpacing": true,
+      "__experimentalDefaultControls": {
+        "fontSize": true
+      }
+    },
     "color": {
       "background": true,
       "text": true,

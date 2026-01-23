@@ -16,8 +16,6 @@ import {
 	RangeControl,
 	ToggleControl,
 	SelectControl,
-	BaseControl,
-	ColorPicker,
 	TextControl,
 } from '@wordpress/components';
 import { View } from '@wordpress/primitives';
@@ -46,12 +44,6 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 		spacing,
 		hoverPause,
 		cloneItems,
-		itemBgColor,
-		itemPadding,
-		itemBorderColor,
-		itemBorderStyle,
-		itemBorderWidth,
-		itemBorderRadius,
 		itemMaxWidth,
 		itemElementsWrap,
 	} = attributes;
@@ -89,14 +81,6 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 		selectBlock(clientId, -1);
 		setShowPlaceholder(false);
 	};
-
-	const borderStyleOptions = [
-		{ label: __('None', 'ditty-news-ticker'), value: '' },
-		{ label: __('Solid', 'ditty-news-ticker'), value: 'solid' },
-		{ label: __('Dashed', 'ditty-news-ticker'), value: 'dashed' },
-		{ label: __('Dotted', 'ditty-news-ticker'), value: 'dotted' },
-		{ label: __('Double', 'ditty-news-ticker'), value: 'double' },
-	];
 
 	return (
 		<>
@@ -149,30 +133,16 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 						/>
 					)}
 				</PanelBody>
-
-				{/* Item Styles Panel */}
+				{/* Item Settings Panel */}
 				<PanelBody
-					title={__('Item Styles', 'ditty-news-ticker')}
+					title={__('Item Settings', 'ditty-news-ticker')}
 					initialOpen={false}
 				>
-					<BaseControl label={__('Background Color', 'ditty-news-ticker')}>
-						<ColorPicker
-							color={itemBgColor}
-							onChange={value => setAttributes({ itemBgColor: value })}
-							enableAlpha
-						/>
-					</BaseControl>
-					<TextControl
-						label={__('Padding', 'ditty-news-ticker')}
-						value={itemPadding}
-						onChange={value => setAttributes({ itemPadding: value })}
-						placeholder="e.g. 10px"
-					/>
 					<TextControl
 						label={__('Max Width', 'ditty-news-ticker')}
 						value={itemMaxWidth}
 						onChange={value => setAttributes({ itemMaxWidth: value })}
-						placeholder="e.g. 300px"
+						placeholder={__('e.g. 300px', 'ditty-news-ticker')}
 					/>
 					<SelectControl
 						label={__('Text Wrap', 'ditty-news-ticker')}
@@ -182,37 +152,6 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 							{ label: __('Wrap', 'ditty-news-ticker'), value: 'wrap' },
 						]}
 						onChange={value => setAttributes({ itemElementsWrap: value })}
-						__nextHasNoMarginBottom
-					/>
-					<SelectControl
-						label={__('Border Style', 'ditty-news-ticker')}
-						value={itemBorderStyle}
-						options={borderStyleOptions}
-						onChange={value => setAttributes({ itemBorderStyle: value })}
-						__nextHasNoMarginBottom
-					/>
-					{itemBorderStyle && (
-						<>
-							<TextControl
-								label={__('Border Width', 'ditty-news-ticker')}
-								value={itemBorderWidth}
-								onChange={value => setAttributes({ itemBorderWidth: value })}
-								placeholder="e.g. 1px"
-							/>
-							<BaseControl label={__('Border Color', 'ditty-news-ticker')}>
-								<ColorPicker
-									color={itemBorderColor}
-									onChange={value => setAttributes({ itemBorderColor: value })}
-									enableAlpha
-								/>
-							</BaseControl>
-						</>
-					)}
-					<TextControl
-						label={__('Border Radius', 'ditty-news-ticker')}
-						value={itemBorderRadius}
-						onChange={value => setAttributes({ itemBorderRadius: value })}
-						placeholder="e.g. 4px"
 					/>
 				</PanelBody>
 			</InspectorControls>

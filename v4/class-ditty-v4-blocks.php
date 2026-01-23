@@ -39,6 +39,7 @@ class Ditty_V4_Blocks {
 			'ditty-display',
 			'ditty-display-title',
 			'ditty-display-contents',
+			'ditty-display-item',
 		];
 
 		foreach ( $blocks as $block ) {

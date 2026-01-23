@@ -1,22 +1,15 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "ditty/display-contents",
+	"name": "ditty/display-item",
 	"version": "1.0.0",
-	"title": "Display Contents",
-	"description": "Contains the display items for the Ditty display.",
+	"title": "Display Item",
+	"description": "A single display item with customizable styling.",
 	"category": "widgets",
-	"icon": "list-view",
+	"icon": "media-document",
 	"textdomain": "ditty-news-ticker",
-	"parent": ["ditty/display"],
-	"usesContext": [
-		"dittyDisplay/type",
-		"dittyDisplay/direction",
-		"dittyDisplay/speed",
-		"dittyDisplay/spacing",
-		"dittyDisplay/hoverPause",
-		"dittyDisplay/cloneItems"
-	],
+	"parent": ["ditty/display-contents"],
+	"usesContext": ["dittyDisplay/type"],
 	"attributes": {},
 	"supports": {
 		"html": false,
@@ -38,14 +31,11 @@
 		"color": {
 			"background": true,
 			"text": true,
-			"gradients": true,
 			"__experimentalDefaultControls": {
-				"background": true,
-				"text": true
+				"background": true
 			}
 		},
 		"spacing": {
-			"margin": true,
 			"padding": true,
 			"__experimentalDefaultControls": {
 				"padding": true

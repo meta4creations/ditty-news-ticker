@@ -17,46 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Get context from parent block
-$type              = isset( $block->context['dittyDisplay/type'] ) ? $block->context['dittyDisplay/type'] : 'ticker';
-$item_bg_color     = isset( $block->context['dittyDisplay/itemBgColor'] ) ? $block->context['dittyDisplay/itemBgColor'] : '';
-$item_padding      = isset( $block->context['dittyDisplay/itemPadding'] ) ? $block->context['dittyDisplay/itemPadding'] : '';
-$item_border_color = isset( $block->context['dittyDisplay/itemBorderColor'] ) ? $block->context['dittyDisplay/itemBorderColor'] : '';
-$item_border_style = isset( $block->context['dittyDisplay/itemBorderStyle'] ) ? $block->context['dittyDisplay/itemBorderStyle'] : '';
-$item_border_width = isset( $block->context['dittyDisplay/itemBorderWidth'] ) ? $block->context['dittyDisplay/itemBorderWidth'] : '';
-$item_border_radius = isset( $block->context['dittyDisplay/itemBorderRadius'] ) ? $block->context['dittyDisplay/itemBorderRadius'] : '';
-$item_max_width    = isset( $block->context['dittyDisplay/itemMaxWidth'] ) ? $block->context['dittyDisplay/itemMaxWidth'] : '';
-$item_elements_wrap = isset( $block->context['dittyDisplay/itemElementsWrap'] ) ? $block->context['dittyDisplay/itemElementsWrap'] : 'nowrap';
+// Get display type from parent context
+$type = isset( $block->context['dittyDisplay/type'] ) ? $block->context['dittyDisplay/type'] : 'ticker';
 
-// Build item styles
-$item_styles = [];
-if ( ! empty( $item_bg_color ) ) {
-	$item_styles[] = 'background-color:' . esc_attr( $item_bg_color );
-}
-if ( ! empty( $item_padding ) ) {
-	$item_styles[] = 'padding:' . esc_attr( $item_padding );
-}
-if ( ! empty( $item_border_color ) ) {
-	$item_styles[] = 'border-color:' . esc_attr( $item_border_color );
-}
-if ( ! empty( $item_border_style ) ) {
-	$item_styles[] = 'border-style:' . esc_attr( $item_border_style );
-}
-if ( ! empty( $item_border_width ) ) {
-	$item_styles[] = 'border-width:' . esc_attr( $item_border_width );
-}
-if ( ! empty( $item_border_radius ) ) {
-	$item_styles[] = 'border-radius:' . esc_attr( $item_border_radius );
-}
-if ( ! empty( $item_max_width ) ) {
-	$item_styles[] = 'max-width:' . esc_attr( $item_max_width );
-}
-if ( 'nowrap' === $item_elements_wrap ) {
-	$item_styles[] = 'white-space:nowrap';
-}
-$item_style_string = ! empty( $item_styles ) ? ' style="' . implode( ';', $item_styles ) . '"' : '';
-
-// Collect items from inner blocks
+// Render display-item blocks (they handle their own wrapper and styling)
 $items = [];
 if ( ! empty( $block->inner_blocks ) ) {
 	foreach ( $block->inner_blocks as $inner_block ) {
@@ -84,27 +48,25 @@ $html = '<div ' . $wrapper_attributes . '>';
 if ( 'ticker' === $type ) {
 	// Ticker structure
 	$html .= '<div class="ditty__items">';
-	
+
 	foreach ( $items as $item ) {
-		$html .= '<div class="ditty__item"' . $item_style_string . '>';
+		// display-item block already outputs .ditty__item wrapper
 		$html .= $item;
-		$html .= '</div>';
 	}
-	
+
 	$html .= '</div>'; // .ditty__items
 } else {
 	// Carousel/Splide structure
 	$html .= '<div class="splide__track">';
 	$html .= '<ul class="splide__list">';
-	
+
 	foreach ( $items as $item ) {
+		// Wrap each display-item in splide__slide
 		$html .= '<li class="splide__slide">';
-		$html .= '<div class="ditty__item"' . $item_style_string . '>';
 		$html .= $item;
-		$html .= '</div>';
 		$html .= '</li>';
 	}
-	
+
 	$html .= '</ul>';
 	$html .= '</div>'; // .splide__track
 }
