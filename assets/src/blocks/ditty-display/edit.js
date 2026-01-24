@@ -16,7 +16,7 @@ import {
 	RangeControl,
 	ToggleControl,
 	SelectControl,
-	TextControl,
+	__experimentalUnitControl as UnitControl,
 } from '@wordpress/components';
 import { View } from '@wordpress/primitives';
 
@@ -45,6 +45,8 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 		cloneItems,
 		itemMaxWidth,
 		itemElementsWrap,
+		minHeight,
+		fillHeight,
 	} = attributes;
 
 	const { hasInnerBlocks } = useSelect(
@@ -58,8 +60,26 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 		[clientId]
 	);
 
+	// Check if this is a vertical ticker
+	const isVertical =
+		type === 'ticker' && (direction === 'up' || direction === 'down');
+
+	// Build editor styles for vertical tickers
+	const editorStyles = {};
+	if (isVertical) {
+		if (fillHeight) {
+			editorStyles.flexDirection = 'column';
+			editorStyles.flex = '1';
+			editorStyles.height = '100%';
+		}
+		if (minHeight) {
+			editorStyles.minHeight = minHeight;
+		}
+	}
+
 	const blockProps = useBlockProps({
 		className: `ditty-display-editor ditty-display-type-${type}`,
+		style: editorStyles,
 	});
 
 	const [showPlaceholder, setShowPlaceholder] = useShouldShowPlaceholder({
@@ -93,10 +113,19 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 					<SelectControl
 						label={__('Direction', 'ditty-news-ticker')}
 						value={direction}
-						options={[
-							{ label: __('Left', 'ditty-news-ticker'), value: 'left' },
-							{ label: __('Right', 'ditty-news-ticker'), value: 'right' },
-						]}
+						options={
+							type === 'ticker'
+								? [
+										{ label: __('Left', 'ditty-news-ticker'), value: 'left' },
+										{ label: __('Right', 'ditty-news-ticker'), value: 'right' },
+										{ label: __('Up', 'ditty-news-ticker'), value: 'up' },
+										{ label: __('Down', 'ditty-news-ticker'), value: 'down' },
+								  ]
+								: [
+										{ label: __('Left', 'ditty-news-ticker'), value: 'left' },
+										{ label: __('Right', 'ditty-news-ticker'), value: 'right' },
+								  ]
+						}
 						onChange={value => setAttributes({ direction: value })}
 						__nextHasNoMarginBottom
 					/>
@@ -120,17 +149,35 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 							onChange={value => setAttributes({ cloneItems: value })}
 						/>
 					)}
+					{type === 'ticker' &&
+						(direction === 'up' || direction === 'down') && (
+							<>
+								<ToggleControl
+									label={__('Fill Parent Height', 'ditty-news-ticker')}
+									help={__(
+										'Stretch ticker to match parent container height',
+										'ditty-news-ticker'
+									)}
+									checked={fillHeight}
+									onChange={value => setAttributes({ fillHeight: value })}
+								/>
+								<UnitControl
+									label={__('Min Height', 'ditty-news-ticker')}
+									value={minHeight}
+									onChange={value => setAttributes({ minHeight: value })}
+								/>
+							</>
+						)}
 				</PanelBody>
 				{/* Item Settings Panel */}
 				<PanelBody
 					title={__('Item Settings', 'ditty-news-ticker')}
 					initialOpen={false}
 				>
-					<TextControl
+					<UnitControl
 						label={__('Max Width', 'ditty-news-ticker')}
 						value={itemMaxWidth}
 						onChange={value => setAttributes({ itemMaxWidth: value })}
-						placeholder={__('e.g. 300px', 'ditty-news-ticker')}
 					/>
 					<SelectControl
 						label={__('Text Wrap', 'ditty-news-ticker')}

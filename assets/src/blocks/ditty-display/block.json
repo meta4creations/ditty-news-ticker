@@ -37,6 +37,14 @@
 		"itemElementsWrap": {
 			"type": "string",
 			"default": "nowrap"
+		},
+		"minHeight": {
+			"type": "string",
+			"default": "300px"
+		},
+		"fillHeight": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"providesContext": {

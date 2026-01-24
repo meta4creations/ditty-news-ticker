@@ -17,6 +17,8 @@ import { applyFilters } from '@wordpress/hooks';
 
 export default function Edit({ attributes, setAttributes, clientId, context }) {
 	const displayType = context['dittyDisplay/type'] || 'ticker';
+	const itemMaxWidth = context['dittyDisplay/itemMaxWidth'] || '';
+	const itemElementsWrap = context['dittyDisplay/itemElementsWrap'] || 'nowrap';
 
 	// Get inner block count
 	const { innerBlockCount } = useSelect(
@@ -62,6 +64,15 @@ export default function Edit({ attributes, setAttributes, clientId, context }) {
 		className: `ditty-display-item ditty-display-item--${displayType}`,
 	});
 
+	// Build inline styles for inner elements (max-width, white-space)
+	const elementsStyles = {};
+	if (itemMaxWidth) {
+		elementsStyles.maxWidth = itemMaxWidth;
+	}
+	if (itemElementsWrap === 'nowrap') {
+		elementsStyles.whiteSpace = 'nowrap';
+	}
+
 	/**
 	 * Filter to modify allowed blocks in display-item
 	 *
@@ -83,22 +94,31 @@ export default function Edit({ attributes, setAttributes, clientId, context }) {
 	);
 
 	// Inner blocks configuration
-	const innerBlocksProps = useInnerBlocksProps(blockProps, {
-		allowedBlocks: allowedBlocks,
-		template: [
-			[
-				'core/paragraph',
-				{
-					content: __(
-						'This is a sample item. Please edit me!',
-						'ditty-news-ticker'
-					),
-				},
+	const innerBlocksProps = useInnerBlocksProps(
+		{},
+		{
+			allowedBlocks: allowedBlocks,
+			template: [
+				[
+					'core/paragraph',
+					{
+						content: __(
+							'This is a sample item. Please edit me!',
+							'ditty-news-ticker'
+						),
+					},
+				],
 			],
-		],
-		templateLock: allowMultipleInnerBlocks ? false : 'insert',
-		renderAppender: false,
-	});
+			templateLock: allowMultipleInnerBlocks ? false : 'insert',
+			renderAppender: false,
+		}
+	);
 
-	return <div {...innerBlocksProps} />;
+	return (
+		<div {...blockProps}>
+			<div className="ditty-display__item__elements" style={elementsStyles}>
+				<div {...innerBlocksProps} />
+			</div>
+		</div>
+	);
 }

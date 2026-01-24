@@ -27,6 +27,10 @@ $direction   = isset( $attributes['direction'] ) ? $attributes['direction'] : 'l
 $speed       = isset( $attributes['speed'] ) ? intval( $attributes['speed'] ) : 10;
 $hover_pause = ! empty( $attributes['hoverPause'] );
 $clone_items = isset( $attributes['cloneItems'] ) ? $attributes['cloneItems'] : true;
+$item_max_width = isset( $attributes['itemMaxWidth'] ) ? $attributes['itemMaxWidth'] : '';
+$min_height = isset( $attributes['minHeight'] ) ? $attributes['minHeight'] : '';
+$fill_height = ! empty( $attributes['fillHeight'] );
+$is_vertical = ( 'ticker' === $type && ( 'up' === $direction || 'down' === $direction ) );
 
 // Get gap/spacing from block supports
 $spacing     = 25; // Default value (only used if blockGap is not set at all)
@@ -77,7 +81,9 @@ if ( 'list' === $type ) {
 $items = [];
 if ( ! empty( $block->inner_blocks ) ) {
 	foreach ( $block->inner_blocks as $inner_block ) {
-		$rendered = render_block( $inner_block->parsed_block );
+		// Render using the WP_Block instance to preserve context from parent.
+		$rendered = $inner_block->render();
+
 		$rendered = trim( $rendered );
 		if ( ! empty( $rendered ) ) {
 			$items[] = $rendered;
@@ -85,18 +91,36 @@ if ( ! empty( $block->inner_blocks ) ) {
 	}
 }
 
+// Build shared vertical styles (wrapper, contents, items)
+$vertical_styles = [];
+if ( $is_vertical ) {
+	if ( $fill_height ) {
+    $vertical_styles['flex-direction'] = 'flex-direction:column';
+		$vertical_styles['flex'] = 'flex:1';
+    $vertical_styles['height'] = 'height:100%';
+	}
+	if ( ! empty( $min_height ) ) {
+		$vertical_styles['min-height'] = 'min-height:' . esc_attr( $min_height );
+	}
+}
+
 // Get wrapper attributes from block supports
 $wrapper_attributes = get_block_wrapper_attributes( [
 	'class'            => implode( ' ', $wrapper_classes ),
 	'data-ditty-config' => wp_json_encode( $config ),
+	'style'            => ! empty( $vertical_styles ) ? implode( '; ', array_values( $vertical_styles ) ) . ';' : '',
 ] );
+
+// Remove min-height from vertical styles
+unset( $vertical_styles['min-height'] );
 
 // Start output
 echo '<div ' . $wrapper_attributes . '>';
 
 // Render contents wrapper with items
 if ( ! empty( $items ) ) {
-	echo '<div class="ditty-display__contents">';
+	$contents_style_attr = ! empty( $vertical_styles ) ? ' style="' . implode( '; ', array_values( $vertical_styles ) ) . ';"' : '';
+	echo '<div class="ditty-display__contents"' . $contents_style_attr . '>';
 	
 	// Build gap style for items container
 	// Note: gap only works for carousel (splide), not ticker (absolute positioning)
@@ -111,7 +135,10 @@ if ( ! empty( $items ) ) {
 	
 	if ( 'ticker' === $type ) {
 		// Ticker structure (gap doesn't work with absolute positioning, spacing handled by JS padding)
-		echo '<div class="ditty-display__items">';
+		// Apply height styles for vertical tickers
+		$items_style_attr = ! empty( $vertical_styles ) ? ' style="' . implode( '; ', array_values( $vertical_styles ) ) . ';"' : '';
+		
+		echo '<div class="ditty-display__items"' . $items_style_attr . '>';
 		
 		foreach ( $items as $item ) {
 			// display-item block already outputs .ditty__item wrapper

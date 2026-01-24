@@ -103,21 +103,19 @@ class Ditty_V4_Renderer {
 		if ( self::$assets_enqueued ) {
 			return;
 		}
-
-		$version = defined( 'DITTY_VERSION' ) ? DITTY_VERSION : '4.0';
-
+  
 		wp_enqueue_style(
 			'ditty-v4',
 			DITTY_URL . 'assets/build/dittyV4.css',
 			[],
-			$version
+			filemtime( DITTY_DIR . 'assets/build/dittyV4.css' ),
 		);
 
 		wp_enqueue_script(
 			'ditty-v4',
 			DITTY_URL . 'assets/build/dittyV4.js',
 			[],
-			$version,
+      filemtime( DITTY_DIR . 'assets/build/dittyV4.js' ),
 			true
 		);
 

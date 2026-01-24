@@ -9,6 +9,9 @@
 .ditty-display {
 	position: relative;
 	box-sizing: border-box;
+	display: flex;
+	align-items: stretch;
+	justify-content: stretch;
 
 	*,
 	*::before,
@@ -20,6 +23,9 @@
 // Contents wrapper
 .ditty-display__contents {
 	position: relative;
+	display: flex;
+	align-items: stretch;
+	justify-content: stretch;
 	width: 100%;
 }
 

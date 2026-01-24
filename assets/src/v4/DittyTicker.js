@@ -115,6 +115,13 @@ export default class DittyTicker {
 	 * Calculate and set the container height based on tallest item
 	 */
 	_updateContainerHeight() {
+		if (this._isVertical()) {
+			// For vertical tickers, height is set via inline style in PHP
+			// We just need to get the current height for tracking
+			this.currentHeight = this.itemsContainer.offsetHeight;
+			return;
+		}
+
 		let maxHeight = 0;
 
 		// Measure each original item
@@ -159,8 +166,20 @@ export default class DittyTicker {
 			) {
 				element.style.paddingLeft = `${halfSpacing}px`;
 				element.style.paddingRight = `${halfSpacing}px`;
+			} else if (this._isVertical()) {
+				element.style.paddingTop = `${halfSpacing}px`;
+				element.style.paddingBottom = `${halfSpacing}px`;
 			}
 		});
+	}
+
+	/**
+	 * Check if ticker is vertical
+	 *
+	 * @returns {boolean}
+	 */
+	_isVertical() {
+		return this.config.direction === 'up' || this.config.direction === 'down';
 	}
 
 	/**
@@ -260,16 +279,32 @@ export default class DittyTicker {
 			clone.classList.add('ditty-display__item--clone');
 		}
 
+		// Get the current inline style attribute to preserve it
+		const existingStyle = clone.getAttribute('style') || '';
+
 		// Apply spacing (padding is necessary for ticker animation with absolute positioning)
 		const spacing = parseInt(this.config.spacing, 10) || 0;
 		const halfSpacing = spacing / 2;
-		clone.style.paddingLeft = `${halfSpacing}px`;
-		clone.style.paddingRight = `${halfSpacing}px`;
 
-		// Position the item at the start position
-		clone.style.position = 'absolute';
-		clone.style.top = '0';
-		clone.style.left = '0';
+		// Build new styles while preserving existing ones
+		const newStyles = [];
+		if (existingStyle) {
+			newStyles.push(existingStyle.replace(/;$/, '')); // Remove trailing semicolon if present
+		}
+
+		if (this._isVertical()) {
+			newStyles.push(`padding-top:${halfSpacing}px`);
+			newStyles.push(`padding-bottom:${halfSpacing}px`);
+		} else {
+			newStyles.push(`padding-left:${halfSpacing}px`);
+			newStyles.push(`padding-right:${halfSpacing}px`);
+		}
+		newStyles.push('position:absolute');
+		newStyles.push('top:0');
+		newStyles.push('left:0');
+
+		// Set the combined styles
+		clone.setAttribute('style', newStyles.join(';'));
 
 		// Add to container
 		this.itemsContainer.appendChild(clone);
@@ -316,6 +351,8 @@ export default class DittyTicker {
 	_getResetPosition(element) {
 		const containerWidth = this.itemsContainer.offsetWidth;
 		const itemWidth = element.offsetWidth;
+		const containerHeight = this.itemsContainer.offsetHeight;
+		const itemHeight = element.offsetHeight;
 
 		let posX = 0;
 		let posY = 0;
@@ -326,6 +363,12 @@ export default class DittyTicker {
 				break;
 			case 'right':
 				posX = -itemWidth;
+				break;
+			case 'up':
+				posY = containerHeight;
+				break;
+			case 'down':
+				posY = -itemHeight;
 				break;
 		}
 
@@ -361,6 +404,12 @@ export default class DittyTicker {
 			case 'right':
 				posX = parseFloat(item.posX) + this.scrollIncrement;
 				break;
+			case 'up':
+				posY = parseFloat(item.posY) - this.scrollIncrement;
+				break;
+			case 'down':
+				posY = parseFloat(item.posY) + this.scrollIncrement;
+				break;
 		}
 
 		return { posX, posY };
@@ -379,12 +428,18 @@ export default class DittyTicker {
 
 		const containerWidth = this.itemsContainer.offsetWidth;
 		const itemWidth = item.element.offsetWidth;
+		const containerHeight = this.itemsContainer.offsetHeight;
+		const itemHeight = item.element.offsetHeight;
 
 		switch (this.config.direction) {
 			case 'left':
 				return item.posX <= containerWidth - itemWidth;
 			case 'right':
 				return item.posX >= 0;
+			case 'up':
+				return item.posY <= containerHeight - itemHeight;
+			case 'down':
+				return item.posY >= 0;
 		}
 
 		return false;
@@ -399,12 +454,18 @@ export default class DittyTicker {
 	_shouldTerminate(item) {
 		const containerWidth = this.itemsContainer.offsetWidth;
 		const itemWidth = item.element.offsetWidth;
+		const containerHeight = this.itemsContainer.offsetHeight;
+		const itemHeight = item.element.offsetHeight;
 
 		switch (this.config.direction) {
 			case 'left':
 				return item.posX < -itemWidth;
 			case 'right':
 				return item.posX > containerWidth;
+			case 'up':
+				return item.posY < -itemHeight;
+			case 'down':
+				return item.posY > containerHeight;
 		}
 
 		return false;

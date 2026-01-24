@@ -39,7 +39,7 @@ if ( 'nowrap' === $item_elements_wrap ) {
 $elements_classes = [ 'ditty-display__item__elements' ];
 $elements_attributes = get_block_wrapper_attributes( [
 	'class' => implode( ' ', $elements_classes ),
-  'style' => implode( ';', $elements_styles ),
+  'style' => implode( ';', $elements_styles ) . ';',
 ] );
 
 $pattern = '/wp-block-ditty-display-item\s?/';

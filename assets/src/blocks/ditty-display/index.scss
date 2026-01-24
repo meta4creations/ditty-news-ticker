@@ -42,19 +42,11 @@
 
 // Editor wrapper
 .wp-block-ditty-display {
+	box-sizing: border-box;
 	&.ditty-display-editor {
 		border: 1px solid #ddd;
-		border-radius: 4px;
 		background: #f9f9f9;
 		overflow: hidden;
 		padding: 15px;
-	}
-	// Ticker variation styling
-	&.ditty-display-type-ticker {
-		border-left: 4px solid #2271b1;
-	}
-	// Carousel/List variation styling
-	&.ditty-display-type-list {
-		border-left: 4px solid #4caf50;
 	}
 }
