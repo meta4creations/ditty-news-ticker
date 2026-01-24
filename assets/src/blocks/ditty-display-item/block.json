@@ -33,9 +33,10 @@
 			}
 		},
 		"color": {
-			"background": true,
 			"text": true,
+			"background": true,
 			"__experimentalDefaultControls": {
+				"text": true,
 				"background": true
 			}
 		},
