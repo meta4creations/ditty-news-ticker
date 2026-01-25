@@ -15,6 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Load V4 classes (order matters - renderer first as it's used by others)
+require_once DITTY_DIR . 'v4/helpers.php';
 require_once DITTY_DIR . 'v4/class-ditty-v4-renderer.php';
 require_once DITTY_DIR . 'v4/class-ditty-v4-shortcodes.php';
 require_once DITTY_DIR . 'v4/class-ditty-v4-blocks.php';

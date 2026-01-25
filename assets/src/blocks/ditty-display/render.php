@@ -1,4 +1,7 @@
 <?php
+namespace Ditty\Block\DittyDisplay;
+use function Ditty\V4\get_spacing_preset_value;
+
 /**
  * Ditty Display Block - Server-Side Render
  *
@@ -19,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Enqueue the display assets
-Ditty_V4_Renderer::enqueue_assets();
+\Ditty_V4_Renderer::enqueue_assets();
 
 // Get display attributes for the JS config
 $type        = isset( $attributes['type'] ) ? $attributes['type'] : 'ticker';
@@ -39,6 +42,16 @@ $has_gap_set = isset( $attributes['style']['spacing']['blockGap'] );
 
 if ( $has_gap_set ) {
 	$gap_value = $attributes['style']['spacing']['blockGap'];
+
+	// Resolve theme preset spacing values (e.g. "var:preset|spacing|20")
+	if ( is_string( $gap_value ) && 0 === strpos( $gap_value, 'var:preset|spacing|' ) ) {
+		$preset_slug = str_replace( 'var:preset|spacing|', '', $gap_value );
+    $preset_value = get_spacing_preset_value( $preset_slug );
+
+		if ( '' !== $preset_value ) {
+			$gap_value = $preset_value;
+		}
+	}
   
 	// Parse the gap value (could be like "25px" or "1.5rem" or just "25")
 	if ( is_numeric( $gap_value ) ) {
@@ -66,6 +79,11 @@ $config = [
 	'hoverPause' => $hover_pause,
 	'cloneItems' => $clone_items ? 'yes' : 'no',
 ];
+
+// echo '<pre>';
+// print_r( $config );
+// echo '</pre>';
+// die();
 
 // Build wrapper classes
 $wrapper_classes = [

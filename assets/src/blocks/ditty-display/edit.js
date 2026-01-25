@@ -111,6 +111,7 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 					initialOpen={true}
 				>
 					<SelectControl
+						__next40pxDefaultSize
 						label={__('Direction', 'ditty-news-ticker')}
 						value={direction}
 						options={
@@ -130,6 +131,8 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 						__nextHasNoMarginBottom
 					/>
 					<RangeControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
 						label={__('Speed', 'ditty-news-ticker')}
 						value={speed}
 						onChange={value => setAttributes({ speed: value })}
@@ -137,12 +140,14 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 						max={100}
 					/>
 					<ToggleControl
+						__nextHasNoMarginBottom
 						label={__('Pause on Hover', 'ditty-news-ticker')}
 						checked={hoverPause}
 						onChange={value => setAttributes({ hoverPause: value })}
 					/>
 					{type === 'ticker' && (
 						<ToggleControl
+							__nextHasNoMarginBottom
 							label={__('Clone Items', 'ditty-news-ticker')}
 							help={__('Clone items for seamless looping', 'ditty-news-ticker')}
 							checked={cloneItems}
@@ -153,6 +158,7 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 						(direction === 'up' || direction === 'down') && (
 							<>
 								<ToggleControl
+									__nextHasNoMarginBottom
 									label={__('Fill Parent Height', 'ditty-news-ticker')}
 									help={__(
 										'Stretch ticker to match parent container height',
@@ -180,6 +186,7 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 						onChange={value => setAttributes({ itemMaxWidth: value })}
 					/>
 					<SelectControl
+						__next40pxDefaultSize
 						label={__('Text Wrap', 'ditty-news-ticker')}
 						value={itemElementsWrap}
 						options={[
