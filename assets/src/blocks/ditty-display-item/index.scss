@@ -13,5 +13,10 @@
 				margin: 0;
 			}
 		}
+		> div:not([class]) {
+			> * {
+				margin: 0;
+			}
+		}
 	}
 }

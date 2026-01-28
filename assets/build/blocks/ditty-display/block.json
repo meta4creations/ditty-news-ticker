@@ -51,6 +51,122 @@
     "fillHeight": {
       "type": "boolean",
       "default": false
+    },
+    "editMode": {
+      "type": "string",
+      "default": "edit"
+    },
+    "carouselLoop": {
+      "type": "boolean",
+      "default": true
+    },
+    "carouselSpeed": {
+      "type": "number",
+      "default": 400
+    },
+    "carouselRewind": {
+      "type": "boolean",
+      "default": false
+    },
+    "carouselRewindSpeed": {
+      "type": "number",
+      "default": 0
+    },
+    "carouselRewindByDrag": {
+      "type": "boolean",
+      "default": false
+    },
+    "carouselHeight": {
+      "type": "string",
+      "default": ""
+    },
+    "carouselFixedWidth": {
+      "type": "string",
+      "default": ""
+    },
+    "carouselFixedHeight": {
+      "type": "string",
+      "default": ""
+    },
+    "carouselHeightRatio": {
+      "type": "number",
+      "default": 0
+    },
+    "carouselAutoWidth": {
+      "type": "boolean",
+      "default": false
+    },
+    "carouselAutoHeight": {
+      "type": "boolean",
+      "default": false
+    },
+    "carouselStart": {
+      "type": "number",
+      "default": 0
+    },
+    "carouselPerPage": {
+      "type": "number",
+      "default": 1
+    },
+    "carouselPerMove": {
+      "type": "number",
+      "default": 0
+    },
+    "carouselFocus": {
+      "type": "string",
+      "default": ""
+    },
+    "carouselArrows": {
+      "type": "boolean",
+      "default": true
+    },
+    "carouselPagination": {
+      "type": "boolean",
+      "default": true
+    },
+    "carouselPaginationDirection": {
+      "type": "string",
+      "default": ""
+    },
+    "carouselEasing": {
+      "type": "string",
+      "default": "cubic-bezier(0.25, 1, 0.5, 1)"
+    },
+    "carouselDrag": {
+      "type": "string",
+      "default": "true"
+    },
+    "carouselSnap": {
+      "type": "boolean",
+      "default": false
+    },
+    "carouselAutoplay": {
+      "type": "boolean",
+      "default": true
+    },
+    "carouselInterval": {
+      "type": "number",
+      "default": 3000
+    },
+    "carouselPauseOnHover": {
+      "type": "boolean",
+      "default": true
+    },
+    "carouselPauseOnFocus": {
+      "type": "boolean",
+      "default": true
+    },
+    "carouselResetProgress": {
+      "type": "boolean",
+      "default": true
+    },
+    "carouselDirection": {
+      "type": "string",
+      "default": "ltr"
+    },
+    "carouselUpdateOnMove": {
+      "type": "boolean",
+      "default": false
     }
   },
   "providesContext": {
@@ -60,7 +176,8 @@
     "dittyDisplay/hoverPause": "hoverPause",
     "dittyDisplay/cloneItems": "cloneItems",
     "dittyDisplay/itemMaxWidth": "itemMaxWidth",
-    "dittyDisplay/itemElementsWrap": "itemElementsWrap"
+    "dittyDisplay/itemElementsWrap": "itemElementsWrap",
+    "dittyDisplay/editMode": "editMode"
   },
   "supports": {
     "html": false,

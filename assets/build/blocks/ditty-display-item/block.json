@@ -14,7 +14,8 @@
   "usesContext": [
     "dittyDisplay/type",
     "dittyDisplay/itemMaxWidth",
-    "dittyDisplay/itemElementsWrap"
+    "dittyDisplay/itemElementsWrap",
+    "dittyDisplay/editMode"
   ],
   "attributes": {},
   "supports": {

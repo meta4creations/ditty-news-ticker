@@ -49,3 +49,14 @@
 		overflow: hidden;
 	}
 }
+
+/**
+ * Splide hides `.splide` with `visibility: hidden` until initialization
+ * (it adds `.is-initialized` / `.is-rendered`).
+ *
+ * In the block editor preview we want the slides to remain visible even if
+ * Splide initialization is delayed by React/Gutenberg renders.
+ */
+.wp-block-ditty-display.ditty-display-editor.ditty-display-type-list.splide {
+	visibility: visible;
+}

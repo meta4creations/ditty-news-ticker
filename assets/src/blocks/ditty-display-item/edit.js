@@ -14,11 +14,19 @@ import {
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { applyFilters } from '@wordpress/hooks';
+import ServerSideRender from '@wordpress/server-side-render';
 
-export default function Edit({ attributes, setAttributes, clientId, context }) {
+export default function Edit({
+	attributes,
+	setAttributes,
+	clientId,
+	context,
+	name,
+}) {
 	const displayType = context['dittyDisplay/type'] || 'ticker';
 	const itemMaxWidth = context['dittyDisplay/itemMaxWidth'] || '';
 	const itemElementsWrap = context['dittyDisplay/itemElementsWrap'] || 'nowrap';
+	const editMode = context['dittyDisplay/editMode'] || 'edit';
 
 	// Get inner block count
 	const { innerBlockCount } = useSelect(

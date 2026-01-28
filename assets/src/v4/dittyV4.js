@@ -57,21 +57,130 @@ function buildTickerConfig(config) {
  * @returns {Object} Splide options
  */
 function buildListOptions(config) {
-	const spacing = parseInt(config.spacing, 10) || 25;
-	const hoverPause = Boolean(config.hoverPause);
+	const carousel = config.carousel || {};
 
-	return {
-		type: 'loop',
-		perPage: 1,
-		gap: spacing,
-		autoplay: true,
-		pauseOnHover: hoverPause,
-		pauseOnFocus: true,
-		interval: 3000,
-		speed: 400,
-		arrows: true,
-		pagination: true,
-	};
+	// Build Splide options from carousel config
+	const options = {};
+
+	// Gap setting - use carousel.gap if available (in CSS format), otherwise fallback to spacing
+	if (carousel.gap !== undefined) {
+		// Gap is already in CSS format (e.g., "25px", "1rem", etc.)
+		options.gap = carousel.gap;
+	} else {
+		// Fallback to spacing value (for backward compatibility)
+		const spacing = parseInt(config.spacing, 10) || 25;
+		options.gap = spacing;
+	}
+
+	// Type/Loop settings
+	if (carousel.rewind) {
+		options.type = 'slide';
+		options.rewind = true;
+	} else {
+		options.type = carousel.loop !== false ? 'loop' : 'slide';
+	}
+
+	// Speed settings
+	if (carousel.speed !== undefined) {
+		options.speed = parseInt(carousel.speed, 10);
+	}
+	if (carousel.rewindSpeed) {
+		options.rewindSpeed = parseInt(carousel.rewindSpeed, 10);
+	}
+	if (carousel.rewindByDrag !== undefined) {
+		options.rewindByDrag = Boolean(carousel.rewindByDrag);
+	}
+
+	// Dimension settings
+	if (carousel.height) {
+		options.height = carousel.height;
+	}
+	if (carousel.fixedWidth) {
+		options.fixedWidth = carousel.fixedWidth;
+	}
+	if (carousel.fixedHeight) {
+		options.fixedHeight = carousel.fixedHeight;
+	}
+	if (carousel.heightRatio) {
+		options.heightRatio = parseFloat(carousel.heightRatio);
+	}
+	if (carousel.autoWidth !== undefined) {
+		options.autoWidth = Boolean(carousel.autoWidth);
+	}
+	if (carousel.autoHeight !== undefined) {
+		options.autoHeight = Boolean(carousel.autoHeight);
+	}
+
+	// Layout settings
+	if (carousel.start !== undefined) {
+		options.start = parseInt(carousel.start, 10);
+	}
+	if (carousel.perPage !== undefined) {
+		options.perPage = parseInt(carousel.perPage, 10);
+	}
+	if (carousel.perMove) {
+		options.perMove = parseInt(carousel.perMove, 10);
+	}
+	if (carousel.focus) {
+		// Focus can be 'center' or a number
+		options.focus = carousel.focus === 'center' ? 'center' : parseInt(carousel.focus, 10);
+	}
+
+	// Navigation settings
+	if (carousel.arrows !== undefined) {
+		options.arrows = Boolean(carousel.arrows);
+	}
+	if (carousel.pagination !== undefined) {
+		options.pagination = Boolean(carousel.pagination);
+	}
+	if (carousel.paginationDirection) {
+		options.paginationDirection = carousel.paginationDirection;
+	}
+	if (carousel.direction) {
+		options.direction = carousel.direction;
+	}
+
+	// Animation settings
+	if (carousel.easing) {
+		options.easing = carousel.easing;
+	}
+	if (carousel.updateOnMove !== undefined) {
+		options.updateOnMove = Boolean(carousel.updateOnMove);
+	}
+
+	// Interaction settings
+	if (carousel.drag !== undefined) {
+		// Drag can be true, false, or 'free'
+		if (carousel.drag === 'false') {
+			options.drag = false;
+		} else if (carousel.drag === 'free') {
+			options.drag = 'free';
+		} else {
+			options.drag = true;
+		}
+	}
+	if (carousel.snap !== undefined) {
+		options.snap = Boolean(carousel.snap);
+	}
+
+	// Autoplay settings
+	if (carousel.autoplay !== undefined) {
+		options.autoplay = Boolean(carousel.autoplay);
+	}
+	if (carousel.interval !== undefined) {
+		options.interval = parseInt(carousel.interval, 10);
+	}
+	if (carousel.pauseOnHover !== undefined) {
+		options.pauseOnHover = Boolean(carousel.pauseOnHover);
+	}
+	if (carousel.pauseOnFocus !== undefined) {
+		options.pauseOnFocus = Boolean(carousel.pauseOnFocus);
+	}
+	if (carousel.resetProgress !== undefined) {
+		options.resetProgress = Boolean(carousel.resetProgress);
+	}
+
+	return options;
 }
 
 /**

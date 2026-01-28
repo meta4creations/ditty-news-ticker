@@ -35,6 +35,36 @@ $min_height = isset( $attributes['minHeight'] ) ? $attributes['minHeight'] : '';
 $fill_height = ! empty( $attributes['fillHeight'] );
 $is_vertical = ( 'ticker' === $type && ( 'up' === $direction || 'down' === $direction ) );
 
+// Get carousel-specific attributes
+$carousel_loop               = isset( $attributes['carouselLoop'] ) ? $attributes['carouselLoop'] : true;
+$carousel_speed              = isset( $attributes['carouselSpeed'] ) ? intval( $attributes['carouselSpeed'] ) : 400;
+$carousel_rewind             = ! empty( $attributes['carouselRewind'] );
+$carousel_rewind_speed       = isset( $attributes['carouselRewindSpeed'] ) ? intval( $attributes['carouselRewindSpeed'] ) : 0;
+$carousel_rewind_by_drag     = ! empty( $attributes['carouselRewindByDrag'] );
+$carousel_height             = isset( $attributes['carouselHeight'] ) ? $attributes['carouselHeight'] : '';
+$carousel_fixed_width        = isset( $attributes['carouselFixedWidth'] ) ? $attributes['carouselFixedWidth'] : '';
+$carousel_fixed_height       = isset( $attributes['carouselFixedHeight'] ) ? $attributes['carouselFixedHeight'] : '';
+$carousel_height_ratio       = isset( $attributes['carouselHeightRatio'] ) ? floatval( $attributes['carouselHeightRatio'] ) : 0;
+$carousel_auto_width         = ! empty( $attributes['carouselAutoWidth'] );
+$carousel_auto_height        = ! empty( $attributes['carouselAutoHeight'] );
+$carousel_start              = isset( $attributes['carouselStart'] ) ? intval( $attributes['carouselStart'] ) : 0;
+$carousel_per_page           = isset( $attributes['carouselPerPage'] ) ? intval( $attributes['carouselPerPage'] ) : 1;
+$carousel_per_move           = isset( $attributes['carouselPerMove'] ) ? intval( $attributes['carouselPerMove'] ) : 0;
+$carousel_focus              = isset( $attributes['carouselFocus'] ) ? $attributes['carouselFocus'] : '';
+$carousel_arrows             = isset( $attributes['carouselArrows'] ) ? $attributes['carouselArrows'] : true;
+$carousel_pagination         = isset( $attributes['carouselPagination'] ) ? $attributes['carouselPagination'] : true;
+$carousel_pagination_dir     = isset( $attributes['carouselPaginationDirection'] ) ? $attributes['carouselPaginationDirection'] : '';
+$carousel_easing             = isset( $attributes['carouselEasing'] ) ? $attributes['carouselEasing'] : 'cubic-bezier(0.25, 1, 0.5, 1)';
+$carousel_drag               = isset( $attributes['carouselDrag'] ) ? $attributes['carouselDrag'] : 'true';
+$carousel_snap               = ! empty( $attributes['carouselSnap'] );
+$carousel_autoplay           = isset( $attributes['carouselAutoplay'] ) ? $attributes['carouselAutoplay'] : true;
+$carousel_interval           = isset( $attributes['carouselInterval'] ) ? intval( $attributes['carouselInterval'] ) : 3000;
+$carousel_pause_on_hover     = isset( $attributes['carouselPauseOnHover'] ) ? $attributes['carouselPauseOnHover'] : true;
+$carousel_pause_on_focus     = isset( $attributes['carouselPauseOnFocus'] ) ? $attributes['carouselPauseOnFocus'] : true;
+$carousel_reset_progress     = isset( $attributes['carouselResetProgress'] ) ? $attributes['carouselResetProgress'] : true;
+$carousel_direction          = isset( $attributes['carouselDirection'] ) ? $attributes['carouselDirection'] : 'ltr';
+$carousel_update_on_move     = ! empty( $attributes['carouselUpdateOnMove'] );
+
 // Get gap/spacing from block supports
 $spacing     = 25; // Default value (only used if blockGap is not set at all)
 $gap_value   = null;
@@ -70,6 +100,18 @@ if ( 0 === $spacing ) {
 	$spacing = -1;
 }
 
+// For carousel, prepare gap value in CSS format for Splide
+$carousel_gap = null;
+if ( 'list' === $type ) {
+	if ( $has_gap_set && null !== $gap_value ) {
+		// Use the gap value as-is (already in CSS format like "25px", "1rem", etc.)
+		$carousel_gap = $gap_value;
+	} else {
+		// Default gap for carousel
+		$carousel_gap = '25px';
+	}
+}
+
 // Build JS config
 $config = [
 	'type'       => $type,
@@ -79,6 +121,41 @@ $config = [
 	'hoverPause' => $hover_pause,
 	'cloneItems' => $clone_items ? 'yes' : 'no',
 ];
+
+// Add carousel-specific config if type is list/carousel
+if ( 'list' === $type ) {
+	$config['carousel'] = [
+		'loop'               => $carousel_loop,
+		'speed'              => $carousel_speed,
+		'rewind'             => $carousel_rewind,
+		'rewindSpeed'        => $carousel_rewind_speed,
+		'rewindByDrag'       => $carousel_rewind_by_drag,
+		'height'             => $carousel_height,
+		'fixedWidth'         => $carousel_fixed_width,
+		'fixedHeight'        => $carousel_fixed_height,
+		'heightRatio'        => $carousel_height_ratio,
+		'autoWidth'          => $carousel_auto_width,
+		'autoHeight'         => $carousel_auto_height,
+		'start'              => $carousel_start,
+		'perPage'            => $carousel_per_page,
+		'perMove'            => $carousel_per_move,
+		'focus'              => $carousel_focus,
+		'arrows'             => $carousel_arrows,
+		'pagination'         => $carousel_pagination,
+		'paginationDirection' => $carousel_pagination_dir,
+		'easing'             => $carousel_easing,
+		'drag'               => $carousel_drag,
+		'snap'               => $carousel_snap,
+		'autoplay'           => $carousel_autoplay,
+		'interval'           => $carousel_interval,
+		'pauseOnHover'       => $carousel_pause_on_hover,
+		'pauseOnFocus'       => $carousel_pause_on_focus,
+		'resetProgress'      => $carousel_reset_progress,
+		'direction'          => $carousel_direction,
+		'updateOnMove'       => $carousel_update_on_move,
+		'gap'                => $carousel_gap,
+	];
+}
 
 // echo '<pre>';
 // print_r( $config );
@@ -135,52 +212,42 @@ unset( $vertical_styles['min-height'] );
 // Start output
 echo '<div ' . $wrapper_attributes . '>';
 
-// Render contents wrapper with items
-if ( ! empty( $items ) ) {
-	$contents_style_attr = ! empty( $vertical_styles ) ? ' style="' . implode( '; ', array_values( $vertical_styles ) ) . ';"' : '';
-	echo '<div class="ditty-display__contents"' . $contents_style_attr . '>';
-	
-	// Build gap style for items container
-	// Note: gap only works for carousel (splide), not ticker (absolute positioning)
-	$gap_style = '';
-	if ( $has_gap_set && null !== $gap_value ) {
-		// Use the explicitly set gap value (including 0)
-		$gap_style = ' style="gap:' . esc_attr( $gap_value ) . '"';
-	} else {
-		// Use default 25px gap when not explicitly set
-		$gap_style = ' style="gap:25px"';
-	}
-	
-	if ( 'ticker' === $type ) {
-		// Ticker structure (gap doesn't work with absolute positioning, spacing handled by JS padding)
-		// Apply height styles for vertical tickers
-		$items_style_attr = ! empty( $vertical_styles ) ? ' style="' . implode( '; ', array_values( $vertical_styles ) ) . ';"' : '';
+	// Render contents wrapper with items
+	if ( ! empty( $items ) ) {
+		$contents_style_attr = ! empty( $vertical_styles ) ? ' style="' . implode( '; ', array_values( $vertical_styles ) ) . ';"' : '';
+		echo '<div class="ditty-display__contents"' . $contents_style_attr . '>';
 		
-		echo '<div class="ditty-display__items"' . $items_style_attr . '>';
-		
-		foreach ( $items as $item ) {
-			// display-item block already outputs .ditty__item wrapper
-			echo $item;
+		if ( 'ticker' === $type ) {
+			// Ticker structure (gap doesn't work with absolute positioning, spacing handled by JS padding)
+			// Apply height styles for vertical tickers
+			$items_style_attr = ! empty( $vertical_styles ) ? ' style="' . implode( '; ', array_values( $vertical_styles ) ) . ';"' : '';
+			
+			echo '<div class="ditty-display__items"' . $items_style_attr . '>';
+			
+			foreach ( $items as $item ) {
+				// display-item block already outputs .ditty__item wrapper
+				echo $item;
+			}
+			
+			echo '</div>'; // .ditty-display__items
+		} else {
+			// Carousel/Splide structure
+			// Gap is handled by Splide's gap option, not inline styles
+			echo '<div class="splide__track">';
+			echo '<ul class="splide__list">';
+			
+			foreach ( $items as $item ) {
+				// Wrap each display-item in splide__slide
+				echo '<li class="splide__slide">';
+				echo $item;
+				echo '</li>';
+			}
+			
+			echo '</ul>';
+			echo '</div>'; // .splide__track
 		}
 		
-		echo '</div>'; // .ditty-display__items
-	} else {
-		// Carousel/Splide structure
-		echo '<div class="splide__track">';
-		echo '<ul class="splide__list"' . $gap_style . '>';
-		
-		foreach ( $items as $item ) {
-			// Wrap each display-item in splide__slide
-			echo '<li class="splide__slide">';
-			echo $item;
-			echo '</li>';
-		}
-		
-		echo '</ul>';
-		echo '</div>'; // .splide__track
+		echo '</div>'; // .ditty-display__contents
 	}
-	
-	echo '</div>'; // .ditty-display__contents
-}
 
 echo '</div>'; // .ditty-display
