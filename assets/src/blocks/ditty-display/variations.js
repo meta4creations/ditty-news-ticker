@@ -19,9 +19,9 @@ const tickerIcon = (
 );
 
 /**
- * Carousel icon - slides with navigation
+ * Slider icon - slides with navigation
  */
-const carouselIcon = (
+const sliderIcon = (
 	<SVG
 		xmlns="http://www.w3.org/2000/svg"
 		width="48"
@@ -62,11 +62,11 @@ const variations = [
 		],
 	},
 	{
-		name: 'carousel',
-		title: __('Carousel', 'ditty-news-ticker'),
-		description: __('A carousel/slider display.', 'ditty-news-ticker'),
+		name: 'slider',
+		title: __('Slider', 'ditty-news-ticker'),
+		description: __('A slider/carousel display.', 'ditty-news-ticker'),
 		attributes: {
-			type: 'list',
+			type: 'slider',
 			style: {
 				spacing: {
 					blockGap: '25px',
@@ -74,8 +74,8 @@ const variations = [
 			},
 		},
 		scope: ['block', 'inserter', 'transform'],
-		isActive: blockAttributes => blockAttributes.type === 'list',
-		icon: carouselIcon,
+		isActive: blockAttributes => blockAttributes.type === 'slider',
+		icon: sliderIcon,
 		innerBlocks: [
 			['ditty/display-item'],
 			['ditty/display-item'],
@@ -86,4 +86,4 @@ const variations = [
 
 export default variations;
 
-export { tickerIcon, carouselIcon };
+export { tickerIcon, sliderIcon };

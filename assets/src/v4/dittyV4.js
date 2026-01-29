@@ -57,15 +57,15 @@ function buildTickerConfig(config) {
  * @returns {Object} Splide options
  */
 function buildListOptions(config) {
-	const carousel = config.carousel || {};
+	const slider = config.slider || {};
 
-	// Build Splide options from carousel config
+	// Build Splide options from slider config
 	const options = {};
 
-	// Gap setting - use carousel.gap if available (in CSS format), otherwise fallback to spacing
-	if (carousel.gap !== undefined) {
+	// Gap setting - use slider.gap if available (in CSS format), otherwise fallback to spacing
+	if (slider.gap !== undefined) {
 		// Gap is already in CSS format (e.g., "25px", "1rem", etc.)
-		options.gap = carousel.gap;
+		options.gap = slider.gap;
 	} else {
 		// Fallback to spacing value (for backward compatibility)
 		const spacing = parseInt(config.spacing, 10) || 25;
@@ -73,111 +73,112 @@ function buildListOptions(config) {
 	}
 
 	// Type/Loop settings
-	if (carousel.rewind) {
+	if (slider.rewind) {
 		options.type = 'slide';
 		options.rewind = true;
 	} else {
-		options.type = carousel.loop !== false ? 'loop' : 'slide';
+		options.type = slider.loop !== false ? 'loop' : 'slide';
 	}
 
 	// Speed settings
-	if (carousel.speed !== undefined) {
-		options.speed = parseInt(carousel.speed, 10);
+	if (slider.speed !== undefined) {
+		options.speed = parseInt(slider.speed, 10);
 	}
-	if (carousel.rewindSpeed) {
-		options.rewindSpeed = parseInt(carousel.rewindSpeed, 10);
+	if (slider.rewindSpeed) {
+		options.rewindSpeed = parseInt(slider.rewindSpeed, 10);
 	}
-	if (carousel.rewindByDrag !== undefined) {
-		options.rewindByDrag = Boolean(carousel.rewindByDrag);
+	if (slider.rewindByDrag !== undefined) {
+		options.rewindByDrag = Boolean(slider.rewindByDrag);
 	}
 
 	// Dimension settings
-	if (carousel.height) {
-		options.height = carousel.height;
+	if (slider.height) {
+		options.height = slider.height;
 	}
-	if (carousel.fixedWidth) {
-		options.fixedWidth = carousel.fixedWidth;
+	if (slider.fixedWidth) {
+		options.fixedWidth = slider.fixedWidth;
 	}
-	if (carousel.fixedHeight) {
-		options.fixedHeight = carousel.fixedHeight;
+	if (slider.fixedHeight) {
+		options.fixedHeight = slider.fixedHeight;
 	}
-	if (carousel.heightRatio) {
-		options.heightRatio = parseFloat(carousel.heightRatio);
+	if (slider.heightRatio) {
+		options.heightRatio = parseFloat(slider.heightRatio);
 	}
-	if (carousel.autoWidth !== undefined) {
-		options.autoWidth = Boolean(carousel.autoWidth);
+	if (slider.autoWidth !== undefined) {
+		options.autoWidth = Boolean(slider.autoWidth);
 	}
-	if (carousel.autoHeight !== undefined) {
-		options.autoHeight = Boolean(carousel.autoHeight);
+	if (slider.autoHeight !== undefined) {
+		options.autoHeight = Boolean(slider.autoHeight);
 	}
 
 	// Layout settings
-	if (carousel.start !== undefined) {
-		options.start = parseInt(carousel.start, 10);
+	if (slider.start !== undefined) {
+		options.start = parseInt(slider.start, 10);
 	}
-	if (carousel.perPage !== undefined) {
-		options.perPage = parseInt(carousel.perPage, 10);
+	if (slider.perPage !== undefined) {
+		options.perPage = parseInt(slider.perPage, 10);
 	}
-	if (carousel.perMove) {
-		options.perMove = parseInt(carousel.perMove, 10);
+	if (slider.perMove) {
+		options.perMove = parseInt(slider.perMove, 10);
 	}
-	if (carousel.focus) {
+	if (slider.focus) {
 		// Focus can be 'center' or a number
-		options.focus = carousel.focus === 'center' ? 'center' : parseInt(carousel.focus, 10);
+		options.focus =
+			slider.focus === 'center' ? 'center' : parseInt(slider.focus, 10);
 	}
 
 	// Navigation settings
-	if (carousel.arrows !== undefined) {
-		options.arrows = Boolean(carousel.arrows);
+	if (slider.arrows !== undefined) {
+		options.arrows = Boolean(slider.arrows);
 	}
-	if (carousel.pagination !== undefined) {
-		options.pagination = Boolean(carousel.pagination);
+	if (slider.pagination !== undefined) {
+		options.pagination = Boolean(slider.pagination);
 	}
-	if (carousel.paginationDirection) {
-		options.paginationDirection = carousel.paginationDirection;
+	if (slider.paginationDirection) {
+		options.paginationDirection = slider.paginationDirection;
 	}
-	if (carousel.direction) {
-		options.direction = carousel.direction;
+	if (slider.direction) {
+		options.direction = slider.direction;
 	}
 
 	// Animation settings
-	if (carousel.easing) {
-		options.easing = carousel.easing;
+	if (slider.easing) {
+		options.easing = slider.easing;
 	}
-	if (carousel.updateOnMove !== undefined) {
-		options.updateOnMove = Boolean(carousel.updateOnMove);
+	if (slider.updateOnMove !== undefined) {
+		options.updateOnMove = Boolean(slider.updateOnMove);
 	}
 
 	// Interaction settings
-	if (carousel.drag !== undefined) {
+	if (slider.drag !== undefined) {
 		// Drag can be true, false, or 'free'
-		if (carousel.drag === 'false') {
+		if (slider.drag === 'false') {
 			options.drag = false;
-		} else if (carousel.drag === 'free') {
+		} else if (slider.drag === 'free') {
 			options.drag = 'free';
 		} else {
 			options.drag = true;
 		}
 	}
-	if (carousel.snap !== undefined) {
-		options.snap = Boolean(carousel.snap);
+	if (slider.snap !== undefined) {
+		options.snap = Boolean(slider.snap);
 	}
 
 	// Autoplay settings
-	if (carousel.autoplay !== undefined) {
-		options.autoplay = Boolean(carousel.autoplay);
+	if (slider.autoplay !== undefined) {
+		options.autoplay = Boolean(slider.autoplay);
 	}
-	if (carousel.interval !== undefined) {
-		options.interval = parseInt(carousel.interval, 10);
+	if (slider.interval !== undefined) {
+		options.interval = parseInt(slider.interval, 10);
 	}
-	if (carousel.pauseOnHover !== undefined) {
-		options.pauseOnHover = Boolean(carousel.pauseOnHover);
+	if (slider.pauseOnHover !== undefined) {
+		options.pauseOnHover = Boolean(slider.pauseOnHover);
 	}
-	if (carousel.pauseOnFocus !== undefined) {
-		options.pauseOnFocus = Boolean(carousel.pauseOnFocus);
+	if (slider.pauseOnFocus !== undefined) {
+		options.pauseOnFocus = Boolean(slider.pauseOnFocus);
 	}
-	if (carousel.resetProgress !== undefined) {
-		options.resetProgress = Boolean(carousel.resetProgress);
+	if (slider.resetProgress !== undefined) {
+		options.resetProgress = Boolean(slider.resetProgress);
 	}
 
 	return options;
@@ -195,7 +196,7 @@ function initDittyElement(element) {
 	}
 
 	const config = parseConfig(element);
-	const dittyType = config.type || 'list';
+	const dittyType = config.type || 'slider';
 
 	if (dittyType === 'ticker') {
 		// Use custom DittyTicker for ticker type
@@ -204,8 +205,8 @@ function initDittyElement(element) {
 
 		// Store reference on element
 		element._dittyTicker = ticker;
-	} else {
-		// Use Splide for list/carousel type
+	} else if (dittyType === 'slider' || dittyType === 'list') {
+		// Use Splide for slider/carousel type (support 'list' for backwards compatibility)
 		const splideOptions = buildListOptions(config);
 		const splide = new Splide(element, splideOptions);
 		splide.mount();

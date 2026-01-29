@@ -4,12 +4,12 @@
   "name": "ditty/display",
   "version": "1.0.0",
   "title": "Ditty Display",
-  "description": "A dynamic display with ticker and carousel variations.",
+  "description": "A dynamic display with ticker and slider variations.",
   "category": "widgets",
   "icon": "slides",
   "keywords": [
     "ticker",
-    "carousel",
+    "slider",
     "slider",
     "display",
     "news"
@@ -56,115 +56,115 @@
       "type": "string",
       "default": "edit"
     },
-    "carouselLoop": {
+    "sliderLoop": {
       "type": "boolean",
       "default": true
     },
-    "carouselSpeed": {
+    "sliderSpeed": {
       "type": "number",
       "default": 400
     },
-    "carouselRewind": {
+    "sliderRewind": {
       "type": "boolean",
       "default": false
     },
-    "carouselRewindSpeed": {
+    "sliderRewindSpeed": {
       "type": "number",
       "default": 0
     },
-    "carouselRewindByDrag": {
+    "sliderRewindByDrag": {
       "type": "boolean",
       "default": false
     },
-    "carouselHeight": {
+    "sliderHeight": {
       "type": "string",
       "default": ""
     },
-    "carouselFixedWidth": {
+    "sliderFixedWidth": {
       "type": "string",
       "default": ""
     },
-    "carouselFixedHeight": {
+    "sliderFixedHeight": {
       "type": "string",
       "default": ""
     },
-    "carouselHeightRatio": {
+    "sliderHeightRatio": {
       "type": "number",
       "default": 0
     },
-    "carouselAutoWidth": {
+    "sliderAutoWidth": {
       "type": "boolean",
       "default": false
     },
-    "carouselAutoHeight": {
+    "sliderAutoHeight": {
       "type": "boolean",
       "default": false
     },
-    "carouselStart": {
+    "sliderStart": {
       "type": "number",
       "default": 0
     },
-    "carouselPerPage": {
+    "sliderPerPage": {
       "type": "number",
       "default": 1
     },
-    "carouselPerMove": {
+    "sliderPerMove": {
       "type": "number",
       "default": 0
     },
-    "carouselFocus": {
+    "sliderFocus": {
       "type": "string",
       "default": ""
     },
-    "carouselArrows": {
+    "sliderArrows": {
       "type": "boolean",
       "default": true
     },
-    "carouselPagination": {
+    "sliderPagination": {
       "type": "boolean",
       "default": true
     },
-    "carouselPaginationDirection": {
+    "sliderPaginationDirection": {
       "type": "string",
       "default": ""
     },
-    "carouselEasing": {
+    "sliderEasing": {
       "type": "string",
       "default": "cubic-bezier(0.25, 1, 0.5, 1)"
     },
-    "carouselDrag": {
+    "sliderDrag": {
       "type": "string",
       "default": "true"
     },
-    "carouselSnap": {
+    "sliderSnap": {
       "type": "boolean",
       "default": false
     },
-    "carouselAutoplay": {
+    "sliderAutoplay": {
       "type": "boolean",
       "default": true
     },
-    "carouselInterval": {
+    "sliderInterval": {
       "type": "number",
       "default": 3000
     },
-    "carouselPauseOnHover": {
+    "sliderPauseOnHover": {
       "type": "boolean",
       "default": true
     },
-    "carouselPauseOnFocus": {
+    "sliderPauseOnFocus": {
       "type": "boolean",
       "default": true
     },
-    "carouselResetProgress": {
+    "sliderResetProgress": {
       "type": "boolean",
       "default": true
     },
-    "carouselDirection": {
+    "sliderDirection": {
       "type": "string",
       "default": "ltr"
     },
-    "carouselUpdateOnMove": {
+    "sliderUpdateOnMove": {
       "type": "boolean",
       "default": false
     }

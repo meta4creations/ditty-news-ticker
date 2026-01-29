@@ -29,7 +29,8 @@ import { View } from '@wordpress/primitives';
 import DittyDisplayPlaceholder, {
 	useShouldShowPlaceholder,
 } from './placeholder';
-import CarouselPreview from './previews/carousel';
+import SliderPreview from './previews/slider';
+import TickerPreview from './previews/ticker';
 
 /**
  * Template for inner blocks - display items
@@ -55,34 +56,34 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 		minHeight,
 		fillHeight,
 		editMode = 'edit',
-		carouselLoop,
-		carouselSpeed,
-		carouselRewind,
-		carouselRewindSpeed,
-		carouselRewindByDrag,
-		carouselHeight,
-		carouselFixedWidth,
-		carouselFixedHeight,
-		carouselHeightRatio,
-		carouselAutoWidth,
-		carouselAutoHeight,
-		carouselStart,
-		carouselPerPage,
-		carouselPerMove,
-		carouselFocus,
-		carouselArrows,
-		carouselPagination,
-		carouselPaginationDirection,
-		carouselEasing,
-		carouselDrag,
-		carouselSnap,
-		carouselAutoplay,
-		carouselInterval,
-		carouselPauseOnHover,
-		carouselPauseOnFocus,
-		carouselResetProgress,
-		carouselDirection,
-		carouselUpdateOnMove,
+		sliderLoop,
+		sliderSpeed,
+		sliderRewind,
+		sliderRewindSpeed,
+		sliderRewindByDrag,
+		sliderHeight,
+		sliderFixedWidth,
+		sliderFixedHeight,
+		sliderHeightRatio,
+		sliderAutoWidth,
+		sliderAutoHeight,
+		sliderStart,
+		sliderPerPage,
+		sliderPerMove,
+		sliderFocus,
+		sliderArrows,
+		sliderPagination,
+		sliderPaginationDirection,
+		sliderEasing,
+		sliderDrag,
+		sliderSnap,
+		sliderAutoplay,
+		sliderInterval,
+		sliderPauseOnHover,
+		sliderPauseOnFocus,
+		sliderResetProgress,
+		sliderDirection,
+		sliderUpdateOnMove,
 	} = attributes;
 
 	const { hasInnerBlocks } = useSelect(
@@ -124,7 +125,7 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 	});
 
 	const innerBlocksProps = useInnerBlocksProps(blockProps, {
-		allowedBlocks: ['ditty/display-item'],
+		allowedBlocks: ['ditty/display-item', 'ditty/display-posts-feed'],
 		template: TEMPLATE,
 		templateLock: false,
 		renderAppender: InnerBlocks.ButtonBlockAppender,
@@ -231,32 +232,35 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 							</>
 						)}
 				</PanelBody>
-				{/* Item Settings Panel */}
-				<PanelBody
-					title={__('Item Settings', 'ditty-news-ticker')}
-					initialOpen={false}
-				>
-					<UnitControl
-						label={__('Max Width', 'ditty-news-ticker')}
-						value={itemMaxWidth}
-						onChange={value => setAttributes({ itemMaxWidth: value })}
-					/>
-					<SelectControl
-						__next40pxDefaultSize
-						label={__('Text Wrap', 'ditty-news-ticker')}
-						value={itemElementsWrap}
-						options={[
-							{ label: __('No Wrap', 'ditty-news-ticker'), value: 'nowrap' },
-							{ label: __('Wrap', 'ditty-news-ticker'), value: 'wrap' },
-						]}
-						onChange={value => setAttributes({ itemElementsWrap: value })}
-					/>
-				</PanelBody>
 
-				{/* Carousel Layout Settings - Only show for carousel type */}
-				{type === 'list' && (
+				{/* Item Settings Panel - Only show for ticker type */}
+				{type === 'ticker' && (
 					<PanelBody
-						title={__('Carousel Layout', 'ditty-news-ticker')}
+						title={__('Item Settings', 'ditty-news-ticker')}
+						initialOpen={false}
+					>
+						<UnitControl
+							label={__('Max Width', 'ditty-news-ticker')}
+							value={itemMaxWidth}
+							onChange={value => setAttributes({ itemMaxWidth: value })}
+						/>
+						<SelectControl
+							__next40pxDefaultSize
+							label={__('Text Wrap', 'ditty-news-ticker')}
+							value={itemElementsWrap}
+							options={[
+								{ label: __('No Wrap', 'ditty-news-ticker'), value: 'nowrap' },
+								{ label: __('Wrap', 'ditty-news-ticker'), value: 'wrap' },
+							]}
+							onChange={value => setAttributes({ itemElementsWrap: value })}
+						/>
+					</PanelBody>
+				)}
+
+				{/* Slider Layout Settings - Only show for slider type */}
+				{type === 'slider' && (
+					<PanelBody
+						title={__('Slider Layout', 'ditty-news-ticker')}
 						initialOpen={false}
 					>
 						<RangeControl
@@ -267,8 +271,8 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 								'Number of slides to display at once',
 								'ditty-news-ticker'
 							)}
-							value={carouselPerPage}
-							onChange={value => setAttributes({ carouselPerPage: value })}
+							value={sliderPerPage}
+							onChange={value => setAttributes({ sliderPerPage: value })}
 							min={1}
 							max={10}
 						/>
@@ -280,8 +284,8 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 								'Number of slides to move at once (0 = same as per page)',
 								'ditty-news-ticker'
 							)}
-							value={carouselPerMove}
-							onChange={value => setAttributes({ carouselPerMove: value })}
+							value={sliderPerMove}
+							onChange={value => setAttributes({ sliderPerMove: value })}
 							min={0}
 							max={10}
 						/>
@@ -293,8 +297,8 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 								'The initial slide index to display',
 								'ditty-news-ticker'
 							)}
-							value={carouselStart}
-							onChange={value => setAttributes({ carouselStart: value })}
+							value={sliderStart}
+							onChange={value => setAttributes({ sliderStart: value })}
 							min={0}
 							max={20}
 						/>
@@ -306,7 +310,7 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 								'Which slide should be active when multiple slides are shown',
 								'ditty-news-ticker'
 							)}
-							value={carouselFocus}
+							value={sliderFocus}
 							options={[
 								{ label: __('Default', 'ditty-news-ticker'), value: '' },
 								{ label: __('Center', 'ditty-news-ticker'), value: 'center' },
@@ -314,16 +318,16 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 								{ label: __('Index 1', 'ditty-news-ticker'), value: '1' },
 								{ label: __('Index 2', 'ditty-news-ticker'), value: '2' },
 							]}
-							onChange={value => setAttributes({ carouselFocus: value })}
+							onChange={value => setAttributes({ sliderFocus: value })}
 						/>
 						<UnitControl
 							label={__('Height', 'ditty-news-ticker')}
 							help={__(
-								'Defines the carousel height (CSS format)',
+								'Defines the slider height (CSS format)',
 								'ditty-news-ticker'
 							)}
-							value={carouselHeight}
-							onChange={value => setAttributes({ carouselHeight: value })}
+							value={sliderHeight}
+							onChange={value => setAttributes({ sliderHeight: value })}
 						/>
 						<UnitControl
 							label={__('Fixed Width', 'ditty-news-ticker')}
@@ -331,8 +335,8 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 								'Fixes width of slides (CSS format)',
 								'ditty-news-ticker'
 							)}
-							value={carouselFixedWidth}
-							onChange={value => setAttributes({ carouselFixedWidth: value })}
+							value={sliderFixedWidth}
+							onChange={value => setAttributes({ sliderFixedWidth: value })}
 						/>
 						<UnitControl
 							label={__('Fixed Height', 'ditty-news-ticker')}
@@ -340,21 +344,21 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 								'Fixes height of slides (CSS format)',
 								'ditty-news-ticker'
 							)}
-							value={carouselFixedHeight}
-							onChange={value => setAttributes({ carouselFixedHeight: value })}
+							value={sliderFixedHeight}
+							onChange={value => setAttributes({ sliderFixedHeight: value })}
 						/>
 						<TextControl
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
 							label={__('Height Ratio', 'ditty-news-ticker')}
 							help={__(
-								'Height by ratio to carousel width (e.g., 0.5 = 50% height)',
+								'Height by ratio to slider width (e.g., 0.5 = 50% height)',
 								'ditty-news-ticker'
 							)}
 							type="number"
-							value={carouselHeightRatio}
+							value={sliderHeightRatio}
 							onChange={value =>
-								setAttributes({ carouselHeightRatio: parseFloat(value) || 0 })
+								setAttributes({ sliderHeightRatio: parseFloat(value) || 0 })
 							}
 							min={0}
 							max={2}
@@ -367,8 +371,8 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 								'Width determined by slide content',
 								'ditty-news-ticker'
 							)}
-							checked={carouselAutoWidth}
-							onChange={value => setAttributes({ carouselAutoWidth: value })}
+							checked={sliderAutoWidth}
+							onChange={value => setAttributes({ sliderAutoWidth: value })}
 						/>
 						<ToggleControl
 							__nextHasNoMarginBottom
@@ -377,24 +381,24 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 								'Height determined by slide content',
 								'ditty-news-ticker'
 							)}
-							checked={carouselAutoHeight}
-							onChange={value => setAttributes({ carouselAutoHeight: value })}
+							checked={sliderAutoHeight}
+							onChange={value => setAttributes({ sliderAutoHeight: value })}
 						/>
 					</PanelBody>
 				)}
 
-				{/* Carousel Navigation Settings - Only show for carousel type */}
-				{type === 'list' && (
+				{/* Slider Navigation Settings - Only show for slider type */}
+				{type === 'slider' && (
 					<PanelBody
-						title={__('Carousel Navigation', 'ditty-news-ticker')}
+						title={__('Slider Navigation', 'ditty-news-ticker')}
 						initialOpen={false}
 					>
 						<ToggleControl
 							__nextHasNoMarginBottom
 							label={__('Loop', 'ditty-news-ticker')}
 							help={__('Enable continuous loop mode', 'ditty-news-ticker')}
-							checked={carouselLoop}
-							onChange={value => setAttributes({ carouselLoop: value })}
+							checked={sliderLoop}
+							onChange={value => setAttributes({ sliderLoop: value })}
 						/>
 						<ToggleControl
 							__nextHasNoMarginBottom
@@ -403,10 +407,10 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 								'Rewind to start/end instead of looping',
 								'ditty-news-ticker'
 							)}
-							checked={carouselRewind}
-							onChange={value => setAttributes({ carouselRewind: value })}
+							checked={sliderRewind}
+							onChange={value => setAttributes({ sliderRewind: value })}
 						/>
-						{carouselRewind && (
+						{sliderRewind && (
 							<>
 								<RangeControl
 									__next40pxDefaultSize
@@ -416,9 +420,9 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 										'Transition speed for rewind (0 = use main speed)',
 										'ditty-news-ticker'
 									)}
-									value={carouselRewindSpeed}
+									value={sliderRewindSpeed}
 									onChange={value =>
-										setAttributes({ carouselRewindSpeed: value })
+										setAttributes({ sliderRewindSpeed: value })
 									}
 									min={0}
 									max={2000}
@@ -428,9 +432,9 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 									__nextHasNoMarginBottom
 									label={__('Rewind By Drag', 'ditty-news-ticker')}
 									help={__('Allow rewind by dragging', 'ditty-news-ticker')}
-									checked={carouselRewindByDrag}
+									checked={sliderRewindByDrag}
 									onChange={value =>
-										setAttributes({ carouselRewindByDrag: value })
+										setAttributes({ sliderRewindByDrag: value })
 									}
 								/>
 							</>
@@ -439,7 +443,7 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
 							label={__('Direction', 'ditty-news-ticker')}
-							value={carouselDirection}
+							value={sliderDirection}
 							options={[
 								{
 									label: __('Left to Right', 'ditty-news-ticker'),
@@ -454,21 +458,21 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 									value: 'ttb',
 								},
 							]}
-							onChange={value => setAttributes({ carouselDirection: value })}
+							onChange={value => setAttributes({ sliderDirection: value })}
 						/>
 						<ToggleControl
 							__nextHasNoMarginBottom
 							label={__('Show Arrows', 'ditty-news-ticker')}
-							checked={carouselArrows}
-							onChange={value => setAttributes({ carouselArrows: value })}
+							checked={sliderArrows}
+							onChange={value => setAttributes({ sliderArrows: value })}
 						/>
 						<ToggleControl
 							__nextHasNoMarginBottom
 							label={__('Show Pagination', 'ditty-news-ticker')}
-							checked={carouselPagination}
-							onChange={value => setAttributes({ carouselPagination: value })}
+							checked={sliderPagination}
+							onChange={value => setAttributes({ sliderPagination: value })}
 						/>
-						{carouselPagination && (
+						{sliderPagination && (
 							<SelectControl
 								__next40pxDefaultSize
 								__nextHasNoMarginBottom
@@ -477,7 +481,7 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 									'Override pagination direction (leave empty for auto)',
 									'ditty-news-ticker'
 								)}
-								value={carouselPaginationDirection}
+								value={sliderPaginationDirection}
 								options={[
 									{ label: __('Auto', 'ditty-news-ticker'), value: '' },
 									{
@@ -494,17 +498,17 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 									},
 								]}
 								onChange={value =>
-									setAttributes({ carouselPaginationDirection: value })
+									setAttributes({ sliderPaginationDirection: value })
 								}
 							/>
 						)}
 					</PanelBody>
 				)}
 
-				{/* Carousel Animation Settings - Only show for carousel type */}
-				{type === 'list' && (
+				{/* Slider Animation Settings - Only show for slider type */}
+				{type === 'slider' && (
 					<PanelBody
-						title={__('Carousel Animation', 'ditty-news-ticker')}
+						title={__('Slider Animation', 'ditty-news-ticker')}
 						initialOpen={false}
 					>
 						<RangeControl
@@ -515,8 +519,8 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 								'Speed of slide transitions in milliseconds',
 								'ditty-news-ticker'
 							)}
-							value={carouselSpeed}
-							onChange={value => setAttributes({ carouselSpeed: value })}
+							value={sliderSpeed}
+							onChange={value => setAttributes({ sliderSpeed: value })}
 							min={0}
 							max={2000}
 							step={100}
@@ -529,8 +533,8 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 								'CSS timing function (e.g., ease, linear, cubic-bezier)',
 								'ditty-news-ticker'
 							)}
-							value={carouselEasing}
-							onChange={value => setAttributes({ carouselEasing: value })}
+							value={sliderEasing}
+							onChange={value => setAttributes({ sliderEasing: value })}
 						/>
 						<ToggleControl
 							__nextHasNoMarginBottom
@@ -539,16 +543,16 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 								'Update active status before transition completes',
 								'ditty-news-ticker'
 							)}
-							checked={carouselUpdateOnMove}
-							onChange={value => setAttributes({ carouselUpdateOnMove: value })}
+							checked={sliderUpdateOnMove}
+							onChange={value => setAttributes({ sliderUpdateOnMove: value })}
 						/>
 					</PanelBody>
 				)}
 
-				{/* Carousel Interaction Settings - Only show for carousel type */}
-				{type === 'list' && (
+				{/* Slider Interaction Settings - Only show for slider type */}
+				{type === 'slider' && (
 					<PanelBody
-						title={__('Carousel Interaction', 'ditty-news-ticker')}
+						title={__('Slider Interaction', 'ditty-news-ticker')}
 						initialOpen={false}
 					>
 						<SelectControl
@@ -559,15 +563,15 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 								'Enable dragging to navigate slides',
 								'ditty-news-ticker'
 							)}
-							value={carouselDrag}
+							value={sliderDrag}
 							options={[
 								{ label: __('Enabled', 'ditty-news-ticker'), value: 'true' },
 								{ label: __('Disabled', 'ditty-news-ticker'), value: 'false' },
 								{ label: __('Free Drag', 'ditty-news-ticker'), value: 'free' },
 							]}
-							onChange={value => setAttributes({ carouselDrag: value })}
+							onChange={value => setAttributes({ sliderDrag: value })}
 						/>
-						{carouselDrag === 'free' && (
+						{sliderDrag === 'free' && (
 							<ToggleControl
 								__nextHasNoMarginBottom
 								label={__('Snap', 'ditty-news-ticker')}
@@ -575,26 +579,26 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 									'Snap to closest slide in free drag mode',
 									'ditty-news-ticker'
 								)}
-								checked={carouselSnap}
-								onChange={value => setAttributes({ carouselSnap: value })}
+								checked={sliderSnap}
+								onChange={value => setAttributes({ sliderSnap: value })}
 							/>
 						)}
 					</PanelBody>
 				)}
 
-				{/* Carousel Autoplay Settings - Only show for carousel type */}
-				{type === 'list' && (
+				{/* Slider Autoplay Settings - Only show for slider type */}
+				{type === 'slider' && (
 					<PanelBody
-						title={__('Carousel Autoplay', 'ditty-news-ticker')}
+						title={__('Slider Autoplay', 'ditty-news-ticker')}
 						initialOpen={false}
 					>
 						<ToggleControl
 							__nextHasNoMarginBottom
 							label={__('Enable Autoplay', 'ditty-news-ticker')}
-							checked={carouselAutoplay}
-							onChange={value => setAttributes({ carouselAutoplay: value })}
+							checked={sliderAutoplay}
+							onChange={value => setAttributes({ sliderAutoplay: value })}
 						/>
-						{carouselAutoplay && (
+						{sliderAutoplay && (
 							<>
 								<RangeControl
 									__next40pxDefaultSize
@@ -604,8 +608,8 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 										'Time between automatic slide transitions',
 										'ditty-news-ticker'
 									)}
-									value={carouselInterval}
-									onChange={value => setAttributes({ carouselInterval: value })}
+									value={sliderInterval}
+									onChange={value => setAttributes({ sliderInterval: value })}
 									min={500}
 									max={10000}
 									step={500}
@@ -613,21 +617,21 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 								<ToggleControl
 									__nextHasNoMarginBottom
 									label={__('Pause on Hover', 'ditty-news-ticker')}
-									checked={carouselPauseOnHover}
+									checked={sliderPauseOnHover}
 									onChange={value =>
-										setAttributes({ carouselPauseOnHover: value })
+										setAttributes({ sliderPauseOnHover: value })
 									}
 								/>
 								<ToggleControl
 									__nextHasNoMarginBottom
 									label={__('Pause on Focus', 'ditty-news-ticker')}
 									help={__(
-										'Pause when carousel contains focused element',
+										'Pause when slider contains focused element',
 										'ditty-news-ticker'
 									)}
-									checked={carouselPauseOnFocus}
+									checked={sliderPauseOnFocus}
 									onChange={value =>
-										setAttributes({ carouselPauseOnFocus: value })
+										setAttributes({ sliderPauseOnFocus: value })
 									}
 								/>
 								<ToggleControl
@@ -637,9 +641,9 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 										'Reset progress when autoplay restarts',
 										'ditty-news-ticker'
 									)}
-									checked={carouselResetProgress}
+									checked={sliderResetProgress}
 									onChange={value =>
-										setAttributes({ carouselResetProgress: value })
+										setAttributes({ sliderResetProgress: value })
 									}
 								/>
 							</>
@@ -649,8 +653,15 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 			</InspectorControls>
 
 			{editMode === 'preview' ? (
-				type === 'list' ? (
-					<CarouselPreview
+				type === 'slider' ? (
+					<SliderPreview
+						blockProps={blockProps}
+						innerBlocksProps={innerBlocksProps}
+						attributes={attributes}
+						clientId={clientId}
+					/>
+				) : type === 'ticker' ? (
+					<TickerPreview
 						blockProps={blockProps}
 						innerBlocksProps={innerBlocksProps}
 						attributes={attributes}

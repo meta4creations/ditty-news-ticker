@@ -57,6 +57,16 @@
  * In the block editor preview we want the slides to remain visible even if
  * Splide initialization is delayed by React/Gutenberg renders.
  */
-.wp-block-ditty-display.ditty-display-editor.ditty-display-type-list.splide {
+.wp-block-ditty-display.ditty-display-editor.ditty-display-type-slider.splide {
 	visibility: visible;
+}
+
+/**
+ * Ensure ticker preview is visible in editor.
+ * The ticker styles from dittyV4.scss will handle the layout.
+ */
+.wp-block-ditty-display.ditty-display-editor.ditty-display-type-ticker {
+	.ditty-display__contents {
+		overflow: hidden;
+	}
 }

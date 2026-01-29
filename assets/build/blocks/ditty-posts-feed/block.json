@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ditty/posts-feed",
+  "version": "1.0.0",
+  "title": "Posts Feed",
+  "description": "Display a feed of recent blog posts.",
+  "category": "widgets",
+  "icon": "admin-post",
+  "textdomain": "ditty-news-ticker",
+  "parent": [
+    "ditty/display"
+  ],
+  "usesContext": [
+    "dittyDisplay/type",
+    "dittyDisplay/itemMaxWidth",
+    "dittyDisplay/itemElementsWrap",
+    "dittyDisplay/editMode"
+  ],
+  "attributes": {
+    "limit": {
+      "type": "number",
+      "default": 5
+    },
+    "layout": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "supports": {
+    "html": false,
+    "lock": false,
+    "reusable": false
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}

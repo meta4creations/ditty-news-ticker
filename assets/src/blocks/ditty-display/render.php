@@ -35,35 +35,35 @@ $min_height = isset( $attributes['minHeight'] ) ? $attributes['minHeight'] : '';
 $fill_height = ! empty( $attributes['fillHeight'] );
 $is_vertical = ( 'ticker' === $type && ( 'up' === $direction || 'down' === $direction ) );
 
-// Get carousel-specific attributes
-$carousel_loop               = isset( $attributes['carouselLoop'] ) ? $attributes['carouselLoop'] : true;
-$carousel_speed              = isset( $attributes['carouselSpeed'] ) ? intval( $attributes['carouselSpeed'] ) : 400;
-$carousel_rewind             = ! empty( $attributes['carouselRewind'] );
-$carousel_rewind_speed       = isset( $attributes['carouselRewindSpeed'] ) ? intval( $attributes['carouselRewindSpeed'] ) : 0;
-$carousel_rewind_by_drag     = ! empty( $attributes['carouselRewindByDrag'] );
-$carousel_height             = isset( $attributes['carouselHeight'] ) ? $attributes['carouselHeight'] : '';
-$carousel_fixed_width        = isset( $attributes['carouselFixedWidth'] ) ? $attributes['carouselFixedWidth'] : '';
-$carousel_fixed_height       = isset( $attributes['carouselFixedHeight'] ) ? $attributes['carouselFixedHeight'] : '';
-$carousel_height_ratio       = isset( $attributes['carouselHeightRatio'] ) ? floatval( $attributes['carouselHeightRatio'] ) : 0;
-$carousel_auto_width         = ! empty( $attributes['carouselAutoWidth'] );
-$carousel_auto_height        = ! empty( $attributes['carouselAutoHeight'] );
-$carousel_start              = isset( $attributes['carouselStart'] ) ? intval( $attributes['carouselStart'] ) : 0;
-$carousel_per_page           = isset( $attributes['carouselPerPage'] ) ? intval( $attributes['carouselPerPage'] ) : 1;
-$carousel_per_move           = isset( $attributes['carouselPerMove'] ) ? intval( $attributes['carouselPerMove'] ) : 0;
-$carousel_focus              = isset( $attributes['carouselFocus'] ) ? $attributes['carouselFocus'] : '';
-$carousel_arrows             = isset( $attributes['carouselArrows'] ) ? $attributes['carouselArrows'] : true;
-$carousel_pagination         = isset( $attributes['carouselPagination'] ) ? $attributes['carouselPagination'] : true;
-$carousel_pagination_dir     = isset( $attributes['carouselPaginationDirection'] ) ? $attributes['carouselPaginationDirection'] : '';
-$carousel_easing             = isset( $attributes['carouselEasing'] ) ? $attributes['carouselEasing'] : 'cubic-bezier(0.25, 1, 0.5, 1)';
-$carousel_drag               = isset( $attributes['carouselDrag'] ) ? $attributes['carouselDrag'] : 'true';
-$carousel_snap               = ! empty( $attributes['carouselSnap'] );
-$carousel_autoplay           = isset( $attributes['carouselAutoplay'] ) ? $attributes['carouselAutoplay'] : true;
-$carousel_interval           = isset( $attributes['carouselInterval'] ) ? intval( $attributes['carouselInterval'] ) : 3000;
-$carousel_pause_on_hover     = isset( $attributes['carouselPauseOnHover'] ) ? $attributes['carouselPauseOnHover'] : true;
-$carousel_pause_on_focus     = isset( $attributes['carouselPauseOnFocus'] ) ? $attributes['carouselPauseOnFocus'] : true;
-$carousel_reset_progress     = isset( $attributes['carouselResetProgress'] ) ? $attributes['carouselResetProgress'] : true;
-$carousel_direction          = isset( $attributes['carouselDirection'] ) ? $attributes['carouselDirection'] : 'ltr';
-$carousel_update_on_move     = ! empty( $attributes['carouselUpdateOnMove'] );
+// Get slider-specific attributes
+$slider_loop               = isset( $attributes['sliderLoop'] ) ? $attributes['sliderLoop'] : true;
+$slider_speed              = isset( $attributes['sliderSpeed'] ) ? intval( $attributes['sliderSpeed'] ) : 400;
+$slider_rewind             = ! empty( $attributes['sliderRewind'] );
+$slider_rewind_speed       = isset( $attributes['sliderRewindSpeed'] ) ? intval( $attributes['sliderRewindSpeed'] ) : 0;
+$slider_rewind_by_drag     = ! empty( $attributes['sliderRewindByDrag'] );
+$slider_height             = isset( $attributes['sliderHeight'] ) ? $attributes['sliderHeight'] : '';
+$slider_fixed_width        = isset( $attributes['sliderFixedWidth'] ) ? $attributes['sliderFixedWidth'] : '';
+$slider_fixed_height       = isset( $attributes['sliderFixedHeight'] ) ? $attributes['sliderFixedHeight'] : '';
+$slider_height_ratio       = isset( $attributes['sliderHeightRatio'] ) ? floatval( $attributes['sliderHeightRatio'] ) : 0;
+$slider_auto_width         = ! empty( $attributes['sliderAutoWidth'] );
+$slider_auto_height        = ! empty( $attributes['sliderAutoHeight'] );
+$slider_start              = isset( $attributes['sliderStart'] ) ? intval( $attributes['sliderStart'] ) : 0;
+$slider_per_page           = isset( $attributes['sliderPerPage'] ) ? intval( $attributes['sliderPerPage'] ) : 1;
+$slider_per_move           = isset( $attributes['sliderPerMove'] ) ? intval( $attributes['sliderPerMove'] ) : 0;
+$slider_focus              = isset( $attributes['sliderFocus'] ) ? $attributes['sliderFocus'] : '';
+$slider_arrows             = isset( $attributes['sliderArrows'] ) ? $attributes['sliderArrows'] : true;
+$slider_pagination         = isset( $attributes['sliderPagination'] ) ? $attributes['sliderPagination'] : true;
+$slider_pagination_dir     = isset( $attributes['sliderPaginationDirection'] ) ? $attributes['sliderPaginationDirection'] : '';
+$slider_easing             = isset( $attributes['sliderEasing'] ) ? $attributes['sliderEasing'] : 'cubic-bezier(0.25, 1, 0.5, 1)';
+$slider_drag               = isset( $attributes['sliderDrag'] ) ? $attributes['sliderDrag'] : 'true';
+$slider_snap               = ! empty( $attributes['sliderSnap'] );
+$slider_autoplay           = isset( $attributes['sliderAutoplay'] ) ? $attributes['sliderAutoplay'] : true;
+$slider_interval           = isset( $attributes['sliderInterval'] ) ? intval( $attributes['sliderInterval'] ) : 3000;
+$slider_pause_on_hover     = isset( $attributes['sliderPauseOnHover'] ) ? $attributes['sliderPauseOnHover'] : true;
+$slider_pause_on_focus     = isset( $attributes['sliderPauseOnFocus'] ) ? $attributes['sliderPauseOnFocus'] : true;
+$slider_reset_progress     = isset( $attributes['sliderResetProgress'] ) ? $attributes['sliderResetProgress'] : true;
+$slider_direction          = isset( $attributes['sliderDirection'] ) ? $attributes['sliderDirection'] : 'ltr';
+$slider_update_on_move     = ! empty( $attributes['sliderUpdateOnMove'] );
 
 // Get gap/spacing from block supports
 $spacing     = 25; // Default value (only used if blockGap is not set at all)
@@ -100,15 +100,15 @@ if ( 0 === $spacing ) {
 	$spacing = -1;
 }
 
-// For carousel, prepare gap value in CSS format for Splide
-$carousel_gap = null;
-if ( 'list' === $type ) {
+// For slider, prepare gap value in CSS format for Splide
+$slider_gap = null;
+if ( 'slider' === $type ) {
 	if ( $has_gap_set && null !== $gap_value ) {
 		// Use the gap value as-is (already in CSS format like "25px", "1rem", etc.)
-		$carousel_gap = $gap_value;
+		$slider_gap = $gap_value;
 	} else {
-		// Default gap for carousel
-		$carousel_gap = '25px';
+		// Default gap for slider
+		$slider_gap = '25px';
 	}
 }
 
@@ -122,38 +122,38 @@ $config = [
 	'cloneItems' => $clone_items ? 'yes' : 'no',
 ];
 
-// Add carousel-specific config if type is list/carousel
-if ( 'list' === $type ) {
-	$config['carousel'] = [
-		'loop'               => $carousel_loop,
-		'speed'              => $carousel_speed,
-		'rewind'             => $carousel_rewind,
-		'rewindSpeed'        => $carousel_rewind_speed,
-		'rewindByDrag'       => $carousel_rewind_by_drag,
-		'height'             => $carousel_height,
-		'fixedWidth'         => $carousel_fixed_width,
-		'fixedHeight'        => $carousel_fixed_height,
-		'heightRatio'        => $carousel_height_ratio,
-		'autoWidth'          => $carousel_auto_width,
-		'autoHeight'         => $carousel_auto_height,
-		'start'              => $carousel_start,
-		'perPage'            => $carousel_per_page,
-		'perMove'            => $carousel_per_move,
-		'focus'              => $carousel_focus,
-		'arrows'             => $carousel_arrows,
-		'pagination'         => $carousel_pagination,
-		'paginationDirection' => $carousel_pagination_dir,
-		'easing'             => $carousel_easing,
-		'drag'               => $carousel_drag,
-		'snap'               => $carousel_snap,
-		'autoplay'           => $carousel_autoplay,
-		'interval'           => $carousel_interval,
-		'pauseOnHover'       => $carousel_pause_on_hover,
-		'pauseOnFocus'       => $carousel_pause_on_focus,
-		'resetProgress'      => $carousel_reset_progress,
-		'direction'          => $carousel_direction,
-		'updateOnMove'       => $carousel_update_on_move,
-		'gap'                => $carousel_gap,
+// Add slider-specific config if type is slider
+if ( 'slider' === $type ) {
+	$config['slider'] = [
+		'loop'               => $slider_loop,
+		'speed'              => $slider_speed,
+		'rewind'             => $slider_rewind,
+		'rewindSpeed'        => $slider_rewind_speed,
+		'rewindByDrag'       => $slider_rewind_by_drag,
+		'height'             => $slider_height,
+		'fixedWidth'         => $slider_fixed_width,
+		'fixedHeight'        => $slider_fixed_height,
+		'heightRatio'        => $slider_height_ratio,
+		'autoWidth'          => $slider_auto_width,
+		'autoHeight'         => $slider_auto_height,
+		'start'              => $slider_start,
+		'perPage'            => $slider_per_page,
+		'perMove'            => $slider_per_move,
+		'focus'              => $slider_focus,
+		'arrows'             => $slider_arrows,
+		'pagination'         => $slider_pagination,
+		'paginationDirection' => $slider_pagination_dir,
+		'easing'             => $slider_easing,
+		'drag'               => $slider_drag,
+		'snap'               => $slider_snap,
+		'autoplay'           => $slider_autoplay,
+		'interval'           => $slider_interval,
+		'pauseOnHover'       => $slider_pause_on_hover,
+		'pauseOnFocus'       => $slider_pause_on_focus,
+		'resetProgress'      => $slider_reset_progress,
+		'direction'          => $slider_direction,
+		'updateOnMove'       => $slider_update_on_move,
+		'gap'                => $slider_gap,
 	];
 }
 
@@ -168,7 +168,7 @@ $wrapper_classes = [
 	'ditty-type-' . esc_attr( $type ),
 ];
 
-if ( 'list' === $type ) {
+if ( 'slider' === $type ) {
 	$wrapper_classes[] = 'splide';
 }
 
@@ -231,18 +231,11 @@ echo '<div ' . $wrapper_attributes . '>';
 			
 			echo '</div>'; // .ditty-display__items
 		} else {
-			// Carousel/Splide structure
+			// Slider/Splide structure
 			// Gap is handled by Splide's gap option, not inline styles
 			echo '<div class="splide__track">';
 			echo '<ul class="splide__list">';
-			
-			foreach ( $items as $item ) {
-				// Wrap each display-item in splide__slide
-				echo '<li class="splide__slide">';
-				echo $item;
-				echo '</li>';
-			}
-			
+        echo $content;
 			echo '</ul>';
 			echo '</div>'; // .splide__track
 		}

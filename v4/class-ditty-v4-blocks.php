@@ -26,6 +26,20 @@ class Ditty_V4_Blocks {
 	 */
 	public function __construct() {
 		add_action( 'init', [ $this, 'register_blocks' ] );
+		$this->load_dependencies();
+	}
+
+	/**
+	 * Load required dependencies
+	 *
+	 * @access private
+	 * @since  4.0
+	 */
+	private function load_dependencies() {
+		// Load the layout renderer for blocks
+		if ( ! class_exists( 'Ditty_V4_Layout_Renderer' ) ) {
+			require_once DITTY_DIR . 'v4/class-ditty-v4-layout-renderer.php';
+		}
 	}
 
 	/**
@@ -40,6 +54,7 @@ class Ditty_V4_Blocks {
 			'ditty-display-title',
 			'ditty-display-contents',
 			'ditty-display-item',
+			'ditty-posts-feed',
 		];
 
 		foreach ( $blocks as $block ) {
