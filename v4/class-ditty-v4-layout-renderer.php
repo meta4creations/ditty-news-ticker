@@ -388,7 +388,7 @@ class Ditty_V4_Layout_Renderer {
 
 		// For blocks, we use .ditty-display as the parent selector
 		// This matches the wrapper class on the ditty-display block
-		$compiled_css = '.ditty-display .ditty-layout--' . $layout_id . '{';
+		$compiled_css = '.ditty-layout--' . $layout_id . '{';
 		$compiled_css .= html_entity_decode( $css );
 		$compiled_css .= '}';
 
@@ -401,7 +401,7 @@ class Ditty_V4_Layout_Renderer {
 			$temp_css = Ditty()->layouts->compile_layout_style( $css, $layout_id );
 			
 			// Replace .ditty with .ditty-display for block compatibility
-			$compiled_css = str_replace( '.ditty .ditty-layout--', '.ditty-display .ditty-layout--', $temp_css );
+			$compiled_css = str_replace( '.ditty .ditty-layout--', '.ditty-layout--', $temp_css );
 		}
 
 		// Cache the result

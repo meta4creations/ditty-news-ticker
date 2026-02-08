@@ -1,0 +1,47 @@
+.ditty-header {
+	color: #FFF;
+	background: #1ABF7D;
+	margin-left: -20px;
+	&__wrapper {
+		align-items: center;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		transition: padding 0.3s ease;
+		margin-left: auto;
+		margin-right: auto;
+		//max-width: 69.5rem;
+		padding: 1.5rem;
+		padding-bottom: 1.375rem;
+		padding-top: 1.375rem;
+	}
+	svg {
+		width: 100px;
+	}
+}
+
+.ditty-page {
+	&__contents {
+		padding: 20px;
+	}
+	&__header {
+		h2 {
+			font-size: 23px;
+			line-height: 30px;
+			font-weight: 400;
+			color: #FFF;
+			margin: 0;
+		}
+	}
+}
+
+@media only screen and (max-width: 960px) {
+	.ditty-header {
+		margin-left: -20px;
+	}
+}
+@media screen and (max-width: 782px) {
+	.ditty-header {
+		margin-left: -10px;
+	}
+}

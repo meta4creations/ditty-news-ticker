@@ -1,56 +1,131 @@
-const defaultConfig = require("@wordpress/scripts/config/webpack.config.js");
-const path = require("path");
+const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+const path = require('path');
+const glob = require('glob');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
+
+/**
+ * Get all displays
+ */
+function getDisplayEntries() {
+	const files = glob.sync('./src/scripts/displays/*/{display,editor}.js');
+
+	const entries = {};
+	files.forEach(filePath => {
+		// filePath looks like: ./src/scripts/displays/grid/index.js
+		const parts = filePath.split(path.sep);
+		const displayType = parts[4]; // e.g., "grid"
+		const fileName = path.basename(filePath, '.js'); // index or editor
+
+		entries[`scripts/displays/${displayType}/${fileName}`] = filePath;
+	});
+
+	return entries;
+}
 
 module.exports = {
-  ...defaultConfig,
-  entry: {
-    ...defaultConfig.entry(),
-    ditty: "./src/ditty.js",
-    dittyEditorInit: "./src/dittyEditorInit.js",
-    dittyEditor: "./src/dittyEditor.js",
-    dittyDisplayEditor: "./src/dittyDisplayEditor.js",
-    dittyLayoutEditor: "./src/dittyLayoutEditor.js",
-    dittySettings: "./src/dittySettings.js",
-    dittyScripts: [
-      "./src/partials/itemTypeDefault.js",
-      "./src/partials/itemTypePostsLite.js",
-      "./src/partials/itemTypeWPEditor.js",
-      "./src/partials/itemTypeHtml.js",
-      "./src/partials/displayTypeTicker.js",
-      "./src/partials/displayTypeList.js",
-      "./src/partials/translators/wpml.js",
-    ],
-    dittyAdmin: [
-      "./src/admin/class-ditty-ui-data-list.js",
-      "./src/admin/class-ditty-extension.js",
-      "./src/admin/ditty-extensions.js",
-      "./src/dittyAdmin.js",
-    ],
-    dittyAdminOld: "./src/dittyAdminOld.js",
-    dittyDisplays: "./src/dittyDisplays.js",
-    dittySlider: "./src/class-ditty-slider",
-    dittyDisplayList: "./src/class-ditty-display-list",
-    dittyDisplayTicker: "./src/class-ditty-display-ticker",
-    dittyV4: "./src/v4/dittyV4.js",
-  },
-  output: {
-    ...defaultConfig.output,
-    filename: "[name].js",
-    path: path.resolve(process.cwd(), "build"),
-  },
-  resolve: {
-    ...defaultConfig.resolve,
-    alias: {
-      ...defaultConfig.resolve?.alias,
-      // Force all CodeMirror packages to resolve to the same instance
-      "@codemirror/state": require.resolve("@codemirror/state"),
-      "@codemirror/view": require.resolve("@codemirror/view"),
-      "@codemirror/commands": require.resolve("@codemirror/commands"),
-      "@codemirror/lang-css": require.resolve("@codemirror/lang-css"),
-      "@codemirror/lang-html": require.resolve("@codemirror/lang-html"),
-      "@codemirror/lang-json": require.resolve("@codemirror/lang-json"),
-      "@codemirror/lint": require.resolve("@codemirror/lint"),
-      "codemirror": require.resolve("codemirror"),
-    },
-  },
+	...defaultConfig,
+	module: {
+		...defaultConfig.module,
+		rules: [
+			...defaultConfig.module.rules,
+			{
+				test: /\.js/,
+				loader: 'import-glob',
+			},
+			{
+				test: /\.s[ac]ss$/i,
+				use: [
+					{
+						loader: 'sass-loader',
+					},
+				],
+			},
+		],
+	},
+	resolve: {
+		...defaultConfig.resolve,
+		alias: {
+			...defaultConfig.alias,
+			scripts: path.resolve(__dirname, 'src/scripts/'),
+			styles: path.resolve(__dirname, 'src/styles/'),
+			// Force all CodeMirror packages to resolve to the same instance
+			'@codemirror/state': require.resolve('@codemirror/state'),
+			'@codemirror/view': require.resolve('@codemirror/view'),
+			'@codemirror/commands': require.resolve('@codemirror/commands'),
+			'@codemirror/lang-css': require.resolve('@codemirror/lang-css'),
+			'@codemirror/lang-html': require.resolve('@codemirror/lang-html'),
+			'@codemirror/lang-json': require.resolve('@codemirror/lang-json'),
+			'@codemirror/lint': require.resolve('@codemirror/lint'),
+			codemirror: require.resolve('codemirror'),
+		},
+	},
+	entry: {
+		...defaultConfig.entry(),
+		dittyEditorInit: './src/scripts/dittyEditorInit.js',
+		dittyEditor: './src/scripts/dittyEditor.js',
+		dittyDisplayEditor: './src/scripts/dittyDisplayEditor.js',
+		dittyLayoutEditor: './src/scripts/dittyLayoutEditor.js',
+		dittySettings: './src/scripts/dittySettings.js',
+		dittyEditorScripts: [
+			'./src/scripts/partials/itemTypeDefault.js',
+			'./src/scripts/partials/itemTypePostsLite.js',
+			'./src/scripts/partials/itemTypeWPEditor.js',
+			'./src/scripts/partials/itemTypeHtml.js',
+			'./src/scripts/utilities/translators/wpml.js',
+		],
+		dittyAdmin: [
+			'./src/scripts/admin/class-ditty-ui-data-list.js',
+			'./src/scripts/admin/class-ditty-extension.js',
+			'./src/scripts/admin/ditty-extensions.js',
+			'./src/scripts/dittyAdmin.js',
+		],
+		dittyAdminOld: './src/scripts/dittyAdminOld.js',
+		dittyDisplays: './src/scripts/dittyDisplays.js',
+		dittySliderOld: './src/scripts/class-ditty-slider.js',
+		dittySlider: './src/scripts/dittySlider/dittySlider.js',
+		ditty: './src/scripts/ditty/index.js',
+		dittyV4: './src/scripts/v4/dittyV4.js',
+		...getDisplayEntries(),
+	},
+	output: {
+		...defaultConfig.output,
+		filename: '[name].js', // This now uses full path from the entry key
+		publicPath: '../build/',
+	},
+	plugins: [
+		// Include WP's plugin config.
+		...defaultConfig.plugins,
+
+		// Removes the empty `.js` files generated by webpack but
+		// sets it after WP has generated its `*.asset.php` file.
+		new RemoveEmptyScriptsPlugin({
+			stage: RemoveEmptyScriptsPlugin.STAGE_AFTER_PROCESS_PLUGINS,
+		}),
+
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: path.resolve(__dirname, 'src/scripts/displays/**/*.json'),
+					to({ absoluteFilename }) {
+						const relative = path.relative(
+							path.resolve(__dirname, 'src/scripts/displays'),
+							absoluteFilename
+						);
+						return `scripts/displays/${relative}`;
+					},
+				},
+				{
+					from: path.resolve(__dirname, 'src/scripts/displays/**/*.php'),
+					to({ absoluteFilename }) {
+						const relative = path.relative(
+							path.resolve(__dirname, 'src/scripts/displays'),
+							absoluteFilename
+						);
+						return `scripts/displays/${relative}`;
+					},
+				},
+			],
+		}),
+	],
 };

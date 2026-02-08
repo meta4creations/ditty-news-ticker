@@ -1,0 +1,13 @@
+.ditty-item-type--wp_editor {
+	> *:first-child {
+		margin-top: 0;
+	}
+	> *:last-child {
+		margin-bottom: 0;
+	}
+}
+.ditty-data-list__item[data-type="wp_editor"] {
+	i.fa-edit {
+		padding-left: 4px;
+	}
+}

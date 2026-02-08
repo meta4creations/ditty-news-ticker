@@ -1,0 +1,67 @@
+body.rtl {
+	#ditty-editor .ditty-editor {
+		&__tab {
+			span {
+				padding-left: 0;
+				padding-right: 20px;
+			}
+		}
+	}
+	.ditty-data-list__filter {
+		i {
+			margin-right: 0;
+			margin-left: 5px;
+		}
+	}
+	.ditty-editor-options__buttons--start a:not(.ditty-button), .ditty-editor-options__buttons--start button:not(.ditty-button) {
+		margin-right: 0;
+		margin-left: 5px;
+	}
+	.ditty-editor-options__buttons--end a:not(.ditty-button), .ditty-editor-options__buttons--end button:not(.ditty-button) {
+		margin-left: 0;
+		margin-right: 5px;
+	}
+	.ditty-data-list__item {
+		padding-right: 0;
+		padding-left: 8px;
+		&__label {
+			padding-right: 0;
+			padding-left: 5px;
+			margin-right: 0;
+			margin-left: auto;
+			small {
+				margin-left: 0;
+				margin-right: 5px;
+			}
+		}
+	}
+	.ditty-layout-variation {
+		padding: 5px 10px 0 8px;
+	}
+	.ditty-editor__panel--items {
+		.ditty-data-list__item {
+				a.ditty-data-list__item__icon {
+					border-right: none;
+					border-left: 1px solid rgba(0, 0, 0, 0.05);
+					margin-right: 0;
+					margin-left: 10px;
+				}
+		}
+	}
+	.ditty-field-type--checkbox .ditty-field__input__primary label {
+		margin-left: 0;
+		margin-right: 7px;
+	}
+	.ditty-field-type--radio .ditty-input--radio__option label {
+		margin-left: 0;
+		margin-right: 7px;
+	}
+	.ditty-field-type--radio .ditty-input--radio--inline .ditty-input--radio__option {
+		margin-right: 0;
+		margin-left: 15px;
+	}
+	.ditty-field-type--color input[type="text"] {
+		padding-left: 1px !important;
+		padding-right: 40px !important;
+	}
+}

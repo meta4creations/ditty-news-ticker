@@ -13,5 +13,6 @@ function register_blocks() {
 	if ( ! function_exists( 'register_block_type' ) ) {
 		return;
 	}
-	register_block_type( DITTY_DIR . 'assets/build/blocks/ditty' );
+	// Block registration is now handled by v4/class-ditty-v4-blocks.php
+	// register_block_type( DITTY_DIR . 'assets/build/scripts/blocks/ditty' );
 }

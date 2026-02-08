@@ -12,6 +12,14 @@
 class Ditty_Displays {
 
 	/**
+	 * Display types array
+	 *
+	 * @since 3.2
+	 * @var array
+	 */
+	public $display_types = array();
+
+	/**
 	 * Get things started
 	 * @access  public
 	 * @since   3.0
@@ -35,6 +43,26 @@ class Ditty_Displays {
 	public function install_display() {
 		// Keep function to not cause fatal errors from other plugins
 	}
+
+  /**
+   * Add a display type
+   */
+  public function add_display_type( $data ) {
+    if ( isset( $data['type'] ) ) {
+      $label = $data['label'] ?? '';
+      if ( ! isset( $data['class_name'] ) ) {
+        $data['class_name'] = 'Ditty_Display_Type_' . ditty_pascal_case( $label );
+      }
+      $this->display_types[$data['type']] = $data;
+    }
+  }
+
+  /**
+   * Return display types
+   */
+  public function get_display_types() {
+    return $this->display_types;
+  }
 
 	/**
 	 * Add to the admin body class

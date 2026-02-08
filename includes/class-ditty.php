@@ -235,8 +235,7 @@ class Ditty {
 		// The class responsible for defining all actions that occur in the public-facing side of the site.
 		require_once DITTY_DIR . 'includes/class-ditty-displays.php';
 		require_once DITTY_DIR . 'includes/class-ditty-display-type.php';
-		require_once DITTY_DIR . 'includes/class-ditty-display-type-ticker.php';
-		require_once DITTY_DIR . 'includes/class-ditty-display-type-list.php';
+		// Display types are now loaded via ditty_register_display_type() in register_displays()
 		require_once DITTY_DIR . 'includes/class-ditty-editor.php';
 		require_once DITTY_DIR . 'includes/class-ditty-errors.php';
 		require_once DITTY_DIR . 'includes/class-ditty-extensions.php';
@@ -301,6 +300,7 @@ class Ditty {
 	private function define_global_hooks() {
 		$this->loader->add_action( 'init', $this, 'register_ditty_styles' );
 		$this->loader->add_action( 'init', $this, 'register_ditty_scripts' );
+    $this->loader->add_action( 'init', $this, 'register_displays' );
 	}
 
 	/**
@@ -355,6 +355,18 @@ class Ditty {
 		} else {
 			error_log( $log );
 		}
+	}
+
+  /**
+	 * Register displays.
+	 *
+	 * @since 3.2
+	 * @return void
+	 */
+	public function register_displays() {
+    ditty_register_display_type( DITTY_DIR . 'assets/build/scripts/displays/list' );
+    ditty_register_display_type( DITTY_DIR . 'assets/build/scripts/displays/slider' );
+    ditty_register_display_type( DITTY_DIR . 'assets/build/scripts/displays/ticker' );
 	}
 
 	/**

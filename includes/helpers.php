@@ -1737,14 +1737,15 @@ function ditty_kses_post( $content ) {
   // Define the optimized SVG tags and attributes to allow
   $svg_tags = [
     'svg' => [
-      'class'           => true,
-      'aria-hidden'     => true,
-      'aria-labelledby' => true,
-      'role'            => true,
-      'xmlns'           => true,
-      'width'           => true,
-      'height'          => true,
-      'viewbox'         => true
+      'xmlns'       => true,
+      'viewbox'     => true,
+      'width'       => true,
+      'height'      => true,
+      'fill'        => true,
+      'aria-hidden' => true,
+      'role'        => true,
+      'class'       => true,
+      'style'       => true,
     ],
     'g' => [
       'fill' => true
@@ -1753,14 +1754,144 @@ function ditty_kses_post( $content ) {
       'title' => true
     ],
     'path' => [
-      'd' => true, 
-      'fill' => true  
+      'd'     => true,
+      'fill'  => true,
+      'style' => true,
     ]
   ];
 
-  // Merge the SVG tags with the default allowed tags
-  $allowed_tags = apply_filters( 'ditty_kses_post_allowed_tags', array_merge( $allowed_tags, $svg_tags ) );
+  $allowed_tags = array_merge( $allowed_tags, $svg_tags );
+  $allowed_tags = apply_filters( 'ditty_kses_post_allowed_tags', $allowed_tags );
 
   // Use wp_kses() with the extended allowed tags to filter the content
   return wp_kses( $content, $allowed_tags );
+}
+
+/**
+ * Turn a string into pascal case
+ */
+function ditty_pascal_case( $string ) {
+  // Replace dashes and underscores with spaces
+  $string = str_replace( [ '-', '_' ], ' ', $string );
+
+  // Capitalize all words and remove spaces
+  $string = str_replace( ' ', '', ucwords( strtolower( $string ) ) );
+
+  return $string;
+}
+
+/**
+ * Convert camelCase to kebab-case
+ */
+function ditty_camel_to_kebab_case( $string ) {
+  return strtolower( preg_replace( '/([a-z])([A-Z])/', '$1-$2', $string ) );
+}
+
+/**
+ * Register a display type
+ */
+function ditty_register_display_type( $dir ) {
+  if ( ! is_dir( $dir ) ) {
+    return;
+  }
+
+  $json_file = trailingslashit( $dir ) . 'display.json';
+  if ( ! file_exists( $json_file ) ) {
+    return;
+  }
+
+  $config = json_decode( file_get_contents( $json_file ), true );
+  if ( ! is_array( $config ) || empty( $config['type'] ) ) {
+    return;
+  }
+
+  $type = $config['type'];
+  $slug = sanitize_title( $type );
+  $url  = str_replace( trailingslashit( WP_CONTENT_DIR ), trailingslashit( WP_CONTENT_URL ), trailingslashit( $dir ) );
+
+  // Load PHP class file
+  $php_file = trailingslashit( $dir ) . 'index.php';
+  if ( file_exists( $php_file ) ) {
+    require_once $php_file;
+  }
+
+  // Add the display type
+  Ditty()->displays->add_display_type( [
+    'type' => $type,
+    'label' => $config['label'] ?? '',
+    'icon' => $config['icon'] ?? '',
+    'description' => $config['description'] ?? '',
+    'version' => $config['version'] ?? '',
+  ] );
+
+  // Utility function for resolving and registering styles
+  $register_style = function( $handle_prefix, $styles, $context ) use ( $dir, $url ) {
+    foreach ( (array) $styles as $style ) {
+      $path = str_replace( 'file:./', '', $style );
+      $full_path = trailingslashit( $dir ) . $path;
+      if ( file_exists( $full_path ) ) {
+        $handle = "ditty-{$context}-{$handle_prefix}";
+        ditty_register_style( $context, [
+          $handle,
+          trailingslashit( $url ) . $path,
+          $full_path,
+          [],
+          filemtime( $full_path ),
+        ] );
+      }
+    }
+  };
+
+  // Utility function for resolving and registering scripts
+  $register_script = function( $handle_prefix, $scripts, $context ) use ( $dir, $url ) {
+    foreach ( (array) $scripts as $script ) {
+      $path = str_replace( 'file:./', '', $script );
+      $full_path = trailingslashit( $dir ) . $path;
+      if ( file_exists( $full_path ) ) {
+        $handle = "ditty-{$context}-{$handle_prefix}";
+        ditty_register_script( $context, [
+          $handle,
+          trailingslashit( $url ) . $path,
+          $full_path,
+          [ 'jquery', 'ditty-slider', 'ditty-helpers' ], // default deps
+          filemtime( $full_path ),
+        ] );
+      }
+    }
+  };
+
+  // Register scripts
+  if ( function_exists( 'ditty_register_script' ) ) {
+    if ( isset( $config['script'] ) ) {
+      $register_script( $slug, $config['script'], 'display' );
+      $register_script( $slug, $config['script'], 'editor' );
+    }
+
+    if ( isset( $config['editorScript'] ) ) {
+      $register_script( $slug, $config['editorScript'], 'editor' );
+    }
+
+    if ( isset( $config['displayScript'] ) ) {
+      $register_script( $slug, $config['displayScript'], 'display' );
+    }
+  }
+
+  // Register styles
+  if ( function_exists( 'ditty_register_style' ) ) {
+    if ( isset( $config['style'] ) ) {
+      $register_style( $slug, $config['style'], 'display' );
+      $register_style( $slug, $config['style'], 'editor' );
+    }
+
+    if ( isset( $config['editorStyle'] ) ) {
+      $register_style( $slug, $config['editorStyle'], 'editor' );
+    }
+
+    if ( isset( $config['displayStyle'] ) ) {
+      $register_style( $slug, $config['displayStyle'], 'display' );
+    }
+  }
+
+  // Register config globally if needed
+  $GLOBALS['ditty_registered_displays'][ $slug ] = $config;
 }

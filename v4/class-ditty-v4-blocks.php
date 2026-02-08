@@ -50,15 +50,14 @@ class Ditty_V4_Blocks {
 	 */
 	public function register_blocks() {
 		$blocks = [
+			'ditty',
 			'ditty-display',
-			'ditty-display-title',
-			'ditty-display-contents',
 			'ditty-display-item',
-			'ditty-posts-feed',
+      'ditty-posts-feed',
 		];
 
 		foreach ( $blocks as $block ) {
-			$block_path = DITTY_DIR . 'assets/build/blocks/' . $block;
+			$block_path = DITTY_DIR . 'assets/build/scripts/blocks/' . $block;
 
 			if ( file_exists( $block_path . '/block.json' ) ) {
 				register_block_type( $block_path );
