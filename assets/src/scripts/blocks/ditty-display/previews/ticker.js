@@ -166,7 +166,7 @@ export default function TickerPreview({
 		// List of known dynamic block types
 		const dynamicBlockTypes = [
 			'ditty/posts-feed',
-			// Add other dynamic block types here as needed
+			'ditty/default-item',
 		];
 
 		// Check this block

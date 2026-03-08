@@ -39,7 +39,8 @@ const PanelItems = (props) => {
    * Add a new item
    */
   const handleAddItem = (itemType) => {
-    const dittyEl = document.getElementById("ditty-editor__ditty");
+    const previewMode = (settings?.dittyVersion || settings?.previewMode) || "v4";
+    const dittyEl = previewMode === "v3" ? document.getElementById("ditty-editor__ditty") : null;
     const itemTypeObject = getItemTypeObject(itemType);
 
     const layoutValue = {
@@ -85,7 +86,13 @@ const PanelItems = (props) => {
         data.display_items,
         updatedItems
       );
-      replaceDisplayItems(dittyEl, updatedDisplayItems);
+      
+      // Update preview based on mode
+      if (previewMode === "v3" && dittyEl) {
+        replaceDisplayItems(dittyEl, updatedDisplayItems);
+      } else if (previewMode === "v4") {
+        actions.refreshPreview();
+      }
 
       setTempDisplayItems(data.display_items);
       setPopupStatus("addItem");
@@ -97,10 +104,18 @@ const PanelItems = (props) => {
    * @param {object} deltedItem
    */
   const handleDeleteItem = (deletedItem) => {
-    const dittyEl = document.getElementById("ditty-editor__ditty");
+    const previewMode = (settings?.dittyVersion || settings?.previewMode) || "v4";
+    const dittyEl = previewMode === "v3" ? document.getElementById("ditty-editor__ditty") : null;
     const updatedDisplayItems = actions.deleteDisplayItems(deletedItem);
     actions.deleteItem(deletedItem);
-    replaceDisplayItems(dittyEl, updatedDisplayItems);
+    
+    // Update preview based on mode
+    if (previewMode === "v3" && dittyEl) {
+      replaceDisplayItems(dittyEl, updatedDisplayItems);
+    } else if (previewMode === "v4") {
+      actions.refreshPreview();
+    }
+    
     setCurrentItem(null);
   };
 
@@ -109,7 +124,9 @@ const PanelItems = (props) => {
    * @returns Popup component
    */
   const renderPopup = () => {
-    const dittyEl = document.getElementById("ditty-editor__ditty");
+    const previewMode = (settings?.dittyVersion || settings?.previewMode) || "v4";
+    const dittyEl = previewMode === "v3" ? document.getElementById("ditty-editor__ditty") : null;
+    
     switch (popupStatus) {
       case "editLayout":
         return (
@@ -123,10 +140,14 @@ const PanelItems = (props) => {
                 !_.isEqual(editedItem.layout_value, currentItem.layout_value)
               ) {
                 getDisplayItems(currentItem, layouts, (data) => {
-                  replaceDisplayItems(
-                    dittyEl,
-                    helpers.replaceDisplayItems(data.display_items)
-                  );
+                  if (previewMode === "v3" && dittyEl) {
+                    replaceDisplayItems(
+                      dittyEl,
+                      helpers.replaceDisplayItems(data.display_items)
+                    );
+                  } else if (previewMode === "v4") {
+                    actions.refreshPreview();
+                  }
                   setTempDisplayItems(null);
                 });
               }
@@ -136,10 +157,14 @@ const PanelItems = (props) => {
                 !_.isEqual(updatedItem.layout_value, currentItem.layout_value)
               ) {
                 getDisplayItems(updatedItem, layouts, (data) => {
-                  replaceDisplayItems(
-                    dittyEl,
-                    helpers.replaceDisplayItems(data.display_items)
-                  );
+                  if (previewMode === "v3" && dittyEl) {
+                    replaceDisplayItems(
+                      dittyEl,
+                      helpers.replaceDisplayItems(data.display_items)
+                    );
+                  } else if (previewMode === "v4") {
+                    actions.refreshPreview();
+                  }
                   setTempDisplayItems(data.display_items);
                 });
               }
@@ -150,8 +175,13 @@ const PanelItems = (props) => {
               if (tempDisplayItems) {
                 const updatedDisplayItems =
                   helpers.replaceDisplayItems(tempDisplayItems);
-                replaceDisplayItems(dittyEl, updatedDisplayItems);
+                if (previewMode === "v3" && dittyEl) {
+                  replaceDisplayItems(dittyEl, updatedDisplayItems);
+                }
                 actions.updateDisplayItems(updatedDisplayItems);
+                if (previewMode === "v4") {
+                  actions.refreshPreview();
+                }
               }
               setTempDisplayItems(null);
             }}
@@ -170,7 +200,11 @@ const PanelItems = (props) => {
                 const allDisplayItems = actions.updateDisplayItems(
                   data.display_items
                 );
-                replaceDisplayItems(dittyEl, allDisplayItems);
+                if (previewMode === "v3" && dittyEl) {
+                  replaceDisplayItems(dittyEl, allDisplayItems);
+                } else if (previewMode === "v4") {
+                  actions.refreshPreview();
+                }
               });
             }}
           />
@@ -189,7 +223,11 @@ const PanelItems = (props) => {
                   const displayItems = data.display_items.length
                     ? helpers.replaceDisplayItems(data.display_items)
                     : helpers.removeDisplayItems(editedItem.item_id);
-                  replaceDisplayItems(dittyEl, displayItems);
+                  if (previewMode === "v3" && dittyEl) {
+                    replaceDisplayItems(dittyEl, displayItems);
+                  } else if (previewMode === "v4") {
+                    actions.refreshPreview();
+                  }
                   setTempDisplayItems(null);
                   setTempPreviewItem(null);
                 });
@@ -204,7 +242,11 @@ const PanelItems = (props) => {
                 const displayItems = data.display_items.length
                   ? helpers.replaceDisplayItems(data.display_items)
                   : helpers.removeDisplayItems(updatedItem.item_id);
-                replaceDisplayItems(dittyEl, displayItems);
+                if (previewMode === "v3" && dittyEl) {
+                  replaceDisplayItems(dittyEl, displayItems);
+                } else if (previewMode === "v4") {
+                  actions.refreshPreview();
+                }
                 setTempDisplayItems(data.display_items);
                 if (data.preview_items[updatedItem.item_id]) {
                   setTempPreviewItem(data.preview_items[updatedItem.item_id]);
@@ -241,7 +283,11 @@ const PanelItems = (props) => {
                     const allDisplayItems = data.display_items.length
                       ? actions.updateDisplayItems(data.display_items)
                       : actions.deleteDisplayItems(updatedItem);
-                    replaceDisplayItems(dittyEl, allDisplayItems);
+                    if (previewMode === "v3" && dittyEl) {
+                      replaceDisplayItems(dittyEl, allDisplayItems);
+                    } else if (previewMode === "v4") {
+                      actions.refreshPreview();
+                    }
                   });
                 }
               );
@@ -280,6 +326,9 @@ const PanelItems = (props) => {
    * @param {array} sortedListItems
    */
   const handleSortEnd = (sortedListItems, parentId = "0") => {
+    const previewMode = (settings?.dittyVersion || settings?.previewMode) || "v4";
+    const dittyEl = previewMode === "v3" ? document.getElementById("ditty-editor__ditty") : null;
+    
     const updatedItems = sortedListItems.map((item) => {
       return item.data;
     });
@@ -293,8 +342,11 @@ const PanelItems = (props) => {
       return [...itemList, ...itemsGroup];
     }, []);
 
-    const dittyEl = document.getElementById("ditty-editor__ditty");
-    replaceDisplayItems(dittyEl, orderedDisplayItems);
+    if (previewMode === "v3" && dittyEl) {
+      replaceDisplayItems(dittyEl, orderedDisplayItems);
+    } else if (previewMode === "v4") {
+      actions.refreshPreview();
+    }
   };
 
   const panelHeader = () => {
@@ -312,6 +364,9 @@ const PanelItems = (props) => {
   };
 
   const panelFooter = () => {
+    const previewMode = (settings?.dittyVersion || settings?.previewMode) || "v4";
+    const dittyEl = previewMode === "v3" ? document.getElementById("ditty-editor__ditty") : null;
+    
     return (
       <FieldList
         name={__("Display Item Order", "ditty-news-ticker")}
@@ -340,9 +395,12 @@ const PanelItems = (props) => {
           updatedSettings[id] = value;
           actions.updateSettings(updatedSettings);
 
-          // Update the Ditty options
-          const dittyEl = document.getElementById("ditty-editor__ditty");
-          updateDisplayOptions(dittyEl, id, value);
+          // Update the Ditty options (v3 mode only)
+          if (previewMode === "v3" && dittyEl) {
+            updateDisplayOptions(dittyEl, id, value);
+          } else if (previewMode === "v4") {
+            actions.refreshPreview();
+          }
         }}
       />
     );

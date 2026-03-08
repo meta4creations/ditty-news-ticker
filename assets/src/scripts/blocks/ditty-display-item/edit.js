@@ -14,7 +14,7 @@ import {
 import { useSelect, useDispatch } from '@wordpress/data';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { applyFilters } from '@wordpress/hooks';
-import ServerSideRender from '@wordpress/server-side-render';
+import { Dashicon } from '@wordpress/components';
 
 export default function Edit({
 	attributes,
@@ -22,19 +22,23 @@ export default function Edit({
 	clientId,
 	context,
 	name,
+	isSelected,
 }) {
 	const displayType = context['dittyDisplay/type'] || 'ticker';
 	const itemMaxWidth = context['dittyDisplay/itemMaxWidth'] || '';
 	const itemElementsWrap = context['dittyDisplay/itemElementsWrap'] || 'nowrap';
 	const editMode = context['dittyDisplay/editMode'] || 'edit';
 
-	// Get inner block count
-	const { innerBlockCount } = useSelect(
+	const { innerBlockCount, contentPreview } = useSelect(
 		select => {
 			const { getBlocks } = select(blockEditorStore);
 			const innerBlocks = getBlocks(clientId);
+			const firstBlock = innerBlocks[0];
+			const rawContent = firstBlock?.attributes?.content || '';
+			const text = rawContent.replace(/<[^>]*>/g, '');
 			return {
 				innerBlockCount: innerBlocks.length,
+				contentPreview: text || __('Empty item', 'ditty-news-ticker'),
 			};
 		},
 		[clientId]
@@ -121,6 +125,19 @@ export default function Edit({
 			renderAppender: false,
 		}
 	);
+
+	if (editMode === 'edit' && !isSelected) {
+		return (
+			<div {...blockProps}>
+				<div className="ditty-display-item__summary">
+					<Dashicon icon="edit" />
+					<span className="ditty-display-item__summary-label">
+						{contentPreview}
+					</span>
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div {...blockProps}>

@@ -89,6 +89,7 @@ function ditty_single_settings_defaults() {
 		'status'					=> 'publish',
 		'ajax_loading'		=> 'no',
 		'live_updates'		=> 'no',
+		'dittyVersion'		=> 'v4',
     'orderby'         => 'list',
     'order'           => 'desc',
 	);
@@ -997,55 +998,96 @@ function ditty_render( $atts ) {
 		$args['uniqid'] = uniqid( 'ditty-' );
 	}
 
-	$class = 'ditty ditty--pre';
-	if ( '' != $args['class'] ) {
-		$class .= ' ' . esc_attr( $args['class'] );
-	}
-	
 	$ditty_settings = get_post_meta( $args['id'], '_ditty_settings', true );
-	$ajax_load 			= ( isset( $ditty_settings['ajax_loading'] ) && 'yes' == $ditty_settings['ajax_loading'] ) ? '1' : false;
-	if ( 'yes' == $args['ajax_loading'] || 'no' == $args['ajax_loading'] ) {
-		$ajax_load = ( 'yes' == $args['ajax_loading'] ) ? '1' : false;
+	$ditty_version = isset( $ditty_settings['dittyVersion'] ) ? $ditty_settings['dittyVersion'] : ( isset( $ditty_settings['previewMode'] ) ? $ditty_settings['previewMode'] : 'v4' );
+
+	// V3: Use legacy jQuery display scripts (container + items, init via inline script)
+	if ( 'v3' === $ditty_version ) {
+		$render = new Ditty_Render();
+		$parsed = $render->parse_render_atts( $args );
+		if ( isset( $parsed['error'] ) ) {
+			return false;
+		}
+		$items = isset( $parsed['items'] ) ? $parsed['items'] : array();
+		$items_html = array();
+		$styles = array();
+		foreach ( $items as $item ) {
+			if ( is_array( $item ) ) {
+				if ( isset( $item['html'] ) ) {
+					$items_html[] = $item['html'];
+				}
+				if ( isset( $item['layout_id'] ) && isset( $item['css'] ) && ! isset( $styles[ $item['layout_id'] ] ) ) {
+					$styles[ $item['layout_id'] ] = '<style id="ditty-layout--' . esc_attr( $item['layout_id'] ) . '">' . ditty_kses_post( $item['css'] ) . '</style>';
+				}
+			} elseif ( is_string( $item ) ) {
+				$items_html[] = $item;
+			}
+		}
+		if ( empty( $items_html ) ) {
+			return '';
+		}
+		$html = '';
+		$html .= implode( '', $styles );
+		$html .= '<div ' . ditty_attr_to_html( $parsed['html_atts'] ) . '>';
+		$html .= '<div class="ditty__contents">';
+		$html .= '<div class="ditty__items">';
+		$html .= implode( '', $items_html );
+		$html .= '</div></div></div>';
+		$ditty_singles[] = $parsed['html_atts'];
+		return $html;
 	}
 
-	$live_updates 	= ( isset( $ditty_settings['live_updates'] ) && 'yes' == $ditty_settings['live_updates'] ) ? '1' : false;
-	if ( 'yes' == $args['live_updates'] || 'no' == $args['live_updates'] ) {
-		$live_updates = ( 'yes' == $args['live_updates'] ) ? '1' : false;
-	}
-  
-  // Possibly load custom display type
-  $force_display_type = false;
-  if ( isset( $args['display_settings'] ) ) {
-    $custom_display_array = json_decode( $args['display_settings'], true );
-    if ( json_last_error() == JSON_ERROR_NONE ) {
-      if ( isset( $custom_display_array['type'] ) && ditty_display_type_exists( $custom_display_array['type'] ) ) {
-        $force_display_type = $custom_display_array['type'];
-      }
-    }
-  }
-	ditty_add_scripts( $args['id'], $args['display'], $force_display_type );
-	
-	$ditty_atts = array(
-		'id'										=> ( '' != $args['el_id'] ) ? sanitize_title( $args['el_id'] ) : false,
-		'class' 								=> $class,
-		'data-id' 							=> $args['id'],
-		'data-uniqid' 					=> $args['uniqid'],
-		'data-display' 					=> ( '' != $args['display'] ) ? $args['display'] : false,
-		'data-display_settings' => ( '' != $args['display_settings'] ) ? htmlspecialchars( $args['display_settings'], ENT_QUOTES, 'UTF-8' ) : false,
-		'data-layout_settings' 	=> ( '' != $args['layout'] ) ? $args['layout'] : false,
-		'data-show_editor' 			=> ( 0 != intval( $args['show_editor'] ) ) ? '1' : false,
-		'data-ajax_load' 				=> $ajax_load,
-		'data-live_updates' 		=> $live_updates,
-	);
+	// V4: Use server-side rendered HTML with v4 display scripts
+	$display_id = ( '' != $args['display'] ) ? $args['display'] : get_post_meta( $args['id'], '_ditty_display', true );
+	$display_data = ditty_display_data( $display_id );
+	$display_settings = isset( $display_data['settings'] ) ? $display_data['settings'] : array();
+	$display_type = isset( $display_data['type'] ) ? $display_data['type'] : 'ticker';
 
-	if ( 0 == $ajax_load ) {
-		$ditty_singles[] = $ditty_atts;
+	// Parse custom display settings if provided
+	if ( ! empty( $args['display_settings'] ) ) {
+		$custom_display_array = json_decode( $args['display_settings'], true );
+		if ( json_last_error() === JSON_ERROR_NONE && is_array( $custom_display_array ) ) {
+			if ( isset( $custom_display_array['type'] ) && ditty_display_type_exists( $custom_display_array['type'] ) ) {
+				$display_type = $custom_display_array['type'];
+			}
+			if ( isset( $custom_display_array['settings'] ) && is_array( $custom_display_array['settings'] ) ) {
+				$display_settings = wp_parse_args( $custom_display_array['settings'], $display_settings );
+			}
+		}
 	}
 
-	$html = '<div ' . ditty_attr_to_html( $ditty_atts ) . '>';
-		$html .= ditty_edit_links( $args['id'] );
-	$html .= '</div>';
-	return $html;
+	// Build v4 renderer args
+	$args_v4 = Ditty_V4_Renderer::get_defaults();
+	$args_v4 = wp_parse_args( $display_settings, $args_v4 );
+	$args_v4['type'] = $display_type;
+	$args_v4['title'] = get_the_title( $args['id'] );
+
+	// Include ordering options from ditty settings
+	if ( is_array( $ditty_settings ) ) {
+		$args_v4['orderby'] = $ditty_settings['orderby'] ?? $args_v4['orderby'] ?? 'list';
+		$args_v4['order'] = $ditty_settings['order'] ?? $args_v4['order'] ?? 'desc';
+	}
+
+	// Get display items (HTML)
+	$display_items = Ditty()->singles->get_display_items( $args['id'], 'force', $args['layout'] );
+	if ( ! is_array( $display_items ) ) {
+		return '';
+	}
+
+	$items_html = array();
+	foreach ( $display_items as $item ) {
+		if ( is_array( $item ) && isset( $item['html'] ) ) {
+			$items_html[] = $item['html'];
+		} elseif ( is_string( $item ) ) {
+			$items_html[] = $item;
+		}
+	}
+
+	if ( empty( $items_html ) ) {
+		return '';
+	}
+
+	return Ditty_V4_Renderer::render( $items_html, $args_v4 );
 }
 
 /**

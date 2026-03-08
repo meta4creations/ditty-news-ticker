@@ -53,7 +53,8 @@ class Ditty_V4_Blocks {
 			'ditty',
 			'ditty-display',
 			'ditty-display-item',
-      'ditty-posts-feed',
+			'ditty-default-item',
+			'ditty-posts-feed',
 		];
 
 		foreach ( $blocks as $block ) {

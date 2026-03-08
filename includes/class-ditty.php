@@ -56,6 +56,7 @@ class Ditty {
 	public $db_item_meta;
 	public $displays;
 	public $editor;
+	public $editorPreview;
 	public $errors;
 	public $extensions;
 	public $layouts;
@@ -98,6 +99,7 @@ class Ditty {
 			self::$instance->db_item_meta	= new Ditty_DB_Item_Meta();
 			self::$instance->displays			= new Ditty_Displays();
 			self::$instance->editor				= new Ditty_Editor();
+			self::$instance->editorPreview	= new Ditty_Editor_Preview();
 			self::$instance->errors				= new Ditty_Errors();
 			self::$instance->extensions		= new Ditty_Extensions();
 			self::$instance->layouts			= new Ditty_Layouts();
@@ -237,6 +239,7 @@ class Ditty {
 		require_once DITTY_DIR . 'includes/class-ditty-display-type.php';
 		// Display types are now loaded via ditty_register_display_type() in register_displays()
 		require_once DITTY_DIR . 'includes/class-ditty-editor.php';
+		require_once DITTY_DIR . 'includes/class-ditty-editor-preview.php';
 		require_once DITTY_DIR . 'includes/class-ditty-errors.php';
 		require_once DITTY_DIR . 'includes/class-ditty-extensions.php';
 
@@ -416,9 +419,9 @@ class Ditty {
 			]
 		);
 		ditty_register_script( 'editor', [
-				'dittyScripts',
-				DITTY_URL . 'assets/build/dittyScripts.js',
-				DITTY_DIR . 'build/dittyScripts.js',
+				'dittyEditorScripts',
+				DITTY_URL . 'assets/build/dittyEditorScripts.js',
+				DITTY_DIR . 'assets/build/dittyEditorScripts.js',
 				[],
 				$this->version,
 			]

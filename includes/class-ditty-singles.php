@@ -316,18 +316,22 @@ class Ditty_Singles {
 			}
 		}
 		
+		// Use pre-resolved display type from atts when available (e.g. V3 render)
+		if ( isset( $atts['data-type'] ) && ditty_display_type_exists( $atts['data-type'] ) ) {
+			$display_type = $atts['data-type'];
+		}
+		if ( ! $display_type || ! ditty_display_type_exists( $display_type ) ) {
+			$display_type = ditty_default_display_type();
+		}
+
 		// Make sure the display settings is an array
-		if ( ! is_array( $display_settings ) ) {
+		if ( ! isset( $display_settings ) || ! is_array( $display_settings ) ) {
 			$display_settings = [];
 		}
     $ditty_settings = get_post_meta( $ditty_id, '_ditty_settings', true );
     $display_settings['orderby'] = isset( $ditty_settings['orderby'] ) ? $ditty_settings['orderby'] : 'list';
     $display_settings['order'] = isset( $ditty_settings['order'] ) ? $ditty_settings['order'] : 'desc';
 
-		if ( ! $display_type || ! ditty_display_type_exists( $display_type ) ) {
-			$display_type = 'default';
-		}
-	
 		// Setup the ditty values
 		$status = get_post_status( $ditty_id );
 		$args = $display_settings;	
@@ -535,6 +539,9 @@ class Ditty_Singles {
 		if ( is_array( $settings ) && count( $settings ) > 0 ) {
 			foreach ( $settings as $setting => $value ) {
 				switch( $setting ) {
+					case 'dittyVersion':
+						$sanitized_settings[$setting] = in_array( $value, array( 'v3', 'v4' ), true ) ? $value : 'v4';
+						break;
 					case 'previewPadding':
 						$sanitized_padding = array();
 						if ( is_array( $value ) && count( $value ) > 0 ) {

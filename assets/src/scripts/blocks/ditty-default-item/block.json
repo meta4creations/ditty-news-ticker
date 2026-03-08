@@ -1,0 +1,55 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ditty/default-item",
+	"version": "1.0.0a",
+	"title": "Default Item",
+	"description": "Manually add text to the item.",
+	"category": "widgets",
+	"icon": "edit",
+	"textdomain": "ditty-news-ticker",
+	"parent": ["ditty/display"],
+	"usesContext": [
+		"dittyDisplay/type",
+		"dittyDisplay/itemMaxWidth",
+		"dittyDisplay/itemElementsWrap",
+		"dittyDisplay/editMode"
+	],
+	"attributes": {
+		"content": {
+			"type": "string",
+			"default": "This is a sample item. Please edit me!"
+		},
+		"link_url": {
+			"type": "string",
+			"default": ""
+		},
+		"link_title": {
+			"type": "string",
+			"default": ""
+		},
+		"link_target": {
+			"type": "string",
+			"default": "_self"
+		},
+		"link_nofollow": {
+			"type": "string",
+			"default": ""
+		},
+		"editor_label": {
+			"type": "string",
+			"default": ""
+		},
+		"layout": {
+			"type": "number",
+			"default": 0
+		}
+	},
+	"supports": {
+		"html": false,
+		"lock": false,
+		"reusable": false
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php"
+}

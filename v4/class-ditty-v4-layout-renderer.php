@@ -411,6 +411,45 @@ class Ditty_V4_Layout_Renderer {
 	}
 
 	/**
+	 * Render arbitrary data with a layout
+	 *
+	 * Unlike render_post_with_layout which expects a WP_Post, this method
+	 * accepts a flat data array and passes it directly to the layout tag
+	 * processing system.
+	 *
+	 * @since  4.0
+	 * @param  array  $data       Flat data array (e.g. content, link_url, etc.).
+	 * @param  int    $layout_id  The ditty_layout post ID.
+	 * @param  string $item_type  The item type for filtering (default: 'default').
+	 * @return array  Array with 'html', 'css', and 'layout_id' keys.
+	 */
+	public function render_data_with_layout( $data, $layout_id, $item_type = 'default' ) {
+		$layout_data = $this->get_layout_data( $layout_id );
+
+		if ( empty( $layout_data ) ) {
+			return array(
+				'html'      => '<p>' . __( 'Layout not found', 'ditty-news-ticker' ) . '</p>',
+				'css'       => '',
+				'layout_id' => $layout_id,
+			);
+		}
+
+		$processed_html = $this->process_layout_tags(
+			$layout_data['html'],
+			$data,
+			$item_type
+		);
+
+		$compiled_css = $this->compile_css( $layout_data['css'], $layout_id );
+
+		return array(
+			'html'      => $processed_html,
+			'css'       => $compiled_css,
+			'layout_id' => $layout_id,
+		);
+	}
+
+	/**
 	 * Clear the internal caches
 	 *
 	 * Useful for testing or when layout data changes.

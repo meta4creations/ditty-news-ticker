@@ -12,9 +12,9 @@ const dittyWPML = (function () {
       });
     } catch (ex) {
       dittyNotification(ex, "error");
-      onComplete();
+    } finally {
+      customData("showSpinner", "false");
     }
-    customData("showSpinner", "false");
   };
 
   const editorFields = (fields, dittyData, hasUpdates, customData) => {
@@ -23,6 +23,7 @@ const dittyWPML = (function () {
     }
     const stringsUrl = `${dittyEditorVars.adminUrl}admin.php?page=wpml-string-translation%2Fmenu%2Fstring-translation.php&context=ditty-${dittyData.id}`;
     fields.push({
+      id: "wpml-translate-strings",
       type: "button",
       kind: false === hasUpdates ? "primary" : "secondary",
       disabled: hasUpdates,
@@ -33,6 +34,7 @@ const dittyWPML = (function () {
       },
     });
     fields.push({
+      id: "wpml-refresh-strings",
       name: __("Refresh all Strings", "ditty-news-ticker"),
       description: __(
         "If string are missing on the translation page, click this button to force load the saved strings.",

@@ -61,15 +61,23 @@ const PanelDisplays = () => {
    * @param {string} value
    */
   const handleOnUpdate = (id, value) => {
+    const previewMode = (editor.settings?.dittyVersion || editor.settings?.previewMode) || "v4";
+    
     // Update the editor display
     const updatedDisplay = { ...currentDisplay };
     updatedDisplay.settings[id] = value;
     updatedDisplay.updated = Date.now();
     actions.setCurrentDisplay(updatedDisplay);
 
-    // Update the Ditty options
-    const dittyEl = document.getElementById("ditty-editor__ditty");
-    updateDisplayOptions(dittyEl, id, value);
+    // Update the Ditty options (v3 mode only)
+    if (previewMode === "v3") {
+      const dittyEl = document.getElementById("ditty-editor__ditty");
+      if (dittyEl) {
+        updateDisplayOptions(dittyEl, id, value);
+      }
+    } else if (previewMode === "v4") {
+      actions.refreshPreview();
+    }
   };
 
   /**
@@ -77,7 +85,9 @@ const PanelDisplays = () => {
    * @returns Popup component
    */
   const renderPopup = () => {
-    const dittyEl = document.getElementById("ditty-editor__ditty");
+    const previewMode = (editor.settings?.dittyVersion || editor.settings?.previewMode) || "v4";
+    const dittyEl = previewMode === "v3" ? document.getElementById("ditty-editor__ditty") : null;
+    
     switch (popupStatus) {
       case "displayTemplateSave":
         const templateToSave = currentTemplate
@@ -124,6 +134,11 @@ const PanelDisplays = () => {
               setPopupStatus(false);
               actions.updateDisplay(updatedTemplate);
               actions.setCurrentDisplay(updatedTemplate);
+              
+              // Refresh preview in v4 mode
+              if (previewMode === "v4") {
+                actions.refreshPreview();
+              }
             }}
           />
         );
@@ -139,12 +154,20 @@ const PanelDisplays = () => {
               return getDisplayTypeIcon(template);
             }}
             onChange={(selectedTemplate) => {
-              updateDittyDisplayTemplate(dittyEl, selectedTemplate);
+              if (previewMode === "v3" && dittyEl) {
+                updateDittyDisplayTemplate(dittyEl, selectedTemplate);
+              } else if (previewMode === "v4") {
+                // Preview will refresh on update
+              }
             }}
             onClose={(selectedTemplate) => {
               setPopupStatus(false);
               if (currentDisplay.id !== selectedTemplate.id) {
-                updateDittyDisplayTemplate(dittyEl, currentDisplay);
+                if (previewMode === "v3" && dittyEl) {
+                  updateDittyDisplayTemplate(dittyEl, currentDisplay);
+                } else if (previewMode === "v4") {
+                  actions.refreshPreview();
+                }
               }
             }}
             onUpdate={(updatedTemplate) => {
@@ -154,6 +177,11 @@ const PanelDisplays = () => {
                 return false;
               }
               actions.setCurrentDisplay(updatedTemplate);
+              
+              // Refresh preview in v4 mode
+              if (previewMode === "v4") {
+                actions.refreshPreview();
+              }
             }}
           />
         );
@@ -165,12 +193,20 @@ const PanelDisplays = () => {
             apiTypes={apiDisplayTypes}
             getTypeObject={getDisplayTypeObject}
             onChange={(selectedType) => {
-              updateDittyDisplayType(dittyEl, selectedType);
+              if (previewMode === "v3" && dittyEl) {
+                updateDittyDisplayType(dittyEl, selectedType);
+              } else if (previewMode === "v4") {
+                // Preview will refresh on update
+              }
             }}
             onClose={(selectedType) => {
               setPopupStatus(false);
               if (currentDisplay.type !== selectedType) {
-                updateDittyDisplayType(dittyEl, currentDisplay.type);
+                if (previewMode === "v3" && dittyEl) {
+                  updateDittyDisplayType(dittyEl, currentDisplay.type);
+                } else if (previewMode === "v4") {
+                  actions.refreshPreview();
+                }
               }
             }}
             onUpdate={(updatedType) => {
@@ -188,6 +224,11 @@ const PanelDisplays = () => {
                 ...updatedDisplay.settings,
               };
               actions.setCurrentDisplay(updatedDisplay);
+              
+              // Refresh preview in v4 mode
+              if (previewMode === "v4") {
+                actions.refreshPreview();
+              }
             }}
           />
         );

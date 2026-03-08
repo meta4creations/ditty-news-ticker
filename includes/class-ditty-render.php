@@ -82,7 +82,7 @@ class Ditty_Render {
 		$defaults = array(
 			'id' 								=> '',
 			'display' 					=> '',
-			'layout' 	          => '',
+			'layout' 						=> '',
 			'uniqid' 						=> '',
 			'class' 						=> '',
 			'el_id'							=> '',
@@ -127,7 +127,7 @@ class Ditty_Render {
     }
 
     // Get the items
-		$items = Ditty()->singles->get_display_items( $args['id'], 'force' );
+		$items = Ditty()->singles->get_display_items( $args['id'], 'force', isset( $args['layout'] ) ? $args['layout'] : false );
 		
     // Get the display data
     $display = ( '' != $args['display'] ) ? $args['display'] : get_post_meta( $args['id'], '_ditty_display', true );

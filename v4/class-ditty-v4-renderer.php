@@ -26,6 +26,39 @@ class Ditty_V4_Renderer {
 	private static $assets_enqueued = false;
 
 	/**
+	 * Normalize a style value to a string.
+	 *
+	 * @since 4.0
+	 * @param mixed $value Style value that may be string or array.
+	 * @return string Normalized style string or empty string.
+	 */
+	private static function normalize_style_value( $value ) {
+		if ( is_array( $value ) ) {
+			$order = [ 'top', 'right', 'bottom', 'left' ];
+			$parts = [];
+			foreach ( $order as $side ) {
+				if ( isset( $value[ $side ] ) && '' !== $value[ $side ] ) {
+					$parts[] = $value[ $side ];
+				}
+			}
+			if ( empty( $parts ) ) {
+				foreach ( $value as $item ) {
+					if ( '' !== $item ) {
+						$parts[] = $item;
+					}
+				}
+			}
+			return implode( ' ', array_map( 'strval', $parts ) );
+		}
+
+		if ( is_scalar( $value ) ) {
+			return (string) $value;
+		}
+
+		return '';
+	}
+
+	/**
 	 * Get default display attributes
 	 *
 	 * @since  4.0
@@ -169,28 +202,36 @@ class Ditty_V4_Renderer {
 		$styles = [];
 
 		if ( ! empty( $args['maxWidth'] ) ) {
-			$styles[] = 'max-width:' . esc_attr( $args['maxWidth'] );
+			$value = self::normalize_style_value( $args['maxWidth'] );
+			$styles[] = 'max-width:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['bgColor'] ) ) {
-			$styles[] = 'background-color:' . esc_attr( $args['bgColor'] );
+			$value = self::normalize_style_value( $args['bgColor'] );
+			$styles[] = 'background-color:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['padding'] ) ) {
-			$styles[] = 'padding:' . esc_attr( $args['padding'] );
+			$value = self::normalize_style_value( $args['padding'] );
+			$styles[] = 'padding:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['margin'] ) ) {
-			$styles[] = 'margin:' . esc_attr( $args['margin'] );
+			$value = self::normalize_style_value( $args['margin'] );
+			$styles[] = 'margin:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['borderColor'] ) ) {
-			$styles[] = 'border-color:' . esc_attr( $args['borderColor'] );
+			$value = self::normalize_style_value( $args['borderColor'] );
+			$styles[] = 'border-color:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['borderStyle'] ) ) {
-			$styles[] = 'border-style:' . esc_attr( $args['borderStyle'] );
+			$value = self::normalize_style_value( $args['borderStyle'] );
+			$styles[] = 'border-style:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['borderWidth'] ) ) {
-			$styles[] = 'border-width:' . esc_attr( $args['borderWidth'] );
+			$value = self::normalize_style_value( $args['borderWidth'] );
+			$styles[] = 'border-width:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['borderRadius'] ) ) {
-			$styles[] = 'border-radius:' . esc_attr( $args['borderRadius'] );
+			$value = self::normalize_style_value( $args['borderRadius'] );
+			$styles[] = 'border-radius:' . esc_attr( $value );
 		}
 
 		return ! empty( $styles ) ? implode( ';', $styles ) : '';
@@ -207,22 +248,28 @@ class Ditty_V4_Renderer {
 		$styles = [];
 
 		if ( ! empty( $args['contentsBgColor'] ) ) {
-			$styles[] = 'background-color:' . esc_attr( $args['contentsBgColor'] );
+			$value = self::normalize_style_value( $args['contentsBgColor'] );
+			$styles[] = 'background-color:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['contentsPadding'] ) ) {
-			$styles[] = 'padding:' . esc_attr( $args['contentsPadding'] );
+			$value = self::normalize_style_value( $args['contentsPadding'] );
+			$styles[] = 'padding:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['contentsBorderColor'] ) ) {
-			$styles[] = 'border-color:' . esc_attr( $args['contentsBorderColor'] );
+			$value = self::normalize_style_value( $args['contentsBorderColor'] );
+			$styles[] = 'border-color:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['contentsBorderStyle'] ) ) {
-			$styles[] = 'border-style:' . esc_attr( $args['contentsBorderStyle'] );
+			$value = self::normalize_style_value( $args['contentsBorderStyle'] );
+			$styles[] = 'border-style:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['contentsBorderWidth'] ) ) {
-			$styles[] = 'border-width:' . esc_attr( $args['contentsBorderWidth'] );
+			$value = self::normalize_style_value( $args['contentsBorderWidth'] );
+			$styles[] = 'border-width:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['contentsBorderRadius'] ) ) {
-			$styles[] = 'border-radius:' . esc_attr( $args['contentsBorderRadius'] );
+			$value = self::normalize_style_value( $args['contentsBorderRadius'] );
+			$styles[] = 'border-radius:' . esc_attr( $value );
 		}
 
 		return ! empty( $styles ) ? implode( ';', $styles ) : '';
@@ -239,37 +286,48 @@ class Ditty_V4_Renderer {
 		$styles = [];
 
 		if ( ! empty( $args['titleColor'] ) ) {
-			$styles[] = 'color:' . esc_attr( $args['titleColor'] );
+			$value = self::normalize_style_value( $args['titleColor'] );
+			$styles[] = 'color:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['titleBgColor'] ) ) {
-			$styles[] = 'background-color:' . esc_attr( $args['titleBgColor'] );
+			$value = self::normalize_style_value( $args['titleBgColor'] );
+			$styles[] = 'background-color:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['titlePadding'] ) ) {
-			$styles[] = 'padding:' . esc_attr( $args['titlePadding'] );
+			$value = self::normalize_style_value( $args['titlePadding'] );
+			$styles[] = 'padding:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['titleMinWidth'] ) ) {
-			$styles[] = 'min-width:' . esc_attr( $args['titleMinWidth'] );
+			$value = self::normalize_style_value( $args['titleMinWidth'] );
+			$styles[] = 'min-width:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['titleMaxWidth'] ) ) {
-			$styles[] = 'max-width:' . esc_attr( $args['titleMaxWidth'] );
+			$value = self::normalize_style_value( $args['titleMaxWidth'] );
+			$styles[] = 'max-width:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['titleMinHeight'] ) ) {
-			$styles[] = 'min-height:' . esc_attr( $args['titleMinHeight'] );
+			$value = self::normalize_style_value( $args['titleMinHeight'] );
+			$styles[] = 'min-height:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['titleMaxHeight'] ) ) {
-			$styles[] = 'max-height:' . esc_attr( $args['titleMaxHeight'] );
+			$value = self::normalize_style_value( $args['titleMaxHeight'] );
+			$styles[] = 'max-height:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['titleBorderColor'] ) ) {
-			$styles[] = 'border-color:' . esc_attr( $args['titleBorderColor'] );
+			$value = self::normalize_style_value( $args['titleBorderColor'] );
+			$styles[] = 'border-color:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['titleBorderStyle'] ) ) {
-			$styles[] = 'border-style:' . esc_attr( $args['titleBorderStyle'] );
+			$value = self::normalize_style_value( $args['titleBorderStyle'] );
+			$styles[] = 'border-style:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['titleBorderWidth'] ) ) {
-			$styles[] = 'border-width:' . esc_attr( $args['titleBorderWidth'] );
+			$value = self::normalize_style_value( $args['titleBorderWidth'] );
+			$styles[] = 'border-width:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['titleBorderRadius'] ) ) {
-			$styles[] = 'border-radius:' . esc_attr( $args['titleBorderRadius'] );
+			$value = self::normalize_style_value( $args['titleBorderRadius'] );
+			$styles[] = 'border-radius:' . esc_attr( $value );
 		}
 
 		return ! empty( $styles ) ? implode( ';', $styles ) : '';
@@ -286,7 +344,8 @@ class Ditty_V4_Renderer {
 		$styles = [];
 
 		if ( ! empty( $args['titleMargin'] ) ) {
-			$styles[] = 'margin:' . esc_attr( $args['titleMargin'] );
+			$value = self::normalize_style_value( $args['titleMargin'] );
+			$styles[] = 'margin:' . esc_attr( $value );
 		}
 
 		return ! empty( $styles ) ? implode( ';', $styles ) : '';
@@ -303,25 +362,32 @@ class Ditty_V4_Renderer {
 		$styles = [];
 
 		if ( ! empty( $args['itemBgColor'] ) ) {
-			$styles[] = 'background-color:' . esc_attr( $args['itemBgColor'] );
+			$value = self::normalize_style_value( $args['itemBgColor'] );
+			$styles[] = 'background-color:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['itemPadding'] ) ) {
-			$styles[] = 'padding:' . esc_attr( $args['itemPadding'] );
+			$value = self::normalize_style_value( $args['itemPadding'] );
+			$styles[] = 'padding:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['itemBorderColor'] ) ) {
-			$styles[] = 'border-color:' . esc_attr( $args['itemBorderColor'] );
+			$value = self::normalize_style_value( $args['itemBorderColor'] );
+			$styles[] = 'border-color:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['itemBorderStyle'] ) ) {
-			$styles[] = 'border-style:' . esc_attr( $args['itemBorderStyle'] );
+			$value = self::normalize_style_value( $args['itemBorderStyle'] );
+			$styles[] = 'border-style:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['itemBorderWidth'] ) ) {
-			$styles[] = 'border-width:' . esc_attr( $args['itemBorderWidth'] );
+			$value = self::normalize_style_value( $args['itemBorderWidth'] );
+			$styles[] = 'border-width:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['itemBorderRadius'] ) ) {
-			$styles[] = 'border-radius:' . esc_attr( $args['itemBorderRadius'] );
+			$value = self::normalize_style_value( $args['itemBorderRadius'] );
+			$styles[] = 'border-radius:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['itemMaxWidth'] ) ) {
-			$styles[] = 'max-width:' . esc_attr( $args['itemMaxWidth'] );
+			$value = self::normalize_style_value( $args['itemMaxWidth'] );
+			$styles[] = 'max-width:' . esc_attr( $value );
 		}
 		if ( ! empty( $args['itemElementsWrap'] ) && 'nowrap' === $args['itemElementsWrap'] ) {
 			$styles[] = 'white-space:nowrap';

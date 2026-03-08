@@ -4,7 +4,11 @@
  * @returns
  */
 export const showField = (field, values) => {
-  if (!field.show) {
+  // Support both show and condition formats
+  const showConfig = field.show || (field.condition ? {
+    fields: [{ key: field.condition.field, compare: '=', value: field.condition.value }],
+  } : null);
+  if (!showConfig) {
     return true;
   }
 
@@ -26,8 +30,8 @@ export const showField = (field, values) => {
     },
   };
 
-  const relation = field.show.relation ? field.show.relation : "AND";
-  const checks = field.show.fields.map((f) => {
+  const relation = showConfig.relation ? showConfig.relation : "AND";
+  const checks = showConfig.fields.map((f) => {
     if (operators[f.compare](formattedValues[f.key], f.value)) {
       return "pass";
     } else {

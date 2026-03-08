@@ -125,7 +125,7 @@ export default function Edit({ attributes, setAttributes, clientId, name }) {
 	});
 
 	const innerBlocksProps = useInnerBlocksProps(blockProps, {
-		allowedBlocks: ['ditty/display-item', 'ditty/display-posts-feed'],
+		allowedBlocks: ['ditty/display-item', 'ditty/default-item', 'ditty/display-posts-feed'],
 		template: TEMPLATE,
 		templateLock: false,
 		renderAppender: InnerBlocks.ButtonBlockAppender,
