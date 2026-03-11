@@ -47,6 +47,7 @@ if (dittyEditor) {
         "This is custom HTML. Please edit me!",
         "ditty-news-ticker"
       )}</p>`,
+      alphabetical_sort_tag: "content",
     },
     previewText: (item) => {
       if (item.item_value && item.item_value.editor_label) {

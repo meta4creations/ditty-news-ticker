@@ -648,6 +648,14 @@ class Ditty_Singles {
 		if ( isset( $item_data['item_value'] ) && isset( $item_data['item_type'] ) ) {
 			if ( $item_type_object = ditty_item_type_object( $item_data['item_type'] ) ) {
 				$sanitized_item['item_value'] = $item_type_object->sanitize_settings( $item_data['item_value'] );
+				// Preserve global editor_label for all item types (used in item list; may not be in type-specific sanitize_settings)
+				if ( isset( $item_data['item_value']['editor_label'] ) ) {
+					$sanitized_item['item_value']['editor_label'] = sanitize_text_field( $item_data['item_value']['editor_label'] );
+				}
+				// Preserve alphabetical_sort_tag for all item types (merge tag used for alphabetical ordering)
+				if ( isset( $item_data['item_value']['alphabetical_sort_tag'] ) ) {
+					$sanitized_item['item_value']['alphabetical_sort_tag'] = sanitize_text_field( $item_data['item_value']['alphabetical_sort_tag'] );
+				}
 			}
 		}
 	

@@ -49,6 +49,7 @@ if (dittyEditor) {
       limit: 10,
       link_target: "",
       link_nofollow: "",
+      alphabetical_sort_tag: "content",
     },
     previewText: (item) => {
       if (item.item_value && item.item_value.editor_label) {

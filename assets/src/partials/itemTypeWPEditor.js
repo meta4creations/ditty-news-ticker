@@ -47,6 +47,7 @@ if (dittyEditor) {
         "This is a sample item. Please edit me!",
         "ditty-news-ticker"
       ),
+      alphabetical_sort_tag: "content",
     },
     previewText: (item) => {
       if (item.item_value && item.item_value.editor_label) {

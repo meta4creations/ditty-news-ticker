@@ -179,6 +179,18 @@ function dittyOrderItemGroup(items, settings) {
         sortedItems[j] = temp;
       }
       break;
+    case "alphabetical":
+      sortedItems = [...items].sort((a, b) => {
+        const getSortText = (item) => {
+          const raw =
+            item.sort_text !== undefined
+              ? String(item.sort_text || "")
+              : (item.html || "").replace(/<[^>]*>/g, " ");
+          return raw.replace(/\s+/g, " ").trim().toLowerCase();
+        };
+        return getSortText(a).localeCompare(getSortText(b));
+      });
+      break;
     default:
       break;
   }

@@ -320,9 +320,10 @@ const PanelItems = (props) => {
             type: "select",
             id: "orderby",
             options: {
+              alphabetical: __("Alphabetical", "ditty-news-ticker"),
               list: __("List", "ditty-news-ticker"),
-              timestamp: __("Timestamp", "ditty-news-ticker"),
               random: __("Random", "ditty-news-ticker"),
+              timestamp: __("Timestamp", "ditty-news-ticker"),
             },
           },
           {

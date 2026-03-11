@@ -88,6 +88,7 @@ if (dittyEditor) {
       link_title: "",
       link_target: "_self",
       link_nofollow: "",
+      alphabetical_sort_tag: "content",
     },
     previewText: (item) => {
       if (item.item_value && item.item_value.editor_label) {

@@ -52,6 +52,62 @@ const PopupEditItem = ({
       editItem.layoutTags ? editItem.layoutTags : itemTypeObject.layoutTags
     ),
   });
+
+  // Ensure editor_label and alphabetical_sort_tag exist in the first settings group for all item types (including from other plugins)
+  const layoutTags =
+    editItem.layoutTags || itemTypeObject.layoutTags || [];
+  const sortTagOptions =
+    layoutTags.length > 0
+      ? layoutTags.reduce(
+          (acc, t) => ({ ...acc, [t.tag]: `{${t.tag}}` }),
+          {}
+        )
+      : { content: "{content}" };
+  const editorLabelField = {
+    type: "text",
+    id: "editor_label",
+    name: __("Label", "ditty-news-ticker"),
+    help: __(
+      "Add a custom label to display in the item list.",
+      "ditty-news-ticker"
+    ),
+  };
+  const alphabeticalSortTagField = {
+    type: "select",
+    id: "alphabetical_sort_tag",
+    name: __("Sort by (Alphabetical)", "ditty-news-ticker"),
+    help: __(
+      "Merge tag used for alphabetical ordering when Display Item Order is set to Alphabetical.",
+      "ditty-news-ticker"
+    ),
+    options: sortTagOptions,
+    std: "content",
+  };
+  let editorLabelAdded = false;
+  fieldGroups = fieldGroups.map((group) => {
+    if (
+      editorLabelAdded ||
+      !group.fields ||
+      !Array.isArray(group.fields) ||
+      group.id === "layoutCustomizations"
+    ) {
+      return group;
+    }
+    const hasEditorLabel = group.fields.some((f) => f.id === "editor_label");
+    const hasSortTag = group.fields.some(
+      (f) => f.id === "alphabetical_sort_tag"
+    );
+    if (hasEditorLabel) {
+      return group;
+    }
+    editorLabelAdded = true;
+    const newFields = [editorLabelField];
+    if (!hasSortTag) {
+      newFields.push(alphabeticalSortTagField);
+    }
+    return { ...group, fields: [...group.fields, ...newFields] };
+  });
+
   fieldGroups = applyFilters(
     "dittyEditor.itemFieldGroups",
     fieldGroups,

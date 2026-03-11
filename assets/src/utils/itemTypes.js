@@ -184,6 +184,10 @@ export const getItemTypeSettings = (item) => {
  * @returns element
  */
 export const getItemLabel = (item) => {
+  // Use editor_label when set (available for all item types)
+  if (item.item_value && item.item_value.editor_label) {
+    return item.item_value.editor_label;
+  }
   const itemTypeObject = getItemTypeObject(item);
   return itemTypeObject.previewText
     ? itemTypeObject.previewText(item)

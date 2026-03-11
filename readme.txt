@@ -135,6 +135,12 @@ Please report security bugs found in the source code of the Ditty plugin through
 
 == Changelog ==
 
+= UNRELEASED =
+* Added Alphabetical option to Display Item Order (Items tab)
+* Added Sort by (Alphabetical) field for all item types - choose which merge tag is used for alphabetical sorting (default: content)
+* Added PHP filter `ditty_alphabetical_sort_default_tag` for item types to set a default sort merge tag
+* Added Label field globally to all item types (including from other plugins) for custom list labels
+
 = 3.1.63 [2026-01-09] =
 * Install custom database tables on plugin activation
 

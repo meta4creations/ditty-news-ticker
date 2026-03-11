@@ -96,6 +96,17 @@ function ditty_single_settings_defaults() {
 }
 
 /**
+ * Default merge tag used for alphabetical sorting. Other item types can set a different default via the filter.
+ *
+ * @since    3.1.28
+ * @param    string $item_type  Item type slug.
+ * @return   string  Merge tag name (e.g. 'content').
+ */
+function ditty_alphabetical_sort_default_tag( $item_type ) {
+	return apply_filters( 'ditty_alphabetical_sort_default_tag', 'content', $item_type );
+}
+
+/**
  * Return a single Ditty setting
  *
  * @since    3.0.13

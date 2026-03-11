@@ -450,17 +450,63 @@ class Ditty_Display_Item {
 		return apply_filters( 'ditty_render_item', $html, $this );
 	}
 
+	/**
+	 * Get plain text for a single merge tag (for alphabetical sort).
+	 *
+	 * @access public
+	 * @since  3.1.28
+	 * @param  string $tag_name  Merge tag name (e.g. 'content', 'title').
+	 * @return string
+	 */
+	public function get_sort_text( $tag_name ) {
+		$tags = $this->get_layout_tags();
+		if ( ! is_array( $tags ) || ! isset( $tags[ $tag_name ] ) ) {
+			return '';
+		}
+		$tag_config = $tags[ $tag_name ];
+		$data       = $this->get_item_value();
+		$data       = is_array( $data ) ? $data : array();
+		$data['item_meta'] = $this->get_item_meta();
+		$defaults   = isset( $tag_config['atts'] ) ? $tag_config['atts'] : array();
+		$atts       = $this->get_layout_att_values( $tag_name, $defaults );
+		if ( ! is_array( $atts ) || 'disabled' === $atts ) {
+			return '';
+		}
+		$atts   = apply_filters( 'ditty_layout_tag_atts', $atts, $tag_name, $this->get_item_type(), $data );
+		$output = apply_filters( "ditty_layout_tag_{$tag_name}", false, $this->get_item_type(), $data, $atts );
+		if ( ! $output ) {
+			return '';
+		}
+		if ( isset( $atts['wpautop'] ) && 'true' === strval( $atts['wpautop'] ) ) {
+			$output = wpautop( $output );
+		}
+		$output = ditty_layout_render_tag( $output, "ditty-item__{$tag_name}", $this->get_item_type(), $data, $atts, false );
+		return wp_strip_all_tags( $output );
+	}
+
 	public function ditty_data() {
+		$item_value = $this->get_item_value();
+		$item_value = is_array( $item_value ) ? $item_value : array();
+		$sort_tag   = isset( $item_value['alphabetical_sort_tag'] ) && $item_value['alphabetical_sort_tag']
+			? $item_value['alphabetical_sort_tag']
+			: ditty_alphabetical_sort_default_tag( $this->get_item_type() );
+		$tags       = $this->get_layout_tags();
+		$sort_text  = '';
+		if ( is_array( $tags ) && isset( $tags[ $sort_tag ] ) ) {
+			$sort_text = $this->get_sort_text( $sort_tag );
+		}
+
 		$data = array(
 			'id'	 				    => ( string ) $this->id,
 			'uniq_id'	 		    => ( string ) $this->uniq_id,
 			'parent_id'	 	    => ( string ) $this->parent_id,
-      'timestamp'	 	    => $this->get_timestamp(),
-      'timestamp_iso'	 	=> $this->get_timestamp_iso(),
+			'timestamp'	 	    => $this->get_timestamp(),
+			'timestamp_iso'	 	=> $this->get_timestamp_iso(),
 			'html' 				    => $this->render_html(),
 			'css'					    => $this->get_layout_css(),
 			'layout_id'		    => $this->get_layout_id(),
 			'meta' 				    => $this->custom_meta,
+			'sort_text'			  => $sort_text,
 		);
 		return $data;
 	}

@@ -196,6 +196,7 @@ class Ditty_Editor {
 					}
 					$item_type['settings'] = $settings;
 					$item_type['defaultValues'] = $default_settings;
+					$item_type['defaultValues']['alphabetical_sort_tag'] = ditty_alphabetical_sort_default_tag( $type['type'] );
 				}
 
 				$item_type_data[] = $item_type;
