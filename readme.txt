@@ -4,8 +4,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: responsive slider, content slider, post slider, news ticker, post ticker
 Requires at least: 6.2
 Requires PHP: 7.4
-Tested up to: 6.9
-Stable tag: 3.1.63
+Tested up to: 6.9.4
+Stable tag: 3.1.64
 License: GPL2
 
 Ditty offers a range of content display options, including its signature news ticker and customizable layouts.
@@ -135,8 +135,8 @@ Please report security bugs found in the source code of the Ditty plugin through
 
 == Changelog ==
 
-= UNRELEASED =
-* Added Alphabetical option to Display Item Order (Items tab)
+= 3.1.64 [2026-03-12] =
+* Updated axios dependency to fix DoS vulnerability (CVE in mergeConfig)
 * Added Sort by (Alphabetical) field for all item types - choose which merge tag is used for alphabetical sorting (default: content)
 * Added PHP filter `ditty_alphabetical_sort_default_tag` for item types to set a default sort merge tag
 * Added Label field globally to all item types (including from other plugins) for custom list labels
@@ -1109,4 +1109,4 @@ Please report security bugs found in the source code of the Ditty plugin through
 
 == Upgrade Notice ==
 
-Install custom database tables on plugin activation
+Security fix for axios, new alphabetical sort field and filter for item types, and a global Label field for all item types.
