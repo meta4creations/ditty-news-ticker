@@ -226,6 +226,24 @@ class Ditty_Singles {
 		$custom_layout_settings_ajax 		= isset( $_POST['layout_settings'] ) 	? esc_attr( $_POST['layout_settings'] ) 	: false;
 		$editor_ajax 										= isset( $_POST['editor'] )						? intval( $_POST['editor'] ) 							: false;
 
+		// Validate the requested Ditty exists and is the correct post type
+		if ( ! $id_ajax || 'ditty' !== get_post_type( $id_ajax ) ) {
+			wp_send_json_error();
+		}
+
+		// Only published Dittys are publicly accessible. Non-published Dittys
+		// (draft, pending, scheduled, private, trash, etc.) may only be loaded
+		// by users with the capability to edit that specific Ditty.
+		if ( 'publish' !== get_post_status( $id_ajax ) && ! current_user_can( 'edit_post', $id_ajax ) ) {
+			wp_send_json_error();
+		}
+
+		// The editor flag should only be honored for users with the capability
+		// to edit Dittys to avoid exposing editor-only data publicly.
+		if ( $editor_ajax && ! current_user_can( 'edit_dittys' ) ) {
+			$editor_ajax = false;
+		}
+
 		// Get the display attributes
 		if ( ! $display_ajax ) {
 			$display_ajax = get_post_meta( $id_ajax, '_ditty_display', true );
@@ -379,6 +397,16 @@ class Ditty_Singles {
 		$updated_items = array();
 		if ( is_array( $live_ids ) && count( $live_ids ) > 0 ) {
 			foreach ( $live_ids as $ditty_id => $data ) {
+				$ditty_id = intval( $ditty_id );
+
+				// Only return items for valid Ditty posts the requester may access.
+				if ( ! $ditty_id || 'ditty' !== get_post_type( $ditty_id ) ) {
+					continue;
+				}
+				if ( 'publish' !== get_post_status( $ditty_id ) && ! current_user_can( 'edit_post', $ditty_id ) ) {
+					continue;
+				}
+
 				$layout_settings = isset( $data['layout_settings'] ) ? $data['layout_settings'] : false;
 				$updated_items[$ditty_id] = $this->get_display_items( $ditty_id, 'cache', $layout_settings );
 			}
