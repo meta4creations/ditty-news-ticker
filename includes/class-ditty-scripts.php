@@ -93,7 +93,7 @@ class Ditty_Scripts {
 	 * @return void
 	 */
 	public function delete_cache() {
-		if ( isset( $_GET['ditty_delete_cache'] ) ) {
+		if ( isset( $_GET['ditty_delete_cache'] ) && current_user_can( 'manage_options' ) ) {
 			global $wp_filesystem;
 			require_once ( ABSPATH . '/wp-admin/includes/file.php' );
 			WP_Filesystem();
