@@ -552,6 +552,9 @@ class Ditty_Extensions {
 	}
 	public function license_activate_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
+		if ( ! current_user_can( 'manage_ditty_settings' ) ) {
+			wp_die();
+		}
 		$license_key_ajax 		= isset( $_POST['license'] ) 				? sanitize_text_field( $_POST['license'] ) 				: false;
 		$extension_ajax 			= isset( $_POST['extension'] ) 			? esc_attr( $_POST['extension'] ) 								: false;
 		$extension_id_ajax 		= isset( $_POST['extension_id'] ) 	? intval( $_POST['extension_id'] ) 								: false;
@@ -581,6 +584,9 @@ class Ditty_Extensions {
 	}
 	public function license_refresh_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
+		if ( ! current_user_can( 'manage_ditty_settings' ) ) {
+			wp_die();
+		}
 		$extension_ajax 			= isset( $_POST['extension'] ) 			? esc_attr( $_POST['extension'] ) 								: false;
 		$extension_id_ajax 		= isset( $_POST['extension_id'] ) 	? intval( $_POST['extension_id'] ) 								: false;
 		$license = $this->get_license( $extension_ajax );
@@ -657,6 +663,9 @@ class Ditty_Extensions {
 	}
 	public function license_deactivate_ajax() {
 		check_ajax_referer( 'ditty', 'security' );
+		if ( ! current_user_can( 'manage_ditty_settings' ) ) {
+			wp_die();
+		}
 		$extension_ajax 			= isset( $_POST['extension'] ) 			? esc_attr( $_POST['extension'] ) 								: false;
 		$extension_id_ajax 		= isset( $_POST['extension_id'] ) 	? intval( $_POST['extension_id'] ) 								: false;
 		$extension_name_ajax 	= isset( $_POST['extension_name'] ) ? sanitize_text_field( $_POST['extension_name'] )	: false;

@@ -550,6 +550,7 @@ class Ditty_Scripts {
           'translationLanguage'  => Ditty()->translations->get_translation_language(),
           'sassWorkerUrl'				 => DITTY_URL . 'includes/libs/sass/sass.worker.js',
           'googleFonts'          => ( 'enabled' == get_ditty_settings( 'disable_googlefonts' ) ),
+          'imageSizes'           => ditty_get_registered_image_sizes(),
           'dittyDevelopment'		 => defined( 'DITTY_DEVELOPMENT' ) ? DITTY_DEVELOPMENT : false
         ), $hook ) ), 'before' ) . ';';
       }

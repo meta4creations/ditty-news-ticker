@@ -447,6 +447,9 @@ function mtphr_dnt_license_deactivate_ajax() {
 
 	// Check the nonce
 	check_ajax_referer( 'ditty-news-ticker', 'security' );
+	if ( ! current_user_can( 'manage_ditty_settings' ) ) {
+		wp_die();
+	}
 	
 	$slug = isset($_POST['slug']) ? $_POST['slug'] : false;
 	$all_license_data = mtphr_dnt_all_license_data();
@@ -544,6 +547,9 @@ function mtphr_dnt_license_activate_ajax() {
 
 	// Check the nonce
 	check_ajax_referer( 'ditty-news-ticker', 'security' );
+	if ( ! current_user_can( 'manage_ditty_settings' ) ) {
+		wp_die();
+	}
 	
 	$slug = isset($_POST['slug']) ? $_POST['slug'] : false;
 	$license = isset($_POST['license']) ? trim(sanitize_text_field($_POST['license'])) : false;

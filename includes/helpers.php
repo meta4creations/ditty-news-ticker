@@ -1616,6 +1616,39 @@ function ditty_is_safe_image_url( $url ) {
 
 
 /**
+ * Get all registered WordPress image sizes, with human readable labels
+ * *
+ * @since   3.1.68
+ */
+function ditty_get_registered_image_sizes() {
+	$sizes = array();
+	$default_sizes = array( 'thumbnail', 'medium', 'medium_large', 'large' );
+	$additional_sizes = wp_get_additional_image_sizes();
+
+	foreach ( get_intermediate_image_sizes() as $size ) {
+		if ( isset( $sizes[ $size ] ) ) {
+			continue;
+		}
+		if ( in_array( $size, $default_sizes, true ) ) {
+			$width  = (int) get_option( "{$size}_size_w" );
+			$height = (int) get_option( "{$size}_size_h" );
+		} elseif ( isset( $additional_sizes[ $size ] ) ) {
+			$width  = (int) $additional_sizes[ $size ]['width'];
+			$height = (int) $additional_sizes[ $size ]['height'];
+		} else {
+			$width = $height = 0;
+		}
+		$label = ucwords( str_replace( array( '-', '_' ), ' ', $size ) );
+		if ( $width && $height ) {
+			$label .= " ({$width}x{$height})";
+		}
+		$sizes[ $size ] = $label;
+	}
+	$sizes['full'] = __( 'Full Size', 'ditty-news-ticker' );
+	return apply_filters( 'ditty_registered_image_sizes', $sizes );
+}
+
+/**
  * Get image dimesions
  * *
  * @since   3.1.18

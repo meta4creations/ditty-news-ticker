@@ -4,8 +4,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: responsive slider, content slider, post slider, news ticker, post ticker
 Requires at least: 6.2
 Requires PHP: 7.4
-Tested up to: 7.0.2
-Stable tag: 3.1.67
+Tested up to: 7.1
+Stable tag: 3.1.69
 License: GPL2
 
 Ditty offers a range of content display options, including its signature news ticker and customizable layouts.
@@ -134,6 +134,16 @@ Please report security bugs found in the source code of the Ditty plugin through
 15. Advanced Settings
 
 == Changelog ==
+
+= 3.1.69 [2026-08-22] =
+* Security fix: require the `manage_ditty_settings` capability for extension license AJAX actions
+* Updated ip-address dev dependency to patch leading-zero IPv4 parsing (GHSA-mwp4-54f8-5fhr)
+* Updated shell-quote dev dependency to patch a command injection vulnerability
+* Updated websocket-driver dev dependency to patch a message corruption vulnerability
+
+= 3.1.68 [2026-07-25] =
+* Added a reusable helper for listing all registered WordPress image sizes
+* Exposed registered image sizes to the Ditty Editor via dittyEditorVars for use by extensions
 
 = 3.1.67 [2026-07-24] =
 * Security fix: require the `manage_options` capability to delete the Ditty cache via the `ditty_delete_cache` request parameter
