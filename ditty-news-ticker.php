@@ -23,7 +23,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 // Plugin version.
 if ( ! defined( 'DITTY_VERSION' ) ) {
-	define( 'DITTY_VERSION', '3.1.68' );
+	define( 'DITTY_VERSION', '3.1.69' );
 }
 
 // Plugin Folder Path.
