@@ -135,6 +135,9 @@ Please report security bugs found in the source code of the Ditty plugin through
 
 == Changelog ==
 
+= UNRELEASED =
+* Security fix: sanitize custom display settings and block protected keys passed via shortcodes, blocks and AJAX
+
 = 3.1.70 [2026-09-21] =
 * Security fix: restrict layout tag wrapper elements to an allowlist of safe HTML elements
 

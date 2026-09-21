@@ -187,8 +187,12 @@ class Ditty_Singles {
 	public function parse_custom_display_settings( $args, $display_settings ) {
 		if ( '' != $display_settings && 'false' != $display_settings ) {
 			parse_str( html_entity_decode( $display_settings ), $custom_display_settings );
+			$custom_display_settings = ditty_sanitize_custom_display_settings( $custom_display_settings );
 			if ( is_array( $custom_display_settings ) && count( $custom_display_settings ) > 0 ) {
 				foreach ( $custom_display_settings as $key => $value ) {
+					if ( is_array( $value ) ) {
+						continue;
+					}
 					$parts = explode( '|', $value );
 					if ( is_array( $parts ) && count( $parts ) > 0 ) {
 						foreach ( $parts as $subvalue ) {
@@ -367,8 +371,9 @@ class Ditty_Singles {
         if ( isset( $custom_display_array['type'] ) && ditty_display_type_exists( $custom_display_array['type'] ) ) {
           $display_type = $custom_display_array['type'];
         }
-        if ( isset( $custom_display_array['settings'] ) ) {
-          $args = wp_parse_args( $custom_display_array['settings'], $args );
+        if ( isset( $custom_display_array['settings'] ) && is_array( $custom_display_array['settings'] ) ) {
+          $custom_display_settings_array = ditty_sanitize_custom_display_settings( $custom_display_array['settings'] );
+          $args = wp_parse_args( $custom_display_settings_array, $args );
         }
       } else {
         $args = $this->parse_custom_display_settings( $args, $custom_display_settings );
