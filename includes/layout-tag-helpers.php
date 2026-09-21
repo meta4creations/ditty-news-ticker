@@ -55,6 +55,60 @@ function ditty_layout_render_tag_link( $link, $html, $class, $data, $atts, $pref
 }
 
 /**
+ * Return a safe html element name for a layout tag wrapper
+ *
+ * @since    3.1.70
+ * @var      string
+*/
+function ditty_layout_sanitize_wrapper_element( $wrapper, $fallback = 'div' ) {
+	$allowed_wrappers = apply_filters( 'ditty_layout_allowed_wrapper_elements', array(
+		'address',
+		'article',
+		'aside',
+		'b',
+		'blockquote',
+		'cite',
+		'code',
+		'div',
+		'em',
+		'figcaption',
+		'figure',
+		'footer',
+		'h1',
+		'h2',
+		'h3',
+		'h4',
+		'h5',
+		'h6',
+		'header',
+		'i',
+		'li',
+		'main',
+		'mark',
+		'nav',
+		'ol',
+		'p',
+		'pre',
+		'q',
+		's',
+		'section',
+		'small',
+		'span',
+		'strong',
+		'sub',
+		'sup',
+		'time',
+		'u',
+		'ul',
+	) );
+	$wrapper = strtolower( trim( strval( $wrapper ) ) );
+	if ( ! in_array( $wrapper, $allowed_wrappers, true ) ) {
+		$wrapper = in_array( $fallback, $allowed_wrappers, true ) ? $fallback : 'div';
+	}
+	return $wrapper;
+}
+
+/**
  * Return a rendered wrapper
  *
  * @since    3.0.35
@@ -79,7 +133,8 @@ function ditty_layout_render_tag_wrapper( $html, $class = '', $atts = array(), $
 		if ( $custom_wrapper ) {
 			$html = sprintf( $custom_wrapper, $html );
 		}
-		$html = sprintf( '<%4$s class="%5$s">%2$s%1$s%3$s</%4$s>', $html, $before, $after, $args['wrapper'], esc_attr( $class ) );
+		$wrapper = ditty_layout_sanitize_wrapper_element( $args['wrapper'] );
+		$html = sprintf( '<%4$s class="%5$s">%2$s%1$s%3$s</%4$s>', $html, $before, $after, $wrapper, esc_attr( $class ) );
 	} elseif ( $custom_wrapper ) {
 		$html = sprintf( $custom_wrapper, $html );
 	}
