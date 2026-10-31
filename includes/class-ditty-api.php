@@ -79,11 +79,21 @@ class Ditty_API {
 	/**
 	 * General permissions
 	 *
+	 * These routes render editor previews from the data in the request, which
+	 * runs that content through the layout tags and shortcodes, so they are
+	 * limited to users that can edit Ditty content.
+	 *
 	 * @access public
 	 * @since  3.1.9
 	 */
 	public function general_ditty_permissions_check( $request ) {
-		return true;
+		$editor_caps = array( 'edit_dittys', 'edit_ditty_displays', 'edit_ditty_layouts' );
+		foreach ( $editor_caps as $editor_cap ) {
+			if ( current_user_can( $editor_cap ) ) {
+				return true;
+			}
+		}
+		return new WP_Error( 'rest_forbidden', esc_html__( 'Sorry, you are not allowed to edit Ditty.', 'ditty-news-ticker' ), array( 'status' => 403 ) );
 	}
 
 	/**
@@ -187,7 +197,7 @@ class Ditty_API {
 	 * @since  3.1
 	 */
 	public function save_ditty( $request ) {
-    if ( ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
+    if ( ! isset( $_SERVER['HTTP_X_WP_NONCE'] ) || ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
       return new WP_Error( 'no_nonce', __( 'Invalid nonce', 'ditty-news-ticker' ), array( 'status' => 403 ) );
     }
 
@@ -209,7 +219,7 @@ class Ditty_API {
 	 * @since  3.1
 	 */
 	public function save_display( $request ) {
-    if ( ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
+    if ( ! isset( $_SERVER['HTTP_X_WP_NONCE'] ) || ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
       return new WP_Error( 'no_nonce', __( 'Invalid nonce', 'ditty-news-ticker' ), array( 'status' => 403 ) );
     }
 
@@ -231,7 +241,7 @@ class Ditty_API {
 	 * @since  3.1
 	 */
 	public function save_layout( $request ) {
-    if ( ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
+    if ( ! isset( $_SERVER['HTTP_X_WP_NONCE'] ) || ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
       return new WP_Error( 'no_nonce', __( 'Invalid nonce', 'ditty-news-ticker' ), array( 'status' => 403 ) );
     }
 
@@ -253,7 +263,7 @@ class Ditty_API {
 	 * @since  3.1
 	 */
 	public function save_settings( $request ) {
-    if ( ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
+    if ( ! isset( $_SERVER['HTTP_X_WP_NONCE'] ) || ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
       return new WP_Error( 'no_nonce', __( 'Invalid nonce', 'ditty-news-ticker' ), array( 'status' => 403 ) );
     }
 
@@ -295,7 +305,7 @@ class Ditty_API {
 	 * @since  3.1.7
 	 */
 	public function get_display_items( $request ) {
-    if ( ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
+    if ( ! isset( $_SERVER['HTTP_X_WP_NONCE'] ) || ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
       return new WP_Error( 'no_nonce', __( 'Invalid nonce', 'ditty-news-ticker' ), array( 'status' => 403 ) );
     }
 
@@ -360,7 +370,7 @@ class Ditty_API {
 	 * @since  3.1
 	 */
 	public function php_item_mods( $request ) {
-    if ( ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
+    if ( ! isset( $_SERVER['HTTP_X_WP_NONCE'] ) || ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
       return new WP_Error( 'no_nonce', __( 'Invalid nonce', 'ditty-news-ticker' ), array( 'status' => 403 ) );
     }
 
@@ -395,7 +405,7 @@ class Ditty_API {
 	 * @since  3.1.25
 	 */
 	public function refresh_translations( $request ) {
-    if ( ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
+    if ( ! isset( $_SERVER['HTTP_X_WP_NONCE'] ) || ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
       return new WP_Error( 'no_nonce', __( 'Invalid nonce', 'ditty-news-ticker' ), array( 'status' => 403 ) );
     }
 
@@ -428,7 +438,7 @@ class Ditty_API {
 	 * @since  3.1.43
 	 */
 	public function dynamic_layout_tags( $request ) {
-    if ( ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
+    if ( ! isset( $_SERVER['HTTP_X_WP_NONCE'] ) || ! wp_verify_nonce( $_SERVER['HTTP_X_WP_NONCE'], 'wp_rest' ) ) {
       return new WP_Error( 'no_nonce', __( 'Invalid nonce', 'ditty-news-ticker' ), array( 'status' => 403 ) );
     }
     

@@ -1,34 +1,79 @@
+/**
+ * Limit a value to characters that are safe in an element id and css selector
+ *
+ * @since    3.1.72
+ * @return   string
+ */
+function dittySanitizeCssId(id) {
+  return String(id === undefined || id === null ? "" : id).replace(
+    /[^a-zA-Z0-9_-]/g,
+    ""
+  );
+}
+
+/**
+ * Remove characters that could break out of a css declaration
+ *
+ * @since    3.1.72
+ * @return   string
+ */
+function dittySanitizeCssValue(value) {
+  return String(value === undefined || value === null ? "" : value)
+    .replace(/["'`;{}<>\\]/g, "")
+    .trim();
+}
+
+/**
+ * Limit a font family to the characters used by font names
+ *
+ * @since    3.1.72
+ * @return   string
+ */
+function dittySanitizeFontFamily(font) {
+  return String(font === undefined || font === null ? "" : font)
+    .replace(/[^a-zA-Z0-9 _-]/g, "")
+    .trim();
+}
+
 function dittyLoadGoogleFont(font, weight = 400) {
-  const fontId = font.replace(/\s+/g, "-").toLowerCase();
+  const family = dittySanitizeFontFamily(font);
+  if ("" === family) {
+    return;
+  }
+
+  const fontId = family.replace(/\s+/g, "-").toLowerCase();
+  const fontWeight = String(weight).replace(/[^0-9]/g, "") || "400";
 
   let link = document.getElementById(`ditty-google-font--${fontId}`);
   let weights = [];
   let updateFont = false;
 
-  if (link) {
-    let dataWeights = link.dataset.weights;
-    if (dataWeights) {
-      weights = dataWeights.split(",");
-    }
+  if (link && link.dataset.weights) {
+    weights = link.dataset.weights
+      .split(/[;,]/)
+      .map((loadedWeight) => loadedWeight.replace(/[^0-9]/g, ""))
+      .filter((loadedWeight) => "" !== loadedWeight);
   }
 
-  if (!weights.includes(weight)) {
-    weights.push(weight);
+  if (!weights.includes(fontWeight)) {
+    weights.push(fontWeight);
     updateFont = true;
   }
-
-  dataWeights = weights.join(";");
-  dataWeightsString = weights.join(";0,");
 
   if (updateFont) {
     if (link) {
       link.remove();
     }
-    link = jQuery(
-      `<link id="ditty-google-font--${fontId}" data-weights="${dataWeights}" href="https://fonts.googleapis.com/css?family=${font}:wght@0,${dataWeightsString}" rel="stylesheet">`
-    );
 
-    jQuery("head").append(link);
+    link = document.createElement("link");
+    link.id = `ditty-google-font--${fontId}`;
+    link.rel = "stylesheet";
+    link.dataset.weights = weights.join(";");
+    link.href = `https://fonts.googleapis.com/css?family=${encodeURIComponent(
+      family
+    )}:wght@0,${weights.join(";0,")}`;
+
+    document.head.appendChild(link);
   }
 }
 
@@ -39,15 +84,17 @@ function dittyLoadGoogleFont(font, weight = 400) {
  * @return   null
  */
 function dittyLayoutCss(layoutCss, layoutId, updateCSS) {
-  var $styles = jQuery("style#ditty-layout--" + layoutId);
-  if (undefined === $styles[0]) {
-    $styles = jQuery('<style id="ditty-layout--' + layoutId + '"></style>');
-    jQuery("head").append($styles);
+  const styleId = `ditty-layout--${dittySanitizeCssId(layoutId)}`;
+  let styles = document.getElementById(styleId);
+  if (!styles) {
+    styles = document.createElement("style");
+    styles.id = styleId;
+    document.head.appendChild(styles);
     updateCSS = "update";
   }
   if ("update" === updateCSS) {
-    layoutCss = layoutCss.replace("&gt;", ">");
-    $styles.html(layoutCss);
+    // Set as text so the contents are never parsed as html
+    styles.textContent = String(layoutCss || "").replace("&gt;", ">");
   }
 }
 
@@ -58,13 +105,15 @@ function dittyLayoutCss(layoutCss, layoutId, updateCSS) {
  * @return   null
  */
 function dittyDisplayCss(displayCss, displayId) {
-  var $styles = jQuery("style#ditty-display--" + displayId);
-  if (undefined === $styles[0]) {
-    $styles = jQuery('<style id="ditty-display--' + displayId + '"></style>');
-    jQuery("head").append($styles);
+  const styleId = `ditty-display--${dittySanitizeCssId(displayId)}`;
+  let styles = document.getElementById(styleId);
+  if (!styles) {
+    styles = document.createElement("style");
+    styles.id = styleId;
+    document.head.appendChild(styles);
   }
-  displayCss = displayCss.replace("&gt;", ">");
-  $styles.html(displayCss);
+  // Set as text so the contents are never parsed as html
+  styles.textContent = String(displayCss || "").replace("&gt;", ">");
 }
 
 /**
@@ -74,25 +123,32 @@ function dittyDisplayCss(displayCss, displayId) {
  * @return   null
  */
 function dittyTypographyCss(settings) {
+  const fontFamily = dittySanitizeFontFamily(settings.fontFamily);
+  const fontTypeface = dittySanitizeFontFamily(settings.fontTypeface);
+  const fontWeight = dittySanitizeCssValue(settings.fontWeight);
+  const fontSize = dittySanitizeCssValue(settings.fontSize);
+  const lineHeight = dittySanitizeCssValue(settings.lineHeight);
+  const letterSpacing = dittySanitizeCssValue(settings.letterSpacing);
+
   let css = "";
-  if (settings.fontFamily && "" !== settings.fontFamily) {
-    css += `font-family:${settings.fontFamily}`;
-    if (settings.fontTypeface && "" !== settings.fontTypeface) {
-      css += `, ${settings.fontTypeface}`;
+  if ("" !== fontFamily) {
+    css += `font-family:${fontFamily}`;
+    if ("" !== fontTypeface) {
+      css += `, ${fontTypeface}`;
     }
     css += `;`;
   }
-  if (settings.fontWeight && "" !== settings.fontWeight) {
-    css += `font-weight:${settings.fontWeight};`;
+  if ("" !== fontWeight) {
+    css += `font-weight:${fontWeight};`;
   }
-  if (settings.fontSize && "" !== settings.fontSize) {
-    css += `font-size:${settings.fontSize};`;
+  if ("" !== fontSize) {
+    css += `font-size:${fontSize};`;
   }
-  if (settings.lineHeight && "" !== settings.lineHeight) {
-    css += `line-height:${settings.lineHeight};`;
+  if ("" !== lineHeight) {
+    css += `line-height:${lineHeight};`;
   }
-  if (settings.letterSpacing && "" !== settings.letterSpacing) {
-    css += `letter-spacing:${settings.letterSpacing};`;
+  if ("" !== letterSpacing) {
+    css += `letter-spacing:${letterSpacing};`;
   }
   return css;
 }
@@ -104,7 +160,14 @@ function dittyTypographyCss(settings) {
  * @return   null
  */
 function dittyRenderDisplayCss(settings, displayId) {
-  const cssPrefix = `.ditty[data-display="${settings.display}"]`;
+  const cssPrefix = `.ditty[data-display="${dittySanitizeCssId(
+    settings.display
+  )}"]`;
+
+  const titleColor = dittySanitizeCssValue(settings.titleColor);
+  const titleLinkColor = dittySanitizeCssValue(settings.titleLinkColor);
+  const itemTextColor = dittySanitizeCssValue(settings.itemTextColor);
+  const itemLinkColor = dittySanitizeCssValue(settings.itemLinkColor);
 
   let css = "";
 
@@ -112,17 +175,17 @@ function dittyRenderDisplayCss(settings, displayId) {
   const titleFont = settings.titleTypography ? settings.titleTypography : {};
   let titleFontCss = dittyTypographyCss(titleFont);
   titleFontCss += `margin:0;padding:0;`;
-  if ("" !== settings.titleColor) {
-    titleFontCss += `color:${settings.titleColor};`;
+  if ("" !== titleColor) {
+    titleFontCss += `color:${titleColor};`;
   }
   if ("" !== titleFontCss) {
     css += `${cssPrefix} .ditty__title__element{${titleFontCss};}`;
   }
-  if ("" !== settings.titleColor) {
-    css += `${cssPrefix} .ditty__title__element *{color:${settings.titleColor};}`;
+  if ("" !== titleColor) {
+    css += `${cssPrefix} .ditty__title__element *{color:${titleColor};}`;
   }
-  if ("" !== settings.itemLinkColor) {
-    css += `${cssPrefix} .ditty__title__element a{color:${settings.titleLinkColor};}`;
+  if ("" !== titleLinkColor) {
+    css += `${cssPrefix} .ditty__title__element a{color:${titleLinkColor};}`;
   }
   if (
     titleFont.fontType &&
@@ -135,16 +198,15 @@ function dittyRenderDisplayCss(settings, displayId) {
   // Item CSS
   const itemFont = settings.itemTypography ? settings.itemTypography : {};
   let itemFontCss = dittyTypographyCss(itemFont);
-  if ("" !== settings.itemTextColor) {
-    itemFontCss += `color:${settings.itemTextColor};`;
+  if ("" !== itemTextColor) {
+    itemFontCss += `color:${itemTextColor};`;
   }
   if ("" !== itemFontCss) {
     css += `${cssPrefix} .ditty-item__elements{${itemFontCss};}`;
   }
-  if ("" !== settings.itemLinkColor) {
-    css += `${cssPrefix} .ditty-item__elements a{color:${settings.itemLinkColor};}`;
+  if ("" !== itemLinkColor) {
+    css += `${cssPrefix} .ditty-item__elements a{color:${itemLinkColor};}`;
   }
-
   if (
     itemFont.fontType &&
     "google" === itemFont.fontType &&

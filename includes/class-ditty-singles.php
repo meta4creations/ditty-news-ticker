@@ -282,7 +282,7 @@ class Ditty_Singles {
 		$args['uniqid'] 				= $uniqid_ajax;
 		$args['title'] 					= get_the_title( $id_ajax );
 		$args['status'] 				= $status;
-		$args['display'] 				= is_array( $display_ajax ) ? $id_ajax : $display_ajax;
+		$args['display'] 				= is_array( $display_ajax ) ? absint( $id_ajax ) : absint( $display_ajax );
 		$args['showEditor'] 		= $editor_ajax;
 
 		$items = $this->get_display_items( $id_ajax, 'cache', $custom_layout_settings_ajax );
@@ -291,6 +291,7 @@ class Ditty_Singles {
 		}
 		$args['items'] = $items;
 		$args = $this->parse_custom_display_settings( $args, $custom_display_settings_ajax );
+		$args = ditty_sanitize_display_style_settings( $args );
 
 		do_action( 'ditty_init', $id_ajax );
 		
@@ -357,7 +358,7 @@ class Ditty_Singles {
 		$args['uniqid'] 		= $uniqid;
 		$args['title'] 			= get_the_title( $ditty_id );
 		$args['status'] 		= $status;
-		$args['display'] 		= is_array( $display_id ) ? $ditty_id : $display_id;
+		$args['display'] 		= is_array( $display_id ) ? absint( $ditty_id ) : absint( $display_id );
 
 		$items = $this->get_display_items( $ditty_id, 'cache', $custom_layout_settings );
 		if ( ! is_array( $items ) ) {
@@ -379,6 +380,8 @@ class Ditty_Singles {
         $args = $this->parse_custom_display_settings( $args, $custom_display_settings );
       }
     }
+
+		$args = ditty_sanitize_display_style_settings( $args );
 
 		do_action( 'ditty_init', $ditty_id );
 		

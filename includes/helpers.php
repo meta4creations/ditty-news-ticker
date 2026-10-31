@@ -993,6 +993,10 @@ function ditty_render( $atts ) {
 	);
 	$args = shortcode_atts( $defaults, $atts );
 
+	// A display is always referenced by post ID. The value is passed to the
+	// browser and used in a css selector, so anything else is rejected.
+	$args['display'] = absint( $args['display'] );
+
 	// Check for WPML language posts
 	//$args['id'] = function_exists('icl_object_id') ? icl_object_id( $args['id'], 'ditty', true ) : $args['id'];
 
@@ -1041,7 +1045,7 @@ function ditty_render( $atts ) {
 		'class' 								=> $class,
 		'data-id' 							=> $args['id'],
 		'data-uniqid' 					=> $args['uniqid'],
-		'data-display' 					=> ( '' != $args['display'] ) ? $args['display'] : false,
+		'data-display' 					=> $args['display'] ? $args['display'] : false,
 		'data-display_settings' => ( '' != $args['display_settings'] ) ? htmlspecialchars( $args['display_settings'], ENT_QUOTES, 'UTF-8' ) : false,
 		'data-layout_settings' 	=> ( '' != $args['layout'] ) ? $args['layout'] : false,
 		'data-show_editor' 			=> ( 0 != intval( $args['show_editor'] ) ) ? '1' : false,
@@ -1608,6 +1612,52 @@ function ditty_protected_display_setting_keys() {
 }
 
 /**
+ * Sanitize a value that gets rendered into css by the display scripts
+ *
+ * Font families are also used to build a Google Fonts request, so they are
+ * limited to the characters used by font names. All other values drop the
+ * characters that would let them break out of a css declaration.
+ * *
+ * @since   3.1.72
+ */
+function ditty_sanitize_css_value( $value, $key = '' ) {
+	if ( ! is_string( $value ) ) {
+		return $value;
+	}
+	if ( in_array( strtolower( $key ), array( 'fontfamily', 'fonttypeface' ), true ) ) {
+		return trim( preg_replace( '/[^a-zA-Z0-9 _\-]/', '', $value ) );
+	}
+	return trim( preg_replace( '/["\'`;{}<>\\\\]/', '', $value ) );
+}
+
+/**
+ * Sanitize the display settings that get rendered into css by the display scripts
+ *
+ * Typography groups and color values are written straight into a stylesheet in
+ * the browser, so they're cleaned no matter where the display came from.
+ * *
+ * @since   3.1.72
+ */
+function ditty_sanitize_display_style_settings( $settings ) {
+	if ( ! is_array( $settings ) ) {
+		return $settings;
+	}
+	foreach ( $settings as $key => $value ) {
+		if ( ! is_string( $key ) ) {
+			continue;
+		}
+		if ( is_array( $value ) && 'typography' === strtolower( substr( $key, -10 ) ) ) {
+			foreach ( $value as $sub_key => $sub_value ) {
+				$settings[$key][$sub_key] = ditty_sanitize_css_value( $sub_value, $sub_key );
+			}
+		} elseif ( 'color' === strtolower( substr( $key, -5 ) ) ) {
+			$settings[$key] = ditty_sanitize_css_value( $value, $key );
+		}
+	}
+	return $settings;
+}
+
+/**
  * Sanitize custom display settings from a shortcode, block or ajax request
  * *
  * @since   3.1.70
@@ -1637,7 +1687,7 @@ function ditty_sanitize_custom_display_settings( $settings, $depth = 0 ) {
 		} elseif ( is_bool( $value ) || is_int( $value ) || is_float( $value ) || is_null( $value ) ) {
 			$sanitized_settings[$key] = $value;
 		} else {
-			$sanitized_settings[$key] = sanitize_text_field( $value );
+			$sanitized_settings[$key] = ditty_sanitize_css_value( sanitize_text_field( $value ), $key );
 		}
 	}
 	return $sanitized_settings;
