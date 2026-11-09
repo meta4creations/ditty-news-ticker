@@ -56,9 +56,12 @@ export default () => {
     return styles;
   };
 
-  const previewSettings = currentDisplay.settings
-    ? currentDisplay.settings
-    : {};
+  // Copy settings before adding item order. Order lives on the Ditty, and
+  // writing it onto the display object makes the editor look unsaved.
+  const previewSettings =
+    currentDisplay && currentDisplay.settings
+      ? { ...currentDisplay.settings }
+      : {};
   previewSettings.orderby = settings.orderby ? settings.orderby : "list";
   previewSettings.order = settings.order ? settings.order : "desc";
 

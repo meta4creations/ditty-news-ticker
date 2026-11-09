@@ -5,6 +5,25 @@ import { saveDitty } from "../../services/httpService";
 import { getDisplayObject } from "../../utils/displayTypes";
 import { updateDisplayOptions } from "../../services/dittyService";
 
+// Item order is stored on the Ditty and copied onto the preview display.
+// It is not a display edit, so it must not count as an unsaved change.
+const displaySnapshot = (display) => {
+  if (!display || typeof display !== "object") {
+    return display;
+  }
+  const settings = display.settings ? { ...display.settings } : display.settings;
+  if (settings) {
+    delete settings.orderby;
+    delete settings.order;
+  }
+  return {
+    ...display,
+    settings,
+  };
+};
+
+const sameItemId = (a, b) => String(a) === String(b);
+
 export const EditorContext = React.createContext();
 EditorContext.displayName = "EditorContext";
 
@@ -352,6 +371,22 @@ export class EditorProvider extends Component {
   };
 
   /**
+   * Update an item's editor preview without marking the item unsaved
+   * @param {string|number} itemId
+   * @param {string} editorPreview
+   */
+  handleUpdateItemPreview = (itemId, editorPreview) => {
+    this.setState((state) => ({
+      items: state.items.map((item) => {
+        if (!sameItemId(item.item_id, itemId)) {
+          return item;
+        }
+        return { ...item, editor_preview: editorPreview };
+      }),
+    }));
+  };
+
+  /**
    * Update a single item meta
    * @param {object} updatedItem
    */
@@ -512,7 +547,7 @@ export class EditorProvider extends Component {
     // Create an array of deleted items
     const deletedItems = this.initialItems.filter((initialItem) => {
       const existingItems = this.state.items.some((item) => {
-        return item.item_id === initialItem.item_id;
+        return sameItemId(item.item_id, initialItem.item_id);
       });
       if (!existingItems) {
         return true;
@@ -524,9 +559,9 @@ export class EditorProvider extends Component {
 
     // Create an array of updated items
     const updatedItems = this.state.items.filter((item) => {
-      if (item.item_updates) {
-        return true;
-      }
+      return (
+        item.item_updates && Object.keys(item.item_updates).length > 0
+      );
     });
     const trimmedUpdatedItems = updatedItems.map((item) => {
       const updates = Object.keys(item.item_updates);
@@ -569,7 +604,12 @@ export class EditorProvider extends Component {
     }
 
     // Check if the display has changes
-    if (!_.isEqual(this.state.currentDisplay, this.initialDisplay)) {
+    if (
+      !_.isEqual(
+        displaySnapshot(this.state.currentDisplay),
+        displaySnapshot(this.initialDisplay)
+      )
+    ) {
       if (this.state.currentDisplay.id && this.initialDisplay.id) {
         if (this.state.currentDisplay.id !== this.initialDisplay.id) {
           updates.display = this.state.currentDisplay;
@@ -634,7 +674,7 @@ export class EditorProvider extends Component {
         let temp_parent_id;
         let updated_parent_id;
         const index = data.updates.items.findIndex((i) => {
-          if (i.new_id && i.item_id === item.item_id) {
+          if (i.new_id && sameItemId(i.item_id, item.item_id)) {
             temp_id = i.item_id;
             updated_id = i.new_id;
             if (i.new_parent_id) {
@@ -662,9 +702,10 @@ export class EditorProvider extends Component {
       // Update sanitized data
       data.updates.items.map((item) => {
         const index = updatedItems.findIndex((i) => {
-          if (i.item_id === item.item_id) {
-            return true;
-          }
+          return (
+            sameItemId(i.item_id, item.item_id) ||
+            (i.temp_id && sameItemId(i.temp_id, item.item_id))
+          );
         });
         if (index >= 0) {
           const currentItem = { ...updatedItems[index] };
@@ -673,8 +714,17 @@ export class EditorProvider extends Component {
             ? { ...currentItemMeta, ...item.meta }
             : { ...currentItemMeta };
           delete newItemMeta.meta_updates;
-          item.meta = newItemMeta;
-          updatedItems[index] = { ...updatedItems[index], ...item };
+          const mergedItem = {
+            ...updatedItems[index],
+            ...item,
+            meta: newItemMeta,
+          };
+          if (mergedItem.new_id) {
+            mergedItem.item_id = mergedItem.new_id;
+            delete mergedItem.new_id;
+          }
+          delete mergedItem.item_updates;
+          updatedItems[index] = mergedItem;
         }
       });
       this.initialItems = [...updatedItems];
@@ -701,8 +751,8 @@ export class EditorProvider extends Component {
               typeof data.updates.display === "object"
                 ? getDisplayObject(data.updates.display)
                 : getDisplayObject(data.updates.display, this.state.displays);
-            this.initialDisplay = displayObject;
-            updatedState.currentDisplay = displayObject;
+            this.initialDisplay = _.cloneDeep(displayObject);
+            updatedState.currentDisplay = _.cloneDeep(displayObject);
             break;
           case "settings":
             this.initialSettings = { ...data.updates.settings };
@@ -710,30 +760,58 @@ export class EditorProvider extends Component {
             break;
           case "title":
             this.initialTitle = data.updates.title;
+            updatedState.title = data.updates.title;
             break;
           case "status":
             this.initialStatus = data.updates.status;
+            updatedState.status = data.updates.status;
             break;
           default:
             break;
         }
       }
 
+      // A preview refresh can flag an item again while save is in flight.
+      // Drop those flags when the server accepted the items.
+      const itemErrors = data.errors && data.errors.items;
+      if (!itemErrors) {
+        const sourceItems = updatedState.items || this.state.items;
+        const savedItems = sourceItems.map((item) => {
+          if (!item.item_updates && !(item.meta && item.meta.meta_updates)) {
+            return item;
+          }
+          const savedItem = { ...item };
+          delete savedItem.item_updates;
+          if (savedItem.meta && savedItem.meta.meta_updates) {
+            savedItem.meta = { ...savedItem.meta };
+            delete savedItem.meta.meta_updates;
+          }
+          return savedItem;
+        });
+        this.initialItems = savedItems;
+        updatedState.items = savedItems;
+      }
+
+      const finishSave = () => {
+        if (onComplete) {
+          onComplete(data);
+        }
+        if ("development" === this.editorVars.mode && window.console) {
+          const orphanUpdates = this.getDittyUpdates();
+          if (Object.keys(orphanUpdates).length) {
+            console.log("Orphan Updates:", orphanUpdates);
+          }
+        }
+      };
+
       // Update the state
       if (Object.keys(updatedState).length) {
-        this.setState(updatedState);
+        this.setState(updatedState, finishSave);
+      } else {
+        finishSave();
       }
-    }
-
-    if (onComplete) {
+    } else if (onComplete) {
       onComplete(data);
-    }
-
-    if ("development" === this.editorVars.mode && window.console) {
-      const updates = this.getDittyUpdates();
-      if (Object.keys(updates).length) {
-        console.log("Orphan Updates:", updates);
-      }
     }
   };
 
@@ -794,6 +872,7 @@ export class EditorProvider extends Component {
             addItems: this.handleAddItems,
             deleteItem: this.handleDeleteItem,
             updateItem: this.handleUpdateItem,
+            updateItemPreview: this.handleUpdateItemPreview,
             updateItemMeta: this.handleUpdateItemMeta,
             addDisplayItems: this.handleAddDisplayItems,
             deleteDisplayItems: this.handleDeleteDisplayItems,

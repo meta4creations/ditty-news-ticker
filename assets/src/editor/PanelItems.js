@@ -232,11 +232,15 @@ const PanelItems = (props) => {
 
                   // Get new display items
                   getDisplayItems(updatedItem, layouts, (data) => {
-                    if (data.preview_items[updatedItem.item_id]) {
-                      updatedItem.editor_preview =
-                        data.preview_items[updatedItem.item_id];
+                    if (
+                      data.preview_items &&
+                      data.preview_items[updatedItem.item_id]
+                    ) {
+                      actions.updateItemPreview(
+                        updatedItem.item_id,
+                        data.preview_items[updatedItem.item_id]
+                      );
                     }
-                    actions.updateItem(updatedItem, updateKeys);
 
                     const allDisplayItems = data.display_items.length
                       ? actions.updateDisplayItems(data.display_items)
