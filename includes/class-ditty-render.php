@@ -100,7 +100,7 @@ class Ditty_Render {
         'error' => sprintf( __( 'Ditty (%d) does not exist', 'ditty-news-ticker'), $args['id'] ),
       ];
 		}
-		if ( ! is_admin() && 'publish' !== get_post_status( intval( $args['id'] ) ) ) {
+		if ( ! is_admin() && ! ditty_is_public( $args['id'] ) ) {
 			return [
         'error' => sprintf( __( 'Ditty (%d) is not published', 'ditty-news-ticker'), $args['id'] ),
       ];

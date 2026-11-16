@@ -235,10 +235,11 @@ class Ditty_Singles {
 			wp_send_json_error();
 		}
 
-		// Only published Dittys are publicly accessible. Non-published Dittys
-		// (draft, pending, scheduled, private, trash, etc.) may only be loaded
-		// by users with the capability to edit that specific Ditty.
-		if ( 'publish' !== get_post_status( $id_ajax ) && ! current_user_can( 'edit_post', $id_ajax ) ) {
+		// Only published Dittys without a password are publicly accessible.
+		// Other Dittys (draft, pending, scheduled, private, trash, password
+		// protected, etc.) may only be loaded by users with the capability to
+		// edit that specific Ditty.
+		if ( ! ditty_is_public( $id_ajax ) && ! current_user_can( 'edit_post', $id_ajax ) ) {
 			wp_send_json_error();
 		}
 
@@ -319,8 +320,8 @@ class Ditty_Singles {
 		$custom_display_settings 	= isset( $atts['data-display_settings'] )	? $atts['data-display_settings']	: false;
 		$custom_layout_settings 	= isset( $atts['data-layout_settings'] ) 	? $atts['data-layout_settings'] 	: false;
 
-		// If the Ditty is not published, exit
-		if ( 'publish' != get_post_status( $ditty_id ) ) {
+		// If the Ditty is not published or is password protected, exit
+		if ( ! ditty_is_public( $ditty_id ) ) {
 			return false;
 		}
 	
@@ -411,7 +412,7 @@ class Ditty_Singles {
 				if ( ! $ditty_id || 'ditty' !== get_post_type( $ditty_id ) ) {
 					continue;
 				}
-				if ( 'publish' !== get_post_status( $ditty_id ) && ! current_user_can( 'edit_post', $ditty_id ) ) {
+				if ( ! ditty_is_public( $ditty_id ) && ! current_user_can( 'edit_post', $ditty_id ) ) {
 					continue;
 				}
 

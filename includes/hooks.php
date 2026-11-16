@@ -225,18 +225,22 @@ add_filter( 'custom_menu_order', 'ditty_dashboard_menu_order' );
  * @since    3.1.19 
  */
 function ditty_dashboard_custom_menu_classes() {
-	global $menu, $submenu;
-	$ditty_menu = isset( $submenu['edit.php?post_type=ditty'] ) ? $submenu['edit.php?post_type=ditty'] : false;
-	if ( is_array( $ditty_menu ) && count( $ditty_menu ) > 0 ) {
-		foreach ( $ditty_menu as &$menu_item ) {
-      if ( isset( $menu_item[2] ) ) {
-        $classes = isset( $menu_item[4] ) ? $menu_item[4] . ' ' : '';
-        $classes .= 'ditty-menu--' . sanitize_title( $menu_item[2] );
-        $menu_item[4] = $classes;
-      }
+	global $submenu;
+
+	// Users who can't see the Ditty menu have no submenu. Leave it unset,
+	// since WordPress expects every submenu to be an array.
+	if ( empty( $submenu['edit.php?post_type=ditty'] ) || ! is_array( $submenu['edit.php?post_type=ditty'] ) ) {
+		return;
+	}
+
+	foreach ( $submenu['edit.php?post_type=ditty'] as &$menu_item ) {
+		if ( isset( $menu_item[2] ) ) {
+			$classes = isset( $menu_item[4] ) ? $menu_item[4] . ' ' : '';
+			$classes .= 'ditty-menu--' . sanitize_title( $menu_item[2] );
+			$menu_item[4] = $classes;
 		}
 	}
-	$submenu['edit.php?post_type=ditty'] = $ditty_menu;
+	unset( $menu_item );
 }
 add_action( 'admin_menu', 'ditty_dashboard_custom_menu_classes', 99 );
 

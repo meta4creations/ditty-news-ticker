@@ -758,7 +758,7 @@ class Ditty_Scripts {
 			$global_ditty = get_ditty_settings( 'global_ditty' );
 			if ( is_array( $global_ditty ) && count( $global_ditty ) > 0 ) {
 				foreach ( $global_ditty as $i => $global_ditty ) {
-					if ( 'publish' === get_post_status( $global_ditty['ditty'] ) ) {
+					if ( ditty_is_public( $global_ditty['ditty'] ) ) {
 						ditty_add_scripts( $global_ditty['ditty'], $global_ditty['display'] );
 					}
 				}

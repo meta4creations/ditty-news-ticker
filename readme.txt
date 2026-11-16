@@ -5,7 +5,7 @@ Tags: responsive slider, content slider, post slider, news ticker, post ticker
 Requires at least: 6.2
 Requires PHP: 7.4
 Tested up to: 7.1.4
-Stable tag: 3.1.73
+Stable tag: 3.1.74
 License: GPL2
 
 Ditty offers a range of content display options, including its signature news ticker and customizable layouts.
@@ -134,6 +134,10 @@ Please report security bugs found in the source code of the Ditty plugin through
 15. Advanced Settings
 
 == Changelog ==
+
+= 3.1.74 [2026-11-16] =
+* Security fix: hide password protected Dittys and password protected posts from public displays
+* Fixed a PHP warning in the admin for users who can't access the Ditty menu
 
 = 3.1.73 [2026-11-09] =
 * Fixed the editor leave warning showing after a Ditty was saved
@@ -1148,4 +1152,4 @@ Please report security bugs found in the source code of the Ditty plugin through
 
 == Upgrade Notice ==
 
-Editor and initialization fixes
+Security and bug fixes

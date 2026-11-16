@@ -39,6 +39,19 @@ function ditty_posts_lite_tag_value( $data, $key = false ) {
 }
 
 /**
+ * Check if a post item is password protected
+ *
+ * Protected post bodies are never shown in a Ditty. Items are cached for all
+ * visitors, so a visitor's password cookie is not used to unlock them.
+ *
+ * @since    3.1.74
+ * @var      bool
+*/
+function ditty_posts_lite_is_protected( $data ) {
+	return '' !== (string) ditty_posts_lite_tag_value( $data, 'post_password' );
+}
+
+/**
  * Modify the layout user avatar
  *
  * @since    3.0.12
@@ -137,6 +150,9 @@ function ditty_posts_lite_layout_tag_content( $content, $item_type, $data, $atts
 		'posts_feed',
 	);
 	if ( in_array(  $item_type, $types ) ) {
+		if ( ditty_posts_lite_is_protected( $data ) ) {
+			return '';
+		}
 		// Possibly show the exerpt
 		if ( isset( $atts['content_display'] ) && 'excerpt' == $atts['content_display'] ) {
 			$atts['excerpt_length'] = isset( $atts['excerpt_length'] ) 	? intval( $atts['excerpt_length'] ) 					: 200;
@@ -166,6 +182,9 @@ function ditty_posts_lite_layout_tag_excerpt_data( $excerpt_data, $item_type, $d
 	);
 	if ( in_array(  $item_type, $types ) ) {
 		$excerpt_data = false;
+		if ( ditty_posts_lite_is_protected( $data ) ) {
+			return $excerpt_data;
+		}
 		if ( ! $excerpt_data = ditty_posts_lite_tag_value( $data, 'post_excerpt' ) ) {
 			$excerpt_data = ditty_posts_lite_tag_value( $data, 'post_content' );
 		}

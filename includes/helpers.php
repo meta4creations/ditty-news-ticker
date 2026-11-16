@@ -973,6 +973,22 @@ function ditty_prepare_display_items( $item ) {
  *
  * @since    3.1.18
  */
+/**
+ * Check if a Ditty may be shown to the public
+ *
+ * A Ditty must be published and not password protected. A Ditty has no page
+ * of its own to enter a password on, and its rendered items are cached for all
+ * visitors, so a password protected Ditty is never shown publicly.
+ *
+ * @since    3.1.74
+ * @param    int $ditty_id
+ * @return   bool
+*/
+function ditty_is_public( $ditty_id ) {
+	$post = get_post( intval( $ditty_id ) );
+	return $post && 'publish' === $post->post_status && '' === $post->post_password;
+}
+
 function ditty_render( $atts ) {
 	global $ditty_singles;
 	if ( empty( $ditty_singles ) ) {
@@ -1004,7 +1020,7 @@ function ditty_render( $atts ) {
 	if ( ! ditty_exists( intval( $args['id'] ) ) ) {
 		return false;
 	}
-	if ( ! is_admin() && 'publish' !== get_post_status( intval( $args['id'] ) ) ) {
+	if ( ! is_admin() && ! ditty_is_public( $args['id'] ) ) {
 		return false;
 	}
 
